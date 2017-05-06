@@ -354,7 +354,7 @@ namespace FileGenerator.Native
       else if (type.IsString)
         WriteLine("return UTF8Marshaler.NativeToManaged(result);");
       else if (type.HasInstance)
-        WriteLine("return " + type.Managed + ".Create(result);");
+        WriteLine("return result.Create" + type.Managed + "();");
       else
         WriteLine("return " + type.ManagedTypeCast + "result;");
     }

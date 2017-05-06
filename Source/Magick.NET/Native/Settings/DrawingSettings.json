@@ -105,7 +105,7 @@
       [
         {
           "name": "value",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         }
       ]
     },
@@ -161,7 +161,7 @@
       [
         {
           "name": "value",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         }
       ]
     },

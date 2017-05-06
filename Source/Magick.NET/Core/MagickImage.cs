@@ -35,7 +35,7 @@ namespace ImageMagick
   /// Class that represents an ImageMagick image.
   /// </summary>
   [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Cannot avoid it here.")]
-  public sealed partial class MagickImage : IEquatable<MagickImage>, IComparable<MagickImage>, INativeInstance
+  public sealed partial class MagickImage : IMagickImage, INativeInstance
   {
     private ProgressDelegate _NativeProgress;
     private EventHandler<ProgressEventArgs> _Progress;
@@ -447,7 +447,7 @@ namespace ImageMagick
       return (int)_NativeInstance.ChannelOffset(pixelChannel);
     }
 
-    internal void SetNext(MagickImage image)
+    internal void SetNext(IMagickImage image)
     {
       _NativeInstance.SetNext(image.GetInstance());
     }
@@ -1445,7 +1445,7 @@ namespace ImageMagick
     /// Gets or sets the associated read mask of the image. The mask must be the same dimensions as the image and
     /// only contain the colors black and white. Pass null to unset an existing mask.
     /// </summary>
-    public MagickImage ReadMask
+    public IMagickImage ReadMask
     {
       get
       {
@@ -1534,7 +1534,7 @@ namespace ImageMagick
     /// Gets or sets the associated write mask of the image. The mask must be the same dimensions as the image and
     /// only contain the colors black and white. Pass null to unset an existing mask.
     /// </summary>
-    public MagickImage WriteMask
+    public IMagickImage WriteMask
     {
       get
       {
@@ -2451,7 +2451,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="other">The object to compare this image with.</param>
     /// <returns>A signed number indicating the relative values of this instance and value.</returns>
-    public int CompareTo(MagickImage other)
+    public int CompareTo(IMagickImage other)
     {
       if (ReferenceEquals(other, null))
         return 1;
@@ -3183,7 +3183,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="other">The <see cref="MagickImage"/> to compare this <see cref="MagickImage"/> with.</param>
     /// <returns>True when the specified <see cref="MagickImage"/> is equal to the current <see cref="MagickImage"/>.</returns>
-    public bool Equals(MagickImage other)
+    public bool Equals(IMagickImage other)
     {
       if (ReferenceEquals(other, null))
         return false;

@@ -121,10 +121,13 @@
     <Compile Include="Core\Defines\WriteDefinesCreator.cs" />
     <Compile Include="Core\Drawables\IDrawingWand.cs" />
     <Compile Include="Core\Extensions\ExtensionAttribute.cs" />
+    <Compile Include="Core\Extensions\IntPtrExtensions.cs" />
+    <Compile Include="Core\Extensions\IMagickImageExtensions.cs" />
     <Compile Include="Core\Extensions\INativeInstanceExtensions.cs" />
     <Compile Include="Core\Helpers\StreamWrapper.cs" />
     <Compile Include="Core\IMagickImageCollection.cs" />
     <Compile Include="Core\IMagickImageInfo.cs" />
+    <Compile Include="Core\IMagickImage.cs" />
     <Compile Include="Core\Types\Bytes.cs" />
     <Compile Include="Framework\Colors\ColorRGB.cs" />
     <Compile Include="Framework\Colors\MagickColor.cs" />

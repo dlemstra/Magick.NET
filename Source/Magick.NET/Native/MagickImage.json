@@ -273,7 +273,7 @@
     },
     {
       "name": "ReadMask",
-      "type": "MagickImage",
+      "type": "IMagickImage",
       "throws": true
     },
     {
@@ -316,7 +316,7 @@
     },
     {
       "name": "WriteMask",
-      "type": "MagickImage",
+      "type": "IMagickImage",
       "throws": true
     }
   ],
@@ -743,7 +743,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         },
         {
           "name": "method",
@@ -791,7 +791,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         },
         {
           "name": "metric",
@@ -858,7 +858,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         },
         {
           "name": "metric",
@@ -877,7 +877,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         },
         {
           "name": "x",
@@ -900,7 +900,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         },
         {
           "name": "gravity",
@@ -948,7 +948,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         },
         {
           "name": "geometry",
@@ -1112,7 +1112,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         }
       ]
     },
@@ -1445,7 +1445,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         }
       ]
     },
@@ -1663,7 +1663,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         },
         {
           "name": "settings",
@@ -2300,7 +2300,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         }
       ]
     },
@@ -2563,7 +2563,7 @@
       [
         {
           "name": "watermark",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         }
       ]
     },
@@ -2575,7 +2575,7 @@
       [
         {
           "name": "rightImage",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         }
       ]
     },
@@ -2592,7 +2592,7 @@
       [
         {
           "name": "reference",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         },
         {
           "name": "metric",
@@ -2637,7 +2637,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         }
       ]
     },

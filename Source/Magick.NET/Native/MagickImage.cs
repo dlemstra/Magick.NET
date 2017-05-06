@@ -2494,7 +2494,7 @@ namespace ImageMagick
           #endif
         }
       }
-      public MagickImage ReadMask
+      public IMagickImage ReadMask
       {
         get
         {
@@ -2513,7 +2513,7 @@ namespace ImageMagick
           result = NativeMethods.X86.MagickImage_ReadMask_Get(Instance, out exception);
           #endif
           CheckException(exception);
-          return MagickImage.Create(result);
+          return result.CreateIMagickImage();
         }
         set
         {
@@ -2776,7 +2776,7 @@ namespace ImageMagick
           return (int)result;
         }
       }
-      public MagickImage WriteMask
+      public IMagickImage WriteMask
       {
         get
         {
@@ -2795,7 +2795,7 @@ namespace ImageMagick
           result = NativeMethods.X86.MagickImage_WriteMask_Get(Instance, out exception);
           #endif
           CheckException(exception);
-          return MagickImage.Create(result);
+          return result.CreateIMagickImage();
         }
         set
         {
@@ -3332,7 +3332,7 @@ namespace ImageMagick
         CheckException(exception, result);
         return result;
       }
-      public void Clut(MagickImage image, PixelInterpolateMethod method, Channels channels)
+      public void Clut(IMagickImage image, PixelInterpolateMethod method, Channels channels)
       {
         IntPtr exception = IntPtr.Zero;
         #if ANYCPU
@@ -3394,7 +3394,7 @@ namespace ImageMagick
           }
         }
       }
-      public IntPtr Compare(MagickImage image, ErrorMetric metric, Channels channels, out double distortion)
+      public IntPtr Compare(IMagickImage image, ErrorMetric metric, Channels channels, out double distortion)
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
@@ -3469,7 +3469,7 @@ namespace ImageMagick
           Instance = result;
         }
       }
-      public double CompareDistortion(MagickImage image, ErrorMetric metric, Channels channels)
+      public double CompareDistortion(IMagickImage image, ErrorMetric metric, Channels channels)
       {
         IntPtr exception = IntPtr.Zero;
         double result;
@@ -3488,7 +3488,7 @@ namespace ImageMagick
         CheckException(exception);
         return result;
       }
-      public void Composite(MagickImage image, int x, int y, CompositeOperator compose)
+      public void Composite(IMagickImage image, int x, int y, CompositeOperator compose)
       {
         IntPtr exception = IntPtr.Zero;
         #if ANYCPU
@@ -3505,7 +3505,7 @@ namespace ImageMagick
         #endif
         CheckException(exception);
       }
-      public void CompositeGravity(MagickImage image, Gravity gravity, CompositeOperator compose)
+      public void CompositeGravity(IMagickImage image, Gravity gravity, CompositeOperator compose)
       {
         IntPtr exception = IntPtr.Zero;
         #if ANYCPU
@@ -3563,7 +3563,7 @@ namespace ImageMagick
           Instance = result;
         }
       }
-      public void CopyPixels(MagickImage image, MagickRectangle geometry, OffsetInfo offset, Channels channels)
+      public void CopyPixels(IMagickImage image, MagickRectangle geometry, OffsetInfo offset, Channels channels)
       {
         using (INativeInstance geometryNative = MagickRectangle.CreateInstance(geometry))
         {
@@ -3837,7 +3837,7 @@ namespace ImageMagick
         #endif
         CheckException(exception);
       }
-      public bool Equals(MagickImage image)
+      public bool Equals(IMagickImage image)
       {
         IntPtr exception = IntPtr.Zero;
         bool result;
@@ -4320,7 +4320,7 @@ namespace ImageMagick
         #endif
         CheckException(exception);
       }
-      public void HaldClut(MagickImage image)
+      public void HaldClut(IMagickImage image)
       {
         IntPtr exception = IntPtr.Zero;
         #if ANYCPU
@@ -4583,7 +4583,7 @@ namespace ImageMagick
         CheckException(exception, result);
         Instance = result;
       }
-      public bool Map(MagickImage image, QuantizeSettings settings)
+      public bool Map(IMagickImage image, QuantizeSettings settings)
       {
         using (INativeInstance settingsNative = QuantizeSettings.CreateInstance(settings))
         {
@@ -5465,7 +5465,7 @@ namespace ImageMagick
           CheckException(exception);
         }
       }
-      public bool SetColorMetric(MagickImage image)
+      public bool SetColorMetric(IMagickImage image)
       {
         IntPtr exception = IntPtr.Zero;
         bool result;
@@ -5767,7 +5767,7 @@ namespace ImageMagick
         RaiseWarning(magickException);
         return result;
       }
-      public void Stegano(MagickImage watermark)
+      public void Stegano(IMagickImage watermark)
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
@@ -5786,7 +5786,7 @@ namespace ImageMagick
         CheckException(exception, result);
         Instance = result;
       }
-      public void Stereo(MagickImage rightImage)
+      public void Stereo(IMagickImage rightImage)
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
@@ -5822,7 +5822,7 @@ namespace ImageMagick
         #endif
         CheckException(exception);
       }
-      public IntPtr SubImageSearch(MagickImage reference, ErrorMetric metric, double similarityThreshold, out MagickRectangle offset, out double similarityMetric)
+      public IntPtr SubImageSearch(IMagickImage reference, ErrorMetric metric, double similarityThreshold, out MagickRectangle offset, out double similarityMetric)
       {
         using (INativeInstance offsetNative = MagickRectangle.CreateInstance())
         {
@@ -5865,7 +5865,7 @@ namespace ImageMagick
         CheckException(exception, result);
         Instance = result;
       }
-      public void Texture(MagickImage image)
+      public void Texture(IMagickImage image)
       {
         IntPtr exception = IntPtr.Zero;
         #if ANYCPU

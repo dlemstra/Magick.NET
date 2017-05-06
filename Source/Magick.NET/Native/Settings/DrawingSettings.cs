@@ -1135,7 +1135,7 @@ namespace ImageMagick
           }
         }
       }
-      public void SetFillPattern(MagickImage value)
+      public void SetFillPattern(IMagickImage value)
       {
         IntPtr exception = IntPtr.Zero;
         #if ANYCPU
@@ -1184,7 +1184,7 @@ namespace ImageMagick
         NativeMethods.X86.DrawingSettings_SetStrokeDashArray(Instance, dash, (UIntPtr)length);
         #endif
       }
-      public void SetStrokePattern(MagickImage value)
+      public void SetStrokePattern(IMagickImage value)
       {
         IntPtr exception = IntPtr.Zero;
         #if ANYCPU

@@ -65,7 +65,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         },
         {
           "name": "stack",
@@ -83,7 +83,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         }
       ]
     },
@@ -97,7 +97,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         },
         {
           "name": "colorSpace",
@@ -115,7 +115,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         }
       ]
     },
@@ -140,7 +140,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         },
         {
           "name": "evaluateOperator",
@@ -158,7 +158,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         }
       ]
     },
@@ -170,7 +170,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         },
         {
           "name": "settings",
@@ -178,7 +178,7 @@
         },
         {
           "name": "remapImage",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         }
       ]
     },
@@ -192,7 +192,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         },
         {
           "name": "method",
@@ -210,7 +210,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         },
         {
           "name": "settings",
@@ -228,7 +228,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         },
         {
           "name": "frames",
@@ -246,7 +246,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         }
       ]
     },
@@ -260,7 +260,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         }
       ]
     },
@@ -272,7 +272,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         }
       ]
     },
@@ -284,7 +284,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         },
         {
           "name": "settings",
@@ -364,7 +364,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         },
         {
           "name": "offset",
@@ -384,7 +384,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         },
         {
           "name": "settings",
@@ -401,7 +401,7 @@
       [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "IMagickImage"
         },
         {
           "name": "settings",

@@ -90,7 +90,7 @@ namespace ImageMagick
         NativeMethods.X86.PixelCollection_Dispose(instance);
         #endif
       }
-      public NativePixelCollection(MagickImage image)
+      public NativePixelCollection(IMagickImage image)
       {
         IntPtr exception = IntPtr.Zero;
         #if ANYCPU

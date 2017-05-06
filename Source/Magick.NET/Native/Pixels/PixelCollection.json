@@ -6,7 +6,7 @@
     [
       {
         "name": "image",
-        "type": "MagickImage"
+        "type": "IMagickImage"
       }
     ]
   },
