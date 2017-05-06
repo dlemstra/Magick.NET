@@ -288,20 +288,16 @@ namespace Magick.NET.Tests
 
         using (PixelCollection pixels = image.GetPixels())
         {
-          pixels.Set(new uint[] { 100000, 0, 0 });
+          pixels.Set(new int[] { 100000, 0, 0 });
           Test_PixelColor(pixels, MagickColors.Red);
-          pixels.Set(new ushort[] { 0, 0, 65535 });
-          Test_PixelColor(pixels, MagickColors.Blue);
           pixels.Set(new byte[] { 0, 255, 0 });
           Test_PixelColor(pixels, MagickColors.Lime);
         }
 
         using (PixelCollection pixels = image.GetPixels())
         {
-          pixels.SetArea(3, 3, 1, 1, new uint[] { 100000, 0, 0 });
+          pixels.SetArea(3, 3, 1, 1, new int[] { 100000, 0, 0 });
           Test_PixelColor(pixels, 3, 3, MagickColors.Red);
-          pixels.SetArea(3, 3, 1, 1, new ushort[] { 0, 0, 65535 });
-          Test_PixelColor(pixels, 3, 3, MagickColors.Blue);
           pixels.SetArea(3, 3, 1, 1, new byte[] { 0, 255, 0 });
           Test_PixelColor(pixels, 3, 3, MagickColors.Lime);
         }
@@ -371,24 +367,6 @@ namespace Magick.NET.Tests
           bytes = pixels.ToByteArray(0, 0, 1, 1, "BG");
           Assert.AreEqual(2, bytes.Length);
           CollectionAssert.AreEqual(new byte[] { 0, 0 }, bytes);
-        }
-      }
-    }
-
-    [TestMethod]
-    public void Test_ToShortArray()
-    {
-      using (MagickImage image = new MagickImage(MagickColors.Red, 10, 10))
-      {
-        using (PixelCollection pixels = image.GetPixels())
-        {
-          var shorts = pixels.ToShortArray(0, 0, 1, 1, "BGR");
-          Assert.AreEqual(3, shorts.Length);
-          CollectionAssert.AreEqual(new ushort[] { 0, 0, 65535 }, shorts);
-
-          shorts = pixels.ToShortArray(0, 0, 1, 1, "BG");
-          Assert.AreEqual(2, shorts.Length);
-          CollectionAssert.AreEqual(new ushort[] { 0, 0 }, shorts);
         }
       }
     }

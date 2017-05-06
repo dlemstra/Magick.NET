@@ -50,8 +50,6 @@ namespace ImageMagick
         public static extern void PixelCollection_SetArea(IntPtr Instance, UIntPtr x, UIntPtr y, UIntPtr width, UIntPtr height, QuantumType[] values, UIntPtr length, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr PixelCollection_ToByteArray(IntPtr Instance, UIntPtr x, UIntPtr y, UIntPtr width, UIntPtr height, IntPtr mapping, out IntPtr exception);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr PixelCollection_ToShortArray(IntPtr Instance, UIntPtr x, UIntPtr y, UIntPtr width, UIntPtr height, IntPtr mapping, out IntPtr exception);
       }
       #endif
       #if !WIN64 || ANYCPU
@@ -71,8 +69,6 @@ namespace ImageMagick
         public static extern void PixelCollection_SetArea(IntPtr Instance, UIntPtr x, UIntPtr y, UIntPtr width, UIntPtr height, QuantumType[] values, UIntPtr length, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr PixelCollection_ToByteArray(IntPtr Instance, UIntPtr x, UIntPtr y, UIntPtr width, UIntPtr height, IntPtr mapping, out IntPtr exception);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr PixelCollection_ToShortArray(IntPtr Instance, UIntPtr x, UIntPtr y, UIntPtr width, UIntPtr height, IntPtr mapping, out IntPtr exception);
       }
       #endif
     }
@@ -173,35 +169,6 @@ namespace ImageMagick
           #endif
           #if !WIN64 || ANYCPU
           result = NativeMethods.X86.PixelCollection_ToByteArray(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
-          #endif
-          MagickException magickException = MagickExceptionHelper.Create(exception);
-          if (MagickExceptionHelper.IsError(magickException))
-          {
-            if (result != IntPtr.Zero)
-              MagickMemory.Relinquish(result);
-            throw magickException;
-          }
-          RaiseWarning(magickException);
-          return result;
-        }
-      }
-      public IntPtr ToShortArray(int x, int y, int width, int height, string mapping)
-      {
-        using (INativeInstance mappingNative = UTF8Marshaler.CreateInstance(mapping))
-        {
-          IntPtr exception = IntPtr.Zero;
-          IntPtr result;
-          #if ANYCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if WIN64 || ANYCPU
-          result = NativeMethods.X64.PixelCollection_ToShortArray(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
-          #endif
-          #if ANYCPU
-          else
-          #endif
-          #if !WIN64 || ANYCPU
-          result = NativeMethods.X86.PixelCollection_ToShortArray(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
           #endif
           MagickException magickException = MagickExceptionHelper.Create(exception);
           if (MagickExceptionHelper.IsError(magickException))

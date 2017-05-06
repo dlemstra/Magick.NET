@@ -50,7 +50,7 @@ namespace ImageMagick
       return (QuantumType)value;
     }
 
-    internal static QuantumType Convert(uint value)
+    internal static QuantumType Convert(int value)
     {
       if (value < 0)
         return 0;
@@ -100,9 +100,6 @@ namespace ImageMagick
     /// <summary>
     /// Gets the maximum value of the quantum.
     /// </summary>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public static QuantumType Max
     {
       get

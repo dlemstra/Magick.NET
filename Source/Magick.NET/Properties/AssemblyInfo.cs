@@ -77,7 +77,11 @@ using System.Security.Permissions;
 [assembly: AssemblyVersion("7.0.0.0")]
 [assembly: AssemblyFileVersion("7.0.5.502")]
 [assembly: ComVisible(false)]
+#if Q16
+[assembly: CLSCompliant(false)]
+#else
 [assembly: CLSCompliant(true)]
+#endif
 #if NET20
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, UnmanagedCode = true)]
 #endif

@@ -46,9 +46,6 @@ namespace ImageMagick
     /// <param name="red">Red component value of this color.</param>
     /// <param name="green">Green component value of this color.</param>
     /// <param name="blue">Blue component value of this color.</param>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public ColorRGB(QuantumType red, QuantumType green, QuantumType blue)
       : base(new MagickColor(red, green, blue))
     {
@@ -57,9 +54,6 @@ namespace ImageMagick
     /// <summary>
     /// Gets or sets the blue component value of this color.
     /// </summary>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public QuantumType B
     {
       get
@@ -75,9 +69,6 @@ namespace ImageMagick
     /// <summary>
     /// Gets or sets the green component value of this color.
     /// </summary>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public QuantumType G
     {
       get
@@ -93,9 +84,6 @@ namespace ImageMagick
     /// <summary>
     /// Gets or sets the red component value of this color.
     /// </summary>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public QuantumType R
     {
       get

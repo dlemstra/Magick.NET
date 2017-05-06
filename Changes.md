@@ -2,6 +2,8 @@
 
 ### Magick.NET 7.0.5.?:
  - Fixed the property names of DrawableRoundRectangle.
+ - The Q16 version is no longer CLS compliant.
+ - Changed uint methods in PixelCollection to an int and removed the ushort methods.
 
 ### Magick.NET 7.0.1.901:
  - The ExifProfile no longer has a BestPrecision property and uses a Rational and SignedRational struct instead of a double.

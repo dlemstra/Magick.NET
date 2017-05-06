@@ -178,9 +178,6 @@ namespace ImageMagick
     /// <param name="green">Green component value of this color (0-65535).</param>
     /// <param name="blue">Blue component value of this color (0-65535).</param>
 #endif
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public MagickColor(QuantumType red, QuantumType green, QuantumType blue)
     {
       Initialize(red, green, blue, Quantum.Max);
@@ -203,9 +200,6 @@ namespace ImageMagick
     /// <param name="blue">Blue component value of this color (0-65535).</param>
     /// <param name="alpha">Alpha component value of this color (0-65535).</param>
 #endif
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public MagickColor(QuantumType red, QuantumType green, QuantumType blue, QuantumType alpha)
     {
       Initialize(red, green, blue, alpha);
@@ -219,9 +213,6 @@ namespace ImageMagick
     /// <param name="yellow">Yellow component value of this color.</param>
     /// <param name="black">Black component value of this color.</param>
     /// <param name="alpha">Alpha component value of this color.</param>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public MagickColor(QuantumType cyan, QuantumType magenta, QuantumType yellow, QuantumType black, QuantumType alpha)
     {
       Initialize(cyan, magenta, yellow, alpha);
@@ -342,9 +333,6 @@ namespace ImageMagick
     /// <summary>
     /// Gets or sets the alpha component value of this color.
     /// </summary>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public QuantumType A
     {
       get;
@@ -354,9 +342,6 @@ namespace ImageMagick
     /// <summary>
     /// Gets or sets the blue component value of this color.
     /// </summary>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public QuantumType B
     {
       get;
@@ -366,9 +351,6 @@ namespace ImageMagick
     /// <summary>
     /// Gets or sets the green component value of this color.
     /// </summary>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public QuantumType G
     {
       get;
@@ -378,9 +360,6 @@ namespace ImageMagick
     /// <summary>
     /// Gets or sets the key (black) component value of this color.
     /// </summary>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public QuantumType K
     {
       get;
@@ -390,9 +369,6 @@ namespace ImageMagick
     /// <summary>
     /// Gets or sets the red component value of this color.
     /// </summary>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public QuantumType R
     {
       get;

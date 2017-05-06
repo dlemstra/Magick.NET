@@ -3392,9 +3392,6 @@ namespace ImageMagick
     /// <param name="x">The X coordinate.</param>
     /// <param name="y">The Y coordinate.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public void FloodFill(QuantumType alpha, int x, int y)
     {
       FloodFill(alpha, x, y, false);
@@ -3936,9 +3933,6 @@ namespace ImageMagick
     /// <param name="x">The X coordinate.</param>
     /// <param name="y">The Y coordinate.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public void InverseFloodFill(QuantumType alpha, int x, int y)
     {
       FloodFill(alpha, x, y, true);
@@ -4056,9 +4050,6 @@ namespace ImageMagick
     /// <param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
     /// <param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public void InverseLevel(QuantumType blackPoint, QuantumType whitePoint)
     {
       InverseLevel(blackPoint, whitePoint, 1.0);
@@ -4086,9 +4077,6 @@ namespace ImageMagick
     /// <param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
     /// <param name="channels">The channel(s) to level.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public void InverseLevel(QuantumType blackPoint, QuantumType whitePoint, Channels channels)
     {
       InverseLevel(blackPoint, whitePoint, 1.0, channels);
@@ -4117,9 +4105,6 @@ namespace ImageMagick
     /// <param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
     /// <param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public void InverseLevel(QuantumType blackPoint, QuantumType whitePoint, double midpoint)
     {
       _NativeInstance.Levelize(blackPoint, whitePoint, midpoint, ImageMagick.Channels.Composite);
@@ -4149,9 +4134,6 @@ namespace ImageMagick
     /// <param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
     /// <param name="channels">The channel(s) to level.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public void InverseLevel(QuantumType blackPoint, QuantumType whitePoint, double midpoint, Channels channels)
     {
       _NativeInstance.Levelize(blackPoint, whitePoint, midpoint, channels);
@@ -4264,9 +4246,6 @@ namespace ImageMagick
     /// <param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
     /// <param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public void Level(QuantumType blackPoint, QuantumType whitePoint)
     {
       Level(blackPoint, whitePoint, 1.0);
@@ -4292,9 +4271,6 @@ namespace ImageMagick
     /// <param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
     /// <param name="channels">The channel(s) to level.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public void Level(QuantumType blackPoint, QuantumType whitePoint, Channels channels)
     {
       Level(blackPoint, whitePoint, 1.0, channels);
@@ -4321,9 +4297,6 @@ namespace ImageMagick
     /// <param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
     /// <param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public void Level(QuantumType blackPoint, QuantumType whitePoint, double gamma)
     {
       Level(blackPoint, whitePoint, gamma, ImageMagick.Channels.Composite);
@@ -4351,9 +4324,6 @@ namespace ImageMagick
     /// <param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
     /// <param name="channels">The channel(s) to level.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public void Level(QuantumType blackPoint, QuantumType whitePoint, double gamma, Channels channels)
     {
       _NativeInstance.Level(blackPoint, whitePoint, gamma, channels);
@@ -5207,9 +5177,6 @@ namespace ImageMagick
     /// <param name="low">The low threshold.</param>
     /// <param name="high">The high threshold.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public void RandomThreshold(QuantumType low, QuantumType high)
     {
       RandomThreshold(low, high, ImageMagick.Channels.Composite);
@@ -5223,9 +5190,6 @@ namespace ImageMagick
     /// <param name="high">The high threshold.</param>
     /// <param name="channels">The channel(s) to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public void RandomThreshold(QuantumType low, QuantumType high, Channels channels)
     {
       _NativeInstance.RandomThreshold(low, high, channels);
@@ -6794,9 +6758,6 @@ namespace ImageMagick
     /// Removes noise from the image using a wavelet transform.
     /// </summary>
     /// <param name="threshold">The threshold for smoothing</param>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public void WaveletDenoise(QuantumType threshold)
     {
       WaveletDenoise(threshold, 0.0);
@@ -6807,9 +6768,6 @@ namespace ImageMagick
     /// </summary>
     /// <param name="threshold">The threshold for smoothing</param>
     /// <param name="softness">Attenuate the smoothing threshold.</param>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public void WaveletDenoise(QuantumType threshold, double softness)
     {
       _NativeInstance.WaveletDenoise(threshold, softness);

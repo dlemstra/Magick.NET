@@ -84,9 +84,6 @@ namespace ImageMagick
     /// <param name="magenta">Magenta component value of this color.</param>
     /// <param name="yellow">Yellow component value of this color.</param>
     /// <param name="key">Key (black) component value of this color.</param>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public ColorCMYK(QuantumType cyan, QuantumType magenta, QuantumType yellow, QuantumType key)
       : base(new MagickColor(cyan, magenta, yellow, key, Quantum.Max))
     {
@@ -100,9 +97,6 @@ namespace ImageMagick
     /// <param name="yellow">Yellow component value of this color.</param>
     /// <param name="key">Key (black) component value of this color.</param>
     /// <param name="alpha">Alpha component value of this color.</param>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public ColorCMYK(QuantumType cyan, QuantumType magenta, QuantumType yellow, QuantumType key, QuantumType alpha)
       : base(new MagickColor(cyan, magenta, yellow, key, alpha))
     {
@@ -131,9 +125,6 @@ namespace ImageMagick
     /// <summary>
     /// Gets or sets the alpha component value of this color.
     /// </summary>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public QuantumType A
     {
       get
@@ -149,9 +140,6 @@ namespace ImageMagick
     /// <summary>
     /// Gets or sets the cyan component value of this color.
     /// </summary>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public QuantumType C
     {
       get
@@ -167,9 +155,6 @@ namespace ImageMagick
     /// <summary>
     /// Gets or sets the key (black) component value of this color.
     /// </summary>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public QuantumType K
     {
       get
@@ -185,9 +170,6 @@ namespace ImageMagick
     /// <summary>
     /// Gets or sets the magenta component value of this color.
     /// </summary>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public QuantumType M
     {
       get
@@ -203,9 +185,6 @@ namespace ImageMagick
     /// <summary>
     /// Gets or sets the yellow component value of this color.
     /// </summary>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public QuantumType Y
     {
       get

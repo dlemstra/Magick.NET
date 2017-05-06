@@ -159,9 +159,6 @@ namespace ImageMagick
     /// <param name="width">The width of the area.</param>
     /// <param name="height">The height of the area.</param>
     /// <returns>A <see cref="QuantumType"/> array.</returns>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public QuantumType[] GetArea(int x, int y, int width, int height)
     {
       CheckArea(x, y, width, height);
@@ -174,9 +171,6 @@ namespace ImageMagick
     /// </summary>
     /// <param name="geometry">The geometry of the area.</param>
     /// <returns>A <see cref="QuantumType"/> array.</returns>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public QuantumType[] GetArea(MagickGeometry geometry)
     {
       Throw.IfNull(nameof(geometry), geometry);
@@ -231,9 +225,6 @@ namespace ImageMagick
     /// <param name="x">The X coordinate of the pixel.</param>
     /// <param name="y">The Y coordinate of the pixel.</param>
     /// <returns>A <see cref="QuantumType"/> array.</returns>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public QuantumType[] GetValue(int x, int y)
     {
       CheckIndex(x, y);
@@ -245,9 +236,6 @@ namespace ImageMagick
     /// Returns the values of the pixels as an array.
     /// </summary>
     /// <returns>A <see cref="QuantumType"/> array.</returns>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public QuantumType[] GetValues()
     {
       return GetAreaUnchecked(0, 0, _Image.Width, _Image.Height);
@@ -286,9 +274,6 @@ namespace ImageMagick
     /// <param name="x">The X coordinate of the pixel.</param>
     /// <param name="y">The Y coordinate of the pixel.</param>
     /// <param name="value">The value of the pixel.</param>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public void Set(int x, int y, QuantumType[] value)
     {
       Throw.IfNullOrEmpty(nameof(value), value);
@@ -326,8 +311,7 @@ namespace ImageMagick
     /// Changes the values of the specified pixels.
     /// </summary>
     /// <param name="values">The values of the pixels.</param>
-    [CLSCompliant(false)]
-    public void Set(uint[] values)
+    public void Set(int[] values)
     {
       CheckValues(values);
 
@@ -339,30 +323,12 @@ namespace ImageMagick
     /// Changes the values of the specified pixels.
     /// </summary>
     /// <param name="values">The values of the pixels.</param>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public void Set(QuantumType[] values)
     {
       CheckValues(values);
 
       SetAreaUnchecked(0, 0, _Image.Width, _Image.Height, values);
     }
-
-#if !Q16
-    /// <summary>
-    /// Changes the values of the specified pixels.
-    /// </summary>
-    /// <param name="values">The values of the pixels.</param>
-    [CLSCompliant(false)]
-    public void Set(ushort[] values)
-    {
-      CheckValues(values);
-
-      QuantumType[] castedValues = CastArray(values, Quantum.Convert);
-      SetAreaUnchecked(0, 0, _Image.Width, _Image.Height, castedValues);
-    }
-#endif
 
 #if !Q8
     /// <summary>
@@ -406,8 +372,7 @@ namespace ImageMagick
     /// <param name="width">The width of the area.</param>
     /// <param name="height">The height of the area.</param>
     /// <param name="values">The values of the pixels.</param>
-    [CLSCompliant(false)]
-    public void SetArea(int x, int y, int width, int height, uint[] values)
+    public void SetArea(int x, int y, int width, int height, int[] values)
     {
       CheckValues(x, y, width, height, values);
 
@@ -423,9 +388,6 @@ namespace ImageMagick
     /// <param name="width">The width of the area.</param>
     /// <param name="height">The height of the area.</param>
     /// <param name="values">The values of the pixels.</param>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public void SetArea(int x, int y, int width, int height, QuantumType[] values)
     {
       CheckValues(x, y, width, height, values);
@@ -433,32 +395,10 @@ namespace ImageMagick
       SetAreaUnchecked(x, y, width, height, values);
     }
 
-#if !Q16
-    /// <summary>
-    /// Changes the values of the specified pixels.
-    /// </summary>
-    /// <param name="x">The X coordinate of the area.</param>
-    /// <param name="y">The Y coordinate of the area.</param>
-    /// <param name="width">The width of the area.</param>
-    /// <param name="height">The height of the area.</param>
-    /// <param name="values">The values of the pixels.</param>
-    [CLSCompliant(false)]
-    public void SetArea(int x, int y, int width, int height, ushort[] values)
-    {
-      CheckValues(x, y, width, height, values);
-
-      QuantumType[] castedValues = CastArray(values, Quantum.Convert);
-      SetAreaUnchecked(x, y, width, height, castedValues);
-    }
-#endif
-
     /// <summary>
     /// Returns the values of the pixels as an array.
     /// </summary>
     /// <returns>A <see cref="QuantumType"/> array.</returns>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public QuantumType[] ToArray()
     {
       return GetValues();
@@ -515,62 +455,6 @@ namespace ImageMagick
     public byte[] ToByteArray(string mapping)
     {
       return ToByteArray(0, 0, _Image.Width, _Image.Height, mapping);
-    }
-
-    /// <summary>
-    /// Returns the values of the pixels as an array.
-    /// </summary>
-    /// <param name="x">The X coordinate of the area.</param>
-    /// <param name="y">The Y coordinate of the area.</param>
-    /// <param name="width">The width of the area.</param>
-    /// <param name="height">The height of the area.</param>
-    /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
-    /// <returns>An <see cref="ushort"/> array.</returns>
-    [CLSCompliant(false)]
-    public ushort[] ToShortArray(int x, int y, int width, int height, string mapping)
-    {
-      Throw.IfNullOrEmpty(nameof(mapping), mapping);
-
-      CheckArea(x, y, width, height);
-      IntPtr nativeResult = IntPtr.Zero;
-      ushort[] result = null;
-
-      try
-      {
-        nativeResult = _NativeInstance.ToShortArray(x, y, width, height, mapping);
-        result = ShortConverter.ToArray(nativeResult, width * height * mapping.Length);
-      }
-      finally
-      {
-        MagickMemory.Relinquish(nativeResult);
-      }
-
-      return result;
-    }
-
-    /// <summary>
-    /// Returns the values of the pixels as an array.
-    /// </summary>
-    /// <param name="geometry">The geometry of the area.</param>
-    /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
-    /// <returns>An <see cref="ushort"/> array.</returns>
-    [CLSCompliant(false)]
-    public ushort[] ToShortArray(MagickGeometry geometry, string mapping)
-    {
-      Throw.IfNull(nameof(geometry), geometry);
-
-      return ToShortArray(geometry.X, geometry.Y, geometry.Width, geometry.Height, mapping);
-    }
-
-    /// <summary>
-    /// Returns the values of the pixels as an array.
-    /// </summary>
-    /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
-    /// <returns>An <see cref="ushort"/> array.</returns>
-    [CLSCompliant(false)]
-    public ushort[] ToShortArray(string mapping)
-    {
-      return ToShortArray(0, 0, _Image.Width, _Image.Height, mapping);
     }
   }
 }

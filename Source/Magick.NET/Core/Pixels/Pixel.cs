@@ -91,9 +91,6 @@ namespace ImageMagick
     /// <param name="x">The X coordinate of the pixel.</param>
     /// <param name="y">The Y coordinate of the pixel.</param>
     /// <param name="value">The value of the pixel.</param>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public Pixel(int x, int y, QuantumType[] value)
     {
       Throw.IfNull(nameof(value), value);
@@ -138,9 +135,6 @@ namespace ImageMagick
     /// Returns the value of the specified channel.
     /// </summary>
     /// <param name="channel">The channel to get the value for.</param>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public QuantumType this[int channel]
     {
       get
@@ -225,9 +219,6 @@ namespace ImageMagick
     /// </summary>
     /// <param name="channel">The channel to get the value of.</param>
     /// <returns>The value of the specified channel.</returns>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public QuantumType GetChannel(int channel)
     {
       if (channel < 0 || channel >= Value.Length)
@@ -249,9 +240,6 @@ namespace ImageMagick
     /// Sets the values of this pixel.
     /// </summary>
     /// <param name="values">The values.</param>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public void Set(QuantumType[] values)
     {
       if (values == null || values.Length != Value.Length)
@@ -266,9 +254,6 @@ namespace ImageMagick
     /// </summary>
     /// <param name="channel">The channel to set the value of.</param>
     /// <param name="value">The value.</param>
-#if Q16
-    [CLSCompliant(false)]
-#endif
     public void SetChannel(int channel, QuantumType value)
     {
       if (channel < 0 || channel >= Value.Length)
