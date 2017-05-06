@@ -84,7 +84,7 @@ namespace ImageMagick
 
     private void AddImages(IntPtr result, MagickSettings settings)
     {
-      foreach (MagickImage image in MagickImage.CreateList(result, settings))
+      foreach (IMagickImage image in MagickImage.CreateList(result, settings))
       {
         _Images.Add(image);
       }
@@ -133,7 +133,7 @@ namespace ImageMagick
 
     private void SetDefines([ValidatedNotNull] IWriteDefines defines)
     {
-      foreach (MagickImage image in _Images)
+      foreach (IMagickImage image in _Images)
       {
         image.Settings.SetDefines(defines);
       }
@@ -141,7 +141,7 @@ namespace ImageMagick
 
     private void SetFormat(MagickFormat format)
     {
-      foreach (MagickImage image in _Images)
+      foreach (IMagickImage image in _Images)
       {
         image.Format = format;
       }
@@ -409,7 +409,7 @@ namespace ImageMagick
     {
       Throw.IfNull(nameof(images), images);
 
-      foreach (MagickImage image in images)
+      foreach (IMagickImage image in images)
       {
         Add(image);
       }
@@ -478,7 +478,7 @@ namespace ImageMagick
     /// </summary>
     /// <returns>A single image, by appending all the images in the collection horizontally (+append).</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public MagickImage AppendHorizontally()
+    public IMagickImage AppendHorizontally()
     {
       ThrowIfEmpty();
 
@@ -499,7 +499,7 @@ namespace ImageMagick
     /// </summary>
     /// <returns>A single image, by appending all the images in the collection vertically (-append).</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public MagickImage AppendVertically()
+    public IMagickImage AppendVertically()
     {
       ThrowIfEmpty();
 
@@ -575,7 +575,7 @@ namespace ImageMagick
     /// </summary>
     /// <returns>The images combined into a single image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public MagickImage Combine()
+    public IMagickImage Combine()
     {
       return Combine(ColorSpace.sRGB);
     }
@@ -588,7 +588,7 @@ namespace ImageMagick
     /// <param name="colorSpace">The image colorspace.</param>
     /// <returns>The images combined into a single image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public MagickImage Combine(ColorSpace colorSpace)
+    public IMagickImage Combine(ColorSpace colorSpace)
     {
       ThrowIfEmpty();
 
@@ -659,7 +659,7 @@ namespace ImageMagick
       }
 
       Clear();
-      foreach (MagickImage image in MagickImage.CreateList(images, settings))
+      foreach (IMagickImage image in MagickImage.CreateList(images, settings))
         Add(image);
     }
 
@@ -679,7 +679,7 @@ namespace ImageMagick
     /// <param name="evaluateOperator">The operator.</param>
     /// <returns>The resulting image of the evaluation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public MagickImage Evaluate(EvaluateOperator evaluateOperator)
+    public IMagickImage Evaluate(EvaluateOperator evaluateOperator)
     {
       ThrowIfEmpty();
 
@@ -701,7 +701,7 @@ namespace ImageMagick
     /// </summary>
     /// <returns>The resulting image of the flatten operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public MagickImage Flatten()
+    public IMagickImage Flatten()
     {
       ThrowIfEmpty();
 
@@ -761,7 +761,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="image">The image to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Map(MagickImage image)
+    public void Map(IMagickImage image)
     {
       Map(image, new QuantizeSettings());
     }
@@ -772,7 +772,7 @@ namespace ImageMagick
     /// <param name="image">The image to use.</param>
     /// <param name="settings">Quantize settings.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Map(MagickImage image, QuantizeSettings settings)
+    public void Map(IMagickImage image, QuantizeSettings settings)
     {
       ThrowIfEmpty();
 
@@ -796,7 +796,7 @@ namespace ImageMagick
     /// </summary>
     /// <returns>The resulting image of the merge operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public MagickImage Merge()
+    public IMagickImage Merge()
     {
       ThrowIfEmpty();
 
@@ -818,7 +818,7 @@ namespace ImageMagick
     /// <param name="settings">The settings to use.</param>
     /// <returns>The resulting image of the montage operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public MagickImage Montage(MontageSettings settings)
+    public IMagickImage Montage(MontageSettings settings)
     {
       ThrowIfEmpty();
 
@@ -842,7 +842,7 @@ namespace ImageMagick
         collection.AddRange(MagickImage.CreateList(images, _Images[0].Settings));
         if (settings.TransparentColor != null)
         {
-          foreach (MagickImage image in collection)
+          foreach (IMagickImage image in collection)
           {
             image.Transparent(settings.TransparentColor);
           }
@@ -876,7 +876,7 @@ namespace ImageMagick
       }
 
       Clear();
-      foreach (MagickImage image in MagickImage.CreateList(images, settings))
+      foreach (IMagickImage image in MagickImage.CreateList(images, settings))
         Add(image);
     }
 
@@ -885,7 +885,7 @@ namespace ImageMagick
     /// </summary>
     /// <returns>The resulting image of the mosaic operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public MagickImage Mosaic()
+    public IMagickImage Mosaic()
     {
       ThrowIfEmpty();
 
@@ -925,7 +925,7 @@ namespace ImageMagick
       }
 
       Clear();
-      foreach (MagickImage image in MagickImage.CreateList(images, settings))
+      foreach (IMagickImage image in MagickImage.CreateList(images, settings))
         Add(image);
     }
 
@@ -952,7 +952,7 @@ namespace ImageMagick
       }
 
       Clear();
-      foreach (MagickImage image in MagickImage.CreateList(images, settings))
+      foreach (IMagickImage image in MagickImage.CreateList(images, settings))
         Add(image);
     }
 
@@ -1226,7 +1226,7 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void RePage()
     {
-      foreach (MagickImage image in _Images)
+      foreach (IMagickImage image in _Images)
       {
         image.RePage();
       }
@@ -1246,7 +1246,7 @@ namespace ImageMagick
     /// <param name="offset">Minimum distance in pixels between images.</param>
     /// <returns>The resulting image of the smush operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public MagickImage SmushHorizontal(int offset)
+    public IMagickImage SmushHorizontal(int offset)
     {
       ThrowIfEmpty();
 
@@ -1268,7 +1268,7 @@ namespace ImageMagick
     /// <param name="offset">Minimum distance in pixels between images.</param>
     /// <returns>The resulting image of the smush operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public MagickImage SmushVertical(int offset)
+    public IMagickImage SmushVertical(int offset)
     {
       ThrowIfEmpty();
 

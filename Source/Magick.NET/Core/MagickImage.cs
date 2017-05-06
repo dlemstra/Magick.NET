@@ -60,7 +60,7 @@ namespace ImageMagick
       return new PointD(x, y);
     }
 
-    private IEnumerable<MagickImage> CreateList(IntPtr images)
+    private IEnumerable<IMagickImage> CreateList(IntPtr images)
     {
       return CreateList(images, Settings.Clone());
     }
@@ -402,7 +402,7 @@ namespace ImageMagick
       return new MagickImage(instance, new MagickSettings());
     }
 
-    internal static MagickImage Create(IntPtr image, MagickSettings settings)
+    internal static IMagickImage Create(IntPtr image, MagickSettings settings)
     {
       if (image == IntPtr.Zero)
         return null;
@@ -419,7 +419,7 @@ namespace ImageMagick
       return new MagickErrorInfo(image._NativeInstance.MeanErrorPerPixel, image._NativeInstance.NormalizedMeanError, image._NativeInstance.NormalizedMaximumError);
     }
 
-    internal static IEnumerable<MagickImage> CreateList(IntPtr images, MagickSettings settings)
+    internal static IEnumerable<IMagickImage> CreateList(IntPtr images, MagickSettings settings)
     {
       Collection<MagickImage> result = new Collection<MagickImage>();
 
@@ -4502,7 +4502,7 @@ namespace ImageMagick
         foreach (MagickColor color in colorList)
           images.Add(new MagickImage(color, 1, 1));
 
-        using (MagickImage image = images.AppendHorizontally())
+        using (IMagickImage image = images.AppendHorizontally())
         {
           return Map(image, settings);
         }

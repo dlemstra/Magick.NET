@@ -21,7 +21,7 @@ namespace ImageMagick
   /// </summary>
   public sealed class ScriptWriteEventArgs : EventArgs
   {
-    internal ScriptWriteEventArgs(string id, MagickImage image)
+    internal ScriptWriteEventArgs(string id, IMagickImage image)
     {
       Id = id;
       Image = image;
@@ -39,7 +39,7 @@ namespace ImageMagick
     /// <summary>
     /// Gets the image that needs to be written.
     /// </summary>
-    public MagickImage Image
+    public IMagickImage Image
     {
       get;
       private set;

@@ -100,13 +100,13 @@ namespace Magick.NET.Tests
         Assert.AreEqual(width, collection[0].Width);
         Assert.AreEqual(height, collection[0].Height);
 
-        using (MagickImage image = collection.AppendHorizontally())
+        using (IMagickImage image = collection.AppendHorizontally())
         {
           Assert.AreEqual(width * 3, image.Width);
           Assert.AreEqual(height, image.Height);
         }
 
-        using (MagickImage image = collection.AppendVertically())
+        using (IMagickImage image = collection.AppendVertically())
         {
           Assert.AreEqual(width, image.Width);
           Assert.AreEqual(height * 3, image.Height);
@@ -176,7 +176,7 @@ namespace Magick.NET.Tests
 
           Assert.AreEqual(3, collection.Count);
 
-          MagickImage image = collection.Merge();
+          IMagickImage image = collection.Merge();
           Assert.AreNotEqual(rose.TotalColors, image.TotalColors);
           image.Dispose();
 
@@ -197,7 +197,7 @@ namespace Magick.NET.Tests
 
           Assert.AreEqual(4, collection.Count);
 
-          MagickImage image = collection.Combine(ColorSpace.CMYK);
+          IMagickImage image = collection.Combine(ColorSpace.CMYK);
           Assert.AreEqual(0.0, cmyk.Compare(image, ErrorMetric.RootMeanSquared));
         }
       }
@@ -340,7 +340,7 @@ namespace Magick.NET.Tests
           collection.Add(frames.AppendHorizontally());
         }
 
-        using (MagickImage image = collection.Evaluate(EvaluateOperator.Min))
+        using (IMagickImage image = collection.Evaluate(EvaluateOperator.Min))
         {
           ColorAssert.AreEqual(MagickColors.Green, image, 0, 0);
           ColorAssert.AreEqual(MagickColors.Yellow, image, 10, 0);
@@ -365,7 +365,7 @@ namespace Magick.NET.Tests
         center.Page = new MagickGeometry(3, 3, 4, 4);
         collection.Add(center);
 
-        using (MagickImage image = collection.Flatten())
+        using (IMagickImage image = collection.Flatten())
         {
           ColorAssert.AreEqual(MagickColors.Brown, image, 0, 0);
           ColorAssert.AreEqual(MagickColors.Fuchsia, image, 5, 5);
@@ -399,7 +399,7 @@ namespace Magick.NET.Tests
         colors.Add(new MagickImage(MagickColors.Red, 1, 1));
         colors.Add(new MagickImage(MagickColors.Green, 1, 1));
 
-        using (MagickImage remapImage = colors.AppendHorizontally())
+        using (IMagickImage remapImage = colors.AppendHorizontally())
         {
           using (IMagickImageCollection collection = new MagickImageCollection())
           {
@@ -450,7 +450,7 @@ namespace Magick.NET.Tests
 
         collection.Read(Files.RoseSparkleGIF);
 
-        using (MagickImage first = collection.Merge())
+        using (IMagickImage first = collection.Merge())
         {
           Assert.AreEqual(collection[0].Width, first.Width);
           Assert.AreEqual(collection[0].Height, first.Height);
@@ -475,7 +475,7 @@ namespace Magick.NET.Tests
         for (int i = 0; i < 9; i++)
           collection.Add(Files.Builtin.Logo);
 
-        using (MagickImage montageResult = collection.Montage(settings))
+        using (IMagickImage montageResult = collection.Montage(settings))
         {
           Assert.IsNotNull(montageResult);
           Assert.AreEqual(400, montageResult.Width);
@@ -521,7 +521,7 @@ namespace Magick.NET.Tests
         collection.Add(Files.SnakewarePNG);
         collection.Add(Files.ImageMagickJPG);
 
-        using (MagickImage mosaic = collection.Mosaic())
+        using (IMagickImage mosaic = collection.Mosaic())
         {
           Assert.AreEqual(286, mosaic.Width);
           Assert.AreEqual(118, mosaic.Height);
@@ -680,13 +680,13 @@ namespace Magick.NET.Tests
 
         collection.AddRange(Files.RoseSparkleGIF);
 
-        using (MagickImage image = collection.SmushHorizontal(20))
+        using (IMagickImage image = collection.SmushHorizontal(20))
         {
           Assert.AreEqual((70 * 3) + (20 * 2), image.Width);
           Assert.AreEqual(46, image.Height);
         }
 
-        using (MagickImage image = collection.SmushVertical(40))
+        using (IMagickImage image = collection.SmushVertical(40))
         {
           Assert.AreEqual(70, image.Width);
           Assert.AreEqual((46 * 3) + (40 * 2), image.Height);

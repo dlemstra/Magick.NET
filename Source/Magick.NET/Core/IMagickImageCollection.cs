@@ -99,14 +99,14 @@ namespace ImageMagick
     /// </summary>
     /// <returns>A single image, by appending all the images in the collection horizontally (+append).</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    MagickImage AppendHorizontally();
+    IMagickImage AppendHorizontally();
 
     /// <summary>
     /// Creates a single image, by appending all the images in the collection vertically (-append).
     /// </summary>
     /// <returns>A single image, by appending all the images in the collection vertically (-append).</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    MagickImage AppendVertically();
+    IMagickImage AppendVertically();
 
     /// <summary>
     /// Merge a sequence of images. This is useful for GIF animation sequences that have page
@@ -127,7 +127,7 @@ namespace ImageMagick
     /// </summary>
     /// <returns>The images combined into a single image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    MagickImage Combine();
+    IMagickImage Combine();
 
     /// <summary>
     /// Combines the images into a single image. The grayscale value of the pixels of each image
@@ -137,7 +137,7 @@ namespace ImageMagick
     /// <param name="colorSpace">The image colorspace.</param>
     /// <returns>The images combined into a single image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    MagickImage Combine(ColorSpace colorSpace);
+    IMagickImage Combine(ColorSpace colorSpace);
 
     /// <summary>
     /// Break down an image sequence into constituent parts. This is useful for creating GIF or
@@ -153,7 +153,7 @@ namespace ImageMagick
     /// <param name="evaluateOperator">The operator.</param>
     /// <returns>The resulting image of the evaluation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    MagickImage Evaluate(EvaluateOperator evaluateOperator);
+    IMagickImage Evaluate(EvaluateOperator evaluateOperator);
 
     /// <summary>
     /// Flatten this collection into a single image.
@@ -161,7 +161,7 @@ namespace ImageMagick
     /// </summary>
     /// <returns>The resulting image of the flatten operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    MagickImage Flatten();
+    IMagickImage Flatten();
 
     /// <summary>
     /// Inserts an image with the specified file name into the collection.
@@ -175,7 +175,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="image">The image to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Map(MagickImage image);
+    void Map(IMagickImage image);
 
     /// <summary>
     /// Remap image colors with closest color from reference image.
@@ -183,7 +183,7 @@ namespace ImageMagick
     /// <param name="image">The image to use.</param>
     /// <param name="settings">Quantize settings.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Map(MagickImage image, QuantizeSettings settings);
+    void Map(IMagickImage image, QuantizeSettings settings);
 
     /// <summary>
     /// Merge this collection into a single image.
@@ -191,7 +191,7 @@ namespace ImageMagick
     /// </summary>
     /// <returns>The resulting image of the merge operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    MagickImage Merge();
+    IMagickImage Merge();
 
     /// <summary>
     /// Create a composite image by combining the images with the specified settings.
@@ -199,7 +199,7 @@ namespace ImageMagick
     /// <param name="settings">The settings to use.</param>
     /// <returns>The resulting image of the montage operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    MagickImage Montage(MontageSettings settings);
+    IMagickImage Montage(MontageSettings settings);
 
     /// <summary>
     /// The Morph method requires a minimum of two images. The first image is transformed into
@@ -214,7 +214,7 @@ namespace ImageMagick
     /// </summary>
     /// <returns>The resulting image of the mosaic operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    MagickImage Mosaic();
+    IMagickImage Mosaic();
 
     /// <summary>
     /// Compares each image the GIF disposed forms of the previous image in the sequence. From
@@ -390,7 +390,7 @@ namespace ImageMagick
     /// <param name="offset">Minimum distance in pixels between images.</param>
     /// <returns>The resulting image of the smush operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    MagickImage SmushHorizontal(int offset);
+    IMagickImage SmushHorizontal(int offset);
 
     /// <summary>
     /// Smush images from list into single image in vertical direction.
@@ -398,7 +398,7 @@ namespace ImageMagick
     /// <param name="offset">Minimum distance in pixels between images.</param>
     /// <returns>The resulting image of the smush operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    MagickImage SmushVertical(int offset);
+    IMagickImage SmushVertical(int offset);
 
     /// <summary>
     /// Converts this instance to a <see cref="byte"/> array.

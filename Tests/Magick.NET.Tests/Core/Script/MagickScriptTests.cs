@@ -69,7 +69,7 @@ namespace Magick.NET.Tests
     {
     }
 
-    private static void TestScriptResizeResult(MagickImage result)
+    private static void TestScriptResizeResult(IMagickImage result)
     {
       Assert.AreEqual("Magick.NET.Resize", result.Comment);
       Assert.AreEqual(62, result.Width);
@@ -101,7 +101,7 @@ namespace Magick.NET.Tests
       MagickScript script = new MagickScript(Files.Scripts.Collection);
       script.Read += CollectionScriptRead;
 
-      MagickImage image = script.Execute();
+      IMagickImage image = script.Execute();
 
       Assert.IsNotNull(image);
       Assert.AreEqual(MagickFormat.Png, image.Format);
@@ -115,7 +115,7 @@ namespace Magick.NET.Tests
       MagickScript script = new MagickScript(Files.Scripts.Defines);
       script.Read += DefinesScriptRead;
 
-      MagickImage image = script.Execute();
+      IMagickImage image = script.Execute();
 
       Assert.IsNotNull(image);
       Assert.AreEqual(827, image.Width);
@@ -126,7 +126,7 @@ namespace Magick.NET.Tests
     public void Test_Execute_Distort()
     {
       MagickScript script = new MagickScript(Files.Scripts.Distort);
-      MagickImage image = script.Execute();
+      IMagickImage image = script.Execute();
 
       Assert.IsNotNull(image);
       Assert.AreEqual(500, image.Width);
@@ -216,13 +216,13 @@ namespace Magick.NET.Tests
     {
       MagickScript script = new MagickScript(Files.Scripts.Resize);
 
-      using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
+      using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
       {
         script.Execute(image);
         TestScriptResizeResult(image);
 
         script.Read += ResizeScriptRead;
-        using (MagickImage result = script.Execute())
+        using (IMagickImage result = script.Execute())
         {
           TestScriptResizeResult(result);
         }

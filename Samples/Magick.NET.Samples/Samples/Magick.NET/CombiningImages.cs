@@ -31,7 +31,7 @@ namespace RootNamespace.Samples.MagickNET
         images.Add(second);
 
         // Create a mosaic from both images
-        using (MagickImage result = images.Mosaic())
+        using (IMagickImage result = images.Mosaic())
         {
           // Save the result
           result.Write(SampleFiles.OutputDirectory + "Mosaic.png");

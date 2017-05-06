@@ -37,7 +37,7 @@ namespace ImageMagick
   {
     [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
     [SuppressMessage("Microsoft.Maintainability", "CA1505:AvoidUnmaintainableCode")]
-    private void ExecuteImage(XmlElement element, MagickImage image)
+    private void ExecuteImage(XmlElement element, IMagickImage image)
     {
       switch(element.Name[0])
       {
@@ -1532,151 +1532,151 @@ namespace ImageMagick
       }
       throw new NotSupportedException(element.Name);
     }
-    private void ExecuteAnimationDelay(XmlElement element, MagickImage image)
+    private void ExecuteAnimationDelay(XmlElement element, IMagickImage image)
     {
       image.AnimationDelay = Variables.GetValue<Int32>(element, "value");
     }
-    private void ExecuteAnimationIterations(XmlElement element, MagickImage image)
+    private void ExecuteAnimationIterations(XmlElement element, IMagickImage image)
     {
       image.AnimationIterations = Variables.GetValue<Int32>(element, "value");
     }
-    private void ExecuteBackgroundColor(XmlElement element, MagickImage image)
+    private void ExecuteBackgroundColor(XmlElement element, IMagickImage image)
     {
       image.BackgroundColor = Variables.GetValue<MagickColor>(element, "value");
     }
-    private void ExecuteBlackPointCompensation(XmlElement element, MagickImage image)
+    private void ExecuteBlackPointCompensation(XmlElement element, IMagickImage image)
     {
       image.BlackPointCompensation = Variables.GetValue<Boolean>(element, "value");
     }
-    private void ExecuteBorderColor(XmlElement element, MagickImage image)
+    private void ExecuteBorderColor(XmlElement element, IMagickImage image)
     {
       image.BorderColor = Variables.GetValue<MagickColor>(element, "value");
     }
-    private void ExecuteChromaBluePrimary(XmlElement element, MagickImage image)
+    private void ExecuteChromaBluePrimary(XmlElement element, IMagickImage image)
     {
       image.ChromaBluePrimary = CreatePrimaryInfo(element);
     }
-    private void ExecuteChromaGreenPrimary(XmlElement element, MagickImage image)
+    private void ExecuteChromaGreenPrimary(XmlElement element, IMagickImage image)
     {
       image.ChromaGreenPrimary = CreatePrimaryInfo(element);
     }
-    private void ExecuteChromaRedPrimary(XmlElement element, MagickImage image)
+    private void ExecuteChromaRedPrimary(XmlElement element, IMagickImage image)
     {
       image.ChromaRedPrimary = CreatePrimaryInfo(element);
     }
-    private void ExecuteChromaWhitePoint(XmlElement element, MagickImage image)
+    private void ExecuteChromaWhitePoint(XmlElement element, IMagickImage image)
     {
       image.ChromaWhitePoint = CreatePrimaryInfo(element);
     }
-    private void ExecuteClassType(XmlElement element, MagickImage image)
+    private void ExecuteClassType(XmlElement element, IMagickImage image)
     {
       image.ClassType = Variables.GetValue<ClassType>(element, "value");
     }
-    private void ExecuteColorFuzz(XmlElement element, MagickImage image)
+    private void ExecuteColorFuzz(XmlElement element, IMagickImage image)
     {
       image.ColorFuzz = Variables.GetValue<Percentage>(element, "value");
     }
-    private void ExecuteColormapSize(XmlElement element, MagickImage image)
+    private void ExecuteColormapSize(XmlElement element, IMagickImage image)
     {
       image.ColormapSize = Variables.GetValue<Int32>(element, "value");
     }
-    private void ExecuteColorSpace(XmlElement element, MagickImage image)
+    private void ExecuteColorSpace(XmlElement element, IMagickImage image)
     {
       image.ColorSpace = Variables.GetValue<ColorSpace>(element, "value");
     }
-    private void ExecuteColorType(XmlElement element, MagickImage image)
+    private void ExecuteColorType(XmlElement element, IMagickImage image)
     {
       image.ColorType = Variables.GetValue<ColorType>(element, "value");
     }
-    private void ExecuteComment(XmlElement element, MagickImage image)
+    private void ExecuteComment(XmlElement element, IMagickImage image)
     {
       image.Comment = Variables.GetValue<String>(element, "value");
     }
-    private void ExecuteCompose(XmlElement element, MagickImage image)
+    private void ExecuteCompose(XmlElement element, IMagickImage image)
     {
       image.Compose = Variables.GetValue<CompositeOperator>(element, "value");
     }
-    private void ExecuteCompressionMethod(XmlElement element, MagickImage image)
+    private void ExecuteCompressionMethod(XmlElement element, IMagickImage image)
     {
       image.CompressionMethod = Variables.GetValue<CompressionMethod>(element, "value");
     }
-    private void ExecuteDensity(XmlElement element, MagickImage image)
+    private void ExecuteDensity(XmlElement element, IMagickImage image)
     {
       image.Density = Variables.GetValue<Density>(element, "value");
     }
-    private void ExecuteDepth(XmlElement element, MagickImage image)
+    private void ExecuteDepth(XmlElement element, IMagickImage image)
     {
       image.Depth = Variables.GetValue<Int32>(element, "value");
     }
-    private void ExecuteEndian(XmlElement element, MagickImage image)
+    private void ExecuteEndian(XmlElement element, IMagickImage image)
     {
       image.Endian = Variables.GetValue<Endian>(element, "value");
     }
-    private void ExecuteFilterType(XmlElement element, MagickImage image)
+    private void ExecuteFilterType(XmlElement element, IMagickImage image)
     {
       image.FilterType = Variables.GetValue<FilterType>(element, "value");
     }
-    private void ExecuteFormat(XmlElement element, MagickImage image)
+    private void ExecuteFormat(XmlElement element, IMagickImage image)
     {
       image.Format = Variables.GetValue<MagickFormat>(element, "value");
     }
-    private void ExecuteGifDisposeMethod(XmlElement element, MagickImage image)
+    private void ExecuteGifDisposeMethod(XmlElement element, IMagickImage image)
     {
       image.GifDisposeMethod = Variables.GetValue<GifDisposeMethod>(element, "value");
     }
-    private void ExecuteHasAlpha(XmlElement element, MagickImage image)
+    private void ExecuteHasAlpha(XmlElement element, IMagickImage image)
     {
       image.HasAlpha = Variables.GetValue<Boolean>(element, "value");
     }
-    private void ExecuteInterlace(XmlElement element, MagickImage image)
+    private void ExecuteInterlace(XmlElement element, IMagickImage image)
     {
       image.Interlace = Variables.GetValue<Interlace>(element, "value");
     }
-    private void ExecuteInterpolate(XmlElement element, MagickImage image)
+    private void ExecuteInterpolate(XmlElement element, IMagickImage image)
     {
       image.Interpolate = Variables.GetValue<PixelInterpolateMethod>(element, "value");
     }
-    private void ExecuteLabel(XmlElement element, MagickImage image)
+    private void ExecuteLabel(XmlElement element, IMagickImage image)
     {
       image.Label = Variables.GetValue<String>(element, "value");
     }
-    private void ExecuteMatteColor(XmlElement element, MagickImage image)
+    private void ExecuteMatteColor(XmlElement element, IMagickImage image)
     {
       image.MatteColor = Variables.GetValue<MagickColor>(element, "value");
     }
-    private void ExecuteOrientation(XmlElement element, MagickImage image)
+    private void ExecuteOrientation(XmlElement element, IMagickImage image)
     {
       image.Orientation = Variables.GetValue<OrientationType>(element, "value");
     }
-    private void ExecutePage(XmlElement element, MagickImage image)
+    private void ExecutePage(XmlElement element, IMagickImage image)
     {
       image.Page = Variables.GetValue<MagickGeometry>(element, "value");
     }
-    private void ExecuteQuality(XmlElement element, MagickImage image)
+    private void ExecuteQuality(XmlElement element, IMagickImage image)
     {
       image.Quality = Variables.GetValue<Int32>(element, "value");
     }
-    private void ExecuteReadMask(XmlElement element, MagickImage image)
+    private void ExecuteReadMask(XmlElement element, IMagickImage image)
     {
       image.ReadMask = CreateMagickImage(element);
     }
-    private void ExecuteRenderingIntent(XmlElement element, MagickImage image)
+    private void ExecuteRenderingIntent(XmlElement element, IMagickImage image)
     {
       image.RenderingIntent = Variables.GetValue<RenderingIntent>(element, "value");
     }
-    private void ExecuteSettings(XmlElement element, MagickImage image)
+    private void ExecuteSettings(XmlElement element, IMagickImage image)
     {
       ExecuteMagickSettings(element, image);
     }
-    private void ExecuteVirtualPixelMethod(XmlElement element, MagickImage image)
+    private void ExecuteVirtualPixelMethod(XmlElement element, IMagickImage image)
     {
       image.VirtualPixelMethod = Variables.GetValue<VirtualPixelMethod>(element, "value");
     }
-    private void ExecuteWriteMask(XmlElement element, MagickImage image)
+    private void ExecuteWriteMask(XmlElement element, IMagickImage image)
     {
       image.WriteMask = CreateMagickImage(element);
     }
-    private void ExecuteAdaptiveBlur(XmlElement element, MagickImage image)
+    private void ExecuteAdaptiveBlur(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -1692,7 +1692,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'adaptiveBlur', allowed combinations are: [] [radius] [radius, sigma]");
     }
-    private void ExecuteAdaptiveResize(XmlElement element, MagickImage image)
+    private void ExecuteAdaptiveResize(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -1711,7 +1711,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'adaptiveResize', allowed combinations are: [geometry] [width, height]");
     }
-    private void ExecuteAdaptiveSharpen(XmlElement element, MagickImage image)
+    private void ExecuteAdaptiveSharpen(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -1734,7 +1734,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'adaptiveSharpen', allowed combinations are: [] [channels] [radius, sigma] [radius, sigma, channels]");
     }
-    private void ExecuteAdaptiveThreshold(XmlElement element, MagickImage image)
+    private void ExecuteAdaptiveThreshold(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -1757,7 +1757,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'adaptiveThreshold', allowed combinations are: [width, height] [width, height, bias] [width, height, biasPercentage]");
     }
-    private void ExecuteAddNoise(XmlElement element, MagickImage image)
+    private void ExecuteAddNoise(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -1780,7 +1780,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'addNoise', allowed combinations are: [noiseType] [noiseType, attenuate] [noiseType, attenuate, channels] [noiseType, channels]");
     }
-    private void ExecuteAddProfile(XmlElement element, MagickImage image)
+    private void ExecuteAddProfile(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -1798,12 +1798,12 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'addProfile', allowed combinations are: [profile] [profile, overwriteExisting]");
     }
-    private void ExecuteAlpha(XmlElement element, MagickImage image)
+    private void ExecuteAlpha(XmlElement element, IMagickImage image)
     {
       AlphaOption option_ = Variables.GetValue<AlphaOption>(element, "option");
       image.Alpha(option_);
     }
-    private void ExecuteAnnotate(XmlElement element, MagickImage image)
+    private void ExecuteAnnotate(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -1828,7 +1828,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'annotate', allowed combinations are: [text, boundingArea] [text, boundingArea, gravity] [text, boundingArea, gravity, angle] [text, gravity]");
     }
-    private void ExecuteAutoGamma(XmlElement element, MagickImage image)
+    private void ExecuteAutoGamma(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -1842,7 +1842,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'autoGamma', allowed combinations are: [] [channels]");
     }
-    private void ExecuteAutoLevel(XmlElement element, MagickImage image)
+    private void ExecuteAutoLevel(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -1856,11 +1856,11 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'autoLevel', allowed combinations are: [] [channels]");
     }
-    private static void ExecuteAutoOrient(MagickImage image)
+    private static void ExecuteAutoOrient(IMagickImage image)
     {
       image.AutoOrient();
     }
-    private void ExecuteBitDepth(XmlElement element, MagickImage image)
+    private void ExecuteBitDepth(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -1877,7 +1877,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'bitDepth', allowed combinations are: [channels, value] [value]");
     }
-    private void ExecuteBlackThreshold(XmlElement element, MagickImage image)
+    private void ExecuteBlackThreshold(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -1894,7 +1894,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'blackThreshold', allowed combinations are: [threshold] [threshold, channels]");
     }
-    private void ExecuteBlueShift(XmlElement element, MagickImage image)
+    private void ExecuteBlueShift(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -1908,7 +1908,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'blueShift', allowed combinations are: [] [factor]");
     }
-    private void ExecuteBlur(XmlElement element, MagickImage image)
+    private void ExecuteBlur(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -1931,7 +1931,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'blur', allowed combinations are: [] [channels] [radius, sigma] [radius, sigma, channels]");
     }
-    private void ExecuteBorder(XmlElement element, MagickImage image)
+    private void ExecuteBorder(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -1945,7 +1945,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'border', allowed combinations are: [size] [width, height]");
     }
-    private void ExecuteBrightnessContrast(XmlElement element, MagickImage image)
+    private void ExecuteBrightnessContrast(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -1964,7 +1964,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'brightnessContrast', allowed combinations are: [brightness, contrast] [brightness, contrast, channels]");
     }
-    private void ExecuteCannyEdge(XmlElement element, MagickImage image)
+    private void ExecuteCannyEdge(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -1985,7 +1985,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'cannyEdge', allowed combinations are: [] [radius, sigma, lower, upper]");
     }
-    private void ExecuteCharcoal(XmlElement element, MagickImage image)
+    private void ExecuteCharcoal(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -1999,7 +1999,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'charcoal', allowed combinations are: [] [radius, sigma]");
     }
-    private void ExecuteChop(XmlElement element, MagickImage image)
+    private void ExecuteChop(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2022,19 +2022,19 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'chop', allowed combinations are: [geometry] [xOffset, width, yOffset, height]");
     }
-    private void ExecuteChopHorizontal(XmlElement element, MagickImage image)
+    private void ExecuteChopHorizontal(XmlElement element, IMagickImage image)
     {
       Int32 offset_ = Variables.GetValue<Int32>(element, "offset");
       Int32 width_ = Variables.GetValue<Int32>(element, "width");
       image.ChopHorizontal(offset_, width_);
     }
-    private void ExecuteChopVertical(XmlElement element, MagickImage image)
+    private void ExecuteChopVertical(XmlElement element, IMagickImage image)
     {
       Int32 offset_ = Variables.GetValue<Int32>(element, "offset");
       Int32 height_ = Variables.GetValue<Int32>(element, "height");
       image.ChopVertical(offset_, height_);
     }
-    private void ExecuteClamp(XmlElement element, MagickImage image)
+    private void ExecuteClamp(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2048,7 +2048,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'clamp', allowed combinations are: [] [channels]");
     }
-    private void ExecuteClip(XmlElement element, MagickImage image)
+    private void ExecuteClip(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2065,7 +2065,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'clip', allowed combinations are: [] [pathName, inside]");
     }
-    private void ExecuteClut(XmlElement element, MagickImage image)
+    private void ExecuteClut(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2088,17 +2088,17 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'clut', allowed combinations are: [image] [image, method] [image, method, channels]");
     }
-    private void ExecuteColorAlpha(XmlElement element, MagickImage image)
+    private void ExecuteColorAlpha(XmlElement element, IMagickImage image)
     {
       MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
       image.ColorAlpha(color_);
     }
-    private void ExecuteColorDecisionList(XmlElement element, MagickImage image)
+    private void ExecuteColorDecisionList(XmlElement element, IMagickImage image)
     {
       String fileName_ = Variables.GetValue<String>(element, "fileName");
       image.ColorDecisionList(fileName_);
     }
-    private void ExecuteColorize(XmlElement element, MagickImage image)
+    private void ExecuteColorize(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2121,7 +2121,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'colorize', allowed combinations are: [color, alpha] [color, alphaRed, alphaGreen, alphaBlue]");
     }
-    private void ExecuteComposite(XmlElement element, MagickImage image)
+    private void ExecuteComposite(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2170,7 +2170,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'composite', allowed combinations are: [image] [image, compose] [image, compose, args] [image, gravity] [image, gravity, compose] [image, gravity, compose, args] [image, offset] [image, offset, compose] [image, offset, compose, args] [image, x, y] [image, x, y, compose] [image, x, y, compose, args]");
     }
-    private void ExecuteContrast(XmlElement element, MagickImage image)
+    private void ExecuteContrast(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2184,7 +2184,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'contrast', allowed combinations are: [] [enhance]");
     }
-    private void ExecuteContrastStretch(XmlElement element, MagickImage image)
+    private void ExecuteContrastStretch(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2205,7 +2205,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'contrastStretch', allowed combinations are: [blackPoint] [blackPoint, whitePoint] [blackPoint, whitePoint, channels]");
     }
-    private void ExecuteCopyPixels(XmlElement element, MagickImage image)
+    private void ExecuteCopyPixels(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2244,7 +2244,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'copyPixels', allowed combinations are: [source] [source, channels] [source, geometry] [source, geometry, channels] [source, geometry, offset] [source, geometry, offset, channels] [source, geometry, x, y] [source, geometry, x, y, channels]");
     }
-    private void ExecuteCrop(XmlElement element, MagickImage image)
+    private void ExecuteCrop(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2275,26 +2275,26 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'crop', allowed combinations are: [geometry] [geometry, gravity] [width, height] [width, height, gravity] [x, y, width, height]");
     }
-    private void ExecuteCycleColormap(XmlElement element, MagickImage image)
+    private void ExecuteCycleColormap(XmlElement element, IMagickImage image)
     {
       Int32 amount_ = Variables.GetValue<Int32>(element, "amount");
       image.CycleColormap(amount_);
     }
-    private void ExecuteDecipher(XmlElement element, MagickImage image)
+    private void ExecuteDecipher(XmlElement element, IMagickImage image)
     {
       String passphrase_ = Variables.GetValue<String>(element, "passphrase");
       image.Decipher(passphrase_);
     }
-    private void ExecuteDeskew(XmlElement element, MagickImage image)
+    private void ExecuteDeskew(XmlElement element, IMagickImage image)
     {
       Percentage threshold_ = Variables.GetValue<Percentage>(element, "threshold");
       image.Deskew(threshold_);
     }
-    private static void ExecuteDespeckle(MagickImage image)
+    private static void ExecuteDespeckle(IMagickImage image)
     {
       image.Despeckle();
     }
-    private void ExecuteDistort(XmlElement element, MagickImage image)
+    private void ExecuteDistort(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2315,12 +2315,12 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'distort', allowed combinations are: [method, arguments] [method, bestfit, arguments]");
     }
-    private void ExecuteEdge(XmlElement element, MagickImage image)
+    private void ExecuteEdge(XmlElement element, IMagickImage image)
     {
       double radius_ = Variables.GetValue<double>(element, "radius");
       image.Edge(radius_);
     }
-    private void ExecuteEmboss(XmlElement element, MagickImage image)
+    private void ExecuteEmboss(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2334,20 +2334,20 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'emboss', allowed combinations are: [] [radius, sigma]");
     }
-    private void ExecuteEncipher(XmlElement element, MagickImage image)
+    private void ExecuteEncipher(XmlElement element, IMagickImage image)
     {
       String passphrase_ = Variables.GetValue<String>(element, "passphrase");
       image.Encipher(passphrase_);
     }
-    private static void ExecuteEnhance(MagickImage image)
+    private static void ExecuteEnhance(IMagickImage image)
     {
       image.Enhance();
     }
-    private static void ExecuteEqualize(MagickImage image)
+    private static void ExecuteEqualize(IMagickImage image)
     {
       image.Equalize();
     }
-    private void ExecuteEvaluate(XmlElement element, MagickImage image)
+    private void ExecuteEvaluate(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2382,7 +2382,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'evaluate', allowed combinations are: [channels, evaluateFunction, arguments] [channels, evaluateOperator, percentage] [channels, evaluateOperator, value] [channels, geometry, evaluateOperator, percentage] [channels, geometry, evaluateOperator, value]");
     }
-    private void ExecuteExtent(XmlElement element, MagickImage image)
+    private void ExecuteExtent(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2423,11 +2423,11 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'extent', allowed combinations are: [geometry] [geometry, backgroundColor] [geometry, gravity] [geometry, gravity, backgroundColor] [width, height] [width, height, backgroundColor] [width, height, gravity] [width, height, gravity, backgroundColor] [x, y, width, height]");
     }
-    private static void ExecuteFlip(MagickImage image)
+    private static void ExecuteFlip(IMagickImage image)
     {
       image.Flip();
     }
-    private void ExecuteFloodFill(XmlElement element, MagickImage image)
+    private void ExecuteFloodFill(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2470,11 +2470,11 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'floodFill', allowed combinations are: [alpha, x, y] [color, coordinate] [color, coordinate, target] [color, x, y] [color, x, y, target] [image, coordinate] [image, coordinate, target] [image, x, y] [image, x, y, target]");
     }
-    private static void ExecuteFlop(MagickImage image)
+    private static void ExecuteFlop(IMagickImage image)
     {
       image.Flop();
     }
-    private void ExecuteFrame(XmlElement element, MagickImage image)
+    private void ExecuteFrame(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2501,7 +2501,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'frame', allowed combinations are: [] [geometry] [width, height] [width, height, innerBevel, outerBevel]");
     }
-    private void ExecuteFx(XmlElement element, MagickImage image)
+    private void ExecuteFx(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2518,7 +2518,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'fx', allowed combinations are: [expression] [expression, channels]");
     }
-    private void ExecuteGammaCorrect(XmlElement element, MagickImage image)
+    private void ExecuteGammaCorrect(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2535,7 +2535,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'gammaCorrect', allowed combinations are: [gamma] [gamma, channels]");
     }
-    private void ExecuteGaussianBlur(XmlElement element, MagickImage image)
+    private void ExecuteGaussianBlur(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2554,17 +2554,17 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'gaussianBlur', allowed combinations are: [radius, sigma] [radius, sigma, channels]");
     }
-    private void ExecuteGrayscale(XmlElement element, MagickImage image)
+    private void ExecuteGrayscale(XmlElement element, IMagickImage image)
     {
       PixelIntensityMethod method_ = Variables.GetValue<PixelIntensityMethod>(element, "method");
       image.Grayscale(method_);
     }
-    private void ExecuteHaldClut(XmlElement element, MagickImage image)
+    private void ExecuteHaldClut(XmlElement element, IMagickImage image)
     {
-      MagickImage image_ = CreateMagickImage(element["image"]);
+      IMagickImage image_ = CreateMagickImage(element["image"]);
       image.HaldClut(image_);
     }
-    private void ExecuteHoughLine(XmlElement element, MagickImage image)
+    private void ExecuteHoughLine(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2578,13 +2578,13 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'houghLine', allowed combinations are: [] [width, height, threshold]");
     }
-    private void ExecuteImplode(XmlElement element, MagickImage image)
+    private void ExecuteImplode(XmlElement element, IMagickImage image)
     {
       double amount_ = Variables.GetValue<double>(element, "amount");
       PixelInterpolateMethod method_ = Variables.GetValue<PixelInterpolateMethod>(element, "method");
       image.Implode(amount_, method_);
     }
-    private void ExecuteInverseFloodFill(XmlElement element, MagickImage image)
+    private void ExecuteInverseFloodFill(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2627,7 +2627,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'inverseFloodFill', allowed combinations are: [alpha, x, y] [color, coordinate] [color, coordinate, target] [color, x, y] [color, x, y, target] [image, coordinate] [image, coordinate, target] [image, x, y] [image, x, y, target]");
     }
-    private void ExecuteInverseLevel(XmlElement element, MagickImage image)
+    private void ExecuteInverseLevel(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2664,7 +2664,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'inverseLevel', allowed combinations are: [blackPoint, whitePoint] [blackPoint, whitePoint, channels] [blackPoint, whitePoint, midpoint] [blackPoint, whitePoint, midpoint, channels] [blackPointPercentage, whitePointPercentage] [blackPointPercentage, whitePointPercentage, channels] [blackPointPercentage, whitePointPercentage, midpoint] [blackPointPercentage, whitePointPercentage, midpoint, channels]");
     }
-    private void ExecuteInverseLevelColors(XmlElement element, MagickImage image)
+    private void ExecuteInverseLevelColors(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2683,24 +2683,24 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'inverseLevelColors', allowed combinations are: [blackColor, whiteColor] [blackColor, whiteColor, channels]");
     }
-    private void ExecuteInverseOpaque(XmlElement element, MagickImage image)
+    private void ExecuteInverseOpaque(XmlElement element, IMagickImage image)
     {
       MagickColor target_ = Variables.GetValue<MagickColor>(element, "target");
       MagickColor fill_ = Variables.GetValue<MagickColor>(element, "fill");
       image.InverseOpaque(target_, fill_);
     }
-    private void ExecuteInverseTransparent(XmlElement element, MagickImage image)
+    private void ExecuteInverseTransparent(XmlElement element, IMagickImage image)
     {
       MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
       image.InverseTransparent(color_);
     }
-    private void ExecuteInverseTransparentChroma(XmlElement element, MagickImage image)
+    private void ExecuteInverseTransparentChroma(XmlElement element, IMagickImage image)
     {
       MagickColor colorLow_ = Variables.GetValue<MagickColor>(element, "colorLow");
       MagickColor colorHigh_ = Variables.GetValue<MagickColor>(element, "colorHigh");
       image.InverseTransparentChroma(colorLow_, colorHigh_);
     }
-    private void ExecuteKuwahara(XmlElement element, MagickImage image)
+    private void ExecuteKuwahara(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2714,7 +2714,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'kuwahara', allowed combinations are: [] [radius, sigma]");
     }
-    private void ExecuteLevel(XmlElement element, MagickImage image)
+    private void ExecuteLevel(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2751,7 +2751,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'level', allowed combinations are: [blackPoint, whitePoint] [blackPoint, whitePoint, channels] [blackPoint, whitePoint, gamma] [blackPoint, whitePoint, gamma, channels] [blackPointPercentage, whitePointPercentage] [blackPointPercentage, whitePointPercentage, channels] [blackPointPercentage, whitePointPercentage, gamma] [blackPointPercentage, whitePointPercentage, gamma, channels]");
     }
-    private void ExecuteLevelColors(XmlElement element, MagickImage image)
+    private void ExecuteLevelColors(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2770,13 +2770,13 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'levelColors', allowed combinations are: [blackColor, whiteColor] [blackColor, whiteColor, channels]");
     }
-    private void ExecuteLinearStretch(XmlElement element, MagickImage image)
+    private void ExecuteLinearStretch(XmlElement element, IMagickImage image)
     {
       Percentage blackPoint_ = Variables.GetValue<Percentage>(element, "blackPoint");
       Percentage whitePoint_ = Variables.GetValue<Percentage>(element, "whitePoint");
       image.LinearStretch(blackPoint_, whitePoint_);
     }
-    private void ExecuteLiquidRescale(XmlElement element, MagickImage image)
+    private void ExecuteLiquidRescale(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2805,22 +2805,22 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'liquidRescale', allowed combinations are: [geometry] [percentage] [percentageWidth, percentageHeight] [width, height]");
     }
-    private void ExecuteLocalContrast(XmlElement element, MagickImage image)
+    private void ExecuteLocalContrast(XmlElement element, IMagickImage image)
     {
       double radius_ = Variables.GetValue<double>(element, "radius");
       Percentage strength_ = Variables.GetValue<Percentage>(element, "strength");
       image.LocalContrast(radius_, strength_);
     }
-    private void ExecuteLower(XmlElement element, MagickImage image)
+    private void ExecuteLower(XmlElement element, IMagickImage image)
     {
       Int32 size_ = Variables.GetValue<Int32>(element, "size");
       image.Lower(size_);
     }
-    private static void ExecuteMagnify(MagickImage image)
+    private static void ExecuteMagnify(IMagickImage image)
     {
       image.Magnify();
     }
-    private void ExecuteMedianFilter(XmlElement element, MagickImage image)
+    private void ExecuteMedianFilter(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2834,11 +2834,11 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'medianFilter', allowed combinations are: [] [radius]");
     }
-    private static void ExecuteMinify(MagickImage image)
+    private static void ExecuteMinify(IMagickImage image)
     {
       image.Minify();
     }
-    private void ExecuteModulate(XmlElement element, MagickImage image)
+    private void ExecuteModulate(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2854,7 +2854,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'modulate', allowed combinations are: [brightness] [brightness, saturation] [brightness, saturation, hue]");
     }
-    private void ExecuteMorphology(XmlElement element, MagickImage image)
+    private void ExecuteMorphology(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2905,14 +2905,14 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'morphology', allowed combinations are: [method, kernel] [method, kernel, arguments] [method, kernel, arguments, channels] [method, kernel, arguments, channels, iterations] [method, kernel, arguments, iterations] [method, kernel, channels] [method, kernel, channels, iterations] [method, kernel, iterations] [method, userKernel] [method, userKernel, channels] [method, userKernel, channels, iterations] [method, userKernel, iterations] [settings]");
     }
-    private void ExecuteMotionBlur(XmlElement element, MagickImage image)
+    private void ExecuteMotionBlur(XmlElement element, IMagickImage image)
     {
       double radius_ = Variables.GetValue<double>(element, "radius");
       double sigma_ = Variables.GetValue<double>(element, "sigma");
       double angle_ = Variables.GetValue<double>(element, "angle");
       image.MotionBlur(radius_, sigma_, angle_);
     }
-    private void ExecuteNegate(XmlElement element, MagickImage image)
+    private void ExecuteNegate(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2933,11 +2933,11 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'negate', allowed combinations are: [] [channels] [onlyGrayscale] [onlyGrayscale, channels]");
     }
-    private static void ExecuteNormalize(MagickImage image)
+    private static void ExecuteNormalize(IMagickImage image)
     {
       image.Normalize();
     }
-    private void ExecuteOilPaint(XmlElement element, MagickImage image)
+    private void ExecuteOilPaint(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2951,13 +2951,13 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'oilPaint', allowed combinations are: [] [radius, sigma]");
     }
-    private void ExecuteOpaque(XmlElement element, MagickImage image)
+    private void ExecuteOpaque(XmlElement element, IMagickImage image)
     {
       MagickColor target_ = Variables.GetValue<MagickColor>(element, "target");
       MagickColor fill_ = Variables.GetValue<MagickColor>(element, "fill");
       image.Opaque(target_, fill_);
     }
-    private void ExecuteOrderedDither(XmlElement element, MagickImage image)
+    private void ExecuteOrderedDither(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2974,7 +2974,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'orderedDither', allowed combinations are: [thresholdMap] [thresholdMap, channels]");
     }
-    private void ExecutePerceptible(XmlElement element, MagickImage image)
+    private void ExecutePerceptible(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -2991,14 +2991,14 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'perceptible', allowed combinations are: [epsilon] [epsilon, channels]");
     }
-    private void ExecutePolaroid(XmlElement element, MagickImage image)
+    private void ExecutePolaroid(XmlElement element, IMagickImage image)
     {
       String caption_ = Variables.GetValue<String>(element, "caption");
       double angle_ = Variables.GetValue<double>(element, "angle");
       PixelInterpolateMethod method_ = Variables.GetValue<PixelInterpolateMethod>(element, "method");
       image.Polaroid(caption_, angle_, method_);
     }
-    private void ExecutePosterize(XmlElement element, MagickImage image)
+    private void ExecutePosterize(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3021,21 +3021,21 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'posterize', allowed combinations are: [levels] [levels, channels] [levels, method] [levels, method, channels]");
     }
-    private static void ExecutePreserveColorType(MagickImage image)
+    private static void ExecutePreserveColorType(IMagickImage image)
     {
       image.PreserveColorType();
     }
-    private void ExecuteQuantize(XmlElement element, MagickImage image)
+    private void ExecuteQuantize(XmlElement element, IMagickImage image)
     {
       QuantizeSettings settings_ = CreateQuantizeSettings(element["settings"]);
       image.Quantize(settings_);
     }
-    private void ExecuteRaise(XmlElement element, MagickImage image)
+    private void ExecuteRaise(XmlElement element, IMagickImage image)
     {
       Int32 size_ = Variables.GetValue<Int32>(element, "size");
       image.Raise(size_);
     }
-    private void ExecuteRandomThreshold(XmlElement element, MagickImage image)
+    private void ExecuteRandomThreshold(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3062,7 +3062,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'randomThreshold', allowed combinations are: [low, high] [low, high, channels] [percentageLow, percentageHigh] [percentageLow, percentageHigh, channels]");
     }
-    private void ExecuteReduceNoise(XmlElement element, MagickImage image)
+    private void ExecuteReduceNoise(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3076,35 +3076,35 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'reduceNoise', allowed combinations are: [] [order]");
     }
-    private void ExecuteRegionMask(XmlElement element, MagickImage image)
+    private void ExecuteRegionMask(XmlElement element, IMagickImage image)
     {
       MagickGeometry region_ = Variables.GetValue<MagickGeometry>(element, "region");
       image.RegionMask(region_);
     }
-    private void ExecuteRemoveArtifact(XmlElement element, MagickImage image)
+    private void ExecuteRemoveArtifact(XmlElement element, IMagickImage image)
     {
       String name_ = Variables.GetValue<String>(element, "name");
       image.RemoveArtifact(name_);
     }
-    private void ExecuteRemoveAttribute(XmlElement element, MagickImage image)
+    private void ExecuteRemoveAttribute(XmlElement element, IMagickImage image)
     {
       String name_ = Variables.GetValue<String>(element, "name");
       image.RemoveAttribute(name_);
     }
-    private void ExecuteRemoveProfile(XmlElement element, MagickImage image)
+    private void ExecuteRemoveProfile(XmlElement element, IMagickImage image)
     {
       String name_ = Variables.GetValue<String>(element, "name");
       image.RemoveProfile(name_);
     }
-    private static void ExecuteRemoveRegionMask(MagickImage image)
+    private static void ExecuteRemoveRegionMask(IMagickImage image)
     {
       image.RemoveRegionMask();
     }
-    private static void ExecuteRePage(MagickImage image)
+    private static void ExecuteRePage(IMagickImage image)
     {
       image.RePage();
     }
-    private void ExecuteResample(XmlElement element, MagickImage image)
+    private void ExecuteResample(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3123,7 +3123,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'resample', allowed combinations are: [density] [resolutionX, resolutionY]");
     }
-    private void ExecuteResize(XmlElement element, MagickImage image)
+    private void ExecuteResize(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3152,18 +3152,18 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'resize', allowed combinations are: [geometry] [percentage] [percentageWidth, percentageHeight] [width, height]");
     }
-    private void ExecuteRoll(XmlElement element, MagickImage image)
+    private void ExecuteRoll(XmlElement element, IMagickImage image)
     {
       Int32 x_ = Variables.GetValue<Int32>(element, "x");
       Int32 y_ = Variables.GetValue<Int32>(element, "y");
       image.Roll(x_, y_);
     }
-    private void ExecuteRotate(XmlElement element, MagickImage image)
+    private void ExecuteRotate(XmlElement element, IMagickImage image)
     {
       double degrees_ = Variables.GetValue<double>(element, "degrees");
       image.Rotate(degrees_);
     }
-    private void ExecuteRotationalBlur(XmlElement element, MagickImage image)
+    private void ExecuteRotationalBlur(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3180,7 +3180,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'rotationalBlur', allowed combinations are: [angle] [angle, channels]");
     }
-    private void ExecuteSample(XmlElement element, MagickImage image)
+    private void ExecuteSample(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3209,7 +3209,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'sample', allowed combinations are: [geometry] [percentage] [percentageWidth, percentageHeight] [width, height]");
     }
-    private void ExecuteScale(XmlElement element, MagickImage image)
+    private void ExecuteScale(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3238,7 +3238,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'scale', allowed combinations are: [geometry] [percentage] [percentageWidth, percentageHeight] [width, height]");
     }
-    private void ExecuteSegment(XmlElement element, MagickImage image)
+    private void ExecuteSegment(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3257,7 +3257,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'segment', allowed combinations are: [] [quantizeColorSpace, clusterThreshold, smoothingThreshold]");
     }
-    private void ExecuteSelectiveBlur(XmlElement element, MagickImage image)
+    private void ExecuteSelectiveBlur(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3284,7 +3284,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'selectiveBlur', allowed combinations are: [radius, sigma, threshold] [radius, sigma, threshold, channels] [radius, sigma, thresholdPercentage] [radius, sigma, thresholdPercentage, channels]");
     }
-    private void ExecuteSepiaTone(XmlElement element, MagickImage image)
+    private void ExecuteSepiaTone(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3298,24 +3298,24 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'sepiaTone', allowed combinations are: [] [threshold]");
     }
-    private void ExecuteSetArtifact(XmlElement element, MagickImage image)
+    private void ExecuteSetArtifact(XmlElement element, IMagickImage image)
     {
       String name_ = Variables.GetValue<String>(element, "name");
       String value_ = Variables.GetValue<String>(element, "value");
       image.SetArtifact(name_, value_);
     }
-    private void ExecuteSetAttenuate(XmlElement element, MagickImage image)
+    private void ExecuteSetAttenuate(XmlElement element, IMagickImage image)
     {
       double attenuate_ = Variables.GetValue<double>(element, "attenuate");
       image.SetAttenuate(attenuate_);
     }
-    private void ExecuteSetAttribute(XmlElement element, MagickImage image)
+    private void ExecuteSetAttribute(XmlElement element, IMagickImage image)
     {
       String name_ = Variables.GetValue<String>(element, "name");
       String value_ = Variables.GetValue<String>(element, "value");
       image.SetAttribute(name_, value_);
     }
-    private void ExecuteSetClippingPath(XmlElement element, MagickImage image)
+    private void ExecuteSetClippingPath(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3329,23 +3329,23 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'setClippingPath', allowed combinations are: [value] [value, pathName]");
     }
-    private void ExecuteSetColormap(XmlElement element, MagickImage image)
+    private void ExecuteSetColormap(XmlElement element, IMagickImage image)
     {
       Int32 index_ = Variables.GetValue<Int32>(element, "index");
       MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
       image.SetColormap(index_, color_);
     }
-    private void ExecuteSetHighlightColor(XmlElement element, MagickImage image)
+    private void ExecuteSetHighlightColor(XmlElement element, IMagickImage image)
     {
       MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
       image.SetHighlightColor(color_);
     }
-    private void ExecuteSetLowlightColor(XmlElement element, MagickImage image)
+    private void ExecuteSetLowlightColor(XmlElement element, IMagickImage image)
     {
       MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
       image.SetLowlightColor(color_);
     }
-    private void ExecuteShade(XmlElement element, MagickImage image)
+    private void ExecuteShade(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3370,7 +3370,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'shade', allowed combinations are: [] [azimuth, elevation] [azimuth, elevation, colorShading] [azimuth, elevation, colorShading, channels]");
     }
-    private void ExecuteShadow(XmlElement element, MagickImage image)
+    private void ExecuteShadow(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3397,7 +3397,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'shadow', allowed combinations are: [] [color] [x, y, sigma, alpha] [x, y, sigma, alpha, color]");
     }
-    private void ExecuteSharpen(XmlElement element, MagickImage image)
+    private void ExecuteSharpen(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3420,19 +3420,19 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'sharpen', allowed combinations are: [] [channels] [radius, sigma] [radius, sigma, channels]");
     }
-    private void ExecuteShave(XmlElement element, MagickImage image)
+    private void ExecuteShave(XmlElement element, IMagickImage image)
     {
       Int32 leftRight_ = Variables.GetValue<Int32>(element, "leftRight");
       Int32 topBottom_ = Variables.GetValue<Int32>(element, "topBottom");
       image.Shave(leftRight_, topBottom_);
     }
-    private void ExecuteShear(XmlElement element, MagickImage image)
+    private void ExecuteShear(XmlElement element, IMagickImage image)
     {
       double xAngle_ = Variables.GetValue<double>(element, "xAngle");
       double yAngle_ = Variables.GetValue<double>(element, "yAngle");
       image.Shear(xAngle_, yAngle_);
     }
-    private void ExecuteSigmoidalContrast(XmlElement element, MagickImage image)
+    private void ExecuteSigmoidalContrast(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3461,7 +3461,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'sigmoidalContrast', allowed combinations are: [contrast] [contrast, midpoint] [contrast, midpointPercentage] [sharpen, contrast] [sharpen, contrast, midpoint] [sharpen, contrast, midpointPercentage]");
     }
-    private void ExecuteSketch(XmlElement element, MagickImage image)
+    private void ExecuteSketch(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3475,7 +3475,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'sketch', allowed combinations are: [] [radius, sigma, angle]");
     }
-    private void ExecuteSolarize(XmlElement element, MagickImage image)
+    private void ExecuteSolarize(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3494,7 +3494,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'solarize', allowed combinations are: [] [factor] [factorPercentage]");
     }
-    private void ExecuteSparseColor(XmlElement element, MagickImage image)
+    private void ExecuteSparseColor(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3515,12 +3515,12 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'sparseColor', allowed combinations are: [channels, method, args] [method, args]");
     }
-    private void ExecuteSplice(XmlElement element, MagickImage image)
+    private void ExecuteSplice(XmlElement element, IMagickImage image)
     {
       MagickGeometry geometry_ = Variables.GetValue<MagickGeometry>(element, "geometry");
       image.Splice(geometry_);
     }
-    private void ExecuteSpread(XmlElement element, MagickImage image)
+    private void ExecuteSpread(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3539,28 +3539,28 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'spread', allowed combinations are: [] [method, radius] [radius]");
     }
-    private void ExecuteStatistic(XmlElement element, MagickImage image)
+    private void ExecuteStatistic(XmlElement element, IMagickImage image)
     {
       StatisticType type_ = Variables.GetValue<StatisticType>(element, "type");
       Int32 width_ = Variables.GetValue<Int32>(element, "width");
       Int32 height_ = Variables.GetValue<Int32>(element, "height");
       image.Statistic(type_, width_, height_);
     }
-    private void ExecuteStegano(XmlElement element, MagickImage image)
+    private void ExecuteStegano(XmlElement element, IMagickImage image)
     {
       MagickImage watermark_ = CreateMagickImage(element["watermark"]);
       image.Stegano(watermark_);
     }
-    private void ExecuteStereo(XmlElement element, MagickImage image)
+    private void ExecuteStereo(XmlElement element, IMagickImage image)
     {
       MagickImage rightImage_ = CreateMagickImage(element["rightImage"]);
       image.Stereo(rightImage_);
     }
-    private static void ExecuteStrip(MagickImage image)
+    private static void ExecuteStrip(IMagickImage image)
     {
       image.Strip();
     }
-    private void ExecuteSwirl(XmlElement element, MagickImage image)
+    private void ExecuteSwirl(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3577,17 +3577,17 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'swirl', allowed combinations are: [degrees] [method, degrees]");
     }
-    private void ExecuteTexture(XmlElement element, MagickImage image)
+    private void ExecuteTexture(XmlElement element, IMagickImage image)
     {
-      MagickImage image_ = CreateMagickImage(element["image"]);
+      IMagickImage image_ = CreateMagickImage(element["image"]);
       image.Texture(image_);
     }
-    private void ExecuteThreshold(XmlElement element, MagickImage image)
+    private void ExecuteThreshold(XmlElement element, IMagickImage image)
     {
       Percentage percentage_ = Variables.GetValue<Percentage>(element, "percentage");
       image.Threshold(percentage_);
     }
-    private void ExecuteThumbnail(XmlElement element, MagickImage image)
+    private void ExecuteThumbnail(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3616,7 +3616,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'thumbnail', allowed combinations are: [geometry] [percentage] [percentageWidth, percentageHeight] [width, height]");
     }
-    private void ExecuteTile(XmlElement element, MagickImage image)
+    private void ExecuteTile(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3637,7 +3637,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'tile', allowed combinations are: [image, compose] [image, compose, args]");
     }
-    private void ExecuteTint(XmlElement element, MagickImage image)
+    private void ExecuteTint(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3654,36 +3654,36 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'tint', allowed combinations are: [opacity] [opacity, color]");
     }
-    private static void ExecuteTransformColorSpace(XmlElement element, MagickImage image)
+    private static void ExecuteTransformColorSpace(XmlElement element, IMagickImage image)
     {
       ColorProfile source_ = CreateColorProfile(element["source"]);
       ColorProfile target_ = CreateColorProfile(element["target"]);
       image.TransformColorSpace(source_, target_);
     }
-    private void ExecuteTransparent(XmlElement element, MagickImage image)
+    private void ExecuteTransparent(XmlElement element, IMagickImage image)
     {
       MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
       image.Transparent(color_);
     }
-    private void ExecuteTransparentChroma(XmlElement element, MagickImage image)
+    private void ExecuteTransparentChroma(XmlElement element, IMagickImage image)
     {
       MagickColor colorLow_ = Variables.GetValue<MagickColor>(element, "colorLow");
       MagickColor colorHigh_ = Variables.GetValue<MagickColor>(element, "colorHigh");
       image.TransparentChroma(colorLow_, colorHigh_);
     }
-    private static void ExecuteTranspose(MagickImage image)
+    private static void ExecuteTranspose(IMagickImage image)
     {
       image.Transpose();
     }
-    private static void ExecuteTransverse(MagickImage image)
+    private static void ExecuteTransverse(IMagickImage image)
     {
       image.Transverse();
     }
-    private static void ExecuteTrim(MagickImage image)
+    private static void ExecuteTrim(IMagickImage image)
     {
       image.Trim();
     }
-    private void ExecuteUnsharpMask(XmlElement element, MagickImage image)
+    private void ExecuteUnsharpMask(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3710,7 +3710,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'unsharpMask', allowed combinations are: [radius, sigma] [radius, sigma, amount, threshold] [radius, sigma, amount, threshold, channels] [radius, sigma, channels]");
     }
-    private void ExecuteVignette(XmlElement element, MagickImage image)
+    private void ExecuteVignette(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3731,7 +3731,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'vignette', allowed combinations are: [] [radius, sigma, x, y]");
     }
-    private void ExecuteWave(XmlElement element, MagickImage image)
+    private void ExecuteWave(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3750,7 +3750,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'wave', allowed combinations are: [] [method, amplitude, length]");
     }
-    private void ExecuteWaveletDenoise(XmlElement element, MagickImage image)
+    private void ExecuteWaveletDenoise(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -3773,7 +3773,7 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'waveletDenoise', allowed combinations are: [threshold] [threshold, softness] [thresholdPercentage] [thresholdPercentage, softness]");
     }
-    private void ExecuteWhiteThreshold(XmlElement element, MagickImage image)
+    private void ExecuteWhiteThreshold(XmlElement element, IMagickImage image)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)

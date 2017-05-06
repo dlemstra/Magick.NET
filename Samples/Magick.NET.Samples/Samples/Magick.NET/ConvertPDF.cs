@@ -61,14 +61,14 @@ namespace RootNamespace.Samples.MagickNET
         images.Read(SampleFiles.SnakewarePdf, settings);
 
         // Create new image that appends all the pages horizontally
-        using (MagickImage horizontal = images.AppendHorizontally())
+        using (IMagickImage horizontal = images.AppendHorizontally())
         {
           // Save result as a png
           horizontal.Write(SampleFiles.OutputDirectory + "Snakeware.horizontal.png");
         }
 
         // Create new image that appends all the pages horizontally
-        using (MagickImage vertical = images.AppendVertically())
+        using (IMagickImage vertical = images.AppendVertically())
         {
           // Save result as a png
           vertical.Write(SampleFiles.OutputDirectory + "Snakeware.vertical.png");

@@ -35,7 +35,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public partial class MagickImageTests
   {
-    private MagickImage CreatePallete()
+    private IMagickImage CreatePallete()
     {
       using (IMagickImageCollection images = new MagickImageCollection())
       {
@@ -826,7 +826,7 @@ namespace Magick.NET.Tests
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
       {
-        using (MagickImage clut = CreatePallete())
+        using (IMagickImage clut = CreatePallete())
         {
           image.Clut(clut, PixelInterpolateMethod.Catrom);
           ColorAssert.AreEqual(MagickColors.Green, image, 400, 300);
@@ -1665,7 +1665,7 @@ namespace Magick.NET.Tests
         collection.Add(new MagickImage(MagickColors.DodgerBlue, 10, 10));
         collection.Add(new MagickImage(MagickColors.Firebrick, 10, 10));
 
-        using (MagickImage image = collection.AppendVertically())
+        using (IMagickImage image = collection.AppendVertically())
         {
           ColorAssert.AreEqual(MagickColors.DodgerBlue, image, 5, 0);
           ColorAssert.AreEqual(MagickColors.Firebrick, image, 5, 10);
@@ -1676,7 +1676,7 @@ namespace Magick.NET.Tests
           ColorAssert.AreEqual(MagickColors.DodgerBlue, image, 5, 10);
         }
 
-        using (MagickImage image = collection.AppendHorizontally())
+        using (IMagickImage image = collection.AppendHorizontally())
         {
           ColorAssert.AreEqual(MagickColors.DodgerBlue, image, 0, 5);
           ColorAssert.AreEqual(MagickColors.Firebrick, image, 10, 5);
@@ -1907,7 +1907,7 @@ namespace Magick.NET.Tests
     {
       using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
-        using (MagickImage clut = CreatePallete())
+        using (IMagickImage clut = CreatePallete())
         {
           image.HaldClut(clut);
 
@@ -2281,7 +2281,7 @@ namespace Magick.NET.Tests
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
       {
-        using (MagickImage colors = CreatePallete())
+        using (IMagickImage colors = CreatePallete())
         {
           image.Map(colors);
 
@@ -2413,7 +2413,7 @@ namespace Magick.NET.Tests
         images.Add(new MagickImage("gradient:gray70-gray30", 100, 100));
         images.Add(new MagickImage("gradient:blue-navy", 50, 100));
 
-        using (MagickImage colorRange = images.AppendHorizontally())
+        using (IMagickImage colorRange = images.AppendHorizontally())
         {
           ColorAssert.AreEqual(new MagickColor("gray70"), colorRange, 0, 0);
           ColorAssert.AreEqual(new MagickColor("blue"), colorRange, 101, 0);
@@ -3594,7 +3594,7 @@ namespace Magick.NET.Tests
         images.Add(new MagickImage(MagickColors.Green, 2, 2));
         images.Add(new MagickImage(MagickColors.Red, 2, 2));
 
-        using (MagickImage combined = images.AppendHorizontally())
+        using (IMagickImage combined = images.AppendHorizontally())
         {
           using (MagickSearchResult searchResult = combined.SubImageSearch(new MagickImage(MagickColors.Red, 0, 0), ErrorMetric.RootMeanSquared))
           {

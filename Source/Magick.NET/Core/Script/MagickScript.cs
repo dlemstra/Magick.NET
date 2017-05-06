@@ -112,7 +112,7 @@ namespace ImageMagick
       return settings;
     }
 
-    private void Execute(XmlElement element, MagickImage image)
+    private void Execute(XmlElement element, IMagickImage image)
     {
       foreach (XmlElement elem in element.SelectNodes("*[name() != 'readSettings']"))
       {
@@ -120,7 +120,7 @@ namespace ImageMagick
       }
     }
 
-    private MagickImage Execute(XmlElement element, MagickImageCollection collection)
+    private IMagickImage Execute(XmlElement element, MagickImageCollection collection)
     {
       if (element.Name == "read")
       {
@@ -140,18 +140,16 @@ namespace ImageMagick
 
     private void ExecuteClone(XmlElement element, IMagickImage image)
     {
-      MagickImage clone = image.Clone() as MagickImage;
-
-      Execute(element, clone);
+      Execute(element, image.Clone());
     }
 
-    private MagickImage ExecuteCollection(XmlElement element)
+    private IMagickImage ExecuteCollection(XmlElement element)
     {
       using (MagickImageCollection collection = new MagickImageCollection())
       {
         foreach (XmlElement elem in element.SelectNodes("*"))
         {
-          MagickImage result = Execute(elem, collection);
+          IMagickImage result = Execute(elem, collection);
           if (result != null)
             return result;
         }
@@ -160,7 +158,7 @@ namespace ImageMagick
       }
     }
 
-    private void ExecuteDraw(XmlElement element, MagickImage image)
+    private void ExecuteDraw(XmlElement element, IMagickImage image)
     {
       Collection<IDrawable> drawables = new Collection<IDrawable>();
 
@@ -172,7 +170,7 @@ namespace ImageMagick
       image.Draw(drawables);
     }
 
-    private void ExecuteMagickSettings(XmlElement element, MagickImage image)
+    private void ExecuteMagickSettings(XmlElement element, IMagickImage image)
     {
       foreach (XmlElement elem in element.SelectNodes("*"))
       {
@@ -180,7 +178,7 @@ namespace ImageMagick
       }
     }
 
-    private void ExecuteWrite(XmlElement element, MagickImage image)
+    private void ExecuteWrite(XmlElement element, IMagickImage image)
     {
       string fileName = element.GetAttribute("fileName");
       if (!string.IsNullOrEmpty(fileName))
@@ -311,7 +309,7 @@ namespace ImageMagick
     /// Executes the script and returns the resulting image.
     /// </summary>
     /// <returns>A <see cref="MagickImage"/>.</returns>
-    public MagickImage Execute()
+    public IMagickImage Execute()
     {
       XmlElement element = (XmlElement)_Script.SelectSingleNode("/msl/*");
 
@@ -327,7 +325,7 @@ namespace ImageMagick
     /// Executes the script using the specified image.
     /// </summary>
     /// <param name="image">The image to execute the script on.</param>
-    public void Execute(MagickImage image)
+    public void Execute(IMagickImage image)
     {
       Throw.IfNull(nameof(image), image);
 

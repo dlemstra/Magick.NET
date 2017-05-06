@@ -29,7 +29,7 @@ namespace ImageMagick.Web.Handlers
       MagickScript script = new MagickScript(_ScriptResolver.Script);
       script.Read += OnScriptRead;
 
-      using (MagickImage image = script.Execute())
+      using (IMagickImage image = script.Execute())
       {
         image.Format = _ScriptResolver.OutputFormat;
         WriteToCache(image, cacheFileName);
@@ -47,7 +47,7 @@ namespace ImageMagick.Web.Handlers
       arguments.Image = ImageData.ReadImage(arguments.Settings);
     }
 
-    private void WriteToCache(MagickImage image, string cacheFileName)
+    private void WriteToCache(IMagickImage image, string cacheFileName)
     {
       string tempFile = DetermineTempFileName();
 
