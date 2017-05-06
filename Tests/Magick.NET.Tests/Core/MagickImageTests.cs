@@ -72,7 +72,7 @@ namespace Magick.NET.Tests
         image.Clip("Pad A", inside);
         image.Alpha(AlphaOption.Opaque);
 
-        using (MagickImage mask = image.WriteMask)
+        using (IMagickImage mask = image.WriteMask)
         {
           Assert.IsNotNull(mask);
           Assert.AreEqual(false, mask.HasAlpha);

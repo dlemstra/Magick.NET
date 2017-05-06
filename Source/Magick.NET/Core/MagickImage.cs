@@ -1776,11 +1776,11 @@ namespace ImageMagick
     /// <summary>
     /// Applies the specified alpha option.
     /// </summary>
-    /// <param name="option">The option to use.</param>
+    /// <param name="value">The option to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Alpha(AlphaOption option)
+    public void Alpha(AlphaOption value)
     {
-      _NativeInstance.SetAlpha(option);
+      _NativeInstance.SetAlpha(value);
     }
 
     /// <summary>
@@ -3774,7 +3774,6 @@ namespace ImageMagick
     /// </summary>
     /// <returns>The exif profile from the image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Cannot be modified directly.")]
     public ExifProfile GetExifProfile()
     {
       StringInfo info = _NativeInstance.GetProfile("exif");
@@ -3801,7 +3800,6 @@ namespace ImageMagick
     /// </summary>
     /// <returns>The iptc profile from the image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Cannot be modified directly.")]
     public IptcProfile GetIptcProfile()
     {
       StringInfo info = _NativeInstance.GetProfile("iptc");
@@ -3816,7 +3814,6 @@ namespace ImageMagick
     /// </summary>
     /// <returns>A pixel collection that can be used to read or modify the pixels of this image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Cannot be modified directly.")]
     public PixelCollection GetPixels()
     {
       if (Settings.Ping)
@@ -3847,7 +3844,6 @@ namespace ImageMagick
     /// </summary>
     /// <returns>The xmp profile from the image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Cannot be modified directly.")]
     public XmpProfile GetXmpProfile()
     {
       StringInfo info = _NativeInstance.GetProfile("xmp");
@@ -5142,7 +5138,6 @@ namespace ImageMagick
     /// </summary>
     /// <param name="size">The size of the edges.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    [SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate", Justification = "This is not an event.")]
     public void Raise(int size)
     {
       _NativeInstance.RaiseOrLower(size, true);
