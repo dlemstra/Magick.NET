@@ -23,14 +23,14 @@ namespace FileGenerator.MagickScript
   {
     private static bool ReturnsImage(MethodBase method)
     {
-      return ((MethodInfo)method).ReturnType.Name == "MagickImage";
+      return ((MethodInfo)method).ReturnType.Name == "IMagickImage";
     }
 
     protected override string ExecuteArgument
     {
       get
       {
-        return "MagickImageCollection collection";
+        return "IMagickImageCollection collection";
       }
     }
 
@@ -55,7 +55,7 @@ namespace FileGenerator.MagickScript
     {
       get
       {
-        return "MagickImage";
+        return "IMagickImage";
       }
     }
 

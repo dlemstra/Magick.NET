@@ -37,7 +37,7 @@ namespace ImageMagick
   {
     [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
     [SuppressMessage("Microsoft.Maintainability", "CA1505:AvoidUnmaintainableCode")]
-    private IMagickImage ExecuteCollection(XmlElement element, MagickImageCollection collection)
+    private IMagickImage ExecuteCollection(XmlElement element, IMagickImageCollection collection)
     {
       switch(element.Name[0])
       {
@@ -177,17 +177,17 @@ namespace ImageMagick
       }
       throw new NotSupportedException(element.Name);
     }
-    private static MagickImage ExecuteCoalesce(MagickImageCollection collection)
+    private static IMagickImage ExecuteCoalesce(IMagickImageCollection collection)
     {
       collection.Coalesce();
       return null;
     }
-    private static MagickImage ExecuteDeconstruct(MagickImageCollection collection)
+    private static IMagickImage ExecuteDeconstruct(IMagickImageCollection collection)
     {
       collection.Deconstruct();
       return null;
     }
-    private MagickImage ExecuteMap(XmlElement element, MagickImageCollection collection)
+    private IMagickImage ExecuteMap(XmlElement element, IMagickImageCollection collection)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlElement elem in element.SelectNodes("*"))
@@ -199,39 +199,39 @@ namespace ImageMagick
       }
       if (OnlyContains(arguments, "image"))
         {
-          collection.Map((MagickImage)arguments["image"]);
+          collection.Map((IMagickImage)arguments["image"]);
           return null;
         }
       else if (OnlyContains(arguments, "image", "settings"))
         {
-          collection.Map((MagickImage)arguments["image"], (QuantizeSettings)arguments["settings"]);
+          collection.Map((IMagickImage)arguments["image"], (QuantizeSettings)arguments["settings"]);
           return null;
         }
       else
         throw new ArgumentException("Invalid argument combination for 'map', allowed combinations are: [image] [image, settings]");
     }
-    private MagickImage ExecuteMorph(XmlElement element, MagickImageCollection collection)
+    private IMagickImage ExecuteMorph(XmlElement element, IMagickImageCollection collection)
     {
       Int32 frames_ = Variables.GetValue<Int32>(element, "frames");
       collection.Morph(frames_);
       return null;
     }
-    private static MagickImage ExecuteOptimize(MagickImageCollection collection)
+    private static IMagickImage ExecuteOptimize(IMagickImageCollection collection)
     {
       collection.Optimize();
       return null;
     }
-    private static MagickImage ExecuteOptimizePlus(MagickImageCollection collection)
+    private static IMagickImage ExecuteOptimizePlus(IMagickImageCollection collection)
     {
       collection.OptimizePlus();
       return null;
     }
-    private static MagickImage ExecuteOptimizeTransparency(MagickImageCollection collection)
+    private static IMagickImage ExecuteOptimizeTransparency(IMagickImageCollection collection)
     {
       collection.OptimizeTransparency();
       return null;
     }
-    private MagickImage ExecuteQuantize(XmlElement element, MagickImageCollection collection)
+    private IMagickImage ExecuteQuantize(XmlElement element, IMagickImageCollection collection)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlElement elem in element.SelectNodes("*"))
@@ -251,30 +251,30 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'quantize', allowed combinations are: [] [settings]");
     }
-    private static MagickImage ExecuteRePage(MagickImageCollection collection)
+    private static IMagickImage ExecuteRePage(IMagickImageCollection collection)
     {
       collection.RePage();
       return null;
     }
-    private static MagickImage ExecuteReverse(MagickImageCollection collection)
+    private static IMagickImage ExecuteReverse(IMagickImageCollection collection)
     {
       collection.Reverse();
       return null;
     }
-    private static MagickImage ExecuteTrimBounds(MagickImageCollection collection)
+    private static IMagickImage ExecuteTrimBounds(IMagickImageCollection collection)
     {
       collection.TrimBounds();
       return null;
     }
-    private static IMagickImage ExecuteAppendHorizontally(MagickImageCollection collection)
+    private static IMagickImage ExecuteAppendHorizontally(IMagickImageCollection collection)
     {
       return collection.AppendHorizontally();
     }
-    private static IMagickImage ExecuteAppendVertically(MagickImageCollection collection)
+    private static IMagickImage ExecuteAppendVertically(IMagickImageCollection collection)
     {
       return collection.AppendVertically();
     }
-    private IMagickImage ExecuteCombine(XmlElement element, MagickImageCollection collection)
+    private IMagickImage ExecuteCombine(XmlElement element, IMagickImageCollection collection)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -288,34 +288,34 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'combine', allowed combinations are: [] [colorSpace]");
     }
-    private IMagickImage ExecuteEvaluate(XmlElement element, MagickImageCollection collection)
+    private IMagickImage ExecuteEvaluate(XmlElement element, IMagickImageCollection collection)
     {
       EvaluateOperator evaluateOperator_ = Variables.GetValue<EvaluateOperator>(element, "evaluateOperator");
       return collection.Evaluate(evaluateOperator_);
     }
-    private static IMagickImage ExecuteFlatten(MagickImageCollection collection)
+    private static IMagickImage ExecuteFlatten(IMagickImageCollection collection)
     {
       return collection.Flatten();
     }
-    private static IMagickImage ExecuteMerge(MagickImageCollection collection)
+    private static IMagickImage ExecuteMerge(IMagickImageCollection collection)
     {
       return collection.Merge();
     }
-    private IMagickImage ExecuteMontage(XmlElement element, MagickImageCollection collection)
+    private IMagickImage ExecuteMontage(XmlElement element, IMagickImageCollection collection)
     {
       MontageSettings settings_ = CreateMontageSettings(element["settings"]);
       return collection.Montage(settings_);
     }
-    private static IMagickImage ExecuteMosaic(MagickImageCollection collection)
+    private static IMagickImage ExecuteMosaic(IMagickImageCollection collection)
     {
       return collection.Mosaic();
     }
-    private IMagickImage ExecuteSmushHorizontal(XmlElement element, MagickImageCollection collection)
+    private IMagickImage ExecuteSmushHorizontal(XmlElement element, IMagickImageCollection collection)
     {
       Int32 offset_ = Variables.GetValue<Int32>(element, "offset");
       return collection.SmushHorizontal(offset_);
     }
-    private IMagickImage ExecuteSmushVertical(XmlElement element, MagickImageCollection collection)
+    private IMagickImage ExecuteSmushVertical(XmlElement element, IMagickImageCollection collection)
     {
       Int32 offset_ = Variables.GetValue<Int32>(element, "offset");
       return collection.SmushVertical(offset_);

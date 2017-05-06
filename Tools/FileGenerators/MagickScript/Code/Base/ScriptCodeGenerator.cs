@@ -292,11 +292,11 @@ namespace FileGenerator.MagickScript
         case "ImageProfile":
           Write("CreateProfile");
           break;
+        case "IMagickImage":
+          Write("CreateMagickImage");
+          break;
         case "IReadDefines":
           Write("CreateIReadDefines");
-          break;
-        case "MagickImage":
-          Write("CreateMagickImage");
           break;
         case "MagickGeometry":
           Write("CreateMagickGeometry");
@@ -403,7 +403,7 @@ namespace FileGenerator.MagickScript
         case "IEnumerable<Double>":
         case "IEnumerable<Single>":
         case "IEnumerable<String>":
-        case "MagickImage":
+        case "IMagickImage":
           Write("element");
           if (!string.IsNullOrEmpty(elementName))
           {

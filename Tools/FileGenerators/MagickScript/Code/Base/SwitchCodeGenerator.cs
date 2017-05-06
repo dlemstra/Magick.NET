@@ -104,7 +104,7 @@ namespace FileGenerator.MagickScript
         case "IEnumerable<SparseColorArg>":
         case "ImageProfile":
         case "IReadDefines":
-        case "MagickImage":
+        case "IMagickImage":
         case "MagickGeometry":
         case "MontageSettings":
         case "PixelStorageSettings":

@@ -570,13 +570,13 @@ namespace ImageMagick
         arguments[elem.Name] = CreateMagickImage(elem);
       }
       if (OnlyContains(arguments, "offset", "compose", "image"))
-        drawables.Add(new DrawableComposite((MagickGeometry)arguments["offset"], (CompositeOperator)arguments["compose"], (MagickImage)arguments["image"]));
+        drawables.Add(new DrawableComposite((MagickGeometry)arguments["offset"], (CompositeOperator)arguments["compose"], (IMagickImage)arguments["image"]));
       else if (OnlyContains(arguments, "offset", "image"))
-        drawables.Add(new DrawableComposite((MagickGeometry)arguments["offset"], (MagickImage)arguments["image"]));
+        drawables.Add(new DrawableComposite((MagickGeometry)arguments["offset"], (IMagickImage)arguments["image"]));
       else if (OnlyContains(arguments, "x", "y", "compose", "image"))
-        drawables.Add(new DrawableComposite((double)arguments["x"], (double)arguments["y"], (CompositeOperator)arguments["compose"], (MagickImage)arguments["image"]));
+        drawables.Add(new DrawableComposite((double)arguments["x"], (double)arguments["y"], (CompositeOperator)arguments["compose"], (IMagickImage)arguments["image"]));
       else if (OnlyContains(arguments, "x", "y", "image"))
-        drawables.Add(new DrawableComposite((double)arguments["x"], (double)arguments["y"], (MagickImage)arguments["image"]));
+        drawables.Add(new DrawableComposite((double)arguments["x"], (double)arguments["y"], (IMagickImage)arguments["image"]));
       else
         throw new ArgumentException("Invalid argument combination for 'composite', allowed combinations are: [offset, compose, image] [offset, image] [x, y, compose, image] [x, y, image]");
     }

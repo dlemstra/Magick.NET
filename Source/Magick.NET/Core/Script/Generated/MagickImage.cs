@@ -1800,8 +1800,8 @@ namespace ImageMagick
     }
     private void ExecuteAlpha(XmlElement element, IMagickImage image)
     {
-      AlphaOption option_ = Variables.GetValue<AlphaOption>(element, "option");
-      image.Alpha(option_);
+      AlphaOption value_ = Variables.GetValue<AlphaOption>(element, "value");
+      image.Alpha(value_);
     }
     private void ExecuteAnnotate(XmlElement element, IMagickImage image)
     {
@@ -2080,11 +2080,11 @@ namespace ImageMagick
         arguments[elem.Name] = CreateMagickImage(elem);
       }
       if (OnlyContains(arguments, "image"))
-        image.Clut((MagickImage)arguments["image"]);
+        image.Clut((IMagickImage)arguments["image"]);
       else if (OnlyContains(arguments, "image", "method"))
-        image.Clut((MagickImage)arguments["image"], (PixelInterpolateMethod)arguments["method"]);
+        image.Clut((IMagickImage)arguments["image"], (PixelInterpolateMethod)arguments["method"]);
       else if (OnlyContains(arguments, "image", "method", "channels"))
-        image.Clut((MagickImage)arguments["image"], (PixelInterpolateMethod)arguments["method"], (Channels)arguments["channels"]);
+        image.Clut((IMagickImage)arguments["image"], (PixelInterpolateMethod)arguments["method"], (Channels)arguments["channels"]);
       else
         throw new ArgumentException("Invalid argument combination for 'clut', allowed combinations are: [image] [image, method] [image, method, channels]");
     }
@@ -2144,29 +2144,29 @@ namespace ImageMagick
         arguments[elem.Name] = CreateMagickImage(elem);
       }
       if (OnlyContains(arguments, "image"))
-        image.Composite((MagickImage)arguments["image"]);
+        image.Composite((IMagickImage)arguments["image"]);
       else if (OnlyContains(arguments, "image", "compose"))
-        image.Composite((MagickImage)arguments["image"], (CompositeOperator)arguments["compose"]);
+        image.Composite((IMagickImage)arguments["image"], (CompositeOperator)arguments["compose"]);
       else if (OnlyContains(arguments, "image", "compose", "args"))
-        image.Composite((MagickImage)arguments["image"], (CompositeOperator)arguments["compose"], (String)arguments["args"]);
+        image.Composite((IMagickImage)arguments["image"], (CompositeOperator)arguments["compose"], (String)arguments["args"]);
       else if (OnlyContains(arguments, "image", "gravity"))
-        image.Composite((MagickImage)arguments["image"], (Gravity)arguments["gravity"]);
+        image.Composite((IMagickImage)arguments["image"], (Gravity)arguments["gravity"]);
       else if (OnlyContains(arguments, "image", "gravity", "compose"))
-        image.Composite((MagickImage)arguments["image"], (Gravity)arguments["gravity"], (CompositeOperator)arguments["compose"]);
+        image.Composite((IMagickImage)arguments["image"], (Gravity)arguments["gravity"], (CompositeOperator)arguments["compose"]);
       else if (OnlyContains(arguments, "image", "gravity", "compose", "args"))
-        image.Composite((MagickImage)arguments["image"], (Gravity)arguments["gravity"], (CompositeOperator)arguments["compose"], (String)arguments["args"]);
+        image.Composite((IMagickImage)arguments["image"], (Gravity)arguments["gravity"], (CompositeOperator)arguments["compose"], (String)arguments["args"]);
       else if (OnlyContains(arguments, "image", "offset"))
-        image.Composite((MagickImage)arguments["image"], (PointD)arguments["offset"]);
+        image.Composite((IMagickImage)arguments["image"], (PointD)arguments["offset"]);
       else if (OnlyContains(arguments, "image", "offset", "compose"))
-        image.Composite((MagickImage)arguments["image"], (PointD)arguments["offset"], (CompositeOperator)arguments["compose"]);
+        image.Composite((IMagickImage)arguments["image"], (PointD)arguments["offset"], (CompositeOperator)arguments["compose"]);
       else if (OnlyContains(arguments, "image", "offset", "compose", "args"))
-        image.Composite((MagickImage)arguments["image"], (PointD)arguments["offset"], (CompositeOperator)arguments["compose"], (String)arguments["args"]);
+        image.Composite((IMagickImage)arguments["image"], (PointD)arguments["offset"], (CompositeOperator)arguments["compose"], (String)arguments["args"]);
       else if (OnlyContains(arguments, "image", "x", "y"))
-        image.Composite((MagickImage)arguments["image"], (Int32)arguments["x"], (Int32)arguments["y"]);
+        image.Composite((IMagickImage)arguments["image"], (Int32)arguments["x"], (Int32)arguments["y"]);
       else if (OnlyContains(arguments, "image", "x", "y", "compose"))
-        image.Composite((MagickImage)arguments["image"], (Int32)arguments["x"], (Int32)arguments["y"], (CompositeOperator)arguments["compose"]);
+        image.Composite((IMagickImage)arguments["image"], (Int32)arguments["x"], (Int32)arguments["y"], (CompositeOperator)arguments["compose"]);
       else if (OnlyContains(arguments, "image", "x", "y", "compose", "args"))
-        image.Composite((MagickImage)arguments["image"], (Int32)arguments["x"], (Int32)arguments["y"], (CompositeOperator)arguments["compose"], (String)arguments["args"]);
+        image.Composite((IMagickImage)arguments["image"], (Int32)arguments["x"], (Int32)arguments["y"], (CompositeOperator)arguments["compose"], (String)arguments["args"]);
       else
         throw new ArgumentException("Invalid argument combination for 'composite', allowed combinations are: [image] [image, compose] [image, compose, args] [image, gravity] [image, gravity, compose] [image, gravity, compose, args] [image, offset] [image, offset, compose] [image, offset, compose, args] [image, x, y] [image, x, y, compose] [image, x, y, compose, args]");
     }
@@ -2226,21 +2226,21 @@ namespace ImageMagick
         arguments[elem.Name] = CreateMagickImage(elem);
       }
       if (OnlyContains(arguments, "source"))
-        image.CopyPixels((MagickImage)arguments["source"]);
+        image.CopyPixels((IMagickImage)arguments["source"]);
       else if (OnlyContains(arguments, "source", "channels"))
-        image.CopyPixels((MagickImage)arguments["source"], (Channels)arguments["channels"]);
+        image.CopyPixels((IMagickImage)arguments["source"], (Channels)arguments["channels"]);
       else if (OnlyContains(arguments, "source", "geometry"))
-        image.CopyPixels((MagickImage)arguments["source"], (MagickGeometry)arguments["geometry"]);
+        image.CopyPixels((IMagickImage)arguments["source"], (MagickGeometry)arguments["geometry"]);
       else if (OnlyContains(arguments, "source", "geometry", "channels"))
-        image.CopyPixels((MagickImage)arguments["source"], (MagickGeometry)arguments["geometry"], (Channels)arguments["channels"]);
+        image.CopyPixels((IMagickImage)arguments["source"], (MagickGeometry)arguments["geometry"], (Channels)arguments["channels"]);
       else if (OnlyContains(arguments, "source", "geometry", "offset"))
-        image.CopyPixels((MagickImage)arguments["source"], (MagickGeometry)arguments["geometry"], (PointD)arguments["offset"]);
+        image.CopyPixels((IMagickImage)arguments["source"], (MagickGeometry)arguments["geometry"], (PointD)arguments["offset"]);
       else if (OnlyContains(arguments, "source", "geometry", "offset", "channels"))
-        image.CopyPixels((MagickImage)arguments["source"], (MagickGeometry)arguments["geometry"], (PointD)arguments["offset"], (Channels)arguments["channels"]);
+        image.CopyPixels((IMagickImage)arguments["source"], (MagickGeometry)arguments["geometry"], (PointD)arguments["offset"], (Channels)arguments["channels"]);
       else if (OnlyContains(arguments, "source", "geometry", "x", "y"))
-        image.CopyPixels((MagickImage)arguments["source"], (MagickGeometry)arguments["geometry"], (Int32)arguments["x"], (Int32)arguments["y"]);
+        image.CopyPixels((IMagickImage)arguments["source"], (MagickGeometry)arguments["geometry"], (Int32)arguments["x"], (Int32)arguments["y"]);
       else if (OnlyContains(arguments, "source", "geometry", "x", "y", "channels"))
-        image.CopyPixels((MagickImage)arguments["source"], (MagickGeometry)arguments["geometry"], (Int32)arguments["x"], (Int32)arguments["y"], (Channels)arguments["channels"]);
+        image.CopyPixels((IMagickImage)arguments["source"], (MagickGeometry)arguments["geometry"], (Int32)arguments["x"], (Int32)arguments["y"], (Channels)arguments["channels"]);
       else
         throw new ArgumentException("Invalid argument combination for 'copyPixels', allowed combinations are: [source] [source, channels] [source, geometry] [source, geometry, channels] [source, geometry, offset] [source, geometry, offset, channels] [source, geometry, x, y] [source, geometry, x, y, channels]");
     }
@@ -2460,13 +2460,13 @@ namespace ImageMagick
       else if (OnlyContains(arguments, "color", "x", "y", "target"))
         image.FloodFill((MagickColor)arguments["color"], (Int32)arguments["x"], (Int32)arguments["y"], (MagickColor)arguments["target"]);
       else if (OnlyContains(arguments, "image", "coordinate"))
-        image.FloodFill((MagickImage)arguments["image"], (PointD)arguments["coordinate"]);
+        image.FloodFill((IMagickImage)arguments["image"], (PointD)arguments["coordinate"]);
       else if (OnlyContains(arguments, "image", "coordinate", "target"))
-        image.FloodFill((MagickImage)arguments["image"], (PointD)arguments["coordinate"], (MagickColor)arguments["target"]);
+        image.FloodFill((IMagickImage)arguments["image"], (PointD)arguments["coordinate"], (MagickColor)arguments["target"]);
       else if (OnlyContains(arguments, "image", "x", "y"))
-        image.FloodFill((MagickImage)arguments["image"], (Int32)arguments["x"], (Int32)arguments["y"]);
+        image.FloodFill((IMagickImage)arguments["image"], (Int32)arguments["x"], (Int32)arguments["y"]);
       else if (OnlyContains(arguments, "image", "x", "y", "target"))
-        image.FloodFill((MagickImage)arguments["image"], (Int32)arguments["x"], (Int32)arguments["y"], (MagickColor)arguments["target"]);
+        image.FloodFill((IMagickImage)arguments["image"], (Int32)arguments["x"], (Int32)arguments["y"], (MagickColor)arguments["target"]);
       else
         throw new ArgumentException("Invalid argument combination for 'floodFill', allowed combinations are: [alpha, x, y] [color, coordinate] [color, coordinate, target] [color, x, y] [color, x, y, target] [image, coordinate] [image, coordinate, target] [image, x, y] [image, x, y, target]");
     }
@@ -2617,13 +2617,13 @@ namespace ImageMagick
       else if (OnlyContains(arguments, "color", "x", "y", "target"))
         image.InverseFloodFill((MagickColor)arguments["color"], (Int32)arguments["x"], (Int32)arguments["y"], (MagickColor)arguments["target"]);
       else if (OnlyContains(arguments, "image", "coordinate"))
-        image.InverseFloodFill((MagickImage)arguments["image"], (PointD)arguments["coordinate"]);
+        image.InverseFloodFill((IMagickImage)arguments["image"], (PointD)arguments["coordinate"]);
       else if (OnlyContains(arguments, "image", "coordinate", "target"))
-        image.InverseFloodFill((MagickImage)arguments["image"], (PointD)arguments["coordinate"], (MagickColor)arguments["target"]);
+        image.InverseFloodFill((IMagickImage)arguments["image"], (PointD)arguments["coordinate"], (MagickColor)arguments["target"]);
       else if (OnlyContains(arguments, "image", "x", "y"))
-        image.InverseFloodFill((MagickImage)arguments["image"], (Int32)arguments["x"], (Int32)arguments["y"]);
+        image.InverseFloodFill((IMagickImage)arguments["image"], (Int32)arguments["x"], (Int32)arguments["y"]);
       else if (OnlyContains(arguments, "image", "x", "y", "target"))
-        image.InverseFloodFill((MagickImage)arguments["image"], (Int32)arguments["x"], (Int32)arguments["y"], (MagickColor)arguments["target"]);
+        image.InverseFloodFill((IMagickImage)arguments["image"], (Int32)arguments["x"], (Int32)arguments["y"], (MagickColor)arguments["target"]);
       else
         throw new ArgumentException("Invalid argument combination for 'inverseFloodFill', allowed combinations are: [alpha, x, y] [color, coordinate] [color, coordinate, target] [color, x, y] [color, x, y, target] [image, coordinate] [image, coordinate, target] [image, x, y] [image, x, y, target]");
     }
@@ -3548,12 +3548,12 @@ namespace ImageMagick
     }
     private void ExecuteStegano(XmlElement element, IMagickImage image)
     {
-      MagickImage watermark_ = CreateMagickImage(element["watermark"]);
+      IMagickImage watermark_ = CreateMagickImage(element["watermark"]);
       image.Stegano(watermark_);
     }
     private void ExecuteStereo(XmlElement element, IMagickImage image)
     {
-      MagickImage rightImage_ = CreateMagickImage(element["rightImage"]);
+      IMagickImage rightImage_ = CreateMagickImage(element["rightImage"]);
       image.Stereo(rightImage_);
     }
     private static void ExecuteStrip(IMagickImage image)
@@ -3631,9 +3631,9 @@ namespace ImageMagick
         arguments[elem.Name] = CreateMagickImage(elem);
       }
       if (OnlyContains(arguments, "image", "compose"))
-        image.Tile((MagickImage)arguments["image"], (CompositeOperator)arguments["compose"]);
+        image.Tile((IMagickImage)arguments["image"], (CompositeOperator)arguments["compose"]);
       else if (OnlyContains(arguments, "image", "compose", "args"))
-        image.Tile((MagickImage)arguments["image"], (CompositeOperator)arguments["compose"], (String)arguments["args"]);
+        image.Tile((IMagickImage)arguments["image"], (CompositeOperator)arguments["compose"], (String)arguments["args"]);
       else
         throw new ArgumentException("Invalid argument combination for 'tile', allowed combinations are: [image, compose] [image, compose, args]");
     }

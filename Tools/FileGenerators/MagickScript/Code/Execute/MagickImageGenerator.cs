@@ -31,7 +31,7 @@ namespace FileGenerator.MagickScript
     {
       get
       {
-        return "MagickImage image";
+        return "IMagickImage image";
       }
     }
 

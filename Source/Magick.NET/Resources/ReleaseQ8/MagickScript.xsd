@@ -2112,7 +2112,7 @@
         </xs:element>
         <xs:element name="alpha">
           <xs:complexType>
-            <xs:attribute name="option" use="required" type="AlphaOption" />
+            <xs:attribute name="value" use="required" type="AlphaOption" />
           </xs:complexType>
         </xs:element>
         <xs:element name="annotate">

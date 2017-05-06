@@ -140,7 +140,7 @@ namespace FileGenerator.MagickScript
         case "IEnumerable<String>":
         case "ImageProfile":
         case "IReadDefines":
-        case "MagickImage":
+        case "IMagickImage":
         case "MagickSettings":
         case "MontageSettings":
         case "MorphologySettings":
@@ -199,7 +199,7 @@ namespace FileGenerator.MagickScript
           return "sparseColorArgs";
         case "ImageProfile":
           return "profile";
-        case "MagickImage":
+        case "IMagickImage":
           return "image";
         default:
           return null;
@@ -208,7 +208,7 @@ namespace FileGenerator.MagickScript
 
     private static bool HasSupportedResult(MethodInfo method)
     {
-      if (method.ReturnType.Name != "MagickImage")
+      if (method.ReturnType.Name != "IMagickImage")
         return false;
 
       return IsSupportedMethod(method);
@@ -287,12 +287,12 @@ namespace FileGenerator.MagickScript
         case "Double[]":
         case "IDefines":
         case "ImageProfile":
+        case "IMagickImage":
         case "Int32":
         case "IPath":
         case "IReadDefines":
         case "MagickColor":
         case "MagickGeometry":
-        case "MagickImage":
         case "MagickReadSettings":
         case "MagickSettings":
         case "MontageSettings":
@@ -313,10 +313,10 @@ namespace FileGenerator.MagickScript
         case "MagickColorMatrix":
         case "ConvolveMatrix":
         case "DrawableAffine":
-        case "IEnumerable<MagickImage>":
+        case "IEnumerable<IMagickImage>":
         case "IPath[]":
-        case "MagickImage[]":
-        case "MagickImageCollection":
+        case "IMagickImage[]":
+        case "IMagickImageCollection":
         case "Matrix":
         case "PathArc[]":
         case "PointD[]":
