@@ -17,6 +17,7 @@ using System.IO;
 
 namespace Magick.NET.Tests
 {
+  [ExcludeFromCodeCoverage]
   public class TemporaryFile : IDisposable
   {
     private FileInfo _TempFile;
