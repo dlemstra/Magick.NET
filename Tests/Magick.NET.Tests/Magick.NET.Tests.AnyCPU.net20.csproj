@@ -197,7 +197,10 @@
     <Compile Include="Core\Exceptions\MagickExceptionTests.cs" />
     <Compile Include="Core\Helpers\EnumHelperTests.cs" />
     <Compile Include="Core\Helpers\StreamWrapperTests.cs" />
+    <Compile Include="Core\MagickFactoryTests.cs" />
     <Compile Include="Core\Profiles\Exif\ExifReaderTests.cs" />
+    <Compile Include="Framework\MagickFactoryTests.cs" />
+    <Compile Include="Helpers\TemporaryFile.cs" />
     <Compile Include="Helpers\WriteExceptionStream.cs" />
     <Compile Include="Helpers\ReadExceptionStream.cs" />
     <Compile Include="Helpers\SeekExceptionStream.cs" />

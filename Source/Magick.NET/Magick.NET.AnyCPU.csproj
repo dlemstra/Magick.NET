@@ -129,9 +129,11 @@
     <Compile Include="Core\Extensions\IMagickImageExtensions.cs" />
     <Compile Include="Core\Extensions\INativeInstanceExtensions.cs" />
     <Compile Include="Core\Helpers\StreamWrapper.cs" />
+    <Compile Include="Core\IMagickFactory.cs" />
     <Compile Include="Core\IMagickImageCollection.cs" />
     <Compile Include="Core\IMagickImageInfo.cs" />
     <Compile Include="Core\IMagickImage.cs" />
+    <Compile Include="Core\MagickFactory.cs" />
     <Compile Include="Core\Types\Bytes.cs" />
     <Compile Include="Framework\Colors\ColorRGB.cs" />
     <Compile Include="Framework\Colors\MagickColor.cs" />
@@ -360,8 +362,10 @@
     <Compile Include="Core\MagickImage.cs" />
     <Compile Include="Core\MagickImageCollection.cs" />
     <Compile Include="Core\MagickImageInfo.cs" />
+    <Compile Include="Framework\IMagickFactory.cs" />
     <Compile Include="Framework\IMagickImageCollection.cs" />
     <Compile Include="Framework\IMagickImage.cs" />
+    <Compile Include="Framework\MagickFactory.cs" />
     <Compile Include="Native\Helpers\Environment.cs" />
     <Compile Include="Native\OpenCL\OpenCL.cs" />
     <Compile Include="Native\OpenCL\OpenCLDevice.cs" />
