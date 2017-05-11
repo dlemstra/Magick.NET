@@ -237,12 +237,12 @@ namespace ImageMagick
     /// </summary>
     /// <param name="images">The images to add to the collection.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public MagickImageCollection(IEnumerable<MagickImage> images)
+    public MagickImageCollection(IEnumerable<IMagickImage> images)
       : this()
     {
       Throw.IfNull(nameof(images), images);
 
-      foreach (MagickImage image in images)
+      foreach (IMagickImage image in images)
       {
         Add(image);
       }
