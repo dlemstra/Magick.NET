@@ -5,7 +5,7 @@
   You may not use this file except in compliance with the License.
   obtain a copy of the License at
   
-    http://www.imagemagick.org/script/license.php
+    https://www.imagemagick.org/script/license.php
   
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,6 +20,18 @@
 
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
+#endif
+
+#if defined(MAGICKCORE_ZERO_CONFIGURATION_SUPPORT)
+/*
+  Zero configuration security policy.  Discussion @
+  https://www.imagemagick.org/script/security-policy.php.
+*/
+static const char
+  *ZeroConfigurationPolicy = \
+"<policymap> \
+  <policy domain=\"system\" name=\"precision\" value=\"6\"/> \
+</policymap>";
 #endif
 
 extern MagickPrivate MagickBooleanType

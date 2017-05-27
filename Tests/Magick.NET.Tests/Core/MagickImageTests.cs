@@ -2564,7 +2564,7 @@ namespace Magick.NET.Tests
 #if Q8
         ColorAssert.AreEqual(new MagickColor("#ff00ffbc"), image, 146, 194);
 #elif Q16 || Q16HDRI
-        ColorAssert.AreEqual(new MagickColor("#ffff0000ffffbbe5"), image, 146, 194);
+        ColorAssert.AreEqual(new MagickColor("#ffff0000ffffbbb6"), image, 146, 194);
 #else
 #error Not implemented!
 #endif
@@ -3314,9 +3314,9 @@ namespace Magick.NET.Tests
           pixel = pixels.GetPixel(34, 55);
 
 #if Q8
-          Assert.AreEqual(72, pixel.ToColor().A);
+          Assert.AreEqual(68, pixel.ToColor().A);
 #elif Q16 || Q16HDRI
-          Assert.AreEqual(18096, (int)pixel.ToColor().A);
+          Assert.AreEqual(17077, (int)pixel.ToColor().A);
 #else
 #error Not implemented!
 #endif
@@ -3362,11 +3362,11 @@ namespace Magick.NET.Tests
 
 #if Q8
         ColorAssert.AreEqual(MagickColors.Firebrick, image, 45, 6);
-        ColorAssert.AreEqual(new MagickColor("#7e7e7efd"), image, 98, 86);
+        ColorAssert.AreEqual(new MagickColor("#807b7bff"), image, 98, 86);
         ColorAssert.AreEqual(MagickColors.Firebrick, image, 158, 181);
 #elif Q16 || Q16HDRI
         ColorAssert.AreEqual(MagickColors.Firebrick, image, 45, 6);
-        ColorAssert.AreEqual(new MagickColor("#7e907e907e90fd57"), image, 98, 86);
+        ColorAssert.AreEqual(new MagickColor("#80a27ac17ac1ffff"), image, 98, 86);
         ColorAssert.AreEqual(MagickColors.Firebrick, image, 158, 181);
 #else
 #error Not implemented!

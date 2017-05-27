@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
 
         image.Read(Files.Logos.MagickNETSVG, settings);
 
-        Assert.AreEqual(415, image.Width);
+        Assert.AreEqual(416, image.Width);
         Assert.AreEqual(200, image.Height);
 
         settings.Width = 300;
