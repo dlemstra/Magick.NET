@@ -28,7 +28,11 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("7.0.0.0")]
 [assembly: AssemblyFileVersion("7.0.5.502")]
 [assembly: ComVisible(false)]
+#if Q16
+[assembly: CLSCompliant(false)]
+#else
 [assembly: CLSCompliant(true)]
+#endif
 
 #if Q8
 [assembly: InternalsVisibleTo("Magick.NET.Core-Q8.Tests, PublicKey=" +
