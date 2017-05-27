@@ -1,6 +1,6 @@
 # Breaking changes.
 
-### Magick.NET 7.0.5.?:
+### Magick.NET 7.0.5.800:
  - Fixed the property names of DrawableRoundRectangle.
  - The Q16 version is no longer CLS compliant.
  - Changed uint methods in PixelCollection to an int and removed the ushort methods.
