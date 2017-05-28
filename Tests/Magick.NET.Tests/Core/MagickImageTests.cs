@@ -3316,7 +3316,7 @@ namespace Magick.NET.Tests
 #if Q8
           Assert.AreEqual(68, pixel.ToColor().A);
 #elif Q16 || Q16HDRI
-          Assert.AreEqual(17077, (int)pixel.ToColor().A);
+          Assert.AreEqual(17077, (double)pixel.ToColor().A, 1);
 #else
 #error Not implemented!
 #endif
