@@ -11,6 +11,7 @@
     <iconUrl>http://download-codeplex.sec.s-msft.com/Download/SourceControlFileDownload.ashx?ProjectName=magick&amp;changeSetId=752622e7b2e069b698a47df994dd4aaaf1d8aebe&amp;itemId=Magick.NET.Tests%2fImages%2fMagick.NET.icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>This package contains a httpmodule that uses various handlers to script/optimize/compress images.</description>
+    <releaseNotes/>
     <copyright>Copyright 2013-2017 Dirk Lemstra</copyright>
     <tags>ImageMagick Magick.NET Image Convert Resize Draw Effects</tags>
     <dependencies>

@@ -53,34 +53,6 @@ function CheckStrongNames($builds)
   }
 }
 
-function GetImageMagickVersion()
-{
-  $versionPath = FullPath "ImageMagick\Include\MagickCore\version.h"
-  $lines = [IO.File]::ReadAllLines($versionPath, [System.Text.Encoding]::UTF8)
-
-  $version = "0.0.0"
-  $addendum = "--0"
-  foreach ($line in $lines)
-  {
-    if ($line.StartsWith("#define MagickLibVersionText  "))
-    {
-      $version = $line.Replace("""","").SubString(30);
-    }
-    elseif ($line.StartsWith("#define MagickLibAddendum  "))
-    {
-      $addendum = $line.Replace("""","").SubString(27);
-    }
-  }
-
-  if (("$version" -eq "0.0.0") -or ("$addendum" -eq "--0"))
-  {
-    Write-Error "Unable to find ImageMagickVersion"
-    Exit
-  }
-
-  return "$version$addendum"
-}
-
 function CreateNuGetPackage($id, $version, $build)
 {
   $path = FullPath "Publish\NuGet\Magick.NET.nuspec"
@@ -91,9 +63,6 @@ function CreateNuGetPackage($id, $version, $build)
   {
     $platform = "Win32"
   }
-
-  $imVersion = GetImageMagickVersion
-  $xml.package.metadata.releaseNotes = "Magick.NET linked with ImageMagick " + $imVersion
 
   AddFileElement $xml "..\..\Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform).net20\Magick.NET-$($build.Quantum)-$($build.Platform).dll" "lib\net20"
   AddFileElement $xml "..\..\Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform).net20\Magick.NET-$($build.Quantum)-$($build.Platform).xml" "lib\net20"
@@ -125,7 +94,7 @@ function CreateNuGetPackage($id, $version, $build)
   WriteNuGetPackage $webId $version $xml
 }
 
-function SetVersion($content, $startMatch, $endMatch, $version)
+function SetValue($content, $startMatch, $endMatch, $value)
 {
   $start = $content.IndexOf($startMatch)
   if ($start -eq -1)
@@ -137,7 +106,7 @@ function SetVersion($content, $startMatch, $endMatch, $version)
   $start += $startMatch.Length
 
   $newContent = $content.Substring(0, $start)
-  $newContent += $version
+  $newContent += $value
 
   $start = $content.IndexOf($endMatch, $start)
   if ($start -eq -1)
@@ -154,7 +123,7 @@ function UpdateAssemblyInfo($fileName, $version)
 {
   $path = FullPath $fileName
   $content = [IO.File]::ReadAllText($path, [System.Text.Encoding]::Default)
-  $content = SetVersion $content "AssemblyFileVersion(`"" "`"" $version
+  $content = SetValue $content "AssemblyFileVersion(`"" "`"" $version
   [IO.File]::WriteAllText($path, $content, [System.Text.Encoding]::Default)
 }
 
@@ -170,7 +139,9 @@ function UpdateCoreProject($directory, $version)
   $path = FullPath "Publish\Magick.NET.Core\src\$directory\$directory.csproj"
 
   $content = [IO.File]::ReadAllText($path, [System.Text.Encoding]::Default)
-  $content = SetVersion $content "`<VersionPrefix`>" "`<" $version
+  $content = SetValue $content "`<VersionPrefix`>" "`<" $version
+  $content = SetValue $content "`<PackageReleaseNotes`>" "`<" "https://github.com/dlemstra/Magick.NET/releases/tag/$version"
+
   [IO.File]::WriteAllText($path, $content, [System.Text.Encoding]::Default)
 }
 
@@ -187,11 +158,11 @@ function UpdateCoreProjects($version)
 function UpdateResourceFile($fileName, $version)
 {
   $content = [IO.File]::ReadAllText($fileName, [System.Text.Encoding]::Unicode)
-  $content = SetVersion $content "FILEVERSION " `r $version.Replace('.', ',')
-  $content = SetVersion $content "PRODUCTVERSION " `r $version.Replace('.', ',')
-  $content = SetVersion $content "`"FileVersion`", `""  "`"" $version
-  $content = SetVersion $content "`"ProductVersion`", `"" "`"" $version
-  $content = SetVersion $content "`"LegalCopyright`", `"" "`"" "Copyright © Dirk Lemstra $((Get-Date).year)"
+  $content = SetValue $content "FILEVERSION " `r $version.Replace('.', ',')
+  $content = SetValue $content "PRODUCTVERSION " `r $version.Replace('.', ',')
+  $content = SetValue $content "`"FileVersion`", `""  "`"" $version
+  $content = SetValue $content "`"ProductVersion`", `"" "`"" $version
+  $content = SetValue $content "`"LegalCopyright`", `"" "`"" "Copyright © Dirk Lemstra $((Get-Date).year)"
 
   [IO.File]::WriteAllText($fileName, $content, [System.Text.Encoding]::Unicode)
 }
@@ -229,6 +200,7 @@ function WriteNuGetPackage($id, $version, $xml)
   $xml.package.metadata.id = $id
   $xml.package.metadata.title = $id
   $xml.package.metadata.version = $version
+  $xml.package.metadata.releaseNotes = "https://github.com/dlemstra/Magick.NET/releases/tag/$version"
 
   $dir = FullPath "Publish\NuGet"
   $nuspecFile = "$dir\$id.nuspec"
