@@ -65,6 +65,33 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{26CCDA
 		Tools\Scripts\Shared\Publish.ps1 = Tools\Scripts\Shared\Publish.ps1
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{11769011-307E-4D06-8023-4BA1C1FAE3AB}"
+	ProjectSection(SolutionItems) = preProject
+		ImageMagick\Source\BuildAll.cmd = ImageMagick\Source\BuildAll.cmd
+		ImageMagick\Source\Checkout.cmd = ImageMagick\Source\Checkout.cmd
+		ImageMagick\Source\Checkout.sh = ImageMagick\Source\Checkout.sh
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Debug", "Debug", "{EE2D8A24-038F-4609-B258-08FB13D59DB0}"
+	ProjectSection(SolutionItems) = preProject
+		ImageMagick\Source\Debug\Build.Q16-HDRI.x64.cmd = ImageMagick\Source\Debug\Build.Q16-HDRI.x64.cmd
+		ImageMagick\Source\Debug\Build.Q16-HDRI.x86.cmd = ImageMagick\Source\Debug\Build.Q16-HDRI.x86.cmd
+		ImageMagick\Source\Debug\Build.Q16.x64.cmd = ImageMagick\Source\Debug\Build.Q16.x64.cmd
+		ImageMagick\Source\Debug\Build.Q16.x86.cmd = ImageMagick\Source\Debug\Build.Q16.x86.cmd
+		ImageMagick\Source\Debug\Build.Q8.x64.cmd = ImageMagick\Source\Debug\Build.Q8.x64.cmd
+		ImageMagick\Source\Debug\Build.Q8.x86.cmd = ImageMagick\Source\Debug\Build.Q8.x86.cmd
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Development", "Development", "{0B4E3960-67CD-4C97-B1C5-D34F44A6BAF5}"
+	ProjectSection(SolutionItems) = preProject
+		ImageMagick\Source\Development\Build.Q16-HDRI.x64.cmd = ImageMagick\Source\Development\Build.Q16-HDRI.x64.cmd
+		ImageMagick\Source\Development\Build.Q16-HDRI.x86.cmd = ImageMagick\Source\Development\Build.Q16-HDRI.x86.cmd
+		ImageMagick\Source\Development\Build.Q16.x64.cmd = ImageMagick\Source\Development\Build.Q16.x64.cmd
+		ImageMagick\Source\Development\Build.Q16.x86.cmd = ImageMagick\Source\Development\Build.Q16.x86.cmd
+		ImageMagick\Source\Development\Build.Q8.x64.cmd = ImageMagick\Source\Development\Build.Q8.x64.cmd
+		ImageMagick\Source\Development\Build.Q8.x86.cmd = ImageMagick\Source\Development\Build.Q8.x86.cmd
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		DebugQ16|x64 = DebugQ16|x64
@@ -256,5 +283,7 @@ Global
 		{51C291AD-9793-4FE4-A5AD-6ECA2E27521A} = {642B2576-373D-4B84-A3C0-F6F9AC2A23D5}
 		{AE557530-5126-4B61-B2DD-4C28BC05C391} = {8375C997-426E-4E39-AFFF-FFE8D97CB328}
 		{26CCDA13-7FA2-42A0-9944-FA727533FF55} = {8375C997-426E-4E39-AFFF-FFE8D97CB328}
+		{EE2D8A24-038F-4609-B258-08FB13D59DB0} = {11769011-307E-4D06-8023-4BA1C1FAE3AB}
+		{0B4E3960-67CD-4C97-B1C5-D34F44A6BAF5} = {11769011-307E-4D06-8023-4BA1C1FAE3AB}
 	EndGlobalSection
 EndGlobal
