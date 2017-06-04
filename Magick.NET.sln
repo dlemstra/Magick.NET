@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magick.NET", "Source\Magick.NET\Magick.NET.csproj", "{DAAE3844-6435-4912-8F69-9F7A9242B4AC}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -15,6 +15,55 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magick.NET.Web", "Source\Magick.NET.Web\Magick.NET.Web.csproj", "{FAEF6535-4D08-4538-89DC-EE56176F6803}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magick.NET.Samples", "Samples\Magick.NET.Samples\Magick.NET.Samples.csproj", "{F5A76C84-4735-4741-8534-8D38EBD3B844}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{642B2576-373D-4B84-A3C0-F6F9AC2A23D5}"
+	ProjectSection(SolutionItems) = preProject
+		Tools\GenerateAnyCPU.cmd = Tools\GenerateAnyCPU.cmd
+		Tools\GenerateMagickScript.cmd = Tools\GenerateMagickScript.cmd
+		Tools\GenerateNative.cmd = Tools\GenerateNative.cmd
+		Tools\GenerateNet20.cmd = Tools\GenerateNet20.cmd
+		Tools\GenerateProjectFiles.cmd = Tools\GenerateProjectFiles.cmd
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{8375C997-426E-4E39-AFFF-FFE8D97CB328}"
+	ProjectSection(SolutionItems) = preProject
+		Tools\Scripts\AnyCPU.ps1 = Tools\Scripts\AnyCPU.ps1
+		Tools\Scripts\BuildCore.ps1 = Tools\Scripts\BuildCore.ps1
+		Tools\Scripts\BuildLibraries.ps1 = Tools\Scripts\BuildLibraries.ps1
+		Tools\Scripts\GenerateLibrariesDoc.ps1 = Tools\Scripts\GenerateLibrariesDoc.ps1
+		Tools\Scripts\GenerateMagickScript.ps1 = Tools\Scripts\GenerateMagickScript.ps1
+		Tools\Scripts\GenerateNative.ps1 = Tools\Scripts\GenerateNative.ps1
+		Tools\Scripts\Net20.ps1 = Tools\Scripts\Net20.ps1
+		Tools\Scripts\ProjectFiles.ps1 = Tools\Scripts\ProjectFiles.ps1
+		Tools\Scripts\Publish.ps1 = Tools\Scripts\Publish.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppVeyor", "AppVeyor", "{51C291AD-9793-4FE4-A5AD-6ECA2E27521A}"
+	ProjectSection(SolutionItems) = preProject
+		Tools\AppVeyor\Build.cmd = Tools\AppVeyor\Build.cmd
+		Tools\AppVeyor\CodeCoverage.cmd = Tools\AppVeyor\CodeCoverage.cmd
+		Tools\AppVeyor\Install.cmd = Tools\AppVeyor\Install.cmd
+		Tools\AppVeyor\Publish.cmd = Tools\AppVeyor\Publish.cmd
+		Tools\AppVeyor\Test.cmd = Tools\AppVeyor\Test.cmd
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppVeyor", "AppVeyor", "{AE557530-5126-4B61-B2DD-4C28BC05C391}"
+	ProjectSection(SolutionItems) = preProject
+		Tools\Scripts\AppVeyor\Build.ps1 = Tools\Scripts\AppVeyor\Build.ps1
+		Tools\Scripts\AppVeyor\InstallGhostscript.ps1 = Tools\Scripts\AppVeyor\InstallGhostscript.ps1
+		Tools\Scripts\AppVeyor\Publish.ps1 = Tools\Scripts\AppVeyor\Publish.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{26CCDA13-7FA2-42A0-9944-FA727533FF55}"
+	ProjectSection(SolutionItems) = preProject
+		Tools\Scripts\Shared\Build.ps1 = Tools\Scripts\Shared\Build.ps1
+		Tools\Scripts\Shared\Config.ps1 = Tools\Scripts\Shared\Config.ps1
+		Tools\Scripts\Shared\FileGenerator.ps1 = Tools\Scripts\Shared\FileGenerator.ps1
+		Tools\Scripts\Shared\Functions.ps1 = Tools\Scripts\Shared\Functions.ps1
+		Tools\Scripts\Shared\GzipAssembly.ps1 = Tools\Scripts\Shared\GzipAssembly.ps1
+		Tools\Scripts\Shared\ProjectFiles.ps1 = Tools\Scripts\Shared\ProjectFiles.ps1
+		Tools\Scripts\Shared\Publish.ps1 = Tools\Scripts\Shared\Publish.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -201,5 +250,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8375C997-426E-4E39-AFFF-FFE8D97CB328} = {642B2576-373D-4B84-A3C0-F6F9AC2A23D5}
+		{51C291AD-9793-4FE4-A5AD-6ECA2E27521A} = {642B2576-373D-4B84-A3C0-F6F9AC2A23D5}
+		{AE557530-5126-4B61-B2DD-4C28BC05C391} = {8375C997-426E-4E39-AFFF-FFE8D97CB328}
+		{26CCDA13-7FA2-42A0-9944-FA727533FF55} = {8375C997-426E-4E39-AFFF-FFE8D97CB328}
 	EndGlobalSection
 EndGlobal
