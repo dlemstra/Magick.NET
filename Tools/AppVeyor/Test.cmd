@@ -1,5 +1,5 @@
 @echo off
-call "%vs140comntools%vsvars32.bat"
+call "..\VsDevCmd.cmd"
 
 set platform="%1"
 if "%1" == "AnyCPU" (

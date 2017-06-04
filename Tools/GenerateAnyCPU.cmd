@@ -1,4 +1,4 @@
 @echo off
-call "%vs140comntools%vsvars32.bat"
+call "VsDevCmd.cmd"
 powershell -ExecutionPolicy Unrestricted .\Scripts\AnyCPU.ps1
 pause

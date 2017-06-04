@@ -1,5 +1,5 @@
 @echo off
-call "%vs140comntools%vsvars32.bat"
+call "..\VsDevCmd.cmd"
 
 if not "%1" == "Q8" goto skip
 if not "%2" == "x86" goto skip

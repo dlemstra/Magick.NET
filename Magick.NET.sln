@@ -23,6 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{642B2576
 		Tools\GenerateNative.cmd = Tools\GenerateNative.cmd
 		Tools\GenerateNet20.cmd = Tools\GenerateNet20.cmd
 		Tools\GenerateProjectFiles.cmd = Tools\GenerateProjectFiles.cmd
+		Tools\VsDevCmd.cmd = Tools\VsDevCmd.cmd
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{8375C997-426E-4E39-AFFF-FFE8D97CB328}"

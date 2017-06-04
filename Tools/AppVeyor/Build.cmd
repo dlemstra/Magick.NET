@@ -1,5 +1,5 @@
 @echo off
-call "%vs140comntools%vsvars32.bat"
+call "..\VsDevCmd.cmd"
 
 set LIBDIR=C:\Magick.NET.libs
 set TARGET=C:\Magick.NET\ImageMagick

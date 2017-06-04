@@ -1,6 +1,6 @@
 @echo off
 
-call "%vs140comntools%vsvars32.bat"
+call "..\..\..\Tools\VsDevCmd.cmd"
 powershell -ExecutionPolicy Unrestricted ..\..\..\Tools\Scripts\BuildLibraries.ps1 -dev Q16.x86 -configuration Debug
 
 pause
