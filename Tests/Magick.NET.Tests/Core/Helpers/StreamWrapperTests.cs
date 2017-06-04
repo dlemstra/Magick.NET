@@ -44,6 +44,11 @@ namespace Magick.NET.Tests.Core.Helpers
         }, "stream", "readable");
       }
 
+      using (TestStream stream = new TestStream(true, true, true))
+      {
+        StreamWrapper.CreateForReading(stream);
+      }
+
       using (TestStream stream = new TestStream(true, false, true))
       {
         ExceptionAssert.ThrowsArgumentException(() =>
@@ -54,10 +59,7 @@ namespace Magick.NET.Tests.Core.Helpers
 
       using (TestStream stream = new TestStream(false, true, true))
       {
-        ExceptionAssert.ThrowsArgumentException(() =>
-        {
-          StreamWrapper.CreateForWriting(stream);
-        }, "stream", "readable");
+        StreamWrapper.CreateForWriting(stream);
       }
     }
 

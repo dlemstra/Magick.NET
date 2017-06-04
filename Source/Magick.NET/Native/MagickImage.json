@@ -2859,10 +2859,6 @@
           "type": "MagickSettings"
         },
         {
-          "name": "reader",
-          "type": "ReadWriteStreamDelegate"
-        },
-        {
           "name": "writer",
           "type": "ReadWriteStreamDelegate"
         },

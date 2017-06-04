@@ -507,4 +507,4 @@ MAGICK_NET_EXPORT void MagickImage_WhiteThreshold(Image *, const char *, const s
 
 MAGICK_NET_EXPORT void MagickImage_WriteFile(Image *, const ImageInfo *, ExceptionInfo **);
 
-MAGICK_NET_EXPORT void MagickImage_WriteStream(Image *, ImageInfo *, const CustomStreamHandler, const CustomStreamHandler, const CustomStreamSeeker, const CustomStreamTeller, ExceptionInfo **);
+MAGICK_NET_EXPORT void MagickImage_WriteStream(Image *, ImageInfo *, const CustomStreamHandler, const CustomStreamSeeker, const CustomStreamTeller, ExceptionInfo **);

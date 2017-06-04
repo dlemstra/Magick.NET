@@ -6864,7 +6864,6 @@ namespace ImageMagick
 
       using (StreamWrapper wrapper = StreamWrapper.CreateForWriting(stream))
       {
-        ReadWriteStreamDelegate readStream = new ReadWriteStreamDelegate(wrapper.Read);
         ReadWriteStreamDelegate writeStream = new ReadWriteStreamDelegate(wrapper.Write);
         SeekStreamDelegate seekStream = null;
         TellStreamDelegate tellStream = null;
@@ -6874,7 +6873,7 @@ namespace ImageMagick
           tellStream = new TellStreamDelegate(wrapper.Tell);
         }
 
-        _NativeInstance.WriteStream(Settings, readStream, writeStream, seekStream, tellStream);
+        _NativeInstance.WriteStream(Settings, writeStream, seekStream, tellStream);
       }
     }
 

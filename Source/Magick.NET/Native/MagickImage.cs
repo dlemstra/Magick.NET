@@ -583,7 +583,7 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_WriteFile(IntPtr Instance, IntPtr settings, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickImage_WriteStream(IntPtr Instance, IntPtr settings, ReadWriteStreamDelegate reader, ReadWriteStreamDelegate writer, SeekStreamDelegate seeker, TellStreamDelegate teller, out IntPtr exception);
+        public static extern void MagickImage_WriteStream(IntPtr Instance, IntPtr settings, ReadWriteStreamDelegate writer, SeekStreamDelegate seeker, TellStreamDelegate teller, out IntPtr exception);
       }
       #endif
       #if !WIN64 || ANYCPU
@@ -1128,7 +1128,7 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_WriteFile(IntPtr Instance, IntPtr settings, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickImage_WriteStream(IntPtr Instance, IntPtr settings, ReadWriteStreamDelegate reader, ReadWriteStreamDelegate writer, SeekStreamDelegate seeker, TellStreamDelegate teller, out IntPtr exception);
+        public static extern void MagickImage_WriteStream(IntPtr Instance, IntPtr settings, ReadWriteStreamDelegate writer, SeekStreamDelegate seeker, TellStreamDelegate teller, out IntPtr exception);
       }
       #endif
     }
@@ -6181,7 +6181,7 @@ namespace ImageMagick
           CheckException(exception);
         }
       }
-      public void WriteStream(MagickSettings settings, ReadWriteStreamDelegate reader, ReadWriteStreamDelegate writer, SeekStreamDelegate seeker, TellStreamDelegate teller)
+      public void WriteStream(MagickSettings settings, ReadWriteStreamDelegate writer, SeekStreamDelegate seeker, TellStreamDelegate teller)
       {
         using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
         {
@@ -6190,13 +6190,13 @@ namespace ImageMagick
           if (NativeLibrary.Is64Bit)
           #endif
           #if WIN64 || ANYCPU
-          NativeMethods.X64.MagickImage_WriteStream(Instance, settingsNative.Instance, reader, writer, seeker, teller, out exception);
+          NativeMethods.X64.MagickImage_WriteStream(Instance, settingsNative.Instance, writer, seeker, teller, out exception);
           #endif
           #if ANYCPU
           else
           #endif
           #if !WIN64 || ANYCPU
-          NativeMethods.X86.MagickImage_WriteStream(Instance, settingsNative.Instance, reader, writer, seeker, teller, out exception);
+          NativeMethods.X86.MagickImage_WriteStream(Instance, settingsNative.Instance, writer, seeker, teller, out exception);
           #endif
           CheckException(exception);
         }

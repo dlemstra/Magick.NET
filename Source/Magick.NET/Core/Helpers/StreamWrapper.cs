@@ -70,7 +70,6 @@ namespace ImageMagick
     public static StreamWrapper CreateForWriting(Stream stream)
     {
       Throw.IfFalse(nameof(stream), stream.CanWrite, "The stream should be writeable.");
-      Throw.IfFalse(nameof(stream), stream.CanRead, "The stream should be readable.");
 
       return new StreamWrapper(stream);
     }
