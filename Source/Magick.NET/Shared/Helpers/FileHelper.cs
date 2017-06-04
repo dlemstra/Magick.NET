@@ -1,7 +1,7 @@
 ﻿//=================================================================================================
 // Copyright 2013-2017 Dirk Lemstra <https://magick.codeplex.com/>
 //
-// Licensed under the ImageMagick License (the "License"); you may not use this file except in 
+// Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
 //
 //   http://www.imagemagick.org/script/license.php
@@ -13,15 +13,19 @@
 //=================================================================================================
 
 using System.IO;
-using System.Threading.Tasks;
 
 namespace ImageMagick
 {
   internal static partial class FileHelper
   {
-    public static string CheckForBaseDirectory(string fileName)
+    public static string GetFullPath(string path)
     {
-      return fileName;
+      Throw.IfNullOrEmpty(nameof(path), path);
+
+      path = CheckForBaseDirectory(path);
+      path = Path.GetFullPath(path);
+      Throw.IfFalse(nameof(path), Directory.Exists(path), "Unable to find directory: {0}", path);
+      return path;
     }
   }
 }

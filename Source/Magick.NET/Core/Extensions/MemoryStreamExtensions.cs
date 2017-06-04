@@ -1,7 +1,7 @@
-﻿//=================================================================================================
+//=================================================================================================
 // Copyright 2013-2017 Dirk Lemstra <https://magick.codeplex.com/>
 //
-// Licensed under the ImageMagick License (the "License"); you may not use this file except in 
+// Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
 //
 //   http://www.imagemagick.org/script/license.php
@@ -12,10 +12,24 @@
 // limitations under the License.
 //=================================================================================================
 
-namespace System
+#if NETSTANDARD1_3
+
+using System;
+using System.IO;
+
+namespace ImageMagick
 {
-  [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum | AttributeTargets.Delegate, Inherited = false)]
-  internal sealed class SerializableAttribute : Attribute
+  internal static class MemoryStreamExtensions
   {
+    internal static byte[] GetBuffer(this MemoryStream memStream)
+    {
+      ArraySegment<byte> buffer;
+      if (!memStream.TryGetBuffer(out buffer))
+        return memStream.ToArray();
+
+      return buffer.Array;
+    }
   }
 }
+
+#endif

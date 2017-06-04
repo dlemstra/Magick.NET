@@ -1,4 +1,4 @@
-//=================================================================================================
+﻿//=================================================================================================
 // Copyright 2013-2017 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
@@ -12,20 +12,14 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
-using System.IO;
+#if NETSTANDARD1_3
 
-namespace ImageMagick
+namespace System
 {
-  internal static class MemoryStreamExtensions
+  [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum | AttributeTargets.Delegate, Inherited = false)]
+  internal sealed class SerializableAttribute : Attribute
   {
-    internal static byte[] GetBuffer(this MemoryStream memStream)
-    {
-      ArraySegment<byte> buffer;
-      if (!memStream.TryGetBuffer(out buffer))
-        return memStream.ToArray();
-
-      return buffer.Array;
-    }
   }
 }
+
+#endif

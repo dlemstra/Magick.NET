@@ -12,20 +12,20 @@
 // limitations under the License.
 //=================================================================================================
 
+#if NETSTANDARD1_3
+
 using System.IO;
+using System.Threading.Tasks;
 
 namespace ImageMagick
 {
   internal static partial class FileHelper
   {
-    public static string GetFullPath(string path)
+    public static string CheckForBaseDirectory(string fileName)
     {
-      Throw.IfNullOrEmpty(nameof(path), path);
-
-      path = CheckForBaseDirectory(path);
-      path = Path.GetFullPath(path);
-      Throw.IfFalse(nameof(path), Directory.Exists(path), "Unable to find directory: {0}", path);
-      return path;
+      return fileName;
     }
   }
 }
+
+#endif
