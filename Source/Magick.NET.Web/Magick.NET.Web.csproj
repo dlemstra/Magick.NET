@@ -1,245 +1,82 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FAEF6535-4D08-4538-89DC-EE56176F6803}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ImageMagick.Web</RootNamespace>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseQ8|x86' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\ReleaseQ8\x86\</OutputPath>
-    <DefineConstants>TRACE;Q8</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <PlatformTarget>x86</PlatformTarget>
-    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
-    <AssemblyName>Magick.NET.Web-Q8-x86</AssemblyName>
-    <DocumentationFile>bin\ReleaseQ8\x86\Magick.NET.Web-Q8-x86.xml</DocumentationFile>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseQ8|x64' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\ReleaseQ8\x64\</OutputPath>
-    <DefineConstants>TRACE;_M_X64;Q8</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <PlatformTarget>x64</PlatformTarget>
-    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
-    <AssemblyName>Magick.NET.Web-Q8-x64</AssemblyName>
-    <DocumentationFile>bin\ReleaseQ8\x64\Magick.NET.Web-Q8-x64.xml</DocumentationFile>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|x86'">
-    <OutputPath>bin\ReleaseQ16\x86\</OutputPath>
-    <DefineConstants>TRACE;CODE_ANALYSIS;Q16</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
-    <AssemblyName>Magick.NET.Web-Q16-x86</AssemblyName>
-    <DocumentationFile>bin\ReleaseQ16\x86\Magick.NET.Web-Q16-x86.xml</DocumentationFile>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|x64'">
-    <OutputPath>bin\ReleaseQ16\x64\</OutputPath>
-    <DefineConstants>TRACE;CODE_ANALYSIS;_M_X64;Q16</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
-    <AssemblyName>Magick.NET.Web-Q16-x64</AssemblyName>
-    <DocumentationFile>bin\ReleaseQ16\x64\Magick.NET.Web-Q16-x64.xml</DocumentationFile>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x86'">
-    <OutputPath>bin\ReleaseQ16-HDRI\x86\</OutputPath>
-    <DefineConstants>TRACE;Q16HDRI</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
-    <AssemblyName>Magick.NET.Web-Q16-HDRI-x86</AssemblyName>
-    <DocumentationFile>bin\ReleaseQ16-HDRI\x86\Magick.NET.Web-Q16-HDRI-x86.xml</DocumentationFile>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x64'">
-    <OutputPath>bin\ReleaseQ16-HDRI\x64\</OutputPath>
-    <DefineConstants>TRACE;_M_X64;Q16HDRI</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
-    <AssemblyName>Magick.NET.Web-Q16-HDRI-x64</AssemblyName>
-    <DocumentationFile>bin\ReleaseQ16-HDRI\x64\Magick.NET.Web-Q16-HDRI-x64.xml</DocumentationFile>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup>
+    <TargetFrameworks>net40</TargetFrameworks>
+    <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
     <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Magick.NET.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ8|x86'">
-    <OutputPath>bin\DebugQ8\x86\</OutputPath>
-    <DefineConstants>DEBUG;CODE_ANALYSIS;TRACE;Q8</DefineConstants>
-    <DocumentationFile>bin\DebugQ8\x86\Magick.NET.Web-Q8-x86.xml</DocumentationFile>
-    <Optimize>false</Optimize>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <ErrorReport>prompt</ErrorReport>
-    <AssemblyName>Magick.NET.Web-Q8-x86</AssemblyName>
-    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ8|x64'">
-    <OutputPath>bin\DebugQ8\x64\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;_M_X64;Q8</DefineConstants>
-    <DocumentationFile>bin\DebugQ8\x64\Magick.NET.Web-Q8-x64.xml</DocumentationFile>
-    <Optimize>false</Optimize>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <AssemblyName>Magick.NET.Web-Q8-x64</AssemblyName>
-    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ16|x86'">
-    <OutputPath>bin\DebugQ16\x86\</OutputPath>
-    <DefineConstants>DEBUG;CODE_ANALYSIS;TRACE;CODE_ANALYSIS;Q16</DefineConstants>
-    <DocumentationFile>bin\DebugQ16\x86\Magick.NET.Web-Q16-x86.xml</DocumentationFile>
-    <Optimize>false</Optimize>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <ErrorReport>prompt</ErrorReport>
-    <AssemblyName>Magick.NET.Web-Q16-x86</AssemblyName>
-    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ16|x64'">
-    <OutputPath>bin\DebugQ16\x64\</OutputPath>
-    <DefineConstants>DEBUG;CODE_ANALYSIS;TRACE;CODE_ANALYSIS;_M_X64;Q16</DefineConstants>
-    <DocumentationFile>bin\DebugQ16\x64\Magick.NET.Web-Q16-x64.xml</DocumentationFile>
-    <Optimize>false</Optimize>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <ErrorReport>prompt</ErrorReport>
-    <AssemblyName>Magick.NET.Web-Q16-x64</AssemblyName>
-    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ16-HDRI|x86'">
-    <OutputPath>bin\DebugQ16-HDRI\x86\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;Q16HDRI</DefineConstants>
-    <DocumentationFile>bin\DebugQ16-HDRI\x86\Magick.NET.Web-Q16-HDRI-x86.xml</DocumentationFile>
-    <Optimize>false</Optimize>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <AssemblyName>Magick.NET.Web-Q16-HDRI-x86</AssemblyName>
-    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ16-HDRI|x64'">
-    <OutputPath>bin\DebugQ16-HDRI\x64\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;_M_X64;Q16HDRI</DefineConstants>
-    <DocumentationFile>bin\DebugQ16-HDRI\x64\Magick.NET.Web-Q16-HDRI-x64.xml</DocumentationFile>
-    <Optimize>false</Optimize>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <AssemblyName>Magick.NET.Web-Q16-HDRI-x64</AssemblyName>
-    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
+    <AssemblyVersion>7.0.0.0</AssemblyVersion>
+    <FileVersion>7.0.5.900</FileVersion>
+    <Version>7.0.5.900</Version>
+    <Authors>Dirk Lemstra</Authors>
+    <Description>This package contains a httpmodule that uses various handlers to script/optimize/compress images.</Description>
+    <Copyright>Copyright 2013-2017 Dirk Lemstra</Copyright>
+    <PackageTags>ImageMagick Magick.NET Image Convert Resize Draw Effects</PackageTags>
+    <PackageLicenseUrl>https://github.com/dlemstra/Magick.NET/blob/master/License.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/dlemstra/Magick.NET</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/dlemstra/Magick.NET/master/Tests/Magick.NET.Tests/Images/Magick.NET.icon.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/dlemstra/Magick.NET</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Drawing" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Web" />
-    <Reference Include="System.XML" />
-    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <PropertyGroup Condition="'$(Platform)'=='x86'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)'=='x64'">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\stylecop.json" Link="stylecop.json" />
+    <AdditionalFiles Include="..\Magick.NET.ruleset" Link="Magick.NET.ruleset" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\OptimizationSettings.cs" />
-    <Compile Include="Configuration\ISectionLoader.cs" />
-    <Compile Include="Configuration\SectionLoader.cs" />
-    <Compile Include="Configuration\ResourceLimitsSettings.cs" />
-    <Compile Include="Configuration\CacheControlMode.cs" />
-    <Compile Include="Configuration\HttpClientCache.cs" />
-    <Compile Include="Configuration\MagickWebSettings.cs" />
-    <Compile Include="Configuration\UrlResolverSettings.cs" />
-    <Compile Include="Configuration\UrlResolverSettingsCollection.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Handlers\GzipHandler.cs" />
-    <Compile Include="Handlers\ImageOptimizerHandler.cs" />
-    <Compile Include="Handlers\MagickHandler.cs" />
-    <Compile Include="Handlers\MagickScriptHandler.cs" />
-    <Compile Include="Handlers\HandlerHelper.cs" />
-    <Compile Include="ImageData\StreamImageData.cs" />
-    <Compile Include="ImageData\FileImageData.cs" />
-    <Compile Include="ImageData\IImageData.cs" />
-    <Compile Include="ImageData\ImageData.cs" />
-    <Compile Include="Resolvers\IStreamUrlResolver.cs" />
-    <Compile Include="Resolvers\IFileUrlResolver.cs" />
-    <Compile Include="IScriptData.cs" />
-    <Compile Include="Resolvers\IUrlResolver.cs" />
-    <Compile Include="MagickModuleBase.cs" />
-    <Compile Include="MagickModule.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <ProjectReference Include="..\Magick.NET\Magick.NET.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Magick.NET\Magick.NET.csproj">
-      <Project>{daae3844-6435-4912-8f69-9f7a9242b4ac}</Project>
-      <Name>Magick.NET</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\Magick.NET.snk">
-      <Link>Magick.NET.snk</Link>
-    </None>
-    <None Include="..\Magick.NET.ruleset">
-      <Link>Magick.NET.ruleset</Link>
-    </None>
-    <AdditionalFiles Include="..\stylecop.json">
-      <Link>stylecop.json</Link>
-    </AdditionalFiles>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.1.0-beta001\analyzers\dotnet\cs\Newtonsoft.Json.dll" />
-    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.1.0-beta001\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.1.0-beta001\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  <PropertyGroup Condition="'$(Configuration)' == 'DebugQ8'">
+    <DefineConstants>Q8</DefineConstants>
+    <Optimize>false</Optimize>
+    <AssemblyName>Magick.NET.Web-Q8-$(Platform)</AssemblyName>
+    <AssemblyTitle>Magick.NET.Web Q8 $(Platform) $(TargetFrameWork)</AssemblyTitle>
+    <DocumentationFile>\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET.Web-Q8-$(Platform).xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'DebugQ16'">
+    <DefineConstants>Q16</DefineConstants>
+    <Optimize>false</Optimize>
+    <AssemblyName>Magick.NET.Web-Q16-$(Platform)</AssemblyName>
+    <AssemblyTitle>Magick.NET.Web Q16 $(Platform) $(TargetFrameWork)</AssemblyTitle>
+    <DocumentationFile>\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET.Web-Q16-$(Platform).xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'DebugQ16-HDRI'">
+    <DefineConstants>Q16-HDRI</DefineConstants>
+    <Optimize>false</Optimize>
+    <AssemblyName>Magick.NET.Web-Q16-HDRI-$(Platform)</AssemblyName>
+    <AssemblyTitle>Magick.NET.Web Q16-HDRI $(Platform) $(TargetFrameWork)</AssemblyTitle>
+    <DocumentationFile>\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET.Web-Q16-HDRI-$(Platform).xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'ReleaseQ8'">
+    <DefineConstants>Q8</DefineConstants>
+    <Optimize>true</Optimize>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AssemblyName>Magick.NET.Web-Q8-$(Platform)</AssemblyName>
+    <AssemblyTitle>Magick.NET.Web Q8 $(Platform) $(TargetFrameWork)</AssemblyTitle>
+    <DocumentationFile>\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET.Web-Q8-$(Platform).xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'ReleaseQ16'">
+    <DefineConstants>Q16</DefineConstants>
+    <Optimize>true</Optimize>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AssemblyName>Magick.NET.Web-Q16-$(Platform)</AssemblyName>
+    <AssemblyTitle>Magick.NET.Web Q16 $(Platform) $(TargetFrameWork)</AssemblyTitle>
+    <DocumentationFile>\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET.Web-Q16-$(Platform).xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'ReleaseQ16-HDRI'">
+    <DefineConstants>Q16-HDRI</DefineConstants>
+    <Optimize>true</Optimize>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AssemblyName>Magick.NET.Web-Q16-HDRI-$(Platform)</AssemblyName>
+    <AssemblyTitle>Magick.NET.Web Q16-HDRI $(Platform) $(TargetFrameWork)</AssemblyTitle>
+    <DocumentationFile>\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET.Web-Q16-HDRI-$(Platform).xml</DocumentationFile>
+  </PropertyGroup>
 </Project>

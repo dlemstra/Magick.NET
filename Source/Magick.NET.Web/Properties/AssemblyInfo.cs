@@ -17,43 +17,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-#if Q8
-#if _M_X64
-[assembly: AssemblyTitle("Magick.NET.Web Q8 x64 net40-client")]
-#elif ANYCPU
-[assembly: AssemblyTitle("Magick.NET.Web Q8 AnyCPU net40-client")]
-#else
-[assembly: AssemblyTitle("Magick.NET.Web Q8 x86 net40-client")]
-#endif
-#elif Q16
-#if _M_X64
-[assembly: AssemblyTitle("Magick.NET.Web Q16 x64 net40-client")]
-#elif ANYCPU
-[assembly: AssemblyTitle("Magick.NET.Web Q16 AnyCPU net40-client")]
-#else
-[assembly: AssemblyTitle("Magick.NET.Web Q16 x86 net40-client")]
-#endif
-#elif Q16HDRI
-#if _M_X64
-[assembly: AssemblyTitle("Magick.NET.Web Q16-HDRI x64 net40-client")]
-#elif ANYCPU
-[assembly: AssemblyTitle("Magick.NET.Web Q16-HDRI AnyCPU net40-client")]
-#else
-[assembly: AssemblyTitle("Magick.NET.Web Q16-HDRI x86 net40-client")]
-#endif
-#else
-#error Not implemented!
-#endif
-[assembly: AssemblyProduct("Magick.NET")]
-[assembly: AssemblyDescription("Magick.NET.Web")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyCopyright("Copyright © 2013-2017 Dirk Lemstra")]
-[assembly: AssemblyTrademark("")]
-
-[assembly: AssemblyConfiguration("Release")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("7.0.0.0")]
-[assembly: AssemblyFileVersion("7.0.5.900")]
 [assembly: ComVisible(false)]
 #if Q16
 [assembly: CLSCompliant(false)]
