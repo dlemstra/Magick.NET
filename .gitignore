@@ -19,8 +19,7 @@ runtimes
 /Publish/NuGet/ApiKey.txt
 /Publish/Pdb/*
 /Publish/Zip/*
-/Source/Magick.NET.AnyCPU/Generated/*
-/Source/Magick.NET.AnyCPU/Resources
+/Source/Magick.NET/Resources
 /Samples/Magick.NET.Samples/Samples/Magick.NET/*.pp
 /Samples/Magick.NET.Samples/Samples/Magick.NET/Files/*.pp
 /Samples/Magick.NET.Samples/Samples/Magick.NET/Scripts/*.pp

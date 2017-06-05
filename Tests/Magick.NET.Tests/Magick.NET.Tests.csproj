@@ -40,7 +40,7 @@
     <AssemblyTitle>Magick.NET.Tests Q8 $(Platform) $(TargetFrameWork)</AssemblyTitle>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'DebugQ16'">
-    <DefineConstants>Q16;DEBUG_TEST</DefineConstants>
+    <DefineConstants>Q16;DEBUG_TEST</DefineConstants>    
     <Optimize>false</Optimize>
     <AssemblyTitle>Magick.NET.Tests Q16 $(Platform) $(TargetFrameWork)</AssemblyTitle>
   </PropertyGroup>
@@ -51,18 +51,21 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'ReleaseQ8'">
     <DefineConstants>Q8</DefineConstants>
+    <DefineConstants Condition="'$(Platform)' == 'AnyCPU'">Q8;ANYCPU</DefineConstants>
     <Optimize>true</Optimize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyTitle>Magick.NET.Tests Q8 $(Platform) $(TargetFrameWork)</AssemblyTitle>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'ReleaseQ16'">
     <DefineConstants>Q16</DefineConstants>
+    <DefineConstants Condition="'$(Platform)' == 'AnyCPU'">Q16;ANYCPU</DefineConstants>
     <Optimize>true</Optimize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyTitle>Magick.NET.Tests Q16 $(Platform) $(TargetFrameWork)</AssemblyTitle>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'ReleaseQ16-HDRI'">
     <DefineConstants>Q16-HDRI</DefineConstants>
+    <DefineConstants Condition="'$(Platform)' == 'AnyCPU'">Q16-HDRI;ANYCPU</DefineConstants>
     <Optimize>true</Optimize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyTitle>Magick.NET.Tests Q16-HDRI $(Platform) $(TargetFrameWork)</AssemblyTitle>

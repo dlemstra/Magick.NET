@@ -32,29 +32,15 @@
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
   </ItemGroup>
-  <PropertyGroup Condition="'$(Platform)'=='x86'">
+  <PropertyGroup Condition="'$(Platform)' == 'x86'">
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Platform)'=='x64'">
+  <PropertyGroup Condition="'$(Platform)' == 'x64'">
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" Link="stylecop.json" />
     <AdditionalFiles Include="..\Magick.NET.ruleset" Link="Magick.NET.ruleset" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Resources\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc" />
-    <EmbeddedResource Include="Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc" />
-    <EmbeddedResource Include="Resources\ColorProfiles\RGB\AdobeRGB1998.icc" />
-    <EmbeddedResource Include="Resources\ColorProfiles\RGB\AppleRGB.icc" />
-    <EmbeddedResource Include="Resources\ColorProfiles\RGB\ColorMatchRGB.icc" />
-    <EmbeddedResource Include="Resources\ColorProfiles\RGB\SRGB.icm" />
-    <EmbeddedResource Condition="'$(Configuration)' == 'DebugQ8' or '$(Configuration)' == 'ReleaseQ8'" Include="Resources\ReleaseQ8\MagickScript.xsd" />
-    <EmbeddedResource Condition="'$(Configuration)' == 'DebugQ16' or '$(Configuration)' == 'ReleaseQ16'" Include="Resources\ReleaseQ16\MagickScript.xsd" />
-    <EmbeddedResource Condition="'$(Configuration)' == 'DebugQ16-HDRI' or '$(Configuration)' == 'ReleaseQ16-HDRI'" Include="Resources\ReleaseQ16-HDRI\MagickScript.xsd" />
   </ItemGroup>
   <PropertyGroup>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
@@ -82,6 +68,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'ReleaseQ8'">
     <DefineConstants>Q8</DefineConstants>
+    <DefineConstants Condition="'$(Platform)' == 'AnyCPU'">Q8;ANYCPU</DefineConstants>
     <Optimize>true</Optimize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyName>Magick.NET-Q8-$(Platform)</AssemblyName>
@@ -90,6 +77,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'ReleaseQ16'">
     <DefineConstants>Q16</DefineConstants>
+    <DefineConstants Condition="'$(Platform)' == 'AnyCPU'">Q16;ANYCPU</DefineConstants>
     <Optimize>true</Optimize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyName>Magick.NET-Q16-$(Platform)</AssemblyName>
@@ -98,10 +86,87 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'ReleaseQ16-HDRI'">
     <DefineConstants>Q16-HDRI</DefineConstants>
+    <DefineConstants Condition="'$(Platform)' == 'AnyCPU'">Q16-HDRI;ANYCPU</DefineConstants>
     <Optimize>true</Optimize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyName>Magick.NET-Q16-HDRI-$(Platform)</AssemblyName>
     <AssemblyTitle>Magick.NET Q16-HDRI $(Platform) $(TargetFrameWork)</AssemblyTitle>
     <DocumentationFile>bin\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET-Q16-HDRI-$(Platform).xml</DocumentationFile>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Resources\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc" />
+    <EmbeddedResource Include="Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc" />
+    <EmbeddedResource Include="Resources\ColorProfiles\RGB\AdobeRGB1998.icc" />
+    <EmbeddedResource Include="Resources\ColorProfiles\RGB\AppleRGB.icc" />
+    <EmbeddedResource Include="Resources\ColorProfiles\RGB\ColorMatchRGB.icc" />
+    <EmbeddedResource Include="Resources\ColorProfiles\RGB\SRGB.icm" />
+    <EmbeddedResource Condition="'$(Configuration)' == 'DebugQ8' or '$(Configuration)' == 'ReleaseQ8'" Include="Resources\ReleaseQ8\MagickScript.xsd" />
+    <EmbeddedResource Condition="'$(Configuration)' == 'DebugQ16' or '$(Configuration)' == 'ReleaseQ16'" Include="Resources\ReleaseQ16\MagickScript.xsd" />
+    <EmbeddedResource Condition="'$(Configuration)' == 'DebugQ16-HDRI' or '$(Configuration)' == 'ReleaseQ16-HDRI'" Include="Resources\ReleaseQ16-HDRI\MagickScript.xsd" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Platform)' == 'AnyCPU'">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\coder.xml">
+      <LogicalName>ImageMagick.Resources.Xml.coder.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\colors.xml">
+      <LogicalName>ImageMagick.Resources.Xml.colors.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\configure.xml">
+      <LogicalName>ImageMagick.Resources.Xml.configure.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\delegates.xml">
+      <LogicalName>ImageMagick.Resources.Xml.delegates.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\english.xml">
+      <LogicalName>ImageMagick.Resources.Xml.english.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\locale.xml">
+      <LogicalName>ImageMagick.Resources.Xml.locale.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\log.xml">
+      <LogicalName>ImageMagick.Resources.Xml.log.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\magic.xml">
+      <LogicalName>ImageMagick.Resources.Xml.magic.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\policy.xml">
+      <LogicalName>ImageMagick.Resources.Xml.policy.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\thresholds.xml">
+      <LogicalName>ImageMagick.Resources.Xml.thresholds.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\type.xml">
+      <LogicalName>ImageMagick.Resources.Xml.type.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\type-ghostscript.xml">
+      <LogicalName>ImageMagick.Resources.Xml.type-ghostscript.xml</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'ReleaseQ8'">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\Resources\ReleaseQ8\Magick.NET-Q8-x86.Native.gz">
+      <LogicalName>ImageMagick.Resources.Library.Magick.NET.Native_x86.gz</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\Resources\ReleaseQ8\Magick.NET-Q8-x64.Native.gz">
+      <LogicalName>ImageMagick.Resources.Library.Magick.NET.Native_x64.gz</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'ReleaseQ16'">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\Resources\ReleaseQ16\Magick.NET-Q16-x86.Native.gz">
+      <LogicalName>ImageMagick.Resources.Library.Magick.NET.Native_x86.gz</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\Resources\ReleaseQ16\Magick.NET-Q16-x64.Native.gz">
+      <LogicalName>ImageMagick.Resources.Library.Magick.NET.Native_x64.gz</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'ReleaseQ16-HDRI'">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\Resources\ReleaseQ16-HDRI\Magick.NET-Q16-HDRI-x86.Native.gz">
+      <LogicalName>ImageMagick.Resources.Library.Magick.NET.Native_x86.gz</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\Resources\ReleaseQ16-HDRI\Magick.NET-Q16-HDRI-x64.Native.gz">
+      <LogicalName>ImageMagick.Resources.Library.Magick.NET.Native_x64.gz</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>
