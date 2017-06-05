@@ -17,42 +17,6 @@ function AddProjectFile($xml, $xpath, $name, $attribute, $file)
   $element.SetAttribute($attribute, $file)
 }
 
-function CreateAnyCPUProjectFiles()
-{
-  $path = FullPath "Source\Magick.NET\Magick.NET.csproj"
-  $xml = [xml](get-content $path)
-  SelectNodes $xml "//msb:DefineConstants"  | Foreach {$_.InnerText = "ANYCPU;" + $_.InnerText}
-  PatchAnyCPUProjectFile $xml "AnyCPU"
-
-  $csproj = FullPath "Source\Magick.NET\Magick.NET.AnyCPU.csproj"
-  Write-Host "Creating file: $csproj"
-  $xml.Save($csproj)
-
-  $path = FullPath "Tests\Magick.NET.Tests\Magick.NET.Tests.csproj"
-  $xml = [xml](get-content $path)
-  SelectNodes $xml "//msb:DefineConstants"  | Foreach {$_.InnerText = "ANYCPU;" + $_.InnerText}
-  PatchAnyCPUTestProjectFile $xml "AnyCPU" "Magick.NET.AnyCPU.csproj" "Magick.NET.Web.AnyCPU.csproj"
-
-  $csproj = FullPath "Tests\Magick.NET.Tests\Magick.NET.Tests.AnyCPU.csproj"
-  Write-Host "Creating file: $csproj"
-  $xml.Save($csproj)
-
-  $path = FullPath "Source\Magick.NET.Web\Magick.NET.Web.csproj"
-  $xml = [xml](get-content $path)
-  SelectNodes $xml "//msb:DefineConstants"  | Foreach {$_.InnerText = "ANYCPU;" + $_.InnerText}
-  SelectNodes $xml "//msb:PropertyGroup[contains(@Condition, '|x64')]" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
-  SelectNodes $xml "//msb:PropertyGroup[contains(@Condition, '|x86')]" | Foreach {$_.SetAttribute("Condition", $_.GetAttribute("Condition").Replace("x86", "AnyCPU"))}
-  SelectNodes $xml "//msb:OutputPath" | Foreach {$_.InnerText = $_.InnerText.Replace("x86", "AnyCPU")}
-  SelectNodes $xml "//msb:DocumentationFile" | Foreach {$_.InnerText = $_.InnerText.Replace("x86", "AnyCPU")}
-  SelectNodes $xml "//msb:AssemblyName" | Foreach {$_.InnerText = $_.InnerText.Replace("x86", "AnyCPU")}
-  SelectNodes $xml "//msb:PlatformTarget" | Foreach {$_.InnerText = "AnyCPU"}
-  SelectNodes $xml "//msb:ProjectReference[@Include = '..\Magick.NET\Magick.NET.csproj']" | Foreach {$_.SetAttribute("Include", "..\Magick.NET\Magick.NET.AnyCPU.csproj")}
-
-  $csproj = FullPath "Source\Magick.NET.Web\Magick.NET.Web.AnyCPU.csproj"
-  Write-Host "Creating file: $csproj"
-  $xml.Save($csproj)
-}
-
 function CreateNet20ProjectFiles()
 {
   $path = FullPath "Source\Magick.NET\Magick.NET.csproj"
