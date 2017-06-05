@@ -20,7 +20,6 @@ using System.Runtime.InteropServices;
 using System.Security.Permissions;
 #endif
 
-[assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 #if Q16
 [assembly: CLSCompliant(false)]
