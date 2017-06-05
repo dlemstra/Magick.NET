@@ -19,10 +19,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{642B2576-373D-4B84-A3C0-F6F9AC2A23D5}"
 	ProjectSection(SolutionItems) = preProject
 		Tools\GenerateAnyCPU.cmd = Tools\GenerateAnyCPU.cmd
+		Tools\GenerateDrawables.cmd = Tools\GenerateDrawables.cmd
+		Tools\GenerateMagickColors.cmd = Tools\GenerateMagickColors.cmd
 		Tools\GenerateMagickScript.cmd = Tools\GenerateMagickScript.cmd
 		Tools\GenerateNative.cmd = Tools\GenerateNative.cmd
-		Tools\GenerateNet20.cmd = Tools\GenerateNet20.cmd
-		Tools\GenerateProjectFiles.cmd = Tools\GenerateProjectFiles.cmd
 		Tools\VsDevCmd.cmd = Tools\VsDevCmd.cmd
 	EndProjectSection
 EndProject
@@ -31,11 +31,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{8375
 		Tools\Scripts\AnyCPU.ps1 = Tools\Scripts\AnyCPU.ps1
 		Tools\Scripts\BuildCore.ps1 = Tools\Scripts\BuildCore.ps1
 		Tools\Scripts\BuildLibraries.ps1 = Tools\Scripts\BuildLibraries.ps1
+		Tools\Scripts\GenerateDrawables.ps1 = Tools\Scripts\GenerateDrawables.ps1
 		Tools\Scripts\GenerateLibrariesDoc.ps1 = Tools\Scripts\GenerateLibrariesDoc.ps1
+		Tools\Scripts\GenerateMagickColors.ps1 = Tools\Scripts\GenerateMagickColors.ps1
 		Tools\Scripts\GenerateMagickScript.ps1 = Tools\Scripts\GenerateMagickScript.ps1
 		Tools\Scripts\GenerateNative.ps1 = Tools\Scripts\GenerateNative.ps1
 		Tools\Scripts\Net20.ps1 = Tools\Scripts\Net20.ps1
-		Tools\Scripts\ProjectFiles.ps1 = Tools\Scripts\ProjectFiles.ps1
 		Tools\Scripts\Publish.ps1 = Tools\Scripts\Publish.ps1
 	EndProjectSection
 EndProject
@@ -62,7 +63,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{26CCDA
 		Tools\Scripts\Shared\FileGenerator.ps1 = Tools\Scripts\Shared\FileGenerator.ps1
 		Tools\Scripts\Shared\Functions.ps1 = Tools\Scripts\Shared\Functions.ps1
 		Tools\Scripts\Shared\GzipAssembly.ps1 = Tools\Scripts\Shared\GzipAssembly.ps1
-		Tools\Scripts\Shared\ProjectFiles.ps1 = Tools\Scripts\Shared\ProjectFiles.ps1
 		Tools\Scripts\Shared\Publish.ps1 = Tools\Scripts\Shared\Publish.ps1
 	EndProjectSection
 EndProject
