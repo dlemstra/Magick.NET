@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
     {
       string[] paths =
       {
-        @"..\..\..\",
+        @"..\..\..\..\",
         @"..\..\..\..\..\..\..\Tests\Magick.NET.Tests\", // .NET Core
         @"..\..\..\..\..\Tests\Magick.NET.Tests\", // Code coverage
       };
@@ -322,7 +322,7 @@ namespace Magick.NET.Tests
       {
         get
         {
-          return _Root + @"Core\Script\Collection.msl";
+          return _Root + @"Shared\Script\Collection.msl";
         }
       }
 
@@ -330,7 +330,7 @@ namespace Magick.NET.Tests
       {
         get
         {
-          return _Root + @"Core\Script\Draw.msl";
+          return _Root + @"Shared\Script\Draw.msl";
         }
       }
 
@@ -338,7 +338,7 @@ namespace Magick.NET.Tests
       {
         get
         {
-          return _Root + @"Core\Script\Defines.msl";
+          return _Root + @"Shared\Script\Defines.msl";
         }
       }
 
@@ -346,7 +346,7 @@ namespace Magick.NET.Tests
       {
         get
         {
-          return _Root + @"Core\Script\Distort.msl";
+          return _Root + @"Shared\Script\Distort.msl";
         }
       }
 
@@ -354,7 +354,7 @@ namespace Magick.NET.Tests
       {
         get
         {
-          return _Root + @"Core\Script\Events.msl";
+          return _Root + @"Shared\Script\Events.msl";
         }
       }
 
@@ -362,7 +362,7 @@ namespace Magick.NET.Tests
       {
         get
         {
-          return _Root + @"Core\Script\ImageProfile.msl";
+          return _Root + @"Shared\Script\ImageProfile.msl";
         }
       }
 
@@ -378,7 +378,7 @@ namespace Magick.NET.Tests
       {
         get
         {
-          return _Root + @"Core\Script\Resize.msl";
+          return _Root + @"Shared\Script\Resize.msl";
         }
       }
 
@@ -386,7 +386,7 @@ namespace Magick.NET.Tests
       {
         get
         {
-          return _Root + @"Core\Script\Variables.msl";
+          return _Root + @"Shared\Script\Variables.msl";
         }
       }
     }

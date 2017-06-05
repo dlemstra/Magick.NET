@@ -12,29 +12,41 @@
 // limitations under the License.
 //=================================================================================================
 
+using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  public partial class MagickNETTests
+  [TestClass]
+  public class EightBimValueTests
   {
-    [TestMethod]
-    public void Test_Version()
+    private static EightBimValue Get8BimValue()
     {
-#if ANYCPU
-      StringAssert.Contains(MagickNET.Version, "AnyCPU");
-#elif WIN64
-      StringAssert.Contains(MagickNET.Version, "x64");
-#else
-      StringAssert.Contains(MagickNET.Version, "x86");
-#endif
+      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      {
+        EightBimProfile profile = image.Get8BimProfile();
+        return profile.Values.First();
+      }
+    }
 
-#if NET20
-      StringAssert.Contains(MagickNET.Version, "net20");
-#else
-      StringAssert.Contains(MagickNET.Version, "net40");
-#endif
+    [TestMethod]
+    public void Test_IEquatable()
+    {
+      EightBimValue first = Get8BimValue();
+      EightBimValue second = Get8BimValue();
+
+      Assert.IsTrue(first == second);
+      Assert.IsTrue(first.Equals(second));
+      Assert.IsTrue(first.Equals((object)second));
+    }
+
+    [TestMethod]
+    public void Test_ToByteArray()
+    {
+      EightBimValue value = Get8BimValue();
+      byte[] bytes = value.ToByteArray();
+      Assert.AreEqual(273, bytes.Length);
     }
   }
 }

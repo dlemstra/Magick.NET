@@ -17,24 +17,18 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  public partial class MagickNETTests
+  [TestClass]
+  public class PSDTests
   {
     [TestMethod]
-    public void Test_Version()
+    public void Test_Colors()
     {
-#if ANYCPU
-      StringAssert.Contains(MagickNET.Version, "AnyCPU");
-#elif WIN64
-      StringAssert.Contains(MagickNET.Version, "x64");
-#else
-      StringAssert.Contains(MagickNET.Version, "x86");
-#endif
+      using (IMagickImage image = new MagickImage(Files.Coders.PlayerPSD))
+      {
+        ColorAssert.AreEqual(MagickColors.Transparent, image, 0, 0);
 
-#if NET20
-      StringAssert.Contains(MagickNET.Version, "net20");
-#else
-      StringAssert.Contains(MagickNET.Version, "net40");
-#endif
+        ColorAssert.AreEqual(MagickColor.FromRgb(15, 43, 255), image, 8, 6);
+      }
     }
   }
 }

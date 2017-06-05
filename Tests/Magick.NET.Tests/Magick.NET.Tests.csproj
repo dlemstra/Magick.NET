@@ -1,375 +1,70 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C34FB9EF-028A-4190-91AF-6FBD3EC78DAF}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Magick.NET.Tests</RootNamespace>
+    <TargetFrameworks>net45</TargetFrameworks>
+    <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
     <AssemblyName>Magick.NET.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
-    <IsCodedUITest>False</IsCodedUITest>
-    <TestProjectType>UnitTest</TestProjectType>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ8|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\DebugQ8\x86</OutputPath>
-    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
-    <DefineConstants>TRACE;DEBUG;Q8;DEBUG_TEST</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ8|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\DebugQ8\x64\</OutputPath>
-    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
-    <DefineConstants>TRACE;DEBUG;Q8;WIN64;DEBUG_TEST</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ16|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\DebugQ16\x64\</OutputPath>
-    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
-    <DefineConstants>TRACE;DEBUG;Q16;WIN64;DEBUG_TEST</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ16|x86' ">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\DebugQ16\x86</OutputPath>
-    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
-    <DefineConstants>TRACE;DEBUG;Q16;DEBUG_TEST</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ16-HDRI|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\DebugQ16-HDRI\x86</OutputPath>
-    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
-    <DefineConstants>TRACE;DEBUG;Q16HDRI;DEBUG_TEST</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ16-HDRI|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\DebugQ16-HDRI\x64\</OutputPath>
-    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
-    <DefineConstants>TRACE;DEBUG;Q16HDRI;WIN64;DEBUG_TEST</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ8|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\ReleaseQ8\x86</OutputPath>
-    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
-    <DefineConstants>TRACE;DEBUG;Q8</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ8|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\ReleaseQ8\x64\</OutputPath>
-    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
-    <DefineConstants>TRACE;DEBUG;Q8;WIN64</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\ReleaseQ16\x64\</OutputPath>
-    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
-    <DefineConstants>TRACE;DEBUG;Q16;WIN64</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|x86' ">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\ReleaseQ16\x86</OutputPath>
-    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
-    <DefineConstants>TRACE;DEBUG;Q16</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\ReleaseQ16-HDRI\x86</OutputPath>
-    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
-    <DefineConstants>TRACE;DEBUG;Q16HDRI</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\ReleaseQ16-HDRI\x64\</OutputPath>
-    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
-    <DefineConstants>TRACE;DEBUG;Q16HDRI;WIN64</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Magick.NET.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PresentationCore" />
-    <Reference Include="System" />
-    <Reference Include="System.configuration" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0-preview-20170517-02" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.1.17" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.1.17" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
-    <Reference Include="System.XML" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
-  </ItemGroup>
-  <Choose>
-    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
-      <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-      </ItemGroup>
-    </When>
-    <Otherwise>
-      <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
-      </ItemGroup>
-    </Otherwise>
-  </Choose>
-  <ItemGroup>
-    <Compile Include="Core\Defines\Bmp\BmpWriteDefinesTests.cs" />
-    <Compile Include="Core\Helpers\QuantumConverterTests.cs" />
-    <Compile Include="Core\Helpers\ShortConverterTests.cs" />
-    <Compile Include="Core\Helpers\ByteConverterTests.cs" />
-    <Compile Include="Core\Coders\MslTests.cs" />
-    <Compile Include="Core\Coders\MvgTests.cs" />
-    <Compile Include="Core\Coders\PngTests.cs" />
-    <Compile Include="Core\Colors\ColorHSVTests.cs" />
-    <Compile Include="Core\Defines\DefinesCreatorTests.cs" />
-    <Compile Include="Core\Defines\Jp2\Jp2WriteDefines.cs" />
-    <Compile Include="Core\Defines\Jp2\Jp2ReadDefinesTests.cs" />
-    <Compile Include="Core\Drawables\DrawableAffineTests.cs" />
-    <Compile Include="Core\Drawables\DrawablePathTests.cs" />
-    <Compile Include="Core\Drawables\DrawableTextEncodingTests.cs" />
-    <Compile Include="Core\Exceptions\ExceptionHelperTests.cs" />
-    <Compile Include="Core\Exceptions\ExceptionInfo.cs" />
-    <Compile Include="Core\Exceptions\MagickExceptionTests.cs" />
-    <Compile Include="Core\Helpers\EnumHelperTests.cs" />
-    <Compile Include="Core\Helpers\StreamWrapperTests.cs" />
-    <Compile Include="Core\MagickFactoryTests.cs" />
-    <Compile Include="Core\Profiles\Exif\ExifReaderTests.cs" />
-    <Compile Include="Framework\MagickFactoryTests.cs" />
-    <Compile Include="Helpers\TemporaryFile.cs" />
-    <Compile Include="Helpers\WriteExceptionStream.cs" />
-    <Compile Include="Helpers\ReadExceptionStream.cs" />
-    <Compile Include="Helpers\SeekExceptionStream.cs" />
-    <Compile Include="Helpers\TestStream.cs" />
-    <Compile Include="Core\Replacements\ExcludeFromCodeCoverage.cs" />
-    <Compile Include="Framework\Coders\PdfTests.cs" />
-    <Compile Include="Framework\Coders\TiffTests.cs" />
-    <Compile Include="Framework\Colors\ColorRGBTests.cs" />
-    <Compile Include="Framework\Colors\MagickColorTests.cs" />
-    <Compile Include="Core\Assert\ColorAssert.cs" />
-    <Compile Include="Core\Assert\ExceptionAssert.cs" />
-    <Compile Include="Core\Coders\BgrTests.cs" />
-    <Compile Include="Core\Coders\Jp2Tests.cs" />
-    <Compile Include="Core\Coders\PdfTests.cs" />
-    <Compile Include="Core\Coders\PsdTests.cs" />
-    <Compile Include="Core\Coders\RgbTests.cs" />
-    <Compile Include="Core\Coders\SvgTests.cs" />
-    <Compile Include="Core\Coders\TiffTests.cs" />
-    <Compile Include="Core\Colors\ColorBaseTests.cs" />
-    <Compile Include="Core\Colors\ColorCMYKTests.cs" />
-    <Compile Include="Core\Colors\ColorGrayTests.cs" />
-    <Compile Include="Core\Colors\ColorHSLTests.cs" />
-    <Compile Include="Core\Colors\ColorMonoTests.cs" />
-    <Compile Include="Core\Colors\ColorRGBTests.cs" />
-    <Compile Include="Core\Colors\ColorYUVTests.cs" />
-    <Compile Include="Core\Colors\MagickColorTests.cs" />
-    <Compile Include="Core\Defines\Dds\DdsWriteDefinesTests.cs" />
-    <Compile Include="Core\Defines\Jpeg\JpegReadDefinesTests.cs" />
-    <Compile Include="Core\Defines\Jpeg\JpegWriteDefinesTests.cs" />
-    <Compile Include="Core\Defines\Pdf\PdfReadDefinesTests.cs" />
-    <Compile Include="Core\Defines\Png\PngReadDefinesTests.cs" />
-    <Compile Include="Core\Defines\Psd\PsdReadDefinesTests.cs" />
-    <Compile Include="Core\Defines\Psd\PsdWriteDefinesTests.cs" />
-    <Compile Include="Core\Defines\Tiff\TiffReadDefinesTests.cs" />
-    <Compile Include="Core\Defines\Tiff\TiffWriteDefinesTests.cs" />
-    <Compile Include="Core\Drawables\DrawableDensityTests.cs" />
-    <Compile Include="Core\Drawables\Paths\PathsTests.cs" />
-    <Compile Include="Core\Drawables\Paths\PathTests.cs" />
-    <Compile Include="Core\Drawables\DrawablesTests.cs" />
-    <Compile Include="Core\Drawables\DrawableTests.cs" />
-    <Compile Include="Helpers\Files.cs" />
-    <Compile Include="Core\Profiles\Exif\ExifTagDescriptionAttributeTests.cs" />
-    <Compile Include="Helpers\PartialStream.cs" />
-    <Compile Include="Core\Types\RationalTests.cs" />
-    <Compile Include="Core\Types\SignedRationalTests.cs" />
-    <Compile Include="Framework\Drawables\DrawableAffineTests.cs" />
-    <Compile Include="Framework\Drawables\DrawableViewboxTests.cs" />
-    <Compile Include="Framework\Drawables\DrawableTextUnderColorTests.cs" />
-    <Compile Include="Framework\Drawables\DrawableStrokeColorTests.cs" />
-    <Compile Include="Framework\Drawables\DrawableFillColorTests.cs" />
-    <Compile Include="Framework\Drawables\DrawableBorderColorTests.cs" />
-    <Compile Include="Framework\Drawables\DrawableRectangleTests.cs" />
-    <Compile Include="Framework\Ghostscript.cs" />
-    <Compile Include="Core\MagickFormatInfoTests.cs" />
-    <Compile Include="Core\MagickImageCollectionTests.cs" />
-    <Compile Include="Core\MagickImageInfoTests.cs" />
-    <Compile Include="Core\MagickImageTests.cs" />
-    <Compile Include="Core\MagickNETTests.cs" />
-    <Compile Include="Core\Matrices\ColorMatrixTests.cs" />
-    <Compile Include="Core\Matrices\ConvolveMatrixTests.cs" />
-    <Compile Include="Core\OpenCL\OpenCLDeviceTests.cs" />
-    <Compile Include="Core\OpenCL\OpenCLTests.cs" />
-    <Compile Include="Core\Optimizers\GifOptimizerTests.cs" />
-    <Compile Include="Core\Optimizers\IImageOptimizerTests.cs" />
-    <Compile Include="Core\Optimizers\ImageOptimizerTests.cs" />
-    <Compile Include="Core\Optimizers\JpegOptimizerTests.cs" />
-    <Compile Include="Core\Optimizers\PngOptimizerTests.cs" />
-    <Compile Include="Core\Pixels\PixelCollectionTests.cs" />
-    <Compile Include="Core\Pixels\PixelTests.cs" />
-    <Compile Include="Core\Profiles\8Bim\EightBimProfileTests.cs" />
-    <Compile Include="Core\Profiles\8Bim\EightBimValueTests.cs" />
-    <Compile Include="Core\Profiles\Color\ColorProfileTests.cs" />
-    <Compile Include="Core\Profiles\Exif\ExifProfileTests.cs" />
-    <Compile Include="Core\Profiles\Exif\ExifValueTests.cs" />
-    <Compile Include="Core\Profiles\ImageProfileTests.cs" />
-    <Compile Include="Core\Profiles\Iptc\IptcProfileTests.cs" />
-    <Compile Include="Core\Profiles\Iptc\IptcValueTests.cs" />
-    <Compile Include="Core\Profiles\Xmp\XmpProfileTests.cs" />
-    <Compile Include="Core\QuantumTests.cs" />
-    <Compile Include="Core\ResourceLimitsTests.cs" />
-    <Compile Include="Core\Script\MagickScriptTests.cs" />
-    <Compile Include="Core\Settings\MagickReadSettingsTests.cs" />
-    <Compile Include="Core\Settings\MagickSettingsTests.cs" />
-    <Compile Include="Core\Settings\PixelStorageSettingsTests.cs" />
-    <Compile Include="Core\Statistics\MomentsTests.cs" />
-    <Compile Include="Core\Statistics\PerceptualHashTests.cs" />
-    <Compile Include="Core\Statistics\StatisticsTests.cs" />
-    <Compile Include="Core\Types\MagickGeometryTests.cs" />
-    <Compile Include="Core\Types\PercentageTests.cs" />
-    <Compile Include="Core\Types\DensityTests.cs" />
-    <Compile Include="Core\Types\PointDTests.cs" />
-    <Compile Include="Framework\MagickImageCollectionTests.cs" />
-    <Compile Include="Framework\MagickImageTests.cs" />
-    <Compile Include="Framework\MagickNETTests.cs" />
-    <Compile Include="Framework\Types\MagickGeometryTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Framework\Script\MagickScriptTests.cs" />
-    <Compile Include="Core\Assert\OpenCLValue.cs" />
-    <Compile Include="Web\Configuration\MagickWebSettingsTests.cs" />
-    <Compile Include="Web\Extensions\IImageDataExtensions.cs" />
-    <Compile Include="Web\Extensions\StringExtensions.cs" />
-    <Compile Include="Web\Extensions\HttpCachePolicyExtensions.cs" />
-    <Compile Include="Web\Extensions\HttpResponseExtensions.cs" />
-    <Compile Include="Web\Extensions\HttpRequestExtensions.cs" />
-    <Compile Include="Web\Handlers\HandlerHelperTests.cs" />
-    <Compile Include="Web\Handlers\GzipHandlerTests.cs" />
-    <Compile Include="Web\Handlers\ImageOptimizerHandlerTests.cs" />
-    <Compile Include="Web\Handlers\MagickHandlerTests.cs" />
-    <Compile Include="Web\Handlers\MagickScriptHandlerTests.cs" />
-    <Compile Include="Web\Helpers\TestMagickHandler.cs" />
-    <Compile Include="Web\Helpers\TestSectionLoader.cs" />
-    <Compile Include="Web\Helpers\TestHttpApplication.cs" />
-    <Compile Include="Web\Helpers\TestHttpContextBase.cs" />
-    <Compile Include="Web\Helpers\TestHttpRequest.cs" />
-    <Compile Include="Web\Helpers\TestMagickModule.cs" />
-    <Compile Include="Web\Helpers\TestScriptData.cs" />
-    <Compile Include="Web\Helpers\TestFileUrlResolverResult.cs" />
-    <Compile Include="Web\Helpers\TestFileUrlResolver.cs" />
-    <Compile Include="Web\Helpers\TestStreamUrlResolver.cs" />
-    <Compile Include="Web\MagickModuleBaseTests.cs" />
-    <Compile Include="Web\MagickModuleTests.cs" />
+    <Reference Include="PresentationCore" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Source\Magick.NET.Web\Magick.NET.Web.csproj">
-      <Project>{FAEF6535-4D08-4538-89DC-EE56176F6803}</Project>
-      <Name>Magick.NET.Web</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Source\Magick.NET\Magick.NET.csproj">
-      <Project>{daae3844-6435-4912-8f69-9f7a9242b4ac}</Project>
-      <Name>Magick.NET</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\Source\Magick.NET\Magick.NET.csproj" />
+    <ProjectReference Include="..\..\Source\Magick.NET.Web\Magick.NET.Web.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Magick.NET.snk">
-      <Link>Magick.NET.snk</Link>
-    </None>
-    <None Include="Core\Script\Collection.msl" />
-    <None Include="Core\Script\Defines.msl" />
-    <None Include="Core\Script\Distort.msl" />
-    <None Include="Core\Script\Draw.msl" />
-    <None Include="Core\Script\Events.msl" />
-    <None Include="Core\Script\ImageProfile.msl" />
-    <None Include="Core\Script\Resize.msl" />
-    <None Include="Core\Script\Variables.msl" />
-    <None Include="Framework\Script\Invalid.msl" />
-    <None Include="packages.config" />
+    <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
   </ItemGroup>
-  <ItemGroup />
-  <Choose>
-    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
-      <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-          <Private>False</Private>
-        </Reference>
-        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-          <Private>False</Private>
-        </Reference>
-        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-          <Private>False</Private>
-        </Reference>
-        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-          <Private>False</Private>
-        </Reference>
-      </ItemGroup>
-    </When>
-  </Choose>
-  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup Condition="'$(Platform)'=='x86'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)'=='x64'">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'DebugQ8'">
+    <DefineConstants>Q8;DEBUG_TEST</DefineConstants>
+    <Optimize>false</Optimize>
+    <AssemblyTitle>Magick.NET.Tests Q8 $(Platform) $(TargetFrameWork)</AssemblyTitle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'DebugQ16'">
+    <DefineConstants>Q16;DEBUG_TEST</DefineConstants>
+    <Optimize>false</Optimize>
+    <AssemblyTitle>Magick.NET.Tests Q16 $(Platform) $(TargetFrameWork)</AssemblyTitle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'DebugQ16-HDRI'">
+    <DefineConstants>Q16-HDRI;DEBUG_TEST</DefineConstants>
+    <Optimize>false</Optimize>
+    <AssemblyTitle>Magick.NET.Tests Q16-HDRI $(Platform) $(TargetFrameWork)</AssemblyTitle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'ReleaseQ8'">
+    <DefineConstants>Q8</DefineConstants>
+    <Optimize>true</Optimize>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AssemblyTitle>Magick.NET.Tests Q8 $(Platform) $(TargetFrameWork)</AssemblyTitle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'ReleaseQ16'">
+    <DefineConstants>Q16</DefineConstants>
+    <Optimize>true</Optimize>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AssemblyTitle>Magick.NET.Tests Q16 $(Platform) $(TargetFrameWork)</AssemblyTitle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'ReleaseQ16-HDRI'">
+    <DefineConstants>Q16-HDRI</DefineConstants>
+    <Optimize>true</Optimize>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AssemblyTitle>Magick.NET.Tests Q16-HDRI $(Platform) $(TargetFrameWork)</AssemblyTitle>
+  </PropertyGroup>
 </Project>

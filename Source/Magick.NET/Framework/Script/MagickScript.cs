@@ -35,11 +35,11 @@ namespace ImageMagick
       settings.IgnoreWhitespace = true;
 
 #if Q8
-      string resourcePath = "ImageMagick.Resources.ReleaseQ8";
+      string resourcePath = "Magick.NET.Resources.ReleaseQ8";
 #elif Q16
-      string resourcePath = "ImageMagick.Resources.ReleaseQ16";
+      string resourcePath = "Magick.NET.Resources.ReleaseQ16";
 #elif Q16HDRI
-      string resourcePath = "ImageMagick.Resources.ReleaseQ16_HDRI";
+      string resourcePath = "Magick.NET.Resources.ReleaseQ16_HDRI";
 #else
 #error Not implemented!
 #endif

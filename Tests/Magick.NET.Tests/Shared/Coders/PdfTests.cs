@@ -17,24 +17,23 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  public partial class MagickNETTests
+  [TestClass]
+  public partial class PdfTests
   {
-    [TestMethod]
-    public void Test_Version()
+    private static void Test_Image(IMagickImage image)
     {
-#if ANYCPU
-      StringAssert.Contains(MagickNET.Version, "AnyCPU");
-#elif WIN64
-      StringAssert.Contains(MagickNET.Version, "x64");
-#else
-      StringAssert.Contains(MagickNET.Version, "x86");
-#endif
+      Assert.AreEqual(765, image.Width);
+      Assert.AreEqual(361, image.Height);
+      Assert.AreEqual(MagickFormat.Ai, image.Format);
+    }
 
-#if NET20
-      StringAssert.Contains(MagickNET.Version, "net20");
-#else
-      StringAssert.Contains(MagickNET.Version, "net40");
-#endif
+    [TestMethod]
+    public void Test_Format()
+    {
+      using (IMagickImage image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI))
+      {
+        Test_Image(image);
+      }
     }
   }
 }

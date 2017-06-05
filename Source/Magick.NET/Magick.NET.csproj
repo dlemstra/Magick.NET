@@ -37,7 +37,7 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
+    <AdditionalFiles Include="..\..\stylecop.json" Link="stylecop.json" />
     <AdditionalFiles Include="..\Magick.NET.ruleset" Link="Magick.NET.ruleset" />
   </ItemGroup>
   <ItemGroup>
@@ -50,10 +50,9 @@
     <EmbeddedResource Include="Resources\ColorProfiles\RGB\AppleRGB.icc" />
     <EmbeddedResource Include="Resources\ColorProfiles\RGB\ColorMatchRGB.icc" />
     <EmbeddedResource Include="Resources\ColorProfiles\RGB\SRGB.icm" />
-    <EmbeddedResource Include="Resources\$(Configuration)\MagickScript.xsd" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Attributes\" />
+    <EmbeddedResource Condition="'$(Configuration)' == 'DebugQ8' or '$(Configuration)' == 'ReleaseQ8'" Include="Resources\ReleaseQ8\MagickScript.xsd" />
+    <EmbeddedResource Condition="'$(Configuration)' == 'DebugQ16' or '$(Configuration)' == 'ReleaseQ16'" Include="Resources\ReleaseQ16\MagickScript.xsd" />
+    <EmbeddedResource Condition="'$(Configuration)' == 'DebugQ16-HDRI' or '$(Configuration)' == 'ReleaseQ16-HDRI'" Include="Resources\ReleaseQ16-HDRI\MagickScript.xsd" />
   </ItemGroup>
   <PropertyGroup>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
