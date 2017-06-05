@@ -40,13 +40,11 @@ namespace Magick.NET.Tests
       Assert.AreEqual(4, i);
     }
 
-#if !(NET20)
     private static void TestXDocument(XDocument document)
     {
       Assert.IsNotNull(document);
       Assert.AreEqual(5, document.Root.Elements().First().Elements().Count());
     }
-#endif
 
     [TestMethod]
     public void Test_CreateReader()
@@ -96,7 +94,6 @@ namespace Magick.NET.Tests
       }
     }
 
-#if !(NET20)
     [TestMethod]
     public void Test_FromXDocument()
     {
@@ -127,7 +124,6 @@ namespace Magick.NET.Tests
         Assert.AreEqual(profile, newProfile);
       }
     }
-#endif
 
     [TestMethod]
     public void Test_ToIXPathNavigable()
@@ -142,7 +138,6 @@ namespace Magick.NET.Tests
       }
     }
 
-#if !(NET20)
     [TestMethod]
     public void Test_ToXDocument()
     {
@@ -155,6 +150,5 @@ namespace Magick.NET.Tests
         TestXDocument(document);
       }
     }
-#endif
   }
 }

@@ -28,10 +28,8 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-#if !(NET20)
 using System.Windows.Media.Imaging;
 using MediaPixelFormats = System.Windows.Media.PixelFormats;
-#endif
 
 namespace Magick.NET.Tests
 {
@@ -188,7 +186,6 @@ namespace Magick.NET.Tests
       }
     }
 
-#if !(NET20)
     [TestMethod]
     public void Test_ToBitmapSource()
     {
@@ -238,6 +235,5 @@ namespace Magick.NET.Tests
         Assert.AreEqual(255, pixels[3]);
       }
     }
-#endif
   }
 }

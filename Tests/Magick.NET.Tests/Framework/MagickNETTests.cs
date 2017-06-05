@@ -30,11 +30,7 @@ namespace Magick.NET.Tests
       StringAssert.Contains(MagickNET.Version, "x86");
 #endif
 
-#if NET20
-      StringAssert.Contains(MagickNET.Version, "net20");
-#else
       StringAssert.Contains(MagickNET.Version, "net40");
-#endif
     }
   }
 }
