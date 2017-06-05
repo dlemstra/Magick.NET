@@ -60,7 +60,7 @@
     <DocumentationFile>bin\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET-Q16-$(Platform).xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'DebugQ16-HDRI'">
-    <DefineConstants>Q16-HDRI</DefineConstants>
+    <DefineConstants>Q16HDRI</DefineConstants>
     <Optimize>false</Optimize>
     <AssemblyName>Magick.NET-Q16-HDRI-$(Platform)</AssemblyName>
     <AssemblyTitle>Magick.NET Q16-HDRI $(Platform) $(TargetFrameWork)</AssemblyTitle>
@@ -85,8 +85,8 @@
     <DocumentationFile>bin\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET-Q16-$(Platform).xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'ReleaseQ16-HDRI'">
-    <DefineConstants>Q16-HDRI</DefineConstants>
-    <DefineConstants Condition="'$(Platform)' == 'AnyCPU'">Q16-HDRI;ANYCPU</DefineConstants>
+    <DefineConstants>Q16HDRI</DefineConstants>
+    <DefineConstants Condition="'$(Platform)' == 'AnyCPU'">Q16HDRI;ANYCPU</DefineConstants>
     <Optimize>true</Optimize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyName>Magick.NET-Q16-HDRI-$(Platform)</AssemblyName>
@@ -145,7 +145,7 @@
       <LogicalName>ImageMagick.Resources.Xml.type-ghostscript.xml</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup Condition="'$(Configuration)' == 'ReleaseQ8'">
+  <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ8|AnyCPU'">
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)\Resources\ReleaseQ8\Magick.NET-Q8-x86.Native.gz">
       <LogicalName>ImageMagick.Resources.Library.Magick.NET.Native_x86.gz</LogicalName>
     </EmbeddedResource>
@@ -153,7 +153,7 @@
       <LogicalName>ImageMagick.Resources.Library.Magick.NET.Native_x64.gz</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup Condition="'$(Configuration)' == 'ReleaseQ16'">
+  <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|AnyCPU'">
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)\Resources\ReleaseQ16\Magick.NET-Q16-x86.Native.gz">
       <LogicalName>ImageMagick.Resources.Library.Magick.NET.Native_x86.gz</LogicalName>
     </EmbeddedResource>
@@ -161,7 +161,7 @@
       <LogicalName>ImageMagick.Resources.Library.Magick.NET.Native_x64.gz</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup Condition="'$(Configuration)' == 'ReleaseQ16-HDRI'">
+  <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|AnyCPU'">
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)\Resources\ReleaseQ16-HDRI\Magick.NET-Q16-HDRI-x86.Native.gz">
       <LogicalName>ImageMagick.Resources.Library.Magick.NET.Native_x86.gz</LogicalName>
     </EmbeddedResource>
