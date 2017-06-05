@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <TargetFrameworks>net40</TargetFrameworks>
+    <TargetFrameworks>net20;net40</TargetFrameworks>
     <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AssemblyVersion>7.0.0.0</AssemblyVersion>
@@ -22,7 +22,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.Drawing" />
-    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' != 'net20'">
+      <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
   </ItemGroup>
   <ItemGroup>
