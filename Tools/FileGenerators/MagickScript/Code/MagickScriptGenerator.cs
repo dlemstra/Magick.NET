@@ -23,7 +23,7 @@ namespace FileGenerator.MagickScript
 
     private MagickScriptGenerator()
     {
-      _OutputFolder = SetOutputFolder(@"Source\Magick.NET\Core\Script\Generated");
+      _OutputFolder = SetOutputFolder(@"Source\Magick.NET\Shared\Script\Generated");
       _Types = new MagickScriptTypes(QuantumDepth.Q16HDRI);
     }
 
