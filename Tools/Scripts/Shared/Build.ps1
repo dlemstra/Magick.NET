@@ -13,7 +13,8 @@
 #==================================================================================================
 function Build($build)
 {
-  BuildSolution "$($build.Name).sln" "Configuration=Tests$($build.Quantum),RunCodeAnalysis=false,Platform=$($build.Platform)"
+  $platform=$($build.Platform).Replace("AnyCPU", "Any CPU")
+  BuildSolution "$($build.Name).sln" "Configuration=Tests$($build.Quantum),RunCodeAnalysis=false,Platform=$platform"
 }
 
 function BuildCoreLibrary($directory)
