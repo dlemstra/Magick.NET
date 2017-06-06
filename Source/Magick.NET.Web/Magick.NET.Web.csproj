@@ -23,6 +23,12 @@
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
   </ItemGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'x86'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'x64'">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Magick.NET\Magick.NET.csproj" />
   </ItemGroup>
@@ -40,28 +46,28 @@
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'DebugQ8'">
-    <DefineConstants>Q8</DefineConstants>
+    <DefineConstants>Q8;PLATFORM_$(Platform)</DefineConstants>
     <Optimize>false</Optimize>
     <AssemblyName>Magick.NET.Web-Q8-$(Platform)</AssemblyName>
     <AssemblyTitle>Magick.NET.Web Q8 $(Platform) $(TargetFrameWork)</AssemblyTitle>
     <DocumentationFile>bin\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET.Web-Q8-$(Platform).xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'DebugQ16'">
-    <DefineConstants>Q16</DefineConstants>
+    <DefineConstants>Q16;PLATFORM_$(Platform)</DefineConstants>
     <Optimize>false</Optimize>
     <AssemblyName>Magick.NET.Web-Q16-$(Platform)</AssemblyName>
     <AssemblyTitle>Magick.NET.Web Q16 $(Platform) $(TargetFrameWork)</AssemblyTitle>
     <DocumentationFile>bin\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET.Web-Q16-$(Platform).xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'DebugQ16-HDRI'">
-    <DefineConstants>Q16HDRI</DefineConstants>
+    <DefineConstants>Q16HDRI;PLATFORM_$(Platform)</DefineConstants>
     <Optimize>false</Optimize>
     <AssemblyName>Magick.NET.Web-Q16-HDRI-$(Platform)</AssemblyName>
     <AssemblyTitle>Magick.NET.Web Q16-HDRI $(Platform) $(TargetFrameWork)</AssemblyTitle>
     <DocumentationFile>bin\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET.Web-Q16-HDRI-$(Platform).xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'ReleaseQ8'">
-    <DefineConstants>Q8</DefineConstants>
+    <DefineConstants>Q8;PLATFORM_$(Platform)</DefineConstants>
     <Optimize>true</Optimize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyName>Magick.NET.Web-Q8-$(Platform)</AssemblyName>
@@ -69,7 +75,7 @@
     <DocumentationFile>bin\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET.Web-Q8-$(Platform).xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'ReleaseQ16'">
-    <DefineConstants>Q16</DefineConstants>
+    <DefineConstants>Q16;PLATFORM_$(Platform)</DefineConstants>
     <Optimize>true</Optimize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyName>Magick.NET.Web-Q16-$(Platform)</AssemblyName>
@@ -77,7 +83,7 @@
     <DocumentationFile>bin\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET.Web-Q16-$(Platform).xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'ReleaseQ16-HDRI'">
-    <DefineConstants>Q16HDRI</DefineConstants>
+    <DefineConstants>Q16HDRI;PLATFORM_$(Platform)</DefineConstants>
     <Optimize>true</Optimize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyName>Magick.NET.Web-Q16-HDRI-$(Platform)</AssemblyName>
