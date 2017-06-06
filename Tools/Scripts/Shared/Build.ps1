@@ -63,6 +63,23 @@ function BuildCore($name)
   }
 }
 
+function BuildSolution($solution, $properties)
+{
+  $path = FullPath $solution
+  $directory = Split-Path -parent $path
+  $filename = Split-Path -leaf $path
+
+  .\Tools\Programs\nuget.exe restore $solution
+
+  $location = $(Get-Location)
+  Set-Location $directory
+
+  msbuild $filename /m:4 /t:Rebuild ("/p:$($properties)")
+  CheckExitCode "Failed to build: $($path)"
+
+  Set-Location $location
+}
+
 function CopyNativeLibrary($directory, $platform, $binDir)
 {
   $quantum = ($directory.Replace(".Native", "").Split('-') | Select-Object -Skip 1) -join '-'

@@ -12,26 +12,26 @@
 # limitations under the License.
 #==================================================================================================
 $builds = @(
-  @{Name = "Magick.NET";       Suffix = "";       Quantum = "Q8";       Platform = "x86"; Framework = "v4.0"; FrameworkName = "net40-client";}
-  @{Name = "Magick.NET";       Suffix = "";       Quantum = "Q8";       Platform = "x64"; Framework = "v4.0"; FrameworkName = "net40-client";}
-  @{Name = "Magick.NET";       Suffix = "";       Quantum = "Q16";      Platform = "x86"; Framework = "v4.0"; FrameworkName = "net40-client";}
-  @{Name = "Magick.NET";       Suffix = "";       Quantum = "Q16";      Platform = "x64"; Framework = "v4.0"; FrameworkName = "net40-client";}
-  @{Name = "Magick.NET";       Suffix = "";       Quantum = "Q16-HDRI"; Platform = "x86"; Framework = "v4.0"; FrameworkName = "net40-client";}
-  @{Name = "Magick.NET";       Suffix = "";       Quantum = "Q16-HDRI"; Platform = "x64"; Framework = "v4.0"; FrameworkName = "net40-client";}
-  @{Name = "Magick.NET.net20"; Suffix = ".net20"; Quantum = "Q8";       Platform = "x86"; Framework = "v2.0"; FrameworkName = "net20";}
-  @{Name = "Magick.NET.net20"; Suffix = ".net20"; Quantum = "Q8";       Platform = "x64"; Framework = "v2.0"; FrameworkName = "net20";}
-  @{Name = "Magick.NET.net20"; Suffix = ".net20"; Quantum = "Q16";      Platform = "x86"; Framework = "v2.0"; FrameworkName = "net20";}
-  @{Name = "Magick.NET.net20"; Suffix = ".net20"; Quantum = "Q16";      Platform = "x64"; Framework = "v2.0"; FrameworkName = "net20";}
-  @{Name = "Magick.NET.net20"; Suffix = ".net20"; Quantum = "Q16-HDRI"; Platform = "x86"; Framework = "v2.0"; FrameworkName = "net20";}
-  @{Name = "Magick.NET.net20"; Suffix = ".net20"; Quantum = "Q16-HDRI"; Platform = "x64"; Framework = "v2.0"; FrameworkName = "net20";}
+  @{Name = "Magick.NET"; Quantum = "Q8";       Platform = "x86"; Framework = "v4.0"; FrameworkName = "net40";}
+  @{Name = "Magick.NET"; Quantum = "Q8";       Platform = "x86"; Framework = "v2.0"; FrameworkName = "net20";}
+  @{Name = "Magick.NET"; Quantum = "Q8";       Platform = "x64"; Framework = "v4.0"; FrameworkName = "net40";}
+  @{Name = "Magick.NET"; Quantum = "Q8";       Platform = "x64"; Framework = "v2.0"; FrameworkName = "net20";}
+  @{Name = "Magick.NET"; Quantum = "Q16";      Platform = "x86"; Framework = "v4.0"; FrameworkName = "net40";}
+  @{Name = "Magick.NET"; Quantum = "Q16";      Platform = "x86"; Framework = "v2.0"; FrameworkName = "net20";}
+  @{Name = "Magick.NET"; Quantum = "Q16";      Platform = "x64"; Framework = "v4.0"; FrameworkName = "net40";}
+  @{Name = "Magick.NET"; Quantum = "Q16";      Platform = "x64"; Framework = "v2.0"; FrameworkName = "net20";}
+  @{Name = "Magick.NET"; Quantum = "Q16-HDRI"; Platform = "x86"; Framework = "v4.0"; FrameworkName = "net40";}
+  @{Name = "Magick.NET"; Quantum = "Q16-HDRI"; Platform = "x86"; Framework = "v2.0"; FrameworkName = "net20";}
+  @{Name = "Magick.NET"; Quantum = "Q16-HDRI"; Platform = "x64"; Framework = "v4.0"; FrameworkName = "net40";}
+  @{Name = "Magick.NET"; Quantum = "Q16-HDRI"; Platform = "x64"; Framework = "v2.0"; FrameworkName = "net20";}
 )
 $anyCPUbuilds = @(
-  @{Name = "Magick.NET.AnyCPU";       Suffix="";       Quantum = "Q8";       Platform = "AnyCPU"; Framework = "v4.0"; FrameworkName = "net40-client";}
-  @{Name = "Magick.NET.AnyCPU";       Suffix="";       Quantum = "Q16";      Platform = "AnyCPU"; Framework = "v4.0"; FrameworkName = "net40-client";}
-  @{Name = "Magick.NET.AnyCPU";       Suffix="";       Quantum = "Q16-HDRI"; Platform = "AnyCPU"; Framework = "v4.0"; FrameworkName = "net40-client";}
-  @{Name = "Magick.NET.AnyCPU.net20"; Suffix=".net20"; Quantum = "Q8";       Platform = "AnyCPU"; Framework = "v2.0"; FrameworkName = "net20";}
-  @{Name = "Magick.NET.AnyCPU.net20"; Suffix=".net20"; Quantum = "Q16";      Platform = "AnyCPU"; Framework = "v2.0"; FrameworkName = "net20";}
-  @{Name = "Magick.NET.AnyCPU.net20"; Suffix=".net20"; Quantum = "Q16-HDRI"; Platform = "AnyCPU"; Framework = "v2.0"; FrameworkName = "net20";}
+  @{Name = "Magick.NET.AnyCPU"; Quantum = "Q8";       Platform = "AnyCPU"; Framework = "v4.0"; FrameworkName = "net40";}
+  @{Name = "Magick.NET.AnyCPU"; Quantum = "Q8";       Platform = "AnyCPU"; Framework = "v2.0"; FrameworkName = "net20";}
+  @{Name = "Magick.NET.AnyCPU"; Quantum = "Q16";      Platform = "AnyCPU"; Framework = "v4.0"; FrameworkName = "net40";}
+  @{Name = "Magick.NET.AnyCPU"; Quantum = "Q16";      Platform = "AnyCPU"; Framework = "v2.0"; FrameworkName = "net20";}
+  @{Name = "Magick.NET.AnyCPU"; Quantum = "Q16-HDRI"; Platform = "AnyCPU"; Framework = "v4.0"; FrameworkName = "net40";}
+  @{Name = "Magick.NET.AnyCPU"; Quantum = "Q16-HDRI"; Platform = "AnyCPU"; Framework = "v2.0"; FrameworkName = "net20";}
 )
 
 function GetBuilds($quantum, $platform)
@@ -40,45 +40,45 @@ function GetBuilds($quantum, $platform)
   {
     if ($platform -eq "x86")
     {
-      return @($builds[0], $builds[6])
+      return @($builds[0], $builds[1])
     }
     elseif ($platform -eq "x64")
     {
-      return @($builds[1], $builds[7])
+      return @($builds[2], $builds[3])
     }
     elseif ($platform -eq "AnyCPU")
     {
-      return @($anyCPUbuilds[0], $anyCPUbuilds[3])
+      return @($anyCPUbuilds[0], $anyCPUbuilds[1])
     }
   }
   elseif ($quantum -eq "Q16")
   {
     if ($platform -eq "x86")
     {
-      return @($builds[2], $builds[8])
+      return @($builds[4], $builds[5])
     }
     elseif ($platform -eq "x64")
     {
-      return @($builds[3], $builds[9])
+      return @($builds[6], $builds[7])
     }
     elseif ($platform -eq "AnyCPU")
     {
-      return @($anyCPUbuilds[1], $anyCPUbuilds[4])
+      return @($anyCPUbuilds[2], $anyCPUbuilds[3])
     }
   }
   elseif ($quantum -eq "Q16-HDRI")
   {
     if ($platform -eq "x86")
     {
-      return @($builds[4], $builds[10])
+      return @($builds[8], $builds[9])
     }
     elseif ($platform -eq "x64")
     {
-      return @($builds[5], $builds[11])
+      return @($builds[10], $builds[11])
     }
     elseif ($platform -eq "AnyCPU")
     {
-      return @($anyCPUbuilds[2], $anyCPUbuilds[5])
+      return @($anyCPUbuilds[4], $anyCPUbuilds[5])
     }
   }
   return $null

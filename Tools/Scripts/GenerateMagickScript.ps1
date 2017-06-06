@@ -12,6 +12,7 @@
 # limitations under the License.
 #==================================================================================================
 $scriptPath = Split-Path -parent $MyInvocation.MyCommand.Path
+. $scriptPath\Shared\Build.ps1
 . $scriptPath\Shared\Functions.ps1
 SetFolder $scriptPath
 
@@ -19,9 +20,9 @@ SetFolder $scriptPath
 
 function BuildMagickNET()
 {
-  BuildSolution "Magick.NET.sln" "Configuration=ReleaseQ8,TargetFramework=net40,Platform=x86"
-  BuildSolution "Magick.NET.sln" "Configuration=ReleaseQ16,TargetFramework=net40,Platform=x86"
-  BuildSolution "Magick.NET.sln" "Configuration=ReleaseQ16-HDRI,TargetFramework=net40,Platform=x86"
+  BuildSolution "Magick.NET.sln" "Configuration=ReleaseQ8,RunCodeAnalysis=false,TargetFramework=net40,Platform=x86"
+  BuildSolution "Magick.NET.sln" "Configuration=ReleaseQ16,RunCodeAnalysis=false,TargetFramework=net40,Platform=x86"
+  BuildSolution "Magick.NET.sln" "Configuration=ReleaseQ16-HDRI,RunCodeAnalysis=false,TargetFramework=net40,Platform=x86"
 }
 
 BuildMagickNET

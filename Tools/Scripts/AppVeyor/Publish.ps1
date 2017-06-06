@@ -26,9 +26,13 @@ function Publish($builds, $version)
   $build = $builds[0];
 
   $id = "Magick.NET-dev-$($build.Quantum)-$($build.Platform)"
-  CreateNuGetPackage $id $version $build
+  CreateNuGetPackages $id $version $build
 
   $fileName = FullPath "Publish\NuGet\$id.$version.nupkg"
+  appveyor PushArtifact $fileName
+
+  $webId = $id.Replace("Magick.NET", "Magick.NET.Web")
+  $fileName = FullPath "Publish\NuGet\$webId.$version.nupkg"
   appveyor PushArtifact $fileName
 }
 

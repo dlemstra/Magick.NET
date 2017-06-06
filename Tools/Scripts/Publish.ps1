@@ -30,15 +30,13 @@ function BuildAll($builds)
   {
     Build $build
 
-    $platform = ""
-    if ($($build.Platform) -ne "AnyCPU")
+    if ($build.Framework -eq "v4.0")
     {
       $platform = "/Platform:$($build.Platform)"
+      $dll = "Tests\Magick.NET.Tests\bin\Release$($build.Quantum)\$($build.Platform)\net45\Magick.NET.Tests.dll"
+      vstest.console.exe /inIsolation $platform $dll
+      CheckExitCode ("Test failed for Magick.NET-" + $build.Quantum + "-" + $build.Platform + " (" + $build.FrameworkName + ")")
     }
-
-    $dll = "Tests\Magick.NET.Tests\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Tests.dll"
-    vstest.console.exe /inIsolation $platform $dll
-    CheckExitCode ("Test failed for Magick.NET-" + $build.Quantum + "-" + $build.Platform + " (" + $build.FrameworkName + ")")
   }
 }
 

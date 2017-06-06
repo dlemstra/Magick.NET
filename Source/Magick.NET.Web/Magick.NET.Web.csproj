@@ -8,14 +8,7 @@
     <FileVersion>7.0.5.900</FileVersion>
     <Version>7.0.5.900</Version>
     <Authors>Dirk Lemstra</Authors>
-    <Description>This package contains a httpmodule that uses various handlers to script/optimize/compress images.</Description>
     <Copyright>Copyright 2013-2017 Dirk Lemstra</Copyright>
-    <PackageTags>ImageMagick Magick.NET Image Convert Resize Draw Effects</PackageTags>
-    <PackageLicenseUrl>https://github.com/dlemstra/Magick.NET/blob/master/License.txt</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/dlemstra/Magick.NET</PackageProjectUrl>
-    <PackageIconUrl>https://raw.githubusercontent.com/dlemstra/Magick.NET/master/Tests/Magick.NET.Tests/Images/Magick.NET.icon.png</PackageIconUrl>
-    <RepositoryUrl>https://github.com/dlemstra/Magick.NET</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
