@@ -12,6 +12,8 @@
 // limitations under the License.
 //=================================================================================================
 
+#if !NETCOREAPP1_1
+
 using System.Xml.Schema;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -30,3 +32,5 @@ namespace Magick.NET.Tests
     }
   }
 }
+
+#endif

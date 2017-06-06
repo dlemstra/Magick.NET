@@ -12,8 +12,8 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
-using System.Collections.Generic;
+#if !NETSTANDARD1_3
+
 using System.Drawing;
 using System.Drawing.Imaging;
 
@@ -39,3 +39,5 @@ namespace ImageMagick
     Bitmap ToBitmap(ImageFormat imageFormat);
   }
 }
+
+#endif

@@ -12,6 +12,8 @@
 // limitations under the License.
 //=================================================================================================
 
+#if !NETCOREAPP1_1
+
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -237,3 +239,5 @@ namespace Magick.NET.Tests
     }
   }
 }
+
+#endif

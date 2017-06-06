@@ -12,6 +12,8 @@
 // limitations under the License.
 //=================================================================================================
 
+#if !NETCOREAPP1_1
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Web;
@@ -49,3 +51,5 @@ namespace Magick.NET.Tests
     }
   }
 }
+
+#endif

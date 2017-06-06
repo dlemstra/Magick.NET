@@ -12,6 +12,8 @@
 // limitations under the License.
 //=================================================================================================
 
+#if !NETCOREAPP1_1
+
 using ImageMagick;
 
 namespace Magick.NET.Tests
@@ -32,3 +34,5 @@ namespace Magick.NET.Tests
     }
   }
 }
+
+#endif

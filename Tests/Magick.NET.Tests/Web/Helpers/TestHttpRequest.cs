@@ -12,6 +12,8 @@
 // limitations under the License.
 //=================================================================================================
 
+#if !NETCOREAPP1_1
+
 using System;
 using System.Web;
 
@@ -30,3 +32,5 @@ namespace Magick.NET.Tests
     public override Uri Url => _Url;
   }
 }
+
+#endif

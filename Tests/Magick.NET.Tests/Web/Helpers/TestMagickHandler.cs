@@ -12,6 +12,8 @@
 // limitations under the License.
 //=================================================================================================
 
+#if !NETCOREAPP1_1
+
 using ImageMagick.Web;
 using ImageMagick.Web.Handlers;
 using System.Web;
@@ -35,3 +37,5 @@ namespace Magick.NET.Tests
     public string FileName { get; set; }
   }
 }
+
+#endif

@@ -12,8 +12,9 @@
 // limitations under the License.
 //=================================================================================================
 
+#if !NETSTANDARD1_3
+
 using System;
-using System.IO;
 
 namespace ImageMagick
 {
@@ -31,3 +32,5 @@ namespace ImageMagick
     }
   }
 }
+
+#endif

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <TargetFrameworks>net45</TargetFrameworks>
+    <TargetFrameworks>net45;netcoreapp1.1</TargetFrameworks>
     <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
     <AssemblyName>Magick.NET.Tests</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -10,11 +10,11 @@
     <AssemblyOriginatorKeyFile>..\..\Magick.NET.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0-preview-20170517-02" />
-    <PackageReference Include="MSTest.TestAdapter" Version="1.1.17" />
-    <PackageReference Include="MSTest.TestFramework" Version="1.1.17" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0-preview-20170601-03" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.1.18" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.1.18" />
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
     <Reference Include="System.Configuration" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -23,7 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Source\Magick.NET\Magick.NET.csproj" />
-    <ProjectReference Include="..\..\Source\Magick.NET.Web\Magick.NET.Web.csproj" />
+    <ProjectReference Condition="'$(TargetFramework)' == 'net45'" Include="..\..\Source\Magick.NET.Web\Magick.NET.Web.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />

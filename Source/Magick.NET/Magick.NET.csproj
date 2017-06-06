@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <TargetFrameworks>net20;net40</TargetFrameworks>
+    <TargetFrameworks>net20;net40;netstandard13</TargetFrameworks>
     <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AssemblyVersion>7.0.0.0</AssemblyVersion>
@@ -13,12 +13,19 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\Magick.NET.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-  <ItemGroup>
+  <ItemGroup Condition="$(TargetFramework) != 'netstandard13'">
     <Reference Include="System.Drawing" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' != 'net20'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net40'">
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard13'">
+    <PackageReference Include="System.Collections.NonGeneric" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XDocument" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XPath.XDocument" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.2">

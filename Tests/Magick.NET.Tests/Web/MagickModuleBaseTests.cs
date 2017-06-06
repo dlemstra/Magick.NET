@@ -12,6 +12,8 @@
 // limitations under the License.
 //=================================================================================================
 
+#if !NETCOREAPP1_1
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests.Web
@@ -47,3 +49,5 @@ namespace Magick.NET.Tests.Web
     }
   }
 }
+
+#endif

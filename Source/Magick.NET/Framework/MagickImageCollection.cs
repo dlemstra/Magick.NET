@@ -12,6 +12,8 @@
 // limitations under the License.
 //=================================================================================================
 
+#if !NETSTANDARD1_3
+
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -55,3 +57,5 @@ namespace ImageMagick
     }
   }
 }
+
+#endif

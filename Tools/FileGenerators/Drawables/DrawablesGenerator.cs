@@ -30,6 +30,13 @@ namespace FileGenerator.Drawables
       generator.WriteStart("ImageMagick");
       generator.WriteDrawables();
       generator.WriteEnd();
+
+      if (!generator._ForCore)
+      {
+        generator.WriteLine();
+        generator.WriteLine("#endif");
+      }
+
       generator.CloseWriter();
     }
 
@@ -101,6 +108,8 @@ namespace FileGenerator.Drawables
     {
       if (!_ForCore)
       {
+        WriteLine("#if !NETSTANDARD1_3");
+        WriteLine();
         WriteLine("using System.Drawing;");
         WriteLine("using System.Drawing.Drawing2D;");
         WriteLine();

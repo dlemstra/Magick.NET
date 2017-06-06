@@ -18,6 +18,9 @@ using System.Xml;
 
 namespace ImageMagick
 {
+  /// <content>
+  /// Contains code that is not compatible with .NET Framework.
+  /// </content>
   public sealed partial class MagickScript
   {
     private static XmlReaderSettings CreateXmlReaderSettings()
