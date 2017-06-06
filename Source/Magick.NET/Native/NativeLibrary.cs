@@ -18,7 +18,7 @@ namespace ImageMagick
 {
   internal static class NativeLibrary
   {
-#if !WIN64 || ANYCPU
+#if PLATFORM_x86 || PLATFORM_AnyCPU
 #if Q8
     public const string X86Name = "Magick.NET-Q8-x86.Native.dll";
 #elif Q16
@@ -30,7 +30,7 @@ namespace ImageMagick
 #endif
 #endif
 
-#if WIN64 || ANYCPU
+#if PLATFORM_x64 || PLATFORM_AnyCPU
 #if Q8
     public const string X64Name = "Magick.NET-Q8-x64.Native.dll";
 #elif Q16
@@ -42,7 +42,7 @@ namespace ImageMagick
 #endif
 #endif
 
-#if ANYCPU
+#if PLATFORM_AnyCPU
     public static bool Is64Bit
     {
       get

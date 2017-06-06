@@ -33,10 +33,10 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
-      #if WIN64 || ANYCPU
+      #if PLATFORM_x64 || PLATFORM_AnyCPU
       public static class X64
       {
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.QuantizeSettings+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
         #endif
@@ -56,10 +56,10 @@ namespace ImageMagick
         public static extern void QuantizeSettings_SetTreeDepth(IntPtr Instance, UIntPtr value);
       }
       #endif
-      #if !WIN64 || ANYCPU
+      #if PLATFORM_x86 || PLATFORM_AnyCPU
       public static class X86
       {
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.QuantizeSettings+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
         #endif
@@ -84,31 +84,31 @@ namespace ImageMagick
     {
       protected override void Dispose(IntPtr instance)
       {
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         if (NativeLibrary.Is64Bit)
         #endif
-        #if WIN64 || ANYCPU
+        #if PLATFORM_x64 || PLATFORM_AnyCPU
         NativeMethods.X64.QuantizeSettings_Dispose(instance);
         #endif
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         else
         #endif
-        #if !WIN64 || ANYCPU
+        #if PLATFORM_x86 || PLATFORM_AnyCPU
         NativeMethods.X86.QuantizeSettings_Dispose(instance);
         #endif
       }
       public NativeQuantizeSettings()
       {
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         if (NativeLibrary.Is64Bit)
         #endif
-        #if WIN64 || ANYCPU
+        #if PLATFORM_x64 || PLATFORM_AnyCPU
         Instance = NativeMethods.X64.QuantizeSettings_Create();
         #endif
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         else
         #endif
-        #if !WIN64 || ANYCPU
+        #if PLATFORM_x86 || PLATFORM_AnyCPU
         Instance = NativeMethods.X86.QuantizeSettings_Create();
         #endif
         if (Instance == IntPtr.Zero)
@@ -123,76 +123,76 @@ namespace ImageMagick
       }
       public void SetColors(int value)
       {
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         if (NativeLibrary.Is64Bit)
         #endif
-        #if WIN64 || ANYCPU
+        #if PLATFORM_x64 || PLATFORM_AnyCPU
         NativeMethods.X64.QuantizeSettings_SetColors(Instance, (UIntPtr)value);
         #endif
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         else
         #endif
-        #if !WIN64 || ANYCPU
+        #if PLATFORM_x86 || PLATFORM_AnyCPU
         NativeMethods.X86.QuantizeSettings_SetColors(Instance, (UIntPtr)value);
         #endif
       }
       public void SetColorSpace(ColorSpace value)
       {
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         if (NativeLibrary.Is64Bit)
         #endif
-        #if WIN64 || ANYCPU
+        #if PLATFORM_x64 || PLATFORM_AnyCPU
         NativeMethods.X64.QuantizeSettings_SetColorSpace(Instance, (UIntPtr)value);
         #endif
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         else
         #endif
-        #if !WIN64 || ANYCPU
+        #if PLATFORM_x86 || PLATFORM_AnyCPU
         NativeMethods.X86.QuantizeSettings_SetColorSpace(Instance, (UIntPtr)value);
         #endif
       }
       public void SetDitherMethod(DitherMethod value)
       {
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         if (NativeLibrary.Is64Bit)
         #endif
-        #if WIN64 || ANYCPU
+        #if PLATFORM_x64 || PLATFORM_AnyCPU
         NativeMethods.X64.QuantizeSettings_SetDitherMethod(Instance, (UIntPtr)value);
         #endif
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         else
         #endif
-        #if !WIN64 || ANYCPU
+        #if PLATFORM_x86 || PLATFORM_AnyCPU
         NativeMethods.X86.QuantizeSettings_SetDitherMethod(Instance, (UIntPtr)value);
         #endif
       }
       public void SetMeasureErrors(bool value)
       {
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         if (NativeLibrary.Is64Bit)
         #endif
-        #if WIN64 || ANYCPU
+        #if PLATFORM_x64 || PLATFORM_AnyCPU
         NativeMethods.X64.QuantizeSettings_SetMeasureErrors(Instance, value);
         #endif
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         else
         #endif
-        #if !WIN64 || ANYCPU
+        #if PLATFORM_x86 || PLATFORM_AnyCPU
         NativeMethods.X86.QuantizeSettings_SetMeasureErrors(Instance, value);
         #endif
       }
       public void SetTreeDepth(int value)
       {
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         if (NativeLibrary.Is64Bit)
         #endif
-        #if WIN64 || ANYCPU
+        #if PLATFORM_x64 || PLATFORM_AnyCPU
         NativeMethods.X64.QuantizeSettings_SetTreeDepth(Instance, (UIntPtr)value);
         #endif
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         else
         #endif
-        #if !WIN64 || ANYCPU
+        #if PLATFORM_x86 || PLATFORM_AnyCPU
         NativeMethods.X86.QuantizeSettings_SetTreeDepth(Instance, (UIntPtr)value);
         #endif
       }

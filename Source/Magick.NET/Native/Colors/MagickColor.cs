@@ -33,10 +33,10 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
-      #if WIN64 || ANYCPU
+      #if PLATFORM_x64 || PLATFORM_AnyCPU
       public static class X64
       {
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickColor+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
         #endif
@@ -77,10 +77,10 @@ namespace ImageMagick
         public static extern bool MagickColor_Initialize(IntPtr Instance, IntPtr value);
       }
       #endif
-      #if !WIN64 || ANYCPU
+      #if PLATFORM_x86 || PLATFORM_AnyCPU
       public static class X86
       {
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickColor+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
         #endif
@@ -126,31 +126,31 @@ namespace ImageMagick
     {
       protected override void Dispose(IntPtr instance)
       {
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         if (NativeLibrary.Is64Bit)
         #endif
-        #if WIN64 || ANYCPU
+        #if PLATFORM_x64 || PLATFORM_AnyCPU
         NativeMethods.X64.MagickColor_Dispose(instance);
         #endif
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         else
         #endif
-        #if !WIN64 || ANYCPU
+        #if PLATFORM_x86 || PLATFORM_AnyCPU
         NativeMethods.X86.MagickColor_Dispose(instance);
         #endif
       }
       public NativeMagickColor()
       {
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         if (NativeLibrary.Is64Bit)
         #endif
-        #if WIN64 || ANYCPU
+        #if PLATFORM_x64 || PLATFORM_AnyCPU
         Instance = NativeMethods.X64.MagickColor_Create();
         #endif
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         else
         #endif
-        #if !WIN64 || ANYCPU
+        #if PLATFORM_x86 || PLATFORM_AnyCPU
         Instance = NativeMethods.X86.MagickColor_Create();
         #endif
         if (Instance == IntPtr.Zero)
@@ -172,16 +172,16 @@ namespace ImageMagick
         get
         {
           ulong result;
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           if (NativeLibrary.Is64Bit)
           #endif
-          #if WIN64 || ANYCPU
+          #if PLATFORM_x64 || PLATFORM_AnyCPU
           result = NativeMethods.X64.MagickColor_Count_Get(Instance);
           #endif
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           else
           #endif
-          #if !WIN64 || ANYCPU
+          #if PLATFORM_x86 || PLATFORM_AnyCPU
           result = NativeMethods.X86.MagickColor_Count_Get(Instance);
           #endif
           return result;
@@ -192,32 +192,32 @@ namespace ImageMagick
         get
         {
           QuantumType result;
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           if (NativeLibrary.Is64Bit)
           #endif
-          #if WIN64 || ANYCPU
+          #if PLATFORM_x64 || PLATFORM_AnyCPU
           result = NativeMethods.X64.MagickColor_Red_Get(Instance);
           #endif
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           else
           #endif
-          #if !WIN64 || ANYCPU
+          #if PLATFORM_x86 || PLATFORM_AnyCPU
           result = NativeMethods.X86.MagickColor_Red_Get(Instance);
           #endif
           return result;
         }
         set
         {
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           if (NativeLibrary.Is64Bit)
           #endif
-          #if WIN64 || ANYCPU
+          #if PLATFORM_x64 || PLATFORM_AnyCPU
           NativeMethods.X64.MagickColor_Red_Set(Instance, value);
           #endif
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           else
           #endif
-          #if !WIN64 || ANYCPU
+          #if PLATFORM_x86 || PLATFORM_AnyCPU
           NativeMethods.X86.MagickColor_Red_Set(Instance, value);
           #endif
         }
@@ -227,32 +227,32 @@ namespace ImageMagick
         get
         {
           QuantumType result;
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           if (NativeLibrary.Is64Bit)
           #endif
-          #if WIN64 || ANYCPU
+          #if PLATFORM_x64 || PLATFORM_AnyCPU
           result = NativeMethods.X64.MagickColor_Green_Get(Instance);
           #endif
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           else
           #endif
-          #if !WIN64 || ANYCPU
+          #if PLATFORM_x86 || PLATFORM_AnyCPU
           result = NativeMethods.X86.MagickColor_Green_Get(Instance);
           #endif
           return result;
         }
         set
         {
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           if (NativeLibrary.Is64Bit)
           #endif
-          #if WIN64 || ANYCPU
+          #if PLATFORM_x64 || PLATFORM_AnyCPU
           NativeMethods.X64.MagickColor_Green_Set(Instance, value);
           #endif
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           else
           #endif
-          #if !WIN64 || ANYCPU
+          #if PLATFORM_x86 || PLATFORM_AnyCPU
           NativeMethods.X86.MagickColor_Green_Set(Instance, value);
           #endif
         }
@@ -262,32 +262,32 @@ namespace ImageMagick
         get
         {
           QuantumType result;
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           if (NativeLibrary.Is64Bit)
           #endif
-          #if WIN64 || ANYCPU
+          #if PLATFORM_x64 || PLATFORM_AnyCPU
           result = NativeMethods.X64.MagickColor_Blue_Get(Instance);
           #endif
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           else
           #endif
-          #if !WIN64 || ANYCPU
+          #if PLATFORM_x86 || PLATFORM_AnyCPU
           result = NativeMethods.X86.MagickColor_Blue_Get(Instance);
           #endif
           return result;
         }
         set
         {
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           if (NativeLibrary.Is64Bit)
           #endif
-          #if WIN64 || ANYCPU
+          #if PLATFORM_x64 || PLATFORM_AnyCPU
           NativeMethods.X64.MagickColor_Blue_Set(Instance, value);
           #endif
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           else
           #endif
-          #if !WIN64 || ANYCPU
+          #if PLATFORM_x86 || PLATFORM_AnyCPU
           NativeMethods.X86.MagickColor_Blue_Set(Instance, value);
           #endif
         }
@@ -297,32 +297,32 @@ namespace ImageMagick
         get
         {
           QuantumType result;
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           if (NativeLibrary.Is64Bit)
           #endif
-          #if WIN64 || ANYCPU
+          #if PLATFORM_x64 || PLATFORM_AnyCPU
           result = NativeMethods.X64.MagickColor_Alpha_Get(Instance);
           #endif
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           else
           #endif
-          #if !WIN64 || ANYCPU
+          #if PLATFORM_x86 || PLATFORM_AnyCPU
           result = NativeMethods.X86.MagickColor_Alpha_Get(Instance);
           #endif
           return result;
         }
         set
         {
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           if (NativeLibrary.Is64Bit)
           #endif
-          #if WIN64 || ANYCPU
+          #if PLATFORM_x64 || PLATFORM_AnyCPU
           NativeMethods.X64.MagickColor_Alpha_Set(Instance, value);
           #endif
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           else
           #endif
-          #if !WIN64 || ANYCPU
+          #if PLATFORM_x86 || PLATFORM_AnyCPU
           NativeMethods.X86.MagickColor_Alpha_Set(Instance, value);
           #endif
         }
@@ -332,32 +332,32 @@ namespace ImageMagick
         get
         {
           QuantumType result;
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           if (NativeLibrary.Is64Bit)
           #endif
-          #if WIN64 || ANYCPU
+          #if PLATFORM_x64 || PLATFORM_AnyCPU
           result = NativeMethods.X64.MagickColor_Black_Get(Instance);
           #endif
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           else
           #endif
-          #if !WIN64 || ANYCPU
+          #if PLATFORM_x86 || PLATFORM_AnyCPU
           result = NativeMethods.X86.MagickColor_Black_Get(Instance);
           #endif
           return result;
         }
         set
         {
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           if (NativeLibrary.Is64Bit)
           #endif
-          #if WIN64 || ANYCPU
+          #if PLATFORM_x64 || PLATFORM_AnyCPU
           NativeMethods.X64.MagickColor_Black_Set(Instance, value);
           #endif
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           else
           #endif
-          #if !WIN64 || ANYCPU
+          #if PLATFORM_x86 || PLATFORM_AnyCPU
           NativeMethods.X86.MagickColor_Black_Set(Instance, value);
           #endif
         }
@@ -367,16 +367,16 @@ namespace ImageMagick
         get
         {
           bool result;
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           if (NativeLibrary.Is64Bit)
           #endif
-          #if WIN64 || ANYCPU
+          #if PLATFORM_x64 || PLATFORM_AnyCPU
           result = NativeMethods.X64.MagickColor_IsCMYK_Get(Instance);
           #endif
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           else
           #endif
-          #if !WIN64 || ANYCPU
+          #if PLATFORM_x86 || PLATFORM_AnyCPU
           result = NativeMethods.X86.MagickColor_IsCMYK_Get(Instance);
           #endif
           return result;
@@ -386,16 +386,16 @@ namespace ImageMagick
       {
         using (INativeInstance otherNative = MagickColor.CreateInstance(other))
         {
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           if (NativeLibrary.Is64Bit)
           #endif
-          #if WIN64 || ANYCPU
+          #if PLATFORM_x64 || PLATFORM_AnyCPU
           return NativeMethods.X64.MagickColor_FuzzyEquals(Instance, otherNative.Instance, fuzz);
           #endif
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           else
           #endif
-          #if !WIN64 || ANYCPU
+          #if PLATFORM_x86 || PLATFORM_AnyCPU
           return NativeMethods.X86.MagickColor_FuzzyEquals(Instance, otherNative.Instance, fuzz);
           #endif
         }
@@ -404,16 +404,16 @@ namespace ImageMagick
       {
         using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
         {
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           if (NativeLibrary.Is64Bit)
           #endif
-          #if WIN64 || ANYCPU
+          #if PLATFORM_x64 || PLATFORM_AnyCPU
           return NativeMethods.X64.MagickColor_Initialize(Instance, valueNative.Instance);
           #endif
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           else
           #endif
-          #if !WIN64 || ANYCPU
+          #if PLATFORM_x86 || PLATFORM_AnyCPU
           return NativeMethods.X86.MagickColor_Initialize(Instance, valueNative.Instance);
           #endif
         }

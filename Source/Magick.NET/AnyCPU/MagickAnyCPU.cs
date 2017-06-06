@@ -12,7 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 
-#if ANYCPU
+#if PLATFORM_AnyCPU
 using System;
 using System.IO;
 

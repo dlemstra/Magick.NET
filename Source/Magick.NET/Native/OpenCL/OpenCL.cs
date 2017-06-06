@@ -33,10 +33,10 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
-      #if WIN64 || ANYCPU
+      #if PLATFORM_x64 || PLATFORM_AnyCPU
       public static class X64
       {
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.OpenCL+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
         #endif
@@ -49,10 +49,10 @@ namespace ImageMagick
         public static extern bool OpenCL_SetEnabled([MarshalAs(UnmanagedType.Bool)] bool value);
       }
       #endif
-      #if !WIN64 || ANYCPU
+      #if PLATFORM_x86 || PLATFORM_AnyCPU
       public static class X86
       {
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.OpenCL+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
         #endif
@@ -70,46 +70,46 @@ namespace ImageMagick
     {
       public static IntPtr GetDevices(out UIntPtr length)
       {
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         if (NativeLibrary.Is64Bit)
         #endif
-        #if WIN64 || ANYCPU
+        #if PLATFORM_x64 || PLATFORM_AnyCPU
         return NativeMethods.X64.OpenCL_GetDevices(out length);
         #endif
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         else
         #endif
-        #if !WIN64 || ANYCPU
+        #if PLATFORM_x86 || PLATFORM_AnyCPU
         return NativeMethods.X86.OpenCL_GetDevices(out length);
         #endif
       }
       public static IntPtr GetDevice(IntPtr list, int index)
       {
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         if (NativeLibrary.Is64Bit)
         #endif
-        #if WIN64 || ANYCPU
+        #if PLATFORM_x64 || PLATFORM_AnyCPU
         return NativeMethods.X64.OpenCL_GetDevice(list, (UIntPtr)index);
         #endif
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         else
         #endif
-        #if !WIN64 || ANYCPU
+        #if PLATFORM_x86 || PLATFORM_AnyCPU
         return NativeMethods.X86.OpenCL_GetDevice(list, (UIntPtr)index);
         #endif
       }
       public static bool SetEnabled(bool value)
       {
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         if (NativeLibrary.Is64Bit)
         #endif
-        #if WIN64 || ANYCPU
+        #if PLATFORM_x64 || PLATFORM_AnyCPU
         return NativeMethods.X64.OpenCL_SetEnabled(value);
         #endif
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         else
         #endif
-        #if !WIN64 || ANYCPU
+        #if PLATFORM_x86 || PLATFORM_AnyCPU
         return NativeMethods.X86.OpenCL_SetEnabled(value);
         #endif
       }

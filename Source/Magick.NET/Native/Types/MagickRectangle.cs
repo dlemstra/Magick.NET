@@ -33,10 +33,10 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
-      #if WIN64 || ANYCPU
+      #if PLATFORM_x64 || PLATFORM_AnyCPU
       public static class X64
       {
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickRectangle+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
         #endif
@@ -62,10 +62,10 @@ namespace ImageMagick
         public static extern void MagickRectangle_Height_Set(IntPtr instance, UIntPtr value);
       }
       #endif
-      #if !WIN64 || ANYCPU
+      #if PLATFORM_x86 || PLATFORM_AnyCPU
       public static class X86
       {
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickRectangle+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
         #endif
@@ -96,31 +96,31 @@ namespace ImageMagick
     {
       protected override void Dispose(IntPtr instance)
       {
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         if (NativeLibrary.Is64Bit)
         #endif
-        #if WIN64 || ANYCPU
+        #if PLATFORM_x64 || PLATFORM_AnyCPU
         NativeMethods.X64.MagickRectangle_Dispose(instance);
         #endif
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         else
         #endif
-        #if !WIN64 || ANYCPU
+        #if PLATFORM_x86 || PLATFORM_AnyCPU
         NativeMethods.X86.MagickRectangle_Dispose(instance);
         #endif
       }
       public NativeMagickRectangle()
       {
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         if (NativeLibrary.Is64Bit)
         #endif
-        #if WIN64 || ANYCPU
+        #if PLATFORM_x64 || PLATFORM_AnyCPU
         Instance = NativeMethods.X64.MagickRectangle_Create();
         #endif
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         else
         #endif
-        #if !WIN64 || ANYCPU
+        #if PLATFORM_x86 || PLATFORM_AnyCPU
         Instance = NativeMethods.X86.MagickRectangle_Create();
         #endif
         if (Instance == IntPtr.Zero)
@@ -142,32 +142,32 @@ namespace ImageMagick
         get
         {
           IntPtr result;
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           if (NativeLibrary.Is64Bit)
           #endif
-          #if WIN64 || ANYCPU
+          #if PLATFORM_x64 || PLATFORM_AnyCPU
           result = NativeMethods.X64.MagickRectangle_X_Get(Instance);
           #endif
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           else
           #endif
-          #if !WIN64 || ANYCPU
+          #if PLATFORM_x86 || PLATFORM_AnyCPU
           result = NativeMethods.X86.MagickRectangle_X_Get(Instance);
           #endif
           return (int)result;
         }
         set
         {
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           if (NativeLibrary.Is64Bit)
           #endif
-          #if WIN64 || ANYCPU
+          #if PLATFORM_x64 || PLATFORM_AnyCPU
           NativeMethods.X64.MagickRectangle_X_Set(Instance, (IntPtr)value);
           #endif
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           else
           #endif
-          #if !WIN64 || ANYCPU
+          #if PLATFORM_x86 || PLATFORM_AnyCPU
           NativeMethods.X86.MagickRectangle_X_Set(Instance, (IntPtr)value);
           #endif
         }
@@ -177,32 +177,32 @@ namespace ImageMagick
         get
         {
           IntPtr result;
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           if (NativeLibrary.Is64Bit)
           #endif
-          #if WIN64 || ANYCPU
+          #if PLATFORM_x64 || PLATFORM_AnyCPU
           result = NativeMethods.X64.MagickRectangle_Y_Get(Instance);
           #endif
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           else
           #endif
-          #if !WIN64 || ANYCPU
+          #if PLATFORM_x86 || PLATFORM_AnyCPU
           result = NativeMethods.X86.MagickRectangle_Y_Get(Instance);
           #endif
           return (int)result;
         }
         set
         {
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           if (NativeLibrary.Is64Bit)
           #endif
-          #if WIN64 || ANYCPU
+          #if PLATFORM_x64 || PLATFORM_AnyCPU
           NativeMethods.X64.MagickRectangle_Y_Set(Instance, (IntPtr)value);
           #endif
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           else
           #endif
-          #if !WIN64 || ANYCPU
+          #if PLATFORM_x86 || PLATFORM_AnyCPU
           NativeMethods.X86.MagickRectangle_Y_Set(Instance, (IntPtr)value);
           #endif
         }
@@ -212,32 +212,32 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           if (NativeLibrary.Is64Bit)
           #endif
-          #if WIN64 || ANYCPU
+          #if PLATFORM_x64 || PLATFORM_AnyCPU
           result = NativeMethods.X64.MagickRectangle_Width_Get(Instance);
           #endif
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           else
           #endif
-          #if !WIN64 || ANYCPU
+          #if PLATFORM_x86 || PLATFORM_AnyCPU
           result = NativeMethods.X86.MagickRectangle_Width_Get(Instance);
           #endif
           return (int)result;
         }
         set
         {
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           if (NativeLibrary.Is64Bit)
           #endif
-          #if WIN64 || ANYCPU
+          #if PLATFORM_x64 || PLATFORM_AnyCPU
           NativeMethods.X64.MagickRectangle_Width_Set(Instance, (UIntPtr)value);
           #endif
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           else
           #endif
-          #if !WIN64 || ANYCPU
+          #if PLATFORM_x86 || PLATFORM_AnyCPU
           NativeMethods.X86.MagickRectangle_Width_Set(Instance, (UIntPtr)value);
           #endif
         }
@@ -247,32 +247,32 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           if (NativeLibrary.Is64Bit)
           #endif
-          #if WIN64 || ANYCPU
+          #if PLATFORM_x64 || PLATFORM_AnyCPU
           result = NativeMethods.X64.MagickRectangle_Height_Get(Instance);
           #endif
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           else
           #endif
-          #if !WIN64 || ANYCPU
+          #if PLATFORM_x86 || PLATFORM_AnyCPU
           result = NativeMethods.X86.MagickRectangle_Height_Get(Instance);
           #endif
           return (int)result;
         }
         set
         {
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           if (NativeLibrary.Is64Bit)
           #endif
-          #if WIN64 || ANYCPU
+          #if PLATFORM_x64 || PLATFORM_AnyCPU
           NativeMethods.X64.MagickRectangle_Height_Set(Instance, (UIntPtr)value);
           #endif
-          #if ANYCPU
+          #if PLATFORM_AnyCPU
           else
           #endif
-          #if !WIN64 || ANYCPU
+          #if PLATFORM_x86 || PLATFORM_AnyCPU
           NativeMethods.X86.MagickRectangle_Height_Set(Instance, (UIntPtr)value);
           #endif
         }

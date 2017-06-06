@@ -12,7 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 
-#if ANYCPU && !NETSTANDARD1_3
+#if PLATFORM_AnyCPU && !NETSTANDARD1_3
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.Compression;

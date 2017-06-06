@@ -189,19 +189,19 @@ namespace FileGenerator.Native
 
     protected void WriteNativeIfContent(string action)
     {
-      WriteLine("#if ANYCPU");
+      WriteLine("#if PLATFORM_AnyCPU");
       WriteLine("if (NativeLibrary.Is64Bit)");
       WriteLine("#endif");
 
-      WriteLine("#if WIN64 || ANYCPU");
+      WriteLine("#if PLATFORM_x64 || PLATFORM_AnyCPU");
       WriteLine(string.Format(action, "X64"));
       WriteLine("#endif");
 
-      WriteLine("#if ANYCPU");
+      WriteLine("#if PLATFORM_AnyCPU");
       WriteLine("else");
       WriteLine("#endif");
 
-      WriteLine("#if !WIN64 || ANYCPU");
+      WriteLine("#if PLATFORM_x86 || PLATFORM_AnyCPU");
       WriteLine(string.Format(action, "X86"));
       WriteLine("#endif");
     }

@@ -22,9 +22,9 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Version()
     {
-#if ANYCPU
+#if PLATFORM_AnyCPU
       StringAssert.Contains(MagickNET.Version, "AnyCPU");
-#elif WIN64
+#elif PLATFORM_x64
       StringAssert.Contains(MagickNET.Version, "x64");
 #else
       StringAssert.Contains(MagickNET.Version, "x86");

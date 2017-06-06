@@ -39,29 +39,28 @@
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'DebugQ8'">
-    <DefineConstants>Q8</DefineConstants>
+    <DefineConstants>Q8;PLATFORM_$(Platform)</DefineConstants>
     <Optimize>false</Optimize>
     <AssemblyName>Magick.NET-Q8-$(Platform)</AssemblyName>
     <AssemblyTitle>Magick.NET Q8 $(Platform) $(TargetFrameWork)</AssemblyTitle>
     <DocumentationFile>bin\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET-Q8-$(Platform).xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'DebugQ16'">
-    <DefineConstants>Q16</DefineConstants>
+    <DefineConstants>Q16;PLATFORM_$(Platform)</DefineConstants>
     <Optimize>false</Optimize>
     <AssemblyName>Magick.NET-Q16-$(Platform)</AssemblyName>
     <AssemblyTitle>Magick.NET Q16 $(Platform) $(TargetFrameWork)</AssemblyTitle>
     <DocumentationFile>bin\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET-Q16-$(Platform).xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'DebugQ16-HDRI'">
-    <DefineConstants>Q16HDRI</DefineConstants>
+    <DefineConstants>Q16HDRI;PLATFORM_$(Platform)</DefineConstants>
     <Optimize>false</Optimize>
     <AssemblyName>Magick.NET-Q16-HDRI-$(Platform)</AssemblyName>
     <AssemblyTitle>Magick.NET Q16-HDRI $(Platform) $(TargetFrameWork)</AssemblyTitle>
     <DocumentationFile>bin\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET-Q16-HDRI-$(Platform).xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'ReleaseQ8'">
-    <DefineConstants>Q8</DefineConstants>
-    <DefineConstants Condition="'$(Platform)' == 'AnyCPU'">Q8;ANYCPU</DefineConstants>
+    <DefineConstants>Q8;PLATFORM_$(Platform)</DefineConstants>
     <Optimize>true</Optimize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyName>Magick.NET-Q8-$(Platform)</AssemblyName>
@@ -69,8 +68,7 @@
     <DocumentationFile>bin\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET-Q8-$(Platform).xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'ReleaseQ16'">
-    <DefineConstants>Q16</DefineConstants>
-    <DefineConstants Condition="'$(Platform)' == 'AnyCPU'">Q16;ANYCPU</DefineConstants>
+    <DefineConstants>Q16;PLATFORM_$(Platform)</DefineConstants>
     <Optimize>true</Optimize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyName>Magick.NET-Q16-$(Platform)</AssemblyName>
@@ -78,8 +76,7 @@
     <DocumentationFile>bin\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET-Q16-$(Platform).xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'ReleaseQ16-HDRI'">
-    <DefineConstants>Q16HDRI</DefineConstants>
-    <DefineConstants Condition="'$(Platform)' == 'AnyCPU'">Q16HDRI;ANYCPU</DefineConstants>
+    <DefineConstants>Q16HDRI;PLATFORM_$(Platform)</DefineConstants>
     <Optimize>true</Optimize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyName>Magick.NET-Q16-HDRI-$(Platform)</AssemblyName>

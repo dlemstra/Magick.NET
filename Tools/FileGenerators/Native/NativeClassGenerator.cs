@@ -103,9 +103,9 @@ namespace FileGenerator.Native
     private void WriteNativeMethods()
     {
       if (_Platform == "X64")
-        WriteLine("#if WIN64 || ANYCPU");
+        WriteLine("#if PLATFORM_x64 || PLATFORM_AnyCPU");
       else
-        WriteLine("#if !WIN64 || ANYCPU");
+        WriteLine("#if PLATFORM_x86 || PLATFORM_AnyCPU");
       WriteLine("public static class " + _Platform);
       WriteStartColon();
       WriteNativeMethodsStaticConstructor();
@@ -116,7 +116,7 @@ namespace FileGenerator.Native
 
     private void WriteNativeMethodsStaticConstructor()
     {
-      WriteLine("#if ANYCPU");
+      WriteLine("#if PLATFORM_AnyCPU");
       WriteLine(@"[SuppressMessage(""Microsoft.Performance"", ""CA1810: InitializeReferenceTypeStaticFieldsInline"", Scope = ""member"", Target = ""ImageMagick." + Class.Name + @"+NativeMethods." + _Platform + @"#.cctor()"")]");
       WriteLine("static " + _Platform + "() { NativeLibraryLoader.Load(); }");
       WriteLine("#endif");

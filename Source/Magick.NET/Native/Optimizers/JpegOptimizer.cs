@@ -33,10 +33,10 @@ namespace ImageMagick.ImageOptimizers
   {
     private static class NativeMethods
     {
-      #if WIN64 || ANYCPU
+      #if PLATFORM_x64 || PLATFORM_AnyCPU
       public static class X64
       {
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.JpegOptimizer+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
         #endif
@@ -44,10 +44,10 @@ namespace ImageMagick.ImageOptimizers
         public static extern UIntPtr JpegOptimizer_Compress(IntPtr input, IntPtr output, [MarshalAs(UnmanagedType.Bool)] bool progressive, [MarshalAs(UnmanagedType.Bool)] bool lossless, UIntPtr quality);
       }
       #endif
-      #if !WIN64 || ANYCPU
+      #if PLATFORM_x86 || PLATFORM_AnyCPU
       public static class X86
       {
-        #if ANYCPU
+        #if PLATFORM_AnyCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.JpegOptimizer+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
         #endif
@@ -64,16 +64,16 @@ namespace ImageMagick.ImageOptimizers
         {
           using (INativeInstance outputNative = UTF8Marshaler.CreateInstance(output))
           {
-            #if ANYCPU
+            #if PLATFORM_AnyCPU
             if (NativeLibrary.Is64Bit)
             #endif
-            #if WIN64 || ANYCPU
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
             return (int)NativeMethods.X64.JpegOptimizer_Compress(inputNative.Instance, outputNative.Instance, progressive, lossless, (UIntPtr)quality);
             #endif
-            #if ANYCPU
+            #if PLATFORM_AnyCPU
             else
             #endif
-            #if !WIN64 || ANYCPU
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
             return (int)NativeMethods.X86.JpegOptimizer_Compress(inputNative.Instance, outputNative.Instance, progressive, lossless, (UIntPtr)quality);
             #endif
           }

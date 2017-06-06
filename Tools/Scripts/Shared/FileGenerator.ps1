@@ -12,6 +12,8 @@
 # limitations under the License.
 #==================================================================================================
 
+. Tools\Scripts\Shared\Build.ps1
+
 function GenerateFiles($name)
 {
   BuildSolution "Tools\FileGenerators\FileGenerator.$name.sln" "Configuration=Release"
