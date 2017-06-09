@@ -109,6 +109,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{9CFDAF8C
 		Publish\NuGet\Sample.Install.ps1 = Publish\NuGet\Sample.Install.ps1
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{6D1DE15B-EE1E-44DF-81CC-BEA1195B5BCE}"
+	ProjectSection(SolutionItems) = preProject
+		Building.md = Building.md
+		Changes.md = Changes.md
+		Readme.md = Readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{26979C42-868B-4228-A4DB-C6780ED03E0D}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\Readme.md = Documentation\Readme.md
+		Documentation\ReadRawImageFromCamera.md = Documentation\ReadRawImageFromCamera.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		DebugQ16|Any CPU = DebugQ16|Any CPU
@@ -372,5 +385,6 @@ Global
 		{EE2D8A24-038F-4609-B258-08FB13D59DB0} = {11769011-307E-4D06-8023-4BA1C1FAE3AB}
 		{0B4E3960-67CD-4C97-B1C5-D34F44A6BAF5} = {11769011-307E-4D06-8023-4BA1C1FAE3AB}
 		{9CFDAF8C-504E-4816-9EAD-89E48FD99E16} = {660486E5-ECAD-49B3-AEBB-A34953E48A72}
+		{26979C42-868B-4228-A4DB-C6780ED03E0D} = {6D1DE15B-EE1E-44DF-81CC-BEA1195B5BCE}
 	EndGlobalSection
 EndGlobal
