@@ -10,7 +10,6 @@
 bin
 obj
 lib
-packages
 runtimes
 /ImageMagick/Source/ImageMagick
 /ipch
@@ -24,3 +23,4 @@ runtimes
 /Samples/Magick.NET.Samples/Samples/Magick.NET/Files/*.pp
 /Samples/Magick.NET.Samples/Samples/Magick.NET/Scripts/*.pp
 /TestResults
+/Tools/AppVeyor/OpenCover*
