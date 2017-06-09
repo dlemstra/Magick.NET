@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magick.NET", "Source\Magick.NET\Magick.NET.csproj", "{DAAE3844-6435-4912-8F69-9F7A9242B4AC}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -91,6 +91,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Development", "Development"
 		ImageMagick\Source\Development\Build.Q16.x86.cmd = ImageMagick\Source\Development\Build.Q16.x86.cmd
 		ImageMagick\Source\Development\Build.Q8.x64.cmd = ImageMagick\Source\Development\Build.Q8.x64.cmd
 		ImageMagick\Source\Development\Build.Q8.x86.cmd = ImageMagick\Source\Development\Build.Q8.x86.cmd
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Publish", "Publish", "{660486E5-ECAD-49B3-AEBB-A34953E48A72}"
+	ProjectSection(SolutionItems) = preProject
+		Publish\Readme.txt = Publish\Readme.txt
+		Publish\Readme.Web.txt = Publish\Readme.Web.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{9CFDAF8C-504E-4816-9EAD-89E48FD99E16}"
+	ProjectSection(SolutionItems) = preProject
+		Publish\NuGet\Magick.NET.nuspec = Publish\NuGet\Magick.NET.nuspec
+		Publish\NuGet\Magick.NET.Sample.nuspec = Publish\NuGet\Magick.NET.Sample.nuspec
+		Publish\NuGet\Magick.NET.targets = Publish\NuGet\Magick.NET.targets
+		Publish\NuGet\Magick.NET.Web.nuspec = Publish\NuGet\Magick.NET.Web.nuspec
+		Publish\NuGet\Push.cmd = Publish\NuGet\Push.cmd
+		Publish\NuGet\Sample.Install.ps1 = Publish\NuGet\Sample.Install.ps1
 	EndProjectSection
 EndProject
 Global
@@ -355,5 +371,6 @@ Global
 		{26CCDA13-7FA2-42A0-9944-FA727533FF55} = {8375C997-426E-4E39-AFFF-FFE8D97CB328}
 		{EE2D8A24-038F-4609-B258-08FB13D59DB0} = {11769011-307E-4D06-8023-4BA1C1FAE3AB}
 		{0B4E3960-67CD-4C97-B1C5-D34F44A6BAF5} = {11769011-307E-4D06-8023-4BA1C1FAE3AB}
+		{9CFDAF8C-504E-4816-9EAD-89E48FD99E16} = {660486E5-ECAD-49B3-AEBB-A34953E48A72}
 	EndGlobalSection
 EndGlobal
