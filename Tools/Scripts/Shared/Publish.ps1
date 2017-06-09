@@ -86,7 +86,7 @@ function CreateNuGetPackages($id, $version, $build)
   }
   else
   {
-    AddFileElement $xml "..\..\Source\Magick.NET.Native\bin\Release$($build.Quantum)\x86\Magick.NET-$($build.Quantum)-x86.Native.dll" "runtimes\win7-x86\native"
+    AddFileElement $xml "..\..\Source\Magick.NET.Native\bin\Release$($build.Quantum)\Win32\Magick.NET-$($build.Quantum)-x86.Native.dll" "runtimes\win7-x86\native"
     AddFileElement $xml "..\..\Source\Magick.NET.Native\bin\Release$($build.Quantum)\x64\Magick.NET-$($build.Quantum)-x64.Native.dll" "runtimes\win7-x64\native"
   }
 
