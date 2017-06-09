@@ -8,13 +8,24 @@
     <owners>Dirk Lemstra</owners>
     <licenseUrl>https://magick.codeplex.com/license</licenseUrl>
     <projectUrl>https://magick.codeplex.com/documentation</projectUrl>
-    <iconUrl>http://download-codeplex.sec.s-msft.com/Download/SourceControlFileDownload.ashx?ProjectName=magick&amp;changeSetId=752622e7b2e069b698a47df994dd4aaaf1d8aebe&amp;itemId=Magick.NET.Tests%2fImages%2fMagick.NET.icon.png</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/dlemstra/Magick.NET/master/Tests/Magick.NET.Tests/Images/Magick.NET.icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>ImageMagick is a powerful image manipulation library that supports over 100 major file formats (not including sub-formats). With Magick.NET you can use ImageMagick without having to install ImageMagick on your server or desktop. Visit https://magick.codeplex.com/documentation before installing to help you decide the best version.</description>
     <summary>A .NET API to the ImageMagick image-processing library for Desktop and Web.</summary>
     <releaseNotes/>
     <copyright>Copyright 2013-2017 Dirk Lemstra</copyright>
     <tags>ImageMagick Magick.NET Image Convert Resize Draw Effects</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework2.0"/>
+      <group targetFramework=".NETFramework4.0"/>
+      <group targetFramework=".NETStandard1.3">
+        <dependency id="System.Collections.NonGeneric" version="4.3.0" />
+        <dependency id="System.Xml.XDocument" version="4.3.0" />
+        <dependency id="System.Xml.XmlDocument" version="4.3.0" />
+        <dependency id="System.Xml.XPath.XDocument" version="4.3.0" />
+        <dependency id="System.Xml.XPath.XmlDocument" version="4.3.0" />
+      </group>
+    </dependencies>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System.Drawing"/>
     </frameworkAssemblies>

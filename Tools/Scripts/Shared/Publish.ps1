@@ -38,6 +38,11 @@ function CheckStrongNames($builds)
 {
   foreach ($build in $builds)
   {
+    if (!$build.Framework)
+    {
+      continue
+    }
+
     $path = FullPath "Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)\$($build.FrameworkName)\Magick.NET-$($build.Quantum)-$($build.Platform).dll"
     sn -Tp $path
     CheckExitCode "$path does not represent a strongly named assembly"
@@ -67,12 +72,16 @@ function CreateNuGetPackages($id, $version, $build)
   AddFileElement $xml "..\..\Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)\net20\Magick.NET-$($build.Quantum)-$($build.Platform).dll" "lib\net20"
   AddFileElement $xml "..\..\Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)\net20\Magick.NET-$($build.Quantum)-$($build.Platform).xml" "lib\net20"
 
+  AddFileElement $xml "..\..\Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)\netstandard13\Magick.NET-$($build.Quantum)-$($build.Platform).dll" "lib\netstandard13"
+  AddFileElement $xml "..\..\Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)\netstandard13\Magick.NET-$($build.Quantum)-$($build.Platform).xml" "lib\netstandard13"
+
   AddFileElement $xml "..\..\Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)\$($build.FrameworkName)\Magick.NET-$($build.Quantum)-$($build.Platform).dll" "lib\$($build.FrameworkName)"
   AddFileElement $xml "..\..\Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)\$($build.FrameworkName)\Magick.NET-$($build.Quantum)-$($build.Platform).xml" "lib\$($build.FrameworkName)"
 
   if ($build.Platform -ne "AnyCPU")
   {
     AddFileElement $xml "..\..\Source\Magick.NET.Native\bin\Release$($build.Quantum)\$($platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.dll" "runtimes\win7-$($build.Platform)\native"
+    AddFileElement $xml "Magick.NET.targets" "build\net20\$id.targets"
     AddFileElement $xml "Magick.NET.targets" "build\$($build.FrameworkName)\$id.targets"
   }
 
