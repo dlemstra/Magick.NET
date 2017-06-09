@@ -84,6 +84,11 @@ function CreateNuGetPackages($id, $version, $build)
     AddFileElement $xml "Magick.NET.targets" "build\net20\$id.targets"
     AddFileElement $xml "Magick.NET.targets" "build\$($build.FrameworkName)\$id.targets"
   }
+  else
+  {
+    AddFileElement $xml "..\..\Source\Magick.NET.Native\bin\Release$($build.Quantum)\x86\Magick.NET-$($build.Quantum)-x86.Native.dll" "runtimes\win7-x86\native"
+    AddFileElement $xml "..\..\Source\Magick.NET.Native\bin\Release$($build.Quantum)\x64\Magick.NET-$($build.Quantum)-x64.Native.dll" "runtimes\win7-x64\native"
+  }
 
   AddFileElement $xml "..\Readme.txt" "Readme.txt"
   AddFileElement $xml "..\..\Copyright.txt" "Copyright.txt"
