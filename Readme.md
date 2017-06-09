@@ -6,7 +6,8 @@
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Magick-NET/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/fold_left.svg?style=social&label=Follow%20%40MagickNET)](https://twitter.com/MagickNET)
 
-ImageMagick is a powerful image manipulation library that supports over [100 major file formats](https://www.imagemagick.org/script/formats.php) (not including sub-formats). With Magick.NET you can use ImageMagick in your C#/VB.NET/.NET Core application without having to install ImageMagick on your server or desktop.
+ImageMagick is a powerful image manipulation library that supports over [100 major file formats](https://www.imagemagick.org/script/formats.php) (not including sub-formats).
+With Magick.NET you can use ImageMagick in your C#/VB.NET/.NET Core application without having to install ImageMagick on your server or desktop.
 
 ## Supported Platforms
 
@@ -15,20 +16,25 @@ ImageMagick is a powerful image manipulation library that supports over [100 maj
 
 ## Documentation
 
-For examples on how to install and use Magick.NET visit the [documentation](https://magick.codeplex.com/documentation) page.
+For examples on how to install and use Magick.NET visit the [documentation](Documentation/Readme.md) page.
 For more information about ImageMagick go to: [http://www.imagemagick.org/](http://www.imagemagick.org/).
 
 ## Download
 
-Click [here](https://magick.codeplex.com/releases) to download Magick.NET. You can also install Magick.NET using NuGet, click [here](https://nuget.org/profiles/dlemstra/) to see the available packages. And follow me on twitter([@MagickNET](https://twitter.com/MagickNET)) to receive information about new downloads and changes to Magick.NET and ImageMagick.
+Click [here](https://magick.codeplex.com/releases) to download Magick.NET. You can also install Magick.NET using NuGet, click [here](https://nuget.org/profiles/dlemstra/) to
+see the available packages. And follow me on twitter([@MagickNET](https://twitter.com/MagickNET)) to receive information about new downloads and changes to Magick.NET and ImageMagick.
 
 ## Development build
 
-Every commit to Magick.NET is automatically build and tested with the help of [AppVeyor](http://www.appveyor.com). This build also includes the creation of a NuGet package. These packages can be downloaded from the following NuGet feed: [https://ci.appveyor.com/nuget/Magick.NET](https://ci.appveyor.com/nuget/Magick.NET). It is not recommended to use this build in a production environment.
+Every commit to Magick.NET is automatically build and tested with the help of [AppVeyor](http://www.appveyor.com). This build also includes the creation of a NuGet package.
+These packages can be downloaded from the following NuGet feed: [https://ci.appveyor.com/nuget/Magick.NET](https://ci.appveyor.com/nuget/Magick.NET). It is not recommended to use
+this build in a production environment.
 
 ## Donate
 
-If you have an uncontrollable urge to give me something for the time and effort I am putting into this project then please buy me something from my [amazon wish list](http://www.amazon.de/registry/wishlist/2XFZAC3J04WAY) or send me an [amazon gift card](https://www.amazon.de/Amazon-Gutschein-per-E-Mail-Amazon/dp/B0054PDOV8). If you prefer to use PayPal then [click here](https://www.paypal.me/DirkLemstra).
+If you have an uncontrollable urge to give me something for the time and effort I am putting into this project then please buy me something from my
+[amazon wish list](http://www.amazon.de/registry/wishlist/2XFZAC3J04WAY) or send me an [amazon gift card](https://www.amazon.de/Amazon-Gutschein-per-E-Mail-Amazon/dp/B0054PDOV8).
+If you prefer to use PayPal then [click here](https://www.paypal.me/DirkLemstra).
 
 ----
 _A special thanks goes out to [Snakeware](https://www.snakeware.nl) who let me spend company time on this project._
