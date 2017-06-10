@@ -30,13 +30,10 @@ function BuildAll($builds)
   {
     Build $build
 
-    if ($build.Framework -eq "v4.0")
-    {
-      $platform = "/Platform:$($build.Platform)"
-      $dll = "Tests\Magick.NET.Tests\bin\Release$($build.Quantum)\$($build.Platform)\net45\Magick.NET.Tests.dll"
-      vstest.console.exe /inIsolation $platform $dll
-      CheckExitCode ("Test failed for Magick.NET-" + $build.Quantum + "-" + $build.Platform + " (" + $build.FrameworkName + ")")
-    }
+    $platform = "/Platform:$($build.Platform)"
+    $dll = "Tests\Magick.NET.Tests\bin\Release$($build.Quantum)\$($build.Platform)\net45\Magick.NET.Tests.dll"
+    vstest.console.exe /inIsolation $platform $dll
+    CheckExitCode ("Test failed for Magick.NET-" + $build.Quantum + "-" + $build.Platform)
   }
 }
 
@@ -155,11 +152,6 @@ function CreateNuGetPackages($builds)
 {
   foreach ($build in $builds)
   {
-    if ($build.Framework -ne "v4.0")
-    {
-      continue
-    }
-
     $id = "Magick.NET-$($build.Quantum)-$($build.Platform)"
     CreateNuGetPackage $id $version $build
 
