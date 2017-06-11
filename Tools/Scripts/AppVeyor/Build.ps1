@@ -48,7 +48,7 @@ function AppVeyorBuild($quantum, $platform, $version)
 
   foreach ($build in $builds)
   {
-    Build $build
+    Build $build $true
   }
 }
 

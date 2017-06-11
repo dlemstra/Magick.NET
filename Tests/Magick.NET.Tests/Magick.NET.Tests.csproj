@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
     <TargetFrameworks>net45;netcoreapp1.1</TargetFrameworks>
+    <DebugType Condition="$(CodeCov) == 'true'">full</DebugType>
     <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
     <AssemblyName>Magick.NET.Tests</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>

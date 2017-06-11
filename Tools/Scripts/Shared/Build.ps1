@@ -11,10 +11,15 @@
 # express or implied. See the License for the specific language governing permissions and
 # limitations under the License.
 #==================================================================================================
-function Build($build)
+function Build($build,$codecov)
 {
   $platform=$($build.Platform).Replace("AnyCPU", "Any CPU")
-  BuildSolution "$($build.Name).sln" "Configuration=Tests$($build.Quantum),RunCodeAnalysis=false,Platform=$platform"
+  $properties="Configuration=Tests$($build.Quantum),RunCodeAnalysis=false,Platform=$platform"
+  if ($codecov -eq $true)
+  {
+    $properties+=",CodeCov=true"
+  }
+  BuildSolution "$($build.Name).sln" $properties
 }
 
 function BuildSolution($solution, $properties)
