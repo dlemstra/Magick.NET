@@ -26,7 +26,6 @@ namespace Magick.NET.Tests
       string[] paths =
       {
         @"..\..\..\..\",
-        @"..\..\..\..\..\..\..\Tests\Magick.NET.Tests\", // .NET Core
         @"..\..\..\..\..\Tests\Magick.NET.Tests\", // Code coverage
       };
 

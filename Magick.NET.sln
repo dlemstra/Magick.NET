@@ -29,14 +29,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{8375C997-426E-4E39-AFFF-FFE8D97CB328}"
 	ProjectSection(SolutionItems) = preProject
 		Tools\Scripts\AnyCPU.ps1 = Tools\Scripts\AnyCPU.ps1
-		Tools\Scripts\BuildCore.ps1 = Tools\Scripts\BuildCore.ps1
 		Tools\Scripts\BuildLibraries.ps1 = Tools\Scripts\BuildLibraries.ps1
 		Tools\Scripts\GenerateDrawables.ps1 = Tools\Scripts\GenerateDrawables.ps1
 		Tools\Scripts\GenerateLibrariesDoc.ps1 = Tools\Scripts\GenerateLibrariesDoc.ps1
 		Tools\Scripts\GenerateMagickColors.ps1 = Tools\Scripts\GenerateMagickColors.ps1
 		Tools\Scripts\GenerateMagickScript.ps1 = Tools\Scripts\GenerateMagickScript.ps1
 		Tools\Scripts\GenerateNative.ps1 = Tools\Scripts\GenerateNative.ps1
-		Tools\Scripts\Net20.ps1 = Tools\Scripts\Net20.ps1
 		Tools\Scripts\Publish.ps1 = Tools\Scripts\Publish.ps1
 	EndProjectSection
 EndProject
@@ -95,6 +93,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Development", "Development"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Publish", "Publish", "{660486E5-ECAD-49B3-AEBB-A34953E48A72}"
 	ProjectSection(SolutionItems) = preProject
+		Publish\Publish.cmd = Publish\Publish.cmd
 		Publish\Readme.txt = Publish\Readme.txt
 		Publish\Readme.Web.txt = Publish\Readme.Web.txt
 	EndProjectSection

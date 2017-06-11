@@ -147,27 +147,6 @@ function UpdateVersions($version)
   UpdateVersion "Source\Magick.NET.Web\Magick.NET.Web.csproj" $version
 }
 
-function UpdateCoreProject($directory, $version)
-{
-  $path = FullPath "Publish\Magick.NET.Core\src\$directory\$directory.csproj"
-
-  $content = [IO.File]::ReadAllText($path, [System.Text.Encoding]::Default)
-  $content = SetValue $content "`<VersionPrefix`>" "`<" $version
-  $content = SetValue $content "`<PackageReleaseNotes`>" "`<" "https://github.com/dlemstra/Magick.NET/releases/tag/$version"
-
-  [IO.File]::WriteAllText($path, $content, [System.Text.Encoding]::Default)
-}
-
-function UpdateCoreProjects($version)
-{
-  UpdateCoreProject "Magick.NET.Core-Q8" $version
-  UpdateCoreProject "Magick.NET.Core-Q8.Native" $version
-  UpdateCoreProject "Magick.NET.Core-Q16" $version
-  UpdateCoreProject "Magick.NET.Core-Q16.Native" $version
-  UpdateCoreProject "Magick.NET.Core-Q16-HDRI" $version
-  UpdateCoreProject "Magick.NET.Core-Q16-HDRI.Native" $version
-}
-
 function UpdateResourceFile($fileName, $version)
 {
   $content = [IO.File]::ReadAllText($fileName, [System.Text.Encoding]::Unicode)

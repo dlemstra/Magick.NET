@@ -18,7 +18,6 @@ SetFolder $scriptPath
 . Tools\Scripts\Shared\Build.ps1
 . Tools\Scripts\Shared\Config.ps1
 . Tools\Scripts\Shared\GzipAssembly.ps1
-. Tools\Scripts\Shared\ProjectFiles.ps1
 . Tools\Scripts\Shared\Publish.ps1
 
 [void][Reflection.Assembly]::LoadWithPartialName("System.IO.Compression.FileSystem")
@@ -29,11 +28,7 @@ function BuildAll($builds)
   foreach ($build in $builds)
   {
     Build $build
-
-    $platform = "/Platform:$($build.Platform)"
-    $dll = "Tests\Magick.NET.Tests\bin\Release$($build.Quantum)\$($build.Platform)\net45\Magick.NET.Tests.dll"
-    vstest.console.exe /inIsolation $platform $dll
-    CheckExitCode ("Test failed for Magick.NET-" + $build.Quantum + "-" + $build.Platform)
+    TestBuild $build
   }
 }
 
@@ -67,10 +62,10 @@ function CleanupZipFolder()
   }
 }
 
-function CopyCorePackage($name)
+function CopyPdbFile($build, $framework)
 {
-  $source = "Publish\Magick.NET.Core\src\$name\bin\Release\$name.$version.nupkg"
-  $destination = "Publish\NuGet"
+  $source = "Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)\$($framework)\Magick.NET-$($build.Quantum)-$($build.Platform).pdb"
+  $destination = "Publish\Pdb\$($framework).Magick.NET-$($build.Quantum)-$($build.Platform).pdb"
 
   Copy-Item $source $destination
 }
@@ -79,22 +74,52 @@ function CopyPdbFiles($builds)
 {
   foreach ($build in $builds)
   {
-    $source = "Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Quantum)-$($build.Platform).pdb"
-    $destination = "Publish\Pdb\$($build.FrameworkName).Magick.NET-$($build.Quantum)-$($build.Platform).pdb"
-
-    Copy-Item $source $destination
+    CopyPdbFile $build "net20"
+    CopyPdbFile $build "net40"
+    CopyPdbFile $build "netstandard13"
 
     if ($build.Platform -ne "AnyCPU")
     {
       $source = "Source\Magick.NET.Native$($build.Suffix)\bin\Release$($build.Quantum)\$($build.Platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.pdb"
       if (Test-Path $source)
       {
-        $destination = "Publish\Pdb\$($build.FrameworkName).Magick.NET-$($build.Quantum)-$($build.Platform).Native.pdb"
+        $destination = "Publish\Pdb\Magick.NET-$($build.Quantum)-$($build.Platform).Native.pdb"
 
         Copy-Item $source $destination
       }
     }
   }
+}
+
+function CopyFrameworkToZipFile($build, $rootDir, $framework)
+{
+  $dir = "$rootDir\$framework\Magick.NET"
+  if (!(Test-Path $dir))
+  {
+    [void](New-Item $dir -type directory)
+  }
+
+  Copy-Item "Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)\$($framework)\Magick.NET-$($build.Quantum)-$($build.Platform).dll" $dir
+  Copy-Item "Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)\$($framework)\Magick.NET-$($build.Quantum)-$($build.Platform).xml" $dir
+
+  if ($build.Platform -ne "AnyCPU")
+  {
+    Copy-Item "Source\Magick.NET.Native\bin\Release$($build.Quantum)\$($platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.dll" $dir
+  }
+
+  if ($framework -ne "net40")
+  {
+    return
+  }
+
+  $dir = "$rootDir\$framework\Magick.NET.Web"
+  if (!(Test-Path $dir))
+  {
+    [void](New-Item $dir -type directory)
+  }
+
+  Copy-Item "Source\Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)\$($framework)\Magick.NET.Web-$($build.Quantum)-$($build.Platform).dll" $dir
+  Copy-Item "Source\Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)\$($framework)\Magick.NET.Web-$($build.Quantum)-$($build.Platform).xml" $dir
 }
 
 function CopyZipFiles($builds)
@@ -117,43 +142,17 @@ function CopyZipFiles($builds)
     Copy-Item "Publish\Readme.txt" $rootDir
     Copy-Item "Source\Magick.NET\Resources\Release$($build.Quantum)\MagickScript.xsd" $rootDir
 
-
-    $dir = "$rootDir\$($build.FrameworkName)\Magick.NET"
-    if (!(Test-Path $dir))
-    {
-      [void](New-Item $dir -type directory)
-    }
-
-    Copy-Item "Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Quantum)-$($build.Platform).dll" $dir
-    Copy-Item "Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Quantum)-$($build.Platform).xml" $dir
-
-    if ($build.Platform -ne "AnyCPU")
-    {
-      Copy-Item "Source\Magick.NET.Native\bin\Release$($build.Quantum)\$($platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.dll" $dir
-    }
-
-    if ($build.Framework -ne "v4.0")
-    {
-      continue
-    }
-
-    $dir = "$rootDir\$($build.FrameworkName)\Magick.NET.Web"
-    if (!(Test-Path $dir))
-    {
-      [void](New-Item $dir -type directory)
-    }
-
-    Copy-Item "Source\Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Web-$($build.Quantum)-$($build.Platform).dll" $dir
-    Copy-Item "Source\Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Web-$($build.Quantum)-$($build.Platform).xml" $dir
+    CopyFrameworkToZipFile $build $rootDir "net20"
+    CopyFrameworkToZipFile $build $rootDir "net40"
   }
 }
 
-function CreateNuGetPackages($builds)
+function CreateAllNuGetPackages($builds)
 {
   foreach ($build in $builds)
   {
     $id = "Magick.NET-$($build.Quantum)-$($build.Platform)"
-    CreateNuGetPackage $id $version $build
+    CreateNuGetPackages $id $version $build
 
     if ($build.Quantum -eq "Q16")
     {
@@ -237,27 +236,17 @@ function PreparePublish($builds)
 
 function Publish($builds)
 {
-  CreateNuGetPackages $builds
+  CreateAllNuGetPackages $builds
   CreateZipFiles $builds
 }
 
-function PublishCore()
+function TestBuild($build)
 {
-  PublishCoreDepth "Q8"
-  PublishCoreDepth "Q16"
-  PublishCoreDepth "Q16-HDRI"
-}
-
-function PublishCoreDepth($quantum)
-{
-  BuildCore "Magick.NET.Core-$quantum.Native"
-  BuildCore "Magick.NET.Core-$quantum"
-  CopyCorePackage "Magick.NET.Core-$quantum.Native"
-  CopyCorePackage "Magick.NET.Core-$quantum"
-
-  $source = "Publish\Magick.NET.Core\src\Magick.NET.Core-$quantum\bin\Debug\netstandard1.3\Magick.NET.Core-$quantum.pdb"
-  $destination = "Publish\Pdb\dotnet.Magick.NET.Core-$quantum.pdb"
-  Copy-Item $source $destination
+  $platform=$($build.Platform).Replace("AnyCPU", "x64")
+  $platform = "/Platform:$($platform)"
+  $dll = "Tests\Magick.NET.Tests\bin\Release$($build.Quantum)\$($build.Platform)\net45\Magick.NET.Tests.dll"
+  vstest.console.exe /inIsolation $platform $dll
+  CheckExitCode ("Test failed for Magick.NET-" + $build.Quantum + "-" + $build.Platform)
 }
 
 if ($args.count -ne 1)
@@ -269,9 +258,7 @@ $version = $args[0]
 
 CheckArchive
 Cleanup
-UpdateAssemblyInfos $version
-UpdateCoreProjects $version
-CreateNet20ProjectFiles
+UpdateVersions $version
 UpdateResourceFiles $builds $version
 CreatePreProcessedFiles
 PreparePublish $builds
@@ -280,5 +267,4 @@ CreateAnyCPUProjectFiles
 PreparePublish $anyCPUbuilds
 Publish $builds
 Publish $anyCPUbuilds
-PublishCore
 CleanupZipFolder
