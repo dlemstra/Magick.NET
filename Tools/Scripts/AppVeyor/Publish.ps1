@@ -23,17 +23,18 @@ function Publish($builds, $version)
 {
   CheckStrongNames $builds
 
-  $build = $builds[0];
+  foreach($build in $builds)
+  {
+    $id = "Magick.NET-dev-$($build.Quantum)-$($build.Platform)"
+    CreateNuGetPackages $id $version $build
 
-  $id = "Magick.NET-dev-$($build.Quantum)-$($build.Platform)"
-  CreateNuGetPackages $id $version $build
+    $fileName = FullPath "Publish\NuGet\$id.$version.nupkg"
+    appveyor PushArtifact $fileName
 
-  $fileName = FullPath "Publish\NuGet\$id.$version.nupkg"
-  appveyor PushArtifact $fileName
-
-  $webId = $id.Replace("Magick.NET", "Magick.NET.Web")
-  $fileName = FullPath "Publish\NuGet\$webId.$version.nupkg"
-  appveyor PushArtifact $fileName
+    $webId = $id.Replace("Magick.NET", "Magick.NET.Web")
+    $fileName = FullPath "Publish\NuGet\$webId.$version.nupkg"
+    appveyor PushArtifact $fileName
+  }
 }
 
 $quantum = $args[0]
