@@ -91,3 +91,21 @@ the following code:
 ```C#
 MagickNET.SetTempDirectory(@"C:\MyProgram\MyTempFiles");
 ```
+
+## Examples
+
+Below here you can find some examples on how to use Magick.NET. Because Magick.NET comes with a xml documentation file IntelliSense will also
+provide you with some help on how to use Magick.NET.
+
+- [Reading images](ReadingImages.md)
+  - Read image
+  - Read basic image information
+  - Read image (with multiple layers/frames)
+
+## Magick.NET.Web
+Magick.NET.Web is an extension to Magick.NET that can be used to script/optimize/compress image with an IHttpModule. The documentation for the library
+can be found here: [Magick.NET.Web](Magick.NET.Web.md)
+
+## More documentation
+For some great ImageMagick examples please visit the following page: https://www.imagemagick.org/Usage. Create a [new issue](https://github.com/dlemstra/Magick.NET/issues)
+if you need help to change one of these examples into code.
