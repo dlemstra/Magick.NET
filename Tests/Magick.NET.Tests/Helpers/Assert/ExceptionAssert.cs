@@ -18,52 +18,52 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [ExcludeFromCodeCoverage]
-  internal static class ExceptionAssert
-  {
-    private static void Fail(string message, params object[] arguments)
+    [ExcludeFromCodeCoverage]
+    internal static class ExceptionAssert
     {
-      if (arguments != null && arguments.Length > 0)
-        Assert.Fail(string.Format(CultureInfo.InvariantCulture, message, arguments));
-      else
-        Assert.Fail(message);
-    }
+        private static void Fail(string message, params object[] arguments)
+        {
+            if (arguments != null && arguments.Length > 0)
+                Assert.Fail(string.Format(CultureInfo.InvariantCulture, message, arguments));
+            else
+                Assert.Fail(message);
+        }
 
-    public static TException Throws<TException>(Action action)
-       where TException : Exception
-    {
-      return Throws<TException>(action, "Exception of type {0} was not thrown.", typeof(TException).Name);
-    }
+        public static TException Throws<TException>(Action action)
+           where TException : Exception
+        {
+            return Throws<TException>(action, "Exception of type {0} was not thrown.", typeof(TException).Name);
+        }
 
-    public static TException Throws<TException>(Action action, string message, params object[] arguments)
-       where TException : Exception
-    {
-      try
-      {
-        action();
-        Fail(message, arguments);
-        return null;
-      }
-      catch (TException exception)
-      {
-        Type type = exception.GetType();
-        if (type != typeof(TException))
-          Fail("Exception of type {0} was not thrown an exception of type {1} was thrown.", typeof(TException).Name, type.Name);
+        public static TException Throws<TException>(Action action, string message, params object[] arguments)
+           where TException : Exception
+        {
+            try
+            {
+                action();
+                Fail(message, arguments);
+                return null;
+            }
+            catch (TException exception)
+            {
+                Type type = exception.GetType();
+                if (type != typeof(TException))
+                    Fail("Exception of type {0} was not thrown an exception of type {1} was thrown.", typeof(TException).Name, type.Name);
 
-        return exception;
-      }
-      catch (Exception)
-      {
-        throw;
-      }
-    }
+                return exception;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
-    public static void ThrowsArgumentException(Action action, string paramName, string messagePart)
-    {
-      ArgumentException exception = Throws<ArgumentException>(action);
-      Assert.AreEqual(paramName, exception.ParamName);
-      bool containsMessage = exception.Message.Contains(messagePart);
-      Assert.IsTrue(containsMessage, "Message does not contain: " + messagePart + "." + Environment.NewLine + Environment.NewLine + exception.Message);
+        public static void ThrowsArgumentException(Action action, string paramName, string messagePart)
+        {
+            ArgumentException exception = Throws<ArgumentException>(action);
+            Assert.AreEqual(paramName, exception.ParamName);
+            bool containsMessage = exception.Message.Contains(messagePart);
+            Assert.IsTrue(containsMessage, "Message does not contain: " + messagePart + "." + Environment.NewLine + Environment.NewLine + exception.Message);
+        }
     }
-  }
 }

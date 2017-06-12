@@ -16,19 +16,19 @@ using System;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Encapsulation of the ImageMagick FileOpenError exception.
-  /// </summary>
-  [Serializable]
-  public sealed class MagickFileOpenErrorException : MagickErrorException
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MagickFileOpenErrorException"/> class.
+    /// Encapsulation of the ImageMagick FileOpenError exception.
     /// </summary>
-    /// <param name="message">The error message that explains the reason for the exception.</param>
-    internal MagickFileOpenErrorException(string message)
-      : base(message)
+    [Serializable]
+    public sealed class MagickFileOpenErrorException : MagickErrorException
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickFileOpenErrorException"/> class.
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception.</param>
+        internal MagickFileOpenErrorException(string message)
+          : base(message)
+        {
+        }
     }
-  }
 }

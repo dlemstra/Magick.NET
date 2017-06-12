@@ -20,56 +20,56 @@ using System.Reflection;
 
 namespace ImageMagick
 {
-  internal static class TypeHelper
-  {
-    public static T GetCustomAttribute<T>(Type type)
-      where T : Attribute
+    internal static class TypeHelper
     {
-      return (T)type.GetTypeInfo().Assembly.GetCustomAttribute<T>();
-    }
+        public static T GetCustomAttribute<T>(Type type)
+          where T : Attribute
+        {
+            return (T)type.GetTypeInfo().Assembly.GetCustomAttribute<T>();
+        }
 
-    public static T[] GetCustomAttributes<T>(Enum value)
-      where T : Attribute
-    {
-      FieldInfo field = value.GetType().GetTypeInfo().GetDeclaredField(value.ToString());
-      if (field == null)
-        return null;
+        public static T[] GetCustomAttributes<T>(Enum value)
+          where T : Attribute
+        {
+            FieldInfo field = value.GetType().GetTypeInfo().GetDeclaredField(value.ToString());
+            if (field == null)
+                return null;
 
-      return (T[])field.GetCustomAttributes(typeof(T), false);
-    }
+            return (T[])field.GetCustomAttributes(typeof(T), false);
+        }
 
-    public static Stream GetManifestResourceStream(Type type, string path, string resourceName)
-    {
-      Assembly assembly = type.GetTypeInfo().Assembly;
-      string newResourceName = assembly.GetName().Name + "." + resourceName;
-      return assembly.GetManifestResourceStream(newResourceName);
-    }
+        public static Stream GetManifestResourceStream(Type type, string path, string resourceName)
+        {
+            Assembly assembly = type.GetTypeInfo().Assembly;
+            string newResourceName = assembly.GetName().Name + "." + resourceName;
+            return assembly.GetManifestResourceStream(newResourceName);
+        }
 
-    public static bool IsEnum(Type type)
-    {
-      return type.GetTypeInfo().IsEnum;
-    }
+        public static bool IsEnum(Type type)
+        {
+            return type.GetTypeInfo().IsEnum;
+        }
 
-    public static Type[] GetGenericArguments(Type type)
-    {
-      return type.GetTypeInfo().GenericTypeArguments;
-    }
+        public static Type[] GetGenericArguments(Type type)
+        {
+            return type.GetTypeInfo().GenericTypeArguments;
+        }
 
-    public static bool IsGeneric(Type type)
-    {
-      return type.GetTypeInfo().IsGenericType;
-    }
+        public static bool IsGeneric(Type type)
+        {
+            return type.GetTypeInfo().IsGenericType;
+        }
 
-    public static bool IsNullable(Type type)
-    {
-      return type.GetTypeInfo().GetGenericTypeDefinition() == typeof(Nullable<>);
-    }
+        public static bool IsNullable(Type type)
+        {
+            return type.GetTypeInfo().GetGenericTypeDefinition() == typeof(Nullable<>);
+        }
 
-    public static bool IsValueType(Type type)
-    {
-      return type.GetTypeInfo().IsValueType;
+        public static bool IsValueType(Type type)
+        {
+            return type.GetTypeInfo().IsValueType;
+        }
     }
-  }
 }
 
 #endif

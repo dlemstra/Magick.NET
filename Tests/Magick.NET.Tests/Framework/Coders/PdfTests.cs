@@ -20,35 +20,35 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  public partial class PdfTests
-  {
-    private delegate void ReadDelegate();
-
-    [TestMethod]
-    public void Test_Multithreading()
+    public partial class PdfTests
     {
-      ReadDelegate action = delegate ()
-      {
-        using (IMagickImage image = new MagickImage())
+        private delegate void ReadDelegate();
+
+        [TestMethod]
+        public void Test_Multithreading()
         {
-          image.Read(Files.Coders.CartoonNetworkStudiosLogoAI);
-          Test_Image(image);
+            ReadDelegate action = delegate ()
+            {
+                using (IMagickImage image = new MagickImage())
+                {
+                    image.Read(Files.Coders.CartoonNetworkStudiosLogoAI);
+                    Test_Image(image);
+                }
+            };
+
+            IAsyncResult[] results = new IAsyncResult[3];
+
+            for (int i = 0; i < results.Length; ++i)
+            {
+                results[i] = action.BeginInvoke(null, null);
+            }
+
+            for (int i = 0; i < results.Length; ++i)
+            {
+                action.EndInvoke(results[i]);
+            }
         }
-      };
-
-      IAsyncResult[] results = new IAsyncResult[3];
-
-      for (int i = 0; i < results.Length; ++i)
-      {
-        results[i] = action.BeginInvoke(null, null);
-      }
-
-      for (int i = 0; i < results.Length; ++i)
-      {
-        action.EndInvoke(results[i]);
-      }
     }
-  }
 }
 
 #endif

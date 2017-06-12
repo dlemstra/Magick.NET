@@ -17,60 +17,60 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class PsdReadDefinesTests
-  {
-    [TestMethod]
-    public void Test_Empty()
+    [TestClass]
+    public class PsdReadDefinesTests
     {
-      using (IMagickImage image = new MagickImage())
-      {
-        image.Settings.SetDefines(new PsdReadDefines()
+        [TestMethod]
+        public void Test_Empty()
         {
-        });
+            using (IMagickImage image = new MagickImage())
+            {
+                image.Settings.SetDefines(new PsdReadDefines()
+                {
+                });
 
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));
 
-        image.Settings.SetDefines(new PsdReadDefines()
-        {
-          AlphaUnblend = true
-        });
+                image.Settings.SetDefines(new PsdReadDefines()
+                {
+                    AlphaUnblend = true
+                });
 
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));
-      }
-    }
-
-    [TestMethod]
-    public void Test_AlphaUnblend()
-    {
-      MagickReadSettings settings = new MagickReadSettings()
-      {
-        Defines = new PsdReadDefines()
-        {
-          AlphaUnblend = false
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));
+            }
         }
-      };
 
-      using (IMagickImage image = new MagickImage())
-      {
-        image.Read(Files.Coders.PlayerPSD, settings);
-
-        string define = image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend");
-        Assert.AreEqual("False", define);
-      }
-
-      using (IMagickImage image = new MagickImage())
-      {
-        settings.Defines = new PsdReadDefines()
+        [TestMethod]
+        public void Test_AlphaUnblend()
         {
-          AlphaUnblend = true
-        };
+            MagickReadSettings settings = new MagickReadSettings()
+            {
+                Defines = new PsdReadDefines()
+                {
+                    AlphaUnblend = false
+                }
+            };
 
-        image.Read(Files.Coders.PlayerPSD, settings);
+            using (IMagickImage image = new MagickImage())
+            {
+                image.Read(Files.Coders.PlayerPSD, settings);
 
-        string define = image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend");
-        Assert.IsNull(define);
-      }
+                string define = image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend");
+                Assert.AreEqual("False", define);
+            }
+
+            using (IMagickImage image = new MagickImage())
+            {
+                settings.Defines = new PsdReadDefines()
+                {
+                    AlphaUnblend = true
+                };
+
+                image.Read(Files.Coders.PlayerPSD, settings);
+
+                string define = image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend");
+                Assert.IsNull(define);
+            }
+        }
     }
-  }
 }

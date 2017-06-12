@@ -16,13 +16,13 @@ using System;
 
 namespace ImageMagick
 {
-  internal static class INativeInstanceExtensions
-  {
-    internal static IntPtr GetInstance(this INativeInstance self)
+    internal static class INativeInstanceExtensions
     {
-      if (self == null)
-        return IntPtr.Zero;
-      return self.Instance;
+        internal static IntPtr GetInstance(this INativeInstance self)
+        {
+            if (self == null)
+                return IntPtr.Zero;
+            return self.Instance;
+        }
     }
-  }
 }

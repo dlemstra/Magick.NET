@@ -20,14 +20,14 @@ using System.Linq;
 
 namespace Magick.NET.Tests
 {
-  [ExcludeFromCodeCoverage]
-  internal static class StringExtensions
-  {
-    public static IEnumerable<FileInfo> GetFiles(this string self)
+    [ExcludeFromCodeCoverage]
+    internal static class StringExtensions
     {
-      return new DirectoryInfo(self).GetFiles("*.*", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTimeUtc);
+        public static IEnumerable<FileInfo> GetFiles(this string self)
+        {
+            return new DirectoryInfo(self).GetFiles("*.*", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTimeUtc);
+        }
     }
-  }
 }
 
 #endif

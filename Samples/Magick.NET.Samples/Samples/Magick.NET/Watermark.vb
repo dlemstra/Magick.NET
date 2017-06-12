@@ -17,28 +17,28 @@ Imports ImageMagick
 
 Namespace RootNamespace.Samples.MagickNET
 
-  Public NotInheritable Class WatermarkSamples
+    Public NotInheritable Class WatermarkSamples
 
-    Public Shared Sub CreateWatermark()
-      ' Read image that needs a watermark
-      Using image As New MagickImage(SampleFiles.FujiFilmFinePixS1ProJpg)
-        ' Read the watermark that will be put on top of the image
-        Using watermark As New MagickImage(SampleFiles.SnakewarePng)
-          ' Draw the watermark in the bottom right corner
-          image.Composite(watermark, Gravity.Southeast, CompositeOperator.Over)
+        Public Shared Sub CreateWatermark()
+            ' Read image that needs a watermark
+            Using image As New MagickImage(SampleFiles.FujiFilmFinePixS1ProJpg)
+                ' Read the watermark that will be put on top of the image
+                Using watermark As New MagickImage(SampleFiles.SnakewarePng)
+                    ' Draw the watermark in the bottom right corner
+                    image.Composite(watermark, Gravity.Southeast, CompositeOperator.Over)
 
-          ' Optionally make the watermark more transparent
-          watermark.Evaluate(Channels.Alpha, EvaluateOperator.Divide, 4)
+                    ' Optionally make the watermark more transparent
+                    watermark.Evaluate(Channels.Alpha, EvaluateOperator.Divide, 4)
 
-          ' Or draw the watermark at a specific location
-          image.Composite(watermark, 200, 50, CompositeOperator.Over)
-        End Using
+                    ' Or draw the watermark at a specific location
+                    image.Composite(watermark, 200, 50, CompositeOperator.Over)
+                End Using
 
-        ' Save the result
-        image.Write(SampleFiles.OutputDirectory + "FujiFilmFinePixS1Pro.watermark.jpg")
-      End Using
-    End Sub
+                ' Save the result
+                image.Write(SampleFiles.OutputDirectory + "FujiFilmFinePixS1Pro.watermark.jpg")
+            End Using
+        End Sub
 
-  End Class
+    End Class
 
 End Namespace

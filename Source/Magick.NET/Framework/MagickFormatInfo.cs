@@ -19,29 +19,29 @@ using System.Drawing.Imaging;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Class that contains information about an image format.
-  /// </summary>
-  public sealed partial class MagickFormatInfo
-  {
-    internal static MagickFormat GetFormat(ImageFormat format)
+    /// <summary>
+    /// Class that contains information about an image format.
+    /// </summary>
+    public sealed partial class MagickFormatInfo
     {
-      if (format == ImageFormat.Bmp)
-        return MagickFormat.Bmp;
-      else if (format == ImageFormat.Gif)
-        return MagickFormat.Gif;
-      else if (format == ImageFormat.Icon)
-        return MagickFormat.Icon;
-      else if (format == ImageFormat.Jpeg)
-        return MagickFormat.Jpeg;
-      else if (format == ImageFormat.Png)
-        return MagickFormat.Png;
-      else if (format == ImageFormat.Tiff)
-        return MagickFormat.Tiff;
-      else
-        throw new NotSupportedException("Unsupported image format: " + format.ToString());
+        internal static MagickFormat GetFormat(ImageFormat format)
+        {
+            if (format == ImageFormat.Bmp)
+                return MagickFormat.Bmp;
+            else if (format == ImageFormat.Gif)
+                return MagickFormat.Gif;
+            else if (format == ImageFormat.Icon)
+                return MagickFormat.Icon;
+            else if (format == ImageFormat.Jpeg)
+                return MagickFormat.Jpeg;
+            else if (format == ImageFormat.Png)
+                return MagickFormat.Png;
+            else if (format == ImageFormat.Tiff)
+                return MagickFormat.Tiff;
+            else
+                throw new NotSupportedException("Unsupported image format: " + format.ToString());
+        }
     }
-  }
 }
 
 #endif

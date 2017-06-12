@@ -17,33 +17,33 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class ExifDescriptionAttributeTests
-  {
-    [TestMethod]
-    public void Test_ExifTag()
+    [TestClass]
+    public class ExifDescriptionAttributeTests
     {
-      var exifProfile = new ExifProfile();
+        [TestMethod]
+        public void Test_ExifTag()
+        {
+            var exifProfile = new ExifProfile();
 
-      exifProfile.SetValue(ExifTag.ResolutionUnit, (ushort)1);
-      ExifValue value = exifProfile.GetValue(ExifTag.ResolutionUnit);
-      Assert.AreEqual("None", value.ToString());
+            exifProfile.SetValue(ExifTag.ResolutionUnit, (ushort)1);
+            ExifValue value = exifProfile.GetValue(ExifTag.ResolutionUnit);
+            Assert.AreEqual("None", value.ToString());
 
-      exifProfile.SetValue(ExifTag.ResolutionUnit, (ushort)2);
-      value = exifProfile.GetValue(ExifTag.ResolutionUnit);
-      Assert.AreEqual("Inches", value.ToString());
+            exifProfile.SetValue(ExifTag.ResolutionUnit, (ushort)2);
+            value = exifProfile.GetValue(ExifTag.ResolutionUnit);
+            Assert.AreEqual("Inches", value.ToString());
 
-      exifProfile.SetValue(ExifTag.ResolutionUnit, (ushort)3);
-      value = exifProfile.GetValue(ExifTag.ResolutionUnit);
-      Assert.AreEqual("Centimeter", value.ToString());
+            exifProfile.SetValue(ExifTag.ResolutionUnit, (ushort)3);
+            value = exifProfile.GetValue(ExifTag.ResolutionUnit);
+            Assert.AreEqual("Centimeter", value.ToString());
 
-      exifProfile.SetValue(ExifTag.ResolutionUnit, (ushort)4);
-      value = exifProfile.GetValue(ExifTag.ResolutionUnit);
-      Assert.AreEqual("4", value.ToString());
+            exifProfile.SetValue(ExifTag.ResolutionUnit, (ushort)4);
+            value = exifProfile.GetValue(ExifTag.ResolutionUnit);
+            Assert.AreEqual("4", value.ToString());
 
-      exifProfile.SetValue(ExifTag.ImageWidth, 123);
-      value = exifProfile.GetValue(ExifTag.ImageWidth);
-      Assert.AreEqual("123", value.ToString());
+            exifProfile.SetValue(ExifTag.ImageWidth, 123);
+            value = exifProfile.GetValue(ExifTag.ImageWidth);
+            Assert.AreEqual("123", value.ToString());
+        }
     }
-  }
 }

@@ -17,86 +17,86 @@ using ImageMagick.Defines;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Class for defines that are used when a tiff image is written.
-  /// </summary>
-  public sealed class TiffWriteDefines : WriteDefinesCreator
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="TiffWriteDefines"/> class.
+    /// Class for defines that are used when a tiff image is written.
     /// </summary>
-    public TiffWriteDefines()
-      : base(MagickFormat.Tiff)
+    public sealed class TiffWriteDefines : WriteDefinesCreator
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TiffWriteDefines"/> class.
+        /// </summary>
+        public TiffWriteDefines()
+          : base(MagickFormat.Tiff)
+        {
+        }
+
+        /// <summary>
+        /// Gets or sets the tiff alpha (tiff:alpha).
+        /// </summary>
+        public TiffAlpha? Alpha
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the endianness of the tiff file (tiff:endian).
+        /// </summary>
+        public Endian? Endian
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the endianness of the tiff file (tiff:fill-order).
+        /// </summary>
+        public Endian? FillOrder
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the rows per strip (tiff:rows-per-strip).
+        /// </summary>
+        public int? RowsPerStrip
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the tile geometry (tiff:tile-geometry).
+        /// </summary>
+        public MagickGeometry TileGeometry
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets the defines that should be set as a define on an image.
+        /// </summary>
+        public override IEnumerable<IDefine> Defines
+        {
+            get
+            {
+                if (Alpha.HasValue)
+                    yield return CreateDefine("alpha", Alpha.Value);
+
+                if (Endian.HasValue && Endian.Value != ImageMagick.Endian.Undefined)
+                    yield return CreateDefine("endian", Endian.Value);
+
+                if (FillOrder.HasValue && FillOrder.Value != ImageMagick.Endian.Undefined)
+                    yield return CreateDefine("fill-order", FillOrder.Value);
+
+                if (RowsPerStrip.HasValue)
+                    yield return CreateDefine("rows-per-strip", RowsPerStrip.Value);
+
+                if (TileGeometry != null)
+                    yield return CreateDefine("tile-geometry", TileGeometry);
+            }
+        }
     }
-
-    /// <summary>
-    /// Gets or sets the tiff alpha (tiff:alpha).
-    /// </summary>
-    public TiffAlpha? Alpha
-    {
-      get;
-      set;
-    }
-
-    /// <summary>
-    /// Gets or sets the endianness of the tiff file (tiff:endian).
-    /// </summary>
-    public Endian? Endian
-    {
-      get;
-      set;
-    }
-
-    /// <summary>
-    /// Gets or sets the endianness of the tiff file (tiff:fill-order).
-    /// </summary>
-    public Endian? FillOrder
-    {
-      get;
-      set;
-    }
-
-    /// <summary>
-    /// Gets or sets the rows per strip (tiff:rows-per-strip).
-    /// </summary>
-    public int? RowsPerStrip
-    {
-      get;
-      set;
-    }
-
-    /// <summary>
-    /// Gets or sets the tile geometry (tiff:tile-geometry).
-    /// </summary>
-    public MagickGeometry TileGeometry
-    {
-      get;
-      set;
-    }
-
-    /// <summary>
-    /// Gets the defines that should be set as a define on an image.
-    /// </summary>
-    public override IEnumerable<IDefine> Defines
-    {
-      get
-      {
-        if (Alpha.HasValue)
-          yield return CreateDefine("alpha", Alpha.Value);
-
-        if (Endian.HasValue && Endian.Value != ImageMagick.Endian.Undefined)
-          yield return CreateDefine("endian", Endian.Value);
-
-        if (FillOrder.HasValue && FillOrder.Value != ImageMagick.Endian.Undefined)
-          yield return CreateDefine("fill-order", FillOrder.Value);
-
-        if (RowsPerStrip.HasValue)
-          yield return CreateDefine("rows-per-strip", RowsPerStrip.Value);
-
-        if (TileGeometry != null)
-          yield return CreateDefine("tile-geometry", TileGeometry);
-      }
-    }
-  }
 }

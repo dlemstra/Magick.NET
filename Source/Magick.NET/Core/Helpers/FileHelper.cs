@@ -19,13 +19,13 @@ using System.Threading.Tasks;
 
 namespace ImageMagick
 {
-  internal static partial class FileHelper
-  {
-    public static string CheckForBaseDirectory(string fileName)
+    internal static partial class FileHelper
     {
-      return fileName;
+        public static string CheckForBaseDirectory(string fileName)
+        {
+            return fileName;
+        }
     }
-  }
 }
 
 #endif

@@ -14,37 +14,37 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Specifies a decoration to be applied when annotating with text.
-  /// </summary>
-  public sealed class DrawableTextDecoration : IDrawable, IDrawingWand
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="DrawableTextDecoration"/> class.
+    /// Specifies a decoration to be applied when annotating with text.
     /// </summary>
-    /// <param name="decoration">The text decoration.</param>
-    public DrawableTextDecoration(TextDecoration decoration)
+    public sealed class DrawableTextDecoration : IDrawable, IDrawingWand
     {
-      Decoration = decoration;
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrawableTextDecoration"/> class.
+        /// </summary>
+        /// <param name="decoration">The text decoration.</param>
+        public DrawableTextDecoration(TextDecoration decoration)
+        {
+            Decoration = decoration;
+        }
 
-    /// <summary>
-    /// Gets or sets the text decoration
-    /// </summary>
-    public TextDecoration Decoration
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets the text decoration
+        /// </summary>
+        public TextDecoration Decoration
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// Draws this instance with the drawing wand.
-    /// </summary>
-    /// <param name="wand">The want to draw on.</param>
-    void IDrawingWand.Draw(DrawingWand wand)
-    {
-      if (wand != null)
-        wand.TextDecoration(Decoration);
+        /// <summary>
+        /// Draws this instance with the drawing wand.
+        /// </summary>
+        /// <param name="wand">The want to draw on.</param>
+        void IDrawingWand.Draw(DrawingWand wand)
+        {
+            if (wand != null)
+                wand.TextDecoration(Decoration);
+        }
     }
-  }
 }

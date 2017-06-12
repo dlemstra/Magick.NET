@@ -16,36 +16,36 @@ using System;
 
 namespace ImageMagick
 {
-  internal abstract class NativeHelper
-  {
-    private EventHandler<WarningEventArgs> _WarningEvent;
-
-    protected void CheckException(IntPtr exception)
+    internal abstract class NativeHelper
     {
-      MagickException magickException = MagickExceptionHelper.Check(exception);
-      RaiseWarning(magickException);
-    }
+        private EventHandler<WarningEventArgs> _WarningEvent;
 
-    protected void RaiseWarning(MagickException exception)
-    {
-      if (_WarningEvent == null)
-        return;
+        protected void CheckException(IntPtr exception)
+        {
+            MagickException magickException = MagickExceptionHelper.Check(exception);
+            RaiseWarning(magickException);
+        }
 
-      MagickWarningException warning = exception as MagickWarningException;
-      if (warning != null)
-        _WarningEvent.Invoke(this, new WarningEventArgs(warning));
-    }
+        protected void RaiseWarning(MagickException exception)
+        {
+            if (_WarningEvent == null)
+                return;
 
-    public event EventHandler<WarningEventArgs> Warning
-    {
-      add
-      {
-        _WarningEvent += value;
-      }
-      remove
-      {
-        _WarningEvent -= value;
-      }
+            MagickWarningException warning = exception as MagickWarningException;
+            if (warning != null)
+                _WarningEvent.Invoke(this, new WarningEventArgs(warning));
+        }
+
+        public event EventHandler<WarningEventArgs> Warning
+        {
+            add
+            {
+                _WarningEvent += value;
+            }
+            remove
+            {
+                _WarningEvent -= value;
+            }
+        }
     }
-  }
 }

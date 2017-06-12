@@ -20,32 +20,32 @@ using System.Web;
 
 namespace Magick.NET.Tests
 {
-  [ExcludeFromCodeCoverage]
-  internal static class HttpResponseExtensions
-  {
-    public static string GetHeader(this HttpResponse self, string headerName)
+    [ExcludeFromCodeCoverage]
+    internal static class HttpResponseExtensions
     {
-      var type = self.GetType();
-      var flags = BindingFlags.Instance | BindingFlags.NonPublic;
+        public static string GetHeader(this HttpResponse self, string headerName)
+        {
+            var type = self.GetType();
+            var flags = BindingFlags.Instance | BindingFlags.NonPublic;
 
-      var customHeaders = type.GetField("_customHeaders", flags);
-      var arrayList = customHeaders.GetValue(self) as ArrayList;
-      if (arrayList.Count == 0)
-        return null;
+            var customHeaders = type.GetField("_customHeaders", flags);
+            var arrayList = customHeaders.GetValue(self) as ArrayList;
+            if (arrayList.Count == 0)
+                return null;
 
-      var headerType = arrayList[0].GetType();
-      var name = headerType.GetProperty("Name", flags);
-      var value = headerType.GetProperty("Value", flags);
+            var headerType = arrayList[0].GetType();
+            var name = headerType.GetProperty("Name", flags);
+            var value = headerType.GetProperty("Value", flags);
 
-      foreach (var header in arrayList)
-      {
-        if (headerName.Equals(name.GetValue(header, null)))
-          return (string)value.GetValue(header, null);
-      }
+            foreach (var header in arrayList)
+            {
+                if (headerName.Equals(name.GetValue(header, null)))
+                    return (string)value.GetValue(header, null);
+            }
 
-      return null;
+            return null;
+        }
     }
-  }
 }
 
 #endif

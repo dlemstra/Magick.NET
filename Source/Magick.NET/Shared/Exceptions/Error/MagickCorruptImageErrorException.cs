@@ -16,19 +16,19 @@ using System;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Encapsulation of the ImageMagick CorruptImageError exception.
-  /// </summary>
-  [Serializable]
-  public sealed class MagickCorruptImageErrorException : MagickErrorException
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MagickCorruptImageErrorException"/> class.
+    /// Encapsulation of the ImageMagick CorruptImageError exception.
     /// </summary>
-    /// <param name="message">The error message that explains the reason for the exception.</param>
-    internal MagickCorruptImageErrorException(string message)
-      : base(message)
+    [Serializable]
+    public sealed class MagickCorruptImageErrorException : MagickErrorException
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickCorruptImageErrorException"/> class.
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception.</param>
+        internal MagickCorruptImageErrorException(string message)
+          : base(message)
+        {
+        }
     }
-  }
 }

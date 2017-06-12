@@ -17,33 +17,33 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class QuantumTests
-  {
-    [TestMethod]
-    public void Test_Depth()
+    [TestClass]
+    public class QuantumTests
     {
+        [TestMethod]
+        public void Test_Depth()
+        {
 #if Q8
-      Assert.AreEqual(Quantum.Depth, 8);
+            Assert.AreEqual(Quantum.Depth, 8);
 #elif Q16 || Q16HDRI
-      Assert.AreEqual(Quantum.Depth, 16);
+            Assert.AreEqual(Quantum.Depth, 16);
 #else
 #error Not implemented!
 #endif
-    }
+        }
 
-    [TestMethod]
-    public void Test_Max()
-    {
+        [TestMethod]
+        public void Test_Max()
+        {
 #if Q8
-      Assert.AreEqual(Quantum.Max, byte.MaxValue);
-#elif Q16 
-      Assert.AreEqual(Quantum.Max, ushort.MaxValue);
+            Assert.AreEqual(Quantum.Max, byte.MaxValue);
+#elif Q16
+            Assert.AreEqual(Quantum.Max, ushort.MaxValue);
 #elif Q16HDRI
-      Assert.AreEqual(Quantum.Max, (float)ushort.MaxValue);
+            Assert.AreEqual(Quantum.Max, (float)ushort.MaxValue);
 #else
 #error Not implemented!
 #endif
+        }
     }
-  }
 }

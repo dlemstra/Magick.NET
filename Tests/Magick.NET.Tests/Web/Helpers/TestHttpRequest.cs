@@ -19,18 +19,18 @@ using System.Web;
 
 namespace Magick.NET.Tests
 {
-  [ExcludeFromCodeCoverage]
-  public sealed class TestHttpRequest : HttpRequestBase
-  {
-    private readonly Uri _Url;
-
-    public TestHttpRequest(string url)
+    [ExcludeFromCodeCoverage]
+    public sealed class TestHttpRequest : HttpRequestBase
     {
-      _Url = new Uri(url);
-    }
+        private readonly Uri _Url;
 
-    public override Uri Url => _Url;
-  }
+        public TestHttpRequest(string url)
+        {
+            _Url = new Uri(url);
+        }
+
+        public override Uri Url => _Url;
+    }
 }
 
 #endif

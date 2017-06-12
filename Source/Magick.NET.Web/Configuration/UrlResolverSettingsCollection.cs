@@ -17,30 +17,30 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick.Web
 {
-  /// <summary>
-  /// Class that contains the settings for the url resolvers.
-  /// </summary>
-  [ConfigurationCollection(typeof(UrlResolverSettings), AddItemName = "urlResolver")]
-  [SuppressMessage("Microsoft.Design", "CA1010:CollectionsShouldImplementGenericInterface", Justification = "The interface will not used.")]
-  public class UrlResolverSettingsCollection : ConfigurationElementCollection
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="UrlResolverSettings"/> class.
+    /// Class that contains the settings for the url resolvers.
     /// </summary>
-    /// <returns>A new instance of the <see cref="UrlResolverSettings"/>  class.</returns>
-    protected override ConfigurationElement CreateNewElement()
+    [ConfigurationCollection(typeof(UrlResolverSettings), AddItemName = "urlResolver")]
+    [SuppressMessage("Microsoft.Design", "CA1010:CollectionsShouldImplementGenericInterface", Justification = "The interface will not used.")]
+    public class UrlResolverSettingsCollection : ConfigurationElementCollection
     {
-      return new UrlResolverSettings();
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UrlResolverSettings"/> class.
+        /// </summary>
+        /// <returns>A new instance of the <see cref="UrlResolverSettings"/>  class.</returns>
+        protected override ConfigurationElement CreateNewElement()
+        {
+            return new UrlResolverSettings();
+        }
 
-    /// <summary>
-    /// Gets the element key for a specified <see cref="UrlResolverSettings"/> element.
-    /// </summary>
-    /// <param name="element">The <see cref="UrlResolverSettings"/>  to return the key for.</param>
-    /// <returns>The element key for a specified <see cref="UrlResolverSettings"/> element</returns>
-    protected override object GetElementKey(ConfigurationElement element)
-    {
-      return ((UrlResolverSettings)element).TypeName;
+        /// <summary>
+        /// Gets the element key for a specified <see cref="UrlResolverSettings"/> element.
+        /// </summary>
+        /// <param name="element">The <see cref="UrlResolverSettings"/>  to return the key for.</param>
+        /// <returns>The element key for a specified <see cref="UrlResolverSettings"/> element</returns>
+        protected override object GetElementKey(ConfigurationElement element)
+        {
+            return ((UrlResolverSettings)element).TypeName;
+        }
     }
-  }
 }

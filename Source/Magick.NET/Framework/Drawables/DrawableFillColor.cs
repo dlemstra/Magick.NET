@@ -18,20 +18,20 @@ using System.Drawing;
 
 namespace ImageMagick
 {
-  /// <content>
-  /// Contains code that is not compatible with .NET Core.
-  /// </content>
-  public sealed partial class DrawableFillColor
-  {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="DrawableFillColor"/> class.
-    /// </summary>
-    /// <param name="color">The color to use.</param>
-    public DrawableFillColor(Color color)
+    /// <content>
+    /// Contains code that is not compatible with .NET Core.
+    /// </content>
+    public sealed partial class DrawableFillColor
     {
-      Color = color;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrawableFillColor"/> class.
+        /// </summary>
+        /// <param name="color">The color to use.</param>
+        public DrawableFillColor(Color color)
+        {
+            Color = color;
+        }
     }
-  }
 }
 
 #endif

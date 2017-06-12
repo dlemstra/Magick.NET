@@ -17,29 +17,29 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class Jp2Tests
-  {
-    [TestMethod]
-    public void Test_Dimensions()
+    [TestClass]
+    public class Jp2Tests
     {
-      using (IMagickImage image = new MagickImage(Files.Coders.GrimJp2))
-      {
-        Assert.AreEqual(2155, image.Width);
-        Assert.AreEqual(2687, image.Height);
-      }
+        [TestMethod]
+        public void Test_Dimensions()
+        {
+            using (IMagickImage image = new MagickImage(Files.Coders.GrimJp2))
+            {
+                Assert.AreEqual(2155, image.Width);
+                Assert.AreEqual(2687, image.Height);
+            }
 
-      using (IMagickImage image = new MagickImage(Files.Coders.GrimJp2 + "[0]"))
-      {
-        Assert.AreEqual(2155, image.Width);
-        Assert.AreEqual(2687, image.Height);
-      }
+            using (IMagickImage image = new MagickImage(Files.Coders.GrimJp2 + "[0]"))
+            {
+                Assert.AreEqual(2155, image.Width);
+                Assert.AreEqual(2687, image.Height);
+            }
 
-      using (IMagickImage image = new MagickImage(Files.Coders.GrimJp2 + "[1]"))
-      {
-        Assert.AreEqual(256, image.Width);
-        Assert.AreEqual(256, image.Height);
-      }
+            using (IMagickImage image = new MagickImage(Files.Coders.GrimJp2 + "[1]"))
+            {
+                Assert.AreEqual(256, image.Width);
+                Assert.AreEqual(256, image.Height);
+            }
+        }
     }
-  }
 }

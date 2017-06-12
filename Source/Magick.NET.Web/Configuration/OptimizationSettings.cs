@@ -16,46 +16,46 @@ using System.Configuration;
 
 namespace ImageMagick.Web
 {
-  /// <summary>
-  /// Class that contains the settings for the image optimization.
-  /// </summary>
-  public class OptimizationSettings : ConfigurationElement
-  {
     /// <summary>
-    /// Gets a value indicating whether the images should be optimized.
+    /// Class that contains the settings for the image optimization.
     /// </summary>
-    [ConfigurationProperty("enabled", DefaultValue = true)]
-    public bool IsEnabled
+    public class OptimizationSettings : ConfigurationElement
     {
-      get
-      {
-        return (bool)this["enabled"];
-      }
-    }
+        /// <summary>
+        /// Gets a value indicating whether the images should be optimized.
+        /// </summary>
+        [ConfigurationProperty("enabled", DefaultValue = true)]
+        public bool IsEnabled
+        {
+            get
+            {
+                return (bool)this["enabled"];
+            }
+        }
 
-    /// <summary>
-    /// Gets a value indicating whether the images should be compress with any quality loss.
-    /// </summary>
-    [ConfigurationProperty("lossless", DefaultValue = true)]
-    public bool Lossless
-    {
-      get
-      {
-        return (bool)this["lossless"];
-      }
-    }
+        /// <summary>
+        /// Gets a value indicating whether the images should be compress with any quality loss.
+        /// </summary>
+        [ConfigurationProperty("lossless", DefaultValue = true)]
+        public bool Lossless
+        {
+            get
+            {
+                return (bool)this["lossless"];
+            }
+        }
 
-    /// <summary>
-    /// Gets a value indicating whether various compression types will be used to find the smallest
-    /// file. This process will take extra time because the file has to be written multiple times.
-    /// </summary>
-    [ConfigurationProperty("optimalCompression", DefaultValue = false)]
-    public bool OptimalCompression
-    {
-      get
-      {
-        return (bool)this["optimalCompression"];
-      }
+        /// <summary>
+        /// Gets a value indicating whether various compression types will be used to find the smallest
+        /// file. This process will take extra time because the file has to be written multiple times.
+        /// </summary>
+        [ConfigurationProperty("optimalCompression", DefaultValue = false)]
+        public bool OptimalCompression
+        {
+            get
+            {
+                return (bool)this["optimalCompression"];
+            }
+        }
     }
-  }
 }

@@ -33,16 +33,16 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-  public sealed partial class MagickScript
-  {
-    private PixelStorageSettings CreatePixelStorageSettings(XmlElement element)
+    public sealed partial class MagickScript
     {
-      if (element == null)
-        return null;
-      PixelStorageSettings result = new PixelStorageSettings();
-      result.Mapping = Variables.GetValue<String>(element, "mapping");
-      result.StorageType = Variables.GetValue<StorageType>(element, "storageType");
-      return result;
+        private PixelStorageSettings CreatePixelStorageSettings(XmlElement element)
+        {
+            if (element == null)
+                return null;
+            PixelStorageSettings result = new PixelStorageSettings();
+            result.Mapping = Variables.GetValue<String>(element, "mapping");
+            result.StorageType = Variables.GetValue<StorageType>(element, "storageType");
+            return result;
+        }
     }
-  }
 }

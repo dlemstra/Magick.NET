@@ -19,79 +19,79 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class DdsWriteDefinesTests
-  {
-    private static IMagickImage WriteDds(IMagickImage input)
+    [TestClass]
+    public class DdsWriteDefinesTests
     {
-      using (MemoryStream memStream = new MemoryStream())
-      {
-        input.Format = MagickFormat.Dds;
-        input.Write(memStream);
-        memStream.Position = 0;
-
-        return new MagickImage(memStream);
-      }
-    }
-
-    [TestMethod]
-    public void Test_Empty()
-    {
-      using (IMagickImage image = new MagickImage())
-      {
-        image.Settings.SetDefines(new DdsWriteDefines()
+        private static IMagickImage WriteDds(IMagickImage input)
         {
-        });
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                input.Format = MagickFormat.Dds;
+                input.Write(memStream);
+                memStream.Position = 0;
 
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "cluster-fit"));
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "compression"));
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "mipmaps"));
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
-      }
-    }
-
-    [TestMethod]
-    public void Test_ClusterFit_Mipmaps_WeightByAlpha()
-    {
-      DdsWriteDefines defines = new DdsWriteDefines()
-      {
-        ClusterFit = true,
-        Mipmaps = 0,
-        WeightByAlpha = false,
-      };
-
-      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
-      {
-        image.Settings.SetDefines(defines);
-
-        Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Dds, "cluster-fit"));
-        Assert.AreEqual("0", image.Settings.GetDefine(MagickFormat.Dds, "mipmaps"));
-        Assert.AreEqual("False", image.Settings.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
-      }
-    }
-
-    [TestMethod]
-    public void Test_Compression()
-    {
-      DdsWriteDefines defines = new DdsWriteDefines()
-      {
-        Compression = DdsCompression.None
-      };
-
-      using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
-      {
-        using (IMagickImage output = WriteDds(input))
-        {
-          Assert.AreEqual(CompressionMethod.DXT1, output.CompressionMethod);
+                return new MagickImage(memStream);
+            }
         }
 
-        input.Settings.SetDefines(defines);
-
-        using (IMagickImage output = WriteDds(input))
+        [TestMethod]
+        public void Test_Empty()
         {
-          Assert.AreEqual(CompressionMethod.NoCompression, output.CompressionMethod);
+            using (IMagickImage image = new MagickImage())
+            {
+                image.Settings.SetDefines(new DdsWriteDefines()
+                {
+                });
+
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "cluster-fit"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "compression"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "mipmaps"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
+            }
         }
-      }
+
+        [TestMethod]
+        public void Test_ClusterFit_Mipmaps_WeightByAlpha()
+        {
+            DdsWriteDefines defines = new DdsWriteDefines()
+            {
+                ClusterFit = true,
+                Mipmaps = 0,
+                WeightByAlpha = false,
+            };
+
+            using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+            {
+                image.Settings.SetDefines(defines);
+
+                Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Dds, "cluster-fit"));
+                Assert.AreEqual("0", image.Settings.GetDefine(MagickFormat.Dds, "mipmaps"));
+                Assert.AreEqual("False", image.Settings.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
+            }
+        }
+
+        [TestMethod]
+        public void Test_Compression()
+        {
+            DdsWriteDefines defines = new DdsWriteDefines()
+            {
+                Compression = DdsCompression.None
+            };
+
+            using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
+            {
+                using (IMagickImage output = WriteDds(input))
+                {
+                    Assert.AreEqual(CompressionMethod.DXT1, output.CompressionMethod);
+                }
+
+                input.Settings.SetDefines(defines);
+
+                using (IMagickImage output = WriteDds(input))
+                {
+                    Assert.AreEqual(CompressionMethod.NoCompression, output.CompressionMethod);
+                }
+            }
+        }
     }
-  }
 }

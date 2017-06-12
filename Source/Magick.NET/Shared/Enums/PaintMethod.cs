@@ -14,39 +14,39 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Specifies the paint method.
-  /// </summary>
-  public enum PaintMethod
-  {
     /// <summary>
-    /// Undefined
+    /// Specifies the paint method.
     /// </summary>
-    Undefined,
+    public enum PaintMethod
+    {
+        /// <summary>
+        /// Undefined
+        /// </summary>
+        Undefined,
 
-    /// <summary>
-    /// Select the target pixel.
-    /// </summary>
-    Point,
+        /// <summary>
+        /// Select the target pixel.
+        /// </summary>
+        Point,
 
-    /// <summary>
-    /// Select any pixel that matches the target pixel.
-    /// </summary>
-    Replace,
+        /// <summary>
+        /// Select any pixel that matches the target pixel.
+        /// </summary>
+        Replace,
 
-    /// <summary>
-    /// Select the target pixel and matching neighbors.
-    /// </summary>
-    Floodfill,
+        /// <summary>
+        /// Select the target pixel and matching neighbors.
+        /// </summary>
+        Floodfill,
 
-    /// <summary>
-    /// Select the target pixel and neighbors not matching border color.
-    /// </summary>
-    FillToBorder,
+        /// <summary>
+        /// Select the target pixel and neighbors not matching border color.
+        /// </summary>
+        FillToBorder,
 
-    /// <summary>
-    /// Select all pixels.
-    /// </summary>
-    Reset
-  }
+        /// <summary>
+        /// Select all pixels.
+        /// </summary>
+        Reset
+    }
 }

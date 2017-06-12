@@ -33,39 +33,39 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-  public sealed partial class MagickScript
-  {
-    private PointD CreatePointD(XmlElement element)
+    public sealed partial class MagickScript
     {
-      Hashtable arguments = new Hashtable();
-      foreach (XmlAttribute attribute in element.Attributes)
-      {
-        if (attribute.Name == "value")
-          arguments["value"] = Variables.GetValue<String>(attribute);
-        else if (attribute.Name == "x")
-          arguments["x"] = Variables.GetValue<double>(attribute);
-        else if (attribute.Name == "xy")
-          arguments["xy"] = Variables.GetValue<double>(attribute);
-        else if (attribute.Name == "y")
-          arguments["y"] = Variables.GetValue<double>(attribute);
-      }
-      if (OnlyContains(arguments, "value"))
-        return new PointD((String)arguments["value"]);
-      else if (OnlyContains(arguments, "x", "y"))
-        return new PointD((double)arguments["x"], (double)arguments["y"]);
-      else if (OnlyContains(arguments, "xy"))
-        return new PointD((double)arguments["xy"]);
-      else
-        throw new ArgumentException("Invalid argument combination for 'pointD', allowed combinations are: [value] [x, y] [xy]");
+        private PointD CreatePointD(XmlElement element)
+        {
+            Hashtable arguments = new Hashtable();
+            foreach (XmlAttribute attribute in element.Attributes)
+            {
+                if (attribute.Name == "value")
+                    arguments["value"] = Variables.GetValue<String>(attribute);
+                else if (attribute.Name == "x")
+                    arguments["x"] = Variables.GetValue<double>(attribute);
+                else if (attribute.Name == "xy")
+                    arguments["xy"] = Variables.GetValue<double>(attribute);
+                else if (attribute.Name == "y")
+                    arguments["y"] = Variables.GetValue<double>(attribute);
+            }
+            if (OnlyContains(arguments, "value"))
+                return new PointD((String)arguments["value"]);
+            else if (OnlyContains(arguments, "x", "y"))
+                return new PointD((double)arguments["x"], (double)arguments["y"]);
+            else if (OnlyContains(arguments, "xy"))
+                return new PointD((double)arguments["xy"]);
+            else
+                throw new ArgumentException("Invalid argument combination for 'pointD', allowed combinations are: [value] [x, y] [xy]");
+        }
+        private Collection<PointD> CreatePointDs(XmlElement element)
+        {
+            Collection<PointD> collection = new Collection<PointD>();
+            foreach (XmlElement elem in element.SelectNodes("*"))
+            {
+                collection.Add(CreatePointD(elem));
+            }
+            return collection;
+        }
     }
-    private Collection<PointD> CreatePointDs(XmlElement element)
-    {
-      Collection<PointD> collection = new Collection<PointD>();
-      foreach (XmlElement elem in element.SelectNodes("*"))
-      {
-        collection.Add(CreatePointD(elem));
-      }
-      return collection;
-    }
-  }
 }

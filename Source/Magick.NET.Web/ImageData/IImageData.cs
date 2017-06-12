@@ -17,60 +17,60 @@ using System.IO;
 
 namespace ImageMagick.Web
 {
-  /// <summary>
-  /// Defines an interface that is used to get the image data.
-  /// </summary>
-  internal interface IImageData
-  {
     /// <summary>
-    /// Gets the format information of the image.
+    /// Defines an interface that is used to get the image data.
     /// </summary>
-    MagickFormatInfo FormatInfo
+    internal interface IImageData
     {
-      get;
+        /// <summary>
+        /// Gets the format information of the image.
+        /// </summary>
+        MagickFormatInfo FormatInfo
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets the unique identifier of the image.
+        /// </summary>
+        string ImageId
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the image data is valid.
+        /// </summary>
+        bool IsValid
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets the modification time of the image.
+        /// </summary>
+        DateTime ModifiedTimeUtc
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Reads the image.
+        /// </summary>
+        /// <returns>The stream containing the image.</returns>
+        Stream ReadImage();
+
+        /// <summary>
+        /// Reads the image.
+        /// </summary>
+        /// <param name="settings">The settings to use when reading the image.</param>
+        /// <returns>An image.</returns>
+        MagickImage ReadImage(MagickReadSettings settings);
+
+        /// <summary>
+        /// Saves the image to the specified file.
+        /// </summary>
+        /// <param name="fileName">The name of the file to write the image to.</param>
+        void SaveImage(string fileName);
     }
-
-    /// <summary>
-    /// Gets the unique identifier of the image.
-    /// </summary>
-    string ImageId
-    {
-      get;
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether the image data is valid.
-    /// </summary>
-    bool IsValid
-    {
-      get;
-    }
-
-    /// <summary>
-    /// Gets the modification time of the image.
-    /// </summary>
-    DateTime ModifiedTimeUtc
-    {
-      get;
-    }
-
-    /// <summary>
-    /// Reads the image.
-    /// </summary>
-    /// <returns>The stream containing the image.</returns>
-    Stream ReadImage();
-
-    /// <summary>
-    /// Reads the image.
-    /// </summary>
-    /// <param name="settings">The settings to use when reading the image.</param>
-    /// <returns>An image.</returns>
-    MagickImage ReadImage(MagickReadSettings settings);
-
-    /// <summary>
-    /// Saves the image to the specified file.
-    /// </summary>
-    /// <param name="fileName">The name of the file to write the image to.</param>
-    void SaveImage(string fileName);
-  }
 }

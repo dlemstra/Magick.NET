@@ -18,26 +18,26 @@ using System.Linq;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class MagickExceptionTests
-  {
-    [TestMethod]
-    public void Test_IgnoreTags()
+    [TestClass]
+    public class MagickExceptionTests
     {
-      using (IMagickImage image = new MagickImage())
-      {
-        var exception = ExceptionAssert.Throws<MagickCoderErrorException>(() =>
+        [TestMethod]
+        public void Test_IgnoreTags()
         {
-          image.Read(Files.Coders.IgnoreTagTIF);
-        });
+            using (IMagickImage image = new MagickImage())
+            {
+                var exception = ExceptionAssert.Throws<MagickCoderErrorException>(() =>
+                {
+                    image.Read(Files.Coders.IgnoreTagTIF);
+                });
 
-        var relatedExceptions = exception.RelatedExceptions.ToArray();
-        Assert.AreEqual(1, relatedExceptions.Length);
+                var relatedExceptions = exception.RelatedExceptions.ToArray();
+                Assert.AreEqual(1, relatedExceptions.Length);
 
-        var warning = relatedExceptions[0] as MagickCoderWarningException;
-        Assert.IsNotNull(warning);
-        Assert.AreEqual(0, warning.RelatedExceptions.Count());
-      }
+                var warning = relatedExceptions[0] as MagickCoderWarningException;
+                Assert.IsNotNull(warning);
+                Assert.AreEqual(0, warning.RelatedExceptions.Count());
+            }
+        }
     }
-  }
 }

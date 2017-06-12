@@ -19,61 +19,61 @@ using System.IO;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class JpegOptimizerTests : IImageOptimizerTests
-  {
-    protected override IImageOptimizer CreateImageOptimizer()
+    [TestClass]
+    public class JpegOptimizerTests : IImageOptimizerTests
     {
-      return new JpegOptimizer();
+        protected override IImageOptimizer CreateImageOptimizer()
+        {
+            return new JpegOptimizer();
+        }
+
+        [TestMethod]
+        public void Test_InvalidArguments()
+        {
+            Test_Compress_InvalidArguments();
+            Test_LosslessCompress_InvalidArguments();
+        }
+
+        [TestMethod]
+        public void Test_InvalidFile()
+        {
+            Test_Compress_InvalidFile(Files.SnakewarePNG);
+            Test_LosslessCompress_InvalidFile(Files.SnakewarePNG);
+        }
+
+        [TestMethod]
+        public void Test_Compress_LosslessCompress()
+        {
+            long compress = Test_Compress_Smaller(Files.ImageMagickJPG);
+            long losslessCompress = Test_LosslessCompress_Smaller(Files.ImageMagickJPG);
+
+            Assert.IsTrue(compress < losslessCompress, "{0} is not smaller than {1}", compress, losslessCompress);
+        }
+
+        [TestMethod]
+        public void Test_Compress_Quality()
+        {
+            FileInfo tempFile = CreateTemporaryFile(Files.ImageMagickJPG);
+
+            try
+            {
+                JpegOptimizer optimizer = new JpegOptimizer();
+                optimizer.Compress(tempFile);
+
+                IMagickImageInfo info = new MagickImageInfo(tempFile);
+                Assert.AreEqual(85, info.Quality);
+
+                File.Copy(Files.ImageMagickJPG, tempFile.FullName, true);
+
+                optimizer.Compress(tempFile, 40);
+
+                info = new MagickImageInfo(tempFile);
+                Assert.AreEqual(40, info.Quality);
+            }
+            finally
+            {
+                tempFile.Delete();
+            }
+        }
     }
-
-    [TestMethod]
-    public void Test_InvalidArguments()
-    {
-      Test_Compress_InvalidArguments();
-      Test_LosslessCompress_InvalidArguments();
-    }
-
-    [TestMethod]
-    public void Test_InvalidFile()
-    {
-      Test_Compress_InvalidFile(Files.SnakewarePNG);
-      Test_LosslessCompress_InvalidFile(Files.SnakewarePNG);
-    }
-
-    [TestMethod]
-    public void Test_Compress_LosslessCompress()
-    {
-      long compress = Test_Compress_Smaller(Files.ImageMagickJPG);
-      long losslessCompress = Test_LosslessCompress_Smaller(Files.ImageMagickJPG);
-
-      Assert.IsTrue(compress < losslessCompress, "{0} is not smaller than {1}", compress, losslessCompress);
-    }
-
-    [TestMethod]
-    public void Test_Compress_Quality()
-    {
-      FileInfo tempFile = CreateTemporaryFile(Files.ImageMagickJPG);
-
-      try
-      {
-        JpegOptimizer optimizer = new JpegOptimizer();
-        optimizer.Compress(tempFile);
-
-        IMagickImageInfo info = new MagickImageInfo(tempFile);
-        Assert.AreEqual(85, info.Quality);
-
-        File.Copy(Files.ImageMagickJPG, tempFile.FullName, true);
-
-        optimizer.Compress(tempFile, 40);
-
-        info = new MagickImageInfo(tempFile);
-        Assert.AreEqual(40, info.Quality);
-      }
-      finally
-      {
-        tempFile.Delete();
-      }
-    }
-  }
 }

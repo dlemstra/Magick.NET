@@ -29,117 +29,117 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-  public static partial class MagickNET
-  {
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    private delegate void LogDelegate(UIntPtr type, IntPtr value);
-    private static class NativeMethods
+    public static partial class MagickNET
     {
-      #if PLATFORM_x64 || PLATFORM_AnyCPU
-      public static class X64
-      {
-        #if PLATFORM_AnyCPU
-        [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickNET+NativeMethods.X64#.cctor()")]
-        static X64() { NativeLibraryLoader.Load(); }
-        #endif
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickNET_Features_Get();
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickNET_SetLogDelegate(LogDelegate method);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickNET_SetLogEvents(IntPtr events);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickNET_SetRandomSeed(long value);
-      }
-      #endif
-      #if PLATFORM_x86 || PLATFORM_AnyCPU
-      public static class X86
-      {
-        #if PLATFORM_AnyCPU
-        [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickNET+NativeMethods.X86#.cctor()")]
-        static X86() { NativeLibraryLoader.Load(); }
-        #endif
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickNET_Features_Get();
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickNET_SetLogDelegate(LogDelegate method);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickNET_SetLogEvents(IntPtr events);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickNET_SetRandomSeed(long value);
-      }
-      #endif
-    }
-    private static class NativeMagickNET
-    {
-      public static string Features
-      {
-        get
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        private delegate void LogDelegate(UIntPtr type, IntPtr value);
+        private static class NativeMethods
         {
-          IntPtr result;
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          result = NativeMethods.X64.MagickNET_Features_Get();
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          result = NativeMethods.X86.MagickNET_Features_Get();
-          #endif
-          return UTF8Marshaler.NativeToManaged(result);
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            public static class X64
+            {
+                #if PLATFORM_AnyCPU
+                [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickNET+NativeMethods.X64#.cctor()")]
+                static X64() { NativeLibraryLoader.Load(); }
+                #endif
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickNET_Features_Get();
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickNET_SetLogDelegate(LogDelegate method);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickNET_SetLogEvents(IntPtr events);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickNET_SetRandomSeed(long value);
+            }
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            public static class X86
+            {
+                #if PLATFORM_AnyCPU
+                [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickNET+NativeMethods.X86#.cctor()")]
+                static X86() { NativeLibraryLoader.Load(); }
+                #endif
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickNET_Features_Get();
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickNET_SetLogDelegate(LogDelegate method);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickNET_SetLogEvents(IntPtr events);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickNET_SetRandomSeed(long value);
+            }
+            #endif
         }
-      }
-      public static void SetLogDelegate(LogDelegate method)
-      {
-        #if PLATFORM_AnyCPU
-        if (NativeLibrary.Is64Bit)
-        #endif
-        #if PLATFORM_x64 || PLATFORM_AnyCPU
-        NativeMethods.X64.MagickNET_SetLogDelegate(method);
-        #endif
-        #if PLATFORM_AnyCPU
-        else
-        #endif
-        #if PLATFORM_x86 || PLATFORM_AnyCPU
-        NativeMethods.X86.MagickNET_SetLogDelegate(method);
-        #endif
-      }
-      public static void SetLogEvents(string events)
-      {
-        using (INativeInstance eventsNative = UTF8Marshaler.CreateInstance(events))
+        private static class NativeMagickNET
         {
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          NativeMethods.X64.MagickNET_SetLogEvents(eventsNative.Instance);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          NativeMethods.X86.MagickNET_SetLogEvents(eventsNative.Instance);
-          #endif
+            public static string Features
+            {
+                get
+                {
+                    IntPtr result;
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.MagickNET_Features_Get();
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.MagickNET_Features_Get();
+                    #endif
+                    return UTF8Marshaler.NativeToManaged(result);
+                }
+            }
+            public static void SetLogDelegate(LogDelegate method)
+            {
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickNET_SetLogDelegate(method);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickNET_SetLogDelegate(method);
+                #endif
+            }
+            public static void SetLogEvents(string events)
+            {
+                using (INativeInstance eventsNative = UTF8Marshaler.CreateInstance(events))
+                {
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.MagickNET_SetLogEvents(eventsNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.MagickNET_SetLogEvents(eventsNative.Instance);
+                    #endif
+                }
+            }
+            public static void SetRandomSeed(long value)
+            {
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickNET_SetRandomSeed(value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickNET_SetRandomSeed(value);
+                #endif
+            }
         }
-      }
-      public static void SetRandomSeed(long value)
-      {
-        #if PLATFORM_AnyCPU
-        if (NativeLibrary.Is64Bit)
-        #endif
-        #if PLATFORM_x64 || PLATFORM_AnyCPU
-        NativeMethods.X64.MagickNET_SetRandomSeed(value);
-        #endif
-        #if PLATFORM_AnyCPU
-        else
-        #endif
-        #if PLATFORM_x86 || PLATFORM_AnyCPU
-        NativeMethods.X86.MagickNET_SetRandomSeed(value);
-        #endif
-      }
     }
-  }
 }

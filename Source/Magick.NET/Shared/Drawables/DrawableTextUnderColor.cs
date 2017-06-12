@@ -14,39 +14,39 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Specifies the color of a background rectangle to place under text annotations.
-  /// </summary>
-  public sealed partial class DrawableTextUnderColor : IDrawable, IDrawingWand
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="DrawableTextUnderColor"/> class.
+    /// Specifies the color of a background rectangle to place under text annotations.
     /// </summary>
-    /// <param name="color">The color to use.</param>
-    public DrawableTextUnderColor(MagickColor color)
+    public sealed partial class DrawableTextUnderColor : IDrawable, IDrawingWand
     {
-      Throw.IfNull(nameof(color), color);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrawableTextUnderColor"/> class.
+        /// </summary>
+        /// <param name="color">The color to use.</param>
+        public DrawableTextUnderColor(MagickColor color)
+        {
+            Throw.IfNull(nameof(color), color);
 
-      Color = color;
-    }
+            Color = color;
+        }
 
-    /// <summary>
-    /// Gets or sets the color to use.
-    /// </summary>
-    public MagickColor Color
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets the color to use.
+        /// </summary>
+        public MagickColor Color
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// Draws this instance with the drawing wand.
-    /// </summary>
-    /// <param name="wand">The want to draw on.</param>
-    void IDrawingWand.Draw(DrawingWand wand)
-    {
-      if (wand != null)
-        wand.TextUnderColor(Color);
+        /// <summary>
+        /// Draws this instance with the drawing wand.
+        /// </summary>
+        /// <param name="wand">The want to draw on.</param>
+        void IDrawingWand.Draw(DrawingWand wand)
+        {
+            if (wand != null)
+                wand.TextUnderColor(Color);
+        }
     }
-  }
 }

@@ -18,101 +18,101 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public partial class OpenCLDeviceTests
-  {
-    private OpenCLDevice GetEnabledDevice()
+    [TestClass]
+    public partial class OpenCLDeviceTests
     {
-      foreach (OpenCLDevice device in OpenCL.Devices)
-      {
-        if (device.IsEnabled)
-          return device;
-      }
+        private OpenCLDevice GetEnabledDevice()
+        {
+            foreach (OpenCLDevice device in OpenCL.Devices)
+            {
+                if (device.IsEnabled)
+                    return device;
+            }
 
-      return null;
+            return null;
+        }
+
+        [TestMethod]
+        public void Test_BenchmarkScore()
+        {
+            foreach (OpenCLDevice device in OpenCL.Devices)
+            {
+                Assert.AreNotEqual(device.BenchmarkScore, 0.0);
+            }
+        }
+
+        [TestMethod]
+        public void Test_DeviceType()
+        {
+            foreach (OpenCLDevice device in OpenCL.Devices)
+            {
+                Assert.AreNotEqual(OpenCLDeviceType.Undefined, device.DeviceType);
+            }
+        }
+
+        [TestMethod]
+        public void Test_IsEnabled()
+        {
+            foreach (OpenCLDevice device in OpenCL.Devices)
+            {
+                bool isEnabled = device.IsEnabled;
+
+                device.IsEnabled = !isEnabled;
+                Assert.AreNotEqual(isEnabled, device.IsEnabled);
+
+                device.IsEnabled = isEnabled;
+                Assert.AreEqual(isEnabled, device.IsEnabled);
+            }
+        }
+
+        [TestMethod]
+        public void Test_KernelProfileRecords()
+        {
+            OpenCLDevice device = GetEnabledDevice();
+            if (device == null)
+                Assert.Inconclusive("No OpenCL devices detected.");
+
+            device.ProfileKernels = true;
+
+            using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+            {
+                image.Resize(500, 500);
+                image.Resize(100, 100);
+            }
+
+            device.ProfileKernels = false;
+
+            List<OpenCLKernelProfileRecord> records = new List<OpenCLKernelProfileRecord>(device.KernelProfileRecords);
+            Assert.IsFalse(records.Count < 2);
+
+            foreach (OpenCLKernelProfileRecord record in records)
+            {
+                Assert.IsNotNull(record.Name);
+                Assert.IsFalse(record.Count < 0);
+                Assert.IsFalse(record.MaximumDuration < 0);
+                Assert.IsFalse(record.MinimumDuration < 0);
+                Assert.IsFalse(record.TotalDuration < 0);
+
+                Assert.AreEqual(record.AverageDuration, record.TotalDuration / record.Count);
+            }
+        }
+
+        [TestMethod]
+        public void Test_Name()
+        {
+            foreach (OpenCLDevice device in OpenCL.Devices)
+            {
+                Assert.IsNotNull(device.Name);
+            }
+        }
+
+        [TestMethod]
+        public void Test_Version()
+        {
+            foreach (OpenCLDevice device in OpenCL.Devices)
+            {
+                Assert.IsNotNull(device.Version);
+            }
+        }
     }
-
-    [TestMethod]
-    public void Test_BenchmarkScore()
-    {
-      foreach (OpenCLDevice device in OpenCL.Devices)
-      {
-        Assert.AreNotEqual(device.BenchmarkScore, 0.0);
-      }
-    }
-
-    [TestMethod]
-    public void Test_DeviceType()
-    {
-      foreach (OpenCLDevice device in OpenCL.Devices)
-      {
-        Assert.AreNotEqual(OpenCLDeviceType.Undefined, device.DeviceType);
-      }
-    }
-
-    [TestMethod]
-    public void Test_IsEnabled()
-    {
-      foreach (OpenCLDevice device in OpenCL.Devices)
-      {
-        bool isEnabled = device.IsEnabled;
-
-        device.IsEnabled = !isEnabled;
-        Assert.AreNotEqual(isEnabled, device.IsEnabled);
-
-        device.IsEnabled = isEnabled;
-        Assert.AreEqual(isEnabled, device.IsEnabled);
-      }
-    }
-
-    [TestMethod]
-    public void Test_KernelProfileRecords()
-    {
-      OpenCLDevice device = GetEnabledDevice();
-      if (device == null)
-        Assert.Inconclusive("No OpenCL devices detected.");
-
-      device.ProfileKernels = true;
-
-      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-      {
-        image.Resize(500, 500);
-        image.Resize(100, 100);
-      }
-
-      device.ProfileKernels = false;
-
-      List<OpenCLKernelProfileRecord> records = new List<OpenCLKernelProfileRecord>(device.KernelProfileRecords);
-      Assert.IsFalse(records.Count < 2);
-
-      foreach (OpenCLKernelProfileRecord record in records)
-      {
-        Assert.IsNotNull(record.Name);
-        Assert.IsFalse(record.Count < 0);
-        Assert.IsFalse(record.MaximumDuration < 0);
-        Assert.IsFalse(record.MinimumDuration < 0);
-        Assert.IsFalse(record.TotalDuration < 0);
-
-        Assert.AreEqual(record.AverageDuration, record.TotalDuration / record.Count);
-      }
-    }
-
-    [TestMethod]
-    public void Test_Name()
-    {
-      foreach (OpenCLDevice device in OpenCL.Devices)
-      {
-        Assert.IsNotNull(device.Name);
-      }
-    }
-
-    [TestMethod]
-    public void Test_Version()
-    {
-      foreach (OpenCLDevice device in OpenCL.Devices)
-      {
-        Assert.IsNotNull(device.Version);
-      }
-    }
-  }
 }

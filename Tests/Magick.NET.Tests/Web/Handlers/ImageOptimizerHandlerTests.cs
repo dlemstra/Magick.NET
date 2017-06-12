@@ -26,106 +26,106 @@ using System.Web;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class ImageOptimizerHandlerTests
-  {
-    private MagickFormatInfo JpgFormatInfo => MagickNET.GetFormatInformation(MagickFormat.Jpg);
-    private Encoding Encoding = System.Text.Encoding.GetEncoding(1252);
-
-    private void Test_ProcessRequest(IImageData imageData)
+    [TestClass]
+    public class ImageOptimizerHandlerTests
     {
-      string tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+        private MagickFormatInfo JpgFormatInfo => MagickNET.GetFormatInformation(MagickFormat.Jpg);
+        private Encoding Encoding = System.Text.Encoding.GetEncoding(1252);
 
-      try
-      {
-        string config = $@"<magick.net.web cacheDirectory=""{tempDir}"" tempDirectory=""{tempDir}""/>";
-
-        MagickWebSettings settings = TestSectionLoader.Load(config);
-
-        HttpRequest request = new HttpRequest("foo", "https://bar", "");
-
-        string outputFile = Path.Combine(tempDir, "output.jpg");
-
-        using (StreamWriter writer = new StreamWriter(outputFile, false, Encoding))
+        private void Test_ProcessRequest(IImageData imageData)
         {
-          HttpResponse response = new HttpResponse(writer);
-          HttpContext context = new HttpContext(request, response);
+            string tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
 
-          ImageOptimizerHandler handler = new ImageOptimizerHandler(settings, imageData);
-          handler.ProcessRequest(context);
+            try
+            {
+                string config = $@"<magick.net.web cacheDirectory=""{tempDir}"" tempDirectory=""{tempDir}""/>";
+
+                MagickWebSettings settings = TestSectionLoader.Load(config);
+
+                HttpRequest request = new HttpRequest("foo", "https://bar", "");
+
+                string outputFile = Path.Combine(tempDir, "output.jpg");
+
+                using (StreamWriter writer = new StreamWriter(outputFile, false, Encoding))
+                {
+                    HttpResponse response = new HttpResponse(writer);
+                    HttpContext context = new HttpContext(request, response);
+
+                    ImageOptimizerHandler handler = new ImageOptimizerHandler(settings, imageData);
+                    handler.ProcessRequest(context);
+                }
+
+                byte[] imageBytes = imageData.GetBytes();
+                Assert.IsTrue(new FileInfo(outputFile).Length < imageBytes.Length);
+                Assert.AreEqual(2, tempDir.GetFiles().Count());
+
+                File.Delete(outputFile);
+
+                FileInfo cacheFile = tempDir.GetFiles().First();
+                File.WriteAllText(cacheFile.FullName, "");
+
+                using (StreamWriter writer = new StreamWriter(outputFile))
+                {
+                    HttpResponse response = new HttpResponse(writer);
+                    HttpContext context = new HttpContext(request, response);
+
+                    ImageOptimizerHandler handler = new ImageOptimizerHandler(settings, imageData);
+                    handler.ProcessRequest(context);
+                }
+
+                Assert.AreEqual(0, File.ReadAllBytes(outputFile).Count());
+                Assert.AreEqual(2, tempDir.GetFiles().Count());
+
+                cacheFile.LastWriteTimeUtc = new DateTime(1979, 11, 19);
+
+                using (StreamWriter writer = new StreamWriter(outputFile))
+                {
+                    HttpResponse response = new HttpResponse(writer);
+                    HttpContext context = new HttpContext(request, response);
+
+                    ImageOptimizerHandler handler = new ImageOptimizerHandler(settings, imageData);
+                    handler.ProcessRequest(context);
+                }
+
+                Assert.AreNotEqual(0, File.ReadAllBytes(outputFile).Count());
+                Assert.AreEqual(2, tempDir.GetFiles().Count());
+            }
+            finally
+            {
+                if (Directory.Exists(tempDir))
+                    Directory.Delete(tempDir, true);
+            }
         }
 
-        byte[] imageBytes = imageData.GetBytes();
-        Assert.IsTrue(new FileInfo(outputFile).Length < imageBytes.Length);
-        Assert.AreEqual(2, tempDir.GetFiles().Count());
-
-        File.Delete(outputFile);
-
-        FileInfo cacheFile = tempDir.GetFiles().First();
-        File.WriteAllText(cacheFile.FullName, "");
-
-        using (StreamWriter writer = new StreamWriter(outputFile))
+        [TestMethod]
+        public void Test_ProcessRequest()
         {
-          HttpResponse response = new HttpResponse(writer);
-          HttpContext context = new HttpContext(request, response);
+            string tempFile = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".jpg");
+            try
+            {
+                using (IMagickImage image = new MagickImage("logo:"))
+                {
+                    image.Write(tempFile);
+                }
 
-          ImageOptimizerHandler handler = new ImageOptimizerHandler(settings, imageData);
-          handler.ProcessRequest(context);
+                File.SetLastWriteTimeUtc(tempFile, new DateTime(2001, 1, 1));
+
+                IImageData imageData = new FileImageData(tempFile, JpgFormatInfo);
+                Test_ProcessRequest(imageData);
+
+                File.SetLastWriteTimeUtc(tempFile, new DateTime(2001, 1, 1));
+
+                TestStreamUrlResolver resolver = new TestStreamUrlResolver(tempFile);
+                imageData = new StreamImageData(resolver, JpgFormatInfo);
+                Test_ProcessRequest(imageData);
+            }
+            finally
+            {
+                if (File.Exists(tempFile))
+                    File.Delete(tempFile);
+            }
         }
-
-        Assert.AreEqual(0, File.ReadAllBytes(outputFile).Count());
-        Assert.AreEqual(2, tempDir.GetFiles().Count());
-
-        cacheFile.LastWriteTimeUtc = new DateTime(1979, 11, 19);
-
-        using (StreamWriter writer = new StreamWriter(outputFile))
-        {
-          HttpResponse response = new HttpResponse(writer);
-          HttpContext context = new HttpContext(request, response);
-
-          ImageOptimizerHandler handler = new ImageOptimizerHandler(settings, imageData);
-          handler.ProcessRequest(context);
-        }
-
-        Assert.AreNotEqual(0, File.ReadAllBytes(outputFile).Count());
-        Assert.AreEqual(2, tempDir.GetFiles().Count());
-      }
-      finally
-      {
-        if (Directory.Exists(tempDir))
-          Directory.Delete(tempDir, true);
-      }
     }
-
-    [TestMethod]
-    public void Test_ProcessRequest()
-    {
-      string tempFile = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".jpg");
-      try
-      {
-        using (IMagickImage image = new MagickImage("logo:"))
-        {
-          image.Write(tempFile);
-        }
-
-        File.SetLastWriteTimeUtc(tempFile, new DateTime(2001, 1, 1));
-
-        IImageData imageData = new FileImageData(tempFile, JpgFormatInfo);
-        Test_ProcessRequest(imageData);
-
-        File.SetLastWriteTimeUtc(tempFile, new DateTime(2001, 1, 1));
-
-        TestStreamUrlResolver resolver = new TestStreamUrlResolver(tempFile);
-        imageData = new StreamImageData(resolver, JpgFormatInfo);
-        Test_ProcessRequest(imageData);
-      }
-      finally
-      {
-        if (File.Exists(tempFile))
-          File.Delete(tempFile);
-      }
-    }
-  }
 }
 
 #endif

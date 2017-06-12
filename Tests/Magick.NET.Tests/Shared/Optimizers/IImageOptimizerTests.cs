@@ -20,186 +20,186 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  public abstract class IImageOptimizerTests
-  {
-    private long Test_Compress(string fileName, bool resultIsSmaller)
+    public abstract class IImageOptimizerTests
     {
-      FileInfo tempFile = CreateTemporaryFile(fileName);
-      try
-      {
-        IImageOptimizer optimizer = CreateImageOptimizer();
-        Assert.IsNotNull(optimizer);
-
-        long before = tempFile.Length;
-        optimizer.Compress(tempFile);
-
-        long after = tempFile.Length;
-
-        if (resultIsSmaller)
-          Assert.IsTrue(after < before, "{0} is not smaller than {1}", after, before);
-        else
-          Assert.AreEqual(before, after);
-
-        return after;
-      }
-      finally
-      {
-        tempFile.Delete();
-      }
-    }
-
-    private long Test_LosslessCompress(string fileName, bool resultIsSmaller)
-    {
-      FileInfo tempFile = CreateTemporaryFile(fileName);
-      try
-      {
-        IImageOptimizer optimizer = CreateImageOptimizer();
-        Assert.IsNotNull(optimizer);
-
-        long before = tempFile.Length;
-        optimizer.LosslessCompress(tempFile);
-
-        long after = tempFile.Length;
-
-        if (resultIsSmaller)
-          Assert.IsTrue(after < before, "{0} is not smaller than {1}", after, before);
-        else
-          Assert.AreEqual(before, after);
-
-        return after;
-      }
-      finally
-      {
-        tempFile.Delete();
-      }
-    }
-
-    protected abstract IImageOptimizer CreateImageOptimizer();
-
-    protected static FileInfo CreateTemporaryFile(string fileName)
-    {
-      string tempFile = GetTemporaryFileName(Path.GetExtension(fileName));
-      File.Copy(fileName, tempFile, true);
-
-      return new FileInfo(tempFile);
-    }
-
-    protected static string GetTemporaryFileName(string extension)
-    {
-      string tempFile = Path.GetTempFileName();
-      File.Move(tempFile, tempFile + extension);
-
-      return tempFile + extension;
-    }
-
-    protected long Test_Compress_Smaller(string fileName)
-    {
-      return Test_Compress(fileName, true);
-    }
-
-    protected void Test_Compress_NotSmaller(string fileName)
-    {
-      Test_Compress(fileName, false);
-    }
-
-    protected void Test_Compress_InvalidFile(string fileName)
-    {
-      FileInfo tempFile = CreateTemporaryFile(fileName);
-      try
-      {
-        ExceptionAssert.Throws<MagickCorruptImageErrorException>(delegate ()
+        private long Test_Compress(string fileName, bool resultIsSmaller)
         {
-          IImageOptimizer optimizer = CreateImageOptimizer();
-          Assert.IsNotNull(optimizer);
+            FileInfo tempFile = CreateTemporaryFile(fileName);
+            try
+            {
+                IImageOptimizer optimizer = CreateImageOptimizer();
+                Assert.IsNotNull(optimizer);
 
-          optimizer.Compress(tempFile);
-        });
-      }
-      finally
-      {
-        tempFile.Delete();
-      }
-    }
+                long before = tempFile.Length;
+                optimizer.Compress(tempFile);
 
-    protected void Test_Compress_InvalidArguments()
-    {
-      IImageOptimizer optimizer = CreateImageOptimizer();
-      Assert.IsNotNull(optimizer);
+                long after = tempFile.Length;
 
-      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
-      {
-        optimizer.Compress((FileInfo)null);
-      });
+                if (resultIsSmaller)
+                    Assert.IsTrue(after < before, "{0} is not smaller than {1}", after, before);
+                else
+                    Assert.AreEqual(before, after);
 
-      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
-      {
-        optimizer.Compress((string)null);
-      });
+                return after;
+            }
+            finally
+            {
+                tempFile.Delete();
+            }
+        }
 
-      ExceptionAssert.Throws<ArgumentException>(delegate ()
-      {
-        optimizer.Compress("");
-      });
-
-      ExceptionAssert.Throws<ArgumentException>(delegate ()
-      {
-        optimizer.Compress(Files.Missing);
-      });
-    }
-
-    protected long Test_LosslessCompress_Smaller(string fileName)
-    {
-      return Test_LosslessCompress(fileName, true);
-    }
-
-    protected void Test_LosslessCompress_NotSmaller(string fileName)
-    {
-      Test_LosslessCompress(fileName, false);
-    }
-
-    protected void Test_LosslessCompress_InvalidFile(string fileName)
-    {
-      FileInfo tempFile = CreateTemporaryFile(fileName);
-      try
-      {
-        ExceptionAssert.Throws<MagickCorruptImageErrorException>(delegate ()
+        private long Test_LosslessCompress(string fileName, bool resultIsSmaller)
         {
-          IImageOptimizer optimizer = CreateImageOptimizer();
-          Assert.IsNotNull(optimizer);
+            FileInfo tempFile = CreateTemporaryFile(fileName);
+            try
+            {
+                IImageOptimizer optimizer = CreateImageOptimizer();
+                Assert.IsNotNull(optimizer);
 
-          optimizer.LosslessCompress(tempFile);
-        });
-      }
-      finally
-      {
-        tempFile.Delete();
-      }
+                long before = tempFile.Length;
+                optimizer.LosslessCompress(tempFile);
+
+                long after = tempFile.Length;
+
+                if (resultIsSmaller)
+                    Assert.IsTrue(after < before, "{0} is not smaller than {1}", after, before);
+                else
+                    Assert.AreEqual(before, after);
+
+                return after;
+            }
+            finally
+            {
+                tempFile.Delete();
+            }
+        }
+
+        protected abstract IImageOptimizer CreateImageOptimizer();
+
+        protected static FileInfo CreateTemporaryFile(string fileName)
+        {
+            string tempFile = GetTemporaryFileName(Path.GetExtension(fileName));
+            File.Copy(fileName, tempFile, true);
+
+            return new FileInfo(tempFile);
+        }
+
+        protected static string GetTemporaryFileName(string extension)
+        {
+            string tempFile = Path.GetTempFileName();
+            File.Move(tempFile, tempFile + extension);
+
+            return tempFile + extension;
+        }
+
+        protected long Test_Compress_Smaller(string fileName)
+        {
+            return Test_Compress(fileName, true);
+        }
+
+        protected void Test_Compress_NotSmaller(string fileName)
+        {
+            Test_Compress(fileName, false);
+        }
+
+        protected void Test_Compress_InvalidFile(string fileName)
+        {
+            FileInfo tempFile = CreateTemporaryFile(fileName);
+            try
+            {
+                ExceptionAssert.Throws<MagickCorruptImageErrorException>(delegate ()
+                {
+                    IImageOptimizer optimizer = CreateImageOptimizer();
+                    Assert.IsNotNull(optimizer);
+
+                    optimizer.Compress(tempFile);
+                });
+            }
+            finally
+            {
+                tempFile.Delete();
+            }
+        }
+
+        protected void Test_Compress_InvalidArguments()
+        {
+            IImageOptimizer optimizer = CreateImageOptimizer();
+            Assert.IsNotNull(optimizer);
+
+            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            {
+                optimizer.Compress((FileInfo)null);
+            });
+
+            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            {
+                optimizer.Compress((string)null);
+            });
+
+            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            {
+                optimizer.Compress("");
+            });
+
+            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            {
+                optimizer.Compress(Files.Missing);
+            });
+        }
+
+        protected long Test_LosslessCompress_Smaller(string fileName)
+        {
+            return Test_LosslessCompress(fileName, true);
+        }
+
+        protected void Test_LosslessCompress_NotSmaller(string fileName)
+        {
+            Test_LosslessCompress(fileName, false);
+        }
+
+        protected void Test_LosslessCompress_InvalidFile(string fileName)
+        {
+            FileInfo tempFile = CreateTemporaryFile(fileName);
+            try
+            {
+                ExceptionAssert.Throws<MagickCorruptImageErrorException>(delegate ()
+                {
+                    IImageOptimizer optimizer = CreateImageOptimizer();
+                    Assert.IsNotNull(optimizer);
+
+                    optimizer.LosslessCompress(tempFile);
+                });
+            }
+            finally
+            {
+                tempFile.Delete();
+            }
+        }
+
+        protected void Test_LosslessCompress_InvalidArguments()
+        {
+            IImageOptimizer optimizer = CreateImageOptimizer();
+            Assert.IsNotNull(optimizer);
+
+            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            {
+                optimizer.LosslessCompress((FileInfo)null);
+            });
+
+            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            {
+                optimizer.LosslessCompress((string)null);
+            });
+
+            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            {
+                optimizer.LosslessCompress("");
+            });
+
+            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            {
+                optimizer.LosslessCompress(Files.Missing);
+            });
+        }
     }
-
-    protected void Test_LosslessCompress_InvalidArguments()
-    {
-      IImageOptimizer optimizer = CreateImageOptimizer();
-      Assert.IsNotNull(optimizer);
-
-      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
-      {
-        optimizer.LosslessCompress((FileInfo)null);
-      });
-
-      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
-      {
-        optimizer.LosslessCompress((string)null);
-      });
-
-      ExceptionAssert.Throws<ArgumentException>(delegate ()
-      {
-        optimizer.LosslessCompress("");
-      });
-
-      ExceptionAssert.Throws<ArgumentException>(delegate ()
-      {
-        optimizer.LosslessCompress(Files.Missing);
-      });
-    }
-  }
 }

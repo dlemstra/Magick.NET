@@ -17,42 +17,42 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class Jp2ReadDefinesTests
-  {
-    [TestMethod]
-    public void Test_Empty()
+    [TestClass]
+    public class Jp2ReadDefinesTests
     {
-      using (IMagickImage image = new MagickImage())
-      {
-        image.Settings.SetDefines(new Jp2ReadDefines()
+        [TestMethod]
+        public void Test_Empty()
         {
-        });
+            using (IMagickImage image = new MagickImage())
+            {
+                image.Settings.SetDefines(new Jp2ReadDefines()
+                {
+                });
 
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jp2, "quality-layers"));
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jp2, "reduce-factor"));
-      }
-    }
-
-    [TestMethod]
-    public void Test_QualityLayers_ReduceFactor()
-    {
-      MagickReadSettings settings = new MagickReadSettings()
-      {
-        Defines = new Jp2ReadDefines()
-        {
-          QualityLayers = 4,
-          ReduceFactor = 2
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jp2, "quality-layers"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jp2, "reduce-factor"));
+            }
         }
-      };
 
-      using (IMagickImage image = new MagickImage())
-      {
-        image.Read(Files.Coders.GrimJp2, settings);
+        [TestMethod]
+        public void Test_QualityLayers_ReduceFactor()
+        {
+            MagickReadSettings settings = new MagickReadSettings()
+            {
+                Defines = new Jp2ReadDefines()
+                {
+                    QualityLayers = 4,
+                    ReduceFactor = 2
+                }
+            };
 
-        Assert.AreEqual("4", image.Settings.GetDefine(MagickFormat.Jp2, "quality-layers"));
-        Assert.AreEqual("2", image.Settings.GetDefine(MagickFormat.Jp2, "reduce-factor"));
-      }
+            using (IMagickImage image = new MagickImage())
+            {
+                image.Read(Files.Coders.GrimJp2, settings);
+
+                Assert.AreEqual("4", image.Settings.GetDefine(MagickFormat.Jp2, "quality-layers"));
+                Assert.AreEqual("2", image.Settings.GetDefine(MagickFormat.Jp2, "reduce-factor"));
+            }
+        }
     }
-  }
 }

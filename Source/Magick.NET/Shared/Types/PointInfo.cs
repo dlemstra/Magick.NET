@@ -16,30 +16,30 @@ using System;
 
 namespace ImageMagick
 {
-  internal partial class PointInfo
-  {
-    private PointInfo(IntPtr instance)
+    internal partial class PointInfo
     {
-      NativePointInfo nativeInstance = new NativePointInfo(instance);
-      X = nativeInstance.X;
-      Y = nativeInstance.Y;
-    }
+        private PointInfo(IntPtr instance)
+        {
+            NativePointInfo nativeInstance = new NativePointInfo(instance);
+            X = nativeInstance.X;
+            Y = nativeInstance.Y;
+        }
 
-    public double X
-    {
-      get;
-      private set;
-    }
+        public double X
+        {
+            get;
+            private set;
+        }
 
-    public double Y
-    {
-      get;
-      private set;
-    }
+        public double Y
+        {
+            get;
+            private set;
+        }
 
-    public static PointInfo CreateInstance(IntPtr instance)
-    {
-      return new PointInfo(instance);
+        public static PointInfo CreateInstance(IntPtr instance)
+        {
+            return new PointInfo(instance);
+        }
     }
-  }
 }

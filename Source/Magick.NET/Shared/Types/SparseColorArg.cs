@@ -14,51 +14,51 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Represents an argument for the SparseColor method.
-  /// </summary>
-  public sealed class SparseColorArg
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="SparseColorArg"/> class.
+    /// Represents an argument for the SparseColor method.
     /// </summary>
-    /// <param name="x">The X position.</param>
-    /// <param name="y">The Y position.</param>
-    /// <param name="color">The color.</param>
-    public SparseColorArg(double x, double y, MagickColor color)
+    public sealed class SparseColorArg
     {
-      Throw.IfNull(nameof(color), color);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SparseColorArg"/> class.
+        /// </summary>
+        /// <param name="x">The X position.</param>
+        /// <param name="y">The Y position.</param>
+        /// <param name="color">The color.</param>
+        public SparseColorArg(double x, double y, MagickColor color)
+        {
+            Throw.IfNull(nameof(color), color);
 
-      X = x;
-      Y = y;
-      Color = color;
-    }
+            X = x;
+            Y = y;
+            Color = color;
+        }
 
-    /// <summary>
-    /// Gets or sets the X position.
-    /// </summary>
-    public double X
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets the X position.
+        /// </summary>
+        public double X
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// Gets or sets the Y position.
-    /// </summary>
-    public double Y
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets the Y position.
+        /// </summary>
+        public double Y
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// Gets or sets the color.
-    /// </summary>
-    public MagickColor Color
-    {
-      get;
-      set;
+        /// <summary>
+        /// Gets or sets the color.
+        /// </summary>
+        public MagickColor Color
+        {
+            get;
+            set;
+        }
     }
-  }
 }

@@ -18,19 +18,19 @@ using System.Drawing;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Interface for a class that can be used to create <see cref="IMagickImage"/>, <see cref="IMagickImageCollection"/> or <see cref="IMagickImageInfo"/> instances.
-  /// </summary>
-  public partial interface IMagickFactory
-  {
     /// <summary>
-    /// Initializes a new instance that implements <see cref="IMagickImage"/>.
+    /// Interface for a class that can be used to create <see cref="IMagickImage"/>, <see cref="IMagickImageCollection"/> or <see cref="IMagickImageInfo"/> instances.
     /// </summary>
-    /// <param name="bitmap">The bitmap to use.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
-    IMagickImage CreateImage(Bitmap bitmap);
-  }
+    public partial interface IMagickFactory
+    {
+        /// <summary>
+        /// Initializes a new instance that implements <see cref="IMagickImage"/>.
+        /// </summary>
+        /// <param name="bitmap">The bitmap to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
+        IMagickImage CreateImage(Bitmap bitmap);
+    }
 }
 
 #endif

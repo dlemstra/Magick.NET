@@ -27,77 +27,77 @@ using QuantumType = System.Single;
 
 namespace Magick.NET.Tests
 {
-  [ExcludeFromCodeCoverage]
-  internal static class ColorAssert
-  {
-    private static void AreEqual(MagickColor expected, Pixel actual)
+    [ExcludeFromCodeCoverage]
+    internal static class ColorAssert
     {
-      AreEqual(expected, actual.ToColor());
-    }
+        private static void AreEqual(MagickColor expected, Pixel actual)
+        {
+            AreEqual(expected, actual.ToColor());
+        }
 
-    private static void AreEqual(QuantumType expected, QuantumType actual, MagickColor actualColor, float delta, string channel)
-    {
+        private static void AreEqual(QuantumType expected, QuantumType actual, MagickColor actualColor, float delta, string channel)
+        {
 #if (Q16HDRI)
-      if (double.IsNaN(actual))
-        actual = 0;
+            if (double.IsNaN(actual))
+                actual = 0;
 #endif
 
-      Assert.AreEqual(expected, actual, delta, channel + " is not equal (" + actualColor.ToString() + ")");
-    }
+            Assert.AreEqual(expected, actual, delta, channel + " is not equal (" + actualColor.ToString() + ")");
+        }
 
-    private static void AreNotEqual(MagickColor expected, Pixel actual)
-    {
-      AreNotEqual(expected, actual.ToColor());
-    }
+        private static void AreNotEqual(MagickColor expected, Pixel actual)
+        {
+            AreNotEqual(expected, actual.ToColor());
+        }
 
-    public static void AreEqual(MagickColor expected, MagickColor actual)
-    {
-      Assert.IsNotNull(actual);
+        public static void AreEqual(MagickColor expected, MagickColor actual)
+        {
+            Assert.IsNotNull(actual);
 
 #if (Q16HDRI)
-      /* Allow difference of 1 due to rounding issues */
-      QuantumType delta = 1;
+            /* Allow difference of 1 due to rounding issues */
+            QuantumType delta = 1;
 #else
-      QuantumType delta = 0;
+            QuantumType delta = 0;
 #endif
 
-      AreEqual(expected.R, actual.R, actual, delta, "R");
-      AreEqual(expected.G, actual.G, actual, delta, "G");
-      AreEqual(expected.B, actual.B, actual, delta, "B");
-      AreEqual(expected.A, actual.A, actual, delta, "A");
-    }
+            AreEqual(expected.R, actual.R, actual, delta, "R");
+            AreEqual(expected.G, actual.G, actual, delta, "G");
+            AreEqual(expected.B, actual.B, actual, delta, "B");
+            AreEqual(expected.A, actual.A, actual, delta, "A");
+        }
 
-    public static void AreEqual(MagickColor expected, IMagickImage image, int x, int y)
-    {
-      using (PixelCollection pixels = image.GetPixels())
-      {
-        AreEqual(expected, pixels.GetPixel(x, y));
-      }
-    }
+        public static void AreEqual(MagickColor expected, IMagickImage image, int x, int y)
+        {
+            using (PixelCollection pixels = image.GetPixels())
+            {
+                AreEqual(expected, pixels.GetPixel(x, y));
+            }
+        }
 
-    public static void AreNotEqual(MagickColor notExpected, MagickColor actual)
-    {
-      if (notExpected.R == actual.R && notExpected.G == actual.G &&
-         notExpected.B == actual.B && notExpected.A == actual.A)
-        Assert.Fail("Colors are the same (" + actual.ToString() + ")");
-    }
+        public static void AreNotEqual(MagickColor notExpected, MagickColor actual)
+        {
+            if (notExpected.R == actual.R && notExpected.G == actual.G &&
+               notExpected.B == actual.B && notExpected.A == actual.A)
+                Assert.Fail("Colors are the same (" + actual.ToString() + ")");
+        }
 
-    public static void AreNotEqual(MagickColor notExpected, IMagickImage image, int x, int y)
-    {
-      using (PixelCollection collection = image.GetPixels())
-      {
-        AreNotEqual(notExpected, collection.GetPixel(x, y));
-      }
-    }
+        public static void AreNotEqual(MagickColor notExpected, IMagickImage image, int x, int y)
+        {
+            using (PixelCollection collection = image.GetPixels())
+            {
+                AreNotEqual(notExpected, collection.GetPixel(x, y));
+            }
+        }
 
-    public static void IsTransparent(float alpha)
-    {
-      Assert.AreEqual(0, alpha);
-    }
+        public static void IsTransparent(float alpha)
+        {
+            Assert.AreEqual(0, alpha);
+        }
 
-    public static void IsNotTransparent(float alpha)
-    {
-      Assert.AreEqual(Quantum.Max, alpha);
+        public static void IsNotTransparent(float alpha)
+        {
+            Assert.AreEqual(Quantum.Max, alpha);
+        }
     }
-  }
 }

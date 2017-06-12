@@ -16,19 +16,19 @@ Imports ImageMagick
 
 Namespace RootNamespace.Samples.MagickNET
 
-  ''' <summary>
-  ''' You need to put the executable dcraw.exe into the directory that contains the Magick.NET dll.
-  ''' The zip file ImageMagick-6.X.X-X-Q16-x86-windows.zip that you can download from
-  ''' http://www.imagemagick.org/script/binary-releases.php#windows contains this file.
-  ''' </summary>
-  Public NotInheritable Class ReadRawImageFromCameraSamples
+    ''' <summary>
+    ''' You need to put the executable dcraw.exe into the directory that contains the Magick.NET dll.
+    ''' The zip file ImageMagick-6.X.X-X-Q16-x86-windows.zip that you can download from
+    ''' http://www.imagemagick.org/script/binary-releases.php#windows contains this file.
+    ''' </summary>
+    Public NotInheritable Class ReadRawImageFromCameraSamples
 
-    Public Shared Sub ConvertCR2ToJPG()
-      Using image As New MagickImage(SampleFiles.StillLifeCR2)
-        image.Write(SampleFiles.OutputDirectory + "StillLife.jpg")
-      End Using
-    End Sub
+        Public Shared Sub ConvertCR2ToJPG()
+            Using image As New MagickImage(SampleFiles.StillLifeCR2)
+                image.Write(SampleFiles.OutputDirectory + "StillLife.jpg")
+            End Using
+        End Sub
 
-  End Class
+    End Class
 
 End Namespace

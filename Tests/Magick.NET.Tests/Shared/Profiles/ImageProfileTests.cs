@@ -19,74 +19,74 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public sealed class ImageProfileTests
-  {
-    [TestMethod]
-    public void Test_Constructor()
+    [TestClass]
+    public sealed class ImageProfileTests
     {
-      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
-      {
-        new ImageProfile(null, Files.SnakewarePNG);
-      });
+        [TestMethod]
+        public void Test_Constructor()
+        {
+            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            {
+                new ImageProfile(null, Files.SnakewarePNG);
+            });
 
-      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
-      {
-        new ImageProfile("name", (byte[])null);
-      });
+            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            {
+                new ImageProfile("name", (byte[])null);
+            });
 
-      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
-      {
-        new ImageProfile("name", (Stream)null);
-      });
+            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            {
+                new ImageProfile("name", (Stream)null);
+            });
 
-      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
-      {
-        new ImageProfile("name", (string)null);
-      });
+            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            {
+                new ImageProfile("name", (string)null);
+            });
 
-      ExceptionAssert.Throws<ArgumentException>(delegate ()
-      {
-        new ImageProfile("name", new byte[] { });
-      });
+            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            {
+                new ImageProfile("name", new byte[] { });
+            });
+        }
+
+        [TestMethod]
+        public void Test_IEquatable()
+        {
+            using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+            {
+                ImageProfile first = image.GetIptcProfile();
+
+                Assert.IsFalse(first == null);
+                Assert.IsFalse(first.Equals(null));
+                Assert.IsTrue(first.Equals(first));
+                Assert.IsTrue(first.Equals((object)first));
+
+                ImageProfile second = image.GetIptcProfile();
+                Assert.IsNotNull(second);
+
+                Assert.IsTrue(first == second);
+                Assert.IsTrue(first.Equals(second));
+                Assert.IsTrue(first.Equals((object)second));
+
+                second = new IptcProfile(new byte[] { 0 });
+
+                Assert.IsTrue(first != second);
+                Assert.IsFalse(first.Equals(second));
+            }
+        }
+
+        [TestMethod]
+        public void Test_ToByteArray()
+        {
+            using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+            {
+                ImageProfile profile = image.GetIptcProfile();
+                Assert.IsNotNull(profile);
+
+                Assert.AreEqual(273, profile.ToByteArray().Length);
+            }
+        }
     }
-
-    [TestMethod]
-    public void Test_IEquatable()
-    {
-      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-      {
-        ImageProfile first = image.GetIptcProfile();
-
-        Assert.IsFalse(first == null);
-        Assert.IsFalse(first.Equals(null));
-        Assert.IsTrue(first.Equals(first));
-        Assert.IsTrue(first.Equals((object)first));
-
-        ImageProfile second = image.GetIptcProfile();
-        Assert.IsNotNull(second);
-
-        Assert.IsTrue(first == second);
-        Assert.IsTrue(first.Equals(second));
-        Assert.IsTrue(first.Equals((object)second));
-
-        second = new IptcProfile(new byte[] { 0 });
-
-        Assert.IsTrue(first != second);
-        Assert.IsFalse(first.Equals(second));
-      }
-    }
-
-    [TestMethod]
-    public void Test_ToByteArray()
-    {
-      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-      {
-        ImageProfile profile = image.GetIptcProfile();
-        Assert.IsNotNull(profile);
-
-        Assert.AreEqual(273, profile.ToByteArray().Length);
-      }
-    }
-  }
 }

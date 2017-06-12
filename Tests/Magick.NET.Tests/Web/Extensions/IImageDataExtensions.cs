@@ -19,21 +19,21 @@ using System.IO;
 
 namespace Magick.NET.Tests
 {
-  [ExcludeFromCodeCoverage]
-  internal static class IImageDataExtensions
-  {
-    public static byte[] GetBytes(this IImageData imageData)
+    [ExcludeFromCodeCoverage]
+    internal static class IImageDataExtensions
     {
-      using (Stream stream = imageData.ReadImage())
-      {
-        using (MemoryStream memStream = new MemoryStream())
+        public static byte[] GetBytes(this IImageData imageData)
         {
-          stream.CopyTo(memStream);
-          return memStream.ToArray();
+            using (Stream stream = imageData.ReadImage())
+            {
+                using (MemoryStream memStream = new MemoryStream())
+                {
+                    stream.CopyTo(memStream);
+                    return memStream.ToArray();
+                }
+            }
         }
-      }
     }
-  }
 }
 
 #endif

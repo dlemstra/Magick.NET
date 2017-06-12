@@ -14,32 +14,32 @@
 
 namespace ImageMagick
 {
-  internal partial class OffsetInfo
-  {
-    public OffsetInfo(int x, int y)
+    internal partial class OffsetInfo
     {
-      X = x;
-      Y = y;
-    }
+        public OffsetInfo(int x, int y)
+        {
+            X = x;
+            Y = y;
+        }
 
-    public int X
-    {
-      get;
-      private set;
-    }
+        public int X
+        {
+            get;
+            private set;
+        }
 
-    public int Y
-    {
-      get;
-      private set;
-    }
+        public int Y
+        {
+            get;
+            private set;
+        }
 
-    public INativeInstance CreateNativeInstance()
-    {
-      NativeOffsetInfo offsetInfo = new NativeOffsetInfo();
-      offsetInfo.SetX(X);
-      offsetInfo.SetY(Y);
-      return offsetInfo;
+        public INativeInstance CreateNativeInstance()
+        {
+            NativeOffsetInfo offsetInfo = new NativeOffsetInfo();
+            offsetInfo.SetX(X);
+            offsetInfo.SetY(Y);
+            return offsetInfo;
+        }
     }
-  }
 }

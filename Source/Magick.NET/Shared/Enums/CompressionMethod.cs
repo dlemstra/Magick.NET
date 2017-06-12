@@ -14,119 +14,119 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Specifies compression methods.
-  /// </summary>
-  public enum CompressionMethod
-  {
     /// <summary>
-    /// Undefined
+    /// Specifies compression methods.
     /// </summary>
-    Undefined,
+    public enum CompressionMethod
+    {
+        /// <summary>
+        /// Undefined
+        /// </summary>
+        Undefined,
 
-    /// <summary>
-    /// B44A
-    /// </summary>
-    B44A,
+        /// <summary>
+        /// B44A
+        /// </summary>
+        B44A,
 
-    /// <summary>
-    /// B44
-    /// </summary>
-    B44,
+        /// <summary>
+        /// B44
+        /// </summary>
+        B44,
 
-    /// <summary>
-    /// BZip
-    /// </summary>
-    BZip,
+        /// <summary>
+        /// BZip
+        /// </summary>
+        BZip,
 
-    /// <summary>
-    /// DXT1
-    /// </summary>
-    DXT1,
+        /// <summary>
+        /// DXT1
+        /// </summary>
+        DXT1,
 
-    /// <summary>
-    /// DXT3
-    /// </summary>
-    DXT3,
+        /// <summary>
+        /// DXT3
+        /// </summary>
+        DXT3,
 
-    /// <summary>
-    /// DXT5
-    /// </summary>
-    DXT5,
+        /// <summary>
+        /// DXT5
+        /// </summary>
+        DXT5,
 
-    /// <summary>
-    /// Fax
-    /// </summary>
-    Fax,
+        /// <summary>
+        /// Fax
+        /// </summary>
+        Fax,
 
-    /// <summary>
-    /// Group4
-    /// </summary>
-    Group4,
+        /// <summary>
+        /// Group4
+        /// </summary>
+        Group4,
 
-    /// <summary>
-    /// JBIG1
-    /// </summary>
-    JBIG1,
+        /// <summary>
+        /// JBIG1
+        /// </summary>
+        JBIG1,
 
-    /// <summary>
-    /// JBIG2
-    /// </summary>
-    JBIG2,
+        /// <summary>
+        /// JBIG2
+        /// </summary>
+        JBIG2,
 
-    /// <summary>
-    /// JPEG2000
-    /// </summary>
-    JPEG2000,
+        /// <summary>
+        /// JPEG2000
+        /// </summary>
+        JPEG2000,
 
-    /// <summary>
-    /// JPEG
-    /// </summary>
-    JPEG,
+        /// <summary>
+        /// JPEG
+        /// </summary>
+        JPEG,
 
-    /// <summary>
-    /// LosslessJPEG
-    /// </summary>
-    LosslessJPEG,
+        /// <summary>
+        /// LosslessJPEG
+        /// </summary>
+        LosslessJPEG,
 
-    /// <summary>
-    /// LZMA
-    /// </summary>
-    LZMA,
+        /// <summary>
+        /// LZMA
+        /// </summary>
+        LZMA,
 
-    /// <summary>
-    /// LZW
-    /// </summary>
-    LZW,
+        /// <summary>
+        /// LZW
+        /// </summary>
+        LZW,
 
-    /// <summary>
-    /// NoCompression
-    /// </summary>
-    NoCompression,
+        /// <summary>
+        /// NoCompression
+        /// </summary>
+        NoCompression,
 
-    /// <summary>
-    /// Piz
-    /// </summary>
-    Piz,
+        /// <summary>
+        /// Piz
+        /// </summary>
+        Piz,
 
-    /// <summary>
-    /// Pxr24
-    /// </summary>
-    Pxr24,
+        /// <summary>
+        /// Pxr24
+        /// </summary>
+        Pxr24,
 
-    /// <summary>
-    /// RLE
-    /// </summary>
-    RLE,
+        /// <summary>
+        /// RLE
+        /// </summary>
+        RLE,
 
-    /// <summary>
-    /// Zip
-    /// </summary>
-    Zip,
+        /// <summary>
+        /// Zip
+        /// </summary>
+        Zip,
 
-    /// <summary>
-    /// ZipS
-    /// </summary>
-    ZipS
-  }
+        /// <summary>
+        /// ZipS
+        /// </summary>
+        ZipS
+    }
 }

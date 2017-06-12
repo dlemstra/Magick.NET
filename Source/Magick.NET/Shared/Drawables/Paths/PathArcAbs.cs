@@ -16,46 +16,46 @@ using System.Collections.Generic;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Draws an elliptical arc from the current point to (X, Y) using absolute coordinates. The size
-  /// and orientation of the ellipse are defined by two radii(RadiusX, RadiusY) and an RotationX,
-  /// which indicates how the ellipse as a whole is rotated relative to the current coordinate
-  /// system. The center of the ellipse is calculated automagically to satisfy the constraints
-  /// imposed by the other parameters. UseLargeArc and UseSweep contribute to the automatic
-  /// calculations and help determine how the arc is drawn. If UseLargeArc is true then draw the
-  /// larger of the available arcs. If UseSweep is true, then draw the arc matching a clock-wise
-  /// rotation.
-  /// </summary>
-  public sealed class PathArcAbs : IPath, IDrawingWand
-  {
-    private PathArcCoordinates _Coordinates;
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="PathArcAbs"/> class.
+    /// Draws an elliptical arc from the current point to (X, Y) using absolute coordinates. The size
+    /// and orientation of the ellipse are defined by two radii(RadiusX, RadiusY) and an RotationX,
+    /// which indicates how the ellipse as a whole is rotated relative to the current coordinate
+    /// system. The center of the ellipse is calculated automagically to satisfy the constraints
+    /// imposed by the other parameters. UseLargeArc and UseSweep contribute to the automatic
+    /// calculations and help determine how the arc is drawn. If UseLargeArc is true then draw the
+    /// larger of the available arcs. If UseSweep is true, then draw the arc matching a clock-wise
+    /// rotation.
     /// </summary>
-    /// <param name="pathArcs">The coordinates to use.</param>
-    public PathArcAbs(params PathArc[] pathArcs)
+    public sealed class PathArcAbs : IPath, IDrawingWand
     {
-      _Coordinates = new PathArcCoordinates(pathArcs);
-    }
+        private PathArcCoordinates _Coordinates;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="PathArcAbs"/> class.
-    /// </summary>
-    /// <param name="pathArcs">The coordinates to use.</param>
-    public PathArcAbs(IEnumerable<PathArc> pathArcs)
-    {
-      _Coordinates = new PathArcCoordinates(pathArcs);
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PathArcAbs"/> class.
+        /// </summary>
+        /// <param name="pathArcs">The coordinates to use.</param>
+        public PathArcAbs(params PathArc[] pathArcs)
+        {
+            _Coordinates = new PathArcCoordinates(pathArcs);
+        }
 
-    /// <summary>
-    /// Draws this instance with the drawing wand.
-    /// </summary>
-    /// <param name="wand">The want to draw on.</param>
-    void IDrawingWand.Draw(DrawingWand wand)
-    {
-      if (wand != null)
-        wand.PathArcAbs(_Coordinates.ToList());
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PathArcAbs"/> class.
+        /// </summary>
+        /// <param name="pathArcs">The coordinates to use.</param>
+        public PathArcAbs(IEnumerable<PathArc> pathArcs)
+        {
+            _Coordinates = new PathArcCoordinates(pathArcs);
+        }
+
+        /// <summary>
+        /// Draws this instance with the drawing wand.
+        /// </summary>
+        /// <param name="wand">The want to draw on.</param>
+        void IDrawingWand.Draw(DrawingWand wand)
+        {
+            if (wand != null)
+                wand.PathArcAbs(_Coordinates.ToList());
+        }
     }
-  }
 }

@@ -17,23 +17,23 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public partial class PdfTests
-  {
-    private static void Test_Image(IMagickImage image)
+    [TestClass]
+    public partial class PdfTests
     {
-      Assert.AreEqual(765, image.Width);
-      Assert.AreEqual(361, image.Height);
-      Assert.AreEqual(MagickFormat.Ai, image.Format);
-    }
+        private static void Test_Image(IMagickImage image)
+        {
+            Assert.AreEqual(765, image.Width);
+            Assert.AreEqual(361, image.Height);
+            Assert.AreEqual(MagickFormat.Ai, image.Format);
+        }
 
-    [TestMethod]
-    public void Test_Format()
-    {
-      using (IMagickImage image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI))
-      {
-        Test_Image(image);
-      }
+        [TestMethod]
+        public void Test_Format()
+        {
+            using (IMagickImage image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI))
+            {
+                Test_Image(image);
+            }
+        }
     }
-  }
 }

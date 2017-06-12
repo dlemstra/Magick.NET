@@ -16,40 +16,40 @@ using System.Collections.Generic;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Draws a polygon using the current stroke, stroke width, and fill color or texture, using the
-  /// specified array of coordinates.
-  /// </summary>
-  public sealed class DrawablePolygon : IDrawable, IDrawingWand
-  {
-    private PointDCoordinates _Coordinates;
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="DrawablePolygon"/> class.
+    /// Draws a polygon using the current stroke, stroke width, and fill color or texture, using the
+    /// specified array of coordinates.
     /// </summary>
-    /// <param name="coordinates">The coordinates.</param>
-    public DrawablePolygon(params PointD[] coordinates)
+    public sealed class DrawablePolygon : IDrawable, IDrawingWand
     {
-      _Coordinates = new PointDCoordinates(coordinates, 3);
-    }
+        private PointDCoordinates _Coordinates;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="DrawablePolygon"/> class.
-    /// </summary>
-    /// <param name="coordinates">The coordinates.</param>
-    public DrawablePolygon(IEnumerable<PointD> coordinates)
-    {
-      _Coordinates = new PointDCoordinates(coordinates, 3);
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrawablePolygon"/> class.
+        /// </summary>
+        /// <param name="coordinates">The coordinates.</param>
+        public DrawablePolygon(params PointD[] coordinates)
+        {
+            _Coordinates = new PointDCoordinates(coordinates, 3);
+        }
 
-    /// <summary>
-    /// Draws this instance with the drawing wand.
-    /// </summary>
-    /// <param name="wand">The want to draw on.</param>
-    void IDrawingWand.Draw(DrawingWand wand)
-    {
-      if (wand != null)
-        wand.Polygon(_Coordinates.ToList());
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrawablePolygon"/> class.
+        /// </summary>
+        /// <param name="coordinates">The coordinates.</param>
+        public DrawablePolygon(IEnumerable<PointD> coordinates)
+        {
+            _Coordinates = new PointDCoordinates(coordinates, 3);
+        }
+
+        /// <summary>
+        /// Draws this instance with the drawing wand.
+        /// </summary>
+        /// <param name="wand">The want to draw on.</param>
+        void IDrawingWand.Draw(DrawingWand wand)
+        {
+            if (wand != null)
+                wand.Polygon(_Coordinates.ToList());
+        }
     }
-  }
 }

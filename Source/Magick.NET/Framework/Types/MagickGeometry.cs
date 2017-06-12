@@ -18,29 +18,29 @@ using System.Drawing;
 
 namespace ImageMagick
 {
-  /// <content>
-  /// Contains code that is not compatible with .NET Core.
-  /// </content>
-  public sealed partial class MagickGeometry
-  {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MagickGeometry"/> class.
-    /// </summary>
-    /// <param name="rectangle">The rectangle to use.</param>
-    public MagickGeometry(Rectangle rectangle)
+    /// <content>
+    /// Contains code that is not compatible with .NET Core.
+    /// </content>
+    public sealed partial class MagickGeometry
     {
-      Initialize(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height, false);
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickGeometry"/> class.
+        /// </summary>
+        /// <param name="rectangle">The rectangle to use.</param>
+        public MagickGeometry(Rectangle rectangle)
+        {
+            Initialize(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height, false);
+        }
 
-    /// <summary>
-    /// Converts the specified rectangle to an instance of this type.
-    /// </summary>
-    /// <param name="rectangle">The rectangle to use.</param>
-    public static explicit operator MagickGeometry(Rectangle rectangle)
-    {
-      return new MagickGeometry(rectangle);
+        /// <summary>
+        /// Converts the specified rectangle to an instance of this type.
+        /// </summary>
+        /// <param name="rectangle">The rectangle to use.</param>
+        public static explicit operator MagickGeometry(Rectangle rectangle)
+        {
+            return new MagickGeometry(rectangle);
+        }
     }
-  }
 }
 
 #endif

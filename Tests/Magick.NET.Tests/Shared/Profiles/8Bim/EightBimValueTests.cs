@@ -18,35 +18,35 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class EightBimValueTests
-  {
-    private static EightBimValue Get8BimValue()
+    [TestClass]
+    public class EightBimValueTests
     {
-      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-      {
-        EightBimProfile profile = image.Get8BimProfile();
-        return profile.Values.First();
-      }
-    }
+        private static EightBimValue Get8BimValue()
+        {
+            using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+            {
+                EightBimProfile profile = image.Get8BimProfile();
+                return profile.Values.First();
+            }
+        }
 
-    [TestMethod]
-    public void Test_IEquatable()
-    {
-      EightBimValue first = Get8BimValue();
-      EightBimValue second = Get8BimValue();
+        [TestMethod]
+        public void Test_IEquatable()
+        {
+            EightBimValue first = Get8BimValue();
+            EightBimValue second = Get8BimValue();
 
-      Assert.IsTrue(first == second);
-      Assert.IsTrue(first.Equals(second));
-      Assert.IsTrue(first.Equals((object)second));
-    }
+            Assert.IsTrue(first == second);
+            Assert.IsTrue(first.Equals(second));
+            Assert.IsTrue(first.Equals((object)second));
+        }
 
-    [TestMethod]
-    public void Test_ToByteArray()
-    {
-      EightBimValue value = Get8BimValue();
-      byte[] bytes = value.ToByteArray();
-      Assert.AreEqual(273, bytes.Length);
+        [TestMethod]
+        public void Test_ToByteArray()
+        {
+            EightBimValue value = Get8BimValue();
+            byte[] bytes = value.ToByteArray();
+            Assert.AreEqual(273, bytes.Length);
+        }
     }
-  }
 }

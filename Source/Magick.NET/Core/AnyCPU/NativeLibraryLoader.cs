@@ -16,12 +16,12 @@
 
 namespace ImageMagick
 {
-  internal static class NativeLibraryLoader
-  {
-    public static void Load()
+    internal static class NativeLibraryLoader
     {
+        public static void Load()
+        {
+        }
     }
-  }
 }
 
 #endif

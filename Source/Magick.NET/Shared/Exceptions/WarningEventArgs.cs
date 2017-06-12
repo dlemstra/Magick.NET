@@ -16,38 +16,38 @@ using System;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Arguments for the Warning event.
-  /// </summary>
-  public sealed class WarningEventArgs : EventArgs
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="WarningEventArgs"/> class.
+    /// Arguments for the Warning event.
     /// </summary>
-    /// <param name="exception">The MagickWarningException that was thrown.</param>
-    public WarningEventArgs(MagickWarningException exception)
+    public sealed class WarningEventArgs : EventArgs
     {
-      Exception = exception;
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WarningEventArgs"/> class.
+        /// </summary>
+        /// <param name="exception">The MagickWarningException that was thrown.</param>
+        public WarningEventArgs(MagickWarningException exception)
+        {
+            Exception = exception;
+        }
 
-    /// <summary>
-    /// Gets the message of the exception
-    /// </summary>
-    public string Message
-    {
-      get
-      {
-        return Exception.Message;
-      }
-    }
+        /// <summary>
+        /// Gets the message of the exception
+        /// </summary>
+        public string Message
+        {
+            get
+            {
+                return Exception.Message;
+            }
+        }
 
-    /// <summary>
-    /// Gets the MagickWarningException that was thrown
-    /// </summary>
-    public MagickWarningException Exception
-    {
-      get;
-      private set;
+        /// <summary>
+        /// Gets the MagickWarningException that was thrown
+        /// </summary>
+        public MagickWarningException Exception
+        {
+            get;
+            private set;
+        }
     }
-  }
 }

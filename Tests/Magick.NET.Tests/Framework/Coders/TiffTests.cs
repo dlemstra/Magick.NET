@@ -22,41 +22,41 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  public partial class TiffTests
-  {
-    [TestMethod]
-    public void Test_Image_ByteArray()
+    public partial class TiffTests
     {
-      using (Image img = Image.FromFile(Files.Coders.PageTIF))
-      {
-        byte[] bytes = null;
-        using (MemoryStream memStream = new MemoryStream())
+        [TestMethod]
+        public void Test_Image_ByteArray()
         {
-          img.Save(memStream, ImageFormat.Tiff);
-          bytes = memStream.GetBuffer();
-        }
-
-        using (IMagickImage image = new MagickImage(bytes))
-        {
-          image.CompressionMethod = CompressionMethod.Group4;
-
-          using (MemoryStream memStream = new MemoryStream())
-          {
-            image.Write(memStream);
-            memStream.Position = 0;
-
-            using (IMagickImage before = new MagickImage(Files.Coders.PageTIF))
+            using (Image img = Image.FromFile(Files.Coders.PageTIF))
             {
-              using (IMagickImage after = new MagickImage(memStream))
-              {
-                Assert.AreEqual(0.0, before.Compare(after, ErrorMetric.RootMeanSquared));
-              }
+                byte[] bytes = null;
+                using (MemoryStream memStream = new MemoryStream())
+                {
+                    img.Save(memStream, ImageFormat.Tiff);
+                    bytes = memStream.GetBuffer();
+                }
+
+                using (IMagickImage image = new MagickImage(bytes))
+                {
+                    image.CompressionMethod = CompressionMethod.Group4;
+
+                    using (MemoryStream memStream = new MemoryStream())
+                    {
+                        image.Write(memStream);
+                        memStream.Position = 0;
+
+                        using (IMagickImage before = new MagickImage(Files.Coders.PageTIF))
+                        {
+                            using (IMagickImage after = new MagickImage(memStream))
+                            {
+                                Assert.AreEqual(0.0, before.Compare(after, ErrorMetric.RootMeanSquared));
+                            }
+                        }
+                    }
+                }
             }
-          }
         }
-      }
     }
-  }
 }
 
 #endif

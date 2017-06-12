@@ -18,65 +18,65 @@ using System.Collections.ObjectModel;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Class that can be used to initialize OpenCL.
-  /// </summary>
-  public static partial class OpenCL
-  {
-    private static bool? _IsEnabled;
-
     /// <summary>
-    /// Sets the directory that will be used by ImageMagick to store OpenCL cache files.
+    /// Class that can be used to initialize OpenCL.
     /// </summary>
-    /// <param name="path">The path of the OpenCL cache directory.</param>
-    public static void SetCacheDirectory(string path)
+    public static partial class OpenCL
     {
-      Environment.SetEnv("MAGICK_OPENCL_CACHE_DIR", FileHelper.GetFullPath(path));
-    }
+        private static bool? _IsEnabled;
 
-    /// <summary>
-    /// Gets all the OpenCL devices.
-    /// </summary>
-    /// <returns>A <see cref="OpenCLDevice"/> iteration.</returns>
-    public static IEnumerable<OpenCLDevice> Devices
-    {
-      get
-      {
-        UIntPtr length;
-        IntPtr devices = NativeOpenCL.GetDevices(out length);
-        Collection<OpenCLDevice> result = new Collection<OpenCLDevice>();
-
-        if (devices == IntPtr.Zero)
-          return result;
-
-        for (int i = 0; i < (int)length; i++)
+        /// <summary>
+        /// Sets the directory that will be used by ImageMagick to store OpenCL cache files.
+        /// </summary>
+        /// <param name="path">The path of the OpenCL cache directory.</param>
+        public static void SetCacheDirectory(string path)
         {
-          IntPtr instance = NativeOpenCL.GetDevice(devices, i);
-          OpenCLDevice device = OpenCLDevice.CreateInstance(instance);
-          if (device != null)
-            result.Add(device);
+            Environment.SetEnv("MAGICK_OPENCL_CACHE_DIR", FileHelper.GetFullPath(path));
         }
 
-        return result;
-      }
-    }
+        /// <summary>
+        /// Gets all the OpenCL devices.
+        /// </summary>
+        /// <returns>A <see cref="OpenCLDevice"/> iteration.</returns>
+        public static IEnumerable<OpenCLDevice> Devices
+        {
+            get
+            {
+                UIntPtr length;
+                IntPtr devices = NativeOpenCL.GetDevices(out length);
+                Collection<OpenCLDevice> result = new Collection<OpenCLDevice>();
 
-    /// <summary>
-    /// Gets or sets a value indicating whether OpenCL is enabled.
-    /// </summary>
-    public static bool IsEnabled
-    {
-      get
-      {
-        if (!_IsEnabled.HasValue)
-          _IsEnabled = NativeOpenCL.SetEnabled(true);
+                if (devices == IntPtr.Zero)
+                    return result;
 
-        return _IsEnabled.Value;
-      }
-      set
-      {
-        _IsEnabled = NativeOpenCL.SetEnabled(value);
-      }
+                for (int i = 0; i < (int)length; i++)
+                {
+                    IntPtr instance = NativeOpenCL.GetDevice(devices, i);
+                    OpenCLDevice device = OpenCLDevice.CreateInstance(instance);
+                    if (device != null)
+                        result.Add(device);
+                }
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether OpenCL is enabled.
+        /// </summary>
+        public static bool IsEnabled
+        {
+            get
+            {
+                if (!_IsEnabled.HasValue)
+                    _IsEnabled = NativeOpenCL.SetEnabled(true);
+
+                return _IsEnabled.Value;
+            }
+            set
+            {
+                _IsEnabled = NativeOpenCL.SetEnabled(value);
+            }
+        }
     }
-  }
 }

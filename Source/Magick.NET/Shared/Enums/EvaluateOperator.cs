@@ -14,174 +14,174 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Specifies the evaluate operator.
-  /// </summary>
-  public enum EvaluateOperator
-  {
     /// <summary>
-    /// Undefined
+    /// Specifies the evaluate operator.
     /// </summary>
-    Undefined,
+    public enum EvaluateOperator
+    {
+        /// <summary>
+        /// Undefined
+        /// </summary>
+        Undefined,
 
-    /// <summary>
-    /// Abs
-    /// </summary>
-    Abs,
+        /// <summary>
+        /// Abs
+        /// </summary>
+        Abs,
 
-    /// <summary>
-    /// Add
-    /// </summary>
-    Add,
+        /// <summary>
+        /// Add
+        /// </summary>
+        Add,
 
-    /// <summary>
-    /// AddModulus
-    /// </summary>
-    AddModulus,
+        /// <summary>
+        /// AddModulus
+        /// </summary>
+        AddModulus,
 
-    /// <summary>
-    /// And
-    /// </summary>
-    And,
+        /// <summary>
+        /// And
+        /// </summary>
+        And,
 
-    /// <summary>
-    /// Cosine
-    /// </summary>
-    Cosine,
+        /// <summary>
+        /// Cosine
+        /// </summary>
+        Cosine,
 
-    /// <summary>
-    /// Divide
-    /// </summary>
-    Divide,
+        /// <summary>
+        /// Divide
+        /// </summary>
+        Divide,
 
-    /// <summary>
-    /// Exponential
-    /// </summary>
-    Exponential,
+        /// <summary>
+        /// Exponential
+        /// </summary>
+        Exponential,
 
-    /// <summary>
-    /// GaussianNoise
-    /// </summary>
-    GaussianNoise,
+        /// <summary>
+        /// GaussianNoise
+        /// </summary>
+        GaussianNoise,
 
-    /// <summary>
-    /// ImpulseNoise
-    /// </summary>
-    ImpulseNoise,
+        /// <summary>
+        /// ImpulseNoise
+        /// </summary>
+        ImpulseNoise,
 
-    /// <summary>
-    /// LaplacianNoise
-    /// </summary>
-    LaplacianNoise,
+        /// <summary>
+        /// LaplacianNoise
+        /// </summary>
+        LaplacianNoise,
 
-    /// <summary>
-    /// LeftShift
-    /// </summary>
-    LeftShift,
+        /// <summary>
+        /// LeftShift
+        /// </summary>
+        LeftShift,
 
-    /// <summary>
-    /// Log
-    /// </summary>
-    Log,
+        /// <summary>
+        /// Log
+        /// </summary>
+        Log,
 
-    /// <summary>
-    /// Max
-    /// </summary>
-    Max,
+        /// <summary>
+        /// Max
+        /// </summary>
+        Max,
 
-    /// <summary>
-    /// Mean
-    /// </summary>
-    Mean,
+        /// <summary>
+        /// Mean
+        /// </summary>
+        Mean,
 
-    /// <summary>
-    /// Median
-    /// </summary>
-    Median,
+        /// <summary>
+        /// Median
+        /// </summary>
+        Median,
 
-    /// <summary>
-    /// Min
-    /// </summary>
-    Min,
+        /// <summary>
+        /// Min
+        /// </summary>
+        Min,
 
-    /// <summary>
-    /// MultiplicativeNoise
-    /// </summary>
-    MultiplicativeNoise,
+        /// <summary>
+        /// MultiplicativeNoise
+        /// </summary>
+        MultiplicativeNoise,
 
-    /// <summary>
-    /// Multiply
-    /// </summary>
-    Multiply,
+        /// <summary>
+        /// Multiply
+        /// </summary>
+        Multiply,
 
-    /// <summary>
-    /// Or
-    /// </summary>
-    Or,
+        /// <summary>
+        /// Or
+        /// </summary>
+        Or,
 
-    /// <summary>
-    /// PoissonNoise
-    /// </summary>
-    PoissonNoise,
+        /// <summary>
+        /// PoissonNoise
+        /// </summary>
+        PoissonNoise,
 
-    /// <summary>
-    /// Pow
-    /// </summary>
-    Pow,
+        /// <summary>
+        /// Pow
+        /// </summary>
+        Pow,
 
-    /// <summary>
-    /// RightShift
-    /// </summary>
-    RightShift,
+        /// <summary>
+        /// RightShift
+        /// </summary>
+        RightShift,
 
-    /// <summary>
-    /// RootMeanSquare
-    /// </summary>
-    RootMeanSquare,
+        /// <summary>
+        /// RootMeanSquare
+        /// </summary>
+        RootMeanSquare,
 
-    /// <summary>
-    /// Set
-    /// </summary>
-    Set,
+        /// <summary>
+        /// Set
+        /// </summary>
+        Set,
 
-    /// <summary>
-    /// Sine
-    /// </summary>
-    Sine,
+        /// <summary>
+        /// Sine
+        /// </summary>
+        Sine,
 
-    /// <summary>
-    /// Subtract
-    /// </summary>
-    Subtract,
+        /// <summary>
+        /// Subtract
+        /// </summary>
+        Subtract,
 
-    /// <summary>
-    /// Sum
-    /// </summary>
-    Sum,
+        /// <summary>
+        /// Sum
+        /// </summary>
+        Sum,
 
-    /// <summary>
-    /// ThresholdBlack
-    /// </summary>
-    ThresholdBlack,
+        /// <summary>
+        /// ThresholdBlack
+        /// </summary>
+        ThresholdBlack,
 
-    /// <summary>
-    /// Threshold
-    /// </summary>
-    Threshold,
+        /// <summary>
+        /// Threshold
+        /// </summary>
+        Threshold,
 
-    /// <summary>
-    /// ThresholdWhite
-    /// </summary>
-    ThresholdWhite,
+        /// <summary>
+        /// ThresholdWhite
+        /// </summary>
+        ThresholdWhite,
 
-    /// <summary>
-    /// UniformNoise
-    /// </summary>
-    UniformNoise,
+        /// <summary>
+        /// UniformNoise
+        /// </summary>
+        UniformNoise,
 
-    /// <summary>
-    /// Xor
-    /// </summary>
-    Xor
-  }
+        /// <summary>
+        /// Xor
+        /// </summary>
+        Xor
+    }
 }

@@ -16,25 +16,25 @@ using System;
 
 namespace ImageMagick
 {
-  internal partial class StringInfo
-  {
-    public byte[] Datum
+    internal partial class StringInfo
     {
-      get;
-      private set;
+        public byte[] Datum
+        {
+            get;
+            private set;
+        }
+
+        public static StringInfo CreateInstance(IntPtr instance)
+        {
+            if (instance == IntPtr.Zero)
+                return null;
+
+            NativeStringInfo native = new NativeStringInfo(instance);
+
+            StringInfo result = new StringInfo();
+            result.Datum = ByteConverter.ToArray(native.Datum, native.Length);
+
+            return result;
+        }
     }
-
-    public static StringInfo CreateInstance(IntPtr instance)
-    {
-      if (instance == IntPtr.Zero)
-        return null;
-
-      NativeStringInfo native = new NativeStringInfo(instance);
-
-      StringInfo result = new StringInfo();
-      result.Datum = ByteConverter.ToArray(native.Datum, native.Length);
-
-      return result;
-    }
-  }
 }

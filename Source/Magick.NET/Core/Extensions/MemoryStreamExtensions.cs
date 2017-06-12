@@ -19,17 +19,17 @@ using System.IO;
 
 namespace ImageMagick
 {
-  internal static class MemoryStreamExtensions
-  {
-    internal static byte[] GetBuffer(this MemoryStream memStream)
+    internal static class MemoryStreamExtensions
     {
-      ArraySegment<byte> buffer;
-      if (!memStream.TryGetBuffer(out buffer))
-        return memStream.ToArray();
+        internal static byte[] GetBuffer(this MemoryStream memStream)
+        {
+            ArraySegment<byte> buffer;
+            if (!memStream.TryGetBuffer(out buffer))
+                return memStream.ToArray();
 
-      return buffer.Array;
+            return buffer.Array;
+        }
     }
-  }
 }
 
 #endif

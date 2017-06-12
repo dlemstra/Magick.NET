@@ -14,18 +14,18 @@
 
 namespace ImageMagick.Defines
 {
-  /// <summary>
-  /// Base class that can create write defines.
-  /// </summary>
-  public abstract class ReadDefinesCreator : DefinesCreator, IReadDefines
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="ReadDefinesCreator"/> class.
+    /// Base class that can create write defines.
     /// </summary>
-    /// <param name="format">The format where the defines are for.</param>
-    protected ReadDefinesCreator(MagickFormat format)
-      : base(format)
+    public abstract class ReadDefinesCreator : DefinesCreator, IReadDefines
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReadDefinesCreator"/> class.
+        /// </summary>
+        /// <param name="format">The format where the defines are for.</param>
+        protected ReadDefinesCreator(MagickFormat format)
+          : base(format)
+        {
+        }
     }
-  }
 }

@@ -27,145 +27,145 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-  internal sealed class HexColor
-  {
-    private static IEnumerable<QuantumType> ParseQ16(string value)
+    internal sealed class HexColor
     {
-      if (value.Length == 13 || value.Length == 17)
-      {
+        private static IEnumerable<QuantumType> ParseQ16(string value)
+        {
+            if (value.Length == 13 || value.Length == 17)
+            {
 #if Q8
-        yield return ParseHexQ8(value, 1);
-        yield return ParseHexQ8(value, 5);
-        yield return ParseHexQ8(value, 9);
+                yield return ParseHexQ8(value, 1);
+                yield return ParseHexQ8(value, 5);
+                yield return ParseHexQ8(value, 9);
 
-        if (value.Length == 17)
-          yield return ParseHexQ8(value, 13);
+                if (value.Length == 17)
+                    yield return ParseHexQ8(value, 13);
 #else
-        yield return ParseHex(value, 1, 4);
-        yield return ParseHex(value, 5, 4);
-        yield return ParseHex(value, 9, 4);
+                yield return ParseHex(value, 1, 4);
+                yield return ParseHex(value, 5, 4);
+                yield return ParseHex(value, 9, 4);
 
-        if (value.Length == 17)
-          yield return ParseHex(value, 13, 4);
+                if (value.Length == 17)
+                  yield return ParseHex(value, 13, 4);
 #endif
-      }
-      else
-        throw new ArgumentException("Invalid hex value.", nameof(value));
-    }
+            }
+            else
+                throw new ArgumentException("Invalid hex value.", nameof(value));
+        }
 
 #if Q8
-    private static QuantumType ParseHexQ8(string color, int offset)
-    {
-      ushort result = 0;
-      ushort k = 1;
+        private static QuantumType ParseHexQ8(string color, int offset)
+        {
+            ushort result = 0;
+            ushort k = 1;
 
-      int i = 3;
-      while (i >= 0)
-      {
-        char c = color[offset + i];
+            int i = 3;
+            while (i >= 0)
+            {
+                char c = color[offset + i];
 
-        if (c >= '0' && c <= '9')
-          result += (ushort)(k * (c - '0'));
-        else if (c >= 'a' && c <= 'f')
-          result += (ushort)(k * (c - 'a' + '\n'));
-        else if (c >= 'A' && c <= 'F')
-          result += (ushort)(k * (c - 'A' + '\n'));
-        else
-          throw new ArgumentException("Invalid character: " + c + ".", nameof(color));
+                if (c >= '0' && c <= '9')
+                    result += (ushort)(k * (c - '0'));
+                else if (c >= 'a' && c <= 'f')
+                    result += (ushort)(k * (c - 'a' + '\n'));
+                else if (c >= 'A' && c <= 'F')
+                    result += (ushort)(k * (c - 'A' + '\n'));
+                else
+                    throw new ArgumentException("Invalid character: " + c + ".", nameof(color));
 
-        i--;
-        k = (ushort)(k * 16);
-      }
+                i--;
+                k = (ushort)(k * 16);
+            }
 
-      return Quantum.Convert(result);
-    }
+            return Quantum.Convert(result);
+        }
 #endif
 
-    private static IEnumerable<QuantumType> ParseQ8(string value)
-    {
-      byte red;
-      byte green;
-      byte blue;
-      byte alpha;
-
-      if (value.Length == 3)
-      {
-        yield return Quantum.Convert((byte)ParseHex(value, 1, 2));
-      }
-      else if (value.Length == 4 || value.Length == 5)
-      {
-        red = (byte)ParseHex(value, 1, 1);
-        red += (byte)(red * 16);
-        yield return Quantum.Convert(red);
-
-        green = (byte)ParseHex(value, 2, 1);
-        green += (byte)(green * 16);
-        yield return Quantum.Convert(green);
-
-        blue = (byte)ParseHex(value, 3, 1);
-        blue += (byte)(blue * 16);
-        yield return Quantum.Convert(blue);
-
-        if (value.Length == 5)
+        private static IEnumerable<QuantumType> ParseQ8(string value)
         {
-          alpha = (byte)ParseHex(value, 4, 1);
-          alpha += (byte)(alpha * 16);
-          yield return Quantum.Convert(alpha);
+            byte red;
+            byte green;
+            byte blue;
+            byte alpha;
+
+            if (value.Length == 3)
+            {
+                yield return Quantum.Convert((byte)ParseHex(value, 1, 2));
+            }
+            else if (value.Length == 4 || value.Length == 5)
+            {
+                red = (byte)ParseHex(value, 1, 1);
+                red += (byte)(red * 16);
+                yield return Quantum.Convert(red);
+
+                green = (byte)ParseHex(value, 2, 1);
+                green += (byte)(green * 16);
+                yield return Quantum.Convert(green);
+
+                blue = (byte)ParseHex(value, 3, 1);
+                blue += (byte)(blue * 16);
+                yield return Quantum.Convert(blue);
+
+                if (value.Length == 5)
+                {
+                    alpha = (byte)ParseHex(value, 4, 1);
+                    alpha += (byte)(alpha * 16);
+                    yield return Quantum.Convert(alpha);
+                }
+            }
+            else if (value.Length == 7 || value.Length == 9)
+            {
+                red = (byte)ParseHex(value, 1, 2);
+                yield return Quantum.Convert(red);
+
+                green = (byte)ParseHex(value, 3, 2);
+                yield return Quantum.Convert(green);
+
+                blue = (byte)ParseHex(value, 5, 2);
+                yield return Quantum.Convert(blue);
+
+                if (value.Length == 9)
+                {
+                    alpha = (byte)ParseHex(value, 7, 2);
+                    yield return Quantum.Convert(alpha);
+                }
+            }
+            else
+                throw new ArgumentException("Invalid hex value.", nameof(value));
         }
-      }
-      else if (value.Length == 7 || value.Length == 9)
-      {
-        red = (byte)ParseHex(value, 1, 2);
-        yield return Quantum.Convert(red);
 
-        green = (byte)ParseHex(value, 3, 2);
-        yield return Quantum.Convert(green);
-
-        blue = (byte)ParseHex(value, 5, 2);
-        yield return Quantum.Convert(blue);
-
-        if (value.Length == 9)
+        private static QuantumType ParseHex(string value, int offset, int length)
         {
-          alpha = (byte)ParseHex(value, 7, 2);
-          yield return Quantum.Convert(alpha);
+            QuantumType result = 0;
+            QuantumType k = 1;
+
+            int i = length - 1;
+            while (i >= 0)
+            {
+                char c = value[offset + i];
+
+                if (c >= '0' && c <= '9')
+                    result += (QuantumType)(k * (c - '0'));
+                else if (c >= 'a' && c <= 'f')
+                    result += (QuantumType)(k * (c - 'a' + '\n'));
+                else if (c >= 'A' && c <= 'F')
+                    result += (QuantumType)(k * (c - 'A' + '\n'));
+                else
+                    throw new ArgumentException("Invalid character: " + c + ".", nameof(value));
+
+                i--;
+                k = (QuantumType)(k * 16);
+            }
+
+            return result;
         }
-      }
-      else
-        throw new ArgumentException("Invalid hex value.", nameof(value));
+
+        public static List<QuantumType> Parse(string value)
+        {
+            if (value.Length < 13)
+                return new List<QuantumType>(ParseQ8(value));
+
+            return new List<QuantumType>(ParseQ16(value));
+        }
     }
-
-    private static QuantumType ParseHex(string value, int offset, int length)
-    {
-      QuantumType result = 0;
-      QuantumType k = 1;
-
-      int i = length - 1;
-      while (i >= 0)
-      {
-        char c = value[offset + i];
-
-        if (c >= '0' && c <= '9')
-          result += (QuantumType)(k * (c - '0'));
-        else if (c >= 'a' && c <= 'f')
-          result += (QuantumType)(k * (c - 'a' + '\n'));
-        else if (c >= 'A' && c <= 'F')
-          result += (QuantumType)(k * (c - 'A' + '\n'));
-        else
-          throw new ArgumentException("Invalid character: " + c + ".", nameof(value));
-
-        i--;
-        k = (QuantumType)(k * 16);
-      }
-
-      return result;
-    }
-
-    public static List<QuantumType> Parse(string value)
-    {
-      if (value.Length < 13)
-        return new List<QuantumType>(ParseQ8(value));
-
-      return new List<QuantumType>(ParseQ16(value));
-    }
-  }
 }

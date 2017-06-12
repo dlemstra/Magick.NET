@@ -26,81 +26,81 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-  /// <summary>
-  ///  Class that represents a gray color.
-  /// </summary>
-  public sealed class ColorGray : ColorBase
-  {
-    private double _Shade;
-
-    private ColorGray(MagickColor color)
-      : base(color)
-    {
-      _Shade = Quantum.ScaleToQuantum(color.R);
-    }
-
     /// <summary>
-    /// Updates the color value in an inherited class.
+    ///  Class that represents a gray color.
     /// </summary>
-    protected override void UpdateColor()
+    public sealed class ColorGray : ColorBase
     {
-      QuantumType gray = Quantum.ScaleToQuantum(_Shade);
-      Color.R = gray;
-      Color.G = gray;
-      Color.B = gray;
+        private double _Shade;
+
+        private ColorGray(MagickColor color)
+          : base(color)
+        {
+            _Shade = Quantum.ScaleToQuantum(color.R);
+        }
+
+        /// <summary>
+        /// Updates the color value in an inherited class.
+        /// </summary>
+        protected override void UpdateColor()
+        {
+            QuantumType gray = Quantum.ScaleToQuantum(_Shade);
+            Color.R = gray;
+            Color.G = gray;
+            Color.B = gray;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ColorGray"/> class.
+        /// </summary>
+        /// <param name="shade">Value between 0.0 - 1.0.</param>
+        public ColorGray(double shade)
+          : base(new MagickColor(0, 0, 0))
+        {
+            Throw.IfTrue(nameof(shade), shade < 0.0 || shade > 1.0, "Invalid shade specified");
+
+            _Shade = shade;
+        }
+
+        /// <summary>
+        /// Gets or sets the shade of this color (value between 0.0 - 1.0).
+        /// </summary>
+        public double Shade
+        {
+            get
+            {
+                return _Shade;
+            }
+            set
+            {
+                if (value < 0.0 || value > 1.0)
+                    return;
+
+                _Shade = value;
+            }
+        }
+
+        /// <summary>
+        /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
+        /// </summary>
+        /// <param name="color">The color to use.</param>
+        /// <returns>A <see cref="ColorGray"/> instance.</returns>
+        public static implicit operator ColorGray(MagickColor color)
+        {
+            return FromMagickColor(color);
+        }
+
+        /// <summary>
+        /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
+        /// </summary>
+        /// <param name="color">The color to use.</param>
+        /// <returns>A <see cref="ColorGray"/> instance.</returns>
+        public static ColorGray FromMagickColor(MagickColor color)
+        {
+            if (color == null)
+                return null;
+
+            return new ColorGray(color);
+        }
     }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ColorGray"/> class.
-    /// </summary>
-    /// <param name="shade">Value between 0.0 - 1.0.</param>
-    public ColorGray(double shade)
-      : base(new MagickColor(0, 0, 0))
-    {
-      Throw.IfTrue(nameof(shade), shade < 0.0 || shade > 1.0, "Invalid shade specified");
-
-      _Shade = shade;
-    }
-
-    /// <summary>
-    /// Gets or sets the shade of this color (value between 0.0 - 1.0).
-    /// </summary>
-    public double Shade
-    {
-      get
-      {
-        return _Shade;
-      }
-      set
-      {
-        if (value < 0.0 || value > 1.0)
-          return;
-
-        _Shade = value;
-      }
-    }
-
-    /// <summary>
-    /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
-    /// </summary>
-    /// <param name="color">The color to use.</param>
-    /// <returns>A <see cref="ColorGray"/> instance.</returns>
-    public static implicit operator ColorGray(MagickColor color)
-    {
-      return FromMagickColor(color);
-    }
-
-    /// <summary>
-    /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
-    /// </summary>
-    /// <param name="color">The color to use.</param>
-    /// <returns>A <see cref="ColorGray"/> instance.</returns>
-    public static ColorGray FromMagickColor(MagickColor color)
-    {
-      if (color == null)
-        return null;
-
-      return new ColorGray(color);
-    }
-  }
 }

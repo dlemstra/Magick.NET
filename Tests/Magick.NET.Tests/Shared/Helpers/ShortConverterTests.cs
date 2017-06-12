@@ -18,14 +18,14 @@ using System;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class ShortConverterTests
-  {
-    [TestMethod]
-    public void Test_ToArray()
+    [TestClass]
+    public class ShortConverterTests
     {
-      ushort[] value = ShortConverter.ToArray(IntPtr.Zero, 4);
-      Assert.AreEqual(null, value);
+        [TestMethod]
+        public void Test_ToArray()
+        {
+            ushort[] value = ShortConverter.ToArray(IntPtr.Zero, 4);
+            Assert.AreEqual(null, value);
+        }
     }
-  }
 }

@@ -14,48 +14,48 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Encapsulates the error information.
-  /// </summary>
-  public sealed class MagickErrorInfo
-  {
-    internal MagickErrorInfo()
-      : this(0, 0, 0)
-    {
-    }
-
-    internal MagickErrorInfo(double meanErrorPerPixel, double normalizedMeanError, double normalizedMaximumError)
-    {
-      MeanErrorPerPixel = meanErrorPerPixel;
-      NormalizedMeanError = normalizedMeanError;
-      NormalizedMaximumError = normalizedMaximumError;
-    }
-
     /// <summary>
-    /// Gets the mean error per pixel computed when an image is color reduced.
+    /// Encapsulates the error information.
     /// </summary>
-    public double MeanErrorPerPixel
+    public sealed class MagickErrorInfo
     {
-      get;
-      private set;
-    }
+        internal MagickErrorInfo()
+          : this(0, 0, 0)
+        {
+        }
 
-    /// <summary>
-    /// Gets the normalized maximum error per pixel computed when an image is color reduced.
-    /// </summary>
-    public double NormalizedMaximumError
-    {
-      get;
-      private set;
-    }
+        internal MagickErrorInfo(double meanErrorPerPixel, double normalizedMeanError, double normalizedMaximumError)
+        {
+            MeanErrorPerPixel = meanErrorPerPixel;
+            NormalizedMeanError = normalizedMeanError;
+            NormalizedMaximumError = normalizedMaximumError;
+        }
 
-    /// <summary>
-    /// Gets the normalized mean error per pixel computed when an image is color reduced.
-    /// </summary>
-    public double NormalizedMeanError
-    {
-      get;
-      private set;
+        /// <summary>
+        /// Gets the mean error per pixel computed when an image is color reduced.
+        /// </summary>
+        public double MeanErrorPerPixel
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the normalized maximum error per pixel computed when an image is color reduced.
+        /// </summary>
+        public double NormalizedMaximumError
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the normalized mean error per pixel computed when an image is color reduced.
+        /// </summary>
+        public double NormalizedMeanError
+        {
+            get;
+            private set;
+        }
     }
-  }
 }

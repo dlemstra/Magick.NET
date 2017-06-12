@@ -27,274 +27,274 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Class that can be used to access an individual pixel of an image.
-  /// </summary>
-  public sealed class Pixel : IEquatable<Pixel>
-  {
-    private PixelCollection _Collection;
-
-    private Pixel(PixelCollection collection)
-    {
-      _Collection = collection;
-    }
-
-    private QuantumType[] GetValueWithoutIndexChannel()
-    {
-      if (_Collection == null)
-        return Value;
-
-      int index = _Collection.GetIndex(PixelChannel.Index);
-      if (index == -1)
-        return Value;
-
-      List<QuantumType> newValue = new List<QuantumType>(Value);
-      newValue.RemoveAt(index);
-
-      return newValue.ToArray();
-    }
-
-    private void Initialize(int x, int y, QuantumType[] value)
-    {
-      X = x;
-      Y = y;
-      Value = value;
-    }
-
-    private static void CheckChannels(int channels)
-    {
-      Throw.IfTrue(nameof(channels), channels < 1 || channels > 5, "Invalid number of channels (supported sizes are 1-5).");
-    }
-
-    internal QuantumType[] Value
-    {
-      get;
-      private set;
-    }
-
-    internal static Pixel Create(PixelCollection collection, int x, int y, QuantumType[] value)
-    {
-      Pixel pixel = new Pixel(collection);
-      pixel.Initialize(x, y, value);
-      return pixel;
-    }
-
-    private void UpdateCollection()
-    {
-      if (_Collection != null)
-        _Collection.SetPixelUnchecked(X, Y, Value);
-    }
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="Pixel"/> class.
+    /// Class that can be used to access an individual pixel of an image.
     /// </summary>
-    /// <param name="x">The X coordinate of the pixel.</param>
-    /// <param name="y">The Y coordinate of the pixel.</param>
-    /// <param name="value">The value of the pixel.</param>
-    public Pixel(int x, int y, QuantumType[] value)
+    public sealed class Pixel : IEquatable<Pixel>
     {
-      Throw.IfNull(nameof(value), value);
+        private PixelCollection _Collection;
 
-      CheckChannels(value.Length);
-      Initialize(x, y, value);
+        private Pixel(PixelCollection collection)
+        {
+            _Collection = collection;
+        }
+
+        private QuantumType[] GetValueWithoutIndexChannel()
+        {
+            if (_Collection == null)
+                return Value;
+
+            int index = _Collection.GetIndex(PixelChannel.Index);
+            if (index == -1)
+                return Value;
+
+            List<QuantumType> newValue = new List<QuantumType>(Value);
+            newValue.RemoveAt(index);
+
+            return newValue.ToArray();
+        }
+
+        private void Initialize(int x, int y, QuantumType[] value)
+        {
+            X = x;
+            Y = y;
+            Value = value;
+        }
+
+        private static void CheckChannels(int channels)
+        {
+            Throw.IfTrue(nameof(channels), channels < 1 || channels > 5, "Invalid number of channels (supported sizes are 1-5).");
+        }
+
+        internal QuantumType[] Value
+        {
+            get;
+            private set;
+        }
+
+        internal static Pixel Create(PixelCollection collection, int x, int y, QuantumType[] value)
+        {
+            Pixel pixel = new Pixel(collection);
+            pixel.Initialize(x, y, value);
+            return pixel;
+        }
+
+        private void UpdateCollection()
+        {
+            if (_Collection != null)
+                _Collection.SetPixelUnchecked(X, Y, Value);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Pixel"/> class.
+        /// </summary>
+        /// <param name="x">The X coordinate of the pixel.</param>
+        /// <param name="y">The Y coordinate of the pixel.</param>
+        /// <param name="value">The value of the pixel.</param>
+        public Pixel(int x, int y, QuantumType[] value)
+        {
+            Throw.IfNull(nameof(value), value);
+
+            CheckChannels(value.Length);
+            Initialize(x, y, value);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Pixel"/> class.
+        /// </summary>
+        /// <param name="x">The X coordinate of the pixel.</param>
+        /// <param name="y">The Y coordinate of the pixel.</param>
+        /// <param name="channels">The number of channels.</param>
+        public Pixel(int x, int y, int channels)
+        {
+            CheckChannels(channels);
+            Initialize(x, y, new QuantumType[channels]);
+        }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="Pixel"/> instances are considered equal.
+        /// </summary>
+        /// <param name="left">The first <see cref="Pixel"/> to compare.</param>
+        /// <param name="right"> The second <see cref="Pixel"/> to compare.</param>
+        public static bool operator ==(Pixel left, Pixel right)
+        {
+            return Equals(left, right);
+        }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="Pixel"/> instances are not considered equal.
+        /// </summary>
+        /// <param name="left">The first <see cref="Pixel"/> to compare.</param>
+        /// <param name="right"> The second <see cref="Pixel"/> to compare.</param>
+        public static bool operator !=(Pixel left, Pixel right)
+        {
+            return !Equals(left, right);
+        }
+
+        /// <summary>
+        /// Returns the value of the specified channel.
+        /// </summary>
+        /// <param name="channel">The channel to get the value for.</param>
+        public QuantumType this[int channel]
+        {
+            get
+            {
+                return GetChannel(channel);
+            }
+            set
+            {
+                SetChannel(channel, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets the number of channels that the pixel contains.
+        /// </summary>
+        public int Channels
+        {
+            get
+            {
+                return Value.Length;
+            }
+        }
+
+        /// <summary>
+        /// Gets the X coordinate of the pixel.
+        /// </summary>
+        public int X
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the Y coordinate of the pixel.
+        /// </summary>
+        public int Y
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Determines whether the specified object is equal to the current pixel.
+        /// </summary>
+        /// <param name="obj">The object to compare pixel color with.</param>
+        /// <returns>True when the specified object is equal to the current pixel.</returns>
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(this, obj))
+                return true;
+
+            return Equals(obj as Pixel);
+        }
+
+        /// <summary>
+        /// Determines whether the specified pixel is equal to the current pixel.
+        /// </summary>
+        /// <param name="other">The pixel to compare this color with.</param>
+        /// <returns>True when the specified pixel is equal to the current pixel.</returns>
+        public bool Equals(Pixel other)
+        {
+            if (ReferenceEquals(other, null))
+                return false;
+
+            if (ReferenceEquals(this, other))
+                return true;
+
+            if (Channels != other.Channels)
+                return false;
+
+            for (int i = 0; i < Value.Length; i++)
+            {
+                if (Value[i] != other.Value[i])
+                    return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Returns the value of the specified channel.
+        /// </summary>
+        /// <param name="channel">The channel to get the value of.</param>
+        /// <returns>The value of the specified channel.</returns>
+        public QuantumType GetChannel(int channel)
+        {
+            if (channel < 0 || channel >= Value.Length)
+                return 0;
+
+            return Value[channel];
+        }
+
+        /// <summary>
+        /// Serves as a hash of this type.
+        /// </summary>
+        /// <returns>A hash code for the current instance.</returns>
+        public override int GetHashCode()
+        {
+            return Value.GetHashCode();
+        }
+
+        /// <summary>
+        /// Sets the values of this pixel.
+        /// </summary>
+        /// <param name="values">The values.</param>
+        public void Set(QuantumType[] values)
+        {
+            if (values == null || values.Length != Value.Length)
+                return;
+
+            Array.Copy(values, 0, Value, 0, Value.Length);
+            UpdateCollection();
+        }
+
+        /// <summary>
+        /// Set the value of the specified channel.
+        /// </summary>
+        /// <param name="channel">The channel to set the value of.</param>
+        /// <param name="value">The value.</param>
+        public void SetChannel(int channel, QuantumType value)
+        {
+            if (channel < 0 || channel >= Value.Length)
+                return;
+
+            Value[channel] = value;
+            UpdateCollection();
+        }
+
+        /// <summary>
+        /// Converts the pixel to a color. Assumes the pixel is RGBA.
+        /// </summary>
+        /// <returns>A <see cref="MagickColor"/> instance.</returns>
+        public MagickColor ToColor()
+        {
+            QuantumType[] value = GetValueWithoutIndexChannel();
+
+            if (value.Length == 0)
+                return null;
+
+            if (value.Length == 1)
+                return new MagickColor(value[0], value[0], value[0]);
+
+            if (value.Length == 2)
+                return new MagickColor(value[0], value[0], value[0], value[1]);
+
+            bool hasBlackChannel = _Collection != null && _Collection.GetIndex(PixelChannel.Black) != -1;
+            bool hasAlphaChannel = _Collection != null && _Collection.GetIndex(PixelChannel.Alpha) != -1;
+
+            if (hasBlackChannel)
+            {
+                if (value.Length == 4 || !hasAlphaChannel)
+                    return new MagickColor(value[0], value[1], value[2], value[3], Quantum.Max);
+
+                return new MagickColor(value[0], value[1], value[2], value[3], value[4]);
+            }
+
+            if (value.Length == 3 || !hasAlphaChannel)
+                return new MagickColor(value[0], value[1], value[2]);
+
+            return new MagickColor(value[0], value[1], value[2], value[3]);
+        }
     }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Pixel"/> class.
-    /// </summary>
-    /// <param name="x">The X coordinate of the pixel.</param>
-    /// <param name="y">The Y coordinate of the pixel.</param>
-    /// <param name="channels">The number of channels.</param>
-    public Pixel(int x, int y, int channels)
-    {
-      CheckChannels(channels);
-      Initialize(x, y, new QuantumType[channels]);
-    }
-
-    /// <summary>
-    /// Determines whether the specified <see cref="Pixel"/> instances are considered equal.
-    /// </summary>
-    /// <param name="left">The first <see cref="Pixel"/> to compare.</param>
-    /// <param name="right"> The second <see cref="Pixel"/> to compare.</param>
-    public static bool operator ==(Pixel left, Pixel right)
-    {
-      return Equals(left, right);
-    }
-
-    /// <summary>
-    /// Determines whether the specified <see cref="Pixel"/> instances are not considered equal.
-    /// </summary>
-    /// <param name="left">The first <see cref="Pixel"/> to compare.</param>
-    /// <param name="right"> The second <see cref="Pixel"/> to compare.</param>
-    public static bool operator !=(Pixel left, Pixel right)
-    {
-      return !Equals(left, right);
-    }
-
-    /// <summary>
-    /// Returns the value of the specified channel.
-    /// </summary>
-    /// <param name="channel">The channel to get the value for.</param>
-    public QuantumType this[int channel]
-    {
-      get
-      {
-        return GetChannel(channel);
-      }
-      set
-      {
-        SetChannel(channel, value);
-      }
-    }
-
-    /// <summary>
-    /// Gets the number of channels that the pixel contains.
-    /// </summary>
-    public int Channels
-    {
-      get
-      {
-        return Value.Length;
-      }
-    }
-
-    /// <summary>
-    /// Gets the X coordinate of the pixel.
-    /// </summary>
-    public int X
-    {
-      get;
-      private set;
-    }
-
-    /// <summary>
-    /// Gets the Y coordinate of the pixel.
-    /// </summary>
-    public int Y
-    {
-      get;
-      private set;
-    }
-
-    /// <summary>
-    /// Determines whether the specified object is equal to the current pixel.
-    /// </summary>
-    /// <param name="obj">The object to compare pixel color with.</param>
-    /// <returns>True when the specified object is equal to the current pixel.</returns>
-    public override bool Equals(object obj)
-    {
-      if (ReferenceEquals(this, obj))
-        return true;
-
-      return Equals(obj as Pixel);
-    }
-
-    /// <summary>
-    /// Determines whether the specified pixel is equal to the current pixel.
-    /// </summary>
-    /// <param name="other">The pixel to compare this color with.</param>
-    /// <returns>True when the specified pixel is equal to the current pixel.</returns>
-    public bool Equals(Pixel other)
-    {
-      if (ReferenceEquals(other, null))
-        return false;
-
-      if (ReferenceEquals(this, other))
-        return true;
-
-      if (Channels != other.Channels)
-        return false;
-
-      for (int i = 0; i < Value.Length; i++)
-      {
-        if (Value[i] != other.Value[i])
-          return false;
-      }
-
-      return true;
-    }
-
-    /// <summary>
-    /// Returns the value of the specified channel.
-    /// </summary>
-    /// <param name="channel">The channel to get the value of.</param>
-    /// <returns>The value of the specified channel.</returns>
-    public QuantumType GetChannel(int channel)
-    {
-      if (channel < 0 || channel >= Value.Length)
-        return 0;
-
-      return Value[channel];
-    }
-
-    /// <summary>
-    /// Serves as a hash of this type.
-    /// </summary>
-    /// <returns>A hash code for the current instance.</returns>
-    public override int GetHashCode()
-    {
-      return Value.GetHashCode();
-    }
-
-    /// <summary>
-    /// Sets the values of this pixel.
-    /// </summary>
-    /// <param name="values">The values.</param>
-    public void Set(QuantumType[] values)
-    {
-      if (values == null || values.Length != Value.Length)
-        return;
-
-      Array.Copy(values, 0, Value, 0, Value.Length);
-      UpdateCollection();
-    }
-
-    /// <summary>
-    /// Set the value of the specified channel.
-    /// </summary>
-    /// <param name="channel">The channel to set the value of.</param>
-    /// <param name="value">The value.</param>
-    public void SetChannel(int channel, QuantumType value)
-    {
-      if (channel < 0 || channel >= Value.Length)
-        return;
-
-      Value[channel] = value;
-      UpdateCollection();
-    }
-
-    /// <summary>
-    /// Converts the pixel to a color. Assumes the pixel is RGBA.
-    /// </summary>
-    /// <returns>A <see cref="MagickColor"/> instance.</returns>
-    public MagickColor ToColor()
-    {
-      QuantumType[] value = GetValueWithoutIndexChannel();
-
-      if (value.Length == 0)
-        return null;
-
-      if (value.Length == 1)
-        return new MagickColor(value[0], value[0], value[0]);
-
-      if (value.Length == 2)
-        return new MagickColor(value[0], value[0], value[0], value[1]);
-
-      bool hasBlackChannel = _Collection != null && _Collection.GetIndex(PixelChannel.Black) != -1;
-      bool hasAlphaChannel = _Collection != null && _Collection.GetIndex(PixelChannel.Alpha) != -1;
-
-      if (hasBlackChannel)
-      {
-        if (value.Length == 4 || !hasAlphaChannel)
-          return new MagickColor(value[0], value[1], value[2], value[3], Quantum.Max);
-
-        return new MagickColor(value[0], value[1], value[2], value[3], value[4]);
-      }
-
-      if (value.Length == 3 || !hasAlphaChannel)
-        return new MagickColor(value[0], value[1], value[2]);
-
-      return new MagickColor(value[0], value[1], value[2], value[3]);
-    }
-  }
 }

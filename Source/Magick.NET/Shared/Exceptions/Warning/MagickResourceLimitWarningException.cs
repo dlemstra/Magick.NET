@@ -16,19 +16,19 @@ using System;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Encapsulation of the ImageMagick ResourceLimitWarning exception.
-  /// </summary>
-  [Serializable]
-  public sealed class MagickResourceLimitWarningException : MagickWarningException
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MagickResourceLimitWarningException"/> class.
+    /// Encapsulation of the ImageMagick ResourceLimitWarning exception.
     /// </summary>
-    /// <param name="message">The error message that explains the reason for the exception.</param>
-    internal MagickResourceLimitWarningException(string message)
-      : base(message)
+    [Serializable]
+    public sealed class MagickResourceLimitWarningException : MagickWarningException
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickResourceLimitWarningException"/> class.
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception.</param>
+        internal MagickResourceLimitWarningException(string message)
+          : base(message)
+        {
+        }
     }
-  }
 }

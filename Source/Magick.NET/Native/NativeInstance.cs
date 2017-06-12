@@ -16,74 +16,74 @@ using System;
 
 namespace ImageMagick
 {
-  internal abstract class NativeInstance : NativeHelper, INativeInstance, IDisposable
-  {
-    private IntPtr _Instance = IntPtr.Zero;
-
-    private class ZeroInstance : INativeInstance
+    internal abstract class NativeInstance : NativeHelper, INativeInstance, IDisposable
     {
-      public IntPtr Instance
-      {
-        get
+        private IntPtr _Instance = IntPtr.Zero;
+
+        private class ZeroInstance : INativeInstance
         {
-          return IntPtr.Zero;
+            public IntPtr Instance
+            {
+                get
+                {
+                    return IntPtr.Zero;
+                }
+            }
+
+            public void Dispose()
+            {
+            }
         }
-      }
 
-      public void Dispose()
-      {
-      }
+        protected abstract string TypeName
+        {
+            get;
+        }
+
+        protected abstract void Dispose(IntPtr instance);
+
+        protected void CheckException(IntPtr exception, IntPtr result)
+        {
+            MagickException magickException = MagickExceptionHelper.Create(exception);
+            if (MagickExceptionHelper.IsError(magickException))
+            {
+                if (result != IntPtr.Zero)
+                    Dispose(result);
+                throw magickException;
+            }
+
+            RaiseWarning(magickException);
+        }
+
+        public IntPtr Instance
+        {
+            get
+            {
+                if (_Instance == IntPtr.Zero)
+                    throw new ObjectDisposedException(TypeName);
+
+                return _Instance;
+            }
+            set
+            {
+                if (_Instance != IntPtr.Zero)
+                    Dispose(_Instance);
+                _Instance = value;
+            }
+        }
+
+        public static INativeInstance Zero
+        {
+            get
+            {
+                return new ZeroInstance();
+            }
+        }
+
+        public void Dispose()
+        {
+            Instance = IntPtr.Zero;
+            GC.SuppressFinalize(this);
+        }
     }
-
-    protected abstract string TypeName
-    {
-      get;
-    }
-
-    protected abstract void Dispose(IntPtr instance);
-
-    protected void CheckException(IntPtr exception, IntPtr result)
-    {
-      MagickException magickException = MagickExceptionHelper.Create(exception);
-      if (MagickExceptionHelper.IsError(magickException))
-      {
-        if (result != IntPtr.Zero)
-          Dispose(result);
-        throw magickException;
-      }
-
-      RaiseWarning(magickException);
-    }
-
-    public IntPtr Instance
-    {
-      get
-      {
-        if (_Instance == IntPtr.Zero)
-          throw new ObjectDisposedException(TypeName);
-
-        return _Instance;
-      }
-      set
-      {
-        if (_Instance != IntPtr.Zero)
-          Dispose(_Instance);
-        _Instance = value;
-      }
-    }
-
-    public static INativeInstance Zero
-    {
-      get
-      {
-        return new ZeroInstance();
-      }
-    }
-
-    public void Dispose()
-    {
-      Instance = IntPtr.Zero;
-      GC.SuppressFinalize(this);
-    }
-  }
 }

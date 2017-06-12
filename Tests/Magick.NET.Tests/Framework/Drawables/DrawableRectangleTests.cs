@@ -20,27 +20,27 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public partial class DrawableRectangleTests
-  {
-    [TestMethod]
-    public void Test_Constructor_Rectangle()
+    [TestClass]
+    public partial class DrawableRectangleTests
     {
-      var rectangle = new Rectangle(1, 2, 3, 4);
+        [TestMethod]
+        public void Test_Constructor_Rectangle()
+        {
+            var rectangle = new Rectangle(1, 2, 3, 4);
 
-      var drawRectangle = new DrawableRectangle(rectangle);
-      Assert.AreEqual(1, drawRectangle.UpperLeftX);
-      Assert.AreEqual(2, drawRectangle.UpperLeftY);
-      Assert.AreEqual(4, drawRectangle.LowerRightX);
-      Assert.AreEqual(6, drawRectangle.LowerRightY);
+            var drawRectangle = new DrawableRectangle(rectangle);
+            Assert.AreEqual(1, drawRectangle.UpperLeftX);
+            Assert.AreEqual(2, drawRectangle.UpperLeftY);
+            Assert.AreEqual(4, drawRectangle.LowerRightX);
+            Assert.AreEqual(6, drawRectangle.LowerRightY);
 
-      drawRectangle = (DrawableRectangle)rectangle;
-      Assert.AreEqual(1, drawRectangle.UpperLeftX);
-      Assert.AreEqual(2, drawRectangle.UpperLeftY);
-      Assert.AreEqual(4, drawRectangle.LowerRightX);
-      Assert.AreEqual(6, drawRectangle.LowerRightY);
+            drawRectangle = (DrawableRectangle)rectangle;
+            Assert.AreEqual(1, drawRectangle.UpperLeftX);
+            Assert.AreEqual(2, drawRectangle.UpperLeftY);
+            Assert.AreEqual(4, drawRectangle.LowerRightX);
+            Assert.AreEqual(6, drawRectangle.LowerRightY);
+        }
     }
-  }
 }
 
 #endif

@@ -16,41 +16,41 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Sets the pattern used for stroking object outlines. Only local URLs("#identifier") are
-  /// supported at this time. These local URLs are normally created by defining a named stroke
-  /// pattern with DrawablePushPattern/DrawablePopPattern.
-  /// </summary>
-  public sealed class DrawableStrokePatternUrl : IDrawable, IDrawingWand
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="DrawableStrokePatternUrl"/> class.
+    /// Sets the pattern used for stroking object outlines. Only local URLs("#identifier") are
+    /// supported at this time. These local URLs are normally created by defining a named stroke
+    /// pattern with DrawablePushPattern/DrawablePopPattern.
     /// </summary>
-    /// <param name="url">Url specifying pattern ID (e.g. "#pattern_id").</param>
-    [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#", Justification = "Url won't work in all situations.")]
-    public DrawableStrokePatternUrl(string url)
+    public sealed class DrawableStrokePatternUrl : IDrawable, IDrawingWand
     {
-      Url = url;
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrawableStrokePatternUrl"/> class.
+        /// </summary>
+        /// <param name="url">Url specifying pattern ID (e.g. "#pattern_id").</param>
+        [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#", Justification = "Url won't work in all situations.")]
+        public DrawableStrokePatternUrl(string url)
+        {
+            Url = url;
+        }
 
-    /// <summary>
-    /// Gets or sets the url specifying pattern ID (e.g. "#pattern_id")
-    /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Url won't work in all situations.")]
-    public string Url
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets the url specifying pattern ID (e.g. "#pattern_id")
+        /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Url won't work in all situations.")]
+        public string Url
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// Draws this instance with the drawing wand.
-    /// </summary>
-    /// <param name="wand">The want to draw on.</param>
-    void IDrawingWand.Draw(DrawingWand wand)
-    {
-      if (wand != null)
-        wand.StrokePatternUrl(Url);
+        /// <summary>
+        /// Draws this instance with the drawing wand.
+        /// </summary>
+        /// <param name="wand">The want to draw on.</param>
+        void IDrawingWand.Draw(DrawingWand wand)
+        {
+            if (wand != null)
+                wand.StrokePatternUrl(Url);
+        }
     }
-  }
 }

@@ -23,72 +23,72 @@ using System.Linq;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class MagickWebSettingsTests
-  {
-    [TestMethod]
-    public void Test_Exceptions()
+    [TestClass]
+    public class MagickWebSettingsTests
     {
-      ExceptionAssert.Throws<ConfigurationErrorsException>(() =>
-      {
-        MagickWebSettings settings = MagickWebSettings.Instance;
-      });
+        [TestMethod]
+        public void Test_Exceptions()
+        {
+            ExceptionAssert.Throws<ConfigurationErrorsException>(() =>
+            {
+                MagickWebSettings settings = MagickWebSettings.Instance;
+            });
 
-      string config = @"
+            string config = @"
 <magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"">
   <urlResolvers>
     <urlResolver type=""Magick.NET.Tests.MagickWebSettingsTests, Magick.NET.Tests""/>
   </urlResolvers>
 </magick.net.web>";
 
-      ExceptionAssert.Throws<ConfigurationErrorsException>(() =>
-      {
-        TestSectionLoader.Load(config);
-      });
-    }
+            ExceptionAssert.Throws<ConfigurationErrorsException>(() =>
+            {
+                TestSectionLoader.Load(config);
+            });
+        }
 
-    [TestMethod]
-    public void Test_Defaults()
-    {
-      string tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()) + "\\";
+        [TestMethod]
+        public void Test_Defaults()
+        {
+            string tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()) + "\\";
 
-      try
-      {
-        string config = $@"<magick.net.web cacheDirectory=""{tempDir}""/>";
+            try
+            {
+                string config = $@"<magick.net.web cacheDirectory=""{tempDir}""/>";
 
-        MagickWebSettings settings = TestSectionLoader.Load(config);
-        Assert.AreEqual(tempDir, settings.CacheDirectory);
-        Assert.IsTrue(settings.CanCreateDirectories);
-        Assert.AreEqual(new TimeSpan(1, 0, 0, 0), settings.ClientCache.CacheControlMaxAge);
-        Assert.AreEqual(CacheControlMode.UseMaxAge, settings.ClientCache.CacheControlMode);
-        Assert.IsTrue(settings.EnableGzip);
-        Assert.IsTrue(settings.Optimization.IsEnabled);
-        Assert.IsTrue(settings.Optimization.Lossless);
-        Assert.IsFalse(settings.Optimization.OptimalCompression);
-        Assert.IsNull(settings.ResourceLimits.Height);
-        Assert.IsNull(settings.ResourceLimits.Width);
-        Assert.IsFalse(settings.ShowVersion);
-        Assert.AreEqual(Path.GetTempPath(), settings.TempDirectory);
-        Assert.IsFalse(settings.UseOpenCL);
+                MagickWebSettings settings = TestSectionLoader.Load(config);
+                Assert.AreEqual(tempDir, settings.CacheDirectory);
+                Assert.IsTrue(settings.CanCreateDirectories);
+                Assert.AreEqual(new TimeSpan(1, 0, 0, 0), settings.ClientCache.CacheControlMaxAge);
+                Assert.AreEqual(CacheControlMode.UseMaxAge, settings.ClientCache.CacheControlMode);
+                Assert.IsTrue(settings.EnableGzip);
+                Assert.IsTrue(settings.Optimization.IsEnabled);
+                Assert.IsTrue(settings.Optimization.Lossless);
+                Assert.IsFalse(settings.Optimization.OptimalCompression);
+                Assert.IsNull(settings.ResourceLimits.Height);
+                Assert.IsNull(settings.ResourceLimits.Width);
+                Assert.IsFalse(settings.ShowVersion);
+                Assert.AreEqual(Path.GetTempPath(), settings.TempDirectory);
+                Assert.IsFalse(settings.UseOpenCL);
 
-        var urlResolverSettings = settings.UrlResolvers.Cast<UrlResolverSettings>();
-        Assert.AreEqual(0, urlResolverSettings.Count());
+                var urlResolverSettings = settings.UrlResolvers.Cast<UrlResolverSettings>();
+                Assert.AreEqual(0, urlResolverSettings.Count());
 
-        Assert.IsTrue(Directory.Exists(tempDir));
+                Assert.IsTrue(Directory.Exists(tempDir));
 
-        settings = TestSectionLoader.Load(config);
-      }
-      finally
-      {
-        if (Directory.Exists(tempDir))
-          Directory.Delete(tempDir);
-      }
-    }
+                settings = TestSectionLoader.Load(config);
+            }
+            finally
+            {
+                if (Directory.Exists(tempDir))
+                    Directory.Delete(tempDir);
+            }
+        }
 
-    [TestMethod]
-    public void Test_Properties()
-    {
-      string config = @"
+        [TestMethod]
+        public void Test_Properties()
+        {
+            string config = @"
 <magick.net.web canCreateDirectories=""false"" cacheDirectory=""~\cache"" tempDirectory=""c:\temp\"" enableGzip=""false"" showVersion=""true"" useOpenCL=""true"">
   <clientCache cacheControlMaxAge=""4:2:0"" cacheControlMode=""NoControl""/>
   <optimization enabled=""false"" lossless=""false"" optimalCompression=""true""/>
@@ -98,28 +98,28 @@ namespace Magick.NET.Tests
   </urlResolvers>
 </magick.net.web>";
 
-      MagickWebSettings settings = TestSectionLoader.Load(config);
-      Assert.IsTrue(settings.CacheDirectory.EndsWith(@"\cache\"));
-      Assert.IsFalse(settings.CanCreateDirectories);
-      Assert.AreEqual(new TimeSpan(4, 2, 0), settings.ClientCache.CacheControlMaxAge);
-      Assert.AreEqual(CacheControlMode.NoControl, settings.ClientCache.CacheControlMode);
-      Assert.IsFalse(settings.EnableGzip);
-      Assert.IsFalse(settings.Optimization.IsEnabled);
-      Assert.IsFalse(settings.Optimization.Lossless);
-      Assert.IsTrue(settings.Optimization.OptimalCompression);
-      Assert.AreEqual(1, settings.ResourceLimits.Width);
-      Assert.AreEqual(2, settings.ResourceLimits.Height);
-      Assert.IsTrue(settings.ShowVersion);
-      Assert.AreEqual(@"c:\temp\", settings.TempDirectory);
-      Assert.IsTrue(settings.UseOpenCL);
+            MagickWebSettings settings = TestSectionLoader.Load(config);
+            Assert.IsTrue(settings.CacheDirectory.EndsWith(@"\cache\"));
+            Assert.IsFalse(settings.CanCreateDirectories);
+            Assert.AreEqual(new TimeSpan(4, 2, 0), settings.ClientCache.CacheControlMaxAge);
+            Assert.AreEqual(CacheControlMode.NoControl, settings.ClientCache.CacheControlMode);
+            Assert.IsFalse(settings.EnableGzip);
+            Assert.IsFalse(settings.Optimization.IsEnabled);
+            Assert.IsFalse(settings.Optimization.Lossless);
+            Assert.IsTrue(settings.Optimization.OptimalCompression);
+            Assert.AreEqual(1, settings.ResourceLimits.Width);
+            Assert.AreEqual(2, settings.ResourceLimits.Height);
+            Assert.IsTrue(settings.ShowVersion);
+            Assert.AreEqual(@"c:\temp\", settings.TempDirectory);
+            Assert.IsTrue(settings.UseOpenCL);
 
-      var urlResolverSettings = settings.UrlResolvers.Cast<UrlResolverSettings>();
-      Assert.AreEqual(1, urlResolverSettings.Count());
+            var urlResolverSettings = settings.UrlResolvers.Cast<UrlResolverSettings>();
+            Assert.AreEqual(1, urlResolverSettings.Count());
 
-      IUrlResolver urlResolver = urlResolverSettings.First().CreateInstance();
-      Assert.AreEqual(urlResolver.GetType(), typeof(TestFileUrlResolver));
+            IUrlResolver urlResolver = urlResolverSettings.First().CreateInstance();
+            Assert.AreEqual(urlResolver.GetType(), typeof(TestFileUrlResolver));
+        }
     }
-  }
 }
 
 #endif

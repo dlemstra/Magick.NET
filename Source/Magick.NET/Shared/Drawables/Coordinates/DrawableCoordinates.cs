@@ -17,41 +17,41 @@ using System.Collections.Generic;
 
 namespace ImageMagick
 {
-  internal abstract class DrawableCoordinates<TCoordinateType>
-  {
-    private void CheckCoordinates(List<TCoordinateType> coordinates, int minCount)
+    internal abstract class DrawableCoordinates<TCoordinateType>
     {
-      if (coordinates.Count == 0)
-        throw new ArgumentException("Value cannot be empty", nameof(coordinates));
+        private void CheckCoordinates(List<TCoordinateType> coordinates, int minCount)
+        {
+            if (coordinates.Count == 0)
+                throw new ArgumentException("Value cannot be empty", nameof(coordinates));
 
-      foreach (TCoordinateType coordinate in coordinates)
-      {
-        if (coordinate == null)
-          throw new ArgumentNullException(nameof(coordinates), "Value should not contain null values");
-      }
+            foreach (TCoordinateType coordinate in coordinates)
+            {
+                if (coordinate == null)
+                    throw new ArgumentNullException(nameof(coordinates), "Value should not contain null values");
+            }
 
-      if (coordinates.Count < minCount)
-        throw new ArgumentException("Value should contain at least " + minCount + " coordinates.", nameof(coordinates));
+            if (coordinates.Count < minCount)
+                throw new ArgumentException("Value should contain at least " + minCount + " coordinates.", nameof(coordinates));
 
-      Coordinates = coordinates;
+            Coordinates = coordinates;
+        }
+
+        protected DrawableCoordinates(IEnumerable<TCoordinateType> coordinates, int minCount)
+        {
+            Throw.IfNull(nameof(coordinates), coordinates);
+
+            CheckCoordinates(new List<TCoordinateType>(coordinates), minCount);
+        }
+
+        protected List<TCoordinateType> Coordinates
+        {
+            get;
+            private set;
+        }
+
+        public IList<TCoordinateType> ToList()
+        {
+            return Coordinates;
+        }
     }
-
-    protected DrawableCoordinates(IEnumerable<TCoordinateType> coordinates, int minCount)
-    {
-      Throw.IfNull(nameof(coordinates), coordinates);
-
-      CheckCoordinates(new List<TCoordinateType>(coordinates), minCount);
-    }
-
-    protected List<TCoordinateType> Coordinates
-    {
-      get;
-      private set;
-    }
-
-    public IList<TCoordinateType> ToList()
-    {
-      return Coordinates;
-    }
-  }
 }

@@ -14,24 +14,24 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Specifies the image class type.
-  /// </summary>
-  public enum ClassType
-  {
     /// <summary>
-    /// Undefined
+    /// Specifies the image class type.
     /// </summary>
-    Undefined,
+    public enum ClassType
+    {
+        /// <summary>
+        /// Undefined
+        /// </summary>
+        Undefined,
 
-    /// <summary>
-    /// Direct
-    /// </summary>
-    Direct,
+        /// <summary>
+        /// Direct
+        /// </summary>
+        Direct,
 
-    /// <summary>
-    /// Pseudo
-    /// </summary>
-    Pseudo
-  }
+        /// <summary>
+        /// Pseudo
+        /// </summary>
+        Pseudo
+    }
 }

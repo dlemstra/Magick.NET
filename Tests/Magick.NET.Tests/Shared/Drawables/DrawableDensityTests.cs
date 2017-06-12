@@ -17,47 +17,47 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class DrawableDensityTests
-  {
-    private IMagickImage CreateImage(int? density)
+    [TestClass]
+    public class DrawableDensityTests
     {
-      IMagickImage image = new MagickImage(MagickColors.Purple, 500, 500);
-      DrawableFontPointSize pointSize = new DrawableFontPointSize(20);
-      DrawableText text = new DrawableText(250, 250, "Magick.NET");
+        private IMagickImage CreateImage(int? density)
+        {
+            IMagickImage image = new MagickImage(MagickColors.Purple, 500, 500);
+            DrawableFontPointSize pointSize = new DrawableFontPointSize(20);
+            DrawableText text = new DrawableText(250, 250, "Magick.NET");
 
-      if (!density.HasValue)
-        image.Draw(pointSize, text);
-      else
-        image.Draw(pointSize, new DrawableDensity(density.Value), text);
+            if (!density.HasValue)
+                image.Draw(pointSize, text);
+            else
+                image.Draw(pointSize, new DrawableDensity(density.Value), text);
 
-      image.Trim();
+            image.Trim();
 
-      return image;
+            return image;
+        }
+
+        [TestMethod]
+        public void Test_ImageSize()
+        {
+            using (IMagickImage image = CreateImage(null))
+            {
+                Assert.AreEqual(107, image.Width);
+                Assert.AreEqual(19, image.Height);
+            }
+
+            using (IMagickImage image = CreateImage(97))
+            {
+                Assert.AreEqual(146, image.Width);
+                Assert.AreEqual(24, image.Height);
+            }
+        }
+
+        [TestMethod]
+        public void Test_Constructor()
+        {
+            DrawableDensity density = new DrawableDensity(new PointD(4, 2));
+            Assert.AreEqual(4, density.Density.X);
+            Assert.AreEqual(2, density.Density.Y);
+        }
     }
-
-    [TestMethod]
-    public void Test_ImageSize()
-    {
-      using (IMagickImage image = CreateImage(null))
-      {
-        Assert.AreEqual(107, image.Width);
-        Assert.AreEqual(19, image.Height);
-      }
-
-      using (IMagickImage image = CreateImage(97))
-      {
-        Assert.AreEqual(146, image.Width);
-        Assert.AreEqual(24, image.Height);
-      }
-    }
-
-    [TestMethod]
-    public void Test_Constructor()
-    {
-      DrawableDensity density = new DrawableDensity(new PointD(4, 2));
-      Assert.AreEqual(4, density.Density.X);
-      Assert.AreEqual(2, density.Density.Y);
-    }
-  }
 }

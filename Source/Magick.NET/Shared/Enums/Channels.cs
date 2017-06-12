@@ -17,111 +17,111 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Specifies channel types.
-  /// </summary>
-  [Flags]
-  [SuppressMessage("Microsoft.Naming", "CA1724:TypeNamesShouldNotMatchNamespaces", Justification = "No real collision.")]
-  public enum Channels
-  {
     /// <summary>
-    /// Undefined
+    /// Specifies channel types.
     /// </summary>
-    Undefined = 0x0000,
+    [Flags]
+    [SuppressMessage("Microsoft.Naming", "CA1724:TypeNamesShouldNotMatchNamespaces", Justification = "No real collision.")]
+    public enum Channels
+    {
+        /// <summary>
+        /// Undefined
+        /// </summary>
+        Undefined = 0x0000,
 
-    /// <summary>
-    /// Red
-    /// </summary>
-    Red = 0x0001,
+        /// <summary>
+        /// Red
+        /// </summary>
+        Red = 0x0001,
 
-    /// <summary>
-    /// Gray
-    /// </summary>
-    Gray = 0x0001,
+        /// <summary>
+        /// Gray
+        /// </summary>
+        Gray = 0x0001,
 
-    /// <summary>
-    /// Cyan
-    /// </summary>
-    Cyan = 0x0001,
+        /// <summary>
+        /// Cyan
+        /// </summary>
+        Cyan = 0x0001,
 
-    /// <summary>
-    /// Green
-    /// </summary>
-    Green = 0x0002,
+        /// <summary>
+        /// Green
+        /// </summary>
+        Green = 0x0002,
 
-    /// <summary>
-    /// Magenta
-    /// </summary>
-    Magenta = 0x0002,
+        /// <summary>
+        /// Magenta
+        /// </summary>
+        Magenta = 0x0002,
 
-    /// <summary>
-    /// Blue
-    /// </summary>
-    Blue = 0x0004,
+        /// <summary>
+        /// Blue
+        /// </summary>
+        Blue = 0x0004,
 
-    /// <summary>
-    /// Yellow
-    /// </summary>
-    Yellow = 0x0004,
+        /// <summary>
+        /// Yellow
+        /// </summary>
+        Yellow = 0x0004,
 
-    /// <summary>
-    /// Black
-    /// </summary>
-    Black = 0x0008,
+        /// <summary>
+        /// Black
+        /// </summary>
+        Black = 0x0008,
 
-    /// <summary>
-    /// Alpha
-    /// </summary>
-    Alpha = 0x0010,
+        /// <summary>
+        /// Alpha
+        /// </summary>
+        Alpha = 0x0010,
 
-    /// <summary>
-    /// Opacity
-    /// </summary>
-    Opacity = 0x0010,
+        /// <summary>
+        /// Opacity
+        /// </summary>
+        Opacity = 0x0010,
 
-    /// <summary>
-    /// Index
-    /// </summary>
-    Index = 0x0020,
+        /// <summary>
+        /// Index
+        /// </summary>
+        Index = 0x0020,
 
-    /// <summary>
-    /// Index
-    /// </summary>
-    Composite = 0x001F,
+        /// <summary>
+        /// Index
+        /// </summary>
+        Composite = 0x001F,
 
-    /// <summary>
-    /// All
-    /// </summary>
-    All = 0x7ffffff,
+        /// <summary>
+        /// All
+        /// </summary>
+        All = 0x7ffffff,
 
-    /// <summary>
-    /// TrueAlpha
-    /// </summary>
-    TrueAlpha = 0x0100,
+        /// <summary>
+        /// TrueAlpha
+        /// </summary>
+        TrueAlpha = 0x0100,
 
-    /// <summary>
-    /// RGB
-    /// </summary>
-    RGB = Red | Green | Blue,
+        /// <summary>
+        /// RGB
+        /// </summary>
+        RGB = Red | Green | Blue,
 
-    /// <summary>
-    /// CMYK
-    /// </summary>
-    CMYK = Cyan | Magenta | Yellow | Black,
+        /// <summary>
+        /// CMYK
+        /// </summary>
+        CMYK = Cyan | Magenta | Yellow | Black,
 
-    /// <summary>
-    /// Grays
-    /// </summary>
-    Grays = 0x0400,
+        /// <summary>
+        /// Grays
+        /// </summary>
+        Grays = 0x0400,
 
-    /// <summary>
-    /// Sync
-    /// </summary>
-    Sync = 0x20000,
+        /// <summary>
+        /// Sync
+        /// </summary>
+        Sync = 0x20000,
 
-    /// <summary>
-    /// Default
-    /// </summary>
-    Default = All
-  }
+        /// <summary>
+        /// Default
+        /// </summary>
+        Default = All
+    }
 }

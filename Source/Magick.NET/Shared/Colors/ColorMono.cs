@@ -26,73 +26,73 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Class that represents a monochrome color.
-  /// </summary>
-  public sealed class ColorMono : ColorBase
-  {
-    private ColorMono(MagickColor color)
-      : base(color)
-    {
-      if (color == MagickColors.Black)
-        IsBlack = true;
-      else if (color == MagickColors.White)
-        IsBlack = false;
-      else
-        throw new ArgumentException("Invalid color specified.", nameof(color));
-    }
-
     /// <summary>
-    /// Updates the color value in an inherited class.
+    /// Class that represents a monochrome color.
     /// </summary>
-    protected override void UpdateColor()
+    public sealed class ColorMono : ColorBase
     {
-      QuantumType color = IsBlack ? (QuantumType)0.0 : Quantum.Max;
-      Color.R = color;
-      Color.G = color;
-      Color.B = color;
-    }
+        private ColorMono(MagickColor color)
+          : base(color)
+        {
+            if (color == MagickColors.Black)
+                IsBlack = true;
+            else if (color == MagickColors.White)
+                IsBlack = false;
+            else
+                throw new ArgumentException("Invalid color specified.", nameof(color));
+        }
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ColorMono"/> class.
-    /// </summary>
-    /// <param name="isBlack">Specifies if the color is black or white.</param>
-    public ColorMono(bool isBlack)
-      : base(isBlack ? MagickColors.Black : MagickColors.White)
-    {
-      IsBlack = isBlack;
-    }
+        /// <summary>
+        /// Updates the color value in an inherited class.
+        /// </summary>
+        protected override void UpdateColor()
+        {
+            QuantumType color = IsBlack ? (QuantumType)0.0 : Quantum.Max;
+            Color.R = color;
+            Color.G = color;
+            Color.B = color;
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether the color is black or white.
-    /// </summary>
-    public bool IsBlack
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ColorMono"/> class.
+        /// </summary>
+        /// <param name="isBlack">Specifies if the color is black or white.</param>
+        public ColorMono(bool isBlack)
+          : base(isBlack ? MagickColors.Black : MagickColors.White)
+        {
+            IsBlack = isBlack;
+        }
 
-    /// <summary>
-    /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
-    /// </summary>
-    /// <param name="color">The color to use.</param>
-    /// <returns>A <see cref="ColorMono"/> instance.</returns>
-    public static implicit operator ColorMono(MagickColor color)
-    {
-      return FromMagickColor(color);
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether the color is black or white.
+        /// </summary>
+        public bool IsBlack
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
-    /// </summary>
-    /// <param name="color">The color to use.</param>
-    /// <returns>A <see cref="ColorMono"/> instance.</returns>
-    public static ColorMono FromMagickColor(MagickColor color)
-    {
-      if (color == null)
-        return null;
+        /// <summary>
+        /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
+        /// </summary>
+        /// <param name="color">The color to use.</param>
+        /// <returns>A <see cref="ColorMono"/> instance.</returns>
+        public static implicit operator ColorMono(MagickColor color)
+        {
+            return FromMagickColor(color);
+        }
 
-      return new ColorMono(color);
+        /// <summary>
+        /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
+        /// </summary>
+        /// <param name="color">The color to use.</param>
+        /// <returns>A <see cref="ColorMono"/> instance.</returns>
+        public static ColorMono FromMagickColor(MagickColor color)
+        {
+            if (color == null)
+                return null;
+
+            return new ColorMono(color);
+        }
     }
-  }
 }

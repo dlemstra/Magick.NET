@@ -14,29 +14,29 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Specifies line join.
-  /// </summary>
-  public enum LineJoin
-  {
     /// <summary>
-    /// Undefined
+    /// Specifies line join.
     /// </summary>
-    Undefined,
+    public enum LineJoin
+    {
+        /// <summary>
+        /// Undefined
+        /// </summary>
+        Undefined,
 
-    /// <summary>
-    /// Miter
-    /// </summary>
-    Miter,
+        /// <summary>
+        /// Miter
+        /// </summary>
+        Miter,
 
-    /// <summary>
-    /// Round
-    /// </summary>
-    Round,
+        /// <summary>
+        /// Round
+        /// </summary>
+        Round,
 
-    /// <summary>
-    /// Bevel
-    /// </summary>
-    Bevel
-  }
+        /// <summary>
+        /// Bevel
+        /// </summary>
+        Bevel
+    }
 }

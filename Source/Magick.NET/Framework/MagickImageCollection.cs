@@ -20,42 +20,42 @@ using System.IO;
 
 namespace ImageMagick
 {
-  /// <content>
-  /// Contains code that is not compatible with .NET Core.
-  /// </content>
-  public sealed partial class MagickImageCollection
-  {
-    private void SetFormat(ImageFormat format)
+    /// <content>
+    /// Contains code that is not compatible with .NET Core.
+    /// </content>
+    public sealed partial class MagickImageCollection
     {
-      SetFormat(MagickFormatInfo.GetFormat(format));
-    }
+        private void SetFormat(ImageFormat format)
+        {
+            SetFormat(MagickFormatInfo.GetFormat(format));
+        }
 
-    /// <summary>
-    /// Converts this instance to a <see cref="Bitmap"/> using <see cref="ImageFormat.Tiff"/>.
-    /// </summary>
-    /// <returns>A <see cref="Bitmap"/> that has the format <see cref="ImageFormat.Tiff"/>.</returns>
-    public Bitmap ToBitmap()
-    {
-      return ToBitmap(ImageFormat.Tiff);
-    }
+        /// <summary>
+        /// Converts this instance to a <see cref="Bitmap"/> using <see cref="ImageFormat.Tiff"/>.
+        /// </summary>
+        /// <returns>A <see cref="Bitmap"/> that has the format <see cref="ImageFormat.Tiff"/>.</returns>
+        public Bitmap ToBitmap()
+        {
+            return ToBitmap(ImageFormat.Tiff);
+        }
 
-    /// <summary>
-    /// Converts this instance to a <see cref="Bitmap"/> using the specified <see cref="ImageFormat"/>.
-    /// Supported formats are: Gif, Icon, Tiff.
-    /// </summary>
-    /// <param name="imageFormat">The image format.</param>
-    /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/></returns>
-    public Bitmap ToBitmap(ImageFormat imageFormat)
-    {
-      SetFormat(imageFormat);
+        /// <summary>
+        /// Converts this instance to a <see cref="Bitmap"/> using the specified <see cref="ImageFormat"/>.
+        /// Supported formats are: Gif, Icon, Tiff.
+        /// </summary>
+        /// <param name="imageFormat">The image format.</param>
+        /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/></returns>
+        public Bitmap ToBitmap(ImageFormat imageFormat)
+        {
+            SetFormat(imageFormat);
 
-      MemoryStream memStream = new MemoryStream();
-      Write(memStream);
-      memStream.Position = 0;
-      /* Do not dispose the memStream, the bitmap owns it. */
-      return new Bitmap(memStream);
+            MemoryStream memStream = new MemoryStream();
+            Write(memStream);
+            memStream.Position = 0;
+            /* Do not dispose the memStream, the bitmap owns it. */
+            return new Bitmap(memStream);
+        }
     }
-  }
 }
 
 #endif

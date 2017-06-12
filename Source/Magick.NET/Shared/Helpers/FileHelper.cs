@@ -16,16 +16,16 @@ using System.IO;
 
 namespace ImageMagick
 {
-  internal static partial class FileHelper
-  {
-    public static string GetFullPath(string path)
+    internal static partial class FileHelper
     {
-      Throw.IfNullOrEmpty(nameof(path), path);
+        public static string GetFullPath(string path)
+        {
+            Throw.IfNullOrEmpty(nameof(path), path);
 
-      path = CheckForBaseDirectory(path);
-      path = Path.GetFullPath(path);
-      Throw.IfFalse(nameof(path), Directory.Exists(path), "Unable to find directory: {0}", path);
-      return path;
+            path = CheckForBaseDirectory(path);
+            path = Path.GetFullPath(path);
+            Throw.IfFalse(nameof(path), Directory.Exists(path), "Unable to find directory: {0}", path);
+            return path;
+        }
     }
-  }
 }

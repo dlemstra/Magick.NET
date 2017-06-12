@@ -19,72 +19,72 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class ExifValueTests
-  {
-    private static ExifValue GetExifValue()
+    [TestClass]
+    public class ExifValueTests
     {
-      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-      {
-        ExifProfile profile = image.GetExifProfile();
-        Assert.IsNotNull(profile);
+        private static ExifValue GetExifValue()
+        {
+            using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+            {
+                ExifProfile profile = image.GetExifProfile();
+                Assert.IsNotNull(profile);
 
-        return profile.Values.First();
-      }
+                return profile.Values.First();
+            }
+        }
+
+        [TestMethod]
+        public void Test_IEquatable()
+        {
+            ExifValue first = GetExifValue();
+            ExifValue second = GetExifValue();
+
+            Assert.IsTrue(first == second);
+            Assert.IsTrue(first.Equals(second));
+            Assert.IsTrue(first.Equals((object)second));
+        }
+
+        [TestMethod]
+        public void Test_InvalidTag()
+        {
+            var exifProfile = new ExifProfile();
+
+            ExceptionAssert.Throws<NotSupportedException>(() =>
+            {
+                exifProfile.SetValue((ExifTag)42, 42);
+            });
+        }
+
+        [TestMethod]
+        public void Test_Properties()
+        {
+            ExifValue value = GetExifValue();
+
+            Assert.AreEqual(ExifDataType.Ascii, value.DataType);
+            Assert.AreEqual(ExifTag.ImageDescription, value.Tag);
+            Assert.AreEqual(false, value.IsArray);
+            Assert.AreEqual("Communications", value.ToString());
+            Assert.AreEqual("Communications", value.Value);
+        }
+
+        [TestMethod]
+        public void Test_UnknownExifTag()
+        {
+            var exifProfile = new ExifProfile();
+            exifProfile.SetValue(ExifTag.ImageWidth, 42);
+
+            var bytes = exifProfile.ToByteArray();
+            bytes[16] = 42;
+
+            exifProfile = new ExifProfile(bytes);
+
+            ExifTag unkownTag = (ExifTag)298;
+            ExifValue value = exifProfile.GetValue(unkownTag);
+            Assert.AreEqual(42, value.Value);
+            Assert.AreEqual("42", value.ToString());
+
+            bytes = exifProfile.ToByteArray();
+            Assert.AreEqual(0, bytes.Length);
+        }
     }
-
-    [TestMethod]
-    public void Test_IEquatable()
-    {
-      ExifValue first = GetExifValue();
-      ExifValue second = GetExifValue();
-
-      Assert.IsTrue(first == second);
-      Assert.IsTrue(first.Equals(second));
-      Assert.IsTrue(first.Equals((object)second));
-    }
-
-    [TestMethod]
-    public void Test_InvalidTag()
-    {
-      var exifProfile = new ExifProfile();
-
-      ExceptionAssert.Throws<NotSupportedException>(() =>
-      {
-        exifProfile.SetValue((ExifTag)42, 42);
-      });
-    }
-
-    [TestMethod]
-    public void Test_Properties()
-    {
-      ExifValue value = GetExifValue();
-
-      Assert.AreEqual(ExifDataType.Ascii, value.DataType);
-      Assert.AreEqual(ExifTag.ImageDescription, value.Tag);
-      Assert.AreEqual(false, value.IsArray);
-      Assert.AreEqual("Communications", value.ToString());
-      Assert.AreEqual("Communications", value.Value);
-    }
-
-    [TestMethod]
-    public void Test_UnknownExifTag()
-    {
-      var exifProfile = new ExifProfile();
-      exifProfile.SetValue(ExifTag.ImageWidth, 42);
-
-      var bytes = exifProfile.ToByteArray();
-      bytes[16] = 42;
-
-      exifProfile = new ExifProfile(bytes);
-
-      ExifTag unkownTag = (ExifTag)298;
-      ExifValue value = exifProfile.GetValue(unkownTag);
-      Assert.AreEqual(42, value.Value);
-      Assert.AreEqual("42", value.ToString());
-
-      bytes = exifProfile.ToByteArray();
-      Assert.AreEqual(0, bytes.Length);
-    }
-  }
 }

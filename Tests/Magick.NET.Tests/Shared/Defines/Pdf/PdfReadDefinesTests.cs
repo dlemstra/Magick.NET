@@ -17,60 +17,60 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class PdfReadDefinesTests
-  {
-    [TestMethod]
-    public void Test_Empty()
+    [TestClass]
+    public class PdfReadDefinesTests
     {
-      using (IMagickImage image = new MagickImage())
-      {
-        image.Settings.SetDefines(new PdfReadDefines()
+        [TestMethod]
+        public void Test_Empty()
         {
-        });
+            using (IMagickImage image = new MagickImage())
+            {
+                image.Settings.SetDefines(new PdfReadDefines()
+                {
+                });
 
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Pdf, "fit-page"));
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Pdf, "use-trimbox"));
-      }
-    }
-
-    [TestMethod]
-    public void Test_UseCropBox_UseTrimBox()
-    {
-      PdfReadDefines defines = new PdfReadDefines()
-      {
-        UseCropBox = true,
-        UseTrimBox = false
-      };
-
-      using (IMagickImage image = new MagickImage())
-      {
-        image.Settings.SetDefines(defines);
-
-        Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
-        Assert.AreEqual("False", image.Settings.GetDefine(MagickFormat.Pdf, "use-trimbox"));
-      }
-    }
-
-    [TestMethod]
-    public void Test_FitPage()
-    {
-      MagickReadSettings settings = new MagickReadSettings()
-      {
-        Defines = new PdfReadDefines()
-        {
-          FitPage = new MagickGeometry(50, 40)
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Pdf, "fit-page"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Pdf, "use-trimbox"));
+            }
         }
-      };
 
-      using (IMagickImage image = new MagickImage())
-      {
-        image.Read(Files.Coders.CartoonNetworkStudiosLogoAI, settings);
+        [TestMethod]
+        public void Test_UseCropBox_UseTrimBox()
+        {
+            PdfReadDefines defines = new PdfReadDefines()
+            {
+                UseCropBox = true,
+                UseTrimBox = false
+            };
 
-        Assert.IsTrue(image.Width <= 50);
-        Assert.IsTrue(image.Height <= 40);
-      }
+            using (IMagickImage image = new MagickImage())
+            {
+                image.Settings.SetDefines(defines);
+
+                Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
+                Assert.AreEqual("False", image.Settings.GetDefine(MagickFormat.Pdf, "use-trimbox"));
+            }
+        }
+
+        [TestMethod]
+        public void Test_FitPage()
+        {
+            MagickReadSettings settings = new MagickReadSettings()
+            {
+                Defines = new PdfReadDefines()
+                {
+                    FitPage = new MagickGeometry(50, 40)
+                }
+            };
+
+            using (IMagickImage image = new MagickImage())
+            {
+                image.Read(Files.Coders.CartoonNetworkStudiosLogoAI, settings);
+
+                Assert.IsTrue(image.Width <= 50);
+                Assert.IsTrue(image.Height <= 40);
+            }
+        }
     }
-  }
 }

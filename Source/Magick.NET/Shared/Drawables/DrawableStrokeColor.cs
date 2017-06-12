@@ -14,39 +14,39 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Sets the color used for stroking object outlines.
-  /// </summary>
-  public sealed partial class DrawableStrokeColor : IDrawable, IDrawingWand
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="DrawableStrokeColor"/> class.
+    /// Sets the color used for stroking object outlines.
     /// </summary>
-    /// <param name="color">The color to use.</param>
-    public DrawableStrokeColor(MagickColor color)
+    public sealed partial class DrawableStrokeColor : IDrawable, IDrawingWand
     {
-      Throw.IfNull(nameof(color), color);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrawableStrokeColor"/> class.
+        /// </summary>
+        /// <param name="color">The color to use.</param>
+        public DrawableStrokeColor(MagickColor color)
+        {
+            Throw.IfNull(nameof(color), color);
 
-      Color = color;
-    }
+            Color = color;
+        }
 
-    /// <summary>
-    /// Gets or sets the color to use.
-    /// </summary>
-    public MagickColor Color
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets the color to use.
+        /// </summary>
+        public MagickColor Color
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// Draws this instance with the drawing wand.
-    /// </summary>
-    /// <param name="wand">The want to draw on.</param>
-    void IDrawingWand.Draw(DrawingWand wand)
-    {
-      if (wand != null)
-        wand.StrokeColor(Color);
+        /// <summary>
+        /// Draws this instance with the drawing wand.
+        /// </summary>
+        /// <param name="wand">The want to draw on.</param>
+        void IDrawingWand.Draw(DrawingWand wand)
+        {
+            if (wand != null)
+                wand.StrokeColor(Color);
+        }
     }
-  }
 }

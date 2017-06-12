@@ -19,15 +19,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public sealed class Ghostscript
-  {
-    [AssemblyInitialize]
-    public static void Initialize(TestContext context)
+    [TestClass]
+    public sealed class Ghostscript
     {
-      MagickNET.SetGhostscriptDirectory(@"C:\Program Files (x86)\gs\gs9.20\bin");
+        [AssemblyInitialize]
+        public static void Initialize(TestContext context)
+        {
+            MagickNET.SetGhostscriptDirectory(@"C:\Program Files (x86)\gs\gs9.20\bin");
+        }
     }
-  }
 }
 
 #endif

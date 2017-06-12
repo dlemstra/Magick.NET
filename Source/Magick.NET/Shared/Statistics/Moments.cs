@@ -17,57 +17,57 @@ using System.Collections.Generic;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// The normalized moments of one or more image channels.
-  /// </summary>
-  public sealed partial class Moments
-  {
-    private Dictionary<PixelChannel, ChannelMoments> _Channels;
-
-    private void AddChannel(IntPtr list, PixelChannel channel)
-    {
-      IntPtr instance = NativeMoments.GetInstance(list, channel);
-
-      ChannelMoments result = ChannelMoments.Create(channel, instance);
-      if (result != null)
-        _Channels.Add(result.Channel, result);
-    }
-
-    internal Moments(MagickImage image, IntPtr list)
-    {
-      if (list == IntPtr.Zero)
-        return;
-
-      _Channels = new Dictionary<PixelChannel, ChannelMoments>();
-      foreach (PixelChannel channel in image.Channels)
-        AddChannel(list, channel);
-    }
-
-    internal static void DisposeList(IntPtr list)
-    {
-      if (list != IntPtr.Zero)
-        NativeMoments.DisposeList(list);
-    }
-
     /// <summary>
-    /// Gets the moments for the all the channels.
+    /// The normalized moments of one or more image channels.
     /// </summary>
-    /// <returns>The moments for the all the channels.</returns>
-    public ChannelMoments Composite()
+    public sealed partial class Moments
     {
-      return GetChannel(PixelChannel.Composite);
-    }
+        private Dictionary<PixelChannel, ChannelMoments> _Channels;
 
-    /// <summary>
-    /// Gets the moments for the specified channel.
-    /// </summary>
-    /// <param name="channel">The channel to get the moments for.</param>
-    /// <returns>The moments for the specified channel.</returns>
-    public ChannelMoments GetChannel(PixelChannel channel)
-    {
-      ChannelMoments moments;
-      _Channels.TryGetValue(channel, out moments);
-      return moments;
+        private void AddChannel(IntPtr list, PixelChannel channel)
+        {
+            IntPtr instance = NativeMoments.GetInstance(list, channel);
+
+            ChannelMoments result = ChannelMoments.Create(channel, instance);
+            if (result != null)
+                _Channels.Add(result.Channel, result);
+        }
+
+        internal Moments(MagickImage image, IntPtr list)
+        {
+            if (list == IntPtr.Zero)
+                return;
+
+            _Channels = new Dictionary<PixelChannel, ChannelMoments>();
+            foreach (PixelChannel channel in image.Channels)
+                AddChannel(list, channel);
+        }
+
+        internal static void DisposeList(IntPtr list)
+        {
+            if (list != IntPtr.Zero)
+                NativeMoments.DisposeList(list);
+        }
+
+        /// <summary>
+        /// Gets the moments for the all the channels.
+        /// </summary>
+        /// <returns>The moments for the all the channels.</returns>
+        public ChannelMoments Composite()
+        {
+            return GetChannel(PixelChannel.Composite);
+        }
+
+        /// <summary>
+        /// Gets the moments for the specified channel.
+        /// </summary>
+        /// <param name="channel">The channel to get the moments for.</param>
+        /// <returns>The moments for the specified channel.</returns>
+        public ChannelMoments GetChannel(PixelChannel channel)
+        {
+            ChannelMoments moments;
+            _Channels.TryGetValue(channel, out moments);
+            return moments;
+        }
     }
-  }
 }

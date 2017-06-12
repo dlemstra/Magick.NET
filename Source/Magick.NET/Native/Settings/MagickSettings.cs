@@ -29,869 +29,869 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-  public partial class MagickSettings
-  {
-    private static class NativeMethods
+    public partial class MagickSettings
     {
-      #if PLATFORM_x64 || PLATFORM_AnyCPU
-      public static class X64
-      {
-        #if PLATFORM_AnyCPU
-        [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickSettings+NativeMethods.X64#.cctor()")]
-        static X64() { NativeLibraryLoader.Load(); }
-        #endif
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickSettings_Create();
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_Dispose(IntPtr instance);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickSettings_BackgroundColor_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_BackgroundColor_Set(IntPtr instance, IntPtr value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern UIntPtr MagickSettings_ColorSpace_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_ColorSpace_Set(IntPtr instance, UIntPtr value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern UIntPtr MagickSettings_ColorType_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_ColorType_Set(IntPtr instance, UIntPtr value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern UIntPtr MagickSettings_CompressionMethod_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_CompressionMethod_Set(IntPtr instance, UIntPtr value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool MagickSettings_Debug_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_Debug_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickSettings_Density_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_Density_Set(IntPtr instance, IntPtr value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern UIntPtr MagickSettings_Endian_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_Endian_Set(IntPtr instance, UIntPtr value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickSettings_Format_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_Format_Set(IntPtr instance, IntPtr value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickSettings_Font_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_Font_Set(IntPtr instance, IntPtr value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern double MagickSettings_FontPointsize_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_FontPointsize_Set(IntPtr instance, double value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool MagickSettings_Monochrome_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_Monochrome_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern UIntPtr MagickSettings_Interlace_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_Interlace_Set(IntPtr instance, UIntPtr value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool MagickSettings_Verbose_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_Verbose_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_SetColorFuzz(IntPtr Instance, double value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_SetFileName(IntPtr Instance, IntPtr value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_SetNumberScenes(IntPtr Instance, UIntPtr value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_SetOption(IntPtr Instance, IntPtr key, IntPtr value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_SetPage(IntPtr Instance, IntPtr value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_SetPing(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_SetQuality(IntPtr Instance, UIntPtr value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_SetScenes(IntPtr Instance, IntPtr value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_SetScene(IntPtr Instance, UIntPtr value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_SetSize(IntPtr Instance, IntPtr value);
-      }
-      #endif
-      #if PLATFORM_x86 || PLATFORM_AnyCPU
-      public static class X86
-      {
-        #if PLATFORM_AnyCPU
-        [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickSettings+NativeMethods.X86#.cctor()")]
-        static X86() { NativeLibraryLoader.Load(); }
-        #endif
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickSettings_Create();
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_Dispose(IntPtr instance);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickSettings_BackgroundColor_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_BackgroundColor_Set(IntPtr instance, IntPtr value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern UIntPtr MagickSettings_ColorSpace_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_ColorSpace_Set(IntPtr instance, UIntPtr value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern UIntPtr MagickSettings_ColorType_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_ColorType_Set(IntPtr instance, UIntPtr value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern UIntPtr MagickSettings_CompressionMethod_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_CompressionMethod_Set(IntPtr instance, UIntPtr value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool MagickSettings_Debug_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_Debug_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickSettings_Density_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_Density_Set(IntPtr instance, IntPtr value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern UIntPtr MagickSettings_Endian_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_Endian_Set(IntPtr instance, UIntPtr value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickSettings_Format_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_Format_Set(IntPtr instance, IntPtr value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickSettings_Font_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_Font_Set(IntPtr instance, IntPtr value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern double MagickSettings_FontPointsize_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_FontPointsize_Set(IntPtr instance, double value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool MagickSettings_Monochrome_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_Monochrome_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern UIntPtr MagickSettings_Interlace_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_Interlace_Set(IntPtr instance, UIntPtr value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool MagickSettings_Verbose_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_Verbose_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_SetColorFuzz(IntPtr Instance, double value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_SetFileName(IntPtr Instance, IntPtr value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_SetNumberScenes(IntPtr Instance, UIntPtr value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_SetOption(IntPtr Instance, IntPtr key, IntPtr value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_SetPage(IntPtr Instance, IntPtr value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_SetPing(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_SetQuality(IntPtr Instance, UIntPtr value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_SetScenes(IntPtr Instance, IntPtr value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_SetScene(IntPtr Instance, UIntPtr value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_SetSize(IntPtr Instance, IntPtr value);
-      }
-      #endif
+        private static class NativeMethods
+        {
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            public static class X64
+            {
+                #if PLATFORM_AnyCPU
+                [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickSettings+NativeMethods.X64#.cctor()")]
+                static X64() { NativeLibraryLoader.Load(); }
+                #endif
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickSettings_Create();
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Dispose(IntPtr instance);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickSettings_BackgroundColor_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_BackgroundColor_Set(IntPtr instance, IntPtr value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern UIntPtr MagickSettings_ColorSpace_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_ColorSpace_Set(IntPtr instance, UIntPtr value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern UIntPtr MagickSettings_ColorType_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_ColorType_Set(IntPtr instance, UIntPtr value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern UIntPtr MagickSettings_CompressionMethod_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_CompressionMethod_Set(IntPtr instance, UIntPtr value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                [return: MarshalAs(UnmanagedType.Bool)]
+                public static extern bool MagickSettings_Debug_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Debug_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickSettings_Density_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Density_Set(IntPtr instance, IntPtr value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern UIntPtr MagickSettings_Endian_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Endian_Set(IntPtr instance, UIntPtr value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickSettings_Format_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Format_Set(IntPtr instance, IntPtr value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickSettings_Font_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Font_Set(IntPtr instance, IntPtr value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern double MagickSettings_FontPointsize_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_FontPointsize_Set(IntPtr instance, double value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                [return: MarshalAs(UnmanagedType.Bool)]
+                public static extern bool MagickSettings_Monochrome_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Monochrome_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern UIntPtr MagickSettings_Interlace_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Interlace_Set(IntPtr instance, UIntPtr value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                [return: MarshalAs(UnmanagedType.Bool)]
+                public static extern bool MagickSettings_Verbose_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Verbose_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetColorFuzz(IntPtr Instance, double value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetFileName(IntPtr Instance, IntPtr value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetNumberScenes(IntPtr Instance, UIntPtr value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetOption(IntPtr Instance, IntPtr key, IntPtr value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetPage(IntPtr Instance, IntPtr value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetPing(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetQuality(IntPtr Instance, UIntPtr value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetScenes(IntPtr Instance, IntPtr value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetScene(IntPtr Instance, UIntPtr value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetSize(IntPtr Instance, IntPtr value);
+            }
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            public static class X86
+            {
+                #if PLATFORM_AnyCPU
+                [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickSettings+NativeMethods.X86#.cctor()")]
+                static X86() { NativeLibraryLoader.Load(); }
+                #endif
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickSettings_Create();
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Dispose(IntPtr instance);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickSettings_BackgroundColor_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_BackgroundColor_Set(IntPtr instance, IntPtr value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern UIntPtr MagickSettings_ColorSpace_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_ColorSpace_Set(IntPtr instance, UIntPtr value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern UIntPtr MagickSettings_ColorType_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_ColorType_Set(IntPtr instance, UIntPtr value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern UIntPtr MagickSettings_CompressionMethod_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_CompressionMethod_Set(IntPtr instance, UIntPtr value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                [return: MarshalAs(UnmanagedType.Bool)]
+                public static extern bool MagickSettings_Debug_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Debug_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickSettings_Density_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Density_Set(IntPtr instance, IntPtr value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern UIntPtr MagickSettings_Endian_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Endian_Set(IntPtr instance, UIntPtr value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickSettings_Format_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Format_Set(IntPtr instance, IntPtr value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickSettings_Font_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Font_Set(IntPtr instance, IntPtr value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern double MagickSettings_FontPointsize_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_FontPointsize_Set(IntPtr instance, double value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                [return: MarshalAs(UnmanagedType.Bool)]
+                public static extern bool MagickSettings_Monochrome_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Monochrome_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern UIntPtr MagickSettings_Interlace_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Interlace_Set(IntPtr instance, UIntPtr value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                [return: MarshalAs(UnmanagedType.Bool)]
+                public static extern bool MagickSettings_Verbose_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Verbose_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetColorFuzz(IntPtr Instance, double value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetFileName(IntPtr Instance, IntPtr value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetNumberScenes(IntPtr Instance, UIntPtr value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetOption(IntPtr Instance, IntPtr key, IntPtr value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetPage(IntPtr Instance, IntPtr value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetPing(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetQuality(IntPtr Instance, UIntPtr value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetScenes(IntPtr Instance, IntPtr value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetScene(IntPtr Instance, UIntPtr value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetSize(IntPtr Instance, IntPtr value);
+            }
+            #endif
+        }
+        private sealed class NativeMagickSettings : NativeInstance
+        {
+            protected override void Dispose(IntPtr instance)
+            {
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickSettings_Dispose(instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickSettings_Dispose(instance);
+                #endif
+            }
+            public NativeMagickSettings()
+            {
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                Instance = NativeMethods.X64.MagickSettings_Create();
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                Instance = NativeMethods.X86.MagickSettings_Create();
+                #endif
+                if (Instance == IntPtr.Zero)
+                    throw new InvalidOperationException();
+            }
+            protected override string TypeName
+            {
+                get
+                {
+                    return nameof(MagickSettings);
+                }
+            }
+            public MagickColor BackgroundColor
+            {
+                get
+                {
+                    IntPtr result;
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.MagickSettings_BackgroundColor_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.MagickSettings_BackgroundColor_Get(Instance);
+                    #endif
+                    return MagickColor.CreateInstance(result);
+                }
+                set
+                {
+                    using (INativeInstance valueNative = MagickColor.CreateInstance(value))
+                    {
+                        #if PLATFORM_AnyCPU
+                        if (NativeLibrary.Is64Bit)
+                        #endif
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
+                        NativeMethods.X64.MagickSettings_BackgroundColor_Set(Instance, valueNative.Instance);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else
+                        #endif
+                        #if PLATFORM_x86 || PLATFORM_AnyCPU
+                        NativeMethods.X86.MagickSettings_BackgroundColor_Set(Instance, valueNative.Instance);
+                        #endif
+                    }
+                }
+            }
+            public ColorSpace ColorSpace
+            {
+                get
+                {
+                    UIntPtr result;
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.MagickSettings_ColorSpace_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.MagickSettings_ColorSpace_Get(Instance);
+                    #endif
+                    return (ColorSpace)result;
+                }
+                set
+                {
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.MagickSettings_ColorSpace_Set(Instance, (UIntPtr)value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.MagickSettings_ColorSpace_Set(Instance, (UIntPtr)value);
+                    #endif
+                }
+            }
+            public ColorType ColorType
+            {
+                get
+                {
+                    UIntPtr result;
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.MagickSettings_ColorType_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.MagickSettings_ColorType_Get(Instance);
+                    #endif
+                    return (ColorType)result;
+                }
+                set
+                {
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.MagickSettings_ColorType_Set(Instance, (UIntPtr)value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.MagickSettings_ColorType_Set(Instance, (UIntPtr)value);
+                    #endif
+                }
+            }
+            public CompressionMethod CompressionMethod
+            {
+                get
+                {
+                    UIntPtr result;
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.MagickSettings_CompressionMethod_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.MagickSettings_CompressionMethod_Get(Instance);
+                    #endif
+                    return (CompressionMethod)result;
+                }
+                set
+                {
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.MagickSettings_CompressionMethod_Set(Instance, (UIntPtr)value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.MagickSettings_CompressionMethod_Set(Instance, (UIntPtr)value);
+                    #endif
+                }
+            }
+            public bool Debug
+            {
+                get
+                {
+                    bool result;
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.MagickSettings_Debug_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.MagickSettings_Debug_Get(Instance);
+                    #endif
+                    return result;
+                }
+                set
+                {
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.MagickSettings_Debug_Set(Instance, value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.MagickSettings_Debug_Set(Instance, value);
+                    #endif
+                }
+            }
+            public string Density
+            {
+                get
+                {
+                    IntPtr result;
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.MagickSettings_Density_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.MagickSettings_Density_Get(Instance);
+                    #endif
+                    return UTF8Marshaler.NativeToManaged(result);
+                }
+                set
+                {
+                    using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
+                    {
+                        #if PLATFORM_AnyCPU
+                        if (NativeLibrary.Is64Bit)
+                        #endif
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
+                        NativeMethods.X64.MagickSettings_Density_Set(Instance, valueNative.Instance);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else
+                        #endif
+                        #if PLATFORM_x86 || PLATFORM_AnyCPU
+                        NativeMethods.X86.MagickSettings_Density_Set(Instance, valueNative.Instance);
+                        #endif
+                    }
+                }
+            }
+            public Endian Endian
+            {
+                get
+                {
+                    UIntPtr result;
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.MagickSettings_Endian_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.MagickSettings_Endian_Get(Instance);
+                    #endif
+                    return (Endian)result;
+                }
+                set
+                {
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.MagickSettings_Endian_Set(Instance, (UIntPtr)value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.MagickSettings_Endian_Set(Instance, (UIntPtr)value);
+                    #endif
+                }
+            }
+            public string Format
+            {
+                get
+                {
+                    IntPtr result;
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.MagickSettings_Format_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.MagickSettings_Format_Get(Instance);
+                    #endif
+                    return UTF8Marshaler.NativeToManaged(result);
+                }
+                set
+                {
+                    using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
+                    {
+                        #if PLATFORM_AnyCPU
+                        if (NativeLibrary.Is64Bit)
+                        #endif
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
+                        NativeMethods.X64.MagickSettings_Format_Set(Instance, valueNative.Instance);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else
+                        #endif
+                        #if PLATFORM_x86 || PLATFORM_AnyCPU
+                        NativeMethods.X86.MagickSettings_Format_Set(Instance, valueNative.Instance);
+                        #endif
+                    }
+                }
+            }
+            public string Font
+            {
+                get
+                {
+                    IntPtr result;
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.MagickSettings_Font_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.MagickSettings_Font_Get(Instance);
+                    #endif
+                    return UTF8Marshaler.NativeToManaged(result);
+                }
+                set
+                {
+                    using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
+                    {
+                        #if PLATFORM_AnyCPU
+                        if (NativeLibrary.Is64Bit)
+                        #endif
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
+                        NativeMethods.X64.MagickSettings_Font_Set(Instance, valueNative.Instance);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else
+                        #endif
+                        #if PLATFORM_x86 || PLATFORM_AnyCPU
+                        NativeMethods.X86.MagickSettings_Font_Set(Instance, valueNative.Instance);
+                        #endif
+                    }
+                }
+            }
+            public double FontPointsize
+            {
+                get
+                {
+                    double result;
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.MagickSettings_FontPointsize_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.MagickSettings_FontPointsize_Get(Instance);
+                    #endif
+                    return result;
+                }
+                set
+                {
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.MagickSettings_FontPointsize_Set(Instance, value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.MagickSettings_FontPointsize_Set(Instance, value);
+                    #endif
+                }
+            }
+            public bool Monochrome
+            {
+                get
+                {
+                    bool result;
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.MagickSettings_Monochrome_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.MagickSettings_Monochrome_Get(Instance);
+                    #endif
+                    return result;
+                }
+                set
+                {
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.MagickSettings_Monochrome_Set(Instance, value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.MagickSettings_Monochrome_Set(Instance, value);
+                    #endif
+                }
+            }
+            public Interlace Interlace
+            {
+                get
+                {
+                    UIntPtr result;
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.MagickSettings_Interlace_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.MagickSettings_Interlace_Get(Instance);
+                    #endif
+                    return (Interlace)result;
+                }
+                set
+                {
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.MagickSettings_Interlace_Set(Instance, (UIntPtr)value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.MagickSettings_Interlace_Set(Instance, (UIntPtr)value);
+                    #endif
+                }
+            }
+            public bool Verbose
+            {
+                get
+                {
+                    bool result;
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.MagickSettings_Verbose_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.MagickSettings_Verbose_Get(Instance);
+                    #endif
+                    return result;
+                }
+                set
+                {
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.MagickSettings_Verbose_Set(Instance, value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.MagickSettings_Verbose_Set(Instance, value);
+                    #endif
+                }
+            }
+            public void SetColorFuzz(double value)
+            {
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickSettings_SetColorFuzz(Instance, value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickSettings_SetColorFuzz(Instance, value);
+                #endif
+            }
+            public void SetFileName(string value)
+            {
+                using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
+                {
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.MagickSettings_SetFileName(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.MagickSettings_SetFileName(Instance, valueNative.Instance);
+                    #endif
+                }
+            }
+            public void SetNumberScenes(int value)
+            {
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickSettings_SetNumberScenes(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickSettings_SetNumberScenes(Instance, (UIntPtr)value);
+                #endif
+            }
+            public void SetOption(string key, string value)
+            {
+                using (INativeInstance keyNative = UTF8Marshaler.CreateInstance(key))
+                {
+                    using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
+                    {
+                        #if PLATFORM_AnyCPU
+                        if (NativeLibrary.Is64Bit)
+                        #endif
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
+                        NativeMethods.X64.MagickSettings_SetOption(Instance, keyNative.Instance, valueNative.Instance);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else
+                        #endif
+                        #if PLATFORM_x86 || PLATFORM_AnyCPU
+                        NativeMethods.X86.MagickSettings_SetOption(Instance, keyNative.Instance, valueNative.Instance);
+                        #endif
+                    }
+                }
+            }
+            public void SetPage(string value)
+            {
+                using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
+                {
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.MagickSettings_SetPage(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.MagickSettings_SetPage(Instance, valueNative.Instance);
+                    #endif
+                }
+            }
+            public void SetPing(bool value)
+            {
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickSettings_SetPing(Instance, value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickSettings_SetPing(Instance, value);
+                #endif
+            }
+            public void SetQuality(int value)
+            {
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickSettings_SetQuality(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickSettings_SetQuality(Instance, (UIntPtr)value);
+                #endif
+            }
+            public void SetScenes(string value)
+            {
+                using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
+                {
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.MagickSettings_SetScenes(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.MagickSettings_SetScenes(Instance, valueNative.Instance);
+                    #endif
+                }
+            }
+            public void SetScene(int value)
+            {
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickSettings_SetScene(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickSettings_SetScene(Instance, (UIntPtr)value);
+                #endif
+            }
+            public void SetSize(string value)
+            {
+                using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
+                {
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.MagickSettings_SetSize(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.MagickSettings_SetSize(Instance, valueNative.Instance);
+                    #endif
+                }
+            }
+        }
+        internal static INativeInstance CreateInstance(MagickSettings instance)
+        {
+            if (instance == null)
+                return NativeInstance.Zero;
+            return instance.CreateNativeInstance();
+        }
     }
-    private sealed class NativeMagickSettings : NativeInstance
-    {
-      protected override void Dispose(IntPtr instance)
-      {
-        #if PLATFORM_AnyCPU
-        if (NativeLibrary.Is64Bit)
-        #endif
-        #if PLATFORM_x64 || PLATFORM_AnyCPU
-        NativeMethods.X64.MagickSettings_Dispose(instance);
-        #endif
-        #if PLATFORM_AnyCPU
-        else
-        #endif
-        #if PLATFORM_x86 || PLATFORM_AnyCPU
-        NativeMethods.X86.MagickSettings_Dispose(instance);
-        #endif
-      }
-      public NativeMagickSettings()
-      {
-        #if PLATFORM_AnyCPU
-        if (NativeLibrary.Is64Bit)
-        #endif
-        #if PLATFORM_x64 || PLATFORM_AnyCPU
-        Instance = NativeMethods.X64.MagickSettings_Create();
-        #endif
-        #if PLATFORM_AnyCPU
-        else
-        #endif
-        #if PLATFORM_x86 || PLATFORM_AnyCPU
-        Instance = NativeMethods.X86.MagickSettings_Create();
-        #endif
-        if (Instance == IntPtr.Zero)
-          throw new InvalidOperationException();
-      }
-      protected override string TypeName
-      {
-        get
-        {
-          return nameof(MagickSettings);
-        }
-      }
-      public MagickColor BackgroundColor
-      {
-        get
-        {
-          IntPtr result;
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          result = NativeMethods.X64.MagickSettings_BackgroundColor_Get(Instance);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          result = NativeMethods.X86.MagickSettings_BackgroundColor_Get(Instance);
-          #endif
-          return MagickColor.CreateInstance(result);
-        }
-        set
-        {
-          using (INativeInstance valueNative = MagickColor.CreateInstance(value))
-          {
-            #if PLATFORM_AnyCPU
-            if (NativeLibrary.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickSettings_BackgroundColor_Set(Instance, valueNative.Instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else
-            #endif
-            #if PLATFORM_x86 || PLATFORM_AnyCPU
-            NativeMethods.X86.MagickSettings_BackgroundColor_Set(Instance, valueNative.Instance);
-            #endif
-          }
-        }
-      }
-      public ColorSpace ColorSpace
-      {
-        get
-        {
-          UIntPtr result;
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          result = NativeMethods.X64.MagickSettings_ColorSpace_Get(Instance);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          result = NativeMethods.X86.MagickSettings_ColorSpace_Get(Instance);
-          #endif
-          return (ColorSpace)result;
-        }
-        set
-        {
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          NativeMethods.X64.MagickSettings_ColorSpace_Set(Instance, (UIntPtr)value);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          NativeMethods.X86.MagickSettings_ColorSpace_Set(Instance, (UIntPtr)value);
-          #endif
-        }
-      }
-      public ColorType ColorType
-      {
-        get
-        {
-          UIntPtr result;
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          result = NativeMethods.X64.MagickSettings_ColorType_Get(Instance);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          result = NativeMethods.X86.MagickSettings_ColorType_Get(Instance);
-          #endif
-          return (ColorType)result;
-        }
-        set
-        {
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          NativeMethods.X64.MagickSettings_ColorType_Set(Instance, (UIntPtr)value);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          NativeMethods.X86.MagickSettings_ColorType_Set(Instance, (UIntPtr)value);
-          #endif
-        }
-      }
-      public CompressionMethod CompressionMethod
-      {
-        get
-        {
-          UIntPtr result;
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          result = NativeMethods.X64.MagickSettings_CompressionMethod_Get(Instance);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          result = NativeMethods.X86.MagickSettings_CompressionMethod_Get(Instance);
-          #endif
-          return (CompressionMethod)result;
-        }
-        set
-        {
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          NativeMethods.X64.MagickSettings_CompressionMethod_Set(Instance, (UIntPtr)value);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          NativeMethods.X86.MagickSettings_CompressionMethod_Set(Instance, (UIntPtr)value);
-          #endif
-        }
-      }
-      public bool Debug
-      {
-        get
-        {
-          bool result;
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          result = NativeMethods.X64.MagickSettings_Debug_Get(Instance);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          result = NativeMethods.X86.MagickSettings_Debug_Get(Instance);
-          #endif
-          return result;
-        }
-        set
-        {
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          NativeMethods.X64.MagickSettings_Debug_Set(Instance, value);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          NativeMethods.X86.MagickSettings_Debug_Set(Instance, value);
-          #endif
-        }
-      }
-      public string Density
-      {
-        get
-        {
-          IntPtr result;
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          result = NativeMethods.X64.MagickSettings_Density_Get(Instance);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          result = NativeMethods.X86.MagickSettings_Density_Get(Instance);
-          #endif
-          return UTF8Marshaler.NativeToManaged(result);
-        }
-        set
-        {
-          using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
-          {
-            #if PLATFORM_AnyCPU
-            if (NativeLibrary.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickSettings_Density_Set(Instance, valueNative.Instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else
-            #endif
-            #if PLATFORM_x86 || PLATFORM_AnyCPU
-            NativeMethods.X86.MagickSettings_Density_Set(Instance, valueNative.Instance);
-            #endif
-          }
-        }
-      }
-      public Endian Endian
-      {
-        get
-        {
-          UIntPtr result;
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          result = NativeMethods.X64.MagickSettings_Endian_Get(Instance);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          result = NativeMethods.X86.MagickSettings_Endian_Get(Instance);
-          #endif
-          return (Endian)result;
-        }
-        set
-        {
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          NativeMethods.X64.MagickSettings_Endian_Set(Instance, (UIntPtr)value);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          NativeMethods.X86.MagickSettings_Endian_Set(Instance, (UIntPtr)value);
-          #endif
-        }
-      }
-      public string Format
-      {
-        get
-        {
-          IntPtr result;
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          result = NativeMethods.X64.MagickSettings_Format_Get(Instance);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          result = NativeMethods.X86.MagickSettings_Format_Get(Instance);
-          #endif
-          return UTF8Marshaler.NativeToManaged(result);
-        }
-        set
-        {
-          using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
-          {
-            #if PLATFORM_AnyCPU
-            if (NativeLibrary.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickSettings_Format_Set(Instance, valueNative.Instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else
-            #endif
-            #if PLATFORM_x86 || PLATFORM_AnyCPU
-            NativeMethods.X86.MagickSettings_Format_Set(Instance, valueNative.Instance);
-            #endif
-          }
-        }
-      }
-      public string Font
-      {
-        get
-        {
-          IntPtr result;
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          result = NativeMethods.X64.MagickSettings_Font_Get(Instance);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          result = NativeMethods.X86.MagickSettings_Font_Get(Instance);
-          #endif
-          return UTF8Marshaler.NativeToManaged(result);
-        }
-        set
-        {
-          using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
-          {
-            #if PLATFORM_AnyCPU
-            if (NativeLibrary.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickSettings_Font_Set(Instance, valueNative.Instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else
-            #endif
-            #if PLATFORM_x86 || PLATFORM_AnyCPU
-            NativeMethods.X86.MagickSettings_Font_Set(Instance, valueNative.Instance);
-            #endif
-          }
-        }
-      }
-      public double FontPointsize
-      {
-        get
-        {
-          double result;
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          result = NativeMethods.X64.MagickSettings_FontPointsize_Get(Instance);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          result = NativeMethods.X86.MagickSettings_FontPointsize_Get(Instance);
-          #endif
-          return result;
-        }
-        set
-        {
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          NativeMethods.X64.MagickSettings_FontPointsize_Set(Instance, value);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          NativeMethods.X86.MagickSettings_FontPointsize_Set(Instance, value);
-          #endif
-        }
-      }
-      public bool Monochrome
-      {
-        get
-        {
-          bool result;
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          result = NativeMethods.X64.MagickSettings_Monochrome_Get(Instance);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          result = NativeMethods.X86.MagickSettings_Monochrome_Get(Instance);
-          #endif
-          return result;
-        }
-        set
-        {
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          NativeMethods.X64.MagickSettings_Monochrome_Set(Instance, value);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          NativeMethods.X86.MagickSettings_Monochrome_Set(Instance, value);
-          #endif
-        }
-      }
-      public Interlace Interlace
-      {
-        get
-        {
-          UIntPtr result;
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          result = NativeMethods.X64.MagickSettings_Interlace_Get(Instance);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          result = NativeMethods.X86.MagickSettings_Interlace_Get(Instance);
-          #endif
-          return (Interlace)result;
-        }
-        set
-        {
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          NativeMethods.X64.MagickSettings_Interlace_Set(Instance, (UIntPtr)value);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          NativeMethods.X86.MagickSettings_Interlace_Set(Instance, (UIntPtr)value);
-          #endif
-        }
-      }
-      public bool Verbose
-      {
-        get
-        {
-          bool result;
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          result = NativeMethods.X64.MagickSettings_Verbose_Get(Instance);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          result = NativeMethods.X86.MagickSettings_Verbose_Get(Instance);
-          #endif
-          return result;
-        }
-        set
-        {
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          NativeMethods.X64.MagickSettings_Verbose_Set(Instance, value);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          NativeMethods.X86.MagickSettings_Verbose_Set(Instance, value);
-          #endif
-        }
-      }
-      public void SetColorFuzz(double value)
-      {
-        #if PLATFORM_AnyCPU
-        if (NativeLibrary.Is64Bit)
-        #endif
-        #if PLATFORM_x64 || PLATFORM_AnyCPU
-        NativeMethods.X64.MagickSettings_SetColorFuzz(Instance, value);
-        #endif
-        #if PLATFORM_AnyCPU
-        else
-        #endif
-        #if PLATFORM_x86 || PLATFORM_AnyCPU
-        NativeMethods.X86.MagickSettings_SetColorFuzz(Instance, value);
-        #endif
-      }
-      public void SetFileName(string value)
-      {
-        using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
-        {
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          NativeMethods.X64.MagickSettings_SetFileName(Instance, valueNative.Instance);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          NativeMethods.X86.MagickSettings_SetFileName(Instance, valueNative.Instance);
-          #endif
-        }
-      }
-      public void SetNumberScenes(int value)
-      {
-        #if PLATFORM_AnyCPU
-        if (NativeLibrary.Is64Bit)
-        #endif
-        #if PLATFORM_x64 || PLATFORM_AnyCPU
-        NativeMethods.X64.MagickSettings_SetNumberScenes(Instance, (UIntPtr)value);
-        #endif
-        #if PLATFORM_AnyCPU
-        else
-        #endif
-        #if PLATFORM_x86 || PLATFORM_AnyCPU
-        NativeMethods.X86.MagickSettings_SetNumberScenes(Instance, (UIntPtr)value);
-        #endif
-      }
-      public void SetOption(string key, string value)
-      {
-        using (INativeInstance keyNative = UTF8Marshaler.CreateInstance(key))
-        {
-          using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
-          {
-            #if PLATFORM_AnyCPU
-            if (NativeLibrary.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickSettings_SetOption(Instance, keyNative.Instance, valueNative.Instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else
-            #endif
-            #if PLATFORM_x86 || PLATFORM_AnyCPU
-            NativeMethods.X86.MagickSettings_SetOption(Instance, keyNative.Instance, valueNative.Instance);
-            #endif
-          }
-        }
-      }
-      public void SetPage(string value)
-      {
-        using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
-        {
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          NativeMethods.X64.MagickSettings_SetPage(Instance, valueNative.Instance);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          NativeMethods.X86.MagickSettings_SetPage(Instance, valueNative.Instance);
-          #endif
-        }
-      }
-      public void SetPing(bool value)
-      {
-        #if PLATFORM_AnyCPU
-        if (NativeLibrary.Is64Bit)
-        #endif
-        #if PLATFORM_x64 || PLATFORM_AnyCPU
-        NativeMethods.X64.MagickSettings_SetPing(Instance, value);
-        #endif
-        #if PLATFORM_AnyCPU
-        else
-        #endif
-        #if PLATFORM_x86 || PLATFORM_AnyCPU
-        NativeMethods.X86.MagickSettings_SetPing(Instance, value);
-        #endif
-      }
-      public void SetQuality(int value)
-      {
-        #if PLATFORM_AnyCPU
-        if (NativeLibrary.Is64Bit)
-        #endif
-        #if PLATFORM_x64 || PLATFORM_AnyCPU
-        NativeMethods.X64.MagickSettings_SetQuality(Instance, (UIntPtr)value);
-        #endif
-        #if PLATFORM_AnyCPU
-        else
-        #endif
-        #if PLATFORM_x86 || PLATFORM_AnyCPU
-        NativeMethods.X86.MagickSettings_SetQuality(Instance, (UIntPtr)value);
-        #endif
-      }
-      public void SetScenes(string value)
-      {
-        using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
-        {
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          NativeMethods.X64.MagickSettings_SetScenes(Instance, valueNative.Instance);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          NativeMethods.X86.MagickSettings_SetScenes(Instance, valueNative.Instance);
-          #endif
-        }
-      }
-      public void SetScene(int value)
-      {
-        #if PLATFORM_AnyCPU
-        if (NativeLibrary.Is64Bit)
-        #endif
-        #if PLATFORM_x64 || PLATFORM_AnyCPU
-        NativeMethods.X64.MagickSettings_SetScene(Instance, (UIntPtr)value);
-        #endif
-        #if PLATFORM_AnyCPU
-        else
-        #endif
-        #if PLATFORM_x86 || PLATFORM_AnyCPU
-        NativeMethods.X86.MagickSettings_SetScene(Instance, (UIntPtr)value);
-        #endif
-      }
-      public void SetSize(string value)
-      {
-        using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
-        {
-          #if PLATFORM_AnyCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if PLATFORM_x64 || PLATFORM_AnyCPU
-          NativeMethods.X64.MagickSettings_SetSize(Instance, valueNative.Instance);
-          #endif
-          #if PLATFORM_AnyCPU
-          else
-          #endif
-          #if PLATFORM_x86 || PLATFORM_AnyCPU
-          NativeMethods.X86.MagickSettings_SetSize(Instance, valueNative.Instance);
-          #endif
-        }
-      }
-    }
-    internal static INativeInstance CreateInstance(MagickSettings instance)
-    {
-      if (instance == null)
-        return NativeInstance.Zero;
-      return instance.CreateNativeInstance();
-    }
-  }
 }

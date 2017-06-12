@@ -17,85 +17,85 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class PercentageTests
-  {
-    [TestMethod]
-    public void Test_Constructor()
+    [TestClass]
+    public class PercentageTests
     {
-      Percentage percentage = new Percentage();
-      Assert.AreEqual("0%", percentage.ToString());
+        [TestMethod]
+        public void Test_Constructor()
+        {
+            Percentage percentage = new Percentage();
+            Assert.AreEqual("0%", percentage.ToString());
 
-      percentage = new Percentage(50);
-      Assert.AreEqual("50%", percentage.ToString());
+            percentage = new Percentage(50);
+            Assert.AreEqual("50%", percentage.ToString());
 
-      percentage = new Percentage(200.0);
-      Assert.AreEqual("200%", percentage.ToString());
+            percentage = new Percentage(200.0);
+            Assert.AreEqual("200%", percentage.ToString());
 
-      percentage = new Percentage(-25);
-      Assert.AreEqual("-25%", percentage.ToString());
+            percentage = new Percentage(-25);
+            Assert.AreEqual("-25%", percentage.ToString());
+        }
+
+        [TestMethod]
+        public void Test_IComparable()
+        {
+            Percentage first = new Percentage(100);
+
+            Assert.AreEqual(0, first.CompareTo(first));
+
+            Percentage second = new Percentage(100);
+
+            Assert.AreEqual(0, first.CompareTo(second));
+            Assert.IsTrue(first == second);
+            Assert.IsFalse(first < second);
+            Assert.IsTrue(first <= second);
+            Assert.IsFalse(first > second);
+            Assert.IsTrue(first >= second);
+
+            second = new Percentage(101);
+
+            Assert.AreEqual(-1, first.CompareTo(second));
+            Assert.IsFalse(first == second);
+            Assert.IsTrue(first < second);
+            Assert.IsTrue(first <= second);
+            Assert.IsFalse(first > second);
+            Assert.IsFalse(first >= second);
+
+            second = new Percentage(50);
+
+            Assert.AreEqual(1, first.CompareTo(second));
+            Assert.IsFalse(first == second);
+            Assert.IsFalse(first < second);
+            Assert.IsFalse(first <= second);
+            Assert.IsTrue(first > second);
+            Assert.IsTrue(first >= second);
+        }
+
+        [TestMethod]
+        public void Test_IEquatable()
+        {
+            Percentage first = new Percentage(50.0);
+            Percentage second = new Percentage(50);
+
+            Assert.IsTrue(first == second);
+            Assert.IsTrue(first.Equals(second));
+            Assert.IsTrue(first.Equals((object)second));
+        }
+
+        [TestMethod]
+        public void Test_Multiplication()
+        {
+            Percentage percentage = new Percentage();
+            Assert.AreEqual(0, 10 * percentage);
+
+            percentage = new Percentage(50);
+            Assert.AreEqual(5, 10 * percentage);
+
+            percentage = new Percentage(200);
+            Assert.AreEqual(20.0, 10.0 * percentage);
+
+            percentage = new Percentage(25);
+            Assert.AreEqual(2.5, 10.0 * percentage);
+        }
     }
-
-    [TestMethod]
-    public void Test_IComparable()
-    {
-      Percentage first = new Percentage(100);
-
-      Assert.AreEqual(0, first.CompareTo(first));
-
-      Percentage second = new Percentage(100);
-
-      Assert.AreEqual(0, first.CompareTo(second));
-      Assert.IsTrue(first == second);
-      Assert.IsFalse(first < second);
-      Assert.IsTrue(first <= second);
-      Assert.IsFalse(first > second);
-      Assert.IsTrue(first >= second);
-
-      second = new Percentage(101);
-
-      Assert.AreEqual(-1, first.CompareTo(second));
-      Assert.IsFalse(first == second);
-      Assert.IsTrue(first < second);
-      Assert.IsTrue(first <= second);
-      Assert.IsFalse(first > second);
-      Assert.IsFalse(first >= second);
-
-      second = new Percentage(50);
-
-      Assert.AreEqual(1, first.CompareTo(second));
-      Assert.IsFalse(first == second);
-      Assert.IsFalse(first < second);
-      Assert.IsFalse(first <= second);
-      Assert.IsTrue(first > second);
-      Assert.IsTrue(first >= second);
-    }
-
-    [TestMethod]
-    public void Test_IEquatable()
-    {
-      Percentage first = new Percentage(50.0);
-      Percentage second = new Percentage(50);
-
-      Assert.IsTrue(first == second);
-      Assert.IsTrue(first.Equals(second));
-      Assert.IsTrue(first.Equals((object)second));
-    }
-
-    [TestMethod]
-    public void Test_Multiplication()
-    {
-      Percentage percentage = new Percentage();
-      Assert.AreEqual(0, 10 * percentage);
-
-      percentage = new Percentage(50);
-      Assert.AreEqual(5, 10 * percentage);
-
-      percentage = new Percentage(200);
-      Assert.AreEqual(20.0, 10.0 * percentage);
-
-      percentage = new Percentage(25);
-      Assert.AreEqual(2.5, 10.0 * percentage);
-    }
-  }
 }

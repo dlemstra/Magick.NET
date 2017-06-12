@@ -16,88 +16,88 @@ using System;
 
 namespace ImageMagick
 {
-  internal sealed partial class MagickRectangle
-  {
-    private MagickRectangle(NativeMagickRectangle instance)
+    internal sealed partial class MagickRectangle
     {
-      X = instance.X;
-      Y = instance.Y;
-      Width = instance.Width;
-      Height = instance.Height;
+        private MagickRectangle(NativeMagickRectangle instance)
+        {
+            X = instance.X;
+            Y = instance.Y;
+            Width = instance.Width;
+            Height = instance.Height;
+        }
+
+        private NativeMagickRectangle CreateNativeInstance()
+        {
+            NativeMagickRectangle instance = new NativeMagickRectangle();
+            instance.X = X;
+            instance.Y = Y;
+            instance.Width = Width;
+            instance.Height = Height;
+
+            return instance;
+        }
+
+        internal static INativeInstance CreateInstance()
+        {
+            return new NativeMagickRectangle();
+        }
+
+        internal static MagickRectangle CreateInstance(INativeInstance nativeInstance)
+        {
+            NativeMagickRectangle instance = nativeInstance as NativeMagickRectangle;
+            if (instance == null)
+                throw new InvalidOperationException();
+
+            return new MagickRectangle(instance);
+        }
+
+        public MagickRectangle(int x, int y, int width, int height)
+        {
+            X = x;
+            Y = y;
+            Width = width;
+            Height = height;
+        }
+
+        public int Height
+        {
+            get;
+            set;
+        }
+
+        public int Width
+        {
+            get;
+            set;
+        }
+
+        public int X
+        {
+            get;
+            set;
+        }
+
+        public int Y
+        {
+            get;
+            set;
+        }
+
+        public static MagickRectangle FromGeometry(MagickGeometry geometry, MagickImage image)
+        {
+            if (geometry == null)
+                return null;
+
+            int width = geometry.Width;
+            int height = geometry.Height;
+
+            if (geometry.IsPercentage)
+            {
+                width = image.Width * new Percentage(geometry.Width);
+                height = image.Height * new Percentage(geometry.Height);
+            }
+
+            return new MagickRectangle(geometry.X, geometry.Y, width, height);
+        }
     }
-
-    private NativeMagickRectangle CreateNativeInstance()
-    {
-      NativeMagickRectangle instance = new NativeMagickRectangle();
-      instance.X = X;
-      instance.Y = Y;
-      instance.Width = Width;
-      instance.Height = Height;
-
-      return instance;
-    }
-
-    internal static INativeInstance CreateInstance()
-    {
-      return new NativeMagickRectangle();
-    }
-
-    internal static MagickRectangle CreateInstance(INativeInstance nativeInstance)
-    {
-      NativeMagickRectangle instance = nativeInstance as NativeMagickRectangle;
-      if (instance == null)
-        throw new InvalidOperationException();
-
-      return new MagickRectangle(instance);
-    }
-
-    public MagickRectangle(int x, int y, int width, int height)
-    {
-      X = x;
-      Y = y;
-      Width = width;
-      Height = height;
-    }
-
-    public int Height
-    {
-      get;
-      set;
-    }
-
-    public int Width
-    {
-      get;
-      set;
-    }
-
-    public int X
-    {
-      get;
-      set;
-    }
-
-    public int Y
-    {
-      get;
-      set;
-    }
-
-    public static MagickRectangle FromGeometry(MagickGeometry geometry, MagickImage image)
-    {
-      if (geometry == null)
-        return null;
-
-      int width = geometry.Width;
-      int height = geometry.Height;
-
-      if (geometry.IsPercentage)
-      {
-        width = image.Width * new Percentage(geometry.Width);
-        height = image.Height * new Percentage(geometry.Height);
-      }
-
-      return new MagickRectangle(geometry.X, geometry.Y, width, height);
-    }
-  }
 }

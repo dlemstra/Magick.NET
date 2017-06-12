@@ -21,41 +21,41 @@ using System.Xml.Schema;
 
 namespace ImageMagick
 {
-  /// <content>
-  /// Contains code that is not compatible with .NET Core.
-  /// </content>
-  public sealed partial class MagickScript
-  {
-    [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "No harm in doing that here.")]
-    private static XmlReaderSettings CreateXmlReaderSettings()
+    /// <content>
+    /// Contains code that is not compatible with .NET Core.
+    /// </content>
+    public sealed partial class MagickScript
     {
-      XmlReaderSettings settings = new XmlReaderSettings();
+        [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "No harm in doing that here.")]
+        private static XmlReaderSettings CreateXmlReaderSettings()
+        {
+            XmlReaderSettings settings = new XmlReaderSettings();
 
-      settings.ValidationType = ValidationType.Schema;
-      settings.ValidationFlags = XmlSchemaValidationFlags.ReportValidationWarnings;
-      settings.IgnoreComments = true;
-      settings.IgnoreWhitespace = true;
+            settings.ValidationType = ValidationType.Schema;
+            settings.ValidationFlags = XmlSchemaValidationFlags.ReportValidationWarnings;
+            settings.IgnoreComments = true;
+            settings.IgnoreWhitespace = true;
 
 #if Q8
-      string resourcePath = "Magick.NET.Resources.ReleaseQ8";
+            string resourcePath = "Magick.NET.Resources.ReleaseQ8";
 #elif Q16
-      string resourcePath = "Magick.NET.Resources.ReleaseQ16";
+            string resourcePath = "Magick.NET.Resources.ReleaseQ16";
 #elif Q16HDRI
-      string resourcePath = "Magick.NET.Resources.ReleaseQ16_HDRI";
+            string resourcePath = "Magick.NET.Resources.ReleaseQ16_HDRI";
 #else
 #error Not implemented!
 #endif
-      using (Stream resourceStream = TypeHelper.GetManifestResourceStream(typeof(MagickScript), resourcePath, "MagickScript.xsd"))
-      {
-        using (XmlReader xmlReader = XmlReader.Create(resourceStream))
-        {
-          settings.Schemas.Add(string.Empty, xmlReader);
-        }
-      }
+            using (Stream resourceStream = TypeHelper.GetManifestResourceStream(typeof(MagickScript), resourcePath, "MagickScript.xsd"))
+            {
+                using (XmlReader xmlReader = XmlReader.Create(resourceStream))
+                {
+                    settings.Schemas.Add(string.Empty, xmlReader);
+                }
+            }
 
-      return settings;
+            return settings;
+        }
     }
-  }
 }
 
 #endif

@@ -14,11 +14,11 @@
 
 namespace ImageMagick
 {
-  internal static partial class Environment
-  {
-    public static void SetEnv(string name, string value)
+    internal static partial class Environment
     {
-      NativeEnvironment.SetEnv(name, value);
+        public static void SetEnv(string name, string value)
+        {
+            NativeEnvironment.SetEnv(name, value);
+        }
     }
-  }
 }

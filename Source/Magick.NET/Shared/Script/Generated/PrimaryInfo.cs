@@ -33,23 +33,23 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-  public sealed partial class MagickScript
-  {
-    private PrimaryInfo CreatePrimaryInfo(XmlElement element)
+    public sealed partial class MagickScript
     {
-      double x_ = Variables.GetValue<double>(element, "x");
-      double y_ = Variables.GetValue<double>(element, "y");
-      double z_ = Variables.GetValue<double>(element, "z");
-      return new PrimaryInfo(x_, y_, z_);
+        private PrimaryInfo CreatePrimaryInfo(XmlElement element)
+        {
+            double x_ = Variables.GetValue<double>(element, "x");
+            double y_ = Variables.GetValue<double>(element, "y");
+            double z_ = Variables.GetValue<double>(element, "z");
+            return new PrimaryInfo(x_, y_, z_);
+        }
+        private Collection<PrimaryInfo> CreatePrimaryInfos(XmlElement element)
+        {
+            Collection<PrimaryInfo> collection = new Collection<PrimaryInfo>();
+            foreach (XmlElement elem in element.SelectNodes("*"))
+            {
+                collection.Add(CreatePrimaryInfo(elem));
+            }
+            return collection;
+        }
     }
-    private Collection<PrimaryInfo> CreatePrimaryInfos(XmlElement element)
-    {
-      Collection<PrimaryInfo> collection = new Collection<PrimaryInfo>();
-      foreach (XmlElement elem in element.SelectNodes("*"))
-      {
-        collection.Add(CreatePrimaryInfo(elem));
-      }
-      return collection;
-    }
-  }
 }

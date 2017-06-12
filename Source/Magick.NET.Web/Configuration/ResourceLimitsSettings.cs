@@ -16,33 +16,33 @@ using System.Configuration;
 
 namespace ImageMagick.Web
 {
-  /// <summary>
-  /// Class that contains the settings for the resource limits.
-  /// </summary>
-  public class ResourceLimitsSettings : ConfigurationElement
-  {
     /// <summary>
-    /// Gets the maximum height of an image.
+    /// Class that contains the settings for the resource limits.
     /// </summary>
-    [ConfigurationProperty("height")]
-    public int? Height
+    public class ResourceLimitsSettings : ConfigurationElement
     {
-      get
-      {
-        return (int?)this["height"];
-      }
-    }
+        /// <summary>
+        /// Gets the maximum height of an image.
+        /// </summary>
+        [ConfigurationProperty("height")]
+        public int? Height
+        {
+            get
+            {
+                return (int?)this["height"];
+            }
+        }
 
-    /// <summary>
-    /// Gets the maximum width of an image.
-    /// </summary>
-    [ConfigurationProperty("width")]
-    public int? Width
-    {
-      get
-      {
-        return (int?)this["width"];
-      }
+        /// <summary>
+        /// Gets the maximum width of an image.
+        /// </summary>
+        [ConfigurationProperty("width")]
+        public int? Width
+        {
+            get
+            {
+                return (int?)this["width"];
+            }
+        }
     }
-  }
 }

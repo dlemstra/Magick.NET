@@ -16,19 +16,19 @@ using System;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Encapsulation of the ImageMagick CacheError exception.
-  /// </summary>
-  [Serializable]
-  public sealed class MagickCacheErrorException : MagickErrorException
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MagickCacheErrorException"/> class.
+    /// Encapsulation of the ImageMagick CacheError exception.
     /// </summary>
-    /// <param name="message">The error message that explains the reason for the exception.</param>
-    internal MagickCacheErrorException(string message)
-      : base(message)
+    [Serializable]
+    public sealed class MagickCacheErrorException : MagickErrorException
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickCacheErrorException"/> class.
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception.</param>
+        internal MagickCacheErrorException(string message)
+          : base(message)
+        {
+        }
     }
-  }
 }

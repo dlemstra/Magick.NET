@@ -17,29 +17,29 @@ using System.IO;
 
 namespace Magick.NET.Tests
 {
-  [ExcludeFromCodeCoverage]
-  public class TemporaryFile : IDisposable
-  {
-    private FileInfo _TempFile;
-
-    public TemporaryFile(byte[] data)
+    [ExcludeFromCodeCoverage]
+    public class TemporaryFile : IDisposable
     {
-      _TempFile = new FileInfo(Path.GetTempFileName());
-      File.WriteAllBytes(_TempFile.FullName, data);
-    }
+        private FileInfo _TempFile;
 
-    public void Dispose()
-    {
-      if (_TempFile.Exists)
-        _TempFile.Delete();
-    }
+        public TemporaryFile(byte[] data)
+        {
+            _TempFile = new FileInfo(Path.GetTempFileName());
+            File.WriteAllBytes(_TempFile.FullName, data);
+        }
 
-    public FileInfo FileInfo
-    {
-      get
-      {
-        return _TempFile;
-      }
+        public void Dispose()
+        {
+            if (_TempFile.Exists)
+                _TempFile.Delete();
+        }
+
+        public FileInfo FileInfo
+        {
+            get
+            {
+                return _TempFile;
+            }
+        }
     }
-  }
 }

@@ -16,19 +16,19 @@ using System;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Encapsulation of the ImageMagick StreamError exception.
-  /// </summary>
-  [Serializable]
-  public sealed class MagickStreamErrorException : MagickErrorException
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MagickStreamErrorException"/> class.
+    /// Encapsulation of the ImageMagick StreamError exception.
     /// </summary>
-    /// <param name="message">The error message that explains the reason for the exception.</param>
-    internal MagickStreamErrorException(string message)
-      : base(message)
+    [Serializable]
+    public sealed class MagickStreamErrorException : MagickErrorException
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickStreamErrorException"/> class.
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception.</param>
+        internal MagickStreamErrorException(string message)
+          : base(message)
+        {
+        }
     }
-  }
 }

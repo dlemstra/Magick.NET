@@ -20,16 +20,16 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public partial class DrawableBorderColorTests
-  {
-    [TestMethod]
-    public void Test_Constructor_Color()
+    [TestClass]
+    public partial class DrawableBorderColorTests
     {
-      DrawableBorderColor borderColor = new DrawableBorderColor(Color.GreenYellow);
-      ColorAssert.AreEqual(MagickColors.GreenYellow, borderColor.Color);
+        [TestMethod]
+        public void Test_Constructor_Color()
+        {
+            DrawableBorderColor borderColor = new DrawableBorderColor(Color.GreenYellow);
+            ColorAssert.AreEqual(MagickColors.GreenYellow, borderColor.Color);
+        }
     }
-  }
 }
 
 #endif

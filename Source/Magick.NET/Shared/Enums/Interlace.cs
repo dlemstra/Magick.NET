@@ -14,49 +14,49 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Specifies the interlace types.
-  /// </summary>
-  public enum Interlace
-  {
     /// <summary>
-    /// Undefined
+    /// Specifies the interlace types.
     /// </summary>
-    Undefined,
+    public enum Interlace
+    {
+        /// <summary>
+        /// Undefined
+        /// </summary>
+        Undefined,
 
-    /// <summary>
-    /// NoInterlace
-    /// </summary>
-    NoInterlace,
+        /// <summary>
+        /// NoInterlace
+        /// </summary>
+        NoInterlace,
 
-    /// <summary>
-    /// Line
-    /// </summary>
-    Line,
+        /// <summary>
+        /// Line
+        /// </summary>
+        Line,
 
-    /// <summary>
-    /// Plane
-    /// </summary>
-    Plane,
+        /// <summary>
+        /// Plane
+        /// </summary>
+        Plane,
 
-    /// <summary>
-    /// Partition
-    /// </summary>
-    Partition,
+        /// <summary>
+        /// Partition
+        /// </summary>
+        Partition,
 
-    /// <summary>
-    /// Gif
-    /// </summary>
-    Gif,
+        /// <summary>
+        /// Gif
+        /// </summary>
+        Gif,
 
-    /// <summary>
-    /// Jpeg
-    /// </summary>
-    Jpeg,
+        /// <summary>
+        /// Jpeg
+        /// </summary>
+        Jpeg,
 
-    /// <summary>
-    /// Png
-    /// </summary>
-    Png
-  }
+        /// <summary>
+        /// Png
+        /// </summary>
+        Png
+    }
 }

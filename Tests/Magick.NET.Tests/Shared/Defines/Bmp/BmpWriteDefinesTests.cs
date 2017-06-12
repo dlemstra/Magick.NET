@@ -19,57 +19,57 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class BmpWriteDefinesTests
-  {
-    [TestMethod]
-    public void Test_Empty()
+    [TestClass]
+    public class BmpWriteDefinesTests
     {
-      using (IMagickImage image = new MagickImage())
-      {
-        image.Settings.SetDefines(new BmpWriteDefines()
+        [TestMethod]
+        public void Test_Empty()
         {
-        });
+            using (IMagickImage image = new MagickImage())
+            {
+                image.Settings.SetDefines(new BmpWriteDefines()
+                {
+                });
 
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Bmp, "subtype"));
-      }
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Bmp, "subtype"));
+            }
+        }
+
+        [TestMethod]
+        public void Test_SubType()
+        {
+            BmpWriteDefines defines = new BmpWriteDefines()
+            {
+                Subtype = BmpSubtype.RGB555,
+            };
+
+            using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+            {
+                image.Format = MagickFormat.Bmp;
+                image.ColorType = ColorType.TrueColor;
+
+                long length;
+
+                using (MemoryStream memStream = new MemoryStream())
+                {
+                    image.Write(memStream);
+                    length = memStream.Length;
+                }
+
+                using (MemoryStream memStream = new MemoryStream())
+                {
+                    image.Write(memStream);
+                    Assert.AreEqual(length, memStream.Length);
+                }
+
+                image.Settings.SetDefines(defines);
+
+                using (MemoryStream memStream = new MemoryStream())
+                {
+                    image.Write(memStream);
+                    Assert.IsTrue(memStream.Length < length);
+                }
+            }
+        }
     }
-
-    [TestMethod]
-    public void Test_SubType()
-    {
-      BmpWriteDefines defines = new BmpWriteDefines()
-      {
-        Subtype = BmpSubtype.RGB555,
-      };
-
-      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
-      {
-        image.Format = MagickFormat.Bmp;
-        image.ColorType = ColorType.TrueColor;
-
-        long length;
-
-        using (MemoryStream memStream = new MemoryStream())
-        {
-          image.Write(memStream);
-          length = memStream.Length;
-        }
-
-        using (MemoryStream memStream = new MemoryStream())
-        {
-          image.Write(memStream);
-          Assert.AreEqual(length, memStream.Length);
-        }
-
-        image.Settings.SetDefines(defines);
-
-        using (MemoryStream memStream = new MemoryStream())
-        {
-          image.Write(memStream);
-          Assert.IsTrue(memStream.Length < length);
-        }
-      }
-    }
-  }
 }

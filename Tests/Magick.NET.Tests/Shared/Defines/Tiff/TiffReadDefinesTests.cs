@@ -17,51 +17,51 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class TiffReadDefinesTests
-  {
-    [TestMethod]
-    public void Test_Empty()
+    [TestClass]
+    public class TiffReadDefinesTests
     {
-      using (IMagickImage image = new MagickImage())
-      {
-        image.Settings.SetDefines(new TiffReadDefines()
+        [TestMethod]
+        public void Test_Empty()
         {
-        });
+            using (IMagickImage image = new MagickImage())
+            {
+                image.Settings.SetDefines(new TiffReadDefines()
+                {
+                });
 
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Tiff, "exif-properties"));
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Tiff, "ignore-tags"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Tiff, "exif-properties"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Tiff, "ignore-tags"));
 
-        image.Settings.SetDefines(new TiffReadDefines()
-        {
-          IgnoreExifPoperties = false,
-          IgnoreTags = new string[] { }
-        });
+                image.Settings.SetDefines(new TiffReadDefines()
+                {
+                    IgnoreExifPoperties = false,
+                    IgnoreTags = new string[] { }
+                });
 
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Tiff, "exif-properties"));
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Tiff, "ignore-tags"));
-      }
-    }
-
-    [TestMethod]
-    public void Test_IgnoreExifPoperties()
-    {
-      MagickReadSettings settings = new MagickReadSettings()
-      {
-        Defines = new TiffReadDefines()
-        {
-          IgnoreExifPoperties = true
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Tiff, "exif-properties"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Tiff, "ignore-tags"));
+            }
         }
-      };
 
-      using (IMagickImage image = new MagickImage())
-      {
-        image.Read(Files.InvitationTif);
-        Assert.IsNotNull(image.GetAttribute("exif:PixelXDimension"));
+        [TestMethod]
+        public void Test_IgnoreExifPoperties()
+        {
+            MagickReadSettings settings = new MagickReadSettings()
+            {
+                Defines = new TiffReadDefines()
+                {
+                    IgnoreExifPoperties = true
+                }
+            };
 
-        image.Read(Files.InvitationTif, settings);
-        Assert.IsNull(image.GetAttribute("exif:PixelXDimension"));
-      }
+            using (IMagickImage image = new MagickImage())
+            {
+                image.Read(Files.InvitationTif);
+                Assert.IsNotNull(image.GetAttribute("exif:PixelXDimension"));
+
+                image.Read(Files.InvitationTif, settings);
+                Assert.IsNull(image.GetAttribute("exif:PixelXDimension"));
+            }
+        }
     }
-  }
 }

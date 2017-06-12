@@ -16,23 +16,23 @@ using System.IO;
 
 namespace Magick.NET.Tests
 {
-  [ExcludeFromCodeCoverage]
-  internal sealed class PartialStream : TestStream
-  {
-    private bool _FirstReadDone = false;
-
-    public PartialStream(Stream innerStream, bool canSeek)
-      : base(innerStream, canSeek)
+    [ExcludeFromCodeCoverage]
+    internal sealed class PartialStream : TestStream
     {
-    }
+        private bool _FirstReadDone = false;
 
-    public override int Read(byte[] buffer, int offset, int count)
-    {
-      if (_FirstReadDone)
-        return InnerStream.Read(buffer, offset, count);
+        public PartialStream(Stream innerStream, bool canSeek)
+          : base(innerStream, canSeek)
+        {
+        }
 
-      _FirstReadDone = true;
-      return InnerStream.Read(buffer, offset, count / 2);
+        public override int Read(byte[] buffer, int offset, int count)
+        {
+            if (_FirstReadDone)
+                return InnerStream.Read(buffer, offset, count);
+
+            _FirstReadDone = true;
+            return InnerStream.Read(buffer, offset, count / 2);
+        }
     }
-  }
 }

@@ -20,32 +20,32 @@ using System.Web;
 
 namespace Magick.NET.Tests
 {
-  [ExcludeFromCodeCoverage]
-  internal static class HttpRequestExtensions
-  {
-    public static void SetHeaders(this HttpRequest self, params string[] headerValues)
+    [ExcludeFromCodeCoverage]
+    internal static class HttpRequestExtensions
     {
-      var headers = self.Headers;
-      var type = headers.GetType();
+        public static void SetHeaders(this HttpRequest self, params string[] headerValues)
+        {
+            var headers = self.Headers;
+            var type = headers.GetType();
 
-      var flags = BindingFlags.Instance | BindingFlags.NonPublic;
+            var flags = BindingFlags.Instance | BindingFlags.NonPublic;
 
-      var isReadOnly = type.GetProperty("IsReadOnly", flags | BindingFlags.FlattenHierarchy);
-      isReadOnly.SetValue(headers, false, null);
+            var isReadOnly = type.GetProperty("IsReadOnly", flags | BindingFlags.FlattenHierarchy);
+            isReadOnly.SetValue(headers, false, null);
 
-      type.InvokeMember("InvalidateCachedArrays", flags | BindingFlags.InvokeMethod, null, headers, null);
+            type.InvokeMember("InvalidateCachedArrays", flags | BindingFlags.InvokeMethod, null, headers, null);
 
-      type.InvokeMember("BaseClear", flags | BindingFlags.InvokeMethod, null, headers, null);
+            type.InvokeMember("BaseClear", flags | BindingFlags.InvokeMethod, null, headers, null);
 
-      for (int i = 0; i < headerValues.Length - 1; i += 2)
-      {
-        var value = new object[] { headerValues[i], new ArrayList { headerValues[i + 1] } };
-        type.InvokeMember("BaseAdd", flags | BindingFlags.InvokeMethod, null, headers, value);
-      }
+            for (int i = 0; i < headerValues.Length - 1; i += 2)
+            {
+                var value = new object[] { headerValues[i], new ArrayList { headerValues[i + 1] } };
+                type.InvokeMember("BaseAdd", flags | BindingFlags.InvokeMethod, null, headers, value);
+            }
 
-      isReadOnly.SetValue(headers, true, null);
+            isReadOnly.SetValue(headers, true, null);
+        }
     }
-  }
 }
 
 #endif

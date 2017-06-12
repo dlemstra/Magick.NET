@@ -18,16 +18,16 @@ using System.Linq;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class DrawablePathTests
-  {
-    [TestMethod]
-    public void Test_DrawablePath()
+    [TestClass]
+    public class DrawablePathTests
     {
-      DrawablePath path = new DrawablePath();
-      Assert.AreEqual(0, path.Paths.Count());
+        [TestMethod]
+        public void Test_DrawablePath()
+        {
+            DrawablePath path = new DrawablePath();
+            Assert.AreEqual(0, path.Paths.Count());
 
-      ((IDrawingWand)path).Draw(null);
+            ((IDrawingWand)path).Draw(null);
+        }
     }
-  }
 }

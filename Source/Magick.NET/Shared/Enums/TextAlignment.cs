@@ -14,29 +14,29 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Specified the type of decoration for text.
-  /// </summary>
-  public enum TextAlignment
-  {
     /// <summary>
-    /// Undefined
+    /// Specified the type of decoration for text.
     /// </summary>
-    Undefined,
+    public enum TextAlignment
+    {
+        /// <summary>
+        /// Undefined
+        /// </summary>
+        Undefined,
 
-    /// <summary>
-    /// Left
-    /// </summary>
-    Left,
+        /// <summary>
+        /// Left
+        /// </summary>
+        Left,
 
-    /// <summary>
-    /// Center
-    /// </summary>
-    Center,
+        /// <summary>
+        /// Center
+        /// </summary>
+        Center,
 
-    /// <summary>
-    /// Right
-    /// </summary>
-    Right
-  }
+        /// <summary>
+        /// Right
+        /// </summary>
+        Right
+    }
 }

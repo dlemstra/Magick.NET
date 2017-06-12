@@ -16,39 +16,39 @@ using System;
 
 namespace ImageMagick
 {
-  internal static class IMagickImageExtensions
-  {
-    internal static IntPtr GetInstance(this IMagickImage self)
+    internal static class IMagickImageExtensions
     {
-      if (self == null)
-        return IntPtr.Zero;
+        internal static IntPtr GetInstance(this IMagickImage self)
+        {
+            if (self == null)
+                return IntPtr.Zero;
 
-      INativeInstance nativeInstance = self as INativeInstance;
-      if (nativeInstance == null)
-        throw new NotSupportedException();
+            INativeInstance nativeInstance = self as INativeInstance;
+            if (nativeInstance == null)
+                throw new NotSupportedException();
 
-      return nativeInstance.Instance;
+            return nativeInstance.Instance;
+        }
+
+        internal static MagickErrorInfo CreateErrorInfo(this IMagickImage self)
+        {
+            if (self == null)
+                return null;
+
+            MagickImage image = self as MagickImage;
+            if (image == null)
+                throw new NotSupportedException();
+
+            return MagickImage.CreateErrorInfo(image);
+        }
+
+        internal static void SetNext(this IMagickImage self, IMagickImage next)
+        {
+            MagickImage image = self as MagickImage;
+            if (image == null)
+                throw new NotSupportedException();
+
+            image.SetNext(next);
+        }
     }
-
-    internal static MagickErrorInfo CreateErrorInfo(this IMagickImage self)
-    {
-      if (self == null)
-        return null;
-
-      MagickImage image = self as MagickImage;
-      if (image == null)
-        throw new NotSupportedException();
-
-      return MagickImage.CreateErrorInfo(image);
-    }
-
-    internal static void SetNext(this IMagickImage self, IMagickImage next)
-    {
-      MagickImage image = self as MagickImage;
-      if (image == null)
-        throw new NotSupportedException();
-
-      image.SetNext(next);
-    }
-  }
 }

@@ -14,37 +14,37 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Sets the spacing between words in text.
-  /// </summary>
-  public sealed class DrawableTextInterwordSpacing : IDrawable, IDrawingWand
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="DrawableTextInterwordSpacing"/> class.
+    /// Sets the spacing between words in text.
     /// </summary>
-    /// <param name="spacing">Spacing to use.</param>
-    public DrawableTextInterwordSpacing(double spacing)
+    public sealed class DrawableTextInterwordSpacing : IDrawable, IDrawingWand
     {
-      Spacing = spacing;
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrawableTextInterwordSpacing"/> class.
+        /// </summary>
+        /// <param name="spacing">Spacing to use.</param>
+        public DrawableTextInterwordSpacing(double spacing)
+        {
+            Spacing = spacing;
+        }
 
-    /// <summary>
-    /// Gets or sets the spacing to use.
-    /// </summary>
-    public double Spacing
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets the spacing to use.
+        /// </summary>
+        public double Spacing
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// Draws this instance with the drawing wand.
-    /// </summary>
-    /// <param name="wand">The want to draw on.</param>
-    void IDrawingWand.Draw(DrawingWand wand)
-    {
-      if (wand != null)
-        wand.TextInterwordSpacing(Spacing);
+        /// <summary>
+        /// Draws this instance with the drawing wand.
+        /// </summary>
+        /// <param name="wand">The want to draw on.</param>
+        void IDrawingWand.Draw(DrawingWand wand)
+        {
+            if (wand != null)
+                wand.TextInterwordSpacing(Spacing);
+        }
     }
-  }
 }

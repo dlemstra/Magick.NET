@@ -26,33 +26,33 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-  internal static class QuantumConverter
-  {
-    public static QuantumType[] ToArray(IntPtr nativeData, int length)
+    internal static class QuantumConverter
     {
-      if (nativeData == IntPtr.Zero)
-        return null;
+        public static QuantumType[] ToArray(IntPtr nativeData, int length)
+        {
+            if (nativeData == IntPtr.Zero)
+                return null;
 
-      QuantumType[] result = new QuantumType[length];
+            QuantumType[] result = new QuantumType[length];
 
-      unsafe
-      {
+            unsafe
+            {
 #if Q8
-        byte* sourcePtr = (byte*)nativeData;
+                byte* sourcePtr = (byte*)nativeData;
 #elif Q16
-        ushort* sourcePtr = (ushort*)nativeData;
+                ushort* sourcePtr = (ushort*)nativeData;
 #elif Q16HDRI
-        float* sourcePtr = (float*)nativeData;
+                float* sourcePtr = (float*)nativeData;
 #else
 #error Not implemented!
 #endif
-        for (int i = 0; i < length; ++i)
-        {
-          result[i] = *sourcePtr++;
-        }
-      }
+                for (int i = 0; i < length; ++i)
+                {
+                    result[i] = *sourcePtr++;
+                }
+            }
 
-      return result;
+            return result;
+        }
     }
-  }
 }

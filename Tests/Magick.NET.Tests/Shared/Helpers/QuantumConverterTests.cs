@@ -28,14 +28,14 @@ using QuantumType = System.Single;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class QuantumConverterTests
-  {
-    [TestMethod]
-    public void Test_ToArray()
+    [TestClass]
+    public class QuantumConverterTests
     {
-      QuantumType[] value = QuantumConverter.ToArray(IntPtr.Zero, 4);
-      Assert.AreEqual(null, value);
+        [TestMethod]
+        public void Test_ToArray()
+        {
+            QuantumType[] value = QuantumConverter.ToArray(IntPtr.Zero, 4);
+            Assert.AreEqual(null, value);
+        }
     }
-  }
 }

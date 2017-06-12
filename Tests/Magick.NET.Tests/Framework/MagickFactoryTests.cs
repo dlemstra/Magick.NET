@@ -20,23 +20,23 @@ using System.Drawing;
 
 namespace Magick.NET.Tests
 {
-  public partial class MagickFactoryTests
-  {
-    [TestMethod]
-    public void CreateImage_WithBitmap_ReturnsMagickImage()
+    public partial class MagickFactoryTests
     {
-      using (Bitmap bitmap = new Bitmap(Files.SnakewarePNG))
-      {
-        MagickFactory factory = new MagickFactory();
-        using (IMagickImage image = factory.CreateImage(bitmap))
+        [TestMethod]
+        public void CreateImage_WithBitmap_ReturnsMagickImage()
         {
-          Assert.AreEqual(286, image.Width);
-          Assert.AreEqual(67, image.Height);
-          Assert.AreEqual(MagickFormat.Png, image.Format);
+            using (Bitmap bitmap = new Bitmap(Files.SnakewarePNG))
+            {
+                MagickFactory factory = new MagickFactory();
+                using (IMagickImage image = factory.CreateImage(bitmap))
+                {
+                    Assert.AreEqual(286, image.Width);
+                    Assert.AreEqual(67, image.Height);
+                    Assert.AreEqual(MagickFormat.Png, image.Format);
+                }
+            }
         }
-      }
     }
-  }
 }
 
 #endif

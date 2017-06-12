@@ -14,24 +14,24 @@
 
 namespace ImageMagick.Defines
 {
-  /// <summary>
-  /// Specifies tiff alpha options.
-  /// </summary>
-  public enum TiffAlpha
-  {
     /// <summary>
-    /// Unspecified
+    /// Specifies tiff alpha options.
     /// </summary>
-    Unspecified,
+    public enum TiffAlpha
+    {
+        /// <summary>
+        /// Unspecified
+        /// </summary>
+        Unspecified,
 
-    /// <summary>
-    /// Associated
-    /// </summary>
-    Associated,
+        /// <summary>
+        /// Associated
+        /// </summary>
+        Associated,
 
-    /// <summary>
-    /// Unassociated
-    /// </summary>
-    Unassociated
-  }
+        /// <summary>
+        /// Unassociated
+        /// </summary>
+        Unassociated
+    }
 }

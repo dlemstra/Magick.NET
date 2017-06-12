@@ -26,86 +26,86 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Class that can be used to acquire information about the Quantum.
-  /// </summary>
-  public static partial class Quantum
-  {
-    internal static QuantumType Convert(byte value)
+    /// <summary>
+    /// Class that can be used to acquire information about the Quantum.
+    /// </summary>
+    public static partial class Quantum
     {
+        internal static QuantumType Convert(byte value)
+        {
 #if Q16 || Q16HDRI
-      return (QuantumType)(257UL * value);
+            return (QuantumType)(257UL * value);
 #else
-      return value;
+            return value;
 #endif
-    }
+        }
 
-    internal static QuantumType Convert(double value)
-    {
-      if (value < 0)
-        return 0;
-      if (value > Max)
-        return Max;
+        internal static QuantumType Convert(double value)
+        {
+            if (value < 0)
+                return 0;
+            if (value > Max)
+                return Max;
 
-      return (QuantumType)value;
-    }
+            return (QuantumType)value;
+        }
 
-    internal static QuantumType Convert(int value)
-    {
-      if (value < 0)
-        return 0;
-      if (value > Max)
-        return Max;
+        internal static QuantumType Convert(int value)
+        {
+            if (value < 0)
+                return 0;
+            if (value > Max)
+                return Max;
 
-      return (QuantumType)value;
-    }
+            return (QuantumType)value;
+        }
 
 #if !Q16
-    internal static QuantumType Convert(ushort value)
-    {
+        internal static QuantumType Convert(ushort value)
+        {
 #if Q8
-      return (QuantumType)((value + 128U) / 257U);
+            return (QuantumType)((value + 128U) / 257U);
 #elif Q16HDRI
-      return (QuantumType)value;
+            return (QuantumType)value;
 #endif
-    }
+        }
 #endif
 
-    internal static QuantumType ScaleToQuantum(double value)
-    {
-      return (QuantumType)Math.Min(Math.Max(0, value * Max), Max);
-    }
+        internal static QuantumType ScaleToQuantum(double value)
+        {
+            return (QuantumType)Math.Min(Math.Max(0, value * Max), Max);
+        }
 
-    internal static byte ScaleToByte(QuantumType value)
-    {
-      return NativeQuantum.ScaleToByte(value);
-    }
+        internal static byte ScaleToByte(QuantumType value)
+        {
+            return NativeQuantum.ScaleToByte(value);
+        }
 
-    internal static double ScaleToDouble(QuantumType value)
-    {
-      return (1.0 / Max) * value;
-    }
+        internal static double ScaleToDouble(QuantumType value)
+        {
+            return (1.0 / Max) * value;
+        }
 
-    /// <summary>
-    /// Gets the Quantum depth.
-    /// </summary>
-    public static int Depth
-    {
-      get
-      {
-        return NativeQuantum.Depth;
-      }
-    }
+        /// <summary>
+        /// Gets the Quantum depth.
+        /// </summary>
+        public static int Depth
+        {
+            get
+            {
+                return NativeQuantum.Depth;
+            }
+        }
 
-    /// <summary>
-    /// Gets the maximum value of the quantum.
-    /// </summary>
-    public static QuantumType Max
-    {
-      get
-      {
-        return NativeQuantum.Max;
-      }
+        /// <summary>
+        /// Gets the maximum value of the quantum.
+        /// </summary>
+        public static QuantumType Max
+        {
+            get
+            {
+                return NativeQuantum.Max;
+            }
+        }
     }
-  }
 }

@@ -18,60 +18,60 @@ using System.Collections;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class PathsTests
-  {
-    [TestMethod]
-    public void Test_Draw_Drawables()
+    [TestClass]
+    public class PathsTests
     {
-      using (IMagickImage image = new MagickImage(MagickColors.Green, 100, 10))
-      {
-        image.Draw(new Drawables()
-          .StrokeColor(MagickColors.Red)
-          .StrokeWidth(5)
-          .Paths()
-          .LineToRel(10, 2)
-          .LineToRel(80, 4));
+        [TestMethod]
+        public void Test_Draw_Drawables()
+        {
+            using (IMagickImage image = new MagickImage(MagickColors.Green, 100, 10))
+            {
+                image.Draw(new Drawables()
+                  .StrokeColor(MagickColors.Red)
+                  .StrokeWidth(5)
+                  .Paths()
+                  .LineToRel(10, 2)
+                  .LineToRel(80, 4));
 
-        ColorAssert.AreEqual(MagickColors.Green, image, 9, 5);
-        ColorAssert.AreEqual(MagickColors.Red, image, 55, 5);
-        ColorAssert.AreEqual(MagickColors.Green, image, 90, 2);
-        ColorAssert.AreEqual(MagickColors.Green, image, 90, 9);
-      }
+                ColorAssert.AreEqual(MagickColors.Green, image, 9, 5);
+                ColorAssert.AreEqual(MagickColors.Red, image, 55, 5);
+                ColorAssert.AreEqual(MagickColors.Green, image, 90, 2);
+                ColorAssert.AreEqual(MagickColors.Green, image, 90, 9);
+            }
+        }
+
+        [TestMethod]
+        public void Test_Draw_Paths()
+        {
+            using (IMagickImage image = new MagickImage(MagickColors.Fuchsia, 100, 3))
+            {
+                image.Draw(new Paths()
+                  .LineToAbs(10, 1)
+                  .LineToAbs(90, 1));
+
+                ColorAssert.AreEqual(MagickColors.Fuchsia, image, 9, 1);
+
+                ColorAssert.AreEqual(MagickColors.Fuchsia, image, 10, 0);
+                ColorAssert.AreEqual(MagickColors.Black, image, 10, 1);
+                ColorAssert.AreEqual(MagickColors.Fuchsia, image, 10, 2);
+
+                ColorAssert.AreEqual(MagickColors.Fuchsia, image, 90, 0);
+                ColorAssert.AreEqual(MagickColors.Black, image, 90, 1);
+                ColorAssert.AreEqual(MagickColors.Fuchsia, image, 90, 2);
+            }
+        }
+
+        [TestMethod]
+        public void Test_Paths()
+        {
+            Paths paths = null;
+
+            Drawables drawables = paths;
+            Assert.IsNull(paths);
+
+            paths = new Paths();
+            IEnumerator enumerator = ((IEnumerable)paths).GetEnumerator();
+            Assert.IsFalse(enumerator.MoveNext());
+        }
     }
-
-    [TestMethod]
-    public void Test_Draw_Paths()
-    {
-      using (IMagickImage image = new MagickImage(MagickColors.Fuchsia, 100, 3))
-      {
-        image.Draw(new Paths()
-          .LineToAbs(10, 1)
-          .LineToAbs(90, 1));
-
-        ColorAssert.AreEqual(MagickColors.Fuchsia, image, 9, 1);
-
-        ColorAssert.AreEqual(MagickColors.Fuchsia, image, 10, 0);
-        ColorAssert.AreEqual(MagickColors.Black, image, 10, 1);
-        ColorAssert.AreEqual(MagickColors.Fuchsia, image, 10, 2);
-
-        ColorAssert.AreEqual(MagickColors.Fuchsia, image, 90, 0);
-        ColorAssert.AreEqual(MagickColors.Black, image, 90, 1);
-        ColorAssert.AreEqual(MagickColors.Fuchsia, image, 90, 2);
-      }
-    }
-
-    [TestMethod]
-    public void Test_Paths()
-    {
-      Paths paths = null;
-
-      Drawables drawables = paths;
-      Assert.IsNull(paths);
-
-      paths = new Paths();
-      IEnumerator enumerator = ((IEnumerable)paths).GetEnumerator();
-      Assert.IsFalse(enumerator.MoveNext());
-    }
-  }
 }

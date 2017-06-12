@@ -16,42 +16,42 @@ using System;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// EventArgs for Progress events.
-  /// </summary>
-  public sealed class ProgressEventArgs : EventArgs
-  {
-    internal ProgressEventArgs(string origin, int offset, int extent)
-    {
-      Origin = origin;
-      Progress = new Percentage(((offset + 1) / (double)extent) * 100);
-    }
-
     /// <summary>
-    /// Gets the originator of this event.
+    /// EventArgs for Progress events.
     /// </summary>
-    public string Origin
+    public sealed class ProgressEventArgs : EventArgs
     {
-      get;
-      private set;
-    }
+        internal ProgressEventArgs(string origin, int offset, int extent)
+        {
+            Origin = origin;
+            Progress = new Percentage(((offset + 1) / (double)extent) * 100);
+        }
 
-    /// <summary>
-    /// Gets the rogress percentage.
-    /// </summary>
-    public Percentage Progress
-    {
-      get;
-      private set;
-    }
+        /// <summary>
+        /// Gets the originator of this event.
+        /// </summary>
+        public string Origin
+        {
+            get;
+            private set;
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether the current operation will be canceled.
-    /// </summary>
-    public bool Cancel
-    {
-      get;
-      set;
+        /// <summary>
+        /// Gets the rogress percentage.
+        /// </summary>
+        public Percentage Progress
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the current operation will be canceled.
+        /// </summary>
+        public bool Cancel
+        {
+            get;
+            set;
+        }
     }
-  }
 }

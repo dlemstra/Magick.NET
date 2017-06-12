@@ -14,24 +14,24 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Units of image resolution.
-  /// </summary>
-  public enum DensityUnit
-  {
     /// <summary>
-    /// Undefied
+    /// Units of image resolution.
     /// </summary>
-    Undefined,
+    public enum DensityUnit
+    {
+        /// <summary>
+        /// Undefied
+        /// </summary>
+        Undefined,
 
-    /// <summary>
-    /// Pixels per inch
-    /// </summary>
-    PixelsPerInch,
+        /// <summary>
+        /// Pixels per inch
+        /// </summary>
+        PixelsPerInch,
 
-    /// <summary>
-    /// Pixels per centimeter
-    /// </summary>
-    PixelsPerCentimeter
-  }
+        /// <summary>
+        /// Pixels per centimeter
+        /// </summary>
+        PixelsPerCentimeter
+    }
 }

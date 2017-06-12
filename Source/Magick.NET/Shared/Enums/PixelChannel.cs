@@ -16,65 +16,65 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Specifies the pixel channels.
-  /// </summary>
-  [SuppressMessage("Microsoft.Design", "CA1027:MarkEnumsWithFlags", Justification = "Flags won't work in this situation.")]
-  public enum PixelChannel
-  {
     /// <summary>
-    /// Red
+    /// Specifies the pixel channels.
     /// </summary>
-    Red = 0,
+    [SuppressMessage("Microsoft.Design", "CA1027:MarkEnumsWithFlags", Justification = "Flags won't work in this situation.")]
+    public enum PixelChannel
+    {
+        /// <summary>
+        /// Red
+        /// </summary>
+        Red = 0,
 
-    /// <summary>
-    /// Cyan
-    /// </summary>
-    Cyan = 0,
+        /// <summary>
+        /// Cyan
+        /// </summary>
+        Cyan = 0,
 
-    /// <summary>
-    /// Gray
-    /// </summary>
-    Gray = 0,
+        /// <summary>
+        /// Gray
+        /// </summary>
+        Gray = 0,
 
-    /// <summary>
-    /// Green
-    /// </summary>
-    Green = 1,
+        /// <summary>
+        /// Green
+        /// </summary>
+        Green = 1,
 
-    /// <summary>
-    /// Magenta
-    /// </summary>
-    Magenta = 1,
+        /// <summary>
+        /// Magenta
+        /// </summary>
+        Magenta = 1,
 
-    /// <summary>
-    /// Blue
-    /// </summary>
-    Blue = 2,
+        /// <summary>
+        /// Blue
+        /// </summary>
+        Blue = 2,
 
-    /// <summary>
-    /// Yellow
-    /// </summary>
-    Yellow = 2,
+        /// <summary>
+        /// Yellow
+        /// </summary>
+        Yellow = 2,
 
-    /// <summary>
-    /// Black
-    /// </summary>
-    Black = 3,
+        /// <summary>
+        /// Black
+        /// </summary>
+        Black = 3,
 
-    /// <summary>
-    /// Alpha
-    /// </summary>
-    Alpha = 4,
+        /// <summary>
+        /// Alpha
+        /// </summary>
+        Alpha = 4,
 
-    /// <summary>
-    /// Index
-    /// </summary>
-    Index = 5,
+        /// <summary>
+        /// Index
+        /// </summary>
+        Index = 5,
 
-    /// <summary>
-    /// Composite
-    /// </summary>
-    Composite = 32
-  }
+        /// <summary>
+        /// Composite
+        /// </summary>
+        Composite = 32
+    }
 }

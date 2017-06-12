@@ -17,46 +17,46 @@ using System.IO;
 
 namespace ImageMagick.Web
 {
-  internal sealed class StreamImageData : IImageData
-  {
-    private readonly IStreamUrlResolver _Resolver;
-
-    public StreamImageData(IStreamUrlResolver resolver, MagickFormatInfo formatInfo)
+    internal sealed class StreamImageData : IImageData
     {
-      _Resolver = resolver;
-      FormatInfo = formatInfo;
-    }
+        private readonly IStreamUrlResolver _Resolver;
 
-    public MagickFormatInfo FormatInfo { get; }
-
-    public string ImageId => _Resolver.ImageId;
-
-    public bool IsValid => !string.IsNullOrEmpty(_Resolver.ImageId);
-
-    public DateTime ModifiedTimeUtc => _Resolver.ModifiedTimeUtc;
-
-    public Stream ReadImage()
-    {
-      return _Resolver.OpenStream();
-    }
-
-    public MagickImage ReadImage(MagickReadSettings settings)
-    {
-      using (Stream stream = _Resolver.OpenStream())
-      {
-        return new MagickImage(stream, settings);
-      }
-    }
-
-    public void SaveImage(string fileName)
-    {
-      using (FileStream output = File.OpenWrite(fileName))
-      {
-        using (Stream input = _Resolver.OpenStream())
+        public StreamImageData(IStreamUrlResolver resolver, MagickFormatInfo formatInfo)
         {
-          input.CopyTo(output);
+            _Resolver = resolver;
+            FormatInfo = formatInfo;
         }
-      }
+
+        public MagickFormatInfo FormatInfo { get; }
+
+        public string ImageId => _Resolver.ImageId;
+
+        public bool IsValid => !string.IsNullOrEmpty(_Resolver.ImageId);
+
+        public DateTime ModifiedTimeUtc => _Resolver.ModifiedTimeUtc;
+
+        public Stream ReadImage()
+        {
+            return _Resolver.OpenStream();
+        }
+
+        public MagickImage ReadImage(MagickReadSettings settings)
+        {
+            using (Stream stream = _Resolver.OpenStream())
+            {
+                return new MagickImage(stream, settings);
+            }
+        }
+
+        public void SaveImage(string fileName)
+        {
+            using (FileStream output = File.OpenWrite(fileName))
+            {
+                using (Stream input = _Resolver.OpenStream())
+                {
+                    input.CopyTo(output);
+                }
+            }
+        }
     }
-  }
 }

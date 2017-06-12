@@ -18,20 +18,20 @@ using System.Xml;
 
 namespace ImageMagick
 {
-  /// <content>
-  /// Contains code that is not compatible with .NET Framework.
-  /// </content>
-  public sealed partial class MagickScript
-  {
-    private static XmlReaderSettings CreateXmlReaderSettings()
+    /// <content>
+    /// Contains code that is not compatible with .NET Framework.
+    /// </content>
+    public sealed partial class MagickScript
     {
-      XmlReaderSettings settings = new XmlReaderSettings();
-      settings.IgnoreComments = true;
-      settings.IgnoreWhitespace = true;
+        private static XmlReaderSettings CreateXmlReaderSettings()
+        {
+            XmlReaderSettings settings = new XmlReaderSettings();
+            settings.IgnoreComments = true;
+            settings.IgnoreWhitespace = true;
 
-      return settings;
+            return settings;
+        }
     }
-  }
 }
 
 #endif

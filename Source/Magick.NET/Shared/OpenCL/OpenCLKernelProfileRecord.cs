@@ -16,88 +16,88 @@ using System;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Represents a kernel profile record for an OpenCL device.
-  /// </summary>
-  public sealed partial class OpenCLKernelProfileRecord
-  {
-    private OpenCLKernelProfileRecord(NativeOpenCLKernelProfileRecord instance)
-    {
-      Name = instance.Name;
-      Count = instance.Count;
-      MaximumDuration = instance.MaximumDuration;
-      MinimumDuration = instance.MinimumDuration;
-      TotalDuration = instance.TotalDuration;
-    }
-
-    internal static OpenCLKernelProfileRecord CreateInstance(IntPtr instance)
-    {
-      if (instance == IntPtr.Zero)
-        return null;
-
-      NativeOpenCLKernelProfileRecord nativeInstance = new NativeOpenCLKernelProfileRecord();
-      nativeInstance.Instance = instance;
-
-      return new OpenCLKernelProfileRecord(nativeInstance);
-    }
-
     /// <summary>
-    /// Gets the average duration of all executions in microseconds.
+    /// Represents a kernel profile record for an OpenCL device.
     /// </summary>
-    public long AverageDuration
+    public sealed partial class OpenCLKernelProfileRecord
     {
-      get
-      {
-        if (Count == 0)
-          return 0;
+        private OpenCLKernelProfileRecord(NativeOpenCLKernelProfileRecord instance)
+        {
+            Name = instance.Name;
+            Count = instance.Count;
+            MaximumDuration = instance.MaximumDuration;
+            MinimumDuration = instance.MinimumDuration;
+            TotalDuration = instance.TotalDuration;
+        }
 
-        return TotalDuration / Count;
-      }
-    }
+        internal static OpenCLKernelProfileRecord CreateInstance(IntPtr instance)
+        {
+            if (instance == IntPtr.Zero)
+                return null;
 
-    /// <summary>
-    /// Gets the number of times that this kernel was executed.
-    /// </summary>
-    public long Count
-    {
-      get;
-      private set;
-    }
+            NativeOpenCLKernelProfileRecord nativeInstance = new NativeOpenCLKernelProfileRecord();
+            nativeInstance.Instance = instance;
 
-    /// <summary>
-    /// Gets the maximum duration of a single execution in microseconds.
-    /// </summary>
-    public long MaximumDuration
-    {
-      get;
-      private set;
-    }
+            return new OpenCLKernelProfileRecord(nativeInstance);
+        }
 
-    /// <summary>
-    /// Gets the minimum duration of a single execution in microseconds.
-    /// </summary>
-    public long MinimumDuration
-    {
-      get;
-      private set;
-    }
+        /// <summary>
+        /// Gets the average duration of all executions in microseconds.
+        /// </summary>
+        public long AverageDuration
+        {
+            get
+            {
+                if (Count == 0)
+                    return 0;
 
-    /// <summary>
-    /// Gets the name of the device.
-    /// </summary>
-    public string Name
-    {
-      get;
-      private set;
-    }
+                return TotalDuration / Count;
+            }
+        }
 
-    /// <summary>
-    /// Gets the total duration of all executions in microseconds.
-    /// </summary>
-    public long TotalDuration
-    {
-      get;
-      private set;
+        /// <summary>
+        /// Gets the number of times that this kernel was executed.
+        /// </summary>
+        public long Count
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the maximum duration of a single execution in microseconds.
+        /// </summary>
+        public long MaximumDuration
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the minimum duration of a single execution in microseconds.
+        /// </summary>
+        public long MinimumDuration
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the name of the device.
+        /// </summary>
+        public string Name
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the total duration of all executions in microseconds.
+        /// </summary>
+        public long TotalDuration
+        {
+            get;
+            private set;
+        }
     }
-  }
 }

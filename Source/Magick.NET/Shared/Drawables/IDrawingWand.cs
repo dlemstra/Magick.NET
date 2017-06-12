@@ -14,15 +14,15 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Interface for drawing on an wand.
-  /// </summary>
-  internal interface IDrawingWand
-  {
     /// <summary>
-    /// Draws this instance with the drawing wand.
+    /// Interface for drawing on an wand.
     /// </summary>
-    /// <param name="wand">The wand to draw on.</param>
-    void Draw(DrawingWand wand);
-  }
+    internal interface IDrawingWand
+    {
+        /// <summary>
+        /// Draws this instance with the drawing wand.
+        /// </summary>
+        /// <param name="wand">The wand to draw on.</param>
+        void Draw(DrawingWand wand);
+    }
 }

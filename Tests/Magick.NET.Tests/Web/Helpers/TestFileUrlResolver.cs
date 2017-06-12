@@ -21,53 +21,53 @@ using System.Xml.XPath;
 
 namespace Magick.NET.Tests
 {
-  [ExcludeFromCodeCoverage]
-  public sealed class TestFileUrlResolver : IFileUrlResolver, IScriptData
-  {
-    public static TestFileUrlResolverResult Result;
-    public static TestScriptData ScriptResult;
-
-    public string FileName
+    [ExcludeFromCodeCoverage]
+    public sealed class TestFileUrlResolver : IFileUrlResolver, IScriptData
     {
-      get;
-      set;
+        public static TestFileUrlResolverResult Result;
+        public static TestScriptData ScriptResult;
+
+        public string FileName
+        {
+            get;
+            set;
+        }
+
+        public MagickFormat Format
+        {
+            get;
+            set;
+        }
+
+        public MagickFormat OutputFormat
+        {
+            get;
+            set;
+        }
+
+        public IXPathNavigable Script
+        {
+            get;
+            set;
+        }
+
+        public bool Resolve(Uri url)
+        {
+            if (Result == null)
+                return false;
+
+            FileName = Result.FileName;
+            Format = Result.Format;
+
+            if (ScriptResult != null)
+            {
+                OutputFormat = ScriptResult.OutputFormat;
+                Script = ScriptResult.Script;
+            }
+
+            return true;
+        }
     }
-
-    public MagickFormat Format
-    {
-      get;
-      set;
-    }
-
-    public MagickFormat OutputFormat
-    {
-      get;
-      set;
-    }
-
-    public IXPathNavigable Script
-    {
-      get;
-      set;
-    }
-
-    public bool Resolve(Uri url)
-    {
-      if (Result == null)
-        return false;
-
-      FileName = Result.FileName;
-      Format = Result.Format;
-
-      if (ScriptResult != null)
-      {
-        OutputFormat = ScriptResult.OutputFormat;
-        Script = ScriptResult.Script;
-      }
-
-      return true;
-    }
-  }
 }
 
 

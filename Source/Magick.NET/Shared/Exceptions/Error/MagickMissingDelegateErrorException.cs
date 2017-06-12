@@ -16,19 +16,19 @@ using System;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Encapsulation of the ImageMagick MissingDelegateError exception.
-  /// </summary>
-  [Serializable]
-  public sealed class MagickMissingDelegateErrorException : MagickErrorException
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MagickMissingDelegateErrorException"/> class.
+    /// Encapsulation of the ImageMagick MissingDelegateError exception.
     /// </summary>
-    /// <param name="message">The error message that explains the reason for the exception.</param>
-    internal MagickMissingDelegateErrorException(string message)
-      : base(message)
+    [Serializable]
+    public sealed class MagickMissingDelegateErrorException : MagickErrorException
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickMissingDelegateErrorException"/> class.
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception.</param>
+        internal MagickMissingDelegateErrorException(string message)
+          : base(message)
+        {
+        }
     }
-  }
 }

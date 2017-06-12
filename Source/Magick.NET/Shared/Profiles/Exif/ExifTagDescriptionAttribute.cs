@@ -16,40 +16,40 @@ using System;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Class that provides a description for an ExifTag value.
-  /// </summary>
-  [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
-  internal sealed class ExifTagDescriptionAttribute : Attribute
-  {
-    private object _value;
-    private string _description;
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="ExifTagDescriptionAttribute"/> class.
+    /// Class that provides a description for an ExifTag value.
     /// </summary>
-    /// <param name="value">The value of the exif tag.</param>
-    /// <param name="description">The description for the value of the exif tag.</param>
-    public ExifTagDescriptionAttribute(object value, string description)
+    [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
+    internal sealed class ExifTagDescriptionAttribute : Attribute
     {
-      _value = value;
-      _description = description;
+        private object _value;
+        private string _description;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExifTagDescriptionAttribute"/> class.
+        /// </summary>
+        /// <param name="value">The value of the exif tag.</param>
+        /// <param name="description">The description for the value of the exif tag.</param>
+        public ExifTagDescriptionAttribute(object value, string description)
+        {
+            _value = value;
+            _description = description;
+        }
+
+        public static string GetDescription(ExifTag tag, object value)
+        {
+            ExifTagDescriptionAttribute[] attributes = TypeHelper.GetCustomAttributes<ExifTagDescriptionAttribute>(tag);
+
+            if (attributes == null || attributes.Length == 0)
+                return null;
+
+            foreach (ExifTagDescriptionAttribute attribute in attributes)
+            {
+                if (Equals(attribute._value, value))
+                    return attribute._description;
+            }
+
+            return null;
+        }
     }
-
-    public static string GetDescription(ExifTag tag, object value)
-    {
-      ExifTagDescriptionAttribute[] attributes = TypeHelper.GetCustomAttributes<ExifTagDescriptionAttribute>(tag);
-
-      if (attributes == null || attributes.Length == 0)
-        return null;
-
-      foreach (ExifTagDescriptionAttribute attribute in attributes)
-      {
-        if (Equals(attribute._value, value))
-          return attribute._description;
-      }
-
-      return null;
-    }
-  }
 }

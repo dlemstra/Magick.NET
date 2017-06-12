@@ -17,53 +17,53 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class RgbTests
-  {
-    [TestMethod]
-    public void Test_Read_Bytes()
+    [TestClass]
+    public class RgbTests
     {
+        [TestMethod]
+        public void Test_Read_Bytes()
+        {
 #if Q8
-      var bytes = new byte[] { 1, 2, 3, 4 };
+            var bytes = new byte[] { 1, 2, 3, 4 };
 #elif Q16 || Q16HDRI
-      var bytes = new byte[] { 1, 0, 2, 0, 3, 0, 4, 0 };
+            var bytes = new byte[] { 1, 0, 2, 0, 3, 0, 4, 0 };
 #else
 #error Not implemented!
 #endif
 
-      MagickReadSettings settings = new MagickReadSettings()
-      {
-        Width = 1,
-        Height = 1
-      };
+            MagickReadSettings settings = new MagickReadSettings()
+            {
+                Width = 1,
+                Height = 1
+            };
 
-      settings.Format = MagickFormat.Rgba;
-      using (IMagickImage image = new MagickImage(bytes, settings))
-      {
-        using (PixelCollection pixels = image.GetPixels())
-        {
-          Pixel pixel = pixels.GetPixel(0, 0);
-          Assert.AreEqual(4, pixel.Channels);
-          Assert.AreEqual(1, pixel.GetChannel(0));
-          Assert.AreEqual(2, pixel.GetChannel(1));
-          Assert.AreEqual(3, pixel.GetChannel(2));
-          Assert.AreEqual(4, pixel.GetChannel(3));
-        }
-      }
+            settings.Format = MagickFormat.Rgba;
+            using (IMagickImage image = new MagickImage(bytes, settings))
+            {
+                using (PixelCollection pixels = image.GetPixels())
+                {
+                    Pixel pixel = pixels.GetPixel(0, 0);
+                    Assert.AreEqual(4, pixel.Channels);
+                    Assert.AreEqual(1, pixel.GetChannel(0));
+                    Assert.AreEqual(2, pixel.GetChannel(1));
+                    Assert.AreEqual(3, pixel.GetChannel(2));
+                    Assert.AreEqual(4, pixel.GetChannel(3));
+                }
+            }
 
-      settings.Format = MagickFormat.Rgbo;
-      using (IMagickImage image = new MagickImage(bytes, settings))
-      {
-        using (PixelCollection pixels = image.GetPixels())
-        {
-          Pixel pixel = pixels.GetPixel(0, 0);
-          Assert.AreEqual(4, pixel.Channels);
-          Assert.AreEqual(1, pixel.GetChannel(0));
-          Assert.AreEqual(2, pixel.GetChannel(1));
-          Assert.AreEqual(3, pixel.GetChannel(2));
-          Assert.AreEqual(Quantum.Max - 4, pixel.GetChannel(3));
+            settings.Format = MagickFormat.Rgbo;
+            using (IMagickImage image = new MagickImage(bytes, settings))
+            {
+                using (PixelCollection pixels = image.GetPixels())
+                {
+                    Pixel pixel = pixels.GetPixel(0, 0);
+                    Assert.AreEqual(4, pixel.Channels);
+                    Assert.AreEqual(1, pixel.GetChannel(0));
+                    Assert.AreEqual(2, pixel.GetChannel(1));
+                    Assert.AreEqual(3, pixel.GetChannel(2));
+                    Assert.AreEqual(Quantum.Max - 4, pixel.GetChannel(3));
+                }
+            }
         }
-      }
     }
-  }
 }

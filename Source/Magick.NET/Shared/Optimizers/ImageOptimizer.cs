@@ -18,167 +18,167 @@ using ImageMagick.ImageOptimizers;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Class that can be used to optimize an image.
-  /// </summary>
-  public sealed class ImageOptimizer
-  {
-    private Collection<IImageOptimizer> _Optimizers = CreateImageOptimizers();
-
-    private static Collection<IImageOptimizer> CreateImageOptimizers()
-    {
-      Collection<IImageOptimizer> optimizers = new Collection<IImageOptimizer>();
-      optimizers.Add(new JpegOptimizer());
-      optimizers.Add(new PngOptimizer());
-      optimizers.Add(new GifOptimizer());
-      return optimizers;
-    }
-
-    private void DoLosslessCompress(FileInfo file)
-    {
-      IImageOptimizer optimizer = GetOptimizer(file);
-      if (optimizer == null)
-        return;
-
-      optimizer.OptimalCompression = OptimalCompression;
-      optimizer.LosslessCompress(file);
-    }
-
-    private void DoCompress(FileInfo file)
-    {
-      IImageOptimizer optimizer = GetOptimizer(file);
-      if (optimizer == null)
-        return;
-
-      optimizer.OptimalCompression = OptimalCompression;
-      optimizer.Compress(file);
-    }
-
-    private static MagickFormatInfo GetFormatInformation(FileInfo file)
-    {
-      MagickFormatInfo info = MagickNET.GetFormatInformation(file);
-      if (info != null)
-        return info;
-
-      MagickImageInfo imageInfo = new MagickImageInfo(file);
-      return MagickNET.GetFormatInformation(imageInfo.Format);
-    }
-
-    private IImageOptimizer GetOptimizer(FileInfo file)
-    {
-      MagickFormatInfo info = GetFormatInformation(file);
-      if (info == null)
-        return null;
-
-      foreach (IImageOptimizer optimizer in _Optimizers)
-      {
-        if (optimizer.Format.Module == info.Module)
-          return optimizer;
-      }
-
-      return null;
-    }
-
     /// <summary>
-    /// Gets or sets a value indicating whether various compression types will be used to find
-    /// the smallest file. This process will take extra time because the file has to be written
-    /// multiple times.
+    /// Class that can be used to optimize an image.
     /// </summary>
-    public bool OptimalCompression
+    public sealed class ImageOptimizer
     {
-      get;
-      set;
+        private Collection<IImageOptimizer> _Optimizers = CreateImageOptimizers();
+
+        private static Collection<IImageOptimizer> CreateImageOptimizers()
+        {
+            Collection<IImageOptimizer> optimizers = new Collection<IImageOptimizer>();
+            optimizers.Add(new JpegOptimizer());
+            optimizers.Add(new PngOptimizer());
+            optimizers.Add(new GifOptimizer());
+            return optimizers;
+        }
+
+        private void DoLosslessCompress(FileInfo file)
+        {
+            IImageOptimizer optimizer = GetOptimizer(file);
+            if (optimizer == null)
+                return;
+
+            optimizer.OptimalCompression = OptimalCompression;
+            optimizer.LosslessCompress(file);
+        }
+
+        private void DoCompress(FileInfo file)
+        {
+            IImageOptimizer optimizer = GetOptimizer(file);
+            if (optimizer == null)
+                return;
+
+            optimizer.OptimalCompression = OptimalCompression;
+            optimizer.Compress(file);
+        }
+
+        private static MagickFormatInfo GetFormatInformation(FileInfo file)
+        {
+            MagickFormatInfo info = MagickNET.GetFormatInformation(file);
+            if (info != null)
+                return info;
+
+            MagickImageInfo imageInfo = new MagickImageInfo(file);
+            return MagickNET.GetFormatInformation(imageInfo.Format);
+        }
+
+        private IImageOptimizer GetOptimizer(FileInfo file)
+        {
+            MagickFormatInfo info = GetFormatInformation(file);
+            if (info == null)
+                return null;
+
+            foreach (IImageOptimizer optimizer in _Optimizers)
+            {
+                if (optimizer.Format.Module == info.Module)
+                    return optimizer;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether various compression types will be used to find
+        /// the smallest file. This process will take extra time because the file has to be written
+        /// multiple times.
+        /// </summary>
+        public bool OptimalCompression
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Performs compression on the specified the file. With some formats the image will be decoded
+        /// and encoded and this will result in a small quality reduction. If the new file size is not
+        /// smaller the file won't be overwritten.
+        /// </summary>
+        /// <param name="file">The image file to compress</param>
+        public void Compress(FileInfo file)
+        {
+            Throw.IfNull(nameof(file), file);
+
+            DoCompress(file);
+        }
+
+        /// <summary>
+        /// Performs compression on the specified the file. With some formats the image will be decoded
+        /// and encoded and this will result in a small quality reduction. If the new file size is not
+        /// smaller the file won't be overwritten.
+        /// </summary>
+        /// <param name="fileName">The file name of the image to compress</param>
+        public void Compress(string fileName)
+        {
+            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            Throw.IfInvalidFileName(filePath);
+
+            DoCompress(new FileInfo(filePath));
+        }
+
+        /// <summary>
+        /// Returns true when the supplied file name is supported based on the extension of the file.
+        /// </summary>
+        /// <param name="file">The file to check.</param>
+        /// <returns>True when the supplied file name is supported based on the extension of the file.</returns>
+        public bool IsSupported(FileInfo file)
+        {
+            return IsSupported(MagickFormatInfo.Create(file));
+        }
+
+        /// <summary>
+        /// Returns true when the supplied formation information is supported.
+        /// </summary>
+        /// <param name="formatInfo">The format information to check.</param>
+        /// <returns>True when the supplied formation information is supported.</returns>
+        public bool IsSupported(MagickFormatInfo formatInfo)
+        {
+            if (formatInfo == null)
+                return false;
+
+            foreach (IImageOptimizer optimizer in _Optimizers)
+            {
+                if (optimizer.Format.Format == formatInfo.Module)
+                    return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Returns true when the supplied file name is supported based on the extension of the file.
+        /// </summary>
+        /// <param name="fileName">The name of the file to check.</param>
+        /// <returns>True when the supplied file name is supported based on the extension of the file.</returns>
+        public bool IsSupported(string fileName)
+        {
+            return IsSupported(MagickFormatInfo.Create(fileName));
+        }
+
+        /// <summary>
+        /// Performs lossless compression on the specified the file. If the new file size is not smaller
+        /// the file won't be overwritten.
+        /// </summary>
+        /// <param name="file">The image file to compress</param>
+        public void LosslessCompress(FileInfo file)
+        {
+            Throw.IfNull(nameof(file), file);
+
+            DoLosslessCompress(file);
+        }
+
+        /// <summary>
+        /// Performs lossless compression on the specified file. If the new file size is not smaller
+        /// the file won't be overwritten.
+        /// </summary>
+        /// <param name="fileName">The file name of the image to compress</param>
+        public void LosslessCompress(string fileName)
+        {
+            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            Throw.IfInvalidFileName(filePath);
+
+            DoLosslessCompress(new FileInfo(filePath));
+        }
     }
-
-    /// <summary>
-    /// Performs compression on the specified the file. With some formats the image will be decoded
-    /// and encoded and this will result in a small quality reduction. If the new file size is not
-    /// smaller the file won't be overwritten.
-    /// </summary>
-    /// <param name="file">The image file to compress</param>
-    public void Compress(FileInfo file)
-    {
-      Throw.IfNull(nameof(file), file);
-
-      DoCompress(file);
-    }
-
-    /// <summary>
-    /// Performs compression on the specified the file. With some formats the image will be decoded
-    /// and encoded and this will result in a small quality reduction. If the new file size is not
-    /// smaller the file won't be overwritten.
-    /// </summary>
-    /// <param name="fileName">The file name of the image to compress</param>
-    public void Compress(string fileName)
-    {
-      string filePath = FileHelper.CheckForBaseDirectory(fileName);
-      Throw.IfInvalidFileName(filePath);
-
-      DoCompress(new FileInfo(filePath));
-    }
-
-    /// <summary>
-    /// Returns true when the supplied file name is supported based on the extension of the file.
-    /// </summary>
-    /// <param name="file">The file to check.</param>
-    /// <returns>True when the supplied file name is supported based on the extension of the file.</returns>
-    public bool IsSupported(FileInfo file)
-    {
-      return IsSupported(MagickFormatInfo.Create(file));
-    }
-
-    /// <summary>
-    /// Returns true when the supplied formation information is supported.
-    /// </summary>
-    /// <param name="formatInfo">The format information to check.</param>
-    /// <returns>True when the supplied formation information is supported.</returns>
-    public bool IsSupported(MagickFormatInfo formatInfo)
-    {
-      if (formatInfo == null)
-        return false;
-
-      foreach (IImageOptimizer optimizer in _Optimizers)
-      {
-        if (optimizer.Format.Format == formatInfo.Module)
-          return true;
-      }
-
-      return false;
-    }
-
-    /// <summary>
-    /// Returns true when the supplied file name is supported based on the extension of the file.
-    /// </summary>
-    /// <param name="fileName">The name of the file to check.</param>
-    /// <returns>True when the supplied file name is supported based on the extension of the file.</returns>
-    public bool IsSupported(string fileName)
-    {
-      return IsSupported(MagickFormatInfo.Create(fileName));
-    }
-
-    /// <summary>
-    /// Performs lossless compression on the specified the file. If the new file size is not smaller
-    /// the file won't be overwritten.
-    /// </summary>
-    /// <param name="file">The image file to compress</param>
-    public void LosslessCompress(FileInfo file)
-    {
-      Throw.IfNull(nameof(file), file);
-
-      DoLosslessCompress(file);
-    }
-
-    /// <summary>
-    /// Performs lossless compression on the specified file. If the new file size is not smaller
-    /// the file won't be overwritten.
-    /// </summary>
-    /// <param name="fileName">The file name of the image to compress</param>
-    public void LosslessCompress(string fileName)
-    {
-      string filePath = FileHelper.CheckForBaseDirectory(fileName);
-      Throw.IfInvalidFileName(filePath);
-
-      DoLosslessCompress(new FileInfo(filePath));
-    }
-  }
 }

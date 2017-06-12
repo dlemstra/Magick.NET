@@ -14,29 +14,29 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Specifies line cap.
-  /// </summary>
-  public enum LineCap
-  {
     /// <summary>
-    /// Undefined
+    /// Specifies line cap.
     /// </summary>
-    Undefined,
+    public enum LineCap
+    {
+        /// <summary>
+        /// Undefined
+        /// </summary>
+        Undefined,
 
-    /// <summary>
-    /// Butt
-    /// </summary>
-    Butt,
+        /// <summary>
+        /// Butt
+        /// </summary>
+        Butt,
 
-    /// <summary>
-    /// Round
-    /// </summary>
-    Round,
+        /// <summary>
+        /// Round
+        /// </summary>
+        Round,
 
-    /// <summary>
-    /// Square
-    /// </summary>
-    Square
-  }
+        /// <summary>
+        /// Square
+        /// </summary>
+        Square
+    }
 }

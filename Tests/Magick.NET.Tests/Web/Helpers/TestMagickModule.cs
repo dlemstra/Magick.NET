@@ -19,35 +19,35 @@ using System.Web;
 
 namespace Magick.NET.Tests.Web
 {
-  [ExcludeFromCodeCoverage]
-  public class TestMagickModule : MagickModuleBase
-  {
-    public TestMagickModule(bool usingIntegratedPipeline)
+    [ExcludeFromCodeCoverage]
+    public class TestMagickModule : MagickModuleBase
     {
-      UsingIntegratedPipeline = usingIntegratedPipeline;
+        public TestMagickModule(bool usingIntegratedPipeline)
+        {
+            UsingIntegratedPipeline = usingIntegratedPipeline;
+        }
+
+        protected override bool UsingIntegratedPipeline { get; }
+
+        internal override void Initialize()
+        {
+            IsInitialized = true;
+        }
+
+        internal override void OnBeginRequest(HttpContextBase context)
+        {
+        }
+
+        internal override void OnPostAuthorizeRequest(HttpContextBase context)
+        {
+        }
+
+        internal override void OnPostMapRequestHandler(HttpContextBase context)
+        {
+        }
+
+        public bool IsInitialized { get; private set; }
     }
-
-    protected override bool UsingIntegratedPipeline { get; }
-
-    internal override void Initialize()
-    {
-      IsInitialized = true;
-    }
-
-    internal override void OnBeginRequest(HttpContextBase context)
-    {
-    }
-
-    internal override void OnPostAuthorizeRequest(HttpContextBase context)
-    {
-    }
-
-    internal override void OnPostMapRequestHandler(HttpContextBase context)
-    {
-    }
-
-    public bool IsInitialized { get; private set; }
-  }
 }
 
 #endif

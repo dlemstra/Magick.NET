@@ -18,62 +18,62 @@ using System.IO;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class PsdWriteDefinesTests
-  {
-    private static void CheckProfile(IMagickImage image, int expectedLength)
+    [TestClass]
+    public class PsdWriteDefinesTests
     {
-      var profile = image.GetProfile("psd:additional-info");
-      int actualLength = profile?.ToByteArray().Length ?? 0;
-      Assert.AreEqual(expectedLength, actualLength);
-    }
-
-    private static void WriteAndCheckProfile(IMagickImageCollection images, PsdWriteDefines defines, int expectedLength)
-    {
-      using (MemoryStream memStream = new MemoryStream())
-      {
-        images.Write(memStream, defines);
-
-        memStream.Position = 0;
-        images.Read(memStream);
-        CheckProfile(images[1], expectedLength);
-      }
-    }
-
-    [TestMethod]
-    public void Test_Empty()
-    {
-      using (IMagickImage image = new MagickImage())
-      {
-        image.Settings.SetDefines(new PsdWriteDefines()
+        private static void CheckProfile(IMagickImage image, int expectedLength)
         {
-        });
+            var profile = image.GetProfile("psd:additional-info");
+            int actualLength = profile?.ToByteArray().Length ?? 0;
+            Assert.AreEqual(expectedLength, actualLength);
+        }
 
-        Assert.AreEqual("None", image.Settings.GetDefine(MagickFormat.Psd, "additional-info"));
-      }
-    }
-
-    [TestMethod]
-    public void Test_AdditionalInfo()
-    {
-      using (IMagickImageCollection images = new MagickImageCollection())
-      {
-        images.Read(Files.Coders.LayerStylesSamplePSD);
-
-        CheckProfile(images[1], 264);
-
-        var defines = new PsdWriteDefines()
+        private static void WriteAndCheckProfile(IMagickImageCollection images, PsdWriteDefines defines, int expectedLength)
         {
-          AdditionalInfo = PsdAdditionalInfo.All
-        };
-        WriteAndCheckProfile(images, defines, 264);
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                images.Write(memStream, defines);
 
-        defines.AdditionalInfo = PsdAdditionalInfo.Selective;
-        WriteAndCheckProfile(images, defines, 152);
+                memStream.Position = 0;
+                images.Read(memStream);
+                CheckProfile(images[1], expectedLength);
+            }
+        }
 
-        defines.AdditionalInfo = PsdAdditionalInfo.None;
-        WriteAndCheckProfile(images, defines, 0);
-      }
+        [TestMethod]
+        public void Test_Empty()
+        {
+            using (IMagickImage image = new MagickImage())
+            {
+                image.Settings.SetDefines(new PsdWriteDefines()
+                {
+                });
+
+                Assert.AreEqual("None", image.Settings.GetDefine(MagickFormat.Psd, "additional-info"));
+            }
+        }
+
+        [TestMethod]
+        public void Test_AdditionalInfo()
+        {
+            using (IMagickImageCollection images = new MagickImageCollection())
+            {
+                images.Read(Files.Coders.LayerStylesSamplePSD);
+
+                CheckProfile(images[1], 264);
+
+                var defines = new PsdWriteDefines()
+                {
+                    AdditionalInfo = PsdAdditionalInfo.All
+                };
+                WriteAndCheckProfile(images, defines, 264);
+
+                defines.AdditionalInfo = PsdAdditionalInfo.Selective;
+                WriteAndCheckProfile(images, defines, 152);
+
+                defines.AdditionalInfo = PsdAdditionalInfo.None;
+                WriteAndCheckProfile(images, defines, 0);
+            }
+        }
     }
-  }
 }

@@ -18,59 +18,59 @@ using System.Collections.ObjectModel;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Class that can be used to chain path actions.
-  /// </summary>
-  public sealed partial class Paths : IEnumerable<IPath>
-  {
-    private Drawables _Drawables;
-    private Collection<IPath> _Paths;
-
-    internal Paths(Drawables drawables)
-      : this()
-    {
-      _Drawables = drawables;
-    }
-
     /// <summary>
-    /// Returns an enumerator that iterates through the collection.
+    /// Class that can be used to chain path actions.
     /// </summary>
-    /// <returns>An enumerator that iterates through the collection.</returns>
-    IEnumerator IEnumerable.GetEnumerator()
+    public sealed partial class Paths : IEnumerable<IPath>
     {
-      return GetEnumerator();
+        private Drawables _Drawables;
+        private Collection<IPath> _Paths;
+
+        internal Paths(Drawables drawables)
+          : this()
+        {
+            _Drawables = drawables;
+        }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns>An enumerator that iterates through the collection.</returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Paths"/> class.
+        /// </summary>
+        public Paths()
+        {
+            _Paths = new Collection<IPath>();
+        }
+
+        /// <summary>
+        /// Converts the specified <see cref="Paths"/> to a <see cref="Drawables"/> instance.
+        /// </summary>
+        /// <param name="paths">The <see cref="Paths"/> to convert.</param>
+        public static implicit operator Drawables(Paths paths)
+        {
+            if (ReferenceEquals(paths, null))
+                return null;
+
+            if (paths._Drawables == null)
+                return new Drawables().Path(paths);
+
+            return paths._Drawables.Path(paths);
+        }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns>An enumerator that iterates through the collection.</returns>
+        public IEnumerator<IPath> GetEnumerator()
+        {
+            return _Paths.GetEnumerator();
+        }
     }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Paths"/> class.
-    /// </summary>
-    public Paths()
-    {
-      _Paths = new Collection<IPath>();
-    }
-
-    /// <summary>
-    /// Converts the specified <see cref="Paths"/> to a <see cref="Drawables"/> instance.
-    /// </summary>
-    /// <param name="paths">The <see cref="Paths"/> to convert.</param>
-    public static implicit operator Drawables(Paths paths)
-    {
-      if (ReferenceEquals(paths, null))
-        return null;
-
-      if (paths._Drawables == null)
-        return new Drawables().Path(paths);
-
-      return paths._Drawables.Path(paths);
-    }
-
-    /// <summary>
-    /// Returns an enumerator that iterates through the collection.
-    /// </summary>
-    /// <returns>An enumerator that iterates through the collection.</returns>
-    public IEnumerator<IPath> GetEnumerator()
-    {
-      return _Paths.GetEnumerator();
-    }
-  }
 }

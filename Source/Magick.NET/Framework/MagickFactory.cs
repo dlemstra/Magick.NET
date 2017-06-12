@@ -18,22 +18,22 @@ using System.Drawing;
 
 namespace ImageMagick
 {
-  /// <content>
-  /// Contains code that is not compatible with .NET Core.
-  /// </content>
-  public sealed partial class MagickFactory : IMagickFactory
-  {
-    /// <summary>
-    /// Initializes a new instance that implements <see cref="IMagickImage"/>.
-    /// </summary>
-    /// <param name="bitmap">The bitmap to use.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
-    public IMagickImage CreateImage(Bitmap bitmap)
+    /// <content>
+    /// Contains code that is not compatible with .NET Core.
+    /// </content>
+    public sealed partial class MagickFactory : IMagickFactory
     {
-      return new MagickImage(bitmap);
+        /// <summary>
+        /// Initializes a new instance that implements <see cref="IMagickImage"/>.
+        /// </summary>
+        /// <param name="bitmap">The bitmap to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
+        public IMagickImage CreateImage(Bitmap bitmap)
+        {
+            return new MagickImage(bitmap);
+        }
     }
-  }
 }
 
 #endif

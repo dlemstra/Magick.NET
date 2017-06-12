@@ -14,34 +14,34 @@
 
 namespace ImageMagick.Defines
 {
-  /// <summary>
-  /// Specifies jp2 progression orders.
-  /// </summary>
-  public enum Jp2ProgressionOrder
-  {
     /// <summary>
-    /// Layer-resolution-component-precinct order.
+    /// Specifies jp2 progression orders.
     /// </summary>
-    LRCP = 0,
+    public enum Jp2ProgressionOrder
+    {
+        /// <summary>
+        /// Layer-resolution-component-precinct order.
+        /// </summary>
+        LRCP = 0,
 
-    /// <summary>
-    /// Resolution-layer-component-precinct order.
-    /// </summary>
-    RLCP = 1,
+        /// <summary>
+        /// Resolution-layer-component-precinct order.
+        /// </summary>
+        RLCP = 1,
 
-    /// <summary>
-    /// Resolution-precinct-component-layer order.
-    /// </summary>
-    RPCL = 2,
+        /// <summary>
+        /// Resolution-precinct-component-layer order.
+        /// </summary>
+        RPCL = 2,
 
-    /// <summary>
-    /// Precinct-component-resolution-layer order.
-    /// </summary>
-    PCRL = 3,
+        /// <summary>
+        /// Precinct-component-resolution-layer order.
+        /// </summary>
+        PCRL = 3,
 
-    /// <summary>
-    /// Component-precinct-resolution-layer order.
-    /// </summary>
-    CPRL = 4
-  }
+        /// <summary>
+        /// Component-precinct-resolution-layer order.
+        /// </summary>
+        CPRL = 4
+    }
 }

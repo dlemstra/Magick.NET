@@ -33,40 +33,40 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-  /// <content>
-  /// Contains code that is not compatible with .NET Core.
-  /// </content>
-  public partial interface IMagickImage
-  {
-    /// <summary>
-    /// Read single image frame.
-    /// </summary>
-    /// <param name="bitmap">The bitmap to read the image from.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Read(Bitmap bitmap);
+    /// <content>
+    /// Contains code that is not compatible with .NET Core.
+    /// </content>
+    public partial interface IMagickImage
+    {
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="bitmap">The bitmap to read the image from.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Read(Bitmap bitmap);
 
-    /// <summary>
-    /// Converts this instance to a <see cref="Bitmap"/> using <see cref="ImageFormat.Bmp"/>.
-    /// </summary>
-    /// <returns>A <see cref="Bitmap"/> that has the format <see cref="ImageFormat.Bmp"/>.</returns>
-    Bitmap ToBitmap();
+        /// <summary>
+        /// Converts this instance to a <see cref="Bitmap"/> using <see cref="ImageFormat.Bmp"/>.
+        /// </summary>
+        /// <returns>A <see cref="Bitmap"/> that has the format <see cref="ImageFormat.Bmp"/>.</returns>
+        Bitmap ToBitmap();
 
-    /// <summary>
-    /// Converts this instance to a <see cref="Bitmap"/> using the specified <see cref="ImageFormat"/>.
-    /// Supported formats are: Bmp, Gif, Icon, Jpeg, Png, Tiff.
-    /// </summary>
-    /// <param name="imageFormat">The image format.</param>
-    /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/></returns>
-    Bitmap ToBitmap(ImageFormat imageFormat);
+        /// <summary>
+        /// Converts this instance to a <see cref="Bitmap"/> using the specified <see cref="ImageFormat"/>.
+        /// Supported formats are: Bmp, Gif, Icon, Jpeg, Png, Tiff.
+        /// </summary>
+        /// <param name="imageFormat">The image format.</param>
+        /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/></returns>
+        Bitmap ToBitmap(ImageFormat imageFormat);
 
 #if !NET20
-    /// <summary>
-    /// Converts this instance to a <see cref="BitmapSource"/>.
-    /// </summary>
-    /// <returns>A <see cref="BitmapSource"/>.</returns>
-    BitmapSource ToBitmapSource();
+        /// <summary>
+        /// Converts this instance to a <see cref="BitmapSource"/>.
+        /// </summary>
+        /// <returns>A <see cref="BitmapSource"/>.</returns>
+        BitmapSource ToBitmapSource();
 #endif
-  }
+    }
 }
 
 #endif

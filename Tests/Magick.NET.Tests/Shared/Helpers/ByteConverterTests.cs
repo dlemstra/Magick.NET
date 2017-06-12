@@ -18,14 +18,14 @@ using System;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class ByteConverterTests
-  {
-    [TestMethod]
-    public void Test_ToArray()
+    [TestClass]
+    public class ByteConverterTests
     {
-      byte[] value = ByteConverter.ToArray(IntPtr.Zero, 4);
-      Assert.AreEqual(null, value);
+        [TestMethod]
+        public void Test_ToArray()
+        {
+            byte[] value = ByteConverter.ToArray(IntPtr.Zero, 4);
+            Assert.AreEqual(null, value);
+        }
     }
-  }
 }

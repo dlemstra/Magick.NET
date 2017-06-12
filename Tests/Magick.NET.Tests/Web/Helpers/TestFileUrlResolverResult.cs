@@ -18,21 +18,21 @@ using ImageMagick;
 
 namespace Magick.NET.Tests
 {
-  [ExcludeFromCodeCoverage]
-  public sealed class TestFileUrlResolverResult
-  {
-    public string FileName
+    [ExcludeFromCodeCoverage]
+    public sealed class TestFileUrlResolverResult
     {
-      get;
-      set;
-    }
+        public string FileName
+        {
+            get;
+            set;
+        }
 
-    public MagickFormat Format
-    {
-      get;
-      set;
+        public MagickFormat Format
+        {
+            get;
+            set;
+        }
     }
-  }
 }
 
 #endif

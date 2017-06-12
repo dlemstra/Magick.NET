@@ -14,24 +14,24 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Specifies endian.
-  /// </summary>
-  public enum Endian
-  {
     /// <summary>
-    /// Undefined
+    /// Specifies endian.
     /// </summary>
-    Undefined,
+    public enum Endian
+    {
+        /// <summary>
+        /// Undefined
+        /// </summary>
+        Undefined,
 
-    /// <summary>
-    /// LSB
-    /// </summary>
-    LSB,
+        /// <summary>
+        /// LSB
+        /// </summary>
+        LSB,
 
-    /// <summary>
-    /// MSB
-    /// </summary>
-    MSB
-  }
+        /// <summary>
+        /// MSB
+        /// </summary>
+        MSB
+    }
 }

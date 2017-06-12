@@ -1,10 +1,10 @@
 <msl xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\..\..\Source\Magick.NET\Resources\ReleaseQ16\MagickScript.xsd">
-  <read>
-    <readSettings>
-      <setDefine format="Jpeg" name="size" value="64x64"/>
-    </readSettings>
-    <resize percentage="50"/>
-    <strip/>
-    <comment value="Magick.NET.Resize"/>
-  </read>
+    <read>
+        <readSettings>
+            <setDefine format="Jpeg" name="size" value="64x64"/>
+        </readSettings>
+        <resize percentage="50"/>
+        <strip/>
+        <comment value="Magick.NET.Resize"/>
+    </read>
 </msl>

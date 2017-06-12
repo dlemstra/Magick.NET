@@ -33,13 +33,13 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-  public sealed partial class MagickScript
-  {
-    private ImageProfile CreateImageProfile(XmlElement element)
+    public sealed partial class MagickScript
     {
-      String name_ = Variables.GetValue<String>(element, "name");
-      String fileName_ = Variables.GetValue<String>(element, "fileName");
-      return new ImageProfile(name_, fileName_);
+        private ImageProfile CreateImageProfile(XmlElement element)
+        {
+            String name_ = Variables.GetValue<String>(element, "name");
+            String fileName_ = Variables.GetValue<String>(element, "fileName");
+            return new ImageProfile(name_, fileName_);
+        }
     }
-  }
 }

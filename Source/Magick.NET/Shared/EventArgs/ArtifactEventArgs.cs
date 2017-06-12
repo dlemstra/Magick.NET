@@ -16,24 +16,24 @@ using System;
 
 namespace ImageMagick
 {
-  internal sealed class ArtifactEventArgs : EventArgs
-  {
-    internal ArtifactEventArgs(string key, string value)
+    internal sealed class ArtifactEventArgs : EventArgs
     {
-      Key = key;
-      Value = value;
-    }
+        internal ArtifactEventArgs(string key, string value)
+        {
+            Key = key;
+            Value = value;
+        }
 
-    public string Key
-    {
-      get;
-      private set;
-    }
+        public string Key
+        {
+            get;
+            private set;
+        }
 
-    public string Value
-    {
-      get;
-      private set;
+        public string Value
+        {
+            get;
+            private set;
+        }
     }
-  }
 }

@@ -18,59 +18,59 @@ using System.Collections.ObjectModel;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Class that can be used to chain draw actions.
-  /// </summary>
-  public sealed partial class Drawables : IEnumerable<IDrawable>
-  {
-    private Collection<IDrawable> _Drawables;
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="Drawables"/> class.
+    /// Class that can be used to chain draw actions.
     /// </summary>
-    public Drawables()
+    public sealed partial class Drawables : IEnumerable<IDrawable>
     {
-      _Drawables = new Collection<IDrawable>();
-    }
+        private Collection<IDrawable> _Drawables;
 
-    /// <summary>
-    /// Draw on the specified image.
-    /// </summary>
-    /// <param name="image">The image to draw on.</param>
-    /// <returns>The current instance.</returns>
-    public Drawables Draw(IMagickImage image)
-    {
-      Throw.IfNull("image", image);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Drawables"/> class.
+        /// </summary>
+        public Drawables()
+        {
+            _Drawables = new Collection<IDrawable>();
+        }
 
-      image.Draw(this);
-      return this;
-    }
+        /// <summary>
+        /// Draw on the specified image.
+        /// </summary>
+        /// <param name="image">The image to draw on.</param>
+        /// <returns>The current instance.</returns>
+        public Drawables Draw(IMagickImage image)
+        {
+            Throw.IfNull("image", image);
 
-    /// <summary>
-    /// Returns an enumerator that iterates through the collection.
-    /// </summary>
-    /// <returns>An enumerator.</returns>
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-      return GetEnumerator();
-    }
+            image.Draw(this);
+            return this;
+        }
 
-    /// <summary>
-    /// Creates a new <see cref="Paths"/> instance.
-    /// </summary>
-    /// <returns>A new <see cref="Paths"/> instance.</returns>
-    public Paths Paths()
-    {
-      return new Paths(this);
-    }
+        /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns>An enumerator.</returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
 
-    /// <summary>
-    /// Returns an enumerator that iterates through the collection.
-    /// </summary>
-    /// <returns>An enumerator.</returns>
-    public IEnumerator<IDrawable> GetEnumerator()
-    {
-      return _Drawables.GetEnumerator();
+        /// <summary>
+        /// Creates a new <see cref="Paths"/> instance.
+        /// </summary>
+        /// <returns>A new <see cref="Paths"/> instance.</returns>
+        public Paths Paths()
+        {
+            return new Paths(this);
+        }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns>An enumerator.</returns>
+        public IEnumerator<IDrawable> GetEnumerator()
+        {
+            return _Drawables.GetEnumerator();
+        }
     }
-  }
 }

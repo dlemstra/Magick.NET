@@ -21,21 +21,21 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  public partial class MagickImageCollectionTests
-  {
-    [TestMethod]
-    public void Test_ToBitmap()
+    public partial class MagickImageCollectionTests
     {
-      using (IMagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
-      {
-        Assert.AreEqual(3, collection.Count);
+        [TestMethod]
+        public void Test_ToBitmap()
+        {
+            using (IMagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
+            {
+                Assert.AreEqual(3, collection.Count);
 
-        Bitmap bitmap = collection.ToBitmap();
-        Assert.IsNotNull(bitmap);
-        Assert.AreEqual(3, bitmap.GetFrameCount(FrameDimension.Page));
-      }
+                Bitmap bitmap = collection.ToBitmap();
+                Assert.IsNotNull(bitmap);
+                Assert.AreEqual(3, bitmap.GetFrameCount(FrameDimension.Page));
+            }
+        }
     }
-  }
 }
 
 #endif

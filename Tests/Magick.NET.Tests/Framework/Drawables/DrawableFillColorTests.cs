@@ -20,16 +20,16 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public partial class DrawableFillColorTests
-  {
-    [TestMethod]
-    public void Test_Constructor_Color()
+    [TestClass]
+    public partial class DrawableFillColorTests
     {
-      DrawableFillColor fillColor = new DrawableFillColor(Color.DarkKhaki);
-      ColorAssert.AreEqual(MagickColors.DarkKhaki, fillColor.Color);
+        [TestMethod]
+        public void Test_Constructor_Color()
+        {
+            DrawableFillColor fillColor = new DrawableFillColor(Color.DarkKhaki);
+            ColorAssert.AreEqual(MagickColors.DarkKhaki, fillColor.Color);
+        }
     }
-  }
 }
 
 #endif

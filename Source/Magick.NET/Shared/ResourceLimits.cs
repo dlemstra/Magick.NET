@@ -16,90 +16,90 @@ using System;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Class that can be used to set the limits to the resources that are being used.
-  /// </summary>
-  public static partial class ResourceLimits
-  {
     /// <summary>
-    /// Gets or sets the pixel cache limit in bytes. Requests for memory above this limit will fail.
+    /// Class that can be used to set the limits to the resources that are being used.
     /// </summary>
-    [CLSCompliant(false)]
-    public static ulong Disk
+    public static partial class ResourceLimits
     {
-      get
-      {
-        return NativeResourceLimits.Disk;
-      }
-      set
-      {
-        NativeResourceLimits.Disk = value;
-      }
-    }
+        /// <summary>
+        /// Gets or sets the pixel cache limit in bytes. Requests for memory above this limit will fail.
+        /// </summary>
+        [CLSCompliant(false)]
+        public static ulong Disk
+        {
+            get
+            {
+                return NativeResourceLimits.Disk;
+            }
+            set
+            {
+                NativeResourceLimits.Disk = value;
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets the maximum height of an image.
-    /// </summary>
-    [CLSCompliant(false)]
-    public static ulong Height
-    {
-      get
-      {
-        return NativeResourceLimits.Height;
-      }
-      set
-      {
-        NativeResourceLimits.Height = value;
-      }
-    }
+        /// <summary>
+        /// Gets or sets the maximum height of an image.
+        /// </summary>
+        [CLSCompliant(false)]
+        public static ulong Height
+        {
+            get
+            {
+                return NativeResourceLimits.Height;
+            }
+            set
+            {
+                NativeResourceLimits.Height = value;
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets the pixel cache limit in bytes. Once this memory limit is exceeded, all subsequent pixels cache
-    /// operations are to/from disk.
-    /// </summary>
-    [CLSCompliant(false)]
-    public static ulong Memory
-    {
-      get
-      {
-        return NativeResourceLimits.Memory;
-      }
-      set
-      {
-        NativeResourceLimits.Memory = value;
-      }
-    }
+        /// <summary>
+        /// Gets or sets the pixel cache limit in bytes. Once this memory limit is exceeded, all subsequent pixels cache
+        /// operations are to/from disk.
+        /// </summary>
+        [CLSCompliant(false)]
+        public static ulong Memory
+        {
+            get
+            {
+                return NativeResourceLimits.Memory;
+            }
+            set
+            {
+                NativeResourceLimits.Memory = value;
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets the time specified in milliseconds to periodically yield the CPU for.
-    /// </summary>
-    [CLSCompliant(false)]
-    public static ulong Throttle
-    {
-      get
-      {
-        return NativeResourceLimits.Throttle;
-      }
-      set
-      {
-        NativeResourceLimits.Throttle = value;
-      }
-    }
+        /// <summary>
+        /// Gets or sets the time specified in milliseconds to periodically yield the CPU for.
+        /// </summary>
+        [CLSCompliant(false)]
+        public static ulong Throttle
+        {
+            get
+            {
+                return NativeResourceLimits.Throttle;
+            }
+            set
+            {
+                NativeResourceLimits.Throttle = value;
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets the maximum width of an image.
-    /// </summary>
-    [CLSCompliant(false)]
-    public static ulong Width
-    {
-      get
-      {
-        return NativeResourceLimits.Width;
-      }
-      set
-      {
-        NativeResourceLimits.Width = value;
-      }
+        /// <summary>
+        /// Gets or sets the maximum width of an image.
+        /// </summary>
+        [CLSCompliant(false)]
+        public static ulong Width
+        {
+            get
+            {
+                return NativeResourceLimits.Width;
+            }
+            set
+            {
+                NativeResourceLimits.Width = value;
+            }
+        }
     }
-  }
 }

@@ -16,11 +16,11 @@ using System;
 
 namespace ImageMagick
 {
-  internal static partial class MagickMemory
-  {
-    public static void Relinquish(IntPtr value)
+    internal static partial class MagickMemory
     {
-      NativeMagickMemory.Relinquish(value);
+        public static void Relinquish(IntPtr value)
+        {
+            NativeMagickMemory.Relinquish(value);
+        }
     }
-  }
 }

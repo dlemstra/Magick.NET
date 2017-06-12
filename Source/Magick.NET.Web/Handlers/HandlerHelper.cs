@@ -14,24 +14,24 @@
 
 namespace ImageMagick.Web
 {
-  internal static class HandlerHelper
-  {
-    private static readonly ImageOptimizer _ImageOptimizer = new ImageOptimizer();
-
-    public static bool CanCompress(MagickWebSettings settings, MagickFormatInfo formatInfo)
+    internal static class HandlerHelper
     {
-      if (!settings.EnableGzip)
-        return false;
+        private static readonly ImageOptimizer _ImageOptimizer = new ImageOptimizer();
 
-      return formatInfo.Format == MagickFormat.Svg;
+        public static bool CanCompress(MagickWebSettings settings, MagickFormatInfo formatInfo)
+        {
+            if (!settings.EnableGzip)
+                return false;
+
+            return formatInfo.Format == MagickFormat.Svg;
+        }
+
+        public static bool CanOptimize(MagickWebSettings settings, MagickFormatInfo formatInfo)
+        {
+            if (!settings.Optimization.IsEnabled)
+                return false;
+
+            return _ImageOptimizer.IsSupported(formatInfo);
+        }
     }
-
-    public static bool CanOptimize(MagickWebSettings settings, MagickFormatInfo formatInfo)
-    {
-      if (!settings.Optimization.IsEnabled)
-        return false;
-
-      return _ImageOptimizer.IsSupported(formatInfo);
-    }
-  }
 }

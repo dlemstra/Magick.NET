@@ -19,48 +19,48 @@ using System.Collections;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class DrawablesTests
-  {
-    [TestMethod]
-    public void Test_Draw()
+    [TestClass]
+    public class DrawablesTests
     {
-      using (IMagickImage image = new MagickImage(MagickColors.Fuchsia, 100, 100))
-      {
-        Drawables drawables = new Drawables()
-          .FillColor(MagickColors.Red)
-          .Rectangle(10, 10, 90, 90);
+        [TestMethod]
+        public void Test_Draw()
+        {
+            using (IMagickImage image = new MagickImage(MagickColors.Fuchsia, 100, 100))
+            {
+                Drawables drawables = new Drawables()
+                  .FillColor(MagickColors.Red)
+                  .Rectangle(10, 10, 90, 90);
 
-        IEnumerator enumerator = ((IEnumerable)drawables).GetEnumerator();
-        Assert.IsTrue(enumerator.MoveNext());
+                IEnumerator enumerator = ((IEnumerable)drawables).GetEnumerator();
+                Assert.IsTrue(enumerator.MoveNext());
 
-        drawables.Draw(image);
+                drawables.Draw(image);
 
-        ColorAssert.AreEqual(MagickColors.Fuchsia, image, 9, 9);
-        ColorAssert.AreEqual(MagickColors.Red, image, 10, 10);
-        ColorAssert.AreEqual(MagickColors.Red, image, 90, 90);
-        ColorAssert.AreEqual(MagickColors.Fuchsia, image, 91, 91);
+                ColorAssert.AreEqual(MagickColors.Fuchsia, image, 9, 9);
+                ColorAssert.AreEqual(MagickColors.Red, image, 10, 10);
+                ColorAssert.AreEqual(MagickColors.Red, image, 90, 90);
+                ColorAssert.AreEqual(MagickColors.Fuchsia, image, 91, 91);
 
-        image.Draw(new Drawables()
-          .FillColor(MagickColors.Green)
-          .Rectangle(15, 15, 85, 85));
+                image.Draw(new Drawables()
+                  .FillColor(MagickColors.Green)
+                  .Rectangle(15, 15, 85, 85));
 
-        ColorAssert.AreEqual(MagickColors.Fuchsia, image, 9, 9);
-        ColorAssert.AreEqual(MagickColors.Red, image, 10, 10);
-        ColorAssert.AreEqual(MagickColors.Green, image, 15, 15);
-        ColorAssert.AreEqual(MagickColors.Green, image, 85, 85);
-        ColorAssert.AreEqual(MagickColors.Red, image, 90, 90);
-        ColorAssert.AreEqual(MagickColors.Fuchsia, image, 91, 91);
-      }
+                ColorAssert.AreEqual(MagickColors.Fuchsia, image, 9, 9);
+                ColorAssert.AreEqual(MagickColors.Red, image, 10, 10);
+                ColorAssert.AreEqual(MagickColors.Green, image, 15, 15);
+                ColorAssert.AreEqual(MagickColors.Green, image, 85, 85);
+                ColorAssert.AreEqual(MagickColors.Red, image, 90, 90);
+                ColorAssert.AreEqual(MagickColors.Fuchsia, image, 91, 91);
+            }
+        }
+
+        [TestMethod]
+        public void Test_Exceptions()
+        {
+            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            {
+                new Drawables().Draw(null);
+            });
+        }
     }
-
-    [TestMethod]
-    public void Test_Exceptions()
-    {
-      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
-      {
-        new Drawables().Draw(null);
-      });
-    }
-  }
 }

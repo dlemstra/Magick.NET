@@ -33,27 +33,27 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-  public sealed partial class MagickScript
-  {
-    private PathArc CreatePathArc(XmlElement element)
+    public sealed partial class MagickScript
     {
-      double x_ = Variables.GetValue<double>(element, "x");
-      double y_ = Variables.GetValue<double>(element, "y");
-      double radiusX_ = Variables.GetValue<double>(element, "radiusX");
-      double radiusY_ = Variables.GetValue<double>(element, "radiusY");
-      double rotationX_ = Variables.GetValue<double>(element, "rotationX");
-      Boolean useLargeArc_ = Variables.GetValue<Boolean>(element, "useLargeArc");
-      Boolean useSweep_ = Variables.GetValue<Boolean>(element, "useSweep");
-      return new PathArc(x_, y_, radiusX_, radiusY_, rotationX_, useLargeArc_, useSweep_);
+        private PathArc CreatePathArc(XmlElement element)
+        {
+            double x_ = Variables.GetValue<double>(element, "x");
+            double y_ = Variables.GetValue<double>(element, "y");
+            double radiusX_ = Variables.GetValue<double>(element, "radiusX");
+            double radiusY_ = Variables.GetValue<double>(element, "radiusY");
+            double rotationX_ = Variables.GetValue<double>(element, "rotationX");
+            Boolean useLargeArc_ = Variables.GetValue<Boolean>(element, "useLargeArc");
+            Boolean useSweep_ = Variables.GetValue<Boolean>(element, "useSweep");
+            return new PathArc(x_, y_, radiusX_, radiusY_, rotationX_, useLargeArc_, useSweep_);
+        }
+        private Collection<PathArc> CreatePathArcs(XmlElement element)
+        {
+            Collection<PathArc> collection = new Collection<PathArc>();
+            foreach (XmlElement elem in element.SelectNodes("*"))
+            {
+                collection.Add(CreatePathArc(elem));
+            }
+            return collection;
+        }
     }
-    private Collection<PathArc> CreatePathArcs(XmlElement element)
-    {
-      Collection<PathArc> collection = new Collection<PathArc>();
-      foreach (XmlElement elem in element.SelectNodes("*"))
-      {
-        collection.Add(CreatePathArc(elem));
-      }
-      return collection;
-    }
-  }
 }

@@ -33,22 +33,22 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-  public sealed partial class MagickScript
-  {
-    private MorphologySettings CreateMorphologySettings(XmlElement element)
+    public sealed partial class MagickScript
     {
-      if (element == null)
-        return null;
-      MorphologySettings result = new MorphologySettings();
-      result.Channels = Variables.GetValue<Channels>(element, "channels");
-      result.ConvolveBias = Variables.GetValue<Nullable<Percentage>>(element, "convolveBias");
-      result.ConvolveScale = Variables.GetValue<MagickGeometry>(element, "convolveScale");
-      result.Iterations = Variables.GetValue<Int32>(element, "iterations");
-      result.Kernel = Variables.GetValue<Kernel>(element, "kernel");
-      result.KernelArguments = Variables.GetValue<String>(element, "kernelArguments");
-      result.Method = Variables.GetValue<MorphologyMethod>(element, "method");
-      result.UserKernel = Variables.GetValue<String>(element, "userKernel");
-      return result;
+        private MorphologySettings CreateMorphologySettings(XmlElement element)
+        {
+            if (element == null)
+                return null;
+            MorphologySettings result = new MorphologySettings();
+            result.Channels = Variables.GetValue<Channels>(element, "channels");
+            result.ConvolveBias = Variables.GetValue<Nullable<Percentage>>(element, "convolveBias");
+            result.ConvolveScale = Variables.GetValue<MagickGeometry>(element, "convolveScale");
+            result.Iterations = Variables.GetValue<Int32>(element, "iterations");
+            result.Kernel = Variables.GetValue<Kernel>(element, "kernel");
+            result.KernelArguments = Variables.GetValue<String>(element, "kernelArguments");
+            result.Method = Variables.GetValue<MorphologyMethod>(element, "method");
+            result.UserKernel = Variables.GetValue<String>(element, "userKernel");
+            return result;
+        }
     }
-  }
 }

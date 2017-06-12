@@ -156,7 +156,7 @@ namespace FileGenerator
       Console.WriteLine("Creating: " + fileName);
 
       StreamWriter streamWriter = new StreamWriter(fileName);
-      _Writer = new IndentedTextWriter(streamWriter, "  ");
+      _Writer = new IndentedTextWriter(streamWriter, "    ");
     }
   }
 }

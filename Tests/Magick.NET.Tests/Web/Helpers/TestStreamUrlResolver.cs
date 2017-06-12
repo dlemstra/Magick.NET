@@ -21,36 +21,36 @@ using System.IO;
 
 namespace Magick.NET.Tests
 {
-  [ExcludeFromCodeCoverage]
-  public sealed class TestStreamUrlResolver : IStreamUrlResolver
-  {
-    public static bool Result = false;
-
-    private string _FileName;
-
-    public TestStreamUrlResolver()
+    [ExcludeFromCodeCoverage]
+    public sealed class TestStreamUrlResolver : IStreamUrlResolver
     {
-      _FileName = "foo.jpg";
+        public static bool Result = false;
+
+        private string _FileName;
+
+        public TestStreamUrlResolver()
+        {
+            _FileName = "foo.jpg";
+        }
+
+        public TestStreamUrlResolver(string fileName)
+        {
+            _FileName = fileName;
+        }
+
+        public MagickFormat Format => MagickFormatInfo.Create(_FileName).Format;
+
+        public string ImageId => _FileName;
+
+        public DateTime ModifiedTimeUtc => File.GetLastWriteTimeUtc(_FileName);
+
+        public Stream OpenStream() => File.OpenRead(_FileName);
+
+        public bool Resolve(Uri url)
+        {
+            return Result;
+        }
     }
-
-    public TestStreamUrlResolver(string fileName)
-    {
-      _FileName = fileName;
-    }
-
-    public MagickFormat Format => MagickFormatInfo.Create(_FileName).Format;
-
-    public string ImageId => _FileName;
-
-    public DateTime ModifiedTimeUtc => File.GetLastWriteTimeUtc(_FileName);
-
-    public Stream OpenStream() => File.OpenRead(_FileName);
-
-    public bool Resolve(Uri url)
-    {
-      return Result;
-    }
-  }
 }
 
 #endif

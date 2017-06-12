@@ -16,96 +16,96 @@ using System;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// PrimaryInfo information
-  /// </summary>
-  public partial class PrimaryInfo : IEquatable<PrimaryInfo>
-  {
-    private PrimaryInfo(NativePrimaryInfo instance)
-    {
-      X = instance.X;
-      Y = instance.Y;
-      Z = instance.Z;
-    }
-
-    private INativeInstance CreateNativeInstance()
-    {
-      NativePrimaryInfo instance = new NativePrimaryInfo();
-      instance.X = X;
-      instance.Y = Y;
-      instance.Z = Z;
-      return instance;
-    }
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="PrimaryInfo"/> class.
+    /// PrimaryInfo information
     /// </summary>
-    /// <param name="x">The x value.</param>
-    /// <param name="y">The y value.</param>
-    /// <param name="z">The z value.</param>
-    public PrimaryInfo(double x, double y, double z)
+    public partial class PrimaryInfo : IEquatable<PrimaryInfo>
     {
-      X = x;
-      Y = y;
-      Z = z;
+        private PrimaryInfo(NativePrimaryInfo instance)
+        {
+            X = instance.X;
+            Y = instance.Y;
+            Z = instance.Z;
+        }
+
+        private INativeInstance CreateNativeInstance()
+        {
+            NativePrimaryInfo instance = new NativePrimaryInfo();
+            instance.X = X;
+            instance.Y = Y;
+            instance.Z = Z;
+            return instance;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PrimaryInfo"/> class.
+        /// </summary>
+        /// <param name="x">The x value.</param>
+        /// <param name="y">The y value.</param>
+        /// <param name="z">The z value.</param>
+        public PrimaryInfo(double x, double y, double z)
+        {
+            X = x;
+            Y = y;
+            Z = z;
+        }
+
+        /// <summary>
+        /// Gets the X value.
+        /// </summary>
+        public double X
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the Y value.
+        /// </summary>
+        public double Y
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the Z value.
+        /// </summary>
+        public double Z
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="PrimaryInfo"/> is equal to the current <see cref="PrimaryInfo"/>.
+        /// </summary>
+        /// <param name="other">The <see cref="PrimaryInfo"/> to compare this <see cref="PrimaryInfo"/> with.</param>
+        /// <returns>True when the specified <see cref="PrimaryInfo"/> is equal to the current <see cref="PrimaryInfo"/>.</returns>
+        public bool Equals(PrimaryInfo other)
+        {
+            if (ReferenceEquals(other, null))
+                return false;
+
+            if (ReferenceEquals(this, other))
+                return true;
+
+            return
+              X == other.X &&
+              Y == other.Y &&
+              Z == other.Z;
+        }
+
+        /// <summary>
+        /// Serves as a hash of this type.
+        /// </summary>
+        /// <returns>A hash code for the current instance.</returns>
+        public override int GetHashCode()
+        {
+            return
+              X.GetHashCode() ^
+              Y.GetHashCode() ^
+              Z.GetHashCode();
+        }
     }
-
-    /// <summary>
-    /// Gets the X value.
-    /// </summary>
-    public double X
-    {
-      get;
-      private set;
-    }
-
-    /// <summary>
-    /// Gets the Y value.
-    /// </summary>
-    public double Y
-    {
-      get;
-      private set;
-    }
-
-    /// <summary>
-    /// Gets the Z value.
-    /// </summary>
-    public double Z
-    {
-      get;
-      private set;
-    }
-
-    /// <summary>
-    /// Determines whether the specified <see cref="PrimaryInfo"/> is equal to the current <see cref="PrimaryInfo"/>.
-    /// </summary>
-    /// <param name="other">The <see cref="PrimaryInfo"/> to compare this <see cref="PrimaryInfo"/> with.</param>
-    /// <returns>True when the specified <see cref="PrimaryInfo"/> is equal to the current <see cref="PrimaryInfo"/>.</returns>
-    public bool Equals(PrimaryInfo other)
-    {
-      if (ReferenceEquals(other, null))
-        return false;
-
-      if (ReferenceEquals(this, other))
-        return true;
-
-      return
-        X == other.X &&
-        Y == other.Y &&
-        Z == other.Z;
-    }
-
-    /// <summary>
-    /// Serves as a hash of this type.
-    /// </summary>
-    /// <returns>A hash code for the current instance.</returns>
-    public override int GetHashCode()
-    {
-      return
-        X.GetHashCode() ^
-        Y.GetHashCode() ^
-        Z.GetHashCode();
-    }
-  }
 }

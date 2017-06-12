@@ -20,39 +20,39 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class HandlerHelperTests
-  {
-    private MagickFormatInfo JpgFormatInfo => MagickNET.GetFormatInformation(MagickFormat.Jpg);
-    private MagickFormatInfo SvgFormatInfo => MagickNET.GetFormatInformation(MagickFormat.Svg);
-
-    [TestMethod]
-    public void Test_CanCompress()
+    [TestClass]
+    public class HandlerHelperTests
     {
-      string config = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" enableGzip=""false""/>";
+        private MagickFormatInfo JpgFormatInfo => MagickNET.GetFormatInformation(MagickFormat.Jpg);
+        private MagickFormatInfo SvgFormatInfo => MagickNET.GetFormatInformation(MagickFormat.Svg);
 
-      MagickWebSettings settings = TestSectionLoader.Load(config);
+        [TestMethod]
+        public void Test_CanCompress()
+        {
+            string config = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" enableGzip=""false""/>";
 
-      bool canCompress = HandlerHelper.CanCompress(settings, SvgFormatInfo);
+            MagickWebSettings settings = TestSectionLoader.Load(config);
 
-      Assert.IsFalse(canCompress);
-    }
+            bool canCompress = HandlerHelper.CanCompress(settings, SvgFormatInfo);
 
-    [TestMethod]
-    public void Test_CanOptimize()
-    {
-      string config = @"
+            Assert.IsFalse(canCompress);
+        }
+
+        [TestMethod]
+        public void Test_CanOptimize()
+        {
+            string config = @"
 <magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"">
   <optimization enabled=""false""/>
 </magick.net.web>";
 
-      MagickWebSettings settings = TestSectionLoader.Load(config);
+            MagickWebSettings settings = TestSectionLoader.Load(config);
 
-      bool canCompress = HandlerHelper.CanOptimize(settings, JpgFormatInfo);
+            bool canCompress = HandlerHelper.CanOptimize(settings, JpgFormatInfo);
 
-      Assert.IsFalse(canCompress);
+            Assert.IsFalse(canCompress);
+        }
     }
-  }
 }
 
 #endif

@@ -14,17 +14,17 @@
 
 namespace ImageMagick.Web
 {
-  /// <summary>
-  /// Defines an interface that is used to resolve a file from the specified request.
-  /// </summary>
-  public interface IFileUrlResolver : IUrlResolver
-  {
     /// <summary>
-    /// Gets the name of the file.
+    /// Defines an interface that is used to resolve a file from the specified request.
     /// </summary>
-    string FileName
+    public interface IFileUrlResolver : IUrlResolver
     {
-      get;
+        /// <summary>
+        /// Gets the name of the file.
+        /// </summary>
+        string FileName
+        {
+            get;
+        }
     }
-  }
 }

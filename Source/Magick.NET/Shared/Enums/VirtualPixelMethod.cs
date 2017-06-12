@@ -14,94 +14,94 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Specifies the virtual pixel methods.
-  /// </summary>
-  public enum VirtualPixelMethod
-  {
     /// <summary>
-    /// Undefined
+    /// Specifies the virtual pixel methods.
     /// </summary>
-    Undefined,
+    public enum VirtualPixelMethod
+    {
+        /// <summary>
+        /// Undefined
+        /// </summary>
+        Undefined,
 
-    /// <summary>
-    /// Background
-    /// </summary>
-    Background,
+        /// <summary>
+        /// Background
+        /// </summary>
+        Background,
 
-    /// <summary>
-    /// Dither
-    /// </summary>
-    Dither,
+        /// <summary>
+        /// Dither
+        /// </summary>
+        Dither,
 
-    /// <summary>
-    /// Edge
-    /// </summary>
-    Edge,
+        /// <summary>
+        /// Edge
+        /// </summary>
+        Edge,
 
-    /// <summary>
-    /// Mirror
-    /// </summary>
-    Mirror,
+        /// <summary>
+        /// Mirror
+        /// </summary>
+        Mirror,
 
-    /// <summary>
-    /// Random
-    /// </summary>
-    Random,
+        /// <summary>
+        /// Random
+        /// </summary>
+        Random,
 
-    /// <summary>
-    /// Tile
-    /// </summary>
-    Tile,
+        /// <summary>
+        /// Tile
+        /// </summary>
+        Tile,
 
-    /// <summary>
-    /// Transparent
-    /// </summary>
-    Transparent,
+        /// <summary>
+        /// Transparent
+        /// </summary>
+        Transparent,
 
-    /// <summary>
-    /// Mask
-    /// </summary>
-    Mask,
+        /// <summary>
+        /// Mask
+        /// </summary>
+        Mask,
 
-    /// <summary>
-    /// Black
-    /// </summary>
-    Black,
+        /// <summary>
+        /// Black
+        /// </summary>
+        Black,
 
-    /// <summary>
-    /// Gray
-    /// </summary>
-    Gray,
+        /// <summary>
+        /// Gray
+        /// </summary>
+        Gray,
 
-    /// <summary>
-    /// White
-    /// </summary>
-    White,
+        /// <summary>
+        /// White
+        /// </summary>
+        White,
 
-    /// <summary>
-    /// HorizontalTile
-    /// </summary>
-    HorizontalTile,
+        /// <summary>
+        /// HorizontalTile
+        /// </summary>
+        HorizontalTile,
 
-    /// <summary>
-    /// VerticalTile
-    /// </summary>
-    VerticalTile,
+        /// <summary>
+        /// VerticalTile
+        /// </summary>
+        VerticalTile,
 
-    /// <summary>
-    /// HorizontalTileEdge
-    /// </summary>
-    HorizontalTileEdge,
+        /// <summary>
+        /// HorizontalTileEdge
+        /// </summary>
+        HorizontalTileEdge,
 
-    /// <summary>
-    /// VerticalTileEdge
-    /// </summary>
-    VerticalTileEdge,
+        /// <summary>
+        /// VerticalTileEdge
+        /// </summary>
+        VerticalTileEdge,
 
-    /// <summary>
-    /// CheckerTile
-    /// </summary>
-    CheckerTile
-  }
+        /// <summary>
+        /// CheckerTile
+        /// </summary>
+        CheckerTile
+    }
 }

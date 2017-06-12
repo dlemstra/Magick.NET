@@ -20,16 +20,16 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public partial class DrawableTextUnderColorTests
-  {
-    [TestMethod]
-    public void Test_Constructor_Color()
+    [TestClass]
+    public partial class DrawableTextUnderColorTests
     {
-      DrawableTextUnderColor textUnderColor = new DrawableTextUnderColor(Color.Violet);
-      ColorAssert.AreEqual(MagickColors.Violet, textUnderColor.Color);
+        [TestMethod]
+        public void Test_Constructor_Color()
+        {
+            DrawableTextUnderColor textUnderColor = new DrawableTextUnderColor(Color.Violet);
+            ColorAssert.AreEqual(MagickColors.Violet, textUnderColor.Color);
+        }
     }
-  }
 }
 
 #endif

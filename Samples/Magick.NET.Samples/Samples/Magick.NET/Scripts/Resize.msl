@@ -1,6 +1,6 @@
 <msl xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <read fileName="$fullpath$Samples\Magick.NET\Files\Snakeware.jpg">
-    <resize percentage="50"/>
-    <write fileName="$fullpath$Samples\Magick.NET\Output\Snakeware.resized.jpg"/>
-  </read>
+    <read fileName="$fullpath$Samples\Magick.NET\Files\Snakeware.jpg">
+        <resize percentage="50"/>
+        <write fileName="$fullpath$Samples\Magick.NET\Output\Snakeware.resized.jpg"/>
+    </read>
 </msl>

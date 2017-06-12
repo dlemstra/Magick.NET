@@ -14,29 +14,29 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Specifies the clip path units.
-  /// </summary>
-  public enum ClipPathUnit
-  {
     /// <summary>
-    /// Undefined
+    /// Specifies the clip path units.
     /// </summary>
-    Undefined,
+    public enum ClipPathUnit
+    {
+        /// <summary>
+        /// Undefined
+        /// </summary>
+        Undefined,
 
-    /// <summary>
-    /// UserSpace
-    /// </summary>
-    UserSpace,
+        /// <summary>
+        /// UserSpace
+        /// </summary>
+        UserSpace,
 
-    /// <summary>
-    /// UserSpaceOnUse
-    /// </summary>
-    UserSpaceOnUse,
+        /// <summary>
+        /// UserSpaceOnUse
+        /// </summary>
+        UserSpaceOnUse,
 
-    /// <summary>
-    /// ObjectBoundingBox
-    /// </summary>
-    ObjectBoundingBox
-  }
+        /// <summary>
+        /// ObjectBoundingBox
+        /// </summary>
+        ObjectBoundingBox
+    }
 }

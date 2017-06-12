@@ -18,85 +18,85 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class PngReadDefinesTests
-  {
-    [TestMethod]
-    public void Test_Empty()
+    [TestClass]
+    public class PngReadDefinesTests
     {
-      using (IMagickImage image = new MagickImage())
-      {
-        image.Settings.SetDefines(new PngReadDefines()
+        [TestMethod]
+        public void Test_Empty()
         {
-        });
+            using (IMagickImage image = new MagickImage())
+            {
+                image.Settings.SetDefines(new PngReadDefines()
+                {
+                });
 
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "preserve-iCCP"));
-        Assert.AreEqual(null, image.Settings.GetDefine("profile:skip"));
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "preserve-iCCP"));
+                Assert.AreEqual(null, image.Settings.GetDefine("profile:skip"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
 
-        image.Settings.SetDefines(new PngReadDefines()
-        {
-          SkipProfiles = (ProfileTypes)64
-        });
+                image.Settings.SetDefines(new PngReadDefines()
+                {
+                    SkipProfiles = (ProfileTypes)64
+                });
 
-        Assert.AreEqual(null, image.Settings.GetDefine("profile:skip"));
-      }
-    }
-
-    [TestMethod]
-    public void Test_PreserveiCCP_SwapBytes()
-    {
-      PngReadDefines defines = new PngReadDefines()
-      {
-        PreserveiCCP = true,
-        SwapBytes = false
-      };
-
-      using (IMagickImage image = new MagickImage())
-      {
-        image.Settings.SetDefines(defines);
-
-        Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Png, "preserve-iCCP"));
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
-      }
-
-      defines = new PngReadDefines()
-      {
-        PreserveiCCP = false,
-        SwapBytes = true
-      };
-
-      using (IMagickImage image = new MagickImage())
-      {
-        image.Settings.SetDefines(defines);
-
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "preserve-iCCP"));
-        Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
-      }
-    }
-
-    [TestMethod]
-    public void Test_SkipProfiles()
-    {
-      MagickReadSettings settings = new MagickReadSettings()
-      {
-        Defines = new PngReadDefines()
-        {
-          SkipProfiles = ProfileTypes.Xmp | ProfileTypes.Exif
+                Assert.AreEqual(null, image.Settings.GetDefine("profile:skip"));
+            }
         }
-      };
 
-      using (IMagickImage image = new MagickImage())
-      {
-        image.Read(Files.FujiFilmFinePixS1ProPNG);
-        Assert.IsNotNull(image.GetExifProfile());
-        Assert.IsNotNull(image.GetXmpProfile());
+        [TestMethod]
+        public void Test_PreserveiCCP_SwapBytes()
+        {
+            PngReadDefines defines = new PngReadDefines()
+            {
+                PreserveiCCP = true,
+                SwapBytes = false
+            };
 
-        image.Read(Files.FujiFilmFinePixS1ProPNG, settings);
-        Assert.IsNull(image.GetExifProfile());
-        Assert.IsNull(image.GetXmpProfile());
-        Assert.AreEqual("Exif,Xmp", image.Settings.GetDefine("profile:skip"));
-      }
+            using (IMagickImage image = new MagickImage())
+            {
+                image.Settings.SetDefines(defines);
+
+                Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Png, "preserve-iCCP"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
+            }
+
+            defines = new PngReadDefines()
+            {
+                PreserveiCCP = false,
+                SwapBytes = true
+            };
+
+            using (IMagickImage image = new MagickImage())
+            {
+                image.Settings.SetDefines(defines);
+
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "preserve-iCCP"));
+                Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
+            }
+        }
+
+        [TestMethod]
+        public void Test_SkipProfiles()
+        {
+            MagickReadSettings settings = new MagickReadSettings()
+            {
+                Defines = new PngReadDefines()
+                {
+                    SkipProfiles = ProfileTypes.Xmp | ProfileTypes.Exif
+                }
+            };
+
+            using (IMagickImage image = new MagickImage())
+            {
+                image.Read(Files.FujiFilmFinePixS1ProPNG);
+                Assert.IsNotNull(image.GetExifProfile());
+                Assert.IsNotNull(image.GetXmpProfile());
+
+                image.Read(Files.FujiFilmFinePixS1ProPNG, settings);
+                Assert.IsNull(image.GetExifProfile());
+                Assert.IsNull(image.GetXmpProfile());
+                Assert.AreEqual("Exif,Xmp", image.Settings.GetDefine("profile:skip"));
+            }
+        }
     }
-  }
 }

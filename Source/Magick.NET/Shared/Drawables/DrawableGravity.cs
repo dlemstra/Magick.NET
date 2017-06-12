@@ -14,37 +14,37 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Encapsulation of the DrawableGravity object.
-  /// </summary>
-  public sealed class DrawableGravity : IDrawable, IDrawingWand
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="DrawableGravity"/> class.
+    /// Encapsulation of the DrawableGravity object.
     /// </summary>
-    /// <param name="gravity">The gravity.</param>
-    public DrawableGravity(Gravity gravity)
+    public sealed class DrawableGravity : IDrawable, IDrawingWand
     {
-      Gravity = gravity;
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrawableGravity"/> class.
+        /// </summary>
+        /// <param name="gravity">The gravity.</param>
+        public DrawableGravity(Gravity gravity)
+        {
+            Gravity = gravity;
+        }
 
-    /// <summary>
-    /// Gets or sets the gravity.
-    /// </summary>
-    public Gravity Gravity
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets the gravity.
+        /// </summary>
+        public Gravity Gravity
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// Draws this instance with the drawing wand.
-    /// </summary>
-    /// <param name="wand">The want to draw on.</param>
-    void IDrawingWand.Draw(DrawingWand wand)
-    {
-      if (wand != null)
-        wand.Gravity(Gravity);
+        /// <summary>
+        /// Draws this instance with the drawing wand.
+        /// </summary>
+        /// <param name="wand">The want to draw on.</param>
+        void IDrawingWand.Draw(DrawingWand wand)
+        {
+            if (wand != null)
+                wand.Gravity(Gravity);
+        }
     }
-  }
 }

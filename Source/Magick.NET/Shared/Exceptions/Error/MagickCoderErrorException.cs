@@ -16,19 +16,19 @@ using System;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Encapsulation of the ImageMagick CoderError exception.
-  /// </summary>
-  [Serializable]
-  public sealed class MagickCoderErrorException : MagickErrorException
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MagickCoderErrorException"/> class.
+    /// Encapsulation of the ImageMagick CoderError exception.
     /// </summary>
-    /// <param name="message">The error message that explains the reason for the exception.</param>
-    internal MagickCoderErrorException(string message)
-      : base(message)
+    [Serializable]
+    public sealed class MagickCoderErrorException : MagickErrorException
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickCoderErrorException"/> class.
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception.</param>
+        internal MagickCoderErrorException(string message)
+          : base(message)
+        {
+        }
     }
-  }
 }

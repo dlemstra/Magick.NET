@@ -14,34 +14,34 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Specified the type of decoration for text.
-  /// </summary>
-  public enum TextDecoration
-  {
     /// <summary>
-    /// Undefined
+    /// Specified the type of decoration for text.
     /// </summary>
-    Undefined,
+    public enum TextDecoration
+    {
+        /// <summary>
+        /// Undefined
+        /// </summary>
+        Undefined,
 
-    /// <summary>
-    /// NoDecoration
-    /// </summary>
-    None,
+        /// <summary>
+        /// NoDecoration
+        /// </summary>
+        None,
 
-    /// <summary>
-    /// Underline
-    /// </summary>
-    Underline,
+        /// <summary>
+        /// Underline
+        /// </summary>
+        Underline,
 
-    /// <summary>
-    /// Overline
-    /// </summary>
-    Overline,
+        /// <summary>
+        /// Overline
+        /// </summary>
+        Overline,
 
-    /// <summary>
-    /// LineThrough
-    /// </summary>
-    LineThrough,
-  }
+        /// <summary>
+        /// LineThrough
+        /// </summary>
+        LineThrough,
+    }
 }

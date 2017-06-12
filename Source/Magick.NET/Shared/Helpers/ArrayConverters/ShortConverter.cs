@@ -16,25 +16,25 @@ using System;
 
 namespace ImageMagick
 {
-  internal static class ShortConverter
-  {
-    public static ushort[] ToArray(IntPtr nativeData, int length)
+    internal static class ShortConverter
     {
-      if (nativeData == IntPtr.Zero)
-        return null;
-
-      ushort[] buffer = new ushort[length];
-
-      unsafe
-      {
-        ushort* walk = (ushort*)nativeData;
-        for (int i = 0; i < length; i++)
+        public static ushort[] ToArray(IntPtr nativeData, int length)
         {
-          buffer[i] = *walk++;
-        }
-      }
+            if (nativeData == IntPtr.Zero)
+                return null;
 
-      return buffer;
+            ushort[] buffer = new ushort[length];
+
+            unsafe
+            {
+                ushort* walk = (ushort*)nativeData;
+                for (int i = 0; i < length; i++)
+                {
+                    buffer[i] = *walk++;
+                }
+            }
+
+            return buffer;
+        }
     }
-  }
 }

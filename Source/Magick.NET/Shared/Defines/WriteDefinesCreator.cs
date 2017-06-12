@@ -14,29 +14,29 @@
 
 namespace ImageMagick.Defines
 {
-  /// <summary>
-  /// Base class that can create write defines.
-  /// </summary>
-  public abstract class WriteDefinesCreator : DefinesCreator, IWriteDefines
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="WriteDefinesCreator"/> class.
+    /// Base class that can create write defines.
     /// </summary>
-    /// <param name="format">The format where the defines are for.</param>
-    protected WriteDefinesCreator(MagickFormat format)
-      : base(format)
+    public abstract class WriteDefinesCreator : DefinesCreator, IWriteDefines
     {
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WriteDefinesCreator"/> class.
+        /// </summary>
+        /// <param name="format">The format where the defines are for.</param>
+        protected WriteDefinesCreator(MagickFormat format)
+          : base(format)
+        {
+        }
 
-    /// <summary>
-    /// Gets the format where the defines are for.
-    /// </summary>
-    MagickFormat IWriteDefines.Format
-    {
-      get
-      {
-        return Format;
-      }
+        /// <summary>
+        /// Gets the format where the defines are for.
+        /// </summary>
+        MagickFormat IWriteDefines.Format
+        {
+            get
+            {
+                return Format;
+            }
+        }
     }
-  }
 }

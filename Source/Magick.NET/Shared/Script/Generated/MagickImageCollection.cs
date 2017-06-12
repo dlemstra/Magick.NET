@@ -33,292 +33,292 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-  public sealed partial class MagickScript
-  {
-    [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
-    [SuppressMessage("Microsoft.Maintainability", "CA1505:AvoidUnmaintainableCode")]
-    private IMagickImage ExecuteCollection(XmlElement element, IMagickImageCollection collection)
+    public sealed partial class MagickScript
     {
-      switch(element.Name[0])
-      {
-        case 'c':
+        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+        [SuppressMessage("Microsoft.Maintainability", "CA1505:AvoidUnmaintainableCode")]
+        private IMagickImage ExecuteCollection(XmlElement element, IMagickImageCollection collection)
         {
-          switch(element.Name[2])
-          {
-            case 'a':
+            switch(element.Name[0])
             {
-              return ExecuteCoalesce(collection);
-            }
-            case 'm':
-            {
-              return ExecuteCombine(element, collection);
-            }
-          }
-          break;
-        }
-        case 'd':
-        {
-          return ExecuteDeconstruct(collection);
-        }
-        case 'm':
-        {
-          switch(element.Name[1])
-          {
-            case 'a':
-            {
-              return ExecuteMap(element, collection);
-            }
-            case 'o':
-            {
-              switch(element.Name[2])
-              {
+                case 'c':
+                {
+                    switch(element.Name[2])
+                    {
+                        case 'a':
+                        {
+                            return ExecuteCoalesce(collection);
+                        }
+                        case 'm':
+                        {
+                            return ExecuteCombine(element, collection);
+                        }
+                    }
+                    break;
+                }
+                case 'd':
+                {
+                    return ExecuteDeconstruct(collection);
+                }
+                case 'm':
+                {
+                    switch(element.Name[1])
+                    {
+                        case 'a':
+                        {
+                            return ExecuteMap(element, collection);
+                        }
+                        case 'o':
+                        {
+                            switch(element.Name[2])
+                            {
+                                case 'r':
+                                {
+                                    return ExecuteMorph(element, collection);
+                                }
+                                case 'n':
+                                {
+                                    return ExecuteMontage(element, collection);
+                                }
+                                case 's':
+                                {
+                                    return ExecuteMosaic(collection);
+                                }
+                            }
+                            break;
+                        }
+                        case 'e':
+                        {
+                            return ExecuteMerge(collection);
+                        }
+                    }
+                    break;
+                }
+                case 'o':
+                {
+                    if (element.Name.Length == 8)
+                    {
+                        return ExecuteOptimize(collection);
+                    }
+                    switch(element.Name[8])
+                    {
+                        case 'P':
+                        {
+                            return ExecuteOptimizePlus(collection);
+                        }
+                        case 'T':
+                        {
+                            return ExecuteOptimizeTransparency(collection);
+                        }
+                    }
+                    break;
+                }
+                case 'q':
+                {
+                    return ExecuteQuantize(element, collection);
+                }
                 case 'r':
                 {
-                  return ExecuteMorph(element, collection);
+                    switch(element.Name[2])
+                    {
+                        case 'P':
+                        {
+                            return ExecuteRePage(collection);
+                        }
+                        case 'v':
+                        {
+                            return ExecuteReverse(collection);
+                        }
+                    }
+                    break;
                 }
-                case 'n':
+                case 't':
                 {
-                  return ExecuteMontage(element, collection);
+                    return ExecuteTrimBounds(collection);
+                }
+                case 'a':
+                {
+                    switch(element.Name[6])
+                    {
+                        case 'H':
+                        {
+                            return ExecuteAppendHorizontally(collection);
+                        }
+                        case 'V':
+                        {
+                            return ExecuteAppendVertically(collection);
+                        }
+                    }
+                    break;
+                }
+                case 'e':
+                {
+                    return ExecuteEvaluate(element, collection);
+                }
+                case 'f':
+                {
+                    return ExecuteFlatten(collection);
                 }
                 case 's':
                 {
-                  return ExecuteMosaic(collection);
+                    switch(element.Name[5])
+                    {
+                        case 'H':
+                        {
+                            return ExecuteSmushHorizontal(element, collection);
+                        }
+                        case 'V':
+                        {
+                            return ExecuteSmushVertical(element, collection);
+                        }
+                    }
+                    break;
                 }
-              }
-              break;
             }
-            case 'e':
+            throw new NotSupportedException(element.Name);
+        }
+        private static IMagickImage ExecuteCoalesce(IMagickImageCollection collection)
+        {
+            collection.Coalesce();
+            return null;
+        }
+        private static IMagickImage ExecuteDeconstruct(IMagickImageCollection collection)
+        {
+            collection.Deconstruct();
+            return null;
+        }
+        private IMagickImage ExecuteMap(XmlElement element, IMagickImageCollection collection)
+        {
+            Hashtable arguments = new Hashtable();
+            foreach (XmlElement elem in element.SelectNodes("*"))
             {
-              return ExecuteMerge(collection);
+                if (elem.Name == "image")
+                    arguments["image"] = CreateMagickImage(elem);
+                else if (elem.Name == "settings")
+                    arguments["settings"] = CreateQuantizeSettings(elem);
             }
-          }
-          break;
+            if (OnlyContains(arguments, "image"))
+                {
+                    collection.Map((IMagickImage)arguments["image"]);
+                    return null;
+                }
+            else if (OnlyContains(arguments, "image", "settings"))
+                {
+                    collection.Map((IMagickImage)arguments["image"], (QuantizeSettings)arguments["settings"]);
+                    return null;
+                }
+            else
+                throw new ArgumentException("Invalid argument combination for 'map', allowed combinations are: [image] [image, settings]");
         }
-        case 'o':
+        private IMagickImage ExecuteMorph(XmlElement element, IMagickImageCollection collection)
         {
-          if (element.Name.Length == 8)
-          {
-            return ExecuteOptimize(collection);
-          }
-          switch(element.Name[8])
-          {
-            case 'P':
+            Int32 frames_ = Variables.GetValue<Int32>(element, "frames");
+            collection.Morph(frames_);
+            return null;
+        }
+        private static IMagickImage ExecuteOptimize(IMagickImageCollection collection)
+        {
+            collection.Optimize();
+            return null;
+        }
+        private static IMagickImage ExecuteOptimizePlus(IMagickImageCollection collection)
+        {
+            collection.OptimizePlus();
+            return null;
+        }
+        private static IMagickImage ExecuteOptimizeTransparency(IMagickImageCollection collection)
+        {
+            collection.OptimizeTransparency();
+            return null;
+        }
+        private IMagickImage ExecuteQuantize(XmlElement element, IMagickImageCollection collection)
+        {
+            Hashtable arguments = new Hashtable();
+            foreach (XmlElement elem in element.SelectNodes("*"))
             {
-              return ExecuteOptimizePlus(collection);
+                arguments[elem.Name] = CreateQuantizeSettings(elem);
             }
-            case 'T':
+            if (arguments.Count == 0)
+                {
+                    collection.Quantize();
+                    return null;
+                }
+            else if (OnlyContains(arguments, "settings"))
+                {
+                    collection.Quantize((QuantizeSettings)arguments["settings"]);
+                    return null;
+                }
+            else
+                throw new ArgumentException("Invalid argument combination for 'quantize', allowed combinations are: [] [settings]");
+        }
+        private static IMagickImage ExecuteRePage(IMagickImageCollection collection)
+        {
+            collection.RePage();
+            return null;
+        }
+        private static IMagickImage ExecuteReverse(IMagickImageCollection collection)
+        {
+            collection.Reverse();
+            return null;
+        }
+        private static IMagickImage ExecuteTrimBounds(IMagickImageCollection collection)
+        {
+            collection.TrimBounds();
+            return null;
+        }
+        private static IMagickImage ExecuteAppendHorizontally(IMagickImageCollection collection)
+        {
+            return collection.AppendHorizontally();
+        }
+        private static IMagickImage ExecuteAppendVertically(IMagickImageCollection collection)
+        {
+            return collection.AppendVertically();
+        }
+        private IMagickImage ExecuteCombine(XmlElement element, IMagickImageCollection collection)
+        {
+            Hashtable arguments = new Hashtable();
+            foreach (XmlAttribute attribute in element.Attributes)
             {
-              return ExecuteOptimizeTransparency(collection);
+                arguments[attribute.Name] = Variables.GetValue<ColorSpace>(attribute);
             }
-          }
-          break;
+            if (arguments.Count == 0)
+                return collection.Combine();
+            else if (OnlyContains(arguments, "colorSpace"))
+                return collection.Combine((ColorSpace)arguments["colorSpace"]);
+            else
+                throw new ArgumentException("Invalid argument combination for 'combine', allowed combinations are: [] [colorSpace]");
         }
-        case 'q':
+        private IMagickImage ExecuteEvaluate(XmlElement element, IMagickImageCollection collection)
         {
-          return ExecuteQuantize(element, collection);
+            EvaluateOperator evaluateOperator_ = Variables.GetValue<EvaluateOperator>(element, "evaluateOperator");
+            return collection.Evaluate(evaluateOperator_);
         }
-        case 'r':
+        private static IMagickImage ExecuteFlatten(IMagickImageCollection collection)
         {
-          switch(element.Name[2])
-          {
-            case 'P':
-            {
-              return ExecuteRePage(collection);
-            }
-            case 'v':
-            {
-              return ExecuteReverse(collection);
-            }
-          }
-          break;
+            return collection.Flatten();
         }
-        case 't':
+        private static IMagickImage ExecuteMerge(IMagickImageCollection collection)
         {
-          return ExecuteTrimBounds(collection);
+            return collection.Merge();
         }
-        case 'a':
+        private IMagickImage ExecuteMontage(XmlElement element, IMagickImageCollection collection)
         {
-          switch(element.Name[6])
-          {
-            case 'H':
-            {
-              return ExecuteAppendHorizontally(collection);
-            }
-            case 'V':
-            {
-              return ExecuteAppendVertically(collection);
-            }
-          }
-          break;
+            MontageSettings settings_ = CreateMontageSettings(element["settings"]);
+            return collection.Montage(settings_);
         }
-        case 'e':
+        private static IMagickImage ExecuteMosaic(IMagickImageCollection collection)
         {
-          return ExecuteEvaluate(element, collection);
+            return collection.Mosaic();
         }
-        case 'f':
+        private IMagickImage ExecuteSmushHorizontal(XmlElement element, IMagickImageCollection collection)
         {
-          return ExecuteFlatten(collection);
+            Int32 offset_ = Variables.GetValue<Int32>(element, "offset");
+            return collection.SmushHorizontal(offset_);
         }
-        case 's':
+        private IMagickImage ExecuteSmushVertical(XmlElement element, IMagickImageCollection collection)
         {
-          switch(element.Name[5])
-          {
-            case 'H':
-            {
-              return ExecuteSmushHorizontal(element, collection);
-            }
-            case 'V':
-            {
-              return ExecuteSmushVertical(element, collection);
-            }
-          }
-          break;
+            Int32 offset_ = Variables.GetValue<Int32>(element, "offset");
+            return collection.SmushVertical(offset_);
         }
-      }
-      throw new NotSupportedException(element.Name);
     }
-    private static IMagickImage ExecuteCoalesce(IMagickImageCollection collection)
-    {
-      collection.Coalesce();
-      return null;
-    }
-    private static IMagickImage ExecuteDeconstruct(IMagickImageCollection collection)
-    {
-      collection.Deconstruct();
-      return null;
-    }
-    private IMagickImage ExecuteMap(XmlElement element, IMagickImageCollection collection)
-    {
-      Hashtable arguments = new Hashtable();
-      foreach (XmlElement elem in element.SelectNodes("*"))
-      {
-        if (elem.Name == "image")
-          arguments["image"] = CreateMagickImage(elem);
-        else if (elem.Name == "settings")
-          arguments["settings"] = CreateQuantizeSettings(elem);
-      }
-      if (OnlyContains(arguments, "image"))
-        {
-          collection.Map((IMagickImage)arguments["image"]);
-          return null;
-        }
-      else if (OnlyContains(arguments, "image", "settings"))
-        {
-          collection.Map((IMagickImage)arguments["image"], (QuantizeSettings)arguments["settings"]);
-          return null;
-        }
-      else
-        throw new ArgumentException("Invalid argument combination for 'map', allowed combinations are: [image] [image, settings]");
-    }
-    private IMagickImage ExecuteMorph(XmlElement element, IMagickImageCollection collection)
-    {
-      Int32 frames_ = Variables.GetValue<Int32>(element, "frames");
-      collection.Morph(frames_);
-      return null;
-    }
-    private static IMagickImage ExecuteOptimize(IMagickImageCollection collection)
-    {
-      collection.Optimize();
-      return null;
-    }
-    private static IMagickImage ExecuteOptimizePlus(IMagickImageCollection collection)
-    {
-      collection.OptimizePlus();
-      return null;
-    }
-    private static IMagickImage ExecuteOptimizeTransparency(IMagickImageCollection collection)
-    {
-      collection.OptimizeTransparency();
-      return null;
-    }
-    private IMagickImage ExecuteQuantize(XmlElement element, IMagickImageCollection collection)
-    {
-      Hashtable arguments = new Hashtable();
-      foreach (XmlElement elem in element.SelectNodes("*"))
-      {
-        arguments[elem.Name] = CreateQuantizeSettings(elem);
-      }
-      if (arguments.Count == 0)
-        {
-          collection.Quantize();
-          return null;
-        }
-      else if (OnlyContains(arguments, "settings"))
-        {
-          collection.Quantize((QuantizeSettings)arguments["settings"]);
-          return null;
-        }
-      else
-        throw new ArgumentException("Invalid argument combination for 'quantize', allowed combinations are: [] [settings]");
-    }
-    private static IMagickImage ExecuteRePage(IMagickImageCollection collection)
-    {
-      collection.RePage();
-      return null;
-    }
-    private static IMagickImage ExecuteReverse(IMagickImageCollection collection)
-    {
-      collection.Reverse();
-      return null;
-    }
-    private static IMagickImage ExecuteTrimBounds(IMagickImageCollection collection)
-    {
-      collection.TrimBounds();
-      return null;
-    }
-    private static IMagickImage ExecuteAppendHorizontally(IMagickImageCollection collection)
-    {
-      return collection.AppendHorizontally();
-    }
-    private static IMagickImage ExecuteAppendVertically(IMagickImageCollection collection)
-    {
-      return collection.AppendVertically();
-    }
-    private IMagickImage ExecuteCombine(XmlElement element, IMagickImageCollection collection)
-    {
-      Hashtable arguments = new Hashtable();
-      foreach (XmlAttribute attribute in element.Attributes)
-      {
-        arguments[attribute.Name] = Variables.GetValue<ColorSpace>(attribute);
-      }
-      if (arguments.Count == 0)
-        return collection.Combine();
-      else if (OnlyContains(arguments, "colorSpace"))
-        return collection.Combine((ColorSpace)arguments["colorSpace"]);
-      else
-        throw new ArgumentException("Invalid argument combination for 'combine', allowed combinations are: [] [colorSpace]");
-    }
-    private IMagickImage ExecuteEvaluate(XmlElement element, IMagickImageCollection collection)
-    {
-      EvaluateOperator evaluateOperator_ = Variables.GetValue<EvaluateOperator>(element, "evaluateOperator");
-      return collection.Evaluate(evaluateOperator_);
-    }
-    private static IMagickImage ExecuteFlatten(IMagickImageCollection collection)
-    {
-      return collection.Flatten();
-    }
-    private static IMagickImage ExecuteMerge(IMagickImageCollection collection)
-    {
-      return collection.Merge();
-    }
-    private IMagickImage ExecuteMontage(XmlElement element, IMagickImageCollection collection)
-    {
-      MontageSettings settings_ = CreateMontageSettings(element["settings"]);
-      return collection.Montage(settings_);
-    }
-    private static IMagickImage ExecuteMosaic(IMagickImageCollection collection)
-    {
-      return collection.Mosaic();
-    }
-    private IMagickImage ExecuteSmushHorizontal(XmlElement element, IMagickImageCollection collection)
-    {
-      Int32 offset_ = Variables.GetValue<Int32>(element, "offset");
-      return collection.SmushHorizontal(offset_);
-    }
-    private IMagickImage ExecuteSmushVertical(XmlElement element, IMagickImageCollection collection)
-    {
-      Int32 offset_ = Variables.GetValue<Int32>(element, "offset");
-      return collection.SmushVertical(offset_);
-    }
-  }
 }

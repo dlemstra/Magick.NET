@@ -18,19 +18,19 @@ using System.Text;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public partial class DrawableTextEncodingTests
-  {
-    [TestMethod]
-    public void Test_Encoding()
+    [TestClass]
+    public partial class DrawableTextEncodingTests
     {
-      DrawableTextEncoding encoding = new DrawableTextEncoding(Encoding.UTF8);
-      encoding.Encoding = null;
+        [TestMethod]
+        public void Test_Encoding()
+        {
+            DrawableTextEncoding encoding = new DrawableTextEncoding(Encoding.UTF8);
+            encoding.Encoding = null;
 
-      using (IMagickImage image = new MagickImage(MagickColors.Firebrick, 10, 10))
-      {
-        image.Draw(encoding);
-      }
+            using (IMagickImage image = new MagickImage(MagickColors.Firebrick, 10, 10))
+            {
+                image.Draw(encoding);
+            }
+        }
     }
-  }
 }

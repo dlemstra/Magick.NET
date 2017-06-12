@@ -24,174 +24,174 @@ using System.Web;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class MagickHandlerTests
-  {
-    private IImageData imageData => new FileImageData(null, MagickNET.GetFormatInformation(MagickFormat.Png));
-
-    [TestMethod]
-    public void Test_CacheControlMode()
+    [TestClass]
+    public class MagickHandlerTests
     {
-      string configCache = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache""/>";
+        private IImageData imageData => new FileImageData(null, MagickNET.GetFormatInformation(MagickFormat.Png));
 
-      string configNoCache = @"
+        [TestMethod]
+        public void Test_CacheControlMode()
+        {
+            string configCache = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache""/>";
+
+            string configNoCache = @"
 <magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"">
   <clientCache cacheControlMode=""NoControl""/>
 </magick.net.web>";
 
-      HttpRequest request = new HttpRequest("foo", "https://bar", "");
+            HttpRequest request = new HttpRequest("foo", "https://bar", "");
 
-      using (MemoryStream memStream = new MemoryStream())
-      {
-        using (StreamWriter writer = new StreamWriter(memStream))
-        {
-          HttpResponse response = new HttpResponse(writer);
-          HttpContext context = new HttpContext(request, response);
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                using (StreamWriter writer = new StreamWriter(memStream))
+                {
+                    HttpResponse response = new HttpResponse(writer);
+                    HttpContext context = new HttpContext(request, response);
 
-          MagickWebSettings settings = TestSectionLoader.Load(configNoCache);
-          TestMagickHandler handler = new TestMagickHandler(settings, imageData);
-          handler.ProcessRequest(context);
+                    MagickWebSettings settings = TestSectionLoader.Load(configNoCache);
+                    TestMagickHandler handler = new TestMagickHandler(settings, imageData);
+                    handler.ProcessRequest(context);
 
-          Assert.AreNotEqual(HttpCacheability.Public, response.Cache.GetCacheability());
+                    Assert.AreNotEqual(HttpCacheability.Public, response.Cache.GetCacheability());
 
-          settings = TestSectionLoader.Load(configCache);
-          handler = new TestMagickHandler(settings, imageData);
-          handler.ProcessRequest(context);
+                    settings = TestSectionLoader.Load(configCache);
+                    handler = new TestMagickHandler(settings, imageData);
+                    handler.ProcessRequest(context);
 
-          Assert.AreEqual(HttpCacheability.Public, response.Cache.GetCacheability());
+                    Assert.AreEqual(HttpCacheability.Public, response.Cache.GetCacheability());
+                }
+            }
         }
-      }
-    }
 
-    [TestMethod]
-    public void Test_Version()
-    {
-      string config = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" showVersion=""true""/>";
-
-      MagickWebSettings settings = TestSectionLoader.Load(config);
-
-      TestMagickHandler handler = new TestMagickHandler(settings, imageData);
-
-      HttpRequest request = new HttpRequest("foo", "https://bar", "");
-
-      using (MemoryStream memStream = new MemoryStream())
-      {
-        using (StreamWriter writer = new StreamWriter(memStream))
+        [TestMethod]
+        public void Test_Version()
         {
-          HttpResponse response = new HttpResponse(writer);
-          HttpContext context = new HttpContext(request, response);
+            string config = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" showVersion=""true""/>";
 
-          handler.ProcessRequest(context);
+            MagickWebSettings settings = TestSectionLoader.Load(config);
 
-          Assert.AreEqual("image/png", response.ContentType);
-          Assert.IsNotNull(response.GetHeader("X-Magick"));
+            TestMagickHandler handler = new TestMagickHandler(settings, imageData);
+
+            HttpRequest request = new HttpRequest("foo", "https://bar", "");
+
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                using (StreamWriter writer = new StreamWriter(memStream))
+                {
+                    HttpResponse response = new HttpResponse(writer);
+                    HttpContext context = new HttpContext(request, response);
+
+                    handler.ProcessRequest(context);
+
+                    Assert.AreEqual("image/png", response.ContentType);
+                    Assert.IsNotNull(response.GetHeader("X-Magick"));
+                }
+            }
         }
-      }
-    }
 
-    [TestMethod]
-    public void Test_Write304()
-    {
-      string config = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache""/>";
-
-      MagickWebSettings settings = TestSectionLoader.Load(config);
-
-      TestMagickHandler handler = new TestMagickHandler(settings, imageData);
-
-      HttpRequest request = new HttpRequest("foo", "https://bar", "");
-
-      using (MemoryStream memStream = new MemoryStream())
-      {
-        using (StreamWriter writer = new StreamWriter(memStream))
+        [TestMethod]
+        public void Test_Write304()
         {
-          HttpResponse response = new HttpResponse(writer);
-          HttpContext context = new HttpContext(request, response);
+            string config = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache""/>";
 
-          FileInfo file = new FileInfo(handler.FileName);
-          string modifiedSince = file.LastWriteTimeUtc.AddMinutes(1).ToString("r", CultureInfo.InvariantCulture);
-          request.SetHeaders("If-Modified-Since", modifiedSince);
-          handler.ProcessRequest(context);
+            MagickWebSettings settings = TestSectionLoader.Load(config);
 
-          Assert.AreEqual(200, response.StatusCode);
-          Assert.AreEqual(file.LastWriteTimeUtc.ToString(), response.Cache.GetLastModified().ToString());
+            TestMagickHandler handler = new TestMagickHandler(settings, imageData);
 
-          request.SetHeaders("If-Modified-Since", "foobar");
-          handler.ProcessRequest(context);
+            HttpRequest request = new HttpRequest("foo", "https://bar", "");
 
-          Assert.AreEqual(200, response.StatusCode);
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                using (StreamWriter writer = new StreamWriter(memStream))
+                {
+                    HttpResponse response = new HttpResponse(writer);
+                    HttpContext context = new HttpContext(request, response);
 
-          modifiedSince = file.LastWriteTimeUtc.AddMinutes(1).ToString("r", CultureInfo.InvariantCulture) + "; foo";
-          request.SetHeaders("If-Modified-Since", modifiedSince);
-          handler.ProcessRequest(context);
+                    FileInfo file = new FileInfo(handler.FileName);
+                    string modifiedSince = file.LastWriteTimeUtc.AddMinutes(1).ToString("r", CultureInfo.InvariantCulture);
+                    request.SetHeaders("If-Modified-Since", modifiedSince);
+                    handler.ProcessRequest(context);
 
-          Assert.AreEqual(200, response.StatusCode);
+                    Assert.AreEqual(200, response.StatusCode);
+                    Assert.AreEqual(file.LastWriteTimeUtc.ToString(), response.Cache.GetLastModified().ToString());
 
-          modifiedSince = file.LastWriteTimeUtc.ToString("r", CultureInfo.InvariantCulture);
-          request.SetHeaders("If-Modified-Since", modifiedSince);
-          handler.ProcessRequest(context);
+                    request.SetHeaders("If-Modified-Since", "foobar");
+                    handler.ProcessRequest(context);
 
-          Assert.AreEqual(304, response.StatusCode);
+                    Assert.AreEqual(200, response.StatusCode);
 
-          string tempFile = Path.GetTempFileName();
-          try
-          {
-            File.Copy(handler.FileName, tempFile, true);
-            File.SetLastWriteTimeUtc(tempFile, DateTime.Now.AddYears(2));
+                    modifiedSince = file.LastWriteTimeUtc.AddMinutes(1).ToString("r", CultureInfo.InvariantCulture) + "; foo";
+                    request.SetHeaders("If-Modified-Since", modifiedSince);
+                    handler.ProcessRequest(context);
 
-            handler.FileName = tempFile;
+                    Assert.AreEqual(200, response.StatusCode);
 
-            request.SetHeaders("If-Modified-Since", modifiedSince);
-            handler.ProcessRequest(context);
+                    modifiedSince = file.LastWriteTimeUtc.ToString("r", CultureInfo.InvariantCulture);
+                    request.SetHeaders("If-Modified-Since", modifiedSince);
+                    handler.ProcessRequest(context);
 
-            Assert.AreEqual(304, response.StatusCode);
-            Assert.AreEqual(DateTime.Now.Year, response.Cache.GetLastModified().Year);
-          }
-          finally
-          {
-            if (File.Exists(tempFile))
-              File.Delete(tempFile);
-          }
+                    Assert.AreEqual(304, response.StatusCode);
+
+                    string tempFile = Path.GetTempFileName();
+                    try
+                    {
+                        File.Copy(handler.FileName, tempFile, true);
+                        File.SetLastWriteTimeUtc(tempFile, DateTime.Now.AddYears(2));
+
+                        handler.FileName = tempFile;
+
+                        request.SetHeaders("If-Modified-Since", modifiedSince);
+                        handler.ProcessRequest(context);
+
+                        Assert.AreEqual(304, response.StatusCode);
+                        Assert.AreEqual(DateTime.Now.Year, response.Cache.GetLastModified().Year);
+                    }
+                    finally
+                    {
+                        if (File.Exists(tempFile))
+                            File.Delete(tempFile);
+                    }
+                }
+            }
         }
-      }
-    }
 
-    [TestMethod]
-    public void Test_WriteFile()
-    {
-      string config = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache""/>";
-
-      MagickWebSettings settings = TestSectionLoader.Load(config);
-
-      TestMagickHandler handler = new TestMagickHandler(settings, imageData);
-
-      HttpRequest request = new HttpRequest("foo", "https://bar", "");
-
-      using (MemoryStream memStream = new MemoryStream())
-      {
-        using (StreamWriter writer = new StreamWriter(memStream))
+        [TestMethod]
+        public void Test_WriteFile()
         {
-          HttpResponse response = new HttpResponse(writer);
-          HttpContext context = new HttpContext(request, response);
+            string config = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache""/>";
 
-          Assert.IsFalse(handler.IsReusable);
+            MagickWebSettings settings = TestSectionLoader.Load(config);
 
-          handler.ProcessRequest(null);
+            TestMagickHandler handler = new TestMagickHandler(settings, imageData);
 
-          handler.FileName = null;
-          handler.ProcessRequest(context);
+            HttpRequest request = new HttpRequest("foo", "https://bar", "");
 
-          handler.FileName = "";
-          handler.ProcessRequest(context);
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                using (StreamWriter writer = new StreamWriter(memStream))
+                {
+                    HttpResponse response = new HttpResponse(writer);
+                    HttpContext context = new HttpContext(request, response);
 
-          handler.FileName = "missing";
-          ExceptionAssert.Throws<ArgumentNullException>(() =>
-          {
-            handler.ProcessRequest(context);
-          });
+                    Assert.IsFalse(handler.IsReusable);
+
+                    handler.ProcessRequest(null);
+
+                    handler.FileName = null;
+                    handler.ProcessRequest(context);
+
+                    handler.FileName = "";
+                    handler.ProcessRequest(context);
+
+                    handler.FileName = "missing";
+                    ExceptionAssert.Throws<ArgumentNullException>(() =>
+                    {
+                        handler.ProcessRequest(context);
+                    });
+                }
+            }
         }
-      }
     }
-  }
 }
 
 #endif

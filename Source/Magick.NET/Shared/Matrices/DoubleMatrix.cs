@@ -16,132 +16,132 @@ using System;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Encapsulates a matrix of doubles.
-  /// </summary>
-  public abstract partial class DoubleMatrix
-  {
-    private double[] _Values;
-
-    private INativeInstance CreateNativeInstance()
-    {
-      return new NativeDoubleMatrix(_Values, Order);
-    }
-
-    private int GetIndex(int x, int y)
-    {
-      Throw.IfOutOfRange(nameof(x), x, Order);
-      Throw.IfOutOfRange(nameof(y), y, Order);
-
-      return (y * Order) + x;
-    }
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="DoubleMatrix"/> class.
+    /// Encapsulates a matrix of doubles.
     /// </summary>
-    /// <param name="order">The order.</param>
-    /// <param name="values">The values to initialize the matrix with.</param>
-    protected DoubleMatrix(int order, double[] values)
+    public abstract partial class DoubleMatrix
     {
-      Order = order;
+        private double[] _Values;
 
-      _Values = new double[Order * Order];
-      if (values != null)
-      {
-        Throw.IfFalse(nameof(values), (Order * Order) == values.Length, "Invalid number of values specified");
-        Array.Copy(values, _Values, _Values.Length);
-      }
+        private INativeInstance CreateNativeInstance()
+        {
+            return new NativeDoubleMatrix(_Values, Order);
+        }
+
+        private int GetIndex(int x, int y)
+        {
+            Throw.IfOutOfRange(nameof(x), x, Order);
+            Throw.IfOutOfRange(nameof(y), y, Order);
+
+            return (y * Order) + x;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DoubleMatrix"/> class.
+        /// </summary>
+        /// <param name="order">The order.</param>
+        /// <param name="values">The values to initialize the matrix with.</param>
+        protected DoubleMatrix(int order, double[] values)
+        {
+            Order = order;
+
+            _Values = new double[Order * Order];
+            if (values != null)
+            {
+                Throw.IfFalse(nameof(values), (Order * Order) == values.Length, "Invalid number of values specified");
+                Array.Copy(values, _Values, _Values.Length);
+            }
+        }
+
+        /// <summary>
+        /// Get or set the value at the specified x/y position.
+        /// </summary>
+        /// <param name="x">The x position</param>
+        /// <param name="y">The y position</param>
+        public double this[int x, int y]
+        {
+            get
+            {
+                return GetValue(x, y);
+            }
+            set
+            {
+                SetValue(x, y, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets the order of the matrix.
+        /// </summary>
+        public int Order
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the value at the specified x/y position.
+        /// </summary>
+        /// <param name="x">The x position</param>
+        /// <param name="y">The y position</param>
+        /// <returns>The value at the specified x/y position.</returns>
+        public double GetValue(int x, int y)
+        {
+            return _Values[GetIndex(x, y)];
+        }
+
+        /// <summary>
+        /// Set the column at the specified x position.
+        /// </summary>
+        /// <param name="x">The x position</param>
+        /// <param name="values">The values</param>
+        public void SetColumn(int x, params double[] values)
+        {
+            Throw.IfOutOfRange(nameof(x), x, Order);
+            Throw.IfNull(nameof(values), values);
+            Throw.IfTrue(nameof(values), values.Length != Order, "Invalid length");
+
+            for (int y = 0; y < Order; y++)
+            {
+                SetValue(x, y, values[y]);
+            }
+        }
+
+        /// <summary>
+        /// Set the row at the specified y position.
+        /// </summary>
+        /// <param name="y">The y position</param>
+        /// <param name="values">The values</param>
+        public void SetRow(int y, params double[] values)
+        {
+            Throw.IfOutOfRange(nameof(y), y, Order);
+            Throw.IfNull(nameof(values), values);
+            Throw.IfTrue(nameof(values), values.Length != Order, "Invalid length");
+
+            for (int x = 0; x < Order; x++)
+            {
+                SetValue(x, y, values[x]);
+            }
+        }
+
+        /// <summary>
+        /// Set the value at the specified x/y position.
+        /// </summary>
+        /// <param name="x">The x position</param>
+        /// <param name="y">The y position</param>
+        /// <param name="value">The value</param>
+        public void SetValue(int x, int y, double value)
+        {
+            _Values[GetIndex(x, y)] = value;
+        }
+
+        /// <summary>
+        /// Returns a string that represents the current DoubleMatrix.
+        /// </summary>
+        /// <returns>The double array.</returns>
+        public double[] ToArray()
+        {
+            return _Values;
+        }
     }
-
-    /// <summary>
-    /// Get or set the value at the specified x/y position.
-    /// </summary>
-    /// <param name="x">The x position</param>
-    /// <param name="y">The y position</param>
-    public double this[int x, int y]
-    {
-      get
-      {
-        return GetValue(x, y);
-      }
-      set
-      {
-        SetValue(x, y, value);
-      }
-    }
-
-    /// <summary>
-    /// Gets the order of the matrix.
-    /// </summary>
-    public int Order
-    {
-      get;
-      private set;
-    }
-
-    /// <summary>
-    /// Gets the value at the specified x/y position.
-    /// </summary>
-    /// <param name="x">The x position</param>
-    /// <param name="y">The y position</param>
-    /// <returns>The value at the specified x/y position.</returns>
-    public double GetValue(int x, int y)
-    {
-      return _Values[GetIndex(x, y)];
-    }
-
-    /// <summary>
-    /// Set the column at the specified x position.
-    /// </summary>
-    /// <param name="x">The x position</param>
-    /// <param name="values">The values</param>
-    public void SetColumn(int x, params double[] values)
-    {
-      Throw.IfOutOfRange(nameof(x), x, Order);
-      Throw.IfNull(nameof(values), values);
-      Throw.IfTrue(nameof(values), values.Length != Order, "Invalid length");
-
-      for (int y = 0; y < Order; y++)
-      {
-        SetValue(x, y, values[y]);
-      }
-    }
-
-    /// <summary>
-    /// Set the row at the specified y position.
-    /// </summary>
-    /// <param name="y">The y position</param>
-    /// <param name="values">The values</param>
-    public void SetRow(int y, params double[] values)
-    {
-      Throw.IfOutOfRange(nameof(y), y, Order);
-      Throw.IfNull(nameof(values), values);
-      Throw.IfTrue(nameof(values), values.Length != Order, "Invalid length");
-
-      for (int x = 0; x < Order; x++)
-      {
-        SetValue(x, y, values[x]);
-      }
-    }
-
-    /// <summary>
-    /// Set the value at the specified x/y position.
-    /// </summary>
-    /// <param name="x">The x position</param>
-    /// <param name="y">The y position</param>
-    /// <param name="value">The value</param>
-    public void SetValue(int x, int y, double value)
-    {
-      _Values[GetIndex(x, y)] = value;
-    }
-
-    /// <summary>
-    /// Returns a string that represents the current DoubleMatrix.
-    /// </summary>
-    /// <returns>The double array.</returns>
-    public double[] ToArray()
-    {
-      return _Values;
-    }
-  }
 }

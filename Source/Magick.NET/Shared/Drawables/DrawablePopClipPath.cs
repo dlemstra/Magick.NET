@@ -14,26 +14,26 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Terminates a clip path definition.
-  /// </summary>
-  public sealed class DrawablePopClipPath : IDrawable, IDrawingWand
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="DrawablePopClipPath"/> class.
+    /// Terminates a clip path definition.
     /// </summary>
-    public DrawablePopClipPath()
+    public sealed class DrawablePopClipPath : IDrawable, IDrawingWand
     {
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrawablePopClipPath"/> class.
+        /// </summary>
+        public DrawablePopClipPath()
+        {
+        }
 
-    /// <summary>
-    /// Draws this instance with the drawing wand.
-    /// </summary>
-    /// <param name="wand">The want to draw on.</param>
-    void IDrawingWand.Draw(DrawingWand wand)
-    {
-      if (wand != null)
-        wand.PopClipPath();
+        /// <summary>
+        /// Draws this instance with the drawing wand.
+        /// </summary>
+        /// <param name="wand">The want to draw on.</param>
+        void IDrawingWand.Draw(DrawingWand wand)
+        {
+            if (wand != null)
+                wand.PopClipPath();
+        }
     }
-  }
 }

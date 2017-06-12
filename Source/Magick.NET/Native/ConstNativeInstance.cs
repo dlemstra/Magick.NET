@@ -16,28 +16,28 @@ using System;
 
 namespace ImageMagick
 {
-  internal abstract class ConstNativeInstance : NativeHelper
-  {
-    private IntPtr _Instance = IntPtr.Zero;
-
-    protected abstract string TypeName
+    internal abstract class ConstNativeInstance : NativeHelper
     {
-      get;
-    }
+        private IntPtr _Instance = IntPtr.Zero;
 
-    public IntPtr Instance
-    {
-      get
-      {
-        if (_Instance == IntPtr.Zero)
-          throw new ObjectDisposedException(TypeName);
+        protected abstract string TypeName
+        {
+            get;
+        }
 
-        return _Instance;
-      }
-      set
-      {
-        _Instance = value;
-      }
+        public IntPtr Instance
+        {
+            get
+            {
+                if (_Instance == IntPtr.Zero)
+                    throw new ObjectDisposedException(TypeName);
+
+                return _Instance;
+            }
+            set
+            {
+                _Instance = value;
+            }
+        }
     }
-  }
 }

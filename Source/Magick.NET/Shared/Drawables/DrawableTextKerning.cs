@@ -14,37 +14,37 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Sets the spacing between characters in text.
-  /// </summary>
-  public sealed class DrawableTextKerning : IDrawable, IDrawingWand
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="DrawableTextKerning"/> class.
+    /// Sets the spacing between characters in text.
     /// </summary>
-    /// <param name="kerning">Kerning to use.</param>
-    public DrawableTextKerning(double kerning)
+    public sealed class DrawableTextKerning : IDrawable, IDrawingWand
     {
-      Kerning = kerning;
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrawableTextKerning"/> class.
+        /// </summary>
+        /// <param name="kerning">Kerning to use.</param>
+        public DrawableTextKerning(double kerning)
+        {
+            Kerning = kerning;
+        }
 
-    /// <summary>
-    /// Gets or sets the text kerning to use.
-    /// </summary>
-    public double Kerning
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets the text kerning to use.
+        /// </summary>
+        public double Kerning
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// Draws this instance with the drawing wand.
-    /// </summary>
-    /// <param name="wand">The want to draw on.</param>
-    void IDrawingWand.Draw(DrawingWand wand)
-    {
-      if (wand != null)
-        wand.TextKerning(Kerning);
+        /// <summary>
+        /// Draws this instance with the drawing wand.
+        /// </summary>
+        /// <param name="wand">The want to draw on.</param>
+        void IDrawingWand.Draw(DrawingWand wand)
+        {
+            if (wand != null)
+                wand.TextKerning(Kerning);
+        }
     }
-  }
 }

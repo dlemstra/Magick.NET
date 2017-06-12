@@ -17,37 +17,37 @@ using ImageMagick.Defines;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Class for defines that are used when a psd image is written.
-  /// </summary>
-  public sealed class PsdWriteDefines : WriteDefinesCreator
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PsdWriteDefines"/> class.
+    /// Class for defines that are used when a psd image is written.
     /// </summary>
-    public PsdWriteDefines()
-      : base(MagickFormat.Psd)
+    public sealed class PsdWriteDefines : WriteDefinesCreator
     {
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PsdWriteDefines"/> class.
+        /// </summary>
+        public PsdWriteDefines()
+          : base(MagickFormat.Psd)
+        {
+        }
 
-    /// <summary>
-    /// Gets or sets which additional info should be written to the output file.
-    /// </summary>
-    public PsdAdditionalInfo AdditionalInfo
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets which additional info should be written to the output file.
+        /// </summary>
+        public PsdAdditionalInfo AdditionalInfo
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// Gets the defines that should be set as a define on an image.
-    /// </summary>
-    public override IEnumerable<IDefine> Defines
-    {
-      get
-      {
-        yield return CreateDefine("additional-info", AdditionalInfo);
-      }
+        /// <summary>
+        /// Gets the defines that should be set as a define on an image.
+        /// </summary>
+        public override IEnumerable<IDefine> Defines
+        {
+            get
+            {
+                yield return CreateDefine("additional-info", AdditionalInfo);
+            }
+        }
     }
-  }
 }

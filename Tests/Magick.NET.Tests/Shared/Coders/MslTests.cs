@@ -18,40 +18,40 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class MslTests
-  {
-    [TestMethod]
-    public void Test_Disabled()
+    [TestClass]
+    public class MslTests
     {
-      using (MemoryStream memStream = new MemoryStream())
-      {
-        using (StreamWriter writer = new StreamWriter(memStream))
+        [TestMethod]
+        public void Test_Disabled()
         {
-          writer.Write(@"
-            <?xml version=""1.0"" encoding=""UTF-8""?>
-            <image>
-              <read filename=""/tmp/text.gif"" />
-            </image>");
-
-          writer.Flush();
-
-          memStream.Position = 0;
-
-          using (IMagickImage image = new MagickImage())
-          {
-            MagickReadSettings readSettings = new MagickReadSettings()
+            using (MemoryStream memStream = new MemoryStream())
             {
-              Format = MagickFormat.Msl
-            };
+                using (StreamWriter writer = new StreamWriter(memStream))
+                {
+                    writer.Write(@"
+                        <?xml version=""1.0"" encoding=""UTF-8""?>
+                        <image>
+                          <read filename=""/tmp/text.gif"" />
+                        </image>");
 
-            ExceptionAssert.Throws<MagickPolicyErrorException>(delegate ()
-            {
-              image.Read(memStream, readSettings);
-            });
-          }
+                    writer.Flush();
+
+                    memStream.Position = 0;
+
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        MagickReadSettings readSettings = new MagickReadSettings()
+                        {
+                            Format = MagickFormat.Msl
+                        };
+
+                        ExceptionAssert.Throws<MagickPolicyErrorException>(delegate ()
+                        {
+                            image.Read(memStream, readSettings);
+                        });
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }

@@ -20,30 +20,30 @@ using System.Web;
 
 namespace Magick.NET.Tests
 {
-  [ExcludeFromCodeCoverage]
-  public sealed class TestHttpApplication : HttpApplication
-  {
-    private object BeginRequestEvent;
-    private object PostAuthorizeRequestEvent;
-    private object PostMapRequestHandlerEvent;
-
-    private object GetValue(FieldInfo[] fields, string name)
+    [ExcludeFromCodeCoverage]
+    public sealed class TestHttpApplication : HttpApplication
     {
-      return fields.First(f => f.Name.Contains(name)).GetValue(this);
-    }
+        private object BeginRequestEvent;
+        private object PostAuthorizeRequestEvent;
+        private object PostMapRequestHandlerEvent;
 
-    public TestHttpApplication()
-    {
-      var fields = typeof(HttpApplication).GetFields(BindingFlags.NonPublic | BindingFlags.Static);
-      BeginRequestEvent = GetValue(fields, "BeginRequest");
-      PostAuthorizeRequestEvent = GetValue(fields, "PostAuthorizeRequest");
-      PostMapRequestHandlerEvent = GetValue(fields, "PostMapRequest");
-    }
+        private object GetValue(FieldInfo[] fields, string name)
+        {
+            return fields.First(f => f.Name.Contains(name)).GetValue(this);
+        }
 
-    public bool BeginRequestHasEvent => Events[BeginRequestEvent] != null;
-    public bool PostAuthorizeRequestHasEvent => Events[PostAuthorizeRequestEvent] != null;
-    public bool PostMapRequestHandlerHasEvent => Events[PostMapRequestHandlerEvent] != null;
-  }
+        public TestHttpApplication()
+        {
+            var fields = typeof(HttpApplication).GetFields(BindingFlags.NonPublic | BindingFlags.Static);
+            BeginRequestEvent = GetValue(fields, "BeginRequest");
+            PostAuthorizeRequestEvent = GetValue(fields, "PostAuthorizeRequest");
+            PostMapRequestHandlerEvent = GetValue(fields, "PostMapRequest");
+        }
+
+        public bool BeginRequestHasEvent => Events[BeginRequestEvent] != null;
+        public bool PostAuthorizeRequestHasEvent => Events[PostAuthorizeRequestEvent] != null;
+        public bool PostMapRequestHandlerHasEvent => Events[PostMapRequestHandlerEvent] != null;
+    }
 }
 
 #endif

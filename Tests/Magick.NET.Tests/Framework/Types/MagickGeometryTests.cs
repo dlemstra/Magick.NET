@@ -20,22 +20,22 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  public partial class MagickGeometryTests
-  {
-    [TestMethod]
-    public void Test_Rectangle()
+    public partial class MagickGeometryTests
     {
-      var rectangle = new Rectangle(1, 2, 3, 4);
+        [TestMethod]
+        public void Test_Rectangle()
+        {
+            var rectangle = new Rectangle(1, 2, 3, 4);
 
-      var geometry = new MagickGeometry(rectangle);
-      Assert.AreEqual(1, geometry.X);
-      Assert.AreEqual(2, geometry.Y);
-      Assert.AreEqual(3, geometry.Width);
-      Assert.AreEqual(4, geometry.Height);
+            var geometry = new MagickGeometry(rectangle);
+            Assert.AreEqual(1, geometry.X);
+            Assert.AreEqual(2, geometry.Y);
+            Assert.AreEqual(3, geometry.Width);
+            Assert.AreEqual(4, geometry.Height);
 
-      Assert.AreEqual(geometry,  (MagickGeometry)rectangle);
+            Assert.AreEqual(geometry, (MagickGeometry)rectangle);
+        }
     }
-  }
 }
 
 #endif

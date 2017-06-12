@@ -14,16 +14,16 @@
 
 namespace ImageMagick.Web
 {
-  /// <summary>
-  /// Interface for a class that can load a section.
-  /// </summary>
-  internal interface ISectionLoader
-  {
     /// <summary>
-    /// Gets the section with the specified name.
+    /// Interface for a class that can load a section.
     /// </summary>
-    /// <param name="name">The name of the section.</param>
-    /// <returns>The section with the specified name.</returns>
-    MagickWebSettings GetSection(string name);
-  }
+    internal interface ISectionLoader
+    {
+        /// <summary>
+        /// Gets the section with the specified name.
+        /// </summary>
+        /// <param name="name">The name of the section.</param>
+        /// <returns>The section with the specified name.</returns>
+        MagickWebSettings GetSection(string name);
+    }
 }

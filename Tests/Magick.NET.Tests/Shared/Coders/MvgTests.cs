@@ -18,44 +18,44 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class MvgTests
-  {
-    [TestMethod]
-    public void Test_Disabled()
+    [TestClass]
+    public class MvgTests
     {
-      using (MemoryStream memStream = new MemoryStream())
-      {
-        using (StreamWriter writer = new StreamWriter(memStream))
+        [TestMethod]
+        public void Test_Disabled()
         {
-          writer.Write(@"push graphic-context
-              viewbox 0 0 640 480
-              image over 0,0 0,0 ""label:Magick.NET""
-              pop graphic-context");
-
-          writer.Flush();
-
-          memStream.Position = 0;
-
-          using (IMagickImage image = new MagickImage())
-          {
-            ExceptionAssert.Throws<MagickMissingDelegateErrorException>(delegate ()
+            using (MemoryStream memStream = new MemoryStream())
             {
-              image.Read(memStream);
-            });
+                using (StreamWriter writer = new StreamWriter(memStream))
+                {
+                    writer.Write(@"push graphic-context
+                      viewbox 0 0 640 480
+                      image over 0,0 0,0 ""label:Magick.NET""
+                      pop graphic-context");
 
-            ExceptionAssert.Throws<MagickPolicyErrorException>(delegate ()
-            {
-              MagickReadSettings settings = new MagickReadSettings()
-              {
-                Format = MagickFormat.Mvg
-              };
+                    writer.Flush();
 
-              image.Read(memStream, settings);
-            });
-          }
+                    memStream.Position = 0;
+
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.Throws<MagickMissingDelegateErrorException>(delegate ()
+                        {
+                            image.Read(memStream);
+                        });
+
+                        ExceptionAssert.Throws<MagickPolicyErrorException>(delegate ()
+                        {
+                            MagickReadSettings settings = new MagickReadSettings()
+                            {
+                                Format = MagickFormat.Mvg
+                            };
+
+                            image.Read(memStream, settings);
+                        });
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }

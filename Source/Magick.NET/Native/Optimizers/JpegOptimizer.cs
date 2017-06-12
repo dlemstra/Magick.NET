@@ -29,56 +29,56 @@ using QuantumType = System.Single;
 
 namespace ImageMagick.ImageOptimizers
 {
-  public partial class JpegOptimizer
-  {
-    private static class NativeMethods
+    public partial class JpegOptimizer
     {
-      #if PLATFORM_x64 || PLATFORM_AnyCPU
-      public static class X64
-      {
-        #if PLATFORM_AnyCPU
-        [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.JpegOptimizer+NativeMethods.X64#.cctor()")]
-        static X64() { NativeLibraryLoader.Load(); }
-        #endif
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern UIntPtr JpegOptimizer_Compress(IntPtr input, IntPtr output, [MarshalAs(UnmanagedType.Bool)] bool progressive, [MarshalAs(UnmanagedType.Bool)] bool lossless, UIntPtr quality);
-      }
-      #endif
-      #if PLATFORM_x86 || PLATFORM_AnyCPU
-      public static class X86
-      {
-        #if PLATFORM_AnyCPU
-        [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.JpegOptimizer+NativeMethods.X86#.cctor()")]
-        static X86() { NativeLibraryLoader.Load(); }
-        #endif
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern UIntPtr JpegOptimizer_Compress(IntPtr input, IntPtr output, [MarshalAs(UnmanagedType.Bool)] bool progressive, [MarshalAs(UnmanagedType.Bool)] bool lossless, UIntPtr quality);
-      }
-      #endif
-    }
-    private static class NativeJpegOptimizer
-    {
-      public static int Compress(string input, string output, bool progressive, bool lossless, int quality)
-      {
-        using (INativeInstance inputNative = UTF8Marshaler.CreateInstance(input))
+        private static class NativeMethods
         {
-          using (INativeInstance outputNative = UTF8Marshaler.CreateInstance(output))
-          {
-            #if PLATFORM_AnyCPU
-            if (NativeLibrary.Is64Bit)
-            #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
-            return (int)NativeMethods.X64.JpegOptimizer_Compress(inputNative.Instance, outputNative.Instance, progressive, lossless, (UIntPtr)quality);
-            #endif
-            #if PLATFORM_AnyCPU
-            else
+            public static class X64
+            {
+                #if PLATFORM_AnyCPU
+                [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.JpegOptimizer+NativeMethods.X64#.cctor()")]
+                static X64() { NativeLibraryLoader.Load(); }
+                #endif
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern UIntPtr JpegOptimizer_Compress(IntPtr input, IntPtr output, [MarshalAs(UnmanagedType.Bool)] bool progressive, [MarshalAs(UnmanagedType.Bool)] bool lossless, UIntPtr quality);
+            }
             #endif
             #if PLATFORM_x86 || PLATFORM_AnyCPU
-            return (int)NativeMethods.X86.JpegOptimizer_Compress(inputNative.Instance, outputNative.Instance, progressive, lossless, (UIntPtr)quality);
+            public static class X86
+            {
+                #if PLATFORM_AnyCPU
+                [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.JpegOptimizer+NativeMethods.X86#.cctor()")]
+                static X86() { NativeLibraryLoader.Load(); }
+                #endif
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern UIntPtr JpegOptimizer_Compress(IntPtr input, IntPtr output, [MarshalAs(UnmanagedType.Bool)] bool progressive, [MarshalAs(UnmanagedType.Bool)] bool lossless, UIntPtr quality);
+            }
             #endif
-          }
         }
-      }
+        private static class NativeJpegOptimizer
+        {
+            public static int Compress(string input, string output, bool progressive, bool lossless, int quality)
+            {
+                using (INativeInstance inputNative = UTF8Marshaler.CreateInstance(input))
+                {
+                    using (INativeInstance outputNative = UTF8Marshaler.CreateInstance(output))
+                    {
+                        #if PLATFORM_AnyCPU
+                        if (NativeLibrary.Is64Bit)
+                        #endif
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
+                        return (int)NativeMethods.X64.JpegOptimizer_Compress(inputNative.Instance, outputNative.Instance, progressive, lossless, (UIntPtr)quality);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else
+                        #endif
+                        #if PLATFORM_x86 || PLATFORM_AnyCPU
+                        return (int)NativeMethods.X86.JpegOptimizer_Compress(inputNative.Instance, outputNative.Instance, progressive, lossless, (UIntPtr)quality);
+                        #endif
+                    }
+                }
+            }
+        }
     }
-  }
 }

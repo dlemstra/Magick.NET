@@ -24,252 +24,252 @@ using System.Web.SessionState;
 
 namespace ImageMagick.Web.Handlers
 {
-  /// <summary>
-  /// Base class for IHttpHandlers that use the IUrlResolver class.
-  /// </summary>
-  internal abstract class MagickHandler : IHttpHandler, IRequiresSessionState
-  {
-    private static readonly ReaderWriterLockSlim _Lock = new ReaderWriterLockSlim();
-    private static volatile string _Version;
-
-    private void AddCacheControlHeader(HttpResponse response)
+    /// <summary>
+    /// Base class for IHttpHandlers that use the IUrlResolver class.
+    /// </summary>
+    internal abstract class MagickHandler : IHttpHandler, IRequiresSessionState
     {
-      if (Settings.ClientCache.CacheControlMode == CacheControlMode.NoControl)
-        return;
+        private static readonly ReaderWriterLockSlim _Lock = new ReaderWriterLockSlim();
+        private static volatile string _Version;
 
-      response.Cache.SetMaxAge(Settings.ClientCache.CacheControlMaxAge);
-      response.Cache.SetCacheability(HttpCacheability.Public);
-    }
-
-    private static string CalculateMD5(string value)
-    {
-      using (MD5 md5 = MD5.Create())
-      {
-        byte[] data = md5.ComputeHash(Encoding.Default.GetBytes(value));
-
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < data.Length; i++)
+        private void AddCacheControlHeader(HttpResponse response)
         {
-          sb.Append(data[i].ToString("X2", CultureInfo.InvariantCulture));
+            if (Settings.ClientCache.CacheControlMode == CacheControlMode.NoControl)
+                return;
+
+            response.Cache.SetMaxAge(Settings.ClientCache.CacheControlMaxAge);
+            response.Cache.SetCacheability(HttpCacheability.Public);
         }
 
-        return sb.ToString();
-      }
+        private static string CalculateMD5(string value)
+        {
+            using (MD5 md5 = MD5.Create())
+            {
+                byte[] data = md5.ComputeHash(Encoding.Default.GetBytes(value));
+
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < data.Length; i++)
+                {
+                    sb.Append(data[i].ToString("X2", CultureInfo.InvariantCulture));
+                }
+
+                return sb.ToString();
+            }
+        }
+
+        private void InitializeVersion()
+        {
+            if (!Settings.ShowVersion || _Version != null)
+                return;
+
+            object version = typeof(MagickHandler).Assembly.GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false)[0];
+            _Version = ((AssemblyFileVersionAttribute)version).Version;
+        }
+
+        private void WriteFile(HttpContext context, string fileName)
+        {
+            _Lock.EnterReadLock();
+
+            try
+            {
+                AddCacheControlHeader(context.Response);
+
+                if (Write304(context, File.GetLastWriteTimeUtc(fileName)))
+                    return;
+
+                context.Response.TransmitFile(fileName);
+            }
+            finally
+            {
+                _Lock.ExitReadLock();
+            }
+        }
+
+        private static bool Write304(HttpContext content, DateTime fileDate)
+        {
+            DateTime modificationDate = new DateTime(fileDate.Year, fileDate.Month, fileDate.Day, fileDate.Hour, fileDate.Minute, fileDate.Second, DateTimeKind.Utc);
+            if (modificationDate > DateTime.UtcNow)
+                modificationDate = DateTime.UtcNow;
+
+            content.Response.Cache.SetLastModified(modificationDate);
+            string modifiedSince = content.Request.Headers["If-Modified-Since"];
+
+            if (string.IsNullOrEmpty(modifiedSince))
+                return false;
+
+            string since;
+            int index = modifiedSince.IndexOf(";", StringComparison.OrdinalIgnoreCase);
+
+            if (index >= 0)
+                since = modifiedSince.Substring(0, index);
+            else
+                since = modifiedSince;
+
+            DateTime modifiedDate;
+            bool success = DateTime.TryParseExact(since, "r", CultureInfo.InvariantCulture, DateTimeStyles.None, out modifiedDate);
+
+            if (success && modifiedDate == modificationDate)
+            {
+                content.Response.StatusCode = 304;
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickHandler"/> class.
+        /// </summary>
+        /// <param name="settings">The settings to use.</param>
+        /// <param name="imageData">The image data.</param>
+        protected MagickHandler(MagickWebSettings settings, IImageData imageData)
+        {
+            Settings = settings;
+            ImageData = imageData;
+
+            InitializeVersion();
+        }
+
+        /// <summary>
+        /// Returns the file name that should be send to the response.
+        /// </summary>
+        /// <param name="context">An HttpContext object that provides references to the intrinsic
+        /// server objects (for example, Request, Response, Session, and Server) used to service
+        /// HTTP requests.</param>
+        /// <returns>The file name that should be send to the response.</returns>
+        protected abstract string GetFileName(HttpContext context);
+
+        /// <summary>
+        /// Gets the data of the image.
+        /// </summary>
+        protected IImageData ImageData
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets the settings that should be used.
+        /// </summary>
+        protected MagickWebSettings Settings
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Returns true if the cache file is newer then the file name that was resolved by the
+        /// IUrlResolver.
+        /// </summary>
+        /// <param name="cacheFileName">The file name of the cache file.</param>
+        /// <returns>True if the cache file is newer</returns>
+        protected bool CanUseCache(string cacheFileName)
+        {
+            _Lock.EnterReadLock();
+
+            try
+            {
+                if (!File.Exists(cacheFileName))
+                    return false;
+
+                DateTime cacheDate = File.GetLastWriteTimeUtc(cacheFileName);
+                return ImageData.ModifiedTimeUtc <= cacheDate;
+            }
+            finally
+            {
+                _Lock.ExitReadLock();
+            }
+        }
+
+        /// <summary>
+        /// Returns the file name that can be used to cache the result.
+        /// </summary>
+        /// <param name="directoryName">The name of the subdirectory to store the files in.</param>
+        /// <param name="subdirectoryKey">The key that will be used to create MD5 hash and that
+        /// will be used as a sub directory.</param>
+        /// <param name="format">The output format.</param>
+        /// <returns>The file name that can be used to cache the result.</returns>
+        protected string GetCacheFileName(string directoryName, string subdirectoryKey, MagickFormat format)
+        {
+            string cacheDirectory = Settings.CacheDirectory + directoryName + "\\" + CalculateMD5(subdirectoryKey) + "\\";
+
+            if (!Directory.Exists(cacheDirectory))
+                Directory.CreateDirectory(cacheDirectory);
+
+            return cacheDirectory + CalculateMD5(ImageData.ImageId) + "." + format;
+        }
+
+        /// <summary>
+        /// Returns the file name for a temporary file.
+        /// </summary>
+        /// <returns>The file name for a temporary file.</returns>
+        protected string DetermineTempFileName()
+        {
+            return Settings.TempDirectory + Guid.NewGuid();
+        }
+
+        /// <summary>
+        /// Returns the mime type of the output image.
+        /// </summary>
+        /// <returns>The mime type of the output image.</returns>
+        protected virtual string GetMimeType()
+        {
+            return ImageData.FormatInfo.MimeType;
+        }
+
+        /// <summary>
+        /// Moves to the specified source file name to the destination file name. This is happening
+        /// in a lock to avoid problems when an other request is reading the file.
+        /// </summary>
+        /// <param name="fileName">The name of the file to move to the cache.</param>
+        /// <param name="cacheFileName">The file name of the cache file.</param>
+        protected static void MoveToCache(string fileName, string cacheFileName)
+        {
+            try
+            {
+                _Lock.EnterWriteLock();
+
+                if (File.Exists(cacheFileName))
+                    File.Delete(cacheFileName);
+
+                File.Move(fileName, cacheFileName);
+            }
+            finally
+            {
+                _Lock.ExitWriteLock();
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether another request can use the IHttpHandler instance.
+        /// </summary>
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Enables processing of HTTP Web requests by a custom HttpHandler that implements the
+        /// IHttpHandler interface.
+        /// </summary>
+        /// <param name="context">An HttpContext object that provides references to the intrinsic
+        /// server objects (for example, Request, Response, Session, and Server) used to service
+        /// HTTP requests.</param>
+        public void ProcessRequest(HttpContext context)
+        {
+            if (context == null)
+                return;
+
+            context.Response.ContentType = GetMimeType();
+
+            if (!string.IsNullOrEmpty(_Version))
+                context.Response.AddHeader("X-Magick", _Version);
+
+            string filename = GetFileName(context);
+
+            if (!string.IsNullOrEmpty(filename))
+                WriteFile(context, filename);
+        }
     }
-
-    private void InitializeVersion()
-    {
-      if (!Settings.ShowVersion || _Version != null)
-        return;
-
-      object version = typeof(MagickHandler).Assembly.GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false)[0];
-      _Version = ((AssemblyFileVersionAttribute)version).Version;
-    }
-
-    private void WriteFile(HttpContext context, string fileName)
-    {
-      _Lock.EnterReadLock();
-
-      try
-      {
-        AddCacheControlHeader(context.Response);
-
-        if (Write304(context, File.GetLastWriteTimeUtc(fileName)))
-          return;
-
-        context.Response.TransmitFile(fileName);
-      }
-      finally
-      {
-        _Lock.ExitReadLock();
-      }
-    }
-
-    private static bool Write304(HttpContext content, DateTime fileDate)
-    {
-      DateTime modificationDate = new DateTime(fileDate.Year, fileDate.Month, fileDate.Day, fileDate.Hour, fileDate.Minute, fileDate.Second, DateTimeKind.Utc);
-      if (modificationDate > DateTime.UtcNow)
-        modificationDate = DateTime.UtcNow;
-
-      content.Response.Cache.SetLastModified(modificationDate);
-      string modifiedSince = content.Request.Headers["If-Modified-Since"];
-
-      if (string.IsNullOrEmpty(modifiedSince))
-        return false;
-
-      string since;
-      int index = modifiedSince.IndexOf(";", StringComparison.OrdinalIgnoreCase);
-
-      if (index >= 0)
-        since = modifiedSince.Substring(0, index);
-      else
-        since = modifiedSince;
-
-      DateTime modifiedDate;
-      bool success = DateTime.TryParseExact(since, "r", CultureInfo.InvariantCulture, DateTimeStyles.None, out modifiedDate);
-
-      if (success && modifiedDate == modificationDate)
-      {
-        content.Response.StatusCode = 304;
-        return true;
-      }
-
-      return false;
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MagickHandler"/> class.
-    /// </summary>
-    /// <param name="settings">The settings to use.</param>
-    /// <param name="imageData">The image data.</param>
-    protected MagickHandler(MagickWebSettings settings, IImageData imageData)
-    {
-      Settings = settings;
-      ImageData = imageData;
-
-      InitializeVersion();
-    }
-
-    /// <summary>
-    /// Returns the file name that should be send to the response.
-    /// </summary>
-    /// <param name="context">An HttpContext object that provides references to the intrinsic
-    /// server objects (for example, Request, Response, Session, and Server) used to service
-    /// HTTP requests.</param>
-    /// <returns>The file name that should be send to the response.</returns>
-    protected abstract string GetFileName(HttpContext context);
-
-    /// <summary>
-    /// Gets the data of the image.
-    /// </summary>
-    protected IImageData ImageData
-    {
-      get;
-    }
-
-    /// <summary>
-    /// Gets the settings that should be used.
-    /// </summary>
-    protected MagickWebSettings Settings
-    {
-      get;
-    }
-
-    /// <summary>
-    /// Returns true if the cache file is newer then the file name that was resolved by the
-    /// IUrlResolver.
-    /// </summary>
-    /// <param name="cacheFileName">The file name of the cache file.</param>
-    /// <returns>True if the cache file is newer</returns>
-    protected bool CanUseCache(string cacheFileName)
-    {
-      _Lock.EnterReadLock();
-
-      try
-      {
-        if (!File.Exists(cacheFileName))
-          return false;
-
-        DateTime cacheDate = File.GetLastWriteTimeUtc(cacheFileName);
-        return ImageData.ModifiedTimeUtc <= cacheDate;
-      }
-      finally
-      {
-        _Lock.ExitReadLock();
-      }
-    }
-
-    /// <summary>
-    /// Returns the file name that can be used to cache the result.
-    /// </summary>
-    /// <param name="directoryName">The name of the subdirectory to store the files in.</param>
-    /// <param name="subdirectoryKey">The key that will be used to create MD5 hash and that
-    /// will be used as a sub directory.</param>
-    /// <param name="format">The output format.</param>
-    /// <returns>The file name that can be used to cache the result.</returns>
-    protected string GetCacheFileName(string directoryName, string subdirectoryKey, MagickFormat format)
-    {
-      string cacheDirectory = Settings.CacheDirectory + directoryName + "\\" + CalculateMD5(subdirectoryKey) + "\\";
-
-      if (!Directory.Exists(cacheDirectory))
-        Directory.CreateDirectory(cacheDirectory);
-
-      return cacheDirectory + CalculateMD5(ImageData.ImageId) + "." + format;
-    }
-
-    /// <summary>
-    /// Returns the file name for a temporary file.
-    /// </summary>
-    /// <returns>The file name for a temporary file.</returns>
-    protected string DetermineTempFileName()
-    {
-      return Settings.TempDirectory + Guid.NewGuid();
-    }
-
-    /// <summary>
-    /// Returns the mime type of the output image.
-    /// </summary>
-    /// <returns>The mime type of the output image.</returns>
-    protected virtual string GetMimeType()
-    {
-      return ImageData.FormatInfo.MimeType;
-    }
-
-    /// <summary>
-    /// Moves to the specified source file name to the destination file name. This is happening
-    /// in a lock to avoid problems when an other request is reading the file.
-    /// </summary>
-    /// <param name="fileName">The name of the file to move to the cache.</param>
-    /// <param name="cacheFileName">The file name of the cache file.</param>
-    protected static void MoveToCache(string fileName, string cacheFileName)
-    {
-      try
-      {
-        _Lock.EnterWriteLock();
-
-        if (File.Exists(cacheFileName))
-          File.Delete(cacheFileName);
-
-        File.Move(fileName, cacheFileName);
-      }
-      finally
-      {
-        _Lock.ExitWriteLock();
-      }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether another request can use the IHttpHandler instance.
-    /// </summary>
-    public bool IsReusable
-    {
-      get
-      {
-        return false;
-      }
-    }
-
-    /// <summary>
-    /// Enables processing of HTTP Web requests by a custom HttpHandler that implements the
-    /// IHttpHandler interface.
-    /// </summary>
-    /// <param name="context">An HttpContext object that provides references to the intrinsic
-    /// server objects (for example, Request, Response, Session, and Server) used to service
-    /// HTTP requests.</param>
-    public void ProcessRequest(HttpContext context)
-    {
-      if (context == null)
-        return;
-
-      context.Response.ContentType = GetMimeType();
-
-      if (!string.IsNullOrEmpty(_Version))
-        context.Response.AddHeader("X-Magick", _Version);
-
-      string filename = GetFileName(context);
-
-      if (!string.IsNullOrEmpty(filename))
-        WriteFile(context, filename);
-    }
-  }
 }

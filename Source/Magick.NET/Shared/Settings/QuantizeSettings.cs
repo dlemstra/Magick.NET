@@ -16,75 +16,75 @@ using System;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Class that contains setting for quantize operations.
-  /// </summary>
-  public sealed partial class QuantizeSettings
-  {
-    private INativeInstance CreateNativeInstance()
-    {
-      NativeQuantizeSettings instance = new NativeQuantizeSettings();
-      instance.SetColors(Colors);
-      instance.SetColorSpace(ColorSpace);
-      instance.SetDitherMethod(DitherMethod.HasValue ? DitherMethod.Value : ImageMagick.DitherMethod.No);
-      instance.SetMeasureErrors(MeasureErrors);
-      instance.SetTreeDepth(TreeDepth);
-
-      return instance;
-    }
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="QuantizeSettings"/> class.
+    /// Class that contains setting for quantize operations.
     /// </summary>
-    public QuantizeSettings()
+    public sealed partial class QuantizeSettings
     {
-      Colors = 1;
-      DitherMethod = ImageMagick.DitherMethod.Riemersma;
-    }
+        private INativeInstance CreateNativeInstance()
+        {
+            NativeQuantizeSettings instance = new NativeQuantizeSettings();
+            instance.SetColors(Colors);
+            instance.SetColorSpace(ColorSpace);
+            instance.SetDitherMethod(DitherMethod.HasValue ? DitherMethod.Value : ImageMagick.DitherMethod.No);
+            instance.SetMeasureErrors(MeasureErrors);
+            instance.SetTreeDepth(TreeDepth);
 
-    /// <summary>
-    /// Gets or sets the maximum number of colors to quantize to.
-    /// </summary>
-    public int Colors
-    {
-      get;
-      set;
-    }
+            return instance;
+        }
 
-    /// <summary>
-    /// Gets or sets the colorspace to quantize in.
-    /// </summary>
-    public ColorSpace ColorSpace
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="QuantizeSettings"/> class.
+        /// </summary>
+        public QuantizeSettings()
+        {
+            Colors = 1;
+            DitherMethod = ImageMagick.DitherMethod.Riemersma;
+        }
 
-    /// <summary>
-    /// Gets or sets the dither method to use.
-    /// </summary>
-    public DitherMethod? DitherMethod
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets the maximum number of colors to quantize to.
+        /// </summary>
+        public int Colors
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether errors should be measured.
-    /// </summary>
-    public bool MeasureErrors
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets the colorspace to quantize in.
+        /// </summary>
+        public ColorSpace ColorSpace
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// Gets or setsthe quantization tree-depth.
-    /// </summary>
-    public int TreeDepth
-    {
-      get;
-      set;
+        /// <summary>
+        /// Gets or sets the dither method to use.
+        /// </summary>
+        public DitherMethod? DitherMethod
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether errors should be measured.
+        /// </summary>
+        public bool MeasureErrors
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or setsthe quantization tree-depth.
+        /// </summary>
+        public int TreeDepth
+        {
+            get;
+            set;
+        }
     }
-  }
 }

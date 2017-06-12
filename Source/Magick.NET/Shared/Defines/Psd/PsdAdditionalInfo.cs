@@ -14,24 +14,24 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Specifies which additional info should be written to the output file.
-  /// </summary>
-  public enum PsdAdditionalInfo
-  {
     /// <summary>
-    /// None
+    /// Specifies which additional info should be written to the output file.
     /// </summary>
-    None,
+    public enum PsdAdditionalInfo
+    {
+        /// <summary>
+        /// None
+        /// </summary>
+        None,
 
-    /// <summary>
-    /// All
-    /// </summary>
-    All,
+        /// <summary>
+        /// All
+        /// </summary>
+        All,
 
-    /// <summary>
-    /// Only select the info that does not use geometry.
-    /// </summary>
-    Selective
-  }
+        /// <summary>
+        /// Only select the info that does not use geometry.
+        /// </summary>
+        Selective
+    }
 }

@@ -14,37 +14,37 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Specifies the offset into the dash pattern to start the dash.
-  /// </summary>
-  public sealed class DrawableStrokeDashOffset : IDrawable, IDrawingWand
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="DrawableStrokeDashOffset"/> class.
+    /// Specifies the offset into the dash pattern to start the dash.
     /// </summary>
-    /// <param name="offset">The dash offset.</param>
-    public DrawableStrokeDashOffset(double offset)
+    public sealed class DrawableStrokeDashOffset : IDrawable, IDrawingWand
     {
-      Offset = offset;
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrawableStrokeDashOffset"/> class.
+        /// </summary>
+        /// <param name="offset">The dash offset.</param>
+        public DrawableStrokeDashOffset(double offset)
+        {
+            Offset = offset;
+        }
 
-    /// <summary>
-    /// Gets or sets the dash offset.
-    /// </summary>
-    public double Offset
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets the dash offset.
+        /// </summary>
+        public double Offset
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// Draws this instance with the drawing wand.
-    /// </summary>
-    /// <param name="wand">The want to draw on.</param>
-    void IDrawingWand.Draw(DrawingWand wand)
-    {
-      if (wand != null)
-        wand.StrokeDashOffset(Offset);
+        /// <summary>
+        /// Draws this instance with the drawing wand.
+        /// </summary>
+        /// <param name="wand">The want to draw on.</param>
+        void IDrawingWand.Draw(DrawingWand wand)
+        {
+            if (wand != null)
+                wand.StrokeDashOffset(Offset);
+        }
     }
-  }
 }

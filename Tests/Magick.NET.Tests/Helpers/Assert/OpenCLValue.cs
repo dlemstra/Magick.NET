@@ -15,44 +15,44 @@ using ImageMagick;
 
 namespace Magick.NET.Tests
 {
-  [ExcludeFromCodeCoverage]
-  internal static class OpenCLValue
-  {
-    private static bool HasEnabledOpenCLDevices
+    [ExcludeFromCodeCoverage]
+    internal static class OpenCLValue
     {
-      get
-      {
-        if (OpenCL.IsEnabled == false)
-          return false;
-
-        foreach (OpenCLDevice device in OpenCL.Devices)
+        private static bool HasEnabledOpenCLDevices
         {
-          if (device.IsEnabled)
-            return true;
+            get
+            {
+                if (OpenCL.IsEnabled == false)
+                    return false;
+
+                foreach (OpenCLDevice device in OpenCL.Devices)
+                {
+                    if (device.IsEnabled)
+                        return true;
+                }
+                return false;
+            }
         }
-        return false;
-      }
-    }
 
-    public static void Assert(double expectedWith, double expectedWithout, double value, double delta)
-    {
-      if (HasEnabledOpenCLDevices)
-        Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(expectedWith, value, delta);
-      else
-        Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(expectedWithout, value, delta);
-    }
+        public static void Assert(double expectedWith, double expectedWithout, double value, double delta)
+        {
+            if (HasEnabledOpenCLDevices)
+                Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(expectedWith, value, delta);
+            else
+                Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(expectedWithout, value, delta);
+        }
 
-    public static void Assert<T>(T expectedWith, T expectedWithout, T value)
-    {
-      Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(Get(expectedWith, expectedWithout), value);
-    }
+        public static void Assert<T>(T expectedWith, T expectedWithout, T value)
+        {
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(Get(expectedWith, expectedWithout), value);
+        }
 
-    public static T Get<T>(T expectedWith, T expectedWithout)
-    {
-      if (HasEnabledOpenCLDevices)
-        return expectedWith;
-      else
-        return expectedWithout;
+        public static T Get<T>(T expectedWith, T expectedWithout)
+        {
+            if (HasEnabledOpenCLDevices)
+                return expectedWith;
+            else
+                return expectedWithout;
+        }
     }
-  }
 }

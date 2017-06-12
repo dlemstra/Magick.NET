@@ -17,78 +17,78 @@ using System.Web;
 
 namespace ImageMagick.Web.Handlers
 {
-  /// <summary>
-  /// IHttpHandler that can be used to send a scripted image to the response.
-  /// </summary>
-  internal class MagickScriptHandler : ImageOptimizerHandler
-  {
-    private readonly IScriptData _ScriptResolver;
-
-    private void CreateScriptedFile(string cacheFileName)
+    /// <summary>
+    /// IHttpHandler that can be used to send a scripted image to the response.
+    /// </summary>
+    internal class MagickScriptHandler : ImageOptimizerHandler
     {
-      MagickScript script = new MagickScript(_ScriptResolver.Script);
-      script.Read += OnScriptRead;
+        private readonly IScriptData _ScriptResolver;
 
-      using (IMagickImage image = script.Execute())
-      {
-        image.Format = _ScriptResolver.OutputFormat;
-        WriteToCache(image, cacheFileName);
-      }
+        private void CreateScriptedFile(string cacheFileName)
+        {
+            MagickScript script = new MagickScript(_ScriptResolver.Script);
+            script.Read += OnScriptRead;
+
+            using (IMagickImage image = script.Execute())
+            {
+                image.Format = _ScriptResolver.OutputFormat;
+                WriteToCache(image, cacheFileName);
+            }
+        }
+
+        private string GetCacheFileName()
+        {
+            string outerXml = _ScriptResolver.Script.CreateNavigator().OuterXml;
+            return GetCacheFileName("MagickScript", outerXml, _ScriptResolver.OutputFormat);
+        }
+
+        private void OnScriptRead(object sender, ScriptReadEventArgs arguments)
+        {
+            arguments.Image = ImageData.ReadImage(arguments.Settings);
+        }
+
+        private void WriteToCache(IMagickImage image, string cacheFileName)
+        {
+            string tempFile = DetermineTempFileName();
+
+            try
+            {
+                image.Write(tempFile);
+
+                MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(_ScriptResolver.OutputFormat);
+
+                if (HandlerHelper.CanOptimize(Settings, formatInfo))
+                    OptimizeFile(tempFile);
+
+                MoveToCache(tempFile, cacheFileName);
+            }
+            finally
+            {
+                if (File.Exists(tempFile))
+                    File.Delete(tempFile);
+            }
+        }
+
+        internal MagickScriptHandler(MagickWebSettings settings, IImageData imageData, IScriptData scriptResolver)
+          : base(settings, imageData)
+        {
+            _ScriptResolver = scriptResolver;
+        }
+
+        /// <inheritdoc/>
+        protected override string GetFileName(HttpContext context)
+        {
+            string cacheFileName = GetCacheFileName();
+            if (!CanUseCache(cacheFileName))
+                CreateScriptedFile(cacheFileName);
+
+            return cacheFileName;
+        }
+
+        protected override string GetMimeType()
+        {
+            MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(_ScriptResolver.OutputFormat);
+            return formatInfo.MimeType;
+        }
     }
-
-    private string GetCacheFileName()
-    {
-      string outerXml = _ScriptResolver.Script.CreateNavigator().OuterXml;
-      return GetCacheFileName("MagickScript", outerXml, _ScriptResolver.OutputFormat);
-    }
-
-    private void OnScriptRead(object sender, ScriptReadEventArgs arguments)
-    {
-      arguments.Image = ImageData.ReadImage(arguments.Settings);
-    }
-
-    private void WriteToCache(IMagickImage image, string cacheFileName)
-    {
-      string tempFile = DetermineTempFileName();
-
-      try
-      {
-        image.Write(tempFile);
-
-        MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(_ScriptResolver.OutputFormat);
-
-        if (HandlerHelper.CanOptimize(Settings, formatInfo))
-          OptimizeFile(tempFile);
-
-        MoveToCache(tempFile, cacheFileName);
-      }
-      finally
-      {
-        if (File.Exists(tempFile))
-          File.Delete(tempFile);
-      }
-    }
-
-    internal MagickScriptHandler(MagickWebSettings settings, IImageData imageData, IScriptData scriptResolver)
-      : base(settings, imageData)
-    {
-      _ScriptResolver = scriptResolver;
-    }
-
-    /// <inheritdoc/>
-    protected override string GetFileName(HttpContext context)
-    {
-      string cacheFileName = GetCacheFileName();
-      if (!CanUseCache(cacheFileName))
-        CreateScriptedFile(cacheFileName);
-
-      return cacheFileName;
-    }
-
-    protected override string GetMimeType()
-    {
-      MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(_ScriptResolver.OutputFormat);
-      return formatInfo.MimeType;
-    }
-  }
 }

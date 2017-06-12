@@ -27,197 +27,197 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Class that represents a CMYK color.
-  /// </summary>
-  public sealed class ColorCMYK : ColorBase
-  {
-    private ColorCMYK(MagickColor color)
-      : base(color)
-    {
-    }
-
-    private static MagickColor CreateColor(string color)
-    {
-      Throw.IfNullOrEmpty(nameof(color), color);
-
-      if (color[0] == '#')
-      {
-        List<QuantumType> colors = HexColor.Parse(color);
-
-        if (colors.Count == 4)
-          return new MagickColor(colors[0], colors[1], colors[2], colors[3], Quantum.Max);
-      }
-
-      throw new ArgumentException("Invalid color specified", nameof(color));
-    }
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="ColorCMYK"/> class.
+    /// Class that represents a CMYK color.
     /// </summary>
-    /// <param name="cyan">Cyan component value of this color.</param>
-    /// <param name="magenta">Magenta component value of this color.</param>
-    /// <param name="yellow">Yellow component value of this color.</param>
-    /// <param name="key">Key (black) component value of this color.</param>
-    public ColorCMYK(Percentage cyan, Percentage magenta, Percentage yellow, Percentage key)
-      : base(new MagickColor(cyan.ToQuantumType(), magenta.ToQuantumType(), yellow.ToQuantumType(), key.ToQuantumType(), Quantum.Max))
+    public sealed class ColorCMYK : ColorBase
     {
-    }
+        private ColorCMYK(MagickColor color)
+          : base(color)
+        {
+        }
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ColorCMYK"/> class.
-    /// </summary>
-    /// <param name="cyan">Cyan component value of this color.</param>
-    /// <param name="magenta">Magenta component value of this color.</param>
-    /// <param name="yellow">Yellow component value of this color.</param>
-    /// <param name="key">Key (black) component value of this color.</param>
-    /// <param name="alpha">Alpha component value of this color.</param>
-    public ColorCMYK(Percentage cyan, Percentage magenta, Percentage yellow, Percentage key, Percentage alpha)
-      : base(new MagickColor(cyan.ToQuantumType(), magenta.ToQuantumType(), yellow.ToQuantumType(), key.ToQuantumType(), alpha.ToQuantumType()))
-    {
-    }
+        private static MagickColor CreateColor(string color)
+        {
+            Throw.IfNullOrEmpty(nameof(color), color);
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ColorCMYK"/> class.
-    /// </summary>
-    /// <param name="cyan">Cyan component value of this color.</param>
-    /// <param name="magenta">Magenta component value of this color.</param>
-    /// <param name="yellow">Yellow component value of this color.</param>
-    /// <param name="key">Key (black) component value of this color.</param>
-    public ColorCMYK(QuantumType cyan, QuantumType magenta, QuantumType yellow, QuantumType key)
-      : base(new MagickColor(cyan, magenta, yellow, key, Quantum.Max))
-    {
-    }
+            if (color[0] == '#')
+            {
+                List<QuantumType> colors = HexColor.Parse(color);
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ColorCMYK"/> class.
-    /// </summary>
-    /// <param name="cyan">Cyan component value of this color.</param>
-    /// <param name="magenta">Magenta component value of this color.</param>
-    /// <param name="yellow">Yellow component value of this color.</param>
-    /// <param name="key">Key (black) component value of this color.</param>
-    /// <param name="alpha">Alpha component value of this color.</param>
-    public ColorCMYK(QuantumType cyan, QuantumType magenta, QuantumType yellow, QuantumType key, QuantumType alpha)
-      : base(new MagickColor(cyan, magenta, yellow, key, alpha))
-    {
-    }
+                if (colors.Count == 4)
+                    return new MagickColor(colors[0], colors[1], colors[2], colors[3], Quantum.Max);
+            }
+
+            throw new ArgumentException("Invalid color specified", nameof(color));
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ColorCMYK"/> class.
+        /// </summary>
+        /// <param name="cyan">Cyan component value of this color.</param>
+        /// <param name="magenta">Magenta component value of this color.</param>
+        /// <param name="yellow">Yellow component value of this color.</param>
+        /// <param name="key">Key (black) component value of this color.</param>
+        public ColorCMYK(Percentage cyan, Percentage magenta, Percentage yellow, Percentage key)
+          : base(new MagickColor(cyan.ToQuantumType(), magenta.ToQuantumType(), yellow.ToQuantumType(), key.ToQuantumType(), Quantum.Max))
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ColorCMYK"/> class.
+        /// </summary>
+        /// <param name="cyan">Cyan component value of this color.</param>
+        /// <param name="magenta">Magenta component value of this color.</param>
+        /// <param name="yellow">Yellow component value of this color.</param>
+        /// <param name="key">Key (black) component value of this color.</param>
+        /// <param name="alpha">Alpha component value of this color.</param>
+        public ColorCMYK(Percentage cyan, Percentage magenta, Percentage yellow, Percentage key, Percentage alpha)
+          : base(new MagickColor(cyan.ToQuantumType(), magenta.ToQuantumType(), yellow.ToQuantumType(), key.ToQuantumType(), alpha.ToQuantumType()))
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ColorCMYK"/> class.
+        /// </summary>
+        /// <param name="cyan">Cyan component value of this color.</param>
+        /// <param name="magenta">Magenta component value of this color.</param>
+        /// <param name="yellow">Yellow component value of this color.</param>
+        /// <param name="key">Key (black) component value of this color.</param>
+        public ColorCMYK(QuantumType cyan, QuantumType magenta, QuantumType yellow, QuantumType key)
+          : base(new MagickColor(cyan, magenta, yellow, key, Quantum.Max))
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ColorCMYK"/> class.
+        /// </summary>
+        /// <param name="cyan">Cyan component value of this color.</param>
+        /// <param name="magenta">Magenta component value of this color.</param>
+        /// <param name="yellow">Yellow component value of this color.</param>
+        /// <param name="key">Key (black) component value of this color.</param>
+        /// <param name="alpha">Alpha component value of this color.</param>
+        public ColorCMYK(QuantumType cyan, QuantumType magenta, QuantumType yellow, QuantumType key, QuantumType alpha)
+          : base(new MagickColor(cyan, magenta, yellow, key, alpha))
+        {
+        }
 
 #if Q8
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ColorCMYK"/> class.
-    /// </summary>
-    /// <param name="color">The CMYK hex string or name of the color (http://www.imagemagick.org/script/color.php).
-    /// For example: #F000, #FF000000</param>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ColorCMYK"/> class.
+        /// </summary>
+        /// <param name="color">The CMYK hex string or name of the color (http://www.imagemagick.org/script/color.php).
+        /// For example: #F000, #FF000000</param>
 #elif Q16 || Q16HDRI
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ColorCMYK"/> class.
-    /// </summary>
-    /// <param name="color">The CMYK hex string or name of the color (http://www.imagemagick.org/script/color.php).
-    /// For example: #F000, #FF000000, #FFFF000000000000</param>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ColorCMYK"/> class.
+        /// </summary>
+        /// <param name="color">The CMYK hex string or name of the color (http://www.imagemagick.org/script/color.php).
+        /// For example: #F000, #FF000000, #FFFF000000000000</param>
 #else
 #error Not implemented!
 #endif
-    public ColorCMYK(string color)
-      : base(CreateColor(color))
-    {
-    }
+        public ColorCMYK(string color)
+          : base(CreateColor(color))
+        {
+        }
 
-    /// <summary>
-    /// Gets or sets the alpha component value of this color.
-    /// </summary>
-    public QuantumType A
-    {
-      get
-      {
-        return Color.A;
-      }
-      set
-      {
-        Color.A = value;
-      }
-    }
+        /// <summary>
+        /// Gets or sets the alpha component value of this color.
+        /// </summary>
+        public QuantumType A
+        {
+            get
+            {
+                return Color.A;
+            }
+            set
+            {
+                Color.A = value;
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets the cyan component value of this color.
-    /// </summary>
-    public QuantumType C
-    {
-      get
-      {
-        return Color.R;
-      }
-      set
-      {
-        Color.R = value;
-      }
-    }
+        /// <summary>
+        /// Gets or sets the cyan component value of this color.
+        /// </summary>
+        public QuantumType C
+        {
+            get
+            {
+                return Color.R;
+            }
+            set
+            {
+                Color.R = value;
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets the key (black) component value of this color.
-    /// </summary>
-    public QuantumType K
-    {
-      get
-      {
-        return Color.K;
-      }
-      set
-      {
-        Color.K = value;
-      }
-    }
+        /// <summary>
+        /// Gets or sets the key (black) component value of this color.
+        /// </summary>
+        public QuantumType K
+        {
+            get
+            {
+                return Color.K;
+            }
+            set
+            {
+                Color.K = value;
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets the magenta component value of this color.
-    /// </summary>
-    public QuantumType M
-    {
-      get
-      {
-        return Color.G;
-      }
-      set
-      {
-        Color.G = value;
-      }
-    }
+        /// <summary>
+        /// Gets or sets the magenta component value of this color.
+        /// </summary>
+        public QuantumType M
+        {
+            get
+            {
+                return Color.G;
+            }
+            set
+            {
+                Color.G = value;
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets the yellow component value of this color.
-    /// </summary>
-    public QuantumType Y
-    {
-      get
-      {
-        return Color.B;
-      }
-      set
-      {
-        Color.B = value;
-      }
-    }
+        /// <summary>
+        /// Gets or sets the yellow component value of this color.
+        /// </summary>
+        public QuantumType Y
+        {
+            get
+            {
+                return Color.B;
+            }
+            set
+            {
+                Color.B = value;
+            }
+        }
 
-    /// <summary>
-    /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
-    /// </summary>
-    /// <param name="color">The color to use.</param>
-    /// <returns>A <see cref="ColorCMYK"/> instance.</returns>
-    public static implicit operator ColorCMYK(MagickColor color)
-    {
-      return FromMagickColor(color);
-    }
+        /// <summary>
+        /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
+        /// </summary>
+        /// <param name="color">The color to use.</param>
+        /// <returns>A <see cref="ColorCMYK"/> instance.</returns>
+        public static implicit operator ColorCMYK(MagickColor color)
+        {
+            return FromMagickColor(color);
+        }
 
-    /// <summary>
-    /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
-    /// </summary>
-    /// <param name="color">The color to use.</param>
-    /// <returns>A <see cref="ColorCMYK"/> instance.</returns>
-    public static ColorCMYK FromMagickColor(MagickColor color)
-    {
-      if (color == null)
-        return null;
+        /// <summary>
+        /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
+        /// </summary>
+        /// <param name="color">The color to use.</param>
+        /// <returns>A <see cref="ColorCMYK"/> instance.</returns>
+        public static ColorCMYK FromMagickColor(MagickColor color)
+        {
+            if (color == null)
+                return null;
 
-      return new ColorCMYK(color);
+            return new ColorCMYK(color);
+        }
     }
-  }
 }

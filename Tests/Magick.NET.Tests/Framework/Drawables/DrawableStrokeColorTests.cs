@@ -20,16 +20,16 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public partial class DrawableStrokeColorTests
-  {
-    [TestMethod]
-    public void Test_Constructor_Color()
+    [TestClass]
+    public partial class DrawableStrokeColorTests
     {
-      DrawableStrokeColor strokeColor = new DrawableStrokeColor(Color.GhostWhite);
-      ColorAssert.AreEqual(MagickColors.GhostWhite, strokeColor.Color);
+        [TestMethod]
+        public void Test_Constructor_Color()
+        {
+            DrawableStrokeColor strokeColor = new DrawableStrokeColor(Color.GhostWhite);
+            ColorAssert.AreEqual(MagickColors.GhostWhite, strokeColor.Color);
+        }
     }
-  }
 }
 
 #endif

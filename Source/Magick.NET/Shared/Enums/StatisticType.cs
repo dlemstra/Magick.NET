@@ -14,59 +14,59 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Specifies the statistic types.
-  /// </summary>
-  public enum StatisticType
-  {
     /// <summary>
-    /// Undefined
+    /// Specifies the statistic types.
     /// </summary>
-    Undefined,
+    public enum StatisticType
+    {
+        /// <summary>
+        /// Undefined
+        /// </summary>
+        Undefined,
 
-    /// <summary>
-    /// Gradient
-    /// </summary>
-    Gradient,
+        /// <summary>
+        /// Gradient
+        /// </summary>
+        Gradient,
 
-    /// <summary>
-    /// Maximum
-    /// </summary>
-    Maximum,
+        /// <summary>
+        /// Maximum
+        /// </summary>
+        Maximum,
 
-    /// <summary>
-    /// Mean
-    /// </summary>
-    Mean,
+        /// <summary>
+        /// Mean
+        /// </summary>
+        Mean,
 
-    /// <summary>
-    /// Median
-    /// </summary>
-    Median,
+        /// <summary>
+        /// Median
+        /// </summary>
+        Median,
 
-    /// <summary>
-    /// Minimum
-    /// </summary>
-    Minimum,
+        /// <summary>
+        /// Minimum
+        /// </summary>
+        Minimum,
 
-    /// <summary>
-    /// Mode
-    /// </summary>
-    Mode,
+        /// <summary>
+        /// Mode
+        /// </summary>
+        Mode,
 
-    /// <summary>
-    /// Nonpeak
-    /// </summary>
-    Nonpeak,
+        /// <summary>
+        /// Nonpeak
+        /// </summary>
+        Nonpeak,
 
-    /// <summary>
-    /// RootMeanSquare
-    /// </summary>
-    RootMeanSquare,
+        /// <summary>
+        /// RootMeanSquare
+        /// </summary>
+        RootMeanSquare,
 
-    /// <summary>
-    /// StandardDeviation
-    /// </summary>
-    StandardDeviation
-  }
+        /// <summary>
+        /// StandardDeviation
+        /// </summary>
+        StandardDeviation
+    }
 }

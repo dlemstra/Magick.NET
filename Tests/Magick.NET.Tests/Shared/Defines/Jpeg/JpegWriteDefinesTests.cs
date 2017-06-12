@@ -19,83 +19,83 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class JpegWriteDefinesTests
-  {
-    [TestMethod]
-    public void Test_Empty()
+    [TestClass]
+    public class JpegWriteDefinesTests
     {
-      using (IMagickImage image = new MagickImage())
-      {
-        image.Settings.SetDefines(new JpegWriteDefines()
+        [TestMethod]
+        public void Test_Empty()
         {
-        });
+            using (IMagickImage image = new MagickImage())
+            {
+                image.Settings.SetDefines(new JpegWriteDefines()
+                {
+                });
 
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "extent"));
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "quality"));
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "q-table"));
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "sampling-factor"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "extent"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "quality"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "q-table"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "sampling-factor"));
 
-        image.Settings.SetDefines(new JpegWriteDefines()
+                image.Settings.SetDefines(new JpegWriteDefines()
+                {
+                    QuantizationTables = "",
+                    SamplingFactors = new MagickGeometry[] { }
+                });
+
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "q-table"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "sampling-factor"));
+            }
+        }
+
+        [TestMethod]
+        public void Test_DctMethod_OptimizeCoding_Quality_QuantizationTables_SamplingFactors()
         {
-          QuantizationTables = "",
-          SamplingFactors = new MagickGeometry[] { }
-        });
-
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "q-table"));
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "sampling-factor"));
-      }
-    }
-
-    [TestMethod]
-    public void Test_DctMethod_OptimizeCoding_Quality_QuantizationTables_SamplingFactors()
-    {
-      JpegWriteDefines defines = new JpegWriteDefines()
-      {
-        DctMethod = DctMethod.Fast,
-        OptimizeCoding = false,
-        Quality = new MagickGeometry(80, 80),
-        QuantizationTables = @"C:\path\to\file.xml",
-        SamplingFactors = new MagickGeometry[]
-        {
+            JpegWriteDefines defines = new JpegWriteDefines()
+            {
+                DctMethod = DctMethod.Fast,
+                OptimizeCoding = false,
+                Quality = new MagickGeometry(80, 80),
+                QuantizationTables = @"C:\path\to\file.xml",
+                SamplingFactors = new MagickGeometry[]
+              {
           new MagickGeometry(5, 10),
           new MagickGeometry(15, 20)
+              }
+            };
+
+            using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+            {
+                image.Settings.SetDefines(defines);
+
+                Assert.AreEqual("Fast", image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
+                Assert.AreEqual("False", image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
+                Assert.AreEqual("80x80", image.Settings.GetDefine(MagickFormat.Jpeg, "quality"));
+                Assert.AreEqual(@"C:\path\to\file.xml", image.Settings.GetDefine(MagickFormat.Jpeg, "q-table"));
+                Assert.AreEqual("5x10,15x20", image.Settings.GetDefine(MagickFormat.Jpeg, "sampling-factor"));
+            }
         }
-      };
 
-      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
-      {
-        image.Settings.SetDefines(defines);
-
-        Assert.AreEqual("Fast", image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
-        Assert.AreEqual("False", image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
-        Assert.AreEqual("80x80", image.Settings.GetDefine(MagickFormat.Jpeg, "quality"));
-        Assert.AreEqual(@"C:\path\to\file.xml", image.Settings.GetDefine(MagickFormat.Jpeg, "q-table"));
-        Assert.AreEqual("5x10,15x20", image.Settings.GetDefine(MagickFormat.Jpeg, "sampling-factor"));
-      }
-    }
-
-    [TestMethod]
-    public void Test_Extent()
-    {
-      JpegWriteDefines defines = new JpegWriteDefines()
-      {
-        Extent = 10
-      };
-
-      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
-      {
-        using (MemoryStream memStream = new MemoryStream())
+        [TestMethod]
+        public void Test_Extent()
         {
-          image.Settings.SetDefines(defines);
+            JpegWriteDefines defines = new JpegWriteDefines()
+            {
+                Extent = 10
+            };
 
-          image.Format = MagickFormat.Jpeg;
-          image.Write(memStream);
-          Assert.IsTrue(memStream.Length < 10000);
+            using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+            {
+                using (MemoryStream memStream = new MemoryStream())
+                {
+                    image.Settings.SetDefines(defines);
+
+                    image.Format = MagickFormat.Jpeg;
+                    image.Write(memStream);
+                    Assert.IsTrue(memStream.Length < 10000);
+                }
+            }
         }
-      }
     }
-  }
 }

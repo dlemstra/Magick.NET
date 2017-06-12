@@ -16,25 +16,25 @@ using System.Xml.XPath;
 
 namespace ImageMagick.Web
 {
-  /// <summary>
-  /// Defines an interface that is used to set a script from the specified request.
-  /// </summary>
-  public interface IScriptData
-  {
     /// <summary>
-    /// Gets the output format for the script.
+    /// Defines an interface that is used to set a script from the specified request.
     /// </summary>
-    MagickFormat OutputFormat
+    public interface IScriptData
     {
-      get;
-    }
+        /// <summary>
+        /// Gets the output format for the script.
+        /// </summary>
+        MagickFormat OutputFormat
+        {
+            get;
+        }
 
-    /// <summary>
-    /// Gets the script to use.
-    /// </summary>
-    IXPathNavigable Script
-    {
-      get;
+        /// <summary>
+        /// Gets the script to use.
+        /// </summary>
+        IXPathNavigable Script
+        {
+            get;
+        }
     }
-  }
 }

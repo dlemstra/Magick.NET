@@ -14,39 +14,39 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Sets the fill color to be used for drawing filled objects.
-  /// </summary>
-  public sealed partial class DrawableFillColor : IDrawable, IDrawingWand
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="DrawableFillColor"/> class.
+    /// Sets the fill color to be used for drawing filled objects.
     /// </summary>
-    /// <param name="color">The color to use.</param>
-    public DrawableFillColor(MagickColor color)
+    public sealed partial class DrawableFillColor : IDrawable, IDrawingWand
     {
-      Throw.IfNull(nameof(color), color);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrawableFillColor"/> class.
+        /// </summary>
+        /// <param name="color">The color to use.</param>
+        public DrawableFillColor(MagickColor color)
+        {
+            Throw.IfNull(nameof(color), color);
 
-      Color = color;
-    }
+            Color = color;
+        }
 
-    /// <summary>
-    /// Gets or sets the color to use.
-    /// </summary>
-    public MagickColor Color
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets the color to use.
+        /// </summary>
+        public MagickColor Color
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// Draws this instance with the drawing wand.
-    /// </summary>
-    /// <param name="wand">The want to draw on.</param>
-    void IDrawingWand.Draw(DrawingWand wand)
-    {
-      if (wand != null)
-        wand.FillColor(Color);
+        /// <summary>
+        /// Draws this instance with the drawing wand.
+        /// </summary>
+        /// <param name="wand">The want to draw on.</param>
+        void IDrawingWand.Draw(DrawingWand wand)
+        {
+            if (wand != null)
+                wand.FillColor(Color);
+        }
     }
-  }
 }

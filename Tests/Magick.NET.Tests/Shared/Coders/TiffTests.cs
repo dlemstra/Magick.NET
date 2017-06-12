@@ -18,64 +18,64 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public partial class TiffTests
-  {
-    private static void TestValue(IptcProfile profile, IptcTag tag, string expectedValue)
+    [TestClass]
+    public partial class TiffTests
     {
-      IptcValue value = profile.GetValue(tag);
-      Assert.IsNotNull(value);
-      Assert.AreEqual(expectedValue, value.Value);
-    }
-
-    [TestMethod]
-    public void Test_IgnoreTags()
-    {
-      using (IMagickImage image = new MagickImage())
-      {
-        image.Settings.SetDefine(MagickFormat.Tiff, "ignore-tags", "32934");
-        image.Read(Files.Coders.IgnoreTagTIF);
-      }
-
-      using (IMagickImage image = new MagickImage())
-      {
-        MagickReadSettings readSettings = new MagickReadSettings(new TiffReadDefines()
+        private static void TestValue(IptcProfile profile, IptcTag tag, string expectedValue)
         {
-          IgnoreTags = new string[] { "32934" }
-        });
-        image.Read(Files.Coders.IgnoreTagTIF, readSettings);
-      }
-    }
-
-    [TestMethod]
-    public void Test_IptcProfile()
-    {
-      using (IMagickImage input = new MagickImage(Files.MagickNETIconPNG))
-      {
-        IptcProfile profile = input.GetIptcProfile();
-        Assert.IsNull(profile);
-
-        profile = new IptcProfile();
-        profile.SetValue(IptcTag.Headline, "Magick.NET");
-        profile.SetValue(IptcTag.CopyrightNotice, "Copyright.NET");
-
-        input.AddProfile(profile);
-
-        using (MemoryStream memStream = new MemoryStream())
-        {
-          input.Format = MagickFormat.Tiff;
-          input.Write(memStream);
-
-          memStream.Position = 0;
-          using (IMagickImage output = new MagickImage(memStream))
-          {
-            profile = output.GetIptcProfile();
-            Assert.IsNotNull(profile);
-            TestValue(profile, IptcTag.Headline, "Magick.NET");
-            TestValue(profile, IptcTag.CopyrightNotice, "Copyright.NET");
-          }
+            IptcValue value = profile.GetValue(tag);
+            Assert.IsNotNull(value);
+            Assert.AreEqual(expectedValue, value.Value);
         }
-      }
+
+        [TestMethod]
+        public void Test_IgnoreTags()
+        {
+            using (IMagickImage image = new MagickImage())
+            {
+                image.Settings.SetDefine(MagickFormat.Tiff, "ignore-tags", "32934");
+                image.Read(Files.Coders.IgnoreTagTIF);
+            }
+
+            using (IMagickImage image = new MagickImage())
+            {
+                MagickReadSettings readSettings = new MagickReadSettings(new TiffReadDefines()
+                {
+                    IgnoreTags = new string[] { "32934" }
+                });
+                image.Read(Files.Coders.IgnoreTagTIF, readSettings);
+            }
+        }
+
+        [TestMethod]
+        public void Test_IptcProfile()
+        {
+            using (IMagickImage input = new MagickImage(Files.MagickNETIconPNG))
+            {
+                IptcProfile profile = input.GetIptcProfile();
+                Assert.IsNull(profile);
+
+                profile = new IptcProfile();
+                profile.SetValue(IptcTag.Headline, "Magick.NET");
+                profile.SetValue(IptcTag.CopyrightNotice, "Copyright.NET");
+
+                input.AddProfile(profile);
+
+                using (MemoryStream memStream = new MemoryStream())
+                {
+                    input.Format = MagickFormat.Tiff;
+                    input.Write(memStream);
+
+                    memStream.Position = 0;
+                    using (IMagickImage output = new MagickImage(memStream))
+                    {
+                        profile = output.GetIptcProfile();
+                        Assert.IsNotNull(profile);
+                        TestValue(profile, IptcTag.Headline, "Magick.NET");
+                        TestValue(profile, IptcTag.CopyrightNotice, "Copyright.NET");
+                    }
+                }
+            }
+        }
     }
-  }
 }

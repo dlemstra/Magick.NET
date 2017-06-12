@@ -14,34 +14,34 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Specifies the evaluate functions.
-  /// </summary>
-  public enum EvaluateFunction
-  {
     /// <summary>
-    /// Undefined
+    /// Specifies the evaluate functions.
     /// </summary>
-    Undefined,
+    public enum EvaluateFunction
+    {
+        /// <summary>
+        /// Undefined
+        /// </summary>
+        Undefined,
 
-    /// <summary>
-    /// Arcsin
-    /// </summary>
-    Arcsin,
+        /// <summary>
+        /// Arcsin
+        /// </summary>
+        Arcsin,
 
-    /// <summary>
-    /// Arctan
-    /// </summary>
-    Arctan,
+        /// <summary>
+        /// Arctan
+        /// </summary>
+        Arctan,
 
-    /// <summary>
-    /// Polynomial
-    /// </summary>
-    Polynomial,
+        /// <summary>
+        /// Polynomial
+        /// </summary>
+        Polynomial,
 
-    /// <summary>
-    /// Sinusoid
-    /// </summary>
-    Sinusoid
-  }
+        /// <summary>
+        /// Sinusoid
+        /// </summary>
+        Sinusoid
+    }
 }

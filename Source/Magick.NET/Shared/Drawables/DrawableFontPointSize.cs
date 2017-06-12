@@ -14,37 +14,37 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Sets the font pointsize to use when annotating with text.
-  /// </summary>
-  public sealed class DrawableFontPointSize : IDrawable, IDrawingWand
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="DrawableFontPointSize"/> class.
+    /// Sets the font pointsize to use when annotating with text.
     /// </summary>
-    /// <param name="pointSize">The point size.</param>
-    public DrawableFontPointSize(double pointSize)
+    public sealed class DrawableFontPointSize : IDrawable, IDrawingWand
     {
-      PointSize = pointSize;
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrawableFontPointSize"/> class.
+        /// </summary>
+        /// <param name="pointSize">The point size.</param>
+        public DrawableFontPointSize(double pointSize)
+        {
+            PointSize = pointSize;
+        }
 
-    /// <summary>
-    /// Gets or sets the point size.
-    /// </summary>
-    public double PointSize
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets the point size.
+        /// </summary>
+        public double PointSize
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// Draws this instance with the drawing wand.
-    /// </summary>
-    /// <param name="wand">The want to draw on.</param>
-    void IDrawingWand.Draw(DrawingWand wand)
-    {
-      if (wand != null)
-        wand.FontPointSize(PointSize);
+        /// <summary>
+        /// Draws this instance with the drawing wand.
+        /// </summary>
+        /// <param name="wand">The want to draw on.</param>
+        void IDrawingWand.Draw(DrawingWand wand)
+        {
+            if (wand != null)
+                wand.FontPointSize(PointSize);
+        }
     }
-  }
 }

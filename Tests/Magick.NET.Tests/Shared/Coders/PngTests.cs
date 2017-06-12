@@ -17,24 +17,24 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class PNGTests
-  {
-    [TestMethod]
-    public void Test_CorruptImage()
+    [TestClass]
+    public class PNGTests
     {
-      using (IMagickImage image = new MagickImage(MagickColors.Purple, 4, 2))
-      {
-        try
+        [TestMethod]
+        public void Test_CorruptImage()
         {
-          image.Read(Files.CorruptPNG);
+            using (IMagickImage image = new MagickImage(MagickColors.Purple, 4, 2))
+            {
+                try
+                {
+                    image.Read(Files.CorruptPNG);
+                }
+                catch (MagickCoderErrorException)
+                {
+                    Assert.AreEqual(4, image.Width);
+                    Assert.AreEqual(2, image.Height);
+                }
+            }
         }
-        catch (MagickCoderErrorException)
-        {
-          Assert.AreEqual(4, image.Width);
-          Assert.AreEqual(2, image.Height);
-        }
-      }
     }
-  }
 }

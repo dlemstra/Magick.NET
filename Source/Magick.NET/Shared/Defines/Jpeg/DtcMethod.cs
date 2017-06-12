@@ -14,24 +14,24 @@
 
 namespace ImageMagick.Defines
 {
-  /// <summary>
-  /// Specifies the DCT method.
-  /// </summary>
-  public enum DctMethod
-  {
     /// <summary>
-    /// Fast
+    /// Specifies the DCT method.
     /// </summary>
-    Fast,
+    public enum DctMethod
+    {
+        /// <summary>
+        /// Fast
+        /// </summary>
+        Fast,
 
-    /// <summary>
-    /// Float
-    /// </summary>
-    Float,
+        /// <summary>
+        /// Float
+        /// </summary>
+        Float,
 
-    /// <summary>
-    /// Slow
-    /// </summary>
-    Slow
-  }
+        /// <summary>
+        /// Slow
+        /// </summary>
+        Slow
+    }
 }

@@ -17,19 +17,19 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public partial class OpenCLTests
-  {
-    [TestMethod]
-    public void Test_IsEnabled()
+    [TestClass]
+    public partial class OpenCLTests
     {
-      Assert.AreEqual(OpenCL.IsEnabled, true);
+        [TestMethod]
+        public void Test_IsEnabled()
+        {
+            Assert.AreEqual(OpenCL.IsEnabled, true);
 
-      OpenCL.IsEnabled = false;
-      Assert.AreEqual(OpenCL.IsEnabled, false);
+            OpenCL.IsEnabled = false;
+            Assert.AreEqual(OpenCL.IsEnabled, false);
 
-      OpenCL.IsEnabled = true;
-      Assert.AreEqual(OpenCL.IsEnabled, true);
+            OpenCL.IsEnabled = true;
+            Assert.AreEqual(OpenCL.IsEnabled, true);
+        }
     }
-  }
 }

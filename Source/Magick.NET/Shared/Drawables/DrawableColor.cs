@@ -14,60 +14,60 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Draws color on image using the current fill color, starting at specified position, and using
-  /// specified paint method.
-  /// </summary>
-  public sealed class DrawableColor : IDrawable, IDrawingWand
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="DrawableColor"/> class.
+    /// Draws color on image using the current fill color, starting at specified position, and using
+    /// specified paint method.
     /// </summary>
-    /// <param name="x">The X coordinate.</param>
-    /// <param name="y">The Y coordinate.</param>
-    /// <param name="paintMethod">The paint method to use.</param>
-    public DrawableColor(double x, double y, PaintMethod paintMethod)
+    public sealed class DrawableColor : IDrawable, IDrawingWand
     {
-      X = x;
-      Y = y;
-      PaintMethod = paintMethod;
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrawableColor"/> class.
+        /// </summary>
+        /// <param name="x">The X coordinate.</param>
+        /// <param name="y">The Y coordinate.</param>
+        /// <param name="paintMethod">The paint method to use.</param>
+        public DrawableColor(double x, double y, PaintMethod paintMethod)
+        {
+            X = x;
+            Y = y;
+            PaintMethod = paintMethod;
+        }
 
-    /// <summary>
-    /// Gets or sets the PaintMethod to use.
-    /// </summary>
-    public PaintMethod PaintMethod
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets the PaintMethod to use.
+        /// </summary>
+        public PaintMethod PaintMethod
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// Gets or sets the X coordinate.
-    /// </summary>
-    public double X
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets the X coordinate.
+        /// </summary>
+        public double X
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// Gets or sets the Y coordinate.
-    /// </summary>
-    public double Y
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets the Y coordinate.
+        /// </summary>
+        public double Y
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// Draws this instance with the drawing wand.
-    /// </summary>
-    /// <param name="wand">The want to draw on.</param>
-    void IDrawingWand.Draw(DrawingWand wand)
-    {
-      if (wand != null)
-        wand.Color(X, Y, PaintMethod);
+        /// <summary>
+        /// Draws this instance with the drawing wand.
+        /// </summary>
+        /// <param name="wand">The want to draw on.</param>
+        void IDrawingWand.Draw(DrawingWand wand)
+        {
+            if (wand != null)
+                wand.Color(X, Y, PaintMethod);
+        }
     }
-  }
 }

@@ -29,69 +29,69 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-  public partial class Moments
-  {
-    private static class NativeMethods
+    public partial class Moments
     {
-      #if PLATFORM_x64 || PLATFORM_AnyCPU
-      public static class X64
-      {
-        #if PLATFORM_AnyCPU
-        [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.Moments+NativeMethods.X64#.cctor()")]
-        static X64() { NativeLibraryLoader.Load(); }
-        #endif
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Moments_DisposeList(IntPtr list);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Moments_GetInstance(IntPtr list, UIntPtr channel);
-      }
-      #endif
-      #if PLATFORM_x86 || PLATFORM_AnyCPU
-      public static class X86
-      {
-        #if PLATFORM_AnyCPU
-        [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.Moments+NativeMethods.X86#.cctor()")]
-        static X86() { NativeLibraryLoader.Load(); }
-        #endif
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Moments_DisposeList(IntPtr list);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Moments_GetInstance(IntPtr list, UIntPtr channel);
-      }
-      #endif
+        private static class NativeMethods
+        {
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            public static class X64
+            {
+                #if PLATFORM_AnyCPU
+                [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.Moments+NativeMethods.X64#.cctor()")]
+                static X64() { NativeLibraryLoader.Load(); }
+                #endif
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void Moments_DisposeList(IntPtr list);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr Moments_GetInstance(IntPtr list, UIntPtr channel);
+            }
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            public static class X86
+            {
+                #if PLATFORM_AnyCPU
+                [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.Moments+NativeMethods.X86#.cctor()")]
+                static X86() { NativeLibraryLoader.Load(); }
+                #endif
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void Moments_DisposeList(IntPtr list);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr Moments_GetInstance(IntPtr list, UIntPtr channel);
+            }
+            #endif
+        }
+        private static class NativeMoments
+        {
+            public static void DisposeList(IntPtr list)
+            {
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.Moments_DisposeList(list);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.Moments_DisposeList(list);
+                #endif
+            }
+            public static IntPtr GetInstance(IntPtr list, PixelChannel channel)
+            {
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                return NativeMethods.X64.Moments_GetInstance(list, (UIntPtr)channel);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                return NativeMethods.X86.Moments_GetInstance(list, (UIntPtr)channel);
+                #endif
+            }
+        }
     }
-    private static class NativeMoments
-    {
-      public static void DisposeList(IntPtr list)
-      {
-        #if PLATFORM_AnyCPU
-        if (NativeLibrary.Is64Bit)
-        #endif
-        #if PLATFORM_x64 || PLATFORM_AnyCPU
-        NativeMethods.X64.Moments_DisposeList(list);
-        #endif
-        #if PLATFORM_AnyCPU
-        else
-        #endif
-        #if PLATFORM_x86 || PLATFORM_AnyCPU
-        NativeMethods.X86.Moments_DisposeList(list);
-        #endif
-      }
-      public static IntPtr GetInstance(IntPtr list, PixelChannel channel)
-      {
-        #if PLATFORM_AnyCPU
-        if (NativeLibrary.Is64Bit)
-        #endif
-        #if PLATFORM_x64 || PLATFORM_AnyCPU
-        return NativeMethods.X64.Moments_GetInstance(list, (UIntPtr)channel);
-        #endif
-        #if PLATFORM_AnyCPU
-        else
-        #endif
-        #if PLATFORM_x86 || PLATFORM_AnyCPU
-        return NativeMethods.X86.Moments_GetInstance(list, (UIntPtr)channel);
-        #endif
-      }
-    }
-  }
 }

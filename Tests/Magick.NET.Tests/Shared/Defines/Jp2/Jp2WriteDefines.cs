@@ -18,52 +18,52 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class Jp2WriteDefinesTests
-  {
-    [TestMethod]
-    public void Test_Empty()
+    [TestClass]
+    public class Jp2WriteDefinesTests
     {
-      using (IMagickImage image = new MagickImage())
-      {
-        image.Settings.SetDefines(new Jp2WriteDefines()
+        [TestMethod]
+        public void Test_Empty()
         {
-        });
+            using (IMagickImage image = new MagickImage())
+            {
+                image.Settings.SetDefines(new Jp2WriteDefines()
+                {
+                });
 
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jp2, "number-resolutions"));
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jp2, "progression-order"));
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jp2, "quality"));
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jp2, "rate"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jp2, "number-resolutions"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jp2, "progression-order"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jp2, "quality"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jp2, "rate"));
 
-        image.Settings.SetDefines(new Jp2WriteDefines()
+                image.Settings.SetDefines(new Jp2WriteDefines()
+                {
+                    Quality = new float[] { },
+                    Rate = new float[] { }
+                });
+
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jp2, "quality"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jp2, "rate"));
+            }
+        }
+
+        [TestMethod]
+        public void Test_NumberResolutions_ProgressionOrder()
         {
-          Quality = new float[] { },
-          Rate = new float[] { }
-        });
+            using (IMagickImage image = new MagickImage())
+            {
+                image.Settings.SetDefines(new Jp2WriteDefines()
+                {
+                    NumberResolutions = 4,
+                    ProgressionOrder = Jp2ProgressionOrder.PCRL,
+                    Quality = new float[] { 4, 2 },
+                    Rate = new float[] { 2, 4 }
+                });
 
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jp2, "quality"));
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jp2, "rate"));
-      }
+                Assert.AreEqual("4", image.Settings.GetDefine(MagickFormat.Jp2, "number-resolutions"));
+                Assert.AreEqual("PCRL", image.Settings.GetDefine(MagickFormat.Jp2, "progression-order"));
+                Assert.AreEqual("4,2", image.Settings.GetDefine(MagickFormat.Jp2, "quality"));
+                Assert.AreEqual("2,4", image.Settings.GetDefine(MagickFormat.Jp2, "rate"));
+            }
+        }
     }
-
-    [TestMethod]
-    public void Test_NumberResolutions_ProgressionOrder()
-    {
-      using (IMagickImage image = new MagickImage())
-      {
-        image.Settings.SetDefines(new Jp2WriteDefines()
-        {
-          NumberResolutions = 4,
-          ProgressionOrder = Jp2ProgressionOrder.PCRL,
-          Quality = new float[] { 4, 2 },
-          Rate = new float[] { 2, 4 }
-        });
-
-        Assert.AreEqual("4", image.Settings.GetDefine(MagickFormat.Jp2, "number-resolutions"));
-        Assert.AreEqual("PCRL", image.Settings.GetDefine(MagickFormat.Jp2, "progression-order"));
-        Assert.AreEqual("4,2", image.Settings.GetDefine(MagickFormat.Jp2, "quality"));
-        Assert.AreEqual("2,4", image.Settings.GetDefine(MagickFormat.Jp2, "rate"));
-      }
-    }
-  }
 }

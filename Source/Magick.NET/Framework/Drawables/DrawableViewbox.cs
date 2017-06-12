@@ -18,42 +18,42 @@ using System.Drawing;
 
 namespace ImageMagick
 {
-  /// <content>
-  /// Contains code that is not compatible with .NET Core.
-  /// </content>
-  public sealed partial class DrawableViewbox
-  {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="DrawableViewbox"/> class.
-    /// </summary>
-    /// <param name="rectangle">The <see cref="Rectangle"/> to use.</param>
-    public DrawableViewbox(Rectangle rectangle)
+    /// <content>
+    /// Contains code that is not compatible with .NET Core.
+    /// </content>
+    public sealed partial class DrawableViewbox
     {
-      UpperLeftX = rectangle.X;
-      UpperLeftY = rectangle.Y;
-      LowerRightX = rectangle.Right;
-      LowerRightY = rectangle.Bottom;
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrawableViewbox"/> class.
+        /// </summary>
+        /// <param name="rectangle">The <see cref="Rectangle"/> to use.</param>
+        public DrawableViewbox(Rectangle rectangle)
+        {
+            UpperLeftX = rectangle.X;
+            UpperLeftY = rectangle.Y;
+            LowerRightX = rectangle.Right;
+            LowerRightY = rectangle.Bottom;
+        }
 
-    /// <summary>
-    /// Converts the specified <see cref="Rectangle"/> to an instance of this type.
-    /// </summary>
-    /// <param name="rectangle">The <see cref="Rectangle"/> to use.</param>
-    public static explicit operator DrawableViewbox(Rectangle rectangle)
-    {
-      return FromRectangle(rectangle);
-    }
+        /// <summary>
+        /// Converts the specified <see cref="Rectangle"/> to an instance of this type.
+        /// </summary>
+        /// <param name="rectangle">The <see cref="Rectangle"/> to use.</param>
+        public static explicit operator DrawableViewbox(Rectangle rectangle)
+        {
+            return FromRectangle(rectangle);
+        }
 
-    /// <summary>
-    /// Converts the specified <see cref="Rectangle"/> to an instance of this type.
-    /// </summary>
-    /// <param name="rectangle">The <see cref="Rectangle"/> to use.</param>
-    /// <returns>A <see cref="DrawableViewbox"/> instance.</returns>
-    public static DrawableViewbox FromRectangle(Rectangle rectangle)
-    {
-      return new DrawableViewbox(rectangle);
+        /// <summary>
+        /// Converts the specified <see cref="Rectangle"/> to an instance of this type.
+        /// </summary>
+        /// <param name="rectangle">The <see cref="Rectangle"/> to use.</param>
+        /// <returns>A <see cref="DrawableViewbox"/> instance.</returns>
+        public static DrawableViewbox FromRectangle(Rectangle rectangle)
+        {
+            return new DrawableViewbox(rectangle);
+        }
     }
-  }
 }
 
 #endif

@@ -18,20 +18,20 @@ using System.Drawing;
 
 namespace ImageMagick
 {
-  /// <content>
-  /// Contains code that is not compatible with .NET Core.
-  /// </content>
-  public sealed partial class DrawableTextUnderColor
-  {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="DrawableTextUnderColor"/> class.
-    /// </summary>
-    /// <param name="color">The color to use.</param>
-    public DrawableTextUnderColor(Color color)
+    /// <content>
+    /// Contains code that is not compatible with .NET Core.
+    /// </content>
+    public sealed partial class DrawableTextUnderColor
     {
-      Color = color;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrawableTextUnderColor"/> class.
+        /// </summary>
+        /// <param name="color">The color to use.</param>
+        public DrawableTextUnderColor(Color color)
+        {
+            Color = color;
+        }
     }
-  }
 }
 
 #endif

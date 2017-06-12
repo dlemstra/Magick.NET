@@ -19,127 +19,127 @@ using System.IO;
 
 namespace Magick.NET.Tests.Core.Helpers
 {
-  [TestClass]
-  public class StreamWrapperTests
-  {
-    [TestMethod]
-    public void Test_Dispose()
+    [TestClass]
+    public class StreamWrapperTests
     {
-      using (TestStream stream = new TestStream(true, true, true))
-      {
-        StreamWrapper streamWrapper = StreamWrapper.CreateForReading(stream);
-        streamWrapper.Dispose();
-        streamWrapper.Dispose();
-      }
-    }
-
-    [TestMethod]
-    public void Test_Exceptions()
-    {
-      using (TestStream stream = new TestStream(false, true, true))
-      {
-        ExceptionAssert.ThrowsArgumentException(() =>
+        [TestMethod]
+        public void Test_Dispose()
         {
-          StreamWrapper.CreateForReading(stream);
-        }, "stream", "readable");
-      }
-
-      using (TestStream stream = new TestStream(true, true, true))
-      {
-        StreamWrapper.CreateForReading(stream);
-      }
-
-      using (TestStream stream = new TestStream(true, false, true))
-      {
-        ExceptionAssert.ThrowsArgumentException(() =>
-        {
-          StreamWrapper.CreateForWriting(stream);
-        }, "stream", "writeable");
-      }
-
-      using (TestStream stream = new TestStream(false, true, true))
-      {
-        StreamWrapper.CreateForWriting(stream);
-      }
-    }
-
-    [TestMethod]
-    public void Test_Read()
-    {
-      using (MemoryStream memStream = new MemoryStream())
-      {
-        using (StreamWrapper streamWrapper = StreamWrapper.CreateForReading(memStream))
-        {
-          int count = streamWrapper.Read(IntPtr.Zero, UIntPtr.Zero, IntPtr.Zero);
-          Assert.AreEqual(0, count);
-        }
-      }
-    }
-
-    [TestMethod]
-    public void Test_ReadExceptions()
-    {
-      using (FileStream fs = File.OpenRead(Files.ImageMagickJPG))
-      {
-        using (ReadExceptionStream stream = new ReadExceptionStream(fs))
-        {
-          using (IMagickImage image = new MagickImage())
-          {
-            ExceptionAssert.Throws<MagickMissingDelegateErrorException>(() =>
+            using (TestStream stream = new TestStream(true, true, true))
             {
-              image.Read(stream);
-            });
-          }
+                StreamWrapper streamWrapper = StreamWrapper.CreateForReading(stream);
+                streamWrapper.Dispose();
+                streamWrapper.Dispose();
+            }
         }
-      }
-    }
 
-    [TestMethod]
-    public void Test_SeekExceptions()
-    {
-      using (FileStream fs = File.OpenRead(Files.ImageMagickJPG))
-      {
-        using (SeekExceptionStream stream = new SeekExceptionStream(fs))
+        [TestMethod]
+        public void Test_Exceptions()
         {
-          using (IMagickImage image = new MagickImage())
-          {
-            ExceptionAssert.Throws<MagickCorruptImageErrorException>(() =>
+            using (TestStream stream = new TestStream(false, true, true))
             {
-              image.Read(stream);
-            });
-          }
-        }
-      }
-    }
+                ExceptionAssert.ThrowsArgumentException(() =>
+                {
+                    StreamWrapper.CreateForReading(stream);
+                }, "stream", "readable");
+            }
 
-    [TestMethod]
-    public void Test_Write()
-    {
-      using (MemoryStream memStream = new MemoryStream())
-      {
-        using (StreamWrapper streamWrapper = StreamWrapper.CreateForReading(memStream))
+            using (TestStream stream = new TestStream(true, true, true))
+            {
+                StreamWrapper.CreateForReading(stream);
+            }
+
+            using (TestStream stream = new TestStream(true, false, true))
+            {
+                ExceptionAssert.ThrowsArgumentException(() =>
+                {
+                    StreamWrapper.CreateForWriting(stream);
+                }, "stream", "writeable");
+            }
+
+            using (TestStream stream = new TestStream(false, true, true))
+            {
+                StreamWrapper.CreateForWriting(stream);
+            }
+        }
+
+        [TestMethod]
+        public void Test_Read()
         {
-          int count = streamWrapper.Write(IntPtr.Zero, UIntPtr.Zero, IntPtr.Zero);
-          Assert.AreEqual(0, count);
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                using (StreamWrapper streamWrapper = StreamWrapper.CreateForReading(memStream))
+                {
+                    int count = streamWrapper.Read(IntPtr.Zero, UIntPtr.Zero, IntPtr.Zero);
+                    Assert.AreEqual(0, count);
+                }
+            }
         }
-      }
-    }
 
-    [TestMethod]
-    public void Test_WriteExceptions()
-    {
-      using (MemoryStream memStream = new MemoryStream())
-      {
-        using (WriteExceptionStream stream = new WriteExceptionStream(memStream))
+        [TestMethod]
+        public void Test_ReadExceptions()
         {
-          using (IMagickImage image = new MagickImage("logo:"))
-          {
-            image.Write(stream);
-
-            Assert.AreEqual(0, memStream.Position);
-          }
+            using (FileStream fs = File.OpenRead(Files.ImageMagickJPG))
+            {
+                using (ReadExceptionStream stream = new ReadExceptionStream(fs))
+                {
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.Throws<MagickMissingDelegateErrorException>(() =>
+                        {
+                            image.Read(stream);
+                        });
+                    }
+                }
+            }
         }
-      }
+
+        [TestMethod]
+        public void Test_SeekExceptions()
+        {
+            using (FileStream fs = File.OpenRead(Files.ImageMagickJPG))
+            {
+                using (SeekExceptionStream stream = new SeekExceptionStream(fs))
+                {
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.Throws<MagickCorruptImageErrorException>(() =>
+                        {
+                            image.Read(stream);
+                        });
+                    }
+                }
+            }
+        }
+
+        [TestMethod]
+        public void Test_Write()
+        {
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                using (StreamWrapper streamWrapper = StreamWrapper.CreateForReading(memStream))
+                {
+                    int count = streamWrapper.Write(IntPtr.Zero, UIntPtr.Zero, IntPtr.Zero);
+                    Assert.AreEqual(0, count);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void Test_WriteExceptions()
+        {
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                using (WriteExceptionStream stream = new WriteExceptionStream(memStream))
+                {
+                    using (IMagickImage image = new MagickImage("logo:"))
+                    {
+                        image.Write(stream);
+
+                        Assert.AreEqual(0, memStream.Position);
+                    }
+                }
+            }
+        }
     }
-  }
 }

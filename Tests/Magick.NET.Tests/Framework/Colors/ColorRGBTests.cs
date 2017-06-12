@@ -20,16 +20,16 @@ using System.Drawing;
 
 namespace Magick.NET.Tests
 {
-  public partial class ColorRGBTests : ColorBaseTests<ColorRGB>
-  {
-    [TestMethod]
-    public void Test_Color()
+    public partial class ColorRGBTests : ColorBaseTests<ColorRGB>
     {
-      ColorRGB fuchsia = new ColorRGB(Color.Fuchsia);
+        [TestMethod]
+        public void Test_Color()
+        {
+            ColorRGB fuchsia = new ColorRGB(Color.Fuchsia);
 
-      ColorAssert.AreEqual(fuchsia, MagickColors.Fuchsia);
+            ColorAssert.AreEqual(fuchsia, MagickColors.Fuchsia);
+        }
     }
-  }
 }
 
 #endif

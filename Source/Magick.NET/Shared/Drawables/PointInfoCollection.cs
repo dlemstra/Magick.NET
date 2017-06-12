@@ -18,42 +18,42 @@ using System.Diagnostics;
 
 namespace ImageMagick
 {
-  internal sealed partial class PointInfoCollection : INativeInstance
-  {
-    private PointInfoCollection(int count)
+    internal sealed partial class PointInfoCollection : INativeInstance
     {
-      _NativeInstance = new NativePointInfoCollection(count);
-      Count = count;
-    }
+        private PointInfoCollection(int count)
+        {
+            _NativeInstance = new NativePointInfoCollection(count);
+            Count = count;
+        }
 
-    public PointInfoCollection(IList<PointD> coordinates)
-      : this(coordinates.Count)
-    {
-      for (int i = 0; i < coordinates.Count; i++)
-      {
-        PointD point = coordinates[i];
-        _NativeInstance.Set(i, point.X, point.Y);
-      }
-    }
+        public PointInfoCollection(IList<PointD> coordinates)
+          : this(coordinates.Count)
+        {
+            for (int i = 0; i < coordinates.Count; i++)
+            {
+                PointD point = coordinates[i];
+                _NativeInstance.Set(i, point.X, point.Y);
+            }
+        }
 
-    public int Count
-    {
-      get;
-      private set;
-    }
+        public int Count
+        {
+            get;
+            private set;
+        }
 
-    IntPtr INativeInstance.Instance
-    {
-      get
-      {
-        return _NativeInstance.Instance;
-      }
-    }
+        IntPtr INativeInstance.Instance
+        {
+            get
+            {
+                return _NativeInstance.Instance;
+            }
+        }
 
-    public void Dispose()
-    {
-      Debug.Assert(_NativeInstance != null);
-      _NativeInstance.Dispose();
+        public void Dispose()
+        {
+            Debug.Assert(_NativeInstance != null);
+            _NativeInstance.Dispose();
+        }
     }
-  }
 }

@@ -14,37 +14,37 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Skews the current coordinate system in the horizontal direction.
-  /// </summary>
-  public sealed class DrawableSkewX : IDrawable, IDrawingWand
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="DrawableSkewX"/> class.
+    /// Skews the current coordinate system in the horizontal direction.
     /// </summary>
-    /// <param name="angle">The angle.</param>
-    public DrawableSkewX(double angle)
+    public sealed class DrawableSkewX : IDrawable, IDrawingWand
     {
-      Angle = angle;
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrawableSkewX"/> class.
+        /// </summary>
+        /// <param name="angle">The angle.</param>
+        public DrawableSkewX(double angle)
+        {
+            Angle = angle;
+        }
 
-    /// <summary>
-    /// Gets or sets the angle.
-    /// </summary>
-    public double Angle
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets the angle.
+        /// </summary>
+        public double Angle
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// Draws this instance with the drawing wand.
-    /// </summary>
-    /// <param name="wand">The want to draw on.</param>
-    void IDrawingWand.Draw(DrawingWand wand)
-    {
-      if (wand != null)
-        wand.SkewX(Angle);
+        /// <summary>
+        /// Draws this instance with the drawing wand.
+        /// </summary>
+        /// <param name="wand">The want to draw on.</param>
+        void IDrawingWand.Draw(DrawingWand wand)
+        {
+            if (wand != null)
+                wand.SkewX(Angle);
+        }
     }
-  }
 }

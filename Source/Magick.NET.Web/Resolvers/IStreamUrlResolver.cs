@@ -17,32 +17,32 @@ using System.IO;
 
 namespace ImageMagick.Web
 {
-  /// <summary>
-  /// Defines an interface that is used to resolve a file and script from the specified request.
-  /// </summary>
-  public interface IStreamUrlResolver : IUrlResolver
-  {
     /// <summary>
-    /// Gets the unqiue ID of the image.
+    /// Defines an interface that is used to resolve a file and script from the specified request.
     /// </summary>
-    string ImageId
+    public interface IStreamUrlResolver : IUrlResolver
     {
-      get;
-    }
+        /// <summary>
+        /// Gets the unqiue ID of the image.
+        /// </summary>
+        string ImageId
+        {
+            get;
+        }
 
-    /// <summary>
-    /// Gets the time the image was last modified.
-    /// </summary>
-    DateTime ModifiedTimeUtc
-    {
-      get;
-    }
+        /// <summary>
+        /// Gets the time the image was last modified.
+        /// </summary>
+        DateTime ModifiedTimeUtc
+        {
+            get;
+        }
 
-    /// <summary>
-    /// Returns a stream that can be used to get the data of the image. This stream will be
-    /// disposed after it has been used.
-    /// </summary>
-    /// <returns>A stream that can be used to get the data of the image.</returns>
-    Stream OpenStream();
-  }
+        /// <summary>
+        /// Returns a stream that can be used to get the data of the image. This stream will be
+        /// disposed after it has been used.
+        /// </summary>
+        /// <returns>A stream that can be used to get the data of the image.</returns>
+        Stream OpenStream();
+    }
 }

@@ -16,24 +16,24 @@ using System;
 
 namespace ImageMagick.Web
 {
-  /// <summary>
-  /// Defines an interface that is used to resolve a file and script from the specified request.
-  /// </summary>
-  public interface IUrlResolver
-  {
     /// <summary>
-    /// Gets the format of the resolved image.
+    /// Defines an interface that is used to resolve a file and script from the specified request.
     /// </summary>
-    MagickFormat Format
+    public interface IUrlResolver
     {
-      get;
-    }
+        /// <summary>
+        /// Gets the format of the resolved image.
+        /// </summary>
+        MagickFormat Format
+        {
+            get;
+        }
 
-    /// <summary>
-    /// Returns true if the specified url could be resolved to a file name and script.
-    /// </summary>
-    /// <param name="url">The url to resolve.</param>
-    /// <returns>True if the specified url could be resolved to a file name and script.</returns>
-    bool Resolve(Uri url);
-  }
+        /// <summary>
+        /// Returns true if the specified url could be resolved to a file name and script.
+        /// </summary>
+        /// <param name="url">The url to resolve.</param>
+        /// <returns>True if the specified url could be resolved to a file name and script.</returns>
+        bool Resolve(Uri url);
+    }
 }

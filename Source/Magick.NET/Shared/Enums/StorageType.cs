@@ -14,49 +14,49 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Specifies the pixel storage types.
-  /// </summary>
-  public enum StorageType
-  {
     /// <summary>
-    /// Undefined
+    /// Specifies the pixel storage types.
     /// </summary>
-    Undefined,
+    public enum StorageType
+    {
+        /// <summary>
+        /// Undefined
+        /// </summary>
+        Undefined,
 
-    /// <summary>
-    /// Char
-    /// </summary>
-    Char,
+        /// <summary>
+        /// Char
+        /// </summary>
+        Char,
 
-    /// <summary>
-    /// Double
-    /// </summary>
-    Double,
+        /// <summary>
+        /// Double
+        /// </summary>
+        Double,
 
-    /// <summary>
-    /// Float
-    /// </summary>
-    Float,
+        /// <summary>
+        /// Float
+        /// </summary>
+        Float,
 
-    /// <summary>
-    /// Long
-    /// </summary>
-    Long,
+        /// <summary>
+        /// Long
+        /// </summary>
+        Long,
 
-    /// <summary>
-    /// LongLong
-    /// </summary>
-    LongLong,
+        /// <summary>
+        /// LongLong
+        /// </summary>
+        LongLong,
 
-    /// <summary>
-    /// Quantum
-    /// </summary>
-    Quantum,
+        /// <summary>
+        /// Quantum
+        /// </summary>
+        Quantum,
 
-    /// <summary>
-    /// Short
-    /// </summary>
-    Short
-  }
+        /// <summary>
+        /// Short
+        /// </summary>
+        Short
+    }
 }

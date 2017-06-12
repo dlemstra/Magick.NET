@@ -20,17 +20,17 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  public partial class MagickScriptsTests
-  {
-    [TestMethod]
-    public void Test_InvalidScript()
+    public partial class MagickScriptsTests
     {
-      ExceptionAssert.Throws<XmlSchemaValidationException>(delegate ()
-      {
-        new MagickScript(Files.Scripts.Invalid);
-      });
+        [TestMethod]
+        public void Test_InvalidScript()
+        {
+            ExceptionAssert.Throws<XmlSchemaValidationException>(delegate ()
+            {
+                new MagickScript(Files.Scripts.Invalid);
+            });
+        }
     }
-  }
 }
 
 #endif

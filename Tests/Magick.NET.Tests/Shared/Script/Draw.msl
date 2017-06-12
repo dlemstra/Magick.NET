@@ -1,20 +1,20 @@
 <msl xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\..\..\Source\Magick.NET\Resources\ReleaseQ16\MagickScript.xsd">
-  <read>
-    <draw>
-      <fillColor color="#f00"/>
-      <circle originX="0" originY="0" perimeterX="50" perimeterY="50"/>
-      <!-- comment that should be ignored-->
-      <fillColor color="#800080"/>
-      <path>
-        <!-- comment that should be ignored-->
-        <curveToAbs controlPointStart="0x0" controlPointEnd="20x90" end="128x123"/>
-      </path>
-      <fillColor color="Transparent"/>
-      <fillColor color="#00F"/>
-      <textAntialias isEnabled="1"/>
-      <textDecoration decoration="Underline"/>
-      <font family="Verdana" stretch="Normal" weight="Medium" style="Italic"/>
-      <text x="5" y="110" value="Magick.NET"/>
-    </draw>
-  </read>
+    <read>
+        <draw>
+            <fillColor color="#f00"/>
+            <circle originX="0" originY="0" perimeterX="50" perimeterY="50"/>
+            <!-- comment that should be ignored-->
+            <fillColor color="#800080"/>
+            <path>
+                <!-- comment that should be ignored-->
+                <curveToAbs controlPointStart="0x0" controlPointEnd="20x90" end="128x123"/>
+            </path>
+            <fillColor color="Transparent"/>
+            <fillColor color="#00F"/>
+            <textAntialias isEnabled="1"/>
+            <textDecoration decoration="Underline"/>
+            <font family="Verdana" stretch="Normal" weight="Medium" style="Italic"/>
+            <text x="5" y="110" value="Magick.NET"/>
+        </draw>
+    </read>
 </msl>

@@ -20,36 +20,36 @@ using System.Web;
 
 namespace Magick.NET.Tests
 {
-  [ExcludeFromCodeCoverage]
-  public sealed class TestHttpContextBase : HttpContextBase
-  {
-    private Dictionary<object, object> _Items;
-    private HttpRequestBase _Request;
-
-    public TestHttpContextBase()
-      : this("https://www.imagemagick.org")
+    [ExcludeFromCodeCoverage]
+    public sealed class TestHttpContextBase : HttpContextBase
     {
+        private Dictionary<object, object> _Items;
+        private HttpRequestBase _Request;
+
+        public TestHttpContextBase()
+          : this("https://www.imagemagick.org")
+        {
+        }
+
+        public TestHttpContextBase(string url)
+        {
+            _Items = new Dictionary<object, object>();
+            _Request = new TestHttpRequest(url);
+        }
+
+        public override IHttpHandler Handler { get; set; }
+
+        public override IDictionary Items => _Items;
+
+        public override HttpRequestBase Request => _Request;
+
+        public IHttpHandler RemapedHandler { get; private set; }
+
+        public override void RemapHandler(IHttpHandler handler)
+        {
+            RemapedHandler = handler;
+        }
     }
-
-    public TestHttpContextBase(string url)
-    {
-      _Items = new Dictionary<object, object>();
-      _Request = new TestHttpRequest(url);
-    }
-
-    public override IHttpHandler Handler { get; set; }
-
-    public override IDictionary Items => _Items;
-
-    public override HttpRequestBase Request => _Request;
-
-    public IHttpHandler RemapedHandler { get; private set; }
-
-    public override void RemapHandler(IHttpHandler handler)
-    {
-      RemapedHandler = handler;
-    }
-  }
 }
 
 #endif

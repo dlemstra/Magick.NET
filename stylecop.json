@@ -1,18 +1,18 @@
 ﻿{
-  "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
-  "settings":
-  {
-    "documentationRules":
+    "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
+    "settings":
     {
-      "documentInternalElements": false
-    },
-    "indentation":
-    {
-      "indentationSize": 2
-    },
-    "orderingRules":
-    {
-      "usingDirectivesPlacement": "outsideNamespace"
+        "documentationRules":
+        {
+            "documentInternalElements": false
+        },
+        "indentation":
+        {
+            "indentationSize": 4
+        },
+        "orderingRules":
+        {
+            "usingDirectivesPlacement": "outsideNamespace"
+        }
     }
-  }
 }

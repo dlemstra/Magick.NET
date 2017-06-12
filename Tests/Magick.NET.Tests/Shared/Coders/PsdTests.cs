@@ -17,18 +17,18 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class PSDTests
-  {
-    [TestMethod]
-    public void Test_Colors()
+    [TestClass]
+    public class PSDTests
     {
-      using (IMagickImage image = new MagickImage(Files.Coders.PlayerPSD))
-      {
-        ColorAssert.AreEqual(MagickColors.Transparent, image, 0, 0);
+        [TestMethod]
+        public void Test_Colors()
+        {
+            using (IMagickImage image = new MagickImage(Files.Coders.PlayerPSD))
+            {
+                ColorAssert.AreEqual(MagickColors.Transparent, image, 0, 0);
 
-        ColorAssert.AreEqual(MagickColor.FromRgb(15, 43, 255), image, 8, 6);
-      }
+                ColorAssert.AreEqual(MagickColor.FromRgb(15, 43, 255), image, 8, 6);
+            }
+        }
     }
-  }
 }

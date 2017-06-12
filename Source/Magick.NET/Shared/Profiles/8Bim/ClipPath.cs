@@ -16,33 +16,33 @@ using System.Xml.XPath;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// A value of the exif profile.
-  /// </summary>
-  public sealed class ClipPath
-  {
-    internal ClipPath(string name, IXPathNavigable path)
-    {
-      Name = name;
-      Path = path;
-    }
-
     /// <summary>
-    /// Gets the name of the clipping path.
+    /// A value of the exif profile.
     /// </summary>
-    public string Name
+    public sealed class ClipPath
     {
-      get;
-      private set;
-    }
+        internal ClipPath(string name, IXPathNavigable path)
+        {
+            Name = name;
+            Path = path;
+        }
 
-    /// <summary>
-    /// Gets the path of the clipping path.
-    /// </summary>
-    public IXPathNavigable Path
-    {
-      get;
-      private set;
+        /// <summary>
+        /// Gets the name of the clipping path.
+        /// </summary>
+        public string Name
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the path of the clipping path.
+        /// </summary>
+        public IXPathNavigable Path
+        {
+            get;
+            private set;
+        }
     }
-  }
 }

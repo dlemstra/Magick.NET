@@ -14,29 +14,29 @@
 
 namespace ImageMagick.Defines
 {
-  /// <summary>
-  /// Specifies bmp subtypes
-  /// </summary>
-  public enum BmpSubtype
-  {
     /// <summary>
-    /// ARGB1555
+    /// Specifies bmp subtypes
     /// </summary>
-    ARGB1555,
+    public enum BmpSubtype
+    {
+        /// <summary>
+        /// ARGB1555
+        /// </summary>
+        ARGB1555,
 
-    /// <summary>
-    /// ARGB4444
-    /// </summary>
-    ARGB4444,
+        /// <summary>
+        /// ARGB4444
+        /// </summary>
+        ARGB4444,
 
-    /// <summary>
-    /// RGB555
-    /// </summary>
-    RGB555,
+        /// <summary>
+        /// RGB555
+        /// </summary>
+        RGB555,
 
-    /// <summary>
-    /// RGB565
-    /// </summary>
-    RGB565
-  }
+        /// <summary>
+        /// RGB565
+        /// </summary>
+        RGB565
+    }
 }

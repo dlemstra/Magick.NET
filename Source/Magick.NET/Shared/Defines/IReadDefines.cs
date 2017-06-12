@@ -16,11 +16,11 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Interface for defines that are used when reading an image.
-  /// </summary>
-  [SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces", Justification = "This is a marker interface.")]
-  public interface IReadDefines : IDefines
-  {
-  }
+    /// <summary>
+    /// Interface for defines that are used when reading an image.
+    /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces", Justification = "This is a marker interface.")]
+    public interface IReadDefines : IDefines
+    {
+    }
 }

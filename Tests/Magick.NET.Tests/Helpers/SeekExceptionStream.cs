@@ -17,17 +17,17 @@ using System.IO;
 
 namespace Magick.NET.Tests
 {
-  [ExcludeFromCodeCoverage]
-  internal sealed class SeekExceptionStream : TestStream
-  {
-    public SeekExceptionStream(Stream innerStream)
-      : base(innerStream, true)
+    [ExcludeFromCodeCoverage]
+    internal sealed class SeekExceptionStream : TestStream
     {
-    }
+        public SeekExceptionStream(Stream innerStream)
+          : base(innerStream, true)
+        {
+        }
 
-    public override long Seek(long offset, SeekOrigin origin)
-    {
-      throw new InvalidOperationException();
+        public override long Seek(long offset, SeekOrigin origin)
+        {
+            throw new InvalidOperationException();
+        }
     }
-  }
 }

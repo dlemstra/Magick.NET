@@ -16,19 +16,19 @@ using System;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Encapsulation of the ImageMagick PolicyWarning exception.
-  /// </summary>
-  [Serializable]
-  public sealed class MagickPolicyWarningException : MagickErrorException
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MagickPolicyWarningException"/> class.
+    /// Encapsulation of the ImageMagick PolicyWarning exception.
     /// </summary>
-    /// <param name="message">The error message that explains the reason for the exception.</param>
-    internal MagickPolicyWarningException(string message)
-      : base(message)
+    [Serializable]
+    public sealed class MagickPolicyWarningException : MagickErrorException
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickPolicyWarningException"/> class.
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception.</param>
+        internal MagickPolicyWarningException(string message)
+          : base(message)
+        {
+        }
     }
-  }
 }

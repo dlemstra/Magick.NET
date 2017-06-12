@@ -18,27 +18,27 @@ using System.Drawing.Drawing2D;
 
 namespace ImageMagick
 {
-  /// <content>
-  /// Contains code that is not compatible with .NET Core.
-  /// </content>
-  public sealed partial class DrawableAffine
-  {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="DrawableAffine"/> class.
-    /// </summary>
-    /// <param name="matrix">The matrix.</param>
-    public DrawableAffine(Matrix matrix)
+    /// <content>
+    /// Contains code that is not compatible with .NET Core.
+    /// </content>
+    public sealed partial class DrawableAffine
     {
-      Throw.IfNull(nameof(matrix), matrix);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrawableAffine"/> class.
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        public DrawableAffine(Matrix matrix)
+        {
+            Throw.IfNull(nameof(matrix), matrix);
 
-      ScaleX = matrix.Elements[0];
-      ScaleY = matrix.Elements[1];
-      ShearX = matrix.Elements[2];
-      ShearY = matrix.Elements[3];
-      TranslateX = matrix.Elements[4];
-      TranslateY = matrix.Elements[5];
+            ScaleX = matrix.Elements[0];
+            ScaleY = matrix.Elements[1];
+            ShearX = matrix.Elements[2];
+            ShearY = matrix.Elements[3];
+            TranslateX = matrix.Elements[4];
+            TranslateY = matrix.Elements[5];
+        }
     }
-  }
 }
 
 #endif

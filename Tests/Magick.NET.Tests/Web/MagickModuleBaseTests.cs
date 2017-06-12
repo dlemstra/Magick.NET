@@ -18,36 +18,36 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests.Web
 {
-  [TestClass]
-  public class MagickModuleBaseTests
-  {
-    [TestMethod]
-    public void Test_Init()
+    [TestClass]
+    public class MagickModuleBaseTests
     {
-      TestHttpApplication context = new TestHttpApplication();
-      Assert.IsFalse(context.BeginRequestHasEvent);
+        [TestMethod]
+        public void Test_Init()
+        {
+            TestHttpApplication context = new TestHttpApplication();
+            Assert.IsFalse(context.BeginRequestHasEvent);
 
-      TestMagickModule module = new TestMagickModule(true);
-      module.Init(null);
-      module.Init(context);
-      module.Dispose();
+            TestMagickModule module = new TestMagickModule(true);
+            module.Init(null);
+            module.Init(context);
+            module.Dispose();
 
-      Assert.IsTrue(module.IsInitialized);
-      Assert.IsTrue(context.BeginRequestHasEvent);
-      Assert.IsTrue(context.PostAuthorizeRequestHasEvent);
-      Assert.IsFalse(context.PostMapRequestHandlerHasEvent);
+            Assert.IsTrue(module.IsInitialized);
+            Assert.IsTrue(context.BeginRequestHasEvent);
+            Assert.IsTrue(context.PostAuthorizeRequestHasEvent);
+            Assert.IsFalse(context.PostMapRequestHandlerHasEvent);
 
-      context = new TestHttpApplication();
+            context = new TestHttpApplication();
 
-      module = new TestMagickModule(false);
-      module.Init(context);
+            module = new TestMagickModule(false);
+            module.Init(context);
 
-      Assert.IsTrue(module.IsInitialized);
-      Assert.IsTrue(context.BeginRequestHasEvent);
-      Assert.IsTrue(context.PostMapRequestHandlerHasEvent);
-      Assert.IsFalse(context.PostAuthorizeRequestHasEvent);
+            Assert.IsTrue(module.IsInitialized);
+            Assert.IsTrue(context.BeginRequestHasEvent);
+            Assert.IsTrue(context.PostMapRequestHandlerHasEvent);
+            Assert.IsFalse(context.PostAuthorizeRequestHasEvent);
+        }
     }
-  }
 }
 
 #endif

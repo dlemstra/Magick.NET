@@ -16,56 +16,56 @@ using System.Web;
 
 namespace ImageMagick.Web
 {
-  /// <summary>
-  /// Base class for the Httpmodule that uses various handlers to resize/optimize/compress images.
-  /// </summary>
-  public abstract class MagickModuleBase : IHttpModule
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MagickModuleBase"/> class.
+    /// Base class for the Httpmodule that uses various handlers to resize/optimize/compress images.
     /// </summary>
-    protected MagickModuleBase()
+    public abstract class MagickModuleBase : IHttpModule
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickModuleBase"/> class.
+        /// </summary>
+        protected MagickModuleBase()
+        {
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether an intergrated pipeline is used.
+        /// </summary>
+        protected abstract bool UsingIntegratedPipeline { get; }
+
+        internal abstract void OnBeginRequest(HttpContextBase context);
+
+        internal abstract void OnPostAuthorizeRequest(HttpContextBase context);
+
+        internal abstract void OnPostMapRequestHandler(HttpContextBase context);
+
+        internal abstract void Initialize();
+
+        /// <summary>
+        /// Initializes the module and prepares it to handle requests.
+        /// </summary>
+        /// <param name="context">An HttpApplication that provides access to the methods, properties,
+        /// and events common to all application objects within an ASP.NET application</param>
+        public void Init(HttpApplication context)
+        {
+            if (context == null)
+                return;
+
+            context.BeginRequest += (sender, e) => OnBeginRequest(new HttpContextWrapper(((HttpApplication)sender).Context));
+
+            if (UsingIntegratedPipeline)
+                context.PostAuthorizeRequest += (sender, e) => OnPostAuthorizeRequest(new HttpContextWrapper(((HttpApplication)sender).Context));
+            else
+                context.PostMapRequestHandler += (sender, e) => OnPostMapRequestHandler(new HttpContextWrapper(((HttpApplication)sender).Context));
+
+            Initialize();
+        }
+
+        /// <summary>
+        /// Disposes of the resources (other than memory) used by the module.
+        /// </summary>
+        public void Dispose()
+        {
+        }
     }
-
-    /// <summary>
-    /// Gets a value indicating whether an intergrated pipeline is used.
-    /// </summary>
-    protected abstract bool UsingIntegratedPipeline { get; }
-
-    internal abstract void OnBeginRequest(HttpContextBase context);
-
-    internal abstract void OnPostAuthorizeRequest(HttpContextBase context);
-
-    internal abstract void OnPostMapRequestHandler(HttpContextBase context);
-
-    internal abstract void Initialize();
-
-    /// <summary>
-    /// Initializes the module and prepares it to handle requests.
-    /// </summary>
-    /// <param name="context">An HttpApplication that provides access to the methods, properties,
-    /// and events common to all application objects within an ASP.NET application</param>
-    public void Init(HttpApplication context)
-    {
-      if (context == null)
-        return;
-
-      context.BeginRequest += (sender, e) => OnBeginRequest(new HttpContextWrapper(((HttpApplication)sender).Context));
-
-      if (UsingIntegratedPipeline)
-        context.PostAuthorizeRequest += (sender, e) => OnPostAuthorizeRequest(new HttpContextWrapper(((HttpApplication)sender).Context));
-      else
-        context.PostMapRequestHandler += (sender, e) => OnPostMapRequestHandler(new HttpContextWrapper(((HttpApplication)sender).Context));
-
-      Initialize();
-    }
-
-    /// <summary>
-    /// Disposes of the resources (other than memory) used by the module.
-    /// </summary>
-    public void Dispose()
-    {
-    }
-  }
 }

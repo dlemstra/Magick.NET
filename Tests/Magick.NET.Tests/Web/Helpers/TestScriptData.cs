@@ -20,22 +20,21 @@ using ImageMagick.Web;
 
 namespace Magick.NET.Tests
 {
-  [ExcludeFromCodeCoverage]
-  public sealed class TestScriptData : IScriptData
-  {
-    public MagickFormat OutputFormat
+    [ExcludeFromCodeCoverage]
+    public sealed class TestScriptData : IScriptData
     {
-      get;
-      set;
-    }
+        public MagickFormat OutputFormat
+        {
+            get;
+            set;
+        }
 
-    public IXPathNavigable Script
-    {
-      get;
-      set;
+        public IXPathNavigable Script
+        {
+            get;
+            set;
+        }
     }
-  }
 }
-
 
 #endif

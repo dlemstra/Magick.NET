@@ -20,27 +20,27 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public partial class DrawableViewboxTests
-  {
-    [TestMethod]
-    public void Test_Constructor_Rectangle()
+    [TestClass]
+    public partial class DrawableViewboxTests
     {
-      var rectangle = new Rectangle(1, 2, 3, 4);
+        [TestMethod]
+        public void Test_Constructor_Rectangle()
+        {
+            var rectangle = new Rectangle(1, 2, 3, 4);
 
-      var viewbox = new DrawableViewbox(rectangle);
-      Assert.AreEqual(1, viewbox.UpperLeftX);
-      Assert.AreEqual(2, viewbox.UpperLeftY);
-      Assert.AreEqual(4, viewbox.LowerRightX);
-      Assert.AreEqual(6, viewbox.LowerRightY);
+            var viewbox = new DrawableViewbox(rectangle);
+            Assert.AreEqual(1, viewbox.UpperLeftX);
+            Assert.AreEqual(2, viewbox.UpperLeftY);
+            Assert.AreEqual(4, viewbox.LowerRightX);
+            Assert.AreEqual(6, viewbox.LowerRightY);
 
-      viewbox = (DrawableViewbox)rectangle;
-      Assert.AreEqual(1, viewbox.UpperLeftX);
-      Assert.AreEqual(2, viewbox.UpperLeftY);
-      Assert.AreEqual(4, viewbox.LowerRightX);
-      Assert.AreEqual(6, viewbox.LowerRightY);
+            viewbox = (DrawableViewbox)rectangle;
+            Assert.AreEqual(1, viewbox.UpperLeftX);
+            Assert.AreEqual(2, viewbox.UpperLeftY);
+            Assert.AreEqual(4, viewbox.LowerRightX);
+            Assert.AreEqual(6, viewbox.LowerRightY);
+        }
     }
-  }
 }
 
 #endif

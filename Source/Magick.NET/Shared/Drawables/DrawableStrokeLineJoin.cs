@@ -14,38 +14,38 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Specifies the shape to be used at the corners of paths (or other vector shapes) when they
-  /// are stroked.
-  /// </summary>
-  public sealed class DrawableStrokeLineJoin : IDrawable, IDrawingWand
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="DrawableStrokeLineJoin"/> class.
+    /// Specifies the shape to be used at the corners of paths (or other vector shapes) when they
+    /// are stroked.
     /// </summary>
-    /// <param name="lineJoin">The line join.</param>
-    public DrawableStrokeLineJoin(LineJoin lineJoin)
+    public sealed class DrawableStrokeLineJoin : IDrawable, IDrawingWand
     {
-      LineJoin = lineJoin;
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrawableStrokeLineJoin"/> class.
+        /// </summary>
+        /// <param name="lineJoin">The line join.</param>
+        public DrawableStrokeLineJoin(LineJoin lineJoin)
+        {
+            LineJoin = lineJoin;
+        }
 
-    /// <summary>
-    /// Gets or sets the line join.
-    /// </summary>
-    public LineJoin LineJoin
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets the line join.
+        /// </summary>
+        public LineJoin LineJoin
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// Draws this instance with the drawing wand.
-    /// </summary>
-    /// <param name="wand">The want to draw on.</param>
-    void IDrawingWand.Draw(DrawingWand wand)
-    {
-      if (wand != null)
-        wand.StrokeLineJoin(LineJoin);
+        /// <summary>
+        /// Draws this instance with the drawing wand.
+        /// </summary>
+        /// <param name="wand">The want to draw on.</param>
+        void IDrawingWand.Draw(DrawingWand wand)
+        {
+            if (wand != null)
+                wand.StrokeLineJoin(LineJoin);
+        }
     }
-  }
 }

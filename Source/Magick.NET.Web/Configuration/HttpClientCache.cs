@@ -17,33 +17,33 @@ using System.Configuration;
 
 namespace ImageMagick.Web
 {
-  /// <summary>
-  /// Class that contains the client cache settings.
-  /// </summary>
-  public sealed class HttpClientCache : ConfigurationElement
-  {
     /// <summary>
-    /// Gets the mode to use for client caching.
+    /// Class that contains the client cache settings.
     /// </summary>
-    [ConfigurationProperty("cacheControlMode", DefaultValue = CacheControlMode.UseMaxAge)]
-    public CacheControlMode CacheControlMode
+    public sealed class HttpClientCache : ConfigurationElement
     {
-      get
-      {
-        return (CacheControlMode)this["cacheControlMode"];
-      }
-    }
+        /// <summary>
+        /// Gets the mode to use for client caching.
+        /// </summary>
+        [ConfigurationProperty("cacheControlMode", DefaultValue = CacheControlMode.UseMaxAge)]
+        public CacheControlMode CacheControlMode
+        {
+            get
+            {
+                return (CacheControlMode)this["cacheControlMode"];
+            }
+        }
 
-    /// <summary>
-    /// Gets the HTTP 1.1 cache control maximum age value
-    /// </summary>
-    [ConfigurationProperty("cacheControlMaxAge", DefaultValue = "1.00:00:00")]
-    public TimeSpan CacheControlMaxAge
-    {
-      get
-      {
-        return (TimeSpan)this["cacheControlMaxAge"];
-      }
+        /// <summary>
+        /// Gets the HTTP 1.1 cache control maximum age value
+        /// </summary>
+        [ConfigurationProperty("cacheControlMaxAge", DefaultValue = "1.00:00:00")]
+        public TimeSpan CacheControlMaxAge
+        {
+            get
+            {
+                return (TimeSpan)this["cacheControlMaxAge"];
+            }
+        }
     }
-  }
 }

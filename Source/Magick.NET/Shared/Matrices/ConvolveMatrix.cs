@@ -14,36 +14,36 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Encapsulates a convolution kernel.
-  /// </summary>
-  public sealed class ConvolveMatrix : DoubleMatrix
-  {
-    private static void CheckOrder(int order)
-    {
-      Throw.IfTrue(nameof(order), order < 1, "Invalid order specified, value has to be at least 1.");
-      Throw.IfTrue(nameof(order), order % 2 == 0, "Order must be an odd number.");
-    }
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="ConvolveMatrix"/> class.
+    /// Encapsulates a convolution kernel.
     /// </summary>
-    /// <param name="order">The order.</param>
-    public ConvolveMatrix(int order)
-      : base(order, null)
+    public sealed class ConvolveMatrix : DoubleMatrix
     {
-      CheckOrder(order);
-    }
+        private static void CheckOrder(int order)
+        {
+            Throw.IfTrue(nameof(order), order < 1, "Invalid order specified, value has to be at least 1.");
+            Throw.IfTrue(nameof(order), order % 2 == 0, "Order must be an odd number.");
+        }
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ConvolveMatrix"/> class.
-    /// </summary>
-    /// <param name="order">The order.</param>
-    /// <param name="values">The values to initialize the matrix with.</param>
-    public ConvolveMatrix(int order, params double[] values)
-      : base(order, values)
-    {
-      CheckOrder(order);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConvolveMatrix"/> class.
+        /// </summary>
+        /// <param name="order">The order.</param>
+        public ConvolveMatrix(int order)
+          : base(order, null)
+        {
+            CheckOrder(order);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConvolveMatrix"/> class.
+        /// </summary>
+        /// <param name="order">The order.</param>
+        /// <param name="values">The values to initialize the matrix with.</param>
+        public ConvolveMatrix(int order, params double[] values)
+          : base(order, values)
+        {
+            CheckOrder(order);
+        }
     }
-  }
 }

@@ -17,21 +17,21 @@ Imports ImageMagick
 
 Namespace RootNamespace.Samples.MagickNET
 
-  Public NotInheritable Class LosslessCompressionSamples
+    Public NotInheritable Class LosslessCompressionSamples
 
-    Public Shared Sub MakeGooglePageSpeedInsightsHappy()
-      Dim snakewareLogo As New FileInfo(SampleFiles.OutputDirectory + "OptimizeTest.jpg")
-      File.Copy(SampleFiles.SnakewareJpg, snakewareLogo.FullName, True)
+        Public Shared Sub MakeGooglePageSpeedInsightsHappy()
+            Dim snakewareLogo As New FileInfo(SampleFiles.OutputDirectory + "OptimizeTest.jpg")
+            File.Copy(SampleFiles.SnakewareJpg, snakewareLogo.FullName, True)
 
-      Console.WriteLine("Bytes before: " + snakewareLogo.Length)
+            Console.WriteLine("Bytes before: " + snakewareLogo.Length)
 
-      Dim optimizer As New ImageOptimizer()
-      optimizer.LosslessCompress(snakewareLogo)
+            Dim optimizer As New ImageOptimizer()
+            optimizer.LosslessCompress(snakewareLogo)
 
-      snakewareLogo.Refresh()
-      Console.WriteLine("Bytes after:  " + snakewareLogo.Length)
-    End Sub
+            snakewareLogo.Refresh()
+            Console.WriteLine("Bytes after:  " + snakewareLogo.Length)
+        End Sub
 
-  End Class
+    End Class
 
 End Namespace

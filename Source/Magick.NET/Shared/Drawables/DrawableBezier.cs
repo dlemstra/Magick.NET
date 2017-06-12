@@ -16,50 +16,50 @@ using System.Collections.Generic;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Draws a bezier curve through a set of points on the image.
-  /// </summary>
-  public sealed class DrawableBezier : IDrawable, IDrawingWand
-  {
-    private PointDCoordinates _Coordinates;
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="DrawableBezier"/> class.
+    /// Draws a bezier curve through a set of points on the image.
     /// </summary>
-    /// <param name="coordinates">The coordinates.</param>
-    public DrawableBezier(params PointD[] coordinates)
+    public sealed class DrawableBezier : IDrawable, IDrawingWand
     {
-      _Coordinates = new PointDCoordinates(coordinates, 3);
-    }
+        private PointDCoordinates _Coordinates;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="DrawableBezier"/> class.
-    /// </summary>
-    /// <param name="coordinates">The coordinates.</param>
-    public DrawableBezier(IEnumerable<PointD> coordinates)
-    {
-      _Coordinates = new PointDCoordinates(coordinates, 3);
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrawableBezier"/> class.
+        /// </summary>
+        /// <param name="coordinates">The coordinates.</param>
+        public DrawableBezier(params PointD[] coordinates)
+        {
+            _Coordinates = new PointDCoordinates(coordinates, 3);
+        }
 
-    /// <summary>
-    /// Gets the coordinates.
-    /// </summary>
-    public IEnumerable<PointD> Coordinates
-    {
-      get
-      {
-        return _Coordinates.ToList();
-      }
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrawableBezier"/> class.
+        /// </summary>
+        /// <param name="coordinates">The coordinates.</param>
+        public DrawableBezier(IEnumerable<PointD> coordinates)
+        {
+            _Coordinates = new PointDCoordinates(coordinates, 3);
+        }
 
-    /// <summary>
-    /// Draws this instance with the drawing wand.
-    /// </summary>
-    /// <param name="wand">The want to draw on.</param>
-    void IDrawingWand.Draw(DrawingWand wand)
-    {
-      if (wand != null)
-        wand.Bezier(_Coordinates.ToList());
+        /// <summary>
+        /// Gets the coordinates.
+        /// </summary>
+        public IEnumerable<PointD> Coordinates
+        {
+            get
+            {
+                return _Coordinates.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Draws this instance with the drawing wand.
+        /// </summary>
+        /// <param name="wand">The want to draw on.</param>
+        void IDrawingWand.Draw(DrawingWand wand)
+        {
+            if (wand != null)
+                wand.Bezier(_Coordinates.ToList());
+        }
     }
-  }
 }

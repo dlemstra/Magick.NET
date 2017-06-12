@@ -18,29 +18,29 @@ using System.Collections.ObjectModel;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class ExifReaderTests
-  {
-    [TestMethod]
-    public void Read_DataIsEmpty_ReturnsEmptyCollection()
+    [TestClass]
+    public class ExifReaderTests
     {
-      ExifReader reader = new ExifReader();
-      byte[] data = new byte[] { };
+        [TestMethod]
+        public void Read_DataIsEmpty_ReturnsEmptyCollection()
+        {
+            ExifReader reader = new ExifReader();
+            byte[] data = new byte[] { };
 
-      Collection<ExifValue> result = reader.Read(data);
+            Collection<ExifValue> result = reader.Read(data);
 
-      Assert.AreEqual(0, result.Count);
+            Assert.AreEqual(0, result.Count);
+        }
+
+        [TestMethod]
+        public void Read_DataIsMinimal_ReturnsEmptyCollection()
+        {
+            ExifReader reader = new ExifReader();
+            byte[] data = new byte[] { 69, 120, 105, 102, 0, 0 };
+
+            Collection<ExifValue> result = reader.Read(data);
+
+            Assert.AreEqual(0, result.Count);
+        }
     }
-
-    [TestMethod]
-    public void Read_DataIsMinimal_ReturnsEmptyCollection()
-    {
-      ExifReader reader = new ExifReader();
-      byte[] data = new byte[] { 69, 120, 105, 102, 0, 0 };
-
-      Collection<ExifValue> result = reader.Read(data);
-
-      Assert.AreEqual(0, result.Count);
-    }
-  }
 }

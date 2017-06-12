@@ -17,41 +17,41 @@ using System.Collections.Generic;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Encapsulation of the ImageMagick exception object.
-  /// </summary>
-  [Serializable]
-  public abstract class MagickException : Exception
-  {
-    [NonSerialized]
-    private List<MagickException> _RelatedExceptions;
-
-    internal void SetRelatedException(List<MagickException> relatedExceptions)
-    {
-      _RelatedExceptions = relatedExceptions;
-    }
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="MagickException"/> class.
+    /// Encapsulation of the ImageMagick exception object.
     /// </summary>
-    /// <param name="message">The error message that explains the reason for the exception.</param>
-    internal MagickException(string message)
-      : base(message)
+    [Serializable]
+    public abstract class MagickException : Exception
     {
-    }
+        [NonSerialized]
+        private List<MagickException> _RelatedExceptions;
 
-    /// <summary>
-    /// Gets the exceptions that are related to this exception.
-    /// </summary>
-    public IEnumerable<MagickException> RelatedExceptions
-    {
-      get
-      {
-        if (_RelatedExceptions == null)
-          return new MagickException[0];
+        internal void SetRelatedException(List<MagickException> relatedExceptions)
+        {
+            _RelatedExceptions = relatedExceptions;
+        }
 
-        return _RelatedExceptions;
-      }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickException"/> class.
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception.</param>
+        internal MagickException(string message)
+          : base(message)
+        {
+        }
+
+        /// <summary>
+        /// Gets the exceptions that are related to this exception.
+        /// </summary>
+        public IEnumerable<MagickException> RelatedExceptions
+        {
+            get
+            {
+                if (_RelatedExceptions == null)
+                    return new MagickException[0];
+
+                return _RelatedExceptions;
+            }
+        }
     }
-  }
 }

@@ -16,53 +16,53 @@ using ImageMagick;
 
 namespace RootNamespace.Samples.MagickNET
 {
-  public static class CombiningImagesSamples
-  {
-    public static void MergeMultipleImages()
+    public static class CombiningImagesSamples
     {
-      using (MagickImageCollection images = new MagickImageCollection())
-      {
-        // Add the first image
-        MagickImage first = new MagickImage(SampleFiles.SnakewarePng);
-        images.Add(first);
-
-        // Add the second image
-        MagickImage second = new MagickImage(SampleFiles.SnakewarePng);
-        images.Add(second);
-
-        // Create a mosaic from both images
-        using (IMagickImage result = images.Mosaic())
+        public static void MergeMultipleImages()
         {
-          // Save the result
-          result.Write(SampleFiles.OutputDirectory + "Mosaic.png");
+            using (MagickImageCollection images = new MagickImageCollection())
+            {
+                // Add the first image
+                MagickImage first = new MagickImage(SampleFiles.SnakewarePng);
+                images.Add(first);
+
+                // Add the second image
+                MagickImage second = new MagickImage(SampleFiles.SnakewarePng);
+                images.Add(second);
+
+                // Create a mosaic from both images
+                using (IMagickImage result = images.Mosaic())
+                {
+                    // Save the result
+                    result.Write(SampleFiles.OutputDirectory + "Mosaic.png");
+                }
+            }
         }
-      }
+
+        public static void CreateAnimatedGif()
+        {
+            using (MagickImageCollection collection = new MagickImageCollection())
+            {
+                // Add first image and set the animation delay to 100ms
+                collection.Add(SampleFiles.SnakewarePng);
+                collection[0].AnimationDelay = 100;
+
+                // Add second image, set the animation delay to 100ms and flip the image
+                collection.Add(SampleFiles.SnakewarePng);
+                collection[1].AnimationDelay = 100;
+                collection[1].Flip();
+
+                // Optionally reduce colors
+                QuantizeSettings settings = new QuantizeSettings();
+                settings.Colors = 256;
+                collection.Quantize(settings);
+
+                // Optionally optimize the images (images should have the same size).
+                collection.Optimize();
+
+                // Save gif
+                collection.Write(SampleFiles.OutputDirectory + "Snakeware.Animated.gif");
+            }
+        }
     }
-
-    public static void CreateAnimatedGif()
-    {
-      using (MagickImageCollection collection = new MagickImageCollection())
-      {
-        // Add first image and set the animation delay to 100ms
-        collection.Add(SampleFiles.SnakewarePng);
-        collection[0].AnimationDelay = 100;
-
-        // Add second image, set the animation delay to 100ms and flip the image
-        collection.Add(SampleFiles.SnakewarePng);
-        collection[1].AnimationDelay = 100;
-        collection[1].Flip();
-
-        // Optionally reduce colors
-        QuantizeSettings settings = new QuantizeSettings();
-        settings.Colors = 256;
-        collection.Quantize(settings);
-
-        // Optionally optimize the images (images should have the same size).
-        collection.Optimize();
-
-        // Save gif
-        collection.Write(SampleFiles.OutputDirectory + "Snakeware.Animated.gif");
-      }
-    }
-  }
 }

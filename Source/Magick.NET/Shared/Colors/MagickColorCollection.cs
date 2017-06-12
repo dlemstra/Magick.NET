@@ -18,31 +18,31 @@ using System.Diagnostics;
 
 namespace ImageMagick
 {
-  internal static partial class MagickColorCollection
-  {
-    public static void DisposeList(IntPtr list)
+    internal static partial class MagickColorCollection
     {
-      if (list != IntPtr.Zero)
-        NativeMagickColorCollection.DisposeList(list);
+        public static void DisposeList(IntPtr list)
+        {
+            if (list != IntPtr.Zero)
+                NativeMagickColorCollection.DisposeList(list);
+        }
+
+        public static Dictionary<MagickColor, int> ToDictionary(IntPtr list, int length)
+        {
+            Dictionary<MagickColor, int> colors = new Dictionary<MagickColor, int>();
+
+            if (list == IntPtr.Zero)
+                return colors;
+
+            for (int i = 0; i < length; i++)
+            {
+                IntPtr instance = NativeMagickColorCollection.GetInstance(list, i);
+                Debug.Assert(instance != IntPtr.Zero);
+
+                MagickColor color = MagickColor.CreateInstance(instance);
+                colors[color] = color.Count;
+            }
+
+            return colors;
+        }
     }
-
-    public static Dictionary<MagickColor, int> ToDictionary(IntPtr list, int length)
-    {
-      Dictionary<MagickColor, int> colors = new Dictionary<MagickColor, int>();
-
-      if (list == IntPtr.Zero)
-        return colors;
-
-      for (int i = 0; i < length; i++)
-      {
-        IntPtr instance = NativeMagickColorCollection.GetInstance(list, i);
-        Debug.Assert(instance != IntPtr.Zero);
-
-        MagickColor color = MagickColor.CreateInstance(instance);
-        colors[color] = color.Count;
-      }
-
-      return colors;
-    }
-  }
 }

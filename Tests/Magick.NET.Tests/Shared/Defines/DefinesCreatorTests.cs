@@ -19,34 +19,34 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  [TestClass]
-  public class DefinesCreatorTests
-  {
-    private class TestDefine : DefinesCreator
+    [TestClass]
+    public class DefinesCreatorTests
     {
-      public TestDefine()
-        : base(MagickFormat.A)
-      {
-      }
-
-      public override IEnumerable<IDefine> Defines
-      {
-        get
+        private class TestDefine : DefinesCreator
         {
-          yield return CreateDefine("null", (MagickGeometry)null);
+            public TestDefine()
+              : base(MagickFormat.A)
+            {
+            }
+
+            public override IEnumerable<IDefine> Defines
+            {
+                get
+                {
+                    yield return CreateDefine("null", (MagickGeometry)null);
+                }
+            }
         }
-      }
-    }
 
-    [TestMethod]
-    public void Test_Null()
-    {
-      using (IMagickImage image = new MagickImage())
-      {
-        image.Settings.SetDefines(new TestDefine());
+        [TestMethod]
+        public void Test_Null()
+        {
+            using (IMagickImage image = new MagickImage())
+            {
+                image.Settings.SetDefines(new TestDefine());
 
-        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.A, "null"));
-      }
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.A, "null"));
+            }
+        }
     }
-  }
 }

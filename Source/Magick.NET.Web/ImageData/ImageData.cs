@@ -16,18 +16,18 @@ using System.Diagnostics;
 
 namespace ImageMagick.Web
 {
-  internal static class ImageData
-  {
-    internal static IImageData Create(IUrlResolver urlResolver, MagickFormatInfo formatInfo)
+    internal static class ImageData
     {
-      IFileUrlResolver fileUrlResolver = urlResolver as IFileUrlResolver;
-      if (fileUrlResolver != null)
-        return new FileImageData(fileUrlResolver.FileName, formatInfo);
+        internal static IImageData Create(IUrlResolver urlResolver, MagickFormatInfo formatInfo)
+        {
+            IFileUrlResolver fileUrlResolver = urlResolver as IFileUrlResolver;
+            if (fileUrlResolver != null)
+                return new FileImageData(fileUrlResolver.FileName, formatInfo);
 
-      IStreamUrlResolver streamUrlResolver = urlResolver as IStreamUrlResolver;
+            IStreamUrlResolver streamUrlResolver = urlResolver as IStreamUrlResolver;
 
-      Debug.Assert(streamUrlResolver != null);
-      return new StreamImageData(streamUrlResolver, formatInfo);
+            Debug.Assert(streamUrlResolver != null);
+            return new StreamImageData(streamUrlResolver, formatInfo);
+        }
     }
-  }
 }

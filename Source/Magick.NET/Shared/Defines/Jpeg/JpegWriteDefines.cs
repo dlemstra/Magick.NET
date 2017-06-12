@@ -17,110 +17,110 @@ using ImageMagick.Defines;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Class for defines that are used when a jpeg image is written.
-  /// </summary>
-  public sealed class JpegWriteDefines : WriteDefinesCreator
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="JpegWriteDefines"/> class.
+    /// Class for defines that are used when a jpeg image is written.
     /// </summary>
-    public JpegWriteDefines()
-      : base(MagickFormat.Jpeg)
+    public sealed class JpegWriteDefines : WriteDefinesCreator
     {
-    }
-
-    /// <summary>
-    /// Gets or sets the dtc method that will be used (jpeg:dct-method).
-    /// </summary>
-    public DctMethod? DctMethod
-    {
-      get;
-      set;
-    }
-
-    /// <summary>
-    /// Gets or sets the compression quality that does not exceed the specified extent in kilobytes (jpeg:extent).
-    /// </summary>
-    public int? Extent
-    {
-      get;
-      set;
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether optimize coding is enabled or disabled (jpeg:optimize-coding).
-    /// </summary>
-    public bool? OptimizeCoding
-    {
-      get;
-      set;
-    }
-
-    /// <summary>
-    /// Gets or sets the quality scaling for luminance and chrominance separately (jpeg:quality).
-    /// </summary>
-    public MagickGeometry Quality
-    {
-      get;
-      set;
-    }
-
-    /// <summary>
-    /// Gets or sets the file name that contains custom quantization tables (jpeg:q-table).
-    /// </summary>
-    public string QuantizationTables
-    {
-      get;
-      set;
-    }
-
-    /// <summary>
-    /// Gets or sets jpeg sampling factor (jpeg:sampling-factor).
-    /// </summary>
-    public IEnumerable<MagickGeometry> SamplingFactors
-    {
-      get;
-      set;
-    }
-
-    /// <summary>
-    /// Gets the defines that should be set as a define on an image.
-    /// </summary>
-    public override IEnumerable<IDefine> Defines
-    {
-      get
-      {
-        if (DctMethod.HasValue)
-          yield return CreateDefine("dct-method", DctMethod.Value);
-
-        if (Extent.HasValue)
-          yield return CreateDefine("extent", Extent.Value + "KB");
-
-        if (OptimizeCoding.HasValue)
-          yield return CreateDefine("optimize-coding", OptimizeCoding.Value);
-
-        if (Quality != null)
-          yield return CreateDefine("quality", Quality);
-
-        if (!string.IsNullOrEmpty(QuantizationTables))
-          yield return CreateDefine("q-table", QuantizationTables);
-
-        if (SamplingFactors != null)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JpegWriteDefines"/> class.
+        /// </summary>
+        public JpegWriteDefines()
+          : base(MagickFormat.Jpeg)
         {
-          string value = string.Empty;
-          foreach (MagickGeometry samplingFactor in SamplingFactors)
-          {
-            if (value.Length != 0)
-              value += ",";
-
-            value += samplingFactor.ToString();
-          }
-
-          if (!string.IsNullOrEmpty(value))
-            yield return CreateDefine("sampling-factor", value);
         }
-      }
+
+        /// <summary>
+        /// Gets or sets the dtc method that will be used (jpeg:dct-method).
+        /// </summary>
+        public DctMethod? DctMethod
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the compression quality that does not exceed the specified extent in kilobytes (jpeg:extent).
+        /// </summary>
+        public int? Extent
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether optimize coding is enabled or disabled (jpeg:optimize-coding).
+        /// </summary>
+        public bool? OptimizeCoding
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the quality scaling for luminance and chrominance separately (jpeg:quality).
+        /// </summary>
+        public MagickGeometry Quality
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the file name that contains custom quantization tables (jpeg:q-table).
+        /// </summary>
+        public string QuantizationTables
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets jpeg sampling factor (jpeg:sampling-factor).
+        /// </summary>
+        public IEnumerable<MagickGeometry> SamplingFactors
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets the defines that should be set as a define on an image.
+        /// </summary>
+        public override IEnumerable<IDefine> Defines
+        {
+            get
+            {
+                if (DctMethod.HasValue)
+                    yield return CreateDefine("dct-method", DctMethod.Value);
+
+                if (Extent.HasValue)
+                    yield return CreateDefine("extent", Extent.Value + "KB");
+
+                if (OptimizeCoding.HasValue)
+                    yield return CreateDefine("optimize-coding", OptimizeCoding.Value);
+
+                if (Quality != null)
+                    yield return CreateDefine("quality", Quality);
+
+                if (!string.IsNullOrEmpty(QuantizationTables))
+                    yield return CreateDefine("q-table", QuantizationTables);
+
+                if (SamplingFactors != null)
+                {
+                    string value = string.Empty;
+                    foreach (MagickGeometry samplingFactor in SamplingFactors)
+                    {
+                        if (value.Length != 0)
+                            value += ",";
+
+                        value += samplingFactor.ToString();
+                    }
+
+                    if (!string.IsNullOrEmpty(value))
+                        yield return CreateDefine("sampling-factor", value);
+                }
+            }
+        }
     }
-  }
 }

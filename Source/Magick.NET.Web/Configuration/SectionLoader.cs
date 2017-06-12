@@ -16,11 +16,11 @@ using System.Configuration;
 
 namespace ImageMagick.Web
 {
-  internal sealed class SectionLoader : ISectionLoader
-  {
-    public MagickWebSettings GetSection(string name)
+    internal sealed class SectionLoader : ISectionLoader
     {
-      return ConfigurationManager.GetSection(name) as MagickWebSettings;
+        public MagickWebSettings GetSection(string name)
+        {
+            return ConfigurationManager.GetSection(name) as MagickWebSettings;
+        }
     }
-  }
 }

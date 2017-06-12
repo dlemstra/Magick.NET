@@ -14,40 +14,40 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Associates a named clipping path with the image. Only the areas drawn on by the clipping path
-  /// will be modified as ssize_t as it remains in effect.
-  /// </summary>
-  public sealed class DrawableClipPath : IDrawable, IDrawingWand
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="DrawableClipPath"/> class.
+    /// Associates a named clipping path with the image. Only the areas drawn on by the clipping path
+    /// will be modified as ssize_t as it remains in effect.
     /// </summary>
-    /// <param name="clipPath">The ID of the clip path.</param>
-    public DrawableClipPath(string clipPath)
+    public sealed class DrawableClipPath : IDrawable, IDrawingWand
     {
-      Throw.IfNullOrEmpty(nameof(clipPath), clipPath);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrawableClipPath"/> class.
+        /// </summary>
+        /// <param name="clipPath">The ID of the clip path.</param>
+        public DrawableClipPath(string clipPath)
+        {
+            Throw.IfNullOrEmpty(nameof(clipPath), clipPath);
 
-      ClipPath = clipPath;
-    }
+            ClipPath = clipPath;
+        }
 
-    /// <summary>
-    /// Gets or sets the ID of the clip path.
-    /// </summary>
-    public string ClipPath
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets the ID of the clip path.
+        /// </summary>
+        public string ClipPath
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// Draws this instance with the drawing wand.
-    /// </summary>
-    /// <param name="wand">The want to draw on.</param>
-    void IDrawingWand.Draw(DrawingWand wand)
-    {
-      if (wand != null)
-        wand.ClipPath(ClipPath);
+        /// <summary>
+        /// Draws this instance with the drawing wand.
+        /// </summary>
+        /// <param name="wand">The want to draw on.</param>
+        void IDrawingWand.Draw(DrawingWand wand)
+        {
+            if (wand != null)
+                wand.ClipPath(ClipPath);
+        }
     }
-  }
 }

@@ -19,25 +19,25 @@ using System.Drawing.Imaging;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Represents the collection of images.
-  /// </summary>
-  public partial interface IMagickImageCollection
-  {
     /// <summary>
-    /// Converts this instance to a <see cref="Bitmap"/> using <see cref="ImageFormat.Tiff"/>.
+    /// Represents the collection of images.
     /// </summary>
-    /// <returns>A <see cref="Bitmap"/> that has the format <see cref="ImageFormat.Tiff"/>.</returns>
-    Bitmap ToBitmap();
+    public partial interface IMagickImageCollection
+    {
+        /// <summary>
+        /// Converts this instance to a <see cref="Bitmap"/> using <see cref="ImageFormat.Tiff"/>.
+        /// </summary>
+        /// <returns>A <see cref="Bitmap"/> that has the format <see cref="ImageFormat.Tiff"/>.</returns>
+        Bitmap ToBitmap();
 
-    /// <summary>
-    /// Converts this instance to a <see cref="Bitmap"/> using the specified <see cref="ImageFormat"/>.
-    /// Supported formats are: Gif, Icon, Tiff.
-    /// </summary>
-    /// <param name="imageFormat">The image format.</param>
-    /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/></returns>
-    Bitmap ToBitmap(ImageFormat imageFormat);
-  }
+        /// <summary>
+        /// Converts this instance to a <see cref="Bitmap"/> using the specified <see cref="ImageFormat"/>.
+        /// Supported formats are: Gif, Icon, Tiff.
+        /// </summary>
+        /// <param name="imageFormat">The image format.</param>
+        /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/></returns>
+        Bitmap ToBitmap(ImageFormat imageFormat);
+    }
 }
 
 #endif

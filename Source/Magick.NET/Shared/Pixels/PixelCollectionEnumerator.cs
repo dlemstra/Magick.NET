@@ -28,77 +28,77 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-  internal sealed class PixelCollectionEnumerator : IEnumerator<Pixel>
-  {
-    private QuantumType[] _Row;
-    private PixelCollection _Collection;
-    private int _Height;
-    private int _X;
-    private int _Y;
-    private int _Width;
-
-    private void SetRow()
+    internal sealed class PixelCollectionEnumerator : IEnumerator<Pixel>
     {
-      if (_Y < _Height)
-        _Row = _Collection.GetAreaUnchecked(0, _Y, _Width, 1);
+        private QuantumType[] _Row;
+        private PixelCollection _Collection;
+        private int _Height;
+        private int _X;
+        private int _Y;
+        private int _Width;
+
+        private void SetRow()
+        {
+            if (_Y < _Height)
+                _Row = _Collection.GetAreaUnchecked(0, _Y, _Width, 1);
+        }
+
+        public PixelCollectionEnumerator(PixelCollection collection, int width, int height)
+        {
+            _Collection = collection;
+            _Width = width;
+            _Height = height;
+            Reset();
+        }
+
+        object IEnumerator.Current
+        {
+            get
+            {
+                return Current;
+            }
+        }
+
+        public Pixel Current
+        {
+            get
+            {
+                if (_X == -1)
+                    return null;
+
+                QuantumType[] pixel = new QuantumType[_Collection.Channels];
+                Array.Copy(_Row, _X * _Collection.Channels, pixel, 0, _Collection.Channels);
+
+                return Pixel.Create(_Collection, _X, _Y, pixel);
+            }
+        }
+
+        public void Dispose()
+        {
+        }
+
+        public bool MoveNext()
+        {
+            if (++_X == _Width)
+            {
+                _X = 0;
+                _Y++;
+                SetRow();
+            }
+
+            if (_Y < _Height)
+                return true;
+
+            _X = _Width - 1;
+            _Y = _Height - 1;
+            return false;
+        }
+
+        public void Reset()
+        {
+            _X = -1;
+            _Y = 0;
+            SetRow();
+        }
     }
-
-    public PixelCollectionEnumerator(PixelCollection collection, int width, int height)
-    {
-      _Collection = collection;
-      _Width = width;
-      _Height = height;
-      Reset();
-    }
-
-    object IEnumerator.Current
-    {
-      get
-      {
-        return Current;
-      }
-    }
-
-    public Pixel Current
-    {
-      get
-      {
-        if (_X == -1)
-          return null;
-
-        QuantumType[] pixel = new QuantumType[_Collection.Channels];
-        Array.Copy(_Row, _X * _Collection.Channels, pixel, 0, _Collection.Channels);
-
-        return Pixel.Create(_Collection, _X, _Y, pixel);
-      }
-    }
-
-    public void Dispose()
-    {
-    }
-
-    public bool MoveNext()
-    {
-      if (++_X == _Width)
-      {
-        _X = 0;
-        _Y++;
-        SetRow();
-      }
-
-      if (_Y < _Height)
-        return true;
-
-      _X = _Width - 1;
-      _Y = _Height - 1;
-      return false;
-    }
-
-    public void Reset()
-    {
-      _X = -1;
-      _Y = 0;
-      SetRow();
-    }
-  }
 }

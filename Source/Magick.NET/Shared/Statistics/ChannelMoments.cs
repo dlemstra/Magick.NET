@@ -16,106 +16,106 @@ using System;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// The normalized moments of one image channels.
-  /// </summary>
-  public sealed partial class ChannelMoments
-  {
-    private double[] _HuInvariants;
-
-    private ChannelMoments(PixelChannel channel, IntPtr instance)
-    {
-      Channel = channel;
-
-      NativeChannelMoments nativeInstance = new NativeChannelMoments(instance);
-      Centroid = PointD.FromPointInfo(nativeInstance.Centroid);
-      EllipseAngle = nativeInstance.EllipseAngle;
-      EllipseAxis = PointD.FromPointInfo(nativeInstance.EllipseAxis);
-      EllipseEccentricity = nativeInstance.EllipseEccentricity;
-      EllipseIntensity = nativeInstance.EllipseIntensity;
-      SetHuInvariants(nativeInstance);
-    }
-
-    private void SetHuInvariants(NativeChannelMoments nativeInstance)
-    {
-      _HuInvariants = new double[8];
-
-      for (int i = 0; i < 8; i++)
-        _HuInvariants[i] = nativeInstance.GetHuInvariants(i);
-    }
-
-    internal static ChannelMoments Create(PixelChannel channel, IntPtr instance)
-    {
-      if (instance == IntPtr.Zero)
-        return null;
-
-      return new ChannelMoments(channel, instance);
-    }
-
     /// <summary>
-    /// Gets the centroid.
+    /// The normalized moments of one image channels.
     /// </summary>
-    public PointD Centroid
+    public sealed partial class ChannelMoments
     {
-      get;
-      private set;
-    }
+        private double[] _HuInvariants;
 
-    /// <summary>
-    /// Gets the channel of this moment.
-    /// </summary>
-    public PixelChannel Channel
-    {
-      get;
-      private set;
-    }
+        private ChannelMoments(PixelChannel channel, IntPtr instance)
+        {
+            Channel = channel;
 
-    /// <summary>
-    /// Gets the ellipse axis.
-    /// </summary>
-    public PointD EllipseAxis
-    {
-      get;
-      private set;
-    }
+            NativeChannelMoments nativeInstance = new NativeChannelMoments(instance);
+            Centroid = PointD.FromPointInfo(nativeInstance.Centroid);
+            EllipseAngle = nativeInstance.EllipseAngle;
+            EllipseAxis = PointD.FromPointInfo(nativeInstance.EllipseAxis);
+            EllipseEccentricity = nativeInstance.EllipseEccentricity;
+            EllipseIntensity = nativeInstance.EllipseIntensity;
+            SetHuInvariants(nativeInstance);
+        }
 
-    /// <summary>
-    /// Gets the ellipse angle.
-    /// </summary>
-    public double EllipseAngle
-    {
-      get;
-      private set;
-    }
+        private void SetHuInvariants(NativeChannelMoments nativeInstance)
+        {
+            _HuInvariants = new double[8];
 
-    /// <summary>
-    /// Gets the ellipse eccentricity.
-    /// </summary>
-    public double EllipseEccentricity
-    {
-      get;
-      private set;
-    }
+            for (int i = 0; i < 8; i++)
+                _HuInvariants[i] = nativeInstance.GetHuInvariants(i);
+        }
 
-    /// <summary>
-    /// Gets the ellipse intensity.
-    /// </summary>
-    public double EllipseIntensity
-    {
-      get;
-      private set;
-    }
+        internal static ChannelMoments Create(PixelChannel channel, IntPtr instance)
+        {
+            if (instance == IntPtr.Zero)
+                return null;
 
-    /// <summary>
-    /// Returns the Hu invariants.
-    /// </summary>
-    /// <param name="index">The index to use.</param>
-    /// <returns>The Hu invariants.</returns>
-    public double HuInvariants(int index)
-    {
-      Throw.IfOutOfRange(nameof(index), index, 8);
+            return new ChannelMoments(channel, instance);
+        }
 
-      return _HuInvariants[index];
+        /// <summary>
+        /// Gets the centroid.
+        /// </summary>
+        public PointD Centroid
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the channel of this moment.
+        /// </summary>
+        public PixelChannel Channel
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the ellipse axis.
+        /// </summary>
+        public PointD EllipseAxis
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the ellipse angle.
+        /// </summary>
+        public double EllipseAngle
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the ellipse eccentricity.
+        /// </summary>
+        public double EllipseEccentricity
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the ellipse intensity.
+        /// </summary>
+        public double EllipseIntensity
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Returns the Hu invariants.
+        /// </summary>
+        /// <param name="index">The index to use.</param>
+        /// <returns>The Hu invariants.</returns>
+        public double HuInvariants(int index)
+        {
+            Throw.IfOutOfRange(nameof(index), index, 8);
+
+            return _HuInvariants[index];
+        }
     }
-  }
 }

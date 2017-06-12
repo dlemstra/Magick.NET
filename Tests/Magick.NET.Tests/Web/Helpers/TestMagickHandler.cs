@@ -20,22 +20,22 @@ using System.Web;
 
 namespace Magick.NET.Tests
 {
-  [ExcludeFromCodeCoverage]
-  internal sealed class TestMagickHandler : MagickHandler
-  {
-    public TestMagickHandler(MagickWebSettings settings, IImageData imageData)
-      : base(settings, imageData)
+    [ExcludeFromCodeCoverage]
+    internal sealed class TestMagickHandler : MagickHandler
     {
-      FileName = Files.MagickNETIconPNG;
-    }
+        public TestMagickHandler(MagickWebSettings settings, IImageData imageData)
+          : base(settings, imageData)
+        {
+            FileName = Files.MagickNETIconPNG;
+        }
 
-    protected override string GetFileName(HttpContext context)
-    {
-      return FileName;
-    }
+        protected override string GetFileName(HttpContext context)
+        {
+            return FileName;
+        }
 
-    public string FileName { get; set; }
-  }
+        public string FileName { get; set; }
+    }
 }
 
 #endif

@@ -14,37 +14,37 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Specifies the shape to be used at the end of open subpaths when they are stroked.
-  /// </summary>
-  public sealed class DrawableStrokeLineCap : IDrawable, IDrawingWand
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="DrawableStrokeLineCap"/> class.
+    /// Specifies the shape to be used at the end of open subpaths when they are stroked.
     /// </summary>
-    /// <param name="lineCap">The line cap.</param>
-    public DrawableStrokeLineCap(LineCap lineCap)
+    public sealed class DrawableStrokeLineCap : IDrawable, IDrawingWand
     {
-      LineCap = lineCap;
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrawableStrokeLineCap"/> class.
+        /// </summary>
+        /// <param name="lineCap">The line cap.</param>
+        public DrawableStrokeLineCap(LineCap lineCap)
+        {
+            LineCap = lineCap;
+        }
 
-    /// <summary>
-    /// Gets or sets the line cap.
-    /// </summary>
-    public LineCap LineCap
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets the line cap.
+        /// </summary>
+        public LineCap LineCap
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// Draws this instance with the drawing wand.
-    /// </summary>
-    /// <param name="wand">The want to draw on.</param>
-    void IDrawingWand.Draw(DrawingWand wand)
-    {
-      if (wand != null)
-        wand.StrokeLineCap(LineCap);
+        /// <summary>
+        /// Draws this instance with the drawing wand.
+        /// </summary>
+        /// <param name="wand">The want to draw on.</param>
+        void IDrawingWand.Draw(DrawingWand wand)
+        {
+            if (wand != null)
+                wand.StrokeLineCap(LineCap);
+        }
     }
-  }
 }

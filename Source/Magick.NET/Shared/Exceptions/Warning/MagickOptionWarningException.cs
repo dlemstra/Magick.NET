@@ -16,19 +16,19 @@ using System;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Encapsulation of the ImageMagick OptionWarning exception.
-  /// </summary>
-  [Serializable]
-  public sealed class MagickOptionWarningException : MagickWarningException
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MagickOptionWarningException"/> class.
+    /// Encapsulation of the ImageMagick OptionWarning exception.
     /// </summary>
-    /// <param name="message">The error message that explains the reason for the exception.</param>
-    internal MagickOptionWarningException(string message)
-      : base(message)
+    [Serializable]
+    public sealed class MagickOptionWarningException : MagickWarningException
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickOptionWarningException"/> class.
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception.</param>
+        internal MagickOptionWarningException(string message)
+          : base(message)
+        {
+        }
     }
-  }
 }

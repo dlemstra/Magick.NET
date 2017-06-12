@@ -17,42 +17,42 @@ Imports ImageMagick
 
 Namespace RootNamespace.Samples.MagickNET
 
-  Public NotInheritable Class ExifDataSamples
+    Public NotInheritable Class ExifDataSamples
 
-    Public Shared Sub ReadExifData()
-      ' Read image from file
-      Using image As New MagickImage(SampleFiles.FujiFilmFinePixS1ProJpg)
-        ' Retrieve the exif information
-        Dim profile As ExifProfile = image.GetExifProfile()
+        Public Shared Sub ReadExifData()
+            ' Read image from file
+            Using image As New MagickImage(SampleFiles.FujiFilmFinePixS1ProJpg)
+                ' Retrieve the exif information
+                Dim profile As ExifProfile = image.GetExifProfile()
 
-        ' Check if image contains an exif profile
-        If profile Is Nothing Then
-          Console.WriteLine("Image does not contain exif information.")
-        Else
-          ' Write all values to the console
-          For Each value As ExifValue In profile.Values
-            Console.WriteLine("{0}({1}): {2}", value.Tag, value.DataType, value.ToString())
-          Next
-        End If
-      End Using
-    End Sub
+                ' Check if image contains an exif profile
+                If profile Is Nothing Then
+                    Console.WriteLine("Image does not contain exif information.")
+                Else
+                    ' Write all values to the console
+                    For Each value As ExifValue In profile.Values
+                        Console.WriteLine("{0}({1}): {2}", value.Tag, value.DataType, value.ToString())
+                    Next
+                End If
+            End Using
+        End Sub
 
-    Public Shared Sub CreateThumbnailFromExifData()
-      ' Read image from file
-      Using image As New MagickImage(SampleFiles.FujiFilmFinePixS1ProJpg)
-        ' Retrieve the exif information
-        Dim profile As ExifProfile = image.GetExifProfile()
+        Public Shared Sub CreateThumbnailFromExifData()
+            ' Read image from file
+            Using image As New MagickImage(SampleFiles.FujiFilmFinePixS1ProJpg)
+                ' Retrieve the exif information
+                Dim profile As ExifProfile = image.GetExifProfile()
 
-        ' Create thumbnail from exif information
-        Using thumbnail As MagickImage = profile.CreateThumbnail()
-          ' Check if exif profile contains thumbnail and save it
-          If thumbnail IsNot Nothing Then
-            thumbnail.Write(SampleFiles.OutputDirectory + "FujiFilmFinePixS1Pro.thumb.jpg")
-          End If
-        End Using
-      End Using
-    End Sub
+                ' Create thumbnail from exif information
+                Using thumbnail As MagickImage = profile.CreateThumbnail()
+                    ' Check if exif profile contains thumbnail and save it
+                    If thumbnail IsNot Nothing Then
+                        thumbnail.Write(SampleFiles.OutputDirectory + "FujiFilmFinePixS1Pro.thumb.jpg")
+                    End If
+                End Using
+            End Using
+        End Sub
 
-  End Class
+    End Class
 
 End Namespace

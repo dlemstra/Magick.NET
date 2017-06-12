@@ -19,22 +19,22 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  public partial class MagickNETTests
-  {
-    [TestMethod]
-    public void Test_Version()
+    public partial class MagickNETTests
     {
+        [TestMethod]
+        public void Test_Version()
+        {
 #if PLATFORM_AnyCPU
-      StringAssert.Contains(MagickNET.Version, "AnyCPU");
+            StringAssert.Contains(MagickNET.Version, "AnyCPU");
 #elif PLATFORM_x64
-      StringAssert.Contains(MagickNET.Version, "x64");
+            StringAssert.Contains(MagickNET.Version, "x64");
 #else
-      StringAssert.Contains(MagickNET.Version, "x86");
+            StringAssert.Contains(MagickNET.Version, "x86");
 #endif
 
-      StringAssert.Contains(MagickNET.Version, "net40");
+            StringAssert.Contains(MagickNET.Version, "net40");
+        }
     }
-  }
 }
 
 #endif

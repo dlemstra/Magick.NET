@@ -14,37 +14,37 @@
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Specifies the alpha of stroked object outlines.
-  /// </summary>
-  public sealed class DrawableStrokeOpacity : IDrawable, IDrawingWand
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="DrawableStrokeOpacity"/> class.
+    /// Specifies the alpha of stroked object outlines.
     /// </summary>
-    /// <param name="opacity">The opacity.</param>
-    public DrawableStrokeOpacity(Percentage opacity)
+    public sealed class DrawableStrokeOpacity : IDrawable, IDrawingWand
     {
-      Opacity = opacity;
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrawableStrokeOpacity"/> class.
+        /// </summary>
+        /// <param name="opacity">The opacity.</param>
+        public DrawableStrokeOpacity(Percentage opacity)
+        {
+            Opacity = opacity;
+        }
 
-    /// <summary>
-    /// Gets or sets the opacity.
-    /// </summary>
-    public Percentage Opacity
-    {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Gets or sets the opacity.
+        /// </summary>
+        public Percentage Opacity
+        {
+            get;
+            set;
+        }
 
-    /// <summary>
-    /// Draws this instance with the drawing wand.
-    /// </summary>
-    /// <param name="wand">The want to draw on.</param>
-    void IDrawingWand.Draw(DrawingWand wand)
-    {
-      if (wand != null)
-        wand.StrokeOpacity((double)Opacity / 100);
+        /// <summary>
+        /// Draws this instance with the drawing wand.
+        /// </summary>
+        /// <param name="wand">The want to draw on.</param>
+        void IDrawingWand.Draw(DrawingWand wand)
+        {
+            if (wand != null)
+                wand.StrokeOpacity((double)Opacity / 100);
+        }
     }
-  }
 }

@@ -16,40 +16,40 @@ using System;
 
 namespace ImageMagick.Defines
 {
-  /// <summary>
-  /// Specifies profile types
-  /// </summary>
-  [Flags]
-  public enum ProfileTypes
-  {
     /// <summary>
-    /// App profile
+    /// Specifies profile types
     /// </summary>
-    App = 1,
+    [Flags]
+    public enum ProfileTypes
+    {
+        /// <summary>
+        /// App profile
+        /// </summary>
+        App = 1,
 
-    /// <summary>
-    /// 8bim profile
-    /// </summary>
-    EightBim = 2,
+        /// <summary>
+        /// 8bim profile
+        /// </summary>
+        EightBim = 2,
 
-    /// <summary>
-    /// Exif profile
-    /// </summary>
-    Exif = 4,
+        /// <summary>
+        /// Exif profile
+        /// </summary>
+        Exif = 4,
 
-    /// <summary>
-    /// Icc profile
-    /// </summary>
-    Icc = 8,
+        /// <summary>
+        /// Icc profile
+        /// </summary>
+        Icc = 8,
 
-    /// <summary>
-    /// Iptc profile
-    /// </summary>
-    Iptc = 16,
+        /// <summary>
+        /// Iptc profile
+        /// </summary>
+        Iptc = 16,
 
-    /// <summary>
-    /// Iptc profile
-    /// </summary>
-    Xmp = 32,
-  }
+        /// <summary>
+        /// Iptc profile
+        /// </summary>
+        Xmp = 32,
+    }
 }

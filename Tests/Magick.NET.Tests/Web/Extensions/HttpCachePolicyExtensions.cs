@@ -20,27 +20,27 @@ using System.Web;
 
 namespace Magick.NET.Tests
 {
-  [ExcludeFromCodeCoverage]
-  internal static class HttpCachePolicyExtensions
-  {
-    public static HttpCacheability GetCacheability(this HttpCachePolicy self)
+    [ExcludeFromCodeCoverage]
+    internal static class HttpCachePolicyExtensions
     {
-      var type = self.GetType();
-      var flags = BindingFlags.Instance | BindingFlags.NonPublic;
+        public static HttpCacheability GetCacheability(this HttpCachePolicy self)
+        {
+            var type = self.GetType();
+            var flags = BindingFlags.Instance | BindingFlags.NonPublic;
 
-      var cacheability = type.GetField("_cacheability", flags);
-      return (HttpCacheability)cacheability.GetValue(self);
+            var cacheability = type.GetField("_cacheability", flags);
+            return (HttpCacheability)cacheability.GetValue(self);
+        }
+
+        public static DateTime GetLastModified(this HttpCachePolicy self)
+        {
+            var type = self.GetType();
+            var flags = BindingFlags.Instance | BindingFlags.NonPublic;
+
+            var cacheability = type.GetField("_utcLastModified", flags);
+            return (DateTime)cacheability.GetValue(self);
+        }
     }
-
-    public static DateTime GetLastModified(this HttpCachePolicy self)
-    {
-      var type = self.GetType();
-      var flags = BindingFlags.Instance | BindingFlags.NonPublic;
-
-      var cacheability = type.GetField("_utcLastModified", flags);
-      return (DateTime)cacheability.GetValue(self);
-    }
-  }
 }
 
 #endif

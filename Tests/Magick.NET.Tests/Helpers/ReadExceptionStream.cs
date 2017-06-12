@@ -17,17 +17,17 @@ using System.IO;
 
 namespace Magick.NET.Tests
 {
-  [ExcludeFromCodeCoverage]
-  internal sealed class ReadExceptionStream : TestStream
-  {
-    public ReadExceptionStream(Stream innerStream)
-      : base(innerStream, true)
+    [ExcludeFromCodeCoverage]
+    internal sealed class ReadExceptionStream : TestStream
     {
-    }
+        public ReadExceptionStream(Stream innerStream)
+          : base(innerStream, true)
+        {
+        }
 
-    public override int Read(byte[] buffer, int offset, int count)
-    {
-      throw new InvalidOperationException();
+        public override int Read(byte[] buffer, int offset, int count)
+        {
+            throw new InvalidOperationException();
+        }
     }
-  }
 }
