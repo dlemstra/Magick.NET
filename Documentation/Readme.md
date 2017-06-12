@@ -101,10 +101,51 @@ provide you with some help on how to use Magick.NET.
   - Read image
   - Read basic image information
   - Read image (with multiple layers/frames)
+- [Resize image](ResizeImage.md)
+  - Resize animated gif
+  - Resize to a fixed size
+- [Exception handling](ExceptionHandling.md)
+  - Exception handling
+  - Obtain warning that occurred during reading
+- [Convert image](ConvertImage.md)
+  - Convert image from one format to another
+  - Convert CMYK to RGB
+- [Combining images](CombiningImages.md)
+  - Merge multiple images
+  - Create animated gif
+- [Convert PDF](ConvertPDF.md)
+  - Convert PDF to multiple images
+  - Convert PDF to one image
+  - Create a PDF file from two images
+  - Create a PDF file from a single image
+  - Read a single page from a PDF file
+- [Read raw image from camera](ReadRawImageFromCamera.md)
+  - Installation
+  - Convert to CR2 to JPG
+- [Command line option -define](Defines.md)
+  - Command line option -define
+  - Defines that need to be set before reading an image
+- [Using colors](UsingColors.md)
+- [Watermark](Watermark.md)
+- [Exif data](ExifData.md)
+  - Read exif data
+  - Create thumbnail from exif data
+- [MagickScript](MagickScript.md)
+  - What is MagickScript?
+  - Reuse the same script
+  - Read/Write events
+  - Write multiple output files
+- [Lossless compression](LosslessCompression.md)
+  - Lossless compress JPEG logo
+- [Detailed debug information](DetailedDebugInformation.md)
+  - Get detailed debug information from ImageMagick
+- [Drawing](Drawing.md)
+  - Draw text
+
 
 ## Magick.NET.Web
 Magick.NET.Web is an extension to Magick.NET that can be used to script/optimize/compress image with an IHttpModule. The documentation for the library
-can be found here: [Magick.NET.Web](Magick.NET.Web.md)
+can be found here: [Magick.NET.Web](Magick.NET.Web.md).
 
 ## More documentation
 For some great ImageMagick examples please visit the following page: https://www.imagemagick.org/Usage. Create a [new issue](https://github.com/dlemstra/Magick.NET/issues)

@@ -117,8 +117,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{6D1DE15B-E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{26979C42-868B-4228-A4DB-C6780ED03E0D}"
 	ProjectSection(SolutionItems) = preProject
+		Documentation\CombiningImages.md = Documentation\CombiningImages.md
+		Documentation\ConvertImage.md = Documentation\ConvertImage.md
+		Documentation\ConvertPDF.md = Documentation\ConvertPDF.md
+		Documentation\Defines.md = Documentation\Defines.md
+		Documentation\DetailedDebugInformation.md = Documentation\DetailedDebugInformation.md
+		Documentation\Drawing.md = Documentation\Drawing.md
+		Documentation\ExceptionHandling.md = Documentation\ExceptionHandling.md
+		Documentation\ExifData.md = Documentation\ExifData.md
+		Documentation\LosslessCompression.md = Documentation\LosslessCompression.md
+		Documentation\Magick.NET.Web.md = Documentation\Magick.NET.Web.md
+		Documentation\MagickScript.md = Documentation\MagickScript.md
+		Documentation\ReadingImages.md = Documentation\ReadingImages.md
 		Documentation\Readme.md = Documentation\Readme.md
 		Documentation\ReadRawImageFromCamera.md = Documentation\ReadRawImageFromCamera.md
+		Documentation\ResizeImage.md = Documentation\ResizeImage.md
+		Documentation\UsingColors.md = Documentation\UsingColors.md
+		Documentation\Watermark.md = Documentation\Watermark.md
 	EndProjectSection
 EndProject
 Global

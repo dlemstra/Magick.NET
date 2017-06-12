@@ -44,7 +44,7 @@ using (MagickImage image = new MagickImage())
 }
 ```
 
-### VB.NET
+#### VB.NET
 ```VB.NET
 ' Read from file.
 Using image As New MagickImage("Snakeware.jpg")
@@ -113,7 +113,7 @@ Console.WriteLine(info.Density.Y);
 Console.WriteLine(info.Density.Units);
 ```
 
-### VB.NET
+#### VB.NET
 ```VB.NET
 ' Read from file
 Dim info As New MagickImageInfo("Snakeware.jpg")
@@ -186,7 +186,7 @@ using (MagickImageCollection collection = new MagickImageCollection())
 }
 ```
 
-### VB.NET
+#### VB.NET
 ```VB.NET
 ' Read from file
 Using collection As New MagickImageCollection("Snakeware.gif")
