@@ -20,6 +20,8 @@ $scriptPath = Split-Path -parent $MyInvocation.MyCommand.Path
 . $scriptPath\Shared\Functions.ps1
 SetFolder $scriptPath
 
+. Tools\Scripts\Shared\Build.ps1
+
 $Q8Builds = @(
   @{Name = "Q8"; QuantumDepth = "8"; PlatformToolset = "v140"}
 )
