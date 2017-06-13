@@ -1,7 +1,6 @@
-Please visit https://magick.codeplex.com/documentation for information on how to use Magick.NET.
+Please visit https://github.com/dlemstra/Magick.NET/Documentation for information on how to use Magick.NET.
 
-For a list of changes visit: https://magick.codeplex.com/SourceControl/list/changesets. Be sure to
-check the BREAKING CHANGES on this page: https://magick.codeplex.com/SourceControl/latest#Changes.md
+The release notes can be found here: https://github.com/dlemstra/Magick.NET/releases.
 
 Follow me on twitter (@MagickNET, https://twitter.com/MagickNET) to receive information about new
 downloads and changes to Magick.NET and ImageMagick.

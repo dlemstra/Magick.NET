@@ -6,11 +6,11 @@
     <title/>
     <authors>Dirk Lemstra</authors>
     <owners>Dirk Lemstra</owners>
-    <licenseUrl>https://magick.codeplex.com/license</licenseUrl>
-    <projectUrl>https://magick.codeplex.com/documentation</projectUrl>
+    <licenseUrl>https://github.com/dlemstra/Magick.NET/blob/master/License.txt</licenseUrl>
+    <projectUrl>https://github.com/dlemstra/Magick.NET</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/dlemstra/Magick.NET/master/Tests/Magick.NET.Tests/Images/Magick.NET.icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>ImageMagick is a powerful image manipulation library that supports over 100 major file formats (not including sub-formats). With Magick.NET you can use ImageMagick without having to install ImageMagick on your server or desktop. Visit https://magick.codeplex.com/documentation before installing to help you decide the best version.</description>
+    <description>ImageMagick is a powerful image manipulation library that supports over 100 major file formats (not including sub-formats). With Magick.NET you can use ImageMagick without having to install ImageMagick on your server or desktop. Visit https://github.com/dlemstra/Magick.NET/tree/master/Documentation before installing to help you decide the best version.</description>
     <summary>A .NET API to the ImageMagick image-processing library for Desktop and Web.</summary>
     <releaseNotes/>
     <copyright>Copyright 2013-2017 Dirk Lemstra</copyright>

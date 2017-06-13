@@ -6,8 +6,8 @@
     <title/>
     <authors>Dirk Lemstra</authors>
     <owners>Dirk Lemstra</owners>
-    <licenseUrl>https://magick.codeplex.com/license</licenseUrl>
-    <projectUrl>https://magick.codeplex.com/documentation</projectUrl>
+    <licenseUrl>https://github.com/dlemstra/Magick.NET/blob/master/License.txt</licenseUrl>
+    <projectUrl>https://github.com/dlemstra/Magick.NET</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/dlemstra/Magick.NET/master/Tests/Magick.NET.Tests/Images/Magick.NET.icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>This package contains samples that demonstrate the use of the Magick.NET library.</description>

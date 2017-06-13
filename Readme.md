@@ -21,7 +21,7 @@ For more information about ImageMagick go to: [http://www.imagemagick.org/](http
 
 ## Download
 
-Click [here](https://magick.codeplex.com/releases) to download Magick.NET. You can also install Magick.NET using NuGet, click [here](https://nuget.org/profiles/dlemstra/) to
+Click [here](https://github.com/dlemstra/Magick.NET/releases) to download Magick.NET. You can also install Magick.NET using NuGet, click [here](https://nuget.org/profiles/dlemstra/) to
 see the available packages. And follow me on twitter([@MagickNET](https://twitter.com/MagickNET)) to receive information about new downloads and changes to Magick.NET and ImageMagick.
 
 ## Development build
