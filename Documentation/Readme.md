@@ -40,7 +40,7 @@ this you will need to add the folder that contains the executable to your %PATH%
 ## .NET Standard
 
 Starting with version 7.0.0.0102 support for .NET Standard 1.3 was added. This currently only works on Windows. This used to be a separate
-NuGet package but starting with 7.X.X.X this became part of the normal NuGet package.
+NuGet package but starting with 7.0.6.0 this became part of the normal NuGet package.
 
 ## ImageMagick 7
 

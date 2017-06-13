@@ -263,7 +263,6 @@ UpdateResourceFiles $builds $version
 CreatePreProcessedFiles
 PreparePublish $builds
 GzipAssemblies
-CreateAnyCPUProjectFiles
 PreparePublish $anyCPUbuilds
 Publish $builds
 Publish $anyCPUbuilds
