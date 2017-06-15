@@ -23,13 +23,13 @@ SetFolder $scriptPath
 . Tools\Scripts\Shared\Build.ps1
 
 $Q8Builds = @(
-  @{Name = "Q8"; QuantumDepth = "8"; PlatformToolset = "v140"}
+  @{Name = "Q8"; QuantumDepth = "8"; PlatformToolset = "v141"}
 )
 $Q16Builds = @(
-  @{Name= "Q16"; QuantumDepth = "16"; PlatformToolset = "v140"}
+  @{Name= "Q16"; QuantumDepth = "16"; PlatformToolset = "v141"}
 )
 $Q16HDRIBuilds = @(
-  @{Name = "Q16-HDRI"; QuantumDepth = "16"; PlatformToolset = "v140"}
+  @{Name = "Q16-HDRI"; QuantumDepth = "16"; PlatformToolset = "v141"}
 )
 $configurations = @(
   @{Platform = "x86"; Options = "/opencl /noHdri";      Builds = $Q8Builds}
@@ -203,7 +203,7 @@ function CreateSolution($platform, $options)
     Write-Host "Options: $options."
   }
 
-  Start-Process .\configure.exe -ArgumentList "/smt /noWizard /noOpenMP /VS2015 $options" -wait
+  Start-Process .\configure.exe -ArgumentList "/smt /noWizard /noOpenMP /VS2017 $options" -wait
 
   set-location $location
 }
@@ -246,7 +246,7 @@ function PatchFiles()
 
 function RecompileConfigure()
 {
-  BuildSolution "ImageMagick\Source\ImageMagick\VisualMagick\configure\configure.sln" "Configuration=Release,Platform=Win32,PlatformToolset=v140"
+  BuildSolution "ImageMagick\Source\ImageMagick\VisualMagick\configure\configure.sln" "Configuration=Release,Platform=Win32,PlatformToolset=v141"
 }
 
 CheckFolder "ImageMagick\Source"
