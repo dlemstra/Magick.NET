@@ -42,13 +42,14 @@ namespace ImageMagick
 
         private NativeMagickColor CreateNativeInstance()
         {
-            NativeMagickColor instance = new NativeMagickColor();
-            instance.Red = R;
-            instance.Green = G;
-            instance.Blue = B;
-            instance.Alpha = A;
-            instance.Black = K;
-
+            NativeMagickColor instance = new NativeMagickColor()
+            {
+                Red = R,
+                Green = G,
+                Blue = B,
+                Alpha = A,
+                Black = K
+            };
             return instance;
         }
 
@@ -67,11 +68,11 @@ namespace ImageMagick
 #if !Q8
         private void Initialize(byte red, byte green, byte blue, byte alpha)
         {
-          R = Quantum.Convert(red);
-          G = Quantum.Convert(green);
-          B = Quantum.Convert(blue);
-          A = Quantum.Convert(alpha);
-          K = 0;
+            R = Quantum.Convert(red);
+            G = Quantum.Convert(green);
+            B = Quantum.Convert(blue);
+            A = Quantum.Convert(alpha);
+            K = 0;
         }
 #endif
 
@@ -107,15 +108,15 @@ namespace ImageMagick
             if (value == null)
                 return value;
 
-            MagickColor clone = new MagickColor();
-
-            clone.R = value.R;
-            clone.G = value.G;
-            clone.B = value.B;
-            clone.A = value.A;
-            clone.K = value.K;
-            clone._IsCmyk = value._IsCmyk;
-
+            MagickColor clone = new MagickColor()
+            {
+                R = value.R,
+                G = value.G,
+                B = value.B,
+                A = value.A,
+                K = value.K,
+                _IsCmyk = value._IsCmyk
+            };
             return clone;
         }
 
