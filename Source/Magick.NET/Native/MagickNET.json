@@ -1,61 +1,61 @@
 ﻿{
-  "static": true,
-  "delegates":
-  [
-    {
-      "name": "Log",
-      "arguments":
-      [
+    "static": true,
+    "delegates":
+    [
         {
-          "name": "type",
-          "type": "LogEvents"
+            "name": "Log",
+            "arguments":
+            [
+                {
+                    "name": "type",
+                    "type": "LogEvents"
+                },
+                {
+                    "name": "value",
+                    "type": "IntPtr"
+                }
+            ]
+        }
+    ],
+    "properties":
+    [
+        {
+            "name": "Features",
+            "type": "string",
+            "readonly": true
+        }
+    ],
+    "methods":
+    [
+        {
+            "name": "SetLogDelegate",
+            "arguments":
+            [
+                {
+                    "name": "method",
+                    "type": "LogDelegate"
+                }
+            ]
         },
         {
-          "name": "value",
-          "type": "IntPtr"
-        }
-      ]
-    }
-  ],
-  "properties":
-  [
-    {
-      "name": "Features",
-      "type": "string",
-      "readonly": true
-    }
-  ],
-  "methods":
-  [
-    {
-      "name": "SetLogDelegate",
-      "arguments":
-      [
+            "name": "SetLogEvents",
+            "arguments":
+            [
+                {
+                    "name": "events",
+                    "type": "string"
+                }
+            ]
+        },
         {
-          "name": "method",
-          "type": "LogDelegate"
+            "name": "SetRandomSeed",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "long"
+                }
+            ]
         }
-      ]
-    },
-    {
-      "name": "SetLogEvents",
-      "arguments":
-      [
-        {
-          "name": "events",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "SetRandomSeed",
-      "arguments":
-      [
-        {
-          "name": "value",
-          "type": "long"
-        }
-      ]
-    }
-  ]
+    ]
 }

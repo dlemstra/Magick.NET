@@ -1,94 +1,94 @@
 ﻿{
-  "dynamic": "NativeToManaged",
-  "instance": false,
-  "methods":
-  [
-    {
-      "name": "DisposeList",
-      "static": true,
-      "arguments":
-      [
+    "dynamic": "NativeToManaged",
+    "instance": false,
+    "methods":
+    [
         {
-          "name": "list",
-          "type": "Instance"
-        }
-      ]
-    },
-    {
-      "name": "GetArea",
-      "type": "double",
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "instance",
-          "type": "Instance"
-        }
-      ]
-    },
-    {
-      "name": "GetHeight",
-      "type": "size_t",
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "instance",
-          "type": "Instance"
-        }
-      ]
-    },
-    {
-      "name": "GetInstance",
-      "type": "Instance",
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "list",
-          "type": "Instance"
+            "name": "DisposeList",
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "list",
+                    "type": "Instance"
+                }
+            ]
         },
         {
-          "name": "index",
-          "type": "size_t"
-        }
-      ]
-    },
-    {
-      "name": "GetWidth",
-      "type": "size_t",
-      "static": true,
-      "arguments":
-      [
+            "name": "GetArea",
+            "type": "double",
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "instance",
+                    "type": "Instance"
+                }
+            ]
+        },
         {
-          "name": "instance",
-          "type": "Instance"
-        }
-      ]
-    },
-    {
-      "name": "GetX",
-      "type": "ssize_t",
-      "static": true,
-      "arguments":
-      [
+            "name": "GetHeight",
+            "type": "size_t",
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "instance",
+                    "type": "Instance"
+                }
+            ]
+        },
         {
-          "name": "instance",
-          "type": "Instance"
-        }
-      ]
-    },
-    {
-      "name": "GetY",
-      "type": "ssize_t",
-      "static": true,
-      "arguments":
-      [
+            "name": "GetInstance",
+            "type": "Instance",
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "list",
+                    "type": "Instance"
+                },
+                {
+                    "name": "index",
+                    "type": "size_t"
+                }
+            ]
+        },
         {
-          "name": "instance",
-          "type": "Instance"
+            "name": "GetWidth",
+            "type": "size_t",
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "instance",
+                    "type": "Instance"
+                }
+            ]
+        },
+        {
+            "name": "GetX",
+            "type": "ssize_t",
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "instance",
+                    "type": "Instance"
+                }
+            ]
+        },
+        {
+            "name": "GetY",
+            "type": "ssize_t",
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "instance",
+                    "type": "Instance"
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }

@@ -1,19 +1,19 @@
 ﻿{
-  "dynamic": "NativeToManaged",
-  "access": "internal",
-  "const": true,
-  "nativeConstructor": true,
-  "properties":
-  [
-    {
-      "name": "X",
-      "type": "double",
-      "readonly": true
-    },
-    {
-      "name": "Y",
-      "type": "double",
-      "readonly": true
-    }
-  ]
+    "dynamic": "NativeToManaged",
+    "access": "internal",
+    "const": true,
+    "nativeConstructor": true,
+    "properties":
+    [
+        {
+            "name": "X",
+            "type": "double",
+            "readonly": true
+        },
+        {
+            "name": "Y",
+            "type": "double",
+            "readonly": true
+        }
+    ]
 }

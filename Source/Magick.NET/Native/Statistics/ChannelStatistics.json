@@ -1,73 +1,73 @@
 ﻿{
-  "dynamic": "NativeToManaged",
-  "const": true,
-  "nativeConstructor": true,
-  "properties":
-  [
-    {
-      "name": "Depth",
-      "type": "size_t",
-      "readonly": true
-    },
-    {
-      "name": "Entropy",
-      "type": "double",
-      "readonly": true
-    },
-    {
-      "name": "Kurtosis",
-      "type": "double",
-      "readonly": true
-    },
-    {
-      "name": "Maximum",
-      "type": "double",
-      "readonly": true
-    },
-    {
-      "name": "Mean",
-      "type": "double",
-      "readonly": true
-    },
-    {
-      "name": "Minimum",
-      "type": "double",
-      "readonly": true
-    },
-    {
-      "name": "Skewness",
-      "type": "double",
-      "readonly": true
-    },
-    {
-      "name": "StandardDeviation",
-      "type": "double",
-      "readonly": true
-    },
-    {
-      "name": "Sum",
-      "type": "double",
-      "readonly": true
-    },
-    {
-      "name": "SumCubed",
-      "type": "double",
-      "readonly": true
-    },
-    {
-      "name": "SumFourthPower",
-      "type": "double",
-      "readonly": true
-    },
-    {
-      "name": "SumSquared",
-      "type": "double",
-      "readonly": true
-    },
-    {
-      "name": "Variance",
-      "type": "double",
-      "readonly": true
-    }
-  ]
+    "dynamic": "NativeToManaged",
+    "const": true,
+    "nativeConstructor": true,
+    "properties":
+    [
+        {
+            "name": "Depth",
+            "type": "size_t",
+            "readonly": true
+        },
+        {
+            "name": "Entropy",
+            "type": "double",
+            "readonly": true
+        },
+        {
+            "name": "Kurtosis",
+            "type": "double",
+            "readonly": true
+        },
+        {
+            "name": "Maximum",
+            "type": "double",
+            "readonly": true
+        },
+        {
+            "name": "Mean",
+            "type": "double",
+            "readonly": true
+        },
+        {
+            "name": "Minimum",
+            "type": "double",
+            "readonly": true
+        },
+        {
+            "name": "Skewness",
+            "type": "double",
+            "readonly": true
+        },
+        {
+            "name": "StandardDeviation",
+            "type": "double",
+            "readonly": true
+        },
+        {
+            "name": "Sum",
+            "type": "double",
+            "readonly": true
+        },
+        {
+            "name": "SumCubed",
+            "type": "double",
+            "readonly": true
+        },
+        {
+            "name": "SumFourthPower",
+            "type": "double",
+            "readonly": true
+        },
+        {
+            "name": "SumSquared",
+            "type": "double",
+            "readonly": true
+        },
+        {
+            "name": "Variance",
+            "type": "double",
+            "readonly": true
+        }
+    ]
 }

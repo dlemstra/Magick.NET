@@ -1,429 +1,429 @@
 ﻿{
-  "dynamic": "NativeToManaged",
-  "instance": false,
-  "delegates":
-  [
-    {
-      "name": "ReadWriteStream",
-      "type": "int",
-      "arguments":
-      [
+    "dynamic": "NativeToManaged",
+    "instance": false,
+    "delegates":
+    [
         {
-          "name": "data",
-          "type": "Instance"
+            "name": "ReadWriteStream",
+            "type": "int",
+            "arguments":
+            [
+                {
+                    "name": "data",
+                    "type": "Instance"
+                },
+                {
+                    "name": "length",
+                    "type": "size_t"
+                },
+                {
+                    "name": "user_data",
+                    "type": "Instance"
+                }
+            ]
         },
         {
-          "name": "length",
-          "type": "size_t"
+            "name": "SeekStream",
+            "type": "long",
+            "arguments":
+            [
+                {
+                    "name": "offset",
+                    "type": "long"
+                },
+                {
+                    "name": "whence",
+                    "type": "ssize_t"
+                },
+                {
+                    "name": "user_data",
+                    "type": "Instance"
+                }
+            ]
         },
         {
-          "name": "user_data",
-          "type": "Instance"
+            "name": "TellStream",
+            "type": "long",
+            "arguments":
+            [
+                {
+                    "name": "user_data",
+                    "type": "Instance"
+                }
+            ]
         }
-      ]
-    },
-    {
-      "name": "SeekStream",
-      "type": "long",
-      "arguments":
-      [
+    ],
+    "methods":
+    [
         {
-          "name": "offset",
-          "type": "long"
+            "name": "Append",
+            "type": "Instance",
+            "instance": true,
+            "throws": true,
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                },
+                {
+                    "name": "stack",
+                    "type": "bool"
+                }
+            ]
         },
         {
-          "name": "whence",
-          "type": "ssize_t"
+            "name": "Coalesce",
+            "type": "Instance",
+            "instance": true,
+            "throws": true,
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                }
+            ]
         },
         {
-          "name": "user_data",
-          "type": "Instance"
+            "name": "Combine",
+            "type": "Instance",
+            "instance": true,
+            "throws": true,
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                },
+                {
+                    "name": "colorSpace",
+                    "type": "ColorSpace"
+                }
+            ]
+        },
+        {
+            "name": "Deconstruct",
+            "type": "Instance",
+            "instance": true,
+            "throws": true,
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                }
+            ]
+        },
+        {
+            "name": "Dispose",
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "Instance"
+                }
+            ]
+        },
+        {
+            "name": "Evaluate",
+            "type": "Instance",
+            "instance": true,
+            "throws": true,
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                },
+                {
+                    "name": "evaluateOperator",
+                    "type": "EvaluateOperator"
+                }
+            ]
+        },
+        {
+            "name": "Flatten",
+            "type": "Instance",
+            "instance": true,
+            "throws": true,
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                }
+            ]
+        },
+        {
+            "name": "Map",
+            "throws": true,
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                },
+                {
+                    "name": "settings",
+                    "type": "QuantizeSettings"
+                },
+                {
+                    "name": "remapImage",
+                    "type": "IMagickImage"
+                }
+            ]
+        },
+        {
+            "name": "Merge",
+            "type": "Instance",
+            "instance": true,
+            "throws": true,
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                },
+                {
+                    "name": "method",
+                    "type": "LayerMethod"
+                }
+            ]
+        },
+        {
+            "name": "Montage",
+            "type": "Instance",
+            "instance": true,
+            "throws": true,
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                },
+                {
+                    "name": "settings",
+                    "type": "MontageSettings"
+                }
+            ]
+        },
+        {
+            "name": "Morph",
+            "type": "Instance",
+            "instance": true,
+            "throws": true,
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                },
+                {
+                    "name": "frames",
+                    "type": "size_t"
+                }
+            ]
+        },
+        {
+            "name": "Optimize",
+            "type": "Instance",
+            "instance": true,
+            "throws": true,
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                }
+            ]
+        },
+        {
+            "name": "OptimizePlus",
+            "type": "Instance",
+            "instance": true,
+            "throws": true,
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                }
+            ]
+        },
+        {
+            "name": "OptimizeTransparency",
+            "throws": true,
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                }
+            ]
+        },
+        {
+            "name": "Quantize",
+            "throws": true,
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                },
+                {
+                    "name": "settings",
+                    "type": "QuantizeSettings"
+                }
+            ]
+        },
+        {
+            "name": "ReadBlob",
+            "type": "Instance",
+            "instance": true,
+            "throws": true,
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "settings",
+                    "type": "MagickSettings"
+                },
+                {
+                    "name": "data",
+                    "type": "byte[]"
+                },
+                {
+                    "name": "length",
+                    "type": "size_t"
+                }
+            ]
+        },
+        {
+            "name": "ReadFile",
+            "type": "Instance",
+            "instance": true,
+            "throws": true,
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "settings",
+                    "type": "MagickSettings"
+                }
+            ]
+        },
+        {
+            "name": "ReadStream",
+            "type": "Instance",
+            "instance": true,
+            "throws": true,
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "settings",
+                    "type": "MagickSettings"
+                },
+                {
+                    "name": "reader",
+                    "type": "ReadWriteStreamDelegate"
+                },
+                {
+                    "name": "seeker",
+                    "type": "SeekStreamDelegate"
+                },
+                {
+                    "name": "teller",
+                    "type": "TellStreamDelegate"
+                }
+            ]
+        },
+        {
+            "name": "Smush",
+            "type": "Instance",
+            "instance": true,
+            "throws": true,
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                },
+                {
+                    "name": "offset",
+                    "type": "ssize_t"
+                },
+                {
+                    "name": "stack",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "WriteFile",
+            "throws": true,
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                },
+                {
+                    "name": "settings",
+                    "type": "MagickSettings"
+                }
+            ]
+        },
+        {
+            "name": "WriteStream",
+            "type": "Instance",
+            "static": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                },
+                {
+                    "name": "settings",
+                    "type": "MagickSettings"
+                },
+                {
+                    "name": "reader",
+                    "type": "ReadWriteStreamDelegate"
+                },
+                {
+                    "name": "writer",
+                    "type": "ReadWriteStreamDelegate"
+                },
+                {
+                    "name": "seeker",
+                    "type": "SeekStreamDelegate"
+                },
+                {
+                    "name": "teller",
+                    "type": "TellStreamDelegate"
+                }
+            ]
         }
-      ]
-    },
-    {
-      "name": "TellStream",
-      "type": "long",
-      "arguments":
-      [
-        {
-          "name": "user_data",
-          "type": "Instance"
-        }
-      ]
-    }
-  ],
-  "methods":
-  [
-    {
-      "name": "Append",
-      "type": "Instance",
-      "instance": true,
-      "throws": true,
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        },
-        {
-          "name": "stack",
-          "type": "bool"
-        }
-      ]
-    },
-    {
-      "name": "Coalesce",
-      "type": "Instance",
-      "instance": true,
-      "throws": true,
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        }
-      ]
-    },
-    {
-      "name": "Combine",
-      "type": "Instance",
-      "instance": true,
-      "throws": true,
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        },
-        {
-          "name": "colorSpace",
-          "type": "ColorSpace"
-        }
-      ]
-    },
-    {
-      "name": "Deconstruct",
-      "type": "Instance",
-      "instance": true,
-      "throws": true,
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        }
-      ]
-    },
-    {
-      "name": "Dispose",
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "value",
-          "type": "Instance"
-        }
-      ]
-    },
-    {
-      "name": "Evaluate",
-      "type": "Instance",
-      "instance": true,
-      "throws": true,
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        },
-        {
-          "name": "evaluateOperator",
-          "type": "EvaluateOperator"
-        }
-      ]
-    },
-    {
-      "name": "Flatten",
-      "type": "Instance",
-      "instance": true,
-      "throws": true,
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        }
-      ]
-    },
-    {
-      "name": "Map",
-      "throws": true,
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        },
-        {
-          "name": "settings",
-          "type": "QuantizeSettings"
-        },
-        {
-          "name": "remapImage",
-          "type": "IMagickImage"
-        }
-      ]
-    },
-    {
-      "name": "Merge",
-      "type": "Instance",
-      "instance": true,
-      "throws": true,
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        },
-        {
-          "name": "method",
-          "type": "LayerMethod"
-        }
-      ]
-    },
-    {
-      "name": "Montage",
-      "type": "Instance",
-      "instance": true,
-      "throws": true,
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        },
-        {
-          "name": "settings",
-          "type": "MontageSettings"
-        }
-      ]
-    },
-    {
-      "name": "Morph",
-      "type": "Instance",
-      "instance": true,
-      "throws": true,
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        },
-        {
-          "name": "frames",
-          "type": "size_t"
-        }
-      ]
-    },
-    {
-      "name": "Optimize",
-      "type": "Instance",
-      "instance": true,
-      "throws": true,
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        }
-      ]
-    },
-    {
-      "name": "OptimizePlus",
-      "type": "Instance",
-      "instance": true,
-      "throws": true,
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        }
-      ]
-    },
-    {
-      "name": "OptimizeTransparency",
-      "throws": true,
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        }
-      ]
-    },
-    {
-      "name": "Quantize",
-      "throws": true,
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        },
-        {
-          "name": "settings",
-          "type": "QuantizeSettings"
-        }
-      ]
-    },
-    {
-      "name": "ReadBlob",
-      "type": "Instance",
-      "instance": true,
-      "throws": true,
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "settings",
-          "type": "MagickSettings"
-        },
-        {
-          "name": "data",
-          "type": "byte[]"
-        },
-        {
-          "name": "length",
-          "type": "size_t"
-        }
-      ]
-    },
-    {
-      "name": "ReadFile",
-      "type": "Instance",
-      "instance": true,
-      "throws": true,
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "settings",
-          "type": "MagickSettings"
-        }
-      ]
-    },
-    {
-      "name": "ReadStream",
-      "type": "Instance",
-      "instance": true,
-      "throws": true,
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "settings",
-          "type": "MagickSettings"
-        },
-        {
-          "name": "reader",
-          "type": "ReadWriteStreamDelegate"
-        },
-        {
-          "name": "seeker",
-          "type": "SeekStreamDelegate"
-        },
-        {
-          "name": "teller",
-          "type": "TellStreamDelegate"
-        }
-      ]
-    },
-    {
-      "name": "Smush",
-      "type": "Instance",
-      "instance": true,
-      "throws": true,
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        },
-        {
-          "name": "offset",
-          "type": "ssize_t"
-        },
-        {
-          "name": "stack",
-          "type": "bool"
-        }
-      ]
-    },
-    {
-      "name": "WriteFile",
-      "throws": true,
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        },
-        {
-          "name": "settings",
-          "type": "MagickSettings"
-        }
-      ]
-    },
-    {
-      "name": "WriteStream",
-      "type": "Instance",
-      "static": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        },
-        {
-          "name": "settings",
-          "type": "MagickSettings"
-        },
-        {
-          "name": "reader",
-          "type": "ReadWriteStreamDelegate"
-        },
-        {
-          "name": "writer",
-          "type": "ReadWriteStreamDelegate"
-        },
-        {
-          "name": "seeker",
-          "type": "SeekStreamDelegate"
-        },
-        {
-          "name": "teller",
-          "type": "TellStreamDelegate"
-        }
-      ]
-    }
-  ]
+    ]
 }

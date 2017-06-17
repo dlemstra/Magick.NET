@@ -1,45 +1,45 @@
 ﻿{
-  "static": true,
-  "methods":
-  [
-    {
-      "name": "GetDevices",
-      "type": "Instance",
-      "arguments":
-      [
+    "static": true,
+    "methods":
+    [
         {
-          "name": "length",
-          "type": "size_t",
-          "out": true
-        }
-      ]
-    },
-    {
-      "name": "GetDevice",
-      "type": "Instance",
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "list",
-          "type": "Instance"
+            "name": "GetDevices",
+            "type": "Instance",
+            "arguments":
+            [
+                {
+                    "name": "length",
+                    "type": "size_t",
+                    "out": true
+                }
+            ]
         },
         {
-          "name": "index",
-          "type": "size_t"
-        }
-      ]
-    },
-    {
-      "name": "SetEnabled",
-      "type": "bool",
-      "arguments":
-      [
+            "name": "GetDevice",
+            "type": "Instance",
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "list",
+                    "type": "Instance"
+                },
+                {
+                    "name": "index",
+                    "type": "size_t"
+                }
+            ]
+        },
         {
-          "name": "value",
-          "type": "bool"
+            "name": "SetEnabled",
+            "type": "bool",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "bool"
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }

@@ -1,19 +1,19 @@
 ﻿{
-  "dynamic": "NativeToManaged",
-  "access": "internal",
-  "const": true,
-  "nativeConstructor": true,
-  "properties":
-  [
-    {
-      "name": "Datum",
-      "type": "Instance",
-      "readonly": true
-    },
-    {
-      "name": "Length",
-      "type": "size_t",
-      "readonly": true
-    }
-  ]
+    "dynamic": "NativeToManaged",
+    "access": "internal",
+    "const": true,
+    "nativeConstructor": true,
+    "properties":
+    [
+        {
+            "name": "Datum",
+            "type": "Instance",
+            "readonly": true
+        },
+        {
+            "name": "Length",
+            "type": "size_t",
+            "readonly": true
+        }
+    ]
 }

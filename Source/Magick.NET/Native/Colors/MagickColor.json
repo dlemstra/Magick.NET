@@ -1,65 +1,65 @@
 ﻿{
-  "dynamic": "Both",
-  "properties":
-  [
-    {
-      "name": "Count",
-      "type": "ulong",
-      "readonly": true
-    },
-    {
-      "name": "Red",
-      "type": "QuantumType"
-    },
-    {
-      "name": "Green",
-      "type": "QuantumType"
-    },
-    {
-      "name": "Blue",
-      "type": "QuantumType"
-    },
-    {
-      "name": "Alpha",
-      "type": "QuantumType"
-    },
-    {
-      "name": "Black",
-      "type": "QuantumType"
-    },
-    {
-      "name": "IsCMYK",
-      "type": "bool",
-      "readonly": true
-    }
-  ],
-  "methods":
-  [
-    {
-      "name": "FuzzyEquals",
-      "type": "bool",
-      "arguments":
-      [
+    "dynamic": "Both",
+    "properties":
+    [
         {
-          "name": "other",
-          "type": "MagickColor"
+            "name": "Count",
+            "type": "ulong",
+            "readonly": true
         },
         {
-          "name": "fuzz",
-          "type": "QuantumType"
-        }
-      ]
-    },
-    {
-      "name": "Initialize",
-      "type": "bool",
-      "arguments":
-      [
+            "name": "Red",
+            "type": "QuantumType"
+        },
         {
-          "name": "value",
-          "type": "string"
+            "name": "Green",
+            "type": "QuantumType"
+        },
+        {
+            "name": "Blue",
+            "type": "QuantumType"
+        },
+        {
+            "name": "Alpha",
+            "type": "QuantumType"
+        },
+        {
+            "name": "Black",
+            "type": "QuantumType"
+        },
+        {
+            "name": "IsCMYK",
+            "type": "bool",
+            "readonly": true
         }
-      ]
-    }
-  ]
+    ],
+    "methods":
+    [
+        {
+            "name": "FuzzyEquals",
+            "type": "bool",
+            "arguments":
+            [
+                {
+                    "name": "other",
+                    "type": "MagickColor"
+                },
+                {
+                    "name": "fuzz",
+                    "type": "QuantumType"
+                }
+            ]
+        },
+        {
+            "name": "Initialize",
+            "type": "bool",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "string"
+                }
+            ]
+        }
+    ]
 }

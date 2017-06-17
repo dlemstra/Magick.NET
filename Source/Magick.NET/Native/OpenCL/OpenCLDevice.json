@@ -1,72 +1,72 @@
 ﻿{
-  "dynamic": "Both",
-  "const": true,
-  "properties":
-  [
-    {
-      "name": "BenchmarkScore",
-      "type": "double",
-      "readonly": true
-    },
-    {
-      "name": "DeviceType",
-      "type": "OpenCLDeviceType",
-      "readonly": true
-    },
-    {
-      "name": "IsEnabled",
-      "type": "bool"
-    },
-    {
-      "name": "Name",
-      "type": "string",
-      "readonly": true
-    },
-    {
-      "name": "Version",
-      "type": "string",
-      "readonly": true
-    }
-  ],
-  "methods":
-  [
-    {
-      "name": "GetKernelProfileRecords",
-      "type": "Instance",
-      "arguments":
-      [
+    "dynamic": "Both",
+    "const": true,
+    "properties":
+    [
         {
-          "name": "length",
-          "type": "size_t",
-          "out": true
-        }
-      ]
-    },
-    {
-      "name": "GetKernelProfileRecord",
-      "type": "Instance",
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "list",
-          "type": "Instance"
+            "name": "BenchmarkScore",
+            "type": "double",
+            "readonly": true
         },
         {
-          "name": "index",
-          "type": "size_t"
-        }
-      ]
-    },
-    {
-      "name": "SetProfileKernels",
-      "arguments":
-      [
+            "name": "DeviceType",
+            "type": "OpenCLDeviceType",
+            "readonly": true
+        },
         {
-          "name": "value",
-          "type": "bool"
+            "name": "IsEnabled",
+            "type": "bool"
+        },
+        {
+            "name": "Name",
+            "type": "string",
+            "readonly": true
+        },
+        {
+            "name": "Version",
+            "type": "string",
+            "readonly": true
         }
-      ]
-    }
-  ]
+    ],
+    "methods":
+    [
+        {
+            "name": "GetKernelProfileRecords",
+            "type": "Instance",
+            "arguments":
+            [
+                {
+                    "name": "length",
+                    "type": "size_t",
+                    "out": true
+                }
+            ]
+        },
+        {
+            "name": "GetKernelProfileRecord",
+            "type": "Instance",
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "list",
+                    "type": "Instance"
+                },
+                {
+                    "name": "index",
+                    "type": "size_t"
+                }
+            ]
+        },
+        {
+            "name": "SetProfileKernels",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "bool"
+                }
+            ]
+        }
+    ]
 }

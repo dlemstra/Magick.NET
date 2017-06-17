@@ -1,30 +1,30 @@
 ﻿{
-  "static": true,
-  "methods":
-  [
-    {
-      "name": "ScaleToByte",
-      "type": "byte",
-      "arguments":
-      [
+    "static": true,
+    "methods":
+    [
         {
-          "name": "value",
-          "type": "QuantumType"
+            "name": "ScaleToByte",
+            "type": "byte",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "QuantumType"
+                }
+            ]
         }
-      ]
-    }
-  ],
-  "properties":
-  [
-    {
-      "name": "Depth",
-      "type": "size_t",
-      "readonly": true
-    },
-    {
-      "name": "Max",
-      "type": "QuantumType",
-      "readonly": true
-    }
-  ]
+    ],
+    "properties":
+    [
+        {
+            "name": "Depth",
+            "type": "size_t",
+            "readonly": true
+        },
+        {
+            "name": "Max",
+            "type": "QuantumType",
+            "readonly": true
+        }
+    ]
 }

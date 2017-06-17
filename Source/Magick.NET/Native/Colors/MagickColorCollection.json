@@ -1,35 +1,35 @@
 ﻿{
-  "dynamic": "NativeToManaged",
-  "access": "internal",
-  "static": true,
-  "methods":
-  [
-    {
-      "name": "DisposeList",
-      "static": true,
-      "arguments":
-      [
+    "dynamic": "NativeToManaged",
+    "access": "internal",
+    "static": true,
+    "methods":
+    [
         {
-          "name": "list",
-          "type": "Instance"
-        }
-      ]
-    },
-    {
-      "name": "GetInstance",
-      "type": "Instance",
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "list",
-          "type": "Instance"
+            "name": "DisposeList",
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "list",
+                    "type": "Instance"
+                }
+            ]
         },
         {
-          "name": "index",
-          "type": "size_t"
+            "name": "GetInstance",
+            "type": "Instance",
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "list",
+                    "type": "Instance"
+                },
+                {
+                    "name": "index",
+                    "type": "size_t"
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }

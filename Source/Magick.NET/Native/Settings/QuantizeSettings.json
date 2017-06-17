@@ -1,56 +1,56 @@
 ﻿{
-  "dynamic": "ManagedToNative",
-  "methods":
-  [
-    {
-      "name": "SetColors",
-      "arguments":
-      [
+    "dynamic": "ManagedToNative",
+    "methods":
+    [
         {
-          "name": "value",
-          "type": "size_t"
-        }
-      ]
-    },
-    {
-      "name": "SetColorSpace",
-      "arguments":
-      [
+            "name": "SetColors",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "size_t"
+                }
+            ]
+        },
         {
-          "name": "value",
-          "type": "ColorSpace"
-        }
-      ]
-    },
-    {
-      "name": "SetDitherMethod",
-      "arguments":
-      [
+            "name": "SetColorSpace",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "ColorSpace"
+                }
+            ]
+        },
         {
-          "name": "value",
-          "type": "DitherMethod"
-        }
-      ]
-    },
-    {
-      "name": "SetMeasureErrors",
-      "arguments":
-      [
+            "name": "SetDitherMethod",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "DitherMethod"
+                }
+            ]
+        },
         {
-          "name": "value",
-          "type": "bool"
-        }
-      ]
-    },
-    {
-      "name": "SetTreeDepth",
-      "arguments":
-      [
+            "name": "SetMeasureErrors",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "bool"
+                }
+            ]
+        },
         {
-          "name": "value",
-          "type": "size_t"
+            "name": "SetTreeDepth",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "size_t"
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }

@@ -1,2876 +1,2876 @@
 ﻿{
-  "nativeConstructor": true,
-  "constructor":
-  {
-    "throws": true,
-    "arguments":
+    "nativeConstructor": true,
+    "constructor":
+    {
+        "throws": true,
+        "arguments":
+        [
+            {
+                "name": "settings",
+                "type": "MagickSettings"
+            }
+        ]
+    },
+    "delegates":
     [
-      {
-        "name": "settings",
-        "type": "MagickSettings"
-      }
+        {
+            "name": "Progress",
+            "type": "bool",
+            "arguments":
+            [
+                {
+                    "name": "origin",
+                    "type": "IntPtr"
+                },
+                {
+                    "name": "offset",
+                    "type": "long"
+                },
+                {
+                    "name": "extent",
+                    "type": "ulong"
+                },
+                {
+                    "name": "userData",
+                    "type": "Instance"
+                }
+            ]
+        },
+        {
+            "name": "ReadWriteStream",
+            "type": "int",
+            "arguments":
+            [
+                {
+                    "name": "data",
+                    "type": "Instance"
+                },
+                {
+                    "name": "length",
+                    "type": "size_t"
+                },
+                {
+                    "name": "user_data",
+                    "type": "Instance"
+                }
+            ]
+        },
+        {
+            "name": "SeekStream",
+            "type": "long",
+            "arguments":
+            [
+                {
+                    "name": "offset",
+                    "type": "long"
+                },
+                {
+                    "name": "whence",
+                    "type": "ssize_t"
+                },
+                {
+                    "name": "user_data",
+                    "type": "Instance"
+                }
+            ]
+        },
+        {
+            "name": "TellStream",
+            "type": "long",
+            "arguments":
+            [
+                {
+                    "name": "user_data",
+                    "type": "Instance"
+                }
+            ]
+        }
+    ],
+    "properties":
+    [
+        {
+            "name": "AnimationDelay",
+            "type": "size_t"
+        },
+        {
+            "name": "AnimationIterations",
+            "type": "size_t"
+        },
+        {
+            "name": "BackgroundColor",
+            "type": "MagickColor"
+        },
+        {
+            "name": "BaseHeight",
+            "type": "size_t",
+            "readonly": true
+        },
+        {
+            "name": "BaseWidth",
+            "type": "size_t",
+            "readonly": true
+        },
+        {
+            "name": "BlackPointCompensation",
+            "type": "bool"
+        },
+        {
+            "name": "BorderColor",
+            "type": "MagickColor"
+        },
+        {
+            "name": "BoundingBox",
+            "type": "MagickRectangle",
+            "readonly": true
+        },
+        {
+            "name": "ChannelCount",
+            "type": "size_t",
+            "readonly": true
+        },
+        {
+            "name": "ChromaBluePrimary",
+            "type": "PrimaryInfo"
+        },
+        {
+            "name": "ChromaGreenPrimary",
+            "type": "PrimaryInfo"
+        },
+        {
+            "name": "ChromaRedPrimary",
+            "type": "PrimaryInfo"
+        },
+        {
+            "name": "ChromaWhitePoint",
+            "type": "PrimaryInfo"
+        },
+        {
+            "name": "ClassType",
+            "type": "ClassType",
+            "throws": true
+        },
+        {
+            "name": "ColorFuzz",
+            "type": "double",
+            "throws": true
+        },
+        {
+            "name": "ColormapSize",
+            "type": "ssize_t",
+            "throws": true
+        },
+        {
+            "name": "ColorSpace",
+            "type": "ColorSpace",
+            "throws": true
+        },
+        {
+            "name": "ColorType",
+            "type": "ColorType",
+            "throws": true
+        },
+        {
+            "name": "Compose",
+            "type": "CompositeOperator"
+        },
+        {
+            "name": "CompressionMethod",
+            "type": "CompressionMethod"
+        },
+        {
+            "name": "Depth",
+            "type": "size_t"
+        },
+        {
+            "name": "Endian",
+            "type": "Endian"
+        },
+        {
+            "name": "EncodingGeometry",
+            "type": "string",
+            "readonly": true
+        },
+        {
+            "name": "FileName",
+            "type": "string"
+        },
+        {
+            "name": "FileSize",
+            "type": "long",
+            "readonly": true
+        },
+        {
+            "name": "FilterType",
+            "type": "FilterType"
+        },
+        {
+            "name": "Format",
+            "type": "string"
+        },
+        {
+            "name": "Gamma",
+            "type": "double",
+            "readonly": true
+        },
+        {
+            "name": "GifDisposeMethod",
+            "type": "GifDisposeMethod"
+        },
+        {
+            "name": "Height",
+            "type": "size_t",
+            "readonly": true
+        },
+        {
+            "name": "HasAlpha",
+            "type": "bool",
+            "throws": true
+        },
+        {
+            "name": "Interlace",
+            "type": "Interlace"
+        },
+        {
+            "name": "Interpolate",
+            "type": "PixelInterpolateMethod"
+        },
+        {
+            "name": "IsOpaque",
+            "type": "bool",
+            "readonly": true,
+            "throws": true
+        },
+        {
+            "name": "MatteColor",
+            "type": "MagickColor"
+        },
+        {
+            "name": "MeanErrorPerPixel",
+            "type": "double",
+            "readonly": true
+        },
+        {
+            "name": "NormalizedMaximumError",
+            "type": "double",
+            "readonly": true
+        },
+        {
+            "name": "NormalizedMeanError",
+            "type": "double",
+            "readonly": true
+        },
+        {
+            "name": "Orientation",
+            "type": "OrientationType"
+        },
+        {
+            "name": "Page",
+            "type": "MagickRectangle"
+        },
+        {
+            "name": "Quality",
+            "type": "size_t"
+        },
+        {
+            "name": "ReadMask",
+            "type": "IMagickImage",
+            "throws": true
+        },
+        {
+            "name": "RenderingIntent",
+            "type": "RenderingIntent"
+        },
+        {
+            "name": "ResolutionUnits",
+            "type": "DensityUnit"
+        },
+        {
+            "name": "ResolutionX",
+            "type": "double"
+        },
+        {
+            "name": "ResolutionY",
+            "type": "double"
+        },
+        {
+            "name": "Signature",
+            "type": "string",
+            "readonly": true,
+            "throws": true
+        },
+        {
+            "name": "TotalColors",
+            "type": "size_t",
+            "readonly": true,
+            "throws": true
+        },
+        {
+            "name": "VirtualPixelMethod",
+            "type": "VirtualPixelMethod",
+            "throws": true
+        },
+        {
+            "name": "Width",
+            "type": "size_t",
+            "readonly": true
+        },
+        {
+            "name": "WriteMask",
+            "type": "IMagickImage",
+            "throws": true
+        }
+    ],
+    "methods":
+    [
+        {
+            "name": "AdaptiveBlur",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "radius",
+                    "type": "double"
+                },
+                {
+                    "name": "sigma",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "AdaptiveResize",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "width",
+                    "type": "size_t"
+                },
+                {
+                    "name": "height",
+                    "type": "size_t"
+                }
+            ]
+        },
+        {
+            "name": "AdaptiveSharpen",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "radius",
+                    "type": "double"
+                },
+                {
+                    "name": "sigma",
+                    "type": "double"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "AdaptiveThreshold",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "width",
+                    "type": "size_t"
+                },
+                {
+                    "name": "height",
+                    "type": "size_t"
+                },
+                {
+                    "name": "bias",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "AddNoise",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "noiseType",
+                    "type": "NoiseType"
+                },
+                {
+                    "name": "attenuate",
+                    "type": "double"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "AddProfile",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "name": "datum",
+                    "type": "byte[]"
+                },
+                {
+                    "name": "length",
+                    "type": "size_t"
+                }
+            ]
+        },
+        {
+            "name": "AffineTransform",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "scaleX",
+                    "type": "double"
+                },
+                {
+                    "name": "scaleY",
+                    "type": "double"
+                },
+                {
+                    "name": "shearX",
+                    "type": "double"
+                },
+                {
+                    "name": "shearY",
+                    "type": "double"
+                },
+                {
+                    "name": "translateX",
+                    "type": "double"
+                },
+                {
+                    "name": "translateY",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "Annotate",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "settings",
+                    "type": "DrawingSettings"
+                },
+                {
+                    "name": "text",
+                    "type": "string"
+                },
+                {
+                    "name": "boundingArea",
+                    "type": "string"
+                },
+                {
+                    "name": "gravity",
+                    "type": "Gravity"
+                },
+                {
+                    "name": "degrees",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "AnnotateGravity",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "settings",
+                    "type": "DrawingSettings"
+                },
+                {
+                    "name": "text",
+                    "type": "string"
+                },
+                {
+                    "name": "gravity",
+                    "type": "Gravity"
+                }
+            ]
+        },
+        {
+            "name": "AutoGamma",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "AutoLevel",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "AutoOrient",
+            "instance": true,
+            "throws": true
+        },
+        {
+            "name": "BlackThreshold",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "threshold",
+                    "type": "string"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "BlueShift",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "factor",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "Blur",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "radius",
+                    "type": "double"
+                },
+                {
+                    "name": "sigma",
+                    "type": "double"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "Border",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "MagickRectangle"
+                }
+            ]
+        },
+        {
+            "name": "BrightnessContrast",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "brightness",
+                    "type": "double"
+                },
+                {
+                    "name": "contrast",
+                    "type": "double"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "CannyEdge",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "radius",
+                    "type": "double"
+                },
+                {
+                    "name": "sigma",
+                    "type": "double"
+                },
+                {
+                    "name": "lower",
+                    "type": "double"
+                },
+                {
+                    "name": "upper",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "ChannelOffset",
+            "type": "size_t",
+            "arguments":
+            [
+                {
+                    "name": "channel",
+                    "type": "PixelChannel"
+                }
+            ]
+        },
+        {
+            "name": "Charcoal",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "radius",
+                    "type": "double"
+                },
+                {
+                    "name": "sigma",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "Chop",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "geometry",
+                    "type": "MagickRectangle"
+                }
+            ]
+        },
+        {
+            "name": "Clamp",
+            "throws": true
+        },
+        {
+            "name": "ClampChannel",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "Clip",
+            "throws": true
+        },
+        {
+            "name": "ClipPath",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "pathName",
+                    "type": "string"
+                },
+                {
+                    "name": "inside",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "Clone",
+            "type": "Instance",
+            "instance": true,
+            "throws": true
+        },
+        {
+            "name": "CloneArea",
+            "type": "Instance",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "width",
+                    "type": "size_t"
+                },
+                {
+                    "name": "height",
+                    "type": "size_t"
+                }
+            ]
+        },
+        {
+            "name": "Clut",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                },
+                {
+                    "name": "method",
+                    "type": "PixelInterpolateMethod"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "ColorDecisionList",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "fileName",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "Colorize",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "color",
+                    "type": "MagickColor"
+                },
+                {
+                    "name": "blend",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "Compare",
+            "type": "Instance",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                },
+                {
+                    "name": "metric",
+                    "type": "ErrorMetric"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                },
+                {
+                    "name": "distortion",
+                    "type": "double",
+                    "out": true
+                }
+            ]
+        },
+        {
+            "name": "Contrast",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "enhance",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "ContrastStretch",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "blackPoint",
+                    "type": "double"
+                },
+                {
+                    "name": "whitePoint",
+                    "type": "double"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "ColorMatrix",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "matrix",
+                    "type": "DoubleMatrix"
+                }
+            ]
+        },
+        {
+            "name": "CompareDistortion",
+            "type": "double",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                },
+                {
+                    "name": "metric",
+                    "type": "ErrorMetric"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "Composite",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                },
+                {
+                    "name": "x",
+                    "type": "ssize_t"
+                },
+                {
+                    "name": "y",
+                    "type": "ssize_t"
+                },
+                {
+                    "name": "compose",
+                    "type": "CompositeOperator"
+                }
+            ]
+        },
+        {
+            "name": "CompositeGravity",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                },
+                {
+                    "name": "gravity",
+                    "type": "Gravity"
+                },
+                {
+                    "name": "compose",
+                    "type": "CompositeOperator"
+                }
+            ]
+        },
+        {
+            "name": "ConnectedComponents",
+            "throws": true,
+            "instance": true,
+            "arguments":
+            [
+                {
+                    "name": "connectivity",
+                    "type": "size_t"
+                },
+                {
+                    "name": "objects",
+                    "type": "Instance",
+                    "out": true
+                }
+            ]
+        },
+        {
+            "name": "Convolve",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "matrix",
+                    "type": "DoubleMatrix"
+                }
+            ]
+        },
+        {
+            "name": "CopyPixels",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                },
+                {
+                    "name": "geometry",
+                    "type": "MagickRectangle"
+                },
+                {
+                    "name": "offset",
+                    "type": "OffsetInfo"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "Crop",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "geometry",
+                    "type": "MagickRectangle"
+                }
+            ]
+        },
+        {
+            "name": "CropToTiles",
+            "type": "Instance",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "geometry",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "CycleColormap",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "amount",
+                    "type": "ssize_t"
+                }
+            ]
+        },
+        {
+            "name": "Decipher",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "passphrase",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "Deskew",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "threshold",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "Despeckle",
+            "instance": true,
+            "throws": true
+        },
+        {
+            "name": "DetermineColorType",
+            "type": "ColorType",
+            "throws": true
+        },
+        {
+            "name": "Distort",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "method",
+                    "type": "DistortMethod"
+                },
+                {
+                    "name": "bestfit",
+                    "type": "bool"
+                },
+                {
+                    "name": "arguments",
+                    "type": "double[]"
+                },
+                {
+                    "name": "length",
+                    "type": "size_t"
+                }
+            ]
+        },
+        {
+            "name": "Edge",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "radius",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "Emboss",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "radius",
+                    "type": "double"
+                },
+                {
+                    "name": "sigma",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "Encipher",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "passphrase",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "Enhance",
+            "instance": true,
+            "throws": true
+        },
+        {
+            "name": "Equalize",
+            "throws": true
+        },
+        {
+            "name": "Equals",
+            "type": "bool",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                }
+            ]
+        },
+        {
+            "name": "EvaluateFunction",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                },
+                {
+                    "name": "evaluateFunction",
+                    "type": "EvaluateFunction"
+                },
+                {
+                    "name": "values",
+                    "type": "double[]"
+                },
+                {
+                    "name": "length",
+                    "type": "size_t"
+                }
+            ]
+        },
+        {
+            "name": "EvaluateGeometry",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                },
+                {
+                    "name": "geometry",
+                    "type": "MagickRectangle"
+                },
+                {
+                    "name": "evaluateOperator",
+                    "type": "EvaluateOperator"
+                },
+                {
+                    "name": "value",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "EvaluateOperator",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                },
+                {
+                    "name": "evaluateOperator",
+                    "type": "EvaluateOperator"
+                },
+                {
+                    "name": "value",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "Extent",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "geometry",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "ExtentGravity",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "geometry",
+                    "type": "string"
+                },
+                {
+                    "name": "gravity",
+                    "type": "Gravity"
+                }
+            ]
+        },
+        {
+            "name": "Flip",
+            "instance": true,
+            "throws": true
+        },
+        {
+            "name": "FloodFill",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "settings",
+                    "type": "DrawingSettings"
+                },
+                {
+                    "name": "x",
+                    "type": "ssize_t"
+                },
+                {
+                    "name": "y",
+                    "type": "ssize_t"
+                },
+                {
+                    "name": "target",
+                    "type": "MagickColor"
+                },
+                {
+                    "name": "invert",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "Flop",
+            "instance": true,
+            "throws": true
+        },
+        {
+            "name": "FontTypeMetrics",
+            "type": "TypeMetric",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "settings",
+                    "type": "DrawingSettings"
+                },
+                {
+                    "name": "ignoreNewLines",
+                    "type": "bool"
+                }
+            ],
+            "cleanup":
+            {
+                "name": "ImageMagick.TypeMetric.Dispose"
+            }
+        },
+        {
+            "name": "FormatExpression",
+            "type": "nativeString",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "settings",
+                    "type": "MagickSettings"
+                },
+                {
+                    "name": "expression",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "Frame",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "geometry",
+                    "type": "MagickRectangle"
+                }
+            ]
+        },
+        {
+            "name": "Fx",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "expression",
+                    "type": "string"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "GammaCorrect",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "gamma",
+                    "type": "double"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "GaussianBlur",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "radius",
+                    "type": "double"
+                },
+                {
+                    "name": "sigma",
+                    "type": "double"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "GetArtifact",
+            "type": "string",
+            "arguments":
+            [
+                {
+                    "name": "name",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "GetAttribute",
+            "type": "string",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "name",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "GetBitDepth",
+            "type": "size_t",
+            "arguments":
+            [
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "GetColormap",
+            "type": "MagickColor",
+            "arguments":
+            [
+                {
+                    "name": "index",
+                    "type": "size_t"
+                }
+            ]
+        },
+        {
+            "name": "GetNext",
+            "type": "Instance",
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "Instance"
+                }
+            ]
+        },
+        {
+            "name": "GetNextArtifactName",
+            "type": "string"
+        },
+        {
+            "name": "GetNextAttributeName",
+            "type": "string"
+        },
+        {
+            "name": "GetNextProfileName",
+            "type": "string"
+        },
+        {
+            "name": "GetProfile",
+            "type": "StringInfo",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "name",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "Grayscale",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "method",
+                    "type": "PixelIntensityMethod"
+                }
+            ]
+        },
+        {
+            "name": "HaldClut",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                }
+            ]
+        },
+        {
+            "name": "HasChannel",
+            "type": "bool",
+            "arguments":
+            [
+                {
+                    "name": "channel",
+                    "type": "PixelChannel"
+                }
+            ]
+        },
+        {
+            "name": "HasProfile",
+            "type": "bool",
+            "arguments":
+            [
+                {
+                    "name": "name",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "Histogram",
+            "type": "Instance",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "length",
+                    "type": "size_t",
+                    "out": true
+                }
+            ],
+            "cleanup":
+            {
+                "name": "ImageMagick.MagickColorCollection.DisposeList"
+            }
+        },
+        {
+            "name": "HoughLine",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "width",
+                    "type": "size_t"
+                },
+                {
+                    "name": "height",
+                    "type": "size_t"
+                },
+                {
+                    "name": "threshold",
+                    "type": "size_t"
+                }
+            ]
+        },
+        {
+            "name": "Implode",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "amount",
+                    "type": "double"
+                },
+                {
+                    "name": "method",
+                    "type": "PixelInterpolateMethod"
+                }
+            ]
+        },
+        {
+            "name": "Kuwahara",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "radius",
+                    "type": "double"
+                },
+                {
+                    "name": "sigma",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "Level",
+            "arguments":
+            [
+                {
+                    "name": "blackPoint",
+                    "type": "double"
+                },
+                {
+                    "name": "whitePoint",
+                    "type": "double"
+                },
+                {
+                    "name": "gamma",
+                    "type": "double"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "LevelColors",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "blackColor",
+                    "type": "MagickColor"
+                },
+                {
+                    "name": "whiteColor",
+                    "type": "MagickColor"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                },
+                {
+                    "name": "invert",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "Levelize",
+            "arguments":
+            [
+                {
+                    "name": "blackPoint",
+                    "type": "double"
+                },
+                {
+                    "name": "whitePoint",
+                    "type": "double"
+                },
+                {
+                    "name": "gamma",
+                    "type": "double"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "LinearStretch",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "blackPoint",
+                    "type": "double"
+                },
+                {
+                    "name": "whitePoint",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "LiquidRescale",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "geometry",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "LocalContrast",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "radius",
+                    "type": "double"
+                },
+                {
+                    "name": "strength",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "Magnify",
+            "instance": true,
+            "throws": true
+        },
+        {
+            "name": "Map",
+            "type": "bool",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                },
+                {
+                    "name": "settings",
+                    "type": "QuantizeSettings"
+                }
+            ]
+        },
+        {
+            "name": "Minify",
+            "instance": true,
+            "throws": true
+        },
+        {
+            "name": "Moments",
+            "type": "Instance",
+            "throws": true,
+            "cleanup":
+            {
+                "name": "ImageMagick.Moments.DisposeList"
+            }
+        },
+        {
+            "name": "Modulate",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "modulate",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "Morphology",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "method",
+                    "type": "MorphologyMethod"
+                },
+                {
+                    "name": "kernel",
+                    "type": "string"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                },
+                {
+                    "name": "iterations",
+                    "type": "size_t"
+                }
+            ]
+        },
+        {
+            "name": "MotionBlur",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "radius",
+                    "type": "double"
+                },
+                {
+                    "name": "sigma",
+                    "type": "double"
+                },
+                {
+                    "name": "angle",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "Negate",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "onlyGrayscale",
+                    "type": "bool"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "Normalize",
+            "throws": true
+        },
+        {
+            "name": "OilPaint",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "radius",
+                    "type": "double"
+                },
+                {
+                    "name": "sigma",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "Opaque",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "target",
+                    "type": "MagickColor"
+                },
+                {
+                    "name": "fill",
+                    "type": "MagickColor"
+                },
+                {
+                    "name": "invert",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "OrderedDither",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "thresholdMap",
+                    "type": "string"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "Perceptible",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "epsilon",
+                    "type": "double"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "PerceptualHash",
+            "type": "Instance",
+            "throws": true,
+            "cleanup":
+            {
+                "name": "ImageMagick.PerceptualHash.DisposeList"
+            }
+        },
+        {
+            "name": "Polaroid",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "settings",
+                    "type": "DrawingSettings"
+                },
+                {
+                    "name": "caption",
+                    "type": "string"
+                },
+                {
+                    "name": "angle",
+                    "type": "double"
+                },
+                {
+                    "name": "method",
+                    "type": "PixelInterpolateMethod"
+                }
+            ]
+        },
+        {
+            "name": "Posterize",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "levels",
+                    "type": "size_t"
+                },
+                {
+                    "name": "method",
+                    "type": "DitherMethod"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "Quantize",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "settings",
+                    "type": "QuantizeSettings"
+                }
+            ]
+        },
+        {
+            "name": "RaiseOrLower",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "size",
+                    "type": "size_t"
+                },
+                {
+                    "name": "raise",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "RandomThreshold",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "low",
+                    "type": "double"
+                },
+                {
+                    "name": "high",
+                    "type": "double"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "ReadBlob",
+            "instance": true,
+            "throws": true,
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "settings",
+                    "type": "MagickSettings"
+                },
+                {
+                    "name": "data",
+                    "type": "byte[]"
+                },
+                {
+                    "name": "length",
+                    "type": "size_t"
+                }
+            ]
+        },
+        {
+            "name": "ReadFile",
+            "instance": true,
+            "throws": true,
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "settings",
+                    "type": "MagickSettings"
+                }
+            ]
+        },
+        {
+            "name": "ReadPixels",
+            "instance": true,
+            "throws": true,
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "width",
+                    "type": "size_t"
+                },
+                {
+                    "name": "height",
+                    "type": "size_t"
+                },
+                {
+                    "name": "map",
+                    "type": "string"
+                },
+                {
+                    "name": "storageType",
+                    "type": "StorageType"
+                },
+                {
+                    "name": "data",
+                    "type": "byte[]"
+                }
+            ]
+        },
+        {
+            "name": "ReadStream",
+            "instance": true,
+            "throws": true,
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "settings",
+                    "type": "MagickSettings"
+                },
+                {
+                    "name": "reader",
+                    "type": "ReadWriteStreamDelegate"
+                },
+                {
+                    "name": "seeker",
+                    "type": "SeekStreamDelegate"
+                },
+                {
+                    "name": "teller",
+                    "type": "TellStreamDelegate"
+                }
+            ]
+        },
+        {
+            "name": "RegionMask",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "region",
+                    "type": "MagickRectangle"
+                }
+            ]
+        },
+        {
+            "name": "RemoveArtifact",
+            "arguments":
+            [
+                {
+                    "name": "name",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "RemoveAttribute",
+            "arguments":
+            [
+                {
+                    "name": "name",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "RemoveProfile",
+            "arguments":
+            [
+                {
+                    "name": "name",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "ResetArtifactIterator"
+        },
+        {
+            "name": "ResetAttributeIterator"
+        },
+        {
+            "name": "ResetProfileIterator"
+        },
+        {
+            "name": "Resample",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "resolutionX",
+                    "type": "double"
+                },
+                {
+                    "name": "resolutionY",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "Resize",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "geometry",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "Roll",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "x",
+                    "type": "ssize_t"
+                },
+                {
+                    "name": "y",
+                    "type": "ssize_t"
+                }
+            ]
+        },
+        {
+            "name": "Rotate",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "degrees",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "RotationalBlur",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "angle",
+                    "type": "double"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "Sample",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "geometry",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "Scale",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "geometry",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "Segment",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "colorSpace",
+                    "type": "ColorSpace"
+                },
+                {
+                    "name": "clusterThreshold",
+                    "type": "double"
+                },
+                {
+                    "name": "smoothingThreshold",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "SelectiveBlur",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "radius",
+                    "type": "double"
+                },
+                {
+                    "name": "sigma",
+                    "type": "double"
+                },
+                {
+                    "name": "threshold",
+                    "type": "double"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "Separate",
+            "type": "Instance",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "SepiaTone",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "threshold",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "SetAlpha",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "AlphaOption"
+                }
+            ]
+        },
+        {
+            "name": "SetArtifact",
+            "arguments":
+            [
+                {
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "name": "value",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "SetAttribute",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "name": "value",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "SetBitDepth",
+            "arguments":
+            [
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                },
+                {
+                    "name": "value",
+                    "type": "size_t"
+                }
+            ]
+        },
+        {
+            "name": "SetColormap",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "index",
+                    "type": "size_t"
+                },
+                {
+                    "name": "color",
+                    "type": "MagickColor"
+                }
+            ]
+        },
+        {
+            "name": "SetColorMetric",
+            "type": "bool",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                }
+            ]
+        },
+        {
+            "name": "SetNext",
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "Instance"
+                }
+            ]
+        },
+        {
+            "name": "SetProgressDelegate",
+            "arguments":
+            [
+                {
+                    "name": "method",
+                    "type": "ProgressDelegate"
+                }
+            ]
+        },
+        {
+            "name": "Shade",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "azimuth",
+                    "type": "double"
+                },
+                {
+                    "name": "elevation",
+                    "type": "double"
+                },
+                {
+                    "name": "colorShading",
+                    "type": "bool"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "Shadow",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "x",
+                    "type": "ssize_t"
+                },
+                {
+                    "name": "y",
+                    "type": "ssize_t"
+                },
+                {
+                    "name": "sigma",
+                    "type": "double"
+                },
+                {
+                    "name": "alphaPercentage",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "Sharpen",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "radius",
+                    "type": "double"
+                },
+                {
+                    "name": "sigma",
+                    "type": "double"
+                },
+                {
+                    "name": "channel",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "Shave",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "leftRight",
+                    "type": "size_t"
+                },
+                {
+                    "name": "topBottom",
+                    "type": "size_t"
+                }
+            ]
+        },
+        {
+            "name": "Shear",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "xAngle",
+                    "type": "double"
+                },
+                {
+                    "name": "yAngle",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "SigmoidalContrast",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "sharpen",
+                    "type": "bool"
+                },
+                {
+                    "name": "contrast",
+                    "type": "double"
+                },
+                {
+                    "name": "midpoint",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "SparseColor",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "channel",
+                    "type": "Channels"
+                },
+                {
+                    "name": "method",
+                    "type": "SparseColorMethod"
+                },
+                {
+                    "name": "values",
+                    "type": "double[]"
+                },
+                {
+                    "name": "length",
+                    "type": "size_t"
+                }
+            ]
+        },
+        {
+            "name": "Sketch",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "radius",
+                    "type": "double"
+                },
+                {
+                    "name": "sigma",
+                    "type": "double"
+                },
+                {
+                    "name": "angle",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "Solarize",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "factor",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "Splice",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "geometry",
+                    "type": "MagickRectangle"
+                }
+            ]
+        },
+        {
+            "name": "Spread",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "method",
+                    "type": "PixelInterpolateMethod"
+                },
+                {
+                    "name": "radius",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "Statistic",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "type",
+                    "type": "StatisticType"
+                },
+                {
+                    "name": "width",
+                    "type": "size_t"
+                },
+                {
+                    "name": "height",
+                    "type": "size_t"
+                }
+            ]
+        },
+        {
+            "name": "Statistics",
+            "type": "Instance",
+            "throws": true,
+            "cleanup":
+            {
+                "name": "ImageMagick.Statistics.DisposeList"
+            }
+        },
+        {
+            "name": "Stegano",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "watermark",
+                    "type": "IMagickImage"
+                }
+            ]
+        },
+        {
+            "name": "Stereo",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "rightImage",
+                    "type": "IMagickImage"
+                }
+            ]
+        },
+        {
+            "name": "Strip",
+            "throws": true
+        },
+        {
+            "name": "SubImageSearch",
+            "type": "Instance",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "reference",
+                    "type": "IMagickImage"
+                },
+                {
+                    "name": "metric",
+                    "type": "ErrorMetric"
+                },
+                {
+                    "name": "similarityThreshold",
+                    "type": "double"
+                },
+                {
+                    "name": "offset",
+                    "type": "MagickRectangle",
+                    "out": true
+                },
+                {
+                    "name": "similarityMetric",
+                    "type": "double",
+                    "out": true
+                }
+            ]
+        },
+        {
+            "name": "Swirl",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "method",
+                    "type": "PixelInterpolateMethod"
+                },
+                {
+                    "name": "degrees",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "Texture",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                }
+            ]
+        },
+        {
+            "name": "Threshold",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "threshold",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "Thumbnail",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "geometry",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "Tint",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "opacity",
+                    "type": "string"
+                },
+                {
+                    "name": "tint",
+                    "type": "MagickColor"
+                }
+            ]
+        },
+        {
+            "name": "Transparent",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "color",
+                    "type": "MagickColor"
+                },
+                {
+                    "name": "invert",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "TransparentChroma",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "colorLow",
+                    "type": "MagickColor"
+                },
+                {
+                    "name": "colorHigh",
+                    "type": "MagickColor"
+                },
+                {
+                    "name": "invert",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "Transpose",
+            "instance": true,
+            "throws": true
+        },
+        {
+            "name": "Transverse",
+            "instance": true,
+            "throws": true
+        },
+        {
+            "name": "Trim",
+            "instance": true,
+            "throws": true
+        },
+        {
+            "name": "UniqueColors",
+            "type": "Instance",
+            "instance": true,
+            "throws": true
+        },
+        {
+            "name": "UnsharpMask",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "radius",
+                    "type": "double"
+                },
+                {
+                    "name": "sigma",
+                    "type": "double"
+                },
+                {
+                    "name": "amount",
+                    "type": "double"
+                },
+                {
+                    "name": "threshold",
+                    "type": "double"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "Vignette",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "radius",
+                    "type": "double"
+                },
+                {
+                    "name": "sigma",
+                    "type": "double"
+                },
+                {
+                    "name": "x",
+                    "type": "ssize_t"
+                },
+                {
+                    "name": "y",
+                    "type": "ssize_t"
+                }
+            ]
+        },
+        {
+            "name": "Wave",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "method",
+                    "type": "PixelInterpolateMethod"
+                },
+                {
+                    "name": "amplitude",
+                    "type": "double"
+                },
+                {
+                    "name": "length",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "WaveletDenoise",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "threshold",
+                    "type": "double"
+                },
+                {
+                    "name": "softness",
+                    "type": "double"
+                }
+            ]
+        },
+        {
+            "name": "WhiteThreshold",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "threshold",
+                    "type": "string"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
+                }
+            ]
+        },
+        {
+            "name": "WriteFile",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "settings",
+                    "type": "MagickSettings"
+                }
+            ]
+        },
+        {
+            "name": "WriteStream",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "settings",
+                    "type": "MagickSettings"
+                },
+                {
+                    "name": "writer",
+                    "type": "ReadWriteStreamDelegate"
+                },
+                {
+                    "name": "seeker",
+                    "type": "SeekStreamDelegate"
+                },
+                {
+                    "name": "teller",
+                    "type": "TellStreamDelegate"
+                }
+            ]
+        }
     ]
-  },
-  "delegates":
-  [
-    {
-      "name": "Progress",
-      "type": "bool",
-      "arguments":
-      [
-        {
-          "name": "origin",
-          "type": "IntPtr"
-        },
-        {
-          "name": "offset",
-          "type": "long"
-        },
-        {
-          "name": "extent",
-          "type": "ulong"
-        },
-        {
-          "name": "userData",
-          "type": "Instance"
-        }
-      ]
-    },
-    {
-      "name": "ReadWriteStream",
-      "type": "int",
-      "arguments":
-      [
-        {
-          "name": "data",
-          "type": "Instance"
-        },
-        {
-          "name": "length",
-          "type": "size_t"
-        },
-        {
-          "name": "user_data",
-          "type": "Instance"
-        }
-      ]
-    },
-    {
-      "name": "SeekStream",
-      "type": "long",
-      "arguments":
-      [
-        {
-          "name": "offset",
-          "type": "long"
-        },
-        {
-          "name": "whence",
-          "type": "ssize_t"
-        },
-        {
-          "name": "user_data",
-          "type": "Instance"
-        }
-      ]
-    },
-    {
-      "name": "TellStream",
-      "type": "long",
-      "arguments":
-      [
-        {
-          "name": "user_data",
-          "type": "Instance"
-        }
-      ]
-    }
-  ],
-  "properties":
-  [
-    {
-      "name": "AnimationDelay",
-      "type": "size_t"
-    },
-    {
-      "name": "AnimationIterations",
-      "type": "size_t"
-    },
-    {
-      "name": "BackgroundColor",
-      "type": "MagickColor"
-    },
-    {
-      "name": "BaseHeight",
-      "type": "size_t",
-      "readonly": true
-    },
-    {
-      "name": "BaseWidth",
-      "type": "size_t",
-      "readonly": true
-    },
-    {
-      "name": "BlackPointCompensation",
-      "type": "bool"
-    },
-    {
-      "name": "BorderColor",
-      "type": "MagickColor"
-    },
-    {
-      "name": "BoundingBox",
-      "type": "MagickRectangle",
-      "readonly": true
-    },
-    {
-      "name": "ChannelCount",
-      "type": "size_t",
-      "readonly": true
-    },
-    {
-      "name": "ChromaBluePrimary",
-      "type": "PrimaryInfo"
-    },
-    {
-      "name": "ChromaGreenPrimary",
-      "type": "PrimaryInfo"
-    },
-    {
-      "name": "ChromaRedPrimary",
-      "type": "PrimaryInfo"
-    },
-    {
-      "name": "ChromaWhitePoint",
-      "type": "PrimaryInfo"
-    },
-    {
-      "name": "ClassType",
-      "type": "ClassType",
-      "throws": true
-    },
-    {
-      "name": "ColorFuzz",
-      "type": "double",
-      "throws": true
-    },
-    {
-      "name": "ColormapSize",
-      "type": "ssize_t",
-      "throws": true
-    },
-    {
-      "name": "ColorSpace",
-      "type": "ColorSpace",
-      "throws": true
-    },
-    {
-      "name": "ColorType",
-      "type": "ColorType",
-      "throws": true
-    },
-    {
-      "name": "Compose",
-      "type": "CompositeOperator"
-    },
-    {
-      "name": "CompressionMethod",
-      "type": "CompressionMethod"
-    },
-    {
-      "name": "Depth",
-      "type": "size_t"
-    },
-    {
-      "name": "Endian",
-      "type": "Endian"
-    },
-    {
-      "name": "EncodingGeometry",
-      "type": "string",
-      "readonly": true
-    },
-    {
-      "name": "FileName",
-      "type": "string"
-    },
-    {
-      "name": "FileSize",
-      "type": "long",
-      "readonly": true
-    },
-    {
-      "name": "FilterType",
-      "type": "FilterType"
-    },
-    {
-      "name": "Format",
-      "type": "string"
-    },
-    {
-      "name": "Gamma",
-      "type": "double",
-      "readonly": true
-    },
-    {
-      "name": "GifDisposeMethod",
-      "type": "GifDisposeMethod"
-    },
-    {
-      "name": "Height",
-      "type": "size_t",
-      "readonly": true
-    },
-    {
-      "name": "HasAlpha",
-      "type": "bool",
-      "throws": true
-    },
-    {
-      "name": "Interlace",
-      "type": "Interlace"
-    },
-    {
-      "name": "Interpolate",
-      "type": "PixelInterpolateMethod"
-    },
-    {
-      "name": "IsOpaque",
-      "type": "bool",
-      "readonly": true,
-      "throws": true
-    },
-    {
-      "name": "MatteColor",
-      "type": "MagickColor"
-    },
-    {
-      "name": "MeanErrorPerPixel",
-      "type": "double",
-      "readonly": true
-    },
-    {
-      "name": "NormalizedMaximumError",
-      "type": "double",
-      "readonly": true
-    },
-    {
-      "name": "NormalizedMeanError",
-      "type": "double",
-      "readonly": true
-    },
-    {
-      "name": "Orientation",
-      "type": "OrientationType"
-    },
-    {
-      "name": "Page",
-      "type": "MagickRectangle"
-    },
-    {
-      "name": "Quality",
-      "type": "size_t"
-    },
-    {
-      "name": "ReadMask",
-      "type": "IMagickImage",
-      "throws": true
-    },
-    {
-      "name": "RenderingIntent",
-      "type": "RenderingIntent"
-    },
-    {
-      "name": "ResolutionUnits",
-      "type": "DensityUnit"
-    },
-    {
-      "name": "ResolutionX",
-      "type": "double"
-    },
-    {
-      "name": "ResolutionY",
-      "type": "double"
-    },
-    {
-      "name": "Signature",
-      "type": "string",
-      "readonly": true,
-      "throws": true
-    },
-    {
-      "name": "TotalColors",
-      "type": "size_t",
-      "readonly": true,
-      "throws": true
-    },
-    {
-      "name": "VirtualPixelMethod",
-      "type": "VirtualPixelMethod",
-      "throws": true
-    },
-    {
-      "name": "Width",
-      "type": "size_t",
-      "readonly": true
-    },
-    {
-      "name": "WriteMask",
-      "type": "IMagickImage",
-      "throws": true
-    }
-  ],
-  "methods":
-  [
-    {
-      "name": "AdaptiveBlur",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "radius",
-          "type": "double"
-        },
-        {
-          "name": "sigma",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "AdaptiveResize",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "width",
-          "type": "size_t"
-        },
-        {
-          "name": "height",
-          "type": "size_t"
-        }
-      ]
-    },
-    {
-      "name": "AdaptiveSharpen",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "radius",
-          "type": "double"
-        },
-        {
-          "name": "sigma",
-          "type": "double"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "AdaptiveThreshold",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "width",
-          "type": "size_t"
-        },
-        {
-          "name": "height",
-          "type": "size_t"
-        },
-        {
-          "name": "bias",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "AddNoise",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "noiseType",
-          "type": "NoiseType"
-        },
-        {
-          "name": "attenuate",
-          "type": "double"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "AddProfile",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "name",
-          "type": "string"
-        },
-        {
-          "name": "datum",
-          "type": "byte[]"
-        },
-        {
-          "name": "length",
-          "type": "size_t"
-        }
-      ]
-    },
-    {
-      "name": "AffineTransform",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "scaleX",
-          "type": "double"
-        },
-        {
-          "name": "scaleY",
-          "type": "double"
-        },
-        {
-          "name": "shearX",
-          "type": "double"
-        },
-        {
-          "name": "shearY",
-          "type": "double"
-        },
-        {
-          "name": "translateX",
-          "type": "double"
-        },
-        {
-          "name": "translateY",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "Annotate",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "settings",
-          "type": "DrawingSettings"
-        },
-        {
-          "name": "text",
-          "type": "string"
-        },
-        {
-          "name": "boundingArea",
-          "type": "string"
-        },
-        {
-          "name": "gravity",
-          "type": "Gravity"
-        },
-        {
-          "name": "degrees",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "AnnotateGravity",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "settings",
-          "type": "DrawingSettings"
-        },
-        {
-          "name": "text",
-          "type": "string"
-        },
-        {
-          "name": "gravity",
-          "type": "Gravity"
-        }
-      ]
-    },
-    {
-      "name": "AutoGamma",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "AutoLevel",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "AutoOrient",
-      "instance": true,
-      "throws": true
-    },
-    {
-      "name": "BlackThreshold",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "threshold",
-          "type": "string"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "BlueShift",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "factor",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "Blur",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "radius",
-          "type": "double"
-        },
-        {
-          "name": "sigma",
-          "type": "double"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "Border",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "value",
-          "type": "MagickRectangle"
-        }
-      ]
-    },
-    {
-      "name": "BrightnessContrast",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "brightness",
-          "type": "double"
-        },
-        {
-          "name": "contrast",
-          "type": "double"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "CannyEdge",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "radius",
-          "type": "double"
-        },
-        {
-          "name": "sigma",
-          "type": "double"
-        },
-        {
-          "name": "lower",
-          "type": "double"
-        },
-        {
-          "name": "upper",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "ChannelOffset",
-      "type": "size_t",
-      "arguments":
-      [
-        {
-          "name": "channel",
-          "type": "PixelChannel"
-        }
-      ]
-    },
-    {
-      "name": "Charcoal",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "radius",
-          "type": "double"
-        },
-        {
-          "name": "sigma",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "Chop",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "geometry",
-          "type": "MagickRectangle"
-        }
-      ]
-    },
-    {
-      "name": "Clamp",
-      "throws": true
-    },
-    {
-      "name": "ClampChannel",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "Clip",
-      "throws": true
-    },
-    {
-      "name": "ClipPath",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "pathName",
-          "type": "string"
-        },
-        {
-          "name": "inside",
-          "type": "bool"
-        }
-      ]
-    },
-    {
-      "name": "Clone",
-      "type": "Instance",
-      "instance": true,
-      "throws": true
-    },
-    {
-      "name": "CloneArea",
-      "type": "Instance",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "width",
-          "type": "size_t"
-        },
-        {
-          "name": "height",
-          "type": "size_t"
-        }
-      ]
-    },
-    {
-      "name": "Clut",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        },
-        {
-          "name": "method",
-          "type": "PixelInterpolateMethod"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "ColorDecisionList",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "fileName",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "Colorize",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "color",
-          "type": "MagickColor"
-        },
-        {
-          "name": "blend",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "Compare",
-      "type": "Instance",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        },
-        {
-          "name": "metric",
-          "type": "ErrorMetric"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        },
-        {
-          "name": "distortion",
-          "type": "double",
-          "out": true
-        }
-      ]
-    },
-    {
-      "name": "Contrast",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "enhance",
-          "type": "bool"
-        }
-      ]
-    },
-    {
-      "name": "ContrastStretch",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "blackPoint",
-          "type": "double"
-        },
-        {
-          "name": "whitePoint",
-          "type": "double"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "ColorMatrix",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "matrix",
-          "type": "DoubleMatrix"
-        }
-      ]
-    },
-    {
-      "name": "CompareDistortion",
-      "type": "double",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        },
-        {
-          "name": "metric",
-          "type": "ErrorMetric"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "Composite",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        },
-        {
-          "name": "x",
-          "type": "ssize_t"
-        },
-        {
-          "name": "y",
-          "type": "ssize_t"
-        },
-        {
-          "name": "compose",
-          "type": "CompositeOperator"
-        }
-      ]
-    },
-    {
-      "name": "CompositeGravity",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        },
-        {
-          "name": "gravity",
-          "type": "Gravity"
-        },
-        {
-          "name": "compose",
-          "type": "CompositeOperator"
-        }
-      ]
-    },
-    {
-      "name": "ConnectedComponents",
-      "throws": true,
-      "instance": true,
-      "arguments":
-      [
-        {
-          "name": "connectivity",
-          "type": "size_t"
-        },
-        {
-          "name": "objects",
-          "type": "Instance",
-          "out": true
-        }
-      ]
-    },
-    {
-      "name": "Convolve",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "matrix",
-          "type": "DoubleMatrix"
-        }
-      ]
-    },
-    {
-      "name": "CopyPixels",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        },
-        {
-          "name": "geometry",
-          "type": "MagickRectangle"
-        },
-        {
-          "name": "offset",
-          "type": "OffsetInfo"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "Crop",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "geometry",
-          "type": "MagickRectangle"
-        }
-      ]
-    },
-    {
-      "name": "CropToTiles",
-      "type": "Instance",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "geometry",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "CycleColormap",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "amount",
-          "type": "ssize_t"
-        }
-      ]
-    },
-    {
-      "name": "Decipher",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "passphrase",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "Deskew",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "threshold",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "Despeckle",
-      "instance": true,
-      "throws": true
-    },
-    {
-      "name": "DetermineColorType",
-      "type": "ColorType",
-      "throws": true
-    },
-    {
-      "name": "Distort",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "method",
-          "type": "DistortMethod"
-        },
-        {
-          "name": "bestfit",
-          "type": "bool"
-        },
-        {
-          "name": "arguments",
-          "type": "double[]"
-        },
-        {
-          "name": "length",
-          "type": "size_t"
-        }
-      ]
-    },
-    {
-      "name": "Edge",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "radius",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "Emboss",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "radius",
-          "type": "double"
-        },
-        {
-          "name": "sigma",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "Encipher",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "passphrase",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "Enhance",
-      "instance": true,
-      "throws": true
-    },
-    {
-      "name": "Equalize",
-      "throws": true
-    },
-    {
-      "name": "Equals",
-      "type": "bool",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        }
-      ]
-    },
-    {
-      "name": "EvaluateFunction",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "channels",
-          "type": "Channels"
-        },
-        {
-          "name": "evaluateFunction",
-          "type": "EvaluateFunction"
-        },
-        {
-          "name": "values",
-          "type": "double[]"
-        },
-        {
-          "name": "length",
-          "type": "size_t"
-        }
-      ]
-    },
-    {
-      "name": "EvaluateGeometry",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "channels",
-          "type": "Channels"
-        },
-        {
-          "name": "geometry",
-          "type": "MagickRectangle"
-        },
-        {
-          "name": "evaluateOperator",
-          "type": "EvaluateOperator"
-        },
-        {
-          "name": "value",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "EvaluateOperator",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "channels",
-          "type": "Channels"
-        },
-        {
-          "name": "evaluateOperator",
-          "type": "EvaluateOperator"
-        },
-        {
-          "name": "value",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "Extent",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "geometry",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "ExtentGravity",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "geometry",
-          "type": "string"
-        },
-        {
-          "name": "gravity",
-          "type": "Gravity"
-        }
-      ]
-    },
-    {
-      "name": "Flip",
-      "instance": true,
-      "throws": true
-    },
-    {
-      "name": "FloodFill",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "settings",
-          "type": "DrawingSettings"
-        },
-        {
-          "name": "x",
-          "type": "ssize_t"
-        },
-        {
-          "name": "y",
-          "type": "ssize_t"
-        },
-        {
-          "name": "target",
-          "type": "MagickColor"
-        },
-        {
-          "name": "invert",
-          "type": "bool"
-        }
-      ]
-    },
-    {
-      "name": "Flop",
-      "instance": true,
-      "throws": true
-    },
-    {
-      "name": "FontTypeMetrics",
-      "type": "TypeMetric",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "settings",
-          "type": "DrawingSettings"
-        },
-        {
-          "name": "ignoreNewLines",
-          "type": "bool"
-        }
-      ],
-      "cleanup":
-      {
-        "name": "ImageMagick.TypeMetric.Dispose"
-      }
-    },
-    {
-      "name": "FormatExpression",
-      "type": "nativeString",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "settings",
-          "type": "MagickSettings"
-        },
-        {
-          "name": "expression",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "Frame",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "geometry",
-          "type": "MagickRectangle"
-        }
-      ]
-    },
-    {
-      "name": "Fx",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "expression",
-          "type": "string"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "GammaCorrect",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "gamma",
-          "type": "double"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "GaussianBlur",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "radius",
-          "type": "double"
-        },
-        {
-          "name": "sigma",
-          "type": "double"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "GetArtifact",
-      "type": "string",
-      "arguments":
-      [
-        {
-          "name": "name",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "GetAttribute",
-      "type": "string",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "name",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "GetBitDepth",
-      "type": "size_t",
-      "arguments":
-      [
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "GetColormap",
-      "type": "MagickColor",
-      "arguments":
-      [
-        {
-          "name": "index",
-          "type": "size_t"
-        }
-      ]
-    },
-    {
-      "name": "GetNext",
-      "type": "Instance",
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "Instance"
-        }
-      ]
-    },
-    {
-      "name": "GetNextArtifactName",
-      "type": "string"
-    },
-    {
-      "name": "GetNextAttributeName",
-      "type": "string"
-    },
-    {
-      "name": "GetNextProfileName",
-      "type": "string"
-    },
-    {
-      "name": "GetProfile",
-      "type": "StringInfo",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "name",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "Grayscale",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "method",
-          "type": "PixelIntensityMethod"
-        }
-      ]
-    },
-    {
-      "name": "HaldClut",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        }
-      ]
-    },
-    {
-      "name": "HasChannel",
-      "type": "bool",
-      "arguments":
-      [
-        {
-          "name": "channel",
-          "type": "PixelChannel"
-        }
-      ]
-    },
-    {
-      "name": "HasProfile",
-      "type": "bool",
-      "arguments":
-      [
-        {
-          "name": "name",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "Histogram",
-      "type": "Instance",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "length",
-          "type": "size_t",
-          "out": true
-        }
-      ],
-      "cleanup":
-      {
-        "name": "ImageMagick.MagickColorCollection.DisposeList"
-      }
-    },
-    {
-      "name": "HoughLine",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "width",
-          "type": "size_t"
-        },
-        {
-          "name": "height",
-          "type": "size_t"
-        },
-        {
-          "name": "threshold",
-          "type": "size_t"
-        }
-      ]
-    },
-    {
-      "name": "Implode",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "amount",
-          "type": "double"
-        },
-        {
-          "name": "method",
-          "type": "PixelInterpolateMethod"
-        }
-      ]
-    },
-    {
-      "name": "Kuwahara",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "radius",
-          "type": "double"
-        },
-        {
-          "name": "sigma",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "Level",
-      "arguments":
-      [
-        {
-          "name": "blackPoint",
-          "type": "double"
-        },
-        {
-          "name": "whitePoint",
-          "type": "double"
-        },
-        {
-          "name": "gamma",
-          "type": "double"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "LevelColors",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "blackColor",
-          "type": "MagickColor"
-        },
-        {
-          "name": "whiteColor",
-          "type": "MagickColor"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        },
-        {
-          "name": "invert",
-          "type": "bool"
-        }
-      ]
-    },
-    {
-      "name": "Levelize",
-      "arguments":
-      [
-        {
-          "name": "blackPoint",
-          "type": "double"
-        },
-        {
-          "name": "whitePoint",
-          "type": "double"
-        },
-        {
-          "name": "gamma",
-          "type": "double"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "LinearStretch",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "blackPoint",
-          "type": "double"
-        },
-        {
-          "name": "whitePoint",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "LiquidRescale",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "geometry",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "LocalContrast",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "radius",
-          "type": "double"
-        },
-        {
-          "name": "strength",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "Magnify",
-      "instance": true,
-      "throws": true
-    },
-    {
-      "name": "Map",
-      "type": "bool",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        },
-        {
-          "name": "settings",
-          "type": "QuantizeSettings"
-        }
-      ]
-    },
-    {
-      "name": "Minify",
-      "instance": true,
-      "throws": true
-    },
-    {
-      "name": "Moments",
-      "type": "Instance",
-      "throws": true,
-      "cleanup":
-      {
-        "name": "ImageMagick.Moments.DisposeList"
-      }
-    },
-    {
-      "name": "Modulate",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "modulate",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "Morphology",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "method",
-          "type": "MorphologyMethod"
-        },
-        {
-          "name": "kernel",
-          "type": "string"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        },
-        {
-          "name": "iterations",
-          "type": "size_t"
-        }
-      ]
-    },
-    {
-      "name": "MotionBlur",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "radius",
-          "type": "double"
-        },
-        {
-          "name": "sigma",
-          "type": "double"
-        },
-        {
-          "name": "angle",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "Negate",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "onlyGrayscale",
-          "type": "bool"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "Normalize",
-      "throws": true
-    },
-    {
-      "name": "OilPaint",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "radius",
-          "type": "double"
-        },
-        {
-          "name": "sigma",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "Opaque",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "target",
-          "type": "MagickColor"
-        },
-        {
-          "name": "fill",
-          "type": "MagickColor"
-        },
-        {
-          "name": "invert",
-          "type": "bool"
-        }
-      ]
-    },
-    {
-      "name": "OrderedDither",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "thresholdMap",
-          "type": "string"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "Perceptible",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "epsilon",
-          "type": "double"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "PerceptualHash",
-      "type": "Instance",
-      "throws": true,
-      "cleanup":
-      {
-        "name": "ImageMagick.PerceptualHash.DisposeList"
-      }
-    },
-    {
-      "name": "Polaroid",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "settings",
-          "type": "DrawingSettings"
-        },
-        {
-          "name": "caption",
-          "type": "string"
-        },
-        {
-          "name": "angle",
-          "type": "double"
-        },
-        {
-          "name": "method",
-          "type": "PixelInterpolateMethod"
-        }
-      ]
-    },
-    {
-      "name": "Posterize",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "levels",
-          "type": "size_t"
-        },
-        {
-          "name": "method",
-          "type": "DitherMethod"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "Quantize",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "settings",
-          "type": "QuantizeSettings"
-        }
-      ]
-    },
-    {
-      "name": "RaiseOrLower",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "size",
-          "type": "size_t"
-        },
-        {
-          "name": "raise",
-          "type": "bool"
-        }
-      ]
-    },
-    {
-      "name": "RandomThreshold",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "low",
-          "type": "double"
-        },
-        {
-          "name": "high",
-          "type": "double"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "ReadBlob",
-      "instance": true,
-      "throws": true,
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "settings",
-          "type": "MagickSettings"
-        },
-        {
-          "name": "data",
-          "type": "byte[]"
-        },
-        {
-          "name": "length",
-          "type": "size_t"
-        }
-      ]
-    },
-    {
-      "name": "ReadFile",
-      "instance": true,
-      "throws": true,
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "settings",
-          "type": "MagickSettings"
-        }
-      ]
-    },
-    {
-      "name": "ReadPixels",
-      "instance": true,
-      "throws": true,
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "width",
-          "type": "size_t"
-        },
-        {
-          "name": "height",
-          "type": "size_t"
-        },
-        {
-          "name": "map",
-          "type": "string"
-        },
-        {
-          "name": "storageType",
-          "type": "StorageType"
-        },
-        {
-          "name": "data",
-          "type": "byte[]"
-        }
-      ]
-    },
-    {
-      "name": "ReadStream",
-      "instance": true,
-      "throws": true,
-      "static": true,
-      "arguments":
-      [
-        {
-          "name": "settings",
-          "type": "MagickSettings"
-        },
-        {
-          "name": "reader",
-          "type": "ReadWriteStreamDelegate"
-        },
-        {
-          "name": "seeker",
-          "type": "SeekStreamDelegate"
-        },
-        {
-          "name": "teller",
-          "type": "TellStreamDelegate"
-        }
-      ]
-    },
-    {
-      "name": "RegionMask",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "region",
-          "type": "MagickRectangle"
-        }
-      ]
-    },
-    {
-      "name": "RemoveArtifact",
-      "arguments":
-      [
-        {
-          "name": "name",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "RemoveAttribute",
-      "arguments":
-      [
-        {
-          "name": "name",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "RemoveProfile",
-      "arguments":
-      [
-        {
-          "name": "name",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "ResetArtifactIterator"
-    },
-    {
-      "name": "ResetAttributeIterator"
-    },
-    {
-      "name": "ResetProfileIterator"
-    },
-    {
-      "name": "Resample",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "resolutionX",
-          "type": "double"
-        },
-        {
-          "name": "resolutionY",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "Resize",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "geometry",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "Roll",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "x",
-          "type": "ssize_t"
-        },
-        {
-          "name": "y",
-          "type": "ssize_t"
-        }
-      ]
-    },
-    {
-      "name": "Rotate",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "degrees",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "RotationalBlur",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "angle",
-          "type": "double"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "Sample",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "geometry",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "Scale",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "geometry",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "Segment",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "colorSpace",
-          "type": "ColorSpace"
-        },
-        {
-          "name": "clusterThreshold",
-          "type": "double"
-        },
-        {
-          "name": "smoothingThreshold",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "SelectiveBlur",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "radius",
-          "type": "double"
-        },
-        {
-          "name": "sigma",
-          "type": "double"
-        },
-        {
-          "name": "threshold",
-          "type": "double"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "Separate",
-      "type": "Instance",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "SepiaTone",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "threshold",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "SetAlpha",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "value",
-          "type": "AlphaOption"
-        }
-      ]
-    },
-    {
-      "name": "SetArtifact",
-      "arguments":
-      [
-        {
-          "name": "name",
-          "type": "string"
-        },
-        {
-          "name": "value",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "SetAttribute",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "name",
-          "type": "string"
-        },
-        {
-          "name": "value",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "SetBitDepth",
-      "arguments":
-      [
-        {
-          "name": "channels",
-          "type": "Channels"
-        },
-        {
-          "name": "value",
-          "type": "size_t"
-        }
-      ]
-    },
-    {
-      "name": "SetColormap",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "index",
-          "type": "size_t"
-        },
-        {
-          "name": "color",
-          "type": "MagickColor"
-        }
-      ]
-    },
-    {
-      "name": "SetColorMetric",
-      "type": "bool",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        }
-      ]
-    },
-    {
-      "name": "SetNext",
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "Instance"
-        }
-      ]
-    },
-    {
-      "name": "SetProgressDelegate",
-      "arguments":
-      [
-        {
-          "name": "method",
-          "type": "ProgressDelegate"
-        }
-      ]
-    },
-    {
-      "name": "Shade",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "azimuth",
-          "type": "double"
-        },
-        {
-          "name": "elevation",
-          "type": "double"
-        },
-        {
-          "name": "colorShading",
-          "type": "bool"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "Shadow",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "x",
-          "type": "ssize_t"
-        },
-        {
-          "name": "y",
-          "type": "ssize_t"
-        },
-        {
-          "name": "sigma",
-          "type": "double"
-        },
-        {
-          "name": "alphaPercentage",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "Sharpen",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "radius",
-          "type": "double"
-        },
-        {
-          "name": "sigma",
-          "type": "double"
-        },
-        {
-          "name": "channel",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "Shave",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "leftRight",
-          "type": "size_t"
-        },
-        {
-          "name": "topBottom",
-          "type": "size_t"
-        }
-      ]
-    },
-    {
-      "name": "Shear",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "xAngle",
-          "type": "double"
-        },
-        {
-          "name": "yAngle",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "SigmoidalContrast",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "sharpen",
-          "type": "bool"
-        },
-        {
-          "name": "contrast",
-          "type": "double"
-        },
-        {
-          "name": "midpoint",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "SparseColor",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "channel",
-          "type": "Channels"
-        },
-        {
-          "name": "method",
-          "type": "SparseColorMethod"
-        },
-        {
-          "name": "values",
-          "type": "double[]"
-        },
-        {
-          "name": "length",
-          "type": "size_t"
-        }
-      ]
-    },
-    {
-      "name": "Sketch",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "radius",
-          "type": "double"
-        },
-        {
-          "name": "sigma",
-          "type": "double"
-        },
-        {
-          "name": "angle",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "Solarize",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "factor",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "Splice",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "geometry",
-          "type": "MagickRectangle"
-        }
-      ]
-    },
-    {
-      "name": "Spread",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "method",
-          "type": "PixelInterpolateMethod"
-        },
-        {
-          "name": "radius",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "Statistic",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "type",
-          "type": "StatisticType"
-        },
-        {
-          "name": "width",
-          "type": "size_t"
-        },
-        {
-          "name": "height",
-          "type": "size_t"
-        }
-      ]
-    },
-    {
-      "name": "Statistics",
-      "type": "Instance",
-      "throws": true,
-      "cleanup":
-      {
-        "name": "ImageMagick.Statistics.DisposeList"
-      }
-    },
-    {
-      "name": "Stegano",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "watermark",
-          "type": "IMagickImage"
-        }
-      ]
-    },
-    {
-      "name": "Stereo",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "rightImage",
-          "type": "IMagickImage"
-        }
-      ]
-    },
-    {
-      "name": "Strip",
-      "throws": true
-    },
-    {
-      "name": "SubImageSearch",
-      "type": "Instance",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "reference",
-          "type": "IMagickImage"
-        },
-        {
-          "name": "metric",
-          "type": "ErrorMetric"
-        },
-        {
-          "name": "similarityThreshold",
-          "type": "double"
-        },
-        {
-          "name": "offset",
-          "type": "MagickRectangle",
-          "out": true
-        },
-        {
-          "name": "similarityMetric",
-          "type": "double",
-          "out": true
-        }
-      ]
-    },
-    {
-      "name": "Swirl",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "method",
-          "type": "PixelInterpolateMethod"
-        },
-        {
-          "name": "degrees",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "Texture",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        }
-      ]
-    },
-    {
-      "name": "Threshold",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "threshold",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "Thumbnail",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "geometry",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "Tint",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "opacity",
-          "type": "string"
-        },
-        {
-          "name": "tint",
-          "type": "MagickColor"
-        }
-      ]
-    },
-    {
-      "name": "Transparent",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "color",
-          "type": "MagickColor"
-        },
-        {
-          "name": "invert",
-          "type": "bool"
-        }
-      ]
-    },
-    {
-      "name": "TransparentChroma",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "colorLow",
-          "type": "MagickColor"
-        },
-        {
-          "name": "colorHigh",
-          "type": "MagickColor"
-        },
-        {
-          "name": "invert",
-          "type": "bool"
-        }
-      ]
-    },
-    {
-      "name": "Transpose",
-      "instance": true,
-      "throws": true
-    },
-    {
-      "name": "Transverse",
-      "instance": true,
-      "throws": true
-    },
-    {
-      "name": "Trim",
-      "instance": true,
-      "throws": true
-    },
-    {
-      "name": "UniqueColors",
-      "type": "Instance",
-      "instance": true,
-      "throws": true
-    },
-    {
-      "name": "UnsharpMask",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "radius",
-          "type": "double"
-        },
-        {
-          "name": "sigma",
-          "type": "double"
-        },
-        {
-          "name": "amount",
-          "type": "double"
-        },
-        {
-          "name": "threshold",
-          "type": "double"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "Vignette",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "radius",
-          "type": "double"
-        },
-        {
-          "name": "sigma",
-          "type": "double"
-        },
-        {
-          "name": "x",
-          "type": "ssize_t"
-        },
-        {
-          "name": "y",
-          "type": "ssize_t"
-        }
-      ]
-    },
-    {
-      "name": "Wave",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "method",
-          "type": "PixelInterpolateMethod"
-        },
-        {
-          "name": "amplitude",
-          "type": "double"
-        },
-        {
-          "name": "length",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "WaveletDenoise",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "threshold",
-          "type": "double"
-        },
-        {
-          "name": "softness",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "WhiteThreshold",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "threshold",
-          "type": "string"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "WriteFile",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "settings",
-          "type": "MagickSettings"
-        }
-      ]
-    },
-    {
-      "name": "WriteStream",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "settings",
-          "type": "MagickSettings"
-        },
-        {
-          "name": "writer",
-          "type": "ReadWriteStreamDelegate"
-        },
-        {
-          "name": "seeker",
-          "type": "SeekStreamDelegate"
-        },
-        {
-          "name": "teller",
-          "type": "TellStreamDelegate"
-        }
-      ]
-    }
-  ]
 }

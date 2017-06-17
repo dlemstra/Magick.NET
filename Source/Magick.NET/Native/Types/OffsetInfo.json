@@ -1,27 +1,27 @@
 ﻿{
-  "dynamic": "ManagedToNative",
-  "access": "internal",
-  "methods":
-  [
-    {
-      "name": "SetX",
-      "arguments":
-      [
+    "dynamic": "ManagedToNative",
+    "access": "internal",
+    "methods":
+    [
         {
-          "name": "value",
-          "type": "size_t"
-        }
-      ]
-    },
-    {
-      "name": "SetY",
-      "arguments":
-      [
+            "name": "SetX",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "size_t"
+                }
+            ]
+        },
         {
-          "name": "value",
-          "type": "size_t"
+            "name": "SetY",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "size_t"
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }

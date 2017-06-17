@@ -1,17 +1,17 @@
 ﻿{
-  "dynamic": "ManagedToNative",
-  "constructor":
-  {
-    "arguments":
-    [
-      {
-        "name": "values",
-        "type": "double[]"
-      },
-      {
-        "name": "order",
-        "type": "size_t"
-      }
-    ]
-  }
+    "dynamic": "ManagedToNative",
+    "constructor":
+    {
+        "arguments":
+        [
+            {
+                "name": "values",
+                "type": "double[]"
+            },
+            {
+                "name": "order",
+                "type": "size_t"
+            }
+        ]
+    }
 }

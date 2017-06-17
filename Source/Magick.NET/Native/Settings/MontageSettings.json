@@ -1,146 +1,146 @@
 ﻿{
-  "dynamic": "ManagedToNative",
-  "methods":
-  [
-    {
-      "name": "SetBackgroundColor",
-      "arguments":
-      [
+    "dynamic": "ManagedToNative",
+    "methods":
+    [
         {
-          "name": "value",
-          "type": "MagickColor"
-        }
-      ]
-    },
-    {
-      "name": "SetBorderColor",
-      "arguments":
-      [
+            "name": "SetBackgroundColor",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "MagickColor"
+                }
+            ]
+        },
         {
-          "name": "value",
-          "type": "MagickColor"
-        }
-      ]
-    },
-    {
-      "name": "SetBorderWidth",
-      "arguments":
-      [
+            "name": "SetBorderColor",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "MagickColor"
+                }
+            ]
+        },
         {
-          "name": "value",
-          "type": "size_t"
-        }
-      ]
-    },
-    {
-      "name": "SetFillColor",
-      "arguments":
-      [
+            "name": "SetBorderWidth",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "size_t"
+                }
+            ]
+        },
         {
-          "name": "value",
-          "type": "MagickColor"
-        }
-      ]
-    },
-    {
-      "name": "SetFont",
-      "arguments":
-      [
+            "name": "SetFillColor",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "MagickColor"
+                }
+            ]
+        },
         {
-          "name": "value",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "SetFontPointsize",
-      "arguments":
-      [
+            "name": "SetFont",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "string"
+                }
+            ]
+        },
         {
-          "name": "value",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "SetFrameGeometry",
-      "arguments":
-      [
+            "name": "SetFontPointsize",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "double"
+                }
+            ]
+        },
         {
-          "name": "value",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "SetGeometry",
-      "arguments":
-      [
+            "name": "SetFrameGeometry",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "string"
+                }
+            ]
+        },
         {
-          "name": "value",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "SetGravity",
-      "arguments":
-      [
+            "name": "SetGeometry",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "string"
+                }
+            ]
+        },
         {
-          "name": "value",
-          "type": "Gravity"
-        }
-      ]
-    },
-    {
-      "name": "SetShadow",
-      "arguments":
-      [
+            "name": "SetGravity",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "Gravity"
+                }
+            ]
+        },
         {
-          "name": "value",
-          "type": "bool"
-        }
-      ]
-    },
-    {
-      "name": "SetStrokeColor",
-      "arguments":
-      [
+            "name": "SetShadow",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "bool"
+                }
+            ]
+        },
         {
-          "name": "value",
-          "type": "MagickColor"
-        }
-      ]
-    },
-    {
-      "name": "SetTextureFileName",
-      "arguments":
-      [
+            "name": "SetStrokeColor",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "MagickColor"
+                }
+            ]
+        },
         {
-          "name": "value",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "SetTileGeometry",
-      "arguments":
-      [
+            "name": "SetTextureFileName",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "string"
+                }
+            ]
+        },
         {
-          "name": "value",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "SetTitle",
-      "arguments":
-      [
+            "name": "SetTileGeometry",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "string"
+                }
+            ]
+        },
         {
-          "name": "value",
-          "type": "string"
+            "name": "SetTitle",
+            "arguments":
+            [
+                {
+                    "name": "value",
+                    "type": "string"
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }
