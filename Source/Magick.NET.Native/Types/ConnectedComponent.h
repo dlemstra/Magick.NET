@@ -17,7 +17,13 @@ MAGICK_NET_EXPORT void ConnectedComponent_DisposeList(CCObjectInfo *);
 
 MAGICK_NET_EXPORT double ConnectedComponent_GetArea(const CCObjectInfo *);
 
+MAGICK_NET_EXPORT const PointInfo *ConnectedComponent_GetCentroid(const CCObjectInfo *);
+
+MAGICK_NET_EXPORT const PixelInfo *ConnectedComponent_GetColor(const CCObjectInfo *);
+
 MAGICK_NET_EXPORT size_t ConnectedComponent_GetHeight(const CCObjectInfo *);
+
+MAGICK_NET_EXPORT ssize_t ConnectedComponent_GetId(const CCObjectInfo *);
 
 MAGICK_NET_EXPORT size_t ConnectedComponent_GetWidth(const CCObjectInfo *);
 

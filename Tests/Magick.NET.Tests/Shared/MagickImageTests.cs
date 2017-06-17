@@ -114,14 +114,18 @@ namespace Magick.NET.Tests
             Assert.AreEqual(0.0, area.Compare(part, ErrorMetric.RootMeanSquared));
         }
 
-        private void Test_Component(IMagickImage image, ConnectedComponent component, int x, int y, int width, int height)
+        private void Test_Component(IMagickImage image, ConnectedComponent component, int id, int x, int y, int width, int height, MagickColor color, int centroidX, int centroidY)
         {
             int delta = 2;
 
+            Assert.AreEqual(id, component.Id);
             Assert.AreEqual(x, component.X, delta);
             Assert.AreEqual(y, component.Y, delta);
             Assert.AreEqual(width, component.Width, delta);
             Assert.AreEqual(height, component.Height, delta);
+            ColorAssert.AreEqual(color, component.Color);
+            Assert.AreEqual(centroidX, component.Centroid.X, delta);
+            Assert.AreEqual(centroidY, component.Centroid.Y, delta);
 
             using (IMagickImage area = image.Clone())
             {
@@ -1107,12 +1111,14 @@ namespace Magick.NET.Tests
                     Assert.IsNull(temp.GetArtifact("connected-components:area-threshold"));
                     Assert.IsNull(temp.GetArtifact("connected-components:mean-color"));
 
-                    Test_Component(image, components[1], 94, 297, 128, 151);
-                    Test_Component(image, components[2], 99, 554, 128, 150);
-                    Test_Component(image, components[3], 267, 432, 89, 139);
-                    Test_Component(image, components[4], 301, 202, 148, 143);
-                    Test_Component(image, components[5], 341, 622, 136, 150);
-                    Test_Component(image, components[6], 434, 411, 88, 139);
+                    MagickColor color = MagickColors.Black;
+
+                    Test_Component(image, components[1], 2, 94, 297, 128, 151, color, 157, 371);
+                    Test_Component(image, components[2], 5, 99, 554, 128, 150, color, 162, 628);
+                    Test_Component(image, components[3], 4, 267, 432, 89, 139, color, 310, 501);
+                    Test_Component(image, components[4], 1, 301, 202, 148, 143, color, 374, 272);
+                    Test_Component(image, components[5], 6, 341, 622, 136, 150, color, 408, 696);
+                    Test_Component(image, components[6], 3, 434, 411, 88, 139, color, 477, 480);
                 }
 
 #if !Q8
@@ -1130,18 +1136,21 @@ namespace Magick.NET.Tests
                     Assert.IsNotNull(temp.GetArtifact("connected-components:area-threshold"));
                     Assert.IsNotNull(temp.GetArtifact("connected-components:mean-color"));
 
-                    Test_Component(image, components[1], 90, 293, 139, 162);
-                    Test_Component(image, components[2], 96, 550, 138, 162);
-                    Test_Component(image, components[3], 213, 633, 1, 2);
-                    Test_Component(image, components[4], 215, 637, 3, 1);
-                    Test_Component(image, components[5], 217, 641, 3, 1);
-                    Test_Component(image, components[6], 219, 645, 3, 1);
-                    Test_Component(image, components[7], 221, 647, 3, 1);
-                    Test_Component(image, components[8], 268, 433, 89, 139);
-                    Test_Component(image, components[9], 298, 198, 155, 151);
-                    Test_Component(image, components[10], 337, 618, 148, 158);
-                    Test_Component(image, components[11], 410, 247, 2, 1);
-                    Test_Component(image, components[12], 434, 411, 88, 140);
+                    MagickColor color1 = new MagickColor("#010101010101");
+                    MagickColor color2 = MagickColors.Black;
+
+                    Test_Component(image, components[1], 597, 90, 293, 139, 162, color1, 157, 372);
+                    Test_Component(image, components[2], 3439, 96, 550, 138, 162, color1, 162, 628);
+                    Test_Component(image, components[3], 4367, 213, 633, 1, 2, color2, 213, 633);
+                    Test_Component(image, components[4], 4412, 215, 637, 3, 1, color2, 215, 637);
+                    Test_Component(image, components[5], 4453, 217, 641, 3, 1, color2, 217, 641);
+                    Test_Component(image, components[6], 4495, 219, 645, 3, 1, color2, 219, 645);
+                    Test_Component(image, components[7], 4538, 221, 647, 3, 1, color2, 221, 649);
+                    Test_Component(image, components[8], 2105, 268, 433, 89, 139, color1, 311, 502);
+                    Test_Component(image, components[9], 17, 298, 198, 155, 151, color1, 375, 273);
+                    Test_Component(image, components[10], 4202, 337, 618, 148, 158, color1, 409, 696);
+                    Test_Component(image, components[11], 314, 410, 247, 2, 1, color2, 410, 247);
+                    Test_Component(image, components[12], 1703, 434, 411, 88, 140, color1, 477, 480);
                 }
 #endif
             }

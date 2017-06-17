@@ -14,6 +14,7 @@
 
 #include "Stdafx.h"
 #include "ConnectedComponent.h"
+#include "Colors/MagickColor.h"
 
 MAGICK_NET_EXPORT void ConnectedComponent_DisposeList(CCObjectInfo *list)
 {
@@ -25,9 +26,24 @@ MAGICK_NET_EXPORT double ConnectedComponent_GetArea(const CCObjectInfo *instance
   return instance->area;
 }
 
+MAGICK_NET_EXPORT const PointInfo *ConnectedComponent_GetCentroid(const CCObjectInfo *instance)
+{
+  return &instance->centroid;
+}
+
+MAGICK_NET_EXPORT const PixelInfo *ConnectedComponent_GetColor(const CCObjectInfo *instance)
+{
+  return MagickColor_Clone(&instance->color);
+}
+
 MAGICK_NET_EXPORT size_t ConnectedComponent_GetHeight(const CCObjectInfo *instance)
 {
   return instance->bounding_box.height;
+}
+
+MAGICK_NET_EXPORT ssize_t ConnectedComponent_GetId(const CCObjectInfo *instance)
+{
+  return instance->id;
 }
 
 MAGICK_NET_EXPORT size_t ConnectedComponent_GetWidth(const CCObjectInfo *instance)

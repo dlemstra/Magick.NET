@@ -45,7 +45,13 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern double ConnectedComponent_GetArea(IntPtr instance);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr ConnectedComponent_GetCentroid(IntPtr instance);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr ConnectedComponent_GetColor(IntPtr instance);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern UIntPtr ConnectedComponent_GetHeight(IntPtr instance);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr ConnectedComponent_GetId(IntPtr instance);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr ConnectedComponent_GetInstance(IntPtr list, UIntPtr index);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -68,7 +74,13 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern double ConnectedComponent_GetArea(IntPtr instance);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr ConnectedComponent_GetCentroid(IntPtr instance);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr ConnectedComponent_GetColor(IntPtr instance);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern UIntPtr ConnectedComponent_GetHeight(IntPtr instance);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr ConnectedComponent_GetId(IntPtr instance);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr ConnectedComponent_GetInstance(IntPtr list, UIntPtr index);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -112,6 +124,40 @@ namespace ImageMagick
                 return NativeMethods.X86.ConnectedComponent_GetArea(instance);
                 #endif
             }
+            public static PointInfo GetCentroid(IntPtr instance)
+            {
+                IntPtr result;
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.ConnectedComponent_GetCentroid(instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.ConnectedComponent_GetCentroid(instance);
+                #endif
+                return PointInfo.CreateInstance(result);
+            }
+            public static MagickColor GetColor(IntPtr instance)
+            {
+                IntPtr result;
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.ConnectedComponent_GetColor(instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.ConnectedComponent_GetColor(instance);
+                #endif
+                return MagickColor.CreateInstance(result);
+            }
             public static int GetHeight(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU
@@ -125,6 +171,21 @@ namespace ImageMagick
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 return (int)NativeMethods.X86.ConnectedComponent_GetHeight(instance);
+                #endif
+            }
+            public static int GetId(IntPtr instance)
+            {
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                return (int)NativeMethods.X64.ConnectedComponent_GetId(instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                return (int)NativeMethods.X86.ConnectedComponent_GetId(instance);
                 #endif
             }
             public static IntPtr GetInstance(IntPtr list, int index)

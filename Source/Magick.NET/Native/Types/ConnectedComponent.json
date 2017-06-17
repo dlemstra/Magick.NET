@@ -27,8 +27,44 @@
             ]
         },
         {
+            "name": "GetCentroid",
+            "type": "PointInfo",
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "instance",
+                    "type": "Instance"
+                }
+            ]
+        },
+        {
+            "name": "GetColor",
+            "type": "MagickColor",
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "instance",
+                    "type": "Instance"
+                }
+            ]
+        },
+        {
             "name": "GetHeight",
             "type": "size_t",
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "instance",
+                    "type": "Instance"
+                }
+            ]
+        },
+        {
+            "name": "GetId",
+            "type": "ssize_t",
             "static": true,
             "arguments":
             [

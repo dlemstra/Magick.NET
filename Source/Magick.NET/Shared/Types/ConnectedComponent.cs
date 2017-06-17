@@ -25,7 +25,10 @@ namespace ImageMagick
     {
         private ConnectedComponent(IntPtr instance)
         {
+            Centroid = PointD.FromPointInfo(NativeConnectedComponent.GetCentroid(instance));
+            Color = NativeConnectedComponent.GetColor(instance);
             Height = NativeConnectedComponent.GetHeight(instance);
+            Id = NativeConnectedComponent.GetId(instance);
             Width = NativeConnectedComponent.GetWidth(instance);
             X = NativeConnectedComponent.GetX(instance);
             Y = NativeConnectedComponent.GetY(instance);
@@ -60,9 +63,36 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Gets the centroid of the area.
+        /// </summary>
+        public PointD Centroid
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the color of the area.
+        /// </summary>
+        public MagickColor Color
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// Gets the height of the area.
         /// </summary>
         public int Height
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the id of the area.
+        /// </summary>
+        public int Id
         {
             get;
             private set;
