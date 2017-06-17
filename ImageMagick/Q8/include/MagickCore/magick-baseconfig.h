@@ -72,9 +72,14 @@
 #define MAGICKCORE_HAVE_CL_CL_H
 
 /*
-    Exclude deprecated methods in MagickCore API
+  Exclude deprecated methods in MagickCore API
 */
 #define MAGICKCORE_EXCLUDE_DEPRECATED
+
+/*
+  Define to only use the built-in (in-memory) settings.
+*/
+//#define MAGICKCORE_ZERO_CONFIGURATION_SUPPORT
 
 /*
   Define to use the bzip2 compression library
@@ -162,11 +167,6 @@
   Define to use the Windows GDI32 library (for clipboard and emf modules)
 */
 #define MAGICKCORE_WINGDI32_DELEGATE
-
-/*
-  Define to only use the built-in (in-memory) settings.
-*/
-//#define MAGICKCORE_ZERO_CONFIGURATION_SUPPORT
 
 /*
   Hard Coded Paths
