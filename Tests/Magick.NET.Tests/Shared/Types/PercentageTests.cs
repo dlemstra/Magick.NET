@@ -97,5 +97,19 @@ namespace Magick.NET.Tests
             percentage = new Percentage(25);
             Assert.AreEqual(2.5, 10.0 * percentage);
         }
+
+        [TestMethod]
+        public void ToInt32_ZeroPointFour_ReturnsZero()
+        {
+            Percentage percentage = new Percentage(0.4);
+            Assert.AreEqual(0, percentage.ToInt32());
+        }
+
+        [TestMethod]
+        public void ToInt32_ZeroPointFive_ReturnsOne()
+        {
+            Percentage percentage = new Percentage(0.5);
+            Assert.AreEqual(1, percentage.ToInt32());
+        }
     }
 }

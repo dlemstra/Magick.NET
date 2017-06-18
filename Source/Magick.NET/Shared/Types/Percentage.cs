@@ -281,7 +281,7 @@ namespace ImageMagick
         /// <returns>An integer that represents the current percentage.</returns>
         public int ToInt32()
         {
-            return (int)_Value;
+            return (int)Math.Round(_Value, MidpointRounding.AwayFromZero);
         }
 
         /// <summary>
