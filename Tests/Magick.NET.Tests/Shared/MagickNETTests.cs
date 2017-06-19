@@ -190,6 +190,8 @@ namespace Magick.NET.Tests
 
                 image.Flip();
                 Assert.AreEqual(0, count);
+
+                MagickNET.Log -= logDelegate;
             }
         }
 
