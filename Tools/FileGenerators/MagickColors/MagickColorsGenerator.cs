@@ -20,73 +20,73 @@ using System.Reflection;
 
 namespace FileGenerator.MagickColors
 {
-  internal sealed class MagickColorsGenerator : CodeGenerator
-  {
-    Type _Type = typeof(Color);
-
-    private string GetArguments(Color color)
+    internal sealed class MagickColorsGenerator : CodeGenerator
     {
-      return string.Format(CultureInfo.InvariantCulture, "{0}, {1}, {2}, {3}", color.R, color.G, color.B, color.A);
+        Type _Type = typeof(Color);
+
+        private string GetArguments(Color color)
+        {
+            return string.Format(CultureInfo.InvariantCulture, "{0}, {1}, {2}, {3}", color.R, color.G, color.B, color.A);
+        }
+
+        private string GetComment(Color color)
+        {
+            return string.Format(CultureInfo.InvariantCulture, "Gets a system-defined color that has an RGBA value of #{0:X2}{1:X2}{2:X2}{3:X2}.", color.R, color.G, color.B, color.A);
+        }
+
+        private void WriteColor(PropertyInfo property)
+        {
+            if (property.PropertyType != _Type)
+                return;
+
+            WriteColor(property.Name, property);
+        }
+
+        private void WriteColor(string name, PropertyInfo property)
+        {
+            Color color = (Color)property.GetValue(null, null);
+
+            WriteComment(GetComment(color));
+            WriteLine("public static MagickColor " + name);
+            WriteStartColon();
+            WriteLine("get");
+            WriteStartColon();
+            WriteLine("return MagickColor.FromRgba(" + GetArguments(color) + ");");
+            WriteEndColon();
+            WriteEndColon();
+        }
+
+        private void WriteColors()
+        {
+            WriteComment("Class that contains the same colors as System.Drawing.Colors.");
+            WriteLine("[System.CodeDom.Compiler.GeneratedCode(\"Magick.NET.FileGenerator\", \"\")]");
+            WriteLine("public static class MagickColors");
+            WriteStartColon();
+
+            var properties = _Type.GetProperties(BindingFlags.Public | BindingFlags.Static);
+
+            WriteColor("None", properties.First(p => p.Name == "Transparent"));
+            foreach (var property in properties)
+                WriteColor(property);
+
+            WriteEndColon();
+        }
+
+        private void WriteComment(string comment)
+        {
+            WriteLine("/// <summary>");
+            WriteLine("/// " + comment);
+            WriteLine("/// </summary>");
+        }
+
+        public static void Generate()
+        {
+            MagickColorsGenerator generator = new MagickColorsGenerator();
+            generator.CreateWriter(PathHelper.GetFullPath(@"Source\Magick.NET\Shared\Colors\MagickColors.cs"));
+            generator.WriteStart("ImageMagick");
+            generator.WriteColors();
+            generator.WriteEnd();
+            generator.CloseWriter();
+        }
     }
-
-    private string GetComment(Color color)
-    {
-      return string.Format(CultureInfo.InvariantCulture, "Gets a system-defined color that has an RGBA value of #{0:X2}{1:X2}{2:X2}{3:X2}.", color.R, color.G, color.B, color.A);
-    }
-
-    private void WriteColor(PropertyInfo property)
-    {
-      if (property.PropertyType != _Type)
-        return;
-
-      WriteColor(property.Name, property);
-    }
-
-    private void WriteColor(string name, PropertyInfo property)
-    {
-      Color color = (Color)property.GetValue(null, null);
-
-      WriteComment(GetComment(color));
-      WriteLine("public static MagickColor " + name);
-      WriteStartColon();
-      WriteLine("get");
-      WriteStartColon();
-      WriteLine("return MagickColor.FromRgba(" + GetArguments(color) + ");");
-      WriteEndColon();
-      WriteEndColon();
-    }
-
-    private void WriteColors()
-    {
-      WriteComment("Class that contains the same colors as System.Drawing.Colors.");
-      WriteLine("[System.CodeDom.Compiler.GeneratedCode(\"Magick.NET.FileGenerator\", \"\")]");
-      WriteLine("public static class MagickColors");
-      WriteStartColon();
-
-      var properties = _Type.GetProperties(BindingFlags.Public | BindingFlags.Static);
-
-      WriteColor("None", properties.First(p => p.Name == "Transparent"));
-      foreach (var property in properties)
-        WriteColor(property);
-
-      WriteEndColon();
-    }
-
-    private void WriteComment(string comment)
-    {
-      WriteLine("/// <summary>");
-      WriteLine("/// " + comment);
-      WriteLine("/// </summary>");
-    }
-
-    public static void Generate()
-    {
-      MagickColorsGenerator generator = new MagickColorsGenerator();
-      generator.CreateWriter(PathHelper.GetFullPath(@"Source\Magick.NET\Shared\Colors\MagickColors.cs"));
-      generator.WriteStart("ImageMagick");
-      generator.WriteColors();
-      generator.WriteEnd();
-      generator.CloseWriter();
-    }
-  }
 }

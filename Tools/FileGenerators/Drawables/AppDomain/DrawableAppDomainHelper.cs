@@ -16,45 +16,45 @@ using System;
 
 namespace FileGenerator.Drawables
 {
-  [Serializable]
-  internal static class DrawableAppDomainHelper
-  {
-    private static void GenerateDrawables()
+    [Serializable]
+    internal static class DrawableAppDomainHelper
     {
-      AppDomain domain = AppDomainHelper.CreateDomain();
-      DrawableApplicationProxy proxy = AppDomainHelper.CreateProxy<DrawableApplicationProxy>(domain);
+        private static void GenerateDrawables()
+        {
+            AppDomain domain = AppDomainHelper.CreateDomain();
+            DrawableApplicationProxy proxy = AppDomainHelper.CreateProxy<DrawableApplicationProxy>(domain);
 
-      proxy.GenerateDrawables();
+            proxy.GenerateDrawables();
 
-      AppDomain.Unload(domain);
+            AppDomain.Unload(domain);
+        }
+
+        private static void GenerateDrawablesCore()
+        {
+
+            AppDomain domain = AppDomainHelper.CreateDomain();
+            DrawableApplicationProxy proxy = AppDomainHelper.CreateProxy<DrawableApplicationProxy>(domain);
+
+            proxy.GenerateDrawablesCore();
+
+            AppDomain.Unload(domain);
+        }
+
+        private static void GeneratePaths()
+        {
+            AppDomain domain = AppDomainHelper.CreateDomain();
+            DrawableApplicationProxy proxy = AppDomainHelper.CreateProxy<DrawableApplicationProxy>(domain);
+
+            proxy.GeneratePaths();
+
+            AppDomain.Unload(domain);
+        }
+
+        public static void Execute()
+        {
+            GenerateDrawables();
+            GenerateDrawablesCore();
+            GeneratePaths();
+        }
     }
-
-    private static void GenerateDrawablesCore()
-    {
-
-      AppDomain domain = AppDomainHelper.CreateDomain();
-      DrawableApplicationProxy proxy = AppDomainHelper.CreateProxy<DrawableApplicationProxy>(domain);
-
-      proxy.GenerateDrawablesCore();
-
-      AppDomain.Unload(domain);
-    }
-
-    private static void GeneratePaths()
-    {
-      AppDomain domain = AppDomainHelper.CreateDomain();
-      DrawableApplicationProxy proxy = AppDomainHelper.CreateProxy<DrawableApplicationProxy>(domain);
-
-      proxy.GeneratePaths();
-
-      AppDomain.Unload(domain);
-    }
-
-    public static void Execute()
-    {
-      GenerateDrawables();
-      GenerateDrawablesCore();
-      GeneratePaths();
-    }
-  }
 }

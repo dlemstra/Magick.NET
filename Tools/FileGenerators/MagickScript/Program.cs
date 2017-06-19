@@ -14,11 +14,11 @@
 
 namespace FileGenerator.MagickScript
 {
-  internal sealed class Program
-  {
-    internal static void Main()
+    internal sealed class Program
     {
-      ScriptAppDomainHelper.Execute();
+        internal static void Main()
+        {
+            ScriptAppDomainHelper.Execute();
+        }
     }
-  }
 }

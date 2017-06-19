@@ -17,24 +17,24 @@ using System.Reflection;
 
 namespace FileGenerator
 {
-  public static class AppDomainHelper
-  {
-    public static AppDomain CreateDomain()
+    public static class AppDomainHelper
     {
-      return AppDomain.CreateDomain("AppDomainHelper", null, new AppDomainSetup()
-      {
-        ApplicationName = "AppDomainHelper"
-      });
-    }
+        public static AppDomain CreateDomain()
+        {
+            return AppDomain.CreateDomain("AppDomainHelper", null, new AppDomainSetup()
+            {
+                ApplicationName = "AppDomainHelper"
+            });
+        }
 
-    public static TProxy CreateProxy<TProxy>(AppDomain domain)
-      where TProxy : ApplicationProxy
-    {
-      Type activator = typeof(TProxy);
-      TProxy proxy = domain.CreateInstanceAndUnwrap(
-            Assembly.GetAssembly(activator).FullName,
-            activator.ToString()) as TProxy;
-      return proxy;
+        public static TProxy CreateProxy<TProxy>(AppDomain domain)
+          where TProxy : ApplicationProxy
+        {
+            Type activator = typeof(TProxy);
+            TProxy proxy = domain.CreateInstanceAndUnwrap(
+                  Assembly.GetAssembly(activator).FullName,
+                  activator.ToString()) as TProxy;
+            return proxy;
+        }
     }
-  }
 }

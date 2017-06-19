@@ -19,94 +19,94 @@ using System.Reflection;
 
 namespace FileGenerator.MagickScript
 {
-  internal sealed class MagickImageCollectionGenerator : ExecuteCodeGenerator
-  {
-    private static bool ReturnsImage(MethodBase method)
+    internal sealed class MagickImageCollectionGenerator : ExecuteCodeGenerator
     {
-      return ((MethodInfo)method).ReturnType.Name == "IMagickImage";
+        private static bool ReturnsImage(MethodBase method)
+        {
+            return ((MethodInfo)method).ReturnType.Name == "IMagickImage";
+        }
+
+        protected override string ExecuteArgument
+        {
+            get
+            {
+                return "IMagickImageCollection collection";
+            }
+        }
+
+        protected override string ExecuteName
+        {
+            get
+            {
+                return "Collection";
+            }
+        }
+
+        protected override IEnumerable<MethodBase[]> Methods
+        {
+            get
+            {
+                return Types.GetGroupedMagickImageCollectionMethods().
+                      Concat(Types.GetGroupedMagickImageCollectionResultMethods());
+            }
+        }
+
+        protected override string ReturnType
+        {
+            get
+            {
+                return "IMagickImage";
+            }
+        }
+
+        protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
+        {
+            if (ReturnsImage(method))
+                Write("return ");
+
+            Write("collection.");
+            Write(method.Name);
+            Write("(");
+            WriteParameters(parameters);
+            WriteLine(");");
+
+            if (!ReturnsImage(method))
+                WriteLine("return null;");
+        }
+
+        protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
+        {
+            bool returnsImage = ReturnsImage(method);
+
+            if (returnsImage)
+                Write("return ");
+            else
+                WriteStartColon();
+
+            Write("collection.");
+            Write(method.Name);
+            Write("(");
+            WriteHashtableParameters(parameters);
+            WriteLine(");");
+
+            if (!ReturnsImage(method))
+            {
+                WriteLine("return null;");
+                WriteEndColon();
+            }
+        }
+
+        protected override void WriteSet(PropertyInfo property)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string Name
+        {
+            get
+            {
+                return "MagickImageCollection";
+            }
+        }
     }
-
-    protected override string ExecuteArgument
-    {
-      get
-      {
-        return "IMagickImageCollection collection";
-      }
-    }
-
-    protected override string ExecuteName
-    {
-      get
-      {
-        return "Collection";
-      }
-    }
-
-    protected override IEnumerable<MethodBase[]> Methods
-    {
-      get
-      {
-        return Types.GetGroupedMagickImageCollectionMethods().
-              Concat(Types.GetGroupedMagickImageCollectionResultMethods());
-      }
-    }
-
-    protected override string ReturnType
-    {
-      get
-      {
-        return "IMagickImage";
-      }
-    }
-
-    protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
-    {
-      if (ReturnsImage(method))
-        Write("return ");
-
-      Write("collection.");
-      Write(method.Name);
-      Write("(");
-      WriteParameters(parameters);
-      WriteLine(");");
-
-      if (!ReturnsImage(method))
-        WriteLine("return null;");
-    }
-
-    protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
-    {
-      bool returnsImage = ReturnsImage(method);
-
-      if (returnsImage)
-        Write("return ");
-      else
-        WriteStartColon();
-
-      Write("collection.");
-      Write(method.Name);
-      Write("(");
-      WriteHashtableParameters( parameters);
-      WriteLine(");");
-
-      if (!ReturnsImage(method))
-      {
-        WriteLine("return null;");
-        WriteEndColon();
-      }
-    }
-
-    protected override void WriteSet(PropertyInfo property)
-    {
-      throw new NotImplementedException();
-    }
-
-    public override string Name
-    {
-      get
-      {
-        return "MagickImageCollection";
-      }
-    }
-  }
 }

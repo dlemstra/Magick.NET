@@ -17,85 +17,85 @@ using System.Reflection;
 
 namespace FileGenerator.MagickScript
 {
-  internal sealed class MagickImageGenerator : ExecuteCodeGenerator
-  {
-    protected override string[] CustomMethods
+    internal sealed class MagickImageGenerator : ExecuteCodeGenerator
     {
-      get
-      {
-        return new string[] { "clone", "draw", "write" };
-      }
-    }
+        protected override string[] CustomMethods
+        {
+            get
+            {
+                return new string[] { "clone", "draw", "write" };
+            }
+        }
 
-    protected override string ExecuteArgument
-    {
-      get
-      {
-        return "IMagickImage image";
-      }
-    }
+        protected override string ExecuteArgument
+        {
+            get
+            {
+                return "IMagickImage image";
+            }
+        }
 
-    protected override string ExecuteName
-    {
-      get
-      {
-        return "Image";
-      }
-    }
+        protected override string ExecuteName
+        {
+            get
+            {
+                return "Image";
+            }
+        }
 
-    protected override IEnumerable<PropertyInfo> Properties
-    {
-      get
-      {
-        return Types.GetMagickImageProperties();
-      }
-    }
+        protected override IEnumerable<PropertyInfo> Properties
+        {
+            get
+            {
+                return Types.GetMagickImageProperties();
+            }
+        }
 
-    protected override IEnumerable<MethodBase[]> Methods
-    {
-      get
-      {
-        return Types.GetGroupedMagickImageMethods();
-      }
-    }
+        protected override IEnumerable<MethodBase[]> Methods
+        {
+            get
+            {
+                return Types.GetGroupedMagickImageMethods();
+            }
+        }
 
-    protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
-    {
-      Write("image.");
-      Write(method.Name);
-      Write("(");
-      WriteParameters(parameters);
-      WriteLine(");");
-    }
+        protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
+        {
+            Write("image.");
+            Write(method.Name);
+            Write("(");
+            WriteParameters(parameters);
+            WriteLine(");");
+        }
 
-    protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
-    {
-      Write("image.");
-      Write(method.Name);
-      Write("(");
-      WriteHashtableParameters(parameters);
-      WriteLine(");");
-    }
+        protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
+        {
+            Write("image.");
+            Write(method.Name);
+            Write("(");
+            WriteHashtableParameters(parameters);
+            WriteLine(");");
+        }
 
-    protected override void WriteSet(PropertyInfo property)
-    {
-      if (property.Name == "Settings")
-        WriteLine("ExecuteMagickSettings(element, image);");
-      else
-      {
-        Write("image.");
-        Write(property.Name);
-        Write(" = ");
-        WriteGetValue(property);
-      }
-    }
+        protected override void WriteSet(PropertyInfo property)
+        {
+            if (property.Name == "Settings")
+                WriteLine("ExecuteMagickSettings(element, image);");
+            else
+            {
+                Write("image.");
+                Write(property.Name);
+                Write(" = ");
+                WriteGetValue(property);
+            }
+        }
 
-    public override string Name
-    {
-      get
-      {
-        return "MagickImage";
-      }
+        public override string Name
+        {
+            get
+            {
+                return "MagickImage";
+            }
+        }
     }
-  }
 }

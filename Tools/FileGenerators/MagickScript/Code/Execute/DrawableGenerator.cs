@@ -18,53 +18,53 @@ using System.Reflection;
 
 namespace FileGenerator.MagickScript
 {
-  internal sealed class DrawableGenerator : ExecuteCodeGenerator
-  {
-    protected override string ExecuteArgument
+    internal sealed class DrawableGenerator : ExecuteCodeGenerator
     {
-      get
-      {
-        return "Collection<IDrawable> drawables";
-      }
-    }
+        protected override string ExecuteArgument
+        {
+            get
+            {
+                return "Collection<IDrawable> drawables";
+            }
+        }
 
-    protected override string ExecuteName
-    {
-      get
-      {
-        return "IDrawable";
-      }
-    }
+        protected override string ExecuteName
+        {
+            get
+            {
+                return "IDrawable";
+            }
+        }
 
-    protected override IEnumerable<MethodBase[]> Methods
-    {
-      get
-      {
-        return Types.GetDrawables();
-      }
-    }
+        protected override IEnumerable<MethodBase[]> Methods
+        {
+            get
+            {
+                return Types.GetDrawables();
+            }
+        }
 
-    protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
-    {
-      Write("drawables.Add(new ");
-      Write(method.DeclaringType.Name);
-      Write("(");
-      WriteParameters(parameters);
-      WriteLine("));");
-    }
+        protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
+        {
+            Write("drawables.Add(new ");
+            Write(method.DeclaringType.Name);
+            Write("(");
+            WriteParameters(parameters);
+            WriteLine("));");
+        }
 
-    protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
-    {
-      Write("drawables.Add(new ");
-      Write(method.DeclaringType.Name);
-      Write("(");
-      WriteHashtableParameters(parameters);
-      WriteLine("));");
-    }
+        protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
+        {
+            Write("drawables.Add(new ");
+            Write(method.DeclaringType.Name);
+            Write("(");
+            WriteHashtableParameters(parameters);
+            WriteLine("));");
+        }
 
-    protected override void WriteSet(PropertyInfo property)
-    {
-      throw new NotImplementedException();
+        protected override void WriteSet(PropertyInfo property)
+        {
+            throw new NotImplementedException();
+        }
     }
-  }
 }

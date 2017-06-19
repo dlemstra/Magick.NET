@@ -17,31 +17,31 @@ using System.Runtime.Serialization;
 
 namespace FileGenerator.Native
 {
-  [DataContract]
-  internal sealed class MagickCleanupMethod
-  {
-    [DataMember(Name = "arguments")]
-    private List<string> _Arguments = new List<string>();
-
-    [DataMember(Name = "name")]
-    public string Name
+    [DataContract]
+    internal sealed class MagickCleanupMethod
     {
-      get;
-      set;
-    }
+        [DataMember(Name = "arguments")]
+        private List<string> _Arguments = new List<string>();
 
-    public IEnumerable<string> Arguments
-    {
-      get
-      {
-        if (_Arguments != null)
+        [DataMember(Name = "name")]
+        public string Name
         {
-          foreach (var argument in _Arguments)
-          {
-            yield return argument;
-          }
+            get;
+            set;
         }
-      }
+
+        public IEnumerable<string> Arguments
+        {
+            get
+            {
+                if (_Arguments != null)
+                {
+                    foreach (var argument in _Arguments)
+                    {
+                        yield return argument;
+                    }
+                }
+            }
+        }
     }
-  }
 }

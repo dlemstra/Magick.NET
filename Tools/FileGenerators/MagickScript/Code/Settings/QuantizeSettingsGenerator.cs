@@ -14,14 +14,14 @@
 
 namespace FileGenerator.MagickScript
 {
-  internal sealed class QuantizeSettingsGenerator : CreateObjectCodeGenerator
-  {
-    public override string ClassName
+    internal sealed class QuantizeSettingsGenerator : CreateObjectCodeGenerator
     {
-      get
-      {
-        return "QuantizeSettings";
-      }
+        public override string ClassName
+        {
+            get
+            {
+                return "QuantizeSettings";
+            }
+        }
     }
-  }
 }

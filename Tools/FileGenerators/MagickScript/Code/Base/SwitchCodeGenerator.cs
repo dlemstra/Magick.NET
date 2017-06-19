@@ -18,112 +18,112 @@ using System.Linq;
 
 namespace FileGenerator.MagickScript
 {
-  internal abstract class SwitchCodeGenerator : ScriptCodeGenerator
-  {
-    private int _StartIndent;
-
-    private void WriteLengthCheck(IEnumerable<string> names, int level)
+    internal abstract class SwitchCodeGenerator : ScriptCodeGenerator
     {
-      string shortName = (from name in names
-                          where name.Length == level
-                          select name).FirstOrDefault();
-      if (shortName == null)
-        return;
+        private int _StartIndent;
 
-      Write("if (element.Name.Length == ");
-      Write(level);
-      WriteLine(")");
-      WriteStartColon();
-      WriteCase(shortName);
-      WriteEndColon();
-    }
-
-    private void WriteSwitch(IEnumerable<string> names, int level)
-    {
-      IEnumerable<char> chars = (from name in names
-                                 where name.Length > level
-                                 select name[level]).Distinct();
-
-
-      if (chars.Count() == 1 && names.Count() > 1)
-      {
-        WriteLengthCheck(names, level);
-        WriteSwitch(names, ++level);
-      }
-      else
-      {
-        WriteLengthCheck(names, level);
-
-        if (chars.Count() > 1)
+        private void WriteLengthCheck(IEnumerable<string> names, int level)
         {
-          Write("switch(element.Name[");
-          Write(level);
-          WriteLine("])");
-          WriteStartColon();
+            string shortName = (from name in names
+                                where name.Length == level
+                                select name).FirstOrDefault();
+            if (shortName == null)
+                return;
+
+            Write("if (element.Name.Length == ");
+            Write(level);
+            WriteLine(")");
+            WriteStartColon();
+            WriteCase(shortName);
+            WriteEndColon();
         }
 
-        foreach (char c in chars)
+        private void WriteSwitch(IEnumerable<string> names, int level)
         {
-          Write("case '");
-          Write(c);
-          WriteLine("':");
-          WriteStartColon();
+            IEnumerable<char> chars = (from name in names
+                                       where name.Length > level
+                                       select name[level]).Distinct();
 
-          IEnumerable<string> children = from name in names
-                                         where name.Length > level && name[level] == c
-                                         select name;
 
-          if (children.Count() == 1)
-            WriteCase(children.First());
-          else
-            WriteSwitch(children, level + 1);
+            if (chars.Count() == 1 && names.Count() > 1)
+            {
+                WriteLengthCheck(names, level);
+                WriteSwitch(names, ++level);
+            }
+            else
+            {
+                WriteLengthCheck(names, level);
 
-          WriteEndColon();
+                if (chars.Count() > 1)
+                {
+                    Write("switch(element.Name[");
+                    Write(level);
+                    WriteLine("])");
+                    WriteStartColon();
+                }
+
+                foreach (char c in chars)
+                {
+                    Write("case '");
+                    Write(c);
+                    WriteLine("':");
+                    WriteStartColon();
+
+                    IEnumerable<string> children = from name in names
+                                                   where name.Length > level && name[level] == c
+                                                   select name;
+
+                    if (children.Count() == 1)
+                        WriteCase(children.First());
+                    else
+                        WriteSwitch(children, level + 1);
+
+                    WriteEndColon();
+                }
+
+                if (chars.Count() > 1)
+                    WriteEndColon();
+
+                if (Indent != _StartIndent)
+                    WriteLine("break;");
+            }
         }
 
-        if (chars.Count() > 1)
-          WriteEndColon();
+        protected static bool HasStaticCreateMethod(string typeName)
+        {
+            switch (typeName)
+            {
+                case "Double[]":
+                case "PathArc":
+                case "IDefines":
+                case "IEnumerable<Double>":
+                case "IEnumerable<MagickGeometry>":
+                case "IEnumerable<IPath>":
+                case "IEnumerable<PathArc>":
+                case "IEnumerable<PointD>":
+                case "IEnumerable<SparseColorArg>":
+                case "ImageProfile":
+                case "IReadDefines":
+                case "IMagickImage":
+                case "MagickGeometry":
+                case "MontageSettings":
+                case "PixelStorageSettings":
+                case "QuantizeSettings":
+                    return false;
+                case "ColorProfile":
+                    return true;
+                default:
+                    throw new NotImplementedException("HasStaticCreateMethod: " + typeName);
+            }
+        }
 
-        if (Indent != _StartIndent)
-          WriteLine("break;");
-      }
+        protected void WriteSwitch(IEnumerable<string> names)
+        {
+            _StartIndent = Indent;
+            WriteSwitch(names, 0);
+            WriteLine("throw new NotSupportedException(element.Name);");
+        }
+
+        protected abstract void WriteCase(string name);
     }
-
-    protected static bool HasStaticCreateMethod(string typeName)
-    {
-      switch (typeName)
-      {
-        case "Double[]":
-        case "PathArc":
-        case "IDefines":
-        case "IEnumerable<Double>":
-        case "IEnumerable<MagickGeometry>":
-        case "IEnumerable<IPath>":
-        case "IEnumerable<PathArc>":
-        case "IEnumerable<PointD>":
-        case "IEnumerable<SparseColorArg>":
-        case "ImageProfile":
-        case "IReadDefines":
-        case "IMagickImage":
-        case "MagickGeometry":
-        case "MontageSettings":
-        case "PixelStorageSettings":
-        case "QuantizeSettings":
-          return false;
-        case "ColorProfile":
-          return true;
-        default:
-          throw new NotImplementedException("HasStaticCreateMethod: " + typeName);
-      }
-    }
-
-    protected void WriteSwitch(IEnumerable<string> names)
-    {
-      _StartIndent = Indent;
-      WriteSwitch(names, 0);
-      WriteLine("throw new NotSupportedException(element.Name);");
-    }
-
-    protected abstract void WriteCase(string name);
-  }
 }

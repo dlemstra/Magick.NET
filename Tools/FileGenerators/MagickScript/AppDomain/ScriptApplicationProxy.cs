@@ -16,21 +16,21 @@ using System;
 
 namespace FileGenerator.MagickScript
 {
-  internal sealed class ScriptApplicationProxy : ApplicationProxy
-  {
-    public void GenerateXsd(QuantumDepth depth)
+    internal sealed class ScriptApplicationProxy : ApplicationProxy
     {
-      AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
+        public void GenerateXsd(QuantumDepth depth)
+        {
+            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
 
-      XsdGenerator generator = new XsdGenerator(depth);
-      generator.Generate();
+            XsdGenerator generator = new XsdGenerator(depth);
+            generator.Generate();
+        }
+
+        public void GenerateCode()
+        {
+            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
+
+            MagickScriptGenerator.Generate();
+        }
     }
-
-    public void GenerateCode()
-    {
-      AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
-
-      MagickScriptGenerator.Generate();
-    }
-  }
 }

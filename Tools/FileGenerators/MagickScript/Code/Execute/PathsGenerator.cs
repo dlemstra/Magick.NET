@@ -18,54 +18,54 @@ using System.Reflection;
 
 namespace FileGenerator.MagickScript
 {
-  internal sealed class PathsGenerator : ExecuteCodeGenerator
-  {
-    protected override string ExecuteArgument
+    internal sealed class PathsGenerator : ExecuteCodeGenerator
     {
-      get
-      {
-        return "Collection<IPath> paths";
-      }
-    }
+        protected override string ExecuteArgument
+        {
+            get
+            {
+                return "Collection<IPath> paths";
+            }
+        }
 
-    protected override string ExecuteName
-    {
-      get
-      {
-        return "IPath";
-      }
-    }
+        protected override string ExecuteName
+        {
+            get
+            {
+                return "IPath";
+            }
+        }
 
-    protected override IEnumerable<MethodBase[]> Methods
-    {
-      get
-      {
-        return Types.GetPaths();
-      }
-    }
+        protected override IEnumerable<MethodBase[]> Methods
+        {
+            get
+            {
+                return Types.GetPaths();
+            }
+        }
 
-    protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
-    {
-      Write("paths.Add(new ");
-      Write(method.DeclaringType.Name);
-      Write("(");
-      WriteParameters(parameters);
+        protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
+        {
+            Write("paths.Add(new ");
+            Write(method.DeclaringType.Name);
+            Write("(");
+            WriteParameters(parameters);
 
-      WriteLine("));");
-    }
+            WriteLine("));");
+        }
 
-    protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
-    {
-      Write("paths.Add(new ");
-      Write(method.DeclaringType.Name);
-      Write("(");
-      WriteHashtableParameters(parameters);
-      WriteLine("));");
-    }
+        protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
+        {
+            Write("paths.Add(new ");
+            Write(method.DeclaringType.Name);
+            Write("(");
+            WriteHashtableParameters(parameters);
+            WriteLine("));");
+        }
 
-    protected override void WriteSet(PropertyInfo property)
-    {
-      throw new NotImplementedException();
+        protected override void WriteSet(PropertyInfo property)
+        {
+            throw new NotImplementedException();
+        }
     }
-  }
 }

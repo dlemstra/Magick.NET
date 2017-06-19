@@ -17,64 +17,64 @@ using System.Reflection;
 
 namespace FileGenerator.MagickScript
 {
-  internal sealed class MagickSettingsGenerator : ExecuteCodeGenerator
-  {
-    protected override string ExecuteArgument
+    internal sealed class MagickSettingsGenerator : ExecuteCodeGenerator
     {
-      get
-      {
-        return "MagickSettings settings";
-      }
-    }
+        protected override string ExecuteArgument
+        {
+            get
+            {
+                return "MagickSettings settings";
+            }
+        }
 
-    protected override string ExecuteName
-    {
-      get
-      {
-        return "MagickSettings";
-      }
-    }
+        protected override string ExecuteName
+        {
+            get
+            {
+                return "MagickSettings";
+            }
+        }
 
-    protected override IEnumerable<PropertyInfo> Properties
-    {
-      get
-      {
-        return Types.GetMagickSettingsProperties();
-      }
-    }
+        protected override IEnumerable<PropertyInfo> Properties
+        {
+            get
+            {
+                return Types.GetMagickSettingsProperties();
+            }
+        }
 
-    protected override IEnumerable<MethodBase[]> Methods
-    {
-      get
-      {
-        return Types.GetGroupedMagickSettingsMethods();
-      }
-    }
+        protected override IEnumerable<MethodBase[]> Methods
+        {
+            get
+            {
+                return Types.GetGroupedMagickSettingsMethods();
+            }
+        }
 
-    protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
-    {
-      Write("settings.");
-      Write(method.Name);
-      Write("(");
-      WriteParameters(parameters);
-      WriteLine(");");
-    }
+        protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
+        {
+            Write("settings.");
+            Write(method.Name);
+            Write("(");
+            WriteParameters(parameters);
+            WriteLine(");");
+        }
 
-    protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
-    {
-      Write("settings.");
-      Write(method.Name);
-      Write("(");
-      WriteHashtableParameters(parameters);
-      WriteLine(");");
-    }
+        protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
+        {
+            Write("settings.");
+            Write(method.Name);
+            Write("(");
+            WriteHashtableParameters(parameters);
+            WriteLine(");");
+        }
 
-    protected override void WriteSet(PropertyInfo property)
-    {
-      Write("settings.");
-      Write(property.Name);
-      Write(" = ");
-      WriteGetValue(property);
+        protected override void WriteSet(PropertyInfo property)
+        {
+            Write("settings.");
+            Write(property.Name);
+            Write(" = ");
+            WriteGetValue(property);
+        }
     }
-  }
 }

@@ -17,34 +17,34 @@ using System.Runtime.Serialization;
 
 namespace FileGenerator.Native
 {
-  [DataContract]
-  internal sealed class MagickConstructor
-  {
-    [DataMember(Name = "arguments")]
-    private List<MagickArgument> _Arguments = new List<MagickArgument>();
-
-    [DataMember(Name = "throws")]
-    public bool Throws
+    [DataContract]
+    internal sealed class MagickConstructor
     {
-      get;
-      set;
-    }
+        [DataMember(Name = "arguments")]
+        private List<MagickArgument> _Arguments = new List<MagickArgument>();
 
-    public IEnumerable<MagickArgument> Arguments
-    {
-      get
-      {
-        if (_Arguments == null)
-          yield break;
-
-        foreach (var argument in _Arguments)
+        [DataMember(Name = "throws")]
+        public bool Throws
         {
-          yield return argument;
+            get;
+            set;
         }
 
-        if (Throws)
-          yield return MagickArgument.CreateException();
-      }
+        public IEnumerable<MagickArgument> Arguments
+        {
+            get
+            {
+                if (_Arguments == null)
+                    yield break;
+
+                foreach (var argument in _Arguments)
+                {
+                    yield return argument;
+                }
+
+                if (Throws)
+                    yield return MagickArgument.CreateException();
+            }
+        }
     }
-  }
 }

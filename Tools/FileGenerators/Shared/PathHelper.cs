@@ -17,11 +17,11 @@ using System.IO;
 
 namespace FileGenerator
 {
-  public static class PathHelper
-  {
-    public static string GetFullPath(string path)
+    public static class PathHelper
     {
-      return Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\..\" + path);
+        public static string GetFullPath(string path)
+        {
+            return Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\..\" + path);
+        }
     }
-  }
 }

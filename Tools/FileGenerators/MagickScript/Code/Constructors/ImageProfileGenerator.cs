@@ -16,40 +16,40 @@ using System.Reflection;
 
 namespace FileGenerator.MagickScript
 {
-  internal sealed class ImageProfileGenerator : ConstructorCodeGenerator
-  {
-    protected override string ClassName
+    internal sealed class ImageProfileGenerator : ConstructorCodeGenerator
     {
-      get
-      {
-        return "ImageProfile";
-      }
-    }
+        protected override string ClassName
+        {
+            get
+            {
+                return "ImageProfile";
+            }
+        }
 
-    protected override bool WriteEnumerable
-    {
-      get
-      {
-        return false;
-      }
-    }
+        protected override bool WriteEnumerable
+        {
+            get
+            {
+                return false;
+            }
+        }
 
-    protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
-    {
-      Write("return new ");
-      Write(method.DeclaringType.Name);
-      Write("(");
-      WriteParameters(parameters);
-      WriteLine(");");
-    }
+        protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
+        {
+            Write("return new ");
+            Write(method.DeclaringType.Name);
+            Write("(");
+            WriteParameters(parameters);
+            WriteLine(");");
+        }
 
-    protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
-    {
-      Write("return new ");
-      Write(method.DeclaringType.Name);
-      Write("(");
-      WriteHashtableParameters(parameters);
-      WriteLine(");");
+        protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
+        {
+            Write("return new ");
+            Write(method.DeclaringType.Name);
+            Write("(");
+            WriteHashtableParameters(parameters);
+            WriteLine(");");
+        }
     }
-  }
 }

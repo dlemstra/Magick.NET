@@ -1,302 +1,302 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:simpleType name="var">
-    <xs:restriction base="xs:string">
-      <xs:pattern value="\{[$]([0-9a-zA-Z_-]{1,16})\}" />
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="bool">
-    <xs:union memberTypes="xs:boolean var"/>
-  </xs:simpleType>
-
-  <xs:simpleType name="byte">
-    <xs:union memberTypes="xs:unsignedByte var" />
-  </xs:simpleType>
-
-  <xs:simpleType name="double">
-    <xs:union memberTypes="xs:double var"/>
-  </xs:simpleType>
-
-  <xs:simpleType name="float">
-    <xs:union>
-      <xs:simpleType>
-        <xs:restriction base="xs:float">
-          <xs:minInclusive value="0" />
-          <xs:maxInclusive value="65535" />
+    <xs:simpleType name="var">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\{[$]([0-9a-zA-Z_-]{1,16})\}" />
         </xs:restriction>
-      </xs:simpleType>
-      <xs:simpleType>
-        <xs:restriction base="var" />
-      </xs:simpleType>
-    </xs:union>
-  </xs:simpleType>
+    </xs:simpleType>
 
-  <xs:simpleType name="short">
-    <xs:union memberTypes="xs:unsignedShort var"/>
-  </xs:simpleType>
+    <xs:simpleType name="bool">
+        <xs:union memberTypes="xs:boolean var"/>
+    </xs:simpleType>
 
-  <xs:simpleType name="int">
-    <xs:union memberTypes="xs:int var"/>
-  </xs:simpleType>
+    <xs:simpleType name="byte">
+        <xs:union memberTypes="xs:unsignedByte var" />
+    </xs:simpleType>
 
-  <xs:annotation id="color"/>
+    <xs:simpleType name="double">
+        <xs:union memberTypes="xs:double var"/>
+    </xs:simpleType>
 
-  <xs:annotation id="enums"/>
+    <xs:simpleType name="float">
+        <xs:union>
+            <xs:simpleType>
+                <xs:restriction base="xs:float">
+                    <xs:minInclusive value="0" />
+                    <xs:maxInclusive value="65535" />
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+                <xs:restriction base="var" />
+            </xs:simpleType>
+        </xs:union>
+    </xs:simpleType>
 
-  <xs:annotation id="colorProfile"/>
+    <xs:simpleType name="short">
+        <xs:union memberTypes="xs:unsignedShort var"/>
+    </xs:simpleType>
 
-  <xs:complexType name="colorProfile">
-    <xs:attribute name="name" type="ColorProfile"/>
-  </xs:complexType>
+    <xs:simpleType name="int">
+        <xs:union memberTypes="xs:int var"/>
+    </xs:simpleType>
 
-  <xs:annotation id="defines"/>
+    <xs:annotation id="color"/>
 
-  <xs:simpleType name="density">
-    <xs:restriction base="xs:string">
-      <xs:pattern value="((\d+x?\d*)|(\d*x\d+))( cm| inch)*"/>
-    </xs:restriction>
-  </xs:simpleType>
+    <xs:annotation id="enums"/>
 
-  <xs:complexType name="doubleArray">
-    <xs:sequence>
-      <xs:element name="value" type="xs:double" minOccurs="0" maxOccurs="unbounded"/>
-    </xs:sequence>
-    <xs:attribute name="variable" type="var" use="optional"/>
-  </xs:complexType>
+    <xs:annotation id="colorProfile"/>
 
-  <xs:complexType name="drawable">
-    <xs:group ref="drawables" />
-  </xs:complexType>
-
-  <xs:complexType name="drawables">
-    <xs:sequence>
-      <xs:group ref="drawables" maxOccurs="unbounded"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="empty">
-    <xs:complexContent>
-      <xs:restriction base="xs:anyType"/>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:simpleType name="geometry">
-    <xs:restriction base="xs:string">
-      <xs:pattern value="((\d+x?\d*)|(\d*x\d+))([+-]\d+[+-]\d+)?([\>\&lt;\@\%^!]{1,2})?"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:complexType name="geometries">
-    <xs:sequence>
-      <xs:element name="geometry" minOccurs="1">
-        <xs:complexType>
-          <xs:attribute name="value" type="geometry"/>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="iDefines">
-    <xs:group ref="iDefines" />
-  </xs:complexType>
-
-  <xs:complexType name="image">
-    <xs:sequence>
-      <xs:element name="readSettings" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:choice minOccurs="0" maxOccurs="unbounded">
-              <xs:annotation id="magickReadSettings"/>
-            </xs:choice>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:group ref="actions" />
-    </xs:sequence>
-    <xs:attribute name="fileName" type="xs:string"/>
-    <xs:attribute name="id" type="xs:string"/>
-  </xs:complexType>
-
-  <xs:complexType name="imageProfile">
-    <xs:annotation id="imageProfile"/>
-  </xs:complexType>
-
-  <xs:complexType name="iReadDefines">
-    <xs:group ref="iReadDefines" />
-  </xs:complexType>
-
-  <xs:complexType name="magickSettings">
-    <xs:sequence>
-      <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:annotation id="magickSettings"/>
-      </xs:choice>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="montageSettings">
-    <xs:annotation id="montageSettings"/>
-  </xs:complexType>
-
-  <xs:complexType name="paths">
-    <xs:sequence>
-      <xs:group ref="paths" maxOccurs="unbounded"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="pathArc">
-    <xs:annotation id="pathArc"/>
-  </xs:complexType>
-
-  <xs:complexType name="pathArcs">
-    <xs:sequence>
-      <xs:element name="coordinate" maxOccurs="unbounded" type="pathArc"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="pixelStorageSettings">
-    <xs:annotation id="pixelStorageSettings"/>
-  </xs:complexType>
-
-  <xs:complexType name="points">
-    <xs:sequence>
-      <xs:element name="pointd" maxOccurs="unbounded" type="pointd"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:simpleType name="pointd">
-    <xs:restriction base="xs:string">
-      <xs:pattern value="((\d+x?\d*)|(\d*x\d+))"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:complexType name="primaryInfo">
-    <xs:annotation id="primaryInfo"/>
-  </xs:complexType>
-
-  <xs:complexType name="profile">
-    <xs:sequence>
-      <xs:choice>
-        <xs:element name="imageProfile" type="imageProfile"/>
-        <xs:element name="colorProfile" type="colorProfile"/>
-      </xs:choice>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="quantizeSettings">
-    <xs:annotation id="quantizeSettings"/>
-  </xs:complexType>
-
-  <xs:complexType name="sparseColorArg">
-    <xs:annotation id="sparseColorArg"/>
-  </xs:complexType>
-
-  <xs:complexType name="sparseColorArgs">
-    <xs:sequence>
-      <xs:element name="sparseColorArg" maxOccurs="unbounded" type="sparseColorArg"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:group name="actions">
-    <xs:sequence>
-      <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:annotation id="image-actions"/>
-        <xs:element name="draw" type="drawables"/>
-        <xs:group ref="clone"/>
-      </xs:choice>
-      <xs:choice>
-        <xs:group ref="clone"/>
-        <xs:element name="write" minOccurs="0">
-          <xs:complexType>
-            <xs:attribute name="fileName" type="xs:string"/>
-            <xs:attribute name="id" type="xs:string"/>
-          </xs:complexType>
-        </xs:element>
-      </xs:choice>
-    </xs:sequence>
-  </xs:group>
-
-  <xs:group name="collection">
-    <xs:sequence>
-      <xs:element name="collection">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:group ref="read" minOccurs="2" maxOccurs="unbounded"/>
-            <xs:choice minOccurs="0" maxOccurs="unbounded">
-              <xs:annotation id="collection-actions"/>
-            </xs:choice>
-            <xs:element name="write" minOccurs="0">
-              <xs:complexType>
-                <xs:attribute name="fileName" use="required" type="xs:string" />
-              </xs:complexType>
-            </xs:element>
-            <xs:choice>
-              <xs:annotation id="collection-results"/>
-            </xs:choice>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:group>
-
-  <xs:group name="clone">
-    <xs:sequence>
-      <xs:element name="clone">
-        <xs:complexType>
-          <xs:group ref="actions"/>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:group>
-
-  <xs:group name="iDefines">
-    <xs:sequence>
-      <xs:choice>
-        <xs:annotation id="iDefines"/>
-      </xs:choice>
-    </xs:sequence>
-  </xs:group>
-
-  <xs:group name="drawables">
-    <xs:sequence>
-      <xs:choice>
-        <xs:annotation id="drawables"/>
-      </xs:choice>
-    </xs:sequence>
-  </xs:group>
-
-  <xs:group name="paths">
-    <xs:sequence>
-      <xs:choice>
-        <xs:annotation id="paths"/>
-      </xs:choice>
-    </xs:sequence>
-  </xs:group>
-
-  <xs:group name="read">
-    <xs:sequence>
-      <xs:element name="read" type="image"/>
-    </xs:sequence>
-  </xs:group>
-
-  <xs:group name="iReadDefines">
-    <xs:sequence>
-      <xs:choice>
-        <xs:annotation id="iReadDefines"/>
-      </xs:choice>
-    </xs:sequence>
-  </xs:group>
-
-  <xs:element name="msl">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:choice>
-          <xs:group ref="read"/>
-          <xs:group ref="collection"/>
-        </xs:choice>
-      </xs:sequence>
+    <xs:complexType name="colorProfile">
+        <xs:attribute name="name" type="ColorProfile"/>
     </xs:complexType>
-  </xs:element>
+
+    <xs:annotation id="defines"/>
+
+    <xs:simpleType name="density">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="((\d+x?\d*)|(\d*x\d+))( cm| inch)*"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="doubleArray">
+        <xs:sequence>
+            <xs:element name="value" type="xs:double" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="variable" type="var" use="optional"/>
+    </xs:complexType>
+
+    <xs:complexType name="drawable">
+        <xs:group ref="drawables" />
+    </xs:complexType>
+
+    <xs:complexType name="drawables">
+        <xs:sequence>
+            <xs:group ref="drawables" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="empty">
+        <xs:complexContent>
+            <xs:restriction base="xs:anyType"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:simpleType name="geometry">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="((\d+x?\d*)|(\d*x\d+))([+-]\d+[+-]\d+)?([\>\&lt;\@\%^!]{1,2})?"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="geometries">
+        <xs:sequence>
+            <xs:element name="geometry" minOccurs="1">
+                <xs:complexType>
+                    <xs:attribute name="value" type="geometry"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="iDefines">
+        <xs:group ref="iDefines" />
+    </xs:complexType>
+
+    <xs:complexType name="image">
+        <xs:sequence>
+            <xs:element name="readSettings" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:choice minOccurs="0" maxOccurs="unbounded">
+                            <xs:annotation id="magickReadSettings"/>
+                        </xs:choice>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:group ref="actions" />
+        </xs:sequence>
+        <xs:attribute name="fileName" type="xs:string"/>
+        <xs:attribute name="id" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="imageProfile">
+        <xs:annotation id="imageProfile"/>
+    </xs:complexType>
+
+    <xs:complexType name="iReadDefines">
+        <xs:group ref="iReadDefines" />
+    </xs:complexType>
+
+    <xs:complexType name="magickSettings">
+        <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation id="magickSettings"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="montageSettings">
+        <xs:annotation id="montageSettings"/>
+    </xs:complexType>
+
+    <xs:complexType name="paths">
+        <xs:sequence>
+            <xs:group ref="paths" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="pathArc">
+        <xs:annotation id="pathArc"/>
+    </xs:complexType>
+
+    <xs:complexType name="pathArcs">
+        <xs:sequence>
+            <xs:element name="coordinate" maxOccurs="unbounded" type="pathArc"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="pixelStorageSettings">
+        <xs:annotation id="pixelStorageSettings"/>
+    </xs:complexType>
+
+    <xs:complexType name="points">
+        <xs:sequence>
+            <xs:element name="pointd" maxOccurs="unbounded" type="pointd"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="pointd">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="((\d+x?\d*)|(\d*x\d+))"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="primaryInfo">
+        <xs:annotation id="primaryInfo"/>
+    </xs:complexType>
+
+    <xs:complexType name="profile">
+        <xs:sequence>
+            <xs:choice>
+                <xs:element name="imageProfile" type="imageProfile"/>
+                <xs:element name="colorProfile" type="colorProfile"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="quantizeSettings">
+        <xs:annotation id="quantizeSettings"/>
+    </xs:complexType>
+
+    <xs:complexType name="sparseColorArg">
+        <xs:annotation id="sparseColorArg"/>
+    </xs:complexType>
+
+    <xs:complexType name="sparseColorArgs">
+        <xs:sequence>
+            <xs:element name="sparseColorArg" maxOccurs="unbounded" type="sparseColorArg"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:group name="actions">
+        <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation id="image-actions"/>
+                <xs:element name="draw" type="drawables"/>
+                <xs:group ref="clone"/>
+            </xs:choice>
+            <xs:choice>
+                <xs:group ref="clone"/>
+                <xs:element name="write" minOccurs="0">
+                    <xs:complexType>
+                        <xs:attribute name="fileName" type="xs:string"/>
+                        <xs:attribute name="id" type="xs:string"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:choice>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:group name="collection">
+        <xs:sequence>
+            <xs:element name="collection">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="read" minOccurs="2" maxOccurs="unbounded"/>
+                        <xs:choice minOccurs="0" maxOccurs="unbounded">
+                            <xs:annotation id="collection-actions"/>
+                        </xs:choice>
+                        <xs:element name="write" minOccurs="0">
+                            <xs:complexType>
+                                <xs:attribute name="fileName" use="required" type="xs:string" />
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:choice>
+                            <xs:annotation id="collection-results"/>
+                        </xs:choice>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:group name="clone">
+        <xs:sequence>
+            <xs:element name="clone">
+                <xs:complexType>
+                    <xs:group ref="actions"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:group name="iDefines">
+        <xs:sequence>
+            <xs:choice>
+                <xs:annotation id="iDefines"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:group name="drawables">
+        <xs:sequence>
+            <xs:choice>
+                <xs:annotation id="drawables"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:group name="paths">
+        <xs:sequence>
+            <xs:choice>
+                <xs:annotation id="paths"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:group name="read">
+        <xs:sequence>
+            <xs:element name="read" type="image"/>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:group name="iReadDefines">
+        <xs:sequence>
+            <xs:choice>
+                <xs:annotation id="iReadDefines"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:element name="msl">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice>
+                    <xs:group ref="read"/>
+                    <xs:group ref="collection"/>
+                </xs:choice>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
 </xs:schema>

@@ -18,77 +18,77 @@ using System.Reflection;
 
 namespace FileGenerator.MagickScript
 {
-  internal abstract class InterfaceCodeGenerator : SwitchCodeGenerator
-  {
-    private InterfaceGenerator[] _InterfaceGenerators;
-
-    private InterfaceGenerator[] InterfaceGenerators
+    internal abstract class InterfaceCodeGenerator : SwitchCodeGenerator
     {
-      get
-      {
-        if (_InterfaceGenerators == null)
-          _InterfaceGenerators = (from type in Types.GetInterfaceTypes(ClassName)
-                                  select new InterfaceGenerator(this, ClassName, type.Name)).ToArray();
+        private InterfaceGenerator[] _InterfaceGenerators;
 
-        return _InterfaceGenerators;
-      }
+        private InterfaceGenerator[] InterfaceGenerators
+        {
+            get
+            {
+                if (_InterfaceGenerators == null)
+                    _InterfaceGenerators = (from type in Types.GetInterfaceTypes(ClassName)
+                                            select new InterfaceGenerator(this, ClassName, type.Name)).ToArray();
+
+                return _InterfaceGenerators;
+            }
+        }
+
+        private void WriteCode(string className)
+        {
+            Write("private ");
+            Write(className);
+            Write(" Create");
+            Write(className);
+            WriteLine("(XmlElement parent)");
+            WriteStartColon();
+            WriteCheckNull("parent");
+            WriteLine("XmlElement element = (XmlElement)parent.FirstChild;");
+            WriteCheckNull("element");
+            WriteSwitch(from type in Types.GetInterfaceTypes(className)
+                        select MagickScriptTypes.GetXsdName(type));
+            WriteEndColon();
+        }
+
+        protected abstract string ClassName
+        {
+            get;
+        }
+
+        protected override void WriteCase(string name)
+        {
+            Write("return Create");
+            Write(name[0].ToString().ToUpperInvariant());
+            Write(name.Substring(1));
+            WriteLine("(element);");
+        }
+
+        protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteCode()
+        {
+            WriteCode(ClassName);
+
+            foreach (InterfaceGenerator generator in InterfaceGenerators)
+            {
+                generator.WriteCode(Types);
+            }
+        }
+
+        protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string Name
+        {
+            get
+            {
+                return ClassName;
+            }
+        }
     }
-
-    private void WriteCode(string className)
-    {
-      Write("private ");
-      Write(className);
-      Write(" Create");
-      Write(className);
-      WriteLine("(XmlElement parent)");
-      WriteStartColon();
-      WriteCheckNull("parent");
-      WriteLine("XmlElement element = (XmlElement)parent.FirstChild;");
-      WriteCheckNull("element");
-      WriteSwitch(from type in Types.GetInterfaceTypes(className)
-                  select MagickScriptTypes.GetXsdName(type));
-      WriteEndColon();
-    }
-
-    protected abstract string ClassName
-    {
-      get;
-    }
-
-    protected override void WriteCase(string name)
-    {
-      Write("return Create");
-      Write(name[0].ToString().ToUpperInvariant());
-      Write(name.Substring(1));
-      WriteLine("(element);");
-    }
-
-    protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
-    {
-      throw new NotImplementedException();
-    }
-
-    protected override void WriteCode()
-    {
-      WriteCode(ClassName);
-
-      foreach (InterfaceGenerator generator in InterfaceGenerators)
-      {
-        generator.WriteCode(Types);
-      }
-    }
-
-    protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
-    {
-      throw new NotImplementedException();
-    }
-
-    public override string Name
-    {
-      get
-      {
-        return ClassName;
-      }
-    }
-  }
 }

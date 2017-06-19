@@ -17,45 +17,45 @@ using System.Runtime.Serialization;
 
 namespace FileGenerator.Native
 {
-  [DataContract]
-  internal sealed class MagickDelegate
-  {
-    [DataMember(Name = "arguments")]
-    private List<MagickArgument> _Arguments = new List<MagickArgument>();
-
-    [OnDeserialized]
-    private void Deserialized(StreamingContext context)
+    [DataContract]
+    internal sealed class MagickDelegate
     {
-      if (string.IsNullOrEmpty(Type))
-        Type = "void";
-    }
+        [DataMember(Name = "arguments")]
+        private List<MagickArgument> _Arguments = new List<MagickArgument>();
 
-    public IEnumerable<MagickArgument> Arguments
-    {
-      get
-      {
-        if (_Arguments != null)
+        [OnDeserialized]
+        private void Deserialized(StreamingContext context)
         {
-          foreach (var argument in _Arguments)
-          {
-            yield return argument;
-          }
+            if (string.IsNullOrEmpty(Type))
+                Type = "void";
         }
-      }
-    }
 
-    [DataMember(Name = "name")]
-    public string Name
-    {
-      get;
-      set;
-    }
+        public IEnumerable<MagickArgument> Arguments
+        {
+            get
+            {
+                if (_Arguments != null)
+                {
+                    foreach (var argument in _Arguments)
+                    {
+                        yield return argument;
+                    }
+                }
+            }
+        }
 
-    [DataMember(Name = "type")]
-    public string Type
-    {
-      get;
-      set;
+        [DataMember(Name = "name")]
+        public string Name
+        {
+            get;
+            set;
+        }
+
+        [DataMember(Name = "type")]
+        public string Type
+        {
+            get;
+            set;
+        }
     }
-  }
 }

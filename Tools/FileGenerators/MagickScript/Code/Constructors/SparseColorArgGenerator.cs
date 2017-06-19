@@ -16,28 +16,28 @@ using System.Reflection;
 
 namespace FileGenerator.MagickScript
 {
-  internal sealed class SparseColorArg : ConstructorCodeGenerator
-  {
-    protected override string ClassName
+    internal sealed class SparseColorArg : ConstructorCodeGenerator
     {
-      get
-      {
-        return "SparseColorArg";
-      }
-    }
+        protected override string ClassName
+        {
+            get
+            {
+                return "SparseColorArg";
+            }
+        }
 
-    protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
-    {
-      Write("return new SparseColorArg(");
-      WriteParameters(parameters);
-      WriteLine(");");
-    }
+        protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
+        {
+            Write("return new SparseColorArg(");
+            WriteParameters(parameters);
+            WriteLine(");");
+        }
 
-    protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
-    {
-      Write("return new SparseColorArg(");
-      WriteHashtableParameters(parameters);
-      WriteLine(");");
+        protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
+        {
+            Write("return new SparseColorArg(");
+            WriteHashtableParameters(parameters);
+            WriteLine(");");
+        }
     }
-  }
 }

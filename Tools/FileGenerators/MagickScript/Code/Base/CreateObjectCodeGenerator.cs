@@ -18,163 +18,163 @@ using System.Reflection;
 
 namespace FileGenerator.MagickScript
 {
-  internal abstract class CreateObjectCodeGenerator : ScriptCodeGenerator
-  {
-    private MethodBase[] Methods
+    internal abstract class CreateObjectCodeGenerator : ScriptCodeGenerator
     {
-      get
-      {
-        return Types.GetMethods(ClassName).ToArray();
-      }
-    }
-
-    private PropertyInfo[] Properties
-    {
-      get
-      {
-        return Types.GetProperties(ClassName).ToArray();
-      }
-    }
-
-    private void WriteCallMethods()
-    {
-      foreach (MethodBase method in Methods)
-      {
-        string xsdMethodName = MagickScriptTypes.GetXsdName(method);
-        ParameterInfo[] parameters = method.GetParameters();
-
-        Write("XmlElement ");
-        Write(xsdMethodName);
-        Write(" = (XmlElement)element.SelectSingleNode(\"");
-        Write(xsdMethodName);
-        WriteLine("\");");
-
-        Write("if (");
-        Write(xsdMethodName);
-        WriteLine(" != null)");
-        WriteStartColon();
-
-        foreach (ParameterInfo parameter in parameters)
+        private MethodBase[] Methods
         {
-          string typeName = GetName(parameter);
-
-          Write(typeName);
-          Write(" ");
-          Write(parameter.Name);
-          Write("_ = XmlHelper.GetAttribute<");
-          Write(typeName);
-          Write(">(");
-          Write(xsdMethodName);
-          Write(", \"");
-          Write(parameter.Name);
-          WriteLine("\");");
+            get
+            {
+                return Types.GetMethods(ClassName).ToArray();
+            }
         }
 
-        Write("result.");
-        Write(method.Name);
-        Write("(");
-
-        for (int i = 0; i < parameters.Length; i++)
+        private PropertyInfo[] Properties
         {
-          if (i > 0)
-            Write(",");
-
-          Write(parameters[i].Name);
-          Write("_");
+            get
+            {
+                return Types.GetProperties(ClassName).ToArray();
+            }
         }
 
-        WriteLine(");");
-        WriteEndColon();
-      }
-    }
+        private void WriteCallMethods()
+        {
+            foreach (MethodBase method in Methods)
+            {
+                string xsdMethodName = MagickScriptTypes.GetXsdName(method);
+                ParameterInfo[] parameters = method.GetParameters();
 
-    private void WriteGetValue(PropertyInfo property)
-    {
-      string typeName = GetName(property);
-      string xsdTypeName = MagickScriptTypes.GetXsdAttributeType(property);
+                Write("XmlElement ");
+                Write(xsdMethodName);
+                Write(" = (XmlElement)element.SelectSingleNode(\"");
+                Write(xsdMethodName);
+                WriteLine("\");");
 
-      if (xsdTypeName != null)
-      {
-        WriteGetElementValue(typeName, MagickScriptTypes.GetXsdName(property));
-      }
-      else
-      {
-        WriteCreateMethod(typeName);
-        Write("(");
-        WriteSelectElement(typeName, MagickScriptTypes.GetXsdName(property));
-        WriteLine(");");
-      }
-    }
+                Write("if (");
+                Write(xsdMethodName);
+                WriteLine(" != null)");
+                WriteStartColon();
 
-    private void WriteSetProperties()
-    {
-      foreach (PropertyInfo property in Properties)
-      {
-        Write("result.");
-        Write(property.Name);
-        Write(" = ");
-        WriteGetValue(property);
-      }
-    }
+                foreach (ParameterInfo parameter in parameters)
+                {
+                    string typeName = GetName(parameter);
 
-    protected CreateObjectCodeGenerator()
-      : base()
-    {
-    }
+                    Write(typeName);
+                    Write(" ");
+                    Write(parameter.Name);
+                    Write("_ = XmlHelper.GetAttribute<");
+                    Write(typeName);
+                    Write(">(");
+                    Write(xsdMethodName);
+                    Write(", \"");
+                    Write(parameter.Name);
+                    WriteLine("\");");
+                }
 
-    protected CreateObjectCodeGenerator(CodeGenerator parent)
-      : base(parent)
-    {
-    }
+                Write("result.");
+                Write(method.Name);
+                Write("(");
 
-    protected virtual string ReturnType
-    {
-      get
-      {
-        return ClassName;
-      }
-    }
+                for (int i = 0; i < parameters.Length; i++)
+                {
+                    if (i > 0)
+                        Write(",");
 
-    protected override void WriteCode()
-    {
-      Write("private ");
-      Write(ReturnType);
-      Write(" Create");
-      Write(ClassName);
-      WriteLine("(XmlElement element)");
-      WriteStartColon();
-      WriteCheckNull("element");
-      Write(ClassName);
-      Write(" result = new ");
-      Write(ClassName);
-      WriteLine("();");
-      WriteSetProperties();
-      WriteCallMethods();
-      WriteLine("return result;");
-      WriteEndColon();
-    }
+                    Write(parameters[i].Name);
+                    Write("_");
+                }
 
-    protected sealed override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
-    {
-      throw new NotImplementedException();
-    }
+                WriteLine(");");
+                WriteEndColon();
+            }
+        }
 
-    protected sealed override void WriteCall(MethodBase method, ParameterInfo[] parameters)
-    {
-      throw new NotImplementedException();
-    }
+        private void WriteGetValue(PropertyInfo property)
+        {
+            string typeName = GetName(property);
+            string xsdTypeName = MagickScriptTypes.GetXsdAttributeType(property);
 
-    public abstract string ClassName
-    {
-      get;
-    }
+            if (xsdTypeName != null)
+            {
+                WriteGetElementValue(typeName, MagickScriptTypes.GetXsdName(property));
+            }
+            else
+            {
+                WriteCreateMethod(typeName);
+                Write("(");
+                WriteSelectElement(typeName, MagickScriptTypes.GetXsdName(property));
+                WriteLine(");");
+            }
+        }
 
-    public override string Name
-    {
-      get
-      {
-        return ClassName;
-      }
+        private void WriteSetProperties()
+        {
+            foreach (PropertyInfo property in Properties)
+            {
+                Write("result.");
+                Write(property.Name);
+                Write(" = ");
+                WriteGetValue(property);
+            }
+        }
+
+        protected CreateObjectCodeGenerator()
+          : base()
+        {
+        }
+
+        protected CreateObjectCodeGenerator(CodeGenerator parent)
+          : base(parent)
+        {
+        }
+
+        protected virtual string ReturnType
+        {
+            get
+            {
+                return ClassName;
+            }
+        }
+
+        protected override void WriteCode()
+        {
+            Write("private ");
+            Write(ReturnType);
+            Write(" Create");
+            Write(ClassName);
+            WriteLine("(XmlElement element)");
+            WriteStartColon();
+            WriteCheckNull("element");
+            Write(ClassName);
+            Write(" result = new ");
+            Write(ClassName);
+            WriteLine("();");
+            WriteSetProperties();
+            WriteCallMethods();
+            WriteLine("return result;");
+            WriteEndColon();
+        }
+
+        protected sealed override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected sealed override void WriteCall(MethodBase method, ParameterInfo[] parameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public abstract string ClassName
+        {
+            get;
+        }
+
+        public override string Name
+        {
+            get
+            {
+                return ClassName;
+            }
+        }
     }
-  }
 }

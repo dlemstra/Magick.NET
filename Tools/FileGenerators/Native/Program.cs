@@ -14,11 +14,11 @@
 
 namespace FileGenerator.Native
 {
-  internal sealed class Program
-  {
-    internal static void Main()
+    internal sealed class Program
     {
-      NativeGenerator.Create();
+        internal static void Main()
+        {
+            NativeGenerator.Create();
+        }
     }
-  }
 }

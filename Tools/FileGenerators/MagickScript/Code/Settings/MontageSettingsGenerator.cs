@@ -14,14 +14,14 @@
 
 namespace FileGenerator.MagickScript
 {
-  internal sealed class MontageSettingsGenerator : CreateObjectCodeGenerator
-  {
-    public override string ClassName
+    internal sealed class MontageSettingsGenerator : CreateObjectCodeGenerator
     {
-      get
-      {
-        return "MontageSettings";
-      }
+        public override string ClassName
+        {
+            get
+            {
+                return "MontageSettings";
+            }
+        }
     }
-  }
 }

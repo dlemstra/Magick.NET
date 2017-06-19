@@ -17,166 +17,166 @@ using System.Runtime.Serialization;
 
 namespace FileGenerator.Native
 {
-  internal sealed class MagickType
-  {
-    private string _Type;
-    private bool _IsEnum;
-
-    private bool _NeedsTypeCast
+    internal sealed class MagickType
     {
-      get
-      {
-        if (_Type == "Instance" || HasInstance || IsString)
-          return false;
+        private string _Type;
+        private bool _IsEnum;
 
-        return _Type != Native || _Type != Managed;
-      }
-    }
-
-    public string GetNativeType(string type)
-    {
-      if (_Type == "void")
-        return "void";
-
-      if (_Type == "nativeString" || _Type == "string")
-        return "IntPtr";
-
-      if (_IsEnum || _Type == "size_t")
-        return "UIntPtr";
-
-      if (_Type == "ssize_t" || _Type == "Instance" || _Type == "voidInstance" || HasInstance)
-        return "IntPtr";
-
-      return type;
-    }
-
-    public string GetManagedType(string type)
-    {
-      if (type == "size_t" || type == "ssize_t")
-        return "int";
-
-      if (_Type == "voidInstance")
-        return "void";
-
-      if (_Type == "Instance")
-        return "IntPtr";
-
-      if (_Type == "nativeString")
-        return "string";
-
-      return type;
-    }
-
-    public MagickType(string type)
-    {
-      _Type = !string.IsNullOrEmpty(type) ? type : "void";
-      _IsEnum = File.Exists(PathHelper.GetFullPath(@"\Source\Magick.NET\Shared\Enums\" + type + ".cs"));
-    }
-
-    public bool HasInstance
-    {
-      get
-      {
-        if (_Type.EndsWith("Delegate"))
-          return false;
-
-        switch (_Type)
+        private bool _NeedsTypeCast
         {
-          case "byte":
-          case "byte[]":
-          case "bool":
-          case "double":
-          case "double[]":
-          case "Instance":
-          case "long":
-          case "QuantumType":
-          case "QuantumType[]":
-          case "size_t":
-          case "ssize_t":
-          case "string":
-          case "ulong":
-            return false;
-          default:
-            return !_IsEnum;
+            get
+            {
+                if (_Type == "Instance" || HasInstance || IsString)
+                    return false;
+
+                return _Type != Native || _Type != Managed;
+            }
         }
-      }
+
+        public string GetNativeType(string type)
+        {
+            if (_Type == "void")
+                return "void";
+
+            if (_Type == "nativeString" || _Type == "string")
+                return "IntPtr";
+
+            if (_IsEnum || _Type == "size_t")
+                return "UIntPtr";
+
+            if (_Type == "ssize_t" || _Type == "Instance" || _Type == "voidInstance" || HasInstance)
+                return "IntPtr";
+
+            return type;
+        }
+
+        public string GetManagedType(string type)
+        {
+            if (type == "size_t" || type == "ssize_t")
+                return "int";
+
+            if (_Type == "voidInstance")
+                return "void";
+
+            if (_Type == "Instance")
+                return "IntPtr";
+
+            if (_Type == "nativeString")
+                return "string";
+
+            return type;
+        }
+
+        public MagickType(string type)
+        {
+            _Type = !string.IsNullOrEmpty(type) ? type : "void";
+            _IsEnum = File.Exists(PathHelper.GetFullPath(@"\Source\Magick.NET\Shared\Enums\" + type + ".cs"));
+        }
+
+        public bool HasInstance
+        {
+            get
+            {
+                if (_Type.EndsWith("Delegate"))
+                    return false;
+
+                switch (_Type)
+                {
+                    case "byte":
+                    case "byte[]":
+                    case "bool":
+                    case "double":
+                    case "double[]":
+                    case "Instance":
+                    case "long":
+                    case "QuantumType":
+                    case "QuantumType[]":
+                    case "size_t":
+                    case "ssize_t":
+                    case "string":
+                    case "ulong":
+                        return false;
+                    default:
+                        return !_IsEnum;
+                }
+            }
+        }
+
+        public bool IsBool
+        {
+            get
+            {
+                return Managed == "bool";
+            }
+        }
+
+        public bool IsNativeString
+        {
+            get
+            {
+                return _Type == "nativeString";
+            }
+        }
+
+        public bool IsString
+        {
+            get
+            {
+                return _Type == "string";
+            }
+        }
+
+        public bool IsVoid
+        {
+            get
+            {
+                return _Type == "void" || _Type == "voidInstance";
+            }
+        }
+
+        public string Managed
+        {
+            get
+            {
+                return GetManagedType(_Type);
+            }
+        }
+
+        public string ManagedTypeCast
+        {
+            get
+            {
+                if (_NeedsTypeCast)
+                    return "(" + Managed + ")";
+
+                return "";
+            }
+        }
+
+        [DataMember(Name = "name")]
+        public string Name
+        {
+            get;
+            set;
+        }
+
+        public string Native
+        {
+            get
+            {
+                return GetNativeType(_Type);
+            }
+        }
+
+        public string NativeTypeCast
+        {
+            get
+            {
+                if (_NeedsTypeCast)
+                    return "(" + Native + ")";
+
+                return "";
+            }
+        }
     }
-
-    public bool IsBool
-    {
-      get
-      {
-        return Managed == "bool";
-      }
-    }
-
-    public bool IsNativeString
-    {
-      get
-      {
-        return _Type == "nativeString";
-      }
-    }
-
-    public bool IsString
-    {
-      get
-      {
-        return _Type == "string";
-      }
-    }
-
-    public bool IsVoid
-    {
-      get
-      {
-        return _Type == "void" || _Type == "voidInstance";
-      }
-    }
-
-    public string Managed
-    {
-      get
-      {
-        return GetManagedType(_Type);
-      }
-    }
-
-    public string ManagedTypeCast
-    {
-      get
-      {
-        if (_NeedsTypeCast)
-          return "(" + Managed + ")";
-
-        return "";
-      }
-    }
-
-    [DataMember(Name = "name")]
-    public string Name
-    {
-      get;
-      set;
-    }
-
-    public string Native
-    {
-      get
-      {
-        return GetNativeType(_Type);
-      }
-    }
-
-    public string NativeTypeCast
-    {
-      get
-      {
-        if (_NeedsTypeCast)
-          return "(" + Native + ")";
-
-        return "";
-      }
-    }
-  }
 }

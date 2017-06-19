@@ -14,32 +14,32 @@
 
 namespace FileGenerator.MagickScript
 {
-  internal sealed class InterfaceGenerator : CreateObjectCodeGenerator
-  {
-    private string _ClassName;
-    private string _ReturnType;
-
-    protected override string ReturnType
+    internal sealed class InterfaceGenerator : CreateObjectCodeGenerator
     {
-      get
-      {
-        return _ReturnType;
-      }
-    }
+        private string _ClassName;
+        private string _ReturnType;
 
-    public InterfaceGenerator(CodeGenerator parent, string interfaceName, string className)
-      : base(parent)
-    {
-      _ClassName = className;
-      _ReturnType = interfaceName;
-    }
+        protected override string ReturnType
+        {
+            get
+            {
+                return _ReturnType;
+            }
+        }
 
-    public override string ClassName
-    {
-      get
-      {
-        return _ClassName;
-      }
+        public InterfaceGenerator(CodeGenerator parent, string interfaceName, string className)
+          : base(parent)
+        {
+            _ClassName = className;
+            _ReturnType = interfaceName;
+        }
+
+        public override string ClassName
+        {
+            get
+            {
+                return _ClassName;
+            }
+        }
     }
-  }
 }

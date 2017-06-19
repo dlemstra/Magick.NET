@@ -14,11 +14,11 @@
 
 namespace FileGenerator.Drawables
 {
-  internal sealed class Program
-  {
-    internal static void Main()
+    internal sealed class Program
     {
-      DrawableAppDomainHelper.Execute();
+        internal static void Main()
+        {
+            DrawableAppDomainHelper.Execute();
+        }
     }
-  }
 }

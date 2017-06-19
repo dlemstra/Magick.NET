@@ -16,92 +16,92 @@ using System.IO;
 
 namespace FileGenerator.MagickScript
 {
-  internal sealed class MagickScriptGenerator
-  {
-    private string _OutputFolder;
-    private MagickScriptTypes _Types;
-
-    private MagickScriptGenerator()
+    internal sealed class MagickScriptGenerator
     {
-      _OutputFolder = SetOutputFolder(@"Source\Magick.NET\Shared\Script\Generated");
-      _Types = new MagickScriptTypes(QuantumDepth.Q16HDRI);
+        private string _OutputFolder;
+        private MagickScriptTypes _Types;
+
+        private MagickScriptGenerator()
+        {
+            _OutputFolder = SetOutputFolder(@"Source\Magick.NET\Shared\Script\Generated");
+            _Types = new MagickScriptTypes(QuantumDepth.Q16HDRI);
+        }
+
+        private void Cleanup()
+        {
+            foreach (string fileName in Directory.GetFiles(_OutputFolder))
+            {
+                File.Delete(fileName);
+            }
+        }
+
+        private void CreateCodeFile(ScriptCodeGenerator generator)
+        {
+            string outputFile = Path.GetFullPath(_OutputFolder + @"\" + generator.Name + ".cs");
+            generator.CreateWriter(outputFile);
+            generator.Write(_Types);
+            generator.CloseWriter();
+        }
+
+        private static string SetOutputFolder(string outputFolder)
+        {
+            string result = PathHelper.GetFullPath(outputFolder);
+            if (result[result.Length - 1] != '\\')
+                result += "\\";
+
+            return result;
+        }
+
+        private void WriteCollection()
+        {
+            CreateCodeFile(new CollectionGenerator());
+        }
+
+        private void WriteConstructors()
+        {
+            CreateCodeFile(new ColorProfileGenerator());
+            CreateCodeFile(new ImageProfileGenerator());
+            CreateCodeFile(new PathArcGenerator());
+            CreateCodeFile(new PointDGenerator());
+            CreateCodeFile(new PrimaryInfoGenerator());
+            CreateCodeFile(new SparseColorArg());
+        }
+
+        private void WriteExecute()
+        {
+            CreateCodeFile(new DrawableGenerator());
+            CreateCodeFile(new PathsGenerator());
+            CreateCodeFile(new MagickImageCollectionGenerator());
+            CreateCodeFile(new MagickImageGenerator());
+            CreateCodeFile(new MagickSettingsGenerator());
+            CreateCodeFile(new MagickReadSettingsGenerator());
+        }
+
+        private void WriteInterfaces()
+        {
+            CreateCodeFile(new IDefinesGenerator());
+        }
+
+        private void WriteSettings()
+        {
+            CreateCodeFile(new MagickSettingsGenerator());
+            CreateCodeFile(new MontageSettingsGenerator());
+            CreateCodeFile(new MorphologySettingsGenerator());
+            CreateCodeFile(new PixelStorageSettingsGenerator());
+            CreateCodeFile(new QuantizeSettingsGenerator());
+        }
+
+        public static void Generate()
+        {
+            MagickScriptGenerator generator = new MagickScriptGenerator();
+
+            generator.Cleanup();
+
+            generator.WriteCollection();
+            generator.WriteConstructors();
+            generator.WriteExecute();
+            generator.WriteInterfaces();
+            generator.WriteSettings();
+        }
     }
-
-    private void Cleanup()
-    {
-      foreach (string fileName in Directory.GetFiles(_OutputFolder))
-      {
-        File.Delete(fileName);
-      }
-    }
-
-    private void CreateCodeFile(ScriptCodeGenerator generator)
-    {
-      string outputFile = Path.GetFullPath(_OutputFolder + @"\" + generator.Name + ".cs");
-      generator.CreateWriter(outputFile);
-      generator.Write(_Types);
-      generator.CloseWriter();
-    }
-
-    private static string SetOutputFolder(string outputFolder)
-    {
-      string result = PathHelper.GetFullPath(outputFolder);
-      if (result[result.Length - 1] != '\\')
-        result += "\\";
-
-      return result;
-    }
-
-    private void WriteCollection()
-    {
-      CreateCodeFile(new CollectionGenerator());
-    }
-
-    private void WriteConstructors()
-    {
-      CreateCodeFile(new ColorProfileGenerator());
-      CreateCodeFile(new ImageProfileGenerator());
-      CreateCodeFile(new PathArcGenerator());
-      CreateCodeFile(new PointDGenerator());
-      CreateCodeFile(new PrimaryInfoGenerator());
-      CreateCodeFile(new SparseColorArg());
-    }
-
-    private void WriteExecute()
-    {
-      CreateCodeFile(new DrawableGenerator());
-      CreateCodeFile(new PathsGenerator());
-      CreateCodeFile(new MagickImageCollectionGenerator());
-      CreateCodeFile(new MagickImageGenerator());
-      CreateCodeFile(new MagickSettingsGenerator());
-      CreateCodeFile(new MagickReadSettingsGenerator());
-    }
-
-    private void WriteInterfaces()
-    {
-      CreateCodeFile(new IDefinesGenerator());
-    }
-
-    private void WriteSettings()
-    {
-      CreateCodeFile(new MagickSettingsGenerator());
-      CreateCodeFile(new MontageSettingsGenerator());
-      CreateCodeFile(new MorphologySettingsGenerator());
-      CreateCodeFile(new PixelStorageSettingsGenerator());
-      CreateCodeFile(new QuantizeSettingsGenerator());
-    }
-
-    public static void Generate()
-    {
-      MagickScriptGenerator generator = new MagickScriptGenerator();
-
-      generator.Cleanup();
-
-      generator.WriteCollection();
-      generator.WriteConstructors();
-      generator.WriteExecute();
-      generator.WriteInterfaces();
-      generator.WriteSettings();
-    }
-  }
 }

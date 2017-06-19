@@ -14,24 +14,24 @@
 
 namespace FileGenerator.MagickScript
 {
-  internal sealed class IDefinesGenerator : InterfaceCodeGenerator
-  {
-    protected override string ClassName
+    internal sealed class IDefinesGenerator : InterfaceCodeGenerator
     {
-      get
-      {
-        return "IDefines";
-      }
-    }
+        protected override string ClassName
+        {
+            get
+            {
+                return "IDefines";
+            }
+        }
 
-    protected override void WriteCode()
-    {
-      WriteLine("IReadDefines CreateIReadDefines(XmlElement parent)");
-      WriteStartColon();
-      WriteLine("return CreateIDefines(parent) as IReadDefines;");
-      WriteEndColon();
+        protected override void WriteCode()
+        {
+            WriteLine("IReadDefines CreateIReadDefines(XmlElement parent)");
+            WriteStartColon();
+            WriteLine("return CreateIDefines(parent) as IReadDefines;");
+            WriteEndColon();
 
-      base.WriteCode();
+            base.WriteCode();
+        }
     }
-  }
 }

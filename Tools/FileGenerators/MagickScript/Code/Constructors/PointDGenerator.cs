@@ -16,32 +16,32 @@ using System.Reflection;
 
 namespace FileGenerator.MagickScript
 {
-  internal sealed class PointDGenerator : ConstructorCodeGenerator
-  {
-    protected override string ClassName
+    internal sealed class PointDGenerator : ConstructorCodeGenerator
     {
-      get
-      {
-        return "PointD";
-      }
-    }
+        protected override string ClassName
+        {
+            get
+            {
+                return "PointD";
+            }
+        }
 
-    protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
-    {
-      Write("return new ");
-      Write(method.DeclaringType.Name);
-      Write("(");
-      WriteParameters(parameters);
-      WriteLine(");");
-    }
+        protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
+        {
+            Write("return new ");
+            Write(method.DeclaringType.Name);
+            Write("(");
+            WriteParameters(parameters);
+            WriteLine(");");
+        }
 
-    protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
-    {
-      Write("return new ");
-      Write(method.DeclaringType.Name);
-      Write("(");
-      WriteHashtableParameters(parameters);
-      WriteLine(");");
+        protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
+        {
+            Write("return new ");
+            Write(method.DeclaringType.Name);
+            Write("(");
+            WriteHashtableParameters(parameters);
+            WriteLine(");");
+        }
     }
-  }
 }

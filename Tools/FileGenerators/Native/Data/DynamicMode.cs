@@ -16,12 +16,12 @@ using System;
 
 namespace FileGenerator.Native
 {
-  [Flags]
-  public enum DynamicMode
-  {
-    None = 0,
-    NativeToManaged = 1,
-    ManagedToNative = 2,
-    Both = 3
-  }
+    [Flags]
+    public enum DynamicMode
+    {
+        None = 0,
+        NativeToManaged = 1,
+        ManagedToNative = 2,
+        Both = 3
+    }
 }

@@ -14,10 +14,10 @@
 
 namespace FileGenerator
 {
-  public enum QuantumDepth
-  {
-    Q8,
-    Q16,
-    Q16HDRI
-  }
+    public enum QuantumDepth
+    {
+        Q8,
+        Q16,
+        Q16HDRI
+    }
 }

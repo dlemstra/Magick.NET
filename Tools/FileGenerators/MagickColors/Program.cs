@@ -14,11 +14,11 @@
 
 namespace FileGenerator.MagickColors
 {
-  internal sealed class Program
-  {
-    internal static void Main()
+    internal sealed class Program
     {
-      MagickColorsGenerator.Generate();
+        internal static void Main()
+        {
+            MagickColorsGenerator.Generate();
+        }
     }
-  }
 }

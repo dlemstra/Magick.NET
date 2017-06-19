@@ -17,11 +17,11 @@ using System.Reflection;
 
 namespace FileGenerator
 {
-  public abstract class ApplicationProxy : MarshalByRefObject
-  {
-    protected Assembly ResolveAssembly(object sender, ResolveEventArgs args)
+    public abstract class ApplicationProxy : MarshalByRefObject
     {
-      return Assembly.ReflectionOnlyLoad(args.Name);
+        protected Assembly ResolveAssembly(object sender, ResolveEventArgs args)
+        {
+            return Assembly.ReflectionOnlyLoad(args.Name);
+        }
     }
-  }
 }

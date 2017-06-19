@@ -17,65 +17,65 @@ using System.Reflection;
 
 namespace FileGenerator.MagickScript
 {
-  internal sealed class CollectionGenerator : ScriptCodeGenerator
-  {
-    private Type[] SupportedTypes
+    internal sealed class CollectionGenerator : ScriptCodeGenerator
     {
-      get
-      {
-        return new Type[] { Types.GetType("MagickGeometry") };
-      }
-    }
+        private Type[] SupportedTypes
+        {
+            get
+            {
+                return new Type[] { Types.GetType("MagickGeometry") };
+            }
+        }
 
-    protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
-    {
-      throw new NotImplementedException();
-    }
+        protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
+        {
+            throw new NotImplementedException();
+        }
 
-    protected override void WriteCode()
-    {
-      foreach (Type type in SupportedTypes)
-      {
-        string typeName = GetName(type);
+        protected override void WriteCode()
+        {
+            foreach (Type type in SupportedTypes)
+            {
+                string typeName = GetName(type);
 
-        Write("private ");
-        Write("Collection<");
-        Write(typeName);
-        Write(">");
-        Write(" Create");
-        Write(type.Name);
-        Write("Collection");
-        Write("(XmlElement element)");
-        WriteLine();
-        WriteStartColon();
-        Write("Collection<");
-        Write(typeName);
-        Write("> collection = new ");
-        Write("Collection<");
-        Write(typeName);
-        WriteLine(">();");
-        WriteLine("foreach (XmlElement elem in element.SelectNodes(\"*\"))");
-        WriteStartColon();
-        Write("collection.Add(Variables.GetValue<");
-        Write(typeName);
-        WriteLine(">(elem, \"value\"));");
-        WriteEndColon();
-        WriteLine("return collection;");
-        WriteEndColon();
-      }
-    }
+                Write("private ");
+                Write("Collection<");
+                Write(typeName);
+                Write(">");
+                Write(" Create");
+                Write(type.Name);
+                Write("Collection");
+                Write("(XmlElement element)");
+                WriteLine();
+                WriteStartColon();
+                Write("Collection<");
+                Write(typeName);
+                Write("> collection = new ");
+                Write("Collection<");
+                Write(typeName);
+                WriteLine(">();");
+                WriteLine("foreach (XmlElement elem in element.SelectNodes(\"*\"))");
+                WriteStartColon();
+                Write("collection.Add(Variables.GetValue<");
+                Write(typeName);
+                WriteLine(">(elem, \"value\"));");
+                WriteEndColon();
+                WriteLine("return collection;");
+                WriteEndColon();
+            }
+        }
 
-    protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
-    {
-      throw new NotImplementedException();
-    }
+        protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
+        {
+            throw new NotImplementedException();
+        }
 
-    public override string Name
-    {
-      get
-      {
-        return "Collection";
-      }
+        public override string Name
+        {
+            get
+            {
+                return "Collection";
+            }
+        }
     }
-  }
 }

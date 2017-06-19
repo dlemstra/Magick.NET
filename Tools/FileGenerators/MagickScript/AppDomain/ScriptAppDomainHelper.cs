@@ -16,35 +16,35 @@ using System;
 
 namespace FileGenerator.MagickScript
 {
-  [Serializable]
-  internal static class ScriptAppDomainHelper
-  {
-    private static void GenerateCode()
+    [Serializable]
+    internal static class ScriptAppDomainHelper
     {
-      AppDomain domain = AppDomainHelper.CreateDomain();
-      ScriptApplicationProxy proxy = AppDomainHelper.CreateProxy<ScriptApplicationProxy>(domain);
+        private static void GenerateCode()
+        {
+            AppDomain domain = AppDomainHelper.CreateDomain();
+            ScriptApplicationProxy proxy = AppDomainHelper.CreateProxy<ScriptApplicationProxy>(domain);
 
-      proxy.GenerateCode();
+            proxy.GenerateCode();
 
-      AppDomain.Unload(domain);
+            AppDomain.Unload(domain);
+        }
+
+        private static void GenerateXsd(QuantumDepth depth)
+        {
+            AppDomain domain = AppDomainHelper.CreateDomain();
+            ScriptApplicationProxy proxy = AppDomainHelper.CreateProxy<ScriptApplicationProxy>(domain);
+
+            proxy.GenerateXsd(depth);
+
+            AppDomain.Unload(domain);
+        }
+
+        public static void Execute()
+        {
+            GenerateXsd(QuantumDepth.Q8);
+            GenerateXsd(QuantumDepth.Q16);
+            GenerateXsd(QuantumDepth.Q16HDRI);
+            GenerateCode();
+        }
     }
-
-    private static void GenerateXsd(QuantumDepth depth)
-    {
-      AppDomain domain = AppDomainHelper.CreateDomain();
-      ScriptApplicationProxy proxy = AppDomainHelper.CreateProxy<ScriptApplicationProxy>(domain);
-
-      proxy.GenerateXsd(depth);
-
-      AppDomain.Unload(domain);
-    }
-
-    public static void Execute()
-    {
-      GenerateXsd(QuantumDepth.Q8);
-      GenerateXsd(QuantumDepth.Q16);
-      GenerateXsd(QuantumDepth.Q16HDRI);
-      GenerateCode();
-    }
-  }
 }

@@ -17,51 +17,51 @@ using System.Reflection;
 
 namespace FileGenerator.MagickScript
 {
-  internal sealed class ColorProfileGenerator : ConstructorCodeGenerator
-  {
-    protected override string ClassName
+    internal sealed class ColorProfileGenerator : ConstructorCodeGenerator
     {
-      get
-      {
-        return "ColorProfile";
-      }
-    }
+        protected override string ClassName
+        {
+            get
+            {
+                return "ColorProfile";
+            }
+        }
 
-    protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
-    {
-      throw new NotImplementedException();
-    }
+        protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
+        {
+            throw new NotImplementedException();
+        }
 
-    protected override void WriteCode()
-    {
-      Write("private static ");
-      Write(TypeName);
-      Write(" Create");
-      Write(ClassName);
-      WriteLine("(XmlElement element)");
-      WriteStartColon();
-      foreach (string name in Types.GetColorProfileNames())
-      {
-        Write("if (element.GetAttribute(\"name\") == \"");
-        Write(name);
-        WriteLine("\")");
-        Indent++;
-        Write("return ColorProfile.");
-        Write(name);
-        WriteLine(";");
-        Indent--;
-      }
-      WriteLine("throw new NotSupportedException(element.Name);");
-      WriteEndColon();
-    }
+        protected override void WriteCode()
+        {
+            Write("private static ");
+            Write(TypeName);
+            Write(" Create");
+            Write(ClassName);
+            WriteLine("(XmlElement element)");
+            WriteStartColon();
+            foreach (string name in Types.GetColorProfileNames())
+            {
+                Write("if (element.GetAttribute(\"name\") == \"");
+                Write(name);
+                WriteLine("\")");
+                Indent++;
+                Write("return ColorProfile.");
+                Write(name);
+                WriteLine(";");
+                Indent--;
+            }
+            WriteLine("throw new NotSupportedException(element.Name);");
+            WriteEndColon();
+        }
 
-    protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
-    {
-      throw new NotImplementedException();
-    }
+        protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
+        {
+            throw new NotImplementedException();
+        }
 
-    public ColorProfileGenerator()
-    {
+        public ColorProfileGenerator()
+        {
+        }
     }
-  }
 }
