@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
     public partial class MagickNETTests
     {
         [TestMethod]
-        public void Test_Features()
+        public void Features_ContainsExpectedFeatures()
         {
 #if Q8 || Q16
 #if DEBUG_TEST
@@ -44,18 +44,26 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_Initialize()
+        public void Initialize_PathIsNull_ThrowsException()
         {
             ExceptionAssert.Throws<ArgumentNullException>(delegate ()
             {
                 MagickNET.Initialize(null);
             });
+        }
 
+        [TestMethod]
+        public void Initialize_PathIsInvalid_ThrowsException()
+        {
             ExceptionAssert.Throws<ArgumentException>(delegate ()
             {
                 MagickNET.Initialize("Invalid");
             });
+        }
 
+        [TestMethod]
+        public void Initialize_XmlFileIsMissing_ThrowsException()
+        {
             string path = Files.Root + @"..\..\Source\Magick.NET.Native\Resources\xml";
             foreach (string fileName in Directory.GetFiles(path, "*.xml"))
             {
@@ -76,42 +84,17 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_Log()
+        public void Log_OrderedTests()
         {
-            using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
-            {
-                int count = 0;
-                EventHandler<LogEventArgs> logDelegate = delegate (object sender, LogEventArgs arguments)
-                {
-                    Assert.IsNull(sender);
-                    Assert.IsNotNull(arguments);
-                    Assert.AreNotEqual(LogEvents.None, arguments.EventType);
-                    Assert.IsNotNull(arguments.Message);
-                    Assert.AreNotEqual(0, arguments.Message.Length);
+            Log_LogEventsAreNotSet_LogDelegateIsNotCalled();
 
-                    count++;
-                };
+            Log_LogEventsAreSet_LogDelegateIsCalled();
 
-                MagickNET.Log += logDelegate;
-
-                image.Flip();
-                Assert.AreEqual(0, count);
-
-                MagickNET.SetLogEvents(LogEvents.All);
-
-                image.Flip();
-                Assert.AreNotEqual(0, count);
-
-                MagickNET.Log -= logDelegate;
-                count = 0;
-
-                image.Flip();
-                Assert.AreEqual(0, count);
-            }
+            Log_LogDelegateIsRemove_LogDelegateIsNoLongerCalled();
         }
 
         [TestMethod]
-        public void Test_MagickFormats()
+        public void MagickFormats_ContainsFormatInformationForAllFormats()
         {
             List<string> missingFormats = new List<string>();
 
@@ -130,29 +113,15 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_RandomSeed()
+        public void SetRandomSeed_OrderedTests()
         {
-            using (IMagickImage first = new MagickImage("plasma:red", 10, 10))
-            {
-                using (IMagickImage second = new MagickImage("plasma:red", 10, 10))
-                {
-                    Assert.AreNotEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
-                }
-            }
+            SetRandomSeed_NotSet_ImagesWithPlasmaAreNotEqual();
 
-            MagickNET.SetRandomSeed(1337);
-
-            using (IMagickImage first = new MagickImage("plasma:red", 10, 10))
-            {
-                using (IMagickImage second = new MagickImage("plasma:red", 10, 10))
-                {
-                    Assert.AreEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
-                }
-            }
+            SetRandomSeed_SetToFixedValue_ImagesWithPlasmaAreEqual();
         }
 
         [TestMethod]
-        public void Test_SupportedFormats()
+        public void SupportedFormats_ContainsNoFormatInformationWithMagickFormatSetToUnknown()
         {
             foreach (MagickFormatInfo formatInfo in MagickNET.SupportedFormats)
             {
@@ -161,7 +130,7 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_Version_Quantum()
+        public void Version_ContainsCorrectQuantum()
         {
 #if Q8
             StringAssert.Contains(MagickNET.Version, "Q8");
@@ -175,19 +144,120 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_SetTempDirectory()
+        public void SetTempDirectory_PathIsNull_ThrowsException()
         {
             ExceptionAssert.Throws<ArgumentNullException>(delegate ()
             {
                 MagickNET.SetTempDirectory(null);
             });
+        }
 
+        [TestMethod]
+        public void SetTempDirectory_PathIsInvalid_ThrowsException()
+        {
             ExceptionAssert.Throws<ArgumentException>(delegate ()
             {
                 MagickNET.SetTempDirectory("Invalid");
             });
+        }
 
+        [TestMethod]
+        public void SetTempDirectory_PathIsCorrect_ThrowsNoException()
+        {
             MagickNET.SetTempDirectory(Path.GetTempPath());
+        }
+
+        private void Log_LogEventsAreNotSet_LogDelegateIsNotCalled()
+        {
+            using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+            {
+                int count = 0;
+                EventHandler<LogEventArgs> logDelegate = delegate (object sender, LogEventArgs arguments)
+                {
+                    count++;
+                };
+
+                MagickNET.Log += logDelegate;
+
+                image.Flip();
+                Assert.AreEqual(0, count);
+            }
+        }
+
+        private void Log_LogEventsAreSet_LogDelegateIsCalled()
+        {
+            using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+            {
+                int count = 0;
+                EventHandler<LogEventArgs> logDelegate = delegate (object sender, LogEventArgs arguments)
+                {
+                    Assert.IsNull(sender);
+                    Assert.IsNotNull(arguments);
+                    Assert.AreNotEqual(LogEvents.None, arguments.EventType);
+                    Assert.IsNotNull(arguments.Message);
+                    Assert.AreNotEqual(0, arguments.Message.Length);
+
+                    count++;
+                };
+
+                MagickNET.Log += logDelegate;
+
+                MagickNET.SetLogEvents(LogEvents.All);
+
+                image.Flip();
+                Assert.AreNotEqual(0, count);
+
+                MagickNET.Log -= logDelegate;
+                count = 0;
+
+                image.Flip();
+                Assert.AreEqual(0, count);
+            }
+        }
+
+        private void Log_LogDelegateIsRemove_LogDelegateIsNoLongerCalled()
+        {
+            using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+            {
+                int count = 0;
+                EventHandler<LogEventArgs> logDelegate = delegate (object sender, LogEventArgs arguments)
+                {
+                    count++;
+                };
+
+                MagickNET.Log += logDelegate;
+
+                MagickNET.SetLogEvents(LogEvents.All);
+
+                MagickNET.Log -= logDelegate;
+
+                image.Flip();
+                Assert.AreEqual(0, count);
+            }
+        }
+
+        private void SetRandomSeed_NotSet_ImagesWithPlasmaAreNotEqual()
+        {
+            using (IMagickImage first = new MagickImage("plasma:red", 10, 10))
+            {
+                using (IMagickImage second = new MagickImage("plasma:red", 10, 10))
+                {
+                    Assert.AreNotEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
+                }
+            }
+        }
+
+        private void SetRandomSeed_SetToFixedValue_ImagesWithPlasmaAreEqual()
+        {
+            MagickNET.SetRandomSeed(1337);
+
+            using (IMagickImage first = new MagickImage("plasma:red", 10, 10))
+            {
+                using (IMagickImage second = new MagickImage("plasma:red", 10, 10))
+                {
+                    Assert.AreEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
+                }
+            }
         }
     }
 }
