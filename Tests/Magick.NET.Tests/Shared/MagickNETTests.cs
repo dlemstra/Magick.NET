@@ -45,11 +45,10 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void FontFamilies_ContainsAtLeastOneEntry()
+        public void FontFamilies_ContainsArial()
         {
-            string fontFamily = MagickNET.FontFamilies.FirstOrDefault();
+            string fontFamily = MagickNET.FontFamilies.FirstOrDefault(f => f == "Arial");
             Assert.IsNotNull(fontFamily);
-            Assert.AreEqual(string.Empty, fontFamily);
         }
 
         [TestMethod]
