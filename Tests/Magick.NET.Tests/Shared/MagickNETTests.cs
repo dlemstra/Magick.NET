@@ -49,7 +49,7 @@ namespace Magick.NET.Tests
         {
             string fontFamily = MagickNET.FontFamilies.FirstOrDefault();
             Assert.IsNotNull(fontFamily);
-            Assert.AreNotEqual(string.Empty, fontFamily);
+            Assert.AreEqual(string.Empty, fontFamily);
         }
 
         [TestMethod]
