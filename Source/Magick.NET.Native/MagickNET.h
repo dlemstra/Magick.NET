@@ -15,6 +15,12 @@
 
 MAGICK_NET_EXPORT const char *MagickNET_Features_Get(void);
 
+MAGICK_NET_EXPORT const TypeInfo **MagickNET_GetFontFamilies(size_t *, ExceptionInfo **);
+
+MAGICK_NET_EXPORT const char *MagickNET_GetFontFamily(const TypeInfo **, const size_t);
+
+MAGICK_NET_EXPORT void MagickNET_DisposeFontFamilies(TypeInfo **);
+
 MAGICK_NET_EXPORT void MagickNET_SetLogDelegate(const MagickLogMethod);
 
 MAGICK_NET_EXPORT void MagickNET_SetLogEvents(const char *);

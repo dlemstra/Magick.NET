@@ -30,8 +30,8 @@ namespace ImageMagick
 
         private static readonly string[] _ImageMagickFiles = new string[]
         {
-      "coder.xml", "colors.xml", "configure.xml", "delegates.xml", "english.xml", "locale.xml",
-      "log.xml", "magic.xml", "policy.xml", "thresholds.xml", "type.xml", "type-ghostscript.xml",
+            "coder.xml", "colors.xml", "configure.xml", "delegates.xml", "english.xml", "locale.xml",
+            "log.xml", "magic.xml", "policy.xml", "thresholds.xml", "type.xml", "type-ghostscript.xml",
         };
 
         private static void CheckImageMagickFiles(string path)
@@ -213,6 +213,39 @@ namespace ImageMagick
             get
             {
                 return MagickFormatInfo.All;
+            }
+        }
+
+        /// <summary>
+        /// Gets the font families that are known by ImageMagick.
+        /// </summary>
+        public static IEnumerable<string> FontFamilies
+        {
+            get
+            {
+                List<string> result = new List<string>();
+
+                IntPtr list = IntPtr.Zero;
+                UIntPtr length = (UIntPtr)0;
+
+                try
+                {
+                    list = NativeMagickNET.GetFontFamilies(out length);
+
+                    for (int i = 0; i < (int)length; i++)
+                    {
+                        string fontFamily = NativeMagickNET.GetFontFamily(list, i);
+                        if (!string.IsNullOrEmpty(fontFamily))
+                            result.Add(fontFamily);
+                    }
+                }
+                finally
+                {
+                    if (list != IntPtr.Zero)
+                        NativeMagickNET.DisposeFontFamilies(list);
+                }
+
+                return result;
             }
         }
 

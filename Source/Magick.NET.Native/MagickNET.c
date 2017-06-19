@@ -20,6 +20,30 @@ MAGICK_NET_EXPORT const char *MagickNET_Features_Get(void)
   return GetMagickFeatures();
 }
 
+MAGICK_NET_EXPORT const TypeInfo **MagickNET_GetFontFamilies(size_t *length, ExceptionInfo **exception)
+{
+  const TypeInfo
+    **font_families;
+
+  MAGICK_NET_GET_EXCEPTION;
+  font_families = GetTypeInfoList("*", length, exceptionInfo);
+  MAGICK_NET_SET_EXCEPTION;
+  return font_families;
+}
+
+MAGICK_NET_EXPORT const char *MagickNET_GetFontFamily(const TypeInfo **list, const size_t index)
+{
+  if (list[index]->stealth != MagickFalse)
+    return (const char *) NULL;
+
+  return list[index]->family;
+}
+
+MAGICK_NET_EXPORT void MagickNET_DisposeFontFamilies(TypeInfo **list)
+{
+  RelinquishMagickMemory((void *) list);
+}
+
 MAGICK_NET_EXPORT void MagickNET_SetRandomSeed(const unsigned long seed)
 {
   SetRandomSecretKey(seed);

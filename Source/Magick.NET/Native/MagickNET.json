@@ -28,6 +28,48 @@
     "methods":
     [
         {
+            "name": "GetFontFamilies",
+            "type": "Instance",
+            "throws": true,
+            "cleanup":
+            {
+                "name": "DisposeFontFamilies"
+            },
+            "arguments":
+            [
+                {
+                    "name": "length",
+                    "type": "size_t",
+                    "out": true
+                }
+            ]
+        },
+        {
+            "name": "GetFontFamily",
+            "type": "string",
+            "arguments":
+            [
+                {
+                    "name": "instance",
+                    "type": "Instance"
+                },
+                {
+                    "name": "index",
+                    "type": "size_t"
+                }
+            ]
+        },
+        {
+            "name": "DisposeFontFamilies",
+            "arguments":
+            [
+                {
+                    "name": "instance",
+                    "type": "Instance"
+                }
+            ]
+        },
+        {
             "name": "SetLogDelegate",
             "arguments":
             [

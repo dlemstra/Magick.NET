@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace Magick.NET.Tests
 {
@@ -41,6 +42,14 @@ namespace Magick.NET.Tests
 #else
 #error Not implemented!
 #endif
+        }
+
+        [TestMethod]
+        public void FontFamilies_ContainsAtLeastOneEntry()
+        {
+            string fontFamily = MagickNET.FontFamilies.FirstOrDefault();
+            Assert.IsNotNull(fontFamily);
+            Assert.AreNotEqual(string.Empty, fontFamily);
         }
 
         [TestMethod]

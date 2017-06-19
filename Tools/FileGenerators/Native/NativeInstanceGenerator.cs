@@ -75,7 +75,8 @@ namespace FileGenerator.Native
                 WriteIf("result != IntPtr.Zero", cleanupString);
             WriteLine("throw magickException;");
             WriteEndColon();
-            WriteLine("RaiseWarning(magickException);");
+            if (!Class.IsStatic)
+                WriteLine("RaiseWarning(magickException);");
         }
 
         private void WriteConstructors()
