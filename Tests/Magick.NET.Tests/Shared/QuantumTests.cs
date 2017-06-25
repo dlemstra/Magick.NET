@@ -21,7 +21,7 @@ namespace Magick.NET.Tests
     public class QuantumTests
     {
         [TestMethod]
-        public void Test_Depth()
+        public void Depth_ShouldHaveTheCorrectValue()
         {
 #if Q8
             Assert.AreEqual(Quantum.Depth, 8);
@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_Max()
+        public void Max_ShouldHaveTheCorrectValue()
         {
 #if Q8
             Assert.AreEqual(Quantum.Max, byte.MaxValue);
