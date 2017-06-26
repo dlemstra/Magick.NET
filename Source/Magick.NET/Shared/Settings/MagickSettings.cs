@@ -42,8 +42,9 @@ namespace ImageMagick
             instance.ColorType = ColorType;
             instance.CompressionMethod = CompressionMethod;
             instance.Debug = Debug;
-            instance.Density = Density != null ? Density.ToString(DensityUnit.Undefined) : null;
+            instance.Density = Density?.ToString(DensityUnit.Undefined);
             instance.Endian = Endian;
+            instance.Extract = MagickGeometry.ToString(Extract);
             instance.Font = _Font;
             instance.FontPointsize = _FontPointsize;
             instance.Format = format;
@@ -113,6 +114,7 @@ namespace ImageMagick
                 Debug = instance.Debug;
                 Density = Density.Create(instance.Density);
                 Endian = instance.Endian;
+                Extract = MagickGeometry.FromString(instance.Extract);
                 _Font = instance.Font;
                 _FontPointsize = instance.FontPointsize;
                 Format = EnumHelper.Parse(instance.Format, MagickFormat.Unknown);
@@ -133,6 +135,15 @@ namespace ImageMagick
         }
 
         internal double ColorFuzz
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the specified area to extract from the image.
+        /// </summary>
+        protected MagickGeometry Extract
         {
             get;
             set;
@@ -231,6 +242,7 @@ namespace ImageMagick
             Debug = settings.Debug;
             Density = Density.Clone(settings.Density);
             Endian = settings.Endian;
+            Extract = MagickGeometry.Clone(settings.Extract);
             _Font = settings._Font;
             _FontPointsize = settings._FontPointsize;
             Format = settings.Format;
@@ -254,8 +266,7 @@ namespace ImageMagick
         {
             Throw.IfNullOrEmpty(nameof(key), key);
 
-            string result;
-            if (_Options.TryGetValue(key, out result))
+            if (_Options.TryGetValue(key, out string result))
                 return result;
 
             return null;

@@ -31,6 +31,10 @@
             "type": "Endian"
         },
         {
+            "name": "Extract",
+            "type": "string"
+        },
+        {
             "name": "Format",
             "type": "string"
         },

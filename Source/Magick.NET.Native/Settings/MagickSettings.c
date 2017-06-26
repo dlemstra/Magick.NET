@@ -97,6 +97,16 @@ MAGICK_NET_EXPORT void MagickSettings_Endian_Set(ImageInfo *instance, const size
   instance->endian = value;
 }
 
+MAGICK_NET_EXPORT const char *MagickSettings_Extract_Get(ImageInfo *instance)
+{
+  return instance->extract;
+}
+
+MAGICK_NET_EXPORT void MagickSettings_Extract_Set(ImageInfo *instance, const char *value)
+{
+  CloneString(&instance->extract, value);
+}
+
 MAGICK_NET_EXPORT const char *MagickSettings_Format_Get(const ImageInfo *instance)
 {
   if (*instance->magick == '\0')

@@ -38,6 +38,9 @@ MAGICK_NET_EXPORT void MagickSettings_Density_Set(ImageInfo *, const char *);
 MAGICK_NET_EXPORT size_t MagickSettings_Endian_Get(const ImageInfo *);
 MAGICK_NET_EXPORT void MagickSettings_Endian_Set(ImageInfo *, const size_t);
 
+MAGICK_NET_EXPORT const char *MagickSettings_Extract_Get(ImageInfo *);
+MAGICK_NET_EXPORT void MagickSettings_Extract_Set(ImageInfo *, const char *);
+
 MAGICK_NET_EXPORT const char *MagickSettings_Format_Get(const ImageInfo *);
 MAGICK_NET_EXPORT void MagickSettings_Format_Set(ImageInfo *, const char *);
 

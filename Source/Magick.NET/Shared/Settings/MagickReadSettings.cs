@@ -29,7 +29,7 @@ namespace ImageMagick
             if (FrameIndex.HasValue && (!FrameCount.HasValue || FrameCount.Value == 1))
                 return FrameIndex.Value.ToString(CultureInfo.InvariantCulture);
 
-            int frame = FrameIndex.HasValue ? FrameIndex.Value : 0;
+            int frame = FrameIndex ?? 0;
             return string.Format(CultureInfo.InvariantCulture, "{0}-{1}", frame, frame + FrameCount.Value);
         }
 
@@ -60,8 +60,8 @@ namespace ImageMagick
                 return;
 
             Scenes = GetScenes();
-            Scene = FrameIndex.HasValue ? FrameIndex.Value : 0;
-            NumberScenes = FrameCount.HasValue ? FrameCount.Value : 1;
+            Scene = FrameIndex ?? 0;
+            NumberScenes = FrameCount ?? 1;
         }
 
         private static string GetDefineKey(IDefine define)
@@ -127,6 +127,21 @@ namespace ImageMagick
         {
             get;
             set;
+        }
+
+        /// <summary>
+        /// Gets or sets the specified area to extract from the image.
+        /// </summary>
+        public MagickGeometry ExtractArea
+        {
+            get
+            {
+                return Extract;
+            }
+            set
+            {
+                Extract = value;
+            }
         }
 
         /// <summary>

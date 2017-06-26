@@ -74,6 +74,10 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickSettings_Endian_Set(IntPtr instance, UIntPtr value);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickSettings_Extract_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Extract_Set(IntPtr instance, IntPtr value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickSettings_Format_Get(IntPtr instance);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickSettings_Format_Set(IntPtr instance, IntPtr value);
@@ -161,6 +165,10 @@ namespace ImageMagick
                 public static extern UIntPtr MagickSettings_Endian_Get(IntPtr instance);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickSettings_Endian_Set(IntPtr instance, UIntPtr value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickSettings_Extract_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Extract_Set(IntPtr instance, IntPtr value);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickSettings_Format_Get(IntPtr instance);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -500,6 +508,44 @@ namespace ImageMagick
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     NativeMethods.X86.MagickSettings_Endian_Set(Instance, (UIntPtr)value);
                     #endif
+                }
+            }
+            public string Extract
+            {
+                get
+                {
+                    IntPtr result;
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.MagickSettings_Extract_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.MagickSettings_Extract_Get(Instance);
+                    #endif
+                    return UTF8Marshaler.NativeToManaged(result);
+                }
+                set
+                {
+                    using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
+                    {
+                        #if PLATFORM_AnyCPU
+                        if (NativeLibrary.Is64Bit)
+                        #endif
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
+                        NativeMethods.X64.MagickSettings_Extract_Set(Instance, valueNative.Instance);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else
+                        #endif
+                        #if PLATFORM_x86 || PLATFORM_AnyCPU
+                        NativeMethods.X86.MagickSettings_Extract_Set(Instance, valueNative.Instance);
+                        #endif
+                    }
                 }
             }
             public string Format

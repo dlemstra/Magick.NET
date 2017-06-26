@@ -64,6 +64,28 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
+        public void Extract_DefaultValueIsNull()
+        {
+            MagickReadSettings settings = new MagickReadSettings();
+            Assert.IsNull(settings.ExtractArea);
+        }
+
+        [TestMethod]
+        public void Extract_SetToSpecificAreaOfImage_OnlyAreaIsRead()
+        {
+            MagickReadSettings readSettings = new MagickReadSettings()
+            {
+                ExtractArea = new MagickGeometry(10, 10, 20, 30)
+            };
+
+            using (IMagickImage image = new MagickImage(Files.Coders.GrimJp2, readSettings))
+            {
+                Assert.AreEqual(20, image.Width);
+                Assert.AreEqual(30, image.Height);
+            }
+        }
+
+        [TestMethod]
         public void Test_Image_Exceptions()
         {
             ExceptionAssert.Throws<ArgumentException>(delegate ()
