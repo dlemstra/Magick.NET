@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
     <TargetFrameworks>net20;net40;netstandard13</TargetFrameworks>
     <DebugType Condition="$(CodeCov) == 'true'">full</DebugType>
@@ -95,12 +95,24 @@
     <None Remove="Resources\**" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc" />
-    <EmbeddedResource Include="Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc" />
-    <EmbeddedResource Include="Resources\ColorProfiles\RGB\AdobeRGB1998.icc" />
-    <EmbeddedResource Include="Resources\ColorProfiles\RGB\AppleRGB.icc" />
-    <EmbeddedResource Include="Resources\ColorProfiles\RGB\ColorMatchRGB.icc" />
-    <EmbeddedResource Include="Resources\ColorProfiles\RGB\SRGB.icm" />
+    <EmbeddedResource Include="Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc">
+      <LogicalName>Magick.NET.Resources.ColorProfiles.CMYK.CoatedFOGRA39.icc</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc">
+      <LogicalName>Magick.NET.Resources.ColorProfiles.CMYK.USWebCoatedSWOP.icc</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ColorProfiles\RGB\AdobeRGB1998.icc">
+      <LogicalName>Magick.NET.Resources.ColorProfiles.RGB.AdobeRGB1998.icc</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ColorProfiles\RGB\AppleRGB.icc">
+      <LogicalName>Magick.NET.Resources.ColorProfiles.RGB.AppleRGB.icc</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ColorProfiles\RGB\ColorMatchRGB.icc">
+      <LogicalName>Magick.NET.Resources.ColorProfiles.RGB.ColorMatchRGB.icc</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ColorProfiles\RGB\SRGB.icm">
+      <LogicalName>Magick.NET.Resources.ColorProfiles.RGB.SRGB.icm</LogicalName>
+    </EmbeddedResource>
     <EmbeddedResource Condition="'$(Configuration)' == 'DebugQ8' or '$(Configuration)' == 'ReleaseQ8'" Include="Resources\ReleaseQ8\MagickScript.xsd" />
     <EmbeddedResource Condition="'$(Configuration)' == 'DebugQ16' or '$(Configuration)' == 'ReleaseQ16'" Include="Resources\ReleaseQ16\MagickScript.xsd" />
     <EmbeddedResource Condition="'$(Configuration)' == 'DebugQ16-HDRI' or '$(Configuration)' == 'ReleaseQ16-HDRI'" Include="Resources\ReleaseQ16-HDRI\MagickScript.xsd" />
