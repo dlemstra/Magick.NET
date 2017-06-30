@@ -1,7 +1,7 @@
 @echo off
 
 set REPOS=http://git.imagemagick.org/repos
-set DATE=2017-06-17 23:36
+set DATE=2017-06-30 21:33
 
 set BASH="%PROGRAMFILES%\Git\bin\bash.exe"
 if exist %BASH% goto EXECUTE
