@@ -38,11 +38,10 @@ namespace ImageMagick
             return (T[])field.GetCustomAttributes(typeof(T), false);
         }
 
-        public static Stream GetManifestResourceStream(Type type, string path, string resourceName)
+        public static Stream GetManifestResourceStream(Type type, string resourcePath, string resourceName)
         {
             Assembly assembly = type.GetTypeInfo().Assembly;
-            string newResourceName = assembly.GetName().Name + "." + resourceName;
-            return assembly.GetManifestResourceStream(newResourceName);
+            return assembly.GetManifestResourceStream(resourcePath + "." + resourceName);
         }
 
         public static bool IsEnum(Type type)
