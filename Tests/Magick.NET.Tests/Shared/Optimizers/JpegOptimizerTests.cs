@@ -15,6 +15,7 @@
 using ImageMagick;
 using ImageMagick.ImageOptimizers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.IO;
 
 namespace Magick.NET.Tests
@@ -73,6 +74,27 @@ namespace Magick.NET.Tests
             finally
             {
                 tempFile.Delete();
+            }
+        }
+
+        [TestMethod]
+        public void Compress_UTF8PathName_CanCompressFile()
+        {
+            string tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + "爱");
+            Directory.CreateDirectory(tempDir);
+
+            string tempFile = Path.Combine(tempDir, "ImageMagick.jpg");
+            File.Copy(Files.ImageMagickJPG, tempFile);
+
+            try
+            {
+                var optimizer = new ImageOptimizer();
+                optimizer.Compress(tempFile);
+            }
+            finally
+            {
+                File.Delete(tempFile);
+                Directory.Delete(tempDir);
             }
         }
     }

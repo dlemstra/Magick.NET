@@ -106,7 +106,8 @@ static void InitializeSource(j_decompress_ptr decompress_info)
   source = (SourceManager *)decompress_info->src;
   source->startOfBlob = TRUE;
 
-  if (fopen_s(&source->inputFile, client_data->inputFileName, "rb") != 0)
+  source->inputFile = fopen_utf8(client_data->inputFileName, "rb");
+  if (source->inputFile == (FILE*)NULL)
     ERREXIT(decompress_info, JERR_FILE_READ);
 }
 
@@ -387,7 +388,8 @@ static void InitializeDestination(j_compress_ptr compress_info)
   destination->manager.next_output_byte = destination->buffer;
   destination->manager.free_in_buffer = MaxBufferExtent;
 
-  if (fopen_s(&destination->outputFile, client_data->outputFileName, "wb") != 0)
+  destination->outputFile = fopen_utf8(client_data->outputFileName, "wb");
+  if (destination->outputFile == (FILE*)NULL)
     ERREXIT(compress_info, JERR_FILE_WRITE);
 }
 

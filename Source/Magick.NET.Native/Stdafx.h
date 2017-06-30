@@ -22,11 +22,13 @@
 #pragma warning(push)
 #pragma warning(disable : 4255)
 #pragma warning(disable : 4668)
+#pragma warning(disable : 4996)
 
 #include "MagickCore/magick-config.h"
 
 #include <MagickCore/MagickCore.h>
 #include <MagickWand/MagickWand.h>
+#include <MagickCore/utility-private.h>
 
 #pragma warning(pop)
 
