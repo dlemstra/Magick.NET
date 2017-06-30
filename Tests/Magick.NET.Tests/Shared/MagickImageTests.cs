@@ -2502,6 +2502,17 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
+        public void Ping_TiffFile_ProfileIsRead()
+        {
+            using (IMagickImage image = new MagickImage())
+            {
+                image.Ping(Files.EightBimTIF);
+
+                Assert.IsNotNull(image.Get8BimProfile());
+            }
+        }
+
+        [TestMethod]
         public void Test_Ping()
         {
             IMagickImage image = new MagickImage();
