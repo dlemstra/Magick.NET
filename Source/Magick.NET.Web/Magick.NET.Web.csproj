@@ -5,8 +5,8 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\Magick.NET.snk</AssemblyOriginatorKeyFile>
     <AssemblyVersion>7.0.0.0</AssemblyVersion>
-    <FileVersion>7.0.6.100</FileVersion>
-    <Version>7.0.6.100</Version>
+    <FileVersion>7.0.6.101</FileVersion>
+    <Version>7.0.6.101</Version>
     <Authors>Dirk Lemstra</Authors>
     <Copyright>Copyright 2013-2017 Dirk Lemstra</Copyright>
   </PropertyGroup>
