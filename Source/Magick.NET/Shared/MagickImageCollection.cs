@@ -296,7 +296,7 @@ namespace ImageMagick
         /// Converts the specified instance to a byte array.
         /// </summary>
         /// <param name="collection">The <see cref="MagickImageCollection"/> to convert.</param>
-        public static explicit operator byte[] (MagickImageCollection collection)
+        public static explicit operator byte[](MagickImageCollection collection)
         {
             Throw.IfNull(nameof(collection), collection);
 
