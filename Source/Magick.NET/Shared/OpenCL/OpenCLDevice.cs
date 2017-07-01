@@ -31,14 +31,6 @@ namespace ImageMagick
             _ProfileKernels = false;
         }
 
-        internal static OpenCLDevice CreateInstance(IntPtr instance)
-        {
-            if (instance == IntPtr.Zero)
-                return null;
-
-            return new OpenCLDevice(instance);
-        }
-
         /// <summary>
         /// Gets the benchmark score of the device.
         /// </summary>
@@ -140,6 +132,14 @@ namespace ImageMagick
             {
                 return _Instance.Version;
             }
+        }
+
+        internal static OpenCLDevice CreateInstance(IntPtr instance)
+        {
+            if (instance == IntPtr.Zero)
+                return null;
+
+            return new OpenCLDevice(instance);
         }
     }
 }

@@ -17,11 +17,6 @@ namespace ImageMagick
     /// </summary>
     public sealed class MagickColorMatrix : DoubleMatrix
     {
-        private static void CheckOrder(int order)
-        {
-            Throw.IfTrue(nameof(order), (order < 1) || (order > 6), "Invalid order specified, range 1-6.");
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickColorMatrix"/> class.
         /// </summary>
@@ -41,6 +36,11 @@ namespace ImageMagick
           : base(order, values)
         {
             CheckOrder(order);
+        }
+
+        private static void CheckOrder(int order)
+        {
+            Throw.IfTrue(nameof(order), (order < 1) || (order > 6), "Invalid order specified, range 1-6.");
         }
     }
 }

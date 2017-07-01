@@ -18,14 +18,6 @@ namespace ImageMagick
 {
     internal static class Throw
     {
-        private static string FormatMessage(string message, params object[] args)
-        {
-            if (args.Length == 0)
-                return message;
-
-            return string.Format(CultureInfo.InvariantCulture, message, args);
-        }
-
         public static void IfFalse(string paramName, bool condition, string message, params object[] args)
         {
             if (!condition)
@@ -134,6 +126,14 @@ namespace ImageMagick
         {
             if (condition)
                 throw new ArgumentException(FormatMessage(message, args), paramName);
+        }
+
+        private static string FormatMessage(string message, params object[] args)
+        {
+            if (args.Length == 0)
+                return message;
+
+            return string.Format(CultureInfo.InvariantCulture, message, args);
         }
     }
 }

@@ -19,6 +19,8 @@ namespace ImageMagick
 {
     internal sealed class ExifWriter
     {
+        private const int _StartIndex = 6;
+
         private static readonly ExifTag[] _IfdTags = new ExifTag[127]
         {
               ExifTag.SubfileType,
@@ -281,191 +283,12 @@ namespace ImageMagick
               ExifTag.GPSDifferential,
         };
 
-        private const int _StartIndex = 6;
-
         private ExifParts _AllowedParts;
         private Collection<ExifValue> _Values;
         private Collection<int> _DataOffsets;
         private Collection<int> _IfdIndexes;
         private Collection<int> _ExifIndexes;
         private Collection<int> _GPSIndexes;
-
-        private int GetIndex(Collection<int> indexes, ExifTag tag)
-        {
-            foreach (int index in indexes)
-            {
-                if (_Values[index].Tag == tag)
-                    return index;
-            }
-
-            int newIndex = _Values.Count;
-            indexes.Add(newIndex);
-            _Values.Add(ExifValue.Create(tag, null));
-            return newIndex;
-        }
-
-        private Collection<int> GetIndexes(ExifParts part, ExifTag[] tags)
-        {
-            if (!EnumHelper.HasFlag(_AllowedParts, part))
-                return new Collection<int>();
-
-            Collection<int> result = new Collection<int>();
-            for (int i = 0; i < _Values.Count; i++)
-            {
-                ExifValue value = _Values[i];
-
-                if (!value.HasValue)
-                    continue;
-
-                int index = Array.IndexOf(tags, value.Tag);
-                if (index > -1)
-                    result.Add(i);
-            }
-
-            return result;
-        }
-
-        private uint GetLength(IEnumerable<int> indexes)
-        {
-            uint length = 0;
-
-            foreach (int index in indexes)
-            {
-                uint valueLength = (uint)_Values[index].Length;
-
-                if (valueLength > 4)
-                    length += 12 + valueLength;
-                else
-                    length += 12;
-            }
-
-            return length;
-        }
-
-        private static int Write(byte[] source, byte[] destination, int offset)
-        {
-            Buffer.BlockCopy(source, 0, destination, offset, source.Length);
-
-            return offset + source.Length;
-        }
-
-        private static int WriteArray(ExifValue value, byte[] destination, int offset)
-        {
-            if (value.DataType == ExifDataType.Ascii)
-                return WriteValue(ExifDataType.Ascii, value.Value, destination, offset);
-
-            int newOffset = offset;
-            foreach (object obj in (Array)value.Value)
-                newOffset = WriteValue(value.DataType, obj, destination, newOffset);
-
-            return newOffset;
-        }
-
-        private int WriteData(Collection<int> indexes, byte[] destination, int offset)
-        {
-            if (_DataOffsets.Count == 0)
-                return offset;
-
-            int newOffset = offset;
-
-            int i = 0;
-            foreach (int index in indexes)
-            {
-                ExifValue value = _Values[index];
-                if (value.Length > 4)
-                {
-                    Write(BitConverter.GetBytes(newOffset - _StartIndex), destination, _DataOffsets[i++]);
-                    newOffset = WriteValue(value, destination, newOffset);
-                }
-            }
-
-            return newOffset;
-        }
-
-        private int WriteHeaders(Collection<int> indexes, byte[] destination, int offset)
-        {
-            _DataOffsets = new Collection<int>();
-
-            int newOffset = Write(BitConverter.GetBytes((ushort)indexes.Count), destination, offset);
-
-            if (indexes.Count == 0)
-                return newOffset;
-
-            foreach (int index in indexes)
-            {
-                ExifValue value = _Values[index];
-                newOffset = Write(BitConverter.GetBytes((ushort)value.Tag), destination, newOffset);
-                newOffset = Write(BitConverter.GetBytes((ushort)value.DataType), destination, newOffset);
-                newOffset = Write(BitConverter.GetBytes((uint)value.NumberOfComponents), destination, newOffset);
-
-                if (value.Length > 4)
-                    _DataOffsets.Add(newOffset);
-                else
-                    WriteValue(value, destination, newOffset);
-
-                newOffset += 4;
-            }
-
-            return newOffset;
-        }
-
-        private static int WriteRational(Rational value, byte[] destination, int offset)
-        {
-            Write(BitConverter.GetBytes(value.Numerator), destination, offset);
-            Write(BitConverter.GetBytes(value.Denominator), destination, offset + 4);
-
-            return offset + 8;
-        }
-
-        private static int WriteSignedRational(SignedRational value, byte[] destination, int offset)
-        {
-            Write(BitConverter.GetBytes(value.Numerator), destination, offset);
-            Write(BitConverter.GetBytes(value.Denominator), destination, offset + 4);
-
-            return offset + 8;
-        }
-
-        private static int WriteValue(ExifDataType dataType, object value, byte[] destination, int offset)
-        {
-            switch (dataType)
-            {
-                case ExifDataType.Ascii:
-                    return Write(Encoding.UTF8.GetBytes((string)value), destination, offset);
-                case ExifDataType.Byte:
-                case ExifDataType.Undefined:
-                    destination[offset] = (byte)value;
-                    return offset + 1;
-                case ExifDataType.DoubleFloat:
-                    return Write(BitConverter.GetBytes((double)value), destination, offset);
-                case ExifDataType.Short:
-                    return Write(BitConverter.GetBytes((ushort)value), destination, offset);
-                case ExifDataType.Long:
-                    return Write(BitConverter.GetBytes((uint)value), destination, offset);
-                case ExifDataType.Rational:
-                    return WriteRational((Rational)value, destination, offset);
-                case ExifDataType.SignedByte:
-                    destination[offset] = unchecked((byte)((sbyte)value));
-                    return offset + 1;
-                case ExifDataType.SignedLong:
-                    return Write(BitConverter.GetBytes((int)value), destination, offset);
-                case ExifDataType.SignedShort:
-                    return Write(BitConverter.GetBytes((short)value), destination, offset);
-                case ExifDataType.SignedRational:
-                    return WriteSignedRational((SignedRational)value, destination, offset);
-                case ExifDataType.SingleFloat:
-                    return Write(BitConverter.GetBytes((float)value), destination, offset);
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
-        private static int WriteValue(ExifValue value, byte[] destination, int offset)
-        {
-            if (value.IsArray && value.DataType != ExifDataType.Ascii)
-                return WriteArray(value, destination, offset);
-            else
-                return WriteValue(value.DataType, value.Value, destination, offset);
-        }
 
         public ExifWriter(Collection<ExifValue> values, ExifParts allowedParts)
         {
@@ -548,6 +371,183 @@ namespace ImageMagick
             Write(BitConverter.GetBytes((ushort)0), result, i);
 
             return result;
+        }
+
+        private static int Write(byte[] source, byte[] destination, int offset)
+        {
+            Buffer.BlockCopy(source, 0, destination, offset, source.Length);
+
+            return offset + source.Length;
+        }
+
+        private static int WriteArray(ExifValue value, byte[] destination, int offset)
+        {
+            if (value.DataType == ExifDataType.Ascii)
+                return WriteValue(ExifDataType.Ascii, value.Value, destination, offset);
+
+            int newOffset = offset;
+            foreach (object obj in (Array)value.Value)
+                newOffset = WriteValue(value.DataType, obj, destination, newOffset);
+
+            return newOffset;
+        }
+
+        private static int WriteRational(Rational value, byte[] destination, int offset)
+        {
+            Write(BitConverter.GetBytes(value.Numerator), destination, offset);
+            Write(BitConverter.GetBytes(value.Denominator), destination, offset + 4);
+
+            return offset + 8;
+        }
+
+        private static int WriteSignedRational(SignedRational value, byte[] destination, int offset)
+        {
+            Write(BitConverter.GetBytes(value.Numerator), destination, offset);
+            Write(BitConverter.GetBytes(value.Denominator), destination, offset + 4);
+
+            return offset + 8;
+        }
+
+        private static int WriteValue(ExifDataType dataType, object value, byte[] destination, int offset)
+        {
+            switch (dataType)
+            {
+                case ExifDataType.Ascii:
+                    return Write(Encoding.UTF8.GetBytes((string)value), destination, offset);
+                case ExifDataType.Byte:
+                case ExifDataType.Undefined:
+                    destination[offset] = (byte)value;
+                    return offset + 1;
+                case ExifDataType.DoubleFloat:
+                    return Write(BitConverter.GetBytes((double)value), destination, offset);
+                case ExifDataType.Short:
+                    return Write(BitConverter.GetBytes((ushort)value), destination, offset);
+                case ExifDataType.Long:
+                    return Write(BitConverter.GetBytes((uint)value), destination, offset);
+                case ExifDataType.Rational:
+                    return WriteRational((Rational)value, destination, offset);
+                case ExifDataType.SignedByte:
+                    destination[offset] = unchecked((byte)((sbyte)value));
+                    return offset + 1;
+                case ExifDataType.SignedLong:
+                    return Write(BitConverter.GetBytes((int)value), destination, offset);
+                case ExifDataType.SignedShort:
+                    return Write(BitConverter.GetBytes((short)value), destination, offset);
+                case ExifDataType.SignedRational:
+                    return WriteSignedRational((SignedRational)value, destination, offset);
+                case ExifDataType.SingleFloat:
+                    return Write(BitConverter.GetBytes((float)value), destination, offset);
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        private static int WriteValue(ExifValue value, byte[] destination, int offset)
+        {
+            if (value.IsArray && value.DataType != ExifDataType.Ascii)
+                return WriteArray(value, destination, offset);
+            else
+                return WriteValue(value.DataType, value.Value, destination, offset);
+        }
+
+        private int WriteData(Collection<int> indexes, byte[] destination, int offset)
+        {
+            if (_DataOffsets.Count == 0)
+                return offset;
+
+            int newOffset = offset;
+
+            int i = 0;
+            foreach (int index in indexes)
+            {
+                ExifValue value = _Values[index];
+                if (value.Length > 4)
+                {
+                    Write(BitConverter.GetBytes(newOffset - _StartIndex), destination, _DataOffsets[i++]);
+                    newOffset = WriteValue(value, destination, newOffset);
+                }
+            }
+
+            return newOffset;
+        }
+
+        private int GetIndex(Collection<int> indexes, ExifTag tag)
+        {
+            foreach (int index in indexes)
+            {
+                if (_Values[index].Tag == tag)
+                    return index;
+            }
+
+            int newIndex = _Values.Count;
+            indexes.Add(newIndex);
+            _Values.Add(ExifValue.Create(tag, null));
+            return newIndex;
+        }
+
+        private Collection<int> GetIndexes(ExifParts part, ExifTag[] tags)
+        {
+            if (!EnumHelper.HasFlag(_AllowedParts, part))
+                return new Collection<int>();
+
+            Collection<int> result = new Collection<int>();
+            for (int i = 0; i < _Values.Count; i++)
+            {
+                ExifValue value = _Values[i];
+
+                if (!value.HasValue)
+                    continue;
+
+                int index = Array.IndexOf(tags, value.Tag);
+                if (index > -1)
+                    result.Add(i);
+            }
+
+            return result;
+        }
+
+        private uint GetLength(IEnumerable<int> indexes)
+        {
+            uint length = 0;
+
+            foreach (int index in indexes)
+            {
+                uint valueLength = (uint)_Values[index].Length;
+
+                if (valueLength > 4)
+                    length += 12 + valueLength;
+                else
+                    length += 12;
+            }
+
+            return length;
+        }
+
+        private int WriteHeaders(Collection<int> indexes, byte[] destination, int offset)
+        {
+            _DataOffsets = new Collection<int>();
+
+            int newOffset = Write(BitConverter.GetBytes((ushort)indexes.Count), destination, offset);
+
+            if (indexes.Count == 0)
+                return newOffset;
+
+            foreach (int index in indexes)
+            {
+                ExifValue value = _Values[index];
+                newOffset = Write(BitConverter.GetBytes((ushort)value.Tag), destination, newOffset);
+                newOffset = Write(BitConverter.GetBytes((ushort)value.DataType), destination, newOffset);
+                newOffset = Write(BitConverter.GetBytes((uint)value.NumberOfComponents), destination, newOffset);
+
+                if (value.Length > 4)
+                    _DataOffsets.Add(newOffset);
+                else
+                    WriteValue(value, destination, newOffset);
+
+                newOffset += 4;
+            }
+
+            return newOffset;
         }
     }
 }

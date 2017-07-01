@@ -33,88 +33,25 @@ namespace ImageMagick
     {
         private MagickImage _Image;
 
-#if NET20
-        private delegate TResult Func<T, TResult>(T arg);
-#endif
-
-        private static QuantumType[] CastArray<T>(T[] values, Func<T, QuantumType> convertMethod)
-        {
-            QuantumType[] result = new QuantumType[values.Length];
-            for (int i = 0; i < values.Length; i++)
-                result[i] = convertMethod(values[i]);
-
-            return result;
-        }
-
-        private void CheckArea(int x, int y, int width, int height)
-        {
-            CheckIndex(x, y);
-            Throw.IfOutOfRange(nameof(width), 0, _Image.Width - x, width, "Invalid width: {0}.", width);
-            Throw.IfOutOfRange(nameof(height), 0, _Image.Height - y, height, "Invalid height: {0}.", height);
-        }
-
-        private void CheckIndex(int x, int y)
-        {
-            Throw.IfOutOfRange(nameof(x), 0, _Image.Width - 1, x, "Invalid X coordinate: {0}.", x);
-            Throw.IfOutOfRange(nameof(y), 0, _Image.Height - 1, y, "Invalid Y coordinate: {0}.", y);
-        }
-
-        private void CheckValues<T>(T[] values)
-        {
-            CheckValues(0, 0, values);
-        }
-
-        private void CheckValues<T>(int x, int y, T[] values)
-        {
-            CheckValues(x, y, _Image.Width, _Image.Height, values);
-        }
-
-        private void CheckValues<T>(int x, int y, int width, int height, T[] values)
-        {
-            CheckIndex(x, y);
-            Throw.IfNullOrEmpty(nameof(values), values);
-            Throw.IfFalse(nameof(values), values.Length % Channels == 0, "Values should have {0} channels.", Channels);
-
-            int length = values.Length;
-            int max = width * height * Channels;
-            Throw.IfTrue(nameof(values), length > max, "Too many values specified.");
-
-            length = (x * y * Channels) + length;
-            max = _Image.Width * _Image.Height * Channels;
-            Throw.IfTrue(nameof(values), length > max, "Too many values specified.");
-        }
-
-        private void SetAreaUnchecked(int x, int y, int width, int height, QuantumType[] values)
-        {
-            _NativeInstance.SetArea(x, y, width, height, values, values.Length);
-        }
-
-        private void SetPixel(int x, int y, QuantumType[] value)
-        {
-            CheckIndex(x, y);
-
-            SetAreaUnchecked(x, y, 1, 1, value);
-        }
-
         internal PixelCollection(MagickImage image)
         {
             _Image = image;
             _NativeInstance = new NativePixelCollection(image);
         }
 
-        internal QuantumType[] GetAreaUnchecked(int x, int y, int width, int height)
-        {
-            IntPtr pixels = _NativeInstance.GetArea(x, y, width, height);
-            if (pixels == IntPtr.Zero)
-                throw new InvalidOperationException("Image contains no pixel data.");
+#if NET20
+        private delegate TResult Func<T, TResult>(T arg);
+#endif
 
-            int length = width * height * _Image.ChannelCount;
-            return QuantumConverter.ToArray(pixels, length);
-        }
-
-        internal void SetPixelUnchecked(int x, int y, QuantumType[] value)
+        /// <summary>
+        /// Gets the number of channels that the image contains.
+        /// </summary>
+        public int Channels
         {
-            SetAreaUnchecked(x, y, 1, 1, value);
+            get
+            {
+                return _Image.ChannelCount;
+            }
         }
 
         /// <summary>
@@ -127,17 +64,6 @@ namespace ImageMagick
             get
             {
                 return GetPixel(x, y);
-            }
-        }
-
-        /// <summary>
-        /// Gets the number of channels that the image contains.
-        /// </summary>
-        public int Channels
-        {
-            get
-            {
-                return _Image.ChannelCount;
             }
         }
 
@@ -453,6 +379,80 @@ namespace ImageMagick
         public byte[] ToByteArray(string mapping)
         {
             return ToByteArray(0, 0, _Image.Width, _Image.Height, mapping);
+        }
+
+        internal QuantumType[] GetAreaUnchecked(int x, int y, int width, int height)
+        {
+            IntPtr pixels = _NativeInstance.GetArea(x, y, width, height);
+            if (pixels == IntPtr.Zero)
+                throw new InvalidOperationException("Image contains no pixel data.");
+
+            int length = width * height * _Image.ChannelCount;
+            return QuantumConverter.ToArray(pixels, length);
+        }
+
+        internal void SetPixelUnchecked(int x, int y, QuantumType[] value)
+        {
+            SetAreaUnchecked(x, y, 1, 1, value);
+        }
+
+        private static QuantumType[] CastArray<T>(T[] values, Func<T, QuantumType> convertMethod)
+        {
+            QuantumType[] result = new QuantumType[values.Length];
+            for (int i = 0; i < values.Length; i++)
+                result[i] = convertMethod(values[i]);
+
+            return result;
+        }
+
+        private void CheckArea(int x, int y, int width, int height)
+        {
+            CheckIndex(x, y);
+            Throw.IfOutOfRange(nameof(width), 0, _Image.Width - x, width, "Invalid width: {0}.", width);
+            Throw.IfOutOfRange(nameof(height), 0, _Image.Height - y, height, "Invalid height: {0}.", height);
+        }
+
+        private void CheckIndex(int x, int y)
+        {
+            Throw.IfOutOfRange(nameof(x), 0, _Image.Width - 1, x, "Invalid X coordinate: {0}.", x);
+            Throw.IfOutOfRange(nameof(y), 0, _Image.Height - 1, y, "Invalid Y coordinate: {0}.", y);
+        }
+
+        private void CheckValues<T>(T[] values)
+        {
+            CheckValues(0, 0, values);
+        }
+
+        private void CheckValues<T>(int x, int y, T[] values)
+        {
+            CheckValues(x, y, _Image.Width, _Image.Height, values);
+        }
+
+        private void CheckValues<T>(int x, int y, int width, int height, T[] values)
+        {
+            CheckIndex(x, y);
+            Throw.IfNullOrEmpty(nameof(values), values);
+            Throw.IfFalse(nameof(values), values.Length % Channels == 0, "Values should have {0} channels.", Channels);
+
+            int length = values.Length;
+            int max = width * height * Channels;
+            Throw.IfTrue(nameof(values), length > max, "Too many values specified.");
+
+            length = (x * y * Channels) + length;
+            max = _Image.Width * _Image.Height * Channels;
+            Throw.IfTrue(nameof(values), length > max, "Too many values specified.");
+        }
+
+        private void SetAreaUnchecked(int x, int y, int width, int height, QuantumType[] values)
+        {
+            _NativeInstance.SetArea(x, y, width, height, values, values.Length);
+        }
+
+        private void SetPixel(int x, int y, QuantumType[] value)
+        {
+            CheckIndex(x, y);
+
+            SetAreaUnchecked(x, y, 1, 1, value);
         }
     }
 }

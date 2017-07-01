@@ -24,116 +24,62 @@ namespace ImageMagick
     {
         private object _Value;
 
-        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Cannot avoid it here.")]
-        private void CheckValue(object value)
+        internal ExifValue(ExifTag tag, ExifDataType dataType, bool isArray)
         {
-            if (value == null)
-                return;
+            Tag = tag;
+            DataType = dataType;
+            IsArray = isArray;
 
-            Type type = value.GetType();
-
-            if (DataType == ExifDataType.Ascii)
-            {
-                Throw.IfFalse(nameof(value), type == typeof(string), "Value should be a string.");
-                return;
-            }
-
-            if (type.IsArray)
-            {
-                Throw.IfTrue(nameof(value), !IsArray, "Value should not be an array.");
-                type = type.GetElementType();
-            }
-            else
-            {
-                Throw.IfTrue(nameof(value), IsArray, "Value should be an array.");
-            }
-
-            switch (DataType)
-            {
-                case ExifDataType.Byte:
-                    Throw.IfFalse(nameof(value), type == typeof(byte), "Value should be a byte{0}", IsArray ? " array." : ".");
-                    break;
-                case ExifDataType.DoubleFloat:
-                    Throw.IfFalse(nameof(value), type == typeof(double), "Value should be a double{0}", IsArray ? " array." : ".");
-                    break;
-                case ExifDataType.Long:
-                    Throw.IfFalse(nameof(value), type == typeof(uint), "Value should be an unsigned int{0}", IsArray ? " array." : ".");
-                    break;
-                case ExifDataType.Rational:
-                    Throw.IfFalse(nameof(value), type == typeof(Rational), "Value should be a rational{0}", IsArray ? " array." : ".");
-                    break;
-                case ExifDataType.Short:
-                    Throw.IfFalse(nameof(value), type == typeof(ushort), "Value should be an unsigned short{0}", IsArray ? " array." : ".");
-                    break;
-                case ExifDataType.SignedByte:
-                    Throw.IfFalse(nameof(value), type == typeof(sbyte), "Value should be a signed byte{0}", IsArray ? " array." : ".");
-                    break;
-                case ExifDataType.SignedLong:
-                    Throw.IfFalse(nameof(value), type == typeof(int), "Value should be an int{0}", IsArray ? " array." : ".");
-                    break;
-                case ExifDataType.SignedRational:
-                    Throw.IfFalse(nameof(value), type == typeof(SignedRational), "Value should be a signed rational{0}", IsArray ? " array." : ".");
-                    break;
-                case ExifDataType.SignedShort:
-                    Throw.IfFalse(nameof(value), type == typeof(short), "Value should be a short{0}", IsArray ? " array." : ".");
-                    break;
-                case ExifDataType.SingleFloat:
-                    Throw.IfFalse(nameof(value), type == typeof(float), "Value should be a float{0}", IsArray ? " array." : ".");
-                    break;
-                case ExifDataType.Undefined:
-                    Throw.IfFalse(nameof(value), type == typeof(byte), "Value should be a byte array.");
-                    break;
-                default:
-                    throw new NotSupportedException();
-            }
+            if (dataType == ExifDataType.Ascii)
+                IsArray = false;
         }
 
-        private static ExifValue CreateNumber(ExifTag tag, Type type, bool isArray)
+        internal ExifValue(ExifTag tag, ExifDataType dataType, object value, bool isArray)
+          : this(tag, dataType, isArray)
         {
-            if (type == null || type == typeof(ushort))
-                return new ExifValue(tag, ExifDataType.Short, isArray);
-            else if (type == typeof(short))
-                return new ExifValue(tag, ExifDataType.SignedShort, isArray);
-            else if (type == typeof(uint))
-                return new ExifValue(tag, ExifDataType.Long, isArray);
-            else
-                return new ExifValue(tag, ExifDataType.SignedLong, isArray);
+            _Value = value;
         }
 
-        private string ToString(object value)
+        /// <summary>
+        /// Gets the data type of the exif value.
+        /// </summary>
+        public ExifDataType DataType
         {
-            string description = ExifTagDescriptionAttribute.GetDescription(Tag, value);
-            if (description != null)
-                return description;
+            get;
+            private set;
+        }
 
-            switch (DataType)
+        /// <summary>
+        /// Gets a value indicating whether the value is an array.
+        /// </summary>
+        public bool IsArray
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the tag of the exif value.
+        /// </summary>
+        public ExifTag Tag
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets or sets the value.
+        /// </summary>
+        public object Value
+        {
+            get
             {
-                case ExifDataType.Ascii:
-                    return (string)value;
-                case ExifDataType.Byte:
-                    return ((byte)value).ToString("X2", CultureInfo.InvariantCulture);
-                case ExifDataType.DoubleFloat:
-                    return ((double)value).ToString(CultureInfo.InvariantCulture);
-                case ExifDataType.Long:
-                    return ((uint)value).ToString(CultureInfo.InvariantCulture);
-                case ExifDataType.Rational:
-                    return ((Rational)value).ToString(CultureInfo.InvariantCulture);
-                case ExifDataType.Short:
-                    return ((ushort)value).ToString(CultureInfo.InvariantCulture);
-                case ExifDataType.SignedByte:
-                    return ((sbyte)value).ToString("X2", CultureInfo.InvariantCulture);
-                case ExifDataType.SignedLong:
-                    return ((int)value).ToString(CultureInfo.InvariantCulture);
-                case ExifDataType.SignedRational:
-                    return ((SignedRational)value).ToString(CultureInfo.InvariantCulture);
-                case ExifDataType.SignedShort:
-                    return ((short)value).ToString(CultureInfo.InvariantCulture);
-                case ExifDataType.SingleFloat:
-                    return ((float)value).ToString(CultureInfo.InvariantCulture);
-                case ExifDataType.Undefined:
-                    return ((byte)value).ToString("X2", CultureInfo.InvariantCulture);
-                default:
-                    throw new NotSupportedException();
+                return _Value;
+            }
+            set
+            {
+                CheckValue(value);
+                _Value = value;
             }
         }
 
@@ -178,20 +124,91 @@ namespace ImageMagick
             }
         }
 
-        internal ExifValue(ExifTag tag, ExifDataType dataType, bool isArray)
+        /// <summary>
+        /// Determines whether the specified <see cref="ExifValue"/> instances are considered equal.
+        /// </summary>
+        /// <param name="left">The first <see cref="ExifValue"/> to compare.</param>
+        /// <param name="right"> The second <see cref="ExifValue"/>to compare.</param>
+        public static bool operator ==(ExifValue left, ExifValue right)
         {
-            Tag = tag;
-            DataType = dataType;
-            IsArray = isArray;
-
-            if (dataType == ExifDataType.Ascii)
-                IsArray = false;
+            return Equals(left, right);
         }
 
-        internal ExifValue(ExifTag tag, ExifDataType dataType, object value, bool isArray)
-          : this(tag, dataType, isArray)
+        /// <summary>
+        /// Determines whether the specified <see cref="ExifValue"/> instances are not considered equal.
+        /// </summary>
+        /// <param name="left">The first <see cref="ExifValue"/> to compare.</param>
+        /// <param name="right"> The second <see cref="ExifValue"/> to compare.</param>
+        public static bool operator !=(ExifValue left, ExifValue right)
         {
-            _Value = value;
+            return !Equals(left, right);
+        }
+
+        /// <summary>
+        /// Determines whether the specified object is equal to the current <see cref="ExifValue"/>.
+        /// </summary>
+        /// <param name="obj">The object to compare this <see cref="ExifValue"/> with.</param>
+        /// <returns>True when the specified object is equal to the current <see cref="ExifValue"/>.</returns>
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(this, obj))
+                return true;
+
+            return Equals(obj as ExifValue);
+        }
+
+        /// <summary>
+        /// Determines whether the specified exif value is equal to the current <see cref="ExifValue"/>.
+        /// </summary>
+        /// <param name="other">The exif value to compare this <see cref="ExifValue"/> with.</param>
+        /// <returns>True when the specified exif value is equal to the current <see cref="ExifValue"/>.</returns>
+        public bool Equals(ExifValue other)
+        {
+            if (ReferenceEquals(other, null))
+                return false;
+
+            if (ReferenceEquals(this, other))
+                return true;
+
+            return
+              Tag == other.Tag &&
+              DataType == other.DataType &&
+              Equals(_Value, other._Value);
+        }
+
+        /// <summary>
+        /// Serves as a hash of this type.
+        /// </summary>
+        /// <returns>A hash code for the current instance.</returns>
+        public override int GetHashCode()
+        {
+            int hashCode = Tag.GetHashCode() ^ DataType.GetHashCode();
+            return _Value != null ? hashCode ^ _Value.GetHashCode() : hashCode;
+        }
+
+        /// <summary>
+        /// Returns a string that represents the current value.
+        /// </summary>
+        /// <returns>A string that represents the current value.</returns>
+        public override string ToString()
+        {
+            if (_Value == null)
+                return null;
+
+            if (DataType == ExifDataType.Ascii)
+                return (string)_Value;
+
+            if (!IsArray)
+                return ToString(_Value);
+
+            StringBuilder sb = new StringBuilder();
+            foreach (object value in (Array)_Value)
+            {
+                sb.Append(ToString(value));
+                sb.Append(" ");
+            }
+
+            return sb.ToString();
         }
 
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Cannot avoid it here.")]
@@ -526,134 +543,117 @@ namespace ImageMagick
             }
         }
 
-        /// <summary>
-        /// Gets the data type of the exif value.
-        /// </summary>
-        public ExifDataType DataType
+        private static ExifValue CreateNumber(ExifTag tag, Type type, bool isArray)
         {
-            get;
-            private set;
+            if (type == null || type == typeof(ushort))
+                return new ExifValue(tag, ExifDataType.Short, isArray);
+            else if (type == typeof(short))
+                return new ExifValue(tag, ExifDataType.SignedShort, isArray);
+            else if (type == typeof(uint))
+                return new ExifValue(tag, ExifDataType.Long, isArray);
+            else
+                return new ExifValue(tag, ExifDataType.SignedLong, isArray);
         }
 
-        /// <summary>
-        /// Gets a value indicating whether the value is an array.
-        /// </summary>
-        public bool IsArray
+        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Cannot avoid it here.")]
+        private void CheckValue(object value)
         {
-            get;
-            private set;
-        }
+            if (value == null)
+                return;
 
-        /// <summary>
-        /// Gets the tag of the exif value.
-        /// </summary>
-        public ExifTag Tag
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Gets or sets the value.
-        /// </summary>
-        public object Value
-        {
-            get
-            {
-                return _Value;
-            }
-            set
-            {
-                CheckValue(value);
-                _Value = value;
-            }
-        }
-
-        /// <summary>
-        /// Determines whether the specified <see cref="ExifValue"/> instances are considered equal.
-        /// </summary>
-        /// <param name="left">The first <see cref="ExifValue"/> to compare.</param>
-        /// <param name="right"> The second <see cref="ExifValue"/>to compare.</param>
-        public static bool operator ==(ExifValue left, ExifValue right)
-        {
-            return Equals(left, right);
-        }
-
-        /// <summary>
-        /// Determines whether the specified <see cref="ExifValue"/> instances are not considered equal.
-        /// </summary>
-        /// <param name="left">The first <see cref="ExifValue"/> to compare.</param>
-        /// <param name="right"> The second <see cref="ExifValue"/> to compare.</param>
-        public static bool operator !=(ExifValue left, ExifValue right)
-        {
-            return !Equals(left, right);
-        }
-
-        /// <summary>
-        /// Determines whether the specified object is equal to the current <see cref="ExifValue"/>.
-        /// </summary>
-        /// <param name="obj">The object to compare this <see cref="ExifValue"/> with.</param>
-        /// <returns>True when the specified object is equal to the current <see cref="ExifValue"/>.</returns>
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(this, obj))
-                return true;
-
-            return Equals(obj as ExifValue);
-        }
-
-        /// <summary>
-        /// Determines whether the specified exif value is equal to the current <see cref="ExifValue"/>.
-        /// </summary>
-        /// <param name="other">The exif value to compare this <see cref="ExifValue"/> with.</param>
-        /// <returns>True when the specified exif value is equal to the current <see cref="ExifValue"/>.</returns>
-        public bool Equals(ExifValue other)
-        {
-            if (ReferenceEquals(other, null))
-                return false;
-
-            if (ReferenceEquals(this, other))
-                return true;
-
-            return
-              Tag == other.Tag &&
-              DataType == other.DataType &&
-              Equals(_Value, other._Value);
-        }
-
-        /// <summary>
-        /// Serves as a hash of this type.
-        /// </summary>
-        /// <returns>A hash code for the current instance.</returns>
-        public override int GetHashCode()
-        {
-            int hashCode = Tag.GetHashCode() ^ DataType.GetHashCode();
-            return _Value != null ? hashCode ^ _Value.GetHashCode() : hashCode;
-        }
-
-        /// <summary>
-        /// Returns a string that represents the current value.
-        /// </summary>
-        /// <returns>A string that represents the current value.</returns>
-        public override string ToString()
-        {
-            if (_Value == null)
-                return null;
+            Type type = value.GetType();
 
             if (DataType == ExifDataType.Ascii)
-                return (string)_Value;
-
-            if (!IsArray)
-                return ToString(_Value);
-
-            StringBuilder sb = new StringBuilder();
-            foreach (object value in (Array)_Value)
             {
-                sb.Append(ToString(value));
-                sb.Append(" ");
+                Throw.IfFalse(nameof(value), type == typeof(string), "Value should be a string.");
+                return;
             }
 
-            return sb.ToString();
+            if (type.IsArray)
+            {
+                Throw.IfTrue(nameof(value), !IsArray, "Value should not be an array.");
+                type = type.GetElementType();
+            }
+            else
+            {
+                Throw.IfTrue(nameof(value), IsArray, "Value should be an array.");
+            }
+
+            switch (DataType)
+            {
+                case ExifDataType.Byte:
+                    Throw.IfFalse(nameof(value), type == typeof(byte), "Value should be a byte{0}", IsArray ? " array." : ".");
+                    break;
+                case ExifDataType.DoubleFloat:
+                    Throw.IfFalse(nameof(value), type == typeof(double), "Value should be a double{0}", IsArray ? " array." : ".");
+                    break;
+                case ExifDataType.Long:
+                    Throw.IfFalse(nameof(value), type == typeof(uint), "Value should be an unsigned int{0}", IsArray ? " array." : ".");
+                    break;
+                case ExifDataType.Rational:
+                    Throw.IfFalse(nameof(value), type == typeof(Rational), "Value should be a rational{0}", IsArray ? " array." : ".");
+                    break;
+                case ExifDataType.Short:
+                    Throw.IfFalse(nameof(value), type == typeof(ushort), "Value should be an unsigned short{0}", IsArray ? " array." : ".");
+                    break;
+                case ExifDataType.SignedByte:
+                    Throw.IfFalse(nameof(value), type == typeof(sbyte), "Value should be a signed byte{0}", IsArray ? " array." : ".");
+                    break;
+                case ExifDataType.SignedLong:
+                    Throw.IfFalse(nameof(value), type == typeof(int), "Value should be an int{0}", IsArray ? " array." : ".");
+                    break;
+                case ExifDataType.SignedRational:
+                    Throw.IfFalse(nameof(value), type == typeof(SignedRational), "Value should be a signed rational{0}", IsArray ? " array." : ".");
+                    break;
+                case ExifDataType.SignedShort:
+                    Throw.IfFalse(nameof(value), type == typeof(short), "Value should be a short{0}", IsArray ? " array." : ".");
+                    break;
+                case ExifDataType.SingleFloat:
+                    Throw.IfFalse(nameof(value), type == typeof(float), "Value should be a float{0}", IsArray ? " array." : ".");
+                    break;
+                case ExifDataType.Undefined:
+                    Throw.IfFalse(nameof(value), type == typeof(byte), "Value should be a byte array.");
+                    break;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        private string ToString(object value)
+        {
+            string description = ExifTagDescriptionAttribute.GetDescription(Tag, value);
+            if (description != null)
+                return description;
+
+            switch (DataType)
+            {
+                case ExifDataType.Ascii:
+                    return (string)value;
+                case ExifDataType.Byte:
+                    return ((byte)value).ToString("X2", CultureInfo.InvariantCulture);
+                case ExifDataType.DoubleFloat:
+                    return ((double)value).ToString(CultureInfo.InvariantCulture);
+                case ExifDataType.Long:
+                    return ((uint)value).ToString(CultureInfo.InvariantCulture);
+                case ExifDataType.Rational:
+                    return ((Rational)value).ToString(CultureInfo.InvariantCulture);
+                case ExifDataType.Short:
+                    return ((ushort)value).ToString(CultureInfo.InvariantCulture);
+                case ExifDataType.SignedByte:
+                    return ((sbyte)value).ToString("X2", CultureInfo.InvariantCulture);
+                case ExifDataType.SignedLong:
+                    return ((int)value).ToString(CultureInfo.InvariantCulture);
+                case ExifDataType.SignedRational:
+                    return ((SignedRational)value).ToString(CultureInfo.InvariantCulture);
+                case ExifDataType.SignedShort:
+                    return ((short)value).ToString(CultureInfo.InvariantCulture);
+                case ExifDataType.SingleFloat:
+                    return ((float)value).ToString(CultureInfo.InvariantCulture);
+                case ExifDataType.Undefined:
+                    return ((byte)value).ToString("X2", CultureInfo.InvariantCulture);
+                default:
+                    throw new NotSupportedException();
+            }
         }
     }
 }

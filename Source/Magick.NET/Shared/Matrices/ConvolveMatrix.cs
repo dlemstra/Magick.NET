@@ -17,12 +17,6 @@ namespace ImageMagick
     /// </summary>
     public sealed class ConvolveMatrix : DoubleMatrix
     {
-        private static void CheckOrder(int order)
-        {
-            Throw.IfTrue(nameof(order), order < 1, "Invalid order specified, value has to be at least 1.");
-            Throw.IfTrue(nameof(order), order % 2 == 0, "Order must be an odd number.");
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ConvolveMatrix"/> class.
         /// </summary>
@@ -42,6 +36,12 @@ namespace ImageMagick
           : base(order, values)
         {
             CheckOrder(order);
+        }
+
+        private static void CheckOrder(int order)
+        {
+            Throw.IfTrue(nameof(order), order < 1, "Invalid order specified, value has to be at least 1.");
+            Throw.IfTrue(nameof(order), order % 2 == 0, "Order must be an odd number.");
         }
     }
 }

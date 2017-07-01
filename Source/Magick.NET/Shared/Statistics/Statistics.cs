@@ -22,15 +22,6 @@ namespace ImageMagick
     {
         private Dictionary<PixelChannel, ChannelStatistics> _Channels;
 
-        private void AddChannel(IntPtr list, PixelChannel channel)
-        {
-            IntPtr instance = NativeStatistics.GetInstance(list, channel);
-
-            ChannelStatistics result = ChannelStatistics.Create(channel, instance);
-            if (result != null)
-                _Channels.Add(result.Channel, result);
-        }
-
         internal Statistics(MagickImage image, IntPtr list)
         {
             if (list == IntPtr.Zero)
@@ -41,33 +32,6 @@ namespace ImageMagick
                 AddChannel(list, channel);
 
             AddChannel(list, PixelChannel.Composite);
-        }
-
-        internal static void DisposeList(IntPtr list)
-        {
-            if (list != IntPtr.Zero)
-                NativeStatistics.DisposeList(list);
-        }
-
-        /// <summary>
-        /// Returns the statistics for the all the channels.
-        /// </summary>
-        /// <returns>The statistics for the all the channels.</returns>
-        public ChannelStatistics Composite()
-        {
-            return GetChannel(PixelChannel.Composite);
-        }
-
-        /// <summary>
-        /// Returns the statistics for the specified channel.
-        /// </summary>
-        /// <param name="channel">The channel to get the statistics for.</param>
-        /// <returns>The statistics for the specified channel.</returns>
-        public ChannelStatistics GetChannel(PixelChannel channel)
-        {
-            ChannelStatistics channelStatistics;
-            _Channels.TryGetValue(channel, out channelStatistics);
-            return channelStatistics;
         }
 
         /// <summary>
@@ -88,6 +52,26 @@ namespace ImageMagick
         public static bool operator !=(Statistics left, Statistics right)
         {
             return !Equals(left, right);
+        }
+
+        /// <summary>
+        /// Returns the statistics for the all the channels.
+        /// </summary>
+        /// <returns>The statistics for the all the channels.</returns>
+        public ChannelStatistics Composite()
+        {
+            return GetChannel(PixelChannel.Composite);
+        }
+
+        /// <summary>
+        /// Returns the statistics for the specified channel.
+        /// </summary>
+        /// <param name="channel">The channel to get the statistics for.</param>
+        /// <returns>The statistics for the specified channel.</returns>
+        public ChannelStatistics GetChannel(PixelChannel channel)
+        {
+            _Channels.TryGetValue(channel, out ChannelStatistics channelStatistics);
+            return channelStatistics;
         }
 
         /// <summary>
@@ -145,6 +129,21 @@ namespace ImageMagick
             }
 
             return hashCode;
+        }
+
+        internal static void DisposeList(IntPtr list)
+        {
+            if (list != IntPtr.Zero)
+                NativeStatistics.DisposeList(list);
+        }
+
+        private void AddChannel(IntPtr list, PixelChannel channel)
+        {
+            IntPtr instance = NativeStatistics.GetInstance(list, channel);
+
+            ChannelStatistics result = ChannelStatistics.Create(channel, instance);
+            if (result != null)
+                _Channels.Add(result.Channel, result);
         }
     }
 }

@@ -33,91 +33,6 @@ namespace ImageMagick
         private double _Saturation;
         private double _Value;
 
-        private void Initialize(double red, double green, double blue)
-        {
-            _Hue = 0.0;
-            _Saturation = 0.0;
-            _Value = 0.0;
-
-            double min = Math.Min(Math.Min(red, green), blue);
-            double max = Math.Max(Math.Max(red, green), blue);
-
-            if (Math.Abs(max) < double.Epsilon)
-                return;
-            double delta = max - min;
-            _Saturation = delta / max;
-            _Value = (1.0 / Quantum.Max) * max;
-            if (Math.Abs(delta) < double.Epsilon)
-                return;
-            if (Math.Abs(red - max) < double.Epsilon)
-                _Hue = (green - blue) / delta;
-            else if (Math.Abs(green - max) < double.Epsilon)
-                _Hue = 2.0 + ((blue - red) / delta);
-            else
-                _Hue = 4.0 + ((red - green) / delta);
-            _Hue /= 6.0;
-            if (_Hue < 0.0)
-                _Hue += 1.0;
-        }
-
-        private ColorHSV(MagickColor color)
-          : base(color)
-        {
-            Initialize(color.R, color.G, color.B);
-        }
-
-        /// <summary>
-        /// Updates the color value in an inherited class.
-        /// </summary>
-        protected override void UpdateColor()
-        {
-            if (Math.Abs(_Saturation) < double.Epsilon)
-            {
-                Color.R = Color.G = Color.B = Quantum.ScaleToQuantum(_Value);
-                return;
-            }
-
-            double h = 6.0 * (_Hue - Math.Floor(_Hue));
-            double f = h - Math.Floor(h);
-            double p = _Value * (1.0 - _Saturation);
-            double q = _Value * (1.0 - (_Saturation * f));
-            double t = _Value * (1.0 - (_Saturation * (1.0 - f)));
-            switch ((int)h)
-            {
-                case 0:
-                default:
-                    Color.R = Quantum.ScaleToQuantum(_Value);
-                    Color.G = Quantum.ScaleToQuantum(t);
-                    Color.B = Quantum.ScaleToQuantum(p);
-                    break;
-                case 1:
-                    Color.R = Quantum.ScaleToQuantum(q);
-                    Color.G = Quantum.ScaleToQuantum(_Value);
-                    Color.B = Quantum.ScaleToQuantum(p);
-                    break;
-                case 2:
-                    Color.R = Quantum.ScaleToQuantum(p);
-                    Color.G = Quantum.ScaleToQuantum(_Value);
-                    Color.B = Quantum.ScaleToQuantum(t);
-                    break;
-                case 3:
-                    Color.R = Quantum.ScaleToQuantum(p);
-                    Color.G = Quantum.ScaleToQuantum(q);
-                    Color.B = Quantum.ScaleToQuantum(_Value);
-                    break;
-                case 4:
-                    Color.R = Quantum.ScaleToQuantum(t);
-                    Color.G = Quantum.ScaleToQuantum(p);
-                    Color.B = Quantum.ScaleToQuantum(_Value);
-                    break;
-                case 5:
-                    Color.R = Quantum.ScaleToQuantum(_Value);
-                    Color.G = Quantum.ScaleToQuantum(p);
-                    Color.B = Quantum.ScaleToQuantum(q);
-                    break;
-            }
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ColorHSV"/> class.
         /// </summary>
@@ -130,6 +45,12 @@ namespace ImageMagick
             _Hue = hue;
             _Saturation = saturation;
             _Value = value;
+        }
+
+        private ColorHSV(MagickColor color)
+          : base(color)
+        {
+            Initialize(color.R, color.G, color.B);
         }
 
         /// <summary>
@@ -212,6 +133,85 @@ namespace ImageMagick
                 _Hue -= 1.0;
 
             while (_Hue < 0.0)
+                _Hue += 1.0;
+        }
+
+        /// <summary>
+        /// Updates the color value in an inherited class.
+        /// </summary>
+        protected override void UpdateColor()
+        {
+            if (Math.Abs(_Saturation) < double.Epsilon)
+            {
+                Color.R = Color.G = Color.B = Quantum.ScaleToQuantum(_Value);
+                return;
+            }
+
+            double h = 6.0 * (_Hue - Math.Floor(_Hue));
+            double f = h - Math.Floor(h);
+            double p = _Value * (1.0 - _Saturation);
+            double q = _Value * (1.0 - (_Saturation * f));
+            double t = _Value * (1.0 - (_Saturation * (1.0 - f)));
+            switch ((int)h)
+            {
+                case 0:
+                default:
+                    Color.R = Quantum.ScaleToQuantum(_Value);
+                    Color.G = Quantum.ScaleToQuantum(t);
+                    Color.B = Quantum.ScaleToQuantum(p);
+                    break;
+                case 1:
+                    Color.R = Quantum.ScaleToQuantum(q);
+                    Color.G = Quantum.ScaleToQuantum(_Value);
+                    Color.B = Quantum.ScaleToQuantum(p);
+                    break;
+                case 2:
+                    Color.R = Quantum.ScaleToQuantum(p);
+                    Color.G = Quantum.ScaleToQuantum(_Value);
+                    Color.B = Quantum.ScaleToQuantum(t);
+                    break;
+                case 3:
+                    Color.R = Quantum.ScaleToQuantum(p);
+                    Color.G = Quantum.ScaleToQuantum(q);
+                    Color.B = Quantum.ScaleToQuantum(_Value);
+                    break;
+                case 4:
+                    Color.R = Quantum.ScaleToQuantum(t);
+                    Color.G = Quantum.ScaleToQuantum(p);
+                    Color.B = Quantum.ScaleToQuantum(_Value);
+                    break;
+                case 5:
+                    Color.R = Quantum.ScaleToQuantum(_Value);
+                    Color.G = Quantum.ScaleToQuantum(p);
+                    Color.B = Quantum.ScaleToQuantum(q);
+                    break;
+            }
+        }
+
+        private void Initialize(double red, double green, double blue)
+        {
+            _Hue = 0.0;
+            _Saturation = 0.0;
+            _Value = 0.0;
+
+            double min = Math.Min(Math.Min(red, green), blue);
+            double max = Math.Max(Math.Max(red, green), blue);
+
+            if (Math.Abs(max) < double.Epsilon)
+                return;
+            double delta = max - min;
+            _Saturation = delta / max;
+            _Value = (1.0 / Quantum.Max) * max;
+            if (Math.Abs(delta) < double.Epsilon)
+                return;
+            if (Math.Abs(red - max) < double.Epsilon)
+                _Hue = (green - blue) / delta;
+            else if (Math.Abs(green - max) < double.Epsilon)
+                _Hue = 2.0 + ((blue - red) / delta);
+            else
+                _Hue = 4.0 + ((red - green) / delta);
+            _Hue /= 6.0;
+            if (_Hue < 0.0)
                 _Hue += 1.0;
         }
     }

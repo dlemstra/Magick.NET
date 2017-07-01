@@ -28,17 +28,6 @@ namespace ImageMagick
             TotalDuration = instance.TotalDuration;
         }
 
-        internal static OpenCLKernelProfileRecord CreateInstance(IntPtr instance)
-        {
-            if (instance == IntPtr.Zero)
-                return null;
-
-            NativeOpenCLKernelProfileRecord nativeInstance = new NativeOpenCLKernelProfileRecord();
-            nativeInstance.Instance = instance;
-
-            return new OpenCLKernelProfileRecord(nativeInstance);
-        }
-
         /// <summary>
         /// Gets the average duration of all executions in microseconds.
         /// </summary>
@@ -96,6 +85,17 @@ namespace ImageMagick
         {
             get;
             private set;
+        }
+
+        internal static OpenCLKernelProfileRecord CreateInstance(IntPtr instance)
+        {
+            if (instance == IntPtr.Zero)
+                return null;
+
+            NativeOpenCLKernelProfileRecord nativeInstance = new NativeOpenCLKernelProfileRecord();
+            nativeInstance.Instance = instance;
+
+            return new OpenCLKernelProfileRecord(nativeInstance);
         }
     }
 }

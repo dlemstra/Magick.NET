@@ -32,34 +32,6 @@ namespace ImageMagick
             Y = NativeConnectedComponent.GetY(instance);
         }
 
-        internal static IEnumerable<ConnectedComponent> Create(IntPtr list, int length)
-        {
-            Collection<ConnectedComponent> result = new Collection<ConnectedComponent>();
-
-            if (list == IntPtr.Zero)
-                return result;
-
-            for (int i = 0; i < length; i++)
-            {
-                IntPtr instance = NativeConnectedComponent.GetInstance(list, i);
-                if (instance == IntPtr.Zero)
-                    continue;
-
-                if (NativeConnectedComponent.GetArea(instance) < double.Epsilon)
-                    continue;
-
-                result.Add(new ConnectedComponent(instance));
-            }
-
-            return result;
-        }
-
-        internal static void DisposeList(IntPtr list)
-        {
-            if (list != IntPtr.Zero)
-                NativeConnectedComponent.DisposeList(list);
-        }
-
         /// <summary>
         /// Gets the centroid of the area.
         /// </summary>
@@ -146,6 +118,34 @@ namespace ImageMagick
             }
 
             return new MagickGeometry(X - extent, Y - extent, Width + extra, Height + extra);
+        }
+
+        internal static IEnumerable<ConnectedComponent> Create(IntPtr list, int length)
+        {
+            Collection<ConnectedComponent> result = new Collection<ConnectedComponent>();
+
+            if (list == IntPtr.Zero)
+                return result;
+
+            for (int i = 0; i < length; i++)
+            {
+                IntPtr instance = NativeConnectedComponent.GetInstance(list, i);
+                if (instance == IntPtr.Zero)
+                    continue;
+
+                if (NativeConnectedComponent.GetArea(instance) < double.Epsilon)
+                    continue;
+
+                result.Add(new ConnectedComponent(instance));
+            }
+
+            return result;
+        }
+
+        internal static void DisposeList(IntPtr list)
+        {
+            if (list != IntPtr.Zero)
+                NativeConnectedComponent.DisposeList(list);
         }
     }
 }

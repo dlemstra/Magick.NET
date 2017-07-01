@@ -26,70 +26,6 @@ namespace ImageMagick
         private static readonly object _SyncRoot = new object();
         private static Dictionary<string, ColorProfile> _Profiles = new Dictionary<string, ColorProfile>();
 
-        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Cannot avoid it here.")]
-        private static ColorSpace DetermineColorSpace(string colorSpace)
-        {
-            switch (colorSpace)
-            {
-                case "CMY":
-                    return ColorSpace.CMY;
-                case "CMYK":
-                    return ColorSpace.CMYK;
-                case "GRAY":
-                    return ColorSpace.Gray;
-                case "HLS":
-                    return ColorSpace.HSL;
-                case "HSV":
-                    return ColorSpace.HSV;
-                case "Lab":
-                    return ColorSpace.Lab;
-                case "Luv":
-                    return ColorSpace.YUV;
-                case "RGB":
-                    return ColorSpace.sRGB;
-                case "XYZ":
-                    return ColorSpace.XYZ;
-                case "YCbr":
-                    return ColorSpace.YCbCr;
-                case "Yxy":
-                    return ColorSpace.XyY;
-                default:
-                    throw new NotSupportedException(colorSpace);
-            }
-        }
-
-        private void Initialize()
-        {
-            ColorSpace = ColorSpace.Undefined;
-            if (Data.Length < 20)
-                return;
-
-            string colorSpace = Encoding.ASCII.GetString(Data, 16, 4).TrimEnd();
-            ColorSpace = DetermineColorSpace(colorSpace);
-        }
-
-        private static ColorProfile Load(string resourcePath, string resourceName)
-        {
-            lock (_SyncRoot)
-            {
-                if (!_Profiles.ContainsKey(resourceName))
-                {
-                    using (Stream stream = TypeHelper.GetManifestResourceStream(typeof(ColorProfile), resourcePath, resourceName))
-                    {
-                        _Profiles[resourceName] = new ColorProfile(stream);
-                    }
-                }
-            }
-
-            return _Profiles[resourceName];
-        }
-
-        internal ColorProfile(string name, byte[] data)
-          : base(name, data)
-        {
-            Initialize();
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ColorProfile"/> class.
         /// </summary>
@@ -119,13 +55,10 @@ namespace ImageMagick
         {
         }
 
-        /// <summary>
-        /// Gets the color space of the profile.
-        /// </summary>
-        public ColorSpace ColorSpace
+        internal ColorProfile(string name, byte[] data)
+          : base(name, data)
         {
-            get;
-            private set;
+            Initialize();
         }
 
         /// <summary>
@@ -192,6 +125,73 @@ namespace ImageMagick
             {
                 return Load("Magick.NET.Resources.ColorProfiles.CMYK", "USWebCoatedSWOP.icc");
             }
+        }
+
+        /// <summary>
+        /// Gets the color space of the profile.
+        /// </summary>
+        public ColorSpace ColorSpace
+        {
+            get;
+            private set;
+        }
+
+        private static ColorProfile Load(string resourcePath, string resourceName)
+        {
+            lock (_SyncRoot)
+            {
+                if (!_Profiles.ContainsKey(resourceName))
+                {
+                    using (Stream stream = TypeHelper.GetManifestResourceStream(typeof(ColorProfile), resourcePath, resourceName))
+                    {
+                        _Profiles[resourceName] = new ColorProfile(stream);
+                    }
+                }
+            }
+
+            return _Profiles[resourceName];
+        }
+
+        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Cannot avoid it here.")]
+        private static ColorSpace DetermineColorSpace(string colorSpace)
+        {
+            switch (colorSpace)
+            {
+                case "CMY":
+                    return ColorSpace.CMY;
+                case "CMYK":
+                    return ColorSpace.CMYK;
+                case "GRAY":
+                    return ColorSpace.Gray;
+                case "HLS":
+                    return ColorSpace.HSL;
+                case "HSV":
+                    return ColorSpace.HSV;
+                case "Lab":
+                    return ColorSpace.Lab;
+                case "Luv":
+                    return ColorSpace.YUV;
+                case "RGB":
+                    return ColorSpace.sRGB;
+                case "XYZ":
+                    return ColorSpace.XYZ;
+                case "YCbr":
+                    return ColorSpace.YCbCr;
+                case "Yxy":
+                    return ColorSpace.XyY;
+                default:
+                    throw new NotSupportedException(colorSpace);
+            }
+        }
+
+        private void Initialize()
+        {
+            ColorSpace = ColorSpace.Undefined;
+            if (Data.Length < 20)
+                return;
+
+            string colorSpace = Encoding.ASCII.GetString(Data, 16, 4).TrimEnd();
+            ColorSpace = DetermineColorSpace(colorSpace);
         }
     }
 }

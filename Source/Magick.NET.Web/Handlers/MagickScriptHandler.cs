@@ -22,6 +22,28 @@ namespace ImageMagick.Web.Handlers
     {
         private readonly IScriptData _ScriptResolver;
 
+        internal MagickScriptHandler(MagickWebSettings settings, IImageData imageData, IScriptData scriptResolver)
+          : base(settings, imageData)
+        {
+            _ScriptResolver = scriptResolver;
+        }
+
+        /// <inheritdoc/>
+        protected override string GetFileName(HttpContext context)
+        {
+            string cacheFileName = GetCacheFileName();
+            if (!CanUseCache(cacheFileName))
+                CreateScriptedFile(cacheFileName);
+
+            return cacheFileName;
+        }
+
+        protected override string GetMimeType()
+        {
+            MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(_ScriptResolver.OutputFormat);
+            return formatInfo.MimeType;
+        }
+
         private void CreateScriptedFile(string cacheFileName)
         {
             MagickScript script = new MagickScript(_ScriptResolver.Script);
@@ -65,28 +87,6 @@ namespace ImageMagick.Web.Handlers
                 if (File.Exists(tempFile))
                     File.Delete(tempFile);
             }
-        }
-
-        internal MagickScriptHandler(MagickWebSettings settings, IImageData imageData, IScriptData scriptResolver)
-          : base(settings, imageData)
-        {
-            _ScriptResolver = scriptResolver;
-        }
-
-        /// <inheritdoc/>
-        protected override string GetFileName(HttpContext context)
-        {
-            string cacheFileName = GetCacheFileName();
-            if (!CanUseCache(cacheFileName))
-                CreateScriptedFile(cacheFileName);
-
-            return cacheFileName;
-        }
-
-        protected override string GetMimeType()
-        {
-            MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(_ScriptResolver.OutputFormat);
-            return formatInfo.MimeType;
         }
     }
 }

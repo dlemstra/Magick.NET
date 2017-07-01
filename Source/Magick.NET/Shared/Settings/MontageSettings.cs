@@ -17,35 +17,6 @@ namespace ImageMagick
     /// </summary>
     public sealed partial class MontageSettings
     {
-        private static string Convert(MagickGeometry geometry)
-        {
-            if (geometry == null)
-                return null;
-
-            return geometry.ToString();
-        }
-
-        private INativeInstance CreateNativeInstance()
-        {
-            NativeMontageSettings instance = new NativeMontageSettings();
-            instance.SetBackgroundColor(BackgroundColor);
-            instance.SetBorderColor(BorderColor);
-            instance.SetBorderWidth(BorderWidth);
-            instance.SetFillColor(FillColor);
-            instance.SetFont(Font);
-            instance.SetFontPointsize(FontPointsize);
-            instance.SetFrameGeometry(Convert(FrameGeometry));
-            instance.SetGeometry(Convert(Geometry));
-            instance.SetGravity(Gravity);
-            instance.SetShadow(Shadow);
-            instance.SetStrokeColor(StrokeColor);
-            instance.SetTextureFileName(TextureFileName);
-            instance.SetTileGeometry(Convert(TileGeometry));
-            instance.SetTitle(Title);
-
-            return instance;
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MontageSettings"/> class.
         /// </summary>
@@ -195,6 +166,35 @@ namespace ImageMagick
         {
             get;
             set;
+        }
+
+        private static string Convert(MagickGeometry geometry)
+        {
+            if (geometry == null)
+                return null;
+
+            return geometry.ToString();
+        }
+
+        private INativeInstance CreateNativeInstance()
+        {
+            NativeMontageSettings instance = new NativeMontageSettings();
+            instance.SetBackgroundColor(BackgroundColor);
+            instance.SetBorderColor(BorderColor);
+            instance.SetBorderWidth(BorderWidth);
+            instance.SetFillColor(FillColor);
+            instance.SetFont(Font);
+            instance.SetFontPointsize(FontPointsize);
+            instance.SetFrameGeometry(Convert(FrameGeometry));
+            instance.SetGeometry(Convert(Geometry));
+            instance.SetGravity(Gravity);
+            instance.SetShadow(Shadow);
+            instance.SetStrokeColor(StrokeColor);
+            instance.SetTextureFileName(TextureFileName);
+            instance.SetTileGeometry(Convert(TileGeometry));
+            instance.SetTitle(Title);
+
+            return instance;
         }
     }
 }

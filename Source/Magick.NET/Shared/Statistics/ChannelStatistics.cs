@@ -39,14 +39,6 @@ namespace ImageMagick
             Variance = nativeInstance.Variance;
         }
 
-        internal static ChannelStatistics Create(PixelChannel channel, IntPtr instance)
-        {
-            if (instance == IntPtr.Zero)
-                return null;
-
-            return new ChannelStatistics(channel, instance);
-        }
-
         /// <summary>
         /// Gets the channel.
         /// </summary>
@@ -255,6 +247,14 @@ namespace ImageMagick
               SumFourthPower.GetHashCode() ^
               SumSquared.GetHashCode() ^
               Variance.GetHashCode();
+        }
+
+        internal static ChannelStatistics Create(PixelChannel channel, IntPtr instance)
+        {
+            if (instance == IntPtr.Zero)
+                return null;
+
+            return new ChannelStatistics(channel, instance);
         }
     }
 }

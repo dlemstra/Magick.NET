@@ -34,6 +34,117 @@ namespace ImageMagick
 
         private XmlDocument _Script;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickScript"/> class.
+        /// </summary>
+        /// <param name="xml">The IXPathNavigable that contains the script.</param>
+        public MagickScript(IXPathNavigable xml)
+        {
+            Throw.IfNull(nameof(xml), xml);
+            Initialize(xml.CreateNavigator());
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickScript"/> class.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the script file, or the relative script file name.</param>
+        public MagickScript(string fileName)
+        {
+            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            Throw.IfInvalidFileName(filePath);
+
+            using (FileStream stream = File.OpenRead(filePath))
+            {
+                Initialize(stream);
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickScript"/> class.
+        /// </summary>
+        /// <param name="stream">The stream to read the script data from.</param>
+        public MagickScript(Stream stream)
+        {
+            Initialize(stream);
+        }
+
+#if !NET20
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickScript"/> class.
+        /// </summary>
+        /// <param name="xml">The <see cref="XElement"/> that contains the script.</param>
+        public MagickScript(XElement xml)
+        {
+          Throw.IfNull(nameof(xml), xml);
+
+          Initialize(xml.CreateNavigator());
+        }
+#endif
+
+        /// <summary>
+        /// Event that will be raised when the script needs an image to be read.
+        /// </summary>
+        public event EventHandler<ScriptReadEventArgs> Read;
+
+        /// <summary>
+        /// Event that will be raised when the script needs an image to be written.
+        /// </summary>
+        public event EventHandler<ScriptWriteEventArgs> Write;
+
+        /// <summary>
+        /// Gets the variables of this script.
+        /// </summary>
+        public ScriptVariables Variables
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Executes the script and returns the resulting image.
+        /// </summary>
+        /// <returns>A <see cref="MagickImage"/>.</returns>
+        public IMagickImage Execute()
+        {
+            XmlElement element = (XmlElement)_Script.SelectSingleNode("/msl/*");
+
+            if (element.Name == "read")
+                return CreateMagickImage(element);
+            else if (element.Name == "collection")
+                return ExecuteCollection(element);
+            else
+                throw new NotSupportedException(element.Name);
+        }
+
+        /// <summary>
+        /// Executes the script using the specified image.
+        /// </summary>
+        /// <param name="image">The image to execute the script on.</param>
+        public void Execute(IMagickImage image)
+        {
+            Throw.IfNull(nameof(image), image);
+
+            XmlElement element = (XmlElement)_Script.SelectSingleNode("/msl/read");
+            if (element == null)
+                throw new InvalidOperationException("This method only works with a script that contains a single read operation.");
+
+            Execute(element, image);
+        }
+
+        private static bool OnlyContains(Hashtable arguments, params object[] keys)
+        {
+            if (arguments.Count != keys.Length)
+                return false;
+
+            foreach (object key in keys)
+            {
+                if (!arguments.ContainsKey(key))
+                    return false;
+            }
+
+            return true;
+        }
+
         private MagickImage CreateMagickImage(XmlElement element)
         {
             Throw.IfNull(nameof(element), element);
@@ -221,117 +332,6 @@ namespace ImageMagick
                     Initialize(memStream);
                 }
             }
-        }
-
-        private static bool OnlyContains(Hashtable arguments, params object[] keys)
-        {
-            if (arguments.Count != keys.Length)
-                return false;
-
-            foreach (object key in keys)
-            {
-                if (!arguments.ContainsKey(key))
-                    return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MagickScript"/> class.
-        /// </summary>
-        /// <param name="xml">The IXPathNavigable that contains the script.</param>
-        public MagickScript(IXPathNavigable xml)
-        {
-            Throw.IfNull(nameof(xml), xml);
-            Initialize(xml.CreateNavigator());
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MagickScript"/> class.
-        /// </summary>
-        /// <param name="fileName">The fully qualified name of the script file, or the relative script file name.</param>
-        public MagickScript(string fileName)
-        {
-            string filePath = FileHelper.CheckForBaseDirectory(fileName);
-            Throw.IfInvalidFileName(filePath);
-
-            using (FileStream stream = File.OpenRead(filePath))
-            {
-                Initialize(stream);
-            }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MagickScript"/> class.
-        /// </summary>
-        /// <param name="stream">The stream to read the script data from.</param>
-        public MagickScript(Stream stream)
-        {
-            Initialize(stream);
-        }
-
-#if !NET20
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MagickScript"/> class.
-        /// </summary>
-        /// <param name="xml">The <see cref="XElement"/> that contains the script.</param>
-        public MagickScript(XElement xml)
-        {
-          Throw.IfNull(nameof(xml), xml);
-
-          Initialize(xml.CreateNavigator());
-        }
-#endif
-
-        /// <summary>
-        /// Gets the variables of this script.
-        /// </summary>
-        public ScriptVariables Variables
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Event that will be raised when the script needs an image to be read.
-        /// </summary>
-        public event EventHandler<ScriptReadEventArgs> Read;
-
-        /// <summary>
-        /// Event that will be raised when the script needs an image to be written.
-        /// </summary>
-        public event EventHandler<ScriptWriteEventArgs> Write;
-
-        /// <summary>
-        /// Executes the script and returns the resulting image.
-        /// </summary>
-        /// <returns>A <see cref="MagickImage"/>.</returns>
-        public IMagickImage Execute()
-        {
-            XmlElement element = (XmlElement)_Script.SelectSingleNode("/msl/*");
-
-            if (element.Name == "read")
-                return CreateMagickImage(element);
-            else if (element.Name == "collection")
-                return ExecuteCollection(element);
-            else
-                throw new NotSupportedException(element.Name);
-        }
-
-        /// <summary>
-        /// Executes the script using the specified image.
-        /// </summary>
-        /// <param name="image">The image to execute the script on.</param>
-        public void Execute(IMagickImage image)
-        {
-            Throw.IfNull(nameof(image), image);
-
-            XmlElement element = (XmlElement)_Script.SelectSingleNode("/msl/read");
-            if (element == null)
-                throw new InvalidOperationException("This method only works with a script that contains a single read operation.");
-
-            Execute(element, image);
         }
     }
 }

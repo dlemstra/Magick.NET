@@ -23,60 +23,6 @@ namespace ImageMagick
     {
         private Collection<IImageOptimizer> _Optimizers = CreateImageOptimizers();
 
-        private static Collection<IImageOptimizer> CreateImageOptimizers()
-        {
-            Collection<IImageOptimizer> optimizers = new Collection<IImageOptimizer>();
-            optimizers.Add(new JpegOptimizer());
-            optimizers.Add(new PngOptimizer());
-            optimizers.Add(new GifOptimizer());
-            return optimizers;
-        }
-
-        private void DoLosslessCompress(FileInfo file)
-        {
-            IImageOptimizer optimizer = GetOptimizer(file);
-            if (optimizer == null)
-                return;
-
-            optimizer.OptimalCompression = OptimalCompression;
-            optimizer.LosslessCompress(file);
-        }
-
-        private void DoCompress(FileInfo file)
-        {
-            IImageOptimizer optimizer = GetOptimizer(file);
-            if (optimizer == null)
-                return;
-
-            optimizer.OptimalCompression = OptimalCompression;
-            optimizer.Compress(file);
-        }
-
-        private static MagickFormatInfo GetFormatInformation(FileInfo file)
-        {
-            MagickFormatInfo info = MagickNET.GetFormatInformation(file);
-            if (info != null)
-                return info;
-
-            MagickImageInfo imageInfo = new MagickImageInfo(file);
-            return MagickNET.GetFormatInformation(imageInfo.Format);
-        }
-
-        private IImageOptimizer GetOptimizer(FileInfo file)
-        {
-            MagickFormatInfo info = GetFormatInformation(file);
-            if (info == null)
-                return null;
-
-            foreach (IImageOptimizer optimizer in _Optimizers)
-            {
-                if (optimizer.Format.Module == info.Module)
-                    return optimizer;
-            }
-
-            return null;
-        }
-
         /// <summary>
         /// Gets or sets a value indicating whether various compression types will be used to find
         /// the smallest file. This process will take extra time because the file has to be written
@@ -177,6 +123,61 @@ namespace ImageMagick
             Throw.IfInvalidFileName(filePath);
 
             DoLosslessCompress(new FileInfo(filePath));
+        }
+
+        private static Collection<IImageOptimizer> CreateImageOptimizers()
+        {
+            return new Collection<IImageOptimizer>
+            {
+                new JpegOptimizer(),
+                new PngOptimizer(),
+                new GifOptimizer(),
+            };
+        }
+
+        private static MagickFormatInfo GetFormatInformation(FileInfo file)
+        {
+            MagickFormatInfo info = MagickNET.GetFormatInformation(file);
+            if (info != null)
+                return info;
+
+            MagickImageInfo imageInfo = new MagickImageInfo(file);
+            return MagickNET.GetFormatInformation(imageInfo.Format);
+        }
+
+        private void DoLosslessCompress(FileInfo file)
+        {
+            IImageOptimizer optimizer = GetOptimizer(file);
+            if (optimizer == null)
+                return;
+
+            optimizer.OptimalCompression = OptimalCompression;
+            optimizer.LosslessCompress(file);
+        }
+
+        private void DoCompress(FileInfo file)
+        {
+            IImageOptimizer optimizer = GetOptimizer(file);
+            if (optimizer == null)
+                return;
+
+            optimizer.OptimalCompression = OptimalCompression;
+            optimizer.Compress(file);
+        }
+
+        private IImageOptimizer GetOptimizer(FileInfo file)
+        {
+            MagickFormatInfo info = GetFormatInformation(file);
+            if (info == null)
+                return null;
+
+            foreach (IImageOptimizer optimizer in _Optimizers)
+            {
+                if (optimizer.Format.Module == info.Module)
+                    return optimizer;
+            }
+
+            return null;
         }
     }
 }

@@ -22,23 +22,11 @@ namespace ImageMagick.Web.Handlers
     {
         private readonly ImageOptimizer _ImageOptimizer;
 
-        private void CreateOptimizedFile(string cacheFileName)
+        public ImageOptimizerHandler(MagickWebSettings settings, IImageData imageData)
+          : base(settings, imageData)
         {
-            string tempFile = DetermineTempFileName();
-
-            try
-            {
-                ImageData.SaveImage(tempFile);
-
-                OptimizeFile(tempFile);
-
-                MoveToCache(tempFile, cacheFileName);
-            }
-            finally
-            {
-                if (File.Exists(tempFile))
-                    File.Delete(tempFile);
-            }
+            _ImageOptimizer = new ImageOptimizer();
+            _ImageOptimizer.OptimalCompression = settings.Optimization.OptimalCompression;
         }
 
         /// <summary>
@@ -65,11 +53,23 @@ namespace ImageMagick.Web.Handlers
             return cacheFileName;
         }
 
-        public ImageOptimizerHandler(MagickWebSettings settings, IImageData imageData)
-          : base(settings, imageData)
+        private void CreateOptimizedFile(string cacheFileName)
         {
-            _ImageOptimizer = new ImageOptimizer();
-            _ImageOptimizer.OptimalCompression = settings.Optimization.OptimalCompression;
+            string tempFile = DetermineTempFileName();
+
+            try
+            {
+                ImageData.SaveImage(tempFile);
+
+                OptimizeFile(tempFile);
+
+                MoveToCache(tempFile, cacheFileName);
+            }
+            finally
+            {
+                if (File.Exists(tempFile))
+                    File.Delete(tempFile);
+            }
         }
     }
 }

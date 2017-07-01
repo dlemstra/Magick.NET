@@ -39,14 +39,6 @@ namespace ImageMagick
             Value = value;
         }
 
-        internal int Length
-        {
-            get
-            {
-                return _Data.Length;
-            }
-        }
-
         /// <summary>
         /// Gets or sets the encoding to use for the Value.
         /// </summary>
@@ -88,6 +80,14 @@ namespace ImageMagick
                     _Data = new byte[0];
                 else
                     _Data = _Encoding.GetBytes(value);
+            }
+        }
+
+        internal int Length
+        {
+            get
+            {
+                return _Data.Length;
             }
         }
 

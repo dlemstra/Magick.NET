@@ -17,15 +17,6 @@ namespace ImageMagick
     /// </summary>
     public sealed class PixelStorageSettings
     {
-        internal PixelStorageSettings Clone()
-        {
-            return new PixelStorageSettings()
-            {
-                Mapping = Mapping,
-                StorageType = StorageType,
-            };
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PixelStorageSettings"/> class.
         /// </summary>
@@ -60,6 +51,15 @@ namespace ImageMagick
         {
             get;
             set;
+        }
+
+        internal PixelStorageSettings Clone()
+        {
+            return new PixelStorageSettings()
+            {
+                Mapping = Mapping,
+                StorageType = StorageType,
+            };
         }
     }
 }

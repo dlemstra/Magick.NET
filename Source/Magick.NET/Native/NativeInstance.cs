@@ -18,39 +18,12 @@ namespace ImageMagick
     {
         private IntPtr _Instance = IntPtr.Zero;
 
-        private class ZeroInstance : INativeInstance
+        public static INativeInstance Zero
         {
-            public IntPtr Instance
+            get
             {
-                get
-                {
-                    return IntPtr.Zero;
-                }
+                return new ZeroInstance();
             }
-
-            public void Dispose()
-            {
-            }
-        }
-
-        protected abstract string TypeName
-        {
-            get;
-        }
-
-        protected abstract void Dispose(IntPtr instance);
-
-        protected void CheckException(IntPtr exception, IntPtr result)
-        {
-            MagickException magickException = MagickExceptionHelper.Create(exception);
-            if (MagickExceptionHelper.IsError(magickException))
-            {
-                if (result != IntPtr.Zero)
-                    Dispose(result);
-                throw magickException;
-            }
-
-            RaiseWarning(magickException);
         }
 
         public IntPtr Instance
@@ -70,18 +43,45 @@ namespace ImageMagick
             }
         }
 
-        public static INativeInstance Zero
+        protected abstract string TypeName
         {
-            get
-            {
-                return new ZeroInstance();
-            }
+            get;
         }
 
         public void Dispose()
         {
             Instance = IntPtr.Zero;
             GC.SuppressFinalize(this);
+        }
+
+        protected abstract void Dispose(IntPtr instance);
+
+        protected void CheckException(IntPtr exception, IntPtr result)
+        {
+            MagickException magickException = MagickExceptionHelper.Create(exception);
+            if (MagickExceptionHelper.IsError(magickException))
+            {
+                if (result != IntPtr.Zero)
+                    Dispose(result);
+                throw magickException;
+            }
+
+            RaiseWarning(magickException);
+        }
+
+        private class ZeroInstance : INativeInstance
+        {
+            public IntPtr Instance
+            {
+                get
+                {
+                    return IntPtr.Zero;
+                }
+            }
+
+            public void Dispose()
+            {
+            }
         }
     }
 }

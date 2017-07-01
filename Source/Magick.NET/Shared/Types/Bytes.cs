@@ -19,8 +19,41 @@ namespace ImageMagick
     {
         private const int BufferSize = 8192;
 
+        public Bytes(Stream stream)
+        {
+            Throw.IfNull(nameof(stream), stream);
+
+            SetData(stream);
+        }
+
         private Bytes()
         {
+        }
+
+        public byte[] Data
+        {
+            get;
+            private set;
+        }
+
+        public int Length
+        {
+            get;
+            private set;
+        }
+
+        public static Bytes FromStreamBuffer(Stream stream)
+        {
+            MemoryStream memStream = stream as MemoryStream;
+
+            if (memStream == null)
+                return null;
+
+            Bytes bytes = new Bytes();
+            if (bytes.SetDataWithMemoryStreamBuffer(memStream))
+                return bytes;
+
+            return null;
         }
 
         private static void CheckLength(long length)
@@ -105,39 +138,6 @@ namespace ImageMagick
             {
                 read += bytesRead;
             }
-        }
-
-        public Bytes(Stream stream)
-        {
-            Throw.IfNull(nameof(stream), stream);
-
-            SetData(stream);
-        }
-
-        public static Bytes FromStreamBuffer(Stream stream)
-        {
-            MemoryStream memStream = stream as MemoryStream;
-
-            if (memStream == null)
-                return null;
-
-            Bytes bytes = new Bytes();
-            if (bytes.SetDataWithMemoryStreamBuffer(memStream))
-                return bytes;
-
-            return null;
-        }
-
-        public byte[] Data
-        {
-            get;
-            private set;
-        }
-
-        public int Length
-        {
-            get;
-            private set;
         }
     }
 }

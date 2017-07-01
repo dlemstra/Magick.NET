@@ -17,94 +17,6 @@ namespace ImageMagick
 {
     internal struct BigRational : IEquatable<BigRational>
     {
-        private bool IsIndeterminate
-        {
-            get
-            {
-                if (Denominator != 0)
-                    return false;
-
-                return Numerator == 0;
-            }
-        }
-
-        private bool IsInteger => Denominator == 1;
-
-        private bool IsNegativeInfinity
-        {
-            get
-            {
-                if (Denominator != 0)
-                    return false;
-
-                return Numerator == -1;
-            }
-        }
-
-        private bool IsPositiveInfinity
-        {
-            get
-            {
-                if (Denominator != 0)
-                    return false;
-
-                return Numerator == 1;
-            }
-        }
-
-        private bool IsZero
-        {
-            get
-            {
-                if (Denominator != 1)
-                    return false;
-
-                return Numerator == 0;
-            }
-        }
-
-        private static long GreatestCommonDivisor(long a, long b)
-        {
-            return b == 0 ? a : GreatestCommonDivisor(b, a % b);
-        }
-
-        private void Simplify()
-        {
-            if (IsIndeterminate)
-                return;
-
-            if (IsNegativeInfinity)
-                return;
-
-            if (IsPositiveInfinity)
-                return;
-
-            if (IsInteger)
-                return;
-
-            if (IsZero)
-                return;
-
-            if (Numerator == 0)
-            {
-                Denominator = 0;
-                return;
-            }
-
-            if (Numerator == Denominator)
-            {
-                Numerator = 1;
-                Denominator = 1;
-            }
-
-            long gcd = GreatestCommonDivisor(Math.Abs(Numerator), Math.Abs(Denominator));
-            if (gcd > 1)
-            {
-                Numerator = Numerator / gcd;
-                Denominator = Denominator / gcd;
-            }
-        }
-
         public BigRational(long numerator, long denominator)
           : this(numerator, denominator, false)
         {
@@ -179,6 +91,52 @@ namespace ImageMagick
             private set;
         }
 
+        private bool IsIndeterminate
+        {
+            get
+            {
+                if (Denominator != 0)
+                    return false;
+
+                return Numerator == 0;
+            }
+        }
+
+        private bool IsInteger => Denominator == 1;
+
+        private bool IsNegativeInfinity
+        {
+            get
+            {
+                if (Denominator != 0)
+                    return false;
+
+                return Numerator == -1;
+            }
+        }
+
+        private bool IsPositiveInfinity
+        {
+            get
+            {
+                if (Denominator != 0)
+                    return false;
+
+                return Numerator == 1;
+            }
+        }
+
+        private bool IsZero
+        {
+            get
+            {
+                if (Denominator != 1)
+                    return false;
+
+                return Numerator == 0;
+            }
+        }
+
         public bool Equals(BigRational other)
         {
             if (Denominator == other.Denominator)
@@ -221,6 +179,48 @@ namespace ImageMagick
             sb.Append(Denominator.ToString(provider));
 
             return sb.ToString();
+        }
+
+        private static long GreatestCommonDivisor(long a, long b)
+        {
+            return b == 0 ? a : GreatestCommonDivisor(b, a % b);
+        }
+
+        private void Simplify()
+        {
+            if (IsIndeterminate)
+                return;
+
+            if (IsNegativeInfinity)
+                return;
+
+            if (IsPositiveInfinity)
+                return;
+
+            if (IsInteger)
+                return;
+
+            if (IsZero)
+                return;
+
+            if (Numerator == 0)
+            {
+                Denominator = 0;
+                return;
+            }
+
+            if (Numerator == Denominator)
+            {
+                Numerator = 1;
+                Denominator = 1;
+            }
+
+            long gcd = GreatestCommonDivisor(Math.Abs(Numerator), Math.Abs(Denominator));
+            if (gcd > 1)
+            {
+                Numerator = Numerator / gcd;
+                Denominator = Denominator / gcd;
+            }
         }
     }
 }

@@ -32,39 +32,101 @@ namespace ImageMagick
             "log.xml", "magic.xml", "policy.xml", "thresholds.xml", "type.xml", "type-ghostscript.xml",
         };
 
-        private static void CheckImageMagickFiles(string path)
+        /// <summary>
+        /// Event that will be raised when something is logged by ImageMagick.
+        /// </summary>
+        public static event EventHandler<LogEventArgs> Log
         {
-            foreach (string imageMagickFile in _ImageMagickFiles)
+            add
             {
-                string fileName = path + "\\" + imageMagickFile;
-                Throw.IfFalse(nameof(path), File.Exists(fileName), "Unable to find file: {0}", fileName);
+                if (_Log == null)
+                {
+                    _NativeLog = new LogDelegate(OnLog);
+                    NativeMagickNET.SetLogDelegate(_NativeLog);
+                    SetLogEvents();
+                }
+
+                _Log += value;
+            }
+            remove
+            {
+                _Log -= value;
+
+                if (_Log == null)
+                {
+                    NativeMagickNET.SetLogDelegate(null);
+                    NativeMagickNET.SetLogEvents("None");
+                    _NativeLog = null;
+                }
             }
         }
 
-        private static void OnLog(UIntPtr type, IntPtr text)
+        /// <summary>
+        /// Gets the features reported by ImageMagick.
+        /// </summary>
+        public static string Features
         {
-            if (_Log == null)
-                return;
-
-            string managedText = UTF8Marshaler.NativeToManaged(text);
-            _Log(null, new LogEventArgs((LogEvents)type, managedText));
+            get
+            {
+                return NativeMagickNET.Features;
+            }
         }
 
-        private static void SetLogEvents()
+        /// <summary>
+        /// Gets the information about the supported formats.
+        /// </summary>
+        public static IEnumerable<MagickFormatInfo> SupportedFormats
         {
-            string eventFlags = null;
-
-            if (EnumHelper.HasFlag(_LogEvents, LogEvents.All))
+            get
             {
-                if (EnumHelper.HasFlag(_LogEvents, LogEvents.Trace))
-                    eventFlags = "All,Trace";
-                else
-                    eventFlags = "All";
+                return MagickFormatInfo.All;
             }
-            else
-                eventFlags = EnumHelper.ConvertFlags(_LogEvents);
+        }
 
-            NativeMagickNET.SetLogEvents(eventFlags);
+        /// <summary>
+        /// Gets the font families that are known by ImageMagick.
+        /// </summary>
+        public static IEnumerable<string> FontFamilies
+        {
+            get
+            {
+                List<string> result = new List<string>();
+
+                IntPtr list = IntPtr.Zero;
+                UIntPtr length = (UIntPtr)0;
+
+                try
+                {
+                    list = NativeMagickNET.GetFontFamilies(out length);
+
+                    for (int i = 0; i < (int)length; i++)
+                    {
+                        string fontFamily = NativeMagickNET.GetFontFamily(list, i);
+                        if (!string.IsNullOrEmpty(fontFamily))
+                            result.Add(fontFamily);
+                    }
+                }
+                finally
+                {
+                    if (list != IntPtr.Zero)
+                        NativeMagickNET.DisposeFontFamilies(list);
+                }
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Gets the version of Magick.NET.
+        /// </summary>
+        public static string Version
+        {
+            get
+            {
+                AssemblyTitleAttribute title = TypeHelper.GetCustomAttribute<AssemblyTitleAttribute>(typeof(MagickNET));
+                AssemblyFileVersionAttribute version = TypeHelper.GetCustomAttribute<AssemblyFileVersionAttribute>(typeof(MagickNET));
+                return title.Title + " " + version.Version;
+            }
         }
 
         /// <summary>
@@ -163,101 +225,39 @@ namespace ImageMagick
             NativeMagickNET.SetRandomSeed(seed);
         }
 
-        /// <summary>
-        /// Event that will be raised when something is logged by ImageMagick.
-        /// </summary>
-        public static event EventHandler<LogEventArgs> Log
+        private static void CheckImageMagickFiles(string path)
         {
-            add
+            foreach (string imageMagickFile in _ImageMagickFiles)
             {
-                if (_Log == null)
-                {
-                    _NativeLog = new LogDelegate(OnLog);
-                    NativeMagickNET.SetLogDelegate(_NativeLog);
-                    SetLogEvents();
-                }
-
-                _Log += value;
-            }
-            remove
-            {
-                _Log -= value;
-
-                if (_Log == null)
-                {
-                    NativeMagickNET.SetLogDelegate(null);
-                    NativeMagickNET.SetLogEvents("None");
-                    _NativeLog = null;
-                }
+                string fileName = path + "\\" + imageMagickFile;
+                Throw.IfFalse(nameof(path), File.Exists(fileName), "Unable to find file: {0}", fileName);
             }
         }
 
-        /// <summary>
-        /// Gets the features reported by ImageMagick.
-        /// </summary>
-        public static string Features
+        private static void OnLog(UIntPtr type, IntPtr text)
         {
-            get
-            {
-                return NativeMagickNET.Features;
-            }
+            if (_Log == null)
+                return;
+
+            string managedText = UTF8Marshaler.NativeToManaged(text);
+            _Log(null, new LogEventArgs((LogEvents)type, managedText));
         }
 
-        /// <summary>
-        /// Gets the information about the supported formats.
-        /// </summary>
-        public static IEnumerable<MagickFormatInfo> SupportedFormats
+        private static void SetLogEvents()
         {
-            get
+            string eventFlags = null;
+
+            if (EnumHelper.HasFlag(_LogEvents, LogEvents.All))
             {
-                return MagickFormatInfo.All;
+                if (EnumHelper.HasFlag(_LogEvents, LogEvents.Trace))
+                    eventFlags = "All,Trace";
+                else
+                    eventFlags = "All";
             }
-        }
+            else
+                eventFlags = EnumHelper.ConvertFlags(_LogEvents);
 
-        /// <summary>
-        /// Gets the font families that are known by ImageMagick.
-        /// </summary>
-        public static IEnumerable<string> FontFamilies
-        {
-            get
-            {
-                List<string> result = new List<string>();
-
-                IntPtr list = IntPtr.Zero;
-                UIntPtr length = (UIntPtr)0;
-
-                try
-                {
-                    list = NativeMagickNET.GetFontFamilies(out length);
-
-                    for (int i = 0; i < (int)length; i++)
-                    {
-                        string fontFamily = NativeMagickNET.GetFontFamily(list, i);
-                        if (!string.IsNullOrEmpty(fontFamily))
-                            result.Add(fontFamily);
-                    }
-                }
-                finally
-                {
-                    if (list != IntPtr.Zero)
-                        NativeMagickNET.DisposeFontFamilies(list);
-                }
-
-                return result;
-            }
-        }
-
-        /// <summary>
-        /// Gets the version of Magick.NET.
-        /// </summary>
-        public static string Version
-        {
-            get
-            {
-                AssemblyTitleAttribute title = TypeHelper.GetCustomAttribute<AssemblyTitleAttribute>(typeof(MagickNET));
-                AssemblyFileVersionAttribute version = TypeHelper.GetCustomAttribute<AssemblyFileVersionAttribute>(typeof(MagickNET));
-                return title.Title + " " + version.Version;
-            }
+            NativeMagickNET.SetLogEvents(eventFlags);
         }
     }
 }

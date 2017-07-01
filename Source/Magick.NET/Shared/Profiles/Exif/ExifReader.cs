@@ -20,8 +20,6 @@ namespace ImageMagick
 {
     internal sealed class ExifReader
     {
-        private delegate TDataType ConverterMethod<TDataType>(byte[] data);
-
         private byte[] _Data;
         private Collection<ExifTag> _InvalidTags = new Collection<ExifTag>();
         private uint _Index;
@@ -29,6 +27,28 @@ namespace ImageMagick
         private uint _ExifOffset;
         private uint _GPSOffset;
         private uint _StartIndex;
+
+        private delegate TDataType ConverterMethod<TDataType>(byte[] data);
+
+        public uint ThumbnailLength
+        {
+            get;
+            private set;
+        }
+
+        public uint ThumbnailOffset
+        {
+            get;
+            private set;
+        }
+
+        public IEnumerable<ExifTag> InvalidTags
+        {
+            get
+            {
+                return _InvalidTags;
+            }
+        }
 
         private int RemainingLength
         {
@@ -39,6 +59,77 @@ namespace ImageMagick
 
                 return _Data.Length - (int)_Index;
             }
+        }
+
+        public Collection<ExifValue> Read(byte[] data)
+        {
+            Collection<ExifValue> result = new Collection<ExifValue>();
+
+            _Data = data;
+
+            if (GetString(4) == "Exif")
+            {
+                if (GetShort() != 0)
+                    return result;
+
+                _StartIndex = 6;
+            }
+            else
+            {
+                _Index = 0;
+            }
+
+            _IsLittleEndian = GetString(2) == "II";
+
+            if (GetShort() != 0x002A)
+                return result;
+
+            uint ifdOffset = GetLong();
+            AddValues(result, ifdOffset);
+
+            uint thumbnailOffset = GetLong();
+            GetThumbnail(thumbnailOffset);
+
+            if (_ExifOffset != 0)
+                AddValues(result, _ExifOffset);
+
+            if (_GPSOffset != 0)
+                AddValues(result, _GPSOffset);
+
+            return result;
+        }
+
+        private static TDataType[] ToArray<TDataType>(ExifDataType dataType, Byte[] data, ConverterMethod<TDataType> converter)
+        {
+            int dataTypeSize = (int)ExifValue.GetSize(dataType);
+            int length = data.Length / dataTypeSize;
+
+            TDataType[] result = new TDataType[length];
+            byte[] buffer = new byte[dataTypeSize];
+
+            for (int i = 0; i < length; i++)
+            {
+                Array.Copy(data, i * dataTypeSize, buffer, 0, dataTypeSize);
+
+                result.SetValue(converter(buffer), i);
+            }
+
+            return result;
+        }
+
+        private static byte ToByte(byte[] data)
+        {
+            return data[0];
+        }
+
+        private static string ToString(byte[] data)
+        {
+            string result = Encoding.UTF8.GetString(data, 0, data.Length);
+            int nullCharIndex = result.IndexOf('\0');
+            if (nullCharIndex != -1)
+                result = result.Substring(0, nullCharIndex);
+
+            return result;
         }
 
         private void AddValues(Collection<ExifValue> values, uint index)
@@ -241,29 +332,6 @@ namespace ImageMagick
             }
         }
 
-        private static TDataType[] ToArray<TDataType>(ExifDataType dataType, Byte[] data, ConverterMethod<TDataType> converter)
-        {
-            int dataTypeSize = (int)ExifValue.GetSize(dataType);
-            int length = data.Length / dataTypeSize;
-
-            TDataType[] result = new TDataType[length];
-            byte[] buffer = new byte[dataTypeSize];
-
-            for (int i = 0; i < length; i++)
-            {
-                Array.Copy(data, i * dataTypeSize, buffer, 0, dataTypeSize);
-
-                result.SetValue(converter(buffer), i);
-            }
-
-            return result;
-        }
-
-        private static byte ToByte(byte[] data)
-        {
-            return data[0];
-        }
-
         private double ToDouble(byte[] data)
         {
             if (!ValidateArray(data, 8))
@@ -294,16 +362,6 @@ namespace ImageMagick
                 return default(float);
 
             return BitConverter.ToSingle(data, 0);
-        }
-
-        private static string ToString(byte[] data)
-        {
-            string result = Encoding.UTF8.GetString(data, 0, data.Length);
-            int nullCharIndex = result.IndexOf('\0');
-            if (nullCharIndex != -1)
-                result = result.Substring(0, nullCharIndex);
-
-            return result;
         }
 
         private Rational ToRational(byte[] data)
@@ -368,64 +426,6 @@ namespace ImageMagick
             }
 
             return true;
-        }
-
-        public uint ThumbnailLength
-        {
-            get;
-            private set;
-        }
-
-        public uint ThumbnailOffset
-        {
-            get;
-            private set;
-        }
-
-        public Collection<ExifValue> Read(byte[] data)
-        {
-            Collection<ExifValue> result = new Collection<ExifValue>();
-
-            _Data = data;
-
-            if (GetString(4) == "Exif")
-            {
-                if (GetShort() != 0)
-                    return result;
-
-                _StartIndex = 6;
-            }
-            else
-            {
-                _Index = 0;
-            }
-
-            _IsLittleEndian = GetString(2) == "II";
-
-            if (GetShort() != 0x002A)
-                return result;
-
-            uint ifdOffset = GetLong();
-            AddValues(result, ifdOffset);
-
-            uint thumbnailOffset = GetLong();
-            GetThumbnail(thumbnailOffset);
-
-            if (_ExifOffset != 0)
-                AddValues(result, _ExifOffset);
-
-            if (_GPSOffset != 0)
-                AddValues(result, _GPSOffset);
-
-            return result;
-        }
-
-        public IEnumerable<ExifTag> InvalidTags
-        {
-            get
-            {
-                return _InvalidTags;
-            }
         }
     }
 }

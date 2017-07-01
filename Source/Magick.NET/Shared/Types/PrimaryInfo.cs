@@ -19,22 +19,6 @@ namespace ImageMagick
     /// </summary>
     public partial class PrimaryInfo : IEquatable<PrimaryInfo>
     {
-        private PrimaryInfo(NativePrimaryInfo instance)
-        {
-            X = instance.X;
-            Y = instance.Y;
-            Z = instance.Z;
-        }
-
-        private INativeInstance CreateNativeInstance()
-        {
-            NativePrimaryInfo instance = new NativePrimaryInfo();
-            instance.X = X;
-            instance.Y = Y;
-            instance.Z = Z;
-            return instance;
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PrimaryInfo"/> class.
         /// </summary>
@@ -46,6 +30,13 @@ namespace ImageMagick
             X = x;
             Y = y;
             Z = z;
+        }
+
+        private PrimaryInfo(NativePrimaryInfo instance)
+        {
+            X = instance.X;
+            Y = instance.Y;
+            Z = instance.Z;
         }
 
         /// <summary>
@@ -104,6 +95,15 @@ namespace ImageMagick
               X.GetHashCode() ^
               Y.GetHashCode() ^
               Z.GetHashCode();
+        }
+
+        private INativeInstance CreateNativeInstance()
+        {
+            NativePrimaryInfo instance = new NativePrimaryInfo();
+            instance.X = X;
+            instance.Y = Y;
+            instance.Z = Z;
+            return instance;
         }
     }
 }

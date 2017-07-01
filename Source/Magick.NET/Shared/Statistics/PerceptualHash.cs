@@ -22,54 +22,6 @@ namespace ImageMagick
     {
         private Dictionary<PixelChannel, ChannelPerceptualHash> _Channels;
 
-        private PerceptualHash()
-        {
-            _Channels = new Dictionary<PixelChannel, ChannelPerceptualHash>();
-        }
-
-        private static ChannelPerceptualHash CreateChannelPerceptualHash(MagickImage image, IntPtr list, PixelChannel channel)
-        {
-            IntPtr instance = NativePerceptualHash.GetInstance(image, list, channel);
-            if (instance == IntPtr.Zero)
-                return null;
-
-            return new ChannelPerceptualHash(channel, instance);
-        }
-
-        private void AddChannel(MagickImage image, IntPtr list, PixelChannel channel)
-        {
-            ChannelPerceptualHash instance = CreateChannelPerceptualHash(image, list, channel);
-            if (instance != null)
-                _Channels.Add(instance.Channel, instance);
-        }
-
-        internal static void DisposeList(IntPtr list)
-        {
-            if (list != IntPtr.Zero)
-                NativePerceptualHash.DisposeList(list);
-        }
-
-        internal PerceptualHash(MagickImage image, IntPtr list)
-          : this()
-        {
-            if (list == IntPtr.Zero)
-                return;
-
-            AddChannel(image, list, PixelChannel.Red);
-            AddChannel(image, list, PixelChannel.Green);
-            AddChannel(image, list, PixelChannel.Blue);
-        }
-
-        internal bool Isvalid
-        {
-            get
-            {
-                return _Channels.ContainsKey(PixelChannel.Red) &&
-                  _Channels.ContainsKey(PixelChannel.Green) &&
-                  _Channels.ContainsKey(PixelChannel.Blue);
-            }
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PerceptualHash"/> class.
         /// </summary>
@@ -83,6 +35,32 @@ namespace ImageMagick
             _Channels[PixelChannel.Red] = new ChannelPerceptualHash(PixelChannel.Red, perceptualHash.Substring(0, 70));
             _Channels[PixelChannel.Green] = new ChannelPerceptualHash(PixelChannel.Green, perceptualHash.Substring(70, 70));
             _Channels[PixelChannel.Blue] = new ChannelPerceptualHash(PixelChannel.Blue, perceptualHash.Substring(140, 70));
+        }
+
+        internal PerceptualHash(MagickImage image, IntPtr list)
+          : this()
+        {
+            if (list == IntPtr.Zero)
+                return;
+
+            AddChannel(image, list, PixelChannel.Red);
+            AddChannel(image, list, PixelChannel.Green);
+            AddChannel(image, list, PixelChannel.Blue);
+        }
+
+        private PerceptualHash()
+        {
+            _Channels = new Dictionary<PixelChannel, ChannelPerceptualHash>();
+        }
+
+        internal bool Isvalid
+        {
+            get
+            {
+                return _Channels.ContainsKey(PixelChannel.Red) &&
+                  _Channels.ContainsKey(PixelChannel.Green) &&
+                  _Channels.ContainsKey(PixelChannel.Blue);
+            }
         }
 
         /// <summary>
@@ -122,6 +100,28 @@ namespace ImageMagick
               _Channels[PixelChannel.Red].ToString() +
               _Channels[PixelChannel.Green].ToString() +
               _Channels[PixelChannel.Blue].ToString();
+        }
+
+        internal static void DisposeList(IntPtr list)
+        {
+            if (list != IntPtr.Zero)
+                NativePerceptualHash.DisposeList(list);
+        }
+
+        private static ChannelPerceptualHash CreateChannelPerceptualHash(MagickImage image, IntPtr list, PixelChannel channel)
+        {
+            IntPtr instance = NativePerceptualHash.GetInstance(image, list, channel);
+            if (instance == IntPtr.Zero)
+                return null;
+
+            return new ChannelPerceptualHash(channel, instance);
+        }
+
+        private void AddChannel(MagickImage image, IntPtr list, PixelChannel channel)
+        {
+            ChannelPerceptualHash instance = CreateChannelPerceptualHash(image, list, channel);
+            if (instance != null)
+                _Channels.Add(instance.Channel, instance);
         }
     }
 }

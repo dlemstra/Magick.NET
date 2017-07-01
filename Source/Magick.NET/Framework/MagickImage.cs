@@ -41,17 +41,6 @@ namespace ImageMagick
     /// </content>
     public sealed partial class MagickImage
     {
-        private static bool IsSupportedImageFormat(ImageFormat format)
-        {
-            return
-              format.Guid.Equals(ImageFormat.Bmp.Guid) ||
-              format.Guid.Equals(ImageFormat.Gif.Guid) ||
-              format.Guid.Equals(ImageFormat.Icon.Guid) ||
-              format.Guid.Equals(ImageFormat.Jpeg.Guid) ||
-              format.Guid.Equals(ImageFormat.Png.Guid) ||
-              format.Guid.Equals(ImageFormat.Tiff.Guid);
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImage"/> class.
         /// </summary>
@@ -167,6 +156,17 @@ namespace ImageMagick
             }
         }
 #endif
+
+        private static bool IsSupportedImageFormat(ImageFormat format)
+        {
+            return
+              format.Guid.Equals(ImageFormat.Bmp.Guid) ||
+              format.Guid.Equals(ImageFormat.Gif.Guid) ||
+              format.Guid.Equals(ImageFormat.Icon.Guid) ||
+              format.Guid.Equals(ImageFormat.Jpeg.Guid) ||
+              format.Guid.Equals(ImageFormat.Png.Guid) ||
+              format.Guid.Equals(ImageFormat.Tiff.Guid);
+        }
     }
 }
 

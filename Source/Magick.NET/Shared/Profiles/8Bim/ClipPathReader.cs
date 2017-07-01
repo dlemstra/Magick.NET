@@ -27,6 +27,43 @@ namespace ImageMagick
         private PointD[] _Last;
         private int _Width;
 
+        public ClipPathReader(int width, int height)
+        {
+            _Width = width;
+            _Height = height;
+        }
+
+        public string Read(byte[] data, int offset, int length)
+        {
+            Reset(offset);
+
+            while (_Index < offset + length)
+            {
+                short selector = ByteConverter.ToShort(data, ref _Index);
+                switch (selector)
+                {
+                    case 0:
+                    case 3:
+                        SetKnotCount(data);
+                        break;
+                    case 1:
+                    case 2:
+                    case 4:
+                    case 5:
+                        AddPath(data);
+                        break;
+                    case 6:
+                    case 7:
+                    case 8:
+                    default:
+                        _Index += 24;
+                        break;
+                }
+            }
+
+            return _Path.ToString();
+        }
+
         private void AddPath(byte[] data)
         {
             if (_KnotCount == 0)
@@ -117,43 +154,6 @@ namespace ImageMagick
 
             _KnotCount = ByteConverter.ToShort(data, ref _Index);
             _Index += 22;
-        }
-
-        public ClipPathReader(int width, int height)
-        {
-            _Width = width;
-            _Height = height;
-        }
-
-        public string Read(byte[] data, int offset, int length)
-        {
-            Reset(offset);
-
-            while (_Index < offset + length)
-            {
-                short selector = ByteConverter.ToShort(data, ref _Index);
-                switch (selector)
-                {
-                    case 0:
-                    case 3:
-                        SetKnotCount(data);
-                        break;
-                    case 1:
-                    case 2:
-                    case 4:
-                    case 5:
-                        AddPath(data);
-                        break;
-                    case 6:
-                    case 7:
-                    case 8:
-                    default:
-                        _Index += 24;
-                        break;
-                }
-            }
-
-            return _Path.ToString();
         }
     }
 }

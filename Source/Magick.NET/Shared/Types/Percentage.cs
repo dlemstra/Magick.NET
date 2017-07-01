@@ -32,21 +32,6 @@ namespace ImageMagick
     {
         private double _Value;
 
-        internal static Percentage FromQuantum(double value)
-        {
-            return new Percentage((value / Quantum.Max) * 100);
-        }
-
-        internal double ToQuantum()
-        {
-            return Quantum.Max * (_Value / 100);
-        }
-
-        internal QuantumType ToQuantumType()
-        {
-            return (QuantumType)(Quantum.Max * (_Value / 100));
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Percentage"/> struct.
         /// </summary>
@@ -63,6 +48,42 @@ namespace ImageMagick
         public Percentage(int value)
         {
             _Value = value;
+        }
+
+        /// <summary>
+        /// Converts the specified double to an instance of this type.
+        /// </summary>
+        /// <param name="value">The value (0% = 0, 100% = 100)</param>
+        public static explicit operator Percentage(double value)
+        {
+            return new Percentage(value);
+        }
+
+        /// <summary>
+        /// Converts the specified int to an instance of this type.
+        /// </summary>
+        /// <param name="value">The value (0% = 0, 100% = 100)</param>
+        public static explicit operator Percentage(int value)
+        {
+            return new Percentage(value);
+        }
+
+        /// <summary>
+        /// Converts the specified <see cref="Percentage"/> to a double.
+        /// </summary>
+        /// <param name="percentage">The <see cref="Percentage"/> to convert</param>
+        public static explicit operator double(Percentage percentage)
+        {
+            return percentage.ToDouble();
+        }
+
+        /// <summary>
+        /// Converts the <see cref="Percentage"/> to a quantum type.
+        /// </summary>
+        /// <param name="percentage">The <see cref="Percentage"/> to convert</param>
+        public static explicit operator int(Percentage percentage)
+        {
+            return percentage.ToInt32();
         }
 
         /// <summary>
@@ -155,42 +176,6 @@ namespace ImageMagick
         public static int operator *(int value, Percentage percentage)
         {
             return percentage.Multiply(value);
-        }
-
-        /// <summary>
-        /// Converts the specified double to an instance of this type.
-        /// </summary>
-        /// <param name="value">The value (0% = 0, 100% = 100)</param>
-        public static explicit operator Percentage(double value)
-        {
-            return new Percentage(value);
-        }
-
-        /// <summary>
-        /// Converts the specified int to an instance of this type.
-        /// </summary>
-        /// <param name="value">The value (0% = 0, 100% = 100)</param>
-        public static explicit operator Percentage(int value)
-        {
-            return new Percentage(value);
-        }
-
-        /// <summary>
-        /// Converts the specified <see cref="Percentage"/> to a double.
-        /// </summary>
-        /// <param name="percentage">The <see cref="Percentage"/> to convert</param>
-        public static explicit operator double(Percentage percentage)
-        {
-            return percentage.ToDouble();
-        }
-
-        /// <summary>
-        /// Converts the <see cref="Percentage"/> to a quantum type.
-        /// </summary>
-        /// <param name="percentage">The <see cref="Percentage"/> to convert</param>
-        public static explicit operator int(Percentage percentage)
-        {
-            return percentage.ToInt32();
         }
 
         /// <summary>
@@ -289,6 +274,21 @@ namespace ImageMagick
         public override string ToString()
         {
             return string.Format(CultureInfo.InvariantCulture, "{0:0.##}%", _Value);
+        }
+
+        internal static Percentage FromQuantum(double value)
+        {
+            return new Percentage((value / Quantum.Max) * 100);
+        }
+
+        internal double ToQuantum()
+        {
+            return Quantum.Max * (_Value / 100);
+        }
+
+        internal QuantumType ToQuantumType()
+        {
+            return (QuantumType)(Quantum.Max * (_Value / 100));
         }
     }
 }

@@ -29,6 +29,16 @@ namespace ImageMagick
     /// </summary>
     public sealed class ColorMono : ColorBase
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ColorMono"/> class.
+        /// </summary>
+        /// <param name="isBlack">Specifies if the color is black or white.</param>
+        public ColorMono(bool isBlack)
+          : base(isBlack ? MagickColors.Black : MagickColors.White)
+        {
+            IsBlack = isBlack;
+        }
+
         private ColorMono(MagickColor color)
           : base(color)
         {
@@ -38,27 +48,6 @@ namespace ImageMagick
                 IsBlack = false;
             else
                 throw new ArgumentException("Invalid color specified.", nameof(color));
-        }
-
-        /// <summary>
-        /// Updates the color value in an inherited class.
-        /// </summary>
-        protected override void UpdateColor()
-        {
-            QuantumType color = IsBlack ? (QuantumType)0.0 : Quantum.Max;
-            Color.R = color;
-            Color.G = color;
-            Color.B = color;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ColorMono"/> class.
-        /// </summary>
-        /// <param name="isBlack">Specifies if the color is black or white.</param>
-        public ColorMono(bool isBlack)
-          : base(isBlack ? MagickColors.Black : MagickColors.White)
-        {
-            IsBlack = isBlack;
         }
 
         /// <summary>
@@ -91,6 +80,17 @@ namespace ImageMagick
                 return null;
 
             return new ColorMono(color);
+        }
+
+        /// <summary>
+        /// Updates the color value in an inherited class.
+        /// </summary>
+        protected override void UpdateColor()
+        {
+            QuantumType color = IsBlack ? (QuantumType)0.0 : Quantum.Max;
+            Color.R = color;
+            Color.G = color;
+            Color.B = color;
         }
     }
 }

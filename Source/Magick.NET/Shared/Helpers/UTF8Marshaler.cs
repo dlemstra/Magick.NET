@@ -23,6 +23,21 @@ namespace ImageMagick
             Instance = ManagedToNative(value);
         }
 
+        public IntPtr Instance
+        {
+            get;
+            private set;
+        }
+
+        public void Dispose()
+        {
+            if (Instance == IntPtr.Zero)
+                return;
+
+            Marshal.FreeHGlobal(Instance);
+            Instance = IntPtr.Zero;
+        }
+
         internal static INativeInstance CreateInstance(string value)
         {
             return new UTF8Marshaler(value);
@@ -66,21 +81,6 @@ namespace ImageMagick
             MagickMemory.Relinquish(nativeData);
 
             return result;
-        }
-
-        public IntPtr Instance
-        {
-            get;
-            private set;
-        }
-
-        public void Dispose()
-        {
-            if (Instance == IntPtr.Zero)
-                return;
-
-            Marshal.FreeHGlobal(Instance);
-            Instance = IntPtr.Zero;
         }
     }
 }

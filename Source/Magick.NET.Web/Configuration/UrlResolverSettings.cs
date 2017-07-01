@@ -23,28 +23,8 @@ namespace ImageMagick.Web
     /// </summary>
     public class UrlResolverSettings : ConfigurationElement
     {
-        private delegate IUrlResolver IUrlResolverConstructor();
         private IUrlResolverConstructor _Constructor;
-
-        private void CreateConstructor(Type type)
-        {
-            ConstructorInfo ctor = type.GetConstructor(new Type[] { });
-            NewExpression newExp = Expression.New(ctor);
-            _Constructor = (IUrlResolverConstructor)Expression.Lambda(typeof(IUrlResolverConstructor), newExp).Compile();
-        }
-
-        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "IFileUrlResolver", Justification = "This is the correct spelling.")]
-        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "IStreamUrlResolver", Justification = "This is the correct spelling.")]
-        private void CheckType(Type type)
-        {
-            if (typeof(IFileUrlResolver).IsAssignableFrom(type))
-                return;
-
-            if (typeof(IStreamUrlResolver).IsAssignableFrom(type))
-                return;
-
-            throw new ConfigurationErrorsException("The type '" + TypeName + "' should implement one of the following interfaces: " + nameof(IFileUrlResolver) + "," + nameof(IStreamUrlResolver));
-        }
+        private delegate IUrlResolver IUrlResolverConstructor();
 
         [ConfigurationProperty("type", IsRequired = true)]
         internal string TypeName
@@ -70,6 +50,26 @@ namespace ImageMagick.Web
             Type type = Type.GetType(TypeName, true, true);
             CheckType(type);
             CreateConstructor(type);
+        }
+
+        private void CreateConstructor(Type type)
+        {
+            ConstructorInfo ctor = type.GetConstructor(new Type[] { });
+            NewExpression newExp = Expression.New(ctor);
+            _Constructor = (IUrlResolverConstructor)Expression.Lambda(typeof(IUrlResolverConstructor), newExp).Compile();
+        }
+
+        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "IFileUrlResolver", Justification = "This is the correct spelling.")]
+        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "IStreamUrlResolver", Justification = "This is the correct spelling.")]
+        private void CheckType(Type type)
+        {
+            if (typeof(IFileUrlResolver).IsAssignableFrom(type))
+                return;
+
+            if (typeof(IStreamUrlResolver).IsAssignableFrom(type))
+                return;
+
+            throw new ConfigurationErrorsException("The type '" + TypeName + "' should implement one of the following interfaces: " + nameof(IFileUrlResolver) + "," + nameof(IStreamUrlResolver));
         }
     }
 }

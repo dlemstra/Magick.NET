@@ -31,14 +31,6 @@ namespace ImageMagick.Web
         /// </summary>
         protected abstract bool UsingIntegratedPipeline { get; }
 
-        internal abstract void OnBeginRequest(HttpContextBase context);
-
-        internal abstract void OnPostAuthorizeRequest(HttpContextBase context);
-
-        internal abstract void OnPostMapRequestHandler(HttpContextBase context);
-
-        internal abstract void Initialize();
-
         /// <summary>
         /// Initializes the module and prepares it to handle requests.
         /// </summary>
@@ -65,5 +57,13 @@ namespace ImageMagick.Web
         public void Dispose()
         {
         }
+
+        internal abstract void OnBeginRequest(HttpContextBase context);
+
+        internal abstract void OnPostAuthorizeRequest(HttpContextBase context);
+
+        internal abstract void OnPostMapRequestHandler(HttpContextBase context);
+
+        internal abstract void Initialize();
     }
 }

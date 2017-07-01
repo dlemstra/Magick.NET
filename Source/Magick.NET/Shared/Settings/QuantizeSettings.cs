@@ -19,18 +19,6 @@ namespace ImageMagick
     /// </summary>
     public sealed partial class QuantizeSettings
     {
-        private INativeInstance CreateNativeInstance()
-        {
-            NativeQuantizeSettings instance = new NativeQuantizeSettings();
-            instance.SetColors(Colors);
-            instance.SetColorSpace(ColorSpace);
-            instance.SetDitherMethod(DitherMethod.HasValue ? DitherMethod.Value : ImageMagick.DitherMethod.No);
-            instance.SetMeasureErrors(MeasureErrors);
-            instance.SetTreeDepth(TreeDepth);
-
-            return instance;
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="QuantizeSettings"/> class.
         /// </summary>
@@ -83,6 +71,18 @@ namespace ImageMagick
         {
             get;
             set;
+        }
+
+        private INativeInstance CreateNativeInstance()
+        {
+            NativeQuantizeSettings instance = new NativeQuantizeSettings();
+            instance.SetColors(Colors);
+            instance.SetColorSpace(ColorSpace);
+            instance.SetDitherMethod(DitherMethod.HasValue ? DitherMethod.Value : ImageMagick.DitherMethod.No);
+            instance.SetMeasureErrors(MeasureErrors);
+            instance.SetTreeDepth(TreeDepth);
+
+            return instance;
         }
     }
 }

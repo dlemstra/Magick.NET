@@ -32,57 +32,6 @@ namespace ImageMagick
     {
         private PixelCollection _Collection;
 
-        private Pixel(PixelCollection collection)
-        {
-            _Collection = collection;
-        }
-
-        private QuantumType[] GetValueWithoutIndexChannel()
-        {
-            if (_Collection == null)
-                return Value;
-
-            int index = _Collection.GetIndex(PixelChannel.Index);
-            if (index == -1)
-                return Value;
-
-            List<QuantumType> newValue = new List<QuantumType>(Value);
-            newValue.RemoveAt(index);
-
-            return newValue.ToArray();
-        }
-
-        private void Initialize(int x, int y, QuantumType[] value)
-        {
-            X = x;
-            Y = y;
-            Value = value;
-        }
-
-        private static void CheckChannels(int channels)
-        {
-            Throw.IfTrue(nameof(channels), channels < 1 || channels > 5, "Invalid number of channels (supported sizes are 1-5).");
-        }
-
-        internal QuantumType[] Value
-        {
-            get;
-            private set;
-        }
-
-        internal static Pixel Create(PixelCollection collection, int x, int y, QuantumType[] value)
-        {
-            Pixel pixel = new Pixel(collection);
-            pixel.Initialize(x, y, value);
-            return pixel;
-        }
-
-        private void UpdateCollection()
-        {
-            if (_Collection != null)
-                _Collection.SetPixelUnchecked(X, Y, Value);
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Pixel"/> class.
         /// </summary>
@@ -109,40 +58,9 @@ namespace ImageMagick
             Initialize(x, y, new QuantumType[channels]);
         }
 
-        /// <summary>
-        /// Determines whether the specified <see cref="Pixel"/> instances are considered equal.
-        /// </summary>
-        /// <param name="left">The first <see cref="Pixel"/> to compare.</param>
-        /// <param name="right"> The second <see cref="Pixel"/> to compare.</param>
-        public static bool operator ==(Pixel left, Pixel right)
+        private Pixel(PixelCollection collection)
         {
-            return Equals(left, right);
-        }
-
-        /// <summary>
-        /// Determines whether the specified <see cref="Pixel"/> instances are not considered equal.
-        /// </summary>
-        /// <param name="left">The first <see cref="Pixel"/> to compare.</param>
-        /// <param name="right"> The second <see cref="Pixel"/> to compare.</param>
-        public static bool operator !=(Pixel left, Pixel right)
-        {
-            return !Equals(left, right);
-        }
-
-        /// <summary>
-        /// Returns the value of the specified channel.
-        /// </summary>
-        /// <param name="channel">The channel to get the value for.</param>
-        public QuantumType this[int channel]
-        {
-            get
-            {
-                return GetChannel(channel);
-            }
-            set
-            {
-                SetChannel(channel, value);
-            }
+            _Collection = collection;
         }
 
         /// <summary>
@@ -172,6 +90,48 @@ namespace ImageMagick
         {
             get;
             private set;
+        }
+
+        internal QuantumType[] Value
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Returns the value of the specified channel.
+        /// </summary>
+        /// <param name="channel">The channel to get the value for.</param>
+        public QuantumType this[int channel]
+        {
+            get
+            {
+                return GetChannel(channel);
+            }
+            set
+            {
+                SetChannel(channel, value);
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="Pixel"/> instances are considered equal.
+        /// </summary>
+        /// <param name="left">The first <see cref="Pixel"/> to compare.</param>
+        /// <param name="right"> The second <see cref="Pixel"/> to compare.</param>
+        public static bool operator ==(Pixel left, Pixel right)
+        {
+            return Equals(left, right);
+        }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="Pixel"/> instances are not considered equal.
+        /// </summary>
+        /// <param name="left">The first <see cref="Pixel"/> to compare.</param>
+        /// <param name="right"> The second <see cref="Pixel"/> to compare.</param>
+        public static bool operator !=(Pixel left, Pixel right)
+        {
+            return !Equals(left, right);
         }
 
         /// <summary>
@@ -293,6 +253,46 @@ namespace ImageMagick
                 return new MagickColor(value[0], value[1], value[2]);
 
             return new MagickColor(value[0], value[1], value[2], value[3]);
+        }
+
+        internal static Pixel Create(PixelCollection collection, int x, int y, QuantumType[] value)
+        {
+            Pixel pixel = new Pixel(collection);
+            pixel.Initialize(x, y, value);
+            return pixel;
+        }
+
+        private static void CheckChannels(int channels)
+        {
+            Throw.IfTrue(nameof(channels), channels < 1 || channels > 5, "Invalid number of channels (supported sizes are 1-5).");
+        }
+
+        private QuantumType[] GetValueWithoutIndexChannel()
+        {
+            if (_Collection == null)
+                return Value;
+
+            int index = _Collection.GetIndex(PixelChannel.Index);
+            if (index == -1)
+                return Value;
+
+            List<QuantumType> newValue = new List<QuantumType>(Value);
+            newValue.RemoveAt(index);
+
+            return newValue.ToArray();
+        }
+
+        private void Initialize(int x, int y, QuantumType[] value)
+        {
+            X = x;
+            Y = y;
+            Value = value;
+        }
+
+        private void UpdateCollection()
+        {
+            if (_Collection != null)
+                _Collection.SetPixelUnchecked(X, Y, Value);
         }
     }
 }

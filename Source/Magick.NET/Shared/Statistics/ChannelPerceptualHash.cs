@@ -24,69 +24,26 @@ namespace ImageMagick
         private double[] _HclpHuPhash;
         private string _Hash;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ChannelPerceptualHash"/> class.
+        /// </summary>
+        /// <param name="channel">The channel.></param>
+        /// <param name="srgbHuPhash">SRGB hu perceptual hash.</param>
+        /// <param name="hclpHuPhash">Hclp hu perceptual hash.</param>
+        /// <param name="hash">A string representation of this hash.</param>
+        public ChannelPerceptualHash(PixelChannel channel, double[] srgbHuPhash, double[] hclpHuPhash, string hash)
+        {
+            Channel = channel;
+            _SrgbHuPhash = srgbHuPhash;
+            _HclpHuPhash = hclpHuPhash;
+            _Hash = hash;
+        }
+
         internal ChannelPerceptualHash(PixelChannel channel)
         {
             Channel = channel;
             _HclpHuPhash = new double[7];
             _SrgbHuPhash = new double[7];
-        }
-
-        private void ParseHash(string hash)
-        {
-            _Hash = hash;
-
-            for (int i = 0; i < 14; i++)
-            {
-                int hex;
-                if (!int.TryParse(hash.Substring(i * 5, 5), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out hex))
-                    throw new ArgumentException("Invalid hash specified", nameof(hash));
-
-                double value = (ushort)hex / Math.Pow(10.0, hex >> 17);
-                if ((hex & (1 << 16)) != 0)
-                    value = -value;
-                if (i < 7)
-                    _SrgbHuPhash[i] = value;
-                else
-                    _HclpHuPhash[i - 7] = value;
-            }
-        }
-
-        private void SetHash()
-        {
-            _Hash = string.Empty;
-            for (int i = 0; i < 14; i++)
-            {
-                double value;
-                if (i < 7)
-                    value = _SrgbHuPhash[i];
-                else
-                    value = _HclpHuPhash[i - 7];
-
-                int hex = 0;
-                while (hex < 7 && Math.Abs(value * 10) < 65536)
-                {
-                    value = value * 10;
-                    hex++;
-                }
-
-                hex = hex << 1;
-                if (value < 0.0)
-                    hex |= 1;
-                hex = (hex << 16) + (int)(value < 0.0 ? -(value - 0.5) : value + 0.5);
-                _Hash += hex.ToString("x", CultureInfo.InvariantCulture);
-            }
-        }
-
-        private void SetHclpHuPhash(NativeChannelPerceptualHash instance)
-        {
-            for (int i = 0; i < 7; i++)
-                _HclpHuPhash[i] = instance.GetHclpHuPhash(i);
-        }
-
-        private void SetSrgbHuPhash(NativeChannelPerceptualHash instance)
-        {
-            for (int i = 0; i < 7; i++)
-                _SrgbHuPhash[i] = instance.GetSrgbHuPhash(i);
         }
 
         internal ChannelPerceptualHash(PixelChannel channel, IntPtr instance)
@@ -102,21 +59,6 @@ namespace ImageMagick
           : this(channel)
         {
             ParseHash(hash);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ChannelPerceptualHash"/> class.
-        /// </summary>
-        /// <param name="channel">The channel.></param>
-        /// <param name="srgbHuPhash">SRGB hu perceptual hash.</param>
-        /// <param name="hclpHuPhash">Hclp hu perceptual hash.</param>
-        /// <param name="hash">A string representation of this hash.</param>
-        public ChannelPerceptualHash(PixelChannel channel, double[] srgbHuPhash, double[] hclpHuPhash, string hash)
-        {
-            Channel = channel;
-            _SrgbHuPhash = srgbHuPhash;
-            _HclpHuPhash = hclpHuPhash;
-            _Hash = hash;
         }
 
         /// <summary>
@@ -179,6 +121,64 @@ namespace ImageMagick
         public override string ToString()
         {
             return _Hash;
+        }
+
+        private void ParseHash(string hash)
+        {
+            _Hash = hash;
+
+            for (int i = 0; i < 14; i++)
+            {
+                int hex;
+                if (!int.TryParse(hash.Substring(i * 5, 5), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out hex))
+                    throw new ArgumentException("Invalid hash specified", nameof(hash));
+
+                double value = (ushort)hex / Math.Pow(10.0, hex >> 17);
+                if ((hex & (1 << 16)) != 0)
+                    value = -value;
+                if (i < 7)
+                    _SrgbHuPhash[i] = value;
+                else
+                    _HclpHuPhash[i - 7] = value;
+            }
+        }
+
+        private void SetHash()
+        {
+            _Hash = string.Empty;
+            for (int i = 0; i < 14; i++)
+            {
+                double value;
+                if (i < 7)
+                    value = _SrgbHuPhash[i];
+                else
+                    value = _HclpHuPhash[i - 7];
+
+                int hex = 0;
+                while (hex < 7 && Math.Abs(value * 10) < 65536)
+                {
+                    value = value * 10;
+                    hex++;
+                }
+
+                hex = hex << 1;
+                if (value < 0.0)
+                    hex |= 1;
+                hex = (hex << 16) + (int)(value < 0.0 ? -(value - 0.5) : value + 0.5);
+                _Hash += hex.ToString("x", CultureInfo.InvariantCulture);
+            }
+        }
+
+        private void SetHclpHuPhash(NativeChannelPerceptualHash instance)
+        {
+            for (int i = 0; i < 7; i++)
+                _HclpHuPhash[i] = instance.GetHclpHuPhash(i);
+        }
+
+        private void SetSrgbHuPhash(NativeChannelPerceptualHash instance)
+        {
+            for (int i = 0; i < 7; i++)
+                _SrgbHuPhash[i] = instance.GetSrgbHuPhash(i);
         }
     }
 }

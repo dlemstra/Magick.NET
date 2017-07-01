@@ -21,76 +21,6 @@ namespace ImageMagick.ImageOptimizers
     /// </summary>
     public sealed class PngOptimizer : IImageOptimizer
     {
-        private static void CheckFormat(MagickImage image)
-        {
-            MagickFormat format = image.FormatInfo.Module;
-            if (format != MagickFormat.Png)
-                throw new MagickCorruptImageErrorException("Invalid image format: " + format.ToString());
-        }
-
-        private static void CheckTransparency(MagickImage image)
-        {
-            if (!image.HasAlpha)
-                return;
-
-            if (image.IsOpaque)
-                image.HasAlpha = false;
-        }
-
-        private void DoLosslessCompress(FileInfo file)
-        {
-            using (MagickImage image = new MagickImage(file))
-            {
-                CheckFormat(image);
-
-                image.Strip();
-                image.Settings.SetDefine(MagickFormat.Png, "exclude-chunks", "all");
-                image.Settings.SetDefine(MagickFormat.Png, "include-chunks", "tRNS,gAMA");
-                CheckTransparency(image);
-
-                Collection<FileInfo> tempFiles = new Collection<FileInfo>();
-
-                try
-                {
-                    FileInfo bestFile = null;
-
-                    foreach (int quality in GetQualityList())
-                    {
-                        FileInfo tempFile = new FileInfo(Path.GetTempFileName());
-                        tempFiles.Add(tempFile);
-
-                        image.Quality = quality;
-                        image.Write(tempFile);
-                        tempFile.Refresh();
-
-                        if (bestFile == null || bestFile.Length > tempFile.Length)
-                            bestFile = tempFile;
-                        else
-                            tempFile.Delete();
-                    }
-
-                    if (bestFile.Length < file.Length)
-                        bestFile.CopyTo(file.FullName, true);
-                }
-                finally
-                {
-                    foreach (FileInfo tempFile in tempFiles)
-                    {
-                        if (tempFile.Exists)
-                            tempFile.Delete();
-                    }
-                }
-            }
-        }
-
-        private IEnumerable<int> GetQualityList()
-        {
-            if (OptimalCompression)
-                return new int[] { 91, 94, 95, 97 };
-            else
-                return new int[] { 90 };
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PngOptimizer"/> class.
         /// </summary>
@@ -166,6 +96,76 @@ namespace ImageMagick.ImageOptimizers
             Throw.IfInvalidFileName(filePath);
 
             DoLosslessCompress(new FileInfo(filePath));
+        }
+
+        private static void CheckFormat(MagickImage image)
+        {
+            MagickFormat format = image.FormatInfo.Module;
+            if (format != MagickFormat.Png)
+                throw new MagickCorruptImageErrorException("Invalid image format: " + format.ToString());
+        }
+
+        private static void CheckTransparency(MagickImage image)
+        {
+            if (!image.HasAlpha)
+                return;
+
+            if (image.IsOpaque)
+                image.HasAlpha = false;
+        }
+
+        private void DoLosslessCompress(FileInfo file)
+        {
+            using (MagickImage image = new MagickImage(file))
+            {
+                CheckFormat(image);
+
+                image.Strip();
+                image.Settings.SetDefine(MagickFormat.Png, "exclude-chunks", "all");
+                image.Settings.SetDefine(MagickFormat.Png, "include-chunks", "tRNS,gAMA");
+                CheckTransparency(image);
+
+                Collection<FileInfo> tempFiles = new Collection<FileInfo>();
+
+                try
+                {
+                    FileInfo bestFile = null;
+
+                    foreach (int quality in GetQualityList())
+                    {
+                        FileInfo tempFile = new FileInfo(Path.GetTempFileName());
+                        tempFiles.Add(tempFile);
+
+                        image.Quality = quality;
+                        image.Write(tempFile);
+                        tempFile.Refresh();
+
+                        if (bestFile == null || bestFile.Length > tempFile.Length)
+                            bestFile = tempFile;
+                        else
+                            tempFile.Delete();
+                    }
+
+                    if (bestFile.Length < file.Length)
+                        bestFile.CopyTo(file.FullName, true);
+                }
+                finally
+                {
+                    foreach (FileInfo tempFile in tempFiles)
+                    {
+                        if (tempFile.Exists)
+                            tempFile.Delete();
+                    }
+                }
+            }
+        }
+
+        private IEnumerable<int> GetQualityList()
+        {
+            if (OptimalCompression)
+                return new int[] { 91, 94, 95, 97 };
+            else
+                return new int[] { 90 };
         }
     }
 }

@@ -26,28 +26,6 @@ namespace ImageMagick
     /// </summary>
     public sealed class XmpProfile : ImageProfile
     {
-        private static byte[] CheckTrailingNULL(byte[] data)
-        {
-            Throw.IfNull(nameof(data), data);
-
-            int length = data.Length;
-
-            while (length > 2)
-            {
-                if (data[length - 1] != '\0')
-                    break;
-
-                length--;
-            }
-
-            if (length == data.Length)
-                return data;
-
-            byte[] result = new byte[length];
-            Buffer.BlockCopy(data, 0, result, 0, length);
-            return result;
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="XmpProfile"/> class.
         /// </summary>
@@ -83,15 +61,15 @@ namespace ImageMagick
         public XmpProfile(XDocument document)
           : base("xmp")
         {
-          Throw.IfNull(nameof(document), document);
+            Throw.IfNull(nameof(document), document);
 
-          MemoryStream memStream = new MemoryStream();
-          using (XmlWriter writer = XmlWriter.Create(memStream))
-          {
-            document.WriteTo(writer);
-            writer.Flush();
-            Data = memStream.ToArray();
-          }
+            MemoryStream memStream = new MemoryStream();
+            using (XmlWriter writer = XmlWriter.Create(memStream))
+            {
+                document.WriteTo(writer);
+                writer.Flush();
+                Data = memStream.ToArray();
+            }
         }
 #endif
 
@@ -114,18 +92,6 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Creates a XmlReader that can be used to read the data of the profile.
-        /// </summary>
-        /// <returns>A <see cref="XmlReader"/>.</returns>
-        public XmlReader CreateReader()
-        {
-            MemoryStream memStream = new MemoryStream(Data, 0, Data.Length);
-            XmlReaderSettings settings = new XmlReaderSettings();
-            settings.CloseInput = true;
-            return XmlReader.Create(memStream, settings);
-        }
-
-        /// <summary>
         /// Creates an instance from the specified IXPathNavigable.
         /// </summary>
         /// <param name="document">A document containing the profile.</param>
@@ -143,9 +109,21 @@ namespace ImageMagick
         /// <returns>A <see cref="XmpProfile"/>.</returns>
         public static XmpProfile FromXDocument(XDocument document)
         {
-          return new XmpProfile(document);
+            return new XmpProfile(document);
         }
 #endif
+
+        /// <summary>
+        /// Creates a XmlReader that can be used to read the data of the profile.
+        /// </summary>
+        /// <returns>A <see cref="XmlReader"/>.</returns>
+        public XmlReader CreateReader()
+        {
+            MemoryStream memStream = new MemoryStream(Data, 0, Data.Length);
+            XmlReaderSettings settings = new XmlReaderSettings();
+            settings.CloseInput = true;
+            return XmlReader.Create(memStream, settings);
+        }
 
         /// <summary>
         /// Converts this instance to an IXPathNavigable.
@@ -168,11 +146,32 @@ namespace ImageMagick
         /// <returns>A <see cref="XDocument"/>.</returns>
         public XDocument ToXDocument()
         {
-          using (XmlReader reader = CreateReader())
-          {
-            return XDocument.Load(reader);
-          }
+            using (XmlReader reader = CreateReader())
+            {
+                return XDocument.Load(reader);
+            }
         }
 #endif
+        private static byte[] CheckTrailingNULL(byte[] data)
+        {
+            Throw.IfNull(nameof(data), data);
+
+            int length = data.Length;
+
+            while (length > 2)
+            {
+                if (data[length - 1] != '\0')
+                    break;
+
+                length--;
+            }
+
+            if (length == data.Length)
+                return data;
+
+            byte[] result = new byte[length];
+            Buffer.BlockCopy(data, 0, result, 0, length);
+            return result;
+        }
     }
 }

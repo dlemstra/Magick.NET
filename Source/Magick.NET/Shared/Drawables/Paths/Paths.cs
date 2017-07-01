@@ -24,27 +24,18 @@ namespace ImageMagick
         private Drawables _Drawables;
         private Collection<IPath> _Paths;
 
-        internal Paths(Drawables drawables)
-          : this()
-        {
-            _Drawables = drawables;
-        }
-
-        /// <summary>
-        /// Returns an enumerator that iterates through the collection.
-        /// </summary>
-        /// <returns>An enumerator that iterates through the collection.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Paths"/> class.
         /// </summary>
         public Paths()
         {
             _Paths = new Collection<IPath>();
+        }
+
+        internal Paths(Drawables drawables)
+          : this()
+        {
+            _Drawables = drawables;
         }
 
         /// <summary>
@@ -69,6 +60,15 @@ namespace ImageMagick
         public IEnumerator<IPath> GetEnumerator()
         {
             return _Paths.GetEnumerator();
+        }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns>An enumerator that iterates through the collection.</returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

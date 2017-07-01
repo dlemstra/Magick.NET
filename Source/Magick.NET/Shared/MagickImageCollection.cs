@@ -26,154 +26,6 @@ namespace ImageMagick
         private EventHandler<WarningEventArgs> _Warning;
         private NativeMagickImageCollection _NativeInstance;
 
-        private void AddImages(byte[] data, int length, MagickReadSettings readSettings, bool ping)
-        {
-            MagickSettings settings = CreateSettings(readSettings);
-            settings.Ping = ping;
-
-            IntPtr result = _NativeInstance.ReadBlob(settings, data, length);
-            AddImages(result, settings);
-        }
-
-        private void AddImages(string fileName, MagickReadSettings readSettings, bool ping)
-        {
-            string filePath = FileHelper.CheckForBaseDirectory(fileName);
-            Throw.IfInvalidFileName(filePath);
-
-            MagickSettings settings = CreateSettings(readSettings);
-            settings.FileName = filePath;
-            settings.Ping = ping;
-
-            IntPtr result = _NativeInstance.ReadFile(settings);
-            AddImages(result, settings);
-        }
-
-        private void AddImages(Stream stream, MagickReadSettings readSettings, bool ping)
-        {
-            Throw.IfNull(nameof(stream), stream);
-
-            Bytes bytes = Bytes.FromStreamBuffer(stream);
-            if (bytes != null)
-            {
-                AddImages(bytes.Data, bytes.Length, readSettings, ping);
-                return;
-            }
-
-            MagickSettings settings = CreateSettings(readSettings);
-            settings.Ping = ping;
-            settings.FileName = null;
-
-            using (StreamWrapper wrapper = StreamWrapper.CreateForReading(stream))
-            {
-                ReadWriteStreamDelegate readStream = new ReadWriteStreamDelegate(wrapper.Read);
-                SeekStreamDelegate seekStream = null;
-                TellStreamDelegate tellStream = null;
-
-                if (stream.CanSeek)
-                {
-                    seekStream = new SeekStreamDelegate(wrapper.Seek);
-                    tellStream = new TellStreamDelegate(wrapper.Tell);
-                }
-
-                IntPtr result = _NativeInstance.ReadStream(settings, readStream, seekStream, tellStream);
-                AddImages(result, settings);
-            }
-        }
-
-        private void AddImages(IntPtr result, MagickSettings settings)
-        {
-            foreach (IMagickImage image in MagickImage.CreateList(result, settings))
-            {
-                _Images.Add(image);
-            }
-        }
-
-        private void AttachImages()
-        {
-            for (int i = 0; i < _Images.Count - 1; i++)
-            {
-                _Images[i].SetNext(_Images[i + 1]);
-            }
-        }
-
-        private static MagickSettings CreateSettings(MagickReadSettings readSettings)
-        {
-            if (readSettings == null)
-                return new MagickSettings();
-
-            Throw.IfTrue(nameof(readSettings), readSettings.PixelStorage != null, "Settings the pixel storage is not supported for images with multiple frames/layers.");
-
-            return new MagickReadSettings(readSettings);
-        }
-
-        private void DetachImages()
-        {
-            for (int i = _Images.Count - 2; i > 0; i--)
-            {
-                _Images[i].SetNext(null);
-            }
-        }
-
-        private void Dispose(bool disposing)
-        {
-            if (_NativeInstance != null)
-                _NativeInstance.Warning -= OnWarning;
-
-            if (disposing)
-                Clear();
-        }
-
-        private void OnWarning(object sender, WarningEventArgs arguments)
-        {
-            if (_Warning != null)
-                _Warning(this, arguments);
-        }
-
-        private void SetDefines([ValidatedNotNull] IWriteDefines defines)
-        {
-            foreach (IMagickImage image in _Images)
-            {
-                image.Settings.SetDefines(defines);
-            }
-        }
-
-        private void SetFormat(MagickFormat format)
-        {
-            foreach (IMagickImage image in _Images)
-            {
-                image.Format = format;
-            }
-        }
-
-        private void ThrowIfEmpty()
-        {
-            if (_Images.Count == 0)
-                throw new InvalidOperationException("Operation requires at least one image.");
-        }
-
-        private void ThrowIfCountLowerThan(int count)
-        {
-            if (_Images.Count < count)
-                throw new InvalidOperationException("Operation requires at least " + count + " images.");
-        }
-
-        /// <summary>
-        /// Returns an enumerator that iterates through the collection.
-        /// </summary>
-        /// <returns>An enumerator that iterates through the collection.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _Images.GetEnumerator();
-        }
-
-        /// <summary>
-        /// Finalizes an instance of the <see cref="MagickImageCollection"/> class.
-        /// </summary>
-        ~MagickImageCollection()
-        {
-            Dispose(false);
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImageCollection"/> class.
         /// </summary>
@@ -293,14 +145,11 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Converts the specified instance to a byte array.
+        /// Finalizes an instance of the <see cref="MagickImageCollection"/> class.
         /// </summary>
-        /// <param name="collection">The <see cref="MagickImageCollection"/> to convert.</param>
-        public static explicit operator byte[](MagickImageCollection collection)
+        ~MagickImageCollection()
         {
-            Throw.IfNull(nameof(collection), collection);
-
-            return collection.ToByteArray();
+            Dispose(false);
         }
 
         /// <summary>
@@ -315,22 +164,6 @@ namespace ImageMagick
             remove
             {
                 _Warning -= value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the image at the specified index.
-        /// </summary>
-        /// <param name="index">The index of the image to get.</param>
-        public IMagickImage this[int index]
-        {
-            get
-            {
-                return _Images[index];
-            }
-            set
-            {
-                _Images[index] = value;
             }
         }
 
@@ -354,6 +187,42 @@ namespace ImageMagick
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Gets or sets the image at the specified index.
+        /// </summary>
+        /// <param name="index">The index of the image to get.</param>
+        public IMagickImage this[int index]
+        {
+            get
+            {
+                return _Images[index];
+            }
+            set
+            {
+                _Images[index] = value;
+            }
+        }
+
+        /// <summary>
+        /// Converts the specified instance to a byte array.
+        /// </summary>
+        /// <param name="collection">The <see cref="MagickImageCollection"/> to convert.</param>
+        public static explicit operator byte[](MagickImageCollection collection)
+        {
+            Throw.IfNull(nameof(collection), collection);
+
+            return collection.ToByteArray();
+        }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns>An enumerator that iterates through the collection.</returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _Images.GetEnumerator();
         }
 
         /// <summary>
@@ -1498,6 +1367,137 @@ namespace ImageMagick
         {
             SetDefines(defines);
             Write(fileName);
+        }
+
+        private static MagickSettings CreateSettings(MagickReadSettings readSettings)
+        {
+            if (readSettings == null)
+                return new MagickSettings();
+
+            Throw.IfTrue(nameof(readSettings), readSettings.PixelStorage != null, "Settings the pixel storage is not supported for images with multiple frames/layers.");
+
+            return new MagickReadSettings(readSettings);
+        }
+
+        private void AddImages(byte[] data, int length, MagickReadSettings readSettings, bool ping)
+        {
+            MagickSettings settings = CreateSettings(readSettings);
+            settings.Ping = ping;
+
+            IntPtr result = _NativeInstance.ReadBlob(settings, data, length);
+            AddImages(result, settings);
+        }
+
+        private void AddImages(string fileName, MagickReadSettings readSettings, bool ping)
+        {
+            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            Throw.IfInvalidFileName(filePath);
+
+            MagickSettings settings = CreateSettings(readSettings);
+            settings.FileName = filePath;
+            settings.Ping = ping;
+
+            IntPtr result = _NativeInstance.ReadFile(settings);
+            AddImages(result, settings);
+        }
+
+        private void AddImages(Stream stream, MagickReadSettings readSettings, bool ping)
+        {
+            Throw.IfNull(nameof(stream), stream);
+
+            Bytes bytes = Bytes.FromStreamBuffer(stream);
+            if (bytes != null)
+            {
+                AddImages(bytes.Data, bytes.Length, readSettings, ping);
+                return;
+            }
+
+            MagickSettings settings = CreateSettings(readSettings);
+            settings.Ping = ping;
+            settings.FileName = null;
+
+            using (StreamWrapper wrapper = StreamWrapper.CreateForReading(stream))
+            {
+                ReadWriteStreamDelegate readStream = new ReadWriteStreamDelegate(wrapper.Read);
+                SeekStreamDelegate seekStream = null;
+                TellStreamDelegate tellStream = null;
+
+                if (stream.CanSeek)
+                {
+                    seekStream = new SeekStreamDelegate(wrapper.Seek);
+                    tellStream = new TellStreamDelegate(wrapper.Tell);
+                }
+
+                IntPtr result = _NativeInstance.ReadStream(settings, readStream, seekStream, tellStream);
+                AddImages(result, settings);
+            }
+        }
+
+        private void AddImages(IntPtr result, MagickSettings settings)
+        {
+            foreach (IMagickImage image in MagickImage.CreateList(result, settings))
+            {
+                _Images.Add(image);
+            }
+        }
+
+        private void AttachImages()
+        {
+            for (int i = 0; i < _Images.Count - 1; i++)
+            {
+                _Images[i].SetNext(_Images[i + 1]);
+            }
+        }
+
+        private void DetachImages()
+        {
+            for (int i = _Images.Count - 2; i > 0; i--)
+            {
+                _Images[i].SetNext(null);
+            }
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (_NativeInstance != null)
+                _NativeInstance.Warning -= OnWarning;
+
+            if (disposing)
+                Clear();
+        }
+
+        private void OnWarning(object sender, WarningEventArgs arguments)
+        {
+            if (_Warning != null)
+                _Warning(this, arguments);
+        }
+
+        private void SetDefines([ValidatedNotNull] IWriteDefines defines)
+        {
+            foreach (IMagickImage image in _Images)
+            {
+                image.Settings.SetDefines(defines);
+            }
+        }
+
+        private void SetFormat(MagickFormat format)
+        {
+            foreach (IMagickImage image in _Images)
+            {
+                image.Format = format;
+            }
+        }
+
+        private void ThrowIfEmpty()
+        {
+            if (_Images.Count == 0)
+                throw new InvalidOperationException("Operation requires at least one image.");
+        }
+
+        private void ThrowIfCountLowerThan(int count)
+        {
+            if (_Images.Count < count)
+                throw new InvalidOperationException("Operation requires at least " + count + " images.");
         }
     }
 }

@@ -30,11 +30,6 @@ namespace ImageMagick
             UnderlineThickness = instance.UnderlineThickness;
         }
 
-        internal static void Dispose(IntPtr instance)
-        {
-            NativeTypeMetric.DisposeInstance(instance);
-        }
-
         /// <summary>
         /// Gets the ascent, the distance in pixels from the text baseline to the highest/upper grid coordinate
         /// used to place an outline point.
@@ -98,6 +93,11 @@ namespace ImageMagick
         {
             get;
             private set;
+        }
+
+        internal static void Dispose(IntPtr instance)
+        {
+            NativeTypeMetric.DisposeInstance(instance);
         }
     }
 }

@@ -23,11 +23,6 @@ namespace ImageMagick
     /// </content>
     public sealed partial class MagickImageCollection
     {
-        private void SetFormat(ImageFormat format)
-        {
-            SetFormat(MagickFormatInfo.GetFormat(format));
-        }
-
         /// <summary>
         /// Converts this instance to a <see cref="Bitmap"/> using <see cref="ImageFormat.Tiff"/>.
         /// </summary>
@@ -52,6 +47,11 @@ namespace ImageMagick
             memStream.Position = 0;
             /* Do not dispose the memStream, the bitmap owns it. */
             return new Bitmap(memStream);
+        }
+
+        private void SetFormat(ImageFormat format)
+        {
+            SetFormat(MagickFormatInfo.GetFormat(format));
         }
     }
 }

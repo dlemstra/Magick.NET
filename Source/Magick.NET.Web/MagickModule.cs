@@ -27,6 +27,28 @@ namespace ImageMagick.Web
         private const string UrlKey = "ImageMagick.Web.MagickModule.Url";
         private readonly MagickWebSettings _Settings;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickModule"/> class.
+        /// </summary>
+        public MagickModule()
+          : this(MagickWebSettings.Instance)
+        {
+        }
+
+        internal MagickModule(MagickWebSettings settings)
+        {
+            _Settings = settings;
+        }
+
+        /// <inheritdoc/>
+        protected override bool UsingIntegratedPipeline
+        {
+            get
+            {
+                return HttpRuntime.UsingIntegratedPipeline;
+            }
+        }
+
         private IEnumerable<IUrlResolver> UrlResolvers
         {
             get
@@ -36,6 +58,45 @@ namespace ImageMagick.Web
                     yield return settings.CreateInstance();
                 }
             }
+        }
+
+        internal override void OnBeginRequest(HttpContextBase context)
+        {
+            context.Items[UrlKey] = context.Request.Url;
+        }
+
+        internal override void OnPostAuthorizeRequest(HttpContextBase context)
+        {
+            IHttpHandler newHandler = HandleRequest(context);
+            if (newHandler != null)
+                context.RemapHandler(newHandler);
+        }
+
+        internal override void OnPostMapRequestHandler(HttpContextBase context)
+        {
+            IHttpHandler newHandler = HandleRequest(context);
+            if (newHandler != null)
+                context.Handler = newHandler;
+        }
+
+        internal override void Initialize()
+        {
+            if (_Settings.UrlResolvers.Count == 0)
+                throw new ConfigurationErrorsException("Define at least one url resolver.");
+
+            InitOpenCL();
+            InitResourceLimits();
+        }
+
+        private static bool IsValid(IScriptData scriptData)
+        {
+            if (scriptData == null)
+                return false;
+
+            if (scriptData.Script == null)
+                return false;
+
+            return true;
         }
 
         private IHttpHandler CreateHttpHandler(IUrlResolver urlResolver)
@@ -87,67 +148,6 @@ namespace ImageMagick.Web
 
             if (_Settings.ResourceLimits.Height != null)
                 ResourceLimits.Height = (ulong)_Settings.ResourceLimits.Height.Value;
-        }
-
-        private static bool IsValid(IScriptData scriptData)
-        {
-            if (scriptData == null)
-                return false;
-
-            if (scriptData.Script == null)
-                return false;
-
-            return true;
-        }
-
-        internal MagickModule(MagickWebSettings settings)
-        {
-            _Settings = settings;
-        }
-
-        /// <inheritdoc/>
-        protected override bool UsingIntegratedPipeline
-        {
-            get
-            {
-                return HttpRuntime.UsingIntegratedPipeline;
-            }
-        }
-
-        internal override void OnBeginRequest(HttpContextBase context)
-        {
-            context.Items[UrlKey] = context.Request.Url;
-        }
-
-        internal override void OnPostAuthorizeRequest(HttpContextBase context)
-        {
-            IHttpHandler newHandler = HandleRequest(context);
-            if (newHandler != null)
-                context.RemapHandler(newHandler);
-        }
-
-        internal override void OnPostMapRequestHandler(HttpContextBase context)
-        {
-            IHttpHandler newHandler = HandleRequest(context);
-            if (newHandler != null)
-                context.Handler = newHandler;
-        }
-
-        internal override void Initialize()
-        {
-            if (_Settings.UrlResolvers.Count == 0)
-                throw new ConfigurationErrorsException("Define at least one url resolver.");
-
-            InitOpenCL();
-            InitResourceLimits();
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MagickModule"/> class.
-        /// </summary>
-        public MagickModule()
-          : this(MagickWebSettings.Instance)
-        {
         }
     }
 }

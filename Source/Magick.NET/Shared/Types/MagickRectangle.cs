@@ -16,45 +16,20 @@ namespace ImageMagick
 {
     internal sealed partial class MagickRectangle
     {
-        private MagickRectangle(NativeMagickRectangle instance)
-        {
-            X = instance.X;
-            Y = instance.Y;
-            Width = instance.Width;
-            Height = instance.Height;
-        }
-
-        private NativeMagickRectangle CreateNativeInstance()
-        {
-            NativeMagickRectangle instance = new NativeMagickRectangle();
-            instance.X = X;
-            instance.Y = Y;
-            instance.Width = Width;
-            instance.Height = Height;
-
-            return instance;
-        }
-
-        internal static INativeInstance CreateInstance()
-        {
-            return new NativeMagickRectangle();
-        }
-
-        internal static MagickRectangle CreateInstance(INativeInstance nativeInstance)
-        {
-            NativeMagickRectangle instance = nativeInstance as NativeMagickRectangle;
-            if (instance == null)
-                throw new InvalidOperationException();
-
-            return new MagickRectangle(instance);
-        }
-
         public MagickRectangle(int x, int y, int width, int height)
         {
             X = x;
             Y = y;
             Width = width;
             Height = height;
+        }
+
+        private MagickRectangle(NativeMagickRectangle instance)
+        {
+            X = instance.X;
+            Y = instance.Y;
+            Width = instance.Width;
+            Height = instance.Height;
         }
 
         public int Height
@@ -96,6 +71,31 @@ namespace ImageMagick
             }
 
             return new MagickRectangle(geometry.X, geometry.Y, width, height);
+        }
+
+        internal static INativeInstance CreateInstance()
+        {
+            return new NativeMagickRectangle();
+        }
+
+        internal static MagickRectangle CreateInstance(INativeInstance nativeInstance)
+        {
+            NativeMagickRectangle instance = nativeInstance as NativeMagickRectangle;
+            if (instance == null)
+                throw new InvalidOperationException();
+
+            return new MagickRectangle(instance);
+        }
+
+        private NativeMagickRectangle CreateNativeInstance()
+        {
+            NativeMagickRectangle instance = new NativeMagickRectangle();
+            instance.X = X;
+            instance.Y = Y;
+            instance.Width = Width;
+            instance.Height = Height;
+
+            return instance;
         }
     }
 }

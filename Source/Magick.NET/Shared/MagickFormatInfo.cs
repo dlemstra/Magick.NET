@@ -28,110 +28,6 @@ namespace ImageMagick
         {
         }
 
-        private static MagickFormatInfo Create(NativeMagickFormatInfo instance)
-        {
-            MagickFormatInfo formatInfo = new MagickFormatInfo();
-            formatInfo.Format = GetFormat(instance.Format);
-            formatInfo.Description = instance.Description;
-            formatInfo.CanReadMultithreaded = instance.CanReadMultithreaded;
-            formatInfo.CanWriteMultithreaded = instance.CanWriteMultithreaded;
-            formatInfo.IsMultiFrame = instance.IsMultiFrame;
-            formatInfo.IsReadable = instance.IsReadable;
-            formatInfo.IsWritable = instance.IsWritable;
-            formatInfo.MimeType = instance.MimeType;
-            formatInfo.Module = GetFormat(instance.Module);
-
-            return formatInfo;
-        }
-
-        private static MagickFormatInfo Create(NativeMagickFormatInfo instance, string name)
-        {
-            instance.GetInfoByName(name);
-            return Create(instance);
-        }
-
-        private static MagickFormat GetFormat(string format)
-        {
-            format = format.Replace("-", string.Empty);
-            if (format == "3FR")
-                format = "ThreeFr";
-            else if (format == "3G2")
-                format = "ThreeG2";
-            else if (format == "3GP")
-                format = "ThreeGp";
-
-            return EnumHelper.Parse(format, MagickFormat.Unknown);
-        }
-
-        private static Dictionary<MagickFormat, MagickFormatInfo> LoadFormats()
-        {
-            Dictionary<MagickFormat, MagickFormatInfo> result = new Dictionary<MagickFormat, MagickFormatInfo>();
-
-            IntPtr list = IntPtr.Zero;
-            UIntPtr length = (UIntPtr)0;
-            MagickFormatInfo formatInfo;
-            NativeMagickFormatInfo instance = new NativeMagickFormatInfo();
-
-            try
-            {
-                list = instance.CreateList(out length);
-
-                IntPtr ptr = list;
-                for (int i = 0; i < (int)length; i++)
-                {
-                    instance.GetInfo(list, i);
-
-                    formatInfo = Create(instance);
-                    result[formatInfo.Format] = formatInfo;
-
-                    ptr = new IntPtr(ptr.ToInt64() + i);
-                }
-
-                /* stealth coders */
-
-                formatInfo = Create(instance, "DIB");
-                result[formatInfo.Format] = formatInfo;
-
-                formatInfo = Create(instance, "TIF");
-                result[formatInfo.Format] = formatInfo;
-            }
-            finally
-            {
-                if (list != IntPtr.Zero)
-                    NativeMagickFormatInfo.DisposeList(list, (int)length);
-            }
-
-            return result;
-        }
-
-        internal static IEnumerable<MagickFormatInfo> All
-        {
-            get
-            {
-                return _All.Values;
-            }
-        }
-
-        /// <summary>
-        /// Determines whether the specified MagickFormatInfo instances are considered equal.
-        /// </summary>
-        /// <param name="left">The first MagickFormatInfo to compare.</param>
-        /// <param name="right"> The second MagickFormatInfo to compare.</param>
-        public static bool operator ==(MagickFormatInfo left, MagickFormatInfo right)
-        {
-            return Equals(left, right);
-        }
-
-        /// <summary>
-        /// Determines whether the specified MagickFormatInfo instances are not considered equal.
-        /// </summary>
-        /// <param name="left">The first MagickFormatInfo to compare.</param>
-        /// <param name="right"> The second MagickFormatInfo to compare.</param>
-        public static bool operator !=(MagickFormatInfo left, MagickFormatInfo right)
-        {
-            return !Equals(left, right);
-        }
-
         /// <summary>
         /// Gets a value indicating whether the format can be read multithreaded.
         /// </summary>
@@ -211,6 +107,34 @@ namespace ImageMagick
         {
             get;
             private set;
+        }
+
+        internal static IEnumerable<MagickFormatInfo> All
+        {
+            get
+            {
+                return _All.Values;
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the specified MagickFormatInfo instances are considered equal.
+        /// </summary>
+        /// <param name="left">The first MagickFormatInfo to compare.</param>
+        /// <param name="right"> The second MagickFormatInfo to compare.</param>
+        public static bool operator ==(MagickFormatInfo left, MagickFormatInfo right)
+        {
+            return Equals(left, right);
+        }
+
+        /// <summary>
+        /// Determines whether the specified MagickFormatInfo instances are not considered equal.
+        /// </summary>
+        /// <param name="left">The first MagickFormatInfo to compare.</param>
+        /// <param name="right"> The second MagickFormatInfo to compare.</param>
+        public static bool operator !=(MagickFormatInfo left, MagickFormatInfo right)
+        {
+            return !Equals(left, right);
         }
 
         /// <summary>
@@ -311,6 +235,82 @@ namespace ImageMagick
         public bool Unregister()
         {
             return NativeMagickFormatInfo.Unregister(EnumHelper.GetName(Format));
+        }
+
+        private static MagickFormatInfo Create(NativeMagickFormatInfo instance)
+        {
+            MagickFormatInfo formatInfo = new MagickFormatInfo();
+            formatInfo.Format = GetFormat(instance.Format);
+            formatInfo.Description = instance.Description;
+            formatInfo.CanReadMultithreaded = instance.CanReadMultithreaded;
+            formatInfo.CanWriteMultithreaded = instance.CanWriteMultithreaded;
+            formatInfo.IsMultiFrame = instance.IsMultiFrame;
+            formatInfo.IsReadable = instance.IsReadable;
+            formatInfo.IsWritable = instance.IsWritable;
+            formatInfo.MimeType = instance.MimeType;
+            formatInfo.Module = GetFormat(instance.Module);
+
+            return formatInfo;
+        }
+
+        private static MagickFormatInfo Create(NativeMagickFormatInfo instance, string name)
+        {
+            instance.GetInfoByName(name);
+            return Create(instance);
+        }
+
+        private static MagickFormat GetFormat(string format)
+        {
+            format = format.Replace("-", string.Empty);
+            if (format == "3FR")
+                format = "ThreeFr";
+            else if (format == "3G2")
+                format = "ThreeG2";
+            else if (format == "3GP")
+                format = "ThreeGp";
+
+            return EnumHelper.Parse(format, MagickFormat.Unknown);
+        }
+
+        private static Dictionary<MagickFormat, MagickFormatInfo> LoadFormats()
+        {
+            Dictionary<MagickFormat, MagickFormatInfo> result = new Dictionary<MagickFormat, MagickFormatInfo>();
+
+            IntPtr list = IntPtr.Zero;
+            UIntPtr length = (UIntPtr)0;
+            MagickFormatInfo formatInfo;
+            NativeMagickFormatInfo instance = new NativeMagickFormatInfo();
+
+            try
+            {
+                list = instance.CreateList(out length);
+
+                IntPtr ptr = list;
+                for (int i = 0; i < (int)length; i++)
+                {
+                    instance.GetInfo(list, i);
+
+                    formatInfo = Create(instance);
+                    result[formatInfo.Format] = formatInfo;
+
+                    ptr = new IntPtr(ptr.ToInt64() + i);
+                }
+
+                /* stealth coders */
+
+                formatInfo = Create(instance, "DIB");
+                result[formatInfo.Format] = formatInfo;
+
+                formatInfo = Create(instance, "TIF");
+                result[formatInfo.Format] = formatInfo;
+            }
+            finally
+            {
+                if (list != IntPtr.Zero)
+                    NativeMagickFormatInfo.DisposeList(list, (int)length);
+            }
+
+            return result;
         }
     }
 }

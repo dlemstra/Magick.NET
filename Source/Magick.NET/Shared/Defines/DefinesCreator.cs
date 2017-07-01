@@ -31,6 +31,23 @@ namespace ImageMagick.Defines
         }
 
         /// <summary>
+        /// Gets the defines that should be set as a define on an image.
+        /// </summary>
+        public abstract IEnumerable<IDefine> Defines
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets the format where the defines are for.
+        /// </summary>
+        protected MagickFormat Format
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// Create a define with the specified name and value.
         /// </summary>
         /// <param name="name">The name of the define.</param>
@@ -112,23 +129,6 @@ namespace ImageMagick.Defines
                 return null;
 
             return new MagickDefine(Format, name, string.Join(",", values.ToArray()));
-        }
-
-        /// <summary>
-        /// Gets the format where the defines are for.
-        /// </summary>
-        protected MagickFormat Format
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Gets the defines that should be set as a define on an image.
-        /// </summary>
-        public abstract IEnumerable<IDefine> Defines
-        {
-            get;
         }
     }
 }

@@ -24,12 +24,21 @@ namespace ImageMagick
         private static bool? _IsEnabled;
 
         /// <summary>
-        /// Sets the directory that will be used by ImageMagick to store OpenCL cache files.
+        /// Gets or sets a value indicating whether OpenCL is enabled.
         /// </summary>
-        /// <param name="path">The path of the OpenCL cache directory.</param>
-        public static void SetCacheDirectory(string path)
+        public static bool IsEnabled
         {
-            Environment.SetEnv("MAGICK_OPENCL_CACHE_DIR", FileHelper.GetFullPath(path));
+            get
+            {
+                if (!_IsEnabled.HasValue)
+                    _IsEnabled = NativeOpenCL.SetEnabled(true);
+
+                return _IsEnabled.Value;
+            }
+            set
+            {
+                _IsEnabled = NativeOpenCL.SetEnabled(value);
+            }
         }
 
         /// <summary>
@@ -60,21 +69,12 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether OpenCL is enabled.
+        /// Sets the directory that will be used by ImageMagick to store OpenCL cache files.
         /// </summary>
-        public static bool IsEnabled
+        /// <param name="path">The path of the OpenCL cache directory.</param>
+        public static void SetCacheDirectory(string path)
         {
-            get
-            {
-                if (!_IsEnabled.HasValue)
-                    _IsEnabled = NativeOpenCL.SetEnabled(true);
-
-                return _IsEnabled.Value;
-            }
-            set
-            {
-                _IsEnabled = NativeOpenCL.SetEnabled(value);
-            }
+            Environment.SetEnv("MAGICK_OPENCL_CACHE_DIR", FileHelper.GetFullPath(path));
         }
     }
 }

@@ -17,88 +17,6 @@ namespace ImageMagick
     /// </summary>
     public sealed partial class MagickGeometry
     {
-        private MagickGeometry(NativeMagickGeometry instance)
-        {
-            Initialize(instance);
-        }
-
-        private NativeMagickGeometry CreateNativeInstance()
-        {
-            NativeMagickGeometry instance = new NativeMagickGeometry();
-            instance.Initialize(ToString());
-
-            return instance;
-        }
-
-        private void Initialize(int x, int y, int width, int height, bool isPercentage)
-        {
-            X = x;
-            Y = y;
-            Width = width;
-            Height = height;
-            IsPercentage = isPercentage;
-        }
-
-        private void Initialize(NativeMagickGeometry instance)
-        {
-            X = (int)instance.X;
-            Y = (int)instance.Y;
-            Width = (int)instance.Width;
-            Height = (int)instance.Height;
-        }
-
-        private void Initialize(NativeMagickGeometry instance, GeometryFlags flags)
-        {
-            Throw.IfTrue(nameof(flags), flags == GeometryFlags.NoValue, "Invalid geometry specified.");
-
-            Initialize(instance);
-
-            IsPercentage = EnumHelper.HasFlag(flags, GeometryFlags.PercentValue);
-            IgnoreAspectRatio = EnumHelper.HasFlag(flags, GeometryFlags.IgnoreAspectRatio);
-            FillArea = EnumHelper.HasFlag(flags, GeometryFlags.FillArea);
-            Greater = EnumHelper.HasFlag(flags, GeometryFlags.Greater);
-            Less = EnumHelper.HasFlag(flags, GeometryFlags.Less);
-            LimitPixels = EnumHelper.HasFlag(flags, GeometryFlags.LimitPixels);
-        }
-
-        internal static MagickGeometry Clone(MagickGeometry value)
-        {
-            if (value == null)
-                return null;
-
-            MagickGeometry clone = new MagickGeometry();
-            clone.FillArea = value.FillArea;
-            clone.Greater = value.Greater;
-            clone.Height = value.Height;
-            clone.IgnoreAspectRatio = value.IgnoreAspectRatio;
-            clone.IsPercentage = value.IsPercentage;
-            clone.Less = value.Less;
-            clone.LimitPixels = value.LimitPixels;
-            clone.Width = value.Width;
-            clone.X = value.X;
-            clone.Y = value.Y;
-
-            return clone;
-        }
-
-        internal static MagickGeometry FromRectangle(MagickRectangle rectangle)
-        {
-            if (rectangle == null)
-                return null;
-
-            return new MagickGeometry(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
-        }
-
-        internal static MagickGeometry FromString(string value)
-        {
-            return value == null ? null : new MagickGeometry(value);
-        }
-
-        internal static string ToString(MagickGeometry value)
-        {
-            return value == null ? null : value.ToString();
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickGeometry"/> class.
         /// </summary>
@@ -182,86 +100,9 @@ namespace ImageMagick
             }
         }
 
-        /// <summary>
-        /// Determines whether the specified <see cref="MagickGeometry"/> instances are considered equal.
-        /// </summary>
-        /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
-        /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
-        public static bool operator ==(MagickGeometry left, MagickGeometry right)
+        private MagickGeometry(NativeMagickGeometry instance)
         {
-            return Equals(left, right);
-        }
-
-        /// <summary>
-        /// Determines whether the specified <see cref="MagickGeometry"/> instances are not considered equal.
-        /// </summary>
-        /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
-        /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
-        public static bool operator !=(MagickGeometry left, MagickGeometry right)
-        {
-            return !Equals(left, right);
-        }
-
-        /// <summary>
-        /// Determines whether the first <see cref="MagickGeometry"/>  is more than the second <see cref="MagickGeometry"/>.
-        /// </summary>
-        /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
-        /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
-        public static bool operator >(MagickGeometry left, MagickGeometry right)
-        {
-            if (ReferenceEquals(left, null))
-                return ReferenceEquals(right, null);
-
-            return left.CompareTo(right) == 1;
-        }
-
-        /// <summary>
-        /// Determines whether the first <see cref="MagickGeometry"/> is less than the second <see cref="MagickGeometry"/>.
-        /// </summary>
-        /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
-        /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
-        public static bool operator <(MagickGeometry left, MagickGeometry right)
-        {
-            if (ReferenceEquals(left, null))
-                return !ReferenceEquals(right, null);
-
-            return left.CompareTo(right) == -1;
-        }
-
-        /// <summary>
-        /// Determines whether the first <see cref="MagickGeometry"/> is more than or equal to the second <see cref="MagickGeometry"/>.
-        /// </summary>
-        /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
-        /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
-        public static bool operator >=(MagickGeometry left, MagickGeometry right)
-        {
-            if (ReferenceEquals(left, null))
-                return ReferenceEquals(right, null);
-
-            return left.CompareTo(right) >= 0;
-        }
-
-        /// <summary>
-        /// Determines whether the first <see cref="MagickGeometry"/> is less than or equal to the second <see cref="MagickGeometry"/>.
-        /// </summary>
-        /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
-        /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
-        public static bool operator <=(MagickGeometry left, MagickGeometry right)
-        {
-            if (ReferenceEquals(left, null))
-                return !ReferenceEquals(right, null);
-
-            return left.CompareTo(right) <= 0;
-        }
-
-        /// <summary>
-        /// Converts the specified string to an instance of this type.
-        /// </summary>
-        /// <param name="value">Geometry specifications in the form: &lt;width&gt;x&lt;height&gt;
-        /// {+-}&lt;xoffset&gt;{+-}&lt;yoffset&gt; (where width, height, xoffset, and yoffset are numbers)</param>
-        public static explicit operator MagickGeometry(string value)
-        {
-            return new MagickGeometry(value);
+            Initialize(instance);
         }
 
         /// <summary>
@@ -355,6 +196,88 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Converts the specified string to an instance of this type.
+        /// </summary>
+        /// <param name="value">Geometry specifications in the form: &lt;width&gt;x&lt;height&gt;
+        /// {+-}&lt;xoffset&gt;{+-}&lt;yoffset&gt; (where width, height, xoffset, and yoffset are numbers)</param>
+        public static explicit operator MagickGeometry(string value)
+        {
+            return new MagickGeometry(value);
+        }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="MagickGeometry"/> instances are considered equal.
+        /// </summary>
+        /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
+        /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
+        public static bool operator ==(MagickGeometry left, MagickGeometry right)
+        {
+            return Equals(left, right);
+        }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="MagickGeometry"/> instances are not considered equal.
+        /// </summary>
+        /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
+        /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
+        public static bool operator !=(MagickGeometry left, MagickGeometry right)
+        {
+            return !Equals(left, right);
+        }
+
+        /// <summary>
+        /// Determines whether the first <see cref="MagickGeometry"/>  is more than the second <see cref="MagickGeometry"/>.
+        /// </summary>
+        /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
+        /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
+        public static bool operator >(MagickGeometry left, MagickGeometry right)
+        {
+            if (ReferenceEquals(left, null))
+                return ReferenceEquals(right, null);
+
+            return left.CompareTo(right) == 1;
+        }
+
+        /// <summary>
+        /// Determines whether the first <see cref="MagickGeometry"/> is less than the second <see cref="MagickGeometry"/>.
+        /// </summary>
+        /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
+        /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
+        public static bool operator <(MagickGeometry left, MagickGeometry right)
+        {
+            if (ReferenceEquals(left, null))
+                return !ReferenceEquals(right, null);
+
+            return left.CompareTo(right) == -1;
+        }
+
+        /// <summary>
+        /// Determines whether the first <see cref="MagickGeometry"/> is more than or equal to the second <see cref="MagickGeometry"/>.
+        /// </summary>
+        /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
+        /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
+        public static bool operator >=(MagickGeometry left, MagickGeometry right)
+        {
+            if (ReferenceEquals(left, null))
+                return ReferenceEquals(right, null);
+
+            return left.CompareTo(right) >= 0;
+        }
+
+        /// <summary>
+        /// Determines whether the first <see cref="MagickGeometry"/> is less than or equal to the second <see cref="MagickGeometry"/>.
+        /// </summary>
+        /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
+        /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
+        public static bool operator <=(MagickGeometry left, MagickGeometry right)
+        {
+            if (ReferenceEquals(left, null))
+                return !ReferenceEquals(right, null);
+
+            return left.CompareTo(right) <= 0;
+        }
+
+        /// <summary>
         /// Compares the current instance with another object of the same type.
         /// </summary>
         /// <param name="other">The object to compare this geometry with.</param>
@@ -400,16 +323,16 @@ namespace ImageMagick
                 return true;
 
             return
-              Width == other.Width &&
-              Height == other.Height &&
-              X == other.X &&
-              Y == other.Y &&
-              IsPercentage == other.IsPercentage &&
-              IgnoreAspectRatio == other.IgnoreAspectRatio &&
-              Less == other.Less &&
-              Greater == other.Greater &&
-              FillArea == other.FillArea &&
-              LimitPixels == other.LimitPixels;
+                Width == other.Width &&
+                Height == other.Height &&
+                X == other.X &&
+                Y == other.Y &&
+                IsPercentage == other.IsPercentage &&
+                IgnoreAspectRatio == other.IgnoreAspectRatio &&
+                Less == other.Less &&
+                Greater == other.Greater &&
+                FillArea == other.FillArea &&
+                LimitPixels == other.LimitPixels;
         }
 
         /// <summary>
@@ -419,16 +342,16 @@ namespace ImageMagick
         public override int GetHashCode()
         {
             return
-              Width.GetHashCode() ^
-              Height.GetHashCode() ^
-              X.GetHashCode() ^
-              Y.GetHashCode() ^
-              IsPercentage.GetHashCode() ^
-              IgnoreAspectRatio.GetHashCode() ^
-              Less.GetHashCode() ^
-              Greater.GetHashCode() ^
-              FillArea.GetHashCode() ^
-              LimitPixels.GetHashCode();
+                Width.GetHashCode() ^
+                Height.GetHashCode() ^
+                X.GetHashCode() ^
+                Y.GetHashCode() ^
+                IsPercentage.GetHashCode() ^
+                IgnoreAspectRatio.GetHashCode() ^
+                Less.GetHashCode() ^
+                Greater.GetHashCode() ^
+                FillArea.GetHashCode() ^
+                LimitPixels.GetHashCode();
         }
 
         /// <summary>
@@ -486,6 +409,83 @@ namespace ImageMagick
                 result += '@';
 
             return result;
+        }
+
+        internal static MagickGeometry Clone(MagickGeometry value)
+        {
+            if (value == null)
+                return null;
+
+            return new MagickGeometry()
+            {
+                FillArea = value.FillArea,
+                Greater = value.Greater,
+                Height = value.Height,
+                IgnoreAspectRatio = value.IgnoreAspectRatio,
+                IsPercentage = value.IsPercentage,
+                Less = value.Less,
+                LimitPixels = value.LimitPixels,
+                Width = value.Width,
+                X = value.X,
+                Y = value.Y,
+            };
+        }
+
+        internal static MagickGeometry FromRectangle(MagickRectangle rectangle)
+        {
+            if (rectangle == null)
+                return null;
+
+            return new MagickGeometry(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
+        }
+
+        internal static MagickGeometry FromString(string value)
+        {
+            return value == null ? null : new MagickGeometry(value);
+        }
+
+        internal static string ToString(MagickGeometry value)
+        {
+            return value?.ToString();
+        }
+
+        private NativeMagickGeometry CreateNativeInstance()
+        {
+            NativeMagickGeometry instance = new NativeMagickGeometry();
+            instance.Initialize(ToString());
+
+            return instance;
+        }
+
+        private void Initialize(int x, int y, int width, int height, bool isPercentage)
+        {
+            X = x;
+            Y = y;
+            Width = width;
+            Height = height;
+            IsPercentage = isPercentage;
+        }
+
+        private void Initialize(NativeMagickGeometry instance)
+        {
+            X = (int)instance.X;
+            Y = (int)instance.Y;
+            Width = (int)instance.Width;
+            Height = (int)instance.Height;
+        }
+
+        private void Initialize(NativeMagickGeometry instance, GeometryFlags flags)
+        {
+            Throw.IfTrue(nameof(flags), flags == GeometryFlags.NoValue, "Invalid geometry specified.");
+
+            Initialize(instance);
+
+            IsPercentage = EnumHelper.HasFlag(flags, GeometryFlags.PercentValue);
+            IgnoreAspectRatio = EnumHelper.HasFlag(flags, GeometryFlags.IgnoreAspectRatio);
+            FillArea = EnumHelper.HasFlag(flags, GeometryFlags.FillArea);
+            Greater = EnumHelper.HasFlag(flags, GeometryFlags.Greater);
+            Less = EnumHelper.HasFlag(flags, GeometryFlags.Less);
+            LimitPixels = EnumHelper.HasFlag(flags, GeometryFlags.LimitPixels);
         }
     }
 }

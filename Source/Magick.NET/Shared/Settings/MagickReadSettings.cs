@@ -19,89 +19,6 @@ namespace ImageMagick
     /// </summary>
     public sealed class MagickReadSettings : MagickSettings
     {
-        private string GetScenes()
-        {
-            if (!FrameIndex.HasValue && !FrameCount.HasValue)
-                return null;
-
-            if (FrameIndex.HasValue && (!FrameCount.HasValue || FrameCount.Value == 1))
-                return FrameIndex.Value.ToString(CultureInfo.InvariantCulture);
-
-            int frame = FrameIndex ?? 0;
-            return string.Format(CultureInfo.InvariantCulture, "{0}-{1}", frame, frame + FrameCount.Value);
-        }
-
-        private void ApplyDefines()
-        {
-            if (Defines == null)
-                return;
-
-            foreach (IDefine define in Defines.Defines)
-            {
-                SetOption(GetDefineKey(define), define.Value);
-            }
-        }
-
-        private void ApplyDimensions()
-        {
-            if (Width.HasValue && Height.HasValue)
-                Size = Width + "x" + Height;
-            else if (Width.HasValue)
-                Size = Width + "x";
-            else if (Height.HasValue)
-                Size = "x" + Height;
-        }
-
-        private void ApplyFrame()
-        {
-            if (!FrameIndex.HasValue && !FrameCount.HasValue)
-                return;
-
-            Scenes = GetScenes();
-            Scene = FrameIndex ?? 0;
-            NumberScenes = FrameCount ?? 1;
-        }
-
-        private static string GetDefineKey(IDefine define)
-        {
-            if (define.Format == MagickFormat.Unknown)
-                return define.Name;
-
-            return EnumHelper.GetName(define.Format) + ":" + define.Name;
-        }
-
-        private void Copy(MagickReadSettings settings)
-        {
-            base.Copy(settings);
-
-            Defines = settings.Defines;
-            FrameIndex = settings.FrameIndex;
-            FrameCount = settings.FrameCount;
-            Height = settings.Height;
-            Width = settings.Width;
-            PixelStorage = settings.PixelStorage?.Clone();
-        }
-
-        internal MagickReadSettings(MagickSettings settings)
-        {
-            Copy(settings);
-        }
-
-        internal MagickReadSettings(MagickReadSettings settings)
-        {
-            Copy(settings);
-
-            ApplyDefines();
-            ApplyDimensions();
-            ApplyFrame();
-        }
-
-        internal void ForceSingleFrame()
-        {
-            FrameCount = 1;
-            ApplyFrame();
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickReadSettings"/> class.
         /// </summary>
@@ -116,6 +33,20 @@ namespace ImageMagick
         public MagickReadSettings(IReadDefines readDefines)
         {
             SetDefines(readDefines);
+        }
+
+        internal MagickReadSettings(MagickSettings settings)
+        {
+            Copy(settings);
+        }
+
+        internal MagickReadSettings(MagickReadSettings settings)
+        {
+            Copy(settings);
+
+            ApplyDefines();
+            ApplyDimensions();
+            ApplyFrame();
         }
 
         /// <summary>
@@ -201,6 +132,75 @@ namespace ImageMagick
         {
             get;
             set;
+        }
+
+        internal void ForceSingleFrame()
+        {
+            FrameCount = 1;
+            ApplyFrame();
+        }
+
+        private static string GetDefineKey(IDefine define)
+        {
+            if (define.Format == MagickFormat.Unknown)
+                return define.Name;
+
+            return EnumHelper.GetName(define.Format) + ":" + define.Name;
+        }
+
+        private string GetScenes()
+        {
+            if (!FrameIndex.HasValue && !FrameCount.HasValue)
+                return null;
+
+            if (FrameIndex.HasValue && (!FrameCount.HasValue || FrameCount.Value == 1))
+                return FrameIndex.Value.ToString(CultureInfo.InvariantCulture);
+
+            int frame = FrameIndex ?? 0;
+            return string.Format(CultureInfo.InvariantCulture, "{0}-{1}", frame, frame + FrameCount.Value);
+        }
+
+        private void ApplyDefines()
+        {
+            if (Defines == null)
+                return;
+
+            foreach (IDefine define in Defines.Defines)
+            {
+                SetOption(GetDefineKey(define), define.Value);
+            }
+        }
+
+        private void ApplyDimensions()
+        {
+            if (Width.HasValue && Height.HasValue)
+                Size = Width + "x" + Height;
+            else if (Width.HasValue)
+                Size = Width + "x";
+            else if (Height.HasValue)
+                Size = "x" + Height;
+        }
+
+        private void ApplyFrame()
+        {
+            if (!FrameIndex.HasValue && !FrameCount.HasValue)
+                return;
+
+            Scenes = GetScenes();
+            Scene = FrameIndex ?? 0;
+            NumberScenes = FrameCount ?? 1;
+        }
+
+        private void Copy(MagickReadSettings settings)
+        {
+            base.Copy(settings);
+
+            Defines = settings.Defines;
+            FrameIndex = settings.FrameIndex;
+            FrameCount = settings.FrameCount;
+            Height = settings.Height;
+            Width = settings.Width;
+            PixelStorage = settings.PixelStorage?.Clone();
         }
     }
 }

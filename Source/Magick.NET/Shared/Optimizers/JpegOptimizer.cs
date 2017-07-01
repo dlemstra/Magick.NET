@@ -20,67 +20,6 @@ namespace ImageMagick.ImageOptimizers
     /// </summary>
     public sealed partial class JpegOptimizer : IImageOptimizer
     {
-        private void DoCompress(FileInfo file, bool lossless, int quality)
-        {
-            Collection<FileInfo> tempFiles = new Collection<FileInfo>();
-
-            try
-            {
-                FileInfo bestFile = null;
-
-                FileInfo tempFile = new FileInfo(Path.GetTempFileName());
-                tempFiles.Add(tempFile);
-
-                if (!DoCompress(file, tempFile, Progressive, lossless, quality))
-                    return;
-
-                bestFile = tempFile;
-
-                if (OptimalCompression)
-                {
-                    tempFile = new FileInfo(Path.GetTempFileName());
-                    tempFiles.Add(tempFile);
-
-                    if (!DoCompress(file, tempFile, !Progressive, lossless, quality))
-                        return;
-
-                    if (bestFile.Length > tempFile.Length)
-                        bestFile = tempFile;
-                }
-
-                if (bestFile.Length < file.Length)
-                {
-                    bestFile.CopyTo(file.FullName, true);
-                    file.Refresh();
-                }
-            }
-            finally
-            {
-                foreach (FileInfo tempFile in tempFiles)
-                {
-                    if (tempFile.Exists)
-                        tempFile.Delete();
-                }
-            }
-        }
-
-        private static bool DoCompress(FileInfo file, FileInfo output, bool progressive, bool lossless, int quality)
-        {
-            int result = NativeJpegOptimizer.Compress(file.FullName, output.FullName, progressive, lossless, quality);
-
-            if (result == 1)
-                throw new MagickCorruptImageErrorException("Unable to decompress the jpeg file.");
-
-            if (result == 2)
-                throw new MagickCorruptImageErrorException("Unable to compress the jpeg file.");
-
-            if (result != 0)
-                return false;
-
-            output.Refresh();
-            return true;
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="JpegOptimizer"/> class.
         /// </summary>
@@ -194,6 +133,67 @@ namespace ImageMagick.ImageOptimizers
             Throw.IfInvalidFileName(filePath);
 
             DoCompress(new FileInfo(fileName), true, 0);
+        }
+
+        private static bool DoCompress(FileInfo file, FileInfo output, bool progressive, bool lossless, int quality)
+        {
+            int result = NativeJpegOptimizer.Compress(file.FullName, output.FullName, progressive, lossless, quality);
+
+            if (result == 1)
+                throw new MagickCorruptImageErrorException("Unable to decompress the jpeg file.");
+
+            if (result == 2)
+                throw new MagickCorruptImageErrorException("Unable to compress the jpeg file.");
+
+            if (result != 0)
+                return false;
+
+            output.Refresh();
+            return true;
+        }
+
+        private void DoCompress(FileInfo file, bool lossless, int quality)
+        {
+            Collection<FileInfo> tempFiles = new Collection<FileInfo>();
+
+            try
+            {
+                FileInfo bestFile = null;
+
+                FileInfo tempFile = new FileInfo(Path.GetTempFileName());
+                tempFiles.Add(tempFile);
+
+                if (!DoCompress(file, tempFile, Progressive, lossless, quality))
+                    return;
+
+                bestFile = tempFile;
+
+                if (OptimalCompression)
+                {
+                    tempFile = new FileInfo(Path.GetTempFileName());
+                    tempFiles.Add(tempFile);
+
+                    if (!DoCompress(file, tempFile, !Progressive, lossless, quality))
+                        return;
+
+                    if (bestFile.Length > tempFile.Length)
+                        bestFile = tempFile;
+                }
+
+                if (bestFile.Length < file.Length)
+                {
+                    bestFile.CopyTo(file.FullName, true);
+                    file.Refresh();
+                }
+            }
+            finally
+            {
+                foreach (FileInfo tempFile in tempFiles)
+                {
+                    if (tempFile.Exists)
+                        tempFile.Delete();
+                }
+            }
         }
     }
 }

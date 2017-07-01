@@ -38,10 +38,15 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Updates the color value from an inherited class.
+        /// Converts the specified color to a <see cref="MagickColor"/> instance.
         /// </summary>
-        protected virtual void UpdateColor()
+        /// <param name="color">The color to use.</param>
+        public static implicit operator MagickColor(ColorBase color)
         {
+            if (color == null)
+                return null;
+
+            return color.ToMagickColor();
         }
 
         /// <summary>
@@ -114,18 +119,6 @@ namespace ImageMagick
                 return !ReferenceEquals(right, null);
 
             return left.CompareTo(right) <= 0;
-        }
-
-        /// <summary>
-        /// Converts the specified color to a <see cref="MagickColor"/> instance.
-        /// </summary>
-        /// <param name="color">The color to use.</param>
-        public static implicit operator MagickColor(ColorBase color)
-        {
-            if (color == null)
-                return null;
-
-            return color.ToMagickColor();
         }
 
         /// <summary>
@@ -222,6 +215,13 @@ namespace ImageMagick
         public override string ToString()
         {
             return ToMagickColor().ToString();
+        }
+
+        /// <summary>
+        /// Updates the color value from an inherited class.
+        /// </summary>
+        protected virtual void UpdateColor()
+        {
         }
     }
 }

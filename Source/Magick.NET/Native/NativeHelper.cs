@@ -18,6 +18,18 @@ namespace ImageMagick
     {
         private EventHandler<WarningEventArgs> _WarningEvent;
 
+        public event EventHandler<WarningEventArgs> Warning
+        {
+            add
+            {
+                _WarningEvent += value;
+            }
+            remove
+            {
+                _WarningEvent -= value;
+            }
+        }
+
         protected void CheckException(IntPtr exception)
         {
             MagickException magickException = MagickExceptionHelper.Check(exception);
@@ -32,18 +44,6 @@ namespace ImageMagick
             MagickWarningException warning = exception as MagickWarningException;
             if (warning != null)
                 _WarningEvent.Invoke(this, new WarningEventArgs(warning));
-        }
-
-        public event EventHandler<WarningEventArgs> Warning
-        {
-            add
-            {
-                _WarningEvent += value;
-            }
-            remove
-            {
-                _WarningEvent -= value;
-            }
         }
     }
 }

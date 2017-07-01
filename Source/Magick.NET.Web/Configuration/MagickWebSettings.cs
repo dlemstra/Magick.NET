@@ -25,68 +25,6 @@ namespace ImageMagick.Web
     {
         private static Lazy<MagickWebSettings> _Instance = new Lazy<MagickWebSettings>(CreateInstance);
 
-        private static MagickWebSettings CreateInstance()
-        {
-            return CreateInstance(new SectionLoader());
-        }
-
-        private string GetDirectory(string directory)
-        {
-            string result = directory;
-
-            if (result[0] == '~')
-                result = Path.GetFullPath(HostingEnvironment.MapPath("~") + result.Substring(1));
-
-            if (result[result.Length - 1] != '\\')
-                result += "\\";
-
-            if (CanCreateDirectories)
-            {
-                if (!Directory.Exists(result))
-                    Directory.CreateDirectory(result);
-            }
-
-            return result;
-        }
-
-        private string GetTempDirectory(string tempDirectory)
-        {
-            if (string.IsNullOrEmpty(tempDirectory))
-                return Path.GetTempPath();
-
-            return GetDirectory(tempDirectory);
-        }
-
-        /// <summary>
-        /// Called after deserialization.
-        /// </summary>
-        protected override void PostDeserialize()
-        {
-            base.PostDeserialize();
-
-            CacheDirectory = GetDirectory(CacheDirectory);
-            TempDirectory = GetTempDirectory(TempDirectory);
-        }
-
-        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "magick", Justification = "This is the correct spelling.")]
-        internal static MagickWebSettings CreateInstance(ISectionLoader sectionLoader)
-        {
-            MagickWebSettings section = sectionLoader.GetSection("magick.net.web");
-
-            if (section == null)
-                throw new ConfigurationErrorsException("Unable to find section magick.net.web");
-
-            return section;
-        }
-
-        internal static MagickWebSettings Instance
-        {
-            get
-            {
-                return _Instance.Value;
-            }
-        }
-
         /// <summary>
         /// Gets the directory that contains scripted images.
         /// </summary>
@@ -215,6 +153,68 @@ namespace ImageMagick.Web
             {
                 return (UrlResolverSettingsCollection)this["urlResolvers"];
             }
+        }
+
+        internal static MagickWebSettings Instance
+        {
+            get
+            {
+                return _Instance.Value;
+            }
+        }
+
+        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "magick", Justification = "This is the correct spelling.")]
+        internal static MagickWebSettings CreateInstance(ISectionLoader sectionLoader)
+        {
+            MagickWebSettings section = sectionLoader.GetSection("magick.net.web");
+
+            if (section == null)
+                throw new ConfigurationErrorsException("Unable to find section magick.net.web");
+
+            return section;
+        }
+
+        /// <summary>
+        /// Called after deserialization.
+        /// </summary>
+        protected override void PostDeserialize()
+        {
+            base.PostDeserialize();
+
+            CacheDirectory = GetDirectory(CacheDirectory);
+            TempDirectory = GetTempDirectory(TempDirectory);
+        }
+
+        private static MagickWebSettings CreateInstance()
+        {
+            return CreateInstance(new SectionLoader());
+        }
+
+        private string GetDirectory(string directory)
+        {
+            string result = directory;
+
+            if (result[0] == '~')
+                result = Path.GetFullPath(HostingEnvironment.MapPath("~") + result.Substring(1));
+
+            if (result[result.Length - 1] != '\\')
+                result += "\\";
+
+            if (CanCreateDirectories)
+            {
+                if (!Directory.Exists(result))
+                    Directory.CreateDirectory(result);
+            }
+
+            return result;
+        }
+
+        private string GetTempDirectory(string tempDirectory)
+        {
+            if (string.IsNullOrEmpty(tempDirectory))
+                return Path.GetTempPath();
+
+            return GetDirectory(tempDirectory);
         }
     }
 }

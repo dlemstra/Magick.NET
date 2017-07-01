@@ -26,43 +26,62 @@ namespace ImageMagick
 
         private Dictionary<string, object> _Variables;
 
-        private void GetNames(XmlElement element)
+        internal ScriptVariables(XmlDocument script)
         {
-            foreach (XmlAttribute attribute in element.Attributes)
-            {
-                string[] names = GetNames(attribute.Value);
-                if (names == null)
-                    continue;
+            _Variables = new Dictionary<string, object>();
+            GetNames(script.DocumentElement);
+        }
 
-                foreach (string name in names)
-                {
-                    _Variables[name] = null;
-                }
-            }
-
-            foreach (XmlNode child in element.ChildNodes)
+        /// <summary>
+        /// Gets the names of the variables.
+        /// </summary>
+        public IEnumerable<string> Names
+        {
+            get
             {
-                if (child.GetType() == typeof(XmlElement))
-                    GetNames((XmlElement)child);
+                return _Variables.Keys;
             }
         }
 
-        private static string[] GetNames(string value)
+        /// <summary>
+        /// Get or sets the specified variable.
+        /// </summary>
+        /// <param name="name">The name of the variable.</param>
+        public object this[string name]
         {
-            if (value.Length < 3)
-                return null;
-
-            MatchCollection matches = _Names.Matches(value);
-            if (matches.Count == 0)
-                return null;
-
-            string[] result = new string[matches.Count];
-            for (int i = 0; i < matches.Count; i++)
+            get
             {
-                result[i] = matches[i].Groups["name"].Value;
+                return Get(name);
             }
+            set
+            {
+                Set(name, value);
+            }
+        }
 
-            return result;
+        /// <summary>
+        /// Returns the value of the variable with the specified name.
+        /// </summary>
+        /// <param name="name">The name of the variable</param>
+        /// <returns>Am <see cref="object"/>.</returns>
+        public object Get(string name)
+        {
+            Throw.IfNullOrEmpty(nameof(name), name);
+
+            return _Variables[name];
+        }
+
+        /// <summary>
+        /// Set the value of the variable with the specified name.
+        /// </summary>
+        /// <param name="name">The name of the variable</param>
+        /// <param name="value">The value of the variable</param>
+        public void Set(string name, object value)
+        {
+            Throw.IfNullOrEmpty(nameof(name), name);
+            Throw.IfFalse(nameof(name), _Variables.ContainsKey(name), "Invalid variable name: {0}", value);
+
+            _Variables[name] = value;
         }
 
         internal double[] GetDoubleArray(XmlElement element)
@@ -169,62 +188,43 @@ namespace ImageMagick
             return GetValue<T>(element.Attributes[attribute]);
         }
 
-        internal ScriptVariables(XmlDocument script)
+        private static string[] GetNames(string value)
         {
-            _Variables = new Dictionary<string, object>();
-            GetNames(script.DocumentElement);
-        }
+            if (value.Length < 3)
+                return null;
 
-        /// <summary>
-        /// Get or sets the specified variable.
-        /// </summary>
-        /// <param name="name">The name of the variable.</param>
-        public object this[string name]
-        {
-            get
+            MatchCollection matches = _Names.Matches(value);
+            if (matches.Count == 0)
+                return null;
+
+            string[] result = new string[matches.Count];
+            for (int i = 0; i < matches.Count; i++)
             {
-                return Get(name);
+                result[i] = matches[i].Groups["name"].Value;
             }
-            set
+
+            return result;
+        }
+
+        private void GetNames(XmlElement element)
+        {
+            foreach (XmlAttribute attribute in element.Attributes)
             {
-                Set(name, value);
-            }
-        }
+                string[] names = GetNames(attribute.Value);
+                if (names == null)
+                    continue;
 
-        /// <summary>
-        /// Gets the names of the variables.
-        /// </summary>
-        public IEnumerable<string> Names
-        {
-            get
+                foreach (string name in names)
+                {
+                    _Variables[name] = null;
+                }
+            }
+
+            foreach (XmlNode child in element.ChildNodes)
             {
-                return _Variables.Keys;
+                if (child.GetType() == typeof(XmlElement))
+                    GetNames((XmlElement)child);
             }
-        }
-
-        /// <summary>
-        /// Returns the value of the variable with the specified name.
-        /// </summary>
-        /// <param name="name">The name of the variable</param>
-        /// <returns>Am <see cref="object"/>.</returns>
-        public object Get(string name)
-        {
-            Throw.IfNullOrEmpty(nameof(name), name);
-
-            return _Variables[name];
-        }
-
-        /// <summary>
-        /// Set the value of the variable with the specified name.
-        /// </summary>
-        /// <param name="name">The name of the variable</param>
-        /// <param name="value">The value of the variable</param>
-        public void Set(string name, object value)
-        {
-            Throw.IfNullOrEmpty(nameof(name), name);
-            Throw.IfFalse(nameof(name), _Variables.ContainsKey(name), "Invalid variable name: {0}", value);
-
-            _Variables[name] = value;
         }
     }
 }

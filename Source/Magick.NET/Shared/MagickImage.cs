@@ -39,425 +39,6 @@ namespace ImageMagick
         private EventHandler<ProgressEventArgs> _Progress;
         private EventHandler<WarningEventArgs> _Warning;
 
-        private MagickImage(NativeMagickImage instance, MagickSettings settings)
-        {
-            SetSettings(settings);
-            SetInstance(instance);
-        }
-
-        private PointD CalculateContrastStretch(Percentage blackPoint, Percentage whitePoint)
-        {
-            double x = blackPoint.ToDouble();
-            double y = whitePoint.ToDouble();
-
-            double pixels = Width * Height;
-            x *= pixels / 100.0;
-            y *= pixels / 100.0;
-            y = pixels - y;
-
-            return new PointD(x, y);
-        }
-
-        private IEnumerable<IMagickImage> CreateList(IntPtr images)
-        {
-            return CreateList(images, Settings.Clone());
-        }
-
-        private MagickReadSettings CreateReadSettings(MagickReadSettings readSettings)
-        {
-            if (readSettings != null && readSettings.FrameCount.HasValue)
-                Throw.IfFalse(nameof(readSettings), readSettings.FrameCount.Value == 1, "The frame count can only be set to 1 when a single image is being read.");
-
-            MagickReadSettings newReadSettings = null;
-            if (readSettings == null)
-                newReadSettings = new MagickReadSettings(Settings);
-            else
-                newReadSettings = new MagickReadSettings(readSettings);
-
-            newReadSettings.ForceSingleFrame();
-
-            return newReadSettings;
-        }
-
-        private void Dispose(bool disposing)
-        {
-            DisposeInstance();
-
-            if (disposing)
-            {
-                if (Settings != null)
-                    Settings.Artifact -= OnArtifact;
-            }
-        }
-
-        private void DisposeInstance()
-        {
-            if (_NativeInstance == null)
-                return;
-
-            _NativeInstance.Warning -= OnWarning;
-            _NativeInstance.Dispose();
-        }
-
-        private string FormatedFileSize()
-        {
-            decimal fileSize = FileSize;
-
-            string suffix = string.Empty;
-            if (fileSize > 1073741824)
-            {
-                fileSize /= 1073741824;
-                suffix = "GB";
-            }
-            else if (fileSize > 1048576)
-            {
-                fileSize /= 1048576;
-                suffix = "MB";
-            }
-            else if (fileSize > 1024)
-            {
-                fileSize /= 1024;
-                suffix = "kB";
-            }
-
-            return string.Format(CultureInfo.InvariantCulture, "{0:N2}{1}", fileSize, suffix);
-        }
-
-        private static int GetExpectedLength(MagickReadSettings settings)
-        {
-            int length = settings.Width.Value * settings.Height.Value * settings.PixelStorage.Mapping.Length;
-            switch (settings.PixelStorage.StorageType)
-            {
-                case StorageType.Char:
-                    return length;
-                case StorageType.Double:
-                    return length * sizeof(double);
-                case StorageType.Float:
-                    return length * sizeof(float);
-                case StorageType.Long:
-                    return length * sizeof(int);
-                case StorageType.LongLong:
-                    return length * sizeof(long);
-                case StorageType.Quantum:
-                    return length * sizeof(QuantumType);
-                case StorageType.Short:
-                    return length * sizeof(short);
-                case StorageType.Undefined:
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
-        private void FloodFill(QuantumType alpha, int x, int y, bool invert)
-        {
-            MagickColor target;
-            using (PixelCollection pixels = GetPixels())
-            {
-                target = pixels.GetPixel(x, y).ToColor();
-                target.A = alpha;
-            }
-
-            _NativeInstance.FloodFill(Settings.Drawing, x, y, target, invert);
-        }
-
-        private void FloodFill(MagickColor color, int x, int y, bool invert)
-        {
-            Throw.IfNull(nameof(color), color);
-
-            MagickColor target;
-            using (PixelCollection pixels = GetPixels())
-            {
-                target = pixels.GetPixel(x, y).ToColor();
-            }
-
-            FloodFill(color, x, y, target, invert);
-        }
-
-        private void FloodFill(MagickColor color, int x, int y, MagickColor target, bool invert)
-        {
-            Throw.IfNull(nameof(color), color);
-            Throw.IfNull(nameof(target), target);
-
-            DrawingSettings settings = Settings.Drawing;
-
-            using (IMagickImage fillPattern = settings.FillPattern)
-            {
-                MagickColor filLColor = settings.FillColor;
-                settings.FillColor = color;
-                settings.FillPattern = null;
-
-                _NativeInstance.FloodFill(settings, x, y, target, invert);
-
-                settings.FillColor = filLColor;
-                settings.FillPattern = fillPattern;
-            }
-        }
-
-        private void FloodFill(IMagickImage image, int x, int y, bool invert)
-        {
-            Throw.IfNull(nameof(image), image);
-
-            MagickColor target;
-            using (PixelCollection pixels = GetPixels())
-            {
-                target = pixels.GetPixel(x, y).ToColor();
-            }
-
-            FloodFill(image, x, y, target, invert);
-        }
-
-        private void FloodFill(IMagickImage image, int x, int y, MagickColor target, bool invert)
-        {
-            Throw.IfNull(nameof(image), image);
-            Throw.IfNull(nameof(target), target);
-
-            DrawingSettings settings = Settings.Drawing;
-
-            using (IMagickImage fillPattern = settings.FillPattern)
-            {
-                MagickColor filLColor = settings.FillColor;
-                settings.FillColor = null;
-                settings.FillPattern = image;
-
-                _NativeInstance.FloodFill(settings, x, y, target, invert);
-
-                settings.FillColor = filLColor;
-                settings.FillPattern = fillPattern;
-            }
-        }
-
-        private void LevelColors(MagickColor blackColor, MagickColor whiteColor, bool invert)
-        {
-            LevelColors(blackColor, whiteColor, ImageMagick.Channels.RGB, invert);
-        }
-
-        private void LevelColors(MagickColor blackColor, MagickColor whiteColor, Channels channels, bool invert)
-        {
-            Throw.IfNull(nameof(blackColor), blackColor);
-            Throw.IfNull(nameof(whiteColor), whiteColor);
-
-            _NativeInstance.LevelColors(blackColor, whiteColor, channels, invert);
-        }
-
-        private void Opaque(MagickColor target, MagickColor fill, bool invert)
-        {
-            Throw.IfNull(nameof(target), target);
-            Throw.IfNull(nameof(fill), fill);
-
-            _NativeInstance.Opaque(target, fill, invert);
-        }
-
-        private ColorProfile GetColorProfile(string name)
-        {
-            StringInfo info = _NativeInstance.GetProfile(name);
-            if (info == null || info.Datum == null)
-                return null;
-
-            return new ColorProfile(name, info.Datum);
-        }
-
-        private void OnArtifact(object sender, ArtifactEventArgs arguments)
-        {
-            if (arguments.Value == null)
-                RemoveArtifact(arguments.Key);
-            else
-                SetArtifact(arguments.Key, arguments.Value);
-        }
-
-        private bool OnProgress(IntPtr origin, long offset, ulong extent, IntPtr userData)
-        {
-            if (_Progress == null)
-                return true;
-
-            string managedOrigin = UTF8Marshaler.NativeToManaged(origin);
-            ProgressEventArgs eventArgs = new ProgressEventArgs(managedOrigin, (int)offset, (int)extent);
-            _Progress(this, eventArgs);
-            return eventArgs.Cancel ? false : true;
-        }
-
-        private void OnWarning(object sender, WarningEventArgs arguments)
-        {
-            _Warning?.Invoke(this, arguments);
-        }
-
-        private void Read(byte[] data, int length, MagickReadSettings readSettings, bool ping)
-        {
-            MagickReadSettings newReadSettings = CreateReadSettings(readSettings);
-            SetSettings(newReadSettings);
-
-            if (newReadSettings.PixelStorage != null)
-            {
-                ReadPixels(data, length, readSettings);
-                return;
-            }
-
-            Settings.Ping = ping;
-            _NativeInstance.ReadBlob(Settings, data, length);
-        }
-
-        private void Read(Stream stream, MagickReadSettings readSettings, bool ping)
-        {
-            Throw.IfNull(nameof(stream), stream);
-
-            Bytes bytes = Bytes.FromStreamBuffer(stream);
-            if (bytes != null)
-            {
-                Read(bytes.Data, bytes.Length, readSettings, ping);
-                return;
-            }
-
-            MagickReadSettings newReadSettings = CreateReadSettings(readSettings);
-            SetSettings(newReadSettings);
-
-            if (newReadSettings.PixelStorage != null)
-            {
-                bytes = new Bytes(stream);
-                ReadPixels(bytes.Data, bytes.Length, readSettings);
-                return;
-            }
-
-            Settings.Ping = ping;
-            Settings.FileName = null;
-
-            using (StreamWrapper wrapper = StreamWrapper.CreateForReading(stream))
-            {
-                ReadWriteStreamDelegate readStream = new ReadWriteStreamDelegate(wrapper.Read);
-                SeekStreamDelegate seekStream = null;
-                TellStreamDelegate tellStream = null;
-
-                if (stream.CanSeek)
-                {
-                    seekStream = new SeekStreamDelegate(wrapper.Seek);
-                    tellStream = new TellStreamDelegate(wrapper.Tell);
-                }
-
-                _NativeInstance.ReadStream(Settings, readStream, seekStream, tellStream);
-            }
-        }
-
-        private void Read(string fileName, MagickReadSettings readSettings, bool ping)
-        {
-            string filePath = FileHelper.CheckForBaseDirectory(fileName);
-            Throw.IfInvalidFileName(filePath);
-
-            MagickReadSettings newReadSettings = CreateReadSettings(readSettings);
-            SetSettings(newReadSettings);
-
-            if (newReadSettings.PixelStorage != null)
-            {
-                byte[] data = File.ReadAllBytes(filePath);
-                ReadPixels(data, data.Length, readSettings);
-                return;
-            }
-
-            Settings.Ping = ping;
-            Settings.FileName = filePath;
-
-            _NativeInstance.ReadFile(Settings);
-        }
-
-        private void ReadPixels(byte[] data, int length, MagickReadSettings readSettings)
-        {
-            Throw.IfTrue(nameof(readSettings), readSettings.PixelStorage.StorageType == StorageType.Undefined, "Storage type should not be undefined.");
-            Throw.IfNull(nameof(readSettings), readSettings.Width, "Width should be defined when pixel storage is set.");
-            Throw.IfNull(nameof(readSettings), readSettings.Height, "Height should be defined when pixel storage is set.");
-            Throw.IfNullOrEmpty(nameof(readSettings), readSettings.PixelStorage.Mapping, "Pixel storage mapping should be defined.");
-
-            int expectedLength = GetExpectedLength(readSettings);
-            Throw.IfTrue(nameof(data), length < expectedLength, "The array length is " + length + " but should be at least " + expectedLength + ".");
-
-            _NativeInstance.ReadPixels(readSettings.Width.Value, readSettings.Height.Value, readSettings.PixelStorage.Mapping, readSettings.PixelStorage.StorageType, data);
-        }
-
-        private void SetInstance(NativeMagickImage instance)
-        {
-            DisposeInstance();
-
-            _NativeInstance = instance;
-            _NativeInstance.Warning += OnWarning;
-        }
-
-        private void SetSettings(MagickSettings settings)
-        {
-            if (Settings != null)
-                Settings.Artifact -= OnArtifact;
-
-            Settings = settings;
-            Settings.Artifact += OnArtifact;
-        }
-
-        internal static IMagickImage Clone(IMagickImage image)
-        {
-            return image != null ? image.Clone() : null;
-        }
-
-        internal static MagickImage Create(IntPtr image)
-        {
-            if (image == IntPtr.Zero)
-                return null;
-
-            NativeMagickImage instance = new NativeMagickImage(image);
-            return new MagickImage(instance, new MagickSettings());
-        }
-
-        internal static IMagickImage Create(IntPtr image, MagickSettings settings)
-        {
-            if (image == IntPtr.Zero)
-                return null;
-
-            NativeMagickImage instance = new NativeMagickImage(image);
-            return new MagickImage(instance, settings.Clone());
-        }
-
-        internal static MagickErrorInfo CreateErrorInfo(MagickImage image)
-        {
-            if (image == null)
-                return null;
-
-            return new MagickErrorInfo(image._NativeInstance.MeanErrorPerPixel, image._NativeInstance.NormalizedMeanError, image._NativeInstance.NormalizedMaximumError);
-        }
-
-        internal static IEnumerable<IMagickImage> CreateList(IntPtr images, MagickSettings settings)
-        {
-            Collection<IMagickImage> result = new Collection<IMagickImage>();
-
-            IntPtr image = images;
-
-            while (image != IntPtr.Zero)
-            {
-                IntPtr next = NativeMagickImage.GetNext(image);
-
-                NativeMagickImage instance = new NativeMagickImage(image);
-                instance.SetNext(IntPtr.Zero);
-
-                result.Add(new MagickImage(instance, settings.Clone()));
-                image = next;
-            }
-
-            return result;
-        }
-
-        internal int ChannelOffset(PixelChannel pixelChannel)
-        {
-            if (!_NativeInstance.HasChannel(pixelChannel))
-                return -1;
-
-            return (int)_NativeInstance.ChannelOffset(pixelChannel);
-        }
-
-        internal void SetNext(IMagickImage image)
-        {
-            _NativeInstance.SetNext(image.GetInstance());
-        }
-
-        /// <summary>
-        /// Finalizes an instance of the <see cref="MagickImage"/> class.
-        /// </summary>
-        ~MagickImage()
-        {
-            Dispose(false);
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImage"/> class.
         /// </summary>
@@ -601,87 +182,18 @@ namespace ImageMagick
             Read(fileName, readSettings);
         }
 
-        /// <summary>
-        /// Determines whether the specified <see cref="MagickImage"/> instances are considered equal.
-        /// </summary>
-        /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
-        /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
-        public static bool operator ==(MagickImage left, MagickImage right)
+        private MagickImage(NativeMagickImage instance, MagickSettings settings)
         {
-            return Equals(left, right);
+            SetSettings(settings);
+            SetInstance(instance);
         }
 
         /// <summary>
-        /// Determines whether the specified <see cref="MagickImage"/> instances are not considered equal.
+        /// Finalizes an instance of the <see cref="MagickImage"/> class.
         /// </summary>
-        /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
-        /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
-        public static bool operator !=(MagickImage left, MagickImage right)
+        ~MagickImage()
         {
-            return !Equals(left, right);
-        }
-
-        /// <summary>
-        /// Determines whether the first <see cref="MagickImage"/> is more than the second <see cref="MagickImage"/>.
-        /// </summary>
-        /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
-        /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
-        public static bool operator >(MagickImage left, MagickImage right)
-        {
-            if (ReferenceEquals(left, null))
-                return ReferenceEquals(right, null);
-
-            return left.CompareTo(right) == 1;
-        }
-
-        /// <summary>
-        /// Determines whether the first <see cref="MagickImage"/> is less than the second <see cref="MagickImage"/>.
-        /// </summary>
-        /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
-        /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
-        public static bool operator <(MagickImage left, MagickImage right)
-        {
-            if (ReferenceEquals(left, null))
-                return !ReferenceEquals(right, null);
-
-            return left.CompareTo(right) == -1;
-        }
-
-        /// <summary>
-        /// Determines whether the first <see cref="MagickImage"/> is more than or equal to the second <see cref="MagickImage"/>.
-        /// </summary>
-        /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
-        /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
-        public static bool operator >=(MagickImage left, MagickImage right)
-        {
-            if (ReferenceEquals(left, null))
-                return ReferenceEquals(right, null);
-
-            return left.CompareTo(right) >= 0;
-        }
-
-        /// <summary>
-        /// Determines whether the first <see cref="MagickImage"/> is less than or equal to the second <see cref="MagickImage"/>.
-        /// </summary>
-        /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
-        /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
-        public static bool operator <=(MagickImage left, MagickImage right)
-        {
-            if (ReferenceEquals(left, null))
-                return !ReferenceEquals(right, null);
-
-            return left.CompareTo(right) <= 0;
-        }
-
-        /// <summary>
-        /// Converts the specified instance to a byte array.
-        /// </summary>
-        /// <param name="image">The <see cref="MagickImage"/> to convert.</param>
-        public static explicit operator byte[](MagickImage image)
-        {
-            Throw.IfNull(nameof(image), image);
-
-            return image.ToByteArray();
+            Dispose(false);
         }
 
         /// <summary>
@@ -1546,6 +1058,100 @@ namespace ImageMagick
             {
                 _NativeInstance.WriteMask = value;
             }
+        }
+
+        /// <summary>
+        /// Converts the specified instance to a byte array.
+        /// </summary>
+        /// <param name="image">The <see cref="MagickImage"/> to convert.</param>
+        public static explicit operator byte[](MagickImage image)
+        {
+            Throw.IfNull(nameof(image), image);
+
+            return image.ToByteArray();
+        }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="MagickImage"/> instances are considered equal.
+        /// </summary>
+        /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
+        /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
+        public static bool operator ==(MagickImage left, MagickImage right)
+        {
+            return Equals(left, right);
+        }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="MagickImage"/> instances are not considered equal.
+        /// </summary>
+        /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
+        /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
+        public static bool operator !=(MagickImage left, MagickImage right)
+        {
+            return !Equals(left, right);
+        }
+
+        /// <summary>
+        /// Determines whether the first <see cref="MagickImage"/> is more than the second <see cref="MagickImage"/>.
+        /// </summary>
+        /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
+        /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
+        public static bool operator >(MagickImage left, MagickImage right)
+        {
+            if (ReferenceEquals(left, null))
+                return ReferenceEquals(right, null);
+
+            return left.CompareTo(right) == 1;
+        }
+
+        /// <summary>
+        /// Determines whether the first <see cref="MagickImage"/> is less than the second <see cref="MagickImage"/>.
+        /// </summary>
+        /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
+        /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
+        public static bool operator <(MagickImage left, MagickImage right)
+        {
+            if (ReferenceEquals(left, null))
+                return !ReferenceEquals(right, null);
+
+            return left.CompareTo(right) == -1;
+        }
+
+        /// <summary>
+        /// Determines whether the first <see cref="MagickImage"/> is more than or equal to the second <see cref="MagickImage"/>.
+        /// </summary>
+        /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
+        /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
+        public static bool operator >=(MagickImage left, MagickImage right)
+        {
+            if (ReferenceEquals(left, null))
+                return ReferenceEquals(right, null);
+
+            return left.CompareTo(right) >= 0;
+        }
+
+        /// <summary>
+        /// Determines whether the first <see cref="MagickImage"/> is less than or equal to the second <see cref="MagickImage"/>.
+        /// </summary>
+        /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
+        /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
+        public static bool operator <=(MagickImage left, MagickImage right)
+        {
+            if (ReferenceEquals(left, null))
+                return !ReferenceEquals(right, null);
+
+            return left.CompareTo(right) <= 0;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickImage"/> class using the specified base64 string.
+        /// </summary>
+        /// <param name="value">The base64 string to load the image from.</param>
+        /// <returns>A new instance of the <see cref="MagickImage"/> class.</returns>
+        public static IMagickImage FromBase64(string value)
+        {
+            byte[] data = Convert.FromBase64String(value);
+            return new MagickImage(data);
         }
 
         /// <summary>
@@ -3608,17 +3214,6 @@ namespace ImageMagick
         public void Frame(int width, int height, int innerBevel, int outerBevel)
         {
             Frame(new MagickGeometry(innerBevel, outerBevel, width, height));
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MagickImage"/> class using the specified base64 string.
-        /// </summary>
-        /// <param name="value">The base64 string to load the image from.</param>
-        /// <returns>A new instance of the <see cref="MagickImage"/> class.</returns>
-        public static IMagickImage FromBase64(string value)
-        {
-            byte[] data = Convert.FromBase64String(value);
-            return new MagickImage(data);
         }
 
         /// <summary>
@@ -6925,6 +6520,411 @@ namespace ImageMagick
         {
             Settings.SetDefines(defines);
             Write(fileName);
+        }
+
+        internal static IMagickImage Clone(IMagickImage image)
+        {
+            return image != null ? image.Clone() : null;
+        }
+
+        internal static MagickImage Create(IntPtr image)
+        {
+            if (image == IntPtr.Zero)
+                return null;
+
+            NativeMagickImage instance = new NativeMagickImage(image);
+            return new MagickImage(instance, new MagickSettings());
+        }
+
+        internal static IMagickImage Create(IntPtr image, MagickSettings settings)
+        {
+            if (image == IntPtr.Zero)
+                return null;
+
+            NativeMagickImage instance = new NativeMagickImage(image);
+            return new MagickImage(instance, settings.Clone());
+        }
+
+        internal static MagickErrorInfo CreateErrorInfo(MagickImage image)
+        {
+            if (image == null)
+                return null;
+
+            return new MagickErrorInfo(image._NativeInstance.MeanErrorPerPixel, image._NativeInstance.NormalizedMeanError, image._NativeInstance.NormalizedMaximumError);
+        }
+
+        internal static IEnumerable<IMagickImage> CreateList(IntPtr images, MagickSettings settings)
+        {
+            Collection<IMagickImage> result = new Collection<IMagickImage>();
+
+            IntPtr image = images;
+
+            while (image != IntPtr.Zero)
+            {
+                IntPtr next = NativeMagickImage.GetNext(image);
+
+                NativeMagickImage instance = new NativeMagickImage(image);
+                instance.SetNext(IntPtr.Zero);
+
+                result.Add(new MagickImage(instance, settings.Clone()));
+                image = next;
+            }
+
+            return result;
+        }
+
+        internal int ChannelOffset(PixelChannel pixelChannel)
+        {
+            if (!_NativeInstance.HasChannel(pixelChannel))
+                return -1;
+
+            return (int)_NativeInstance.ChannelOffset(pixelChannel);
+        }
+
+        internal void SetNext(IMagickImage image)
+        {
+            _NativeInstance.SetNext(image.GetInstance());
+        }
+
+        private static int GetExpectedLength(MagickReadSettings settings)
+        {
+            int length = settings.Width.Value * settings.Height.Value * settings.PixelStorage.Mapping.Length;
+            switch (settings.PixelStorage.StorageType)
+            {
+                case StorageType.Char:
+                    return length;
+                case StorageType.Double:
+                    return length * sizeof(double);
+                case StorageType.Float:
+                    return length * sizeof(float);
+                case StorageType.Long:
+                    return length * sizeof(int);
+                case StorageType.LongLong:
+                    return length * sizeof(long);
+                case StorageType.Quantum:
+                    return length * sizeof(QuantumType);
+                case StorageType.Short:
+                    return length * sizeof(short);
+                case StorageType.Undefined:
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        private PointD CalculateContrastStretch(Percentage blackPoint, Percentage whitePoint)
+        {
+            double x = blackPoint.ToDouble();
+            double y = whitePoint.ToDouble();
+
+            double pixels = Width * Height;
+            x *= pixels / 100.0;
+            y *= pixels / 100.0;
+            y = pixels - y;
+
+            return new PointD(x, y);
+        }
+
+        private IEnumerable<IMagickImage> CreateList(IntPtr images)
+        {
+            return CreateList(images, Settings.Clone());
+        }
+
+        private MagickReadSettings CreateReadSettings(MagickReadSettings readSettings)
+        {
+            if (readSettings != null && readSettings.FrameCount.HasValue)
+                Throw.IfFalse(nameof(readSettings), readSettings.FrameCount.Value == 1, "The frame count can only be set to 1 when a single image is being read.");
+
+            MagickReadSettings newReadSettings = null;
+            if (readSettings == null)
+                newReadSettings = new MagickReadSettings(Settings);
+            else
+                newReadSettings = new MagickReadSettings(readSettings);
+
+            newReadSettings.ForceSingleFrame();
+
+            return newReadSettings;
+        }
+
+        private void Dispose(bool disposing)
+        {
+            DisposeInstance();
+
+            if (disposing)
+            {
+                if (Settings != null)
+                    Settings.Artifact -= OnArtifact;
+            }
+        }
+
+        private void DisposeInstance()
+        {
+            if (_NativeInstance == null)
+                return;
+
+            _NativeInstance.Warning -= OnWarning;
+            _NativeInstance.Dispose();
+        }
+
+        private string FormatedFileSize()
+        {
+            decimal fileSize = FileSize;
+
+            string suffix = string.Empty;
+            if (fileSize > 1073741824)
+            {
+                fileSize /= 1073741824;
+                suffix = "GB";
+            }
+            else if (fileSize > 1048576)
+            {
+                fileSize /= 1048576;
+                suffix = "MB";
+            }
+            else if (fileSize > 1024)
+            {
+                fileSize /= 1024;
+                suffix = "kB";
+            }
+
+            return string.Format(CultureInfo.InvariantCulture, "{0:N2}{1}", fileSize, suffix);
+        }
+
+        private void FloodFill(QuantumType alpha, int x, int y, bool invert)
+        {
+            MagickColor target;
+            using (PixelCollection pixels = GetPixels())
+            {
+                target = pixels.GetPixel(x, y).ToColor();
+                target.A = alpha;
+            }
+
+            _NativeInstance.FloodFill(Settings.Drawing, x, y, target, invert);
+        }
+
+        private void FloodFill(MagickColor color, int x, int y, bool invert)
+        {
+            Throw.IfNull(nameof(color), color);
+
+            MagickColor target;
+            using (PixelCollection pixels = GetPixels())
+            {
+                target = pixels.GetPixel(x, y).ToColor();
+            }
+
+            FloodFill(color, x, y, target, invert);
+        }
+
+        private void FloodFill(MagickColor color, int x, int y, MagickColor target, bool invert)
+        {
+            Throw.IfNull(nameof(color), color);
+            Throw.IfNull(nameof(target), target);
+
+            DrawingSettings settings = Settings.Drawing;
+
+            using (IMagickImage fillPattern = settings.FillPattern)
+            {
+                MagickColor filLColor = settings.FillColor;
+                settings.FillColor = color;
+                settings.FillPattern = null;
+
+                _NativeInstance.FloodFill(settings, x, y, target, invert);
+
+                settings.FillColor = filLColor;
+                settings.FillPattern = fillPattern;
+            }
+        }
+
+        private void FloodFill(IMagickImage image, int x, int y, bool invert)
+        {
+            Throw.IfNull(nameof(image), image);
+
+            MagickColor target;
+            using (PixelCollection pixels = GetPixels())
+            {
+                target = pixels.GetPixel(x, y).ToColor();
+            }
+
+            FloodFill(image, x, y, target, invert);
+        }
+
+        private void FloodFill(IMagickImage image, int x, int y, MagickColor target, bool invert)
+        {
+            Throw.IfNull(nameof(image), image);
+            Throw.IfNull(nameof(target), target);
+
+            DrawingSettings settings = Settings.Drawing;
+
+            using (IMagickImage fillPattern = settings.FillPattern)
+            {
+                MagickColor filLColor = settings.FillColor;
+                settings.FillColor = null;
+                settings.FillPattern = image;
+
+                _NativeInstance.FloodFill(settings, x, y, target, invert);
+
+                settings.FillColor = filLColor;
+                settings.FillPattern = fillPattern;
+            }
+        }
+
+        private void LevelColors(MagickColor blackColor, MagickColor whiteColor, bool invert)
+        {
+            LevelColors(blackColor, whiteColor, ImageMagick.Channels.RGB, invert);
+        }
+
+        private void LevelColors(MagickColor blackColor, MagickColor whiteColor, Channels channels, bool invert)
+        {
+            Throw.IfNull(nameof(blackColor), blackColor);
+            Throw.IfNull(nameof(whiteColor), whiteColor);
+
+            _NativeInstance.LevelColors(blackColor, whiteColor, channels, invert);
+        }
+
+        private void Opaque(MagickColor target, MagickColor fill, bool invert)
+        {
+            Throw.IfNull(nameof(target), target);
+            Throw.IfNull(nameof(fill), fill);
+
+            _NativeInstance.Opaque(target, fill, invert);
+        }
+
+        private ColorProfile GetColorProfile(string name)
+        {
+            StringInfo info = _NativeInstance.GetProfile(name);
+            if (info == null || info.Datum == null)
+                return null;
+
+            return new ColorProfile(name, info.Datum);
+        }
+
+        private void OnArtifact(object sender, ArtifactEventArgs arguments)
+        {
+            if (arguments.Value == null)
+                RemoveArtifact(arguments.Key);
+            else
+                SetArtifact(arguments.Key, arguments.Value);
+        }
+
+        private bool OnProgress(IntPtr origin, long offset, ulong extent, IntPtr userData)
+        {
+            if (_Progress == null)
+                return true;
+
+            string managedOrigin = UTF8Marshaler.NativeToManaged(origin);
+            ProgressEventArgs eventArgs = new ProgressEventArgs(managedOrigin, (int)offset, (int)extent);
+            _Progress(this, eventArgs);
+            return eventArgs.Cancel ? false : true;
+        }
+
+        private void OnWarning(object sender, WarningEventArgs arguments)
+        {
+            _Warning?.Invoke(this, arguments);
+        }
+
+        private void Read(byte[] data, int length, MagickReadSettings readSettings, bool ping)
+        {
+            MagickReadSettings newReadSettings = CreateReadSettings(readSettings);
+            SetSettings(newReadSettings);
+
+            if (newReadSettings.PixelStorage != null)
+            {
+                ReadPixels(data, length, readSettings);
+                return;
+            }
+
+            Settings.Ping = ping;
+            _NativeInstance.ReadBlob(Settings, data, length);
+        }
+
+        private void Read(Stream stream, MagickReadSettings readSettings, bool ping)
+        {
+            Throw.IfNull(nameof(stream), stream);
+
+            Bytes bytes = Bytes.FromStreamBuffer(stream);
+            if (bytes != null)
+            {
+                Read(bytes.Data, bytes.Length, readSettings, ping);
+                return;
+            }
+
+            MagickReadSettings newReadSettings = CreateReadSettings(readSettings);
+            SetSettings(newReadSettings);
+
+            if (newReadSettings.PixelStorage != null)
+            {
+                bytes = new Bytes(stream);
+                ReadPixels(bytes.Data, bytes.Length, readSettings);
+                return;
+            }
+
+            Settings.Ping = ping;
+            Settings.FileName = null;
+
+            using (StreamWrapper wrapper = StreamWrapper.CreateForReading(stream))
+            {
+                ReadWriteStreamDelegate readStream = new ReadWriteStreamDelegate(wrapper.Read);
+                SeekStreamDelegate seekStream = null;
+                TellStreamDelegate tellStream = null;
+
+                if (stream.CanSeek)
+                {
+                    seekStream = new SeekStreamDelegate(wrapper.Seek);
+                    tellStream = new TellStreamDelegate(wrapper.Tell);
+                }
+
+                _NativeInstance.ReadStream(Settings, readStream, seekStream, tellStream);
+            }
+        }
+
+        private void Read(string fileName, MagickReadSettings readSettings, bool ping)
+        {
+            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            Throw.IfInvalidFileName(filePath);
+
+            MagickReadSettings newReadSettings = CreateReadSettings(readSettings);
+            SetSettings(newReadSettings);
+
+            if (newReadSettings.PixelStorage != null)
+            {
+                byte[] data = File.ReadAllBytes(filePath);
+                ReadPixels(data, data.Length, readSettings);
+                return;
+            }
+
+            Settings.Ping = ping;
+            Settings.FileName = filePath;
+
+            _NativeInstance.ReadFile(Settings);
+        }
+
+        private void ReadPixels(byte[] data, int length, MagickReadSettings readSettings)
+        {
+            Throw.IfTrue(nameof(readSettings), readSettings.PixelStorage.StorageType == StorageType.Undefined, "Storage type should not be undefined.");
+            Throw.IfNull(nameof(readSettings), readSettings.Width, "Width should be defined when pixel storage is set.");
+            Throw.IfNull(nameof(readSettings), readSettings.Height, "Height should be defined when pixel storage is set.");
+            Throw.IfNullOrEmpty(nameof(readSettings), readSettings.PixelStorage.Mapping, "Pixel storage mapping should be defined.");
+
+            int expectedLength = GetExpectedLength(readSettings);
+            Throw.IfTrue(nameof(data), length < expectedLength, "The array length is " + length + " but should be at least " + expectedLength + ".");
+
+            _NativeInstance.ReadPixels(readSettings.Width.Value, readSettings.Height.Value, readSettings.PixelStorage.Mapping, readSettings.PixelStorage.StorageType, data);
+        }
+
+        private void SetInstance(NativeMagickImage instance)
+        {
+            DisposeInstance();
+
+            _NativeInstance = instance;
+            _NativeInstance.Warning += OnWarning;
+        }
+
+        private void SetSettings(MagickSettings settings)
+        {
+            if (Settings != null)
+                Settings.Artifact -= OnArtifact;
+
+            Settings = settings;
+            Settings.Artifact += OnArtifact;
         }
     }
 }

@@ -27,45 +27,6 @@ namespace ImageMagick
         private int _ThumbnailOffset;
         private int _ThumbnailLength;
 
-        private void Initialize()
-        {
-            Parts = ExifParts.All;
-            _InvalidTags = new List<ExifTag>();
-        }
-
-        private void InitializeValues()
-        {
-            if (_Values != null)
-                return;
-
-            if (Data == null)
-            {
-                _Values = new Collection<ExifValue>();
-                return;
-            }
-
-            ExifReader reader = new ExifReader();
-            _Values = reader.Read(Data);
-            _InvalidTags = new List<ExifTag>(reader.InvalidTags);
-            _ThumbnailOffset = (int)reader.ThumbnailOffset;
-            _ThumbnailLength = (int)reader.ThumbnailLength;
-        }
-
-        /// <summary>
-        /// Updates the data of the profile.
-        /// </summary>
-        protected override void UpdateData()
-        {
-            if (_Values == null || _Values.Count == 0)
-            {
-                Data = null;
-                return;
-            }
-
-            ExifWriter writer = new ExifWriter(_Values, Parts);
-            Data = writer.GetData();
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ExifProfile"/> class.
         /// </summary>
@@ -212,6 +173,45 @@ namespace ImageMagick
 
             ExifValue newExifValue = ExifValue.Create(tag, value);
             _Values.Add(newExifValue);
+        }
+
+        /// <summary>
+        /// Updates the data of the profile.
+        /// </summary>
+        protected override void UpdateData()
+        {
+            if (_Values == null || _Values.Count == 0)
+            {
+                Data = null;
+                return;
+            }
+
+            ExifWriter writer = new ExifWriter(_Values, Parts);
+            Data = writer.GetData();
+        }
+
+        private void Initialize()
+        {
+            Parts = ExifParts.All;
+            _InvalidTags = new List<ExifTag>();
+        }
+
+        private void InitializeValues()
+        {
+            if (_Values != null)
+                return;
+
+            if (Data == null)
+            {
+                _Values = new Collection<ExifValue>();
+                return;
+            }
+
+            ExifReader reader = new ExifReader();
+            _Values = reader.Read(Data);
+            _InvalidTags = new List<ExifTag>(reader.InvalidTags);
+            _ThumbnailOffset = (int)reader.ThumbnailOffset;
+            _ThumbnailLength = (int)reader.ThumbnailLength;
         }
     }
 }

@@ -27,80 +27,6 @@ namespace ImageMagick
         private double _FontPointsize;
         private Dictionary<string, string> _Options = new Dictionary<string, string>();
 
-        private INativeInstance CreateNativeInstance()
-        {
-            string format = GetFormat();
-            string fileName = FileName;
-            if (!string.IsNullOrEmpty(fileName) && !string.IsNullOrEmpty(format))
-                fileName = format + ":" + fileName;
-
-            NativeMagickSettings instance = new NativeMagickSettings();
-            instance.BackgroundColor = BackgroundColor;
-            instance.ColorSpace = ColorSpace;
-            instance.ColorType = ColorType;
-            instance.CompressionMethod = CompressionMethod;
-            instance.Debug = Debug;
-            instance.Density = Density?.ToString(DensityUnit.Undefined);
-            instance.Endian = Endian;
-            instance.Extract = MagickGeometry.ToString(Extract);
-            instance.Font = _Font;
-            instance.FontPointsize = _FontPointsize;
-            instance.Format = format;
-            instance.Interlace = Interlace;
-            instance.Monochrome = Monochrome;
-            instance.Verbose = Verbose;
-
-            instance.SetColorFuzz(ColorFuzz);
-            instance.SetFileName(fileName);
-            instance.SetNumberScenes(NumberScenes);
-            instance.SetPage(MagickGeometry.ToString(Page));
-            instance.SetPing(Ping);
-            instance.SetQuality(Quality);
-            instance.SetScene(Scene);
-            instance.SetScenes(Scenes);
-            instance.SetSize(Size);
-
-            foreach (string key in _Options.Keys)
-                instance.SetOption(key, _Options[key]);
-
-            return instance;
-        }
-
-        private string GetFormat()
-        {
-            switch (Format)
-            {
-                case MagickFormat.Unknown:
-                    return null;
-                case MagickFormat.ThreeFr:
-                    return "3FR";
-                case MagickFormat.ThreeG2:
-                    return "3G2";
-                case MagickFormat.ThreeGp:
-                    return "3GP";
-                default:
-                    return EnumHelper.GetName(Format).ToUpperInvariant();
-            }
-        }
-
-        private static MagickFormat GetModule(MagickFormat format)
-        {
-            MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(format);
-            return formatInfo.Module;
-        }
-
-        private void SetOptionAndArtifact(string key, double value)
-        {
-            SetOptionAndArtifact(key, value.ToString(CultureInfo.InvariantCulture));
-        }
-
-        private void SetOptionAndArtifact(string key, string value)
-        {
-            SetOption(key, value);
-
-            Artifact?.Invoke(this, new ArtifactEventArgs(key, value));
-        }
-
         internal MagickSettings()
         {
             using (NativeMagickSettings instance = new NativeMagickSettings())
@@ -125,169 +51,6 @@ namespace ImageMagick
         }
 
         internal event EventHandler<ArtifactEventArgs> Artifact;
-
-        internal DrawingSettings Drawing
-        {
-            get;
-            private set;
-        }
-
-        internal double ColorFuzz
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets the specified area to extract from the image.
-        /// </summary>
-        protected MagickGeometry Extract
-        {
-            get;
-            set;
-        }
-
-        internal string FileName
-        {
-            get;
-            set;
-        }
-
-        internal Interlace Interlace
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets the number of scenes.
-        /// </summary>
-        protected int NumberScenes
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether a monochrome reader should be used.
-        /// </summary>
-        protected bool Monochrome
-        {
-            get;
-            set;
-        }
-
-        internal bool Ping
-        {
-            get;
-            set;
-        }
-
-        internal int Quality
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets the size of the image.
-        /// </summary>
-        protected string Size
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets the active scene.
-        /// </summary>
-        protected int Scene
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets scenes of the image.
-        /// </summary>
-        protected string Scenes
-        {
-            get;
-            set;
-        }
-
-        internal MagickSettings Clone()
-        {
-            MagickSettings clone = new MagickSettings();
-            clone.Copy(this);
-
-            return clone;
-        }
-
-        /// <summary>
-        /// Copies the settings from the specified <see cref="MagickSettings"/>.
-        /// </summary>
-        /// <param name="settings">The settings to copy the data from.</param>
-        protected void Copy(MagickSettings settings)
-        {
-            if (settings == null)
-                return;
-
-            BackgroundColor = MagickColor.Clone(settings.BackgroundColor);
-            ColorSpace = settings.ColorSpace;
-            ColorType = settings.ColorType;
-            CompressionMethod = settings.CompressionMethod;
-            Debug = settings.Debug;
-            Density = Density.Clone(settings.Density);
-            Endian = settings.Endian;
-            Extract = MagickGeometry.Clone(settings.Extract);
-            _Font = settings._Font;
-            _FontPointsize = settings._FontPointsize;
-            Format = settings.Format;
-            Monochrome = settings.Monochrome;
-            Page = MagickGeometry.Clone(settings.Page);
-            Verbose = settings.Verbose;
-
-            ColorFuzz = settings.ColorFuzz;
-            Interlace = settings.Interlace;
-            Ping = settings.Ping;
-            Quality = settings.Quality;
-            Size = settings.Size;
-
-            foreach (string key in settings._Options.Keys)
-                _Options[key] = settings._Options[key];
-
-            Drawing = settings.Drawing.Clone();
-        }
-
-        internal string GetOption(string key)
-        {
-            Throw.IfNullOrEmpty(nameof(key), key);
-
-            if (_Options.TryGetValue(key, out string result))
-                return result;
-
-            return null;
-        }
-
-        /// <summary>
-        /// Creates a define string for the specified format and name.
-        /// </summary>
-        /// <param name="format">The format to set the define for.</param>
-        /// <param name="name">The name of the define.</param>
-        /// <returns>A string for the specified format and name.</returns>
-        protected static string ParseDefine(MagickFormat format, string name)
-        {
-            if (format == MagickFormat.Unknown)
-                return name;
-            else
-                return EnumHelper.GetName(GetModule(format)) + ":" + name;
-        }
-
-        internal void SetOption(string key, string value)
-        {
-            _Options[key] = value;
-        }
 
         /// <summary>
         /// Gets or sets the affine to use when annotating with text or drawing.
@@ -813,6 +576,96 @@ namespace ImageMagick
             set;
         }
 
+        internal DrawingSettings Drawing
+        {
+            get;
+            private set;
+        }
+
+        internal double ColorFuzz
+        {
+            get;
+            set;
+        }
+
+        internal string FileName
+        {
+            get;
+            set;
+        }
+
+        internal Interlace Interlace
+        {
+            get;
+            set;
+        }
+
+        internal bool Ping
+        {
+            get;
+            set;
+        }
+
+        internal int Quality
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the specified area to extract from the image.
+        /// </summary>
+        protected MagickGeometry Extract
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the number of scenes.
+        /// </summary>
+        protected int NumberScenes
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether a monochrome reader should be used.
+        /// </summary>
+        protected bool Monochrome
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the size of the image.
+        /// </summary>
+        protected string Size
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the active scene.
+        /// </summary>
+        protected int Scene
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets scenes of the image.
+        /// </summary>
+        protected string Scenes
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// Returns the value of a format-specific option.
         /// </summary>
@@ -916,6 +769,153 @@ namespace ImageMagick
                 if (define != null)
                     SetDefine(define.Format, define.Name, define.Value);
             }
+        }
+
+        internal MagickSettings Clone()
+        {
+            MagickSettings clone = new MagickSettings();
+            clone.Copy(this);
+
+            return clone;
+        }
+
+        internal string GetOption(string key)
+        {
+            Throw.IfNullOrEmpty(nameof(key), key);
+
+            if (_Options.TryGetValue(key, out string result))
+                return result;
+
+            return null;
+        }
+
+        internal void SetOption(string key, string value)
+        {
+            _Options[key] = value;
+        }
+
+        /// <summary>
+        /// Creates a define string for the specified format and name.
+        /// </summary>
+        /// <param name="format">The format to set the define for.</param>
+        /// <param name="name">The name of the define.</param>
+        /// <returns>A string for the specified format and name.</returns>
+        protected static string ParseDefine(MagickFormat format, string name)
+        {
+            if (format == MagickFormat.Unknown)
+                return name;
+            else
+                return EnumHelper.GetName(GetModule(format)) + ":" + name;
+        }
+
+        /// <summary>
+        /// Copies the settings from the specified <see cref="MagickSettings"/>.
+        /// </summary>
+        /// <param name="settings">The settings to copy the data from.</param>
+        protected void Copy(MagickSettings settings)
+        {
+            if (settings == null)
+                return;
+
+            BackgroundColor = MagickColor.Clone(settings.BackgroundColor);
+            ColorSpace = settings.ColorSpace;
+            ColorType = settings.ColorType;
+            CompressionMethod = settings.CompressionMethod;
+            Debug = settings.Debug;
+            Density = Density.Clone(settings.Density);
+            Endian = settings.Endian;
+            Extract = MagickGeometry.Clone(settings.Extract);
+            _Font = settings._Font;
+            _FontPointsize = settings._FontPointsize;
+            Format = settings.Format;
+            Monochrome = settings.Monochrome;
+            Page = MagickGeometry.Clone(settings.Page);
+            Verbose = settings.Verbose;
+
+            ColorFuzz = settings.ColorFuzz;
+            Interlace = settings.Interlace;
+            Ping = settings.Ping;
+            Quality = settings.Quality;
+            Size = settings.Size;
+
+            foreach (string key in settings._Options.Keys)
+                _Options[key] = settings._Options[key];
+
+            Drawing = settings.Drawing.Clone();
+        }
+
+        private static MagickFormat GetModule(MagickFormat format)
+        {
+            MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(format);
+            return formatInfo.Module;
+        }
+
+        private INativeInstance CreateNativeInstance()
+        {
+            string format = GetFormat();
+            string fileName = FileName;
+            if (!string.IsNullOrEmpty(fileName) && !string.IsNullOrEmpty(format))
+                fileName = format + ":" + fileName;
+
+            NativeMagickSettings instance = new NativeMagickSettings();
+            instance.BackgroundColor = BackgroundColor;
+            instance.ColorSpace = ColorSpace;
+            instance.ColorType = ColorType;
+            instance.CompressionMethod = CompressionMethod;
+            instance.Debug = Debug;
+            instance.Density = Density?.ToString(DensityUnit.Undefined);
+            instance.Endian = Endian;
+            instance.Extract = MagickGeometry.ToString(Extract);
+            instance.Font = _Font;
+            instance.FontPointsize = _FontPointsize;
+            instance.Format = format;
+            instance.Interlace = Interlace;
+            instance.Monochrome = Monochrome;
+            instance.Verbose = Verbose;
+
+            instance.SetColorFuzz(ColorFuzz);
+            instance.SetFileName(fileName);
+            instance.SetNumberScenes(NumberScenes);
+            instance.SetPage(MagickGeometry.ToString(Page));
+            instance.SetPing(Ping);
+            instance.SetQuality(Quality);
+            instance.SetScene(Scene);
+            instance.SetScenes(Scenes);
+            instance.SetSize(Size);
+
+            foreach (string key in _Options.Keys)
+                instance.SetOption(key, _Options[key]);
+
+            return instance;
+        }
+
+        private string GetFormat()
+        {
+            switch (Format)
+            {
+                case MagickFormat.Unknown:
+                    return null;
+                case MagickFormat.ThreeFr:
+                    return "3FR";
+                case MagickFormat.ThreeG2:
+                    return "3G2";
+                case MagickFormat.ThreeGp:
+                    return "3GP";
+                default:
+                    return EnumHelper.GetName(Format).ToUpperInvariant();
+            }
+        }
+
+        private void SetOptionAndArtifact(string key, double value)
+        {
+            SetOptionAndArtifact(key, value.ToString(CultureInfo.InvariantCulture));
+        }
+
+        private void SetOptionAndArtifact(string key, string value)
+        {
+            SetOption(key, value);
+
+            Artifact?.Invoke(this, new ArtifactEventArgs(key, value));
         }
     }
 }

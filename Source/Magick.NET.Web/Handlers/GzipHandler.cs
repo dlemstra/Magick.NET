@@ -23,6 +23,55 @@ namespace ImageMagick.Web.Handlers
     /// </summary>
     internal sealed class GzipHandler : MagickHandler
     {
+        internal GzipHandler(MagickWebSettings settings, IImageData imageData)
+          : base(settings, imageData)
+        {
+        }
+
+        /// <inheritdoc/>
+        [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "Context will not be null.")]
+        protected override string GetFileName(HttpContext context)
+        {
+            Debug.Assert(context != null);
+
+            string encoding = GetEncoding(context.Request);
+            if (string.IsNullOrEmpty(encoding))
+                return null;
+
+            string cacheFileName = GetCacheFileName("Compressed", encoding, ImageData.FormatInfo.Format);
+            if (!CanUseCache(cacheFileName))
+                CreateCompressedFile(encoding, cacheFileName);
+
+            context.Response.AppendHeader("Content-Encoding", encoding);
+            context.Response.AppendHeader("Vary", "Accept-Encoding");
+
+            return cacheFileName;
+        }
+
+        private static Stream CreateCompressStream(FileStream stream, string encoding)
+        {
+            if (encoding == "gzip")
+                return new GZipStream(stream, CompressionMode.Compress);
+
+            Debug.Assert(encoding == "deflate");
+            return new DeflateStream(stream, CompressionMode.Compress);
+        }
+
+        private static string GetEncoding(HttpRequest request)
+        {
+            string encoding = request.Headers["Accept-Encoding"];
+            if (string.IsNullOrEmpty(encoding))
+                return null;
+
+            if (encoding.Contains("gzip"))
+                return "gzip";
+
+            if (encoding.Contains("deflate"))
+                return "deflate";
+
+            return null;
+        }
+
         [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "Code is much cleaner this way.")]
         private void CreateCompressedFile(string encoding, string cacheFileName)
         {
@@ -52,55 +101,6 @@ namespace ImageMagick.Web.Handlers
                 if (File.Exists(tempFile))
                     File.Delete(tempFile);
             }
-        }
-
-        private static Stream CreateCompressStream(FileStream stream, string encoding)
-        {
-            if (encoding == "gzip")
-                return new GZipStream(stream, CompressionMode.Compress);
-
-            Debug.Assert(encoding == "deflate");
-            return new DeflateStream(stream, CompressionMode.Compress);
-        }
-
-        private static string GetEncoding(HttpRequest request)
-        {
-            string encoding = request.Headers["Accept-Encoding"];
-            if (string.IsNullOrEmpty(encoding))
-                return null;
-
-            if (encoding.Contains("gzip"))
-                return "gzip";
-
-            if (encoding.Contains("deflate"))
-                return "deflate";
-
-            return null;
-        }
-
-        internal GzipHandler(MagickWebSettings settings, IImageData imageData)
-          : base(settings, imageData)
-        {
-        }
-
-        /// <inheritdoc/>
-        [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "Context will not be null.")]
-        protected override string GetFileName(HttpContext context)
-        {
-            Debug.Assert(context != null);
-
-            string encoding = GetEncoding(context.Request);
-            if (string.IsNullOrEmpty(encoding))
-                return null;
-
-            string cacheFileName = GetCacheFileName("Compressed", encoding, ImageData.FormatInfo.Format);
-            if (!CanUseCache(cacheFileName))
-                CreateCompressedFile(encoding, cacheFileName);
-
-            context.Response.AppendHeader("Content-Encoding", encoding);
-            context.Response.AppendHeader("Vary", "Accept-Encoding");
-
-            return cacheFileName;
         }
     }
 }

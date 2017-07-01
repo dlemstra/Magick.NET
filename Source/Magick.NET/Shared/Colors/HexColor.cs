@@ -27,6 +27,14 @@ namespace ImageMagick
 {
     internal sealed class HexColor
     {
+        public static List<QuantumType> Parse(string value)
+        {
+            if (value.Length < 13)
+                return new List<QuantumType>(ParseQ8(value));
+
+            return new List<QuantumType>(ParseQ16(value));
+        }
+
         private static IEnumerable<QuantumType> ParseQ16(string value)
         {
             if (value.Length == 13 || value.Length == 17)
@@ -156,14 +164,6 @@ namespace ImageMagick
             }
 
             return result;
-        }
-
-        public static List<QuantumType> Parse(string value)
-        {
-            if (value.Length < 13)
-                return new List<QuantumType>(ParseQ8(value));
-
-            return new List<QuantumType>(ParseQ16(value));
         }
     }
 }

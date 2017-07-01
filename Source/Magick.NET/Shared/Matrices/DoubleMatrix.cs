@@ -21,19 +21,6 @@ namespace ImageMagick
     {
         private double[] _Values;
 
-        private INativeInstance CreateNativeInstance()
-        {
-            return new NativeDoubleMatrix(_Values, Order);
-        }
-
-        private int GetIndex(int x, int y)
-        {
-            Throw.IfOutOfRange(nameof(x), x, Order);
-            Throw.IfOutOfRange(nameof(y), y, Order);
-
-            return (y * Order) + x;
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DoubleMatrix"/> class.
         /// </summary>
@@ -52,6 +39,15 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Gets the order of the matrix.
+        /// </summary>
+        public int Order
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// Get or set the value at the specified x/y position.
         /// </summary>
         /// <param name="x">The x position</param>
@@ -66,15 +62,6 @@ namespace ImageMagick
             {
                 SetValue(x, y, value);
             }
-        }
-
-        /// <summary>
-        /// Gets the order of the matrix.
-        /// </summary>
-        public int Order
-        {
-            get;
-            private set;
         }
 
         /// <summary>
@@ -140,6 +127,19 @@ namespace ImageMagick
         public double[] ToArray()
         {
             return _Values;
+        }
+
+        private INativeInstance CreateNativeInstance()
+        {
+            return new NativeDoubleMatrix(_Values, Order);
+        }
+
+        private int GetIndex(int x, int y)
+        {
+            Throw.IfOutOfRange(nameof(x), x, Order);
+            Throw.IfOutOfRange(nameof(y), y, Order);
+
+            return (y * Order) + x;
         }
     }
 }

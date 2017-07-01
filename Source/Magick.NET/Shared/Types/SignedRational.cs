@@ -79,6 +79,24 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Gets the numerator of a number.
+        /// </summary>
+        public int Numerator
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the denominator of a number.
+        /// </summary>
+        public int Denominator
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// Determines whether the specified <see cref="SignedRational"/> instances are considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="SignedRational"/>  to compare.</param>
@@ -99,21 +117,24 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Gets the numerator of a number.
+        /// Converts the specified <see cref="double"/> to an instance of this type.
         /// </summary>
-        public int Numerator
+        /// <param name="value">The <see cref="double"/> to convert to an instance of this type.</param>
+        /// <returns>The <see cref="SignedRational"/>.</returns>
+        public static SignedRational FromDouble(double value)
         {
-            get;
-            private set;
+            return new SignedRational(value, false);
         }
 
         /// <summary>
-        /// Gets the denominator of a number.
+        /// Converts the specified <see cref="double"/> to an instance of this type.
         /// </summary>
-        public int Denominator
+        /// <param name="value">The <see cref="double"/> to convert to an instance of this type.</param>
+        /// <param name="bestPrecision">Specifies if the instance should be created with the best precision possible.</param>
+        /// <returns>The <see cref="SignedRational"/>.</returns>
+        public static SignedRational FromDouble(double value, bool bestPrecision)
         {
-            get;
-            private set;
+            return new SignedRational(value, bestPrecision);
         }
 
         /// <summary>
@@ -140,27 +161,6 @@ namespace ImageMagick
             BigRational right = new BigRational(other.Numerator, other.Denominator);
 
             return left.Equals(right);
-        }
-
-        /// <summary>
-        /// Converts the specified <see cref="double"/> to an instance of this type.
-        /// </summary>
-        /// <param name="value">The <see cref="double"/> to convert to an instance of this type.</param>
-        /// <returns>The <see cref="SignedRational"/>.</returns>
-        public static SignedRational FromDouble(double value)
-        {
-            return new SignedRational(value, false);
-        }
-
-        /// <summary>
-        /// Converts the specified <see cref="double"/> to an instance of this type.
-        /// </summary>
-        /// <param name="value">The <see cref="double"/> to convert to an instance of this type.</param>
-        /// <param name="bestPrecision">Specifies if the instance should be created with the best precision possible.</param>
-        /// <returns>The <see cref="SignedRational"/>.</returns>
-        public static SignedRational FromDouble(double value, bool bestPrecision)
-        {
-            return new SignedRational(value, bestPrecision);
         }
 
         /// <summary>

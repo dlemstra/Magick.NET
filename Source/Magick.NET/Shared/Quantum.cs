@@ -29,6 +29,28 @@ namespace ImageMagick
     /// </summary>
     public static partial class Quantum
     {
+        /// <summary>
+        /// Gets the Quantum depth.
+        /// </summary>
+        public static int Depth
+        {
+            get
+            {
+                return NativeQuantum.Depth;
+            }
+        }
+
+        /// <summary>
+        /// Gets the maximum value of the quantum.
+        /// </summary>
+        public static QuantumType Max
+        {
+            get
+            {
+                return NativeQuantum.Max;
+            }
+        }
+
         internal static QuantumType Convert(byte value)
         {
 #if Q16 || Q16HDRI
@@ -82,28 +104,6 @@ namespace ImageMagick
         internal static double ScaleToDouble(QuantumType value)
         {
             return (1.0 / Max) * value;
-        }
-
-        /// <summary>
-        /// Gets the Quantum depth.
-        /// </summary>
-        public static int Depth
-        {
-            get
-            {
-                return NativeQuantum.Depth;
-            }
-        }
-
-        /// <summary>
-        /// Gets the maximum value of the quantum.
-        /// </summary>
-        public static QuantumType Max
-        {
-            get
-            {
-                return NativeQuantum.Max;
-            }
         }
     }
 }

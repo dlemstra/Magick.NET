@@ -19,47 +19,6 @@ namespace ImageMagick.ImageOptimizers
     /// </summary>
     public sealed class GifOptimizer : IImageOptimizer
     {
-        private static void CheckFormat(IMagickImage image)
-        {
-            MagickFormat format = image.FormatInfo.Module;
-            if (format != MagickFormat.Gif)
-                throw new MagickCorruptImageErrorException("Invalid image format: " + format.ToString());
-        }
-
-        private static void DoLosslessCompress(FileInfo file)
-        {
-            using (IMagickImageCollection images = new MagickImageCollection(file))
-            {
-                if (images.Count == 1)
-                {
-                    DoLosslessCompress(file, images[0]);
-                    return;
-                }
-            }
-        }
-
-        private static void DoLosslessCompress(FileInfo file, IMagickImage image)
-        {
-            CheckFormat(image);
-
-            image.Strip();
-
-            FileInfo tempFile = new FileInfo(Path.GetTempFileName());
-            try
-            {
-                image.Settings.Interlace = Interlace.NoInterlace;
-                image.Write(tempFile);
-
-                if (tempFile.Length < file.Length)
-                    tempFile.CopyTo(file.FullName, true);
-            }
-            finally
-            {
-                if (tempFile.Exists)
-                    tempFile.Delete();
-            }
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="GifOptimizer"/> class.
         /// </summary>
@@ -135,6 +94,47 @@ namespace ImageMagick.ImageOptimizers
             Throw.IfInvalidFileName(filePath);
 
             DoLosslessCompress(new FileInfo(filePath));
+        }
+
+        private static void CheckFormat(IMagickImage image)
+        {
+            MagickFormat format = image.FormatInfo.Module;
+            if (format != MagickFormat.Gif)
+                throw new MagickCorruptImageErrorException("Invalid image format: " + format.ToString());
+        }
+
+        private static void DoLosslessCompress(FileInfo file)
+        {
+            using (IMagickImageCollection images = new MagickImageCollection(file))
+            {
+                if (images.Count == 1)
+                {
+                    DoLosslessCompress(file, images[0]);
+                    return;
+                }
+            }
+        }
+
+        private static void DoLosslessCompress(FileInfo file, IMagickImage image)
+        {
+            CheckFormat(image);
+
+            image.Strip();
+
+            FileInfo tempFile = new FileInfo(Path.GetTempFileName());
+            try
+            {
+                image.Settings.Interlace = Interlace.NoInterlace;
+                image.Write(tempFile);
+
+                if (tempFile.Length < file.Length)
+                    tempFile.CopyTo(file.FullName, true);
+            }
+            finally
+            {
+                if (tempFile.Exists)
+                    tempFile.Delete();
+            }
         }
     }
 }

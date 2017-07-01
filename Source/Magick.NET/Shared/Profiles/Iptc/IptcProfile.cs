@@ -25,66 +25,6 @@ namespace ImageMagick
     {
         private Collection<IptcValue> _Values;
 
-        private void Initialize()
-        {
-            if (_Values != null)
-                return;
-
-            _Values = new Collection<IptcValue>();
-
-            if (Data == null || Data[0] != 0x1c)
-                return;
-
-            int i = 0;
-            while (i + 4 < Data.Length)
-            {
-                if (Data[i++] != 28)
-                    continue;
-
-                i++;
-
-                IptcTag tag = (IptcTag)Data[i++];
-
-                short count = ByteConverter.ToShort(Data, ref i);
-
-                byte[] data = new byte[count];
-                if ((count > 0) && (i + count <= Data.Length))
-                    Buffer.BlockCopy(Data, i, data, 0, count);
-                _Values.Add(new IptcValue(tag, data));
-
-                i += count;
-            }
-        }
-
-        /// <summary>
-        /// Updates the data of the profile.
-        /// </summary>
-        protected override void UpdateData()
-        {
-            int length = 0;
-            foreach (IptcValue value in Values)
-            {
-                length += value.Length + 5;
-            }
-
-            Data = new byte[length];
-
-            int i = 0;
-            foreach (IptcValue value in Values)
-            {
-                Data[i++] = 28;
-                Data[i++] = 2;
-                Data[i++] = (byte)value.Tag;
-                Data[i++] = (byte)(value.Length >> 8);
-                Data[i++] = (byte)value.Length;
-                if (value.Length > 0)
-                {
-                    Buffer.BlockCopy(value.ToByteArray(), 0, Data, i, value.Length);
-                    i += value.Length;
-                }
-            }
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="IptcProfile"/> class.
         /// </summary>
@@ -215,6 +155,66 @@ namespace ImageMagick
         public void SetValue(IptcTag tag, string value)
         {
             SetValue(tag, Encoding.UTF8, value);
+        }
+
+        /// <summary>
+        /// Updates the data of the profile.
+        /// </summary>
+        protected override void UpdateData()
+        {
+            int length = 0;
+            foreach (IptcValue value in Values)
+            {
+                length += value.Length + 5;
+            }
+
+            Data = new byte[length];
+
+            int i = 0;
+            foreach (IptcValue value in Values)
+            {
+                Data[i++] = 28;
+                Data[i++] = 2;
+                Data[i++] = (byte)value.Tag;
+                Data[i++] = (byte)(value.Length >> 8);
+                Data[i++] = (byte)value.Length;
+                if (value.Length > 0)
+                {
+                    Buffer.BlockCopy(value.ToByteArray(), 0, Data, i, value.Length);
+                    i += value.Length;
+                }
+            }
+        }
+
+        private void Initialize()
+        {
+            if (_Values != null)
+                return;
+
+            _Values = new Collection<IptcValue>();
+
+            if (Data == null || Data[0] != 0x1c)
+                return;
+
+            int i = 0;
+            while (i + 4 < Data.Length)
+            {
+                if (Data[i++] != 28)
+                    continue;
+
+                i++;
+
+                IptcTag tag = (IptcTag)Data[i++];
+
+                short count = ByteConverter.ToShort(Data, ref i);
+
+                byte[] data = new byte[count];
+                if ((count > 0) && (i + count <= Data.Length))
+                    Buffer.BlockCopy(Data, i, data, 0, count);
+                _Values.Add(new IptcValue(tag, data));
+
+                i += count;
+            }
         }
     }
 }

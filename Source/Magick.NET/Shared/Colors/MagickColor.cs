@@ -33,112 +33,6 @@ namespace ImageMagick
     {
         private bool _IsCmyk = false;
 
-        private MagickColor(NativeMagickColor instance)
-        {
-            Initialize(instance);
-        }
-
-        private NativeMagickColor CreateNativeInstance()
-        {
-            NativeMagickColor instance = new NativeMagickColor()
-            {
-                Red = R,
-                Green = G,
-                Blue = B,
-                Alpha = A,
-                Black = K,
-            };
-            return instance;
-        }
-
-        private void Initialize(NativeMagickColor instance)
-        {
-            R = instance.Red;
-            G = instance.Green;
-            B = instance.Blue;
-            A = instance.Alpha;
-            K = instance.Black;
-
-            _IsCmyk = instance.IsCMYK;
-            Count = (int)instance.Count;
-        }
-
-#if !Q8
-        private void Initialize(byte red, byte green, byte blue, byte alpha)
-        {
-            R = Quantum.Convert(red);
-            G = Quantum.Convert(green);
-            B = Quantum.Convert(blue);
-            A = Quantum.Convert(alpha);
-            K = 0;
-        }
-#endif
-
-        private void Initialize(QuantumType red, QuantumType green, QuantumType blue, QuantumType alpha)
-        {
-            R = red;
-            G = green;
-            B = blue;
-            A = alpha;
-            K = 0;
-        }
-
-        private void ParseHexColor(string color)
-        {
-            List<QuantumType> colors = HexColor.Parse(color);
-
-            if (colors.Count == 1)
-                Initialize(colors[0], colors[0], colors[0], Quantum.Max);
-            else if (colors.Count == 3)
-                Initialize(colors[0], colors[1], colors[2], Quantum.Max);
-            else
-                Initialize(colors[0], colors[1], colors[2], colors[3]);
-        }
-
-        internal int Count
-        {
-            get;
-            private set;
-        }
-
-        internal static MagickColor Clone(MagickColor value)
-        {
-            if (value == null)
-                return value;
-
-            MagickColor clone = new MagickColor()
-            {
-                R = value.R,
-                G = value.G,
-                B = value.B,
-                A = value.A,
-                K = value.K,
-                _IsCmyk = value._IsCmyk,
-            };
-            return clone;
-        }
-
-        internal string ToShortString()
-        {
-            if (A != Quantum.Max)
-                return ToString();
-
-            if (_IsCmyk)
-                return string.Format(CultureInfo.InvariantCulture, "cmyk({0},{1},{2},{3})", R, G, B, K);
-#if Q8
-            return string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}", R, G, B);
-#elif Q16 || Q16HDRI
-            return string.Format(CultureInfo.InvariantCulture, "#{0:X4}{1:X4}{2:X4}", (ushort)R, (ushort)G, (ushort)B);
-#else
-#error Not implemented!
-#endif
-        }
-
-        internal static string ToString(MagickColor value)
-        {
-            return value == null ? null : value.ToString();
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickColor"/> class.
         /// </summary>
@@ -257,6 +151,62 @@ namespace ImageMagick
             }
         }
 
+        private MagickColor(NativeMagickColor instance)
+        {
+            Initialize(instance);
+        }
+
+        /// <summary>
+        /// Gets or sets the alpha component value of this color.
+        /// </summary>
+        public QuantumType A
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the blue component value of this color.
+        /// </summary>
+        public QuantumType B
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the green component value of this color.
+        /// </summary>
+        public QuantumType G
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the key (black) component value of this color.
+        /// </summary>
+        public QuantumType K
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the red component value of this color.
+        /// </summary>
+        public QuantumType R
+        {
+            get;
+            set;
+        }
+
+        internal int Count
+        {
+            get;
+            private set;
+        }
+
         /// <summary>
         /// Determines whether the specified <see cref="MagickColor"/> instances are considered equal.
         /// </summary>
@@ -330,48 +280,34 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Gets or sets the alpha component value of this color.
+        /// Creates a new <see cref="MagickColor"/> instance from the specified 8-bit color values (red, green,
+        /// and blue). The alpha value is implicitly 255 (fully opaque).
         /// </summary>
-        public QuantumType A
+        /// <param name="red">Red component value of this color.</param>
+        /// <param name="green">Green component value of this color.</param>
+        /// <param name="blue">Blue component value of this color.</param>
+        /// <returns>A <see cref="MagickColor"/> instance.</returns>
+        public static MagickColor FromRgb(byte red, byte green, byte blue)
         {
-            get;
-            set;
+            MagickColor color = new MagickColor();
+            color.Initialize(red, green, blue, 255);
+            return color;
         }
 
         /// <summary>
-        /// Gets or sets the blue component value of this color.
+        /// Creates a new <see cref="MagickColor"/> instance from the specified 8-bit color values (red, green,
+        /// blue and alpha).
         /// </summary>
-        public QuantumType B
+        /// <param name="red">Red component value of this color.</param>
+        /// <param name="green">Green component value of this color.</param>
+        /// <param name="blue">Blue component value of this color.</param>
+        /// <param name="alpha">Alpha component value of this color.</param>
+        /// <returns>A <see cref="MagickColor"/> instance.</returns>
+        public static MagickColor FromRgba(byte red, byte green, byte blue, byte alpha)
         {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets the green component value of this color.
-        /// </summary>
-        public QuantumType G
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets the key (black) component value of this color.
-        /// </summary>
-        public QuantumType K
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets the red component value of this color.
-        /// </summary>
-        public QuantumType R
-        {
-            get;
-            set;
+            MagickColor color = new MagickColor();
+            color.Initialize(red, green, blue, alpha);
+            return color;
         }
 
         /// <summary>
@@ -462,37 +398,6 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Creates a new <see cref="MagickColor"/> instance from the specified 8-bit color values (red, green,
-        /// and blue). The alpha value is implicitly 255 (fully opaque).
-        /// </summary>
-        /// <param name="red">Red component value of this color.</param>
-        /// <param name="green">Green component value of this color.</param>
-        /// <param name="blue">Blue component value of this color.</param>
-        /// <returns>A <see cref="MagickColor"/> instance.</returns>
-        public static MagickColor FromRgb(byte red, byte green, byte blue)
-        {
-            MagickColor color = new MagickColor();
-            color.Initialize(red, green, blue, 255);
-            return color;
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="MagickColor"/> instance from the specified 8-bit color values (red, green,
-        /// blue and alpha).
-        /// </summary>
-        /// <param name="red">Red component value of this color.</param>
-        /// <param name="green">Green component value of this color.</param>
-        /// <param name="blue">Blue component value of this color.</param>
-        /// <param name="alpha">Alpha component value of this color.</param>
-        /// <returns>A <see cref="MagickColor"/> instance.</returns>
-        public static MagickColor FromRgba(byte red, byte green, byte blue, byte alpha)
-        {
-            MagickColor color = new MagickColor();
-            color.Initialize(red, green, blue, alpha);
-            return color;
-        }
-
-        /// <summary>
         /// Determines whether the specified color is fuzzy equal to the current color.
         /// </summary>
         /// <param name="other">The color to compare this color with.</param>
@@ -542,6 +447,101 @@ namespace ImageMagick
 #else
 #error Not implemented!
 #endif
+        }
+
+        internal static MagickColor Clone(MagickColor value)
+        {
+            if (value == null)
+                return value;
+
+            MagickColor clone = new MagickColor()
+            {
+                R = value.R,
+                G = value.G,
+                B = value.B,
+                A = value.A,
+                K = value.K,
+                _IsCmyk = value._IsCmyk,
+            };
+            return clone;
+        }
+
+        internal static string ToString(MagickColor value)
+        {
+            return value?.ToString();
+        }
+
+        internal string ToShortString()
+        {
+            if (A != Quantum.Max)
+                return ToString();
+
+            if (_IsCmyk)
+                return string.Format(CultureInfo.InvariantCulture, "cmyk({0},{1},{2},{3})", R, G, B, K);
+#if Q8
+            return string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}", R, G, B);
+#elif Q16 || Q16HDRI
+            return string.Format(CultureInfo.InvariantCulture, "#{0:X4}{1:X4}{2:X4}", (ushort)R, (ushort)G, (ushort)B);
+#else
+#error Not implemented!
+#endif
+        }
+
+        private NativeMagickColor CreateNativeInstance()
+        {
+            NativeMagickColor instance = new NativeMagickColor()
+            {
+                Red = R,
+                Green = G,
+                Blue = B,
+                Alpha = A,
+                Black = K,
+            };
+            return instance;
+        }
+
+        private void Initialize(NativeMagickColor instance)
+        {
+            R = instance.Red;
+            G = instance.Green;
+            B = instance.Blue;
+            A = instance.Alpha;
+            K = instance.Black;
+
+            _IsCmyk = instance.IsCMYK;
+            Count = (int)instance.Count;
+        }
+
+#if !Q8
+        private void Initialize(byte red, byte green, byte blue, byte alpha)
+        {
+            R = Quantum.Convert(red);
+            G = Quantum.Convert(green);
+            B = Quantum.Convert(blue);
+            A = Quantum.Convert(alpha);
+            K = 0;
+        }
+#endif
+
+        private void Initialize(QuantumType red, QuantumType green, QuantumType blue, QuantumType alpha)
+        {
+            R = red;
+            G = green;
+            B = blue;
+            A = alpha;
+            K = 0;
+        }
+
+        private void ParseHexColor(string color)
+        {
+            List<QuantumType> colors = HexColor.Parse(color);
+
+            if (colors.Count == 1)
+                Initialize(colors[0], colors[0], colors[0], Quantum.Max);
+            else if (colors.Count == 3)
+                Initialize(colors[0], colors[1], colors[2], Quantum.Max);
+            else
+                Initialize(colors[0], colors[1], colors[2], colors[3]);
         }
     }
 }

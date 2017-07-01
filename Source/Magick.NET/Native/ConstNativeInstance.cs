@@ -18,11 +18,6 @@ namespace ImageMagick
     {
         private IntPtr _Instance = IntPtr.Zero;
 
-        protected abstract string TypeName
-        {
-            get;
-        }
-
         public IntPtr Instance
         {
             get
@@ -36,6 +31,11 @@ namespace ImageMagick
             {
                 _Instance = value;
             }
+        }
+
+        protected abstract string TypeName
+        {
+            get;
         }
     }
 }

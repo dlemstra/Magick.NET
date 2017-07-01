@@ -24,11 +24,6 @@ namespace ImageMagick
         [NonSerialized]
         private List<MagickException> _RelatedExceptions;
 
-        internal void SetRelatedException(List<MagickException> relatedExceptions)
-        {
-            _RelatedExceptions = relatedExceptions;
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickException"/> class.
         /// </summary>
@@ -50,6 +45,11 @@ namespace ImageMagick
 
                 return _RelatedExceptions;
             }
+        }
+
+        internal void SetRelatedException(List<MagickException> relatedExceptions)
+        {
+            _RelatedExceptions = relatedExceptions;
         }
     }
 }

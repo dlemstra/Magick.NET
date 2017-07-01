@@ -18,6 +18,53 @@ namespace ImageMagick
 {
     internal static partial class MagickExceptionHelper
     {
+        public static MagickException Check(IntPtr exception)
+        {
+            MagickException magickException = Create(exception);
+
+            if (IsError(magickException))
+                throw magickException;
+
+            return magickException;
+        }
+
+        public static MagickException Create(IntPtr exception)
+        {
+            if (exception == IntPtr.Zero)
+                return null;
+
+            MagickException magickException = CreateException(exception);
+
+            NativeMagickExceptionHelper.Dispose(exception);
+
+            return magickException;
+        }
+
+        public static MagickException CreateException(IntPtr exception)
+        {
+            ExceptionSeverity severity = (ExceptionSeverity)NativeMagickExceptionHelper.Severity(exception);
+            string message = NativeMagickExceptionHelper.Message(exception);
+            string description = NativeMagickExceptionHelper.Description(exception);
+
+            if (!string.IsNullOrEmpty(description))
+                message += " (" + description + ")";
+
+            List<MagickException> innerExceptions = CreateRelatedExceptions(exception);
+
+            MagickException result = Create(severity, message);
+            result.SetRelatedException(innerExceptions);
+
+            return result;
+        }
+
+        public static bool IsError(MagickException exception)
+        {
+            if (exception == null)
+                return false;
+
+            return exception is MagickErrorException;
+        }
+
         private static List<MagickException> CreateRelatedExceptions(IntPtr exception)
         {
             int nestedCount = NativeMagickExceptionHelper.RelatedCount(exception);
@@ -114,53 +161,6 @@ namespace ImageMagick
                     else
                         return new MagickErrorException(message);
             }
-        }
-
-        public static MagickException Check(IntPtr exception)
-        {
-            MagickException magickException = Create(exception);
-
-            if (IsError(magickException))
-                throw magickException;
-
-            return magickException;
-        }
-
-        public static MagickException Create(IntPtr exception)
-        {
-            if (exception == IntPtr.Zero)
-                return null;
-
-            MagickException magickException = CreateException(exception);
-
-            NativeMagickExceptionHelper.Dispose(exception);
-
-            return magickException;
-        }
-
-        public static MagickException CreateException(IntPtr exception)
-        {
-            ExceptionSeverity severity = (ExceptionSeverity)NativeMagickExceptionHelper.Severity(exception);
-            string message = NativeMagickExceptionHelper.Message(exception);
-            string description = NativeMagickExceptionHelper.Description(exception);
-
-            if (!string.IsNullOrEmpty(description))
-                message += " (" + description + ")";
-
-            List<MagickException> innerExceptions = CreateRelatedExceptions(exception);
-
-            MagickException result = Create(severity, message);
-            result.SetRelatedException(innerExceptions);
-
-            return result;
-        }
-
-        public static bool IsError(MagickException exception)
-        {
-            if (exception == null)
-                return false;
-
-            return exception is MagickErrorException;
         }
     }
 }

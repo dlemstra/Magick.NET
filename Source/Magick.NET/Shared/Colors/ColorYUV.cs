@@ -33,24 +33,6 @@ namespace ImageMagick
         private double _V;
         private double _Y;
 
-        private ColorYUV(MagickColor color)
-          : base(color)
-        {
-            _Y = (1.0 / Quantum.Max) * ((0.298839 * color.R) + (0.586811 * color.G) + (0.11435 * color.B));
-            _U = ((1.0 / Quantum.Max) * ((-0.147 * color.R) - (0.289 * color.G) + (0.436 * color.B))) + 0.5;
-            _V = ((1.0 / Quantum.Max) * ((0.615 * color.R) - (0.515 * color.G) - (0.1 * color.B))) + 0.5;
-        }
-
-        /// <summary>
-        /// Updates the color value in an inherited class.
-        /// </summary>
-        protected override void UpdateColor()
-        {
-            Color.R = Quantum.ScaleToQuantum(_Y - (3.945707070708279e-05 * (_U - 0.5)) + (1.1398279671717170825 * (_V - 0.5)));
-            Color.G = Quantum.ScaleToQuantum(_Y - (0.3946101641414141437 * (_U - 0.5)) - (0.5805003156565656797 * (_V - 0.5)));
-            Color.B = Quantum.ScaleToQuantum(_Y + (2.0319996843434342537 * (_U - 0.5)) - (4.813762626262513e-04 * (_V - 0.5)));
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ColorYUV"/> class.
         /// </summary>
@@ -63,6 +45,14 @@ namespace ImageMagick
             _Y = y;
             _U = u;
             _V = v;
+        }
+
+        private ColorYUV(MagickColor color)
+          : base(color)
+        {
+            _Y = (1.0 / Quantum.Max) * ((0.298839 * color.R) + (0.586811 * color.G) + (0.11435 * color.B));
+            _U = ((1.0 / Quantum.Max) * ((-0.147 * color.R) - (0.289 * color.G) + (0.436 * color.B))) + 0.5;
+            _V = ((1.0 / Quantum.Max) * ((0.615 * color.R) - (0.515 * color.G) - (0.1 * color.B))) + 0.5;
         }
 
         /// <summary>
@@ -131,6 +121,16 @@ namespace ImageMagick
                 return null;
 
             return new ColorYUV(color);
+        }
+
+        /// <summary>
+        /// Updates the color value in an inherited class.
+        /// </summary>
+        protected override void UpdateColor()
+        {
+            Color.R = Quantum.ScaleToQuantum(_Y - (3.945707070708279e-05 * (_U - 0.5)) + (1.1398279671717170825 * (_V - 0.5)));
+            Color.G = Quantum.ScaleToQuantum(_Y - (0.3946101641414141437 * (_U - 0.5)) - (0.5805003156565656797 * (_V - 0.5)));
+            Color.B = Quantum.ScaleToQuantum(_Y + (2.0319996843434342537 * (_U - 0.5)) - (4.813762626262513e-04 * (_V - 0.5)));
         }
     }
 }

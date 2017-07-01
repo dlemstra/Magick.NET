@@ -34,22 +34,6 @@ namespace ImageMagick
             SetHuInvariants(nativeInstance);
         }
 
-        private void SetHuInvariants(NativeChannelMoments nativeInstance)
-        {
-            _HuInvariants = new double[8];
-
-            for (int i = 0; i < 8; i++)
-                _HuInvariants[i] = nativeInstance.GetHuInvariants(i);
-        }
-
-        internal static ChannelMoments Create(PixelChannel channel, IntPtr instance)
-        {
-            if (instance == IntPtr.Zero)
-                return null;
-
-            return new ChannelMoments(channel, instance);
-        }
-
         /// <summary>
         /// Gets the centroid.
         /// </summary>
@@ -114,6 +98,22 @@ namespace ImageMagick
             Throw.IfOutOfRange(nameof(index), index, 8);
 
             return _HuInvariants[index];
+        }
+
+        internal static ChannelMoments Create(PixelChannel channel, IntPtr instance)
+        {
+            if (instance == IntPtr.Zero)
+                return null;
+
+            return new ChannelMoments(channel, instance);
+        }
+
+        private void SetHuInvariants(NativeChannelMoments nativeInstance)
+        {
+            _HuInvariants = new double[8];
+
+            for (int i = 0; i < 8; i++)
+                _HuInvariants[i] = nativeInstance.GetHuInvariants(i);
         }
     }
 }

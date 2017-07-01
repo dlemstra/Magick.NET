@@ -21,43 +21,6 @@ namespace ImageMagick
     /// </summary>
     public class ImageProfile : IEquatable<ImageProfile>
     {
-        private static byte[] Copy(byte[] data)
-        {
-            if (data == null || data.Length == 0)
-                return new byte[0];
-
-            byte[] result = new byte[data.Length];
-            data.CopyTo(result, 0);
-            return result;
-        }
-
-        /// <summary>
-        /// Gets or sets the data of this profile.
-        /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays", Justification = "Subclasses need access to this array.")]
-        protected byte[] Data
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ImageProfile"/> class.
-        /// </summary>
-        /// <param name="name">The name of the profile.</param>
-        protected ImageProfile(string name)
-        {
-            Throw.IfNullOrEmpty(nameof(name), name);
-            Name = name;
-        }
-
-        /// <summary>
-        /// Updates the data of the profile.
-        /// </summary>
-        protected virtual void UpdateData()
-        {
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ImageProfile"/> class.
         /// </summary>
@@ -103,12 +66,32 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="ImageProfile"/> class.
+        /// </summary>
+        /// <param name="name">The name of the profile.</param>
+        protected ImageProfile(string name)
+        {
+            Throw.IfNullOrEmpty(nameof(name), name);
+            Name = name;
+        }
+
+        /// <summary>
         /// Gets the name of the profile.
         /// </summary>
         public string Name
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// Gets or sets the data of this profile.
+        /// </summary>
+        [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays", Justification = "Subclasses need access to this array.")]
+        protected byte[] Data
+        {
+            get;
+            set;
         }
 
         /// <summary>
@@ -199,6 +182,23 @@ namespace ImageMagick
         {
             UpdateData();
             return Copy(Data);
+        }
+
+        /// <summary>
+        /// Updates the data of the profile.
+        /// </summary>
+        protected virtual void UpdateData()
+        {
+        }
+
+        private static byte[] Copy(byte[] data)
+        {
+            if (data == null || data.Length == 0)
+                return new byte[0];
+
+            byte[] result = new byte[data.Length];
+            data.CopyTo(result, 0);
+            return result;
         }
     }
 }

@@ -22,15 +22,6 @@ namespace ImageMagick
     {
         private Dictionary<PixelChannel, ChannelMoments> _Channels;
 
-        private void AddChannel(IntPtr list, PixelChannel channel)
-        {
-            IntPtr instance = NativeMoments.GetInstance(list, channel);
-
-            ChannelMoments result = ChannelMoments.Create(channel, instance);
-            if (result != null)
-                _Channels.Add(result.Channel, result);
-        }
-
         internal Moments(MagickImage image, IntPtr list)
         {
             if (list == IntPtr.Zero)
@@ -39,12 +30,6 @@ namespace ImageMagick
             _Channels = new Dictionary<PixelChannel, ChannelMoments>();
             foreach (PixelChannel channel in image.Channels)
                 AddChannel(list, channel);
-        }
-
-        internal static void DisposeList(IntPtr list)
-        {
-            if (list != IntPtr.Zero)
-                NativeMoments.DisposeList(list);
         }
 
         /// <summary>
@@ -63,9 +48,23 @@ namespace ImageMagick
         /// <returns>The moments for the specified channel.</returns>
         public ChannelMoments GetChannel(PixelChannel channel)
         {
-            ChannelMoments moments;
-            _Channels.TryGetValue(channel, out moments);
+            _Channels.TryGetValue(channel, out ChannelMoments moments);
             return moments;
+        }
+
+        internal static void DisposeList(IntPtr list)
+        {
+            if (list != IntPtr.Zero)
+                NativeMoments.DisposeList(list);
+        }
+
+        private void AddChannel(IntPtr list, PixelChannel channel)
+        {
+            IntPtr instance = NativeMoments.GetInstance(list, channel);
+
+            ChannelMoments result = ChannelMoments.Create(channel, instance);
+            if (result != null)
+                _Channels.Add(result.Channel, result);
         }
     }
 }

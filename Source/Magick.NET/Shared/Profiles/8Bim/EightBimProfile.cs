@@ -29,6 +29,67 @@ namespace ImageMagick
         private Collection<EightBimValue> _Values;
         private int _Width;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EightBimProfile"/> class.
+        /// </summary>
+        /// <param name="data">The byte array to read the 8bim profile from.</param>
+        public EightBimProfile(byte[] data)
+          : base("8bim", data)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EightBimProfile"/> class.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the 8bim profile file, or the relative
+        /// 8bim profile file name.</param>
+        public EightBimProfile(string fileName)
+          : base("8bim", fileName)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EightBimProfile"/> class.
+        /// </summary>
+        /// <param name="stream">The stream to read the 8bim profile from.</param>
+        public EightBimProfile(Stream stream)
+          : base("8bim", stream)
+        {
+        }
+
+        internal EightBimProfile(MagickImage image, byte[] data)
+          : base("8bim", data)
+        {
+            _Width = image.Width;
+            _Height = image.Height;
+        }
+
+        /// <summary>
+        /// Gets the clipping paths this image contains.
+        /// </summary>
+        public IEnumerable<ClipPath> ClipPaths
+        {
+            get
+            {
+                Initialize();
+
+                return _ClipPaths;
+            }
+        }
+
+        /// <summary>
+        /// Gets the values of this 8bim profile.
+        /// </summary>
+        public IEnumerable<EightBimValue> Values
+        {
+            get
+            {
+                Initialize();
+
+                return _Values;
+            }
+        }
+
         private ClipPath CreateClipPath(string name, int offset, int length)
         {
             string d = GetClipPath(offset, length);
@@ -121,67 +182,6 @@ namespace ImageMagick
                 }
 
                 i += length;
-            }
-        }
-
-        internal EightBimProfile(MagickImage image, byte[] data)
-          : base("8bim", data)
-        {
-            _Width = image.Width;
-            _Height = image.Height;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EightBimProfile"/> class.
-        /// </summary>
-        /// <param name="data">The byte array to read the 8bim profile from.</param>
-        public EightBimProfile(byte[] data)
-          : base("8bim", data)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EightBimProfile"/> class.
-        /// </summary>
-        /// <param name="fileName">The fully qualified name of the 8bim profile file, or the relative
-        /// 8bim profile file name.</param>
-        public EightBimProfile(string fileName)
-          : base("8bim", fileName)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EightBimProfile"/> class.
-        /// </summary>
-        /// <param name="stream">The stream to read the 8bim profile from.</param>
-        public EightBimProfile(Stream stream)
-          : base("8bim", stream)
-        {
-        }
-
-        /// <summary>
-        /// Gets the clipping paths this image contains.
-        /// </summary>
-        public IEnumerable<ClipPath> ClipPaths
-        {
-            get
-            {
-                Initialize();
-
-                return _ClipPaths;
-            }
-        }
-
-        /// <summary>
-        /// Gets the values of this 8bim profile.
-        /// </summary>
-        public IEnumerable<EightBimValue> Values
-        {
-            get
-            {
-                Initialize();
-
-                return _Values;
             }
         }
     }

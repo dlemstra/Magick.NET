@@ -20,28 +20,6 @@ namespace ImageMagick
     /// </summary>
     public sealed partial class DrawableAffine : IDrawable, IDrawingWand
     {
-        private static double DegreesToRadians(double x)
-        {
-            return Math.PI * x / 180.0;
-        }
-
-        private void Transform(DrawableAffine affine)
-        {
-            double scaleX = ScaleX;
-            double scaleY = ScaleY;
-            double shearX = ShearX;
-            double shearY = ShearY;
-            double translateX = TranslateX;
-            double translateY = TranslateY;
-
-            ScaleX = (scaleX * affine.ScaleX) + (shearY * affine.ShearX);
-            ScaleY = (shearX * affine.ShearY) + (scaleY * affine.ScaleY);
-            ShearX = (shearX * affine.ScaleX) + (scaleY * affine.ShearX);
-            ShearY = (scaleX * affine.ShearY) + (shearY * affine.ScaleY);
-            TranslateX = (scaleX * affine.TranslateX) + (shearY * affine.TranslateY) + translateX;
-            TranslateY = (shearX * affine.TranslateX) + (scaleY * affine.TranslateY) + translateY;
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DrawableAffine"/> class.
         /// </summary>
@@ -216,6 +194,28 @@ namespace ImageMagick
             affine.ShearY = Math.Tan(DegreesToRadians(Math.IEEERemainder(skewY, 360.0)));
 
             Transform(affine);
+        }
+
+        private static double DegreesToRadians(double x)
+        {
+            return Math.PI * x / 180.0;
+        }
+
+        private void Transform(DrawableAffine affine)
+        {
+            double scaleX = ScaleX;
+            double scaleY = ScaleY;
+            double shearX = ShearX;
+            double shearY = ShearY;
+            double translateX = TranslateX;
+            double translateY = TranslateY;
+
+            ScaleX = (scaleX * affine.ScaleX) + (shearY * affine.ShearX);
+            ScaleY = (shearX * affine.ShearY) + (scaleY * affine.ScaleY);
+            ShearX = (shearX * affine.ScaleX) + (scaleY * affine.ShearX);
+            ShearY = (scaleX * affine.ShearY) + (shearY * affine.ScaleY);
+            TranslateX = (scaleX * affine.TranslateX) + (shearY * affine.TranslateY) + translateX;
+            TranslateY = (shearX * affine.TranslateX) + (scaleY * affine.TranslateY) + translateY;
         }
     }
 }

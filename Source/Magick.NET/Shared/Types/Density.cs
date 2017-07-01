@@ -20,55 +20,6 @@ namespace ImageMagick
     /// </summary>
     public sealed class Density : IEquatable<Density>
     {
-        private void Initialize(string value)
-        {
-            Throw.IfNullOrEmpty(nameof(value), value);
-
-            string[] values = value.Split(' ');
-            Throw.IfTrue(nameof(value), values.Length > 2, "Invalid density specified.");
-
-            if (values.Length == 2)
-            {
-                if (values[1].Equals("cm", StringComparison.OrdinalIgnoreCase))
-                    Units = DensityUnit.PixelsPerCentimeter;
-                else if (values[1].Equals("inch", StringComparison.OrdinalIgnoreCase))
-                    Units = DensityUnit.PixelsPerInch;
-                else
-                    throw new ArgumentException("Invalid density specified.", nameof(value));
-            }
-
-            string[] xyValues = values[0].Split('x');
-            Throw.IfTrue(nameof(value), xyValues.Length > 2, "Invalid density specified.");
-
-            double x;
-            Throw.IfFalse(nameof(value), double.TryParse(xyValues[0], NumberStyles.Number, CultureInfo.InvariantCulture, out x), "Invalid density specified.");
-
-            double y;
-            if (xyValues.Length == 1)
-                y = x;
-            else
-                Throw.IfFalse(nameof(value), double.TryParse(xyValues[1], NumberStyles.Number, CultureInfo.InvariantCulture, out y), "Invalid density specified.");
-
-            X = x;
-            Y = y;
-        }
-
-        internal static Density Create(string value)
-        {
-            if (string.IsNullOrEmpty(value))
-                return null;
-
-            return new Density(value);
-        }
-
-        internal static Density Clone(Density value)
-        {
-            if (value == null)
-                return null;
-
-            return new Density(value.X, value.Y, value.Units);
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Density"/> class with the density set to inches.
         /// </summary>
@@ -255,6 +206,55 @@ namespace ImageMagick
                 default:
                     return result;
             }
+        }
+
+        internal static Density Create(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                return null;
+
+            return new Density(value);
+        }
+
+        internal static Density Clone(Density value)
+        {
+            if (value == null)
+                return null;
+
+            return new Density(value.X, value.Y, value.Units);
+        }
+
+        private void Initialize(string value)
+        {
+            Throw.IfNullOrEmpty(nameof(value), value);
+
+            string[] values = value.Split(' ');
+            Throw.IfTrue(nameof(value), values.Length > 2, "Invalid density specified.");
+
+            if (values.Length == 2)
+            {
+                if (values[1].Equals("cm", StringComparison.OrdinalIgnoreCase))
+                    Units = DensityUnit.PixelsPerCentimeter;
+                else if (values[1].Equals("inch", StringComparison.OrdinalIgnoreCase))
+                    Units = DensityUnit.PixelsPerInch;
+                else
+                    throw new ArgumentException("Invalid density specified.", nameof(value));
+            }
+
+            string[] xyValues = values[0].Split('x');
+            Throw.IfTrue(nameof(value), xyValues.Length > 2, "Invalid density specified.");
+
+            double x;
+            Throw.IfFalse(nameof(value), double.TryParse(xyValues[0], NumberStyles.Number, CultureInfo.InvariantCulture, out x), "Invalid density specified.");
+
+            double y;
+            if (xyValues.Length == 1)
+                y = x;
+            else
+                Throw.IfFalse(nameof(value), double.TryParse(xyValues[1], NumberStyles.Number, CultureInfo.InvariantCulture, out y), "Invalid density specified.");
+
+            X = x;
+            Y = y;
         }
     }
 }

@@ -30,26 +30,6 @@ namespace ImageMagick
     /// </summary>
     public sealed class ColorCMYK : ColorBase
     {
-        private ColorCMYK(MagickColor color)
-          : base(color)
-        {
-        }
-
-        private static MagickColor CreateColor(string color)
-        {
-            Throw.IfNullOrEmpty(nameof(color), color);
-
-            if (color[0] == '#')
-            {
-                List<QuantumType> colors = HexColor.Parse(color);
-
-                if (colors.Count == 4)
-                    return new MagickColor(colors[0], colors[1], colors[2], colors[3], Quantum.Max);
-            }
-
-            throw new ArgumentException("Invalid color specified", nameof(color));
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ColorCMYK"/> class.
         /// </summary>
@@ -117,6 +97,11 @@ namespace ImageMagick
 #endif
         public ColorCMYK(string color)
           : base(CreateColor(color))
+        {
+        }
+
+        private ColorCMYK(MagickColor color)
+          : base(color)
         {
         }
 
@@ -216,6 +201,21 @@ namespace ImageMagick
                 return null;
 
             return new ColorCMYK(color);
+        }
+
+        private static MagickColor CreateColor(string color)
+        {
+            Throw.IfNullOrEmpty(nameof(color), color);
+
+            if (color[0] == '#')
+            {
+                List<QuantumType> colors = HexColor.Parse(color);
+
+                if (colors.Count == 4)
+                    return new MagickColor(colors[0], colors[1], colors[2], colors[3], Quantum.Max);
+            }
+
+            throw new ArgumentException("Invalid color specified", nameof(color));
         }
     }
 }

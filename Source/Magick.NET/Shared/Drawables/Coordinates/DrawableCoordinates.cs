@@ -17,23 +17,6 @@ namespace ImageMagick
 {
     internal abstract class DrawableCoordinates<TCoordinateType>
     {
-        private void CheckCoordinates(List<TCoordinateType> coordinates, int minCount)
-        {
-            if (coordinates.Count == 0)
-                throw new ArgumentException("Value cannot be empty", nameof(coordinates));
-
-            foreach (TCoordinateType coordinate in coordinates)
-            {
-                if (coordinate == null)
-                    throw new ArgumentNullException(nameof(coordinates), "Value should not contain null values");
-            }
-
-            if (coordinates.Count < minCount)
-                throw new ArgumentException("Value should contain at least " + minCount + " coordinates.", nameof(coordinates));
-
-            Coordinates = coordinates;
-        }
-
         protected DrawableCoordinates(IEnumerable<TCoordinateType> coordinates, int minCount)
         {
             Throw.IfNull(nameof(coordinates), coordinates);
@@ -50,6 +33,23 @@ namespace ImageMagick
         public IList<TCoordinateType> ToList()
         {
             return Coordinates;
+        }
+
+        private void CheckCoordinates(List<TCoordinateType> coordinates, int minCount)
+        {
+            if (coordinates.Count == 0)
+                throw new ArgumentException("Value cannot be empty", nameof(coordinates));
+
+            foreach (TCoordinateType coordinate in coordinates)
+            {
+                if (coordinate == null)
+                    throw new ArgumentNullException(nameof(coordinates), "Value should not contain null values");
+            }
+
+            if (coordinates.Count < minCount)
+                throw new ArgumentException("Value should contain at least " + minCount + " coordinates.", nameof(coordinates));
+
+            Coordinates = coordinates;
         }
     }
 }

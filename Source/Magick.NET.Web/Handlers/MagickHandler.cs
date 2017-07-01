@@ -30,91 +30,6 @@ namespace ImageMagick.Web.Handlers
         private static readonly ReaderWriterLockSlim _Lock = new ReaderWriterLockSlim();
         private static volatile string _Version;
 
-        private void AddCacheControlHeader(HttpResponse response)
-        {
-            if (Settings.ClientCache.CacheControlMode == CacheControlMode.NoControl)
-                return;
-
-            response.Cache.SetMaxAge(Settings.ClientCache.CacheControlMaxAge);
-            response.Cache.SetCacheability(HttpCacheability.Public);
-        }
-
-        private static string CalculateMD5(string value)
-        {
-            using (MD5 md5 = MD5.Create())
-            {
-                byte[] data = md5.ComputeHash(Encoding.Default.GetBytes(value));
-
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < data.Length; i++)
-                {
-                    sb.Append(data[i].ToString("X2", CultureInfo.InvariantCulture));
-                }
-
-                return sb.ToString();
-            }
-        }
-
-        private void InitializeVersion()
-        {
-            if (!Settings.ShowVersion || _Version != null)
-                return;
-
-            object version = typeof(MagickHandler).Assembly.GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false)[0];
-            _Version = ((AssemblyFileVersionAttribute)version).Version;
-        }
-
-        private void WriteFile(HttpContext context, string fileName)
-        {
-            _Lock.EnterReadLock();
-
-            try
-            {
-                AddCacheControlHeader(context.Response);
-
-                if (Write304(context, File.GetLastWriteTimeUtc(fileName)))
-                    return;
-
-                context.Response.TransmitFile(fileName);
-            }
-            finally
-            {
-                _Lock.ExitReadLock();
-            }
-        }
-
-        private static bool Write304(HttpContext content, DateTime fileDate)
-        {
-            DateTime modificationDate = new DateTime(fileDate.Year, fileDate.Month, fileDate.Day, fileDate.Hour, fileDate.Minute, fileDate.Second, DateTimeKind.Utc);
-            if (modificationDate > DateTime.UtcNow)
-                modificationDate = DateTime.UtcNow;
-
-            content.Response.Cache.SetLastModified(modificationDate);
-            string modifiedSince = content.Request.Headers["If-Modified-Since"];
-
-            if (string.IsNullOrEmpty(modifiedSince))
-                return false;
-
-            string since;
-            int index = modifiedSince.IndexOf(";", StringComparison.OrdinalIgnoreCase);
-
-            if (index >= 0)
-                since = modifiedSince.Substring(0, index);
-            else
-                since = modifiedSince;
-
-            DateTime modifiedDate;
-            bool success = DateTime.TryParseExact(since, "r", CultureInfo.InvariantCulture, DateTimeStyles.None, out modifiedDate);
-
-            if (success && modifiedDate == modificationDate)
-            {
-                content.Response.StatusCode = 304;
-                return true;
-            }
-
-            return false;
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickHandler"/> class.
         /// </summary>
@@ -129,13 +44,15 @@ namespace ImageMagick.Web.Handlers
         }
 
         /// <summary>
-        /// Returns the file name that should be send to the response.
+        /// Gets a value indicating whether another request can use the IHttpHandler instance.
         /// </summary>
-        /// <param name="context">An HttpContext object that provides references to the intrinsic
-        /// server objects (for example, Request, Response, Session, and Server) used to service
-        /// HTTP requests.</param>
-        /// <returns>The file name that should be send to the response.</returns>
-        protected abstract string GetFileName(HttpContext context);
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
 
         /// <summary>
         /// Gets the data of the image.
@@ -152,6 +69,61 @@ namespace ImageMagick.Web.Handlers
         {
             get;
         }
+
+        /// <summary>
+        /// Enables processing of HTTP Web requests by a custom HttpHandler that implements the
+        /// IHttpHandler interface.
+        /// </summary>
+        /// <param name="context">An HttpContext object that provides references to the intrinsic
+        /// server objects (for example, Request, Response, Session, and Server) used to service
+        /// HTTP requests.</param>
+        public void ProcessRequest(HttpContext context)
+        {
+            if (context == null)
+                return;
+
+            context.Response.ContentType = GetMimeType();
+
+            if (!string.IsNullOrEmpty(_Version))
+                context.Response.AddHeader("X-Magick", _Version);
+
+            string filename = GetFileName(context);
+
+            if (!string.IsNullOrEmpty(filename))
+                WriteFile(context, filename);
+        }
+
+        /// <summary>
+        /// Moves to the specified source file name to the destination file name. This is happening
+        /// in a lock to avoid problems when an other request is reading the file.
+        /// </summary>
+        /// <param name="fileName">The name of the file to move to the cache.</param>
+        /// <param name="cacheFileName">The file name of the cache file.</param>
+        protected static void MoveToCache(string fileName, string cacheFileName)
+        {
+            try
+            {
+                _Lock.EnterWriteLock();
+
+                if (File.Exists(cacheFileName))
+                    File.Delete(cacheFileName);
+
+                File.Move(fileName, cacheFileName);
+            }
+            finally
+            {
+                _Lock.ExitWriteLock();
+            }
+        }
+
+        /// <summary>
+        /// Returns the file name that should be send to the response.
+        /// </summary>
+        /// <param name="context">An HttpContext object that provides references to the intrinsic
+        /// server objects (for example, Request, Response, Session, and Server) used to service
+        /// HTTP requests.</param>
+        /// <returns>The file name that should be send to the response.</returns>
+        protected abstract string GetFileName(HttpContext context);
 
         /// <summary>
         /// Returns true if the cache file is newer then the file name that was resolved by the
@@ -213,61 +185,88 @@ namespace ImageMagick.Web.Handlers
             return ImageData.FormatInfo.MimeType;
         }
 
-        /// <summary>
-        /// Moves to the specified source file name to the destination file name. This is happening
-        /// in a lock to avoid problems when an other request is reading the file.
-        /// </summary>
-        /// <param name="fileName">The name of the file to move to the cache.</param>
-        /// <param name="cacheFileName">The file name of the cache file.</param>
-        protected static void MoveToCache(string fileName, string cacheFileName)
+        private static string CalculateMD5(string value)
         {
+            using (MD5 md5 = MD5.Create())
+            {
+                byte[] data = md5.ComputeHash(Encoding.Default.GetBytes(value));
+
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < data.Length; i++)
+                {
+                    sb.Append(data[i].ToString("X2", CultureInfo.InvariantCulture));
+                }
+
+                return sb.ToString();
+            }
+        }
+
+        private static bool Write304(HttpContext content, DateTime fileDate)
+        {
+            DateTime modificationDate = new DateTime(fileDate.Year, fileDate.Month, fileDate.Day, fileDate.Hour, fileDate.Minute, fileDate.Second, DateTimeKind.Utc);
+            if (modificationDate > DateTime.UtcNow)
+                modificationDate = DateTime.UtcNow;
+
+            content.Response.Cache.SetLastModified(modificationDate);
+            string modifiedSince = content.Request.Headers["If-Modified-Since"];
+
+            if (string.IsNullOrEmpty(modifiedSince))
+                return false;
+
+            string since;
+            int index = modifiedSince.IndexOf(";", StringComparison.OrdinalIgnoreCase);
+
+            if (index >= 0)
+                since = modifiedSince.Substring(0, index);
+            else
+                since = modifiedSince;
+
+            bool success = DateTime.TryParseExact(since, "r", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime modifiedDate);
+
+            if (success && modifiedDate == modificationDate)
+            {
+                content.Response.StatusCode = 304;
+                return true;
+            }
+
+            return false;
+        }
+
+        private void AddCacheControlHeader(HttpResponse response)
+        {
+            if (Settings.ClientCache.CacheControlMode == CacheControlMode.NoControl)
+                return;
+
+            response.Cache.SetMaxAge(Settings.ClientCache.CacheControlMaxAge);
+            response.Cache.SetCacheability(HttpCacheability.Public);
+        }
+
+        private void InitializeVersion()
+        {
+            if (!Settings.ShowVersion || _Version != null)
+                return;
+
+            object version = typeof(MagickHandler).Assembly.GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false)[0];
+            _Version = ((AssemblyFileVersionAttribute)version).Version;
+        }
+
+        private void WriteFile(HttpContext context, string fileName)
+        {
+            _Lock.EnterReadLock();
+
             try
             {
-                _Lock.EnterWriteLock();
+                AddCacheControlHeader(context.Response);
 
-                if (File.Exists(cacheFileName))
-                    File.Delete(cacheFileName);
+                if (Write304(context, File.GetLastWriteTimeUtc(fileName)))
+                    return;
 
-                File.Move(fileName, cacheFileName);
+                context.Response.TransmitFile(fileName);
             }
             finally
             {
-                _Lock.ExitWriteLock();
+                _Lock.ExitReadLock();
             }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether another request can use the IHttpHandler instance.
-        /// </summary>
-        public bool IsReusable
-        {
-            get
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Enables processing of HTTP Web requests by a custom HttpHandler that implements the
-        /// IHttpHandler interface.
-        /// </summary>
-        /// <param name="context">An HttpContext object that provides references to the intrinsic
-        /// server objects (for example, Request, Response, Session, and Server) used to service
-        /// HTTP requests.</param>
-        public void ProcessRequest(HttpContext context)
-        {
-            if (context == null)
-                return;
-
-            context.Response.ContentType = GetMimeType();
-
-            if (!string.IsNullOrEmpty(_Version))
-                context.Response.AddHeader("X-Magick", _Version);
-
-            string filename = GetFileName(context);
-
-            if (!string.IsNullOrEmpty(filename))
-                WriteFile(context, filename);
         }
     }
 }

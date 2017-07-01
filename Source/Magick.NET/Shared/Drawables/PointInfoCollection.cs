@@ -18,12 +18,6 @@ namespace ImageMagick
 {
     internal sealed partial class PointInfoCollection : INativeInstance
     {
-        private PointInfoCollection(int count)
-        {
-            _NativeInstance = new NativePointInfoCollection(count);
-            Count = count;
-        }
-
         public PointInfoCollection(IList<PointD> coordinates)
           : this(coordinates.Count)
         {
@@ -32,6 +26,12 @@ namespace ImageMagick
                 PointD point = coordinates[i];
                 _NativeInstance.Set(i, point.X, point.Y);
             }
+        }
+
+        private PointInfoCollection(int count)
+        {
+            _NativeInstance = new NativePointInfoCollection(count);
+            Count = count;
         }
 
         public int Count

@@ -19,13 +19,6 @@ namespace ImageMagick
     {
         private IMagickImage _Image;
 
-        private DrawableComposite(IMagickImage image)
-        {
-            Throw.IfNull(nameof(image), image);
-
-            _Image = image;
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DrawableComposite"/> class.
         /// </summary>
@@ -92,6 +85,13 @@ namespace ImageMagick
             Width = offset.Width;
             Height = offset.Height;
             Compose = compose;
+        }
+
+        private DrawableComposite(IMagickImage image)
+        {
+            Throw.IfNull(nameof(image), image);
+
+            _Image = image;
         }
 
         /// <summary>

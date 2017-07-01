@@ -34,30 +34,6 @@ namespace ImageMagick
             _BufferStart = (byte*)_Handle.AddrOfPinnedObject().ToPointer();
         }
 
-        private byte* FillBuffer(byte* p, int length)
-        {
-            byte* q = _BufferStart;
-            while (length > 0)
-            {
-                *(q++) = *(p++);
-                length--;
-            }
-
-            return p;
-        }
-
-        private byte* ReadBuffer(byte* p, int length)
-        {
-            byte* q = _BufferStart;
-            while (length > 0)
-            {
-                *(p++) = *(q++);
-                length--;
-            }
-
-            return p;
-        }
-
         public static StreamWrapper CreateForReading(Stream stream)
         {
             Throw.IfFalse(nameof(stream), stream.CanRead, "The stream should be readable.");
@@ -163,6 +139,30 @@ namespace ImageMagick
             }
 
             return (int)count;
+        }
+
+        private byte* FillBuffer(byte* p, int length)
+        {
+            byte* q = _BufferStart;
+            while (length > 0)
+            {
+                *(q++) = *(p++);
+                length--;
+            }
+
+            return p;
+        }
+
+        private byte* ReadBuffer(byte* p, int length)
+        {
+            byte* q = _BufferStart;
+            while (length > 0)
+            {
+                *(p++) = *(q++);
+                length--;
+            }
+
+            return p;
         }
     }
 }

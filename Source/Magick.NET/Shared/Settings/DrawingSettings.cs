@@ -20,64 +20,6 @@ namespace ImageMagick
     {
         private double[] _StrokeDashArray;
 
-        private INativeInstance CreateNativeInstance()
-        {
-            NativeDrawingSettings instance = new NativeDrawingSettings();
-            instance.BorderColor = BorderColor;
-            instance.FillColor = FillColor;
-            instance.FillRule = FillRule;
-            instance.Font = Font;
-            instance.FontFamily = FontFamily;
-            instance.FontPointsize = FontPointsize;
-            instance.FontStyle = FontStyle;
-            instance.FontWeight = FontWeight;
-            instance.StrokeAntiAlias = StrokeAntiAlias;
-            instance.StrokeColor = StrokeColor;
-            instance.StrokeDashOffset = StrokeDashOffset;
-            instance.StrokeLineCap = StrokeLineCap;
-            instance.StrokeLineJoin = StrokeLineJoin;
-            instance.StrokeMiterLimit = StrokeMiterLimit;
-            instance.StrokeWidth = StrokeWidth;
-            instance.TextAntiAlias = TextAntiAlias;
-            instance.TextDirection = TextDirection;
-            if (TextEncoding != null)
-                instance.TextEncoding = TextEncoding.WebName;
-            instance.TextGravity = TextGravity;
-            instance.TextInterlineSpacing = TextInterlineSpacing;
-            instance.TextInterwordSpacing = TextInterwordSpacing;
-            instance.TextKerning = TextKerning;
-            instance.TextUnderColor = TextUnderColor;
-
-            if (Affine != null)
-                instance.SetAffine(Affine.ScaleX, Affine.ScaleY, Affine.ShearX, Affine.ShearY, Affine.TranslateX, Affine.TranslateY);
-            if (FillPattern != null)
-                instance.SetFillPattern(FillPattern);
-            if (_StrokeDashArray != null)
-                instance.SetStrokeDashArray(_StrokeDashArray, _StrokeDashArray.Length);
-            if (StrokePattern != null)
-                instance.SetStrokePattern(StrokePattern);
-            if (!string.IsNullOrEmpty(Text))
-                instance.SetText(Text);
-
-            return instance;
-        }
-
-        private static Encoding GetTextEncoding(NativeDrawingSettings instance)
-        {
-            string name = instance.TextEncoding;
-            if (string.IsNullOrEmpty(name))
-                return null;
-
-            try
-            {
-                return Encoding.GetEncoding(name);
-            }
-            catch (ArgumentException)
-            {
-                return null;
-            }
-        }
-
         internal DrawingSettings()
         {
             using (NativeDrawingSettings instance = new NativeDrawingSettings())
@@ -106,42 +48,6 @@ namespace ImageMagick
                 TextKerning = instance.TextKerning;
                 TextUnderColor = instance.TextUnderColor;
             }
-        }
-
-        internal DrawingSettings Clone()
-        {
-            DrawingSettings clone = new DrawingSettings();
-            clone.BorderColor = MagickColor.Clone(BorderColor);
-            clone.FillColor = MagickColor.Clone(FillColor);
-            clone.FillRule = FillRule;
-            clone.Font = Font;
-            clone.FontFamily = FontFamily;
-            clone.FontPointsize = FontPointsize;
-            clone.FontStyle = FontStyle;
-            clone.FontWeight = FontWeight;
-            clone.StrokeAntiAlias = StrokeAntiAlias;
-            clone.StrokeColor = MagickColor.Clone(StrokeColor);
-            clone.StrokeDashOffset = StrokeDashOffset;
-            clone.StrokeLineCap = StrokeLineCap;
-            clone.StrokeLineJoin = StrokeLineJoin;
-            clone.StrokeMiterLimit = StrokeMiterLimit;
-            clone.StrokeWidth = StrokeWidth;
-            clone.TextAntiAlias = TextAntiAlias;
-            clone.TextDirection = TextDirection;
-            clone.TextEncoding = TextEncoding;
-            clone.TextGravity = TextGravity;
-            clone.TextInterlineSpacing = TextInterlineSpacing;
-            clone.TextInterwordSpacing = TextInterwordSpacing;
-            clone.TextKerning = TextKerning;
-            clone.TextUnderColor = MagickColor.Clone(TextUnderColor);
-
-            clone.Affine = Affine;
-            clone.FillPattern = MagickImage.Clone(FillPattern);
-            clone._StrokeDashArray = _StrokeDashArray != null ? (double[])_StrokeDashArray.Clone() : null;
-            clone.StrokePattern = MagickImage.Clone(StrokePattern);
-            clone.Text = Text;
-
-            return clone;
         }
 
         public DrawableAffine Affine
@@ -317,6 +223,100 @@ namespace ImageMagick
         {
             get;
             set;
+        }
+
+        internal DrawingSettings Clone()
+        {
+            DrawingSettings clone = new DrawingSettings();
+            clone.BorderColor = MagickColor.Clone(BorderColor);
+            clone.FillColor = MagickColor.Clone(FillColor);
+            clone.FillRule = FillRule;
+            clone.Font = Font;
+            clone.FontFamily = FontFamily;
+            clone.FontPointsize = FontPointsize;
+            clone.FontStyle = FontStyle;
+            clone.FontWeight = FontWeight;
+            clone.StrokeAntiAlias = StrokeAntiAlias;
+            clone.StrokeColor = MagickColor.Clone(StrokeColor);
+            clone.StrokeDashOffset = StrokeDashOffset;
+            clone.StrokeLineCap = StrokeLineCap;
+            clone.StrokeLineJoin = StrokeLineJoin;
+            clone.StrokeMiterLimit = StrokeMiterLimit;
+            clone.StrokeWidth = StrokeWidth;
+            clone.TextAntiAlias = TextAntiAlias;
+            clone.TextDirection = TextDirection;
+            clone.TextEncoding = TextEncoding;
+            clone.TextGravity = TextGravity;
+            clone.TextInterlineSpacing = TextInterlineSpacing;
+            clone.TextInterwordSpacing = TextInterwordSpacing;
+            clone.TextKerning = TextKerning;
+            clone.TextUnderColor = MagickColor.Clone(TextUnderColor);
+
+            clone.Affine = Affine;
+            clone.FillPattern = MagickImage.Clone(FillPattern);
+            clone._StrokeDashArray = _StrokeDashArray != null ? (double[])_StrokeDashArray.Clone() : null;
+            clone.StrokePattern = MagickImage.Clone(StrokePattern);
+            clone.Text = Text;
+
+            return clone;
+        }
+
+        private static Encoding GetTextEncoding(NativeDrawingSettings instance)
+        {
+            string name = instance.TextEncoding;
+            if (string.IsNullOrEmpty(name))
+                return null;
+
+            try
+            {
+                return Encoding.GetEncoding(name);
+            }
+            catch (ArgumentException)
+            {
+                return null;
+            }
+        }
+
+        private INativeInstance CreateNativeInstance()
+        {
+            NativeDrawingSettings instance = new NativeDrawingSettings();
+            instance.BorderColor = BorderColor;
+            instance.FillColor = FillColor;
+            instance.FillRule = FillRule;
+            instance.Font = Font;
+            instance.FontFamily = FontFamily;
+            instance.FontPointsize = FontPointsize;
+            instance.FontStyle = FontStyle;
+            instance.FontWeight = FontWeight;
+            instance.StrokeAntiAlias = StrokeAntiAlias;
+            instance.StrokeColor = StrokeColor;
+            instance.StrokeDashOffset = StrokeDashOffset;
+            instance.StrokeLineCap = StrokeLineCap;
+            instance.StrokeLineJoin = StrokeLineJoin;
+            instance.StrokeMiterLimit = StrokeMiterLimit;
+            instance.StrokeWidth = StrokeWidth;
+            instance.TextAntiAlias = TextAntiAlias;
+            instance.TextDirection = TextDirection;
+            if (TextEncoding != null)
+                instance.TextEncoding = TextEncoding.WebName;
+            instance.TextGravity = TextGravity;
+            instance.TextInterlineSpacing = TextInterlineSpacing;
+            instance.TextInterwordSpacing = TextInterwordSpacing;
+            instance.TextKerning = TextKerning;
+            instance.TextUnderColor = TextUnderColor;
+
+            if (Affine != null)
+                instance.SetAffine(Affine.ScaleX, Affine.ScaleY, Affine.ShearX, Affine.ShearY, Affine.TranslateX, Affine.TranslateY);
+            if (FillPattern != null)
+                instance.SetFillPattern(FillPattern);
+            if (_StrokeDashArray != null)
+                instance.SetStrokeDashArray(_StrokeDashArray, _StrokeDashArray.Length);
+            if (StrokePattern != null)
+                instance.SetStrokePattern(StrokePattern);
+            if (!string.IsNullOrEmpty(Text))
+                instance.SetText(Text);
+
+            return instance;
         }
     }
 }

@@ -23,32 +23,6 @@ namespace ImageMagick
         private double _X;
         private double _Y;
 
-        private void Initialize(string value)
-        {
-            string[] values = value.Split('x');
-            Throw.IfTrue(nameof(value), values.Length > 2, "Invalid point specified.");
-
-            double x;
-            Throw.IfFalse(nameof(value), double.TryParse(values[0], NumberStyles.Number, CultureInfo.InvariantCulture, out x), "Invalid point specified.");
-
-            double y;
-            if (values.Length == 2)
-                Throw.IfFalse(nameof(value), double.TryParse(values[1], NumberStyles.Number, CultureInfo.InvariantCulture, out y), "Invalid point specified.");
-            else
-                y = x;
-
-            _X = x;
-            _Y = y;
-        }
-
-        internal static PointD FromPointInfo(PointInfo point)
-        {
-            if (point == null)
-                return default(PointD);
-
-            return new PointD(point.X, point.Y);
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PointD"/> struct.
         /// </summary>
@@ -170,6 +144,32 @@ namespace ImageMagick
         public override string ToString()
         {
             return string.Format(CultureInfo.InvariantCulture, "{0}x{1}", _X, _Y);
+        }
+
+        internal static PointD FromPointInfo(PointInfo point)
+        {
+            if (point == null)
+                return default(PointD);
+
+            return new PointD(point.X, point.Y);
+        }
+
+        private void Initialize(string value)
+        {
+            string[] values = value.Split('x');
+            Throw.IfTrue(nameof(value), values.Length > 2, "Invalid point specified.");
+
+            double x;
+            Throw.IfFalse(nameof(value), double.TryParse(values[0], NumberStyles.Number, CultureInfo.InvariantCulture, out x), "Invalid point specified.");
+
+            double y;
+            if (values.Length == 2)
+                Throw.IfFalse(nameof(value), double.TryParse(values[1], NumberStyles.Number, CultureInfo.InvariantCulture, out y), "Invalid point specified.");
+            else
+                y = x;
+
+            _X = x;
+            _Y = y;
         }
     }
 }

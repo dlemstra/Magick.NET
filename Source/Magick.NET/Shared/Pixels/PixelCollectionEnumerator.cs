@@ -35,12 +35,6 @@ namespace ImageMagick
         private int _Y;
         private int _Width;
 
-        private void SetRow()
-        {
-            if (_Y < _Height)
-                _Row = _Collection.GetAreaUnchecked(0, _Y, _Width, 1);
-        }
-
         public PixelCollectionEnumerator(PixelCollection collection, int width, int height)
         {
             _Collection = collection;
@@ -97,6 +91,12 @@ namespace ImageMagick
             _X = -1;
             _Y = 0;
             SetRow();
+        }
+
+        private void SetRow()
+        {
+            if (_Y < _Height)
+                _Row = _Collection.GetAreaUnchecked(0, _Y, _Width, 1);
         }
     }
 }
