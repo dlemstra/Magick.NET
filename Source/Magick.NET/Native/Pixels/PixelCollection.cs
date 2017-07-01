@@ -70,7 +70,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private NativePixelCollection _NativeInstance;
+        private NativePixelCollection _nativeInstance;
         private sealed class NativePixelCollection : NativeInstance
         {
             protected override void Dispose(IntPtr instance)

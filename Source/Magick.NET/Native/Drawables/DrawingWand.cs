@@ -382,7 +382,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private NativeDrawingWand _NativeInstance;
+        private NativeDrawingWand _nativeInstance;
         private sealed class NativeDrawingWand : NativeInstance
         {
             protected override void Dispose(IntPtr instance)

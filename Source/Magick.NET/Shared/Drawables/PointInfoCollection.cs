@@ -24,13 +24,13 @@ namespace ImageMagick
             for (int i = 0; i < coordinates.Count; i++)
             {
                 PointD point = coordinates[i];
-                _NativeInstance.Set(i, point.X, point.Y);
+                _nativeInstance.Set(i, point.X, point.Y);
             }
         }
 
         private PointInfoCollection(int count)
         {
-            _NativeInstance = new NativePointInfoCollection(count);
+            _nativeInstance = new NativePointInfoCollection(count);
             Count = count;
         }
 
@@ -44,14 +44,14 @@ namespace ImageMagick
         {
             get
             {
-                return _NativeInstance.Instance;
+                return _nativeInstance.Instance;
             }
         }
 
         public void Dispose()
         {
-            DebugThrow.IfNull(_NativeInstance);
-            _NativeInstance.Dispose();
+            DebugThrow.IfNull(_nativeInstance);
+            _nativeInstance.Dispose();
         }
     }
 }

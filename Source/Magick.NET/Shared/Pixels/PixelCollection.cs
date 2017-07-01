@@ -36,7 +36,7 @@ namespace ImageMagick
         internal PixelCollection(MagickImage image)
         {
             _image = image;
-            _NativeInstance = new NativePixelCollection(image);
+            _nativeInstance = new NativePixelCollection(image);
         }
 
 #if NET20
@@ -72,7 +72,7 @@ namespace ImageMagick
         /// </summary>
         public void Dispose()
         {
-            _NativeInstance.Dispose();
+            _nativeInstance.Dispose();
         }
 
         /// <summary>
@@ -347,7 +347,7 @@ namespace ImageMagick
 
             try
             {
-                nativeResult = _NativeInstance.ToByteArray(x, y, width, height, mapping);
+                nativeResult = _nativeInstance.ToByteArray(x, y, width, height, mapping);
                 result = ByteConverter.ToArray(nativeResult, width * height * mapping.Length);
             }
             finally
@@ -383,7 +383,7 @@ namespace ImageMagick
 
         internal QuantumType[] GetAreaUnchecked(int x, int y, int width, int height)
         {
-            IntPtr pixels = _NativeInstance.GetArea(x, y, width, height);
+            IntPtr pixels = _nativeInstance.GetArea(x, y, width, height);
             if (pixels == IntPtr.Zero)
                 throw new InvalidOperationException("Image contains no pixel data.");
 
@@ -445,7 +445,7 @@ namespace ImageMagick
 
         private void SetAreaUnchecked(int x, int y, int width, int height, QuantumType[] values)
         {
-            _NativeInstance.SetArea(x, y, width, height, values, values.Length);
+            _nativeInstance.SetArea(x, y, width, height, values, values.Length);
         }
 
         private void SetPixel(int x, int y, QuantumType[] value)

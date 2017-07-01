@@ -62,7 +62,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private NativePointInfoCollection _NativeInstance;
+        private NativePointInfoCollection _nativeInstance;
         private sealed class NativePointInfoCollection : NativeInstance
         {
             protected override void Dispose(IntPtr instance)

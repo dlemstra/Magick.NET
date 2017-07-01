@@ -1130,7 +1130,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private NativeMagickImage _NativeInstance;
+        private NativeMagickImage _nativeInstance;
         private sealed class NativeMagickImage : NativeInstance
         {
             protected override void Dispose(IntPtr instance)
