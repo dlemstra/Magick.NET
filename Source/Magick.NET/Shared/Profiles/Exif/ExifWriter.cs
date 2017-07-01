@@ -283,21 +283,21 @@ namespace ImageMagick
               ExifTag.GPSDifferential,
         };
 
-        private ExifParts _AllowedParts;
-        private Collection<ExifValue> _Values;
-        private Collection<int> _DataOffsets;
-        private Collection<int> _IfdIndexes;
-        private Collection<int> _ExifIndexes;
-        private Collection<int> _GPSIndexes;
+        private readonly ExifParts _allowedParts;
+        private readonly Collection<ExifValue> _values;
+        private Collection<int> _dataOffsets;
+        private readonly Collection<int> _ifdIndexes;
+        private readonly Collection<int> _exifIndexes;
+        private readonly Collection<int> _gPSIndexes;
 
         public ExifWriter(Collection<ExifValue> values, ExifParts allowedParts)
         {
-            _Values = values;
-            _AllowedParts = allowedParts;
+            _values = values;
+            _allowedParts = allowedParts;
 
-            _IfdIndexes = GetIndexes(ExifParts.IfdTags, _IfdTags);
-            _ExifIndexes = GetIndexes(ExifParts.ExifTags, _ExifTags);
-            _GPSIndexes = GetIndexes(ExifParts.GPSTags, _GPSTags);
+            _ifdIndexes = GetIndexes(ExifParts.IfdTags, _IfdTags);
+            _exifIndexes = GetIndexes(ExifParts.ExifTags, _ExifTags);
+            _gPSIndexes = GetIndexes(ExifParts.GPSTags, _GPSTags);
         }
 
         public byte[] GetData()
@@ -306,15 +306,15 @@ namespace ImageMagick
             int exifIndex = -1;
             int gpsIndex = -1;
 
-            if (_ExifIndexes.Count > 0)
-                exifIndex = (int)GetIndex(_IfdIndexes, ExifTag.SubIFDOffset);
+            if (_exifIndexes.Count > 0)
+                exifIndex = (int)GetIndex(_ifdIndexes, ExifTag.SubIFDOffset);
 
-            if (_GPSIndexes.Count > 0)
-                gpsIndex = (int)GetIndex(_IfdIndexes, ExifTag.GPSIFDOffset);
+            if (_gPSIndexes.Count > 0)
+                gpsIndex = (int)GetIndex(_ifdIndexes, ExifTag.GPSIFDOffset);
 
-            uint ifdLength = 2 + GetLength(_IfdIndexes) + 4;
-            uint exifLength = GetLength(_ExifIndexes);
-            uint gpsLength = GetLength(_GPSIndexes);
+            uint ifdLength = 2 + GetLength(_ifdIndexes) + 4;
+            uint exifLength = GetLength(_exifIndexes);
+            uint gpsLength = GetLength(_gPSIndexes);
 
             if (exifLength > 0)
                 exifLength += 2;
@@ -346,26 +346,26 @@ namespace ImageMagick
             uint thumbnailOffset = ifdOffset + ifdLength + exifLength + gpsLength;
 
             if (exifLength > 0)
-                _Values[exifIndex].Value = ifdOffset + ifdLength;
+                _values[exifIndex].Value = ifdOffset + ifdLength;
 
             if (gpsLength > 0)
-                _Values[gpsIndex].Value = ifdOffset + ifdLength + exifLength;
+                _values[gpsIndex].Value = ifdOffset + ifdLength + exifLength;
 
             i = Write(BitConverter.GetBytes(ifdOffset), result, i);
-            i = WriteHeaders(_IfdIndexes, result, i);
+            i = WriteHeaders(_ifdIndexes, result, i);
             i = Write(BitConverter.GetBytes(thumbnailOffset), result, i);
-            i = WriteData(_IfdIndexes, result, i);
+            i = WriteData(_ifdIndexes, result, i);
 
             if (exifLength > 0)
             {
-                i = WriteHeaders(_ExifIndexes, result, i);
-                i = WriteData(_ExifIndexes, result, i);
+                i = WriteHeaders(_exifIndexes, result, i);
+                i = WriteData(_exifIndexes, result, i);
             }
 
             if (gpsLength > 0)
             {
-                i = WriteHeaders(_GPSIndexes, result, i);
-                i = WriteData(_GPSIndexes, result, i);
+                i = WriteHeaders(_gPSIndexes, result, i);
+                i = WriteData(_gPSIndexes, result, i);
             }
 
             Write(BitConverter.GetBytes((ushort)0), result, i);
@@ -452,7 +452,7 @@ namespace ImageMagick
 
         private int WriteData(Collection<int> indexes, byte[] destination, int offset)
         {
-            if (_DataOffsets.Count == 0)
+            if (_dataOffsets.Count == 0)
                 return offset;
 
             int newOffset = offset;
@@ -460,10 +460,10 @@ namespace ImageMagick
             int i = 0;
             foreach (int index in indexes)
             {
-                ExifValue value = _Values[index];
+                ExifValue value = _values[index];
                 if (value.Length > 4)
                 {
-                    Write(BitConverter.GetBytes(newOffset - _StartIndex), destination, _DataOffsets[i++]);
+                    Write(BitConverter.GetBytes(newOffset - _StartIndex), destination, _dataOffsets[i++]);
                     newOffset = WriteValue(value, destination, newOffset);
                 }
             }
@@ -475,25 +475,25 @@ namespace ImageMagick
         {
             foreach (int index in indexes)
             {
-                if (_Values[index].Tag == tag)
+                if (_values[index].Tag == tag)
                     return index;
             }
 
-            int newIndex = _Values.Count;
+            int newIndex = _values.Count;
             indexes.Add(newIndex);
-            _Values.Add(ExifValue.Create(tag, null));
+            _values.Add(ExifValue.Create(tag, null));
             return newIndex;
         }
 
         private Collection<int> GetIndexes(ExifParts part, ExifTag[] tags)
         {
-            if (!EnumHelper.HasFlag(_AllowedParts, part))
+            if (!EnumHelper.HasFlag(_allowedParts, part))
                 return new Collection<int>();
 
             Collection<int> result = new Collection<int>();
-            for (int i = 0; i < _Values.Count; i++)
+            for (int i = 0; i < _values.Count; i++)
             {
-                ExifValue value = _Values[i];
+                ExifValue value = _values[i];
 
                 if (!value.HasValue)
                     continue;
@@ -512,7 +512,7 @@ namespace ImageMagick
 
             foreach (int index in indexes)
             {
-                uint valueLength = (uint)_Values[index].Length;
+                uint valueLength = (uint)_values[index].Length;
 
                 if (valueLength > 4)
                     length += 12 + valueLength;
@@ -525,7 +525,7 @@ namespace ImageMagick
 
         private int WriteHeaders(Collection<int> indexes, byte[] destination, int offset)
         {
-            _DataOffsets = new Collection<int>();
+            _dataOffsets = new Collection<int>();
 
             int newOffset = Write(BitConverter.GetBytes((ushort)indexes.Count), destination, offset);
 
@@ -534,13 +534,13 @@ namespace ImageMagick
 
             foreach (int index in indexes)
             {
-                ExifValue value = _Values[index];
+                ExifValue value = _values[index];
                 newOffset = Write(BitConverter.GetBytes((ushort)value.Tag), destination, newOffset);
                 newOffset = Write(BitConverter.GetBytes((ushort)value.DataType), destination, newOffset);
                 newOffset = Write(BitConverter.GetBytes((uint)value.NumberOfComponents), destination, newOffset);
 
                 if (value.Length > 4)
-                    _DataOffsets.Add(newOffset);
+                    _dataOffsets.Add(newOffset);
                 else
                     WriteValue(value, destination, newOffset);
 

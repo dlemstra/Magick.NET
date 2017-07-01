@@ -18,7 +18,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class PathMoveToRel : IPath, IDrawingWand
     {
-        private PointD _Coordinate;
+        private readonly PointD _coordinate;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PathMoveToRel"/> class.
@@ -36,7 +36,7 @@ namespace ImageMagick
         /// <param name="coordinate">The coordinate to use.</param>
         public PathMoveToRel(PointD coordinate)
         {
-            _Coordinate = coordinate;
+            _coordinate = coordinate;
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace ImageMagick
         void IDrawingWand.Draw(DrawingWand wand)
         {
             if (wand != null)
-                wand.PathMoveToRel(_Coordinate.X, _Coordinate.Y);
+                wand.PathMoveToRel(_coordinate.X, _coordinate.Y);
         }
     }
 }

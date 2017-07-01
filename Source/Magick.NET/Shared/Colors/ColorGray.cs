@@ -29,7 +29,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class ColorGray : ColorBase
     {
-        private double _Shade;
+        private double _shade;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ColorGray"/> class.
@@ -40,13 +40,13 @@ namespace ImageMagick
         {
             Throw.IfTrue(nameof(shade), shade < 0.0 || shade > 1.0, "Invalid shade specified");
 
-            _Shade = shade;
+            _shade = shade;
         }
 
         private ColorGray(MagickColor color)
           : base(color)
         {
-            _Shade = Quantum.ScaleToQuantum(color.R);
+            _shade = Quantum.ScaleToQuantum(color.R);
         }
 
         /// <summary>
@@ -56,14 +56,14 @@ namespace ImageMagick
         {
             get
             {
-                return _Shade;
+                return _shade;
             }
             set
             {
                 if (value < 0.0 || value > 1.0)
                     return;
 
-                _Shade = value;
+                _shade = value;
             }
         }
 
@@ -95,7 +95,7 @@ namespace ImageMagick
         /// </summary>
         protected override void UpdateColor()
         {
-            QuantumType gray = Quantum.ScaleToQuantum(_Shade);
+            QuantumType gray = Quantum.ScaleToQuantum(_shade);
             Color.R = gray;
             Color.G = gray;
             Color.B = gray;

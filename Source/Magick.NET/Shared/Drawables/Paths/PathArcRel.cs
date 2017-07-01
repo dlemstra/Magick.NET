@@ -26,7 +26,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class PathArcRel : IPath, IDrawingWand
     {
-        private PathArcCoordinates _Coordinates;
+        private readonly PathArcCoordinates _coordinates;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PathArcRel"/> class.
@@ -34,7 +34,7 @@ namespace ImageMagick
         /// <param name="pathArcs">The coordinates to use.</param>
         public PathArcRel(params PathArc[] pathArcs)
         {
-            _Coordinates = new PathArcCoordinates(pathArcs);
+            _coordinates = new PathArcCoordinates(pathArcs);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace ImageMagick
         /// <param name="pathArcs">The coordinates to use.</param>
         public PathArcRel(IEnumerable<PathArc> pathArcs)
         {
-            _Coordinates = new PathArcCoordinates(pathArcs);
+            _coordinates = new PathArcCoordinates(pathArcs);
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace ImageMagick
         void IDrawingWand.Draw(DrawingWand wand)
         {
             if (wand != null)
-                wand.PathArcRel(_Coordinates.ToList());
+                wand.PathArcRel(_coordinates.ToList());
         }
     }
 }

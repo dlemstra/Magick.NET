@@ -20,7 +20,7 @@ namespace ImageMagick
     /// </summary>
     public sealed partial class PerceptualHash
     {
-        private Dictionary<PixelChannel, ChannelPerceptualHash> _Channels;
+        private readonly Dictionary<PixelChannel, ChannelPerceptualHash> _channels;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PerceptualHash"/> class.
@@ -32,9 +32,9 @@ namespace ImageMagick
             Throw.IfNullOrEmpty(nameof(perceptualHash), perceptualHash);
             Throw.IfFalse(nameof(perceptualHash), perceptualHash.Length == 210, "Invalid hash size.");
 
-            _Channels[PixelChannel.Red] = new ChannelPerceptualHash(PixelChannel.Red, perceptualHash.Substring(0, 70));
-            _Channels[PixelChannel.Green] = new ChannelPerceptualHash(PixelChannel.Green, perceptualHash.Substring(70, 70));
-            _Channels[PixelChannel.Blue] = new ChannelPerceptualHash(PixelChannel.Blue, perceptualHash.Substring(140, 70));
+            _channels[PixelChannel.Red] = new ChannelPerceptualHash(PixelChannel.Red, perceptualHash.Substring(0, 70));
+            _channels[PixelChannel.Green] = new ChannelPerceptualHash(PixelChannel.Green, perceptualHash.Substring(70, 70));
+            _channels[PixelChannel.Blue] = new ChannelPerceptualHash(PixelChannel.Blue, perceptualHash.Substring(140, 70));
         }
 
         internal PerceptualHash(MagickImage image, IntPtr list)
@@ -50,16 +50,16 @@ namespace ImageMagick
 
         private PerceptualHash()
         {
-            _Channels = new Dictionary<PixelChannel, ChannelPerceptualHash>();
+            _channels = new Dictionary<PixelChannel, ChannelPerceptualHash>();
         }
 
         internal bool Isvalid
         {
             get
             {
-                return _Channels.ContainsKey(PixelChannel.Red) &&
-                  _Channels.ContainsKey(PixelChannel.Green) &&
-                  _Channels.ContainsKey(PixelChannel.Blue);
+                return _channels.ContainsKey(PixelChannel.Red) &&
+                  _channels.ContainsKey(PixelChannel.Green) &&
+                  _channels.ContainsKey(PixelChannel.Blue);
             }
         }
 
@@ -71,7 +71,7 @@ namespace ImageMagick
         public ChannelPerceptualHash GetChannel(PixelChannel channel)
         {
             ChannelPerceptualHash perceptualHash;
-            _Channels.TryGetValue(channel, out perceptualHash);
+            _channels.TryGetValue(channel, out perceptualHash);
             return perceptualHash;
         }
 
@@ -85,9 +85,9 @@ namespace ImageMagick
             Throw.IfNull(nameof(other), other);
 
             return
-              _Channels[PixelChannel.Red].SumSquaredDistance(other._Channels[PixelChannel.Red]) +
-              _Channels[PixelChannel.Green].SumSquaredDistance(other._Channels[PixelChannel.Green]) +
-              _Channels[PixelChannel.Blue].SumSquaredDistance(other._Channels[PixelChannel.Blue]);
+              _channels[PixelChannel.Red].SumSquaredDistance(other._channels[PixelChannel.Red]) +
+              _channels[PixelChannel.Green].SumSquaredDistance(other._channels[PixelChannel.Green]) +
+              _channels[PixelChannel.Blue].SumSquaredDistance(other._channels[PixelChannel.Blue]);
         }
 
         /// <summary>
@@ -97,9 +97,9 @@ namespace ImageMagick
         public override string ToString()
         {
             return
-              _Channels[PixelChannel.Red].ToString() +
-              _Channels[PixelChannel.Green].ToString() +
-              _Channels[PixelChannel.Blue].ToString();
+              _channels[PixelChannel.Red].ToString() +
+              _channels[PixelChannel.Green].ToString() +
+              _channels[PixelChannel.Blue].ToString();
         }
 
         internal static void DisposeList(IntPtr list)
@@ -121,7 +121,7 @@ namespace ImageMagick
         {
             ChannelPerceptualHash instance = CreateChannelPerceptualHash(image, list, channel);
             if (instance != null)
-                _Channels.Add(instance.Channel, instance);
+                _channels.Add(instance.Channel, instance);
         }
     }
 }

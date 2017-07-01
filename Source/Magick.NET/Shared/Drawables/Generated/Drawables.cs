@@ -31,7 +31,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Affine(double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY)
         {
-            _Drawables.Add(new DrawableAffine(scaleX, scaleY, shearX, shearY, translateX, translateY));
+            _drawables.Add(new DrawableAffine(scaleX, scaleY, shearX, shearY, translateX, translateY));
             return this;
         }
 
@@ -44,7 +44,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Alpha(double x, double y, PaintMethod paintMethod)
         {
-            _Drawables.Add(new DrawableAlpha(x, y, paintMethod));
+            _drawables.Add(new DrawableAlpha(x, y, paintMethod));
             return this;
         }
 
@@ -60,7 +60,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Arc(double startX, double startY, double endX, double endY, double startDegrees, double endDegrees)
         {
-            _Drawables.Add(new DrawableArc(startX, startY, endX, endY, startDegrees, endDegrees));
+            _drawables.Add(new DrawableArc(startX, startY, endX, endY, startDegrees, endDegrees));
             return this;
         }
 
@@ -71,7 +71,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Bezier(params PointD[] coordinates)
         {
-            _Drawables.Add(new DrawableBezier(coordinates));
+            _drawables.Add(new DrawableBezier(coordinates));
             return this;
         }
 
@@ -82,7 +82,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Bezier(IEnumerable<PointD> coordinates)
         {
-            _Drawables.Add(new DrawableBezier(coordinates));
+            _drawables.Add(new DrawableBezier(coordinates));
             return this;
         }
 
@@ -93,7 +93,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables BorderColor(MagickColor color)
         {
-            _Drawables.Add(new DrawableBorderColor(color));
+            _drawables.Add(new DrawableBorderColor(color));
             return this;
         }
 
@@ -107,7 +107,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Circle(double originX, double originY, double perimeterX, double perimeterY)
         {
-            _Drawables.Add(new DrawableCircle(originX, originY, perimeterX, perimeterY));
+            _drawables.Add(new DrawableCircle(originX, originY, perimeterX, perimeterY));
             return this;
         }
 
@@ -118,7 +118,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables ClipPath(string clipPath)
         {
-            _Drawables.Add(new DrawableClipPath(clipPath));
+            _drawables.Add(new DrawableClipPath(clipPath));
             return this;
         }
 
@@ -129,7 +129,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables ClipRule(FillRule fillRule)
         {
-            _Drawables.Add(new DrawableClipRule(fillRule));
+            _drawables.Add(new DrawableClipRule(fillRule));
             return this;
         }
 
@@ -140,7 +140,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables ClipUnits(ClipPathUnit units)
         {
-            _Drawables.Add(new DrawableClipUnits(units));
+            _drawables.Add(new DrawableClipUnits(units));
             return this;
         }
 
@@ -153,7 +153,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Color(double x, double y, PaintMethod paintMethod)
         {
-            _Drawables.Add(new DrawableColor(x, y, paintMethod));
+            _drawables.Add(new DrawableColor(x, y, paintMethod));
             return this;
         }
 
@@ -165,7 +165,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Composite(MagickGeometry offset, IMagickImage image)
         {
-            _Drawables.Add(new DrawableComposite(offset, image));
+            _drawables.Add(new DrawableComposite(offset, image));
             return this;
         }
 
@@ -178,7 +178,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Composite(double x, double y, IMagickImage image)
         {
-            _Drawables.Add(new DrawableComposite(x, y, image));
+            _drawables.Add(new DrawableComposite(x, y, image));
             return this;
         }
 
@@ -191,7 +191,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Composite(MagickGeometry offset, CompositeOperator compose, IMagickImage image)
         {
-            _Drawables.Add(new DrawableComposite(offset, compose, image));
+            _drawables.Add(new DrawableComposite(offset, compose, image));
             return this;
         }
 
@@ -205,7 +205,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Composite(double x, double y, CompositeOperator compose, IMagickImage image)
         {
-            _Drawables.Add(new DrawableComposite(x, y, compose, image));
+            _drawables.Add(new DrawableComposite(x, y, compose, image));
             return this;
         }
 
@@ -216,7 +216,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Density(double density)
         {
-            _Drawables.Add(new DrawableDensity(density));
+            _drawables.Add(new DrawableDensity(density));
             return this;
         }
 
@@ -227,7 +227,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Density(PointD pointDensity)
         {
-            _Drawables.Add(new DrawableDensity(pointDensity));
+            _drawables.Add(new DrawableDensity(pointDensity));
             return this;
         }
 
@@ -243,7 +243,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Ellipse(double originX, double originY, double radiusX, double radiusY, double startDegrees, double endDegrees)
         {
-            _Drawables.Add(new DrawableEllipse(originX, originY, radiusX, radiusY, startDegrees, endDegrees));
+            _drawables.Add(new DrawableEllipse(originX, originY, radiusX, radiusY, startDegrees, endDegrees));
             return this;
         }
 
@@ -254,7 +254,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables FillColor(MagickColor color)
         {
-            _Drawables.Add(new DrawableFillColor(color));
+            _drawables.Add(new DrawableFillColor(color));
             return this;
         }
 
@@ -265,7 +265,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables FillOpacity(Percentage opacity)
         {
-            _Drawables.Add(new DrawableFillOpacity(opacity));
+            _drawables.Add(new DrawableFillOpacity(opacity));
             return this;
         }
 
@@ -276,7 +276,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables FillPatternUrl(string url)
         {
-            _Drawables.Add(new DrawableFillPatternUrl(url));
+            _drawables.Add(new DrawableFillPatternUrl(url));
             return this;
         }
 
@@ -287,7 +287,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables FillRule(FillRule fillRule)
         {
-            _Drawables.Add(new DrawableFillRule(fillRule));
+            _drawables.Add(new DrawableFillRule(fillRule));
             return this;
         }
 
@@ -298,7 +298,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Font(string family)
         {
-            _Drawables.Add(new DrawableFont(family));
+            _drawables.Add(new DrawableFont(family));
             return this;
         }
 
@@ -312,7 +312,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Font(string family, FontStyleType style, FontWeight weight, FontStretch stretch)
         {
-            _Drawables.Add(new DrawableFont(family, style, weight, stretch));
+            _drawables.Add(new DrawableFont(family, style, weight, stretch));
             return this;
         }
 
@@ -323,7 +323,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables FontPointSize(double pointSize)
         {
-            _Drawables.Add(new DrawableFontPointSize(pointSize));
+            _drawables.Add(new DrawableFontPointSize(pointSize));
             return this;
         }
 
@@ -334,7 +334,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Gravity(Gravity gravity)
         {
-            _Drawables.Add(new DrawableGravity(gravity));
+            _drawables.Add(new DrawableGravity(gravity));
             return this;
         }
 
@@ -348,7 +348,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Line(double startX, double startY, double endX, double endY)
         {
-            _Drawables.Add(new DrawableLine(startX, startY, endX, endY));
+            _drawables.Add(new DrawableLine(startX, startY, endX, endY));
             return this;
         }
 
@@ -359,7 +359,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Path(params IPath[] paths)
         {
-            _Drawables.Add(new DrawablePath(paths));
+            _drawables.Add(new DrawablePath(paths));
             return this;
         }
 
@@ -370,7 +370,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Path(IEnumerable<IPath> paths)
         {
-            _Drawables.Add(new DrawablePath(paths));
+            _drawables.Add(new DrawablePath(paths));
             return this;
         }
 
@@ -382,7 +382,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Point(double x, double y)
         {
-            _Drawables.Add(new DrawablePoint(x, y));
+            _drawables.Add(new DrawablePoint(x, y));
             return this;
         }
 
@@ -393,7 +393,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Polygon(params PointD[] coordinates)
         {
-            _Drawables.Add(new DrawablePolygon(coordinates));
+            _drawables.Add(new DrawablePolygon(coordinates));
             return this;
         }
 
@@ -404,7 +404,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Polygon(IEnumerable<PointD> coordinates)
         {
-            _Drawables.Add(new DrawablePolygon(coordinates));
+            _drawables.Add(new DrawablePolygon(coordinates));
             return this;
         }
 
@@ -415,7 +415,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Polyline(params PointD[] coordinates)
         {
-            _Drawables.Add(new DrawablePolyline(coordinates));
+            _drawables.Add(new DrawablePolyline(coordinates));
             return this;
         }
 
@@ -426,7 +426,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Polyline(IEnumerable<PointD> coordinates)
         {
-            _Drawables.Add(new DrawablePolyline(coordinates));
+            _drawables.Add(new DrawablePolyline(coordinates));
             return this;
         }
 
@@ -436,7 +436,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables PopClipPath()
         {
-            _Drawables.Add(new DrawablePopClipPath());
+            _drawables.Add(new DrawablePopClipPath());
             return this;
         }
 
@@ -446,7 +446,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables PopGraphicContext()
         {
-            _Drawables.Add(new DrawablePopGraphicContext());
+            _drawables.Add(new DrawablePopGraphicContext());
             return this;
         }
 
@@ -456,7 +456,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables PopPattern()
         {
-            _Drawables.Add(new DrawablePopPattern());
+            _drawables.Add(new DrawablePopPattern());
             return this;
         }
 
@@ -467,7 +467,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables PushClipPath(string clipPath)
         {
-            _Drawables.Add(new DrawablePushClipPath(clipPath));
+            _drawables.Add(new DrawablePushClipPath(clipPath));
             return this;
         }
 
@@ -477,7 +477,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables PushGraphicContext()
         {
-            _Drawables.Add(new DrawablePushGraphicContext());
+            _drawables.Add(new DrawablePushGraphicContext());
             return this;
         }
 
@@ -492,7 +492,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables PushPattern(string id, double x, double y, double width, double height)
         {
-            _Drawables.Add(new DrawablePushPattern(id, x, y, width, height));
+            _drawables.Add(new DrawablePushPattern(id, x, y, width, height));
             return this;
         }
 
@@ -506,7 +506,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Rectangle(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY)
         {
-            _Drawables.Add(new DrawableRectangle(upperLeftX, upperLeftY, lowerRightX, lowerRightY));
+            _drawables.Add(new DrawableRectangle(upperLeftX, upperLeftY, lowerRightX, lowerRightY));
             return this;
         }
 
@@ -517,7 +517,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Rotation(double angle)
         {
-            _Drawables.Add(new DrawableRotation(angle));
+            _drawables.Add(new DrawableRotation(angle));
             return this;
         }
 
@@ -533,7 +533,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables RoundRectangle(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY, double cornerWidth, double cornerHeight)
         {
-            _Drawables.Add(new DrawableRoundRectangle(upperLeftX, upperLeftY, lowerRightX, lowerRightY, cornerWidth, cornerHeight));
+            _drawables.Add(new DrawableRoundRectangle(upperLeftX, upperLeftY, lowerRightX, lowerRightY, cornerWidth, cornerHeight));
             return this;
         }
 
@@ -545,7 +545,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Scaling(double x, double y)
         {
-            _Drawables.Add(new DrawableScaling(x, y));
+            _drawables.Add(new DrawableScaling(x, y));
             return this;
         }
 
@@ -556,7 +556,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables SkewX(double angle)
         {
-            _Drawables.Add(new DrawableSkewX(angle));
+            _drawables.Add(new DrawableSkewX(angle));
             return this;
         }
 
@@ -567,7 +567,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables SkewY(double angle)
         {
-            _Drawables.Add(new DrawableSkewY(angle));
+            _drawables.Add(new DrawableSkewY(angle));
             return this;
         }
 
@@ -578,7 +578,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables StrokeAntialias(bool isEnabled)
         {
-            _Drawables.Add(new DrawableStrokeAntialias(isEnabled));
+            _drawables.Add(new DrawableStrokeAntialias(isEnabled));
             return this;
         }
 
@@ -589,7 +589,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables StrokeColor(MagickColor color)
         {
-            _Drawables.Add(new DrawableStrokeColor(color));
+            _drawables.Add(new DrawableStrokeColor(color));
             return this;
         }
 
@@ -600,7 +600,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables StrokeDashArray(params double[] dash)
         {
-            _Drawables.Add(new DrawableStrokeDashArray(dash));
+            _drawables.Add(new DrawableStrokeDashArray(dash));
             return this;
         }
 
@@ -611,7 +611,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables StrokeDashOffset(double offset)
         {
-            _Drawables.Add(new DrawableStrokeDashOffset(offset));
+            _drawables.Add(new DrawableStrokeDashOffset(offset));
             return this;
         }
 
@@ -622,7 +622,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables StrokeLineCap(LineCap lineCap)
         {
-            _Drawables.Add(new DrawableStrokeLineCap(lineCap));
+            _drawables.Add(new DrawableStrokeLineCap(lineCap));
             return this;
         }
 
@@ -633,7 +633,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables StrokeLineJoin(LineJoin lineJoin)
         {
-            _Drawables.Add(new DrawableStrokeLineJoin(lineJoin));
+            _drawables.Add(new DrawableStrokeLineJoin(lineJoin));
             return this;
         }
 
@@ -644,7 +644,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables StrokeMiterLimit(int miterlimit)
         {
-            _Drawables.Add(new DrawableStrokeMiterLimit(miterlimit));
+            _drawables.Add(new DrawableStrokeMiterLimit(miterlimit));
             return this;
         }
 
@@ -655,7 +655,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables StrokeOpacity(Percentage opacity)
         {
-            _Drawables.Add(new DrawableStrokeOpacity(opacity));
+            _drawables.Add(new DrawableStrokeOpacity(opacity));
             return this;
         }
 
@@ -666,7 +666,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables StrokePatternUrl(string url)
         {
-            _Drawables.Add(new DrawableStrokePatternUrl(url));
+            _drawables.Add(new DrawableStrokePatternUrl(url));
             return this;
         }
 
@@ -677,7 +677,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables StrokeWidth(double width)
         {
-            _Drawables.Add(new DrawableStrokeWidth(width));
+            _drawables.Add(new DrawableStrokeWidth(width));
             return this;
         }
 
@@ -690,7 +690,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Text(double x, double y, string value)
         {
-            _Drawables.Add(new DrawableText(x, y, value));
+            _drawables.Add(new DrawableText(x, y, value));
             return this;
         }
 
@@ -701,7 +701,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables TextAlignment(TextAlignment alignment)
         {
-            _Drawables.Add(new DrawableTextAlignment(alignment));
+            _drawables.Add(new DrawableTextAlignment(alignment));
             return this;
         }
 
@@ -712,7 +712,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables TextAntialias(bool isEnabled)
         {
-            _Drawables.Add(new DrawableTextAntialias(isEnabled));
+            _drawables.Add(new DrawableTextAntialias(isEnabled));
             return this;
         }
 
@@ -723,7 +723,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables TextDecoration(TextDecoration decoration)
         {
-            _Drawables.Add(new DrawableTextDecoration(decoration));
+            _drawables.Add(new DrawableTextDecoration(decoration));
             return this;
         }
 
@@ -734,7 +734,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables TextDirection(TextDirection direction)
         {
-            _Drawables.Add(new DrawableTextDirection(direction));
+            _drawables.Add(new DrawableTextDirection(direction));
             return this;
         }
 
@@ -745,7 +745,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables TextEncoding(Encoding encoding)
         {
-            _Drawables.Add(new DrawableTextEncoding(encoding));
+            _drawables.Add(new DrawableTextEncoding(encoding));
             return this;
         }
 
@@ -756,7 +756,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables TextInterlineSpacing(double spacing)
         {
-            _Drawables.Add(new DrawableTextInterlineSpacing(spacing));
+            _drawables.Add(new DrawableTextInterlineSpacing(spacing));
             return this;
         }
 
@@ -767,7 +767,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables TextInterwordSpacing(double spacing)
         {
-            _Drawables.Add(new DrawableTextInterwordSpacing(spacing));
+            _drawables.Add(new DrawableTextInterwordSpacing(spacing));
             return this;
         }
 
@@ -778,7 +778,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables TextKerning(double kerning)
         {
-            _Drawables.Add(new DrawableTextKerning(kerning));
+            _drawables.Add(new DrawableTextKerning(kerning));
             return this;
         }
 
@@ -789,7 +789,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables TextUnderColor(MagickColor color)
         {
-            _Drawables.Add(new DrawableTextUnderColor(color));
+            _drawables.Add(new DrawableTextUnderColor(color));
             return this;
         }
 
@@ -801,7 +801,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Translation(double x, double y)
         {
-            _Drawables.Add(new DrawableTranslation(x, y));
+            _drawables.Add(new DrawableTranslation(x, y));
             return this;
         }
 
@@ -815,7 +815,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Viewbox(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY)
         {
-            _Drawables.Add(new DrawableViewbox(upperLeftX, upperLeftY, lowerRightX, lowerRightY));
+            _drawables.Add(new DrawableViewbox(upperLeftX, upperLeftY, lowerRightX, lowerRightY));
             return this;
         }
 

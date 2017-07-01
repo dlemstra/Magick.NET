@@ -16,17 +16,17 @@ namespace ImageMagick
 {
     internal abstract class NativeHelper
     {
-        private EventHandler<WarningEventArgs> _WarningEvent;
+        private EventHandler<WarningEventArgs> _warningEvent;
 
         public event EventHandler<WarningEventArgs> Warning
         {
             add
             {
-                _WarningEvent += value;
+                _warningEvent += value;
             }
             remove
             {
-                _WarningEvent -= value;
+                _warningEvent -= value;
             }
         }
 
@@ -38,12 +38,12 @@ namespace ImageMagick
 
         protected void RaiseWarning(MagickException exception)
         {
-            if (_WarningEvent == null)
+            if (_warningEvent == null)
                 return;
 
             MagickWarningException warning = exception as MagickWarningException;
             if (warning != null)
-                _WarningEvent.Invoke(this, new WarningEventArgs(warning));
+                _warningEvent.Invoke(this, new WarningEventArgs(warning));
         }
     }
 }

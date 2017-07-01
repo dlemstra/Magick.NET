@@ -20,12 +20,12 @@ namespace ImageMagick
     /// </summary>
     public sealed class EightBimValue : IEquatable<EightBimValue>
     {
-        private byte[] _Data;
+        private readonly byte[] _data;
 
         internal EightBimValue(short id, byte[] data)
         {
             ID = id;
-            _Data = data;
+            _data = data;
         }
 
         /// <summary>
@@ -86,18 +86,18 @@ namespace ImageMagick
             if (ID != other.ID)
                 return false;
 
-            if (ReferenceEquals(_Data, null))
-                return ReferenceEquals(other._Data, null);
+            if (ReferenceEquals(_data, null))
+                return ReferenceEquals(other._data, null);
 
-            if (ReferenceEquals(other._Data, null))
+            if (ReferenceEquals(other._data, null))
                 return false;
 
-            if (_Data.Length != other._Data.Length)
+            if (_data.Length != other._data.Length)
                 return false;
 
-            for (int i = 0; i < _Data.Length; i++)
+            for (int i = 0; i < _data.Length; i++)
             {
-                if (_Data[i] != other._Data[i])
+                if (_data[i] != other._data[i])
                     return false;
             }
 
@@ -111,7 +111,7 @@ namespace ImageMagick
         public override int GetHashCode()
         {
             return
-              _Data.GetHashCode() ^
+              _data.GetHashCode() ^
               ID.GetHashCode();
         }
 
@@ -121,8 +121,8 @@ namespace ImageMagick
         /// <returns>A <see cref="byte"/> array.</returns>
         public byte[] ToByteArray()
         {
-            byte[] data = new byte[_Data.Length];
-            Array.Copy(_Data, 0, data, 0, _Data.Length);
+            byte[] data = new byte[_data.Length];
+            Array.Copy(_data, 0, data, 0, _data.Length);
             return data;
         }
 
@@ -144,7 +144,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(encoding), encoding);
 
-            return encoding.GetString(_Data);
+            return encoding.GetString(_data);
         }
     }
 }

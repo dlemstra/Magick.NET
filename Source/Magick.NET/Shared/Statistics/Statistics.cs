@@ -20,14 +20,14 @@ namespace ImageMagick
     /// </summary>
     public sealed partial class Statistics : IEquatable<Statistics>
     {
-        private Dictionary<PixelChannel, ChannelStatistics> _Channels;
+        private readonly Dictionary<PixelChannel, ChannelStatistics> _channels;
 
         internal Statistics(MagickImage image, IntPtr list)
         {
             if (list == IntPtr.Zero)
                 return;
 
-            _Channels = new Dictionary<PixelChannel, ChannelStatistics>();
+            _channels = new Dictionary<PixelChannel, ChannelStatistics>();
             foreach (PixelChannel channel in image.Channels)
                 AddChannel(list, channel);
 
@@ -70,7 +70,7 @@ namespace ImageMagick
         /// <returns>The statistics for the specified channel.</returns>
         public ChannelStatistics GetChannel(PixelChannel channel)
         {
-            _Channels.TryGetValue(channel, out ChannelStatistics channelStatistics);
+            _channels.TryGetValue(channel, out ChannelStatistics channelStatistics);
             return channelStatistics;
         }
 
@@ -100,15 +100,15 @@ namespace ImageMagick
             if (ReferenceEquals(this, other))
                 return true;
 
-            if (_Channels.Count != other._Channels.Count)
+            if (_channels.Count != other._channels.Count)
                 return false;
 
-            foreach (PixelChannel channel in _Channels.Keys)
+            foreach (PixelChannel channel in _channels.Keys)
             {
-                if (!other._Channels.ContainsKey(channel))
+                if (!other._channels.ContainsKey(channel))
                     return false;
 
-                if (!_Channels[channel].Equals(other._Channels[channel]))
+                if (!_channels[channel].Equals(other._channels[channel]))
                     return false;
             }
 
@@ -121,11 +121,11 @@ namespace ImageMagick
         /// <returns>A hash code for the current instance.</returns>
         public override int GetHashCode()
         {
-            int hashCode = _Channels.GetHashCode();
+            int hashCode = _channels.GetHashCode();
 
-            foreach (PixelChannel channel in _Channels.Keys)
+            foreach (PixelChannel channel in _channels.Keys)
             {
-                hashCode = hashCode ^ _Channels[channel].GetHashCode();
+                hashCode = hashCode ^ _channels[channel].GetHashCode();
             }
 
             return hashCode;
@@ -143,7 +143,7 @@ namespace ImageMagick
 
             ChannelStatistics result = ChannelStatistics.Create(channel, instance);
             if (result != null)
-                _Channels.Add(result.Channel, result);
+                _channels.Add(result.Channel, result);
         }
     }
 }

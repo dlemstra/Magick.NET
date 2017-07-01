@@ -31,11 +31,11 @@ namespace ImageMagick
     /// </summary>
     public sealed partial class PixelCollection : IEnumerable<Pixel>
     {
-        private MagickImage _Image;
+        private readonly MagickImage _image;
 
         internal PixelCollection(MagickImage image)
         {
-            _Image = image;
+            _image = image;
             _NativeInstance = new NativePixelCollection(image);
         }
 
@@ -50,7 +50,7 @@ namespace ImageMagick
         {
             get
             {
-                return _Image.ChannelCount;
+                return _image.ChannelCount;
             }
         }
 
@@ -117,7 +117,7 @@ namespace ImageMagick
         /// <returns>A pixel enumerator.</returns>
         public IEnumerator<Pixel> GetEnumerator()
         {
-            return new PixelCollectionEnumerator(this, _Image.Width, _Image.Height);
+            return new PixelCollectionEnumerator(this, _image.Width, _image.Height);
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace ImageMagick
         /// <returns>The index of the specified channel. Returns -1 if not found.</returns>
         public int GetIndex(PixelChannel channel)
         {
-            return _Image.ChannelOffset(channel);
+            return _image.ChannelOffset(channel);
         }
 
         /// <summary>
@@ -162,7 +162,7 @@ namespace ImageMagick
         /// <returns>A <see cref="QuantumType"/> array.</returns>
         public QuantumType[] GetValues()
         {
-            return GetAreaUnchecked(0, 0, _Image.Width, _Image.Height);
+            return GetAreaUnchecked(0, 0, _image.Width, _image.Height);
         }
 
         /// <summary>
@@ -228,7 +228,7 @@ namespace ImageMagick
             CheckValues(values);
 
             QuantumType[] castedValues = CastArray(values, Quantum.Convert);
-            SetAreaUnchecked(0, 0, _Image.Width, _Image.Height, castedValues);
+            SetAreaUnchecked(0, 0, _image.Width, _image.Height, castedValues);
         }
 
         /// <summary>
@@ -240,7 +240,7 @@ namespace ImageMagick
             CheckValues(values);
 
             QuantumType[] castedValues = CastArray(values, Quantum.Convert);
-            SetAreaUnchecked(0, 0, _Image.Width, _Image.Height, castedValues);
+            SetAreaUnchecked(0, 0, _image.Width, _image.Height, castedValues);
         }
 
         /// <summary>
@@ -251,7 +251,7 @@ namespace ImageMagick
         {
             CheckValues(values);
 
-            SetAreaUnchecked(0, 0, _Image.Width, _Image.Height, values);
+            SetAreaUnchecked(0, 0, _image.Width, _image.Height, values);
         }
 
 #if !Q8
@@ -378,7 +378,7 @@ namespace ImageMagick
         /// <returns>A <see cref="byte"/> array.</returns>
         public byte[] ToByteArray(string mapping)
         {
-            return ToByteArray(0, 0, _Image.Width, _Image.Height, mapping);
+            return ToByteArray(0, 0, _image.Width, _image.Height, mapping);
         }
 
         internal QuantumType[] GetAreaUnchecked(int x, int y, int width, int height)
@@ -387,7 +387,7 @@ namespace ImageMagick
             if (pixels == IntPtr.Zero)
                 throw new InvalidOperationException("Image contains no pixel data.");
 
-            int length = width * height * _Image.ChannelCount;
+            int length = width * height * _image.ChannelCount;
             return QuantumConverter.ToArray(pixels, length);
         }
 
@@ -408,14 +408,14 @@ namespace ImageMagick
         private void CheckArea(int x, int y, int width, int height)
         {
             CheckIndex(x, y);
-            Throw.IfOutOfRange(nameof(width), 0, _Image.Width - x, width, "Invalid width: {0}.", width);
-            Throw.IfOutOfRange(nameof(height), 0, _Image.Height - y, height, "Invalid height: {0}.", height);
+            Throw.IfOutOfRange(nameof(width), 0, _image.Width - x, width, "Invalid width: {0}.", width);
+            Throw.IfOutOfRange(nameof(height), 0, _image.Height - y, height, "Invalid height: {0}.", height);
         }
 
         private void CheckIndex(int x, int y)
         {
-            Throw.IfOutOfRange(nameof(x), 0, _Image.Width - 1, x, "Invalid X coordinate: {0}.", x);
-            Throw.IfOutOfRange(nameof(y), 0, _Image.Height - 1, y, "Invalid Y coordinate: {0}.", y);
+            Throw.IfOutOfRange(nameof(x), 0, _image.Width - 1, x, "Invalid X coordinate: {0}.", x);
+            Throw.IfOutOfRange(nameof(y), 0, _image.Height - 1, y, "Invalid Y coordinate: {0}.", y);
         }
 
         private void CheckValues<T>(T[] values)
@@ -425,7 +425,7 @@ namespace ImageMagick
 
         private void CheckValues<T>(int x, int y, T[] values)
         {
-            CheckValues(x, y, _Image.Width, _Image.Height, values);
+            CheckValues(x, y, _image.Width, _image.Height, values);
         }
 
         private void CheckValues<T>(int x, int y, int width, int height, T[] values)
@@ -439,7 +439,7 @@ namespace ImageMagick
             Throw.IfTrue(nameof(values), length > max, "Too many values specified.");
 
             length = (x * y * Channels) + length;
-            max = _Image.Width * _Image.Height * Channels;
+            max = _image.Width * _image.Height * Channels;
             Throw.IfTrue(nameof(values), length > max, "Too many values specified.");
         }
 

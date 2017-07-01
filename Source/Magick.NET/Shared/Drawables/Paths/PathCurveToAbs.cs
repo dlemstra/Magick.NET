@@ -20,9 +20,9 @@ namespace ImageMagick
     /// </summary>
     public sealed class PathCurveToAbs : IPath, IDrawingWand
     {
-        private PointD _ControlPointStart;
-        private PointD _ControlPointEnd;
-        private PointD _End;
+        private readonly PointD _controlPointStart;
+        private readonly PointD _controlPointEnd;
+        private readonly PointD _end;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PathCurveToAbs"/> class.
@@ -46,9 +46,9 @@ namespace ImageMagick
         /// <param name="end">Coordinate of the end of the curve</param>
         public PathCurveToAbs(PointD controlPointStart, PointD controlPointEnd, PointD end)
         {
-            _ControlPointStart = controlPointStart;
-            _ControlPointEnd = controlPointEnd;
-            _End = end;
+            _controlPointStart = controlPointStart;
+            _controlPointEnd = controlPointEnd;
+            _end = end;
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace ImageMagick
         void IDrawingWand.Draw(DrawingWand wand)
         {
             if (wand != null)
-                wand.PathCurveToAbs(_ControlPointStart, _ControlPointEnd, _End);
+                wand.PathCurveToAbs(_controlPointStart, _controlPointEnd, _end);
         }
     }
 }

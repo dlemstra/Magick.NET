@@ -19,7 +19,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class DrawableBezier : IDrawable, IDrawingWand
     {
-        private PointDCoordinates _Coordinates;
+        private readonly PointDCoordinates _coordinates;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DrawableBezier"/> class.
@@ -27,7 +27,7 @@ namespace ImageMagick
         /// <param name="coordinates">The coordinates.</param>
         public DrawableBezier(params PointD[] coordinates)
         {
-            _Coordinates = new PointDCoordinates(coordinates, 3);
+            _coordinates = new PointDCoordinates(coordinates, 3);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace ImageMagick
         /// <param name="coordinates">The coordinates.</param>
         public DrawableBezier(IEnumerable<PointD> coordinates)
         {
-            _Coordinates = new PointDCoordinates(coordinates, 3);
+            _coordinates = new PointDCoordinates(coordinates, 3);
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace ImageMagick
         {
             get
             {
-                return _Coordinates.ToList();
+                return _coordinates.ToList();
             }
         }
 
@@ -57,7 +57,7 @@ namespace ImageMagick
         void IDrawingWand.Draw(DrawingWand wand)
         {
             if (wand != null)
-                wand.Bezier(_Coordinates.ToList());
+                wand.Bezier(_coordinates.ToList());
         }
     }
 }

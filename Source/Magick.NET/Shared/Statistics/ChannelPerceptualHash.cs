@@ -20,9 +20,9 @@ namespace ImageMagick
     /// </summary>
     public partial class ChannelPerceptualHash
     {
-        private double[] _SrgbHuPhash;
-        private double[] _HclpHuPhash;
-        private string _Hash;
+        private readonly double[] _srgbHuPhash;
+        private readonly double[] _hclpHuPhash;
+        private string _hash;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ChannelPerceptualHash"/> class.
@@ -34,16 +34,16 @@ namespace ImageMagick
         public ChannelPerceptualHash(PixelChannel channel, double[] srgbHuPhash, double[] hclpHuPhash, string hash)
         {
             Channel = channel;
-            _SrgbHuPhash = srgbHuPhash;
-            _HclpHuPhash = hclpHuPhash;
-            _Hash = hash;
+            _srgbHuPhash = srgbHuPhash;
+            _hclpHuPhash = hclpHuPhash;
+            _hash = hash;
         }
 
         internal ChannelPerceptualHash(PixelChannel channel)
         {
             Channel = channel;
-            _HclpHuPhash = new double[7];
-            _SrgbHuPhash = new double[7];
+            _hclpHuPhash = new double[7];
+            _srgbHuPhash = new double[7];
         }
 
         internal ChannelPerceptualHash(PixelChannel channel, IntPtr instance)
@@ -79,7 +79,7 @@ namespace ImageMagick
         {
             Throw.IfOutOfRange(nameof(index), index, 7);
 
-            return _SrgbHuPhash[index];
+            return _srgbHuPhash[index];
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace ImageMagick
         {
             Throw.IfOutOfRange(nameof(index), index, 7);
 
-            return _HclpHuPhash[index];
+            return _hclpHuPhash[index];
         }
 
         /// <summary>
@@ -107,8 +107,8 @@ namespace ImageMagick
 
             for (int i = 0; i < 7; i++)
             {
-                ssd += (_SrgbHuPhash[i] - other._SrgbHuPhash[i]) * (_SrgbHuPhash[i] - other._SrgbHuPhash[i]);
-                ssd += (_HclpHuPhash[i] - other._HclpHuPhash[i]) * (_HclpHuPhash[i] - other._HclpHuPhash[i]);
+                ssd += (_srgbHuPhash[i] - other._srgbHuPhash[i]) * (_srgbHuPhash[i] - other._srgbHuPhash[i]);
+                ssd += (_hclpHuPhash[i] - other._hclpHuPhash[i]) * (_hclpHuPhash[i] - other._hclpHuPhash[i]);
             }
 
             return ssd;
@@ -120,12 +120,12 @@ namespace ImageMagick
         /// <returns>A string representation of this hash.</returns>
         public override string ToString()
         {
-            return _Hash;
+            return _hash;
         }
 
         private void ParseHash(string hash)
         {
-            _Hash = hash;
+            _hash = hash;
 
             for (int i = 0; i < 14; i++)
             {
@@ -137,22 +137,22 @@ namespace ImageMagick
                 if ((hex & (1 << 16)) != 0)
                     value = -value;
                 if (i < 7)
-                    _SrgbHuPhash[i] = value;
+                    _srgbHuPhash[i] = value;
                 else
-                    _HclpHuPhash[i - 7] = value;
+                    _hclpHuPhash[i - 7] = value;
             }
         }
 
         private void SetHash()
         {
-            _Hash = string.Empty;
+            _hash = string.Empty;
             for (int i = 0; i < 14; i++)
             {
                 double value;
                 if (i < 7)
-                    value = _SrgbHuPhash[i];
+                    value = _srgbHuPhash[i];
                 else
-                    value = _HclpHuPhash[i - 7];
+                    value = _hclpHuPhash[i - 7];
 
                 int hex = 0;
                 while (hex < 7 && Math.Abs(value * 10) < 65536)
@@ -165,20 +165,20 @@ namespace ImageMagick
                 if (value < 0.0)
                     hex |= 1;
                 hex = (hex << 16) + (int)(value < 0.0 ? -(value - 0.5) : value + 0.5);
-                _Hash += hex.ToString("x", CultureInfo.InvariantCulture);
+                _hash += hex.ToString("x", CultureInfo.InvariantCulture);
             }
         }
 
         private void SetHclpHuPhash(NativeChannelPerceptualHash instance)
         {
             for (int i = 0; i < 7; i++)
-                _HclpHuPhash[i] = instance.GetHclpHuPhash(i);
+                _hclpHuPhash[i] = instance.GetHclpHuPhash(i);
         }
 
         private void SetSrgbHuPhash(NativeChannelPerceptualHash instance)
         {
             for (int i = 0; i < 7; i++)
-                _SrgbHuPhash[i] = instance.GetSrgbHuPhash(i);
+                _srgbHuPhash[i] = instance.GetSrgbHuPhash(i);
         }
     }
 }

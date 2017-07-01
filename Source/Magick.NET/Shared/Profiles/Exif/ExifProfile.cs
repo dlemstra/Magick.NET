@@ -22,10 +22,10 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifProfile : ImageProfile
     {
-        private Collection<ExifValue> _Values;
-        private List<ExifTag> _InvalidTags;
-        private int _ThumbnailOffset;
-        private int _ThumbnailLength;
+        private Collection<ExifValue> _values;
+        private List<ExifTag> _invalidTags;
+        private int _thumbnailOffset;
+        private int _thumbnailLength;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExifProfile"/> class.
@@ -83,7 +83,8 @@ namespace ImageMagick
         {
             get
             {
-                return _InvalidTags;
+                InitializeValues();
+                return _invalidTags;
             }
         }
 
@@ -95,7 +96,7 @@ namespace ImageMagick
             get
             {
                 InitializeValues();
-                return _Values;
+                return _values;
             }
         }
 
@@ -107,14 +108,14 @@ namespace ImageMagick
         {
             InitializeValues();
 
-            if (_ThumbnailOffset == 0 || _ThumbnailLength == 0)
+            if (_thumbnailOffset == 0 || _thumbnailLength == 0)
                 return null;
 
-            if (Data.Length < (_ThumbnailOffset + _ThumbnailLength))
+            if (Data.Length < (_thumbnailOffset + _thumbnailLength))
                 return null;
 
-            byte[] data = new byte[_ThumbnailLength];
-            Array.Copy(Data, _ThumbnailOffset, data, 0, _ThumbnailLength);
+            byte[] data = new byte[_thumbnailLength];
+            Array.Copy(Data, _thumbnailOffset, data, 0, _thumbnailLength);
             return new MagickImage(data);
         }
 
@@ -143,11 +144,11 @@ namespace ImageMagick
         {
             InitializeValues();
 
-            for (int i = 0; i < _Values.Count; i++)
+            for (int i = 0; i < _values.Count; i++)
             {
-                if (_Values[i].Tag == tag)
+                if (_values[i].Tag == tag)
                 {
-                    _Values.RemoveAt(i);
+                    _values.RemoveAt(i);
                     return true;
                 }
             }
@@ -172,7 +173,7 @@ namespace ImageMagick
             }
 
             ExifValue newExifValue = ExifValue.Create(tag, value);
-            _Values.Add(newExifValue);
+            _values.Add(newExifValue);
         }
 
         /// <summary>
@@ -180,38 +181,38 @@ namespace ImageMagick
         /// </summary>
         protected override void UpdateData()
         {
-            if (_Values == null || _Values.Count == 0)
+            if (_values == null || _values.Count == 0)
             {
                 Data = null;
                 return;
             }
 
-            ExifWriter writer = new ExifWriter(_Values, Parts);
+            ExifWriter writer = new ExifWriter(_values, Parts);
             Data = writer.GetData();
         }
 
         private void Initialize()
         {
             Parts = ExifParts.All;
-            _InvalidTags = new List<ExifTag>();
+            _invalidTags = new List<ExifTag>();
         }
 
         private void InitializeValues()
         {
-            if (_Values != null)
+            if (_values != null)
                 return;
 
             if (Data == null)
             {
-                _Values = new Collection<ExifValue>();
+                _values = new Collection<ExifValue>();
                 return;
             }
 
             ExifReader reader = new ExifReader();
-            _Values = reader.Read(Data);
-            _InvalidTags = new List<ExifTag>(reader.InvalidTags);
-            _ThumbnailOffset = (int)reader.ThumbnailOffset;
-            _ThumbnailLength = (int)reader.ThumbnailLength;
+            _values = reader.Read(Data);
+            _invalidTags = new List<ExifTag>(reader.InvalidTags);
+            _thumbnailOffset = (int)reader.ThumbnailOffset;
+            _thumbnailLength = (int)reader.ThumbnailLength;
         }
     }
 }

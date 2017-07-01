@@ -13,7 +13,6 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
 using System.Web;
 using ImageMagick.Web.Handlers;
 
@@ -25,7 +24,7 @@ namespace ImageMagick.Web
     public sealed class MagickModule : MagickModuleBase
     {
         private const string UrlKey = "ImageMagick.Web.MagickModule.Url";
-        private readonly MagickWebSettings _Settings;
+        private readonly MagickWebSettings _settings;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickModule"/> class.
@@ -37,7 +36,7 @@ namespace ImageMagick.Web
 
         internal MagickModule(MagickWebSettings settings)
         {
-            _Settings = settings;
+            _settings = settings;
         }
 
         /// <inheritdoc/>
@@ -53,7 +52,7 @@ namespace ImageMagick.Web
         {
             get
             {
-                foreach (UrlResolverSettings settings in _Settings.UrlResolvers)
+                foreach (UrlResolverSettings settings in _settings.UrlResolvers)
                 {
                     yield return settings.CreateInstance();
                 }
@@ -81,7 +80,7 @@ namespace ImageMagick.Web
 
         internal override void Initialize()
         {
-            if (_Settings.UrlResolvers.Count == 0)
+            if (_settings.UrlResolvers.Count == 0)
                 throw new ConfigurationErrorsException("Define at least one url resolver.");
 
             InitOpenCL();
@@ -111,13 +110,13 @@ namespace ImageMagick.Web
 
             IScriptData scriptData = urlResolver as IScriptData;
             if (IsValid(scriptData))
-                return new MagickScriptHandler(_Settings, imageData, scriptData);
+                return new MagickScriptHandler(_settings, imageData, scriptData);
 
-            if (HandlerHelper.CanOptimize(_Settings, formatInfo))
-                return new ImageOptimizerHandler(_Settings, imageData);
+            if (HandlerHelper.CanOptimize(_settings, formatInfo))
+                return new ImageOptimizerHandler(_settings, imageData);
 
-            if (HandlerHelper.CanCompress(_Settings, formatInfo))
-                return new GzipHandler(_Settings, imageData);
+            if (HandlerHelper.CanCompress(_settings, formatInfo))
+                return new GzipHandler(_settings, imageData);
 
             return null;
         }
@@ -137,17 +136,17 @@ namespace ImageMagick.Web
 
         private void InitOpenCL()
         {
-            if (!_Settings.UseOpenCL)
+            if (!_settings.UseOpenCL)
                 OpenCL.IsEnabled = false;
         }
 
         private void InitResourceLimits()
         {
-            if (_Settings.ResourceLimits.Width != null)
-                ResourceLimits.Width = (ulong)_Settings.ResourceLimits.Width.Value;
+            if (_settings.ResourceLimits.Width != null)
+                ResourceLimits.Width = (ulong)_settings.ResourceLimits.Width.Value;
 
-            if (_Settings.ResourceLimits.Height != null)
-                ResourceLimits.Height = (ulong)_Settings.ResourceLimits.Height.Value;
+            if (_settings.ResourceLimits.Height != null)
+                ResourceLimits.Height = (ulong)_settings.ResourceLimits.Height.Value;
         }
     }
 }

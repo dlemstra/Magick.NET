@@ -19,8 +19,8 @@ namespace ImageMagick
     /// </summary>
     public sealed class PathQuadraticCurveToRel : IPath, IDrawingWand
     {
-        private PointD _ControlPoint;
-        private PointD _End;
+        private readonly PointD _controlPoint;
+        private readonly PointD _end;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PathQuadraticCurveToRel"/> class.
@@ -41,8 +41,8 @@ namespace ImageMagick
         /// <param name="end">Coordinate of final point</param>
         public PathQuadraticCurveToRel(PointD controlPoint, PointD end)
         {
-            _ControlPoint = controlPoint;
-            _End = end;
+            _controlPoint = controlPoint;
+            _end = end;
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace ImageMagick
         void IDrawingWand.Draw(DrawingWand wand)
         {
             if (wand != null)
-                wand.PathQuadraticCurveToRel(_ControlPoint, _End);
+                wand.PathQuadraticCurveToRel(_controlPoint, _end);
         }
     }
 }

@@ -21,21 +21,21 @@ namespace ImageMagick
     /// </summary>
     public sealed partial class Paths : IEnumerable<IPath>
     {
-        private Drawables _Drawables;
-        private Collection<IPath> _Paths;
+        private readonly Drawables _drawables;
+        private readonly Collection<IPath> _paths;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Paths"/> class.
         /// </summary>
         public Paths()
         {
-            _Paths = new Collection<IPath>();
+            _paths = new Collection<IPath>();
         }
 
         internal Paths(Drawables drawables)
           : this()
         {
-            _Drawables = drawables;
+            _drawables = drawables;
         }
 
         /// <summary>
@@ -47,10 +47,10 @@ namespace ImageMagick
             if (ReferenceEquals(paths, null))
                 return null;
 
-            if (paths._Drawables == null)
+            if (paths._drawables == null)
                 return new Drawables().Path(paths);
 
-            return paths._Drawables.Path(paths);
+            return paths._drawables.Path(paths);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace ImageMagick
         /// <returns>An enumerator that iterates through the collection.</returns>
         public IEnumerator<IPath> GetEnumerator()
         {
-            return _Paths.GetEnumerator();
+            return _paths.GetEnumerator();
         }
 
         /// <summary>

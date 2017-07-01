@@ -17,30 +17,30 @@ namespace ImageMagick.Web
 {
     internal sealed class StreamImageData : IImageData
     {
-        private readonly IStreamUrlResolver _Resolver;
+        private readonly IStreamUrlResolver _resolver;
 
         public StreamImageData(IStreamUrlResolver resolver, MagickFormatInfo formatInfo)
         {
-            _Resolver = resolver;
+            _resolver = resolver;
             FormatInfo = formatInfo;
         }
 
         public MagickFormatInfo FormatInfo { get; }
 
-        public string ImageId => _Resolver.ImageId;
+        public string ImageId => _resolver.ImageId;
 
-        public bool IsValid => !string.IsNullOrEmpty(_Resolver.ImageId);
+        public bool IsValid => !string.IsNullOrEmpty(_resolver.ImageId);
 
-        public DateTime ModifiedTimeUtc => _Resolver.ModifiedTimeUtc;
+        public DateTime ModifiedTimeUtc => _resolver.ModifiedTimeUtc;
 
         public Stream ReadImage()
         {
-            return _Resolver.OpenStream();
+            return _resolver.OpenStream();
         }
 
         public MagickImage ReadImage(MagickReadSettings settings)
         {
-            using (Stream stream = _Resolver.OpenStream())
+            using (Stream stream = _resolver.OpenStream())
             {
                 return new MagickImage(stream, settings);
             }
@@ -50,7 +50,7 @@ namespace ImageMagick.Web
         {
             using (FileStream output = File.OpenWrite(fileName))
             {
-                using (Stream input = _Resolver.OpenStream())
+                using (Stream input = _resolver.OpenStream())
                 {
                     input.CopyTo(output);
                 }

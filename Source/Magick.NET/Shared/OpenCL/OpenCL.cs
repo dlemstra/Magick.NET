@@ -21,7 +21,7 @@ namespace ImageMagick
     /// </summary>
     public static partial class OpenCL
     {
-        private static bool? _IsEnabled;
+        private static bool? _isEnabled;
 
         /// <summary>
         /// Gets or sets a value indicating whether OpenCL is enabled.
@@ -30,14 +30,14 @@ namespace ImageMagick
         {
             get
             {
-                if (!_IsEnabled.HasValue)
-                    _IsEnabled = NativeOpenCL.SetEnabled(true);
+                if (!_isEnabled.HasValue)
+                    _isEnabled = NativeOpenCL.SetEnabled(true);
 
-                return _IsEnabled.Value;
+                return _isEnabled.Value;
             }
             set
             {
-                _IsEnabled = NativeOpenCL.SetEnabled(value);
+                _isEnabled = NativeOpenCL.SetEnabled(value);
             }
         }
 

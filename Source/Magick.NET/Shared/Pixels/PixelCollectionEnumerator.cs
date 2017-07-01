@@ -28,18 +28,18 @@ namespace ImageMagick
 {
     internal sealed class PixelCollectionEnumerator : IEnumerator<Pixel>
     {
-        private QuantumType[] _Row;
-        private PixelCollection _Collection;
-        private int _Height;
-        private int _X;
-        private int _Y;
-        private int _Width;
+        private QuantumType[] _row;
+        private readonly PixelCollection _collection;
+        private readonly int _height;
+        private int _x;
+        private int _y;
+        private readonly int _width;
 
         public PixelCollectionEnumerator(PixelCollection collection, int width, int height)
         {
-            _Collection = collection;
-            _Width = width;
-            _Height = height;
+            _collection = collection;
+            _width = width;
+            _height = height;
             Reset();
         }
 
@@ -55,13 +55,13 @@ namespace ImageMagick
         {
             get
             {
-                if (_X == -1)
+                if (_x == -1)
                     return null;
 
-                QuantumType[] pixel = new QuantumType[_Collection.Channels];
-                Array.Copy(_Row, _X * _Collection.Channels, pixel, 0, _Collection.Channels);
+                QuantumType[] pixel = new QuantumType[_collection.Channels];
+                Array.Copy(_row, _x * _collection.Channels, pixel, 0, _collection.Channels);
 
-                return Pixel.Create(_Collection, _X, _Y, pixel);
+                return Pixel.Create(_collection, _x, _y, pixel);
             }
         }
 
@@ -71,32 +71,32 @@ namespace ImageMagick
 
         public bool MoveNext()
         {
-            if (++_X == _Width)
+            if (++_x == _width)
             {
-                _X = 0;
-                _Y++;
+                _x = 0;
+                _y++;
                 SetRow();
             }
 
-            if (_Y < _Height)
+            if (_y < _height)
                 return true;
 
-            _X = _Width - 1;
-            _Y = _Height - 1;
+            _x = _width - 1;
+            _y = _height - 1;
             return false;
         }
 
         public void Reset()
         {
-            _X = -1;
-            _Y = 0;
+            _x = -1;
+            _y = 0;
             SetRow();
         }
 
         private void SetRow()
         {
-            if (_Y < _Height)
-                _Row = _Collection.GetAreaUnchecked(0, _Y, _Width, 1);
+            if (_y < _height)
+                _row = _collection.GetAreaUnchecked(0, _y, _width, 1);
         }
     }
 }

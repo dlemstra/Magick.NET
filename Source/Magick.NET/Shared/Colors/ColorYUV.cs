@@ -29,10 +29,6 @@ namespace ImageMagick
     /// </summary>
     public sealed class ColorYUV : ColorBase
     {
-        private double _U;
-        private double _V;
-        private double _Y;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ColorYUV"/> class.
         /// </summary>
@@ -42,17 +38,17 @@ namespace ImageMagick
         public ColorYUV(double y, double u, double v)
           : base(new MagickColor(0, 0, 0))
         {
-            _Y = y;
-            _U = u;
-            _V = v;
+            Y = y;
+            U = u;
+            V = v;
         }
 
         private ColorYUV(MagickColor color)
           : base(color)
         {
-            _Y = (1.0 / Quantum.Max) * ((0.298839 * color.R) + (0.586811 * color.G) + (0.11435 * color.B));
-            _U = ((1.0 / Quantum.Max) * ((-0.147 * color.R) - (0.289 * color.G) + (0.436 * color.B))) + 0.5;
-            _V = ((1.0 / Quantum.Max) * ((0.615 * color.R) - (0.515 * color.G) - (0.1 * color.B))) + 0.5;
+            Y = (1.0 / Quantum.Max) * ((0.298839 * color.R) + (0.586811 * color.G) + (0.11435 * color.B));
+            U = ((1.0 / Quantum.Max) * ((-0.147 * color.R) - (0.289 * color.G) + (0.436 * color.B))) + 0.5;
+            V = ((1.0 / Quantum.Max) * ((0.615 * color.R) - (0.515 * color.G) - (0.1 * color.B))) + 0.5;
         }
 
         /// <summary>
@@ -60,14 +56,8 @@ namespace ImageMagick
         /// </summary>
         public double U
         {
-            get
-            {
-                return _U;
-            }
-            set
-            {
-                _U = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -75,14 +65,8 @@ namespace ImageMagick
         /// </summary>
         public double V
         {
-            get
-            {
-                return _V;
-            }
-            set
-            {
-                _V = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -90,14 +74,8 @@ namespace ImageMagick
         /// </summary>
         public double Y
         {
-            get
-            {
-                return _Y;
-            }
-            set
-            {
-                _Y = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -128,9 +106,9 @@ namespace ImageMagick
         /// </summary>
         protected override void UpdateColor()
         {
-            Color.R = Quantum.ScaleToQuantum(_Y - (3.945707070708279e-05 * (_U - 0.5)) + (1.1398279671717170825 * (_V - 0.5)));
-            Color.G = Quantum.ScaleToQuantum(_Y - (0.3946101641414141437 * (_U - 0.5)) - (0.5805003156565656797 * (_V - 0.5)));
-            Color.B = Quantum.ScaleToQuantum(_Y + (2.0319996843434342537 * (_U - 0.5)) - (4.813762626262513e-04 * (_V - 0.5)));
+            Color.R = Quantum.ScaleToQuantum(Y - (3.945707070708279e-05 * (U - 0.5)) + (1.1398279671717170825 * (V - 0.5)));
+            Color.G = Quantum.ScaleToQuantum(Y - (0.3946101641414141437 * (U - 0.5)) - (0.5805003156565656797 * (V - 0.5)));
+            Color.B = Quantum.ScaleToQuantum(Y + (2.0319996843434342537 * (U - 0.5)) - (4.813762626262513e-04 * (V - 0.5)));
         }
     }
 }

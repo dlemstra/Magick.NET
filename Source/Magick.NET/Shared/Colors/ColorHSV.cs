@@ -29,10 +29,6 @@ namespace ImageMagick
     /// </summary>
     public sealed class ColorHSV : ColorBase
     {
-        private double _Hue;
-        private double _Saturation;
-        private double _Value;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ColorHSV"/> class.
         /// </summary>
@@ -42,9 +38,9 @@ namespace ImageMagick
         public ColorHSV(double hue, double saturation, double value)
               : base(new MagickColor(0, 0, 0))
         {
-            _Hue = hue;
-            _Saturation = saturation;
-            _Value = value;
+            Hue = hue;
+            Saturation = saturation;
+            Value = value;
         }
 
         private ColorHSV(MagickColor color)
@@ -58,14 +54,8 @@ namespace ImageMagick
         /// </summary>
         public double Hue
         {
-            get
-            {
-                return _Hue;
-            }
-            set
-            {
-                _Hue = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -73,14 +63,8 @@ namespace ImageMagick
         /// </summary>
         public double Saturation
         {
-            get
-            {
-                return _Saturation;
-            }
-            set
-            {
-                _Saturation = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -88,14 +72,8 @@ namespace ImageMagick
         /// </summary>
         public double Value
         {
-            get
-            {
-                return _Value;
-            }
-            set
-            {
-                _Value = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -127,13 +105,13 @@ namespace ImageMagick
         /// <param name="degrees">The degrees.</param>
         public void HueShift(double degrees)
         {
-            _Hue += degrees / 360.0;
+            Hue += degrees / 360.0;
 
-            while (_Hue >= 1.0)
-                _Hue -= 1.0;
+            while (Hue >= 1.0)
+                Hue -= 1.0;
 
-            while (_Hue < 0.0)
-                _Hue += 1.0;
+            while (Hue < 0.0)
+                Hue += 1.0;
         }
 
         /// <summary>
@@ -141,47 +119,47 @@ namespace ImageMagick
         /// </summary>
         protected override void UpdateColor()
         {
-            if (Math.Abs(_Saturation) < double.Epsilon)
+            if (Math.Abs(Saturation) < double.Epsilon)
             {
-                Color.R = Color.G = Color.B = Quantum.ScaleToQuantum(_Value);
+                Color.R = Color.G = Color.B = Quantum.ScaleToQuantum(Value);
                 return;
             }
 
-            double h = 6.0 * (_Hue - Math.Floor(_Hue));
+            double h = 6.0 * (Hue - Math.Floor(Hue));
             double f = h - Math.Floor(h);
-            double p = _Value * (1.0 - _Saturation);
-            double q = _Value * (1.0 - (_Saturation * f));
-            double t = _Value * (1.0 - (_Saturation * (1.0 - f)));
+            double p = Value * (1.0 - Saturation);
+            double q = Value * (1.0 - (Saturation * f));
+            double t = Value * (1.0 - (Saturation * (1.0 - f)));
             switch ((int)h)
             {
                 case 0:
                 default:
-                    Color.R = Quantum.ScaleToQuantum(_Value);
+                    Color.R = Quantum.ScaleToQuantum(Value);
                     Color.G = Quantum.ScaleToQuantum(t);
                     Color.B = Quantum.ScaleToQuantum(p);
                     break;
                 case 1:
                     Color.R = Quantum.ScaleToQuantum(q);
-                    Color.G = Quantum.ScaleToQuantum(_Value);
+                    Color.G = Quantum.ScaleToQuantum(Value);
                     Color.B = Quantum.ScaleToQuantum(p);
                     break;
                 case 2:
                     Color.R = Quantum.ScaleToQuantum(p);
-                    Color.G = Quantum.ScaleToQuantum(_Value);
+                    Color.G = Quantum.ScaleToQuantum(Value);
                     Color.B = Quantum.ScaleToQuantum(t);
                     break;
                 case 3:
                     Color.R = Quantum.ScaleToQuantum(p);
                     Color.G = Quantum.ScaleToQuantum(q);
-                    Color.B = Quantum.ScaleToQuantum(_Value);
+                    Color.B = Quantum.ScaleToQuantum(Value);
                     break;
                 case 4:
                     Color.R = Quantum.ScaleToQuantum(t);
                     Color.G = Quantum.ScaleToQuantum(p);
-                    Color.B = Quantum.ScaleToQuantum(_Value);
+                    Color.B = Quantum.ScaleToQuantum(Value);
                     break;
                 case 5:
-                    Color.R = Quantum.ScaleToQuantum(_Value);
+                    Color.R = Quantum.ScaleToQuantum(Value);
                     Color.G = Quantum.ScaleToQuantum(p);
                     Color.B = Quantum.ScaleToQuantum(q);
                     break;
@@ -190,9 +168,9 @@ namespace ImageMagick
 
         private void Initialize(double red, double green, double blue)
         {
-            _Hue = 0.0;
-            _Saturation = 0.0;
-            _Value = 0.0;
+            Hue = 0.0;
+            Saturation = 0.0;
+            Value = 0.0;
 
             double min = Math.Min(Math.Min(red, green), blue);
             double max = Math.Max(Math.Max(red, green), blue);
@@ -200,19 +178,19 @@ namespace ImageMagick
             if (Math.Abs(max) < double.Epsilon)
                 return;
             double delta = max - min;
-            _Saturation = delta / max;
-            _Value = (1.0 / Quantum.Max) * max;
+            Saturation = delta / max;
+            Value = (1.0 / Quantum.Max) * max;
             if (Math.Abs(delta) < double.Epsilon)
                 return;
             if (Math.Abs(red - max) < double.Epsilon)
-                _Hue = (green - blue) / delta;
+                Hue = (green - blue) / delta;
             else if (Math.Abs(green - max) < double.Epsilon)
-                _Hue = 2.0 + ((blue - red) / delta);
+                Hue = 2.0 + ((blue - red) / delta);
             else
-                _Hue = 4.0 + ((red - green) / delta);
-            _Hue /= 6.0;
-            if (_Hue < 0.0)
-                _Hue += 1.0;
+                Hue = 4.0 + ((red - green) / delta);
+            Hue /= 6.0;
+            if (Hue < 0.0)
+                Hue += 1.0;
         }
     }
 }

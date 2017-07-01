@@ -20,13 +20,13 @@ namespace ImageMagick.Web.Handlers
     /// </summary>
     internal class ImageOptimizerHandler : MagickHandler
     {
-        private readonly ImageOptimizer _ImageOptimizer;
+        private readonly ImageOptimizer _imageOptimizer;
 
         public ImageOptimizerHandler(MagickWebSettings settings, IImageData imageData)
           : base(settings, imageData)
         {
-            _ImageOptimizer = new ImageOptimizer();
-            _ImageOptimizer.OptimalCompression = settings.Optimization.OptimalCompression;
+            _imageOptimizer = new ImageOptimizer();
+            _imageOptimizer.OptimalCompression = settings.Optimization.OptimalCompression;
         }
 
         /// <summary>
@@ -36,9 +36,9 @@ namespace ImageMagick.Web.Handlers
         protected void OptimizeFile(string fileName)
         {
             if (Settings.Optimization.Lossless)
-                _ImageOptimizer.LosslessCompress(fileName);
+                _imageOptimizer.LosslessCompress(fileName);
             else
-                _ImageOptimizer.Compress(fileName);
+                _imageOptimizer.Compress(fileName);
         }
 
         /// <inheritdoc/>

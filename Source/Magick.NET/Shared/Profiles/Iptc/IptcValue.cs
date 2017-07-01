@@ -20,22 +20,22 @@ namespace ImageMagick
     /// </summary>
     public sealed class IptcValue : IEquatable<IptcValue>
     {
-        private byte[] _Data;
-        private Encoding _Encoding;
+        private byte[] _data;
+        private Encoding _encoding;
 
         internal IptcValue(IptcTag tag, byte[] value)
         {
             Throw.IfNull(nameof(value), value);
 
             Tag = tag;
-            _Data = value;
-            _Encoding = Encoding.UTF8;
+            _data = value;
+            _encoding = Encoding.UTF8;
         }
 
         internal IptcValue(IptcTag tag, Encoding encoding, string value)
         {
             Tag = tag;
-            _Encoding = encoding;
+            _encoding = encoding;
             Value = value;
         }
 
@@ -46,13 +46,13 @@ namespace ImageMagick
         {
             get
             {
-                return _Encoding;
+                return _encoding;
             }
             set
             {
                 Throw.IfNull(nameof(value), value);
 
-                _Encoding = value;
+                _encoding = value;
             }
         }
 
@@ -72,14 +72,14 @@ namespace ImageMagick
         {
             get
             {
-                return _Encoding.GetString(_Data);
+                return _encoding.GetString(_data);
             }
             set
             {
                 if (string.IsNullOrEmpty(value))
-                    _Data = new byte[0];
+                    _data = new byte[0];
                 else
-                    _Data = _Encoding.GetBytes(value);
+                    _data = _encoding.GetBytes(value);
             }
         }
 
@@ -87,7 +87,7 @@ namespace ImageMagick
         {
             get
             {
-                return _Data.Length;
+                return _data.Length;
             }
         }
 
@@ -140,18 +140,18 @@ namespace ImageMagick
             if (Tag != other.Tag)
                 return false;
 
-            if (ReferenceEquals(_Data, null))
-                return ReferenceEquals(other._Data, null);
+            if (ReferenceEquals(_data, null))
+                return ReferenceEquals(other._data, null);
 
-            if (ReferenceEquals(other._Data, null))
+            if (ReferenceEquals(other._data, null))
                 return false;
 
-            if (_Data.Length != other._Data.Length)
+            if (_data.Length != other._data.Length)
                 return false;
 
-            for (int i = 0; i < _Data.Length; i++)
+            for (int i = 0; i < _data.Length; i++)
             {
-                if (_Data[i] != other._Data[i])
+                if (_data[i] != other._data[i])
                     return false;
             }
 
@@ -165,7 +165,7 @@ namespace ImageMagick
         public override int GetHashCode()
         {
             return
-              _Data.GetHashCode() ^
+              _data.GetHashCode() ^
               Tag.GetHashCode();
         }
 
@@ -175,8 +175,8 @@ namespace ImageMagick
         /// <returns>A <see cref="byte"/> array.</returns>
         public byte[] ToByteArray()
         {
-            byte[] result = new byte[_Data.Length];
-            _Data.CopyTo(result, 0);
+            byte[] result = new byte[_data.Length];
+            _data.CopyTo(result, 0);
             return result;
         }
 
@@ -198,7 +198,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(encoding), encoding);
 
-            return encoding.GetString(_Data);
+            return encoding.GetString(_data);
         }
     }
 }

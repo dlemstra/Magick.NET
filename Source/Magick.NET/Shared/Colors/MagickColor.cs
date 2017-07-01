@@ -31,7 +31,7 @@ namespace ImageMagick
     /// </summary>
     public sealed partial class MagickColor : IEquatable<MagickColor>, IComparable<MagickColor>
     {
-        private bool _IsCmyk = false;
+        private bool _isCmyk = false;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickColor"/> class.
@@ -53,7 +53,7 @@ namespace ImageMagick
             B = color.B;
             A = color.A;
             K = color.K;
-            _IsCmyk = color._IsCmyk;
+            _isCmyk = color._isCmyk;
         }
 
 #if Q8
@@ -110,7 +110,7 @@ namespace ImageMagick
         {
             Initialize(cyan, magenta, yellow, alpha);
             K = black;
-            _IsCmyk = true;
+            _isCmyk = true;
         }
 
 #if Q8
@@ -389,7 +389,7 @@ namespace ImageMagick
                 return true;
 
             return
-              _IsCmyk == other._IsCmyk &&
+              _isCmyk == other._isCmyk &&
               A == other.A &&
               B == other.B &&
               G == other.G &&
@@ -424,7 +424,7 @@ namespace ImageMagick
         public override int GetHashCode()
         {
             return
-              _IsCmyk.GetHashCode() ^
+              _isCmyk.GetHashCode() ^
               A.GetHashCode() ^
               B.GetHashCode() ^
               G.GetHashCode() ^
@@ -438,7 +438,7 @@ namespace ImageMagick
         /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
         {
-            if (_IsCmyk)
+            if (_isCmyk)
                 return string.Format(CultureInfo.InvariantCulture, "cmyka({0},{1},{2},{3},{4:0.0###})", R, G, B, K, (double)A / Quantum.Max);
 #if Q8
             return string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}{3:X2}", R, G, B, A);
@@ -461,7 +461,7 @@ namespace ImageMagick
                 B = value.B,
                 A = value.A,
                 K = value.K,
-                _IsCmyk = value._IsCmyk,
+                _isCmyk = value._isCmyk,
             };
             return clone;
         }
@@ -476,7 +476,7 @@ namespace ImageMagick
             if (A != Quantum.Max)
                 return ToString();
 
-            if (_IsCmyk)
+            if (_isCmyk)
                 return string.Format(CultureInfo.InvariantCulture, "cmyk({0},{1},{2},{3})", R, G, B, K);
 #if Q8
             return string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}", R, G, B);
@@ -508,7 +508,7 @@ namespace ImageMagick
             A = instance.Alpha;
             K = instance.Black;
 
-            _IsCmyk = instance.IsCMYK;
+            _isCmyk = instance.IsCMYK;
             Count = (int)instance.Count;
         }
 

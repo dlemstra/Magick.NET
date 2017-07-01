@@ -20,13 +20,13 @@ namespace ImageMagick
 {
     internal sealed class ExifReader
     {
-        private byte[] _Data;
-        private Collection<ExifTag> _InvalidTags = new Collection<ExifTag>();
-        private uint _Index;
-        private bool _IsLittleEndian;
-        private uint _ExifOffset;
-        private uint _GPSOffset;
-        private uint _StartIndex;
+        private byte[] _data;
+        private readonly Collection<ExifTag> _invalidTags = new Collection<ExifTag>();
+        private uint _index;
+        private bool _isLittleEndian;
+        private uint _exifOffset;
+        private uint _gpsOffset;
+        private uint _startIndex;
 
         private delegate TDataType ConverterMethod<TDataType>(byte[] data);
 
@@ -46,7 +46,7 @@ namespace ImageMagick
         {
             get
             {
-                return _InvalidTags;
+                return _invalidTags;
             }
         }
 
@@ -54,10 +54,10 @@ namespace ImageMagick
         {
             get
             {
-                if (_Index >= _Data.Length)
+                if (_index >= _data.Length)
                     return 0;
 
-                return _Data.Length - (int)_Index;
+                return _data.Length - (int)_index;
             }
         }
 
@@ -65,21 +65,21 @@ namespace ImageMagick
         {
             Collection<ExifValue> result = new Collection<ExifValue>();
 
-            _Data = data;
+            _data = data;
 
             if (GetString(4) == "Exif")
             {
                 if (GetShort() != 0)
                     return result;
 
-                _StartIndex = 6;
+                _startIndex = 6;
             }
             else
             {
-                _Index = 0;
+                _index = 0;
             }
 
-            _IsLittleEndian = GetString(2) == "II";
+            _isLittleEndian = GetString(2) == "II";
 
             if (GetShort() != 0x002A)
                 return result;
@@ -90,11 +90,11 @@ namespace ImageMagick
             uint thumbnailOffset = GetLong();
             GetThumbnail(thumbnailOffset);
 
-            if (_ExifOffset != 0)
-                AddValues(result, _ExifOffset);
+            if (_exifOffset != 0)
+                AddValues(result, _exifOffset);
 
-            if (_GPSOffset != 0)
-                AddValues(result, _GPSOffset);
+            if (_gpsOffset != 0)
+                AddValues(result, _gpsOffset);
 
             return result;
         }
@@ -134,7 +134,7 @@ namespace ImageMagick
 
         private void AddValues(Collection<ExifValue> values, uint index)
         {
-            _Index = _StartIndex + index;
+            _index = _startIndex + index;
             ushort count = GetShort();
 
             for (ushort i = 0; i < count; i++)
@@ -159,12 +159,12 @@ namespace ImageMagick
                 if (value.Tag == ExifTag.SubIFDOffset)
                 {
                     if (value.DataType == ExifDataType.Long)
-                        _ExifOffset = (uint)value.Value;
+                        _exifOffset = (uint)value.Value;
                 }
                 else if (value.Tag == ExifTag.GPSIFDOffset)
                 {
                     if (value.DataType == ExifDataType.Long)
-                        _GPSOffset = (uint)value.Value;
+                        _gpsOffset = (uint)value.Value;
                 }
                 else
                     values.Add(value);
@@ -265,18 +265,18 @@ namespace ImageMagick
 
             if (size > 4)
             {
-                uint oldIndex = _Index;
-                _Index = ToLong(data) + _StartIndex;
+                uint oldIndex = _index;
+                _index = ToLong(data) + _startIndex;
 
                 if (RemainingLength < size)
                 {
-                    _InvalidTags.Add(tag);
-                    _Index = oldIndex;
+                    _invalidTags.Add(tag);
+                    _index = oldIndex;
                     return null;
                 }
 
                 value = ConvertValue(dataType, GetBytes(size), numberOfComponents);
-                _Index = oldIndex;
+                _index = oldIndex;
             }
             else
             {
@@ -289,12 +289,12 @@ namespace ImageMagick
 
         private byte[] GetBytes(uint length)
         {
-            if (_Index + length > (uint)_Data.Length)
+            if (_index + length > (uint)_data.Length)
                 return null;
 
             byte[] data = new byte[length];
-            Array.Copy(_Data, (int)_Index, data, 0, (int)length);
-            _Index += length;
+            Array.Copy(_data, (int)_index, data, 0, (int)length);
+            _index += length;
 
             return data;
         }
@@ -326,7 +326,7 @@ namespace ImageMagick
             foreach (ExifValue value in values)
             {
                 if (value.Tag == ExifTag.JPEGInterchangeFormat && (value.DataType == ExifDataType.Long))
-                    ThumbnailOffset = (uint)value.Value + _StartIndex;
+                    ThumbnailOffset = (uint)value.Value + _startIndex;
                 else if (value.Tag == ExifTag.JPEGInterchangeFormatLength && value.DataType == ExifDataType.Long)
                     ThumbnailLength = (uint)value.Value;
             }
@@ -417,7 +417,7 @@ namespace ImageMagick
             if (data == null || data.Length < size)
                 return false;
 
-            if (_IsLittleEndian == BitConverter.IsLittleEndian)
+            if (_isLittleEndian == BitConverter.IsLittleEndian)
                 return true;
 
             for (int i = 0; i < data.Length; i += stepSize)

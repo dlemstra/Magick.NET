@@ -23,7 +23,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class PathSmoothQuadraticCurveToAbs : IPath, IDrawingWand
     {
-        private PointD _End;
+        private readonly PointD _end;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PathSmoothQuadraticCurveToAbs"/> class.
@@ -41,7 +41,7 @@ namespace ImageMagick
         /// <param name="end">Coordinate of final point</param>
         public PathSmoothQuadraticCurveToAbs(PointD end)
         {
-            _End = end;
+            _end = end;
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace ImageMagick
         void IDrawingWand.Draw(DrawingWand wand)
         {
             if (wand != null)
-                wand.PathSmoothQuadraticCurveToAbs(_End);
+                wand.PathSmoothQuadraticCurveToAbs(_end);
         }
     }
 }

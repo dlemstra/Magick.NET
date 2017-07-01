@@ -17,7 +17,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class DrawableComposite : IDrawable, IDrawingWand
     {
-        private IMagickImage _Image;
+        private readonly IMagickImage _image;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DrawableComposite"/> class.
@@ -30,8 +30,8 @@ namespace ImageMagick
         {
             X = x;
             Y = y;
-            Width = _Image.Width;
-            Height = _Image.Height;
+            Width = _image.Width;
+            Height = _image.Height;
             Compose = CompositeOperator.CopyAlpha;
         }
 
@@ -47,8 +47,8 @@ namespace ImageMagick
         {
             X = x;
             Y = y;
-            Width = _Image.Width;
-            Height = _Image.Height;
+            Width = _image.Width;
+            Height = _image.Height;
             Compose = compose;
         }
 
@@ -91,7 +91,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(image), image);
 
-            _Image = image;
+            _image = image;
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace ImageMagick
         void IDrawingWand.Draw(DrawingWand wand)
         {
             if (wand != null)
-                wand.Composite(X, Y, Width, Height, Compose, _Image);
+                wand.Composite(X, Y, Width, Height, Compose, _image);
         }
     }
 }

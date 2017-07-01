@@ -24,7 +24,7 @@ namespace ImageMagick
     public sealed class ColorProfile : ImageProfile
     {
         private static readonly object _SyncRoot = new object();
-        private static Dictionary<string, ColorProfile> _Profiles = new Dictionary<string, ColorProfile>();
+        private static readonly Dictionary<string, ColorProfile> _profiles = new Dictionary<string, ColorProfile>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ColorProfile"/> class.
@@ -140,16 +140,16 @@ namespace ImageMagick
         {
             lock (_SyncRoot)
             {
-                if (!_Profiles.ContainsKey(resourceName))
+                if (!_profiles.ContainsKey(resourceName))
                 {
                     using (Stream stream = TypeHelper.GetManifestResourceStream(typeof(ColorProfile), resourcePath, resourceName))
                     {
-                        _Profiles[resourceName] = new ColorProfile(stream);
+                        _profiles[resourceName] = new ColorProfile(stream);
                     }
                 }
             }
 
-            return _Profiles[resourceName];
+            return _profiles[resourceName];
         }
 
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Cannot avoid it here.")]

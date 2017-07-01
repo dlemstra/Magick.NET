@@ -23,7 +23,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class IptcProfile : ImageProfile
     {
-        private Collection<IptcValue> _Values;
+        private Collection<IptcValue> _values;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IptcProfile"/> class.
@@ -69,7 +69,7 @@ namespace ImageMagick
             get
             {
                 Initialize();
-                return _Values;
+                return _values;
             }
         }
 
@@ -98,11 +98,11 @@ namespace ImageMagick
         {
             Initialize();
 
-            for (int i = 0; i < _Values.Count; i++)
+            for (int i = 0; i < _values.Count; i++)
             {
-                if (_Values[i].Tag == tag)
+                if (_values[i].Tag == tag)
                 {
-                    _Values.RemoveAt(i);
+                    _values.RemoveAt(i);
                     return true;
                 }
             }
@@ -144,7 +144,7 @@ namespace ImageMagick
                 }
             }
 
-            _Values.Add(new IptcValue(tag, encoding, value));
+            _values.Add(new IptcValue(tag, encoding, value));
         }
 
         /// <summary>
@@ -188,10 +188,10 @@ namespace ImageMagick
 
         private void Initialize()
         {
-            if (_Values != null)
+            if (_values != null)
                 return;
 
-            _Values = new Collection<IptcValue>();
+            _values = new Collection<IptcValue>();
 
             if (Data == null || Data[0] != 0x1c)
                 return;
@@ -211,7 +211,7 @@ namespace ImageMagick
                 byte[] data = new byte[count];
                 if ((count > 0) && (i + count <= Data.Length))
                     Buffer.BlockCopy(Data, i, data, 0, count);
-                _Values.Add(new IptcValue(tag, data));
+                _values.Add(new IptcValue(tag, data));
 
                 i += count;
             }

@@ -27,7 +27,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Affine(Matrix matrix)
         {
-            _Drawables.Add(new DrawableAffine(matrix));
+            _drawables.Add(new DrawableAffine(matrix));
             return this;
         }
 
@@ -38,7 +38,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables BorderColor(Color color)
         {
-            _Drawables.Add(new DrawableBorderColor(color));
+            _drawables.Add(new DrawableBorderColor(color));
             return this;
         }
 
@@ -49,7 +49,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables FillColor(Color color)
         {
-            _Drawables.Add(new DrawableFillColor(color));
+            _drawables.Add(new DrawableFillColor(color));
             return this;
         }
 
@@ -60,7 +60,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Rectangle(Rectangle rectangle)
         {
-            _Drawables.Add(new DrawableRectangle(rectangle));
+            _drawables.Add(new DrawableRectangle(rectangle));
             return this;
         }
 
@@ -71,7 +71,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables StrokeColor(Color color)
         {
-            _Drawables.Add(new DrawableStrokeColor(color));
+            _drawables.Add(new DrawableStrokeColor(color));
             return this;
         }
 
@@ -82,7 +82,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables TextUnderColor(Color color)
         {
-            _Drawables.Add(new DrawableTextUnderColor(color));
+            _drawables.Add(new DrawableTextUnderColor(color));
             return this;
         }
 
@@ -93,7 +93,7 @@ namespace ImageMagick
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables Viewbox(Rectangle rectangle)
         {
-            _Drawables.Add(new DrawableViewbox(rectangle));
+            _drawables.Add(new DrawableViewbox(rectangle));
             return this;
         }
 

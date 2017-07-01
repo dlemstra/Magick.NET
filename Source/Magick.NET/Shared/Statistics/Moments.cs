@@ -20,14 +20,14 @@ namespace ImageMagick
     /// </summary>
     public sealed partial class Moments
     {
-        private Dictionary<PixelChannel, ChannelMoments> _Channels;
+        private readonly Dictionary<PixelChannel, ChannelMoments> _channels;
 
         internal Moments(MagickImage image, IntPtr list)
         {
             if (list == IntPtr.Zero)
                 return;
 
-            _Channels = new Dictionary<PixelChannel, ChannelMoments>();
+            _channels = new Dictionary<PixelChannel, ChannelMoments>();
             foreach (PixelChannel channel in image.Channels)
                 AddChannel(list, channel);
         }
@@ -48,7 +48,7 @@ namespace ImageMagick
         /// <returns>The moments for the specified channel.</returns>
         public ChannelMoments GetChannel(PixelChannel channel)
         {
-            _Channels.TryGetValue(channel, out ChannelMoments moments);
+            _channels.TryGetValue(channel, out ChannelMoments moments);
             return moments;
         }
 
@@ -64,7 +64,7 @@ namespace ImageMagick
 
             ChannelMoments result = ChannelMoments.Create(channel, instance);
             if (result != null)
-                _Channels.Add(result.Channel, result);
+                _channels.Add(result.Channel, result);
         }
     }
 }

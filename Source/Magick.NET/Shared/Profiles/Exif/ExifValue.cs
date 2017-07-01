@@ -22,7 +22,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifValue : IEquatable<ExifValue>
     {
-        private object _Value;
+        private object _value;
 
         internal ExifValue(ExifTag tag, ExifDataType dataType, bool isArray)
         {
@@ -37,7 +37,7 @@ namespace ImageMagick
         internal ExifValue(ExifTag tag, ExifDataType dataType, object value, bool isArray)
           : this(tag, dataType, isArray)
         {
-            _Value = value;
+            _value = value;
         }
 
         /// <summary>
@@ -74,12 +74,12 @@ namespace ImageMagick
         {
             get
             {
-                return _Value;
+                return _value;
             }
             set
             {
                 CheckValue(value);
-                _Value = value;
+                _value = value;
             }
         }
 
@@ -87,11 +87,11 @@ namespace ImageMagick
         {
             get
             {
-                if (_Value == null)
+                if (_value == null)
                     return false;
 
                 if (DataType == ExifDataType.Ascii)
-                    return ((string)_Value).Length > 0;
+                    return ((string)_value).Length > 0;
 
                 return true;
             }
@@ -101,7 +101,7 @@ namespace ImageMagick
         {
             get
             {
-                if (_Value == null)
+                if (_value == null)
                     return 4;
 
                 int size = (int)(GetSize(DataType) * NumberOfComponents);
@@ -115,10 +115,10 @@ namespace ImageMagick
             get
             {
                 if (DataType == ExifDataType.Ascii)
-                    return Encoding.UTF8.GetBytes((string)_Value).Length;
+                    return Encoding.UTF8.GetBytes((string)_value).Length;
 
                 if (IsArray)
-                    return ((Array)_Value).Length;
+                    return ((Array)_value).Length;
 
                 return 1;
             }
@@ -173,7 +173,7 @@ namespace ImageMagick
             return
               Tag == other.Tag &&
               DataType == other.DataType &&
-              Equals(_Value, other._Value);
+              Equals(_value, other._value);
         }
 
         /// <summary>
@@ -183,7 +183,7 @@ namespace ImageMagick
         public override int GetHashCode()
         {
             int hashCode = Tag.GetHashCode() ^ DataType.GetHashCode();
-            return _Value != null ? hashCode ^ _Value.GetHashCode() : hashCode;
+            return _value != null ? hashCode ^ _value.GetHashCode() : hashCode;
         }
 
         /// <summary>
@@ -192,17 +192,17 @@ namespace ImageMagick
         /// <returns>A string that represents the current value.</returns>
         public override string ToString()
         {
-            if (_Value == null)
+            if (_value == null)
                 return null;
 
             if (DataType == ExifDataType.Ascii)
-                return (string)_Value;
+                return (string)_value;
 
             if (!IsArray)
-                return ToString(_Value);
+                return ToString(_value);
 
             StringBuilder sb = new StringBuilder();
-            foreach (object value in (Array)_Value)
+            foreach (object value in (Array)_value)
             {
                 sb.Append(ToString(value));
                 sb.Append(" ");

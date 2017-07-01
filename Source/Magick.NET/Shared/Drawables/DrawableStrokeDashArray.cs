@@ -21,7 +21,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class DrawableStrokeDashArray : IDrawable, IDrawingWand
     {
-        private double[] _Dash;
+        private readonly double[] _dash;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DrawableStrokeDashArray"/> class.
@@ -29,7 +29,7 @@ namespace ImageMagick
         /// <param name="dash">An array containing the dash information.</param>
         public DrawableStrokeDashArray(params double[] dash)
         {
-            _Dash = dash;
+            _dash = dash;
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace ImageMagick
         void IDrawingWand.Draw(DrawingWand wand)
         {
             if (wand != null)
-                wand.StrokeDashArray(_Dash);
+                wand.StrokeDashArray(_dash);
         }
     }
 }

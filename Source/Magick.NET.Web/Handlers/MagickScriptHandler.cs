@@ -20,12 +20,12 @@ namespace ImageMagick.Web.Handlers
     /// </summary>
     internal class MagickScriptHandler : ImageOptimizerHandler
     {
-        private readonly IScriptData _ScriptResolver;
+        private readonly IScriptData _scriptResolver;
 
         internal MagickScriptHandler(MagickWebSettings settings, IImageData imageData, IScriptData scriptResolver)
           : base(settings, imageData)
         {
-            _ScriptResolver = scriptResolver;
+            _scriptResolver = scriptResolver;
         }
 
         /// <inheritdoc/>
@@ -40,26 +40,26 @@ namespace ImageMagick.Web.Handlers
 
         protected override string GetMimeType()
         {
-            MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(_ScriptResolver.OutputFormat);
+            MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(_scriptResolver.OutputFormat);
             return formatInfo.MimeType;
         }
 
         private void CreateScriptedFile(string cacheFileName)
         {
-            MagickScript script = new MagickScript(_ScriptResolver.Script);
+            MagickScript script = new MagickScript(_scriptResolver.Script);
             script.Read += OnScriptRead;
 
             using (IMagickImage image = script.Execute())
             {
-                image.Format = _ScriptResolver.OutputFormat;
+                image.Format = _scriptResolver.OutputFormat;
                 WriteToCache(image, cacheFileName);
             }
         }
 
         private string GetCacheFileName()
         {
-            string outerXml = _ScriptResolver.Script.CreateNavigator().OuterXml;
-            return GetCacheFileName("MagickScript", outerXml, _ScriptResolver.OutputFormat);
+            string outerXml = _scriptResolver.Script.CreateNavigator().OuterXml;
+            return GetCacheFileName("MagickScript", outerXml, _scriptResolver.OutputFormat);
         }
 
         private void OnScriptRead(object sender, ScriptReadEventArgs arguments)
@@ -75,7 +75,7 @@ namespace ImageMagick.Web.Handlers
             {
                 image.Write(tempFile);
 
-                MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(_ScriptResolver.OutputFormat);
+                MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(_scriptResolver.OutputFormat);
 
                 if (HandlerHelper.CanOptimize(Settings, formatInfo))
                     OptimizeFile(tempFile);

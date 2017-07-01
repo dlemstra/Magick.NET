@@ -18,7 +18,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class PathMoveToAbs : IPath, IDrawingWand
     {
-        private PointD _Coordinate;
+        private readonly PointD _coordinate;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PathMoveToAbs"/> class.
@@ -36,7 +36,7 @@ namespace ImageMagick
         /// <param name="coordinate">The coordinate to use.</param>
         public PathMoveToAbs(PointD coordinate)
         {
-            _Coordinate = coordinate;
+            _coordinate = coordinate;
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace ImageMagick
         void IDrawingWand.Draw(DrawingWand wand)
         {
             if (wand != null)
-                wand.PathMoveToAbs(_Coordinate.X, _Coordinate.Y);
+                wand.PathMoveToAbs(_coordinate.X, _coordinate.Y);
         }
     }
 }

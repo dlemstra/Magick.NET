@@ -20,7 +20,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class DrawablePolyline : IDrawable, IDrawingWand
     {
-        private PointDCoordinates _Coordinates;
+        private readonly PointDCoordinates _coordinates;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DrawablePolyline"/> class.
@@ -28,7 +28,7 @@ namespace ImageMagick
         /// <param name="coordinates">The coordinates.</param>
         public DrawablePolyline(params PointD[] coordinates)
         {
-            _Coordinates = new PointDCoordinates(coordinates, 3);
+            _coordinates = new PointDCoordinates(coordinates, 3);
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace ImageMagick
         /// <param name="coordinates">The coordinates.</param>
         public DrawablePolyline(IEnumerable<PointD> coordinates)
         {
-            _Coordinates = new PointDCoordinates(coordinates, 3);
+            _coordinates = new PointDCoordinates(coordinates, 3);
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace ImageMagick
         void IDrawingWand.Draw(DrawingWand wand)
         {
             if (wand != null)
-                wand.Polyline(_Coordinates.ToList());
+                wand.Polyline(_coordinates.ToList());
         }
     }
 }

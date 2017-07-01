@@ -21,17 +21,17 @@ namespace ImageMagick
     {
         private const int BufferSize = 8192;
 
-        private readonly byte[] _Buffer;
-        private readonly byte* _BufferStart;
-        private readonly GCHandle _Handle;
-        private Stream _Stream;
+        private readonly byte[] _buffer;
+        private readonly byte* _bufferStart;
+        private readonly GCHandle _handle;
+        private Stream _stream;
 
         private StreamWrapper(Stream stream)
         {
-            _Stream = stream;
-            _Buffer = new byte[BufferSize];
-            _Handle = GCHandle.Alloc(_Buffer, GCHandleType.Pinned);
-            _BufferStart = (byte*)_Handle.AddrOfPinnedObject().ToPointer();
+            _stream = stream;
+            _buffer = new byte[BufferSize];
+            _handle = GCHandle.Alloc(_buffer, GCHandleType.Pinned);
+            _bufferStart = (byte*)_handle.AddrOfPinnedObject().ToPointer();
         }
 
         public static StreamWrapper CreateForReading(Stream stream)
@@ -50,11 +50,11 @@ namespace ImageMagick
 
         public void Dispose()
         {
-            if (_Stream == null)
+            if (_stream == null)
                 return;
 
-            _Handle.Free();
-            _Stream = null;
+            _handle.Free();
+            _stream = null;
         }
 
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Exceptions will result in a memory leak.")]
@@ -73,7 +73,7 @@ namespace ImageMagick
 
                 try
                 {
-                    length = _Stream.Read(_Buffer, 0, length);
+                    length = _stream.Read(_buffer, 0, length);
                 }
                 catch
                 {
@@ -98,7 +98,7 @@ namespace ImageMagick
         {
             try
             {
-                return _Stream.Seek(offset, (SeekOrigin)whence);
+                return _stream.Seek(offset, (SeekOrigin)whence);
             }
             catch
             {
@@ -108,7 +108,7 @@ namespace ImageMagick
 
         public long Tell(IntPtr user_data)
         {
-            return _Stream.Position;
+            return _stream.Position;
         }
 
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Exceptions will result in a memory leak.")]
@@ -128,7 +128,7 @@ namespace ImageMagick
 
                 try
                 {
-                    _Stream.Write(_Buffer, 0, length);
+                    _stream.Write(_buffer, 0, length);
                 }
                 catch
                 {
@@ -143,7 +143,7 @@ namespace ImageMagick
 
         private byte* FillBuffer(byte* p, int length)
         {
-            byte* q = _BufferStart;
+            byte* q = _bufferStart;
             while (length > 0)
             {
                 *(q++) = *(p++);
@@ -155,7 +155,7 @@ namespace ImageMagick
 
         private byte* ReadBuffer(byte* p, int length)
         {
-            byte* q = _BufferStart;
+            byte* q = _bufferStart;
             while (length > 0)
             {
                 *(p++) = *(q++);

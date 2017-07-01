@@ -24,10 +24,10 @@ namespace ImageMagick
     /// </summary>
     public sealed class EightBimProfile : ImageProfile
     {
-        private Collection<ClipPath> _ClipPaths;
-        private int _Height;
-        private Collection<EightBimValue> _Values;
-        private int _Width;
+        private Collection<ClipPath> _clipPaths;
+        private int _height;
+        private Collection<EightBimValue> _values;
+        private int _width;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EightBimProfile"/> class.
@@ -60,8 +60,8 @@ namespace ImageMagick
         internal EightBimProfile(MagickImage image, byte[] data)
           : base("8bim", data)
         {
-            _Width = image.Width;
-            _Height = image.Height;
+            _width = image.Width;
+            _height = image.Height;
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace ImageMagick
             {
                 Initialize();
 
-                return _ClipPaths;
+                return _clipPaths;
             }
         }
 
@@ -86,7 +86,7 @@ namespace ImageMagick
             {
                 Initialize();
 
-                return _Values;
+                return _values;
             }
         }
 
@@ -100,8 +100,8 @@ namespace ImageMagick
             doc.CreateXmlDeclaration("1.0", "iso-8859-1", null);
 
             XmlElement svg = XmlHelper.CreateElement(doc, "svg");
-            XmlHelper.SetAttribute(svg, "width", _Width);
-            XmlHelper.SetAttribute(svg, "height", _Height);
+            XmlHelper.SetAttribute(svg, "width", _width);
+            XmlHelper.SetAttribute(svg, "height", _height);
 
             XmlElement g = XmlHelper.CreateElement(svg, "g");
 
@@ -117,17 +117,17 @@ namespace ImageMagick
 
         private string GetClipPath(int offset, int length)
         {
-            ClipPathReader reader = new ClipPathReader(_Width, _Height);
+            ClipPathReader reader = new ClipPathReader(_width, _height);
             return reader.Read(Data, offset, length);
         }
 
         private void Initialize()
         {
-            if (_ClipPaths != null)
+            if (_clipPaths != null)
                 return;
 
-            _ClipPaths = new Collection<ClipPath>();
-            _Values = new Collection<EightBimValue>();
+            _clipPaths = new Collection<ClipPath>();
+            _values = new Collection<EightBimValue>();
 
             int i = 0;
             while (i < Data.Length)
@@ -173,12 +173,12 @@ namespace ImageMagick
                     {
                         ClipPath clipPath = CreateClipPath(name, i, length);
                         if (clipPath != null)
-                            _ClipPaths.Add(clipPath);
+                            _clipPaths.Add(clipPath);
                     }
 
                     byte[] data = new byte[length];
                     Array.Copy(Data, i, data, 0, length);
-                    _Values.Add(new EightBimValue(id, data));
+                    _values.Add(new EightBimValue(id, data));
                 }
 
                 i += length;

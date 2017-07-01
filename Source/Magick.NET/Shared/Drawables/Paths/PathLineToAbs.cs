@@ -20,7 +20,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class PathLineToAbs : IPath, IDrawingWand
     {
-        private PointDCoordinates _Coordinates;
+        private readonly PointDCoordinates _coordinates;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PathLineToAbs"/> class.
@@ -38,7 +38,7 @@ namespace ImageMagick
         /// <param name="coordinates">The coordinates to use.</param>
         public PathLineToAbs(params PointD[] coordinates)
         {
-            _Coordinates = new PointDCoordinates(coordinates);
+            _coordinates = new PointDCoordinates(coordinates);
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace ImageMagick
         /// <param name="coordinates">The coordinates to use.</param>
         public PathLineToAbs(IEnumerable<PointD> coordinates)
         {
-            _Coordinates = new PointDCoordinates(coordinates);
+            _coordinates = new PointDCoordinates(coordinates);
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace ImageMagick
         void IDrawingWand.Draw(DrawingWand wand)
         {
             if (wand != null)
-                wand.PathLineToAbs(_Coordinates.ToList());
+                wand.PathLineToAbs(_coordinates.ToList());
         }
     }
 }

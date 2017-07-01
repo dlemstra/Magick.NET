@@ -19,7 +19,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class DrawablePath : IDrawable, IDrawingWand
     {
-        private List<IPath> _Paths;
+        private readonly List<IPath> _paths;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DrawablePath"/> class.
@@ -27,7 +27,7 @@ namespace ImageMagick
         /// <param name="paths">The paths to use.</param>
         public DrawablePath(params IPath[] paths)
         {
-            _Paths = new List<IPath>(paths);
+            _paths = new List<IPath>(paths);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace ImageMagick
         /// <param name="paths">The paths to use.</param>
         public DrawablePath(IEnumerable<IPath> paths)
         {
-            _Paths = new List<IPath>(paths);
+            _paths = new List<IPath>(paths);
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace ImageMagick
         {
             get
             {
-                return _Paths;
+                return _paths;
             }
         }
 
@@ -60,7 +60,7 @@ namespace ImageMagick
                 return;
 
             wand.PathStart();
-            foreach (IPath path in _Paths)
+            foreach (IPath path in _paths)
                 ((IDrawingWand)path).Draw(wand);
             wand.PathFinish();
         }

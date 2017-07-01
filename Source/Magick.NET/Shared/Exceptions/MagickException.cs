@@ -22,7 +22,7 @@ namespace ImageMagick
     public abstract class MagickException : Exception
     {
         [NonSerialized]
-        private List<MagickException> _RelatedExceptions;
+        private List<MagickException> _relatedExceptions;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickException"/> class.
@@ -40,16 +40,16 @@ namespace ImageMagick
         {
             get
             {
-                if (_RelatedExceptions == null)
+                if (_relatedExceptions == null)
                     return new MagickException[0];
 
-                return _RelatedExceptions;
+                return _relatedExceptions;
             }
         }
 
         internal void SetRelatedException(List<MagickException> relatedExceptions)
         {
-            _RelatedExceptions = relatedExceptions;
+            _relatedExceptions = relatedExceptions;
         }
     }
 }

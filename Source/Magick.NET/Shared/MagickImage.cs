@@ -35,9 +35,9 @@ namespace ImageMagick
     [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Cannot avoid it here.")]
     public sealed partial class MagickImage : IMagickImage, INativeInstance
     {
-        private ProgressDelegate _NativeProgress;
-        private EventHandler<ProgressEventArgs> _Progress;
-        private EventHandler<WarningEventArgs> _Warning;
+        private ProgressDelegate _nativeProgress;
+        private EventHandler<ProgressEventArgs> _progress;
+        private EventHandler<WarningEventArgs> _warning;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImage"/> class.
@@ -203,22 +203,22 @@ namespace ImageMagick
         {
             add
             {
-                if (_Progress == null)
+                if (_progress == null)
                 {
-                    _NativeProgress = new ProgressDelegate(OnProgress);
-                    _NativeInstance.SetProgressDelegate(_NativeProgress);
+                    _nativeProgress = new ProgressDelegate(OnProgress);
+                    _NativeInstance.SetProgressDelegate(_nativeProgress);
                 }
 
-                _Progress += value;
+                _progress += value;
             }
             remove
             {
-                _Progress -= value;
+                _progress -= value;
 
-                if (_Progress == null)
+                if (_progress == null)
                 {
                     _NativeInstance.SetProgressDelegate(null);
-                    _NativeProgress = null;
+                    _nativeProgress = null;
                 }
             }
         }
@@ -230,11 +230,11 @@ namespace ImageMagick
         {
             add
             {
-                _Warning += value;
+                _warning += value;
             }
             remove
             {
-                _Warning -= value;
+                _warning -= value;
             }
         }
 
@@ -6807,18 +6807,18 @@ namespace ImageMagick
 
         private bool OnProgress(IntPtr origin, long offset, ulong extent, IntPtr userData)
         {
-            if (_Progress == null)
+            if (_progress == null)
                 return true;
 
             string managedOrigin = UTF8Marshaler.NativeToManaged(origin);
             ProgressEventArgs eventArgs = new ProgressEventArgs(managedOrigin, (int)offset, (int)extent);
-            _Progress(this, eventArgs);
+            _progress(this, eventArgs);
             return eventArgs.Cancel ? false : true;
         }
 
         private void OnWarning(object sender, WarningEventArgs arguments)
         {
-            _Warning?.Invoke(this, arguments);
+            _warning?.Invoke(this, arguments);
         }
 
         private void Read(byte[] data, int length, MagickReadSettings readSettings, bool ping)

@@ -18,7 +18,7 @@ namespace ImageMagick
 {
     internal sealed partial class DrawingSettings
     {
-        private double[] _StrokeDashArray;
+        private double[] _strokeDashArray;
 
         internal DrawingSettings()
         {
@@ -126,12 +126,12 @@ namespace ImageMagick
         {
             get
             {
-                return _StrokeDashArray;
+                return _strokeDashArray;
             }
             set
             {
                 if (value != null)
-                    _StrokeDashArray = new List<double>(value).ToArray();
+                    _strokeDashArray = new List<double>(value).ToArray();
             }
         }
 
@@ -254,7 +254,7 @@ namespace ImageMagick
 
             clone.Affine = Affine;
             clone.FillPattern = MagickImage.Clone(FillPattern);
-            clone._StrokeDashArray = _StrokeDashArray != null ? (double[])_StrokeDashArray.Clone() : null;
+            clone._strokeDashArray = _strokeDashArray != null ? (double[])_strokeDashArray.Clone() : null;
             clone.StrokePattern = MagickImage.Clone(StrokePattern);
             clone.Text = Text;
 
@@ -309,8 +309,8 @@ namespace ImageMagick
                 instance.SetAffine(Affine.ScaleX, Affine.ScaleY, Affine.ShearX, Affine.ShearY, Affine.TranslateX, Affine.TranslateY);
             if (FillPattern != null)
                 instance.SetFillPattern(FillPattern);
-            if (_StrokeDashArray != null)
-                instance.SetStrokeDashArray(_StrokeDashArray, _StrokeDashArray.Length);
+            if (_strokeDashArray != null)
+                instance.SetStrokeDashArray(_strokeDashArray, _strokeDashArray.Length);
             if (StrokePattern != null)
                 instance.SetStrokePattern(StrokePattern);
             if (!string.IsNullOrEmpty(Text))

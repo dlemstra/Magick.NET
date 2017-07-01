@@ -30,7 +30,7 @@ namespace ImageMagick
     /// </summary>
     public struct Percentage : IEquatable<Percentage>, IComparable<Percentage>
     {
-        private double _Value;
+        private readonly double _value;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Percentage"/> struct.
@@ -38,7 +38,7 @@ namespace ImageMagick
         /// <param name="value">The value (0% = 0.0, 100% = 100.0)</param>
         public Percentage(double value)
         {
-            _Value = value;
+            _value = value;
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace ImageMagick
         /// <param name="value">The value (0% = 0, 100% = 100)</param>
         public Percentage(int value)
         {
-            _Value = value;
+            _value = value;
         }
 
         /// <summary>
@@ -185,7 +185,7 @@ namespace ImageMagick
         /// <returns>A signed number indicating the relative values of this instance and value.</returns>
         public int CompareTo(Percentage other)
         {
-            return _Value.CompareTo(other._Value);
+            return _value.CompareTo(other._value);
         }
 
         /// <summary>
@@ -202,10 +202,10 @@ namespace ImageMagick
                 return Equals((Percentage)obj);
 
             if (obj.GetType() == typeof(double))
-                return _Value.Equals(obj);
+                return _value.Equals(obj);
 
             if (obj.GetType() == typeof(int))
-                return ((int)_Value).Equals((int)obj);
+                return ((int)_value).Equals((int)obj);
 
             return false;
         }
@@ -217,7 +217,7 @@ namespace ImageMagick
         /// <returns>True when the specified <see cref="Percentage"/> is equal to the current <see cref="Percentage"/>.</returns>
         public bool Equals(Percentage other)
         {
-            return _Value.Equals(other._Value);
+            return _value.Equals(other._value);
         }
 
         /// <summary>
@@ -226,7 +226,7 @@ namespace ImageMagick
         /// <returns>A hash code for the current instance.</returns>
         public override int GetHashCode()
         {
-            return _Value.GetHashCode();
+            return _value.GetHashCode();
         }
 
         /// <summary>
@@ -236,7 +236,7 @@ namespace ImageMagick
         /// <returns>the new value.</returns>
         public double Multiply(double value)
         {
-            return (value * _Value) / 100.0;
+            return (value * _value) / 100.0;
         }
 
         /// <summary>
@@ -246,7 +246,7 @@ namespace ImageMagick
         /// <returns>the new value.</returns>
         public int Multiply(int value)
         {
-            return (int)((value * _Value) / 100.0);
+            return (int)((value * _value) / 100.0);
         }
 
         /// <summary>
@@ -255,7 +255,7 @@ namespace ImageMagick
         /// <returns>A double that represents the current percentage.</returns>
         public double ToDouble()
         {
-            return _Value;
+            return _value;
         }
 
         /// <summary>
@@ -264,7 +264,7 @@ namespace ImageMagick
         /// <returns>An integer that represents the current percentage.</returns>
         public int ToInt32()
         {
-            return (int)Math.Round(_Value, MidpointRounding.AwayFromZero);
+            return (int)Math.Round(_value, MidpointRounding.AwayFromZero);
         }
 
         /// <summary>
@@ -273,7 +273,7 @@ namespace ImageMagick
         /// <returns>A string that represents the current percentage.</returns>
         public override string ToString()
         {
-            return string.Format(CultureInfo.InvariantCulture, "{0:0.##}%", _Value);
+            return string.Format(CultureInfo.InvariantCulture, "{0:0.##}%", _value);
         }
 
         internal static Percentage FromQuantum(double value)
@@ -283,12 +283,12 @@ namespace ImageMagick
 
         internal double ToQuantum()
         {
-            return Quantum.Max * (_Value / 100);
+            return Quantum.Max * (_value / 100);
         }
 
         internal QuantumType ToQuantumType()
         {
-            return (QuantumType)(Quantum.Max * (_Value / 100));
+            return (QuantumType)(Quantum.Max * (_value / 100));
         }
     }
 }

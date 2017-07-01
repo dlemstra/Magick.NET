@@ -28,7 +28,7 @@ namespace ImageMagick.Web.Handlers
     internal abstract class MagickHandler : IHttpHandler, IRequiresSessionState
     {
         private static readonly ReaderWriterLockSlim _Lock = new ReaderWriterLockSlim();
-        private static volatile string _Version;
+        private static volatile string _version;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickHandler"/> class.
@@ -84,8 +84,8 @@ namespace ImageMagick.Web.Handlers
 
             context.Response.ContentType = GetMimeType();
 
-            if (!string.IsNullOrEmpty(_Version))
-                context.Response.AddHeader("X-Magick", _Version);
+            if (!string.IsNullOrEmpty(_version))
+                context.Response.AddHeader("X-Magick", _version);
 
             string filename = GetFileName(context);
 
@@ -243,11 +243,11 @@ namespace ImageMagick.Web.Handlers
 
         private void InitializeVersion()
         {
-            if (!Settings.ShowVersion || _Version != null)
+            if (!Settings.ShowVersion || _version != null)
                 return;
 
             object version = typeof(MagickHandler).Assembly.GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false)[0];
-            _Version = ((AssemblyFileVersionAttribute)version).Version;
+            _version = ((AssemblyFileVersionAttribute)version).Version;
         }
 
         private void WriteFile(HttpContext context, string fileName)

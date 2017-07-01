@@ -19,7 +19,7 @@ namespace ImageMagick
     /// </summary>
     public sealed partial class ChannelMoments
     {
-        private double[] _HuInvariants;
+        private double[] _huInvariants;
 
         private ChannelMoments(PixelChannel channel, IntPtr instance)
         {
@@ -97,7 +97,7 @@ namespace ImageMagick
         {
             Throw.IfOutOfRange(nameof(index), index, 8);
 
-            return _HuInvariants[index];
+            return _huInvariants[index];
         }
 
         internal static ChannelMoments Create(PixelChannel channel, IntPtr instance)
@@ -110,10 +110,10 @@ namespace ImageMagick
 
         private void SetHuInvariants(NativeChannelMoments nativeInstance)
         {
-            _HuInvariants = new double[8];
+            _huInvariants = new double[8];
 
             for (int i = 0; i < 8; i++)
-                _HuInvariants[i] = nativeInstance.GetHuInvariants(i);
+                _huInvariants[i] = nativeInstance.GetHuInvariants(i);
         }
     }
 }

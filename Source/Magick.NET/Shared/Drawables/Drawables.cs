@@ -21,14 +21,14 @@ namespace ImageMagick
     /// </summary>
     public sealed partial class Drawables : IEnumerable<IDrawable>
     {
-        private Collection<IDrawable> _Drawables;
+        private readonly Collection<IDrawable> _drawables;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Drawables"/> class.
         /// </summary>
         public Drawables()
         {
-            _Drawables = new Collection<IDrawable>();
+            _drawables = new Collection<IDrawable>();
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace ImageMagick
         /// <returns>An enumerator.</returns>
         public IEnumerator<IDrawable> GetEnumerator()
         {
-            return _Drawables.GetEnumerator();
+            return _drawables.GetEnumerator();
         }
     }
 }

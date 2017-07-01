@@ -16,7 +16,7 @@ namespace ImageMagick
 {
     internal abstract class NativeInstance : NativeHelper, INativeInstance, IDisposable
     {
-        private IntPtr _Instance = IntPtr.Zero;
+        private IntPtr _instance = IntPtr.Zero;
 
         public static INativeInstance Zero
         {
@@ -30,16 +30,16 @@ namespace ImageMagick
         {
             get
             {
-                if (_Instance == IntPtr.Zero)
+                if (_instance == IntPtr.Zero)
                     throw new ObjectDisposedException(TypeName);
 
-                return _Instance;
+                return _instance;
             }
             set
             {
-                if (_Instance != IntPtr.Zero)
-                    Dispose(_Instance);
-                _Instance = value;
+                if (_instance != IntPtr.Zero)
+                    Dispose(_instance);
+                _instance = value;
             }
         }
 

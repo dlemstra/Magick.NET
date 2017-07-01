@@ -32,7 +32,7 @@ namespace ImageMagick
     {
         private static readonly XmlReaderSettings _ReaderSettings = CreateXmlReaderSettings();
 
-        private XmlDocument _Script;
+        private XmlDocument _script;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickScript"/> class.
@@ -106,7 +106,7 @@ namespace ImageMagick
         /// <returns>A <see cref="MagickImage"/>.</returns>
         public IMagickImage Execute()
         {
-            XmlElement element = (XmlElement)_Script.SelectSingleNode("/msl/*");
+            XmlElement element = (XmlElement)_script.SelectSingleNode("/msl/*");
 
             if (element.Name == "read")
                 return CreateMagickImage(element);
@@ -124,7 +124,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(image), image);
 
-            XmlElement element = (XmlElement)_Script.SelectSingleNode("/msl/read");
+            XmlElement element = (XmlElement)_script.SelectSingleNode("/msl/read");
             if (element == null)
                 throw new InvalidOperationException("This method only works with a script that contains a single read operation.");
 
@@ -312,11 +312,11 @@ namespace ImageMagick
 
             using (XmlReader xmlReader = XmlReader.Create(stream, _ReaderSettings))
             {
-                _Script = new XmlDocument();
-                _Script.Load(xmlReader);
+                _script = new XmlDocument();
+                _script.Load(xmlReader);
             }
 
-            Variables = new ScriptVariables(_Script);
+            Variables = new ScriptVariables(_script);
         }
 
         [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "No harm in doing that here.")]

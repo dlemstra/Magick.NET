@@ -23,7 +23,7 @@ namespace ImageMagick.Web
     /// </summary>
     public sealed class MagickWebSettings : ConfigurationSection
     {
-        private static Lazy<MagickWebSettings> _Instance = new Lazy<MagickWebSettings>(CreateInstance);
+        private static readonly Lazy<MagickWebSettings> _instance = new Lazy<MagickWebSettings>(CreateInstance);
 
         /// <summary>
         /// Gets the directory that contains scripted images.
@@ -159,7 +159,7 @@ namespace ImageMagick.Web
         {
             get
             {
-                return _Instance.Value;
+                return _instance.Value;
             }
         }
 

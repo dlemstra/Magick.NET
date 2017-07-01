@@ -10,7 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
 using System.Globalization;
 using System.Text;
 
@@ -18,28 +17,28 @@ namespace ImageMagick
 {
     internal sealed class ClipPathReader
     {
-        private PointD[] _First;
-        private int _Index;
-        private int _Height;
-        private bool _InSubpath;
-        private StringBuilder _Path;
-        private int _KnotCount;
-        private PointD[] _Last;
-        private int _Width;
+        private PointD[] _first;
+        private int _index;
+        private readonly int _height;
+        private bool _inSubpath;
+        private StringBuilder _path;
+        private int _knotCount;
+        private PointD[] _last;
+        private readonly int _width;
 
         public ClipPathReader(int width, int height)
         {
-            _Width = width;
-            _Height = height;
+            _width = width;
+            _height = height;
         }
 
         public string Read(byte[] data, int offset, int length)
         {
             Reset(offset);
 
-            while (_Index < offset + length)
+            while (_index < offset + length)
             {
-                short selector = ByteConverter.ToShort(data, ref _Index);
+                short selector = ByteConverter.ToShort(data, ref _index);
                 switch (selector)
                 {
                     case 0:
@@ -56,60 +55,60 @@ namespace ImageMagick
                     case 7:
                     case 8:
                     default:
-                        _Index += 24;
+                        _index += 24;
                         break;
                 }
             }
 
-            return _Path.ToString();
+            return _path.ToString();
         }
 
         private void AddPath(byte[] data)
         {
-            if (_KnotCount == 0)
+            if (_knotCount == 0)
             {
-                _Index += 24;
+                _index += 24;
                 return;
             }
 
             PointD[] point = CreatePoint(data);
 
-            if (_InSubpath == false)
+            if (_inSubpath == false)
             {
-                _Path.AppendFormat(CultureInfo.InvariantCulture, "M {0:0.###} {1:0.###}\n", point[1].X, point[1].Y);
+                _path.AppendFormat(CultureInfo.InvariantCulture, "M {0:0.###} {1:0.###}\n", point[1].X, point[1].Y);
 
                 for (int k = 0; k < 3; k++)
                 {
-                    _First[k] = point[k];
-                    _Last[k] = point[k];
+                    _first[k] = point[k];
+                    _last[k] = point[k];
                 }
             }
             else
             {
-                if ((_Last[1].X == _Last[2].X) && (_Last[1].Y == _Last[2].Y) && (point[0].X == point[1].X) && (point[0].Y == point[1].Y))
-                    _Path.AppendFormat(CultureInfo.InvariantCulture, "L {0:0.###} {1:0.###}\n", point[1].X, point[1].Y);
+                if ((_last[1].X == _last[2].X) && (_last[1].Y == _last[2].Y) && (point[0].X == point[1].X) && (point[0].Y == point[1].Y))
+                    _path.AppendFormat(CultureInfo.InvariantCulture, "L {0:0.###} {1:0.###}\n", point[1].X, point[1].Y);
                 else
-                    _Path.AppendFormat(CultureInfo.InvariantCulture, "C {0:0.###} {1:0.###} {2:0.###} {3:0.###} {4:0.###} {5:0.###}\n", _Last[2].X, _Last[2].Y, point[0].X, point[0].Y, point[1].X, point[1].Y);
+                    _path.AppendFormat(CultureInfo.InvariantCulture, "C {0:0.###} {1:0.###} {2:0.###} {3:0.###} {4:0.###} {5:0.###}\n", _last[2].X, _last[2].Y, point[0].X, point[0].Y, point[1].X, point[1].Y);
 
                 for (int k = 0; k < 3; k++)
-                    _Last[k] = point[k];
+                    _last[k] = point[k];
             }
 
-            _InSubpath = true;
-            _KnotCount--;
-            if (_KnotCount == 0)
+            _inSubpath = true;
+            _knotCount--;
+            if (_knotCount == 0)
             {
                 ClosePath();
-                _InSubpath = false;
+                _inSubpath = false;
             }
         }
 
         private void ClosePath()
         {
-            if ((_Last[1].X == _Last[2].X) && (_Last[1].Y == _Last[2].Y) && (_First[0].X == _First[1].X) && (_First[0].Y == _First[1].Y))
-                _Path.AppendFormat(CultureInfo.InvariantCulture, "L {0:0.###} {1:0.###} Z\n", _First[1].X, _First[1].Y);
+            if ((_last[1].X == _last[2].X) && (_last[1].Y == _last[2].Y) && (_first[0].X == _first[1].X) && (_first[0].Y == _first[1].Y))
+                _path.AppendFormat(CultureInfo.InvariantCulture, "L {0:0.###} {1:0.###} Z\n", _first[1].X, _first[1].Y);
             else
-                _Path.AppendFormat(CultureInfo.InvariantCulture, "C {0:0.###} {1:0.###} {2:0.###} {3:0.###} {4:0.###} {5:0.###} Z\n", _Last[2].X, _Last[2].Y, _First[0].X, _First[0].Y, _First[1].X, _First[1].Y);
+                _path.AppendFormat(CultureInfo.InvariantCulture, "C {0:0.###} {1:0.###} {2:0.###} {3:0.###} {4:0.###} {5:0.###} Z\n", _last[2].X, _last[2].Y, _first[0].X, _first[0].Y, _first[1].X, _first[1].Y);
         }
 
         private PointD[] CreatePoint(byte[] data)
@@ -118,17 +117,17 @@ namespace ImageMagick
 
             for (int i = 0; i < 3; i++)
             {
-                uint yy = (uint)ByteConverter.ToUInt(data, ref _Index);
+                uint yy = (uint)ByteConverter.ToUInt(data, ref _index);
                 int y = (int)yy;
                 if (yy > 2147483647)
                     y = (int)(yy - 4294967295U - 1);
 
-                uint xx = (uint)ByteConverter.ToUInt(data, ref _Index);
+                uint xx = (uint)ByteConverter.ToUInt(data, ref _index);
                 int x = (int)xx;
                 if (xx > 2147483647)
                     x = (int)(xx - 4294967295U - 1);
 
-                result[i] = new PointD((double)x * _Width / 4096 / 4096, (double)y * _Height / 4096 / 4096);
+                result[i] = new PointD((double)x * _width / 4096 / 4096, (double)y * _height / 4096 / 4096);
             }
 
             return result;
@@ -136,24 +135,24 @@ namespace ImageMagick
 
         private void Reset(int offset)
         {
-            _Index = offset;
-            _KnotCount = 0;
-            _InSubpath = false;
-            _Path = new StringBuilder();
-            _First = new PointD[3];
-            _Last = new PointD[3];
+            _index = offset;
+            _knotCount = 0;
+            _inSubpath = false;
+            _path = new StringBuilder();
+            _first = new PointD[3];
+            _last = new PointD[3];
         }
 
         private void SetKnotCount(byte[] data)
         {
-            if (_KnotCount != 0)
+            if (_knotCount != 0)
             {
-                _Index += 24;
+                _index += 24;
                 return;
             }
 
-            _KnotCount = ByteConverter.ToShort(data, ref _Index);
-            _Index += 22;
+            _knotCount = ByteConverter.ToShort(data, ref _index);
+            _index += 22;
         }
     }
 }

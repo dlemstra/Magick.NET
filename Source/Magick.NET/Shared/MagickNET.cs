@@ -22,9 +22,9 @@ namespace ImageMagick
     /// </summary>
     public static partial class MagickNET
     {
-        private static LogDelegate _NativeLog;
-        private static EventHandler<LogEventArgs> _Log;
-        private static LogEvents _LogEvents = LogEvents.None;
+        private static LogDelegate _nativeLog;
+        private static EventHandler<LogEventArgs> _log;
+        private static LogEvents _logEvents = LogEvents.None;
 
         private static readonly string[] _ImageMagickFiles = new string[]
         {
@@ -39,24 +39,24 @@ namespace ImageMagick
         {
             add
             {
-                if (_Log == null)
+                if (_log == null)
                 {
-                    _NativeLog = new LogDelegate(OnLog);
-                    NativeMagickNET.SetLogDelegate(_NativeLog);
+                    _nativeLog = new LogDelegate(OnLog);
+                    NativeMagickNET.SetLogDelegate(_nativeLog);
                     SetLogEvents();
                 }
 
-                _Log += value;
+                _log += value;
             }
             remove
             {
-                _Log -= value;
+                _log -= value;
 
-                if (_Log == null)
+                if (_log == null)
                 {
                     NativeMagickNET.SetLogDelegate(null);
                     NativeMagickNET.SetLogEvents("None");
-                    _NativeLog = null;
+                    _nativeLog = null;
                 }
             }
         }
@@ -182,9 +182,9 @@ namespace ImageMagick
         /// <param name="events">The events that will be logged.</param>
         public static void SetLogEvents(LogEvents events)
         {
-            _LogEvents = events;
+            _logEvents = events;
 
-            if (_Log != null)
+            if (_log != null)
                 SetLogEvents();
         }
 
@@ -236,26 +236,26 @@ namespace ImageMagick
 
         private static void OnLog(UIntPtr type, IntPtr text)
         {
-            if (_Log == null)
+            if (_log == null)
                 return;
 
             string managedText = UTF8Marshaler.NativeToManaged(text);
-            _Log(null, new LogEventArgs((LogEvents)type, managedText));
+            _log(null, new LogEventArgs((LogEvents)type, managedText));
         }
 
         private static void SetLogEvents()
         {
             string eventFlags = null;
 
-            if (EnumHelper.HasFlag(_LogEvents, LogEvents.All))
+            if (EnumHelper.HasFlag(_logEvents, LogEvents.All))
             {
-                if (EnumHelper.HasFlag(_LogEvents, LogEvents.Trace))
+                if (EnumHelper.HasFlag(_logEvents, LogEvents.Trace))
                     eventFlags = "All,Trace";
                 else
                     eventFlags = "All";
             }
             else
-                eventFlags = EnumHelper.ConvertFlags(_LogEvents);
+                eventFlags = EnumHelper.ConvertFlags(_logEvents);
 
             NativeMagickNET.SetLogEvents(eventFlags);
         }

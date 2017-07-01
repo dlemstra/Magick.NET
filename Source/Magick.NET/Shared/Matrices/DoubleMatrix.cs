@@ -19,7 +19,7 @@ namespace ImageMagick
     /// </summary>
     public abstract partial class DoubleMatrix
     {
-        private double[] _Values;
+        private readonly double[] _values;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DoubleMatrix"/> class.
@@ -30,11 +30,11 @@ namespace ImageMagick
         {
             Order = order;
 
-            _Values = new double[Order * Order];
+            _values = new double[Order * Order];
             if (values != null)
             {
                 Throw.IfFalse(nameof(values), (Order * Order) == values.Length, "Invalid number of values specified");
-                Array.Copy(values, _Values, _Values.Length);
+                Array.Copy(values, _values, _values.Length);
             }
         }
 
@@ -72,7 +72,7 @@ namespace ImageMagick
         /// <returns>The value at the specified x/y position.</returns>
         public double GetValue(int x, int y)
         {
-            return _Values[GetIndex(x, y)];
+            return _values[GetIndex(x, y)];
         }
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace ImageMagick
         /// <param name="value">The value</param>
         public void SetValue(int x, int y, double value)
         {
-            _Values[GetIndex(x, y)] = value;
+            _values[GetIndex(x, y)] = value;
         }
 
         /// <summary>
@@ -126,12 +126,12 @@ namespace ImageMagick
         /// <returns>The double array.</returns>
         public double[] ToArray()
         {
-            return _Values;
+            return _values;
         }
 
         private INativeInstance CreateNativeInstance()
         {
-            return new NativeDoubleMatrix(_Values, Order);
+            return new NativeDoubleMatrix(_values, Order);
         }
 
         private int GetIndex(int x, int y)

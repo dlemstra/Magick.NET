@@ -21,7 +21,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class ImageOptimizer
     {
-        private Collection<IImageOptimizer> _Optimizers = CreateImageOptimizers();
+        private readonly Collection<IImageOptimizer> _optimizers = CreateImageOptimizers();
 
         /// <summary>
         /// Gets or sets a value indicating whether various compression types will be used to find
@@ -81,7 +81,7 @@ namespace ImageMagick
             if (formatInfo == null)
                 return false;
 
-            foreach (IImageOptimizer optimizer in _Optimizers)
+            foreach (IImageOptimizer optimizer in _optimizers)
             {
                 if (optimizer.Format.Format == formatInfo.Module)
                     return true;
@@ -171,7 +171,7 @@ namespace ImageMagick
             if (info == null)
                 return null;
 
-            foreach (IImageOptimizer optimizer in _Optimizers)
+            foreach (IImageOptimizer optimizer in _optimizers)
             {
                 if (optimizer.Format.Module == info.Module)
                     return optimizer;

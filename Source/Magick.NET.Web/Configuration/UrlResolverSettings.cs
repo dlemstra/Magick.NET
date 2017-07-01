@@ -23,7 +23,7 @@ namespace ImageMagick.Web
     /// </summary>
     public class UrlResolverSettings : ConfigurationElement
     {
-        private IUrlResolverConstructor _Constructor;
+        private IUrlResolverConstructor _constructor;
         private delegate IUrlResolver IUrlResolverConstructor();
 
         [ConfigurationProperty("type", IsRequired = true)]
@@ -37,7 +37,7 @@ namespace ImageMagick.Web
 
         internal IUrlResolver CreateInstance()
         {
-            return _Constructor();
+            return _constructor();
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace ImageMagick.Web
         {
             ConstructorInfo ctor = type.GetConstructor(new Type[] { });
             NewExpression newExp = Expression.New(ctor);
-            _Constructor = (IUrlResolverConstructor)Expression.Lambda(typeof(IUrlResolverConstructor), newExp).Compile();
+            _constructor = (IUrlResolverConstructor)Expression.Lambda(typeof(IUrlResolverConstructor), newExp).Compile();
         }
 
         [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "IFileUrlResolver", Justification = "This is the correct spelling.")]

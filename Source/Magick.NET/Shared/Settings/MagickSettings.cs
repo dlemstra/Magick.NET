@@ -23,9 +23,9 @@ namespace ImageMagick
     /// </summary>
     public partial class MagickSettings
     {
-        private string _Font;
-        private double _FontPointsize;
-        private Dictionary<string, string> _Options = new Dictionary<string, string>();
+        private string _font;
+        private double _fontPointsize;
+        private readonly Dictionary<string, string> _options = new Dictionary<string, string>();
 
         internal MagickSettings()
         {
@@ -39,8 +39,8 @@ namespace ImageMagick
                 Density = Density.Create(instance.Density);
                 Endian = instance.Endian;
                 Extract = MagickGeometry.FromString(instance.Extract);
-                _Font = instance.Font;
-                _FontPointsize = instance.FontPointsize;
+                _font = instance.Font;
+                _fontPointsize = instance.FontPointsize;
                 Format = EnumHelper.Parse(instance.Format, MagickFormat.Unknown);
                 Interlace = instance.Interlace;
                 Monochrome = instance.Monochrome;
@@ -199,11 +199,11 @@ namespace ImageMagick
         {
             get
             {
-                return _Font;
+                return _font;
             }
             set
             {
-                _Font = value;
+                _font = value;
                 Drawing.Font = value;
             }
         }
@@ -231,11 +231,11 @@ namespace ImageMagick
         {
             get
             {
-                return _FontPointsize;
+                return _fontPointsize;
             }
             set
             {
-                _FontPointsize = value;
+                _fontPointsize = value;
                 Drawing.FontPointsize = value;
             }
         }
@@ -701,8 +701,8 @@ namespace ImageMagick
             Throw.IfNullOrEmpty(nameof(name), name);
 
             string key = ParseDefine(format, name);
-            if (_Options.ContainsKey(key))
-                _Options.Remove(key);
+            if (_options.ContainsKey(key))
+                _options.Remove(key);
         }
 
         /// <summary>
@@ -713,8 +713,8 @@ namespace ImageMagick
         {
             Throw.IfNullOrEmpty(nameof(name), name);
 
-            if (_Options.ContainsKey(name))
-                _Options.Remove(name);
+            if (_options.ContainsKey(name))
+                _options.Remove(name);
         }
 
         /// <summary>
@@ -783,7 +783,7 @@ namespace ImageMagick
         {
             Throw.IfNullOrEmpty(nameof(key), key);
 
-            if (_Options.TryGetValue(key, out string result))
+            if (_options.TryGetValue(key, out string result))
                 return result;
 
             return null;
@@ -791,7 +791,7 @@ namespace ImageMagick
 
         internal void SetOption(string key, string value)
         {
-            _Options[key] = value;
+            _options[key] = value;
         }
 
         /// <summary>
@@ -825,8 +825,8 @@ namespace ImageMagick
             Density = Density.Clone(settings.Density);
             Endian = settings.Endian;
             Extract = MagickGeometry.Clone(settings.Extract);
-            _Font = settings._Font;
-            _FontPointsize = settings._FontPointsize;
+            _font = settings._font;
+            _fontPointsize = settings._fontPointsize;
             Format = settings.Format;
             Monochrome = settings.Monochrome;
             Page = MagickGeometry.Clone(settings.Page);
@@ -838,8 +838,8 @@ namespace ImageMagick
             Quality = settings.Quality;
             Size = settings.Size;
 
-            foreach (string key in settings._Options.Keys)
-                _Options[key] = settings._Options[key];
+            foreach (string key in settings._options.Keys)
+                _options[key] = settings._options[key];
 
             Drawing = settings.Drawing.Clone();
         }
@@ -866,8 +866,8 @@ namespace ImageMagick
             instance.Density = Density?.ToString(DensityUnit.Undefined);
             instance.Endian = Endian;
             instance.Extract = MagickGeometry.ToString(Extract);
-            instance.Font = _Font;
-            instance.FontPointsize = _FontPointsize;
+            instance.Font = _font;
+            instance.FontPointsize = _fontPointsize;
             instance.Format = format;
             instance.Interlace = Interlace;
             instance.Monochrome = Monochrome;
@@ -883,8 +883,8 @@ namespace ImageMagick
             instance.SetScenes(Scenes);
             instance.SetSize(Size);
 
-            foreach (string key in _Options.Keys)
-                instance.SetOption(key, _Options[key]);
+            foreach (string key in _options.Keys)
+                instance.SetOption(key, _options[key]);
 
             return instance;
         }

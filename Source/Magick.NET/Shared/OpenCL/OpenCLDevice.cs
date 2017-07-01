@@ -21,14 +21,14 @@ namespace ImageMagick
     /// </summary>
     public sealed partial class OpenCLDevice
     {
-        private NativeOpenCLDevice _Instance;
-        private bool _ProfileKernels;
+        private NativeOpenCLDevice _instance;
+        private bool _profileKernels;
 
         private OpenCLDevice(IntPtr instance)
         {
-            _Instance = new NativeOpenCLDevice();
-            _Instance.Instance = instance;
-            _ProfileKernels = false;
+            _instance = new NativeOpenCLDevice();
+            _instance.Instance = instance;
+            _profileKernels = false;
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace ImageMagick
         {
             get
             {
-                return _Instance.BenchmarkScore;
+                return _instance.BenchmarkScore;
             }
         }
 
@@ -49,7 +49,7 @@ namespace ImageMagick
         {
             get
             {
-                return _Instance.DeviceType;
+                return _instance.DeviceType;
             }
         }
 
@@ -60,7 +60,7 @@ namespace ImageMagick
         {
             get
             {
-                return _Instance.Name;
+                return _instance.Name;
             }
         }
 
@@ -71,11 +71,11 @@ namespace ImageMagick
         {
             get
             {
-                return _Instance.IsEnabled;
+                return _instance.IsEnabled;
             }
             set
             {
-                _Instance.IsEnabled = value;
+                _instance.IsEnabled = value;
             }
         }
 
@@ -88,7 +88,7 @@ namespace ImageMagick
             get
             {
                 UIntPtr length;
-                IntPtr records = _Instance.GetKernelProfileRecords(out length);
+                IntPtr records = _instance.GetKernelProfileRecords(out length);
                 Collection<OpenCLKernelProfileRecord> result = new Collection<OpenCLKernelProfileRecord>();
 
                 if (records == IntPtr.Zero)
@@ -114,12 +114,12 @@ namespace ImageMagick
         {
             get
             {
-                return _ProfileKernels;
+                return _profileKernels;
             }
             set
             {
-                _Instance.SetProfileKernels(value);
-                _ProfileKernels = value;
+                _instance.SetProfileKernels(value);
+                _profileKernels = value;
             }
         }
 
@@ -130,7 +130,7 @@ namespace ImageMagick
         {
             get
             {
-                return _Instance.Version;
+                return _instance.Version;
             }
         }
 

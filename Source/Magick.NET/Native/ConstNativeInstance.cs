@@ -16,20 +16,20 @@ namespace ImageMagick
 {
     internal abstract class ConstNativeInstance : NativeHelper
     {
-        private IntPtr _Instance = IntPtr.Zero;
+        private IntPtr _instance = IntPtr.Zero;
 
         public IntPtr Instance
         {
             get
             {
-                if (_Instance == IntPtr.Zero)
+                if (_instance == IntPtr.Zero)
                     throw new ObjectDisposedException(TypeName);
 
-                return _Instance;
+                return _instance;
             }
             set
             {
-                _Instance = value;
+                _instance = value;
             }
         }
 

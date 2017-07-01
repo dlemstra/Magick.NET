@@ -30,7 +30,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class Pixel : IEquatable<Pixel>
     {
-        private PixelCollection _Collection;
+        private PixelCollection _collection;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Pixel"/> class.
@@ -60,7 +60,7 @@ namespace ImageMagick
 
         private Pixel(PixelCollection collection)
         {
-            _Collection = collection;
+            _collection = collection;
         }
 
         /// <summary>
@@ -238,8 +238,8 @@ namespace ImageMagick
             if (value.Length == 2)
                 return new MagickColor(value[0], value[0], value[0], value[1]);
 
-            bool hasBlackChannel = _Collection != null && _Collection.GetIndex(PixelChannel.Black) != -1;
-            bool hasAlphaChannel = _Collection != null && _Collection.GetIndex(PixelChannel.Alpha) != -1;
+            bool hasBlackChannel = _collection != null && _collection.GetIndex(PixelChannel.Black) != -1;
+            bool hasAlphaChannel = _collection != null && _collection.GetIndex(PixelChannel.Alpha) != -1;
 
             if (hasBlackChannel)
             {
@@ -269,10 +269,10 @@ namespace ImageMagick
 
         private QuantumType[] GetValueWithoutIndexChannel()
         {
-            if (_Collection == null)
+            if (_collection == null)
                 return Value;
 
-            int index = _Collection.GetIndex(PixelChannel.Index);
+            int index = _collection.GetIndex(PixelChannel.Index);
             if (index == -1)
                 return Value;
 
@@ -291,8 +291,8 @@ namespace ImageMagick
 
         private void UpdateCollection()
         {
-            if (_Collection != null)
-                _Collection.SetPixelUnchecked(X, Y, Value);
+            if (_collection != null)
+                _collection.SetPixelUnchecked(X, Y, Value);
         }
     }
 }

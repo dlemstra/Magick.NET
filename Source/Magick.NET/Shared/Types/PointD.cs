@@ -20,8 +20,8 @@ namespace ImageMagick
     /// </summary>
     public struct PointD : IEquatable<PointD>
     {
-        private double _X;
-        private double _Y;
+        private double _x;
+        private double _y;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PointD"/> struct.
@@ -29,8 +29,8 @@ namespace ImageMagick
         /// <param name="xy">The x and y.</param>
         public PointD(double xy)
         {
-            _X = xy;
-            _Y = xy;
+            _x = xy;
+            _y = xy;
         }
 
         /// <summary>
@@ -40,8 +40,8 @@ namespace ImageMagick
         /// <param name="y">The y.</param>
         public PointD(double x, double y)
         {
-            _X = x;
-            _Y = y;
+            _x = x;
+            _y = y;
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace ImageMagick
         {
             get
             {
-                return _X;
+                return _x;
             }
         }
 
@@ -74,7 +74,7 @@ namespace ImageMagick
         {
             get
             {
-                return _Y;
+                return _y;
             }
         }
 
@@ -143,7 +143,7 @@ namespace ImageMagick
         /// <returns>A string that represents the current PointD.</returns>
         public override string ToString()
         {
-            return string.Format(CultureInfo.InvariantCulture, "{0}x{1}", _X, _Y);
+            return string.Format(CultureInfo.InvariantCulture, "{0}x{1}", _x, _y);
         }
 
         internal static PointD FromPointInfo(PointInfo point)
@@ -168,8 +168,8 @@ namespace ImageMagick
             else
                 y = x;
 
-            _X = x;
-            _Y = y;
+            _x = x;
+            _y = y;
         }
     }
 }

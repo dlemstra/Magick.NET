@@ -24,11 +24,11 @@ namespace ImageMagick
     {
         private static readonly Regex _Names = new Regex("\\{[$](?<name>[0-9a-zA-Z_-]{1,16})\\}", RegexOptions.Compiled);
 
-        private Dictionary<string, object> _Variables;
+        private readonly Dictionary<string, object> _variables;
 
         internal ScriptVariables(XmlDocument script)
         {
-            _Variables = new Dictionary<string, object>();
+            _variables = new Dictionary<string, object>();
             GetNames(script.DocumentElement);
         }
 
@@ -39,7 +39,7 @@ namespace ImageMagick
         {
             get
             {
-                return _Variables.Keys;
+                return _variables.Keys;
             }
         }
 
@@ -68,7 +68,7 @@ namespace ImageMagick
         {
             Throw.IfNullOrEmpty(nameof(name), name);
 
-            return _Variables[name];
+            return _variables[name];
         }
 
         /// <summary>
@@ -79,9 +79,9 @@ namespace ImageMagick
         public void Set(string name, object value)
         {
             Throw.IfNullOrEmpty(nameof(name), name);
-            Throw.IfFalse(nameof(name), _Variables.ContainsKey(name), "Invalid variable name: {0}", value);
+            Throw.IfFalse(nameof(name), _variables.ContainsKey(name), "Invalid variable name: {0}", value);
 
-            _Variables[name] = value;
+            _variables[name] = value;
         }
 
         internal double[] GetDoubleArray(XmlElement element)
@@ -94,7 +94,7 @@ namespace ImageMagick
             {
                 string[] names = GetNames(attribute.Value);
                 if (names != null)
-                    return (double[])_Variables[names[0]];
+                    return (double[])_variables[names[0]];
             }
 
             double[] result = new double[element.ChildNodes.Count];
@@ -117,7 +117,7 @@ namespace ImageMagick
             {
                 string[] names = GetNames(attribute.Value);
                 if (names != null)
-                    return (float[])_Variables[names[0]];
+                    return (float[])_variables[names[0]];
             }
 
             float[] result = new float[element.ChildNodes.Count];
@@ -140,7 +140,7 @@ namespace ImageMagick
             {
                 string[] names = GetNames(attribute.Value);
                 if (names != null)
-                    return (string[])_Variables[names[0]];
+                    return (string[])_variables[names[0]];
             }
 
             string[] result = new string[element.ChildNodes.Count];
@@ -167,7 +167,7 @@ namespace ImageMagick
                 string newValue = attribute.Value;
                 foreach (string name in names)
                 {
-                    newValue = newValue.Replace(newValue, MagickConverter.Convert<string>(_Variables[name]));
+                    newValue = newValue.Replace(newValue, MagickConverter.Convert<string>(_variables[name]));
                 }
 
                 return (T)(object)newValue;
@@ -177,9 +177,9 @@ namespace ImageMagick
                 string name = names[0];
 
                 if (TypeHelper.IsValueType(typeof(T)))
-                    Throw.IfNull(nameof(attribute), _Variables[name], "The variable {0} should be set.", name);
+                    Throw.IfNull(nameof(attribute), _variables[name], "The variable {0} should be set.", name);
 
-                return MagickConverter.Convert<T>(_Variables[name]);
+                return MagickConverter.Convert<T>(_variables[name]);
             }
         }
 
@@ -216,7 +216,7 @@ namespace ImageMagick
 
                 foreach (string name in names)
                 {
-                    _Variables[name] = null;
+                    _variables[name] = null;
                 }
             }
 

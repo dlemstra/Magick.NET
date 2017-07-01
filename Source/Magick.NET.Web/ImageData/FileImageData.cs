@@ -17,35 +17,35 @@ namespace ImageMagick.Web
 {
     internal sealed class FileImageData : IImageData
     {
-        private readonly string _FileName;
+        private readonly string _fileName;
 
         public FileImageData(string fileName, MagickFormatInfo formatInfo)
         {
-            _FileName = fileName;
+            _fileName = fileName;
             FormatInfo = formatInfo;
         }
 
         public MagickFormatInfo FormatInfo { get; }
 
-        public string ImageId => _FileName;
+        public string ImageId => _fileName;
 
-        public bool IsValid => !string.IsNullOrEmpty(_FileName) && File.Exists(_FileName);
+        public bool IsValid => !string.IsNullOrEmpty(_fileName) && File.Exists(_fileName);
 
-        public DateTime ModifiedTimeUtc => File.GetLastWriteTimeUtc(_FileName);
+        public DateTime ModifiedTimeUtc => File.GetLastWriteTimeUtc(_fileName);
 
         public Stream ReadImage()
         {
-            return File.OpenRead(_FileName);
+            return File.OpenRead(_fileName);
         }
 
         public MagickImage ReadImage(MagickReadSettings settings)
         {
-            return new MagickImage(_FileName, settings);
+            return new MagickImage(_fileName, settings);
         }
 
         public void SaveImage(string fileName)
         {
-            File.Copy(_FileName, fileName);
+            File.Copy(_fileName, fileName);
         }
     }
 }
