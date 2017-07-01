@@ -27,7 +27,7 @@ namespace ImageMagick
         /// <summary>
         /// Undefined
         /// </summary>
-        Undefined = 0x0000,
+        None = 0x0000,
 
         /// <summary>
         /// Red

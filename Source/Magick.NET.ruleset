@@ -7,7 +7,6 @@
   <Include Path="mixedrecommendedrules.ruleset" Action="Default" />
   <Include Path="nativerecommendedrules.ruleset" Action="Default" />
   <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
-    <Rule Id="CA1008" Action="None" />
     <Rule Id="CA1011" Action="None" />
     <Rule Id="CA1023" Action="None" />
     <Rule Id="CA1032" Action="None" />
