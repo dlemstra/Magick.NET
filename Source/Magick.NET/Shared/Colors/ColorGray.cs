@@ -58,6 +58,7 @@ namespace ImageMagick
             {
                 return _shade;
             }
+
             set
             {
                 if (value < 0.0 || value > 1.0)

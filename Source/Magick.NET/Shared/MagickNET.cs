@@ -48,6 +48,7 @@ namespace ImageMagick
 
                 _log += value;
             }
+
             remove
             {
                 _log -= value;

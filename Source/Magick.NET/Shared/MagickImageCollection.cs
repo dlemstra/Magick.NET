@@ -162,6 +162,7 @@ namespace ImageMagick
             {
                 _warning += value;
             }
+
             remove
             {
                 _warning -= value;
@@ -200,6 +201,7 @@ namespace ImageMagick
             {
                 return _images[index];
             }
+
             set
             {
                 _images[index] = value;

@@ -211,6 +211,7 @@ namespace ImageMagick
 
                 _progress += value;
             }
+
             remove
             {
                 _progress -= value;
@@ -232,6 +233,7 @@ namespace ImageMagick
             {
                 _warning += value;
             }
+
             remove
             {
                 _warning -= value;
@@ -241,10 +243,7 @@ namespace ImageMagick
         /// <inheritdoc/>
         IntPtr INativeInstance.Instance
         {
-            get
-            {
-                return _NativeInstance.Instance;
-            }
+            get { return _NativeInstance.Instance; }
         }
 
         /// <summary>
@@ -257,6 +256,7 @@ namespace ImageMagick
             {
                 return _NativeInstance.AnimationDelay;
             }
+
             set
             {
                 if (value >= 0)
@@ -273,6 +273,7 @@ namespace ImageMagick
             {
                 return _NativeInstance.AnimationIterations;
             }
+
             set
             {
                 if (value >= 0)
@@ -323,6 +324,7 @@ namespace ImageMagick
             {
                 return _NativeInstance.BackgroundColor;
             }
+
             set
             {
                 _NativeInstance.BackgroundColor = value;
@@ -335,10 +337,7 @@ namespace ImageMagick
         /// </summary>
         public int BaseHeight
         {
-            get
-            {
-                return _NativeInstance.BaseHeight;
-            }
+            get { return _NativeInstance.BaseHeight; }
         }
 
         /// <summary>
@@ -346,10 +345,7 @@ namespace ImageMagick
         /// </summary>
         public int BaseWidth
         {
-            get
-            {
-                return _NativeInstance.BaseWidth;
-            }
+            get { return _NativeInstance.BaseWidth; }
         }
 
         /// <summary>
@@ -357,14 +353,8 @@ namespace ImageMagick
         /// </summary>
         public bool BlackPointCompensation
         {
-            get
-            {
-                return _NativeInstance.BlackPointCompensation;
-            }
-            set
-            {
-                _NativeInstance.BlackPointCompensation = value;
-            }
+            get { return _NativeInstance.BlackPointCompensation; }
+            set { _NativeInstance.BlackPointCompensation = value; }
         }
 
         /// <summary>
@@ -372,14 +362,8 @@ namespace ImageMagick
         /// </summary>
         public MagickColor BorderColor
         {
-            get
-            {
-                return _NativeInstance.BorderColor;
-            }
-            set
-            {
-                _NativeInstance.BorderColor = value;
-            }
+            get { return _NativeInstance.BorderColor; }
+            set { _NativeInstance.BorderColor = value; }
         }
 
         /// <summary>
@@ -388,10 +372,7 @@ namespace ImageMagick
         /// </summary>
         public MagickGeometry BoundingBox
         {
-            get
-            {
-                return MagickGeometry.FromRectangle(_NativeInstance.BoundingBox);
-            }
+            get { return MagickGeometry.FromRectangle(_NativeInstance.BoundingBox); }
         }
 
         /// <summary>
@@ -399,10 +380,7 @@ namespace ImageMagick
         /// </summary>
         public int ChannelCount
         {
-            get
-            {
-                return _NativeInstance.ChannelCount;
-            }
+            get { return _NativeInstance.ChannelCount; }
         }
 
         /// <summary>
@@ -430,14 +408,8 @@ namespace ImageMagick
         /// </summary>
         public PrimaryInfo ChromaBluePrimary
         {
-            get
-            {
-                return _NativeInstance.ChromaBluePrimary;
-            }
-            set
-            {
-                _NativeInstance.ChromaBluePrimary = value;
-            }
+            get { return _NativeInstance.ChromaBluePrimary; }
+            set { _NativeInstance.ChromaBluePrimary = value; }
         }
 
         /// <summary>
@@ -445,14 +417,8 @@ namespace ImageMagick
         /// </summary>
         public PrimaryInfo ChromaGreenPrimary
         {
-            get
-            {
-                return _NativeInstance.ChromaGreenPrimary;
-            }
-            set
-            {
-                _NativeInstance.ChromaGreenPrimary = value;
-            }
+            get { return _NativeInstance.ChromaGreenPrimary; }
+            set { _NativeInstance.ChromaGreenPrimary = value; }
         }
 
         /// <summary>
@@ -460,14 +426,8 @@ namespace ImageMagick
         /// </summary>
         public PrimaryInfo ChromaRedPrimary
         {
-            get
-            {
-                return _NativeInstance.ChromaRedPrimary;
-            }
-            set
-            {
-                _NativeInstance.ChromaRedPrimary = value;
-            }
+            get { return _NativeInstance.ChromaRedPrimary; }
+            set { _NativeInstance.ChromaRedPrimary = value; }
         }
 
         /// <summary>
@@ -475,14 +435,8 @@ namespace ImageMagick
         /// </summary>
         public PrimaryInfo ChromaWhitePoint
         {
-            get
-            {
-                return _NativeInstance.ChromaWhitePoint;
-            }
-            set
-            {
-                _NativeInstance.ChromaWhitePoint = value;
-            }
+            get { return _NativeInstance.ChromaWhitePoint; }
+            set { _NativeInstance.ChromaWhitePoint = value; }
         }
 
         /// <summary>
@@ -493,14 +447,8 @@ namespace ImageMagick
         /// </summary>
         public ClassType ClassType
         {
-            get
-            {
-                return _NativeInstance.ClassType;
-            }
-            set
-            {
-                _NativeInstance.ClassType = value;
-            }
+            get { return _NativeInstance.ClassType; }
+            set { _NativeInstance.ClassType = value; }
         }
 
         /// <summary>
@@ -512,6 +460,7 @@ namespace ImageMagick
             {
                 return Percentage.FromQuantum(_NativeInstance.ColorFuzz);
             }
+
             set
             {
                 double newValue = value.ToQuantum();
@@ -525,14 +474,8 @@ namespace ImageMagick
         /// </summary>
         public int ColormapSize
         {
-            get
-            {
-                return _NativeInstance.ColormapSize;
-            }
-            set
-            {
-                _NativeInstance.ColormapSize = value;
-            }
+            get { return _NativeInstance.ColormapSize; }
+            set { _NativeInstance.ColormapSize = value; }
         }
 
         /// <summary>
@@ -540,14 +483,8 @@ namespace ImageMagick
         /// </summary>
         public ColorSpace ColorSpace
         {
-            get
-            {
-                return _NativeInstance.ColorSpace;
-            }
-            set
-            {
-                _NativeInstance.ColorSpace = value;
-            }
+            get { return _NativeInstance.ColorSpace; }
+            set { _NativeInstance.ColorSpace = value; }
         }
 
         /// <summary>
@@ -562,6 +499,7 @@ namespace ImageMagick
 
                 return _NativeInstance.ColorType;
             }
+
             set
             {
                 _NativeInstance.ColorType = value;
@@ -574,14 +512,8 @@ namespace ImageMagick
         /// </summary>
         public string Comment
         {
-            get
-            {
-                return Settings.GetOption("Comment");
-            }
-            set
-            {
-                Settings.SetOption("Comment", value);
-            }
+            get { return Settings.GetOption("Comment"); }
+            set { Settings.SetOption("Comment", value); }
         }
 
         /// <summary>
@@ -589,14 +521,8 @@ namespace ImageMagick
         /// </summary>
         public CompositeOperator Compose
         {
-            get
-            {
-                return _NativeInstance.Compose;
-            }
-            set
-            {
-                _NativeInstance.Compose = value;
-            }
+            get { return _NativeInstance.Compose; }
+            set { _NativeInstance.Compose = value; }
         }
 
         /// <summary>
@@ -604,14 +530,8 @@ namespace ImageMagick
         /// </summary>
         public CompressionMethod CompressionMethod
         {
-            get
-            {
-                return _NativeInstance.CompressionMethod;
-            }
-            set
-            {
-                _NativeInstance.CompressionMethod = value;
-            }
+            get { return _NativeInstance.CompressionMethod; }
+            set { _NativeInstance.CompressionMethod = value; }
         }
 
         /// <summary>
@@ -623,6 +543,7 @@ namespace ImageMagick
             {
                 return new Density(_NativeInstance.ResolutionX, _NativeInstance.ResolutionY, _NativeInstance.ResolutionUnits);
             }
+
             set
             {
                 if (value == null)
@@ -639,14 +560,8 @@ namespace ImageMagick
         /// </summary>
         public int Depth
         {
-            get
-            {
-                return _NativeInstance.Depth;
-            }
-            set
-            {
-                _NativeInstance.Depth = value;
-            }
+            get { return _NativeInstance.Depth; }
+            set { _NativeInstance.Depth = value; }
         }
 
         /// <summary>
@@ -667,14 +582,8 @@ namespace ImageMagick
         /// </summary>
         public Endian Endian
         {
-            get
-            {
-                return _NativeInstance.Endian;
-            }
-            set
-            {
-                _NativeInstance.Endian = value;
-            }
+            get { return _NativeInstance.Endian; }
+            set { _NativeInstance.Endian = value; }
         }
 
         /// <summary>
@@ -682,10 +591,7 @@ namespace ImageMagick
         /// </summary>
         public string FileName
         {
-            get
-            {
-                return _NativeInstance.FileName;
-            }
+            get { return _NativeInstance.FileName; }
         }
 
         /// <summary>
@@ -693,10 +599,7 @@ namespace ImageMagick
         /// </summary>
         public long FileSize
         {
-            get
-            {
-                return _NativeInstance.FileSize;
-            }
+            get { return _NativeInstance.FileSize; }
         }
 
         /// <summary>
@@ -704,14 +607,8 @@ namespace ImageMagick
         /// </summary>
         public FilterType FilterType
         {
-            get
-            {
-                return _NativeInstance.FilterType;
-            }
-            set
-            {
-                _NativeInstance.FilterType = value;
-            }
+            get { return _NativeInstance.FilterType; }
+            set { _NativeInstance.FilterType = value; }
         }
 
         /// <summary>
@@ -723,6 +620,7 @@ namespace ImageMagick
             {
                 return EnumHelper.Parse(_NativeInstance.Format, MagickFormat.Unknown);
             }
+
             set
             {
                 _NativeInstance.Format = EnumHelper.GetName(value);
@@ -735,10 +633,7 @@ namespace ImageMagick
         /// </summary>
         public MagickFormatInfo FormatInfo
         {
-            get
-            {
-                return MagickNET.GetFormatInformation(Format);
-            }
+            get { return MagickNET.GetFormatInformation(Format); }
         }
 
         /// <summary>
@@ -747,10 +642,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public double Gamma
         {
-            get
-            {
-                return _NativeInstance.Gamma;
-            }
+            get { return _NativeInstance.Gamma; }
         }
 
         /// <summary>
@@ -758,14 +650,8 @@ namespace ImageMagick
         /// </summary>
         public GifDisposeMethod GifDisposeMethod
         {
-            get
-            {
-                return _NativeInstance.GifDisposeMethod;
-            }
-            set
-            {
-                _NativeInstance.GifDisposeMethod = value;
-            }
+            get { return _NativeInstance.GifDisposeMethod; }
+            set { _NativeInstance.GifDisposeMethod = value; }
         }
 
         /// <summary>
@@ -773,10 +659,7 @@ namespace ImageMagick
         /// </summary>
         public bool HasClippingPath
         {
-            get
-            {
-                return !string.IsNullOrEmpty(GetClippingPath());
-            }
+            get { return !string.IsNullOrEmpty(GetClippingPath()); }
         }
 
         /// <summary>
@@ -788,6 +671,7 @@ namespace ImageMagick
             {
                 return _NativeInstance.HasAlpha;
             }
+
             set
             {
                 if (_NativeInstance.HasAlpha != value)
@@ -804,10 +688,7 @@ namespace ImageMagick
         /// </summary>
         public int Height
         {
-            get
-            {
-                return _NativeInstance.Height;
-            }
+            get { return _NativeInstance.Height; }
         }
 
         /// <summary>
@@ -819,6 +700,7 @@ namespace ImageMagick
             {
                 return _NativeInstance.Interlace;
             }
+
             set
             {
                 _NativeInstance.Interlace = value;
@@ -831,14 +713,8 @@ namespace ImageMagick
         /// </summary>
         public PixelInterpolateMethod Interpolate
         {
-            get
-            {
-                return _NativeInstance.Interpolate;
-            }
-            set
-            {
-                _NativeInstance.Interpolate = value;
-            }
+            get { return _NativeInstance.Interpolate; }
+            set { _NativeInstance.Interpolate = value; }
         }
 
         /// <summary>
@@ -847,10 +723,7 @@ namespace ImageMagick
         /// </summary>
         public bool IsOpaque
         {
-            get
-            {
-                return _NativeInstance.IsOpaque;
-            }
+            get { return _NativeInstance.IsOpaque; }
         }
 
         /// <summary>
@@ -862,6 +735,7 @@ namespace ImageMagick
             {
                 return GetAttribute("Label");
             }
+
             set
             {
                 if (value == null)
@@ -876,14 +750,8 @@ namespace ImageMagick
         /// </summary>
         public MagickColor MatteColor
         {
-            get
-            {
-                return _NativeInstance.MatteColor;
-            }
-            set
-            {
-                _NativeInstance.MatteColor = value;
-            }
+            get { return _NativeInstance.MatteColor; }
+            set { _NativeInstance.MatteColor = value; }
         }
 
         /// <summary>
@@ -891,14 +759,8 @@ namespace ImageMagick
         /// </summary>
         public OrientationType Orientation
         {
-            get
-            {
-                return _NativeInstance.Orientation;
-            }
-            set
-            {
-                _NativeInstance.Orientation = value;
-            }
+            get { return _NativeInstance.Orientation; }
+            set { _NativeInstance.Orientation = value; }
         }
 
         /// <summary>
@@ -910,6 +772,7 @@ namespace ImageMagick
             {
                 return MagickGeometry.FromRectangle(_NativeInstance.Page);
             }
+
             set
             {
                 if (value == null)
@@ -945,6 +808,7 @@ namespace ImageMagick
             {
                 return _NativeInstance.Quality;
             }
+
             set
             {
                 int quality = value < 1 ? 1 : value;
@@ -961,14 +825,8 @@ namespace ImageMagick
         /// </summary>
         public IMagickImage ReadMask
         {
-            get
-            {
-                return _NativeInstance.ReadMask;
-            }
-            set
-            {
-                _NativeInstance.ReadMask = value;
-            }
+            get { return _NativeInstance.ReadMask; }
+            set { _NativeInstance.ReadMask = value; }
         }
 
         /// <summary>
@@ -976,14 +834,8 @@ namespace ImageMagick
         /// </summary>
         public RenderingIntent RenderingIntent
         {
-            get
-            {
-                return _NativeInstance.RenderingIntent;
-            }
-            set
-            {
-                _NativeInstance.RenderingIntent = value;
-            }
+            get { return _NativeInstance.RenderingIntent; }
+            set { _NativeInstance.RenderingIntent = value; }
         }
 
         /// <summary>
@@ -1001,10 +853,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public string Signature
         {
-            get
-            {
-                return _NativeInstance.Signature;
-            }
+            get { return _NativeInstance.Signature; }
         }
 
         /// <summary>
@@ -1012,10 +861,7 @@ namespace ImageMagick
         /// </summary>
         public int TotalColors
         {
-            get
-            {
-                return _NativeInstance.TotalColors;
-            }
+            get { return _NativeInstance.TotalColors; }
         }
 
         /// <summary>
@@ -1023,14 +869,8 @@ namespace ImageMagick
         /// </summary>
         public VirtualPixelMethod VirtualPixelMethod
         {
-            get
-            {
-                return _NativeInstance.VirtualPixelMethod;
-            }
-            set
-            {
-                _NativeInstance.VirtualPixelMethod = value;
-            }
+            get { return _NativeInstance.VirtualPixelMethod; }
+            set { _NativeInstance.VirtualPixelMethod = value; }
         }
 
         /// <summary>
@@ -1038,10 +878,7 @@ namespace ImageMagick
         /// </summary>
         public int Width
         {
-            get
-            {
-                return _NativeInstance.Width;
-            }
+            get { return _NativeInstance.Width; }
         }
 
         /// <summary>
@@ -1050,14 +887,8 @@ namespace ImageMagick
         /// </summary>
         public IMagickImage WriteMask
         {
-            get
-            {
-                return _NativeInstance.WriteMask;
-            }
-            set
-            {
-                _NativeInstance.WriteMask = value;
-            }
+            get { return _NativeInstance.WriteMask; }
+            set { _NativeInstance.WriteMask = value; }
         }
 
         /// <summary>

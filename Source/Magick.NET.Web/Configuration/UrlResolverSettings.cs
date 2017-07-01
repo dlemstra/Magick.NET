@@ -24,6 +24,7 @@ namespace ImageMagick.Web
     public class UrlResolverSettings : ConfigurationElement
     {
         private IUrlResolverConstructor _constructor;
+
         private delegate IUrlResolver IUrlResolverConstructor();
 
         [ConfigurationProperty("type", IsRequired = true)]

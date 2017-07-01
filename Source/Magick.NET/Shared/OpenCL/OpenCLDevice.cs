@@ -69,14 +69,8 @@ namespace ImageMagick
         /// </summary>
         public bool IsEnabled
         {
-            get
-            {
-                return _instance.IsEnabled;
-            }
-            set
-            {
-                _instance.IsEnabled = value;
-            }
+            get { return _instance.IsEnabled; }
+            set { _instance.IsEnabled = value; }
         }
 
         /// <summary>
@@ -116,6 +110,7 @@ namespace ImageMagick
             {
                 return _profileKernels;
             }
+
             set
             {
                 _instance.SetProfileKernels(value);

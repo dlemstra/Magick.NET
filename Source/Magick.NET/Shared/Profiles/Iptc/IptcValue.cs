@@ -48,11 +48,11 @@ namespace ImageMagick
             {
                 return _encoding;
             }
+
             set
             {
-                Throw.IfNull(nameof(value), value);
-
-                _encoding = value;
+                if (value != null)
+                    _encoding = value;
             }
         }
 
@@ -74,6 +74,7 @@ namespace ImageMagick
             {
                 return _encoding.GetString(_data);
             }
+
             set
             {
                 if (string.IsNullOrEmpty(value))

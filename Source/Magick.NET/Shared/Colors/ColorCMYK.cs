@@ -110,14 +110,8 @@ namespace ImageMagick
         /// </summary>
         public QuantumType A
         {
-            get
-            {
-                return Color.A;
-            }
-            set
-            {
-                Color.A = value;
-            }
+            get { return Color.A; }
+            set { Color.A = value; }
         }
 
         /// <summary>
@@ -125,14 +119,8 @@ namespace ImageMagick
         /// </summary>
         public QuantumType C
         {
-            get
-            {
-                return Color.R;
-            }
-            set
-            {
-                Color.R = value;
-            }
+            get { return Color.R; }
+            set { Color.R = value; }
         }
 
         /// <summary>
@@ -140,14 +128,8 @@ namespace ImageMagick
         /// </summary>
         public QuantumType K
         {
-            get
-            {
-                return Color.K;
-            }
-            set
-            {
-                Color.K = value;
-            }
+            get { return Color.K; }
+            set { Color.K = value; }
         }
 
         /// <summary>
@@ -155,14 +137,8 @@ namespace ImageMagick
         /// </summary>
         public QuantumType M
         {
-            get
-            {
-                return Color.G;
-            }
-            set
-            {
-                Color.G = value;
-            }
+            get { return Color.G; }
+            set { Color.G = value; }
         }
 
         /// <summary>
@@ -170,14 +146,8 @@ namespace ImageMagick
         /// </summary>
         public QuantumType Y
         {
-            get
-            {
-                return Color.B;
-            }
-            set
-            {
-                Color.B = value;
-            }
+            get { return Color.B; }
+            set { Color.B = value; }
         }
 
         /// <summary>

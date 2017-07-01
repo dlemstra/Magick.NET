@@ -24,6 +24,7 @@ namespace ImageMagick
             {
                 _warningEvent += value;
             }
+
             remove
             {
                 _warningEvent -= value;

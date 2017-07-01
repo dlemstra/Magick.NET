@@ -152,6 +152,7 @@ namespace ImageMagick
             }
         }
 #endif
+
         private static byte[] CheckTrailingNULL(byte[] data)
         {
             Throw.IfNull(nameof(data), data);

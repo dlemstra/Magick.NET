@@ -58,14 +58,8 @@ namespace ImageMagick
         /// </summary>
         public DrawableAffine Affine
         {
-            get
-            {
-                return Drawing.Affine;
-            }
-            set
-            {
-                Drawing.Affine = value;
-            }
+            get { return Drawing.Affine; }
+            set { Drawing.Affine = value; }
         }
 
         /// <summary>
@@ -82,14 +76,8 @@ namespace ImageMagick
         /// </summary>
         public MagickColor BorderColor
         {
-            get
-            {
-                return Drawing.BorderColor;
-            }
-            set
-            {
-                Drawing.BorderColor = value;
-            }
+            get { return Drawing.BorderColor; }
+            set { Drawing.BorderColor = value; }
         }
 
         /// <summary>
@@ -156,6 +144,7 @@ namespace ImageMagick
             {
                 return Drawing.FillColor;
             }
+
             set
             {
                 SetOptionAndArtifact("fill", MagickColor.ToString(value));
@@ -168,14 +157,8 @@ namespace ImageMagick
         /// </summary>
         public IMagickImage FillPattern
         {
-            get
-            {
-                return Drawing.FillPattern;
-            }
-            set
-            {
-                Drawing.FillPattern = value;
-            }
+            get { return Drawing.FillPattern; }
+            set { Drawing.FillPattern = value; }
         }
 
         /// <summary>
@@ -183,14 +166,8 @@ namespace ImageMagick
         /// </summary>
         public FillRule FillRule
         {
-            get
-            {
-                return Drawing.FillRule;
-            }
-            set
-            {
-                Drawing.FillRule = value;
-            }
+            get { return Drawing.FillRule; }
+            set { Drawing.FillRule = value; }
         }
 
         /// <summary>
@@ -202,6 +179,7 @@ namespace ImageMagick
             {
                 return _font;
             }
+
             set
             {
                 _font = value;
@@ -218,6 +196,7 @@ namespace ImageMagick
             {
                 return GetOption("family");
             }
+
             set
             {
                 SetOptionAndArtifact("family", value);
@@ -234,6 +213,7 @@ namespace ImageMagick
             {
                 return _fontPointsize;
             }
+
             set
             {
                 _fontPointsize = value;
@@ -250,6 +230,7 @@ namespace ImageMagick
             {
                 return EnumHelper.Parse(GetOption("style"), FontStyleType.Undefined);
             }
+
             set
             {
                 SetOptionAndArtifact("style", EnumHelper.GetName(value));
@@ -273,6 +254,7 @@ namespace ImageMagick
 
                 return EnumHelper.Parse(fontweight, FontWeight.Undefined);
             }
+
             set
             {
                 SetOptionAndArtifact("weight", ((int)value).ToString(CultureInfo.InvariantCulture));
@@ -303,14 +285,8 @@ namespace ImageMagick
         /// </summary>
         public bool StrokeAntiAlias
         {
-            get
-            {
-                return Drawing.StrokeAntiAlias;
-            }
-            set
-            {
-                Drawing.StrokeAntiAlias = value;
-            }
+            get { return Drawing.StrokeAntiAlias; }
+            set { Drawing.StrokeAntiAlias = value; }
         }
 
         /// <summary>
@@ -322,6 +298,7 @@ namespace ImageMagick
             {
                 return Drawing.StrokeColor;
             }
+
             set
             {
                 SetOptionAndArtifact("stroke", MagickColor.ToString(value));
@@ -337,14 +314,8 @@ namespace ImageMagick
         /// </summary>
         public IEnumerable<double> StrokeDashArray
         {
-            get
-            {
-                return Drawing.StrokeDashArray;
-            }
-            set
-            {
-                Drawing.StrokeDashArray = value;
-            }
+            get { return Drawing.StrokeDashArray; }
+            set { Drawing.StrokeDashArray = value; }
         }
 
         /// <summary>
@@ -353,14 +324,8 @@ namespace ImageMagick
         /// </summary>
         public double StrokeDashOffset
         {
-            get
-            {
-                return Drawing.StrokeDashOffset;
-            }
-            set
-            {
-                Drawing.StrokeDashOffset = value;
-            }
+            get { return Drawing.StrokeDashOffset; }
+            set { Drawing.StrokeDashOffset = value; }
         }
 
         /// <summary>
@@ -368,14 +333,8 @@ namespace ImageMagick
         /// </summary>
         public LineCap StrokeLineCap
         {
-            get
-            {
-                return Drawing.StrokeLineCap;
-            }
-            set
-            {
-                Drawing.StrokeLineCap = value;
-            }
+            get { return Drawing.StrokeLineCap; }
+            set { Drawing.StrokeLineCap = value; }
         }
 
         /// <summary>
@@ -384,14 +343,8 @@ namespace ImageMagick
         /// </summary>
         public LineJoin StrokeLineJoin
         {
-            get
-            {
-                return Drawing.StrokeLineJoin;
-            }
-            set
-            {
-                Drawing.StrokeLineJoin = value;
-            }
+            get { return Drawing.StrokeLineJoin; }
+            set { Drawing.StrokeLineJoin = value; }
         }
 
         /// <summary>
@@ -402,14 +355,8 @@ namespace ImageMagick
         /// </summary>
         public int StrokeMiterLimit
         {
-            get
-            {
-                return Drawing.StrokeMiterLimit;
-            }
-            set
-            {
-                Drawing.StrokeMiterLimit = value;
-            }
+            get { return Drawing.StrokeMiterLimit; }
+            set { Drawing.StrokeMiterLimit = value; }
         }
 
         /// <summary>
@@ -417,14 +364,8 @@ namespace ImageMagick
         /// </summary>
         public IMagickImage StrokePattern
         {
-            get
-            {
-                return Drawing.StrokePattern;
-            }
-            set
-            {
-                Drawing.StrokePattern = value;
-            }
+            get { return Drawing.StrokePattern; }
+            set { Drawing.StrokePattern = value; }
         }
 
         /// <summary>
@@ -436,6 +377,7 @@ namespace ImageMagick
             {
                 return Drawing.StrokeWidth;
             }
+
             set
             {
                 SetOptionAndArtifact("strokewidth", value);
@@ -448,14 +390,8 @@ namespace ImageMagick
         /// </summary>
         public bool TextAntiAlias
         {
-            get
-            {
-                return Drawing.TextAntiAlias;
-            }
-            set
-            {
-                Drawing.TextAntiAlias = value;
-            }
+            get { return Drawing.TextAntiAlias; }
+            set { Drawing.TextAntiAlias = value; }
         }
 
         /// <summary>
@@ -463,14 +399,8 @@ namespace ImageMagick
         /// </summary>
         public TextDirection TextDirection
         {
-            get
-            {
-                return Drawing.TextDirection;
-            }
-            set
-            {
-                Drawing.TextDirection = value;
-            }
+            get { return Drawing.TextDirection; }
+            set { Drawing.TextDirection = value; }
         }
 
         /// <summary>
@@ -478,14 +408,8 @@ namespace ImageMagick
         /// </summary>
         public Encoding TextEncoding
         {
-            get
-            {
-                return Drawing.TextEncoding;
-            }
-            set
-            {
-                Drawing.TextEncoding = value;
-            }
+            get { return Drawing.TextEncoding; }
+            set { Drawing.TextEncoding = value; }
         }
 
         /// <summary>
@@ -497,6 +421,7 @@ namespace ImageMagick
             {
                 return Drawing.TextGravity;
             }
+
             set
             {
                 SetOptionAndArtifact("gravity", EnumHelper.GetName(value));
@@ -513,6 +438,7 @@ namespace ImageMagick
             {
                 return Drawing.TextInterlineSpacing;
             }
+
             set
             {
                 SetOptionAndArtifact("interline-spacing", value);
@@ -529,6 +455,7 @@ namespace ImageMagick
             {
                 return Drawing.TextInterwordSpacing;
             }
+
             set
             {
                 SetOptionAndArtifact("interword-spacing", value);
@@ -545,6 +472,7 @@ namespace ImageMagick
             {
                 return Drawing.TextKerning;
             }
+
             set
             {
                 SetOptionAndArtifact("kerning", value);
@@ -561,6 +489,7 @@ namespace ImageMagick
             {
                 return Drawing.TextUnderColor;
             }
+
             set
             {
                 SetOptionAndArtifact("undercolor", MagickColor.ToString(value));

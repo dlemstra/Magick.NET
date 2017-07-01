@@ -63,14 +63,8 @@ namespace ImageMagick
         /// </summary>
         public MagickGeometry ExtractArea
         {
-            get
-            {
-                return Extract;
-            }
-            set
-            {
-                Extract = value;
-            }
+            get { return Extract; }
+            set { Extract = value; }
         }
 
         /// <summary>
@@ -115,14 +109,8 @@ namespace ImageMagick
         /// </summary>
         public bool UseMonochrome
         {
-            get
-            {
-                return Monochrome;
-            }
-            set
-            {
-                Monochrome = value;
-            }
+            get { return Monochrome; }
+            set { Monochrome = value; }
         }
 
         /// <summary>

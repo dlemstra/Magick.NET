@@ -35,6 +35,7 @@ namespace ImageMagick
 
                 return _isEnabled.Value;
             }
+
             set
             {
                 _isEnabled = NativeOpenCL.SetEnabled(value);

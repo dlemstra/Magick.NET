@@ -104,14 +104,8 @@ namespace ImageMagick
         /// <param name="channel">The channel to get the value for.</param>
         public QuantumType this[int channel]
         {
-            get
-            {
-                return GetChannel(channel);
-            }
-            set
-            {
-                SetChannel(channel, value);
-            }
+            get { return GetChannel(channel); }
+            set { SetChannel(channel, value); }
         }
 
         /// <summary>

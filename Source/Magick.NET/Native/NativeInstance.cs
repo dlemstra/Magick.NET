@@ -35,6 +35,7 @@ namespace ImageMagick
 
                 return _instance;
             }
+
             set
             {
                 if (_instance != IntPtr.Zero)

@@ -49,14 +49,8 @@ namespace ImageMagick
         /// <param name="name">The name of the variable.</param>
         public object this[string name]
         {
-            get
-            {
-                return Get(name);
-            }
-            set
-            {
-                Set(name, value);
-            }
+            get { return Get(name); }
+            set { Set(name, value); }
         }
 
         /// <summary>

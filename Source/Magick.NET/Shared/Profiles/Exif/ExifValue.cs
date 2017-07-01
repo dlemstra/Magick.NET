@@ -76,6 +76,7 @@ namespace ImageMagick
             {
                 return _value;
             }
+
             set
             {
                 CheckValue(value);

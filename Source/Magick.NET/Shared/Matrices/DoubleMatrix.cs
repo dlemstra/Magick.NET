@@ -58,6 +58,7 @@ namespace ImageMagick
             {
                 return GetValue(x, y);
             }
+
             set
             {
                 SetValue(x, y, value);

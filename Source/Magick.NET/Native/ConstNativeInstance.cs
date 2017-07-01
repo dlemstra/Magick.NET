@@ -27,6 +27,7 @@ namespace ImageMagick
 
                 return _instance;
             }
+
             set
             {
                 _instance = value;

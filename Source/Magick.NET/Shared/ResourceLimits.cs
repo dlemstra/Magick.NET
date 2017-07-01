@@ -25,14 +25,8 @@ namespace ImageMagick
         [CLSCompliant(false)]
         public static ulong Disk
         {
-            get
-            {
-                return NativeResourceLimits.Disk;
-            }
-            set
-            {
-                NativeResourceLimits.Disk = value;
-            }
+            get { return NativeResourceLimits.Disk; }
+            set { NativeResourceLimits.Disk = value; }
         }
 
         /// <summary>
@@ -41,14 +35,8 @@ namespace ImageMagick
         [CLSCompliant(false)]
         public static ulong Height
         {
-            get
-            {
-                return NativeResourceLimits.Height;
-            }
-            set
-            {
-                NativeResourceLimits.Height = value;
-            }
+            get { return NativeResourceLimits.Height; }
+            set { NativeResourceLimits.Height = value; }
         }
 
         /// <summary>
@@ -58,14 +46,8 @@ namespace ImageMagick
         [CLSCompliant(false)]
         public static ulong Memory
         {
-            get
-            {
-                return NativeResourceLimits.Memory;
-            }
-            set
-            {
-                NativeResourceLimits.Memory = value;
-            }
+            get { return NativeResourceLimits.Memory; }
+            set { NativeResourceLimits.Memory = value; }
         }
 
         /// <summary>
@@ -74,14 +56,8 @@ namespace ImageMagick
         [CLSCompliant(false)]
         public static ulong Throttle
         {
-            get
-            {
-                return NativeResourceLimits.Throttle;
-            }
-            set
-            {
-                NativeResourceLimits.Throttle = value;
-            }
+            get { return NativeResourceLimits.Throttle; }
+            set { NativeResourceLimits.Throttle = value; }
         }
 
         /// <summary>
@@ -90,14 +66,8 @@ namespace ImageMagick
         [CLSCompliant(false)]
         public static ulong Width
         {
-            get
-            {
-                return NativeResourceLimits.Width;
-            }
-            set
-            {
-                NativeResourceLimits.Width = value;
-            }
+            get { return NativeResourceLimits.Width; }
+            set { NativeResourceLimits.Width = value; }
         }
     }
 }

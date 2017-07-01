@@ -128,6 +128,7 @@ namespace ImageMagick
             {
                 return _strokeDashArray;
             }
+
             set
             {
                 if (value != null)
