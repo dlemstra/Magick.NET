@@ -506,8 +506,9 @@ namespace ImageMagick
                 if (string.IsNullOrEmpty(weight))
                     return FontWeight.Undefined;
 
-                int fontweight;
-                int.TryParse(weight, NumberStyles.Number, CultureInfo.InvariantCulture, out fontweight);
+                if (!int.TryParse(weight, NumberStyles.Number, CultureInfo.InvariantCulture, out int fontweight))
+                    return FontWeight.Undefined;
+
                 return EnumHelper.Parse(fontweight, FontWeight.Undefined);
             }
             set
