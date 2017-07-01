@@ -90,6 +90,7 @@
           <xs:enumeration value="Green" />
           <xs:enumeration value="Index" />
           <xs:enumeration value="Magenta" />
+          <xs:enumeration value="None" />
           <xs:enumeration value="Opacity" />
           <xs:enumeration value="Red" />
           <xs:enumeration value="RGB" />
@@ -1444,6 +1445,11 @@
               <xs:element name="endian">
                 <xs:complexType>
                   <xs:attribute name="value" use="required" type="Endian" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="extractArea">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="geometry" />
                 </xs:complexType>
               </xs:element>
               <xs:element name="fillColor">

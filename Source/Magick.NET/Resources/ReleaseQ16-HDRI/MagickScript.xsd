@@ -1456,6 +1456,11 @@
                   <xs:attribute name="value" use="required" type="Endian" />
                 </xs:complexType>
               </xs:element>
+              <xs:element name="extractArea">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="geometry" />
+                </xs:complexType>
+              </xs:element>
               <xs:element name="fillColor">
                 <xs:complexType>
                   <xs:attribute name="value" use="required" type="color" />
