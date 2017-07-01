@@ -33,14 +33,19 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_Encoding()
+        public void Encoding_SetToNull_NotChanged()
         {
             IptcValue value = GetIptcValue();
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
-            {
-                value.Encoding = null;
-            });
+            value.Encoding = null;
+
+            Assert.IsNotNull(value.Encoding);
+        }
+
+        [TestMethod]
+        public void Test_Encoding()
+        {
+            IptcValue value = GetIptcValue();
 
             Assert.AreEqual("Communications", value.Value);
 
