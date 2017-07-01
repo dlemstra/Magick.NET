@@ -3,7 +3,7 @@
 ' Licensed under the ImageMagick License (the "License"); you may Not use this file except in
 ' compliance with the License. You may obtain a copy of the License at
 '
-'   http://www.imagemagick.org/script/license.php
+'   https://www.imagemagick.org/script/license.php
 '
 ' Unless required by applicable law Or agreed to in writing, software distributed under the
 ' License Is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES Or CONDITIONS OF ANY KIND,
