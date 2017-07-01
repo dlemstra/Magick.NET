@@ -1,7 +1,6 @@
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
     <TargetFrameworks>net20;net40;netstandard13</TargetFrameworks>
-    <DebugType Condition="$(CodeCov) == 'true'">full</DebugType>
     <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AssemblyVersion>7.0.0.0</AssemblyVersion>
@@ -9,6 +8,9 @@
     <Version>7.0.6.101</Version>
     <Authors>Dirk Lemstra</Authors>
     <Copyright>Copyright 2013-2017 Dirk Lemstra</Copyright>
+    <DebugType Condition="$(CodeCov) == 'true'">full</DebugType>
+    <DebugType Condition="$(CodeCov) != 'true'">pdbonly</DebugType>
+    <RunCodeAnalysis Condition="'$(Configuration)|$(TargetFramework)' == 'ReleaseQ16|net40'">true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' != 'netstandard13'">
     <SignAssembly>true</SignAssembly>
