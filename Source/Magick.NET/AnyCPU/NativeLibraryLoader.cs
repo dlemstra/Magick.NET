@@ -23,14 +23,7 @@ namespace ImageMagick
 {
     internal static class NativeLibraryLoader
     {
-        private static volatile bool _Loaded;
-
-        private static class NativeMethods
-        {
-            [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-            [return: MarshalAs(UnmanagedType.Bool)]
-            public static extern bool SetDllDirectory(string lpPathName);
-        }
+        private static volatile bool _loaded;
 
         private static Assembly Assembly
         {
@@ -53,6 +46,15 @@ namespace ImageMagick
 #else
             source.CopyTo(destination);
 #endif
+        }
+
+        public static void Load()
+        {
+            if (_loaded)
+                return;
+
+            _loaded = true;
+            ExtractLibrary();
         }
 
         private static string CreateCacheDirectory()
@@ -153,13 +155,11 @@ namespace ImageMagick
             }
         }
 
-        public static void Load()
+        private static class NativeMethods
         {
-            if (_Loaded)
-                return;
-
-            _Loaded = true;
-            ExtractLibrary();
+            [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool SetDllDirectory(string lpPathName);
         }
     }
 }

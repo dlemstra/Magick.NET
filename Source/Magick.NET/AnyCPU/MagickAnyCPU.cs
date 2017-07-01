@@ -21,15 +21,7 @@ namespace ImageMagick
     /// </summary>
     public static class MagickAnyCPU
     {
-        private static string _CacheDirectory = Path.GetTempPath();
-
-        internal static bool UsesDefaultCacheDirectory
-        {
-            get
-            {
-                return _CacheDirectory == Path.GetTempPath();
-            }
-        }
+        private static string _cacheDirectory = Path.GetTempPath();
 
         /// <summary>
         /// Gets or sets the directory that will be used by Magick.NET to store the embedded assemblies.
@@ -38,13 +30,14 @@ namespace ImageMagick
         {
             get
             {
-                return _CacheDirectory;
+                return _cacheDirectory;
             }
+
             set
             {
                 if (!Directory.Exists(value))
                     throw new InvalidOperationException("The specified directory does not exist.");
-                _CacheDirectory = value;
+                _cacheDirectory = value;
             }
         }
 
@@ -57,6 +50,14 @@ namespace ImageMagick
         {
             get;
             set;
+        }
+
+        internal static bool UsesDefaultCacheDirectory
+        {
+            get
+            {
+                return _cacheDirectory == Path.GetTempPath();
+            }
         }
     }
 }
