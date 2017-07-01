@@ -23,9 +23,10 @@ namespace ImageMagick
     /// </summary>
     public partial class MagickSettings
     {
+        private readonly Dictionary<string, string> _options = new Dictionary<string, string>();
+
         private string _font;
         private double _fontPointsize;
-        private readonly Dictionary<string, string> _options = new Dictionary<string, string>();
 
         internal MagickSettings()
         {

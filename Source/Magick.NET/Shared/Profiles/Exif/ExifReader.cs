@@ -20,8 +20,9 @@ namespace ImageMagick
 {
     internal sealed class ExifReader
     {
-        private byte[] _data;
         private readonly Collection<ExifTag> _invalidTags = new Collection<ExifTag>();
+
+        private byte[] _data;
         private uint _index;
         private bool _isLittleEndian;
         private uint _exifOffset;

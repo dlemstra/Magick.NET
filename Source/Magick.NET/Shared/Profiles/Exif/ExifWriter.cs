@@ -285,10 +285,11 @@ namespace ImageMagick
 
         private readonly ExifParts _allowedParts;
         private readonly Collection<ExifValue> _values;
-        private Collection<int> _dataOffsets;
         private readonly Collection<int> _ifdIndexes;
         private readonly Collection<int> _exifIndexes;
         private readonly Collection<int> _gPSIndexes;
+
+        private Collection<int> _dataOffsets;
 
         public ExifWriter(Collection<ExifValue> values, ExifParts allowedParts)
         {

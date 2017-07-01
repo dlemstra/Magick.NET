@@ -22,15 +22,15 @@ namespace ImageMagick
     /// </summary>
     public static partial class MagickNET
     {
-        private static LogDelegate _nativeLog;
-        private static EventHandler<LogEventArgs> _log;
-        private static LogEvents _logEvents = LogEvents.None;
-
         private static readonly string[] _ImageMagickFiles = new string[]
         {
             "coder.xml", "colors.xml", "configure.xml", "delegates.xml", "english.xml", "locale.xml",
             "log.xml", "magic.xml", "policy.xml", "thresholds.xml", "type.xml", "type-ghostscript.xml",
         };
+
+        private static LogDelegate _nativeLog;
+        private static EventHandler<LogEventArgs> _log;
+        private static LogEvents _logEvents = LogEvents.None;
 
         /// <summary>
         /// Event that will be raised when something is logged by ImageMagick.

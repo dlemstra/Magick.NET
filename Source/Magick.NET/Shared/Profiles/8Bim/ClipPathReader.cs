@@ -17,14 +17,15 @@ namespace ImageMagick
 {
     internal sealed class ClipPathReader
     {
+        private readonly int _height;
+        private readonly int _width;
+
         private PointD[] _first;
         private int _index;
-        private readonly int _height;
         private bool _inSubpath;
         private StringBuilder _path;
         private int _knotCount;
         private PointD[] _last;
-        private readonly int _width;
 
         public ClipPathReader(int width, int height)
         {

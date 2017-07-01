@@ -23,8 +23,9 @@ namespace ImageMagick
     public sealed partial class MagickImageCollection : IMagickImageCollection
     {
         private readonly List<IMagickImage> _images;
-        private EventHandler<WarningEventArgs> _warning;
         private readonly NativeMagickImageCollection _nativeInstance;
+
+        private EventHandler<WarningEventArgs> _warning;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImageCollection"/> class.

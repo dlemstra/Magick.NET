@@ -28,12 +28,13 @@ namespace ImageMagick
 {
     internal sealed class PixelCollectionEnumerator : IEnumerator<Pixel>
     {
-        private QuantumType[] _row;
         private readonly PixelCollection _collection;
         private readonly int _height;
+        private readonly int _width;
+
+        private QuantumType[] _row;
         private int _x;
         private int _y;
-        private readonly int _width;
 
         public PixelCollectionEnumerator(PixelCollection collection, int width, int height)
         {
