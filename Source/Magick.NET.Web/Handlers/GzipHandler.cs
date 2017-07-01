@@ -10,7 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.Compression;
@@ -32,7 +31,7 @@ namespace ImageMagick.Web.Handlers
         [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "Context will not be null.")]
         protected override string GetFileName(HttpContext context)
         {
-            Debug.Assert(context != null);
+            DebugThrow.IfNull(nameof(context), context);
 
             string encoding = GetEncoding(context.Request);
             if (string.IsNullOrEmpty(encoding))
@@ -53,7 +52,7 @@ namespace ImageMagick.Web.Handlers
             if (encoding == "gzip")
                 return new GZipStream(stream, CompressionMode.Compress);
 
-            Debug.Assert(encoding == "deflate");
+            DebugThrow.IfNotEqual("deflate", encoding);
             return new DeflateStream(stream, CompressionMode.Compress);
         }
 

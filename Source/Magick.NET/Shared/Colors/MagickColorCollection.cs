@@ -34,7 +34,7 @@ namespace ImageMagick
             for (int i = 0; i < length; i++)
             {
                 IntPtr instance = NativeMagickColorCollection.GetInstance(list, i);
-                Debug.Assert(instance != IntPtr.Zero);
+                DebugThrow.IfNull(instance);
 
                 MagickColor color = MagickColor.CreateInstance(instance);
                 colors[color] = color.Count;

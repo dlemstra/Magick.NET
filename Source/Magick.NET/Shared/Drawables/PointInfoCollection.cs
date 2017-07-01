@@ -50,7 +50,7 @@ namespace ImageMagick
 
         public void Dispose()
         {
-            Debug.Assert(_NativeInstance != null);
+            DebugThrow.IfNull(_NativeInstance);
             _NativeInstance.Dispose();
         }
     }

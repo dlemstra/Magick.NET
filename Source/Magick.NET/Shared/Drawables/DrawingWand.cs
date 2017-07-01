@@ -100,7 +100,7 @@ namespace ImageMagick
 
         public void Dispose()
         {
-            Debug.Assert(_NativeInstance != null);
+            DebugThrow.IfNull(_NativeInstance);
             _NativeInstance.Dispose();
         }
 
@@ -154,10 +154,9 @@ namespace ImageMagick
             _NativeInstance.Line(startX, startY, endX, endY);
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "Using assert instead.")]
         public void PathArcAbs(IEnumerable<PathArc> pathArcs)
         {
-            Debug.Assert(pathArcs != null);
+            DebugThrow.IfNull(nameof(pathArcs), pathArcs);
 
             foreach (PathArc pathArc in pathArcs)
             {
@@ -165,10 +164,9 @@ namespace ImageMagick
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "Using assert instead.")]
         public void PathArcRel(IEnumerable<PathArc> pathArcs)
         {
-            Debug.Assert(pathArcs != null);
+            DebugThrow.IfNull(nameof(pathArcs), pathArcs);
 
             foreach (PathArc pathArc in pathArcs)
             {
@@ -199,7 +197,7 @@ namespace ImageMagick
         [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "Using assert instead.")]
         public void PathLineToAbs(IEnumerable<PointD> coordinates)
         {
-            Debug.Assert(coordinates != null);
+            DebugThrow.IfNull(nameof(coordinates), coordinates);
 
             foreach (PointD coordinate in coordinates)
             {
@@ -230,7 +228,7 @@ namespace ImageMagick
         [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "Using assert instead.")]
         public void PathLineToRel(IEnumerable<PointD> coordinates)
         {
-            Debug.Assert(coordinates != null);
+            DebugThrow.IfNull(nameof(coordinates), coordinates);
 
             foreach (PointD coordinate in coordinates)
             {
@@ -290,7 +288,7 @@ namespace ImageMagick
 
         public void Polygon(IList<PointD> coordinates)
         {
-            Debug.Assert(coordinates != null);
+            DebugThrow.IfNull(nameof(coordinates), coordinates);
 
             using (PointInfoCollection pointInfo = new PointInfoCollection(coordinates))
             {
@@ -300,7 +298,7 @@ namespace ImageMagick
 
         public void Polyline(IList<PointD> coordinates)
         {
-            Debug.Assert(coordinates != null);
+            DebugThrow.IfNull(nameof(coordinates), coordinates);
 
             using (PointInfoCollection pointInfo = new PointInfoCollection(coordinates))
             {
@@ -378,10 +376,9 @@ namespace ImageMagick
             _NativeInstance.StrokeColor(color);
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "Using assert instead.")]
         public void StrokeDashArray(double[] dash)
         {
-            Debug.Assert(dash != null);
+            DebugThrow.IfNull(nameof(dash), dash);
 
             _NativeInstance.StrokeDashArray(dash, dash.Length);
         }

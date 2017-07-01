@@ -10,8 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System.Diagnostics;
-
 namespace ImageMagick.Web
 {
     internal static class ImageData
@@ -24,7 +22,7 @@ namespace ImageMagick.Web
 
             IStreamUrlResolver streamUrlResolver = urlResolver as IStreamUrlResolver;
 
-            Debug.Assert(streamUrlResolver != null);
+            DebugThrow.IfNull(streamUrlResolver);
             return new StreamImageData(streamUrlResolver, formatInfo);
         }
     }

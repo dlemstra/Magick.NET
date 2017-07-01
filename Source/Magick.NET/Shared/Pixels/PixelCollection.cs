@@ -215,7 +215,7 @@ namespace ImageMagick
             CheckValues(values);
 
             QuantumType[] castedValues = CastArray(values, Quantum.Convert);
-            SetAreaUnchecked(0, 0, _Image.Width, _Image.Height, castedValues);
+            SetAreaUnchecked(0, 0, _image.Width, _image.Height, castedValues);
         }
 #endif
 
