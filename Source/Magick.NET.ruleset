@@ -14,7 +14,6 @@
     <Rule Id="CA1704" Action="None" />
     <Rule Id="CA1709" Action="None" />
     <Rule Id="CA2006" Action="None" />
-    <Rule Id="CA2101" Action="None" />
     <Rule Id="CA2217" Action="None" />
   </Rules>
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
