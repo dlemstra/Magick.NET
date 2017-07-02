@@ -12,6 +12,18 @@ set TOOLSDIR=C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Comm
 
 if exist "%TOOLSDIR%" goto found
 
+set TOOLSDIR=C:\Program Files (x86)\Microsoft Visual Studio\Preview\Community\Common7\Tools
+
+if exist "%TOOLSDIR%" goto found
+
+set TOOLSDIR=C:\Program Files (x86)\Microsoft Visual Studio\Preview\Professional\Common7\Tools
+
+if exist "%TOOLSDIR%" goto found
+
+set TOOLSDIR=C:\Program Files (x86)\Microsoft Visual Studio\Preview\Enterprise\Common7\Tools
+
+if exist "%TOOLSDIR%" goto found
+
 goto notfound
 
 :found
