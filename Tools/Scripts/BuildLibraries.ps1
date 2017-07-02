@@ -63,7 +63,7 @@ function Build($platform, $builds)
       $platformName = "x64";
     }
 
-    $options = "Configuration=$configuration,Platform=$($platformName),PlatformToolset=v140,VCBuildAdditionalOptions=/arch:SSE"
+    $options = "Configuration=$configuration,Platform=$($platformName),PlatformToolset=$($build.PlatformToolset),VCBuildAdditionalOptions=/arch:SSE"
 
     BuildSolution "ImageMagick\Source\ImageMagick\VisualMagick\VisualStaticMT.sln" $options
 
