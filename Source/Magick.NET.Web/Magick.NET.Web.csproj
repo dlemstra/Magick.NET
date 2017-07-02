@@ -9,6 +9,8 @@
     <Version>7.0.6.101</Version>
     <Authors>Dirk Lemstra</Authors>
     <Copyright>Copyright 2013-2017 Dirk Lemstra</Copyright>
+    <Platforms>x86;x64;AnyCPU</Platforms>
+    <Configurations>DebugQ8;DebugQ16;DebugQ16-HDRI;ReleaseQ8;ReleaseQ16;ReleaseQ16-HDRI</Configurations>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>

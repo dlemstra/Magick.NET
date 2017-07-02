@@ -11,6 +11,8 @@
     <DebugType Condition="$(CodeCov) == 'true'">full</DebugType>
     <DebugType Condition="$(CodeCov) != 'true'">pdbonly</DebugType>
     <RunCodeAnalysis Condition="'$(Configuration)|$(TargetFramework)' == 'ReleaseQ16|net40'">true</RunCodeAnalysis>
+    <Platforms>x86;x64;AnyCPU</Platforms>
+    <Configurations>DebugQ8;DebugQ16;DebugQ16-HDRI;ReleaseQ8;ReleaseQ16;ReleaseQ16-HDRI</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' != 'netstandard13'">
     <SignAssembly>true</SignAssembly>

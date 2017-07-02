@@ -5,6 +5,8 @@
     <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
     <AssemblyName>Magick.NET.Tests</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Platforms>x86;x64;AnyCPU</Platforms>
+    <Configurations>DebugQ8;DebugQ16;DebugQ16-HDRI;ReleaseQ8;ReleaseQ16;ReleaseQ16-HDRI</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' != 'netcoreapp1.1'">
     <SignAssembly>true</SignAssembly>
