@@ -83,6 +83,8 @@ namespace MagickExample
 }
 ```
 
+The default configuration files can be found [here](https://github.com/dlemstra/Magick.NET/tree/master/Source/Magick.NET.Native/Resources/xml).
+
 ## Temporary directory
 
 ImageMagick sometimes needs to write temporary files to the hard drive. The default folder for this is `%TEMP%` but the folder can be changed with
