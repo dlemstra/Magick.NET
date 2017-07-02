@@ -1,18 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.13
+VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magick.NET", "Source\Magick.NET\Magick.NET.csproj", "{DAAE3844-6435-4912-8F69-9F7A9242B4AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magick.NET", "Source\Magick.NET\Magick.NET.csproj", "{DAAE3844-6435-4912-8F69-9F7A9242B4AC}"
 	ProjectSection(ProjectDependencies) = postProject
 		{74E62AD0-D2F5-41F0-97A7-2D1E8BDE595A} = {74E62AD0-D2F5-41F0-97A7-2D1E8BDE595A}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Magick.NET.Native", "Source\Magick.NET.Native\Magick.NET.Native.vcxproj", "{74E62AD0-D2F5-41F0-97A7-2D1E8BDE595A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magick.NET.Tests", "Tests\Magick.NET.Tests\Magick.NET.Tests.csproj", "{C34FB9EF-028A-4190-91AF-6FBD3EC78DAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magick.NET.Tests", "Tests\Magick.NET.Tests\Magick.NET.Tests.csproj", "{C34FB9EF-028A-4190-91AF-6FBD3EC78DAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magick.NET.Web", "Source\Magick.NET.Web\Magick.NET.Web.csproj", "{FAEF6535-4D08-4538-89DC-EE56176F6803}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magick.NET.Web", "Source\Magick.NET.Web\Magick.NET.Web.csproj", "{FAEF6535-4D08-4538-89DC-EE56176F6803}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magick.NET.Samples", "Samples\Magick.NET.Samples\Magick.NET.Samples.csproj", "{F5A76C84-4735-4741-8534-8D38EBD3B844}"
 EndProject
@@ -134,6 +134,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		Documentation\ResizeImage.md = Documentation\ResizeImage.md
 		Documentation\UsingColors.md = Documentation\UsingColors.md
 		Documentation\Watermark.md = Documentation\Watermark.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{B83A96D1-8221-416D-B02B-C4D8112142CF}"
+	ProjectSection(SolutionItems) = preProject
+		appveyor.yml = appveyor.yml
+		codecov.yml = codecov.yml
 	EndProjectSection
 EndProject
 Global
