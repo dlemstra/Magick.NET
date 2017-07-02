@@ -27,7 +27,9 @@ if exist "%TOOLSDIR%" goto found
 goto notfound
 
 :found
+set CURRENTDIR=%cd%
 call "%TOOLSDIR%\VsDevCmd.bat"
+cd %CURRENTDIR%
 goto end
 
 :notfound
