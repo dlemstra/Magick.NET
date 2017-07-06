@@ -157,7 +157,7 @@ namespace ImageMagick
 
         private static class NativeMethods
         {
-            [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+            [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
             [return: MarshalAs(UnmanagedType.Bool)]
             public static extern bool SetDllDirectory(string lpPathName);
         }
