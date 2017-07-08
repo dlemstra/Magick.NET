@@ -18,6 +18,7 @@ using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
+using ImageMagick.Configuration;
 
 namespace Magick.NET.Tests
 {
@@ -56,7 +57,7 @@ namespace Magick.NET.Tests
         {
             ExceptionAssert.Throws<ArgumentNullException>(delegate ()
             {
-                MagickNET.Initialize(null);
+                MagickNET.Initialize((string)null);
             });
         }
 
@@ -88,6 +89,65 @@ namespace Magick.NET.Tests
                 }, "MagickNET._ImageMagickFiles does not contain: " + Path.GetFileName(fileName));
 
                 File.Move(tempFile, fileName);
+            }
+        }
+
+        [TestMethod]
+        public void Initialize_ConfigurationFilesIsNull_ThrowsException()
+        {
+            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            {
+                MagickNET.Initialize((ConfigurationFiles)null);
+            });
+        }
+
+        [TestMethod]
+        public void Initialize_WithConfigurationFiles_FolderContainsAllFiles()
+        {
+            string path = null;
+            try
+            {
+                path = MagickNET.Initialize(ConfigurationFiles.Default);
+
+                Assert.IsTrue(File.Exists(Path.Combine(path, "coder.xml")));
+                Assert.IsTrue(File.Exists(Path.Combine(path, "colors.xml")));
+                Assert.IsTrue(File.Exists(Path.Combine(path, "configure.xml")));
+                Assert.IsTrue(File.Exists(Path.Combine(path, "delegates.xml")));
+                Assert.IsTrue(File.Exists(Path.Combine(path, "english.xml")));
+                Assert.IsTrue(File.Exists(Path.Combine(path, "locale.xml")));
+                Assert.IsTrue(File.Exists(Path.Combine(path, "log.xml")));
+                Assert.IsTrue(File.Exists(Path.Combine(path, "magic.xml")));
+                Assert.IsTrue(File.Exists(Path.Combine(path, "policy.xml")));
+                Assert.IsTrue(File.Exists(Path.Combine(path, "thresholds.xml")));
+                Assert.IsTrue(File.Exists(Path.Combine(path, "type.xml")));
+                Assert.IsTrue(File.Exists(Path.Combine(path, "type-ghostscript.xml")));
+            }
+            finally
+            {
+                if (path != null)
+                    Directory.Delete(path, true);
+            }
+        }
+
+        [TestMethod]
+        public void Initialize_WithCustomPolicy_PolicyIsWrittenToDisk()
+        {
+            string policy = @"<test/>";
+
+            string path = null;
+            try
+            {
+                ConfigurationFiles configFiles = ConfigurationFiles.Default;
+                configFiles.Policy.Data = policy;
+
+                path = MagickNET.Initialize(configFiles);
+
+                Assert.AreEqual(policy, File.ReadAllText(Path.Combine(path, "policy.xml")));
+            }
+            finally
+            {
+                if (path != null)
+                    Directory.Delete(path, true);
             }
         }
 

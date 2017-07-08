@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using ImageMagick.Configuration;
 
 namespace ImageMagick
 {
@@ -22,12 +23,6 @@ namespace ImageMagick
     /// </summary>
     public static partial class MagickNET
     {
-        private static readonly string[] _ImageMagickFiles = new string[]
-        {
-            "coder.xml", "colors.xml", "configure.xml", "delegates.xml", "english.xml", "locale.xml",
-            "log.xml", "magic.xml", "policy.xml", "thresholds.xml", "type.xml", "type-ghostscript.xml",
-        };
-
         private static LogDelegate _nativeLog;
         private static EventHandler<LogEventArgs> _log;
         private static LogEvents _logEvents = LogEvents.None;
@@ -162,8 +157,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds the specified path to the environment path. You should place the ImageMagick
-        /// xml files in that directory.
+        /// Initializes ImageMagick with the xml files that are located in the specified path.
         /// </summary>
         /// <param name="path">The path that contains the ImageMagick xml files.</param>
         public static void Initialize(string path)
@@ -173,6 +167,26 @@ namespace ImageMagick
             CheckImageMagickFiles(newPath);
 
             Environment.SetEnv("MAGICK_CONFIGURE_PATH", path);
+        }
+
+        /// <summary>
+        /// Initializes ImageMagick with the specified configuration files and returns the path to the
+        /// temporary directory where the xml files were saved.
+        /// </summary>
+        /// <param name="configFiles">The configuration files ot initialize ImageMagick with.</param>
+        /// <returns>The path of the folder that was created and contains the configuration files.</returns>
+        public static string Initialize(ConfigurationFiles configFiles)
+        {
+            Throw.IfNull(nameof(configFiles), configFiles);
+
+            string path = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+            Directory.CreateDirectory(path);
+
+            configFiles.WriteInDirectory(path);
+
+            Environment.SetEnv("MAGICK_CONFIGURE_PATH", path);
+
+            return path;
         }
 
         /// <summary>
@@ -228,9 +242,9 @@ namespace ImageMagick
 
         private static void CheckImageMagickFiles(string path)
         {
-            foreach (string imageMagickFile in _ImageMagickFiles)
+            foreach (IConfigurationFile configurationFile in ConfigurationFiles.Default.Files)
             {
-                string fileName = path + "\\" + imageMagickFile;
+                string fileName = Path.Combine(path, configurationFile.FileName);
                 Throw.IfFalse(nameof(path), File.Exists(fileName), "Unable to find file: {0}", fileName);
             }
         }

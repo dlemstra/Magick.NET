@@ -18,6 +18,8 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.AccessControl;
 using System.Security.Principal;
+using System.Text;
+using ImageMagick.Configuration;
 
 namespace ImageMagick
 {
@@ -90,11 +92,10 @@ namespace ImageMagick
             string tempFile = Path.Combine(cacheDirectory, name + ".Native.dll");
 
             WriteAssembly(tempFile);
-            WriteXmlResources(cacheDirectory);
 
             NativeMethods.SetDllDirectory(cacheDirectory);
 
-            MagickNET.Initialize(cacheDirectory);
+            MagickNET.Initialize(ConfigurationFiles.Default);
         }
 
         private static void GrantEveryoneReadAndExecuteAccess(string cacheDirectory)
@@ -125,31 +126,6 @@ namespace ImageMagick
                     using (FileStream fileStream = File.Open(tempFile, FileMode.CreateNew))
                     {
                         Copy(compressedStream, fileStream);
-                    }
-                }
-            }
-        }
-
-        private static void WriteXmlResources(string cacheDirectory)
-        {
-            string[] xmlFiles =
-            {
-                "coder.xml", "colors.xml", "configure.xml", "delegates.xml", "english.xml", "locale.xml",
-                "log.xml", "magic.xml", "policy.xml", "thresholds.xml", "type.xml", "type-ghostscript.xml",
-            };
-
-            foreach (string xmlFile in xmlFiles)
-            {
-                string outputFile = Path.Combine(cacheDirectory, xmlFile);
-                if (File.Exists(outputFile))
-                    continue;
-
-                string resourceName = "ImageMagick.Resources.Xml." + xmlFile;
-                using (Stream stream = Assembly.GetManifestResourceStream(resourceName))
-                {
-                    using (FileStream fileStream = File.Open(outputFile, FileMode.CreateNew))
-                    {
-                        Copy(stream, fileStream);
                     }
                 }
             }
