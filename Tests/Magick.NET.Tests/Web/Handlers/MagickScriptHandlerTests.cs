@@ -36,10 +36,10 @@ namespace Magick.NET.Tests
 
         private void Test_ProcessRequest(IImageData imageData, TestScriptData scriptData)
         {
-            string tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
-
-            try
+            using (TemporaryDirectory directory = new TemporaryDirectory())
             {
+                string tempDir = directory.DirectoryInfo.FullName;
+
                 string config = $@"<magick.net.web cacheDirectory=""{tempDir}"" tempDirectory=""{tempDir}""/>";
 
                 MagickWebSettings settings = TestSectionLoader.Load(config);
@@ -125,19 +125,14 @@ namespace Magick.NET.Tests
                     Assert.AreEqual(59, image.Height);
                 }
             }
-            finally
-            {
-                if (Directory.Exists(tempDir))
-                    Directory.Delete(tempDir, true);
-            }
         }
 
         private void Test_Optimize(IImageData imageData, IScriptData scriptData)
         {
-            string tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
-
-            try
+            using (TemporaryDirectory directory = new TemporaryDirectory())
             {
+                string tempDir = directory.DirectoryInfo.FullName;
+
                 string config = $@"
 <magick.net.web cacheDirectory=""{tempDir}"" tempDirectory=""{tempDir}"">
   <optimization enabled=""false""/>
@@ -180,11 +175,6 @@ namespace Magick.NET.Tests
 
                 outputFile.Refresh();
                 Assert.IsTrue(outputFile.Length < lengthWithoutOptimization);
-            }
-            finally
-            {
-                if (Directory.Exists(tempDir))
-                    Directory.Delete(tempDir, true);
             }
         }
 

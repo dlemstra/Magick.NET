@@ -50,10 +50,10 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Defaults()
         {
-            string tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()) + "\\";
-
-            try
+            using (TemporaryDirectory directory = new TemporaryDirectory())
             {
+                string tempDir = directory.DirectoryInfo.FullName + "\\";
+
                 string config = $@"<magick.net.web cacheDirectory=""{tempDir}""/>";
 
                 MagickWebSettings settings = TestSectionLoader.Load(config);
@@ -77,11 +77,6 @@ namespace Magick.NET.Tests
                 Assert.IsTrue(Directory.Exists(tempDir));
 
                 settings = TestSectionLoader.Load(config);
-            }
-            finally
-            {
-                if (Directory.Exists(tempDir))
-                    Directory.Delete(tempDir);
             }
         }
 

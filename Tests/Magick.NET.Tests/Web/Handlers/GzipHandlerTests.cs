@@ -32,10 +32,10 @@ namespace Magick.NET.Tests
 
         private void Test_ProcessRequest(IImageData imageData)
         {
-            string tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
-
-            try
+            using (TemporaryDirectory directory = new TemporaryDirectory())
             {
+                string tempDir = directory.DirectoryInfo.FullName;
+
                 string config = $@"<magick.net.web cacheDirectory=""{tempDir}"" tempDirectory=""{tempDir}""/>";
 
                 MagickWebSettings settings = TestSectionLoader.Load(config);
@@ -128,11 +128,6 @@ namespace Magick.NET.Tests
 
                 Assert.IsTrue(new FileInfo(outputFile).Length < imageBytes.Length);
                 Assert.AreEqual(3, tempDir.GetFiles().Count());
-            }
-            finally
-            {
-                if (Directory.Exists(tempDir))
-                    Directory.Delete(tempDir, true);
             }
         }
 

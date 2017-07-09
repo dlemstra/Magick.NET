@@ -18,35 +18,27 @@ using System.IO;
 namespace Magick.NET.Tests
 {
     [ExcludeFromCodeCoverage]
-    public class TemporaryFile : IDisposable
+    public class TemporaryDirectory : IDisposable
     {
-        private FileInfo _TempFile;
+        private DirectoryInfo _TempDirectory;
 
-        public TemporaryFile(byte[] data)
+        public TemporaryDirectory()
         {
-            _TempFile = new FileInfo(Path.GetTempFileName());
-            File.WriteAllBytes(_TempFile.FullName, data);
-        }
-
-        public TemporaryFile(string fileName)
-        {
-            _TempFile = new FileInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + fileName));
-            using (FileStream fs = _TempFile.OpenWrite())
-            {
-            }
+            _TempDirectory = new DirectoryInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()));
+            _TempDirectory.Create();
         }
 
         public void Dispose()
         {
-            if (_TempFile.Exists)
-                _TempFile.Delete();
+            if (_TempDirectory.Exists)
+                _TempDirectory.Delete(true);
         }
 
-        public FileInfo FileInfo
+        public DirectoryInfo DirectoryInfo
         {
             get
             {
-                return _TempFile;
+                return _TempDirectory;
             }
         }
     }
