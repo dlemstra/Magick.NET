@@ -120,6 +120,7 @@ namespace ImageMagick
         }
         private sealed class NativeMagickFormatInfo : ConstNativeInstance
         {
+            static NativeMagickFormatInfo() { Environment.Initialize(); }
             protected override string TypeName
             {
                 get

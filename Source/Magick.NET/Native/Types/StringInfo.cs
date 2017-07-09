@@ -60,6 +60,7 @@ namespace ImageMagick
         }
         private sealed class NativeStringInfo : ConstNativeInstance
         {
+            static NativeStringInfo() { Environment.Initialize(); }
             public NativeStringInfo(IntPtr instance)
             {
                 Instance = instance;

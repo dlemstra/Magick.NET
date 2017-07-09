@@ -4,6 +4,9 @@
     "methods":
     [
         {
+            "name": "Initialize"
+        },
+        {
             "name": "SetEnv",
             "arguments":
             [

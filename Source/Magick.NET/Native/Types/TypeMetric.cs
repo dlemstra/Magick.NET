@@ -84,6 +84,7 @@ namespace ImageMagick
         }
         private sealed class NativeTypeMetric : NativeInstance
         {
+            static NativeTypeMetric() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)
             {
                 DisposeInstance(instance);

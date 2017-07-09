@@ -76,6 +76,7 @@ namespace ImageMagick
         }
         private sealed class NativeChannelMoments : ConstNativeInstance
         {
+            static NativeChannelMoments() { Environment.Initialize(); }
             public NativeChannelMoments(IntPtr instance)
             {
                 Instance = instance;

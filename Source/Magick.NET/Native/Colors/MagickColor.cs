@@ -122,6 +122,7 @@ namespace ImageMagick
         }
         private sealed class NativeMagickColor : NativeInstance
         {
+            static NativeMagickColor() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU

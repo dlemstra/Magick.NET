@@ -358,6 +358,14 @@ namespace FileGenerator.Native
                 WriteLine("return " + type.ManagedTypeCast + "result;");
         }
 
+        private void WriteStaticConstructor()
+        {
+            if (Class.Name == "Environment")
+                return;
+
+            WriteLine("static Native" + Class.Name + "() { Environment.Initialize(); }");
+        }
+
         private void WriteThrow(MagickMethod method)
         {
             WriteThrowStart();
@@ -408,6 +416,8 @@ namespace FileGenerator.Native
             {
                 WriteLine("private static class Native" + Class.Name);
                 WriteStartColon();
+
+                WriteStaticConstructor();
             }
             else
             {
@@ -426,6 +436,8 @@ namespace FileGenerator.Native
 
                 WriteLine("private " + (IsNativeStatic ? "static" : "sealed") + " class Native" + Class.Name + baseClass);
                 WriteStartColon();
+
+                WriteStaticConstructor();
 
                 WriteDispose();
 

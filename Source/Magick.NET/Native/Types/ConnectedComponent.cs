@@ -92,6 +92,7 @@ namespace ImageMagick
         }
         private static class NativeConnectedComponent
         {
+            static NativeConnectedComponent() { Environment.Initialize(); }
             public static void DisposeList(IntPtr list)
             {
                 #if PLATFORM_AnyCPU

@@ -56,6 +56,7 @@ namespace ImageMagick.ImageOptimizers
         }
         private static class NativeJpegOptimizer
         {
+            static NativeJpegOptimizer() { Environment.Initialize(); }
             public static int Compress(string input, string output, bool progressive, bool lossless, int quality)
             {
                 using (INativeInstance inputNative = UTF8Marshaler.CreateInstance(input))

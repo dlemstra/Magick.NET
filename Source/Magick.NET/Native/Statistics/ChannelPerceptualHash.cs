@@ -60,6 +60,7 @@ namespace ImageMagick
         }
         private sealed class NativeChannelPerceptualHash : ConstNativeInstance
         {
+            static NativeChannelPerceptualHash() { Environment.Initialize(); }
             public NativeChannelPerceptualHash(IntPtr instance)
             {
                 Instance = instance;

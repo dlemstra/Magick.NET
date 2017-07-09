@@ -68,6 +68,7 @@ namespace ImageMagick
         }
         private sealed class NativeOffsetInfo : NativeInstance
         {
+            static NativeOffsetInfo() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU

@@ -60,6 +60,7 @@ namespace ImageMagick
         }
         private sealed class NativePointInfo : ConstNativeInstance
         {
+            static NativePointInfo() { Environment.Initialize(); }
             public NativePointInfo(IntPtr instance)
             {
                 Instance = instance;

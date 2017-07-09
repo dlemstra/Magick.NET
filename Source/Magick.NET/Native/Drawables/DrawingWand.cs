@@ -385,6 +385,7 @@ namespace ImageMagick
         private NativeDrawingWand _nativeInstance;
         private sealed class NativeDrawingWand : NativeInstance
         {
+            static NativeDrawingWand() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU

@@ -60,6 +60,7 @@ namespace ImageMagick
         }
         private sealed class NativeDoubleMatrix : NativeInstance
         {
+            static NativeDoubleMatrix() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU

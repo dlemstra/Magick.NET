@@ -76,6 +76,7 @@ namespace ImageMagick
         }
         private static class NativeMagickExceptionHelper
         {
+            static NativeMagickExceptionHelper() { Environment.Initialize(); }
             public static string Description(IntPtr exception)
             {
                 #if PLATFORM_AnyCPU

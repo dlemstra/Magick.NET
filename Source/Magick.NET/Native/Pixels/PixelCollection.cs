@@ -73,6 +73,7 @@ namespace ImageMagick
         private NativePixelCollection _nativeInstance;
         private sealed class NativePixelCollection : NativeInstance
         {
+            static NativePixelCollection() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU

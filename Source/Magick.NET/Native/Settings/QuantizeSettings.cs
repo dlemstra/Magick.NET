@@ -80,6 +80,7 @@ namespace ImageMagick
         }
         private sealed class NativeQuantizeSettings : NativeInstance
         {
+            static NativeQuantizeSettings() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU

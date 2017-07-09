@@ -142,6 +142,7 @@ namespace ImageMagick
         }
         private sealed class NativeMagickImageCollection : NativeHelper
         {
+            static NativeMagickImageCollection() { Environment.Initialize(); }
             public IntPtr Append(IMagickImage image, bool stack)
             {
                 IntPtr exception = IntPtr.Zero;

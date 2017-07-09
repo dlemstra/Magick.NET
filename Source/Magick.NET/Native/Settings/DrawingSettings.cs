@@ -268,6 +268,7 @@ namespace ImageMagick
         }
         private sealed class NativeDrawingSettings : NativeInstance
         {
+            static NativeDrawingSettings() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU

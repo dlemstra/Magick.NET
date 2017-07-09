@@ -14,6 +14,21 @@ namespace ImageMagick
 {
     internal static partial class Environment
     {
+        private static readonly object _lock = new object();
+        private static bool _initialized;
+
+        public static void Initialize()
+        {
+            lock (_lock)
+            {
+                if (_initialized)
+                    return;
+
+                NativeEnvironment.Initialize();
+                _initialized = true;
+            }
+        }
+
         public static void SetEnv(string name, string value)
         {
             NativeEnvironment.SetEnv(name, value);

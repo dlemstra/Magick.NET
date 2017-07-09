@@ -505,7 +505,6 @@
     <ClCompile Include="Types\PointInfo.c" />
     <ClCompile Include="Types\StringInfo.c" />
     <ClCompile Include="Helpers\MagickMemory.c" />
-    <ClCompile Include="Initialize.c" />
     <ClCompile Include="Exceptions\MagickExceptionHelper.c" />
     <ClCompile Include="MagickFormatInfo.c" />
     <ClCompile Include="MagickImage.c" />

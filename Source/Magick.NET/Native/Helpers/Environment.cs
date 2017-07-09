@@ -39,6 +39,8 @@ namespace ImageMagick
                 static X64() { NativeLibraryLoader.Load(); }
                 #endif
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void Environment_Initialize();
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void Environment_SetEnv(IntPtr name, IntPtr value);
             }
             #endif
@@ -50,12 +52,29 @@ namespace ImageMagick
                 static X86() { NativeLibraryLoader.Load(); }
                 #endif
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void Environment_Initialize();
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void Environment_SetEnv(IntPtr name, IntPtr value);
             }
             #endif
         }
         private static class NativeEnvironment
         {
+            public static void Initialize()
+            {
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.Environment_Initialize();
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.Environment_Initialize();
+                #endif
+            }
             public static void SetEnv(string name, string value)
             {
                 using (INativeInstance nameNative = UTF8Marshaler.CreateInstance(name))

@@ -90,6 +90,7 @@ namespace ImageMagick
         }
         private sealed class NativeOpenCLDevice : ConstNativeInstance
         {
+            static NativeOpenCLDevice() { Environment.Initialize(); }
             protected override string TypeName
             {
                 get

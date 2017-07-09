@@ -11,4 +11,6 @@
 // and limitations under the License.
 #pragma once
 
+MAGICK_NET_EXPORT void Environment_Initialize(void);
+
 MAGICK_NET_EXPORT void Environment_SetEnv(const char *key, const char *value);

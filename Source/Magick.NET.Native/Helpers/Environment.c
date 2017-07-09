@@ -13,6 +13,13 @@
 #include "Stdafx.h"
 #include "Environment.h"
 
+MAGICK_NET_EXPORT void Environment_Initialize(void)
+{
+  MagickCoreGenesis((const char *)NULL, MagickFalse);
+  SetMagickResourceLimit(HeightResource, 10000000);
+  SetMagickResourceLimit(WidthResource, 10000000);
+}
+
 MAGICK_NET_EXPORT void Environment_SetEnv(const char *name, const char *value)
 {
   _putenv_s(name, value);

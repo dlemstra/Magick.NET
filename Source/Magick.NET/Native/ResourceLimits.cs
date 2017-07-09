@@ -92,6 +92,7 @@ namespace ImageMagick
         }
         private static class NativeResourceLimits
         {
+            static NativeResourceLimits() { Environment.Initialize(); }
             public static ulong Disk
             {
                 get

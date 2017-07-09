@@ -66,6 +66,7 @@ namespace ImageMagick
         }
         private static class NativeOpenCL
         {
+            static NativeOpenCL() { Environment.Initialize(); }
             public static IntPtr GetDevices(out UIntPtr length)
             {
                 #if PLATFORM_AnyCPU

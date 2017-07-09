@@ -65,6 +65,7 @@ namespace ImageMagick
         private NativePointInfoCollection _nativeInstance;
         private sealed class NativePointInfoCollection : NativeInstance
         {
+            static NativePointInfoCollection() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU

@@ -60,6 +60,7 @@ namespace ImageMagick
         }
         private static class NativeStatistics
         {
+            static NativeStatistics() { Environment.Initialize(); }
             public static void DisposeList(IntPtr list)
             {
                 #if PLATFORM_AnyCPU

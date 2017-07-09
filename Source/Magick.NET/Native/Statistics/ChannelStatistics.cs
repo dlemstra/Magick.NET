@@ -104,6 +104,7 @@ namespace ImageMagick
         }
         private sealed class NativeChannelStatistics : ConstNativeInstance
         {
+            static NativeChannelStatistics() { Environment.Initialize(); }
             public NativeChannelStatistics(IntPtr instance)
             {
                 Instance = instance;

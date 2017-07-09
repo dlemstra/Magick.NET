@@ -60,6 +60,7 @@ namespace ImageMagick
         }
         private static class NativeMoments
         {
+            static NativeMoments() { Environment.Initialize(); }
             public static void DisposeList(IntPtr list)
             {
                 #if PLATFORM_AnyCPU

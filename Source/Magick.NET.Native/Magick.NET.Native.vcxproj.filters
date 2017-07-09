@@ -20,9 +20,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Initialize.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Stdafx.c">
       <Filter>Source Files</Filter>
     </ClCompile>

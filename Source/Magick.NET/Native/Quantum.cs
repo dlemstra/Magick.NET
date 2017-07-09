@@ -64,6 +64,7 @@ namespace ImageMagick
         }
         private static class NativeQuantum
         {
+            static NativeQuantum() { Environment.Initialize(); }
             public static int Depth
             {
                 get

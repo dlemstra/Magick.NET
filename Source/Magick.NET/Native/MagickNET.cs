@@ -82,6 +82,7 @@ namespace ImageMagick
         }
         private static class NativeMagickNET
         {
+            static NativeMagickNET() { Environment.Initialize(); }
             public static string Features
             {
                 get

@@ -56,6 +56,7 @@ namespace ImageMagick
         }
         private static class NativeMagickMemory
         {
+            static NativeMagickMemory() { Environment.Initialize(); }
             public static void Relinquish(IntPtr value)
             {
                 #if PLATFORM_AnyCPU

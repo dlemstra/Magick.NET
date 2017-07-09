@@ -72,6 +72,7 @@ namespace ImageMagick
         }
         private sealed class NativeOpenCLKernelProfileRecord : ConstNativeInstance
         {
+            static NativeOpenCLKernelProfileRecord() { Environment.Initialize(); }
             protected override string TypeName
             {
                 get
