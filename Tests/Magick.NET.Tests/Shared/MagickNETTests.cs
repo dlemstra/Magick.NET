@@ -109,18 +109,7 @@ namespace Magick.NET.Tests
             {
                 path = MagickNET.Initialize(ConfigurationFiles.Default);
 
-                Assert.IsTrue(File.Exists(Path.Combine(path, "coder.xml")));
-                Assert.IsTrue(File.Exists(Path.Combine(path, "colors.xml")));
-                Assert.IsTrue(File.Exists(Path.Combine(path, "configure.xml")));
-                Assert.IsTrue(File.Exists(Path.Combine(path, "delegates.xml")));
-                Assert.IsTrue(File.Exists(Path.Combine(path, "english.xml")));
-                Assert.IsTrue(File.Exists(Path.Combine(path, "locale.xml")));
-                Assert.IsTrue(File.Exists(Path.Combine(path, "log.xml")));
-                Assert.IsTrue(File.Exists(Path.Combine(path, "magic.xml")));
-                Assert.IsTrue(File.Exists(Path.Combine(path, "policy.xml")));
-                Assert.IsTrue(File.Exists(Path.Combine(path, "thresholds.xml")));
-                Assert.IsTrue(File.Exists(Path.Combine(path, "type.xml")));
-                Assert.IsTrue(File.Exists(Path.Combine(path, "type-ghostscript.xml")));
+                AssertFiles(path);
             }
             finally
             {
@@ -148,6 +137,70 @@ namespace Magick.NET.Tests
             {
                 if (path != null)
                     Directory.Delete(path, true);
+            }
+        }
+
+        [TestMethod]
+        public void Initialize_WithPathAndConfigurationFilesIsNull_ThrowsException()
+        {
+            ArgumentNullException exception = ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            {
+                MagickNET.Initialize(null, Path.GetTempPath());
+            });
+
+            Assert.AreEqual("configFiles", exception.ParamName);
+        }
+
+        [TestMethod]
+        public void Initialize_WithPathAndPathIsNull_ThrowsException()
+        {
+            ArgumentNullException exception = ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            {
+                MagickNET.Initialize(ConfigurationFiles.Default, null);
+            });
+
+            Assert.AreEqual("path", exception.ParamName);
+        }
+
+        [TestMethod]
+        public void Initialize_WithPathAndPathIsInvalid_ThrowsException()
+        {
+            ArgumentException exception = ExceptionAssert.Throws<ArgumentException>(delegate ()
+            {
+                MagickNET.Initialize(ConfigurationFiles.Default, "invalid");
+            });
+
+            Assert.AreEqual("path", exception.ParamName);
+            Assert.IsTrue(exception.Message.Contains("Unable to find directory"));
+        }
+
+        [TestMethod]
+        public void Initialize_WithPathAndConfigurationFiles_FolderContainsAllFiles()
+        {
+            using (TemporaryDirectory directory = new TemporaryDirectory())
+            {
+                string path = directory.DirectoryInfo.FullName;
+
+                MagickNET.Initialize(ConfigurationFiles.Default, path);
+
+                AssertFiles(path);
+            }
+        }
+
+        /// <summary>
+        /// The policy is initialized with <see cref="TestInitializer.InitializeWithCustomPolicy(TestContext)"/> at the start of all tests.
+        /// </summary>
+        [TestMethod]
+        public void InitializedWithCustomPolicy_ReadPalmFile_ThrowsException()
+        {
+            using (TemporaryFile tempFile = new TemporaryFile("test.palm"))
+            {
+                ExceptionAssert.Throws<MagickPolicyErrorException>(() =>
+                {
+                    using (MagickImage image = new MagickImage(tempFile.FileInfo))
+                    {
+                    }
+                });
             }
         }
 
@@ -233,6 +286,22 @@ namespace Magick.NET.Tests
         public void SetTempDirectory_PathIsCorrect_ThrowsNoException()
         {
             MagickNET.SetTempDirectory(Path.GetTempPath());
+        }
+
+        private static void AssertFiles(string path)
+        {
+            Assert.IsTrue(File.Exists(Path.Combine(path, "coder.xml")));
+            Assert.IsTrue(File.Exists(Path.Combine(path, "colors.xml")));
+            Assert.IsTrue(File.Exists(Path.Combine(path, "configure.xml")));
+            Assert.IsTrue(File.Exists(Path.Combine(path, "delegates.xml")));
+            Assert.IsTrue(File.Exists(Path.Combine(path, "english.xml")));
+            Assert.IsTrue(File.Exists(Path.Combine(path, "locale.xml")));
+            Assert.IsTrue(File.Exists(Path.Combine(path, "log.xml")));
+            Assert.IsTrue(File.Exists(Path.Combine(path, "magic.xml")));
+            Assert.IsTrue(File.Exists(Path.Combine(path, "policy.xml")));
+            Assert.IsTrue(File.Exists(Path.Combine(path, "thresholds.xml")));
+            Assert.IsTrue(File.Exists(Path.Combine(path, "type.xml")));
+            Assert.IsTrue(File.Exists(Path.Combine(path, "type-ghostscript.xml")));
         }
 
         private void Log_LogEventsAreNotSet_LogDelegateIsNotCalled()
