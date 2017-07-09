@@ -182,11 +182,23 @@ namespace ImageMagick
             string path = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
             Directory.CreateDirectory(path);
 
-            configFiles.WriteInDirectory(path);
-
-            Environment.SetEnv("MAGICK_CONFIGURE_PATH", path);
+            InitializePrivate(configFiles, path);
 
             return path;
+        }
+
+        /// <summary>
+        /// Initializes ImageMagick with the specified configuration files in the specified the path.
+        /// </summary>
+        /// <param name="configFiles">The configuration files ot initialize ImageMagick with.</param>
+        /// <param name="path">The directory to save the configuration files in.</param>
+        public static void Initialize(ConfigurationFiles configFiles, string path)
+        {
+            Throw.IfNull(nameof(configFiles), configFiles);
+
+            string newPath = FileHelper.GetFullPath(path);
+
+            InitializePrivate(configFiles, newPath);
         }
 
         /// <summary>
@@ -247,6 +259,13 @@ namespace ImageMagick
                 string fileName = Path.Combine(path, configurationFile.FileName);
                 Throw.IfFalse(nameof(path), File.Exists(fileName), "Unable to find file: {0}", fileName);
             }
+        }
+
+        private static void InitializePrivate(ConfigurationFiles configFiles, string newPath)
+        {
+            configFiles.WriteInDirectory(newPath);
+
+            Environment.SetEnv("MAGICK_CONFIGURE_PATH", newPath);
         }
 
         private static void OnLog(UIntPtr type, IntPtr text)

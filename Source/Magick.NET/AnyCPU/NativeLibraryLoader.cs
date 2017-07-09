@@ -95,7 +95,7 @@ namespace ImageMagick
 
             NativeMethods.SetDllDirectory(cacheDirectory);
 
-            MagickNET.Initialize(ConfigurationFiles.Default);
+            MagickNET.Initialize(ConfigurationFiles.Default, cacheDirectory);
         }
 
         private static void GrantEveryoneReadAndExecuteAccess(string cacheDirectory)
