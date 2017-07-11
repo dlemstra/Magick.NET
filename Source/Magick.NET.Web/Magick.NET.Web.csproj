@@ -1,12 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
     <TargetFrameworks>net40</TargetFrameworks>
     <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\Magick.NET.snk</AssemblyOriginatorKeyFile>
     <AssemblyVersion>7.0.0.0</AssemblyVersion>
-    <FileVersion>7.0.6.101</FileVersion>
-    <Version>7.0.6.101</Version>
+    <FileVersion>7.0.6.102</FileVersion>
+    <Version>7.0.6.102</Version>
     <Authors>Dirk Lemstra</Authors>
     <Copyright>Copyright 2013-2017 Dirk Lemstra</Copyright>
     <Platforms>x86;x64;AnyCPU</Platforms>
