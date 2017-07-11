@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
+VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magick.NET", "Source\Magick.NET\Magick.NET.csproj", "{DAAE3844-6435-4912-8F69-9F7A9242B4AC}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -125,6 +125,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		Documentation\Drawing.md = Documentation\Drawing.md
 		Documentation\ExceptionHandling.md = Documentation\ExceptionHandling.md
 		Documentation\ExifData.md = Documentation\ExifData.md
+		Documentation\Initialization.md = Documentation\Initialization.md
 		Documentation\LosslessCompression.md = Documentation\LosslessCompression.md
 		Documentation\Magick.NET.Web.md = Documentation\Magick.NET.Web.md
 		Documentation\MagickScript.md = Documentation\MagickScript.md
