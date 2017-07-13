@@ -111,13 +111,12 @@ namespace ImageMagick
             directoryInfo.SetAccessControl(directorySecurity);
         }
 
-        [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "No harm in doing that here.")]
         private static void WriteAssembly(string tempFile)
         {
             if (File.Exists(tempFile))
                 return;
 
-            string resourceName = "ImageMagick.Resources.Library.Magick.NET.Native_" + (NativeLibrary.Is64Bit ? "x64" : "x86") + ".gz";
+            string resourceName = "Magick.NET.Resources.Library.Magick.NET.Native_" + (NativeLibrary.Is64Bit ? "x64" : "x86") + ".gz";
 
             using (Stream stream = Assembly.GetManifestResourceStream(resourceName))
             {

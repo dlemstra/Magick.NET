@@ -24,26 +24,17 @@ namespace ImageMagick
     /// </content>
     public sealed partial class MagickScript
     {
-        [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "No harm in doing that here.")]
         private static XmlReaderSettings CreateXmlReaderSettings()
         {
-            XmlReaderSettings settings = new XmlReaderSettings();
+            XmlReaderSettings settings = new XmlReaderSettings()
+            {
+                ValidationType = ValidationType.Schema,
+                ValidationFlags = XmlSchemaValidationFlags.ReportValidationWarnings,
+                IgnoreComments = true,
+                IgnoreWhitespace = true,
+            };
 
-            settings.ValidationType = ValidationType.Schema;
-            settings.ValidationFlags = XmlSchemaValidationFlags.ReportValidationWarnings;
-            settings.IgnoreComments = true;
-            settings.IgnoreWhitespace = true;
-
-#if Q8
-            string resourcePath = "Magick.NET.Resources.ReleaseQ8";
-#elif Q16
-            string resourcePath = "Magick.NET.Resources.ReleaseQ16";
-#elif Q16HDRI
-            string resourcePath = "Magick.NET.Resources.ReleaseQ16_HDRI";
-#else
-#error Not implemented!
-#endif
-            using (Stream resourceStream = TypeHelper.GetManifestResourceStream(typeof(MagickScript), resourcePath, "MagickScript.xsd"))
+            using (Stream resourceStream = TypeHelper.GetManifestResourceStream(typeof(MagickScript), "Magick.NET.Resources", "MagickScript.xsd"))
             {
                 using (XmlReader xmlReader = XmlReader.Create(resourceStream))
                 {
