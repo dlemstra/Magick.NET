@@ -177,6 +177,8 @@ MAGICK_NET_EXPORT void MagickImage_AutoLevel(Image *, const size_t, ExceptionInf
 
 MAGICK_NET_EXPORT Image *MagickImage_AutoOrient(const Image *, ExceptionInfo **);
 
+MAGICK_NET_EXPORT void MagickImage_AutoThreshold(Image *, const AutoThresholdMethod, ExceptionInfo **);
+
 MAGICK_NET_EXPORT void MagickImage_BlackThreshold(Image *, const char *, const size_t, ExceptionInfo **);
 
 MAGICK_NET_EXPORT Image *MagickImage_BlueShift(const Image *, const double, ExceptionInfo **);

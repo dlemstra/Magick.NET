@@ -825,6 +825,13 @@ MAGICK_NET_EXPORT Image *MagickImage_AutoOrient(const Image *instance, Exception
   return image;
 }
 
+MAGICK_NET_EXPORT void MagickImage_AutoThreshold(Image *instance, const AutoThresholdMethod method, ExceptionInfo **exception)
+{
+  MAGICK_NET_GET_EXCEPTION;
+  AutoThresholdImage(instance, method, exceptionInfo);
+  MAGICK_NET_SET_EXCEPTION;
+}
+
 MAGICK_NET_EXPORT void MagickImage_BlackThreshold(Image *instance, const char *threshold, const size_t channels, ExceptionInfo **exception)
 {
   MAGICK_NET_GET_EXCEPTION;

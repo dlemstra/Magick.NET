@@ -494,6 +494,36 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
+        public void AutoThreshold_MethodOTSU_DetermineColorTypeReturnsBiLevel()
+        {
+            using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
+            {
+                image.AutoThreshold(AutoThresholdMethod.OTSU);
+
+                Dictionary<MagickColor, int> colors = image.Histogram();
+
+                Assert.AreEqual(ColorType.Bilevel, image.DetermineColorType());
+                Assert.AreEqual(67844, colors[MagickColors.Black]);
+                Assert.AreEqual(172156, colors[MagickColors.White]);
+            }
+        }
+
+        [TestMethod]
+        public void AutoThreshold_MethodTriangle_DetermineColorTypeReturnsBiLevel()
+        {
+            using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
+            {
+                image.AutoThreshold(AutoThresholdMethod.Triangle);
+
+                Dictionary<MagickColor, int> colors = image.Histogram();
+
+                Assert.AreEqual(ColorType.Bilevel, image.DetermineColorType());
+                Assert.AreEqual(210553, colors[MagickColors.Black]);
+                Assert.AreEqual(29447, colors[MagickColors.White]);
+            }
+        }
+
+        [TestMethod]
         public void Test_BlackPointCompensation()
         {
             using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))

@@ -252,6 +252,8 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_AutoOrient(IntPtr Instance, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickImage_AutoThreshold(IntPtr Instance, UIntPtr method, out IntPtr exception);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_BlackThreshold(IntPtr Instance, IntPtr threshold, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_BlueShift(IntPtr Instance, double factor, out IntPtr exception);
@@ -796,6 +798,8 @@ namespace ImageMagick
                 public static extern void MagickImage_AutoLevel(IntPtr Instance, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_AutoOrient(IntPtr Instance, out IntPtr exception);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickImage_AutoThreshold(IntPtr Instance, UIntPtr method, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_BlackThreshold(IntPtr Instance, IntPtr threshold, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -3049,6 +3053,23 @@ namespace ImageMagick
                 #endif
                 CheckException(exception, result);
                 Instance = result;
+            }
+            public void AutoThreshold(AutoThresholdMethod method)
+            {
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_AutoThreshold(Instance, (UIntPtr)method, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_AutoThreshold(Instance, (UIntPtr)method, out exception);
+                #endif
+                CheckException(exception);
             }
             public void BlackThreshold(string threshold, Channels channels)
             {

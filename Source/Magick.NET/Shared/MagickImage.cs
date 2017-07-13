@@ -1326,6 +1326,17 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Automatically selects a threshold and replaces each pixel in the image with a black pixel if
+        /// the image intentsity is less than the selected threshold otherwise white.
+        /// </summary>
+        /// <param name="method">The threshold method.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void AutoThreshold(AutoThresholdMethod method)
+        {
+            _nativeInstance.AutoThreshold(method);
+        }
+
+        /// <summary>
         /// Forces all pixels below the threshold into black while leaving all pixels at or above
         /// the threshold unchanged.
         /// </summary>

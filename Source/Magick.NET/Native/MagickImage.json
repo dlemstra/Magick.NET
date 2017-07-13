@@ -539,6 +539,17 @@
             "throws": true
         },
         {
+            "name": "AutoThreshold",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "method",
+                    "type": "AutoThresholdMethod"
+                }
+            ]
+        },
+        {
             "name": "BlackThreshold",
             "throws": true,
             "arguments":
