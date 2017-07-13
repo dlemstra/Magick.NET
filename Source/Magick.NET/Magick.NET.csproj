@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
     <TargetFrameworks>net20;net40;netstandard13</TargetFrameworks>
     <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
@@ -13,6 +13,7 @@
     <RunCodeAnalysis Condition="'$(Configuration)|$(TargetFramework)' == 'ReleaseQ16|net40'">true</RunCodeAnalysis>
     <Platforms>x86;x64;AnyCPU</Platforms>
     <Configurations>DebugQ8;DebugQ16;DebugQ16-HDRI;ReleaseQ8;ReleaseQ16;ReleaseQ16-HDRI</Configurations>
+    <RootNamespace>ImageMagick</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' != 'netstandard13'">
     <SignAssembly>true</SignAssembly>
