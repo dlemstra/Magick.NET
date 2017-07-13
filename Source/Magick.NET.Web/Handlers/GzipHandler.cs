@@ -71,7 +71,6 @@ namespace ImageMagick.Web.Handlers
             return null;
         }
 
-        [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "Code is much cleaner this way.")]
         private void CreateCompressedFile(string encoding, string cacheFileName)
         {
             string tempFile = DetermineTempFileName();

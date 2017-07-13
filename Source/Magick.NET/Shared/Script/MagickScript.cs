@@ -319,7 +319,6 @@ namespace ImageMagick
             Variables = new ScriptVariables(_script);
         }
 
-        [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "No harm in doing that here.")]
         private void Initialize(XPathNavigator navigator)
         {
             using (MemoryStream memStream = new MemoryStream())
