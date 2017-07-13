@@ -34,7 +34,7 @@ namespace ImageMagick
                 IgnoreWhitespace = true,
             };
 
-            using (Stream resourceStream = TypeHelper.GetManifestResourceStream(typeof(MagickScript), "Magick.NET.Resources", "MagickScript.xsd"))
+            using (Stream resourceStream = TypeHelper.GetManifestResourceStream(typeof(MagickScript), "ImageMagick.Resources", "MagickScript.xsd"))
             {
                 using (XmlReader xmlReader = XmlReader.Create(resourceStream))
                 {

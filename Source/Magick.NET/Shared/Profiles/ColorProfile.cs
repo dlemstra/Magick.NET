@@ -68,7 +68,7 @@ namespace ImageMagick
         {
             get
             {
-                return Load("Magick.NET.Resources.ColorProfiles.RGB", "AdobeRGB1998.icc");
+                return Load("ImageMagick.Resources.ColorProfiles.RGB", "AdobeRGB1998.icc");
             }
         }
 
@@ -79,7 +79,7 @@ namespace ImageMagick
         {
             get
             {
-                return Load("Magick.NET.Resources.ColorProfiles.RGB", "AppleRGB.icc");
+                return Load("ImageMagick.Resources.ColorProfiles.RGB", "AppleRGB.icc");
             }
         }
 
@@ -90,7 +90,7 @@ namespace ImageMagick
         {
             get
             {
-                return Load("Magick.NET.Resources.ColorProfiles.CMYK", "CoatedFOGRA39.icc");
+                return Load("ImageMagick.Resources.ColorProfiles.CMYK", "CoatedFOGRA39.icc");
             }
         }
 
@@ -101,7 +101,7 @@ namespace ImageMagick
         {
             get
             {
-                return Load("Magick.NET.Resources.ColorProfiles.RGB", "ColorMatchRGB.icc");
+                return Load("ImageMagick.Resources.ColorProfiles.RGB", "ColorMatchRGB.icc");
             }
         }
 
@@ -112,7 +112,7 @@ namespace ImageMagick
         {
             get
             {
-                return Load("Magick.NET.Resources.ColorProfiles.RGB", "SRGB.icm");
+                return Load("ImageMagick.Resources.ColorProfiles.RGB", "SRGB.icm");
             }
         }
 
@@ -123,7 +123,7 @@ namespace ImageMagick
         {
             get
             {
-                return Load("Magick.NET.Resources.ColorProfiles.CMYK", "USWebCoatedSWOP.icc");
+                return Load("ImageMagick.Resources.ColorProfiles.CMYK", "USWebCoatedSWOP.icc");
             }
         }
 

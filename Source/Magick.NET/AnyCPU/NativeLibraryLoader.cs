@@ -116,7 +116,7 @@ namespace ImageMagick
             if (File.Exists(tempFile))
                 return;
 
-            string resourceName = "Magick.NET.Resources.Library.Magick.NET.Native_" + (NativeLibrary.Is64Bit ? "x64" : "x86") + ".gz";
+            string resourceName = "ImageMagick.Resources.Library.Magick.NET.Native_" + (NativeLibrary.Is64Bit ? "x64" : "x86") + ".gz";
 
             using (Stream stream = Assembly.GetManifestResourceStream(resourceName))
             {
