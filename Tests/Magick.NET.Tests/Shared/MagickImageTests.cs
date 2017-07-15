@@ -1864,17 +1864,10 @@ namespace Magick.NET.Tests
             MagickColor alphaRed = new MagickColor(Quantum.Max, 0, 0, 0);
             MagickColor halfAlphaRed = new MagickColor("#FF000080");
 
-            foreach (MagickColor color in histogram.Keys)
-            {
-                if (color == red)
-                    Assert.AreEqual(50000, histogram[color]);
-                else if (color == alphaRed)
-                    Assert.AreEqual(30000, histogram[color]);
-                else if (color == halfAlphaRed)
-                    Assert.AreEqual(40000, histogram[color]);
-                else
-                    Assert.Fail("Invalid color: " + color.ToString());
-            }
+            Assert.AreEqual(3, histogram.Count);
+            Assert.AreEqual(50000, histogram[red]);
+            Assert.AreEqual(30000, histogram[alphaRed]);
+            Assert.AreEqual(40000, histogram[halfAlphaRed]);
 
             image.Dispose();
         }
@@ -3471,8 +3464,7 @@ namespace Magick.NET.Tests
                     }
                     finally
                     {
-                        if (tempFile.Exists)
-                            tempFile.Delete();
+                        Cleanup.DeleteFile(tempFile);
                     }
                 }
             }
@@ -4066,6 +4058,7 @@ namespace Magick.NET.Tests
             }
         }
 
+        [ExcludeFromCodeCoverage]
         private static void ShouldNotRaiseWarning(object sender, WarningEventArgs arguments)
         {
             Assert.Fail(arguments.Message);

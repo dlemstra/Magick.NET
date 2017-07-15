@@ -110,8 +110,7 @@ namespace Magick.NET.Tests
             }
             finally
             {
-                if (path != null)
-                    Directory.Delete(path, true);
+                Cleanup.DeleteDirectory(path);
             }
         }
 
@@ -132,8 +131,7 @@ namespace Magick.NET.Tests
             }
             finally
             {
-                if (path != null)
-                    Directory.Delete(path, true);
+                Cleanup.DeleteDirectory(path);
             }
         }
 

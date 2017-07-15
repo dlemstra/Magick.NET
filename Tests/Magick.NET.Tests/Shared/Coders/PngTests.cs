@@ -23,15 +23,13 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(MagickColors.Purple, 4, 2))
             {
-                try
+                ExceptionAssert.Throws<MagickCoderErrorException>(() =>
                 {
                     image.Read(Files.CorruptPNG);
-                }
-                catch (MagickCoderErrorException)
-                {
-                    Assert.AreEqual(4, image.Width);
-                    Assert.AreEqual(2, image.Height);
-                }
+                });
+
+                Assert.AreEqual(4, image.Width);
+                Assert.AreEqual(2, image.Height);
             }
         }
     }
