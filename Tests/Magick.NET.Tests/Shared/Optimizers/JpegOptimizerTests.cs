@@ -93,8 +93,8 @@ namespace Magick.NET.Tests
             }
             finally
             {
-                File.Delete(tempFile);
-                Directory.Delete(tempDir);
+                Cleanup.DeleteFile(tempFile);
+                Cleanup.DeleteDirectory(tempDir);
             }
         }
     }

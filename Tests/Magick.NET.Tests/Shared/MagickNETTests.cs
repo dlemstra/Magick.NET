@@ -78,8 +78,7 @@ namespace Magick.NET.Tests
             {
                 string tempFile = fileName + ".tmp";
 
-                if (File.Exists(tempFile))
-                    File.Delete(tempFile);
+                Cleanup.DeleteFile(fileName);
 
                 File.Move(fileName, tempFile);
 

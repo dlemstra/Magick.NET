@@ -82,8 +82,7 @@ namespace Magick.NET.Tests
             }
             finally
             {
-                if (File.Exists(_TempFile))
-                    File.Delete(_TempFile);
+                Cleanup.DeleteFile(_TempFile);
             }
         }
 

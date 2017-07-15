@@ -74,7 +74,7 @@ namespace Magick.NET.Tests
             }
             finally
             {
-                File.Delete(tempFile);
+                Cleanup.DeleteFile(tempFile);
             }
         }
     }

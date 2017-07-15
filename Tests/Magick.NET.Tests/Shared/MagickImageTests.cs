@@ -4167,8 +4167,7 @@ namespace Magick.NET.Tests
             }
             finally
             {
-                if (File.Exists(fileName))
-                    File.Delete(fileName);
+                Cleanup.DeleteFile(fileName);
             }
 
             fileName = Path.GetTempFileName();
@@ -4187,8 +4186,7 @@ namespace Magick.NET.Tests
             }
             finally
             {
-                if (File.Exists(fileName))
-                    File.Delete(fileName);
+                Cleanup.DeleteFile(fileName);
             }
         }
     }

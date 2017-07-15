@@ -151,7 +151,7 @@ namespace Magick.NET.Tests.Web
             }
             finally
             {
-                File.Delete(tempFile);
+                Cleanup.DeleteFile(tempFile);
             }
         }
 
@@ -192,7 +192,7 @@ namespace Magick.NET.Tests.Web
             }
             finally
             {
-                File.Delete(tempFile);
+                Cleanup.DeleteFile(tempFile);
             }
         }
 

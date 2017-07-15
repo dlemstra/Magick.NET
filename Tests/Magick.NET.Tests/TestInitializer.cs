@@ -41,8 +41,7 @@ namespace Magick.NET.Tests
         [AssemblyCleanup]
         public static void RemoveCustomPolicyFolder()
         {
-            if (_path != null)
-                Directory.Delete(_path, true);
+            Cleanup.DeleteDirectory(_path);
         }
 
         private static string ModifyPolicy(string data)

@@ -12,41 +12,28 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
 using System.IO;
 
 namespace Magick.NET.Tests
 {
     [ExcludeFromCodeCoverage]
-    public class TemporaryFile : IDisposable
+    public static class Cleanup
     {
-        private FileInfo _TempFile;
-
-        public TemporaryFile(byte[] data)
+        public static void DeleteDirectory(string path)
         {
-            _TempFile = new FileInfo(Path.GetTempFileName());
-            File.WriteAllBytes(_TempFile.FullName, data);
+            if (path != null && Directory.Exists(path))
+                Directory.Delete(path, true);
         }
 
-        public TemporaryFile(string fileName)
+        public static void DeleteFile(string path)
         {
-            _TempFile = new FileInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + fileName));
-            using (FileStream fs = _TempFile.OpenWrite())
-            {
-            }
+            if (path != null && File.Exists(path))
+                File.Delete(path);
         }
 
-        public void Dispose()
+        public static void DeleteFile(FileInfo file)
         {
-            Cleanup.DeleteFile(_TempFile);
-        }
-
-        public FileInfo FileInfo
-        {
-            get
-            {
-                return _TempFile;
-            }
+            DeleteFile(file.FullName);
         }
     }
 }
