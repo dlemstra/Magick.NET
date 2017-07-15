@@ -1,5 +1,4 @@
-﻿//=================================================================================================
-// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -7,10 +6,9 @@
 //   https://www.imagemagick.org/script/license.php
 //
 // Unless required by applicable law or agreed to in writing, software distributed under the
-// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-// express or implied. See the License for the specific language governing permissions and
-// limitations under the License.
-//=================================================================================================
+// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+// either express or implied. See the License for the specific language governing permissions
+// and limitations under the License.
 
 using System;
 using System.IO;
@@ -24,72 +22,20 @@ namespace Magick.NET.Tests
     [TestClass]
     public partial class MagickScriptsTests
     {
-        private void CollectionScriptRead(object sender, ScriptReadEventArgs arguments)
-        {
-            switch (arguments.Id)
-            {
-                case "icon":
-                    arguments.Image = new MagickImage(Files.MagickNETIconPNG, arguments.Settings);
-                    break;
-                case "snakeware":
-                    arguments.Image = new MagickImage(Files.SnakewarePNG, arguments.Settings);
-                    break;
-                default:
-                    throw new NotImplementedException(arguments.Id);
-            }
-        }
-
-        private void DefinesScriptRead(object sender, ScriptReadEventArgs arguments)
-        {
-            arguments.Image = new MagickImage(Files.InvitationTif, arguments.Settings);
-            Assert.IsNull(arguments.Image.GetAttribute("exif:PixelXDimension"));
-        }
-
-        private void EventsScriptRead(object sender, ScriptReadEventArgs arguments)
-        {
-            Assert.AreEqual("read.id", arguments.Id);
-            arguments.Image = new MagickImage(Files.SnakewarePNG, arguments.Settings);
-        }
-
-        private void EventsScriptWrite(object sender, ScriptWriteEventArgs arguments)
-        {
-            Assert.AreEqual("write.id", arguments.Id);
-            Assert.AreEqual(100, arguments.Image.Density.X);
-            Assert.AreEqual(100, arguments.Image.Density.Y);
-            Assert.AreEqual(DensityUnit.PixelsPerCentimeter, arguments.Image.Density.Units);
-        }
-
-        private void ResizeScriptRead(object sender, ScriptReadEventArgs arguments)
-        {
-            arguments.Image = new MagickImage(Files.ImageMagickJPG, arguments.Settings);
-            Assert.AreEqual("64x64", arguments.Image.Settings.GetDefine(MagickFormat.Jpeg, "size"));
-        }
-
-        private void Script_ReadNothing(object sender, ScriptReadEventArgs arguments)
-        {
-        }
-
-        private static void TestScriptResizeResult(IMagickImage result)
-        {
-            Assert.AreEqual("Magick.NET.Resize", result.Comment);
-            Assert.AreEqual(62, result.Width);
-            Assert.AreEqual(59, result.Height);
-        }
-
         [TestMethod]
         public void Test_Constructor()
         {
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 new MagickScript((string)null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 new MagickScript((Stream)null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 new MagickScript(Files.Missing);
             });
@@ -155,19 +101,19 @@ namespace Magick.NET.Tests
         {
             MagickScript script = new MagickScript(Files.Scripts.Events);
 
-            ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+            ExceptionAssert.Throws<InvalidOperationException>(() =>
             {
                 script.Execute();
             });
 
             script.Read += Script_ReadNothing;
-            ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+            ExceptionAssert.Throws<InvalidOperationException>(() =>
             {
                 script.Execute();
             });
             script.Read -= Script_ReadNothing;
 
-            ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+            ExceptionAssert.Throws<InvalidOperationException>(() =>
             {
                 script.Read += EventsScriptRead;
                 script.Read -= EventsScriptRead;
@@ -176,12 +122,12 @@ namespace Magick.NET.Tests
 
             script.Read += EventsScriptRead;
 
-            ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+            ExceptionAssert.Throws<InvalidOperationException>(() =>
             {
                 script.Execute();
             });
 
-            ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+            ExceptionAssert.Throws<InvalidOperationException>(() =>
             {
                 script.Write += EventsScriptWrite;
                 script.Write -= EventsScriptWrite;
@@ -242,21 +188,21 @@ namespace Magick.NET.Tests
 
             using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
             {
-                ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                ExceptionAssert.Throws<ArgumentNullException>(() =>
                 {
                     script.Execute(image);
                 });
 
                 script.Variables["width"] = "test";
 
-                ExceptionAssert.Throws<FormatException>(delegate ()
+                ExceptionAssert.Throws<FormatException>(() =>
                 {
                     script.Execute(image);
                 });
 
                 script.Variables.Set("width", 100);
 
-                ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                ExceptionAssert.Throws<ArgumentNullException>(() =>
                 {
                     script.Execute(image);
                 });
@@ -275,6 +221,58 @@ namespace Magick.NET.Tests
                 ColorAssert.AreEqual(MagickColors.Yellow, image.Settings.StrokeColor);
                 ColorAssert.AreEqual(MagickColors.Red, image.Settings.FillColor);
             }
+        }
+
+        private static void TestScriptResizeResult(IMagickImage result)
+        {
+            Assert.AreEqual("Magick.NET.Resize", result.Comment);
+            Assert.AreEqual(62, result.Width);
+            Assert.AreEqual(59, result.Height);
+        }
+
+        private void CollectionScriptRead(object sender, ScriptReadEventArgs arguments)
+        {
+            switch (arguments.Id)
+            {
+                case "icon":
+                    arguments.Image = new MagickImage(Files.MagickNETIconPNG, arguments.Settings);
+                    break;
+                case "snakeware":
+                    arguments.Image = new MagickImage(Files.SnakewarePNG, arguments.Settings);
+                    break;
+                default:
+                    throw new NotImplementedException(arguments.Id);
+            }
+        }
+
+        private void DefinesScriptRead(object sender, ScriptReadEventArgs arguments)
+        {
+            arguments.Image = new MagickImage(Files.InvitationTif, arguments.Settings);
+            Assert.IsNull(arguments.Image.GetAttribute("exif:PixelXDimension"));
+        }
+
+        private void EventsScriptRead(object sender, ScriptReadEventArgs arguments)
+        {
+            Assert.AreEqual("read.id", arguments.Id);
+            arguments.Image = new MagickImage(Files.SnakewarePNG, arguments.Settings);
+        }
+
+        private void EventsScriptWrite(object sender, ScriptWriteEventArgs arguments)
+        {
+            Assert.AreEqual("write.id", arguments.Id);
+            Assert.AreEqual(100, arguments.Image.Density.X);
+            Assert.AreEqual(100, arguments.Image.Density.Y);
+            Assert.AreEqual(DensityUnit.PixelsPerCentimeter, arguments.Image.Density.Units);
+        }
+
+        private void ResizeScriptRead(object sender, ScriptReadEventArgs arguments)
+        {
+            arguments.Image = new MagickImage(Files.ImageMagickJPG, arguments.Settings);
+            Assert.AreEqual("64x64", arguments.Image.Settings.GetDefine(MagickFormat.Jpeg, "size"));
+        }
+
+        private void Script_ReadNothing(object sender, ScriptReadEventArgs arguments)
+        {
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿//=================================================================================================
-// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -7,30 +6,55 @@
 //   https://www.imagemagick.org/script/license.php
 //
 // Unless required by applicable law or agreed to in writing, software distributed under the
-// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-// express or implied. See the License for the specific language governing permissions and
-// limitations under the License.
-//=================================================================================================
+// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+// either express or implied. See the License for the specific language governing permissions
+// and limitations under the License.
 
 #if !NETCOREAPP1_1
 
-using ImageMagick;
-using ImageMagick.Web;
-using ImageMagick.Web.Handlers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
+using ImageMagick;
+using ImageMagick.Web;
+using ImageMagick.Web.Handlers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
     [TestClass]
     public class ImageOptimizerHandlerTests
     {
+        private Encoding Encoding => System.Text.Encoding.GetEncoding(1252);
+
         private MagickFormatInfo JpgFormatInfo => MagickNET.GetFormatInformation(MagickFormat.Jpg);
-        private Encoding Encoding = System.Text.Encoding.GetEncoding(1252);
+
+        [TestMethod]
+        public void Test_ProcessRequest()
+        {
+            using (TemporaryFile file = new TemporaryFile("image.jpg"))
+            {
+                string tempFile = file.FileInfo.FullName;
+
+                using (IMagickImage image = new MagickImage("logo:"))
+                {
+                    image.Write(tempFile);
+                }
+
+                File.SetLastWriteTimeUtc(tempFile, new DateTime(2001, 1, 1));
+
+                IImageData imageData = new FileImageData(tempFile, JpgFormatInfo);
+                Test_ProcessRequest(imageData);
+
+                File.SetLastWriteTimeUtc(tempFile, new DateTime(2001, 1, 1));
+
+                TestStreamUrlResolver resolver = new TestStreamUrlResolver(tempFile);
+                imageData = new StreamImageData(resolver, JpgFormatInfo);
+                Test_ProcessRequest(imageData);
+            }
+        }
 
         private void Test_ProcessRequest(IImageData imageData)
         {
@@ -42,7 +66,7 @@ namespace Magick.NET.Tests
 
                 MagickWebSettings settings = TestSectionLoader.Load(config);
 
-                HttpRequest request = new HttpRequest("foo", "https://bar", "");
+                HttpRequest request = new HttpRequest("foo", "https://bar", string.Empty);
 
                 string outputFile = Path.Combine(tempDir, "output.jpg");
 
@@ -62,7 +86,7 @@ namespace Magick.NET.Tests
                 File.Delete(outputFile);
 
                 FileInfo cacheFile = tempDir.GetFiles().First();
-                File.WriteAllText(cacheFile.FullName, "");
+                File.WriteAllText(cacheFile.FullName, string.Empty);
 
                 using (StreamWriter writer = new StreamWriter(outputFile))
                 {
@@ -89,31 +113,6 @@ namespace Magick.NET.Tests
 
                 Assert.AreNotEqual(0, File.ReadAllBytes(outputFile).Count());
                 Assert.AreEqual(2, tempDir.GetFiles().Count());
-            }
-        }
-
-        [TestMethod]
-        public void Test_ProcessRequest()
-        {
-            using (TemporaryFile file = new TemporaryFile("image.jpg"))
-            {
-                string tempFile = file.FileInfo.FullName;
-
-                using (IMagickImage image = new MagickImage("logo:"))
-                {
-                    image.Write(tempFile);
-                }
-
-                File.SetLastWriteTimeUtc(tempFile, new DateTime(2001, 1, 1));
-
-                IImageData imageData = new FileImageData(tempFile, JpgFormatInfo);
-                Test_ProcessRequest(imageData);
-
-                File.SetLastWriteTimeUtc(tempFile, new DateTime(2001, 1, 1));
-
-                TestStreamUrlResolver resolver = new TestStreamUrlResolver(tempFile);
-                imageData = new StreamImageData(resolver, JpgFormatInfo);
-                Test_ProcessRequest(imageData);
             }
         }
     }

@@ -1,5 +1,4 @@
-﻿//=================================================================================================
-// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -7,18 +6,17 @@
 //   https://www.imagemagick.org/script/license.php
 //
 // Unless required by applicable law or agreed to in writing, software distributed under the
-// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-// express or implied. See the License for the specific language governing permissions and
-// limitations under the License.
-//=================================================================================================
+// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+// either express or implied. See the License for the specific language governing permissions
+// and limitations under the License.
 
 using System;
 using System.Collections.Generic;
 using System.IO;
-using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
+using ImageMagick;
 using ImageMagick.Configuration;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
@@ -55,7 +53,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Initialize_PathIsNull_ThrowsException()
         {
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 MagickNET.Initialize((string)null);
             });
@@ -64,7 +62,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Initialize_PathIsInvalid_ThrowsException()
         {
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 MagickNET.Initialize("Invalid");
             });
@@ -78,11 +76,11 @@ namespace Magick.NET.Tests
             {
                 string tempFile = fileName + ".tmp";
 
-                Cleanup.DeleteFile(fileName);
+                Cleanup.DeleteFile(tempFile);
 
                 File.Move(fileName, tempFile);
 
-                ExceptionAssert.Throws<ArgumentException>(delegate ()
+                ExceptionAssert.Throws<ArgumentException>(() =>
                 {
                     MagickNET.Initialize(path);
                 }, "MagickNET._ImageMagickFiles does not contain: " + Path.GetFileName(fileName));
@@ -94,7 +92,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Initialize_ConfigurationFilesIsNull_ThrowsException()
         {
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 MagickNET.Initialize((ConfigurationFiles)null);
             });
@@ -142,7 +140,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Initialize_WithPathAndConfigurationFilesIsNull_ThrowsException()
         {
-            ArgumentNullException exception = ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ArgumentNullException exception = ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 MagickNET.Initialize(null, Path.GetTempPath());
             });
@@ -153,7 +151,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Initialize_WithPathAndPathIsNull_ThrowsException()
         {
-            ArgumentNullException exception = ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ArgumentNullException exception = ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 MagickNET.Initialize(ConfigurationFiles.Default, null);
             });
@@ -164,7 +162,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Initialize_WithPathAndPathIsInvalid_ThrowsException()
         {
-            ArgumentException exception = ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ArgumentException exception = ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 MagickNET.Initialize(ConfigurationFiles.Default, "invalid");
             });
@@ -266,7 +264,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void SetTempDirectory_PathIsNull_ThrowsException()
         {
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 MagickNET.SetTempDirectory(null);
             });
@@ -275,7 +273,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void SetTempDirectory_PathIsInvalid_ThrowsException()
         {
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 MagickNET.SetTempDirectory("Invalid");
             });
@@ -308,10 +306,10 @@ namespace Magick.NET.Tests
             using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
             {
                 int count = 0;
-                EventHandler<LogEventArgs> logDelegate = delegate (object sender, LogEventArgs arguments)
-                {
-                    count++;
-                };
+                EventHandler<LogEventArgs> logDelegate = (sender, arguments) =>
+               {
+                   count++;
+               };
 
                 MagickNET.Log += logDelegate;
 
@@ -327,7 +325,7 @@ namespace Magick.NET.Tests
             using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
             {
                 int count = 0;
-                EventHandler<LogEventArgs> logDelegate = delegate (object sender, LogEventArgs arguments)
+                EventHandler<LogEventArgs> logDelegate = (sender, arguments) =>
                 {
                     Assert.IsNull(sender);
                     Assert.IsNotNull(arguments);
@@ -358,7 +356,7 @@ namespace Magick.NET.Tests
             using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
             {
                 int count = 0;
-                EventHandler<LogEventArgs> logDelegate = delegate (object sender, LogEventArgs arguments)
+                EventHandler<LogEventArgs> logDelegate = (sender, arguments) =>
                 {
                     count++;
                 };

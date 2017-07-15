@@ -1,5 +1,4 @@
-﻿//=================================================================================================
-// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -7,10 +6,9 @@
 //   https://www.imagemagick.org/script/license.php
 //
 // Unless required by applicable law or agreed to in writing, software distributed under the
-// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-// express or implied. See the License for the specific language governing permissions and
-// limitations under the License.
-//=================================================================================================
+// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+// either express or implied. See the License for the specific language governing permissions
+// and limitations under the License.
 
 using System;
 using System.Collections.Generic;
@@ -34,29 +32,6 @@ namespace Magick.NET.Tests
     [TestClass]
     public partial class MagickImageCollectionTests
     {
-        private static void Test_Ping(IMagickImageCollection collection)
-        {
-            Assert.AreEqual(1, collection.Count);
-
-            ExceptionAssert.Throws<InvalidOperationException>(delegate ()
-            {
-                collection[0].GetPixels();
-            });
-
-            ImageProfile profile = collection[0].Get8BimProfile();
-            Assert.IsNotNull(profile);
-        }
-
-        private static void Test_Read(IMagickImageCollection collection)
-        {
-            Assert.AreEqual(3, collection.Count);
-            foreach (MagickImage image in collection)
-            {
-                Assert.AreEqual(70, image.Width);
-                Assert.AreEqual(46, image.Height);
-            }
-        }
-
         [TestMethod]
         public void Test_AddRange()
         {
@@ -85,12 +60,12 @@ namespace Magick.NET.Tests
 
             using (IMagickImageCollection collection = new MagickImageCollection())
             {
-                ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+                ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
                     collection.AppendHorizontally();
                 });
 
-                ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+                ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
                     collection.AppendVertically();
                 });
@@ -137,7 +112,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImageCollection collection = new MagickImageCollection())
             {
-                ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+                ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
                     collection.Coalesce();
                 });
@@ -167,7 +142,7 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImageCollection collection = new MagickImageCollection())
                 {
-                    ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+                    ExceptionAssert.Throws<InvalidOperationException>(() =>
                     {
                         collection.Combine();
                     });
@@ -206,27 +181,27 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Constructor()
         {
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 new MagickImageCollection(new byte[0]);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 new MagickImageCollection((byte[])null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 new MagickImageCollection((Stream)null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 new MagickImageCollection((string)null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 new MagickImageCollection(Files.Missing);
             });
@@ -256,12 +231,12 @@ namespace Magick.NET.Tests
                 images = new MagickImage[1];
                 collection.CopyTo(images, 0);
 
-                ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                ExceptionAssert.Throws<ArgumentNullException>(() =>
                 {
                     collection.CopyTo(null, -1);
                 });
 
-                ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate ()
+                ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
                 {
                     collection.CopyTo(images, -1);
                 });
@@ -273,7 +248,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImageCollection collection = new MagickImageCollection())
             {
-                ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+                ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
                     collection.Deconstruct();
                 });
@@ -312,7 +287,7 @@ namespace Magick.NET.Tests
             collection.Dispose();
 
             Assert.AreEqual(0, collection.Count);
-            ExceptionAssert.Throws<ObjectDisposedException>(delegate ()
+            ExceptionAssert.Throws<ObjectDisposedException>(() =>
             {
                 image.Flip();
             });
@@ -323,7 +298,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImageCollection collection = new MagickImageCollection())
             {
-                ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+                ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
                     collection.Evaluate(EvaluateOperator.Exponential);
                 });
@@ -355,7 +330,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImageCollection collection = new MagickImageCollection())
             {
-                ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+                ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
                     collection.Flatten();
                 });
@@ -403,19 +378,19 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImageCollection collection = new MagickImageCollection())
                     {
-                        ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+                        ExceptionAssert.Throws<InvalidOperationException>(() =>
                         {
                             collection.Map(null);
                         });
 
-                        ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+                        ExceptionAssert.Throws<InvalidOperationException>(() =>
                         {
                             collection.Map(remapImage);
                         });
 
                         collection.Read(Files.RoseSparkleGIF);
 
-                        ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                        ExceptionAssert.Throws<ArgumentNullException>(() =>
                         {
                             collection.Map(null);
                         });
@@ -443,7 +418,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImageCollection collection = new MagickImageCollection())
             {
-                ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+                ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
                     collection.Merge();
                 });
@@ -467,7 +442,7 @@ namespace Magick.NET.Tests
                 settings.Geometry = new MagickGeometry(string.Format("{0}x{1}", 200, 200));
                 settings.TileGeometry = new MagickGeometry(string.Format("{0}x", 2));
 
-                ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+                ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
                     collection.Montage(settings);
                 });
@@ -489,14 +464,14 @@ namespace Magick.NET.Tests
         {
             using (IMagickImageCollection collection = new MagickImageCollection())
             {
-                ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+                ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
                     collection.Morph(10);
                 });
 
                 collection.Add(Files.Builtin.Logo);
 
-                ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+                ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
                     collection.Morph(10);
                 });
@@ -513,7 +488,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImageCollection collection = new MagickImageCollection())
             {
-                ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+                ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
                     collection.Mosaic();
                 });
@@ -534,7 +509,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImageCollection collection = new MagickImageCollection())
             {
-                ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+                ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
                     collection.Optimize();
                 });
@@ -546,6 +521,7 @@ namespace Magick.NET.Tests
                 {
                     pixels.Set(5, 5, new QuantumType[] { 0, Quantum.Max, 0 });
                 }
+
                 collection.Add(image);
                 collection.Optimize();
 
@@ -562,7 +538,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImageCollection collection = new MagickImageCollection())
             {
-                ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+                ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
                     collection.OptimizePlus();
                 });
@@ -578,6 +554,7 @@ namespace Magick.NET.Tests
                 {
                     pixels.Set(5, 5, new QuantumType[] { 0, Quantum.Max, 0 });
                 }
+
                 collection.Add(image);
                 collection.OptimizePlus();
 
@@ -602,7 +579,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImageCollection collection = new MagickImageCollection())
             {
-                ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+                ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
                     collection.OptimizeTransparency();
                 });
@@ -614,6 +591,7 @@ namespace Magick.NET.Tests
                 {
                     pixels.Set(5, 5, new QuantumType[] { 0, Quantum.Max, 0 });
                 }
+
                 collection.Add(image);
                 collection.OptimizeTransparency();
 
@@ -631,14 +609,14 @@ namespace Magick.NET.Tests
         {
             using (IMagickImageCollection collection = new MagickImageCollection())
             {
-                ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+                ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
                     collection.Quantize();
                 });
 
                 collection.Add(Files.FujiFilmFinePixS1ProJPG);
 
-                ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                ExceptionAssert.Throws<ArgumentNullException>(() =>
                 {
                     collection.Quantize(null);
                 });
@@ -668,12 +646,12 @@ namespace Magick.NET.Tests
         {
             using (IMagickImageCollection collection = new MagickImageCollection())
             {
-                ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+                ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
                     collection.SmushHorizontal(5);
                 });
 
-                ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+                ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
                     collection.SmushVertical(6);
                 });
@@ -699,27 +677,27 @@ namespace Magick.NET.Tests
         {
             IMagickImageCollection collection = new MagickImageCollection();
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 collection.Ping(new byte[0]);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 collection.Ping((byte[])null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 collection.Ping((Stream)null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 collection.Ping((string)null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 collection.Ping(Files.Missing);
             });
@@ -755,27 +733,27 @@ namespace Magick.NET.Tests
         {
             IMagickImageCollection collection = new MagickImageCollection();
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 collection.Read(new byte[0]);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 collection.Read((byte[])null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 collection.Read((Stream)null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 collection.Read((string)null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 collection.Read(Files.Missing);
             });
@@ -888,7 +866,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImageCollection collection = new MagickImageCollection())
             {
-                Assert.AreEqual("", collection.ToBase64());
+                Assert.AreEqual(string.Empty, collection.ToBase64());
 
                 collection.Read(Files.Builtin.Logo);
                 Assert.AreEqual(1228800, collection.ToBase64(MagickFormat.Rgb).Length);
@@ -900,7 +878,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImageCollection collection = new MagickImageCollection())
             {
-                ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+                ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
                     collection.TrimBounds();
                 });
@@ -925,13 +903,13 @@ namespace Magick.NET.Tests
         public void Test_Warning()
         {
             int count = 0;
-            EventHandler<WarningEventArgs> warningDelegate = delegate (object sender, WarningEventArgs arguments)
+            EventHandler<WarningEventArgs> warningDelegate = (sender, arguments) =>
             {
                 Assert.IsNotNull(sender);
                 Assert.IsNotNull(arguments);
                 Assert.IsNotNull(arguments.Message);
                 Assert.IsNotNull(arguments.Exception);
-                Assert.AreNotEqual("", arguments.Message);
+                Assert.AreNotEqual(string.Empty, arguments.Message);
 
                 count++;
             };
@@ -988,6 +966,28 @@ namespace Magick.NET.Tests
                     tempFile.Delete();
             }
         }
+
+        private static void Test_Ping(IMagickImageCollection collection)
+        {
+            Assert.AreEqual(1, collection.Count);
+
+            ExceptionAssert.Throws<InvalidOperationException>(() =>
+            {
+                collection[0].GetPixels();
+            });
+
+            ImageProfile profile = collection[0].Get8BimProfile();
+            Assert.IsNotNull(profile);
+        }
+
+        private static void Test_Read(IMagickImageCollection collection)
+        {
+            Assert.AreEqual(3, collection.Count);
+            foreach (MagickImage image in collection)
+            {
+                Assert.AreEqual(70, image.Width);
+                Assert.AreEqual(46, image.Height);
+            }
+        }
     }
 }
-

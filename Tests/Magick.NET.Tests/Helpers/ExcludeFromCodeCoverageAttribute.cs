@@ -10,22 +10,12 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System.Linq;
-using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
-    public class DrawablePathTests
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Constructor | AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Event, Inherited = false, AllowMultiple = false)]
+    internal sealed class ExcludeFromCodeCoverageAttribute : Attribute
     {
-        [TestMethod]
-        public void Test_DrawablePath()
-        {
-            DrawablePath path = new DrawablePath();
-            Assert.AreEqual(0, path.Paths.Count());
-
-            ((IDrawingWand)path).Draw(null);
-        }
     }
 }

@@ -1,5 +1,4 @@
-﻿//=================================================================================================
-// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -7,10 +6,9 @@
 //   https://www.imagemagick.org/script/license.php
 //
 // Unless required by applicable law or agreed to in writing, software distributed under the
-// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-// express or implied. See the License for the specific language governing permissions and
-// limitations under the License.
-//=================================================================================================
+// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+// either express or implied. See the License for the specific language governing permissions
+// and limitations under the License.
 
 using System.IO;
 using ImageMagick;
@@ -21,13 +19,6 @@ namespace Magick.NET.Tests
     [TestClass]
     public partial class TiffTests
     {
-        private static void TestValue(IptcProfile profile, IptcTag tag, string expectedValue)
-        {
-            IptcValue value = profile.GetValue(tag);
-            Assert.IsNotNull(value);
-            Assert.AreEqual(expectedValue, value.Value);
-        }
-
         [TestMethod]
         public void Test_IgnoreTags()
         {
@@ -41,7 +32,7 @@ namespace Magick.NET.Tests
             {
                 MagickReadSettings readSettings = new MagickReadSettings(new TiffReadDefines()
                 {
-                    IgnoreTags = new string[] { "32934" }
+                    IgnoreTags = new string[] { "32934" },
                 });
                 image.Read(Files.Coders.IgnoreTagTIF, readSettings);
             }
@@ -76,6 +67,13 @@ namespace Magick.NET.Tests
                     }
                 }
             }
+        }
+
+        private static void TestValue(IptcProfile profile, IptcTag tag, string expectedValue)
+        {
+            IptcValue value = profile.GetValue(tag);
+            Assert.IsNotNull(value);
+            Assert.AreEqual(expectedValue, value.Value);
         }
     }
 }

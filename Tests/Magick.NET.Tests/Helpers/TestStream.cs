@@ -1,5 +1,4 @@
-﻿//=================================================================================================
-// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -7,31 +6,28 @@
 //   https://www.imagemagick.org/script/license.php
 //
 // Unless required by applicable law or agreed to in writing, software distributed under the
-// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-// express or implied. See the License for the specific language governing permissions and
-// limitations under the License.
-//=================================================================================================
+// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+// either express or implied. See the License for the specific language governing permissions
+// and limitations under the License.
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
     [ExcludeFromCodeCoverage]
     internal class TestStream : Stream
     {
-        private readonly bool _CanRead;
-        private readonly bool _CanSeek;
-        private readonly bool _CanWrite;
-
-        protected readonly Stream InnerStream;
+        private readonly bool _canRead;
+        private readonly bool _canSeek;
+        private readonly bool _canWrite;
 
         public TestStream(bool canRead, bool canWrite, bool canSeek)
         {
-            _CanRead = canRead;
-            _CanWrite = canWrite;
-            _CanSeek = canSeek;
+            _canRead = canRead;
+            _canWrite = canWrite;
+            _canSeek = canSeek;
         }
 
         protected TestStream(Stream innerStream, bool canSeek)
@@ -40,14 +36,16 @@ namespace Magick.NET.Tests
             Assert.IsTrue(innerStream.CanSeek);
 
             InnerStream = innerStream;
-            _CanRead = true;
-            _CanWrite = true;
-            _CanSeek = canSeek;
+            _canRead = true;
+            _canWrite = true;
+            _canSeek = canSeek;
         }
 
-        public override bool CanRead => _CanRead;
-        public override bool CanSeek => _CanSeek;
-        public override bool CanWrite => _CanWrite;
+        public override bool CanRead => _canRead;
+
+        public override bool CanSeek => _canSeek;
+
+        public override bool CanWrite => _canWrite;
 
         public override long Length
         {
@@ -69,6 +67,8 @@ namespace Magick.NET.Tests
                 throw new NotImplementedException();
             }
         }
+
+        protected Stream InnerStream { get; }
 
         public override void Flush()
         {

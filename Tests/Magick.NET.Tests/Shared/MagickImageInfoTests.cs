@@ -1,5 +1,4 @@
-﻿//=================================================================================================
-// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -7,10 +6,9 @@
 //   https://www.imagemagick.org/script/license.php
 //
 // Unless required by applicable law or agreed to in writing, software distributed under the
-// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-// express or implied. See the License for the specific language governing permissions and
-// limitations under the License.
-//=================================================================================================
+// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+// either express or implied. See the License for the specific language governing permissions
+// and limitations under the License.
 
 using System;
 using System.Collections.Generic;
@@ -24,55 +22,35 @@ namespace Magick.NET.Tests
     [TestClass]
     public class MagickImageInfoTests
     {
-        private MagickImageInfo CreateMagickImageInfo(MagickColor color, int width, int height)
-        {
-            using (MemoryStream memStream = new MemoryStream())
-            {
-                using (IMagickImage image = new MagickImage(color, width, height))
-                {
-                    image.Format = MagickFormat.Png;
-                    image.Write(memStream);
-                    memStream.Position = 0;
-
-                    return new MagickImageInfo(memStream);
-                }
-            }
-        }
-
-        private IMagickImageInfo CreateIMagickImageInfo(MagickColor color, int width, int height)
-        {
-            return CreateMagickImageInfo(color, width, height);
-        }
-
         [TestMethod]
         public void Test_Constructor()
         {
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 new MagickImageInfo(new byte[0]);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 new MagickImageInfo((byte[])null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 new MagickImageInfo((FileInfo)null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 new MagickImageInfo((Stream)null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 new MagickImageInfo((string)null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 new MagickImageInfo(Files.Missing);
             });
@@ -154,32 +132,32 @@ namespace Magick.NET.Tests
         {
             IMagickImageInfo imageInfo = new MagickImageInfo();
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 imageInfo.Read(new byte[0]);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 imageInfo.Read((byte[])null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 imageInfo.Read((FileInfo)null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 imageInfo.Read((Stream)null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 imageInfo.Read((string)null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 imageInfo.Read(Files.Missing);
             });
@@ -203,6 +181,26 @@ namespace Magick.NET.Tests
             Assert.AreEqual(Interlace.NoInterlace, imageInfo.Interlace);
             Assert.AreEqual(100, imageInfo.Quality);
             Assert.AreEqual(123, imageInfo.Width);
+        }
+
+        private MagickImageInfo CreateMagickImageInfo(MagickColor color, int width, int height)
+        {
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                using (IMagickImage image = new MagickImage(color, width, height))
+                {
+                    image.Format = MagickFormat.Png;
+                    image.Write(memStream);
+                    memStream.Position = 0;
+
+                    return new MagickImageInfo(memStream);
+                }
+            }
+        }
+
+        private IMagickImageInfo CreateIMagickImageInfo(MagickColor color, int width, int height)
+        {
+            return CreateMagickImageInfo(color, width, height);
         }
     }
 }

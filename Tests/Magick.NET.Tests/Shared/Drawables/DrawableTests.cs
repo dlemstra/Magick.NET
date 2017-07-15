@@ -1,5 +1,4 @@
-﻿//=================================================================================================
-// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -7,27 +6,21 @@
 //   https://www.imagemagick.org/script/license.php
 //
 // Unless required by applicable law or agreed to in writing, software distributed under the
-// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-// express or implied. See the License for the specific language governing permissions and
-// limitations under the License.
-//=================================================================================================
+// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+// either express or implied. See the License for the specific language governing permissions
+// and limitations under the License.
 
 using System;
+using System.Linq;
 using System.Text;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
 
 namespace Magick.NET.Tests
 {
     [TestClass]
     public class DrawableTests
     {
-        private void Test_Drawables_Draw(IDrawable drawable)
-        {
-            ((IDrawingWand)drawable).Draw(null);
-        }
-
         [TestMethod]
         public void Test_Drawables()
         {
@@ -190,57 +183,57 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Drawables_Exceptions()
         {
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 new DrawableBezier();
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 new DrawableBezier(null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 new DrawableBezier(new PointD[] { });
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 new DrawableClipPath(null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
-                new DrawableClipPath("");
+                new DrawableClipPath(string.Empty);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 new DrawableComposite(null, new MagickImage(Files.Builtin.Logo));
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 new DrawableComposite(new MagickGeometry(), null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 new DrawableFillColor(null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 new DrawableFont(null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
-                new DrawableFont("");
+                new DrawableFont(string.Empty);
             });
 
-            ExceptionAssert.Throws<MagickDrawErrorException>(delegate ()
+            ExceptionAssert.Throws<MagickDrawErrorException>(() =>
             {
                 using (IMagickImage image = new MagickImage(Files.Builtin.Wizard))
                 {
@@ -248,35 +241,40 @@ namespace Magick.NET.Tests
                 }
             });
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 new DrawablePolygon(new PointD[] { new PointD(0, 0) });
             });
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 new DrawablePolyline(new PointD[] { new PointD(0, 0), new PointD(0, 0) });
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 new DrawableStrokeColor(null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 new DrawableText(0, 0, null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
-                new DrawableText(0, 0, "");
+                new DrawableText(0, 0, string.Empty);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 new DrawableTextEncoding(null);
             });
+        }
+
+        private void Test_Drawables_Draw(IDrawable drawable)
+        {
+            ((IDrawingWand)drawable).Draw(null);
         }
     }
 }

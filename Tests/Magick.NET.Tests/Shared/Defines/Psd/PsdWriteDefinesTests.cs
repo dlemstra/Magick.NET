@@ -1,5 +1,4 @@
-﻿//=================================================================================================
-// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -7,39 +6,19 @@
 //   https://www.imagemagick.org/script/license.php
 //
 // Unless required by applicable law or agreed to in writing, software distributed under the
-// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-// express or implied. See the License for the specific language governing permissions and
-// limitations under the License.
-//=================================================================================================
+// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+// either express or implied. See the License for the specific language governing permissions
+// and limitations under the License.
 
+using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
 
 namespace Magick.NET.Tests
 {
     [TestClass]
     public class PsdWriteDefinesTests
     {
-        private static void CheckProfile(IMagickImage image, int expectedLength)
-        {
-            var profile = image.GetProfile("psd:additional-info");
-            int actualLength = profile?.ToByteArray().Length ?? 0;
-            Assert.AreEqual(expectedLength, actualLength);
-        }
-
-        private static void WriteAndCheckProfile(IMagickImageCollection images, PsdWriteDefines defines, int expectedLength)
-        {
-            using (MemoryStream memStream = new MemoryStream())
-            {
-                images.Write(memStream, defines);
-
-                memStream.Position = 0;
-                images.Read(memStream);
-                CheckProfile(images[1], expectedLength);
-            }
-        }
-
         [TestMethod]
         public void Test_Empty()
         {
@@ -64,7 +43,7 @@ namespace Magick.NET.Tests
 
                 var defines = new PsdWriteDefines()
                 {
-                    AdditionalInfo = PsdAdditionalInfo.All
+                    AdditionalInfo = PsdAdditionalInfo.All,
                 };
                 WriteAndCheckProfile(images, defines, 264);
 
@@ -73,6 +52,25 @@ namespace Magick.NET.Tests
 
                 defines.AdditionalInfo = PsdAdditionalInfo.None;
                 WriteAndCheckProfile(images, defines, 0);
+            }
+        }
+
+        private static void CheckProfile(IMagickImage image, int expectedLength)
+        {
+            var profile = image.GetProfile("psd:additional-info");
+            int actualLength = profile?.ToByteArray().Length ?? 0;
+            Assert.AreEqual(expectedLength, actualLength);
+        }
+
+        private static void WriteAndCheckProfile(IMagickImageCollection images, PsdWriteDefines defines, int expectedLength)
+        {
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                images.Write(memStream, defines);
+
+                memStream.Position = 0;
+                images.Read(memStream);
+                CheckProfile(images[1], expectedLength);
             }
         }
     }

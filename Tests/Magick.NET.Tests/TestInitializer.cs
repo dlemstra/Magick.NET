@@ -10,12 +10,10 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System.Xml;
 using ImageMagick;
 using ImageMagick.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
-using System;
-using System.Xml;
 
 namespace Magick.NET.Tests
 {
@@ -27,7 +25,6 @@ namespace Magick.NET.Tests
         [AssemblyInitialize]
         public static void InitializeWithCustomPolicy(TestContext context)
         {
-
 #if !NETCOREAPP1_1
             MagickNET.SetGhostscriptDirectory(@"C:\Program Files (x86)\gs\gs9.20\bin");
 #endif

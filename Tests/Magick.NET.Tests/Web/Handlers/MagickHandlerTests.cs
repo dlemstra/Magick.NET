@@ -1,5 +1,4 @@
-﻿//=================================================================================================
-// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -7,27 +6,26 @@
 //   https://www.imagemagick.org/script/license.php
 //
 // Unless required by applicable law or agreed to in writing, software distributed under the
-// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-// express or implied. See the License for the specific language governing permissions and
-// limitations under the License.
-//=================================================================================================
+// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+// either express or implied. See the License for the specific language governing permissions
+// and limitations under the License.
 
 #if !NETCOREAPP1_1
 
-using ImageMagick;
-using ImageMagick.Web;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Globalization;
 using System.IO;
 using System.Web;
+using ImageMagick;
+using ImageMagick.Web;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
     [TestClass]
     public class MagickHandlerTests
     {
-        private IImageData imageData => new FileImageData(null, MagickNET.GetFormatInformation(MagickFormat.Png));
+        private IImageData ImageData => new FileImageData(null, MagickNET.GetFormatInformation(MagickFormat.Png));
 
         [TestMethod]
         public void Test_CacheControlMode()
@@ -39,7 +37,7 @@ namespace Magick.NET.Tests
   <clientCache cacheControlMode=""NoControl""/>
 </magick.net.web>";
 
-            HttpRequest request = new HttpRequest("foo", "https://bar", "");
+            HttpRequest request = new HttpRequest("foo", "https://bar", string.Empty);
 
             using (MemoryStream memStream = new MemoryStream())
             {
@@ -49,13 +47,13 @@ namespace Magick.NET.Tests
                     HttpContext context = new HttpContext(request, response);
 
                     MagickWebSettings settings = TestSectionLoader.Load(configNoCache);
-                    TestMagickHandler handler = new TestMagickHandler(settings, imageData);
+                    TestMagickHandler handler = new TestMagickHandler(settings, ImageData);
                     handler.ProcessRequest(context);
 
                     Assert.AreNotEqual(HttpCacheability.Public, response.Cache.GetCacheability());
 
                     settings = TestSectionLoader.Load(configCache);
-                    handler = new TestMagickHandler(settings, imageData);
+                    handler = new TestMagickHandler(settings, ImageData);
                     handler.ProcessRequest(context);
 
                     Assert.AreEqual(HttpCacheability.Public, response.Cache.GetCacheability());
@@ -70,9 +68,9 @@ namespace Magick.NET.Tests
 
             MagickWebSettings settings = TestSectionLoader.Load(config);
 
-            TestMagickHandler handler = new TestMagickHandler(settings, imageData);
+            TestMagickHandler handler = new TestMagickHandler(settings, ImageData);
 
-            HttpRequest request = new HttpRequest("foo", "https://bar", "");
+            HttpRequest request = new HttpRequest("foo", "https://bar", string.Empty);
 
             using (MemoryStream memStream = new MemoryStream())
             {
@@ -96,9 +94,9 @@ namespace Magick.NET.Tests
 
             MagickWebSettings settings = TestSectionLoader.Load(config);
 
-            TestMagickHandler handler = new TestMagickHandler(settings, imageData);
+            TestMagickHandler handler = new TestMagickHandler(settings, ImageData);
 
-            HttpRequest request = new HttpRequest("foo", "https://bar", "");
+            HttpRequest request = new HttpRequest("foo", "https://bar", string.Empty);
 
             using (MemoryStream memStream = new MemoryStream())
             {
@@ -161,9 +159,9 @@ namespace Magick.NET.Tests
 
             MagickWebSettings settings = TestSectionLoader.Load(config);
 
-            TestMagickHandler handler = new TestMagickHandler(settings, imageData);
+            TestMagickHandler handler = new TestMagickHandler(settings, ImageData);
 
-            HttpRequest request = new HttpRequest("foo", "https://bar", "");
+            HttpRequest request = new HttpRequest("foo", "https://bar", string.Empty);
 
             using (MemoryStream memStream = new MemoryStream())
             {
@@ -179,7 +177,7 @@ namespace Magick.NET.Tests
                     handler.FileName = null;
                     handler.ProcessRequest(context);
 
-                    handler.FileName = "";
+                    handler.FileName = string.Empty;
                     handler.ProcessRequest(context);
 
                     handler.FileName = "missing";

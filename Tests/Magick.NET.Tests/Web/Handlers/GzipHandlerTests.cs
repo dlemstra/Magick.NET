@@ -1,5 +1,4 @@
-﻿//=================================================================================================
-// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -7,21 +6,20 @@
 //   https://www.imagemagick.org/script/license.php
 //
 // Unless required by applicable law or agreed to in writing, software distributed under the
-// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-// express or implied. See the License for the specific language governing permissions and
-// limitations under the License.
-//=================================================================================================
+// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+// either express or implied. See the License for the specific language governing permissions
+// and limitations under the License.
 
 #if !NETCOREAPP1_1
 
-using ImageMagick;
-using ImageMagick.Web;
-using ImageMagick.Web.Handlers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
 using System.Linq;
 using System.Web;
+using ImageMagick;
+using ImageMagick.Web;
+using ImageMagick.Web.Handlers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
@@ -29,6 +27,17 @@ namespace Magick.NET.Tests
     public class GzipHandlerTests
     {
         private MagickFormatInfo SvgFormatInfo => MagickNET.GetFormatInformation(MagickFormat.Svg);
+
+        [TestMethod]
+        public void Test_ProcessRequest()
+        {
+            IImageData imageData = new FileImageData(Files.Logos.MagickNETSVG, SvgFormatInfo);
+            Test_ProcessRequest(imageData);
+
+            TestStreamUrlResolver resolver = new TestStreamUrlResolver(Files.Logos.MagickNETSVG);
+            imageData = new StreamImageData(resolver, SvgFormatInfo);
+            Test_ProcessRequest(imageData);
+        }
 
         private void Test_ProcessRequest(IImageData imageData)
         {
@@ -40,7 +49,7 @@ namespace Magick.NET.Tests
 
                 MagickWebSettings settings = TestSectionLoader.Load(config);
 
-                HttpRequest request = new HttpRequest("foo", "https://bar", "");
+                HttpRequest request = new HttpRequest("foo", "https://bar", string.Empty);
 
                 string outputFile = Path.Combine(tempDir, "output");
 
@@ -86,7 +95,7 @@ namespace Magick.NET.Tests
                 File.Delete(outputFile);
 
                 FileInfo cacheFile = tempDir.GetFiles().First();
-                File.WriteAllText(cacheFile.FullName, "");
+                File.WriteAllText(cacheFile.FullName, string.Empty);
 
                 using (StreamWriter writer = new StreamWriter(outputFile))
                 {
@@ -129,17 +138,6 @@ namespace Magick.NET.Tests
                 Assert.IsTrue(new FileInfo(outputFile).Length < imageBytes.Length);
                 Assert.AreEqual(3, tempDir.GetFiles().Count());
             }
-        }
-
-        [TestMethod]
-        public void Test_ProcessRequest()
-        {
-            IImageData imageData = new FileImageData(Files.Logos.MagickNETSVG, SvgFormatInfo);
-            Test_ProcessRequest(imageData);
-
-            TestStreamUrlResolver resolver = new TestStreamUrlResolver(Files.Logos.MagickNETSVG);
-            imageData = new StreamImageData(resolver, SvgFormatInfo);
-            Test_ProcessRequest(imageData);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿//=================================================================================================
-// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -7,10 +6,9 @@
 //   https://www.imagemagick.org/script/license.php
 //
 // Unless required by applicable law or agreed to in writing, software distributed under the
-// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-// express or implied. See the License for the specific language governing permissions and
-// limitations under the License.
-//=================================================================================================
+// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+// either express or implied. See the License for the specific language governing permissions
+// and limitations under the License.
 
 using System;
 using ImageMagick;
@@ -31,25 +29,6 @@ namespace Magick.NET.Tests
     [TestClass]
     public partial class MagickColorTests
     {
-        private void TestColor(string hexValue, double red, double green, double blue, bool isTransparent, double delta)
-        {
-            MagickColor color = new MagickColor(hexValue);
-
-            Assert.AreEqual(red, color.R, delta);
-            Assert.AreEqual(green, color.G, delta);
-            Assert.AreEqual(blue, color.B, delta);
-
-            if (isTransparent)
-                ColorAssert.IsTransparent(color.A);
-            else
-                ColorAssert.IsNotTransparent(color.A);
-        }
-
-        private void TestColor(string hexValue, double red, double green, double blue, bool isTransparent)
-        {
-            TestColor(hexValue, red, green, blue, isTransparent, 0.01);
-        }
-
         [TestMethod]
         public void Test_IComparable()
         {
@@ -113,32 +92,32 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Constructor()
         {
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 new MagickColor((string)null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 new MagickColor("FFFFFF");
             });
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 new MagickColor("#FFFFF");
             });
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 new MagickColor("#GGFFF");
             });
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 new MagickColor("#FGF");
             });
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 new MagickColor("#FFFG000000000000");
             });
@@ -236,6 +215,25 @@ namespace Magick.NET.Tests
 
             color = new MagickColor(0, Quantum.Max, 0, 0, Quantum.Max);
             Assert.AreEqual("cmyka(0," + Quantum.Max + ",0,0,1.0)", color.ToString());
+        }
+
+        private void TestColor(string hexValue, double red, double green, double blue, bool isTransparent, double delta)
+        {
+            MagickColor color = new MagickColor(hexValue);
+
+            Assert.AreEqual(red, color.R, delta);
+            Assert.AreEqual(green, color.G, delta);
+            Assert.AreEqual(blue, color.B, delta);
+
+            if (isTransparent)
+                ColorAssert.IsTransparent(color.A);
+            else
+                ColorAssert.IsNotTransparent(color.A);
+        }
+
+        private void TestColor(string hexValue, double red, double green, double blue, bool isTransparent)
+        {
+            TestColor(hexValue, red, green, blue, isTransparent, 0.01);
         }
     }
 }

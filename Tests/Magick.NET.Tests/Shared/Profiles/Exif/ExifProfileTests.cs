@@ -1,5 +1,4 @@
-﻿//=================================================================================================
-// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -7,10 +6,9 @@
 //   https://www.imagemagick.org/script/license.php
 //
 // Unless required by applicable law or agreed to in writing, software distributed under the
-// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-// express or implied. See the License for the specific language governing permissions and
-// limitations under the License.
-//=================================================================================================
+// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+// either express or implied. See the License for the specific language governing permissions
+// and limitations under the License.
 
 using System;
 using System.IO;
@@ -23,55 +21,6 @@ namespace Magick.NET.Tests
     [TestClass]
     public class ExifProfileTests
     {
-        private static void TestProfile(ExifProfile profile)
-        {
-            Assert.IsNotNull(profile);
-
-            Assert.AreEqual(44, profile.Values.Count());
-
-            foreach (ExifValue value in profile.Values)
-            {
-                Assert.IsNotNull(value.Value);
-
-                if (value.Tag == ExifTag.Software)
-                    Assert.AreEqual("Adobe Photoshop 7.0", value.ToString());
-
-                if (value.Tag == ExifTag.XResolution)
-                    Assert.AreEqual(new Rational(300, 1), (Rational)value.Value);
-
-                if (value.Tag == ExifTag.GPSLatitude)
-                {
-                    Rational[] pos = (Rational[])value.Value;
-                    Assert.AreEqual(54, pos[0].ToDouble());
-                    Assert.AreEqual(59.38, pos[1].ToDouble());
-                    Assert.AreEqual(0, pos[2].ToDouble());
-                }
-
-                if (value.Tag == ExifTag.ShutterSpeedValue)
-                    Assert.AreEqual(9.5, ((SignedRational)value.Value).ToDouble());
-            }
-        }
-
-        private static void TestValue(ExifValue value, string expected)
-        {
-            Assert.IsNotNull(value);
-            Assert.AreEqual(expected, value.Value);
-        }
-
-        private static void TestValue(ExifValue value, Rational[] expected)
-        {
-            Assert.IsNotNull(value);
-            Rational[] values = (Rational[])value.Value;
-            Assert.IsNotNull(values);
-            CollectionAssert.AreEqual(expected, values);
-        }
-
-        private static void TestRationalValue(ExifValue value, string expected)
-        {
-            Assert.IsNotNull(value);
-            Assert.AreEqual(expected, value.ToString());
-        }
-
         [TestMethod]
         public void Test_Constructor()
         {
@@ -220,7 +169,7 @@ namespace Magick.NET.Tests
                     ExifValue value = profile.GetValue(ExifTag.Software);
                     TestValue(value, "Magick.NET");
 
-                    ExceptionAssert.Throws<ArgumentException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentException>(() =>
                     {
                         value.Value = 15;
                     });
@@ -230,7 +179,7 @@ namespace Magick.NET.Tests
                     value = profile.GetValue(ExifTag.ShutterSpeedValue);
                     TestRationalValue(value, "1511/20");
 
-                    ExceptionAssert.Throws<ArgumentException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentException>(() =>
                     {
                         value.Value = 75;
                     });
@@ -240,7 +189,7 @@ namespace Magick.NET.Tests
                     value = profile.GetValue(ExifTag.XResolution);
                     TestRationalValue(value, "150");
 
-                    ExceptionAssert.Throws<ArgumentException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentException>(() =>
                     {
                         value.Value = "Magick.NET";
                     });
@@ -368,6 +317,55 @@ namespace Magick.NET.Tests
                         Assert.AreEqual(4, value.NumberOfComponents);
                 }
             }
+        }
+
+        private static void TestProfile(ExifProfile profile)
+        {
+            Assert.IsNotNull(profile);
+
+            Assert.AreEqual(44, profile.Values.Count());
+
+            foreach (ExifValue value in profile.Values)
+            {
+                Assert.IsNotNull(value.Value);
+
+                if (value.Tag == ExifTag.Software)
+                    Assert.AreEqual("Adobe Photoshop 7.0", value.ToString());
+
+                if (value.Tag == ExifTag.XResolution)
+                    Assert.AreEqual(new Rational(300, 1), (Rational)value.Value);
+
+                if (value.Tag == ExifTag.GPSLatitude)
+                {
+                    Rational[] pos = (Rational[])value.Value;
+                    Assert.AreEqual(54, pos[0].ToDouble());
+                    Assert.AreEqual(59.38, pos[1].ToDouble());
+                    Assert.AreEqual(0, pos[2].ToDouble());
+                }
+
+                if (value.Tag == ExifTag.ShutterSpeedValue)
+                    Assert.AreEqual(9.5, ((SignedRational)value.Value).ToDouble());
+            }
+        }
+
+        private static void TestValue(ExifValue value, string expected)
+        {
+            Assert.IsNotNull(value);
+            Assert.AreEqual(expected, value.Value);
+        }
+
+        private static void TestValue(ExifValue value, Rational[] expected)
+        {
+            Assert.IsNotNull(value);
+            Rational[] values = (Rational[])value.Value;
+            Assert.IsNotNull(values);
+            CollectionAssert.AreEqual(expected, values);
+        }
+
+        private static void TestRationalValue(ExifValue value, string expected)
+        {
+            Assert.IsNotNull(value);
+            Assert.AreEqual(expected, value.ToString());
         }
     }
 }

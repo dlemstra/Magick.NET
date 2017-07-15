@@ -1,5 +1,4 @@
-﻿//=================================================================================================
-// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -7,10 +6,9 @@
 //   https://www.imagemagick.org/script/license.php
 //
 // Unless required by applicable law or agreed to in writing, software distributed under the
-// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-// express or implied. See the License for the specific language governing permissions and
-// limitations under the License.
-//=================================================================================================
+// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+// either express or implied. See the License for the specific language governing permissions
+// and limitations under the License.
 
 using System.IO;
 using ImageMagick;
@@ -22,18 +20,6 @@ namespace Magick.NET.Tests
     [TestClass]
     public class DdsWriteDefinesTests
     {
-        private static IMagickImage WriteDds(IMagickImage input)
-        {
-            using (MemoryStream memStream = new MemoryStream())
-            {
-                input.Format = MagickFormat.Dds;
-                input.Write(memStream);
-                memStream.Position = 0;
-
-                return new MagickImage(memStream);
-            }
-        }
-
         [TestMethod]
         public void Test_Empty()
         {
@@ -75,7 +61,7 @@ namespace Magick.NET.Tests
         {
             DdsWriteDefines defines = new DdsWriteDefines()
             {
-                Compression = DdsCompression.None
+                Compression = DdsCompression.None,
             };
 
             using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
@@ -91,6 +77,18 @@ namespace Magick.NET.Tests
                 {
                     Assert.AreEqual(CompressionMethod.NoCompression, output.CompressionMethod);
                 }
+            }
+        }
+
+        private static IMagickImage WriteDds(IMagickImage input)
+        {
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                input.Format = MagickFormat.Dds;
+                input.Write(memStream);
+                memStream.Position = 0;
+
+                return new MagickImage(memStream);
             }
         }
     }

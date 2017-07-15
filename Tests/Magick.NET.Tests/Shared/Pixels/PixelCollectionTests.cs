@@ -1,5 +1,4 @@
-﻿//=================================================================================================
-// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -7,10 +6,9 @@
 //   https://www.imagemagick.org/script/license.php
 //
 // Unless required by applicable law or agreed to in writing, software distributed under the
-// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-// express or implied. See the License for the specific language governing permissions and
-// limitations under the License.
-//=================================================================================================
+// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+// either express or implied. See the License for the specific language governing permissions
+// and limitations under the License.
 
 using System;
 using System.IO;
@@ -28,66 +26,11 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-
 namespace Magick.NET.Tests
 {
     [TestClass]
     public sealed class PixelCollectionTests
     {
-        private static void TestPixels(IMagickImage image, MagickColor color)
-        {
-            TestPixels(image, color, color);
-        }
-
-        private static void TestPixels(IMagickImage image, MagickColor firstRow, MagickColor secondRow)
-        {
-            using (PixelCollection pixels = image.GetPixels())
-            {
-                for (int y = 0; y < 2; y++)
-                    for (int x = 0; x < 10; x++)
-                        ColorAssert.AreEqual(y == 0 ? firstRow : secondRow, pixels.GetPixel(x, y).ToColor());
-            }
-
-            using (MemoryStream memStream = new MemoryStream())
-            {
-                image.Format = MagickFormat.Bmp;
-                image.Write(memStream);
-                memStream.Position = 0;
-
-                using (IMagickImage output = new MagickImage(memStream))
-                {
-                    using (PixelCollection pixels = output.GetPixels())
-                    {
-                        for (int y = 0; y < 2; y++)
-                            for (int x = 0; x < 10; x++)
-                                ColorAssert.AreEqual(y == 0 ? firstRow : secondRow, pixels.GetPixel(x, y).ToColor());
-                    }
-                }
-            }
-        }
-
-        private static void Test_Set(PixelCollection pixels, QuantumType[] value)
-        {
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
-            {
-                pixels.Set(value);
-            });
-        }
-
-        private static void Test_PixelColor(PixelCollection pixels, MagickColor color)
-        {
-            Test_PixelColor(pixels, 0, 0, color);
-        }
-
-        private static void Test_PixelColor(PixelCollection pixels, int x, int y, MagickColor color)
-        {
-            var values = pixels.GetValue(x, y);
-            Assert.AreEqual(3, values.Length);
-
-            MagickColor magickColor = new MagickColor(values[0], values[1], values[2]);
-            ColorAssert.AreEqual(color, magickColor);
-        }
-
         [TestMethod]
         public void Test_Enumerator()
         {
@@ -108,6 +51,7 @@ namespace Magick.NET.Tests
                             if (otherPixel.ToColor() == MagickColors.Black)
                                 break;
                         }
+
                         if (otherPixel.ToColor() == MagickColors.Black)
                             break;
                     }
@@ -197,52 +141,52 @@ namespace Magick.NET.Tests
             {
                 using (PixelCollection pixels = image.GetPixels())
                 {
-                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
                     {
                         pixels.GetArea(4, 0, 2, 1);
                     });
 
-                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
                     {
                         pixels.GetArea(new MagickGeometry(0, 9, 1, 2));
                     });
 
-                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
                     {
                         pixels.GetArea(-1, 0, 1, 1);
                     });
 
-                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
                     {
                         pixels.GetArea(0, -1, 1, 1);
                     });
 
-                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
                     {
                         pixels.GetArea(0, 0, -1, 1);
                     });
 
-                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
                     {
                         pixels.GetArea(0, 0, 1, -1);
                     });
 
-                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
                     {
                         pixels.GetValue(5, 0);
                     });
 
-                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
                     {
                         pixels.GetValue(-1, 0);
                     });
 
-                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
                     {
                         pixels.GetValue(0, -1);
                     });
 
-                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
                     {
                         pixels.GetValue(0, 10);
                     });
@@ -257,17 +201,17 @@ namespace Magick.NET.Tests
             {
                 using (PixelCollection pixels = image.GetPixels())
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentNullException>(() =>
                     {
                         pixels.Set((QuantumType[])null);
                     });
 
-                    ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentNullException>(() =>
                     {
                         pixels.Set((Pixel)null);
                     });
 
-                    ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentNullException>(() =>
                     {
                         pixels.Set((Pixel[])null);
                     });
@@ -369,6 +313,68 @@ namespace Magick.NET.Tests
                     CollectionAssert.AreEqual(new byte[] { 0, 0 }, bytes);
                 }
             }
+        }
+
+        private static void TestPixels(IMagickImage image, MagickColor color)
+        {
+            TestPixels(image, color, color);
+        }
+
+        private static void TestPixels(IMagickImage image, MagickColor firstRow, MagickColor secondRow)
+        {
+            using (PixelCollection pixels = image.GetPixels())
+            {
+                for (int y = 0; y < 2; y++)
+                {
+                    for (int x = 0; x < 10; x++)
+                    {
+                        ColorAssert.AreEqual(y == 0 ? firstRow : secondRow, pixels.GetPixel(x, y).ToColor());
+                    }
+                }
+            }
+
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                image.Format = MagickFormat.Bmp;
+                image.Write(memStream);
+                memStream.Position = 0;
+
+                using (IMagickImage output = new MagickImage(memStream))
+                {
+                    using (PixelCollection pixels = output.GetPixels())
+                    {
+                        for (int y = 0; y < 2; y++)
+                        {
+                            for (int x = 0; x < 10; x++)
+                            {
+                                ColorAssert.AreEqual(y == 0 ? firstRow : secondRow, pixels.GetPixel(x, y).ToColor());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private static void Test_Set(PixelCollection pixels, QuantumType[] value)
+        {
+            ExceptionAssert.Throws<ArgumentException>(() =>
+            {
+                pixels.Set(value);
+            });
+        }
+
+        private static void Test_PixelColor(PixelCollection pixels, MagickColor color)
+        {
+            Test_PixelColor(pixels, 0, 0, color);
+        }
+
+        private static void Test_PixelColor(PixelCollection pixels, int x, int y, MagickColor color)
+        {
+            var values = pixels.GetValue(x, y);
+            Assert.AreEqual(3, values.Length);
+
+            MagickColor magickColor = new MagickColor(values[0], values[1], values[2]);
+            ColorAssert.AreEqual(color, magickColor);
         }
     }
 }

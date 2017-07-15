@@ -1,5 +1,4 @@
-﻿//=================================================================================================
-// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -7,39 +6,21 @@
 //   https://www.imagemagick.org/script/license.php
 //
 // Unless required by applicable law or agreed to in writing, software distributed under the
-// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-// express or implied. See the License for the specific language governing permissions and
-// limitations under the License.
-//=================================================================================================
+// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+// either express or implied. See the License for the specific language governing permissions
+// and limitations under the License.
 
-using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using ImageMagick;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
     [TestClass]
     public class ExceptionHelperTests
     {
-        private unsafe void Test_CreateException(int severity, Type expectedType)
-        {
-            ExceptionInfo info = new ExceptionInfo();
-            info.severity = severity;
-
-            GCHandle handle = GCHandle.Alloc(info, GCHandleType.Pinned);
-            try
-            {
-                MagickException exception = MagickExceptionHelper.CreateException(handle.AddrOfPinnedObject());
-                Assert.AreEqual(expectedType, exception.GetType());
-            }
-            finally
-            {
-                handle.Free();
-            }
-        }
-
         [TestMethod]
         public unsafe void Test_CreateException()
         {
@@ -118,10 +99,11 @@ namespace Magick.NET.Tests
             {
                 fixed (byte* reason = Encoding.UTF8.GetBytes("reason"))
                 {
-                    ExceptionInfo info = new ExceptionInfo();
-                    info.description = (char*)description;
-                    info.reason = (char*)reason;
-
+                    ExceptionInfo info = new ExceptionInfo()
+                    {
+                        description = (char*)description,
+                        reason = (char*)reason,
+                    };
                     GCHandle handle = GCHandle.Alloc(info, GCHandleType.Pinned);
                     try
                     {
@@ -133,6 +115,25 @@ namespace Magick.NET.Tests
                         handle.Free();
                     }
                 }
+            }
+        }
+
+        private unsafe void Test_CreateException(int severity, Type expectedType)
+        {
+            ExceptionInfo info = new ExceptionInfo()
+            {
+                severity = severity,
+            };
+
+            GCHandle handle = GCHandle.Alloc(info, GCHandleType.Pinned);
+            try
+            {
+                MagickException exception = MagickExceptionHelper.CreateException(handle.AddrOfPinnedObject());
+                Assert.AreEqual(expectedType, exception.GetType());
+            }
+            finally
+            {
+                handle.Free();
             }
         }
     }

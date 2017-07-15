@@ -1,5 +1,4 @@
-﻿//=================================================================================================
-// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -7,10 +6,9 @@
 //   https://www.imagemagick.org/script/license.php
 //
 // Unless required by applicable law or agreed to in writing, software distributed under the
-// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-// express or implied. See the License for the specific language governing permissions and
-// limitations under the License.
-//=================================================================================================
+// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+// either express or implied. See the License for the specific language governing permissions
+// and limitations under the License.
 
 using System;
 using System.Collections.Generic;
@@ -35,128 +33,6 @@ namespace Magick.NET.Tests
     [TestClass]
     public partial class MagickImageTests
     {
-        private IMagickImage CreatePallete()
-        {
-            using (IMagickImageCollection images = new MagickImageCollection())
-            {
-                images.Add(new MagickImage(MagickColors.Red, 1, 1));
-                images.Add(new MagickImage(MagickColors.Blue, 1, 1));
-                images.Add(new MagickImage(MagickColors.Green, 1, 1));
-
-                return images.AppendHorizontally();
-            }
-        }
-
-        private static void ShouldNotRaiseWarning(object sender, WarningEventArgs arguments)
-        {
-            Assert.Fail(arguments.Message);
-        }
-
-        private static void ShouldRaiseWarning(object sender, WarningEventArgs arguments)
-        {
-            Assert.IsNotNull(arguments.Message);
-        }
-
-        private static void Test_Chromaticity(double expectedX, double expectedY, double expectedZ, PrimaryInfo info)
-        {
-            Assert.AreEqual(expectedX, info.X, 0.001, "X is not equal.");
-            Assert.AreEqual(expectedY, info.Y, 0.001, "Y is not equal.");
-            Assert.AreEqual(expectedZ, info.Z, 0.001, "Z is not equal.");
-        }
-
-        private static void Test_Clip(bool inside, QuantumType value)
-        {
-            using (IMagickImage image = new MagickImage(Files.InvitationTif))
-            {
-                image.Alpha(AlphaOption.Transparent);
-                image.Clip("Pad A", inside);
-                image.Alpha(AlphaOption.Opaque);
-
-                using (IMagickImage mask = image.WriteMask)
-                {
-                    Assert.IsNotNull(mask);
-                    Assert.AreEqual(false, mask.HasAlpha);
-
-                    using (PixelCollection pixels = mask.GetPixels())
-                    {
-                        MagickColor pixelA = pixels.GetPixel(0, 0).ToColor();
-                        MagickColor pixelB = pixels.GetPixel(mask.Width - 1, mask.Height - 1).ToColor();
-
-                        Assert.AreEqual(pixelA, pixelB);
-                        Assert.AreEqual(value, pixelA.R);
-                        Assert.AreEqual(value, pixelA.G);
-                        Assert.AreEqual(value, pixelA.B);
-
-                        MagickColor pixelC = pixels.GetPixel(mask.Width / 2, mask.Height / 2).ToColor();
-                        Assert.AreEqual(Quantum.Max - value, pixelC.R);
-                        Assert.AreEqual(Quantum.Max - value, pixelC.G);
-                        Assert.AreEqual(Quantum.Max - value, pixelC.B);
-                    }
-                }
-            }
-        }
-
-        private static void Test_Clone(IMagickImage first, IMagickImage second)
-        {
-            Assert.AreEqual(first, second);
-            second.Format = MagickFormat.Jp2;
-            Assert.AreEqual(first.Format, MagickFormat.Png);
-            Assert.AreEqual(second.Format, MagickFormat.Jp2);
-            second.Dispose();
-            Assert.AreEqual(first.Format, MagickFormat.Png);
-        }
-
-        private static void Test_Clone_Area(IMagickImage area, IMagickImage part)
-        {
-            Assert.AreEqual(area.Width, part.Width);
-            Assert.AreEqual(area.Height, part.Height);
-
-            Assert.AreEqual(0.0, area.Compare(part, ErrorMetric.RootMeanSquared));
-        }
-
-        private void Test_Component(IMagickImage image, ConnectedComponent component, int id, int x, int y, int width, int height, MagickColor color, int centroidX, int centroidY)
-        {
-            int delta = 2;
-
-            Assert.AreEqual(id, component.Id);
-            Assert.AreEqual(x, component.X, delta);
-            Assert.AreEqual(y, component.Y, delta);
-            Assert.AreEqual(width, component.Width, delta);
-            Assert.AreEqual(height, component.Height, delta);
-            ColorAssert.AreEqual(color, component.Color);
-            Assert.AreEqual(centroidX, component.Centroid.X, delta);
-            Assert.AreEqual(centroidY, component.Centroid.Y, delta);
-
-            using (IMagickImage area = image.Clone())
-            {
-                area.Crop(component.ToGeometry(10));
-                Assert.AreEqual(width + 20, area.Width, delta);
-                Assert.AreEqual(height + 20, area.Height, delta);
-            }
-        }
-
-        private static void Test_Ping(IMagickImage image)
-        {
-            ExceptionAssert.Throws<InvalidOperationException>(delegate ()
-            {
-                image.GetPixels();
-            });
-
-            ImageProfile profile = image.Get8BimProfile();
-            Assert.IsNotNull(profile);
-        }
-
-        private static void Test_Separate_Composite(IMagickImage image, ColorSpace colorSpace, byte value)
-        {
-            Assert.AreEqual(colorSpace, image.ColorSpace);
-
-            using (PixelCollection pixels = image.GetPixels())
-            {
-                Pixel pixel = pixels.GetPixel(340, 260);
-                ColorAssert.AreEqual(MagickColor.FromRgb(value, value, value), pixel.ToColor());
-            }
-        }
-
         [TestMethod]
         public void Test_AdaptiveBlur()
         {
@@ -355,35 +231,35 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
             {
-                ExceptionAssert.Throws<ArgumentException>(delegate ()
+                ExceptionAssert.Throws<ArgumentException>(() =>
                 {
-                    image.GetArtifact("");
+                    image.GetArtifact(string.Empty);
                 });
 
-                ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                ExceptionAssert.Throws<ArgumentNullException>(() =>
                 {
                     image.GetArtifact(null);
                 });
 
-                ExceptionAssert.Throws<ArgumentException>(delegate ()
+                ExceptionAssert.Throws<ArgumentException>(() =>
                 {
-                    image.SetArtifact("", "test");
+                    image.SetArtifact(string.Empty, "test");
                 });
 
-                ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                ExceptionAssert.Throws<ArgumentNullException>(() =>
                 {
                     image.SetArtifact(null, "test");
                 });
 
-                ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                ExceptionAssert.Throws<ArgumentNullException>(() =>
                 {
                     image.SetArtifact("test", null);
                 });
 
                 Assert.IsNull(image.GetArtifact("test"));
 
-                image.SetArtifact("test", "");
-                Assert.AreEqual("", image.GetArtifact("test"));
+                image.SetArtifact("test", string.Empty);
+                Assert.AreEqual(string.Empty, image.GetArtifact("test"));
 
                 image.SetArtifact("test", "123");
                 Assert.AreEqual("123", image.GetArtifact("test"));
@@ -403,27 +279,27 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                ExceptionAssert.Throws<ArgumentException>(delegate ()
+                ExceptionAssert.Throws<ArgumentException>(() =>
                 {
-                    image.GetAttribute("");
+                    image.GetAttribute(string.Empty);
                 });
 
-                ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                ExceptionAssert.Throws<ArgumentNullException>(() =>
                 {
                     image.GetAttribute(null);
                 });
 
-                ExceptionAssert.Throws<ArgumentException>(delegate ()
+                ExceptionAssert.Throws<ArgumentException>(() =>
                 {
-                    image.SetAttribute("", "test");
+                    image.SetAttribute(string.Empty, "test");
                 });
 
-                ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                ExceptionAssert.Throws<ArgumentNullException>(() =>
                 {
                     image.SetAttribute(null, "test");
                 });
 
-                ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                ExceptionAssert.Throws<ArgumentNullException>(() =>
                 {
                     image.SetAttribute("test", null);
                 });
@@ -433,8 +309,8 @@ namespace Magick.NET.Tests
                 IEnumerable<string> names = image.AttributeNames;
                 Assert.AreEqual(4, names.Count());
 
-                image.SetAttribute("test", "");
-                Assert.AreEqual("", image.GetAttribute("test"));
+                image.SetAttribute("test", string.Empty);
+                Assert.AreEqual(string.Empty, image.GetAttribute("test"));
 
                 image.SetAttribute("test", "123");
                 Assert.AreEqual("123", image.GetAttribute("test"));
@@ -677,32 +553,32 @@ namespace Magick.NET.Tests
         {
             PixelChannel[] rgb = new PixelChannel[]
             {
-                PixelChannel.Red, PixelChannel.Green, PixelChannel.Blue
+                PixelChannel.Red, PixelChannel.Green, PixelChannel.Blue,
             };
 
             PixelChannel[] rgba = new PixelChannel[]
             {
-                PixelChannel.Red, PixelChannel.Green, PixelChannel.Blue, PixelChannel.Alpha
+                PixelChannel.Red, PixelChannel.Green, PixelChannel.Blue, PixelChannel.Alpha,
             };
 
             PixelChannel[] gray = new PixelChannel[]
             {
-                PixelChannel.Gray
+                PixelChannel.Gray,
             };
 
             PixelChannel[] grayAlpha = new PixelChannel[]
             {
-                PixelChannel.Gray, PixelChannel.Alpha
+                PixelChannel.Gray, PixelChannel.Alpha,
             };
 
             PixelChannel[] cmyk = new PixelChannel[]
             {
-                PixelChannel.Cyan, PixelChannel.Magenta, PixelChannel.Yellow, PixelChannel.Black
+                PixelChannel.Cyan, PixelChannel.Magenta, PixelChannel.Yellow, PixelChannel.Black,
             };
 
             PixelChannel[] cmyka = new PixelChannel[]
             {
-                PixelChannel.Cyan, PixelChannel.Magenta, PixelChannel.Yellow, PixelChannel.Black, PixelChannel.Alpha
+                PixelChannel.Cyan, PixelChannel.Magenta, PixelChannel.Yellow, PixelChannel.Black, PixelChannel.Alpha,
             };
 
             using (IMagickImage image = new MagickImage(Files.RoseSparkleGIF))
@@ -964,7 +840,7 @@ namespace Magick.NET.Tests
         {
             IMagickImage first = new MagickImage(Files.ImageMagickJPG);
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 first.Compare(null);
             });
@@ -1030,8 +906,8 @@ namespace Magick.NET.Tests
 
                 IDrawable[] drawables = new IDrawable[]
                 {
-          new DrawableFontPointSize(50),
-          new DrawableText(135, 70, "X")
+                    new DrawableFontPointSize(50),
+                    new DrawableText(135, 70, "X"),
                 };
 
                 using (IMagickImage image = background.Clone())
@@ -1189,32 +1065,32 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Constructor()
         {
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 new MagickImage(new byte[0]);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 new MagickImage((byte[])null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 new MagickImage((FileInfo)null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 new MagickImage((Stream)null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 new MagickImage((string)null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 new MagickImage(Files.Missing);
             });
@@ -1282,72 +1158,72 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImage destination = new MagickImage(MagickColors.Black, 50, 50))
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentNullException>(() =>
                     {
                         destination.CopyPixels(null);
                     });
 
-                    ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentNullException>(() =>
                     {
                         destination.CopyPixels(null, Channels.Red);
                     });
 
-                    ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentNullException>(() =>
                     {
                         destination.CopyPixels(source, null);
                     });
 
-                    ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentNullException>(() =>
                     {
                         destination.CopyPixels(source, null, Channels.Green);
                     });
 
-                    ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentNullException>(() =>
                     {
                         destination.CopyPixels(source, null, 0, 0);
                     });
 
-                    ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentNullException>(() =>
                     {
                         destination.CopyPixels(source, null, 0, 0, Channels.Green);
                     });
 
-                    ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentNullException>(() =>
                     {
                         destination.CopyPixels(null, new MagickGeometry(10, 10));
                     });
 
-                    ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentNullException>(() =>
                     {
                         destination.CopyPixels(null, new MagickGeometry(10, 10), Channels.Black);
                     });
 
-                    ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentNullException>(() =>
                     {
                         destination.CopyPixels(null, new MagickGeometry(10, 10), 0, 0);
                     });
 
-                    ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                    ExceptionAssert.Throws<ArgumentNullException>(() =>
                     {
                         destination.CopyPixels(null, new MagickGeometry(10, 10), 0, 0, Channels.Black);
                     });
 
-                    ExceptionAssert.Throws<MagickOptionErrorException>(delegate ()
+                    ExceptionAssert.Throws<MagickOptionErrorException>(() =>
                     {
                         destination.CopyPixels(source, new MagickGeometry(51, 50), new PointD(0, 0));
                     });
 
-                    ExceptionAssert.Throws<MagickOptionErrorException>(delegate ()
+                    ExceptionAssert.Throws<MagickOptionErrorException>(() =>
                     {
                         destination.CopyPixels(source, new MagickGeometry(50, 51), new PointD(0, 0));
                     });
 
-                    ExceptionAssert.Throws<MagickOptionErrorException>(delegate ()
+                    ExceptionAssert.Throws<MagickOptionErrorException>(() =>
                     {
                         destination.CopyPixels(source, new MagickGeometry(50, 50), 1, 0);
                     });
 
-                    ExceptionAssert.Throws<MagickOptionErrorException>(delegate ()
+                    ExceptionAssert.Throws<MagickOptionErrorException>(() =>
                     {
                         destination.CopyPixels(source, new MagickGeometry(50, 50), new PointD(0, 1));
                     });
@@ -1505,7 +1381,7 @@ namespace Magick.NET.Tests
             IMagickImage image = new MagickImage();
             image.Dispose();
 
-            ExceptionAssert.Throws<ObjectDisposedException>(delegate ()
+            ExceptionAssert.Throws<ObjectDisposedException>(() =>
             {
                 image.HasAlpha = true;
             });
@@ -1516,12 +1392,12 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
             {
-                ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                ExceptionAssert.Throws<ArgumentNullException>(() =>
                 {
                     image.Distort(DistortMethod.Perspective, null);
                 });
 
-                ExceptionAssert.Throws<ArgumentException>(delegate ()
+                ExceptionAssert.Throws<ArgumentException>(() =>
                 {
                     image.Distort(DistortMethod.Perspective, new double[] { });
                 });
@@ -1644,17 +1520,17 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
             {
-                ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                ExceptionAssert.Throws<ArgumentNullException>(() =>
                 {
                     image.Evaluate(Channels.Red, EvaluateFunction.Arcsin, null);
                 });
 
-                ExceptionAssert.Throws<ArgumentException>(delegate ()
+                ExceptionAssert.Throws<ArgumentException>(() =>
                 {
                     image.Evaluate(Channels.Red, EvaluateFunction.Arcsin, new double[] { });
                 });
 
-                ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                ExceptionAssert.Throws<ArgumentNullException>(() =>
                 {
                     image.Evaluate(Channels.Red, null, EvaluateOperator.Set, 0.0);
                 });
@@ -1763,7 +1639,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.RedPNG))
             {
-                ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                ExceptionAssert.Throws<ArgumentNullException>(() =>
                 {
                     image.FormatExpression(null);
                 });
@@ -1821,7 +1697,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(expectedHeight, image.Height);
             }
 
-            ExceptionAssert.Throws<MagickOptionErrorException>(delegate ()
+            ExceptionAssert.Throws<MagickOptionErrorException>(() =>
             {
                 using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
                 {
@@ -1835,17 +1711,17 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
             {
-                ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                ExceptionAssert.Throws<ArgumentNullException>(() =>
                 {
                     image.Fx(null);
                 });
 
-                ExceptionAssert.Throws<ArgumentException>(delegate ()
+                ExceptionAssert.Throws<ArgumentException>(() =>
                 {
-                    image.Fx("");
+                    image.Fx(string.Empty);
                 });
 
-                ExceptionAssert.Throws<MagickOptionErrorException>(delegate ()
+                ExceptionAssert.Throws<MagickOptionErrorException>(() =>
                 {
                     image.Fx("foobar");
                 });
@@ -2401,7 +2277,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
             {
-                ExceptionAssert.Throws<MagickOptionErrorException>(delegate ()
+                ExceptionAssert.Throws<MagickOptionErrorException>(() =>
                 {
                     image.Morphology(MorphologyMethod.Smooth, "Magick");
                 });
@@ -2418,7 +2294,7 @@ namespace Magick.NET.Tests
 
                 image.Read(Files.Builtin.Logo);
 
-                ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                ExceptionAssert.Throws<ArgumentNullException>(() =>
                 {
                     image.Morphology(null);
                 });
@@ -2547,27 +2423,27 @@ namespace Magick.NET.Tests
         {
             IMagickImage image = new MagickImage();
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 image.Ping(new byte[0]);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 image.Ping((byte[])null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 image.Ping((Stream)null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 image.Ping((string)null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 image.Ping(Files.Missing);
             });
@@ -2693,7 +2569,7 @@ namespace Magick.NET.Tests
         {
             Percentage progress = new Percentage(0);
             bool cancel = false;
-            EventHandler<ProgressEventArgs> progressEvent = delegate (object sender, ProgressEventArgs arguments)
+            EventHandler<ProgressEventArgs> progressEvent = (sender, arguments) =>
             {
                 Assert.IsNotNull(sender);
                 Assert.IsNotNull(arguments);
@@ -2793,32 +2669,32 @@ namespace Magick.NET.Tests
         {
             IMagickImage image = new MagickImage();
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 image.Read(new byte[0]);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 image.Read((byte[])null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 image.Read((Stream)null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 image.Read((string)null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 image.Read(Files.Missing);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 image.Read("png:" + Files.Missing);
             });
@@ -2919,7 +2795,7 @@ namespace Magick.NET.Tests
                 {
                     image.Read(memStream, new MagickReadSettings()
                     {
-                        Density = new Density(72)
+                        Density = new Density(72),
                     });
 
                     ColorAssert.AreEqual(new MagickColor("#231f20"), image, 129, 101);
@@ -2928,12 +2804,12 @@ namespace Magick.NET.Tests
 
             image.Dispose();
 
-            ExceptionAssert.Throws<ObjectDisposedException>(delegate ()
+            ExceptionAssert.Throws<ObjectDisposedException>(() =>
             {
                 image.BackgroundColor = MagickColors.PaleGreen;
             });
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 using (TestStream testStream = new TestStream(false, true, true))
                 {
@@ -3041,7 +2917,7 @@ namespace Magick.NET.Tests
                 Assert.IsTrue((image.Width * image.Height) < 4096);
 
                 Percentage percentage = new Percentage(-0.5);
-                ExceptionAssert.Throws<ArgumentException>(delegate ()
+                ExceptionAssert.Throws<ArgumentException>(() =>
                 {
                     image.Resize(percentage);
                 });
@@ -3458,14 +3334,14 @@ namespace Magick.NET.Tests
 
             using (IMagickImage image = new MagickImage("xc:", settings))
             {
-                ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                ExceptionAssert.Throws<ArgumentNullException>(() =>
                 {
                     image.SparseColor(Channels.Red, SparseColorMethod.Barycentric, null);
                 });
 
                 List<SparseColorArg> args = new List<SparseColorArg>();
 
-                ExceptionAssert.Throws<ArgumentException>(delegate ()
+                ExceptionAssert.Throws<ArgumentException>(() =>
                 {
                     image.SparseColor(Channels.Blue, SparseColorMethod.Barycentric, args);
                 });
@@ -3475,7 +3351,7 @@ namespace Magick.NET.Tests
                     ColorAssert.AreEqual(pixels.GetPixel(0, 0).ToColor(), pixels.GetPixel(599, 59).ToColor());
                 }
 
-                ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+                ExceptionAssert.Throws<ArgumentNullException>(() =>
                 {
                     args.Add(new SparseColorArg(0, 0, null));
                 });
@@ -3491,7 +3367,7 @@ namespace Magick.NET.Tests
                     ColorAssert.AreNotEqual(pixels.GetPixel(0, 0).ToColor(), pixels.GetPixel(599, 59).ToColor());
                 }
 
-                ExceptionAssert.Throws<ArgumentException>(delegate ()
+                ExceptionAssert.Throws<ArgumentException>(() =>
                 {
                     image.SparseColor(Channels.Black, SparseColorMethod.Barycentric, args);
                 });
@@ -3739,7 +3615,7 @@ namespace Magick.NET.Tests
             {
                 byte[] bytes = image.ToByteArray(new DdsWriteDefines()
                 {
-                    Compression = DdsCompression.Dxt5
+                    Compression = DdsCompression.Dxt5,
                 });
 
                 image.Read(bytes);
@@ -3753,7 +3629,7 @@ namespace Magick.NET.Tests
 
                 bytes = image.ToByteArray(new DdsWriteDefines()
                 {
-                    Compression = DdsCompression.Dxt5
+                    Compression = DdsCompression.Dxt5,
                 });
 
                 image.Read(bytes);
@@ -4016,12 +3892,12 @@ namespace Magick.NET.Tests
         public void Test_Warning()
         {
             int count = 0;
-            EventHandler<WarningEventArgs> warningDelegate = delegate (object sender, WarningEventArgs arguments)
+            EventHandler<WarningEventArgs> warningDelegate = (sender, arguments) =>
             {
                 Assert.IsNotNull(sender);
                 Assert.IsNotNull(arguments);
                 Assert.IsNotNull(arguments.Message);
-                Assert.AreNotEqual("", arguments.Message);
+                Assert.AreNotEqual(string.Empty, arguments.Message);
                 Assert.IsNotNull(arguments.Exception);
 
                 count++;
@@ -4056,7 +3932,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Write()
         {
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 using (IMagickImage image = new MagickImage())
                 {
@@ -4064,7 +3940,7 @@ namespace Magick.NET.Tests
                 }
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 using (IMagickImage image = new MagickImage())
                 {
@@ -4072,7 +3948,7 @@ namespace Magick.NET.Tests
                 }
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 using (IMagickImage image = new MagickImage())
                 {
@@ -4080,15 +3956,15 @@ namespace Magick.NET.Tests
                 }
             });
 
-            ExceptionAssert.Throws<ArgumentException>(delegate ()
+            ExceptionAssert.Throws<ArgumentException>(() =>
             {
                 using (IMagickImage image = new MagickImage())
                 {
-                    image.Write("");
+                    image.Write(string.Empty);
                 }
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 using (IMagickImage image = new MagickImage())
                 {
@@ -4096,7 +3972,7 @@ namespace Magick.NET.Tests
                 }
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 using (IMagickImage image = new MagickImage())
                 {
@@ -4104,7 +3980,7 @@ namespace Magick.NET.Tests
                 }
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+            ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 using (IMagickImage image = new MagickImage())
                 {
@@ -4187,6 +4063,128 @@ namespace Magick.NET.Tests
             finally
             {
                 Cleanup.DeleteFile(fileName);
+            }
+        }
+
+        private static void ShouldNotRaiseWarning(object sender, WarningEventArgs arguments)
+        {
+            Assert.Fail(arguments.Message);
+        }
+
+        private static void ShouldRaiseWarning(object sender, WarningEventArgs arguments)
+        {
+            Assert.IsNotNull(arguments.Message);
+        }
+
+        private static void Test_Chromaticity(double expectedX, double expectedY, double expectedZ, PrimaryInfo info)
+        {
+            Assert.AreEqual(expectedX, info.X, 0.001, "X is not equal.");
+            Assert.AreEqual(expectedY, info.Y, 0.001, "Y is not equal.");
+            Assert.AreEqual(expectedZ, info.Z, 0.001, "Z is not equal.");
+        }
+
+        private static void Test_Clip(bool inside, QuantumType value)
+        {
+            using (IMagickImage image = new MagickImage(Files.InvitationTif))
+            {
+                image.Alpha(AlphaOption.Transparent);
+                image.Clip("Pad A", inside);
+                image.Alpha(AlphaOption.Opaque);
+
+                using (IMagickImage mask = image.WriteMask)
+                {
+                    Assert.IsNotNull(mask);
+                    Assert.AreEqual(false, mask.HasAlpha);
+
+                    using (PixelCollection pixels = mask.GetPixels())
+                    {
+                        MagickColor pixelA = pixels.GetPixel(0, 0).ToColor();
+                        MagickColor pixelB = pixels.GetPixel(mask.Width - 1, mask.Height - 1).ToColor();
+
+                        Assert.AreEqual(pixelA, pixelB);
+                        Assert.AreEqual(value, pixelA.R);
+                        Assert.AreEqual(value, pixelA.G);
+                        Assert.AreEqual(value, pixelA.B);
+
+                        MagickColor pixelC = pixels.GetPixel(mask.Width / 2, mask.Height / 2).ToColor();
+                        Assert.AreEqual(Quantum.Max - value, pixelC.R);
+                        Assert.AreEqual(Quantum.Max - value, pixelC.G);
+                        Assert.AreEqual(Quantum.Max - value, pixelC.B);
+                    }
+                }
+            }
+        }
+
+        private static void Test_Clone(IMagickImage first, IMagickImage second)
+        {
+            Assert.AreEqual(first, second);
+            second.Format = MagickFormat.Jp2;
+            Assert.AreEqual(first.Format, MagickFormat.Png);
+            Assert.AreEqual(second.Format, MagickFormat.Jp2);
+            second.Dispose();
+            Assert.AreEqual(first.Format, MagickFormat.Png);
+        }
+
+        private static void Test_Clone_Area(IMagickImage area, IMagickImage part)
+        {
+            Assert.AreEqual(area.Width, part.Width);
+            Assert.AreEqual(area.Height, part.Height);
+
+            Assert.AreEqual(0.0, area.Compare(part, ErrorMetric.RootMeanSquared));
+        }
+
+        private static void Test_Ping(IMagickImage image)
+        {
+            ExceptionAssert.Throws<InvalidOperationException>(() =>
+            {
+                image.GetPixels();
+            });
+
+            ImageProfile profile = image.Get8BimProfile();
+            Assert.IsNotNull(profile);
+        }
+
+        private static void Test_Separate_Composite(IMagickImage image, ColorSpace colorSpace, byte value)
+        {
+            Assert.AreEqual(colorSpace, image.ColorSpace);
+
+            using (PixelCollection pixels = image.GetPixels())
+            {
+                Pixel pixel = pixels.GetPixel(340, 260);
+                ColorAssert.AreEqual(MagickColor.FromRgb(value, value, value), pixel.ToColor());
+            }
+        }
+
+        private IMagickImage CreatePallete()
+        {
+            using (IMagickImageCollection images = new MagickImageCollection())
+            {
+                images.Add(new MagickImage(MagickColors.Red, 1, 1));
+                images.Add(new MagickImage(MagickColors.Blue, 1, 1));
+                images.Add(new MagickImage(MagickColors.Green, 1, 1));
+
+                return images.AppendHorizontally();
+            }
+        }
+
+        private void Test_Component(IMagickImage image, ConnectedComponent component, int id, int x, int y, int width, int height, MagickColor color, int centroidX, int centroidY)
+        {
+            int delta = 2;
+
+            Assert.AreEqual(id, component.Id);
+            Assert.AreEqual(x, component.X, delta);
+            Assert.AreEqual(y, component.Y, delta);
+            Assert.AreEqual(width, component.Width, delta);
+            Assert.AreEqual(height, component.Height, delta);
+            ColorAssert.AreEqual(color, component.Color);
+            Assert.AreEqual(centroidX, component.Centroid.X, delta);
+            Assert.AreEqual(centroidY, component.Centroid.Y, delta);
+
+            using (IMagickImage area = image.Clone())
+            {
+                area.Crop(component.ToGeometry(10));
+                Assert.AreEqual(width + 20, area.Width, delta);
+                Assert.AreEqual(height + 20, area.Height, delta);
             }
         }
     }

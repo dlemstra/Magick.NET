@@ -1,5 +1,4 @@
-﻿//=================================================================================================
-// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -7,10 +6,9 @@
 //   https://www.imagemagick.org/script/license.php
 //
 // Unless required by applicable law or agreed to in writing, software distributed under the
-// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-// express or implied. See the License for the specific language governing permissions and
-// limitations under the License.
-//=================================================================================================
+// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+// either express or implied. See the License for the specific language governing permissions
+// and limitations under the License.
 
 using System.IO;
 using ImageMagick;
@@ -40,8 +38,8 @@ namespace Magick.NET.Tests
 
                 image.Settings.SetDefines(new JpegWriteDefines()
                 {
-                    QuantizationTables = "",
-                    SamplingFactors = new MagickGeometry[] { }
+                    QuantizationTables = string.Empty,
+                    SamplingFactors = new MagickGeometry[] { },
                 });
 
                 Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "q-table"));
@@ -59,10 +57,10 @@ namespace Magick.NET.Tests
                 Quality = new MagickGeometry(80, 80),
                 QuantizationTables = @"C:\path\to\file.xml",
                 SamplingFactors = new MagickGeometry[]
-              {
-          new MagickGeometry(5, 10),
-          new MagickGeometry(15, 20)
-              }
+                {
+                    new MagickGeometry(5, 10),
+                    new MagickGeometry(15, 20),
+                },
             };
 
             using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -82,7 +80,7 @@ namespace Magick.NET.Tests
         {
             JpegWriteDefines defines = new JpegWriteDefines()
             {
-                Extent = 10
+                Extent = 10,
             };
 
             using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
