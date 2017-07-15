@@ -21,6 +21,7 @@ namespace Magick.NET.Tests
     {
         private static readonly string _Root = GetRoot();
 
+        [ExcludeFromCodeCoverage]
         private static string GetRoot()
         {
             string[] paths =
