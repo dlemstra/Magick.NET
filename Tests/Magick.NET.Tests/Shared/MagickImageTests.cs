@@ -72,7 +72,7 @@ namespace Magick.NET.Tests
 #if Q8 || Q16
                 ColorAssert.AreEqual(new MagickColor("#a985e09ff96a"), image, 56, 68);
 #elif Q16HDRI
-        ColorAssert.AreEqual(new MagickColor("#a8a8dfdff8f8"), image, 56, 68);
+                ColorAssert.AreEqual(new MagickColor("#a8a8dfdff8f8"), image, 56, 68);
 #else
 #error Not implemented!
 #endif
@@ -484,7 +484,7 @@ namespace Magick.NET.Tests
 #if Q8 || Q16
                 ColorAssert.AreEqual(new MagickColor("#ac2cb333c848"), image, 350, 265);
 #elif Q16HDRI
-        ColorAssert.AreEqual(new MagickColor("#ac2cb333c848"), image, 350, 265);
+                ColorAssert.AreEqual(new MagickColor("#ac2cb333c848"), image, 350, 265);
 #else
 #error Not implemented!
 #endif
@@ -1034,7 +1034,7 @@ namespace Magick.NET.Tests
                     {
                         Connectivity = 4,
                         MeanColor = true,
-                        AreaThreshold = 400
+                        AreaThreshold = 400,
                     };
 
                     ConnectedComponent[] components = temp.ConnectedComponents(settings).OrderBy(c => c.X).ToArray();

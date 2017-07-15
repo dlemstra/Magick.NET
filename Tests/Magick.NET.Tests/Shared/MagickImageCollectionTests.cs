@@ -632,9 +632,9 @@ namespace Magick.NET.Tests
                 ColorAssert.AreEqual(new MagickColor("#7b929f"), collection[0], 179, 123);
                 ColorAssert.AreEqual(new MagickColor("#44739f"), collection[0], 188, 135);
 #elif Q16 || Q16HDRI
-        ColorAssert.AreEqual(new MagickColor("#447073169f39"), collection[0], 66, 115);
-        ColorAssert.AreEqual(new MagickColor("#7b4292c29f25"), collection[0], 179, 123);
-        ColorAssert.AreEqual(new MagickColor("#2aef41654efc"), collection[0], 188, 135);
+                ColorAssert.AreEqual(new MagickColor("#447073169f39"), collection[0], 66, 115);
+                ColorAssert.AreEqual(new MagickColor("#7b4292c29f25"), collection[0], 179, 123);
+                ColorAssert.AreEqual(new MagickColor("#2aef41654efc"), collection[0], 188, 135);
 #else
 #error Not implemented!
 #endif

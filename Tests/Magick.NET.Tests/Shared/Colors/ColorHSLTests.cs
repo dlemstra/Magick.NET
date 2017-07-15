@@ -120,7 +120,7 @@ namespace Magick.NET.Tests
 #if Q8
             ColorAssert.AreEqual(new MagickColor("#bacbba"), color);
 #elif Q16 || Q16HDRI
-      ColorAssert.AreEqual(new MagickColor("#bbbacccbbbba"), color);
+            ColorAssert.AreEqual(new MagickColor("#bbbacccbbbba"), color);
 #else
 #error Not implemented!
 #endif
@@ -129,7 +129,7 @@ namespace Magick.NET.Tests
 #if Q8
             ColorAssert.AreEqual(new MagickColor("#cbbacb"), color);
 #elif Q16 || Q16HDRI
-      ColorAssert.AreEqual(new MagickColor("#cccbbbbacccb"), color);
+            ColorAssert.AreEqual(new MagickColor("#cccbbbbacccb"), color);
 #else
 #error Not implemented!
 #endif
