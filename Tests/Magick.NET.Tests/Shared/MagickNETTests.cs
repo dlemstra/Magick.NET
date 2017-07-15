@@ -182,6 +182,18 @@ namespace Magick.NET.Tests
             }
         }
 
+        [TestMethod]
+        public void Initialize_CanBeCalledTwice()
+        {
+            using (TemporaryDirectory directory = new TemporaryDirectory())
+            {
+                string path = directory.DirectoryInfo.FullName;
+
+                MagickNET.Initialize(ConfigurationFiles.Default, path);
+                MagickNET.Initialize(ConfigurationFiles.Default, path);
+            }
+        }
+
         /// <summary>
         /// The policy is initialized with <see cref="TestInitializer.InitializeWithCustomPolicy(TestContext)"/> at the start of all tests.
         /// </summary>
