@@ -398,7 +398,7 @@ namespace Magick.NET.Tests
             using (TemporaryFile file = new TemporaryFile(data))
             {
                 MagickFactory factory = new MagickFactory();
-                IMagickImageInfo imageInfo = factory.CreateImageInfo(file.FileInfo, readSettings);
+                IMagickImageInfo imageInfo = factory.CreateImageInfo(file, readSettings);
 
                 Assert.IsInstanceOfType(imageInfo, typeof(MagickImageInfo));
                 Assert.AreEqual(1, imageInfo.Width);
@@ -426,7 +426,7 @@ namespace Magick.NET.Tests
 
             using (TemporaryFile file = new TemporaryFile(data))
             {
-                using (var stream = file.FileInfo.OpenRead())
+                using (var stream = file.OpenRead())
                 {
                     MagickFactory factory = new MagickFactory();
                     IMagickImageInfo imageInfo = factory.CreateImageInfo(stream, readSettings);
@@ -456,7 +456,7 @@ namespace Magick.NET.Tests
             using (TemporaryFile file = new TemporaryFile(data))
             {
                 MagickFactory factory = new MagickFactory();
-                IMagickImageInfo imageInfo = factory.CreateImageInfo(file.FileInfo.FullName, readSettings);
+                IMagickImageInfo imageInfo = factory.CreateImageInfo(file.FullName, readSettings);
 
                 Assert.IsInstanceOfType(imageInfo, typeof(MagickImageInfo));
                 Assert.AreEqual(1, imageInfo.Width);

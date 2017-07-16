@@ -36,7 +36,7 @@ namespace Magick.NET.Tests
         {
             using (TemporaryFile file = new TemporaryFile("image.jpg"))
             {
-                string tempFile = file.FileInfo.FullName;
+                string tempFile = file.FullName;
 
                 using (IMagickImage image = new MagickImage("logo:"))
                 {

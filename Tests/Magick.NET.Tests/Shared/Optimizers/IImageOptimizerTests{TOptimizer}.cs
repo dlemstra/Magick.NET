@@ -57,13 +57,13 @@ namespace Magick.NET.Tests
         {
             using (TemporaryFile tempFile = new TemporaryFile(fileName))
             {
-                Optimizer.Compress(tempFile.FileInfo);
+                Optimizer.Compress(tempFile);
 
-                long after1 = tempFile.FileInfo.Length;
+                long after1 = tempFile.Length;
 
-                Optimizer.Compress(tempFile.FileInfo);
+                Optimizer.Compress(tempFile);
 
-                long after2 = tempFile.FileInfo.Length;
+                long after2 = tempFile.Length;
 
                 Assert.AreEqual(after1, after2);
             }
@@ -104,13 +104,13 @@ namespace Magick.NET.Tests
         {
             using (TemporaryFile tempFile = new TemporaryFile(fileName))
             {
-                Optimizer.LosslessCompress(tempFile.FileInfo);
+                Optimizer.LosslessCompress(tempFile);
 
-                long after1 = tempFile.FileInfo.Length;
+                long after1 = tempFile.Length;
 
-                Optimizer.LosslessCompress(tempFile.FileInfo);
+                Optimizer.LosslessCompress(tempFile);
 
-                long after2 = tempFile.FileInfo.Length;
+                long after2 = tempFile.Length;
 
                 Assert.AreEqual(after1, after2);
             }
@@ -120,11 +120,11 @@ namespace Magick.NET.Tests
         {
             using (TemporaryFile tempFile = new TemporaryFile(fileName))
             {
-                long before = tempFile.FileInfo.Length;
+                long before = tempFile.Length;
 
-                action(tempFile.FileInfo);
+                action(tempFile);
 
-                long after = tempFile.FileInfo.Length;
+                long after = tempFile.Length;
 
                 if (resultIsSmaller)
                     Assert.IsTrue(after < before, "{0} is not smaller than {1}", after, before);
@@ -139,12 +139,12 @@ namespace Magick.NET.Tests
         {
             using (TemporaryFile tempFile = new TemporaryFile(fileName))
             {
-                long before = tempFile.FileInfo.Length;
+                long before = tempFile.Length;
 
-                action(tempFile.FileInfo.FullName);
+                action(tempFile.FullName);
 
-                tempFile.FileInfo.Refresh();
-                long after = tempFile.FileInfo.Length;
+                tempFile.Refresh();
+                long after = tempFile.Length;
 
                 if (resultIsSmaller)
                     Assert.IsTrue(after < before, "{0} is not smaller than {1}", after, before);

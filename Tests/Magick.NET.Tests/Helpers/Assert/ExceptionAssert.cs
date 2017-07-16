@@ -25,8 +25,17 @@ namespace Magick.NET.Tests
             return Throws<TException>(action, "Exception of type {0} was not thrown.", typeof(TException).Name);
         }
 
-        public static TException Throws<TException>(Action action, string message, params object[] arguments)
+        public static TException Throws<TException>(string messagePart, Action action)
            where TException : Exception
+        {
+            TException exception = Throws<TException>(action);
+            AssertMessagePart(exception, messagePart);
+
+            return exception;
+        }
+
+        public static TException Throws<TException>(Action action, string message, params object[] arguments)
+       where TException : Exception
         {
             try
             {
@@ -64,8 +73,7 @@ namespace Magick.NET.Tests
         {
             ArgumentException exception = Throws<ArgumentException>(action);
             Assert.AreEqual(paramName, exception.ParamName);
-            bool containsMessage = exception.Message.Contains(messagePart);
-            Assert.IsTrue(containsMessage, "Message does not contain: " + messagePart + "." + Environment.NewLine + Environment.NewLine + exception.Message);
+            AssertMessagePart(exception, messagePart);
         }
 
         private static void Fail(string message, params object[] arguments)
@@ -74,6 +82,13 @@ namespace Magick.NET.Tests
                 Assert.Fail(string.Format(CultureInfo.InvariantCulture, message, arguments));
             else
                 Assert.Fail(message);
+        }
+
+        private static void AssertMessagePart<TException>(TException exception, string messagePart)
+           where TException : Exception
+        {
+            bool containsMessage = exception.Message.Contains(messagePart);
+            Assert.IsTrue(containsMessage, "Message does not contain: " + messagePart + "." + Environment.NewLine + Environment.NewLine + exception.Message);
         }
     }
 }

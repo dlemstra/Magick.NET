@@ -34,17 +34,28 @@ namespace Magick.NET.Tests
                 CreateEmptyFile(fileName);
         }
 
-        public FileInfo FileInfo
+        public string FullName => _tempFile.FullName;
+
+        public long Length => _tempFile.Length;
+
+        public static implicit operator FileInfo(TemporaryFile file)
         {
-            get
-            {
-                return _tempFile;
-            }
+            return file._tempFile;
         }
 
         public void Dispose()
         {
             Cleanup.DeleteFile(_tempFile);
+        }
+
+        public FileStream OpenRead()
+        {
+            return _tempFile.OpenRead();
+        }
+
+        public void Refresh()
+        {
+            _tempFile.Refresh();
         }
 
         private void CreateEmptyFile(string fileName)

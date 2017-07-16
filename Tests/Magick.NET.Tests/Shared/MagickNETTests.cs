@@ -204,7 +204,7 @@ namespace Magick.NET.Tests
             {
                 ExceptionAssert.Throws<MagickPolicyErrorException>(() =>
                 {
-                    using (MagickImage image = new MagickImage(tempFile.FileInfo))
+                    using (MagickImage image = new MagickImage(tempFile))
                     {
                     }
                 });
