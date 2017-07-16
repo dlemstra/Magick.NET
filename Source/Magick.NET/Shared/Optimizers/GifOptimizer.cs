@@ -27,17 +27,6 @@ namespace ImageMagick.ImageOptimizers
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether various compression types will be used to find
-        /// the smallest file. This process will take extra time because the file has to be written
-        /// multiple times.
-        /// </summary>
-        public bool OptimalCompression
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// Gets the format that the optimizer supports.
         /// </summary>
         public MagickFormatInfo Format
@@ -47,6 +36,13 @@ namespace ImageMagick.ImageOptimizers
                 return MagickNET.GetFormatInformation(MagickFormat.Gif);
             }
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether various compression types will be used to find
+        /// the smallest file. This process will take extra time because the file has to be written
+        /// multiple times.
+        /// </summary>
+        bool IImageOptimizer.OptimalCompression { get; set; }
 
         /// <summary>
         /// Performs compression on the specified the file. With some formats the image will be decoded
