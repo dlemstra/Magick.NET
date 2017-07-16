@@ -38,22 +38,22 @@ namespace Magick.NET.Tests.Shared.Extensions
         }
 
         [TestMethod]
-        public void SetNext_ValueIsNull_ThrowsException()
-        {
-            IMagickImage image = null;
-            ExceptionAssert.Throws<NotSupportedException>(() =>
-            {
-                image.SetNext(null);
-            });
-        }
-
-        [TestMethod]
         public void CreateErrorInfo_IMagickImageIsNotMagickImage_ThrowsException()
         {
             IMagickImage image = Substitute.For<IMagickImage>();
             ExceptionAssert.Throws<NotSupportedException>(() =>
             {
                 image.CreateErrorInfo();
+            });
+        }
+
+        [TestMethod]
+        public void SetNext_ValueIsNull_ThrowsException()
+        {
+            IMagickImage image = null;
+            ExceptionAssert.Throws<NotSupportedException>(() =>
+            {
+                image.SetNext(null);
             });
         }
     }
