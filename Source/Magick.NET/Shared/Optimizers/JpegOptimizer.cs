@@ -154,45 +154,28 @@ namespace ImageMagick.ImageOptimizers
 
         private void DoCompress(FileInfo file, bool lossless, int quality)
         {
-            Collection<FileInfo> tempFiles = new Collection<FileInfo>();
-
-            try
+            using (TemporaryFile tempFile = new TemporaryFile())
             {
-                FileInfo bestFile = null;
-
-                FileInfo tempFile = new FileInfo(Path.GetTempFileName());
-                tempFiles.Add(tempFile);
-
                 if (!DoCompress(file, tempFile, Progressive, lossless, quality))
                     return;
 
-                bestFile = tempFile;
-
                 if (OptimalCompression)
                 {
-                    tempFile = new FileInfo(Path.GetTempFileName());
-                    tempFiles.Add(tempFile);
+                    using (TemporaryFile tempFileOptimal = new TemporaryFile())
+                    {
+                        if (!DoCompress(file, tempFileOptimal, Progressive, lossless, quality))
+                            return;
 
-                    if (!DoCompress(file, tempFile, !Progressive, lossless, quality))
-                        return;
-
-                    if (bestFile.Length > tempFile.Length)
-                        bestFile = tempFile;
+                        if (tempFileOptimal.Length < file.Length && tempFileOptimal.Length < tempFile.Length)
+                        {
+                            tempFileOptimal.CopyTo(file);
+                            return;
+                        }
+                    }
                 }
 
-                if (bestFile.Length < file.Length)
-                {
-                    bestFile.CopyTo(file.FullName, true);
-                    file.Refresh();
-                }
-            }
-            finally
-            {
-                foreach (FileInfo tempFile in tempFiles)
-                {
-                    if (tempFile.Exists)
-                        tempFile.Delete();
-                }
+                if (tempFile.Length < file.Length)
+                    tempFile.CopyTo(file);
             }
         }
     }

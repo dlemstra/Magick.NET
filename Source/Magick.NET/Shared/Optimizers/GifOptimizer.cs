@@ -117,19 +117,13 @@ namespace ImageMagick.ImageOptimizers
 
             image.Strip();
 
-            FileInfo tempFile = new FileInfo(Path.GetTempFileName());
-            try
+            using (TemporaryFile tempFile = new TemporaryFile())
             {
                 image.Settings.Interlace = Interlace.NoInterlace;
                 image.Write(tempFile);
 
                 if (tempFile.Length < file.Length)
-                    tempFile.CopyTo(file.FullName, true);
-            }
-            finally
-            {
-                if (tempFile.Exists)
-                    tempFile.Delete();
+                    tempFile.CopyTo(file);
             }
         }
     }

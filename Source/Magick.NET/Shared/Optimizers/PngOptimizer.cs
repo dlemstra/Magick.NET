@@ -125,36 +125,32 @@ namespace ImageMagick.ImageOptimizers
                 image.Settings.SetDefine(MagickFormat.Png, "include-chunks", "tRNS,gAMA");
                 CheckTransparency(image);
 
-                Collection<FileInfo> tempFiles = new Collection<FileInfo>();
+                Collection<TemporaryFile> tempFiles = new Collection<TemporaryFile>();
 
                 try
                 {
-                    FileInfo bestFile = null;
+                    TemporaryFile bestFile = null;
 
                     foreach (int quality in GetQualityList())
                     {
-                        FileInfo tempFile = new FileInfo(Path.GetTempFileName());
+                        TemporaryFile tempFile = new TemporaryFile();
                         tempFiles.Add(tempFile);
 
                         image.Quality = quality;
                         image.Write(tempFile);
-                        tempFile.Refresh();
 
                         if (bestFile == null || bestFile.Length > tempFile.Length)
                             bestFile = tempFile;
-                        else
-                            tempFile.Delete();
                     }
 
                     if (bestFile.Length < file.Length)
-                        bestFile.CopyTo(file.FullName, true);
+                        bestFile.CopyTo(file);
                 }
                 finally
                 {
-                    foreach (FileInfo tempFile in tempFiles)
+                    foreach (TemporaryFile tempFile in tempFiles)
                     {
-                        if (tempFile.Exists)
-                            tempFile.Delete();
+                        tempFile.Dispose();
                     }
                 }
             }
