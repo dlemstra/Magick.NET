@@ -53,6 +53,22 @@ namespace Magick.NET.Tests
             Assert.AreEqual(lengthA, lengthB);
         }
 
+        protected void AssertCompressTwice(string fileName)
+        {
+            using (TemporaryFile tempFile = new TemporaryFile(fileName))
+            {
+                Optimizer.Compress(tempFile.FileInfo);
+
+                long after1 = tempFile.FileInfo.Length;
+
+                Optimizer.Compress(tempFile.FileInfo);
+
+                long after2 = tempFile.FileInfo.Length;
+
+                Assert.AreEqual(after1, after2);
+            }
+        }
+
         protected long AssertLosslessCompressSmaller(string fileName)
         {
             long lengthA = AssertCompress(fileName, true, (FileInfo file) =>
@@ -82,6 +98,22 @@ namespace Magick.NET.Tests
             });
 
             Assert.AreEqual(lengthA, lengthB);
+        }
+
+        protected void AssertLosslessCompressTwice(string fileName)
+        {
+            using (TemporaryFile tempFile = new TemporaryFile(fileName))
+            {
+                Optimizer.LosslessCompress(tempFile.FileInfo);
+
+                long after1 = tempFile.FileInfo.Length;
+
+                Optimizer.LosslessCompress(tempFile.FileInfo);
+
+                long after2 = tempFile.FileInfo.Length;
+
+                Assert.AreEqual(after1, after2);
+            }
         }
 
         private long AssertCompress(string fileName, bool resultIsSmaller, Action<FileInfo> action)

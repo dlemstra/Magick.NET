@@ -84,6 +84,12 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
+        public void Compress_CanCompress_CanBeCalledTwice()
+        {
+            AssertCompressSmaller(Files.FujiFilmFinePixS1ProGIF);
+        }
+
+        [TestMethod]
         public void LosslessCompress_FileIsNull_ThrowsException()
         {
             ExceptionAssert.ThrowsArgumentNullException("file", () =>
@@ -138,6 +144,12 @@ namespace Magick.NET.Tests
         public void LosslessCompress_CannotCompress_FileIsNotSmaller()
         {
             AssertLosslessCompressNotSmaller(Files.RoseSparkleGIF);
+        }
+
+        [TestMethod]
+        public void Compress_CanLoslessCompress_CanBeCalledTwice()
+        {
+            AssertLosslessCompressSmaller(Files.FujiFilmFinePixS1ProGIF);
         }
     }
 }
