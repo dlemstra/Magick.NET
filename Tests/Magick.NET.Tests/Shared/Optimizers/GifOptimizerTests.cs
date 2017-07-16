@@ -86,7 +86,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Compress_CanCompress_CanBeCalledTwice()
         {
-            AssertCompressSmaller(Files.FujiFilmFinePixS1ProGIF);
+            AssertCompressTwice(Files.FujiFilmFinePixS1ProGIF);
         }
 
         [TestMethod]
@@ -149,7 +149,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Compress_CanLoslessCompress_CanBeCalledTwice()
         {
-            AssertLosslessCompressSmaller(Files.FujiFilmFinePixS1ProGIF);
+            AssertCompressTwice(Files.FujiFilmFinePixS1ProGIF);
         }
     }
 }
