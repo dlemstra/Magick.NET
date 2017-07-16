@@ -10,45 +10,134 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System.IO;
+using ImageMagick;
 using ImageMagick.ImageOptimizers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
     [TestClass]
-    public class GifOptimizerTests : IImageOptimizerTests
+    public class GifOptimizerTests : IImageOptimizerTests<GifOptimizer>
     {
         [TestMethod]
-        public void Test_InvalidArguments()
+        public void OptimalCompression_DefaultIsFalse()
         {
-            Test_Compress_InvalidArguments();
-            Test_LosslessCompress_InvalidArguments();
+            Assert.IsFalse(Optimizer.OptimalCompression);
         }
 
         [TestMethod]
-        public void Test_InvalidFile()
+        public void Compress_FileIsNull_ThrowsException()
         {
-            Test_Compress_InvalidFile(Files.InvitationTif);
-            Test_LosslessCompress_InvalidFile(Files.InvitationTif);
+            ExceptionAssert.ThrowsArgumentNullException("file", () =>
+            {
+                Optimizer.Compress((FileInfo)null);
+            });
         }
 
         [TestMethod]
-        public void Test_Compress()
+        public void Compress_FileNameIsNull_ThrowsException()
         {
-            Test_Compress_NotSmaller(Files.RoseSparkleGIF);
-            Test_Compress_Smaller(Files.FujiFilmFinePixS1ProGIF);
+            ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+            {
+                Optimizer.Compress((string)null);
+            });
         }
 
         [TestMethod]
-        public void Test_LosslessCompress()
+        public void Compress_FileNameIsEmpty_ThrowsException()
         {
-            Test_LosslessCompress_NotSmaller(Files.RoseSparkleGIF);
-            Test_LosslessCompress_Smaller(Files.FujiFilmFinePixS1ProGIF);
+            ExceptionAssert.ThrowsArgumentException("fileName", () =>
+            {
+                Optimizer.Compress(string.Empty);
+            });
         }
 
-        protected override IImageOptimizer CreateImageOptimizer()
+        [TestMethod]
+        public void Compress_FileNameIsInvalid_ThrowsException()
         {
-            return new GifOptimizer();
+            ExceptionAssert.ThrowsArgumentException("fileName", () =>
+            {
+                Optimizer.Compress(Files.Missing);
+            });
+        }
+
+        [TestMethod]
+        public void Compress_InvalidFile_ThrowsException()
+        {
+            ExceptionAssert.Throws<MagickCorruptImageErrorException>(() =>
+            {
+                Optimizer.Compress(Files.InvitationTif);
+            });
+        }
+
+        [TestMethod]
+        public void Compress_CanCompress_FileIsSmaller()
+        {
+            AssertCompressSmaller(Files.FujiFilmFinePixS1ProGIF);
+        }
+
+        [TestMethod]
+        public void Compress_CannotCompress_FileIsNotSmaller()
+        {
+            AssertCompressNotSmaller(Files.RoseSparkleGIF);
+        }
+
+        [TestMethod]
+        public void LosslessCompress_FileIsNull_ThrowsException()
+        {
+            ExceptionAssert.ThrowsArgumentNullException("file", () =>
+            {
+                Optimizer.LosslessCompress((FileInfo)null);
+            });
+        }
+
+        [TestMethod]
+        public void LosslessCompress_FileNameIsNull_ThrowsException()
+        {
+            ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+            {
+                Optimizer.LosslessCompress((string)null);
+            });
+        }
+
+        [TestMethod]
+        public void LosslessCompress_FileNameIsEmpty_ThrowsException()
+        {
+            ExceptionAssert.ThrowsArgumentException("fileName", () =>
+            {
+                Optimizer.LosslessCompress(string.Empty);
+            });
+        }
+
+        [TestMethod]
+        public void LosslessCompress_FileNameIsInvalid_ThrowsException()
+        {
+            ExceptionAssert.ThrowsArgumentException("fileName", () =>
+            {
+                Optimizer.LosslessCompress(Files.Missing);
+            });
+        }
+
+        [TestMethod]
+        public void LosslessCompress_InvalidFile_ThrowsException()
+        {
+            ExceptionAssert.Throws<MagickCorruptImageErrorException>(() =>
+            {
+                Optimizer.LosslessCompress(Files.InvitationTif);
+            });
+        }
+
+        [TestMethod]
+        public void LosslessCompress_CanCompress_FileIsSmaller()
+        {
+            AssertLosslessCompressSmaller(Files.FujiFilmFinePixS1ProGIF);
+        }
+
+        [TestMethod]
+        public void LosslessCompress_CannotCompress_FileIsNotSmaller()
+        {
+            AssertLosslessCompressNotSmaller(Files.RoseSparkleGIF);
         }
     }
 }

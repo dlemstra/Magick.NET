@@ -28,10 +28,10 @@ namespace Magick.NET.Tests
 
         public TemporaryFile(string fileName)
         {
-            _tempFile = new FileInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + fileName));
-            using (FileStream fs = _tempFile.OpenWrite())
-            {
-            }
+            if (File.Exists(fileName))
+                CreateFromFile(fileName);
+            else
+                CreateEmptyFile(fileName);
         }
 
         public FileInfo FileInfo
@@ -45,6 +45,21 @@ namespace Magick.NET.Tests
         public void Dispose()
         {
             Cleanup.DeleteFile(_tempFile);
+        }
+
+        private void CreateEmptyFile(string fileName)
+        {
+            _tempFile = new FileInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + fileName));
+            using (FileStream fs = _tempFile.OpenWrite())
+            {
+            }
+        }
+
+        private void CreateFromFile(string fileName)
+        {
+            _tempFile = new FileInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + Path.GetFileName(fileName)));
+            File.Copy(fileName, _tempFile.FullName);
+            _tempFile.Refresh();
         }
     }
 }

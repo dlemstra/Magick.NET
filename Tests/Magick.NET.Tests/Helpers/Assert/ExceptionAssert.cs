@@ -48,6 +48,18 @@ namespace Magick.NET.Tests
             }
         }
 
+        public static void ThrowsArgumentNullException(string paramName, Action action)
+        {
+            ArgumentException exception = Throws<ArgumentNullException>(action);
+            Assert.AreEqual(paramName, exception.ParamName);
+        }
+
+        public static void ThrowsArgumentException(string paramName, Action action)
+        {
+            ArgumentException exception = Throws<ArgumentException>(action);
+            Assert.AreEqual(paramName, exception.ParamName);
+        }
+
         public static void ThrowsArgumentException(Action action, string paramName, string messagePart)
         {
             ArgumentException exception = Throws<ArgumentException>(action);
