@@ -17,7 +17,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public abstract class IImageOptimizerTests<TOptimizer>
+    public abstract class ImageOptimizerTestHelper<TOptimizer> : ImageOptimizerTestHelper
         where TOptimizer : IImageOptimizer, new()
     {
         protected IImageOptimizer Optimizer => new TOptimizer();
@@ -113,45 +113,6 @@ namespace Magick.NET.Tests
                 long after2 = tempFile.Length;
 
                 Assert.AreEqual(after1, after2);
-            }
-        }
-
-        private long AssertCompress(string fileName, bool resultIsSmaller, Action<FileInfo> action)
-        {
-            using (TemporaryFile tempFile = new TemporaryFile(fileName))
-            {
-                long before = tempFile.Length;
-
-                action(tempFile);
-
-                long after = tempFile.Length;
-
-                if (resultIsSmaller)
-                    Assert.IsTrue(after < before, "{0} is not smaller than {1}", after, before);
-                else
-                    Assert.AreEqual(before, after);
-
-                return after;
-            }
-        }
-
-        private long AssertCompress(string fileName, bool resultIsSmaller, Action<string> action)
-        {
-            using (TemporaryFile tempFile = new TemporaryFile(fileName))
-            {
-                long before = tempFile.Length;
-
-                action(tempFile.FullName);
-
-                tempFile.Refresh();
-                long after = tempFile.Length;
-
-                if (resultIsSmaller)
-                    Assert.IsTrue(after < before, "{0} is not smaller than {1}", after, before);
-                else
-                    Assert.AreEqual(before, after);
-
-                return after;
             }
         }
     }

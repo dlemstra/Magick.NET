@@ -179,7 +179,7 @@ namespace ImageMagick
         public static MagickFormatInfo Create(string fileName)
         {
             string filePath = FileHelper.CheckForBaseDirectory(fileName);
-            Throw.IfNull(nameof(fileName), filePath);
+            Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             return Create(new FileInfo(filePath));
         }

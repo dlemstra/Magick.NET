@@ -21,23 +21,21 @@ namespace Magick.NET.Tests
         private DirectoryInfo _tempDirectory;
 
         public TemporaryDirectory()
+            : this(string.Empty)
         {
-            _tempDirectory = new DirectoryInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()));
+        }
+
+        public TemporaryDirectory(string directoryName)
+        {
+            _tempDirectory = new DirectoryInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + directoryName));
             _tempDirectory.Create();
         }
 
-        public DirectoryInfo DirectoryInfo
-        {
-            get
-            {
-                return _tempDirectory;
-            }
-        }
+        public string FullName => _tempDirectory.FullName;
 
         public void Dispose()
         {
-            if (_tempDirectory.Exists)
-                _tempDirectory.Delete(true);
+            Cleanup.DeleteDirectory(_tempDirectory);
         }
     }
 }

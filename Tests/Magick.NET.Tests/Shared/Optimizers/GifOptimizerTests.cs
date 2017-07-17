@@ -18,7 +18,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Magick.NET.Tests
 {
     [TestClass]
-    public class GifOptimizerTests : IImageOptimizerTests<GifOptimizer>
+    public class GifOptimizerTests : ImageOptimizerTestHelper<GifOptimizer>
     {
         [TestMethod]
         public void OptimalCompression_DefaultIsFalse()
@@ -147,7 +147,7 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Compress_CanLoslessCompress_CanBeCalledTwice()
+        public void LoslessCompress_CanCompress_CanBeCalledTwice()
         {
             AssertCompressTwice(Files.FujiFilmFinePixS1ProGIF);
         }

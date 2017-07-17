@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.IO;
 
 namespace Magick.NET.Tests
@@ -21,6 +22,11 @@ namespace Magick.NET.Tests
         {
             if (path != null && Directory.Exists(path))
                 Directory.Delete(path, true);
+        }
+
+        public static void DeleteDirectory(DirectoryInfo directory)
+        {
+            DeleteDirectory(directory.FullName);
         }
 
         public static void DeleteFile(string path)

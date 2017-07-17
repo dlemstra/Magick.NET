@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System.IO;
 using ImageMagick;
 using ImageMagick.ImageOptimizers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,34 +18,144 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Magick.NET.Tests
 {
     [TestClass]
-    public class PngOptimizerTests : IImageOptimizerTests
+    public class PngOptimizerTests : ImageOptimizerTestHelper<PngOptimizer>
     {
         [TestMethod]
-        public void Test_InvalidArguments()
+        public void OptimalCompression_DefaultIsFalse()
         {
-            Test_Compress_InvalidArguments();
-            Test_LosslessCompress_InvalidArguments();
+            Assert.IsFalse(Optimizer.OptimalCompression);
         }
 
         [TestMethod]
-        public void Test_InvalidFile()
+        public void Compress_FileIsNull_ThrowsException()
         {
-            Test_Compress_InvalidFile(Files.ImageMagickJPG);
-            Test_LosslessCompress_InvalidFile(Files.ImageMagickJPG);
+            ExceptionAssert.ThrowsArgumentNullException("file", () =>
+            {
+                Optimizer.Compress((FileInfo)null);
+            });
         }
 
         [TestMethod]
-        public void Test_LosslessCompress()
+        public void Compress_FileNameIsNull_ThrowsException()
         {
-            Test_LosslessCompress_Smaller(Files.SnakewarePNG);
+            ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+            {
+                Optimizer.Compress((string)null);
+            });
+        }
+
+        [TestMethod]
+        public void Compress_FileNameIsEmpty_ThrowsException()
+        {
+            ExceptionAssert.ThrowsArgumentException("fileName", () =>
+            {
+                Optimizer.Compress(string.Empty);
+            });
+        }
+
+        [TestMethod]
+        public void Compress_FileNameIsInvalid_ThrowsException()
+        {
+            ExceptionAssert.ThrowsArgumentException("fileName", () =>
+            {
+                Optimizer.Compress(Files.Missing);
+            });
+        }
+
+        [TestMethod]
+        public void Compress_InvalidFile_ThrowsException()
+        {
+            ExceptionAssert.Throws<MagickCorruptImageErrorException>(() =>
+            {
+                Optimizer.Compress(Files.InvitationTif);
+            });
+        }
+
+        [TestMethod]
+        public void Compress_CanCompress_FileIsSmaller()
+        {
+            AssertCompressSmaller(Files.SnakewarePNG);
+        }
+
+        [TestMethod]
+        public void Compress_CannotCompress_FileIsNotSmaller()
+        {
+            AssertCompressNotSmaller(Files.MagickNETIconPNG);
+        }
+
+        [TestMethod]
+        public void Compress_CanCompress_CanBeCalledTwice()
+        {
+            AssertCompressTwice(Files.SnakewarePNG);
+        }
+
+        [TestMethod]
+        public void LosslessCompress_FileIsNull_ThrowsException()
+        {
+            ExceptionAssert.ThrowsArgumentNullException("file", () =>
+            {
+                Optimizer.LosslessCompress((FileInfo)null);
+            });
+        }
+
+        [TestMethod]
+        public void LosslessCompress_FileNameIsNull_ThrowsException()
+        {
+            ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+            {
+                Optimizer.LosslessCompress((string)null);
+            });
+        }
+
+        [TestMethod]
+        public void LosslessCompress_FileNameIsEmpty_ThrowsException()
+        {
+            ExceptionAssert.ThrowsArgumentException("fileName", () =>
+            {
+                Optimizer.LosslessCompress(string.Empty);
+            });
+        }
+
+        [TestMethod]
+        public void LosslessCompress_FileNameIsInvalid_ThrowsException()
+        {
+            ExceptionAssert.ThrowsArgumentException("fileName", () =>
+            {
+                Optimizer.LosslessCompress(Files.Missing);
+            });
+        }
+
+        [TestMethod]
+        public void LosslessCompress_InvalidFile_ThrowsException()
+        {
+            ExceptionAssert.Throws<MagickCorruptImageErrorException>(() =>
+            {
+                Optimizer.LosslessCompress(Files.InvitationTif);
+            });
+        }
+
+        [TestMethod]
+        public void LosslessCompress_CanCompress_FileIsSmaller()
+        {
+            AssertLosslessCompressSmaller(Files.SnakewarePNG);
+        }
+
+        [TestMethod]
+        public void LosslessCompress_CannotCompress_FileIsNotSmaller()
+        {
+            AssertLosslessCompressNotSmaller(Files.MagickNETIconPNG);
+        }
+
+        [TestMethod]
+        public void LoslessCompress_CanCompress_CanBeCalledTwice()
+        {
+            AssertCompressTwice(Files.SnakewarePNG);
         }
 
         [TestMethod]
         public void Test_RemoveAlpha()
         {
-            string tempFile = GetTemporaryFileName(".png");
-
-            try
+            using (TemporaryFile tempFile = new TemporaryFile("no-alpha.png"))
             {
                 using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
                 {
@@ -64,15 +175,6 @@ namespace Magick.NET.Tests
                     Assert.IsFalse(image.HasAlpha);
                 }
             }
-            finally
-            {
-                Cleanup.DeleteFile(tempFile);
-            }
-        }
-
-        protected override IImageOptimizer CreateImageOptimizer()
-        {
-            return new PngOptimizer();
         }
     }
 }

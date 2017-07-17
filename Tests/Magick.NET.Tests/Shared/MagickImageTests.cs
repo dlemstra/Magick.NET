@@ -726,7 +726,7 @@ namespace Magick.NET.Tests
                     Assert.AreEqual(4, area.Width);
                     Assert.AreEqual(2, area.Height);
 
-                    Assert.AreEqual(64, area.ToByteArray(MagickFormat.Rgba).Length);
+                    Assert.AreEqual(32, area.ToByteArray(MagickFormat.Rgba).Length);
                 }
             }
         }
@@ -3638,9 +3638,9 @@ namespace Magick.NET.Tests
                 Assert.AreEqual("Gif 480x640 8-bit sRGB 97.34kB", image.ToString());
             }
 
-            using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+            using (IMagickImage image = new MagickImage(Files.TestPNG))
             {
-                Assert.AreEqual("Png 128x128 16-bit sRGB 22.93kB", image.ToString());
+                Assert.AreEqual("Png 150x100 16-bit sRGB 7.42kB", image.ToString());
             }
         }
 

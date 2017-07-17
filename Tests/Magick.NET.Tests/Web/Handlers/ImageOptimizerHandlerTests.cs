@@ -60,7 +60,7 @@ namespace Magick.NET.Tests
         {
             using (TemporaryDirectory directory = new TemporaryDirectory())
             {
-                string tempDir = directory.DirectoryInfo.FullName;
+                string tempDir = directory.FullName;
 
                 string config = $@"<magick.net.web cacheDirectory=""{tempDir}"" tempDirectory=""{tempDir}""/>";
 

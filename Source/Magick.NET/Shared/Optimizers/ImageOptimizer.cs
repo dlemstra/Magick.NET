@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using ImageMagick.ImageOptimizers;
@@ -32,6 +33,21 @@ namespace ImageMagick
         {
             get;
             set;
+        }
+
+        private string SupportedFormats
+        {
+            get
+            {
+                List<string> formats = new List<string>();
+
+                foreach (IImageOptimizer optimizer in _optimizers)
+                {
+                    formats.Add(optimizer.Format.Module.ToString());
+                }
+
+                return string.Join(", ", formats.ToArray());
+            }
         }
 
         /// <summary>
@@ -78,8 +94,7 @@ namespace ImageMagick
         /// <returns>True when the supplied formation information is supported.</returns>
         public bool IsSupported(MagickFormatInfo formatInfo)
         {
-            if (formatInfo == null)
-                return false;
+            Throw.IfNull(nameof(formatInfo), formatInfo);
 
             foreach (IImageOptimizer optimizer in _optimizers)
             {
@@ -168,8 +183,7 @@ namespace ImageMagick
         private IImageOptimizer GetOptimizer(FileInfo file)
         {
             MagickFormatInfo info = GetFormatInformation(file);
-            if (info == null)
-                return null;
+            DebugThrow.IfNull(nameof(info), info);
 
             foreach (IImageOptimizer optimizer in _optimizers)
             {
@@ -177,7 +191,7 @@ namespace ImageMagick
                     return optimizer;
             }
 
-            return null;
+            throw new MagickCorruptImageErrorException($"Invalid format, supported formats are: {SupportedFormats}");
         }
     }
 }

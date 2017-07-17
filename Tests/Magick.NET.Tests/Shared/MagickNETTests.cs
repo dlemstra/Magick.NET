@@ -174,7 +174,7 @@ namespace Magick.NET.Tests
         {
             using (TemporaryDirectory directory = new TemporaryDirectory())
             {
-                string path = directory.DirectoryInfo.FullName;
+                string path = directory.FullName;
 
                 MagickNET.Initialize(ConfigurationFiles.Default, path);
 
@@ -187,7 +187,7 @@ namespace Magick.NET.Tests
         {
             using (TemporaryDirectory directory = new TemporaryDirectory())
             {
-                string path = directory.DirectoryInfo.FullName;
+                string path = directory.FullName;
 
                 MagickNET.Initialize(ConfigurationFiles.Default, path);
                 MagickNET.Initialize(ConfigurationFiles.Default, path);
