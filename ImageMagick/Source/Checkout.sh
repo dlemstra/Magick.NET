@@ -2,19 +2,22 @@
 
 clone_repository()
 {
-  echo ''
-  echo "Cloning $3 at $2"
+  repos="http://git.imagemagick.org/repos"
+  date="2017-07-11 01:35"
 
-  dir="$3"
-  if [ ! -z "$4" ]; then
-    dir="$4"
+  echo ''
+  echo "Cloning $1 at $date"
+
+  dir="$1"
+  if [ ! -z "$2" ]; then
+    dir="$2"
   fi
   if [ ! -d "$dir" ]; then
-    git clone $1/$3.git $dir
+    git clone $repos/$1.git $dir
   fi
   cd $dir
   git pull origin master
-  git checkout `git rev-list -n 1 --before="$2" origin/master`
+  git checkout `git rev-list -n 1 --before="$date" origin/master`
   cd ..
 }
 
@@ -24,29 +27,29 @@ fi
 
 cd ImageMagick
 
-clone_repository $1 "$2" 'bzlib'
-clone_repository $1 "$2" 'cairo'
-clone_repository $1 "$2" 'croco'
-clone_repository $1 "$2" 'exr'
-clone_repository $1 "$2" 'ffi'
-clone_repository $1 "$2" 'flif'
-clone_repository $1 "$2" 'glib'
-clone_repository $1 "$2" 'ImageMagick'
-clone_repository $1 "$2" 'jp2'
-clone_repository $1 "$2" 'jpeg-turbo' 'jpeg'
-clone_repository $1 "$2" 'lcms'
-clone_repository $1 "$2" 'librsvg'
-clone_repository $1 "$2" 'libxml'
-clone_repository $1 "$2" 'lqr'
-clone_repository $1 "$2" 'openjpeg'
-clone_repository $1 "$2" 'pango'
-clone_repository $1 "$2" 'pixman'
-clone_repository $1 "$2" 'png'
-clone_repository $1 "$2" 'tiff'
-clone_repository $1 "$2" 'ttf'
-clone_repository $1 "$2" 'VisualMagick'
-clone_repository $1 "$2" 'webp'
-clone_repository $1 "$2" 'zlib'
+clone_repository 'bzlib'
+clone_repository 'cairo'
+clone_repository 'croco'
+clone_repository 'exr'
+clone_repository 'ffi'
+clone_repository 'flif'
+clone_repository 'glib'
+clone_repository 'ImageMagick'
+clone_repository 'jp2'
+clone_repository 'jpeg-turbo' 'jpeg'
+clone_repository 'lcms'
+clone_repository 'librsvg'
+clone_repository 'libxml'
+clone_repository 'lqr'
+clone_repository 'openjpeg'
+clone_repository 'pango'
+clone_repository 'pixman'
+clone_repository 'png'
+clone_repository 'tiff'
+clone_repository 'ttf'
+clone_repository 'VisualMagick'
+clone_repository 'webp'
+clone_repository 'zlib'
 
 rm -rf VisualMagick/dcraw
 rm -rf VisualMagick/demos
