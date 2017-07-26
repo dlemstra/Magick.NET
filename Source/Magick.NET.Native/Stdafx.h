@@ -11,6 +11,17 @@
 // and limitations under the License.
 #pragma once
 
+#if MAGICK_NET_LINUX
+
+#include <MagickCore/magick-config.h>
+
+#include <MagickCore/MagickCore.h>
+#include <MagickWand/MagickWand.h>
+
+#define MAGICK_NET_EXPORT __attribute__((visibility("default")))
+
+#else
+
 #define _LIB
 
 #pragma warning(disable : 4710)
@@ -29,8 +40,6 @@
 #include <MagickCore/utility-private.h>
 
 #pragma warning(pop)
-
-#include <string.h>
 
 #define MAGICK_NET_STRINGIFY(s) #s
 #if defined(_DEBUG)
@@ -128,5 +137,7 @@ MAGICK_NET_LINK_LIB("zlib")
 
 #pragma comment(lib, "ws2_32.lib")
 #pragma comment(lib, "urlmon.lib")
+#endif
 
-#include "Exceptions\MagickExceptionHelper.h"
+#include <string.h>
+#include "Exceptions/MagickExceptionHelper.h"

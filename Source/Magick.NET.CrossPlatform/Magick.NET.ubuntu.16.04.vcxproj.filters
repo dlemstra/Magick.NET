@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\Magick.NET.Native\MagickFormatInfo.c" />
+    <ClCompile Include="..\Magick.NET.Native\Colors\MagickColor.c">
+      <Filter>Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Colors\MagickColorCollection.c">
+      <Filter>Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Drawables\DrawingWand.c">
+      <Filter>Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Drawables\PointInfoCollection.c">
+      <Filter>Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Exceptions\MagickExceptionHelper.c">
+      <Filter>Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Helpers\Environment.c">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Helpers\MagickMemory.c">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Matricis\DoubleMatrix.c">
+      <Filter>Matricis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\OpenCL\OpenCL.c">
+      <Filter>OpenCL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\OpenCL\OpenCLDevice.c">
+      <Filter>OpenCL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\OpenCL\OpenCLKernelProfileRecord.c">
+      <Filter>OpenCL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Optimizers\JpegOptimizer.c">
+      <Filter>Optimizers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Pixels\PixelCollection.c">
+      <Filter>Pixels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Settings\DrawingSettings.c">
+      <Filter>Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Settings\MagickSettings.c">
+      <Filter>Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Settings\MontageSettings.c">
+      <Filter>Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Settings\QuantizeSettings.c">
+      <Filter>Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Statistics\ChannelMoments.c">
+      <Filter>Statistics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Statistics\ChannelPerceptualHash.c">
+      <Filter>Statistics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Statistics\ChannelStatistics.c">
+      <Filter>Statistics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Statistics\Moments.c">
+      <Filter>Statistics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Statistics\PerceptualHash.c">
+      <Filter>Statistics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Statistics\Statistics.c">
+      <Filter>Statistics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Types\ConnectedComponent.c">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Types\MagickGeometry.c">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Types\MagickRectangle.c">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Types\OffsetInfo.c">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Types\PointInfo.c">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Types\PrimaryInfo.c">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Types\StringInfo.c">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Types\TypeMetric.c">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\MagickImage.c" />
+    <ClCompile Include="..\Magick.NET.Native\MagickImageCollection.c" />
+    <ClCompile Include="..\Magick.NET.Native\MagickNET.c" />
+    <ClCompile Include="..\Magick.NET.Native\Quantum.c" />
+    <ClCompile Include="..\Magick.NET.Native\ResourceLimits.c" />
+    <ClCompile Include="..\Magick.NET.Native\Stdafx.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Magick.NET.Native\MagickFormatInfo.h" />
+    <ClInclude Include="..\Magick.NET.Native\Colors\MagickColor.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Colors\MagickColorCollection.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Drawables\DrawingWand.h">
+      <Filter>Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Drawables\PointInfoCollection.h">
+      <Filter>Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Exceptions\MagickExceptionHelper.h">
+      <Filter>Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Helpers\Environment.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Helpers\MagickMemory.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Matricis\DoubleMatrix.h">
+      <Filter>Matricis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\OpenCL\OpenCL.h">
+      <Filter>OpenCL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\OpenCL\OpenCLDevice.h">
+      <Filter>OpenCL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\OpenCL\OpenCLKernelProfileRecord.h">
+      <Filter>OpenCL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Optimizers\JpegOptimizer.h">
+      <Filter>Optimizers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Pixels\PixelCollection.h">
+      <Filter>Pixels</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Settings\DrawingSettings.h">
+      <Filter>Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Settings\MagickSettings.h">
+      <Filter>Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Settings\MontageSettings.h">
+      <Filter>Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Settings\QuantizeSettings.h">
+      <Filter>Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Statistics\ChannelMoments.h">
+      <Filter>Statistics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Statistics\ChannelPerceptualHash.h">
+      <Filter>Statistics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Statistics\ChannelStatistics.h">
+      <Filter>Statistics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Statistics\Moments.h">
+      <Filter>Statistics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Statistics\PerceptualHash.h">
+      <Filter>Statistics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Statistics\Statistics.h">
+      <Filter>Statistics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Types\ConnectedComponent.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Types\MagickGeometry.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Types\MagickRectangle.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Types\OffsetInfo.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Types\PointInfo.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Types\PrimaryInfo.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Types\StringInfo.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\Types\TypeMetric.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Magick.NET.Native\MagickImage.h" />
+    <ClInclude Include="..\Magick.NET.Native\MagickImageCollection.h" />
+    <ClInclude Include="..\Magick.NET.Native\MagickNET.h" />
+    <ClInclude Include="..\Magick.NET.Native\Quantum.h" />
+    <ClInclude Include="..\Magick.NET.Native\ResourceLimits.h" />
+    <ClInclude Include="..\Magick.NET.Native\Stdafx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Colors">
+      <UniqueIdentifier>{570005b7-76ba-4aee-b28b-ec2edf24abe9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drawables">
+      <UniqueIdentifier>{6be2c511-e414-4e8a-8137-e0fdbf758ce4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Exceptions">
+      <UniqueIdentifier>{92da54fb-2a43-4989-9057-6f3a569fa510}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helpers">
+      <UniqueIdentifier>{a0e57584-c126-480e-a6f8-22641598738e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Matricis">
+      <UniqueIdentifier>{a0f04e66-35d7-4243-8091-1a9f23e6f29d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Optimizers">
+      <UniqueIdentifier>{65d0a703-3a7e-44aa-b0a5-7ffef89c9b5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pixels">
+      <UniqueIdentifier>{f84d066b-c1e5-4608-9230-a56f07f747c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpenCL">
+      <UniqueIdentifier>{8f3e142b-fbd2-4f74-b894-81e31318b029}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Settings">
+      <UniqueIdentifier>{27f563f8-bb55-4c0a-bf0c-2c55713b86f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Statistics">
+      <UniqueIdentifier>{035b1c34-2fe6-43ef-a9ad-ebfe351c3bd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Types">
+      <UniqueIdentifier>{bc5804f1-1a40-4377-952b-2ee5baa60ea2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -13,8 +13,14 @@
 #include "Stdafx.h"
 #include "JpegOptimizer.h"
 
+#if MAGICK_NET_LINUX
+#include <jpeglib.h>
+#include <jerror.h>
+#define fopen_utf8 fopen
+#else
 #include <jpeg/jpeglib.h>
 #include <jpeg/jerror.h>
+#endif
 #include <setjmp.h>
 
 #define MaxBufferExtent 16384
@@ -295,7 +301,7 @@ static size_t DetermineQuality(j_decompress_ptr decompress_info)
     }
   }
 
-  return min(quality, 85);
+  return quality < 85 ? quality : 85;
 }
 
 static boolean DecompressJpeg(j_decompress_ptr decompress_info, ClientData *client_data)
