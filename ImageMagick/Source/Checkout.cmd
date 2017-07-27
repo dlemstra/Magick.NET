@@ -11,6 +11,6 @@ echo %BASH%
 exit /b 1
 
 :EXECUTE
-%BASH% --login -i -c "./Checkout.sh"
+%BASH% --login -i -c "./Checkout.sh Windows"
 
 pause

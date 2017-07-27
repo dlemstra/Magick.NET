@@ -27,6 +27,12 @@ fi
 
 cd ImageMagick
 
+clone_repository 'ImageMagick'
+
+if [ "$1" != "Windows" ]; then
+	exit
+fi
+
 clone_repository 'bzlib'
 clone_repository 'cairo'
 clone_repository 'croco'
@@ -34,7 +40,6 @@ clone_repository 'exr'
 clone_repository 'ffi'
 clone_repository 'flif'
 clone_repository 'glib'
-clone_repository 'ImageMagick'
 clone_repository 'jp2'
 clone_repository 'jpeg-turbo' 'jpeg'
 clone_repository 'lcms'
