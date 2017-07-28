@@ -130,7 +130,7 @@
     <ClCompile>
       <ThreadSafeStatics />
       <RuntimeTypeInfo />
-      <AdditionalIncludeDirectories>/usr/local/include/ImageMagick-7;/home/magick/projects/Magick.NET.ubuntu.16.04;/usr/include;$(StlIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>/usr/local/include/ImageMagick-7;/root/projects/Magick.NET.ubuntu.16.04;/usr/include;$(StlIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-fPIC %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release-Q8|x64'">NDEBUG;MAGICK_NET_LINUX;MAGICKCORE_QUANTUM_DEPTH=8;MAGICKCORE_HDRI_ENABLE=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release-Q16|x64'">NDEBUG;MAGICK_NET_LINUX;MAGICKCORE_QUANTUM_DEPTH=16;MAGICKCORE_HDRI_ENABLE=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
