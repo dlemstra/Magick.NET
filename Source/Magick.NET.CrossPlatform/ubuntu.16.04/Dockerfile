@@ -13,8 +13,8 @@ RUN mkdir ~/.ssh;echo "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAwFyerjwW+MpAIV056qHP0
 RUN mkdir Magick.NET
 RUN git clone --depth 1 https://github.com/dlemstra/Magick.NET.git Magick.NET
 RUN cd Magick.NET/ImageMagick/Source;sh Checkout.sh
-RUN cd Magick.NET/ImageMagick/Source/ImageMagick/ImageMagick;./configure --with-magick-plus-plus=no --with-quantum-depth=8 --enable-hdri=false;make install
-RUN cd Magick.NET/ImageMagick/Source/ImageMagick/ImageMagick;./configure --with-magick-plus-plus=no --with-quantum-depth=16 --enable-hdri=false;make install
+RUN cd Magick.NET/ImageMagick/Source/ImageMagick/ImageMagick;./configure --with-magick-plus-plus=no --with-quantum-depth=8 --enable-hdri=no;make install
+RUN cd Magick.NET/ImageMagick/Source/ImageMagick/ImageMagick;./configure --with-magick-plus-plus=no --with-quantum-depth=16 --enable-hdri=no;make install
 RUN cd Magick.NET/ImageMagick/Source/ImageMagick/ImageMagick;./configure --with-magick-plus-plus=no --with-quantum-depth=16;make install
 
 # Start sshd on port 22
