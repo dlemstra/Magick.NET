@@ -23,7 +23,7 @@ MAGICK_NET_EXPORT void Environment_Initialize(void)
 
 MAGICK_NET_EXPORT void Environment_SetEnv(const char *name, const char *value)
 {
-#if MAGICK_NET_LINUX
+#ifdef MAGICK_NET_LINUX
   (void) setenv(name, value, 1);
 #else
   _putenv_s(name, value);
