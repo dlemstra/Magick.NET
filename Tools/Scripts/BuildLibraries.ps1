@@ -77,10 +77,7 @@ function Build($platform, $builds)
       $type = "DB"
     }
 
-    if (!(Test-Path "ImageMagick\lib\$($configuration)\$($platform)"))
-    {
-      [void](New-Item -ItemType directory -Path "ImageMagick\lib\$($configuration)\$($platform)")
-    }
+    CreateFolder "ImageMagick\lib\$($configuration)\$($platform)"
     Copy-Item "ImageMagick\Source\ImageMagick\VisualMagick\lib\CORE_$($type)_*.lib" "ImageMagick\lib\$($configuration)\$($platform)"
     
     if ($configuration -eq "Debug")
@@ -88,10 +85,7 @@ function Build($platform, $builds)
       Copy-Item "ImageMagick\Source\ImageMagick\VisualMagick\lib\CORE_$($type)_*.pdb" "ImageMagick\lib\$($configuration)\$($platform)"
     }
 
-    if (!(Test-Path "ImageMagick\$($build.Name)\lib\$($configuration)\$($platform)"))
-    {
-      [void](New-Item -ItemType directory -Path "ImageMagick\$($build.Name)\lib\$($configuration)\$($platform)")
-    }
+    CreateFolder "ImageMagick\$($build.Name)\lib\$($configuration)\$($platform)"
     Move-Item "ImageMagick\lib\$($configuration)\$($platform)\CORE_$($type)_coders_.*"     "ImageMagick\$($build.Name)\lib\$($configuration)\$($platform)" -force
     Move-Item "ImageMagick\lib\$($configuration)\$($platform)\CORE_$($type)_MagickCore_.*" "ImageMagick\$($build.Name)\lib\$($configuration)\$($platform)" -force
     Move-Item "ImageMagick\lib\$($configuration)\$($platform)\CORE_$($type)_MagickWand_.*" "ImageMagick\$($build.Name)\lib\$($configuration)\$($platform)" -force

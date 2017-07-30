@@ -30,6 +30,14 @@ function CheckFolder($folder)
   Exit 1
 }
 
+function CreateFolder($folder)
+{
+    if (!(Test-Path $folder))
+    {
+        [void](New-Item -ItemType directory -Path $folder)
+    }
+}
+
 function CreateChild($xml, $xpath, $name)
 {
   [System.Xml.XmlNamespaceManager] $nsmgr = $xml.NameTable;

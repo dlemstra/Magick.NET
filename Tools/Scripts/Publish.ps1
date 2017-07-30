@@ -93,10 +93,7 @@ function CopyPdbFiles($builds)
 function CopyFrameworkToZipFile($build, $rootDir, $framework)
 {
   $dir = "$rootDir\$framework\Magick.NET"
-  if (!(Test-Path $dir))
-  {
-    [void](New-Item $dir -type directory)
-  }
+  CreateFolder $dir
 
   Copy-Item "Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)\$($framework)\Magick.NET-$($build.Quantum)-$($build.Platform).dll" $dir
   Copy-Item "Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)\$($framework)\Magick.NET-$($build.Quantum)-$($build.Platform).xml" $dir
@@ -112,10 +109,7 @@ function CopyFrameworkToZipFile($build, $rootDir, $framework)
   }
 
   $dir = "$rootDir\$framework\Magick.NET.Web"
-  if (!(Test-Path $dir))
-  {
-    [void](New-Item $dir -type directory)
-  }
+  CreateFolder $dir
 
   Copy-Item "Source\Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)\$($framework)\Magick.NET.Web-$($build.Quantum)-$($build.Platform).dll" $dir
   Copy-Item "Source\Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)\$($framework)\Magick.NET.Web-$($build.Quantum)-$($build.Platform).xml" $dir
@@ -132,10 +126,7 @@ function CopyZipFiles($builds)
     }
 
     $rootDir = FullPath "Publish\Zip\Releases\Magick.NET-$($build.Quantum)-$($build.Platform)"
-    if (!(Test-Path $rootDir))
-    {
-      [void](New-Item $rootDir -type directory)
-    }
+    CreateFolder $rootDir
 
     Copy-Item "Copyright.txt" $rootDir
     Copy-Item "Publish\Readme.txt" $rootDir

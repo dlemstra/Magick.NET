@@ -30,10 +30,7 @@ function GzipAssembly($inFile,$outFile)
   $input.Close()
 
   $folder = (Split-Path $outFile -Parent)
-  if (!(Test-Path $folder))
-  {
-    New-Item -ItemType directory -Path $folder
-  }
+  CreateFolder $folder
   $output = New-Object System.IO.FileStream $outFile, ([IO.FileMode]::Create), ([IO.FileAccess]::Write), ([IO.FileShare]::None)
   $gzipStream = New-Object System.IO.Compression.GzipStream $output, ([IO.Compression.CompressionMode]::Compress)
 
