@@ -66,19 +66,19 @@
   <PropertyGroup Condition="'$(Configuration)' == 'ReleaseQ8'">
     <DefineConstants>Q8;PLATFORM_$(Platform)</DefineConstants>
     <Optimize>true</Optimize>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors Condition="'$(OS)' == 'Windows_NT'">true</TreatWarningsAsErrors>
     <AssemblyTitle>Magick.NET.Tests Q8 $(Platform) $(TargetFrameWork)</AssemblyTitle>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'ReleaseQ16'">
     <DefineConstants>Q16;PLATFORM_$(Platform)</DefineConstants>
     <Optimize>true</Optimize>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors Condition="'$(OS)' == 'Windows_NT'">true</TreatWarningsAsErrors>
     <AssemblyTitle>Magick.NET.Tests Q16 $(Platform) $(TargetFrameWork)</AssemblyTitle>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'ReleaseQ16-HDRI'">
     <DefineConstants>Q16HDRI;PLATFORM_$(Platform)</DefineConstants>
     <Optimize>true</Optimize>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors Condition="'$(OS)' == 'Windows_NT'">true</TreatWarningsAsErrors>
     <AssemblyTitle>Magick.NET.Tests Q16-HDRI $(Platform) $(TargetFrameWork)</AssemblyTitle>
   </PropertyGroup>
 </Project>

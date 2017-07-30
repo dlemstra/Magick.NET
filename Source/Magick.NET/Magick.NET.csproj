@@ -75,7 +75,7 @@
   <PropertyGroup Condition="'$(Configuration)' == 'ReleaseQ8'">
     <DefineConstants>Q8;PLATFORM_$(Platform)</DefineConstants>
     <Optimize>true</Optimize>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors Condition="'$(OS)' == 'Windows_NT'">true</TreatWarningsAsErrors>
     <AssemblyName>Magick.NET-Q8-$(Platform)</AssemblyName>
     <AssemblyTitle>Magick.NET Q8 $(Platform) $(TargetFrameWork)</AssemblyTitle>
     <DocumentationFile>bin\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET-Q8-$(Platform).xml</DocumentationFile>
@@ -83,7 +83,7 @@
   <PropertyGroup Condition="'$(Configuration)' == 'ReleaseQ16'">
     <DefineConstants>Q16;PLATFORM_$(Platform)</DefineConstants>
     <Optimize>true</Optimize>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors Condition="'$(OS)' == 'Windows_NT'">true</TreatWarningsAsErrors>
     <AssemblyName>Magick.NET-Q16-$(Platform)</AssemblyName>
     <AssemblyTitle>Magick.NET Q16 $(Platform) $(TargetFrameWork)</AssemblyTitle>
     <DocumentationFile>bin\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET-Q16-$(Platform).xml</DocumentationFile>
@@ -91,7 +91,7 @@
   <PropertyGroup Condition="'$(Configuration)' == 'ReleaseQ16-HDRI'">
     <DefineConstants>Q16HDRI;PLATFORM_$(Platform)</DefineConstants>
     <Optimize>true</Optimize>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors Condition="'$(OS)' == 'Windows_NT'">true</TreatWarningsAsErrors>
     <AssemblyName>Magick.NET-Q16-HDRI-$(Platform)</AssemblyName>
     <AssemblyTitle>Magick.NET Q16-HDRI $(Platform) $(TargetFrameWork)</AssemblyTitle>
     <DocumentationFile>bin\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET-Q16-HDRI-$(Platform).xml</DocumentationFile>
