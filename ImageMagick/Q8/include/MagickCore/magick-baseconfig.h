@@ -113,6 +113,11 @@
 #define MAGICKCORE_HAVE_LCMS2_H
 
 /*
+  Define to use the Raw library
+*/
+#define MAGICKCORE_RAW_R_DELEGATE
+
+/*
   Define to use the RSVG library
 */
 #define MAGICKCORE_RSVG_DELEGATE

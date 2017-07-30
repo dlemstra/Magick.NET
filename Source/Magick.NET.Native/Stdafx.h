@@ -11,7 +11,7 @@
 // and limitations under the License.
 #pragma once
 
-#if MAGICK_NET_LINUX
+#ifdef MAGICK_NET_LINUX
 
 #include <MagickCore/magick-config.h>
 
@@ -93,6 +93,10 @@ MAGICK_NET_LINK_LIB("lcms")
 
 #if defined(MAGICKCORE_LIBOPENJP2_DELEGATE)
 MAGICK_NET_LINK_LIB("openjpeg")
+#endif
+
+#if defined(MAGICKCORE_RAW_R_DELEGATE)
+MAGICK_NET_LINK_LIB("libraw")
 #endif
 
 MAGICK_NET_LINK_LIB("libxml")
