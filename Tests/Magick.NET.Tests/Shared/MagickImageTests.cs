@@ -41,7 +41,7 @@ namespace Magick.NET.Tests
                 image.AdaptiveBlur(10, 5);
 
 #if Q8 || Q16
-                ColorAssert.AreEqual(new MagickColor("#a868dfa7f8d7fe76"), image, 56, 68);
+                ColorAssert.AreEqual(new MagickColor("#a867dfa7f8d7fe76"), image, 56, 68);
 #elif Q16HDRI
                 ColorAssert.AreEqual(new MagickColor("#a8a8dfdff8f8"), image, 56, 68);
 #else
@@ -70,7 +70,7 @@ namespace Magick.NET.Tests
             {
                 image.AdaptiveSharpen(10, 10);
 #if Q8 || Q16
-                ColorAssert.AreEqual(new MagickColor("#a985e09ff96a"), image, 56, 68);
+                ColorAssert.AreEqual(new MagickColor("#a986e09ff969"), image, 56, 68);
 #elif Q16HDRI
                 ColorAssert.AreEqual(new MagickColor("#a8a8dfdff8f8"), image, 56, 68);
 #else
@@ -1409,7 +1409,7 @@ namespace Magick.NET.Tests
 
                 ColorAssert.AreEqual(new MagickColor("#0000"), image, 1, 64);
                 ColorAssert.AreEqual(MagickColors.Cornsilk, image, 104, 50);
-                ColorAssert.AreEqual(new MagickColor("#aa67e157f9da"), image, 66, 62);
+                ColorAssert.AreEqual(new MagickColor("#aa4de148f9cb"), image, 66, 62);
             }
         }
 
@@ -2061,7 +2061,7 @@ namespace Magick.NET.Tests
             using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
             {
                 image.LevelColors(MagickColors.Fuchsia, MagickColors.Goldenrod);
-                ColorAssert.AreEqual(new MagickColor("#ffffbed24bc3fffa"), image, 42, 75);
+                ColorAssert.AreEqual(new MagickColor("#ffffbed54bc4"), image, 42, 75);
                 ColorAssert.AreEqual(new MagickColor("#ffffffff0809"), image, 62, 75);
             }
 
@@ -2074,10 +2074,10 @@ namespace Magick.NET.Tests
                 using (IMagickImage second = new MagickImage(Files.MagickNETIconPNG))
                 {
                     second.Alpha(AlphaOption.Background);
-#if Q8
+#if Q8 || Q16
                     Assert.AreEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
-#elif Q16 || Q16HDRI
-                    Assert.AreEqual(0.0, 0.00000001, first.Compare(second, ErrorMetric.RootMeanSquared));
+#elif Q16HDRI
+                    Assert.AreEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared), 0.00000001);
 #else
 #error Not implemented!
 #endif
