@@ -88,7 +88,10 @@ function CreateNuGetPackages($id, $version, $build)
     AddFileElement $xml "..\..\Source\Magick.NET.Native\bin\Release$($build.Quantum)\x64\Magick.NET-$($build.Quantum)-x64.Native.dll" "runtimes\win7-x64\native"
   }
 
-  AddFileElement $xml "..\..\ImageMagick\$($build.Quantum)\lib\Release\CrossPlatform\ubuntu.16.04\Magick.NET-$($build.Quantum)-x64.Native.dll.so" "runtimes\linux-x64\native"
+  if ($build.Platform -ne "x86")
+  {
+    AddFileElement $xml "..\..\ImageMagick\$($build.Quantum)\lib\Release\CrossPlatform\ubuntu.16.04\Magick.NET-$($build.Quantum)-x64.Native.dll.so" "runtimes\linux-x64\native"
+  }
 
   AddFileElement $xml "..\Readme.txt" "Readme.txt"
   AddFileElement $xml "..\..\Copyright.txt" "Copyright.txt"

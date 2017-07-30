@@ -8,6 +8,7 @@ if "%2"=="AnyCPU" goto anycpu
 
 xcopy %LIBDIR%\lib\Release\%2 %TARGET%\lib\Release\%2 /Y /S /I
 xcopy %LIBDIR%\%1\lib\Release\%2 %TARGET%\%1\lib\Release\%2 /Y /S /I
+xcopy %LIBDIR%\%1\lib\Release\CrossPlatform %TARGET%\%1\lib\Release\CrossPlatform /Y /S /I
 
 goto build
 
