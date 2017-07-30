@@ -8,7 +8,7 @@ goto done
 
 :copy
 
-echo Are you sure?
+echo Are you sure that you want to copy the libraries?
 pause
 
 xcopy lib\Release %DROPBOX%\lib\Release /Y /S /I

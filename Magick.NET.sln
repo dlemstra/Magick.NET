@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.15
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magick.NET", "Source\Magick.NET\Magick.NET.csproj", "{DAAE3844-6435-4912-8F69-9F7A9242B4AC}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -18,6 +18,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magick.NET.Samples", "Sampl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{642B2576-373D-4B84-A3C0-F6F9AC2A23D5}"
 	ProjectSection(SolutionItems) = preProject
+		Tools\BuildCrossPlatform.cmd = Tools\BuildCrossPlatform.cmd
 		Tools\GenerateAnyCPU.cmd = Tools\GenerateAnyCPU.cmd
 		Tools\GenerateDrawables.cmd = Tools\GenerateDrawables.cmd
 		Tools\GenerateMagickColors.cmd = Tools\GenerateMagickColors.cmd
@@ -29,6 +30,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{8375C997-426E-4E39-AFFF-FFE8D97CB328}"
 	ProjectSection(SolutionItems) = preProject
 		Tools\Scripts\AnyCPU.ps1 = Tools\Scripts\AnyCPU.ps1
+		Tools\Scripts\BuildCrossPlatform.ps1 = Tools\Scripts\BuildCrossPlatform.ps1
 		Tools\Scripts\BuildLibraries.ps1 = Tools\Scripts\BuildLibraries.ps1
 		Tools\Scripts\GenerateDrawables.ps1 = Tools\Scripts\GenerateDrawables.ps1
 		Tools\Scripts\GenerateLibrariesDoc.ps1 = Tools\Scripts\GenerateLibrariesDoc.ps1
@@ -69,6 +71,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{117690
 		ImageMagick\Source\BuildAll.cmd = ImageMagick\Source\BuildAll.cmd
 		ImageMagick\Source\Checkout.cmd = ImageMagick\Source\Checkout.cmd
 		ImageMagick\Source\Checkout.sh = ImageMagick\Source\Checkout.sh
+		ImageMagick\CopyLibsFromDropbox.cmd = ImageMagick\CopyLibsFromDropbox.cmd
+		ImageMagick\CopyLibsToDropbox.cmd = ImageMagick\CopyLibsToDropbox.cmd
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Debug", "Debug", "{EE2D8A24-038F-4609-B258-08FB13D59DB0}"
