@@ -14,6 +14,7 @@ using System.Xml;
 using ImageMagick;
 using ImageMagick.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
 
 namespace Magick.NET.Tests
 {
@@ -43,8 +44,19 @@ namespace Magick.NET.Tests
 
         private static string ModifyPolicy(string data)
         {
+            XmlReaderSettings settings = new XmlReaderSettings()
+            {
+                DtdProcessing = DtdProcessing.Ignore,
+            };
+
             XmlDocument doc = new XmlDocument();
-            doc.LoadXml(data);
+            using (StringReader sr = new StringReader(data))
+            {
+                using (XmlReader reader = XmlReader.Create(sr, settings))
+                {
+                    doc.Load(reader);
+                }
+            }
 
             XmlElement policy = doc.CreateElement("policy");
             SetAttribute(policy, "domain", "coder");
