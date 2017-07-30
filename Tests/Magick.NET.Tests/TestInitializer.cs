@@ -10,11 +10,11 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System.IO;
 using System.Xml;
 using ImageMagick;
 using ImageMagick.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
 
 namespace Magick.NET.Tests
 {
