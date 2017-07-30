@@ -5,6 +5,13 @@ VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Magick.NET.ubuntu.16.04", "Source\Magick.NET.CrossPlatform\Magick.NET.ubuntu.16.04.vcxproj", "{6F17FA39-6A72-4FF6-963E-2C66AE8D969D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dockerfiles", "Dockerfiles", "{3509E7AD-A097-40A8-82E2-48195A38DCF3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ubuntu.16.04", "ubuntu.16.04", "{97BED7DE-BF9D-4B97-9099-21C52830C877}"
+	ProjectSection(SolutionItems) = preProject
+		Source\Magick.NET.CrossPlatform\ubuntu.16.04\Dockerfile = Source\Magick.NET.CrossPlatform\ubuntu.16.04\Dockerfile
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		ReleaseQ16|x64 = ReleaseQ16|x64
@@ -21,5 +28,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{97BED7DE-BF9D-4B97-9099-21C52830C877} = {3509E7AD-A097-40A8-82E2-48195A38DCF3}
 	EndGlobalSection
 EndGlobal

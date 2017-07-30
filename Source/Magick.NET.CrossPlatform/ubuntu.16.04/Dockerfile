@@ -15,7 +15,7 @@ RUN git clone --depth 1 https://github.com/dlemstra/Magick.NET.git Magick.NET
 RUN cd Magick.NET/ImageMagick/Source;sh Checkout.sh
 RUN cd Magick.NET/ImageMagick/Source/ImageMagick/ImageMagick;./configure --with-magick-plus-plus=no --with-quantum-depth=8 --enable-hdri=false;make install
 RUN cd Magick.NET/ImageMagick/Source/ImageMagick/ImageMagick;./configure --with-magick-plus-plus=no --with-quantum-depth=16 --enable-hdri=false;make install
-RUN cd Magick.NET/ImageMagick/Source/ImageMagick/ImageMagick;./configure --with-magick-plus-plus=no --with-quantum-depth=16 --enable-hdri=true;make install
+RUN cd Magick.NET/ImageMagick/Source/ImageMagick/ImageMagick;./configure --with-magick-plus-plus=no --with-quantum-depth=16;make install
 
 # Start sshd on port 22
 EXPOSE 22
