@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Release-Q8|x64">
-      <Configuration>Release-Q8</Configuration>
+    <ProjectConfiguration Include="ReleaseQ8|x64">
+      <Configuration>ReleaseQ8</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release-Q16|x64">
-      <Configuration>Release-Q16</Configuration>
+    <ProjectConfiguration Include="ReleaseQ16|x64">
+      <Configuration>ReleaseQ16</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release-Q16-HDRI|x64">
-      <Configuration>Release-Q16-HDRI</Configuration>
+    <ProjectConfiguration Include="ReleaseQ16-HDRI|x64">
+      <Configuration>ReleaseQ16-HDRI</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
@@ -36,15 +36,15 @@
   <ImportGroup Label="Shared" />
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Q8|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">
     <TargetName>Magick.NET-Q8-x64.Native.dll</TargetName>
     <TargetExt>.so</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Q16|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">
     <TargetName>Magick.NET-Q16-x64.Native.dll</TargetName>
     <TargetExt>.so</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Q16-HDRI|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'">
     <TargetName>Magick.NET-Q16-HDRI-x64.Native.dll</TargetName>
     <TargetExt>.so</TargetExt>
   </PropertyGroup>
@@ -132,14 +132,14 @@
       <RuntimeTypeInfo />
       <AdditionalIncludeDirectories>/usr/local/include/ImageMagick-7;/root/projects/Magick.NET.ubuntu.16.04;/usr/include;$(StlIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-fPIC %(AdditionalOptions)</AdditionalOptions>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release-Q8|x64'">NDEBUG;MAGICK_NET_LINUX;MAGICKCORE_QUANTUM_DEPTH=8;MAGICKCORE_HDRI_ENABLE=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release-Q16|x64'">NDEBUG;MAGICK_NET_LINUX;MAGICKCORE_QUANTUM_DEPTH=16;MAGICKCORE_HDRI_ENABLE=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release-Q16-HDRI|x64'">NDEBUG;MAGICK_NET_LINUX;MAGICKCORE_QUANTUM_DEPTH=16;MAGICKCORE_HDRI_ENABLE=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">NDEBUG;MAGICK_NET_LINUX;MAGICKCORE_QUANTUM_DEPTH=8;MAGICKCORE_HDRI_ENABLE=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">NDEBUG;MAGICK_NET_LINUX;MAGICKCORE_QUANTUM_DEPTH=16;MAGICKCORE_HDRI_ENABLE=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'">NDEBUG;MAGICK_NET_LINUX;MAGICKCORE_QUANTUM_DEPTH=16;MAGICKCORE_HDRI_ENABLE=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <LibraryDependencies Condition="'$(Configuration)|$(Platform)'=='Release-Q8|x64'">MagickCore-7.Q8;MagickWand-7.Q8;jpeg</LibraryDependencies>
-      <LibraryDependencies Condition="'$(Configuration)|$(Platform)'=='Release-Q16|x64'">MagickCore-7.Q16;MagickWand-7.Q16;jpeg</LibraryDependencies>
-      <LibraryDependencies Condition="'$(Configuration)|$(Platform)'=='Release-Q16-HDRI|x64'">MagickCore-7.Q16HDRI;MagickWand-7.Q16HDRI;jpeg</LibraryDependencies>
+      <LibraryDependencies Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">MagickCore-7.Q8;MagickWand-7.Q8;jpeg</LibraryDependencies>
+      <LibraryDependencies Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">MagickCore-7.Q16;MagickWand-7.Q16;jpeg</LibraryDependencies>
+      <LibraryDependencies Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'">MagickCore-7.Q16HDRI;MagickWand-7.Q16HDRI;jpeg</LibraryDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
