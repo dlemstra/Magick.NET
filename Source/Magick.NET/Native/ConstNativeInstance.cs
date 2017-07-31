@@ -34,6 +34,8 @@ namespace ImageMagick
             }
         }
 
+        public bool HasInstance => _instance != IntPtr.Zero;
+
         protected abstract string TypeName
         {
             get;

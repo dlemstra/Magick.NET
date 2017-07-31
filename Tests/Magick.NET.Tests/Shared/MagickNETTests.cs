@@ -71,7 +71,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Initialize_XmlFileIsMissing_ThrowsException()
         {
-            string path = Files.Root + @"..\..\Source\Magick.NET.Native\Resources\xml";
+            string path = Files.Root + @"../../Source/Magick.NET.Native/Resources/xml";
             foreach (string fileName in Directory.GetFiles(path, "*.xml"))
             {
                 string tempFile = fileName + ".tmp";

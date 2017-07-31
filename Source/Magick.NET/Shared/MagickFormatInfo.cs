@@ -239,18 +239,21 @@ namespace ImageMagick
 
         private static MagickFormatInfo Create(NativeMagickFormatInfo instance)
         {
-            MagickFormatInfo formatInfo = new MagickFormatInfo();
-            formatInfo.Format = GetFormat(instance.Format);
-            formatInfo.Description = instance.Description;
-            formatInfo.CanReadMultithreaded = instance.CanReadMultithreaded;
-            formatInfo.CanWriteMultithreaded = instance.CanWriteMultithreaded;
-            formatInfo.IsMultiFrame = instance.IsMultiFrame;
-            formatInfo.IsReadable = instance.IsReadable;
-            formatInfo.IsWritable = instance.IsWritable;
-            formatInfo.MimeType = instance.MimeType;
-            formatInfo.Module = GetFormat(instance.Module);
+            if (!instance.HasInstance)
+                return null;
 
-            return formatInfo;
+            return new MagickFormatInfo()
+            {
+                Format = GetFormat(instance.Format),
+                Description = instance.Description,
+                CanReadMultithreaded = instance.CanReadMultithreaded,
+                CanWriteMultithreaded = instance.CanWriteMultithreaded,
+                IsMultiFrame = instance.IsMultiFrame,
+                IsReadable = instance.IsReadable,
+                IsWritable = instance.IsWritable,
+                MimeType = instance.MimeType,
+                Module = GetFormat(instance.Module),
+            };
         }
 
         private static MagickFormatInfo Create(NativeMagickFormatInfo instance, string name)
@@ -291,7 +294,8 @@ namespace ImageMagick
                     instance.GetInfo(list, i);
 
                     formatInfo = Create(instance);
-                    result[formatInfo.Format] = formatInfo;
+                    if (formatInfo != null)
+                        result[formatInfo.Format] = formatInfo;
 
                     ptr = new IntPtr(ptr.ToInt64() + i);
                 }
@@ -299,10 +303,12 @@ namespace ImageMagick
                 /* stealth coders */
 
                 formatInfo = Create(instance, "DIB");
-                result[formatInfo.Format] = formatInfo;
+                if (formatInfo != null)
+                    result[formatInfo.Format] = formatInfo;
 
                 formatInfo = Create(instance, "TIF");
-                result[formatInfo.Format] = formatInfo;
+                if (formatInfo != null)
+                    result[formatInfo.Format] = formatInfo;
             }
             finally
             {

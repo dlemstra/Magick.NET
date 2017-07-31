@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return _Root + @"Images\Circle.png";
+                return _Root + @"Images/Circle.png";
             }
         }
 
@@ -31,7 +31,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return _Root + @"Images\CMYK.jpg";
+                return _Root + @"Images/CMYK.jpg";
             }
         }
 
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return _Root + @"Images\corrupt.png";
+                return _Root + @"Images/Corrupt.png";
             }
         }
 
@@ -47,7 +47,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return _Root + @"Images\ConnectedComponents.png";
+                return _Root + @"Images/ConnectedComponents.png";
             }
         }
 
@@ -55,7 +55,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return _Root + @"Images\8Bim.tif";
+                return _Root + @"Images/8Bim.tif";
             }
         }
 
@@ -63,7 +63,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return _Root + @"Images\FujiFilmFinePixS1Pro.gif";
+                return _Root + @"Images/FujiFilmFinePixS1Pro.gif";
             }
         }
 
@@ -71,7 +71,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return _Root + @"Images\FujiFilmFinePixS1Pro.jpg";
+                return _Root + @"Images/FujiFilmFinePixS1Pro.jpg";
             }
         }
 
@@ -79,7 +79,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return _Root + @"Images\ExifUndefType.jpg";
+                return _Root + @"Images/ExifUndefType.jpg";
             }
         }
 
@@ -87,7 +87,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return _Root + @"Images\FujiFilmFinePixS1Pro.png";
+                return _Root + @"Images/FujiFilmFinePixS1Pro.png";
             }
         }
 
@@ -95,7 +95,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return _Root + @"Images\ImageMagick.jpg";
+                return _Root + @"Images/ImageMagick.jpg";
             }
         }
 
@@ -103,7 +103,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return _Root + @"Images\Invitation.tif";
+                return _Root + @"Images/Invitation.tif";
             }
         }
 
@@ -111,7 +111,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return _Root + @"Images\Letter.jpg";
+                return _Root + @"Images/Letter.jpg";
             }
         }
 
@@ -119,7 +119,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return _Root + @"Images\ImageMagick.txt";
+                return _Root + @"Images/ImageMagick.txt";
             }
         }
 
@@ -127,7 +127,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return _Root + @"Images\Magick.NET.icon.png";
+                return _Root + @"Images/Magick.NET.icon.png";
             }
         }
 
@@ -135,7 +135,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return @"C:\Foo\Bar.png";
+                return @"C:/Foo/Bar.png";
             }
         }
 
@@ -143,7 +143,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return _Root + @"Images\Noise.png";
+                return _Root + @"Images/Noise.png";
             }
         }
 
@@ -151,7 +151,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return _Root + @"Images\Red.png";
+                return _Root + @"Images/Red.png";
             }
         }
 
@@ -159,7 +159,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return _Root + @"Images\RöseSparkle.gif";
+                return _Root + @"Images/RöseSparkle.gif";
             }
         }
 
@@ -175,7 +175,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return _Root + @"Images\Snakeware.png";
+                return _Root + @"Images/Snakeware.png";
             }
         }
 
@@ -183,7 +183,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return _Root + @"Images\Wireframe.tif";
+                return _Root + @"Images/Wireframe.tif";
             }
         }
 
@@ -191,7 +191,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return _Root + @"Images\Test.png";
+                return _Root + @"Images/Test.png";
             }
         }
 
@@ -200,8 +200,8 @@ namespace Magick.NET.Tests
         {
             string[] paths =
             {
-                @"..\..\..\..\",
-                @"..\..\..\..\..\Tests\Magick.NET.Tests\", // Code coverage
+                @"../../../../",
+                @"../../../../../Tests/Magick.NET.Tests/", // Code coverage
             };
 
             foreach (string path in paths)
@@ -247,7 +247,7 @@ namespace Magick.NET.Tests
             {
                 get
                 {
-                    return _Root + @"Images\Coders\CN Studios Logo.ai";
+                    return _Root + @"Images/Coders/CN Studios Logo.ai";
                 }
             }
 
@@ -255,7 +255,7 @@ namespace Magick.NET.Tests
             {
                 get
                 {
-                    return _Root + @"Images\Coders\Grim.jp2";
+                    return _Root + @"Images/Coders/grim.jp2";
                 }
             }
 
@@ -263,7 +263,7 @@ namespace Magick.NET.Tests
             {
                 get
                 {
-                    return _Root + @"Images\Coders\IgnoreTag.tif";
+                    return _Root + @"Images/Coders/IgnoreTag.tif";
                 }
             }
 
@@ -271,7 +271,7 @@ namespace Magick.NET.Tests
             {
                 get
                 {
-                    return _Root + @"Images\Coders\layer-styles-sample.psd";
+                    return _Root + @"Images/Coders/layer-styles-sample.psd";
                 }
             }
 
@@ -279,7 +279,7 @@ namespace Magick.NET.Tests
             {
                 get
                 {
-                    return _Root + @"Images\Coders\Page.tif";
+                    return _Root + @"Images/Coders/Page.tif";
                 }
             }
 
@@ -287,7 +287,7 @@ namespace Magick.NET.Tests
             {
                 get
                 {
-                    return _Root + @"Images\Coders\player.psd";
+                    return _Root + @"Images/Coders/Player.psd";
                 }
             }
         }
@@ -298,7 +298,7 @@ namespace Magick.NET.Tests
             {
                 get
                 {
-                    return _Root + @"..\..\Logo\Magick.NET.svg";
+                    return _Root + @"../../Logo/Magick.NET.svg";
                 }
             }
         }
@@ -320,7 +320,7 @@ namespace Magick.NET.Tests
             {
                 get
                 {
-                    return _Root + @"Shared\Script\Collection.msl";
+                    return _Root + @"Shared/Script/Collection.msl";
                 }
             }
 
@@ -328,7 +328,7 @@ namespace Magick.NET.Tests
             {
                 get
                 {
-                    return _Root + @"Shared\Script\Draw.msl";
+                    return _Root + @"Shared/Script/Draw.msl";
                 }
             }
 
@@ -336,7 +336,7 @@ namespace Magick.NET.Tests
             {
                 get
                 {
-                    return _Root + @"Shared\Script\Defines.msl";
+                    return _Root + @"Shared/Script/Defines.msl";
                 }
             }
 
@@ -344,7 +344,7 @@ namespace Magick.NET.Tests
             {
                 get
                 {
-                    return _Root + @"Shared\Script\Distort.msl";
+                    return _Root + @"Shared/Script/Distort.msl";
                 }
             }
 
@@ -352,7 +352,7 @@ namespace Magick.NET.Tests
             {
                 get
                 {
-                    return _Root + @"Shared\Script\Events.msl";
+                    return _Root + @"Shared/Script/Events.msl";
                 }
             }
 
@@ -360,7 +360,7 @@ namespace Magick.NET.Tests
             {
                 get
                 {
-                    return _Root + @"Shared\Script\ImageProfile.msl";
+                    return _Root + @"Shared/Script/ImageProfile.msl";
                 }
             }
 
@@ -368,7 +368,7 @@ namespace Magick.NET.Tests
             {
                 get
                 {
-                    return _Root + @"Framework\Script\Invalid.msl";
+                    return _Root + @"Framework/Script/Invalid.msl";
                 }
             }
 
@@ -376,7 +376,7 @@ namespace Magick.NET.Tests
             {
                 get
                 {
-                    return _Root + @"Shared\Script\Resize.msl";
+                    return _Root + @"Shared/Script/Resize.msl";
                 }
             }
 
@@ -384,7 +384,7 @@ namespace Magick.NET.Tests
             {
                 get
                 {
-                    return _Root + @"Shared\Script\Variables.msl";
+                    return _Root + @"Shared/Script/Variables.msl";
                 }
             }
         }

@@ -34,6 +34,7 @@ namespace Magick.NET.Tests
         public void Test_Properties()
         {
             MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(MagickFormat.Gradient);
+            Assert.IsNotNull(formatInfo);
             Assert.AreEqual(MagickFormat.Gradient, formatInfo.Format);
             Assert.AreEqual(true, formatInfo.CanReadMultithreaded);
             Assert.AreEqual(true, formatInfo.CanWriteMultithreaded);
@@ -44,6 +45,7 @@ namespace Magick.NET.Tests
             Assert.AreEqual(null, formatInfo.MimeType);
 
             formatInfo = MagickNET.GetFormatInformation(MagickFormat.Jp2);
+            Assert.IsNotNull(formatInfo);
             Assert.AreEqual(MagickFormat.Jp2, formatInfo.Format);
             Assert.AreEqual(true, formatInfo.CanReadMultithreaded);
             Assert.AreEqual(true, formatInfo.CanWriteMultithreaded);
