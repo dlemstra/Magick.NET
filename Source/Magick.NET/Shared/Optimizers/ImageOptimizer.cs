@@ -72,7 +72,7 @@ namespace ImageMagick
         public void Compress(string fileName)
         {
             string filePath = FileHelper.CheckForBaseDirectory(fileName);
-            Throw.IfInvalidFileName(filePath);
+            Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             DoCompress(new FileInfo(filePath));
         }
@@ -135,7 +135,7 @@ namespace ImageMagick
         public void LosslessCompress(string fileName)
         {
             string filePath = FileHelper.CheckForBaseDirectory(fileName);
-            Throw.IfInvalidFileName(filePath);
+            Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             DoLosslessCompress(new FileInfo(filePath));
         }

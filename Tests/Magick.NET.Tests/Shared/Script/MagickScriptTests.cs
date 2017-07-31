@@ -35,7 +35,7 @@ namespace Magick.NET.Tests
                 new MagickScript((Stream)null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.Throws<DirectoryNotFoundException>(() =>
             {
                 new MagickScript(Files.Missing);
             });

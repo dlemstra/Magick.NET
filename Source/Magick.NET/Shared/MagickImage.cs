@@ -6721,7 +6721,7 @@ namespace ImageMagick
         private void Read(string fileName, MagickReadSettings readSettings, bool ping)
         {
             string filePath = FileHelper.CheckForBaseDirectory(fileName);
-            Throw.IfInvalidFileName(filePath);
+            Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             MagickReadSettings newReadSettings = CreateReadSettings(readSettings);
             SetSettings(newReadSettings);

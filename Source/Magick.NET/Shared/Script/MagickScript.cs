@@ -51,7 +51,7 @@ namespace ImageMagick
         public MagickScript(string fileName)
         {
             string filePath = FileHelper.CheckForBaseDirectory(fileName);
-            Throw.IfInvalidFileName(filePath);
+            Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             using (FileStream stream = File.OpenRead(filePath))
             {

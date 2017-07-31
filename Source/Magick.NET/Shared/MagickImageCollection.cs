@@ -1394,7 +1394,7 @@ namespace ImageMagick
         private void AddImages(string fileName, MagickReadSettings readSettings, bool ping)
         {
             string filePath = FileHelper.CheckForBaseDirectory(fileName);
-            Throw.IfInvalidFileName(filePath);
+            Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             MagickSettings settings = CreateSettings(readSettings);
             settings.FileName = filePath;

@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
                 new MagickImageInfo((string)null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.Throws<MagickBlobErrorException>("error/blob.c/OpenBlob", () =>
             {
                 new MagickImageInfo(Files.Missing);
             });
@@ -157,7 +157,7 @@ namespace Magick.NET.Tests
                 imageInfo.Read((string)null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.Throws<MagickBlobErrorException>("error/blob.c/OpenBlob", () =>
             {
                 imageInfo.Read(Files.Missing);
             });

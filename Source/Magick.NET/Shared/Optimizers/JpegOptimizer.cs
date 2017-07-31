@@ -105,7 +105,7 @@ namespace ImageMagick.ImageOptimizers
         public void Compress(string fileName, int quality)
         {
             string filePath = FileHelper.CheckForBaseDirectory(fileName);
-            Throw.IfInvalidFileName(filePath);
+            Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             DoCompress(new FileInfo(fileName), false, quality);
         }
@@ -130,7 +130,7 @@ namespace ImageMagick.ImageOptimizers
         public void LosslessCompress(string fileName)
         {
             string filePath = FileHelper.CheckForBaseDirectory(fileName);
-            Throw.IfInvalidFileName(filePath);
+            Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             DoCompress(new FileInfo(fileName), true, 0);
         }

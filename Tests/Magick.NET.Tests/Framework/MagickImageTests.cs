@@ -161,7 +161,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage())
             {
-                ArgumentException exception = ExceptionAssert.Throws<ArgumentException>(() =>
+                Exception exception = ExceptionAssert.Throws<MagickBlobErrorException>("error/blob.c/OpenBlob", () =>
                 {
                     image.Read("~/test.gif");
                 });
@@ -169,7 +169,7 @@ namespace Magick.NET.Tests
                 string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 Assert.IsTrue(exception.Message.Contains(baseDirectory));
 
-                exception = ExceptionAssert.Throws<ArgumentException>(() =>
+                exception = ExceptionAssert.Throws<MagickBlobErrorException>("error/blob.c/OpenBlob", () =>
                 {
                     image.Read("~");
                 });

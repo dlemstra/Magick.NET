@@ -135,7 +135,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return @"C:/Foo/Bar.png";
+                return @"/Foo/Bar.png";
             }
         }
 

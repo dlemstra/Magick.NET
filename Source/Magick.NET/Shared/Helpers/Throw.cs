@@ -24,50 +24,6 @@ namespace ImageMagick
                 throw new ArgumentException(FormatMessage(message, args), paramName);
         }
 
-        public static void IfInvalidFileName(string fileName)
-        {
-            IfNullOrEmpty(nameof(fileName), fileName);
-
-            if (fileName.Length > 248)
-                return;
-
-            string path = fileName;
-
-            int colonIndex = fileName.IndexOf(':');
-            if (colonIndex != -1)
-            {
-                if (colonIndex + 1 == fileName.Length)
-                    return;
-
-                if (!fileName.Contains("\\"))
-                    return;
-
-                if (fileName[colonIndex + 1] != '/' && fileName[colonIndex + 1] != '\\')
-                    path = path.Substring(colonIndex + 1);
-
-                if (path.Length > 1 && path[0] == '@')
-                    path = path.Substring(1);
-            }
-
-            try
-            {
-                path = Path.GetFullPath(path);
-            }
-            catch (ArgumentException)
-            {
-                return;
-            }
-
-            if (path.EndsWith("]", StringComparison.OrdinalIgnoreCase))
-            {
-                int endIndex = path.IndexOf("[", StringComparison.OrdinalIgnoreCase);
-                if (endIndex != -1)
-                    path = path.Substring(0, endIndex);
-            }
-
-            IfFalse(nameof(fileName), File.Exists(path), "Unable to find file: {0}.", path);
-        }
-
         public static void IfNull(string paramName, object value)
         {
             if (ReferenceEquals(value, null))

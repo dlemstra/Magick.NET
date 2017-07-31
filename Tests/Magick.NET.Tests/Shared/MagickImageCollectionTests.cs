@@ -201,7 +201,7 @@ namespace Magick.NET.Tests
                 new MagickImageCollection((string)null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.Throws<MagickBlobErrorException>("error/blob.c/OpenBlob", () =>
             {
                 new MagickImageCollection(Files.Missing);
             });
@@ -697,7 +697,7 @@ namespace Magick.NET.Tests
                 collection.Ping((string)null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.Throws<MagickBlobErrorException>("error/blob.c/OpenBlob", () =>
             {
                 collection.Ping(Files.Missing);
             });
@@ -753,7 +753,7 @@ namespace Magick.NET.Tests
                 collection.Read((string)null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.Throws<MagickBlobErrorException>("error/blob.c/OpenBlob", () =>
             {
                 collection.Read(Files.Missing);
             });
