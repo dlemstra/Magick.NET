@@ -192,7 +192,7 @@ namespace Magick.NET.Tests
 #elif Q16
                     OpenCLValue.Assert(311.40, 311.45, phash.SumSquaredDistance(otherPhash), 0.02);
 #elif Q16HDRI
-                    OpenCLValue.Assert(311.27, 311.27, phash.SumSquaredDistance(otherPhash), 0.02);
+                    OpenCLValue.Assert(311.24, 311.27, phash.SumSquaredDistance(otherPhash), 0.02);
 #else
 #error Not implemented!
 #endif
