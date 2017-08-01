@@ -183,7 +183,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return _Root + @"Images/Wireframe.tif";
+                return _Root + @"Images/wireframe.tif";
             }
         }
 
