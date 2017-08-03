@@ -1666,6 +1666,17 @@ MAGICK_NET_EXPORT const MagickBooleanType MagickImage_Map(Image *instance, const
   return result;
 }
 
+MAGICK_NET_EXPORT Image *MagickImage_MeanShift(const Image *instance, const size_t width, const size_t height, const double colorDistance, ExceptionInfo **exception)
+{
+  Image
+    *image;
+
+  MAGICK_NET_GET_EXCEPTION;
+  image = MeanShiftImage(instance, width, height, colorDistance, exceptionInfo);
+  MAGICK_NET_SET_EXCEPTION;
+  return image;
+}
+
 MAGICK_NET_EXPORT Image *MagickImage_Minify(const Image *instance, ExceptionInfo **exception)
 {
   Image

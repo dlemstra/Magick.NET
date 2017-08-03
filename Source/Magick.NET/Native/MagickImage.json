@@ -1683,6 +1683,26 @@
             ]
         },
         {
+            "name": "MeanShift",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "width",
+                    "type": "size_t"
+                },
+                {
+                    "name": "height",
+                    "type": "size_t"
+                },
+                {
+                    "name": "colorDistance",
+                    "type": "double"
+                }
+            ]
+        },
+        {
             "name": "Minify",
             "instance": true,
             "throws": true

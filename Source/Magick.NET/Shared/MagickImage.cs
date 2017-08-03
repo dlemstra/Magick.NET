@@ -3978,6 +3978,46 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Delineate arbitrarily shaped clusters in the image.
+        /// </summary>
+        /// <param name="size">The width and height of the pixels neighborhood.</param>
+        public void MeanShift(int size)
+        {
+            MeanShift(size, size);
+        }
+
+        /// <summary>
+        /// Delineate arbitrarily shaped clusters in the image.
+        /// </summary>
+        /// <param name="size">The width and height of the pixels neighborhood.</param>
+        /// <param name="colorDistance">The color distance</param>
+        public void MeanShift(int size, Percentage colorDistance)
+        {
+            MeanShift(size, size, colorDistance);
+        }
+
+        /// <summary>
+        /// Delineate arbitrarily shaped clusters in the image.
+        /// </summary>
+        /// <param name="width">The width of the pixels neighborhood.</param>
+        /// <param name="height">The height of the pixels neighborhood.</param>
+        public void MeanShift(int width, int height)
+        {
+            MeanShift(width, height, new Percentage(10));
+        }
+
+        /// <summary>
+        /// Delineate arbitrarily shaped clusters in the image.
+        /// </summary>
+        /// <param name="width">The width of the pixels neighborhood.</param>
+        /// <param name="height">The height of the pixels neighborhood.</param>
+        /// <param name="colorDistance">The color distance</param>
+        public void MeanShift(int width, int height, Percentage colorDistance)
+        {
+            _nativeInstance.MeanShift(width, height, colorDistance.ToQuantum());
+        }
+
+        /// <summary>
         /// Filter image by replacing each pixel component with the median color in a circular neighborhood.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>

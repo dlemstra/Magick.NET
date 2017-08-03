@@ -2273,6 +2273,34 @@ namespace ImageMagick
         MagickErrorInfo Map(IMagickImage image, QuantizeSettings settings);
 
         /// <summary>
+        /// Delineate arbitrarily shaped clusters in the image.
+        /// </summary>
+        /// <param name="size">The width and height of the pixels neighborhood.</param>
+        void MeanShift(int size);
+
+        /// <summary>
+        /// Delineate arbitrarily shaped clusters in the image.
+        /// </summary>
+        /// <param name="size">The width and height of the pixels neighborhood.</param>
+        /// <param name="colorDistance">The color distance</param>
+        void MeanShift(int size, Percentage colorDistance);
+
+        /// <summary>
+        /// Delineate arbitrarily shaped clusters in the image.
+        /// </summary>
+        /// <param name="width">The width of the pixels neighborhood.</param>
+        /// <param name="height">The height of the pixels neighborhood.</param>
+        void MeanShift(int width, int height);
+
+        /// <summary>
+        /// Delineate arbitrarily shaped clusters in the image.
+        /// </summary>
+        /// <param name="width">The width of the pixels neighborhood.</param>
+        /// <param name="height">The height of the pixels neighborhood.</param>
+        /// <param name="colorDistance">The color distance</param>
+        void MeanShift(int width, int height, Percentage colorDistance);
+
+        /// <summary>
         /// Filter image by replacing each pixel component with the median color in a circular neighborhood.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>

@@ -345,6 +345,8 @@ MAGICK_NET_EXPORT Image *MagickImage_Magnify(const Image *, ExceptionInfo **);
 
 MAGICK_NET_EXPORT const MagickBooleanType MagickImage_Map(Image *, const Image *, const QuantizeInfo *, ExceptionInfo **);
 
+MAGICK_NET_EXPORT Image *MagickImage_MeanShift(const Image *, const size_t, const size_t, const double, ExceptionInfo **);
+
 MAGICK_NET_EXPORT Image *MagickImage_Minify(const Image *, ExceptionInfo **);
 
 MAGICK_NET_EXPORT void MagickImage_Modulate(Image *, const char *, ExceptionInfo **);
