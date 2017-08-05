@@ -2,7 +2,7 @@
 
 clone_repository()
 {
-  repos="http://git.imagemagick.org/repos"
+  repos="https://github.com/ImageMagick"
   date="2017-07-30 16:48"
 
   echo ''
