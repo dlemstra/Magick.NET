@@ -37,10 +37,11 @@ If you are planning to read RAW files you should configure the folder and copy t
 this you will need to add the folder that contains the executable to your %PATH%. More information about reading RAW files can be found here:
 [Read raw image from camera](ReadRawImageFromCamera.md).
 
-## .NET Standard
+## .NET Standard / .NET Core
 
-Starting with version 7.0.0.0102 support for .NET Standard 1.3 was added. This currently only works on Windows. This used to be a separate
-NuGet package but starting with 7.0.6.0 this became part of the normal NuGet package.
+Starting with version 7.0.0.0102 support for .NET Standard 1.3 was added. This used to be a separate NuGet package but starting with 7.0.6.0 
+this became part of the normal NuGet package. On Windows this works without any extra steps but on Linux this will require some extra work.
+Instructions for the cross-platform build can be found [here](CrossPlatform.md).
 
 ## ImageMagick 7
 

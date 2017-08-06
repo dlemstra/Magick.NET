@@ -124,6 +124,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		Documentation\CombiningImages.md = Documentation\CombiningImages.md
 		Documentation\ConvertImage.md = Documentation\ConvertImage.md
 		Documentation\ConvertPDF.md = Documentation\ConvertPDF.md
+		Documentation\CrossPlatform.md = Documentation\CrossPlatform.md
 		Documentation\Defines.md = Documentation\Defines.md
 		Documentation\DetailedDebugInformation.md = Documentation\DetailedDebugInformation.md
 		Documentation\Drawing.md = Documentation\Drawing.md
