@@ -29,7 +29,7 @@ namespace Magick.NET.Tests
 
             using (IMagickImage image = CreateImage(97))
             {
-                Assert.AreEqual(146, image.Width);
+                Assert.AreEqual(142, image.Width);
                 Assert.AreEqual(24, image.Height);
             }
         }

@@ -1614,9 +1614,9 @@ namespace Magick.NET.Tests
                 TypeMetric typeMetric = image.FontTypeMetrics("Magick.NET");
                 Assert.IsNotNull(typeMetric);
                 Assert.AreEqual(14, typeMetric.Ascent);
-                Assert.AreEqual(-3, typeMetric.Descent);
+                Assert.AreEqual(-4, typeMetric.Descent);
                 Assert.AreEqual(30, typeMetric.MaxHorizontalAdvance);
-                Assert.AreEqual(17, typeMetric.TextHeight);
+                Assert.AreEqual(18, typeMetric.TextHeight);
                 Assert.AreEqual(82, typeMetric.TextWidth);
                 Assert.AreEqual(-4.5625, typeMetric.UnderlinePosition);
                 Assert.AreEqual(2.34375, typeMetric.UnderlineThickness);
@@ -2506,12 +2506,12 @@ namespace Magick.NET.Tests
                 image.Polaroid("Magick.NET", 10, PixelInterpolateMethod.Bilinear);
                 image.Clamp();
 
-                ColorAssert.AreEqual(MagickColors.Black, image, 103, 162);
-                ColorAssert.AreEqual(MagickColors.Red, image, 99, 97);
+                ColorAssert.AreEqual(MagickColors.Black, image, 104, 163);
+                ColorAssert.AreEqual(MagickColors.Red, image, 72, 156);
 #if Q8
-                ColorAssert.AreEqual(new MagickColor("#ff00ffbc"), image, 146, 194);
+                ColorAssert.AreEqual(new MagickColor("#ff00ffbc"), image, 146, 196);
 #elif Q16 || Q16HDRI
-                ColorAssert.AreEqual(new MagickColor("#ffff0000ffffbbb6"), image, 146, 194);
+                ColorAssert.AreEqual(new MagickColor("#ffff0000ffffbb9a"), image, 146, 196);
 #else
 #error Not implemented!
 #endif
@@ -3263,7 +3263,7 @@ namespace Magick.NET.Tests
 #if Q8
                     Assert.AreEqual(68, pixel.ToColor().A);
 #elif Q16 || Q16HDRI
-                    Assert.AreEqual(17077, (double)pixel.ToColor().A, 1);
+                    Assert.AreEqual(17058, (double)pixel.ToColor().A, 1);
 #else
 #error Not implemented!
 #endif

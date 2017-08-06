@@ -202,7 +202,7 @@ namespace Magick.NET.Tests
 
                 using (PixelCollection pixels = image.GetPixels())
                 {
-                    pixelA = pixels.GetPixel(69, 6);
+                    pixelA = pixels.GetPixel(64, 6);
                 }
 
                 Pixel pixelB;
@@ -210,7 +210,7 @@ namespace Magick.NET.Tests
                 image.Read("caption:Magick.NET");
                 using (PixelCollection pixels = image.GetPixels())
                 {
-                    pixelB = pixels.GetPixel(69, 6);
+                    pixelB = pixels.GetPixel(64, 6);
                 }
 
                 ColorAssert.AreNotEqual(pixelA.ToColor(), pixelB.ToColor());
@@ -322,7 +322,7 @@ namespace Magick.NET.Tests
                 image.Read("label:Test");
 
                 Assert.AreEqual(98, image.Width);
-                Assert.AreEqual(46, image.Height);
+                Assert.AreEqual(48, image.Height);
                 ColorAssert.AreEqual(MagickColors.Black, image, 16, 16);
             }
         }
@@ -481,7 +481,7 @@ namespace Magick.NET.Tests
                 image.Settings.FontPointsize = 100;
                 image.Annotate("TEST", Gravity.Center);
 
-                ColorAssert.AreEqual(MagickColors.Azure, image, 175, 112);
+                ColorAssert.AreEqual(MagickColors.Azure, image, 175, 111);
             }
         }
 
