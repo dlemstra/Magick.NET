@@ -1,9 +1,16 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup>
-    <NativeDLL Include="$(MSBuildThisFileDirectory)\..\..\runtimes\**\*.Native.dll" />
-    <Content Include="@(NativeDLL)">
-      <Link>%(FileName)%(Extension)</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+    <ItemGroup Condition="'$(OS)' != 'Unix'">
+        <NativeDLL Include="$(MSBuildThisFileDirectory)\..\..\runtimes\**\*.Native.dll" />
+        <Content Include="@(NativeDLL)">
+            <Link>%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+    <ItemGroup Condition="'$(OS)' == 'Unix'">
+        <NativeDLL Include="$(MSBuildThisFileDirectory)\..\..\runtimes\**\*.Native.dll.so" />
+        <Content Include="@(NativeDLL)">
+            <Link>%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
 </Project>
