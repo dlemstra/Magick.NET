@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
                 Optimizer.Compress(file);
             });
 
-            Assert.AreEqual(lengthA, lengthB);
+            Assert.AreEqual(lengthA, lengthB, 1);
             return lengthA;
         }
 
@@ -65,7 +65,7 @@ namespace Magick.NET.Tests
 
                 long after2 = tempFile.Length;
 
-                Assert.AreEqual(after1, after2);
+                Assert.AreEqual(after1, after2, 1);
             }
         }
 
@@ -81,7 +81,7 @@ namespace Magick.NET.Tests
                 Optimizer.LosslessCompress(file);
             });
 
-            Assert.AreEqual(lengthA, lengthB);
+            Assert.AreEqual(lengthA, lengthB, 1);
             return lengthA;
         }
 
@@ -112,7 +112,7 @@ namespace Magick.NET.Tests
 
                 long after2 = tempFile.Length;
 
-                Assert.AreEqual(after1, after2);
+                Assert.AreEqual(after1, after2, 1);
             }
         }
     }
