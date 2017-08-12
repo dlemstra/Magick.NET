@@ -381,6 +381,62 @@ namespace ImageMagick
             return ToByteArray(0, 0, _image.Width, _image.Height, mapping);
         }
 
+        /// <summary>
+        /// Returns the values of the pixels as an array.
+        /// </summary>
+        /// <param name="x">The X coordinate of the area.</param>
+        /// <param name="y">The Y coordinate of the area.</param>
+        /// <param name="width">The width of the area.</param>
+        /// <param name="height">The height of the area.</param>
+        /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
+        /// <returns>An <see cref="ushort"/> array.</returns>
+        [CLSCompliant(false)]
+        public ushort[] ToShortArray(int x, int y, int width, int height, string mapping)
+        {
+            Throw.IfNullOrEmpty(nameof(mapping), mapping);
+
+            CheckArea(x, y, width, height);
+            IntPtr nativeResult = IntPtr.Zero;
+            ushort[] result = null;
+
+            try
+            {
+                nativeResult = _nativeInstance.ToShortArray(x, y, width, height, mapping);
+                result = ShortConverter.ToArray(nativeResult, width * height * mapping.Length);
+            }
+            finally
+            {
+                MagickMemory.Relinquish(nativeResult);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Returns the values of the pixels as an array.
+        /// </summary>
+        /// <param name="geometry">The geometry of the area.</param>
+        /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
+        /// <returns>An <see cref="ushort"/> array.</returns>
+        [CLSCompliant(false)]
+        public ushort[] ToShortArray(MagickGeometry geometry, string mapping)
+        {
+            Throw.IfNull(nameof(geometry), geometry);
+
+            return ToShortArray(geometry.X, geometry.Y, geometry.Width, geometry.Height, mapping);
+        }
+
+        /// <summary>
+        /// Returns the values of the pixels as an array.
+        /// </summary>
+        /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
+        /// <returns>An <see cref="ushort"/> array.</returns>
+        [CLSCompliant(false)]
+        public ushort[] ToShortArray(string mapping)
+        {
+            return ToShortArray(0, 0, _image.Width, _image.Height, mapping);
+        }
+
         internal QuantumType[] GetAreaUnchecked(int x, int y, int width, int height)
         {
             IntPtr pixels = _nativeInstance.GetArea(x, y, width, height);

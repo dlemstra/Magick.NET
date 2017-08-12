@@ -92,3 +92,13 @@ MAGICK_NET_EXPORT unsigned char *PixelCollection_ToByteArray(const CacheView *in
   MAGICK_NET_SET_EXCEPTION;
   return result;
 }
+
+MAGICK_NET_EXPORT unsigned short *PixelCollection_ToShortArray(const CacheView *instance, const size_t x, const size_t y, const size_t width, const size_t height, const char *mapping, ExceptionInfo **exception)
+{
+  ExportStart(unsigned short);
+  result = AcquireMagickMemory(length);
+  MAGICK_NET_GET_EXCEPTION;
+  ExportImagePixels(GetCacheViewImage(instance), x, y, width, height, mapping, ShortPixel, result, exceptionInfo);
+  MAGICK_NET_SET_EXCEPTION;
+  return result;
+}
