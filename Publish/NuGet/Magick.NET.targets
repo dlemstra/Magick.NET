@@ -9,7 +9,7 @@
     <ItemGroup Condition="'$(OS)' == 'Unix'">
         <NativeDLL Include="$(MSBuildThisFileDirectory)\..\..\runtimes\**\*.Native.dll.so" />
         <Content Include="@(NativeDLL)">
-            <Link>%(FileName)%(Extension)</Link>
+            <Copy>%(FileName)%(Extension)</Copy>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
