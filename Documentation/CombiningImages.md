@@ -15,7 +15,7 @@ using (MagickImageCollection images = new MagickImageCollection())
     images.Add(second);
 
     // Create a mosaic from both images
-    using(MagickImage result = images.Mosaic())
+    using(IMagickImage result = images.Mosaic())
     {
       // Save the result
       result.Write("Mosaic.png");
@@ -35,7 +35,7 @@ Using images As New MagickImageCollection()
     images.Add(second)
 
     ' Create a mosaic from both images
-    Using result As MagickImage = images.Mosaic()
+    Using result As IMagickImage = images.Mosaic()
       ' Save the result
       result.Write("Mosaic.png")
     End Using

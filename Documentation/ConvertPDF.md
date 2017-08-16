@@ -71,14 +71,14 @@ using (MagickImageCollection images = new MagickImageCollection())
     images.Read("Snakeware.pdf", settings);
 
     // Create new image that appends all the pages horizontally
-    using (MagickImage horizontal = images.AppendHorizontally())
+    using (IMagickImage horizontal = images.AppendHorizontally())
     {
         // Save result as a png
         horizontal.Write("Snakeware.horizontal.png");
     }
 
     // Create new image that appends all the pages horizontally
-    using (MagickImage vertical = images.AppendVertically())
+    using (IMagickImage vertical = images.AppendVertically())
     {
         // Save result as a png
         vertical.Write("Snakeware.vertical.png");
@@ -97,13 +97,13 @@ Using images As New MagickImageCollection()
     images.Read("Snakeware.pdf", settings)
 
     ' Create new image that appends all the pages horizontally
-    Using horizontal As MagickImage = images.AppendHorizontally()
+    Using horizontal As IMagickImage = images.AppendHorizontally()
         ' Save result as a png
         horizontal.Write("Snakeware.horizontal.png")
     End Using
 
     ' Create new image that appends all the pages horizontally
-    Using vertical As MagickImage = images.AppendVertically()
+    Using vertical As IMagickImage = images.AppendVertically()
         ' Save result as a png
         vertical.Write("Snakeware.vertical.png")
   End Using
