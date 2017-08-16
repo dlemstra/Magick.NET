@@ -55,13 +55,13 @@ Namespace RootNamespace.Samples.MagickNET
                 images.Read(SampleFiles.SnakewarePdf, settings)
 
                 ' Create new image that appends all the pages horizontally
-                Using horizontal As MagickImage = images.AppendHorizontally()
+                Using horizontal As IMagickImage = images.AppendHorizontally()
                     ' Save result as a png
                     horizontal.Write(SampleFiles.OutputDirectory + "Snakeware.horizontal.png")
                 End Using
 
                 ' Create new image that appends all the pages horizontally
-                Using vertical As MagickImage = images.AppendVertically()
+                Using vertical As IMagickImage = images.AppendVertically()
                     ' Save result as a png
                     vertical.Write(SampleFiles.OutputDirectory + "Snakeware.vertical.png")
                 End Using

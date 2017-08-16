@@ -27,7 +27,7 @@ Namespace RootNamespace.Samples.MagickNET
                 images.Add(second)
 
                 ' Create a mosaic from both images
-                Using result As MagickImage = images.Mosaic()
+                Using result As IMagickImage = images.Mosaic()
                     ' Save the result
                     result.Write(SampleFiles.OutputDirectory + "Mosaic.png")
                 End Using
