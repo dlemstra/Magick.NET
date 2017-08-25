@@ -202,6 +202,12 @@ namespace Magick.NET.Tests
         {
             using (TemporaryFile tempFile = new TemporaryFile("test.palm"))
             {
+                using (FileStream fs = tempFile.OpenWrite())
+                {
+                    byte[] bytes = new byte[4] { 255, 255, 255, 255 };
+                    fs.Write(bytes, 0, bytes.Length);
+                }
+
                 ExceptionAssert.Throws<MagickPolicyErrorException>(() =>
                 {
                     using (MagickImage image = new MagickImage(tempFile))

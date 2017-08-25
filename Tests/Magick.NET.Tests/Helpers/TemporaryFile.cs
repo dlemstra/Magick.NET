@@ -53,6 +53,11 @@ namespace Magick.NET.Tests
             return _tempFile.OpenRead();
         }
 
+        public FileStream OpenWrite()
+        {
+            return _tempFile.OpenWrite();
+        }
+
         public void Refresh()
         {
             _tempFile.Refresh();
