@@ -20,6 +20,8 @@
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta004">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
+    <!-- Until we get an update of NSubstitute -->
+    <PackageReference Include="Castle.Core" Version="4.1.1-*" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
     <Reference Include="System.Configuration" />
