@@ -171,5 +171,10 @@ namespace ImageMagick
         /// LanczosRadius
         /// </summary>
         LanczosRadius,
+
+        /// <summary>
+        /// CubicSpline
+        /// </summary>
+        CubicSpline,
     }
 }
