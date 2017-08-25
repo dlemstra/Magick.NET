@@ -47,6 +47,15 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the mipmaps should be resized faster but with a lower quality (dds:fast-mipmaps).
+        /// </summary>
+        public bool? FastMipmaps
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Gets or sets the the number of mipmaps, zero will disable writing mipmaps (dds:mipmaps).
         /// </summary>
         public int? Mipmaps
@@ -76,6 +85,9 @@ namespace ImageMagick
 
                 if (Compression.HasValue)
                     yield return CreateDefine("compression", Compression.Value);
+
+                if (FastMipmaps.HasValue)
+                    yield return CreateDefine("fast-mipmaps", FastMipmaps.Value);
 
                 if (Mipmaps.HasValue)
                     yield return CreateDefine("mipmaps", Mipmaps.Value);

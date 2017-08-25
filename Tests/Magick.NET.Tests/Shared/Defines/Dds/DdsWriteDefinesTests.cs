@@ -31,17 +31,20 @@ namespace Magick.NET.Tests
 
                 Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "cluster-fit"));
                 Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "compression"));
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "fast-mipmaps"));
                 Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "mipmaps"));
                 Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
             }
         }
 
         [TestMethod]
-        public void Test_ClusterFit_Mipmaps_WeightByAlpha()
+        public void Test_Properties()
         {
             DdsWriteDefines defines = new DdsWriteDefines()
             {
                 ClusterFit = true,
+                Compression = DdsCompression.None,
+                FastMipmaps = false,
                 Mipmaps = 0,
                 WeightByAlpha = false,
             };
@@ -51,6 +54,8 @@ namespace Magick.NET.Tests
                 image.Settings.SetDefines(defines);
 
                 Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Dds, "cluster-fit"));
+                Assert.AreEqual("None", image.Settings.GetDefine(MagickFormat.Dds, "compression"));
+                Assert.AreEqual("False", image.Settings.GetDefine(MagickFormat.Dds, "fast-mipmaps"));
                 Assert.AreEqual("0", image.Settings.GetDefine(MagickFormat.Dds, "mipmaps"));
                 Assert.AreEqual("False", image.Settings.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
             }
