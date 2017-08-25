@@ -71,5 +71,15 @@ namespace ImageMagick
         /// RootMeanSquared
         /// </summary>
         RootMeanSquared,
+
+        /// <summary>
+        /// StructuralSimilarity
+        /// </summary>
+        StructuralSimilarity,
+
+        /// <summary>
+        /// StructuralDissimilarity
+        /// </summary>
+        StructuralDissimilarity,
     }
 }
