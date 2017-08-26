@@ -11,13 +11,15 @@
 // and limitations under the License.
 
 using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
     [TestClass]
-    public partial class SvgTests
+    public class SvgTests
     {
         [TestMethod]
         public void Test_Dimensions()
@@ -70,6 +72,30 @@ namespace Magick.NET.Tests
                     Assert.AreEqual(300, info.Width);
                     Assert.AreEqual(144, info.Height);
                 }
+            }
+        }
+
+        [TestMethod]
+        public void SvgDecoderIsThreadSafe()
+        {
+            var svg = @"<?xml version=""1.0"" encoding=""UTF-8""?>
+<svg width=""50"" height=""15"" xmlns=""http://www.w3.org/2000/svg"">
+  <text x=""25"" y=""11"" font-size=""9px"" font-family=""Verdana"">1</text>
+</svg>";
+            var bytes = Encoding.UTF8.GetBytes(svg);
+
+            string signature = LoadImage(bytes);
+            Parallel.For(1, 10, (int i) =>
+            {
+                Assert.AreEqual(signature, LoadImage(bytes));
+            });
+        }
+
+        private static string LoadImage(byte[] bytes)
+        {
+            using (var image = new MagickImage(bytes))
+            {
+                return image.Signature;
             }
         }
     }
