@@ -10,7 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
 using System.IO;
 using ImageMagick.ImageOptimizers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -24,9 +23,11 @@ namespace Magick.NET.Tests
 
         protected long AssertCompressSmaller(string fileName)
         {
+            bool isCompressed = false;
+
             long lengthA = AssertCompress(fileName, true, (FileInfo file) =>
             {
-                Optimizer.Compress(file);
+                isCompressed = Optimizer.Compress(file);
             });
 
             long lengthB = AssertCompress(fileName, true, (string file) =>
@@ -34,15 +35,18 @@ namespace Magick.NET.Tests
                 Optimizer.Compress(file);
             });
 
+            Assert.IsTrue(isCompressed);
             Assert.AreEqual(lengthA, lengthB, 1);
             return lengthA;
         }
 
         protected void AssertCompressNotSmaller(string fileName)
         {
+            bool isCompressed = false;
+
             long lengthA = AssertCompress(fileName, false, (FileInfo file) =>
             {
-                Optimizer.Compress(file);
+                isCompressed = Optimizer.Compress(file);
             });
 
             long lengthB = AssertCompress(fileName, false, (string file) =>
@@ -50,6 +54,7 @@ namespace Magick.NET.Tests
                 Optimizer.Compress(file);
             });
 
+            Assert.IsFalse(isCompressed);
             Assert.AreEqual(lengthA, lengthB);
         }
 
@@ -57,23 +62,26 @@ namespace Magick.NET.Tests
         {
             using (TemporaryFile tempFile = new TemporaryFile(fileName))
             {
-                Optimizer.Compress(tempFile);
+                bool compressed1 = Optimizer.Compress(tempFile);
 
                 long after1 = tempFile.Length;
 
-                Optimizer.Compress(tempFile);
+                bool compressed2 = Optimizer.Compress(tempFile);
 
                 long after2 = tempFile.Length;
 
                 Assert.AreEqual(after1, after2, 1);
+                Assert.AreNotEqual(compressed1, compressed2);
             }
         }
 
         protected long AssertLosslessCompressSmaller(string fileName)
         {
+            bool isCompressed = false;
+
             long lengthA = AssertCompress(fileName, true, (FileInfo file) =>
             {
-                Optimizer.LosslessCompress(file);
+                isCompressed = Optimizer.LosslessCompress(file);
             });
 
             long lengthB = AssertCompress(fileName, true, (string file) =>
@@ -81,15 +89,18 @@ namespace Magick.NET.Tests
                 Optimizer.LosslessCompress(file);
             });
 
+            Assert.IsTrue(isCompressed);
             Assert.AreEqual(lengthA, lengthB, 1);
             return lengthA;
         }
 
         protected void AssertLosslessCompressNotSmaller(string fileName)
         {
+            bool isCompressed = false;
+
             long lengthA = AssertCompress(fileName, false, (FileInfo file) =>
             {
-                Optimizer.LosslessCompress(file);
+                isCompressed = Optimizer.LosslessCompress(file);
             });
 
             long lengthB = AssertCompress(fileName, false, (string file) =>
@@ -97,6 +108,7 @@ namespace Magick.NET.Tests
                 Optimizer.LosslessCompress(file);
             });
 
+            Assert.IsFalse(isCompressed);
             Assert.AreEqual(lengthA, lengthB);
         }
 
@@ -104,15 +116,16 @@ namespace Magick.NET.Tests
         {
             using (TemporaryFile tempFile = new TemporaryFile(fileName))
             {
-                Optimizer.LosslessCompress(tempFile);
+                bool compressed1 = Optimizer.LosslessCompress(tempFile);
 
                 long after1 = tempFile.Length;
 
-                Optimizer.LosslessCompress(tempFile);
+                bool compressed2 = Optimizer.LosslessCompress(tempFile);
 
                 long after2 = tempFile.Length;
 
                 Assert.AreEqual(after1, after2, 1);
+                Assert.AreNotEqual(compressed1, compressed2);
             }
         }
     }

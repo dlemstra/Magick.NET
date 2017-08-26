@@ -10,7 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System.Collections.ObjectModel;
 using System.IO;
 
 namespace ImageMagick.ImageOptimizers
@@ -65,9 +64,10 @@ namespace ImageMagick.ImageOptimizers
         /// smaller the file won't be overwritten.
         /// </summary>
         /// <param name="file">The image file to compress.</param>
-        public void Compress(FileInfo file)
+        /// <returns>True when the image could be compressed otherwise false.</returns>
+        public bool Compress(FileInfo file)
         {
-            Compress(file, 0);
+            return Compress(file, 0);
         }
 
         /// <summary>
@@ -77,11 +77,12 @@ namespace ImageMagick.ImageOptimizers
         /// </summary>
         /// <param name="file">The image file to compress.</param>
         /// <param name="quality">The jpeg quality.</param>
-        public void Compress(FileInfo file, int quality)
+        /// <returns>True when the image could be compressed otherwise false.</returns>
+        public bool Compress(FileInfo file, int quality)
         {
             Throw.IfNull(nameof(file), file);
 
-            DoCompress(file, false, quality);
+            return DoCompress(file, false, quality);
         }
 
         /// <summary>
@@ -90,9 +91,10 @@ namespace ImageMagick.ImageOptimizers
         /// smaller the file won't be overwritten.
         /// </summary>
         /// <param name="fileName">The file name of the image to compress.</param>
-        public void Compress(string fileName)
+        /// <returns>True when the image could be compressed otherwise false.</returns>
+        public bool Compress(string fileName)
         {
-            Compress(fileName, 0);
+            return Compress(fileName, 0);
         }
 
         /// <summary>
@@ -102,12 +104,13 @@ namespace ImageMagick.ImageOptimizers
         /// </summary>
         /// <param name="fileName">The file name of the image to compress.</param>
         /// <param name="quality">The jpeg quality.</param>
-        public void Compress(string fileName, int quality)
+        /// <returns>True when the image could be compressed otherwise false.</returns>
+        public bool Compress(string fileName, int quality)
         {
             string filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
-            DoCompress(new FileInfo(fileName), false, quality);
+            return DoCompress(new FileInfo(fileName), false, quality);
         }
 
         /// <summary>
@@ -115,11 +118,12 @@ namespace ImageMagick.ImageOptimizers
         /// the file won't be overwritten.
         /// </summary>
         /// <param name="file">The jpeg file to compress.</param>
-        public void LosslessCompress(FileInfo file)
+        /// <returns>True when the image could be compressed otherwise false.</returns>
+        public bool LosslessCompress(FileInfo file)
         {
             Throw.IfNull(nameof(file), file);
 
-            DoCompress(file, true, 0);
+            return DoCompress(file, true, 0);
         }
 
         /// <summary>
@@ -127,12 +131,13 @@ namespace ImageMagick.ImageOptimizers
         /// the file won't be overwritten.
         /// </summary>
         /// <param name="fileName">The file name of the jpg image to compress.</param>
-        public void LosslessCompress(string fileName)
+        /// <returns>True when the image could be compressed otherwise false.</returns>
+        public bool LosslessCompress(string fileName)
         {
             string filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
-            DoCompress(new FileInfo(fileName), true, 0);
+            return DoCompress(new FileInfo(fileName), true, 0);
         }
 
         private static bool DoCompress(FileInfo file, FileInfo output, bool progressive, bool lossless, int quality)
@@ -152,30 +157,33 @@ namespace ImageMagick.ImageOptimizers
             return true;
         }
 
-        private void DoCompress(FileInfo file, bool lossless, int quality)
+        private bool DoCompress(FileInfo file, bool lossless, int quality)
         {
             using (TemporaryFile tempFile = new TemporaryFile())
             {
                 if (!DoCompress(file, tempFile, Progressive, lossless, quality))
-                    return;
+                    return false;
 
                 if (OptimalCompression)
                 {
                     using (TemporaryFile tempFileOptimal = new TemporaryFile())
                     {
                         if (!DoCompress(file, tempFileOptimal, Progressive, lossless, quality))
-                            return;
+                            return false;
 
                         if (tempFileOptimal.Length < file.Length && tempFileOptimal.Length < tempFile.Length)
                         {
                             tempFileOptimal.CopyTo(file);
-                            return;
+                            return false;
                         }
                     }
                 }
 
-                if (tempFile.Length < file.Length)
-                    tempFile.CopyTo(file);
+                if (tempFile.Length >= file.Length)
+                    return false;
+
+                tempFile.CopyTo(file);
+                return true;
             }
         }
     }
