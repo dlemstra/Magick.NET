@@ -58,6 +58,19 @@
       </xs:simpleType>
     </xs:union>
   </xs:simpleType>
+  <xs:simpleType name="AutoThresholdMethod">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="OTSU" />
+          <xs:enumeration value="Triangle" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="var" />
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
   <xs:simpleType name="BmpSubtype">
     <xs:union>
       <xs:simpleType>
@@ -328,7 +341,6 @@
       <xs:simpleType>
         <xs:restriction base="xs:NMTOKEN">
           <xs:enumeration value="Dxt1" />
-          <xs:enumeration value="Dxt5" />
           <xs:enumeration value="None" />
         </xs:restriction>
       </xs:simpleType>
@@ -475,6 +487,7 @@
           <xs:enumeration value="Catrom" />
           <xs:enumeration value="Cosine" />
           <xs:enumeration value="Cubic" />
+          <xs:enumeration value="CubicSpline" />
           <xs:enumeration value="Gaussian" />
           <xs:enumeration value="Hamming" />
           <xs:enumeration value="Hann" />
@@ -1304,7 +1317,9 @@
   <xs:complexType name="ddsWriteDefines">
     <xs:attribute name="clusterFit" type="bool" />
     <xs:attribute name="compression" type="DdsCompression" />
+    <xs:attribute name="fastMipmaps" type="bool" />
     <xs:attribute name="mipmaps" type="int" />
+    <xs:attribute name="mipmapsFromCollection" type="bool" />
     <xs:attribute name="weightByAlpha" type="bool" />
   </xs:complexType>
   <xs:complexType name="jp2ReadDefines">
@@ -2141,6 +2156,11 @@
           </xs:complexType>
         </xs:element>
         <xs:element name="autoOrient" type="empty" />
+        <xs:element name="autoThreshold">
+          <xs:complexType>
+            <xs:attribute name="method" use="required" type="AutoThresholdMethod" />
+          </xs:complexType>
+        </xs:element>
         <xs:element name="bitDepth">
           <xs:complexType>
             <xs:attribute name="channels" type="Channels" />
@@ -2533,6 +2553,14 @@
           </xs:complexType>
         </xs:element>
         <xs:element name="magnify" type="empty" />
+        <xs:element name="meanShift">
+          <xs:complexType>
+            <xs:attribute name="colorDistance" type="double" />
+            <xs:attribute name="height" type="int" />
+            <xs:attribute name="size" type="int" />
+            <xs:attribute name="width" type="int" />
+          </xs:complexType>
+        </xs:element>
         <xs:element name="medianFilter">
           <xs:complexType>
             <xs:attribute name="radius" type="int" />
