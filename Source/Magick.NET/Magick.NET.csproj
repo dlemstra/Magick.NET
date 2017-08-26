@@ -4,8 +4,8 @@
     <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AssemblyVersion>7.0.0.0</AssemblyVersion>
-    <FileVersion>7.0.6.1000</FileVersion>
-    <Version>7.0.6.1000</Version>
+    <FileVersion>7.0.6.1001</FileVersion>
+    <Version>7.0.6.1001</Version>
     <Authors>Dirk Lemstra</Authors>
     <Copyright>Copyright 2013-2017 Dirk Lemstra</Copyright>
     <DebugType Condition="$(CodeCov) == 'true'">full</DebugType>
