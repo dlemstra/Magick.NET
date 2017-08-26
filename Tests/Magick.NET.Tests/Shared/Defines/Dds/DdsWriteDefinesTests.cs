@@ -21,67 +21,198 @@ namespace Magick.NET.Tests
     public class DdsWriteDefinesTests
     {
         [TestMethod]
-        public void Test_Empty()
+        public void ClusterFit_NotSet_DefineIsNotSet()
         {
             using (IMagickImage image = new MagickImage())
             {
-                image.Settings.SetDefines(new DdsWriteDefines()
-                {
-                });
+                var defines = new DdsWriteDefines();
 
+                image.Settings.SetDefines(defines);
+
+                Assert.AreEqual(null, defines.ClusterFit);
                 Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "cluster-fit"));
-                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "compression"));
-                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "fast-mipmaps"));
-                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "mipmaps"));
-                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
             }
         }
 
         [TestMethod]
-        public void Test_Properties()
+        public void ClusterFit_IsSet_DefineIsSet()
         {
-            DdsWriteDefines defines = new DdsWriteDefines()
+            using (IMagickImage image = new MagickImage())
             {
-                ClusterFit = true,
-                Compression = DdsCompression.None,
-                FastMipmaps = false,
-                Mipmaps = 0,
-                WeightByAlpha = false,
-            };
+                var defines = new DdsWriteDefines
+                {
+                    ClusterFit = true,
+                };
 
-            using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
-            {
                 image.Settings.SetDefines(defines);
 
                 Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Dds, "cluster-fit"));
-                Assert.AreEqual("None", image.Settings.GetDefine(MagickFormat.Dds, "compression"));
-                Assert.AreEqual("False", image.Settings.GetDefine(MagickFormat.Dds, "fast-mipmaps"));
-                Assert.AreEqual("0", image.Settings.GetDefine(MagickFormat.Dds, "mipmaps"));
-                Assert.AreEqual("False", image.Settings.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
             }
         }
 
         [TestMethod]
-        public void Test_Compression()
+        public void Compression_NotSet_DefineIsNotSet()
         {
-            DdsWriteDefines defines = new DdsWriteDefines()
+            using (IMagickImage image = new MagickImage())
             {
-                Compression = DdsCompression.None,
-            };
+                var defines = new DdsWriteDefines();
 
+                image.Settings.SetDefines(defines);
+
+                Assert.AreEqual(null, defines.Compression);
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "compression"));
+            }
+        }
+
+        [TestMethod]
+        public void Compression_IsSet_DefineIsSet()
+        {
+            using (IMagickImage image = new MagickImage())
+            {
+                var defines = new DdsWriteDefines
+                {
+                    Compression = DdsCompression.Dxt1,
+                };
+
+                image.Settings.SetDefines(defines);
+
+                Assert.AreEqual("Dxt1", image.Settings.GetDefine(MagickFormat.Dds, "compression"));
+            }
+        }
+
+        [TestMethod]
+        public void Compression_NotSet_CompressionMethodIsDXT1()
+        {
             using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
             {
                 using (IMagickImage output = WriteDds(input))
                 {
                     Assert.AreEqual(CompressionMethod.DXT1, output.CompressionMethod);
                 }
+            }
+        }
 
-                input.Settings.SetDefines(defines);
+        [TestMethod]
+        public void Compression_SetToNone_CompressionMethodIsNo()
+        {
+            using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
+            {
+                input.Settings.SetDefines(new DdsWriteDefines()
+                {
+                    Compression = DdsCompression.None,
+                });
 
                 using (IMagickImage output = WriteDds(input))
                 {
                     Assert.AreEqual(CompressionMethod.NoCompression, output.CompressionMethod);
                 }
+            }
+        }
+
+        [TestMethod]
+        public void Compression_SetToDxt1_CompressionMethodIsDxt1()
+        {
+            using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
+            {
+                input.Settings.SetDefines(new DdsWriteDefines()
+                {
+                    Compression = DdsCompression.Dxt1,
+                });
+
+                using (IMagickImage output = WriteDds(input))
+                {
+                    Assert.AreEqual(CompressionMethod.DXT1, output.CompressionMethod);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void FastMipMaps_NotSet_DefineIsNotSet()
+        {
+            using (IMagickImage image = new MagickImage())
+            {
+                var defines = new DdsWriteDefines();
+
+                image.Settings.SetDefines(defines);
+
+                Assert.AreEqual(null, defines.FastMipmaps);
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "fast-mipmaps"));
+            }
+        }
+
+        [TestMethod]
+        public void FastMipMaps_IsSet_DefineIsSet()
+        {
+            using (IMagickImage image = new MagickImage())
+            {
+                var defines = new DdsWriteDefines
+                {
+                    FastMipmaps = true,
+                };
+
+                image.Settings.SetDefines(defines);
+
+                Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Dds, "fast-mipmaps"));
+            }
+        }
+
+        [TestMethod]
+        public void MipMaps_NotSet_DefineIsNotSet()
+        {
+            using (IMagickImage image = new MagickImage())
+            {
+                var defines = new DdsWriteDefines();
+
+                image.Settings.SetDefines(defines);
+
+                Assert.AreEqual(null, defines.Mipmaps);
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "mipmaps"));
+            }
+        }
+
+        [TestMethod]
+        public void MipMaps_IsSet_DefineIsSet()
+        {
+            using (IMagickImage image = new MagickImage())
+            {
+                var defines = new DdsWriteDefines
+                {
+                    Mipmaps = 2,
+                };
+
+                image.Settings.SetDefines(defines);
+
+                Assert.AreEqual("2", image.Settings.GetDefine(MagickFormat.Dds, "mipmaps"));
+            }
+        }
+
+        [TestMethod]
+        public void WeightByAlpha_NotSet_DefineIsNotSet()
+        {
+            using (IMagickImage image = new MagickImage())
+            {
+                var defines = new DdsWriteDefines();
+
+                image.Settings.SetDefines(defines);
+
+                Assert.AreEqual(null, defines.WeightByAlpha);
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
+            }
+        }
+
+        [TestMethod]
+        public void WeightByAlpha_IsSet_DefineIsSet()
+        {
+            using (IMagickImage image = new MagickImage())
+            {
+                var defines = new DdsWriteDefines
+                {
+                    WeightByAlpha = false,
+                };
+
+                image.Settings.SetDefines(defines);
+
+                Assert.AreEqual("False", image.Settings.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
             }
         }
 
