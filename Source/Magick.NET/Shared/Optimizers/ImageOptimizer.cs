@@ -56,11 +56,12 @@ namespace ImageMagick
         /// smaller the file won't be overwritten.
         /// </summary>
         /// <param name="file">The image file to compress</param>
-        public void Compress(FileInfo file)
+        /// <returns>True when the image could be compressed otherwise false.</returns>
+        public bool Compress(FileInfo file)
         {
             Throw.IfNull(nameof(file), file);
 
-            DoCompress(file);
+            return DoCompress(file);
         }
 
         /// <summary>
@@ -69,12 +70,13 @@ namespace ImageMagick
         /// smaller the file won't be overwritten.
         /// </summary>
         /// <param name="fileName">The file name of the image to compress</param>
-        public void Compress(string fileName)
+        /// <returns>True when the image could be compressed otherwise false.</returns>
+        public bool Compress(string fileName)
         {
             string filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
-            DoCompress(new FileInfo(filePath));
+            return DoCompress(new FileInfo(filePath));
         }
 
         /// <summary>
@@ -82,6 +84,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="file">The file to check.</param>
         /// <returns>True when the supplied file name is supported based on the extension of the file.</returns>
+        /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool IsSupported(FileInfo file)
         {
             return IsSupported(MagickFormatInfo.Create(file));
@@ -120,11 +123,12 @@ namespace ImageMagick
         /// the file won't be overwritten.
         /// </summary>
         /// <param name="file">The image file to compress</param>
-        public void LosslessCompress(FileInfo file)
+        /// <returns>True when the image could be compressed otherwise false.</returns>
+        public bool LosslessCompress(FileInfo file)
         {
             Throw.IfNull(nameof(file), file);
 
-            DoLosslessCompress(file);
+            return DoLosslessCompress(file);
         }
 
         /// <summary>
@@ -132,12 +136,13 @@ namespace ImageMagick
         /// the file won't be overwritten.
         /// </summary>
         /// <param name="fileName">The file name of the image to compress</param>
-        public void LosslessCompress(string fileName)
+        /// <returns>True when the image could be compressed otherwise false.</returns>
+        public bool LosslessCompress(string fileName)
         {
             string filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
-            DoLosslessCompress(new FileInfo(filePath));
+            return DoLosslessCompress(new FileInfo(filePath));
         }
 
         private static Collection<IImageOptimizer> CreateImageOptimizers()
@@ -160,24 +165,24 @@ namespace ImageMagick
             return MagickNET.GetFormatInformation(imageInfo.Format);
         }
 
-        private void DoLosslessCompress(FileInfo file)
+        private bool DoLosslessCompress(FileInfo file)
         {
             IImageOptimizer optimizer = GetOptimizer(file);
             if (optimizer == null)
-                return;
+                return false;
 
             optimizer.OptimalCompression = OptimalCompression;
-            optimizer.LosslessCompress(file);
+            return optimizer.LosslessCompress(file);
         }
 
-        private void DoCompress(FileInfo file)
+        private bool DoCompress(FileInfo file)
         {
             IImageOptimizer optimizer = GetOptimizer(file);
             if (optimizer == null)
-                return;
+                return false;
 
             optimizer.OptimalCompression = OptimalCompression;
-            optimizer.Compress(file);
+            return optimizer.Compress(file);
         }
 
         private IImageOptimizer GetOptimizer(FileInfo file)

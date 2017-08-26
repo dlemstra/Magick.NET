@@ -18,15 +18,17 @@ namespace Magick.NET.Tests
 {
     public abstract class ImageOptimizerTestHelper
     {
-        protected long AssertCompress(string fileName, bool resultIsSmaller, Action<FileInfo> action)
+        protected long AssertCompress(string fileName, bool resultIsSmaller, Func<FileInfo, bool> action)
         {
             using (TemporaryFile tempFile = new TemporaryFile(fileName))
             {
                 long before = tempFile.Length;
 
-                action(tempFile);
+                bool result = action(tempFile);
 
                 long after = tempFile.Length;
+
+                Assert.AreEqual(resultIsSmaller, result);
 
                 if (resultIsSmaller)
                     Assert.IsTrue(after < before, "{0} is not smaller than {1}", after, before);
@@ -37,16 +39,18 @@ namespace Magick.NET.Tests
             }
         }
 
-        protected long AssertCompress(string fileName, bool resultIsSmaller, Action<string> action)
+        protected long AssertCompress(string fileName, bool resultIsSmaller, Func<string, bool> action)
         {
             using (TemporaryFile tempFile = new TemporaryFile(fileName))
             {
                 long before = tempFile.Length;
 
-                action(tempFile.FullName);
+                bool result = action(tempFile.FullName);
 
                 tempFile.Refresh();
                 long after = tempFile.Length;
+
+                Assert.AreEqual(resultIsSmaller, result);
 
                 if (resultIsSmaller)
                     Assert.IsTrue(after < before, "{0} is not smaller than {1}", after, before);

@@ -23,19 +23,16 @@ namespace Magick.NET.Tests
 
         protected long AssertCompressSmaller(string fileName)
         {
-            bool isCompressed = false;
-
             long lengthA = AssertCompress(fileName, true, (FileInfo file) =>
             {
-                isCompressed = Optimizer.Compress(file);
+                return Optimizer.Compress(file);
             });
 
             long lengthB = AssertCompress(fileName, true, (string file) =>
             {
-                Optimizer.Compress(file);
+                return Optimizer.Compress(file);
             });
 
-            Assert.IsTrue(isCompressed);
             Assert.AreEqual(lengthA, lengthB, 1);
             return lengthA;
         }
@@ -46,12 +43,12 @@ namespace Magick.NET.Tests
 
             long lengthA = AssertCompress(fileName, false, (FileInfo file) =>
             {
-                isCompressed = Optimizer.Compress(file);
+                return Optimizer.Compress(file);
             });
 
             long lengthB = AssertCompress(fileName, false, (string file) =>
             {
-                Optimizer.Compress(file);
+                return Optimizer.Compress(file);
             });
 
             Assert.IsFalse(isCompressed);
@@ -71,44 +68,39 @@ namespace Magick.NET.Tests
                 long after2 = tempFile.Length;
 
                 Assert.AreEqual(after1, after2, 1);
-                Assert.AreNotEqual(compressed1, compressed2);
+                Assert.IsTrue(compressed1);
+                Assert.IsFalse(compressed2);
             }
         }
 
         protected long AssertLosslessCompressSmaller(string fileName)
         {
-            bool isCompressed = false;
-
             long lengthA = AssertCompress(fileName, true, (FileInfo file) =>
             {
-                isCompressed = Optimizer.LosslessCompress(file);
+                return Optimizer.LosslessCompress(file);
             });
 
             long lengthB = AssertCompress(fileName, true, (string file) =>
             {
-                Optimizer.LosslessCompress(file);
+                return Optimizer.LosslessCompress(file);
             });
 
-            Assert.IsTrue(isCompressed);
             Assert.AreEqual(lengthA, lengthB, 1);
             return lengthA;
         }
 
         protected void AssertLosslessCompressNotSmaller(string fileName)
         {
-            bool isCompressed = false;
-
             long lengthA = AssertCompress(fileName, false, (FileInfo file) =>
             {
-                isCompressed = Optimizer.LosslessCompress(file);
+                return Optimizer.LosslessCompress(file);
             });
 
             long lengthB = AssertCompress(fileName, false, (string file) =>
             {
-                Optimizer.LosslessCompress(file);
+                return Optimizer.LosslessCompress(file);
             });
 
-            Assert.IsFalse(isCompressed);
             Assert.AreEqual(lengthA, lengthB);
         }
 
@@ -125,7 +117,8 @@ namespace Magick.NET.Tests
                 long after2 = tempFile.Length;
 
                 Assert.AreEqual(after1, after2, 1);
-                Assert.AreNotEqual(compressed1, compressed2);
+                Assert.IsTrue(compressed1);
+                Assert.IsFalse(compressed2);
             }
         }
     }

@@ -236,7 +236,7 @@ namespace Magick.NET.Tests
         {
             AssertCompress(Files.FujiFilmFinePixS1ProGIF, true, (FileInfo file) =>
             {
-                Optimizer.Compress(file);
+                return Optimizer.Compress(file);
             });
         }
 
@@ -245,7 +245,7 @@ namespace Magick.NET.Tests
         {
             AssertCompress(Files.ImageMagickJPG, true, (FileInfo file) =>
             {
-                Optimizer.Compress(file);
+                return Optimizer.Compress(file);
             });
         }
 
@@ -254,7 +254,7 @@ namespace Magick.NET.Tests
         {
             AssertCompress(Files.SnakewarePNG, true, (FileInfo file) =>
             {
-                Optimizer.Compress(file);
+                return Optimizer.Compress(file);
             });
         }
 
@@ -263,7 +263,7 @@ namespace Magick.NET.Tests
         {
             AssertCompress(Files.RoseSparkleGIF, false, (string file) =>
             {
-                Optimizer.Compress(file);
+                return Optimizer.Compress(file);
             });
         }
 
@@ -272,7 +272,7 @@ namespace Magick.NET.Tests
         {
             AssertCompress(Files.LetterJPG, false, (string file) =>
             {
-                Optimizer.Compress(file);
+                return Optimizer.Compress(file);
             });
         }
 
@@ -281,7 +281,7 @@ namespace Magick.NET.Tests
         {
             AssertCompress(Files.MagickNETIconPNG, false, (string file) =>
             {
-                Optimizer.Compress(file);
+                return Optimizer.Compress(file);
             });
         }
 
@@ -290,7 +290,7 @@ namespace Magick.NET.Tests
         {
             AssertCompress(Files.FujiFilmFinePixS1ProGIF, true, (FileInfo file) =>
             {
-                Optimizer.LosslessCompress(file);
+                return Optimizer.LosslessCompress(file);
             });
         }
 
@@ -299,7 +299,7 @@ namespace Magick.NET.Tests
         {
             AssertCompress(Files.ImageMagickJPG, true, (FileInfo file) =>
             {
-                Optimizer.LosslessCompress(file);
+                return Optimizer.LosslessCompress(file);
             });
         }
 
@@ -308,7 +308,7 @@ namespace Magick.NET.Tests
         {
             AssertCompress(Files.SnakewarePNG, true, (FileInfo file) =>
             {
-                Optimizer.LosslessCompress(file);
+                return Optimizer.LosslessCompress(file);
             });
         }
 
@@ -317,7 +317,7 @@ namespace Magick.NET.Tests
         {
             AssertCompress(Files.RoseSparkleGIF, false, (string file) =>
             {
-                Optimizer.LosslessCompress(file);
+                return Optimizer.LosslessCompress(file);
             });
         }
 
@@ -326,7 +326,7 @@ namespace Magick.NET.Tests
         {
             AssertCompress(Files.LetterJPG, false, (string file) =>
             {
-                Optimizer.LosslessCompress(file);
+                return Optimizer.LosslessCompress(file);
             });
         }
 
@@ -335,7 +335,7 @@ namespace Magick.NET.Tests
         {
             AssertCompress(Files.MagickNETIconPNG, false, (string file) =>
             {
-                Optimizer.LosslessCompress(file);
+                return Optimizer.LosslessCompress(file);
             });
         }
     }
