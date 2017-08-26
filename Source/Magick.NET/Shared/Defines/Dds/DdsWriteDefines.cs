@@ -31,47 +31,32 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets a value indicating whether cluser fit is enabled or disabled (dds:cluster-fit).
         /// </summary>
-        public bool? ClusterFit
-        {
-            get;
-            set;
-        }
+        public bool? ClusterFit { get; set; }
 
         /// <summary>
         /// Gets or sets the compression that will be used (dds:compression).
         /// </summary>
-        public DdsCompression? Compression
-        {
-            get;
-            set;
-        }
+        public DdsCompression? Compression { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the mipmaps should be resized faster but with a lower quality (dds:fast-mipmaps).
         /// </summary>
-        public bool? FastMipmaps
-        {
-            get;
-            set;
-        }
+        public bool? FastMipmaps { get; set; }
 
         /// <summary>
         /// Gets or sets the the number of mipmaps, zero will disable writing mipmaps (dds:mipmaps).
         /// </summary>
-        public int? Mipmaps
-        {
-            get;
-            set;
-        }
+        public int? Mipmaps { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the mipmaps should be created from the images in the collection (dds:mipmaps=fromlist).
+        /// </summary>
+        public bool? MipmapsFromCollection { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether weight by alpha is enabled or disabled when cluster fit is used (dds:weight-by-alpha).
         /// </summary>
-        public bool? WeightByAlpha
-        {
-            get;
-            set;
-        }
+        public bool? WeightByAlpha { get; set; }
 
         /// <summary>
         /// Gets the defines that should be set as a define on an image.
@@ -89,7 +74,9 @@ namespace ImageMagick
                 if (FastMipmaps.HasValue)
                     yield return CreateDefine("fast-mipmaps", FastMipmaps.Value);
 
-                if (Mipmaps.HasValue)
+                if (MipmapsFromCollection == true)
+                    yield return CreateDefine("mipmaps", "fromlist");
+                else if (Mipmaps.HasValue)
                     yield return CreateDefine("mipmaps", Mipmaps.Value);
 
                 if (WeightByAlpha.HasValue)

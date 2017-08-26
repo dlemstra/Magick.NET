@@ -220,6 +220,54 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
+        public void MipMapsFromCollection_NotSet_DefineIsNotSet()
+        {
+            using (IMagickImage image = new MagickImage())
+            {
+                var defines = new DdsWriteDefines();
+
+                image.Settings.SetDefines(defines);
+
+                Assert.AreEqual(null, defines.Mipmaps);
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "mipmaps"));
+            }
+        }
+
+        [TestMethod]
+        public void MipMapsFromCollection_IsSetToTrue_DefineIsSet()
+        {
+            using (IMagickImage image = new MagickImage())
+            {
+                var defines = new DdsWriteDefines
+                {
+                    MipmapsFromCollection = true,
+                    Mipmaps = 4, // this is ignored
+                };
+
+                image.Settings.SetDefines(defines);
+
+                Assert.AreEqual("fromlist", image.Settings.GetDefine(MagickFormat.Dds, "mipmaps"));
+            }
+        }
+
+        [TestMethod]
+        public void MipMapsFromCollection_IsSetToFalse_DefineIsSet()
+        {
+            using (IMagickImage image = new MagickImage())
+            {
+                var defines = new DdsWriteDefines
+                {
+                    MipmapsFromCollection = false,
+                    Mipmaps = 4,
+                };
+
+                image.Settings.SetDefines(defines);
+
+                Assert.AreEqual("4", image.Settings.GetDefine(MagickFormat.Dds, "mipmaps"));
+            }
+        }
+
+        [TestMethod]
         public void WeightByAlpha_NotSet_DefineIsNotSet()
         {
             using (IMagickImage image = new MagickImage())
