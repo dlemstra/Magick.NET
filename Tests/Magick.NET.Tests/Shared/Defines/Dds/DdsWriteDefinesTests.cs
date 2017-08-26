@@ -93,6 +93,20 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
+        public void Compression_NotSetForImageWithAlphaChannel_CompressionMethodIsDXT5()
+        {
+            using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
+            {
+                input.Alpha(AlphaOption.Set);
+
+                using (IMagickImage output = WriteDds(input))
+                {
+                    Assert.AreEqual(CompressionMethod.DXT5, output.CompressionMethod);
+                }
+            }
+        }
+
+        [TestMethod]
         public void Compression_SetToNone_CompressionMethodIsNo()
         {
             using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
@@ -114,6 +128,25 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
             {
+                input.Settings.SetDefines(new DdsWriteDefines()
+                {
+                    Compression = DdsCompression.Dxt1,
+                });
+
+                using (IMagickImage output = WriteDds(input))
+                {
+                    Assert.AreEqual(CompressionMethod.DXT1, output.CompressionMethod);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void Compression_SetToDxt1ForImageWithAlphaChannel_CompressionMethodIsDxt1()
+        {
+            using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
+            {
+                input.Alpha(AlphaOption.Set);
+
                 input.Settings.SetDefines(new DdsWriteDefines()
                 {
                     Compression = DdsCompression.Dxt1,

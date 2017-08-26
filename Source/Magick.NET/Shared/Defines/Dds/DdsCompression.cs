@@ -26,10 +26,5 @@ namespace ImageMagick.Defines
         /// Dxt1
         /// </summary>
         Dxt1,
-
-        /// <summary>
-        /// Dxt5
-        /// </summary>
-        Dxt5,
     }
 }

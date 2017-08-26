@@ -3633,10 +3633,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
             {
-                byte[] bytes = image.ToByteArray(new DdsWriteDefines()
-                {
-                    Compression = DdsCompression.Dxt5,
-                });
+                byte[] bytes = image.ToByteArray(MagickFormat.Dds);
 
                 image.Read(bytes);
                 Assert.AreEqual(CompressionMethod.DXT5, image.CompressionMethod);
@@ -3647,10 +3644,7 @@ namespace Magick.NET.Tests
                 image.Read(bytes);
                 Assert.AreEqual(MagickFormat.Jpeg, image.Format);
 
-                bytes = image.ToByteArray(new DdsWriteDefines()
-                {
-                    Compression = DdsCompression.Dxt5,
-                });
+                bytes = image.ToByteArray(MagickFormat.Dds);
 
                 image.Read(bytes);
                 Assert.AreEqual(CompressionMethod.DXT1, image.CompressionMethod);
