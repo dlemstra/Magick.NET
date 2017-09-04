@@ -8,7 +8,7 @@ Magick.NET is build with the following libraries:
 - ffi 3.0.13
 - flif 0.3.0 (28 April 2017)
 - glib 2.53.6 (19 August 2017)
-- ImageMagick 7.0.6.10
+- ImageMagick 7.0.7.0
 - jp2 1.900.6 (17 October 2016)
 - jpeg 1.5.1 (21 September 2016)
 - lcms 2.8 (20 July 2016)
