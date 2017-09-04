@@ -83,7 +83,7 @@ namespace ImageMagick
         Index = 0x0020,
 
         /// <summary>
-        /// Index
+        /// Composite
         /// </summary>
         Composite = 0x001F,
 
