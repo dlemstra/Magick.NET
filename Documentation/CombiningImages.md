@@ -48,13 +48,13 @@ End Using
 ```C#
 using (MagickImageCollection collection = new MagickImageCollection())
 {
-    // Add first image and set the animation delay to 100ms
+    // Add first image and set the animation delay (in 1/100th of a second) 
     collection.Add("Snakeware.png");
-    collection[0].AnimationDelay = 100;
+    collection[0].AnimationDelay = 100; // in this example delay is 1000ms/1sec
 
-    // Add second image, set the animation delay to 100ms and flip the image
+    // Add second image, set the animation delay (in 1/100th of a second) and flip the image
     collection.Add("Snakeware.png");
-    collection[1].AnimationDelay = 100;
+    collection[1].AnimationDelay = 100; // in this example delay is 1000ms/1sec
     collection[1].Flip();
 
     // Optionally reduce colors
@@ -75,11 +75,11 @@ using (MagickImageCollection collection = new MagickImageCollection())
 Using collection As New MagickImageCollection()
     ' Add first image and set the animation delay to 100ms
     collection.Add("Snakeware.png")
-    collection(0).AnimationDelay = 100
+    collection(0).AnimationDelay = 100   ' in this example delay is 1000ms/1sec
 
-    ' Add second image, set the animation delay to 100ms and flip the image
+    ' Add second image, set the animation delay (in 1/100th of a second) and flip the image
     collection.Add("Snakeware.png")
-    collection(1).AnimationDelay = 100
+    collection(1).AnimationDelay = 100   ' in this example delay is 1000ms/1sec
     collection(1).Flip()
 
     ' Optionally reduce colors
