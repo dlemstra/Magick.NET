@@ -73,7 +73,7 @@ using (MagickImageCollection collection = new MagickImageCollection())
 #### VB.NET
 ```VB.NET
 Using collection As New MagickImageCollection()
-    ' Add first image and set the animation delay to 100ms
+    ' Add first image and set the animation delay (in 1/100th of a second)
     collection.Add("Snakeware.png")
     collection(0).AnimationDelay = 100   ' in this example delay is 1000ms/1sec
 
