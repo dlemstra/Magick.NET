@@ -93,13 +93,13 @@ namespace ImageMagick
         /// Changes the value of the specified pixel.
         /// </summary>
         /// <param name="pixel">The pixel to set.</param>
-        void Set(Pixel pixel);
+        void SetPixel(Pixel pixel);
 
         /// <summary>
         /// Changes the value of the specified pixels.
         /// </summary>
         /// <param name="pixels">The pixels to set.</param>
-        void Set(IEnumerable<Pixel> pixels);
+        void SetPixel(IEnumerable<Pixel> pixels);
 
         /// <summary>
         /// Changes the value of the specified pixel.
@@ -107,33 +107,33 @@ namespace ImageMagick
         /// <param name="x">The X coordinate of the pixel.</param>
         /// <param name="y">The Y coordinate of the pixel.</param>
         /// <param name="value">The value of the pixel.</param>
-        void Set(int x, int y, QuantumType[] value);
+        void SetPixel(int x, int y, QuantumType[] value);
 
 #if !Q8
         /// <summary>
         /// Changes the values of the specified pixels.
         /// </summary>
         /// <param name="values">The values of the pixels.</param>
-        void Set(byte[] values);
+        void SetPixel(byte[] values);
 #endif
 
         /// <summary>
         /// Changes the values of the specified pixels.
         /// </summary>
         /// <param name="values">The values of the pixels.</param>
-        void Set(double[] values);
+        void SetPixel(double[] values);
 
         /// <summary>
         /// Changes the values of the specified pixels.
         /// </summary>
         /// <param name="values">The values of the pixels.</param>
-        void Set(int[] values);
+        void SetPixel(int[] values);
 
         /// <summary>
         /// Changes the values of the specified pixels.
         /// </summary>
         /// <param name="values">The values of the pixels.</param>
-        void Set(QuantumType[] values);
+        void SetPixel(QuantumType[] values);
 
 #if !Q8
         /// <summary>

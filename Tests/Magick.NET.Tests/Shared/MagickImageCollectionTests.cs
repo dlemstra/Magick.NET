@@ -519,7 +519,7 @@ namespace Magick.NET.Tests
                 IMagickImage image = new MagickImage(MagickColors.Red, 11, 11);
                 using (var pixels = image.GetPixels())
                 {
-                    pixels.Set(5, 5, new QuantumType[] { 0, Quantum.Max, 0 });
+                    pixels.SetPixel(5, 5, new QuantumType[] { 0, Quantum.Max, 0 });
                 }
 
                 collection.Add(image);
@@ -552,7 +552,7 @@ namespace Magick.NET.Tests
                 IMagickImage image = new MagickImage(MagickColors.Red, 11, 11);
                 using (var pixels = image.GetPixels())
                 {
-                    pixels.Set(5, 5, new QuantumType[] { 0, Quantum.Max, 0 });
+                    pixels.SetPixel(5, 5, new QuantumType[] { 0, Quantum.Max, 0 });
                 }
 
                 collection.Add(image);
@@ -589,7 +589,7 @@ namespace Magick.NET.Tests
                 IMagickImage image = new MagickImage(MagickColors.Red, 11, 11);
                 using (var pixels = image.GetPixels())
                 {
-                    pixels.Set(5, 5, new QuantumType[] { 0, Quantum.Max, 0 });
+                    pixels.SetPixel(5, 5, new QuantumType[] { 0, Quantum.Max, 0 });
                 }
 
                 collection.Add(image);

@@ -109,14 +109,14 @@ namespace ImageMagick
             return GetAreaUnchecked(0, 0, _image.Width, _image.Height);
         }
 
-        public void Set(Pixel pixel)
+        public void SetPixel(Pixel pixel)
         {
             Throw.IfNull(nameof(pixel), pixel);
 
-            SetPixel(pixel.X, pixel.Y, pixel.Value);
+            SetPixelPrivate(pixel.X, pixel.Y, pixel.Value);
         }
 
-        public void Set(IEnumerable<Pixel> pixels)
+        public void SetPixel(IEnumerable<Pixel> pixels)
         {
             Throw.IfNull(nameof(pixels), pixels);
 
@@ -124,19 +124,19 @@ namespace ImageMagick
 
             while (enumerator.MoveNext())
             {
-                Set(enumerator.Current);
+                SetPixel(enumerator.Current);
             }
         }
 
-        public void Set(int x, int y, QuantumType[] value)
+        public void SetPixel(int x, int y, QuantumType[] value)
         {
             Throw.IfNullOrEmpty(nameof(value), value);
 
-            SetPixel(x, y, value);
+            SetPixelPrivate(x, y, value);
         }
 
 #if !Q8
-        public void Set(byte[] values)
+        public void SetPixel(byte[] values)
         {
             CheckValues(values);
 
@@ -145,7 +145,7 @@ namespace ImageMagick
         }
 #endif
 
-        public void Set(double[] values)
+        public void SetPixel(double[] values)
         {
             CheckValues(values);
 
@@ -153,7 +153,7 @@ namespace ImageMagick
             SetAreaUnchecked(0, 0, _image.Width, _image.Height, castedValues);
         }
 
-        public void Set(int[] values)
+        public void SetPixel(int[] values)
         {
             CheckValues(values);
 
@@ -161,7 +161,7 @@ namespace ImageMagick
             SetAreaUnchecked(0, 0, _image.Width, _image.Height, castedValues);
         }
 
-        public void Set(QuantumType[] values)
+        public void SetPixel(QuantumType[] values)
         {
             CheckValues(values);
 
@@ -299,8 +299,8 @@ namespace ImageMagick
         private void CheckArea(int x, int y, int width, int height)
         {
             CheckIndex(x, y);
-            Throw.IfOutOfRange(nameof(width), 0, _image.Width - x, width, "Invalid width: {0}.", width);
-            Throw.IfOutOfRange(nameof(height), 0, _image.Height - y, height, "Invalid height: {0}.", height);
+            Throw.IfOutOfRange(nameof(width), 1, _image.Width - x, width, "Invalid width: {0}.", width);
+            Throw.IfOutOfRange(nameof(height), 1, _image.Height - y, height, "Invalid height: {0}.", height);
         }
 
         private void CheckIndex(int x, int y)
@@ -339,11 +339,12 @@ namespace ImageMagick
             _nativeInstance.SetArea(x, y, width, height, values, values.Length);
         }
 
-        private void SetPixel(int x, int y, QuantumType[] value)
+        private void SetPixelPrivate(int x, int y, QuantumType[] value)
         {
             CheckIndex(x, y);
 
-            SetAreaUnchecked(x, y, 1, 1, value);
+            int length = Math.Min(value.Length, Channels);
+            _nativeInstance.SetArea(x, y, 1, 1, value, length);
         }
     }
 }

@@ -69,6 +69,13 @@ namespace Magick.NET.Tests
             Assert.AreEqual(paramName, exception.ParamName);
         }
 
+        public static void ThrowsArgumentException<TException>(string paramName, Action action)
+            where TException : ArgumentException
+        {
+            TException exception = Throws<TException>(action);
+            Assert.AreEqual(paramName, exception.ParamName);
+        }
+
         public static void ThrowsArgumentException(Action action, string paramName, string messagePart)
         {
             ArgumentException exception = Throws<ArgumentException>(action);

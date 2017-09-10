@@ -11,7 +11,8 @@
 // and limitations under the License.
 
 using System;
-using System.IO;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -32,34 +33,59 @@ namespace Magick.NET.Tests
     public sealed class PixelCollectionTests
     {
         [TestMethod]
-        public void Test_Enumerator()
+        public void Channels_ReturnsChannelCountOfImage()
+        {
+            using (IMagickImage image = new MagickImage(Files.CMYKJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    Assert.AreEqual(image.ChannelCount, pixels.Channels);
+
+                    image.HasAlpha = true;
+
+                    Assert.AreEqual(image.ChannelCount, pixels.Channels);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void Indexer_OutsideImage_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.RedPNG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException<ArgumentOutOfRangeException>("x", () =>
+                    {
+                        Pixel pixel = pixels[image.Width + 1, 0];
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void Indexer_InsideImage_ReturnsPixel()
+        {
+            using (IMagickImage image = new MagickImage(Files.RedPNG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    Pixel pixel = pixels[300, 100];
+                    MagickColor color = pixel.ToColor();
+
+                    ColorAssert.AreEqual(MagickColors.Red, color);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void IEnumerable_FindPixel_ReturnsCorrectPixel()
         {
             using (IMagickImage image = new MagickImage(Files.ConnectedComponentsPNG, 10, 10))
             {
                 Pixel pixel = image.GetPixels().First(p => p.ToColor() == MagickColors.Black);
                 Assert.IsNotNull(pixel);
 
-                Pixel otherPixel = null;
-
-                using (var pixels = image.GetPixels())
-                {
-                    for (int y = 0; y < image.Height; y++)
-                    {
-                        for (int x = 0; x < image.Width; x++)
-                        {
-                            otherPixel = pixels.GetPixel(x, y);
-                            if (otherPixel.ToColor() == MagickColors.Black)
-                                break;
-                        }
-
-                        if (otherPixel.ToColor() == MagickColors.Black)
-                            break;
-                    }
-                }
-
-                Assert.IsNotNull(otherPixel);
-
-                Assert.AreEqual(pixel, otherPixel);
                 Assert.AreEqual(350, pixel.X);
                 Assert.AreEqual(196, pixel.Y);
                 Assert.AreEqual(2, pixel.Channels);
@@ -67,63 +93,7 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_GetArea()
-        {
-            using (IMagickImage image = new MagickImage(MagickColors.Fuchsia, 10, 10))
-            {
-                using (IPixelCollection pixels = image.GetPixels())
-                {
-                    pixels.Set(3, 3, new QuantumType[] { 0, 0, 0 });
-
-                    var valuesA = pixels.GetArea(2, 2, 4, 4);
-                    Assert.AreEqual(48, valuesA.Length);
-
-                    var pixelB = pixels.GetArea(new MagickGeometry(3, 3, 1, 1));
-                    Assert.AreEqual(3, pixelB.Length);
-
-                    var pixelA = valuesA.Skip(15).Take(3).ToArray();
-
-                    CollectionAssert.AreEqual(pixelA, pixelB);
-                }
-            }
-        }
-
-        [TestMethod]
-        public void Test_GetValue()
-        {
-            using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
-            {
-                using (IPixelCollection pixels = image.GetPixels())
-                {
-                    var values = pixels.GetValue(0, 0);
-                    Assert.AreEqual(3, values.Length);
-
-                    MagickColor color = new MagickColor(values[0], values[1], values[2]);
-                    ColorAssert.AreEqual(MagickColors.Red, color);
-                }
-            }
-        }
-
-        [TestMethod]
-        public void Test_GetValues()
-        {
-            using (IMagickImage image = new MagickImage(MagickColors.PowderBlue, 1, 1))
-            {
-                Assert.AreEqual(3, image.ChannelCount);
-
-                using (IPixelCollection pixels = image.GetPixels())
-                {
-                    var values = pixels.GetValues();
-                    Assert.AreEqual(3, values.Length);
-
-                    MagickColor color = new MagickColor(values[0], values[1], values[2]);
-                    ColorAssert.AreEqual(MagickColors.PowderBlue, color);
-                }
-            }
-        }
-
-        [TestMethod]
-        public void Test_IEnumerable()
+        public void IEnumerable_ReturnsCorrectCount()
         {
             using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
             {
@@ -135,264 +105,1157 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_IndexOutOfRange()
+        public void GetArea_XTooLow_ThrowsException()
+        {
+            GetArea_ThrowsException("x", -1, 0, 1, 1);
+        }
+
+        [TestMethod]
+        public void GetArea_XTooHigh_ThrowsException()
+        {
+            GetArea_ThrowsException("x", 6, 0, 1, 1);
+        }
+
+        [TestMethod]
+        public void GetArea_YTooLow_ThrowsException()
+        {
+            GetArea_ThrowsException("y", 0, -1, 1, 1);
+        }
+
+        [TestMethod]
+        public void GetArea_YTooHigh_ThrowsException()
+        {
+            GetArea_ThrowsException("y", 0, 11, 1, 1);
+        }
+
+        [TestMethod]
+        public void GetArea_WidthTooLow_ThrowsException()
+        {
+            GetArea_ThrowsException("width", 0, 0, -1, 1);
+        }
+
+        [TestMethod]
+        public void GetArea_WidthZero_ThrowsException()
+        {
+            GetArea_ThrowsException("width", 0, 0, 0, 1);
+        }
+
+        [TestMethod]
+        public void GetArea_HeightTooLow_ThrowsException()
+        {
+            GetArea_ThrowsException("height", 0, 0, 1, -1);
+        }
+
+        [TestMethod]
+        public void GetArea_HeightZero_ThrowsException()
+        {
+            GetArea_ThrowsException("height", 0, 0, 1, 0);
+        }
+
+        [TestMethod]
+        public void GetArea_WidthAndOffsetTooHigh_ThrowsException()
+        {
+            GetArea_ThrowsException("width", 4, 0, 2, 1);
+        }
+
+        [TestMethod]
+        public void GetArea_HeightAndOffsetTooHigh_ThrowsException()
+        {
+            GetArea_ThrowsException("height", 0, 9, 1, 2);
+        }
+
+        [TestMethod]
+        public void GetArea_ValidArea_ReturnsArea()
+        {
+            using (IMagickImage image = new MagickImage(Files.CirclePNG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    var area = pixels.GetArea(28, 28, 2, 3);
+                    int length = 2 * 3 * 4; // width * height * channelCount
+                    MagickColor color = new MagickColor(area[0], area[1], area[2], area[3]);
+
+                    Assert.AreEqual(length, area.Length);
+                    ColorAssert.AreEqual(new MagickColor("#ffffff9f"), color);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void GetArea_GeometryIsNull_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.RedPNG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
+                    {
+                        pixels.GetArea(null);
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void GetArea_ValidGeometry_ReturnsArea()
+        {
+            using (IMagickImage image = new MagickImage(Files.RedPNG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    var area = pixels.GetArea(new MagickGeometry(0, 0, 6, 5));
+                    int length = 6 * 5 * 4; // width * height * channelCount
+                    MagickColor color = new MagickColor(area[0], area[1], area[2], area[3]);
+
+                    Assert.AreEqual(length, area.Length);
+                    ColorAssert.AreEqual(MagickColors.Red, color);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void GetEnumerator_ReturnsEnumerator()
+        {
+            using (IMagickImage image = new MagickImage(Files.CirclePNG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    IEnumerator<Pixel> enumerator = pixels.GetEnumerator();
+                    Assert.IsNotNull(enumerator);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void GetEnumerator_InterfaceImplementation_ReturnsEnumerator()
+        {
+            using (IMagickImage image = new MagickImage(Files.CirclePNG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    IEnumerable enumerable = pixels;
+                    Assert.IsNotNull(enumerable.GetEnumerator());
+                }
+            }
+        }
+
+        [TestMethod]
+        public void GetIndex_InvalidChannel_ReturnsMinusOne()
+        {
+            using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    int index = pixels.GetIndex(PixelChannel.Black);
+                    Assert.AreEqual(-1, index);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void GetIndex_ValidChannel_ReturnsIndex()
+        {
+            using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    int index = pixels.GetIndex(PixelChannel.Green);
+                    Assert.AreEqual(1, index);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void GetPixel_OutsideImage_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException<ArgumentOutOfRangeException>("x", () =>
+                    {
+                        Pixel pixel = pixels.GetPixel(image.Width + 1, 0);
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void GetPixel_InsideImage_ReturnsPixel()
+        {
+            using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    Pixel pixel = pixels.GetPixel(55, 68);
+                    ColorAssert.AreEqual(new MagickColor("#a8dff8ff"), pixel.ToColor());
+                }
+            }
+        }
+
+        [TestMethod]
+        public void GetValue_XTooLow_ThrowsException()
+        {
+            GetValue_ThrowsException("x", -1, 0);
+        }
+
+        [TestMethod]
+        public void GetValue_XTooHigh_ThrowsException()
+        {
+            GetValue_ThrowsException("x", 6, 0);
+        }
+
+        [TestMethod]
+        public void GetValue_YTooLow_ThrowsException()
+        {
+            GetValue_ThrowsException("y", 0, -1);
+        }
+
+        [TestMethod]
+        public void GetValue_YTooHigh_ThrowsException()
+        {
+            GetValue_ThrowsException("y", 0, 11);
+        }
+
+        [TestMethod]
+        public void GetValues_ReturnsAllPixels()
+        {
+            using (IMagickImage image = new MagickImage(MagickColors.Purple, 4, 2))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    var values = pixels.GetValues();
+                    int length = 4 * 2 * 3;
+
+                    Assert.AreEqual(length, values.Length);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetPixel_PixelIsNull_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("pixel", () =>
+                    {
+                        pixels.SetPixel((Pixel)null);
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetPixel_PixelIsOutsideImage_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException<ArgumentOutOfRangeException>("y", () =>
+                    {
+                        pixels.SetPixel(new Pixel(0, image.Height + 1, 3));
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetPixel_PixelWithOneChannel_ChangesPixel()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    Pixel pixel = new Pixel(0, 0, new QuantumType[] { 0 });
+                    pixels.SetPixel(pixel);
+
+                    ColorAssert.AreEqual(MagickColors.Cyan, image, 0, 0);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetPixel_PixelHasTooManyChannels_ChangesPixel()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    Pixel pixel = new Pixel(0, 0, new QuantumType[] { 0, 0, 0, 0 });
+                    pixels.SetPixel(pixel);
+
+                    ColorAssert.AreEqual(MagickColors.Black, image, 0, 0);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetPixel_CompletePixel_ChangesPixel()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    Pixel pixel = new Pixel(0, 0, new QuantumType[] { 0, 0, 0 });
+                    pixels.SetPixel(pixel);
+
+                    ColorAssert.AreEqual(MagickColors.Black, image, 0, 0);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetPixel_IEnumerablePixelIsNull_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("pixels", () =>
+                    {
+                        pixels.SetPixel((IEnumerable<Pixel>)null);
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetPixel_MultipleIncompletePixels_ChangesPixels()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    Pixel pixelA = new Pixel(0, 0, new QuantumType[] { 0 });
+                    Pixel pixelB = new Pixel(1, 0, new QuantumType[] { 0, 0 });
+                    pixels.SetPixel(new Pixel[] { pixelA, pixelB });
+
+                    ColorAssert.AreEqual(MagickColors.Cyan, image, 0, 0);
+                    ColorAssert.AreEqual(MagickColors.Blue, image, 1, 0);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetPixel_MultipleCompletePixels_ChangesPixels()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    Pixel pixelA = new Pixel(0, 0, new QuantumType[] { Quantum.Max, 0, 0 });
+                    Pixel pixelB = new Pixel(1, 0, new QuantumType[] { 0, Quantum.Max, 0 });
+                    pixels.SetPixel(new Pixel[] { pixelA, pixelB });
+
+                    ColorAssert.AreEqual(MagickColors.Red, image, 0, 0);
+                    ColorAssert.AreEqual(MagickColors.Lime, image, 1, 0);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetPixelWithOffset_ArrayIsNull_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("value", () =>
+                    {
+                        pixels.SetPixel(0, 0, null);
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetPixelWithOffset_ArrayIsEmpty_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException("value", () =>
+                    {
+                        pixels.SetPixel(0, 0, new QuantumType[] { });
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetPixelWithOffset_OutSideImage_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException<ArgumentOutOfRangeException>("x", () =>
+                    {
+                        pixels.SetPixel(image.Width + 1, 0, new QuantumType[] { 0 });
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetPixelWithOffset_OneChannel_ChangesPixel()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    pixels.SetPixel(0, 0, new QuantumType[] { 0 });
+
+                    ColorAssert.AreEqual(MagickColors.Cyan, image, 0, 0);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetPixelWithOffset_TooManyChannels_ChangesPixel()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    pixels.SetPixel(0, 0, new QuantumType[] { 0, 0, 0, 0 });
+
+                    ColorAssert.AreEqual(MagickColors.Black, image, 0, 0);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetPixelWithOffset_CorrectNumberOfChannels_ChangesPixel()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    pixels.SetPixel(0, 0, new QuantumType[] { 0, 0, 0 });
+
+                    ColorAssert.AreEqual(MagickColors.Black, image, 0, 0);
+                }
+            }
+        }
+
+#if !Q8
+        [TestMethod]
+        public void SetPixelWithByteArray_InvalidSize_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException("values", () =>
+                    {
+                        pixels.SetPixel(new byte[] { 0, 0, 0, 0 });
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetPixelWithByteArray_TooManyValues_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException("values", () =>
+                    {
+                        var values = new byte[(image.Width * image.Height * image.ChannelCount) + 1];
+                        pixels.SetPixel(values);
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetPixelWithByteArray_MaxNumberOfValues_ChangesPixels()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    var values = new byte[image.Width * image.Height * image.ChannelCount];
+                    pixels.SetPixel(values);
+
+                    ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
+                }
+            }
+        }
+#endif
+
+        [TestMethod]
+        public void SetPixelWithDoubleArray_InvalidSize_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException("values", () =>
+                    {
+                        pixels.SetPixel(new double[] { 0, 0, 0, 0 });
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetPixelWithDoubleArray_TooManyValues_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException("values", () =>
+                    {
+                        var values = new double[(image.Width * image.Height * image.ChannelCount) + 1];
+                        pixels.SetPixel(values);
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetPixelWithDoubleArray_MaxNumberOfValues_ChangesPixels()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    var values = new double[image.Width * image.Height * image.ChannelCount];
+                    pixels.SetPixel(values);
+
+                    ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetPixelWithIntArray_InvalidSize_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException("values", () =>
+                    {
+                        pixels.SetPixel(new int[] { 0, 0, 0, 0 });
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetPixelWithIntArray_TooManyValues_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException("values", () =>
+                    {
+                        var values = new int[(image.Width * image.Height * image.ChannelCount) + 1];
+                        pixels.SetPixel(values);
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetPixelWithIntArray_MaxNumberOfValues_ChangesPixels()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    var values = new int[image.Width * image.Height * image.ChannelCount];
+                    pixels.SetPixel(values);
+
+                    ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetPixelWithArray_InvalidSize_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException("values", () =>
+                    {
+                        pixels.SetPixel(new QuantumType[] { 0, 0, 0, 0 });
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetPixelWithArray_TooManyValues_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException("values", () =>
+                    {
+                        var values = new QuantumType[(image.Width * image.Height * image.ChannelCount) + 1];
+                        pixels.SetPixel(values);
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetPixelWithArray_MaxNumberOfValues_ChangesPixels()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    var values = new QuantumType[image.Width * image.Height * image.ChannelCount];
+                    pixels.SetPixel(values);
+
+                    ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
+                }
+            }
+        }
+
+#if !Q8
+        [TestMethod]
+        public void SetAreaWithByteArray_InvalidSize_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException("values", () =>
+                    {
+                        pixels.SetArea(10, 10, 1000, 1000, new byte[] { 0, 0, 0, 0 });
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetAreaWithByteArray_TooManyValues_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException("values", () =>
+                    {
+                        var values = new byte[(113 * 108 * image.ChannelCount) + image.ChannelCount];
+                        pixels.SetArea(10, 10, 113, 108, values);
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetAreaWithByteArray_MaxNumberOfValues_ChangesPixels()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    var values = new byte[113 * 108 * image.ChannelCount];
+                    pixels.SetArea(10, 10, 113, 108, values);
+
+                    ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
+                }
+            }
+        }
+#endif
+
+        [TestMethod]
+        public void SetAreaWithDoubleArray_InvalidSize_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException("values", () =>
+                    {
+                        pixels.SetArea(10, 10, 1000, 1000, new double[] { 0, 0, 0, 0 });
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetAreaWithDoubleArray_TooManyValues_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException("values", () =>
+                    {
+                        var values = new double[(113 * 108 * image.ChannelCount) + image.ChannelCount];
+                        pixels.SetArea(10, 10, 113, 108, values);
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetAreaWithDoubleArray_MaxNumberOfValues_ChangesPixels()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    var values = new double[113 * 108 * image.ChannelCount];
+                    pixels.SetArea(10, 10, 113, 108, values);
+
+                    ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetAreaWithIntArray_InvalidSize_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException("values", () =>
+                    {
+                        pixels.SetArea(10, 10, 1000, 1000, new int[] { 0, 0, 0, 0 });
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetAreaWithIntArray_TooManyValues_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException("values", () =>
+                    {
+                        var values = new int[(113 * 108 * image.ChannelCount) + image.ChannelCount];
+                        pixels.SetArea(10, 10, 113, 108, values);
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetAreaWithIntArray_MaxNumberOfValues_ChangesPixels()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    var values = new int[113 * 108 * image.ChannelCount];
+                    pixels.SetArea(10, 10, 113, 108, values);
+
+                    ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetAreaWithArray_InvalidSize_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException("values", () =>
+                    {
+                        pixels.SetArea(10, 10, 1000, 1000, new QuantumType[] { 0, 0, 0, 0 });
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetAreaWithArray_TooManyValues_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException("values", () =>
+                    {
+                        var values = new QuantumType[(113 * 108 * image.ChannelCount) + image.ChannelCount];
+                        pixels.SetArea(10, 10, 113, 108, values);
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetAreaWithArray_MaxNumberOfValues_ChangesPixels()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    var values = new QuantumType[113 * 108 * image.ChannelCount];
+                    pixels.SetArea(10, 10, 113, 108, values);
+
+                    ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ToArray_ReturnsAllPixels()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    var values = pixels.ToArray();
+                    int length = image.Width * image.Height * image.ChannelCount;
+
+                    Assert.AreEqual(length, values.Length);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ToByteArray_XTooLow_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException<ArgumentOutOfRangeException>("x", () =>
+                    {
+                        pixels.ToByteArray(-1, 0, 1, 1, "RGB");
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ToByteArray_AreaIsCorrect_ReturnsArray()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    var values = pixels.ToByteArray(60, 60, 63, 58, "RGBA");
+                    int length = 63 * 58 * 4;
+
+                    Assert.AreEqual(length, values.Length);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ToByteArray_GeometryIsNull_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
+                    {
+                        pixels.ToByteArray(null, "RGB");
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ToByteArray_GeometryIsValidMappingIsNull_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("mapping", () =>
+                    {
+                        pixels.ToByteArray(new MagickGeometry(1, 2, 3, 4), null);
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ToByteArray_GeometryIsValidMappingIsEmpty_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException("mapping", () =>
+                    {
+                        pixels.ToByteArray(new MagickGeometry(1, 2, 3, 4), string.Empty);
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ToByteArray_GeometryIsCorrect_ReturnsArray()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    var values = pixels.ToByteArray(new MagickGeometry(10, 10, 113, 108), "RG");
+                    int length = 113 * 108 * 2;
+
+                    Assert.AreEqual(length, values.Length);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ToByteArray_MappingIsNull_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("mapping", () =>
+                    {
+                        pixels.ToByteArray(null);
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ToByteArray_MappingIsEmpty_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException("mapping", () =>
+                    {
+                        pixels.ToByteArray(string.Empty);
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ToByteArray_InvalidMapping_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.Throws<MagickOptionErrorException>(() =>
+                    {
+                        pixels.ToByteArray("FOO");
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ToByteArray_TwoChannels_ReturnsArray()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    var values = pixels.ToByteArray("RG");
+                    int length = image.Width * image.Height * 2;
+
+                    Assert.AreEqual(length, values.Length);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ToShortArray_XTooLow_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException<ArgumentOutOfRangeException>("x", () =>
+                    {
+                        pixels.ToShortArray(-1, 0, 1, 1, "RGB");
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ToShortArray_AreaIsCorrect_ReturnsArray()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    var values = pixels.ToShortArray(60, 60, 63, 58, "RGBA");
+                    int length = 63 * 58 * 4;
+
+                    Assert.AreEqual(length, values.Length);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ToShortArray_GeometryIsNull_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
+                    {
+                        pixels.ToShortArray(null, "RGB");
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ToShortArray_GeometryIsValidMappingIsNull_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("mapping", () =>
+                    {
+                        pixels.ToShortArray(new MagickGeometry(1, 2, 3, 4), null);
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ToShortArray_GeometryIsValidMappingIsEmpty_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException("mapping", () =>
+                    {
+                        pixels.ToShortArray(new MagickGeometry(1, 2, 3, 4), string.Empty);
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ToShortArray_GeometryIsCorrect_ReturnsArray()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    var values = pixels.ToShortArray(new MagickGeometry(10, 10, 113, 108), "RG");
+                    int length = 113 * 108 * 2;
+
+                    Assert.AreEqual(length, values.Length);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ToShortArray_MappingIsNull_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("mapping", () =>
+                    {
+                        pixels.ToShortArray(null);
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ToShortArray_MappingIsEmpty_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.ThrowsArgumentException("mapping", () =>
+                    {
+                        pixels.ToShortArray(string.Empty);
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ToShortArray_InvalidMapping_ThrowsException()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    ExceptionAssert.Throws<MagickOptionErrorException>(() =>
+                    {
+                        pixels.ToShortArray("FOO");
+                    });
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ToShortArray_TwoChannels_ReturnsArray()
+        {
+            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (IPixelCollection pixels = image.GetPixels())
+                {
+                    var values = pixels.ToShortArray("RG");
+                    int length = image.Width * image.Height * 2;
+
+                    Assert.AreEqual(length, values.Length);
+                }
+            }
+        }
+
+        private static void GetArea_ThrowsException(string paramName, int x, int y, int width, int height)
         {
             using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
             {
                 using (IPixelCollection pixels = image.GetPixels())
                 {
-                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
+                    ExceptionAssert.ThrowsArgumentException<ArgumentOutOfRangeException>(paramName, () =>
                     {
-                        pixels.GetArea(4, 0, 2, 1);
-                    });
-
-                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                    {
-                        pixels.GetArea(new MagickGeometry(0, 9, 1, 2));
-                    });
-
-                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                    {
-                        pixels.GetArea(-1, 0, 1, 1);
-                    });
-
-                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                    {
-                        pixels.GetArea(0, -1, 1, 1);
-                    });
-
-                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                    {
-                        pixels.GetArea(0, 0, -1, 1);
-                    });
-
-                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                    {
-                        pixels.GetArea(0, 0, 1, -1);
-                    });
-
-                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                    {
-                        pixels.GetValue(5, 0);
-                    });
-
-                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                    {
-                        pixels.GetValue(-1, 0);
-                    });
-
-                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                    {
-                        pixels.GetValue(0, -1);
-                    });
-
-                    ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-                    {
-                        pixels.GetValue(0, 10);
+                        pixels.GetArea(x, y, width, height);
                     });
                 }
             }
         }
 
-        [TestMethod]
-        public void Test_Set()
+        private static void GetValue_ThrowsException(string paramName, int x, int y)
         {
             using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
             {
                 using (IPixelCollection pixels = image.GetPixels())
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>(() =>
+                    ExceptionAssert.ThrowsArgumentException<ArgumentOutOfRangeException>(paramName, () =>
                     {
-                        pixels.Set((QuantumType[])null);
+                        pixels.GetValue(x, y);
                     });
-
-                    ExceptionAssert.Throws<ArgumentNullException>(() =>
-                    {
-                        pixels.Set((Pixel)null);
-                    });
-
-                    ExceptionAssert.Throws<ArgumentNullException>(() =>
-                    {
-                        pixels.Set((Pixel[])null);
-                    });
-
-                    Assert.AreEqual(3, pixels.Channels);
-                    Test_Set(pixels, new QuantumType[] { });
-                    Test_Set(pixels, new QuantumType[] { 0 });
-                    Test_Set(pixels, new QuantumType[] { 0, 0 });
-
-                    pixels.Set(new QuantumType[] { 0, 0, 0 });
-                    Test_PixelColor(pixels, MagickColors.Black);
-                }
-
-                using (IPixelCollection pixels = image.GetPixels())
-                {
-                    Test_PixelColor(pixels, MagickColors.Black);
-                }
-
-                using (IPixelCollection pixels = image.GetPixels())
-                {
-                    pixels.Set(new int[] { 100000, 0, 0 });
-                    Test_PixelColor(pixels, MagickColors.Red);
-                    pixels.Set(new byte[] { 0, 255, 0 });
-                    Test_PixelColor(pixels, MagickColors.Lime);
-                }
-
-                using (IPixelCollection pixels = image.GetPixels())
-                {
-                    pixels.SetArea(3, 3, 1, 1, new int[] { 100000, 0, 0 });
-                    Test_PixelColor(pixels, 3, 3, MagickColors.Red);
-                    pixels.SetArea(3, 3, 1, 1, new byte[] { 0, 255, 0 });
-                    Test_PixelColor(pixels, 3, 3, MagickColors.Lime);
-                }
-
-                using (IPixelCollection pixels = image.GetPixels())
-                {
-                    for (int x = 0; x < image.Width; x++)
-                    {
-                        for (int y = 0; y < image.Height; y++)
-                        {
-                            pixels.Set(x, y, new QuantumType[] { 0, 0, 0 });
-                        }
-                    }
                 }
             }
-        }
-
-        [TestMethod]
-        public void Test_SetResult()
-        {
-            using (IMagickImage image = new MagickImage(MagickColors.Red, 10, 2))
-            {
-                using (IPixelCollection pixels = image.GetPixels())
-                {
-                    QuantumType[] newPixels = new QuantumType[20 * pixels.Channels];
-                    for (int i = 0; i < newPixels.Length; i++)
-                        newPixels[i] = Quantum.Max;
-
-                    pixels.Set(newPixels);
-                }
-
-                TestPixels(image, new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max));
-            }
-
-            using (IMagickImage image = new MagickImage(MagickColors.Black, 10, 2))
-            {
-                using (IPixelCollection pixels = image.GetPixels())
-                {
-                    Assert.AreEqual(20, pixels.Count());
-
-                    foreach (Pixel pixel in pixels.Take(10))
-                    {
-                        pixel.SetChannel(2, Quantum.Max);
-                    }
-
-                    foreach (Pixel pixel in pixels.Skip(10))
-                    {
-                        pixel.SetChannel(0, Quantum.Max);
-                    }
-                }
-
-                TestPixels(image, MagickColors.Blue, MagickColors.Red);
-            }
-        }
-
-        [TestMethod]
-        public void Test_ToByteArray()
-        {
-            using (IMagickImage image = new MagickImage(MagickColors.Red, 10, 10))
-            {
-                using (IPixelCollection pixels = image.GetPixels())
-                {
-                    var bytes = pixels.ToByteArray(0, 0, 1, 1, "BGR");
-                    Assert.AreEqual(3, bytes.Length);
-                    CollectionAssert.AreEqual(new byte[] { 0, 0, 255 }, bytes);
-
-                    bytes = pixels.ToByteArray(0, 0, 1, 1, "BG");
-                    Assert.AreEqual(2, bytes.Length);
-                    CollectionAssert.AreEqual(new byte[] { 0, 0 }, bytes);
-                }
-            }
-        }
-
-        [TestMethod]
-        public void Test_ToShortArray()
-        {
-            using (MagickImage image = new MagickImage(MagickColors.Red, 10, 10))
-            {
-                using (IPixelCollection pixels = image.GetPixels())
-                {
-                    var shorts = pixels.ToShortArray(0, 0, 1, 1, "BGR");
-                    Assert.AreEqual(3, shorts.Length);
-                    CollectionAssert.AreEqual(new ushort[] { 0, 0, 65535 }, shorts);
-
-                    shorts = pixels.ToShortArray(0, 0, 1, 1, "BG");
-                    Assert.AreEqual(2, shorts.Length);
-                    CollectionAssert.AreEqual(new ushort[] { 0, 0 }, shorts);
-                }
-            }
-        }
-
-        private static void TestPixels(IMagickImage image, MagickColor color)
-        {
-            TestPixels(image, color, color);
-        }
-
-        private static void TestPixels(IMagickImage image, MagickColor firstRow, MagickColor secondRow)
-        {
-            using (IPixelCollection pixels = image.GetPixels())
-            {
-                for (int y = 0; y < 2; y++)
-                {
-                    for (int x = 0; x < 10; x++)
-                    {
-                        ColorAssert.AreEqual(y == 0 ? firstRow : secondRow, pixels.GetPixel(x, y).ToColor());
-                    }
-                }
-            }
-
-            using (MemoryStream memStream = new MemoryStream())
-            {
-                image.Format = MagickFormat.Bmp;
-                image.Write(memStream);
-                memStream.Position = 0;
-
-                using (IMagickImage output = new MagickImage(memStream))
-                {
-                    using (IPixelCollection pixels = output.GetPixels())
-                    {
-                        for (int y = 0; y < 2; y++)
-                        {
-                            for (int x = 0; x < 10; x++)
-                            {
-                                ColorAssert.AreEqual(y == 0 ? firstRow : secondRow, pixels.GetPixel(x, y).ToColor());
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        private static void Test_Set(IPixelCollection pixels, QuantumType[] value)
-        {
-            ExceptionAssert.Throws<ArgumentException>(() =>
-            {
-                pixels.Set(value);
-            });
-        }
-
-        private static void Test_PixelColor(IPixelCollection pixels, MagickColor color)
-        {
-            Test_PixelColor(pixels, 0, 0, color);
-        }
-
-        private static void Test_PixelColor(IPixelCollection pixels, int x, int y, MagickColor color)
-        {
-            var values = pixels.GetValue(x, y);
-            Assert.AreEqual(3, values.Length);
-
-            MagickColor magickColor = new MagickColor(values[0], values[1], values[2]);
-            ColorAssert.AreEqual(color, magickColor);
         }
     }
 }
