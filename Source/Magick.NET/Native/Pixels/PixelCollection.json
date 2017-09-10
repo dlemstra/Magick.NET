@@ -1,4 +1,5 @@
 ﻿{
+    "access": "internal",
     "constructor":
     {
         "throws": true,

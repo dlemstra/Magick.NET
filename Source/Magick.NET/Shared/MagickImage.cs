@@ -3257,7 +3257,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>A pixel collection that can be used to read or modify the pixels of this image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public PixelCollection GetPixels()
+        public IPixelCollection GetPixels()
         {
             if (Settings.Ping)
                 throw new InvalidOperationException("Image contains no pixel data.");
@@ -6574,7 +6574,7 @@ namespace ImageMagick
         private void FloodFill(QuantumType alpha, int x, int y, bool invert)
         {
             MagickColor target;
-            using (PixelCollection pixels = GetPixels())
+            using (IPixelCollection pixels = GetPixels())
             {
                 target = pixels.GetPixel(x, y).ToColor();
                 target.A = alpha;
@@ -6588,7 +6588,7 @@ namespace ImageMagick
             Throw.IfNull(nameof(color), color);
 
             MagickColor target;
-            using (PixelCollection pixels = GetPixels())
+            using (IPixelCollection pixels = GetPixels())
             {
                 target = pixels.GetPixel(x, y).ToColor();
             }
@@ -6621,7 +6621,7 @@ namespace ImageMagick
             Throw.IfNull(nameof(image), image);
 
             MagickColor target;
-            using (PixelCollection pixels = GetPixels())
+            using (IPixelCollection pixels = GetPixels())
             {
                 target = pixels.GetPixel(x, y).ToColor();
             }

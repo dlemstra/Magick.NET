@@ -119,7 +119,7 @@ namespace Magick.NET.Tests
 
                 collection.Read(Files.RoseSparkleGIF);
 
-                using (PixelCollection pixels = collection[1].GetPixels())
+                using (IPixelCollection pixels = collection[1].GetPixels())
                 {
                     MagickColor color = pixels.GetPixel(53, 3).ToColor();
                     Assert.AreEqual(0, color.A);
@@ -127,7 +127,7 @@ namespace Magick.NET.Tests
 
                 collection.Coalesce();
 
-                using (PixelCollection pixels = collection[1].GetPixels())
+                using (IPixelCollection pixels = collection[1].GetPixels())
                 {
                     MagickColor color = pixels.GetPixel(53, 3).ToColor();
                     Assert.AreEqual(Quantum.Max, color.A);
@@ -720,7 +720,7 @@ namespace Magick.NET.Tests
             collection.Read(Files.SnakewarePNG);
             Assert.AreEqual(286, collection[0].Width);
             Assert.AreEqual(67, collection[0].Height);
-            using (PixelCollection pixels = collection[0].GetPixels())
+            using (IPixelCollection pixels = collection[0].GetPixels())
             {
                 Assert.AreEqual(38324, pixels.ToArray().Length);
             }

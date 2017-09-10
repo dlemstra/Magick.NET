@@ -47,7 +47,7 @@ namespace Magick.NET.Tests
 
         public static void AreEqual(MagickColor expected, IMagickImage image, int x, int y)
         {
-            using (PixelCollection pixels = image.GetPixels())
+            using (IPixelCollection pixels = image.GetPixels())
             {
                 AreEqual(expected, pixels.GetPixel(x, y));
             }
@@ -62,7 +62,7 @@ namespace Magick.NET.Tests
 
         public static void AreNotEqual(MagickColor notExpected, IMagickImage image, int x, int y)
         {
-            using (PixelCollection collection = image.GetPixels())
+            using (IPixelCollection collection = image.GetPixels())
             {
                 AreNotEqual(notExpected, collection.GetPixel(x, y));
             }

@@ -200,7 +200,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(100, image.Width);
                 Assert.AreEqual(100, image.Height);
 
-                using (PixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixels())
                 {
                     pixelA = pixels.GetPixel(64, 6);
                 }
@@ -208,7 +208,7 @@ namespace Magick.NET.Tests
                 Pixel pixelB;
                 image.Settings.FillColor = MagickColors.Yellow;
                 image.Read("caption:Magick.NET");
-                using (PixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixels())
                 {
                     pixelB = pixels.GetPixel(64, 6);
                 }

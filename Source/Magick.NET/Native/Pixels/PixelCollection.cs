@@ -27,7 +27,7 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-    public partial class PixelCollection : IDisposable
+    internal partial class PixelCollection : IDisposable
     {
         private static class NativeMethods
         {

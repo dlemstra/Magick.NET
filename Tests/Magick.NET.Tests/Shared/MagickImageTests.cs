@@ -2487,7 +2487,7 @@ namespace Magick.NET.Tests
             image.Read(Files.SnakewarePNG);
             Assert.AreEqual(286, image.Width);
             Assert.AreEqual(67, image.Height);
-            using (PixelCollection pixels = image.GetPixels())
+            using (IPixelCollection pixels = image.GetPixels())
             {
                 Assert.AreEqual(38324, pixels.ToArray().Length);
             }
@@ -3248,7 +3248,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(width + 20, image.Width);
                 Assert.AreEqual(height + 20, image.Height);
 
-                using (PixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixels())
                 {
                     Pixel pixel = pixels.GetPixel(90, 9);
 #if Q8 || Q16
@@ -3367,7 +3367,7 @@ namespace Magick.NET.Tests
                     image.SparseColor(Channels.Blue, SparseColorMethod.Barycentric, args);
                 });
 
-                using (PixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixels())
                 {
                     ColorAssert.AreEqual(pixels.GetPixel(0, 0).ToColor(), pixels.GetPixel(599, 59).ToColor());
                 }
@@ -3383,7 +3383,7 @@ namespace Magick.NET.Tests
 
                 image.SparseColor(SparseColorMethod.Barycentric, args);
 
-                using (PixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixels())
                 {
                     ColorAssert.AreNotEqual(pixels.GetPixel(0, 0).ToColor(), pixels.GetPixel(599, 59).ToColor());
                 }
@@ -4111,7 +4111,7 @@ namespace Magick.NET.Tests
                     Assert.IsNotNull(mask);
                     Assert.AreEqual(false, mask.HasAlpha);
 
-                    using (PixelCollection pixels = mask.GetPixels())
+                    using (IPixelCollection pixels = mask.GetPixels())
                     {
                         MagickColor pixelA = pixels.GetPixel(0, 0).ToColor();
                         MagickColor pixelB = pixels.GetPixel(mask.Width - 1, mask.Height - 1).ToColor();
@@ -4163,7 +4163,7 @@ namespace Magick.NET.Tests
         {
             Assert.AreEqual(colorSpace, image.ColorSpace);
 
-            using (PixelCollection pixels = image.GetPixels())
+            using (IPixelCollection pixels = image.GetPixels())
             {
                 Pixel pixel = pixels.GetPixel(340, 260);
                 ColorAssert.AreEqual(MagickColor.FromRgb(value, value, value), pixel.ToColor());

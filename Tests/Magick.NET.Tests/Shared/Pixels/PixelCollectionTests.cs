@@ -71,7 +71,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(MagickColors.Fuchsia, 10, 10))
             {
-                using (PixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixels())
                 {
                     pixels.Set(3, 3, new QuantumType[] { 0, 0, 0 });
 
@@ -93,7 +93,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
             {
-                using (PixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixels())
                 {
                     var values = pixels.GetValue(0, 0);
                     Assert.AreEqual(3, values.Length);
@@ -111,7 +111,7 @@ namespace Magick.NET.Tests
             {
                 Assert.AreEqual(3, image.ChannelCount);
 
-                using (PixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixels())
                 {
                     var values = pixels.GetValues();
                     Assert.AreEqual(3, values.Length);
@@ -127,7 +127,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
             {
-                using (PixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixels())
                 {
                     Assert.AreEqual(50, pixels.Count());
                 }
@@ -139,7 +139,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
             {
-                using (PixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixels())
                 {
                     ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
                     {
@@ -199,7 +199,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
             {
-                using (PixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixels())
                 {
                     ExceptionAssert.Throws<ArgumentNullException>(() =>
                     {
@@ -225,12 +225,12 @@ namespace Magick.NET.Tests
                     Test_PixelColor(pixels, MagickColors.Black);
                 }
 
-                using (PixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixels())
                 {
                     Test_PixelColor(pixels, MagickColors.Black);
                 }
 
-                using (PixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixels())
                 {
                     pixels.Set(new int[] { 100000, 0, 0 });
                     Test_PixelColor(pixels, MagickColors.Red);
@@ -238,7 +238,7 @@ namespace Magick.NET.Tests
                     Test_PixelColor(pixels, MagickColors.Lime);
                 }
 
-                using (PixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixels())
                 {
                     pixels.SetArea(3, 3, 1, 1, new int[] { 100000, 0, 0 });
                     Test_PixelColor(pixels, 3, 3, MagickColors.Red);
@@ -246,7 +246,7 @@ namespace Magick.NET.Tests
                     Test_PixelColor(pixels, 3, 3, MagickColors.Lime);
                 }
 
-                using (PixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixels())
                 {
                     for (int x = 0; x < image.Width; x++)
                     {
@@ -264,7 +264,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(MagickColors.Red, 10, 2))
             {
-                using (PixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixels())
                 {
                     QuantumType[] newPixels = new QuantumType[20 * pixels.Channels];
                     for (int i = 0; i < newPixels.Length; i++)
@@ -278,7 +278,7 @@ namespace Magick.NET.Tests
 
             using (IMagickImage image = new MagickImage(MagickColors.Black, 10, 2))
             {
-                using (PixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixels())
                 {
                     Assert.AreEqual(20, pixels.Count());
 
@@ -302,7 +302,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(MagickColors.Red, 10, 10))
             {
-                using (PixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixels())
                 {
                     var bytes = pixels.ToByteArray(0, 0, 1, 1, "BGR");
                     Assert.AreEqual(3, bytes.Length);
@@ -320,7 +320,7 @@ namespace Magick.NET.Tests
         {
             using (MagickImage image = new MagickImage(MagickColors.Red, 10, 10))
             {
-                using (PixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixels())
                 {
                     var shorts = pixels.ToShortArray(0, 0, 1, 1, "BGR");
                     Assert.AreEqual(3, shorts.Length);
@@ -340,7 +340,7 @@ namespace Magick.NET.Tests
 
         private static void TestPixels(IMagickImage image, MagickColor firstRow, MagickColor secondRow)
         {
-            using (PixelCollection pixels = image.GetPixels())
+            using (IPixelCollection pixels = image.GetPixels())
             {
                 for (int y = 0; y < 2; y++)
                 {
@@ -359,7 +359,7 @@ namespace Magick.NET.Tests
 
                 using (IMagickImage output = new MagickImage(memStream))
                 {
-                    using (PixelCollection pixels = output.GetPixels())
+                    using (IPixelCollection pixels = output.GetPixels())
                     {
                         for (int y = 0; y < 2; y++)
                         {
@@ -373,7 +373,7 @@ namespace Magick.NET.Tests
             }
         }
 
-        private static void Test_Set(PixelCollection pixels, QuantumType[] value)
+        private static void Test_Set(IPixelCollection pixels, QuantumType[] value)
         {
             ExceptionAssert.Throws<ArgumentException>(() =>
             {
@@ -381,12 +381,12 @@ namespace Magick.NET.Tests
             });
         }
 
-        private static void Test_PixelColor(PixelCollection pixels, MagickColor color)
+        private static void Test_PixelColor(IPixelCollection pixels, MagickColor color)
         {
             Test_PixelColor(pixels, 0, 0, color);
         }
 
-        private static void Test_PixelColor(PixelCollection pixels, int x, int y, MagickColor color)
+        private static void Test_PixelColor(IPixelCollection pixels, int x, int y, MagickColor color)
         {
             var values = pixels.GetValue(x, y);
             Assert.AreEqual(3, values.Length);

@@ -1779,7 +1779,7 @@ namespace ImageMagick
         /// <returns>A pixel collection that can be used to read or modify the pixels of this image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Should be a method.")]
-        PixelCollection GetPixels();
+        IPixelCollection GetPixels();
 
         /// <summary>
         /// Retrieve a named profile from the image.

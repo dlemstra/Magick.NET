@@ -261,7 +261,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(10, image.Width);
                 Assert.AreEqual(5, image.Height);
 
-                using (PixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixels())
                 {
                     ColorAssert.AreEqual(MagickColors.Goldenrod, image, 0, 0);
                 }
