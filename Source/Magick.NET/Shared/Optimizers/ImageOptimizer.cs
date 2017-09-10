@@ -196,7 +196,7 @@ namespace ImageMagick
                     return optimizer;
             }
 
-            throw new MagickCorruptImageErrorException($"Invalid format, supported formats are: {SupportedFormats}");
+            throw new MagickCorruptImageErrorException("Invalid format, supported formats are: " + SupportedFormats);
         }
     }
 }
