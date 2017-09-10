@@ -15,11 +15,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: ComVisible(false)]
-#if Q16
 [assembly: CLSCompliant(false)]
-#else
-[assembly: CLSCompliant(true)]
-#endif
 
 [assembly: InternalsVisibleTo("Magick.NET.Tests, PublicKey=" +
 "002400000480000094000000060200000024000052534131000400000100010041848921d7f5c3" +

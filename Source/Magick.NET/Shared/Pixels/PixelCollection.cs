@@ -390,7 +390,6 @@ namespace ImageMagick
         /// <param name="height">The height of the area.</param>
         /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
         /// <returns>An <see cref="ushort"/> array.</returns>
-        [CLSCompliant(false)]
         public ushort[] ToShortArray(int x, int y, int width, int height, string mapping)
         {
             Throw.IfNullOrEmpty(nameof(mapping), mapping);
@@ -418,7 +417,6 @@ namespace ImageMagick
         /// <param name="geometry">The geometry of the area.</param>
         /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
         /// <returns>An <see cref="ushort"/> array.</returns>
-        [CLSCompliant(false)]
         public ushort[] ToShortArray(MagickGeometry geometry, string mapping)
         {
             Throw.IfNull(nameof(geometry), geometry);
@@ -431,7 +429,6 @@ namespace ImageMagick
         /// </summary>
         /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
         /// <returns>An <see cref="ushort"/> array.</returns>
-        [CLSCompliant(false)]
         public ushort[] ToShortArray(string mapping)
         {
             return ToShortArray(0, 0, _image.Width, _image.Height, mapping);

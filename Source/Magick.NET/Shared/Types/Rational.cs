@@ -49,7 +49,6 @@ namespace ImageMagick
         /// Initializes a new instance of the <see cref="Rational"/> struct.
         /// </summary>
         /// <param name="value">The integer to create the rational from.</param>
-        [CLSCompliant(false)]
         public Rational(uint value)
           : this(value, 1)
         {
@@ -60,7 +59,6 @@ namespace ImageMagick
         /// </summary>
         /// <param name="numerator">The number above the line in a vulgar fraction showing how many of the parts indicated by the denominator are taken.</param>
         /// <param name="denominator">The number below the line in a vulgar fraction; a divisor.</param>
-        [CLSCompliant(false)]
         public Rational(uint numerator, uint denominator)
           : this(numerator, denominator, true)
         {
@@ -72,7 +70,6 @@ namespace ImageMagick
         /// <param name="numerator">The number above the line in a vulgar fraction showing how many of the parts indicated by the denominator are taken.</param>
         /// <param name="denominator">The number below the line in a vulgar fraction; a divisor.</param>
         /// <param name="simplify">Specified if the rational should be simplified.</param>
-        [CLSCompliant(false)]
         public Rational(uint numerator, uint denominator, bool simplify)
         {
             BigRational rational = new BigRational(numerator, denominator, simplify);
@@ -84,7 +81,6 @@ namespace ImageMagick
         /// <summary>
         /// Gets the numerator of a number.
         /// </summary>
-        [CLSCompliant(false)]
         public uint Numerator
         {
             get;
@@ -94,7 +90,6 @@ namespace ImageMagick
         /// <summary>
         /// Gets the denominator of a number.
         /// </summary>
-        [CLSCompliant(false)]
         public uint Denominator
         {
             get;

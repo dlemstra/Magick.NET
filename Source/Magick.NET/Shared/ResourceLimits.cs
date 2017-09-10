@@ -22,7 +22,6 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the pixel cache limit in bytes. Requests for memory above this limit will fail.
         /// </summary>
-        [CLSCompliant(false)]
         public static ulong Disk
         {
             get { return NativeResourceLimits.Disk; }
@@ -32,7 +31,6 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the maximum height of an image.
         /// </summary>
-        [CLSCompliant(false)]
         public static ulong Height
         {
             get { return NativeResourceLimits.Height; }
@@ -43,7 +41,6 @@ namespace ImageMagick
         /// Gets or sets the pixel cache limit in bytes. Once this memory limit is exceeded, all subsequent pixels cache
         /// operations are to/from disk.
         /// </summary>
-        [CLSCompliant(false)]
         public static ulong Memory
         {
             get { return NativeResourceLimits.Memory; }
@@ -53,7 +50,6 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the time specified in milliseconds to periodically yield the CPU for.
         /// </summary>
-        [CLSCompliant(false)]
         public static ulong Throttle
         {
             get { return NativeResourceLimits.Throttle; }
@@ -63,7 +59,6 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the maximum width of an image.
         /// </summary>
-        [CLSCompliant(false)]
         public static ulong Width
         {
             get { return NativeResourceLimits.Width; }

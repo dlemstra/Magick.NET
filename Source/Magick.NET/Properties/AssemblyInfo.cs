@@ -18,11 +18,7 @@ using System.Security.Permissions;
 #endif
 
 [assembly: ComVisible(false)]
-#if Q16
 [assembly: CLSCompliant(false)]
-#else
-[assembly: CLSCompliant(true)]
-#endif
 #if NET20
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, UnmanagedCode = true)]
 #endif
