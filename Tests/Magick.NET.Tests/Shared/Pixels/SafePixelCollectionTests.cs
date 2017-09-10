@@ -30,7 +30,7 @@ using QuantumType = System.Single;
 namespace Magick.NET.Tests
 {
     [TestClass]
-    public sealed class PixelCollectionTests
+    public sealed class SafePixelCollectionTests
     {
         [TestMethod]
         public void Channels_ReturnsChannelCountOfImage()
@@ -545,7 +545,7 @@ namespace Magick.NET.Tests
 
 #if !Q8
         [TestMethod]
-        public void SetPixelWithByteArray_InvalidSize_ThrowsException()
+        public void SetPixelsWithByteArray_InvalidSize_ThrowsException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
@@ -553,14 +553,14 @@ namespace Magick.NET.Tests
                 {
                     ExceptionAssert.ThrowsArgumentException("values", () =>
                     {
-                        pixels.SetPixel(new byte[] { 0, 0, 0, 0 });
+                        pixels.SetPixels(new byte[] { 0, 0, 0, 0 });
                     });
                 }
             }
         }
 
         [TestMethod]
-        public void SetPixelWithByteArray_TooManyValues_ThrowsException()
+        public void SetPixelsWithByteArray_TooManyValues_ThrowsException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
@@ -569,21 +569,21 @@ namespace Magick.NET.Tests
                     ExceptionAssert.ThrowsArgumentException("values", () =>
                     {
                         var values = new byte[(image.Width * image.Height * image.ChannelCount) + 1];
-                        pixels.SetPixel(values);
+                        pixels.SetPixels(values);
                     });
                 }
             }
         }
 
         [TestMethod]
-        public void SetPixelWithByteArray_MaxNumberOfValues_ChangesPixels()
+        public void SetPixelsWithByteArray_MaxNumberOfValues_ChangesPixels()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
                 using (IPixelCollection pixels = image.GetPixels())
                 {
                     var values = new byte[image.Width * image.Height * image.ChannelCount];
-                    pixels.SetPixel(values);
+                    pixels.SetPixels(values);
 
                     ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                 }
@@ -592,7 +592,7 @@ namespace Magick.NET.Tests
 #endif
 
         [TestMethod]
-        public void SetPixelWithDoubleArray_InvalidSize_ThrowsException()
+        public void SetPixelsWithDoubleArray_InvalidSize_ThrowsException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
@@ -600,14 +600,14 @@ namespace Magick.NET.Tests
                 {
                     ExceptionAssert.ThrowsArgumentException("values", () =>
                     {
-                        pixels.SetPixel(new double[] { 0, 0, 0, 0 });
+                        pixels.SetPixels(new double[] { 0, 0, 0, 0 });
                     });
                 }
             }
         }
 
         [TestMethod]
-        public void SetPixelWithDoubleArray_TooManyValues_ThrowsException()
+        public void SetPixelsWithDoubleArray_TooManyValues_ThrowsException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
@@ -616,21 +616,21 @@ namespace Magick.NET.Tests
                     ExceptionAssert.ThrowsArgumentException("values", () =>
                     {
                         var values = new double[(image.Width * image.Height * image.ChannelCount) + 1];
-                        pixels.SetPixel(values);
+                        pixels.SetPixels(values);
                     });
                 }
             }
         }
 
         [TestMethod]
-        public void SetPixelWithDoubleArray_MaxNumberOfValues_ChangesPixels()
+        public void SetPixelsWithDoubleArray_MaxNumberOfValues_ChangesPixels()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
                 using (IPixelCollection pixels = image.GetPixels())
                 {
                     var values = new double[image.Width * image.Height * image.ChannelCount];
-                    pixels.SetPixel(values);
+                    pixels.SetPixels(values);
 
                     ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                 }
@@ -638,7 +638,7 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void SetPixelWithIntArray_InvalidSize_ThrowsException()
+        public void SetPixelsWithIntArray_InvalidSize_ThrowsException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
@@ -646,14 +646,14 @@ namespace Magick.NET.Tests
                 {
                     ExceptionAssert.ThrowsArgumentException("values", () =>
                     {
-                        pixels.SetPixel(new int[] { 0, 0, 0, 0 });
+                        pixels.SetPixels(new int[] { 0, 0, 0, 0 });
                     });
                 }
             }
         }
 
         [TestMethod]
-        public void SetPixelWithIntArray_TooManyValues_ThrowsException()
+        public void SetPixelsWithIntArray_TooManyValues_ThrowsException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
@@ -662,21 +662,21 @@ namespace Magick.NET.Tests
                     ExceptionAssert.ThrowsArgumentException("values", () =>
                     {
                         var values = new int[(image.Width * image.Height * image.ChannelCount) + 1];
-                        pixels.SetPixel(values);
+                        pixels.SetPixels(values);
                     });
                 }
             }
         }
 
         [TestMethod]
-        public void SetPixelWithIntArray_MaxNumberOfValues_ChangesPixels()
+        public void SetPixelsWithIntArray_MaxNumberOfValues_ChangesPixels()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
                 using (IPixelCollection pixels = image.GetPixels())
                 {
                     var values = new int[image.Width * image.Height * image.ChannelCount];
-                    pixels.SetPixel(values);
+                    pixels.SetPixels(values);
 
                     ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                 }
@@ -684,7 +684,7 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void SetPixelWithArray_InvalidSize_ThrowsException()
+        public void SetPixelsWithArray_InvalidSize_ThrowsException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
@@ -692,14 +692,14 @@ namespace Magick.NET.Tests
                 {
                     ExceptionAssert.ThrowsArgumentException("values", () =>
                     {
-                        pixels.SetPixel(new QuantumType[] { 0, 0, 0, 0 });
+                        pixels.SetPixels(new QuantumType[] { 0, 0, 0, 0 });
                     });
                 }
             }
         }
 
         [TestMethod]
-        public void SetPixelWithArray_TooManyValues_ThrowsException()
+        public void SetPixelsWithArray_TooManyValues_ThrowsException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
@@ -708,21 +708,21 @@ namespace Magick.NET.Tests
                     ExceptionAssert.ThrowsArgumentException("values", () =>
                     {
                         var values = new QuantumType[(image.Width * image.Height * image.ChannelCount) + 1];
-                        pixels.SetPixel(values);
+                        pixels.SetPixels(values);
                     });
                 }
             }
         }
 
         [TestMethod]
-        public void SetPixelWithArray_MaxNumberOfValues_ChangesPixels()
+        public void SetPixelsWithArray_MaxNumberOfValues_ChangesPixels()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
                 using (IPixelCollection pixels = image.GetPixels())
                 {
                     var values = new QuantumType[image.Width * image.Height * image.ChannelCount];
-                    pixels.SetPixel(values);
+                    pixels.SetPixels(values);
 
                     ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                 }

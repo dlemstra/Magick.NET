@@ -3262,7 +3262,7 @@ namespace ImageMagick
             if (Settings.Ping)
                 throw new InvalidOperationException("Image contains no pixel data.");
 
-            return new PixelCollection(this);
+            return new SafePixelCollection(this);
         }
 
         /// <summary>

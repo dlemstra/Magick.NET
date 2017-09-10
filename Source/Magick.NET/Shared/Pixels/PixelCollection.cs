@@ -26,13 +26,11 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-    internal sealed partial class PixelCollection : IPixelCollection
+    internal abstract partial class PixelCollection : IPixelCollection
     {
-        private readonly MagickImage _image;
-
-        internal PixelCollection(MagickImage image)
+        protected PixelCollection(MagickImage image)
         {
-            _image = image;
+            Image = image;
             _nativeInstance = new NativePixelCollection(image);
         }
 
@@ -44,9 +42,11 @@ namespace ImageMagick
         {
             get
             {
-                return _image.ChannelCount;
+                return Image.ChannelCount;
             }
         }
+
+        protected MagickImage Image { get; }
 
         public Pixel this[int x, int y]
         {
@@ -61,10 +61,8 @@ namespace ImageMagick
             _nativeInstance.Dispose();
         }
 
-        public QuantumType[] GetArea(int x, int y, int width, int height)
+        public virtual QuantumType[] GetArea(int x, int y, int width, int height)
         {
-            CheckArea(x, y, width, height);
-
             return GetAreaUnchecked(x, y, width, height);
         }
 
@@ -82,38 +80,32 @@ namespace ImageMagick
 
         public IEnumerator<Pixel> GetEnumerator()
         {
-            return new PixelCollectionEnumerator(this, _image.Width, _image.Height);
+            return new PixelCollectionEnumerator(this, Image.Width, Image.Height);
         }
 
         public int GetIndex(PixelChannel channel)
         {
-            return _image.ChannelOffset(channel);
+            return Image.ChannelOffset(channel);
         }
 
-        public Pixel GetPixel(int x, int y)
+        public virtual Pixel GetPixel(int x, int y)
         {
-            CheckIndex(x, y);
-
             return Pixel.Create(this, x, y, GetAreaUnchecked(x, y, 1, 1));
         }
 
-        public QuantumType[] GetValue(int x, int y)
+        public virtual QuantumType[] GetValue(int x, int y)
         {
-            CheckIndex(x, y);
-
             return GetAreaUnchecked(x, y, 1, 1);
         }
 
         public QuantumType[] GetValues()
         {
-            return GetAreaUnchecked(0, 0, _image.Width, _image.Height);
+            return GetAreaUnchecked(0, 0, Image.Width, Image.Height);
         }
 
-        public void SetPixel(Pixel pixel)
+        public virtual void SetPixel(Pixel pixel)
         {
-            Throw.IfNull(nameof(pixel), pixel);
-
-            SetPixelPrivate(pixel.X, pixel.Y, pixel.Value);
+            SetPixelUnchecked(pixel.X, pixel.Y, pixel.Value);
         }
 
         public void SetPixel(IEnumerable<Pixel> pixels)
@@ -128,76 +120,58 @@ namespace ImageMagick
             }
         }
 
-        public void SetPixel(int x, int y, QuantumType[] value)
+        public virtual void SetPixel(int x, int y, QuantumType[] value)
         {
-            Throw.IfNullOrEmpty(nameof(value), value);
-
-            SetPixelPrivate(x, y, value);
+            SetPixelUnchecked(x, y, value);
         }
 
 #if !Q8
-        public void SetPixel(byte[] values)
+        public virtual void SetPixels(byte[] values)
         {
-            CheckValues(values);
-
             QuantumType[] castedValues = CastArray(values, Quantum.Convert);
-            SetAreaUnchecked(0, 0, _image.Width, _image.Height, castedValues);
+            SetAreaUnchecked(0, 0, Image.Width, Image.Height, castedValues);
         }
 #endif
 
-        public void SetPixel(double[] values)
+        public virtual void SetPixels(double[] values)
         {
-            CheckValues(values);
-
             QuantumType[] castedValues = CastArray(values, Quantum.Convert);
-            SetAreaUnchecked(0, 0, _image.Width, _image.Height, castedValues);
+            SetAreaUnchecked(0, 0, Image.Width, Image.Height, castedValues);
         }
 
-        public void SetPixel(int[] values)
+        public virtual void SetPixels(int[] values)
         {
-            CheckValues(values);
-
             QuantumType[] castedValues = CastArray(values, Quantum.Convert);
-            SetAreaUnchecked(0, 0, _image.Width, _image.Height, castedValues);
+            SetAreaUnchecked(0, 0, Image.Width, Image.Height, castedValues);
         }
 
-        public void SetPixel(QuantumType[] values)
+        public virtual void SetPixels(QuantumType[] values)
         {
-            CheckValues(values);
-
-            SetAreaUnchecked(0, 0, _image.Width, _image.Height, values);
+            SetAreaUnchecked(0, 0, Image.Width, Image.Height, values);
         }
 
 #if !Q8
-        public void SetArea(int x, int y, int width, int height, byte[] values)
+        public virtual void SetArea(int x, int y, int width, int height, byte[] values)
         {
-          CheckValues(x, y, width, height, values);
-
-          QuantumType[] castedValues = CastArray(values, Quantum.Convert);
-          SetAreaUnchecked(x, y, width, height, castedValues);
+            QuantumType[] castedValues = CastArray(values, Quantum.Convert);
+            SetAreaUnchecked(x, y, width, height, castedValues);
         }
 #endif
 
-        public void SetArea(int x, int y, int width, int height, double[] values)
+        public virtual void SetArea(int x, int y, int width, int height, double[] values)
         {
-            CheckValues(x, y, width, height, values);
-
             QuantumType[] castedValues = CastArray(values, Quantum.Convert);
             SetAreaUnchecked(x, y, width, height, castedValues);
         }
 
-        public void SetArea(int x, int y, int width, int height, int[] values)
+        public virtual void SetArea(int x, int y, int width, int height, int[] values)
         {
-            CheckValues(x, y, width, height, values);
-
             QuantumType[] castedValues = CastArray(values, Quantum.Convert);
             SetAreaUnchecked(x, y, width, height, castedValues);
         }
 
-        public void SetArea(int x, int y, int width, int height, QuantumType[] values)
+        public virtual void SetArea(int x, int y, int width, int height, QuantumType[] values)
         {
-            CheckValues(x, y, width, height, values);
-
             SetAreaUnchecked(x, y, width, height, values);
         }
 
@@ -206,11 +180,10 @@ namespace ImageMagick
             return GetValues();
         }
 
-        public byte[] ToByteArray(int x, int y, int width, int height, string mapping)
+        public virtual byte[] ToByteArray(int x, int y, int width, int height, string mapping)
         {
             Throw.IfNullOrEmpty(nameof(mapping), mapping);
 
-            CheckArea(x, y, width, height);
             IntPtr nativeResult = IntPtr.Zero;
             byte[] result = null;
 
@@ -236,14 +209,13 @@ namespace ImageMagick
 
         public byte[] ToByteArray(string mapping)
         {
-            return ToByteArray(0, 0, _image.Width, _image.Height, mapping);
+            return ToByteArray(0, 0, Image.Width, Image.Height, mapping);
         }
 
-        public ushort[] ToShortArray(int x, int y, int width, int height, string mapping)
+        public virtual ushort[] ToShortArray(int x, int y, int width, int height, string mapping)
         {
             Throw.IfNullOrEmpty(nameof(mapping), mapping);
 
-            CheckArea(x, y, width, height);
             IntPtr nativeResult = IntPtr.Zero;
             ushort[] result = null;
 
@@ -269,7 +241,7 @@ namespace ImageMagick
 
         public ushort[] ToShortArray(string mapping)
         {
-            return ToShortArray(0, 0, _image.Width, _image.Height, mapping);
+            return ToShortArray(0, 0, Image.Width, Image.Height, mapping);
         }
 
         internal QuantumType[] GetAreaUnchecked(int x, int y, int width, int height)
@@ -278,7 +250,7 @@ namespace ImageMagick
             if (pixels == IntPtr.Zero)
                 throw new InvalidOperationException("Image contains no pixel data.");
 
-            int length = width * height * _image.ChannelCount;
+            int length = width * height * Image.ChannelCount;
             return QuantumConverter.ToArray(pixels, length);
         }
 
@@ -296,55 +268,9 @@ namespace ImageMagick
             return result;
         }
 
-        private void CheckArea(int x, int y, int width, int height)
-        {
-            CheckIndex(x, y);
-            Throw.IfOutOfRange(nameof(width), 1, _image.Width - x, width, "Invalid width: {0}.", width);
-            Throw.IfOutOfRange(nameof(height), 1, _image.Height - y, height, "Invalid height: {0}.", height);
-        }
-
-        private void CheckIndex(int x, int y)
-        {
-            Throw.IfOutOfRange(nameof(x), 0, _image.Width - 1, x, "Invalid X coordinate: {0}.", x);
-            Throw.IfOutOfRange(nameof(y), 0, _image.Height - 1, y, "Invalid Y coordinate: {0}.", y);
-        }
-
-        private void CheckValues<T>(T[] values)
-        {
-            CheckValues(0, 0, values);
-        }
-
-        private void CheckValues<T>(int x, int y, T[] values)
-        {
-            CheckValues(x, y, _image.Width, _image.Height, values);
-        }
-
-        private void CheckValues<T>(int x, int y, int width, int height, T[] values)
-        {
-            CheckIndex(x, y);
-            Throw.IfNullOrEmpty(nameof(values), values);
-            Throw.IfFalse(nameof(values), values.Length % Channels == 0, "Values should have {0} channels.", Channels);
-
-            int length = values.Length;
-            int max = width * height * Channels;
-            Throw.IfTrue(nameof(values), length > max, "Too many values specified.");
-
-            length = (x * y * Channels) + length;
-            max = _image.Width * _image.Height * Channels;
-            Throw.IfTrue(nameof(values), length > max, "Too many values specified.");
-        }
-
         private void SetAreaUnchecked(int x, int y, int width, int height, QuantumType[] values)
         {
             _nativeInstance.SetArea(x, y, width, height, values, values.Length);
-        }
-
-        private void SetPixelPrivate(int x, int y, QuantumType[] value)
-        {
-            CheckIndex(x, y);
-
-            int length = Math.Min(value.Length, Channels);
-            _nativeInstance.SetArea(x, y, 1, 1, value, length);
         }
     }
 }

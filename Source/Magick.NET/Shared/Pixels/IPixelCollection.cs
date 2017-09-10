@@ -114,26 +114,26 @@ namespace ImageMagick
         /// Changes the values of the specified pixels.
         /// </summary>
         /// <param name="values">The values of the pixels.</param>
-        void SetPixel(byte[] values);
+        void SetPixels(byte[] values);
 #endif
 
         /// <summary>
         /// Changes the values of the specified pixels.
         /// </summary>
         /// <param name="values">The values of the pixels.</param>
-        void SetPixel(double[] values);
+        void SetPixels(double[] values);
 
         /// <summary>
         /// Changes the values of the specified pixels.
         /// </summary>
         /// <param name="values">The values of the pixels.</param>
-        void SetPixel(int[] values);
+        void SetPixels(int[] values);
 
         /// <summary>
         /// Changes the values of the specified pixels.
         /// </summary>
         /// <param name="values">The values of the pixels.</param>
-        void SetPixel(QuantumType[] values);
+        void SetPixels(QuantumType[] values);
 
 #if !Q8
         /// <summary>
