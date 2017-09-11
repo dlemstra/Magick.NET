@@ -3266,6 +3266,20 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Returns a pixel collection that can be used to read or modify the pixels of this image. This instance
+        /// will not do any bounds checking and directly call ImageMagick.
+        /// </summary>
+        /// <returns>A pixel collection that can be used to read or modify the pixels of this image.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public IPixelCollection GetPixelsUnsafe()
+        {
+            if (Settings.Ping)
+                throw new InvalidOperationException("Image contains no pixel data.");
+
+            return new UnsafePixelCollection(this);
+        }
+
+        /// <summary>
         /// Retrieve a named profile from the image.
         /// </summary>
         /// <param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>

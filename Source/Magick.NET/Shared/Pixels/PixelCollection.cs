@@ -105,7 +105,8 @@ namespace ImageMagick
 
         public virtual void SetPixel(Pixel pixel)
         {
-            SetPixelUnchecked(pixel.X, pixel.Y, pixel.Value);
+            if (pixel != null)
+                SetPixelUnchecked(pixel.X, pixel.Y, pixel.Value);
         }
 
         public void SetPixel(IEnumerable<Pixel> pixels)

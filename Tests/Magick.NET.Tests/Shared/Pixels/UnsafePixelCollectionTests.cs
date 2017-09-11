@@ -30,14 +30,14 @@ using QuantumType = System.Single;
 namespace Magick.NET.Tests
 {
     [TestClass]
-    public sealed class SafePixelCollectionTests
+    public sealed class UnsafePixelCollectionTests
     {
         [TestMethod]
         public void Channels_ReturnsChannelCountOfImage()
         {
             using (IMagickImage image = new MagickImage(Files.CMYKJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     Assert.AreEqual(image.ChannelCount, pixels.Channels);
 
@@ -49,16 +49,13 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Indexer_OutsideImage_ThrowsException()
+        public void Indexer_OutsideImage_ThrowsNoException()
         {
             using (IMagickImage image = new MagickImage(Files.RedPNG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentException<ArgumentOutOfRangeException>("x", () =>
-                    {
-                        Pixel pixel = pixels[image.Width + 1, 0];
-                    });
+                    Pixel pixel = pixels[image.Width + 1, 0];
                 }
             }
         }
@@ -68,7 +65,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.RedPNG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     Pixel pixel = pixels[300, 100];
 
@@ -82,7 +79,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ConnectedComponentsPNG, 10, 10))
             {
-                Pixel pixel = image.GetPixels().First(p => p.ToColor() == MagickColors.Black);
+                Pixel pixel = image.GetPixelsUnsafe().First(p => p.ToColor() == MagickColors.Black);
                 Assert.IsNotNull(pixel);
 
                 Assert.AreEqual(350, pixel.X);
@@ -96,7 +93,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     Assert.AreEqual(50, pixels.Count());
                 }
@@ -106,61 +103,116 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void GetArea_XTooLow_ThrowsException()
         {
-            GetArea_ThrowsException("x", -1, 0, 1, 1);
+            using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+            {
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                {
+                    ExceptionAssert.Throws<OverflowException>(() =>
+                    {
+                        pixels.GetArea(-1, 0, 1, 1);
+                    });
+                }
+            }
         }
 
         [TestMethod]
-        public void GetArea_XTooHigh_ThrowsException()
+        public void GetArea_XTooHigh_ThrowsNoException()
         {
-            GetArea_ThrowsException("x", 6, 0, 1, 1);
+            GetArea_ThrowsNoException(6, 0, 1, 1);
         }
 
         [TestMethod]
         public void GetArea_YTooLow_ThrowsException()
         {
-            GetArea_ThrowsException("y", 0, -1, 1, 1);
+            using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+            {
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                {
+                    ExceptionAssert.Throws<OverflowException>(() =>
+                    {
+                        pixels.GetArea(0, -1, 1, 1);
+                    });
+                }
+            }
         }
 
         [TestMethod]
-        public void GetArea_YTooHigh_ThrowsException()
+        public void GetArea_YTooHigh_ThrowsNoException()
         {
-            GetArea_ThrowsException("y", 0, 11, 1, 1);
+            GetArea_ThrowsNoException(0, 11, 1, 1);
         }
 
         [TestMethod]
         public void GetArea_WidthTooLow_ThrowsException()
         {
-            GetArea_ThrowsException("width", 0, 0, -1, 1);
+            using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+            {
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                {
+                    ExceptionAssert.Throws<OverflowException>(() =>
+                    {
+                        pixels.GetArea(0, 0, -1, 1);
+                    });
+                }
+            }
         }
 
-        [TestMethod]
+        // TODO: Rebuild ImageMagick to fix this test.
+        // [TestMethod]
         public void GetArea_WidthZero_ThrowsException()
         {
-            GetArea_ThrowsException("width", 0, 0, 0, 1);
+            using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+            {
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                {
+                    ExceptionAssert.Throws<MagickResourceLimitErrorException>(() =>
+                    {
+                        pixels.GetArea(0, 0, 0, 1);
+                    });
+                }
+            }
         }
 
         [TestMethod]
         public void GetArea_HeightTooLow_ThrowsException()
         {
-            GetArea_ThrowsException("height", 0, 0, 1, -1);
+            using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+            {
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                {
+                    ExceptionAssert.Throws<OverflowException>(() =>
+                    {
+                        pixels.GetArea(0, 0, 1, -1);
+                    });
+                }
+            }
         }
 
         [TestMethod]
         public void GetArea_HeightZero_ThrowsException()
         {
-            GetArea_ThrowsException("height", 0, 0, 1, 0);
+            using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+            {
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                {
+                    ExceptionAssert.Throws<MagickResourceLimitErrorException>(() =>
+                    {
+                        pixels.GetArea(0, 0, 1, 0);
+                    });
+                }
+            }
         }
 
         [TestMethod]
-        public void GetArea_WidthAndOffsetTooHigh_ThrowsException()
+        public void GetArea_WidthAndOffsetTooHigh_ThrowsNoException()
         {
-            GetArea_ThrowsException("width", 4, 0, 2, 1);
+            GetArea_ThrowsNoException(4, 0, 2, 1);
         }
 
         [TestMethod]
-        public void GetArea_HeightAndOffsetTooHigh_ThrowsException()
+        public void GetArea_HeightAndOffsetTooHigh_ThrowsNoException()
         {
-            GetArea_ThrowsException("height", 0, 9, 1, 2);
+            GetArea_ThrowsNoException(0, 9, 1, 2);
         }
 
         [TestMethod]
@@ -168,7 +220,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.CirclePNG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     var area = pixels.GetArea(28, 28, 2, 3);
                     int length = 2 * 3 * 4; // width * height * channelCount
@@ -185,7 +237,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.RedPNG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
                     {
@@ -200,7 +252,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.RedPNG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     var area = pixels.GetArea(new MagickGeometry(0, 0, 6, 5));
                     int length = 6 * 5 * 4; // width * height * channelCount
@@ -217,7 +269,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.CirclePNG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     IEnumerator<Pixel> enumerator = pixels.GetEnumerator();
                     Assert.IsNotNull(enumerator);
@@ -230,7 +282,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.CirclePNG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     IEnumerable enumerable = pixels;
                     Assert.IsNotNull(enumerable.GetEnumerator());
@@ -243,7 +295,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     int index = pixels.GetIndex(PixelChannel.Black);
                     Assert.AreEqual(-1, index);
@@ -256,7 +308,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     int index = pixels.GetIndex(PixelChannel.Green);
                     Assert.AreEqual(1, index);
@@ -265,16 +317,13 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void GetPixel_OutsideImage_ThrowsException()
+        public void GetPixel_OutsideImage_ThrowsNoException()
         {
             using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentException<ArgumentOutOfRangeException>("x", () =>
-                    {
-                        pixels.GetPixel(image.Width + 1, 0);
-                    });
+                    pixels.GetPixel(image.Width + 1, 0);
                 }
             }
         }
@@ -284,7 +333,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     Pixel pixel = pixels.GetPixel(55, 68);
                     ColorAssert.AreEqual(new MagickColor("#a8dff8ff"), pixel.ToColor());
@@ -295,25 +344,43 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void GetValue_XTooLow_ThrowsException()
         {
-            GetValue_ThrowsException("x", -1, 0);
+            using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+            {
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                {
+                    ExceptionAssert.Throws<OverflowException>(() =>
+                    {
+                        pixels.GetValue(-1, 0);
+                    });
+                }
+            }
         }
 
         [TestMethod]
-        public void GetValue_XTooHigh_ThrowsException()
+        public void GetValue_XTooHigh_ThrowsNoException()
         {
-            GetValue_ThrowsException("x", 6, 0);
+            GetValue_ThrowsNoException(6, 0);
         }
 
         [TestMethod]
-        public void GetValue_YTooLow_ThrowsException()
+        public void GetValue_YTooLow_ThrowsNoException()
         {
-            GetValue_ThrowsException("y", 0, -1);
+            using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+            {
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                {
+                    ExceptionAssert.Throws<OverflowException>(() =>
+                    {
+                        pixels.GetValue(0, -1);
+                    });
+                }
+            }
         }
 
         [TestMethod]
-        public void GetValue_YTooHigh_ThrowsException()
+        public void GetValue_YTooHigh_ThrowsNoException()
         {
-            GetValue_ThrowsException("y", 0, 11);
+            GetValue_ThrowsNoException(0, 11);
         }
 
         [TestMethod]
@@ -321,7 +388,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(MagickColors.Purple, 4, 2))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     var values = pixels.GetValues();
                     int length = 4 * 2 * 3;
@@ -332,16 +399,13 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void SetPixel_PixelIsNull_ThrowsException()
+        public void SetPixel_PixelIsNull_ThrowsNoException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("pixel", () =>
-                    {
-                        pixels.SetPixel((Pixel)null);
-                    });
+                    pixels.SetPixel((Pixel)null);
                 }
             }
         }
@@ -351,9 +415,9 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentException<ArgumentOutOfRangeException>("y", () =>
+                    ExceptionAssert.Throws<MagickCacheErrorException>(() =>
                     {
                         pixels.SetPixel(new Pixel(0, image.Height + 1, 3));
                     });
@@ -366,7 +430,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     Pixel pixel = new Pixel(0, 0, new QuantumType[] { 0 });
                     pixels.SetPixel(pixel);
@@ -381,7 +445,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     Pixel pixel = new Pixel(0, 0, new QuantumType[] { 0, 0, 0, 0 });
                     pixels.SetPixel(pixel);
@@ -396,7 +460,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     Pixel pixel = new Pixel(0, 0, new QuantumType[] { 0, 0, 0 });
                     pixels.SetPixel(pixel);
@@ -411,7 +475,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     ExceptionAssert.ThrowsArgumentNullException("pixels", () =>
                     {
@@ -426,7 +490,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     Pixel pixelA = new Pixel(0, 0, new QuantumType[] { 0 });
                     Pixel pixelB = new Pixel(1, 0, new QuantumType[] { 0, 0 });
@@ -443,7 +507,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     Pixel pixelA = new Pixel(0, 0, new QuantumType[] { Quantum.Max, 0, 0 });
                     Pixel pixelB = new Pixel(1, 0, new QuantumType[] { 0, Quantum.Max, 0 });
@@ -456,31 +520,25 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void SetPixelWithOffset_ArrayIsNull_ThrowsException()
+        public void SetPixelWithOffset_ArrayIsNull_ThrowsNoException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("value", () =>
-                    {
-                        pixels.SetPixel(0, 0, null);
-                    });
+                    pixels.SetPixel(0, 0, null);
                 }
             }
         }
 
         [TestMethod]
-        public void SetPixelWithOffset_ArrayIsEmpty_ThrowsException()
+        public void SetPixelWithOffset_ArrayIsEmpty_ThrowsNoException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentException("value", () =>
-                    {
-                        pixels.SetPixel(0, 0, new QuantumType[] { });
-                    });
+                    pixels.SetPixel(0, 0, new QuantumType[] { });
                 }
             }
         }
@@ -490,9 +548,9 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentException<ArgumentOutOfRangeException>("x", () =>
+                    ExceptionAssert.Throws<MagickCacheErrorException>(() =>
                     {
                         pixels.SetPixel(image.Width + 1, 0, new QuantumType[] { 0 });
                     });
@@ -505,7 +563,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     pixels.SetPixel(0, 0, new QuantumType[] { 0 });
 
@@ -519,7 +577,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     pixels.SetPixel(0, 0, new QuantumType[] { 0, 0, 0, 0 });
 
@@ -533,7 +591,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     pixels.SetPixel(0, 0, new QuantumType[] { 0, 0, 0 });
 
@@ -544,32 +602,26 @@ namespace Magick.NET.Tests
 
 #if !Q8
         [TestMethod]
-        public void SetPixelsWithByteArray_InvalidSize_ThrowsException()
+        public void SetPixelsWithByteArray_InvalidSize_ThrowsNoException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentException("values", () =>
-                    {
-                        pixels.SetPixels(new byte[] { 0, 0, 0, 0 });
-                    });
+                    pixels.SetPixels(new byte[] { 0, 0, 0, 0 });
                 }
             }
         }
 
         [TestMethod]
-        public void SetPixelsWithByteArray_TooManyValues_ThrowsException()
+        public void SetPixelsWithByteArray_TooManyValues_ThrowsNoException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentException("values", () =>
-                    {
-                        var values = new byte[(image.Width * image.Height * image.ChannelCount) + 1];
-                        pixels.SetPixels(values);
-                    });
+                    var values = new byte[(image.Width * image.Height * image.ChannelCount) + 1];
+                    pixels.SetPixels(values);
                 }
             }
         }
@@ -579,7 +631,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     var values = new byte[image.Width * image.Height * image.ChannelCount];
                     pixels.SetPixels(values);
@@ -591,32 +643,26 @@ namespace Magick.NET.Tests
 #endif
 
         [TestMethod]
-        public void SetPixelsWithDoubleArray_InvalidSize_ThrowsException()
+        public void SetPixelsWithDoubleArray_InvalidSize_ThrowsNoException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentException("values", () =>
-                    {
-                        pixels.SetPixels(new double[] { 0, 0, 0, 0 });
-                    });
+                    pixels.SetPixels(new double[] { 0, 0, 0, 0 });
                 }
             }
         }
 
         [TestMethod]
-        public void SetPixelsWithDoubleArray_TooManyValues_ThrowsException()
+        public void SetPixelsWithDoubleArray_TooManyValues_ThrowsNoException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentException("values", () =>
-                    {
-                        var values = new double[(image.Width * image.Height * image.ChannelCount) + 1];
-                        pixels.SetPixels(values);
-                    });
+                    var values = new double[(image.Width * image.Height * image.ChannelCount) + 1];
+                    pixels.SetPixels(values);
                 }
             }
         }
@@ -626,7 +672,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     var values = new double[image.Width * image.Height * image.ChannelCount];
                     pixels.SetPixels(values);
@@ -637,32 +683,26 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void SetPixelsWithIntArray_InvalidSize_ThrowsException()
+        public void SetPixelsWithIntArray_InvalidSize_ThrowsNoException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentException("values", () =>
-                    {
-                        pixels.SetPixels(new int[] { 0, 0, 0, 0 });
-                    });
+                    pixels.SetPixels(new int[] { 0, 0, 0, 0 });
                 }
             }
         }
 
         [TestMethod]
-        public void SetPixelsWithIntArray_TooManyValues_ThrowsException()
+        public void SetPixelsWithIntArray_TooManyValues_ThrowsNoException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentException("values", () =>
-                    {
-                        var values = new int[(image.Width * image.Height * image.ChannelCount) + 1];
-                        pixels.SetPixels(values);
-                    });
+                    var values = new int[(image.Width * image.Height * image.ChannelCount) + 1];
+                    pixels.SetPixels(values);
                 }
             }
         }
@@ -672,7 +712,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     var values = new int[image.Width * image.Height * image.ChannelCount];
                     pixels.SetPixels(values);
@@ -683,32 +723,26 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void SetPixelsWithArray_InvalidSize_ThrowsException()
+        public void SetPixelsWithArray_InvalidSize_ThrowsNoException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentException("values", () =>
-                    {
-                        pixels.SetPixels(new QuantumType[] { 0, 0, 0, 0 });
-                    });
+                    pixels.SetPixels(new QuantumType[] { 0, 0, 0, 0 });
                 }
             }
         }
 
         [TestMethod]
-        public void SetPixelsWithArray_TooManyValues_ThrowsException()
+        public void SetPixelsWithArray_TooManyValues_ThrowsNoException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentException("values", () =>
-                    {
-                        var values = new QuantumType[(image.Width * image.Height * image.ChannelCount) + 1];
-                        pixels.SetPixels(values);
-                    });
+                    var values = new QuantumType[(image.Width * image.Height * image.ChannelCount) + 1];
+                    pixels.SetPixels(values);
                 }
             }
         }
@@ -718,7 +752,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     var values = new QuantumType[image.Width * image.Height * image.ChannelCount];
                     pixels.SetPixels(values);
@@ -730,32 +764,26 @@ namespace Magick.NET.Tests
 
 #if !Q8
         [TestMethod]
-        public void SetAreaWithByteArray_InvalidSize_ThrowsException()
+        public void SetAreaWithByteArray_InvalidSize_ThrowsNoException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentException("values", () =>
-                    {
-                        pixels.SetArea(10, 10, 1000, 1000, new byte[] { 0, 0, 0, 0 });
-                    });
+                    pixels.SetArea(10, 10, 1000, 1000, new byte[] { 0, 0, 0, 0 });
                 }
             }
         }
 
         [TestMethod]
-        public void SetAreaWithByteArray_TooManyValues_ThrowsException()
+        public void SetAreaWithByteArray_TooManyValues_ThrowsNoException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentException("values", () =>
-                    {
-                        var values = new byte[(113 * 108 * image.ChannelCount) + image.ChannelCount];
-                        pixels.SetArea(10, 10, 113, 108, values);
-                    });
+                    var values = new byte[(113 * 108 * image.ChannelCount) + image.ChannelCount];
+                    pixels.SetArea(10, 10, 113, 108, values);
                 }
             }
         }
@@ -765,7 +793,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     var values = new byte[113 * 108 * image.ChannelCount];
                     pixels.SetArea(10, 10, 113, 108, values);
@@ -777,32 +805,26 @@ namespace Magick.NET.Tests
 #endif
 
         [TestMethod]
-        public void SetAreaWithDoubleArray_InvalidSize_ThrowsException()
+        public void SetAreaWithDoubleArray_InvalidSize_ThrowsNoException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentException("values", () =>
-                    {
-                        pixels.SetArea(10, 10, 1000, 1000, new double[] { 0, 0, 0, 0 });
-                    });
+                    pixels.SetArea(10, 10, 1000, 1000, new double[] { 0, 0, 0, 0 });
                 }
             }
         }
 
         [TestMethod]
-        public void SetAreaWithDoubleArray_TooManyValues_ThrowsException()
+        public void SetAreaWithDoubleArray_TooManyValues_ThrowsNoException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentException("values", () =>
-                    {
-                        var values = new double[(113 * 108 * image.ChannelCount) + image.ChannelCount];
-                        pixels.SetArea(10, 10, 113, 108, values);
-                    });
+                    var values = new double[(113 * 108 * image.ChannelCount) + image.ChannelCount];
+                    pixels.SetArea(10, 10, 113, 108, values);
                 }
             }
         }
@@ -812,7 +834,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     var values = new double[113 * 108 * image.ChannelCount];
                     pixels.SetArea(10, 10, 113, 108, values);
@@ -823,32 +845,26 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void SetAreaWithIntArray_InvalidSize_ThrowsException()
+        public void SetAreaWithIntArray_InvalidSize_ThrowsNoException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentException("values", () =>
-                    {
-                        pixels.SetArea(10, 10, 1000, 1000, new int[] { 0, 0, 0, 0 });
-                    });
+                    pixels.SetArea(10, 10, 1000, 1000, new int[] { 0, 0, 0, 0 });
                 }
             }
         }
 
         [TestMethod]
-        public void SetAreaWithIntArray_TooManyValues_ThrowsException()
+        public void SetAreaWithIntArray_TooManyValues_ThrowsNoException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentException("values", () =>
-                    {
-                        var values = new int[(113 * 108 * image.ChannelCount) + image.ChannelCount];
-                        pixels.SetArea(10, 10, 113, 108, values);
-                    });
+                    var values = new int[(113 * 108 * image.ChannelCount) + image.ChannelCount];
+                    pixels.SetArea(10, 10, 113, 108, values);
                 }
             }
         }
@@ -858,7 +874,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     var values = new int[113 * 108 * image.ChannelCount];
                     pixels.SetArea(10, 10, 113, 108, values);
@@ -869,32 +885,26 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void SetAreaWithArray_InvalidSize_ThrowsException()
+        public void SetAreaWithArray_InvalidSize_ThrowsNoException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentException("values", () =>
-                    {
-                        pixels.SetArea(10, 10, 1000, 1000, new QuantumType[] { 0, 0, 0, 0 });
-                    });
+                    pixels.SetArea(10, 10, 1000, 1000, new QuantumType[] { 0, 0, 0, 0 });
                 }
             }
         }
 
         [TestMethod]
-        public void SetAreaWithArray_TooManyValues_ThrowsException()
+        public void SetAreaWithArray_TooManyValues_ThrowsNoException()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentException("values", () =>
-                    {
-                        var values = new QuantumType[(113 * 108 * image.ChannelCount) + image.ChannelCount];
-                        pixels.SetArea(10, 10, 113, 108, values);
-                    });
+                    var values = new QuantumType[(113 * 108 * image.ChannelCount) + image.ChannelCount];
+                    pixels.SetArea(10, 10, 113, 108, values);
                 }
             }
         }
@@ -904,7 +914,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     var values = new QuantumType[113 * 108 * image.ChannelCount];
                     pixels.SetArea(10, 10, 113, 108, values);
@@ -919,7 +929,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     var values = pixels.ToArray();
                     int length = image.Width * image.Height * image.ChannelCount;
@@ -934,9 +944,9 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentException<ArgumentOutOfRangeException>("x", () =>
+                    ExceptionAssert.Throws<OverflowException>(() =>
                     {
                         pixels.ToByteArray(-1, 0, 1, 1, "RGB");
                     });
@@ -949,7 +959,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     var values = pixels.ToByteArray(60, 60, 63, 58, "RGBA");
                     int length = 63 * 58 * 4;
@@ -964,7 +974,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
                     {
@@ -979,7 +989,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     ExceptionAssert.ThrowsArgumentNullException("mapping", () =>
                     {
@@ -994,7 +1004,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     ExceptionAssert.ThrowsArgumentException("mapping", () =>
                     {
@@ -1009,7 +1019,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     var values = pixels.ToByteArray(new MagickGeometry(10, 10, 113, 108), "RG");
                     int length = 113 * 108 * 2;
@@ -1024,7 +1034,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     ExceptionAssert.ThrowsArgumentNullException("mapping", () =>
                     {
@@ -1039,7 +1049,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     ExceptionAssert.ThrowsArgumentException("mapping", () =>
                     {
@@ -1054,7 +1064,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     ExceptionAssert.Throws<MagickOptionErrorException>(() =>
                     {
@@ -1069,7 +1079,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     var values = pixels.ToByteArray("RG");
                     int length = image.Width * image.Height * 2;
@@ -1084,9 +1094,9 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentException<ArgumentOutOfRangeException>("x", () =>
+                    ExceptionAssert.Throws<OverflowException>(() =>
                     {
                         pixels.ToShortArray(-1, 0, 1, 1, "RGB");
                     });
@@ -1099,7 +1109,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     var values = pixels.ToShortArray(60, 60, 63, 58, "RGBA");
                     int length = 63 * 58 * 4;
@@ -1114,7 +1124,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
                     {
@@ -1129,7 +1139,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     ExceptionAssert.ThrowsArgumentNullException("mapping", () =>
                     {
@@ -1144,7 +1154,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     ExceptionAssert.ThrowsArgumentException("mapping", () =>
                     {
@@ -1159,7 +1169,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     var values = pixels.ToShortArray(new MagickGeometry(10, 10, 113, 108), "RG");
                     int length = 113 * 108 * 2;
@@ -1174,7 +1184,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     ExceptionAssert.ThrowsArgumentNullException("mapping", () =>
                     {
@@ -1189,7 +1199,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     ExceptionAssert.ThrowsArgumentException("mapping", () =>
                     {
@@ -1204,7 +1214,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     ExceptionAssert.Throws<MagickOptionErrorException>(() =>
                     {
@@ -1219,7 +1229,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     var values = pixels.ToShortArray("RG");
                     int length = image.Width * image.Height * 2;
@@ -1229,30 +1239,24 @@ namespace Magick.NET.Tests
             }
         }
 
-        private static void GetArea_ThrowsException(string paramName, int x, int y, int width, int height)
+        private static void GetArea_ThrowsNoException(int x, int y, int width, int height)
         {
             using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentException<ArgumentOutOfRangeException>(paramName, () =>
-                    {
-                        pixels.GetArea(x, y, width, height);
-                    });
+                    pixels.GetArea(x, y, width, height);
                 }
             }
         }
 
-        private static void GetValue_ThrowsException(string paramName, int x, int y)
+        private static void GetValue_ThrowsNoException(int x, int y)
         {
             using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.ThrowsArgumentException<ArgumentOutOfRangeException>(paramName, () =>
-                    {
-                        pixels.GetValue(x, y);
-                    });
+                    pixels.GetValue(x, y);
                 }
             }
         }

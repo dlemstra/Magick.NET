@@ -1782,6 +1782,15 @@ namespace ImageMagick
         IPixelCollection GetPixels();
 
         /// <summary>
+        /// Returns a pixel collection that can be used to read or modify the pixels of this image. This instance
+        /// will not do any bounds checking and directly call ImageMagick.
+        /// </summary>
+        /// <returns>A pixel collection that can be used to read or modify the pixels of this image.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Should be a method.")]
+        IPixelCollection GetPixelsUnsafe();
+
+        /// <summary>
         /// Retrieve a named profile from the image.
         /// </summary>
         /// <param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
