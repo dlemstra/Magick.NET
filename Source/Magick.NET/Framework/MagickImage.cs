@@ -90,7 +90,7 @@ namespace ImageMagick
                 format = PixelFormat.Format32bppArgb;
             }
 
-            using (IPixelCollection pixels = GetPixels())
+            using (IPixelCollection pixels = GetPixelsUnsafe())
             {
                 Bitmap bitmap = new Bitmap(Width, Height, format);
                 BitmapData data = bitmap.LockBits(new Rectangle(0, 0, Width, Height), ImageLockMode.ReadWrite, format);
@@ -149,7 +149,7 @@ namespace ImageMagick
             int step = format.BitsPerPixel / 8;
             int stride = Width * step;
 
-            using (IPixelCollection pixels = GetPixels())
+            using (IPixelCollection pixels = GetPixelsUnsafe())
             {
                 byte[] bytes = pixels.ToByteArray(mapping);
                 return BitmapSource.Create(Width, Height, 96, 96, format, null, bytes, stride);

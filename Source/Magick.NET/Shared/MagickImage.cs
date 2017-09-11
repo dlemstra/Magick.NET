@@ -6588,7 +6588,7 @@ namespace ImageMagick
         private void FloodFill(QuantumType alpha, int x, int y, bool invert)
         {
             MagickColor target;
-            using (IPixelCollection pixels = GetPixels())
+            using (IPixelCollection pixels = GetPixelsUnsafe())
             {
                 target = pixels.GetPixel(x, y).ToColor();
                 target.A = alpha;
@@ -6602,7 +6602,7 @@ namespace ImageMagick
             Throw.IfNull(nameof(color), color);
 
             MagickColor target;
-            using (IPixelCollection pixels = GetPixels())
+            using (IPixelCollection pixels = GetPixelsUnsafe())
             {
                 target = pixels.GetPixel(x, y).ToColor();
             }
@@ -6635,7 +6635,7 @@ namespace ImageMagick
             Throw.IfNull(nameof(image), image);
 
             MagickColor target;
-            using (IPixelCollection pixels = GetPixels())
+            using (IPixelCollection pixels = GetPixelsUnsafe())
             {
                 target = pixels.GetPixel(x, y).ToColor();
             }
