@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -41,6 +42,35 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(200, image.Width);
                 Assert.AreEqual(28, image.Height);
             }
+        }
+
+        [TestMethod]
+        public void PNGWithValidModificationDateThatBecomes24Hours_NoWarningIsRaised()
+        {
+            using (IMagickImage image = new MagickImage("logo:"))
+            {
+                image.Warning += HandleWarning;
+                image.SetAttribute("date:modify", "2017-09-10T20:35:00+03:30");
+
+                image.ToByteArray(MagickFormat.Png);
+            }
+        }
+
+        [TestMethod]
+        public void PNGWithValidModificationDateThatBecomes60Minutes_NoWarningIsRaised()
+        {
+            using (IMagickImage image = new MagickImage("logo:"))
+            {
+                image.Warning += HandleWarning;
+                image.SetAttribute("date:modify", "2017-09-10T15:30:00+03:30");
+
+                image.ToByteArray(MagickFormat.Png);
+            }
+        }
+
+        private void HandleWarning(object sender, WarningEventArgs e)
+        {
+            Assert.Fail("Warning was raised: " + e.Message);
         }
     }
 }
