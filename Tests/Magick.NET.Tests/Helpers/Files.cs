@@ -179,6 +179,14 @@ namespace Magick.NET.Tests
             }
         }
 
+        public static string VicelandPNG
+        {
+            get
+            {
+                return _Root + "Images/Viceland.png";
+            }
+        }
+
         public static string WireframeTIF
         {
             get

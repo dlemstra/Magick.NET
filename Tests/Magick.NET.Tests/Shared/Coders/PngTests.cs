@@ -19,7 +19,7 @@ namespace Magick.NET.Tests
     public class PNGTests
     {
         [TestMethod]
-        public void Test_CorruptImage()
+        public void CorruptImage_TryhRead_ThrowsExceptionAndDoesNotChangeOriginalImage()
         {
             using (IMagickImage image = new MagickImage(MagickColors.Purple, 4, 2))
             {
@@ -30,6 +30,16 @@ namespace Magick.NET.Tests
 
                 Assert.AreEqual(4, image.Width);
                 Assert.AreEqual(2, image.Height);
+            }
+        }
+
+        [TestMethod]
+        public void PngWithLargeIDAT_ImageCanBeRead()
+        {
+            using (IMagickImage image = new MagickImage(Files.VicelandPNG))
+            {
+                Assert.AreEqual(200, image.Width);
+                Assert.AreEqual(28, image.Height);
             }
         }
     }
