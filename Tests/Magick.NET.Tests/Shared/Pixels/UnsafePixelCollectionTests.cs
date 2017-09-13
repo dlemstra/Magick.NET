@@ -157,15 +157,14 @@ namespace Magick.NET.Tests
             }
         }
 
-        // TODO: Rebuild ImageMagick to fix this test.
-        // [TestMethod]
+        [TestMethod]
         public void GetArea_WidthZero_ThrowsException()
         {
             using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
             {
                 using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.Throws<MagickResourceLimitErrorException>(() =>
+                    ExceptionAssert.Throws<InvalidOperationException>(() =>
                     {
                         pixels.GetArea(0, 0, 0, 1);
                     });
@@ -195,7 +194,7 @@ namespace Magick.NET.Tests
             {
                 using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    ExceptionAssert.Throws<MagickResourceLimitErrorException>(() =>
+                    ExceptionAssert.Throws<InvalidOperationException>(() =>
                     {
                         pixels.GetArea(0, 0, 1, 0);
                     });

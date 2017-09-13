@@ -918,7 +918,7 @@ namespace Magick.NET.Tests
                     using (IMagickImage result = new MagickImage(MagickColors.Transparent, 200, 100))
                     {
                         result.Draw(drawables);
-                        Assert.AreEqual(0.0634, result.Compare(image, ErrorMetric.RootMeanSquared), 0.001);
+                        Assert.AreEqual(0.0603, result.Compare(image, ErrorMetric.RootMeanSquared), 0.001);
                     }
                 }
             }
@@ -3868,9 +3868,9 @@ namespace Magick.NET.Tests
                 using (IMagickImage original = new MagickImage(Files.TestPNG))
                 {
 #if Q8
-                    Assert.AreEqual(0.63104, original.Compare(image, ErrorMetric.RootMeanSquared), 0.00001);
+                    Assert.AreEqual(0.62619, original.Compare(image, ErrorMetric.RootMeanSquared), 0.00001);
 #elif Q16 || Q16HDRI
-                    Assert.AreEqual(0.63109, original.Compare(image, ErrorMetric.RootMeanSquared), 0.00001);
+                    Assert.AreEqual(0.62622, original.Compare(image, ErrorMetric.RootMeanSquared), 0.00001);
 #else
 #error Not implemented!
 #endif
