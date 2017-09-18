@@ -103,16 +103,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void GetArea_XTooLow_ThrowsException()
         {
-            using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
-            {
-                using (IPixelCollection pixels = image.GetPixelsUnsafe())
-                {
-                    ExceptionAssert.Throws<OverflowException>(() =>
-                    {
-                        pixels.GetArea(-1, 0, 1, 1);
-                    });
-                }
-            }
+            GetArea_ThrowsOverflowException(-1, 0, 1, 1);
         }
 
         [TestMethod]
@@ -124,16 +115,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void GetArea_YTooLow_ThrowsException()
         {
-            using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
-            {
-                using (IPixelCollection pixels = image.GetPixelsUnsafe())
-                {
-                    ExceptionAssert.Throws<OverflowException>(() =>
-                    {
-                        pixels.GetArea(0, -1, 1, 1);
-                    });
-                }
-            }
+            GetArea_ThrowsOverflowException(0, -1, 1, 1);
         }
 
         [TestMethod]
@@ -179,7 +161,11 @@ namespace Magick.NET.Tests
             {
                 using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
+#if PLATFORM_x64
+                    ExceptionAssert.Throws<MagickResourceLimitErrorException>(() =>
+#else
                     ExceptionAssert.Throws<OverflowException>(() =>
+#endif
                     {
                         pixels.GetArea(0, 0, 1, -1);
                     });
@@ -343,16 +329,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void GetValue_XTooLow_ThrowsException()
         {
-            using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
-            {
-                using (IPixelCollection pixels = image.GetPixelsUnsafe())
-                {
-                    ExceptionAssert.Throws<OverflowException>(() =>
-                    {
-                        pixels.GetValue(-1, 0);
-                    });
-                }
-            }
+            GetValue_ThrowsOverflowException(-1, 0);
         }
 
         [TestMethod]
@@ -364,16 +341,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void GetValue_YTooLow_ThrowsNoException()
         {
-            using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
-            {
-                using (IPixelCollection pixels = image.GetPixelsUnsafe())
-                {
-                    ExceptionAssert.Throws<OverflowException>(() =>
-                    {
-                        pixels.GetValue(0, -1);
-                    });
-                }
-            }
+            GetValue_ThrowsOverflowException(0, -1);
         }
 
         [TestMethod]
@@ -945,10 +913,15 @@ namespace Magick.NET.Tests
             {
                 using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
+#if PLATFORM_x64
+                    // No exception is thrown on a 64-bit build.
+                    pixels.ToByteArray(-1, 0, 1, 1, "RGB");
+#else
                     ExceptionAssert.Throws<OverflowException>(() =>
                     {
                         pixels.ToByteArray(-1, 0, 1, 1, "RGB");
                     });
+#endif
                 }
             }
         }
@@ -1095,10 +1068,15 @@ namespace Magick.NET.Tests
             {
                 using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
+#if PLATFORM_x64
+                    // No exception is thrown on a 64-bit build.
+                    pixels.ToShortArray(-1, 0, 1, 1, "RGB");
+#else
                     ExceptionAssert.Throws<OverflowException>(() =>
                     {
                         pixels.ToShortArray(-1, 0, 1, 1, "RGB");
                     });
+#endif
                 }
             }
         }
@@ -1256,6 +1234,44 @@ namespace Magick.NET.Tests
                 using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     pixels.GetValue(x, y);
+                }
+            }
+        }
+
+        private static void GetArea_ThrowsOverflowException(int x, int y, int width, int height)
+        {
+            using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+            {
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                {
+#if PLATFORM_x64
+                    // No exception is thrown on a 64-bit build.
+                    pixels.GetArea(x, y, width, height);
+#else
+                    ExceptionAssert.Throws<OverflowException>(() =>
+                    {
+                        pixels.GetArea(x, y, width, height);
+                    });
+#endif
+                }
+            }
+        }
+
+        private static void GetValue_ThrowsOverflowException(int x, int y)
+        {
+            using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+            {
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                {
+#if PLATFORM_x64
+                    // No exception is thrown on a 64-bit build.
+                    pixels.GetValue(x, y);
+#else
+                    ExceptionAssert.Throws<OverflowException>(() =>
+                    {
+                        pixels.GetValue(x, y);
+                    });
+#endif
                 }
             }
         }
