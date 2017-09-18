@@ -32,6 +32,8 @@ namespace Magick.NET.Tests
     [TestClass]
     public sealed class UnsafePixelCollectionTests
     {
+        private static bool Is64Bit => IntPtr.Size == 8;
+
         [TestMethod]
         public void Channels_ReturnsChannelCountOfImage()
         {
@@ -161,14 +163,20 @@ namespace Magick.NET.Tests
             {
                 using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-#if PLATFORM_x64
-                    ExceptionAssert.Throws<MagickResourceLimitErrorException>(() =>
-#else
-                    ExceptionAssert.Throws<OverflowException>(() =>
-#endif
+                    if (Is64Bit)
                     {
-                        pixels.GetArea(0, 0, 1, -1);
-                    });
+                        ExceptionAssert.Throws<MagickResourceLimitErrorException>(() =>
+                        {
+                            pixels.GetArea(0, 0, 1, -1);
+                        });
+                    }
+                    else
+                    {
+                        ExceptionAssert.Throws<OverflowException>(() =>
+                        {
+                            pixels.GetArea(0, 0, 1, -1);
+                        });
+                    }
                 }
             }
         }
@@ -913,15 +921,17 @@ namespace Magick.NET.Tests
             {
                 using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-#if PLATFORM_x64
-                    // No exception is thrown on a 64-bit build.
-                    pixels.ToByteArray(-1, 0, 1, 1, "RGB");
-#else
-                    ExceptionAssert.Throws<OverflowException>(() =>
+                    if (Is64Bit)
                     {
                         pixels.ToByteArray(-1, 0, 1, 1, "RGB");
-                    });
-#endif
+                    }
+                    else
+                    {
+                        ExceptionAssert.Throws<OverflowException>(() =>
+                        {
+                            pixels.ToByteArray(-1, 0, 1, 1, "RGB");
+                        });
+                    }
                 }
             }
         }
@@ -1068,15 +1078,17 @@ namespace Magick.NET.Tests
             {
                 using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-#if PLATFORM_x64
-                    // No exception is thrown on a 64-bit build.
-                    pixels.ToShortArray(-1, 0, 1, 1, "RGB");
-#else
-                    ExceptionAssert.Throws<OverflowException>(() =>
+                    if (Is64Bit)
                     {
                         pixels.ToShortArray(-1, 0, 1, 1, "RGB");
-                    });
-#endif
+                    }
+                    else
+                    {
+                        ExceptionAssert.Throws<OverflowException>(() =>
+                        {
+                            pixels.ToShortArray(-1, 0, 1, 1, "RGB");
+                        });
+                    }
                 }
             }
         }
@@ -1244,15 +1256,17 @@ namespace Magick.NET.Tests
             {
                 using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-#if PLATFORM_x64
-                    // No exception is thrown on a 64-bit build.
-                    pixels.GetArea(x, y, width, height);
-#else
-                    ExceptionAssert.Throws<OverflowException>(() =>
+                    if (Is64Bit)
                     {
                         pixels.GetArea(x, y, width, height);
-                    });
-#endif
+                    }
+                    else
+                    {
+                        ExceptionAssert.Throws<OverflowException>(() =>
+                        {
+                            pixels.GetArea(x, y, width, height);
+                        });
+                    }
                 }
             }
         }
@@ -1263,15 +1277,17 @@ namespace Magick.NET.Tests
             {
                 using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-#if PLATFORM_x64
-                    // No exception is thrown on a 64-bit build.
-                    pixels.GetValue(x, y);
-#else
-                    ExceptionAssert.Throws<OverflowException>(() =>
+                    if (Is64Bit)
                     {
                         pixels.GetValue(x, y);
-                    });
-#endif
+                    }
+                    else
+                    {
+                        ExceptionAssert.Throws<OverflowException>(() =>
+                        {
+                            pixels.GetValue(x, y);
+                        });
+                    }
                 }
             }
         }
