@@ -29,7 +29,8 @@ might be a bit different on another Linux distribution.
 ## Extra requirements
 
 Magick.NET is also linked again `libjpeg.so.8` (used by the `JpegOptimizer`). Not all Linux platforms have this available by
-default which means it might be required to build [libjpeg-turbo](https://www.libjpeg-turbo.org/) from source.
+default which means it might be required to build [libjpeg-turbo](https://www.libjpeg-turbo.org/) from source. On Windows the following version of
+`libjpeg-turbo` is used: https://github.com/ImageMagick/jpeg-turbo.
 
 ## Using Magick.NET on Linux
 
