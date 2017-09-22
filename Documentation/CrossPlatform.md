@@ -26,6 +26,11 @@ might be a bit different on another Linux distribution.
     - Q16-HDRI: `./configure --with-magick-plus-plus=no --with-quantum-depth=16`
 - The next step is `make install` or `sudo make install`.
 
+## Extra requirements
+
+Magick.NET is also linked again `libjpeg.so.8` (used by the `JpegOptimizer`). Not all Linux platforms have this available by
+default which means it might be required to build [libjpeg-turbo](https://www.libjpeg-turbo.org/) from source.
+
 ## Using Magick.NET on Linux
 
 ### .NET Core
