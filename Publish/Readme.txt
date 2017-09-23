@@ -1,4 +1,4 @@
-Please visit https://github.com/dlemstra/Magick.NET/Documentation for information on how to use Magick.NET.
+Please visit https://github.com/dlemstra/Magick.NET/tree/master/Documentation for information on how to use Magick.NET.
 
 The release notes can be found here: https://github.com/dlemstra/Magick.NET/releases.
 
