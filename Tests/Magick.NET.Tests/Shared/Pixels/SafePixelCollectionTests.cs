@@ -542,7 +542,6 @@ namespace Magick.NET.Tests
             }
         }
 
-#if !Q8
         [TestMethod]
         public void SetPixelsWithByteArray_InvalidSize_ThrowsException()
         {
@@ -588,7 +587,6 @@ namespace Magick.NET.Tests
                 }
             }
         }
-#endif
 
         [TestMethod]
         public void SetPixelsWithDoubleArray_InvalidSize_ThrowsException()
@@ -728,7 +726,6 @@ namespace Magick.NET.Tests
             }
         }
 
-#if !Q8
         [TestMethod]
         public void SetAreaWithByteArray_InvalidSize_ThrowsException()
         {
@@ -774,7 +771,6 @@ namespace Magick.NET.Tests
                 }
             }
         }
-#endif
 
         [TestMethod]
         public void SetAreaWithDoubleArray_InvalidSize_ThrowsException()
