@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
     public partial class DrawableRectangleTests
     {
         [TestMethod]
-        public void Test_Constructor_Rectangle()
+        public void Constructor_WithRectangle_PropertiesAreSet()
         {
             var rectangle = new Rectangle(1, 2, 3, 4);
 
@@ -31,12 +31,18 @@ namespace Magick.NET.Tests
             Assert.AreEqual(2, drawRectangle.UpperLeftY);
             Assert.AreEqual(4, drawRectangle.LowerRightX);
             Assert.AreEqual(6, drawRectangle.LowerRightY);
+        }
 
-            drawRectangle = (DrawableRectangle)rectangle;
-            Assert.AreEqual(1, drawRectangle.UpperLeftX);
-            Assert.AreEqual(2, drawRectangle.UpperLeftY);
-            Assert.AreEqual(4, drawRectangle.LowerRightX);
-            Assert.AreEqual(6, drawRectangle.LowerRightY);
+        [TestMethod]
+        public void ExplicitCastFromRectangle_PropertiesAreSet()
+        {
+            var rectangle = new Rectangle(4, 3, 2, 1);
+
+            var drawRectangle = (DrawableRectangle)rectangle;
+            Assert.AreEqual(4, drawRectangle.UpperLeftX);
+            Assert.AreEqual(3, drawRectangle.UpperLeftY);
+            Assert.AreEqual(6, drawRectangle.LowerRightX);
+            Assert.AreEqual(4, drawRectangle.LowerRightY);
         }
     }
 }

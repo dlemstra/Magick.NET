@@ -21,7 +21,7 @@ namespace Magick.NET.Tests
     public partial class ColorRGBTests : ColorBaseTests<ColorRGB>
     {
         [TestMethod]
-        public void Test_Color()
+        public void Constructor_WithSystemDrawingColor_IsEqualToMagickColor()
         {
             ColorRGB fuchsia = new ColorRGB(Color.Fuchsia);
 

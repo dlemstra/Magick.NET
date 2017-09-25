@@ -24,7 +24,7 @@ namespace ImageMagick
     {
         internal static MagickFormat GetFormat(ImageFormat format)
         {
-            if (format == ImageFormat.Bmp)
+            if (format == ImageFormat.Bmp || format == ImageFormat.MemoryBmp)
                 return MagickFormat.Bmp;
             else if (format == ImageFormat.Gif)
                 return MagickFormat.Gif;

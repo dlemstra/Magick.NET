@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
     public partial class DrawableTextUnderColorTests
     {
         [TestMethod]
-        public void Test_Constructor_Color()
+        public void Constructor_WithColor_ColorPropertyIsCorrect()
         {
             DrawableTextUnderColor textUnderColor = new DrawableTextUnderColor(Color.Violet);
             ColorAssert.AreEqual(MagickColors.Violet, textUnderColor.Color);

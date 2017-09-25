@@ -22,16 +22,18 @@ namespace Magick.NET.Tests
     public partial class DrawableAffineTests
     {
         [TestMethod]
-        public void Test_Constructor_Matrix()
+        public void Constructor_MatrixIsNull_ThrowsException()
         {
-            Matrix matrix = null;
-
             ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
-                new DrawableAffine(matrix);
+                new DrawableAffine(null);
             });
+        }
 
-            matrix = new Matrix(11, 12, 21, 22, 0, 1);
+        [TestMethod]
+        public void Constructor_WithMatrix_PropertiesAreSet()
+        {
+            Matrix matrix = new Matrix(11, 12, 21, 22, 0, 1);
             DrawableAffine affine = new DrawableAffine(matrix);
             Assert.AreEqual(11, affine.ScaleX);
             Assert.AreEqual(12, affine.ScaleY);

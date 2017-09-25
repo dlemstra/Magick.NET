@@ -20,10 +20,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public partial class TiffTests
+    public sealed class MemoryStreamTests
     {
         [TestMethod]
-        public void Test_Image_ByteArray()
+        public void GetBuffer_ImageWrittenToStream_ReturnsCorrectArray()
         {
             using (Image img = Image.FromFile(Files.Coders.PageTIF))
             {

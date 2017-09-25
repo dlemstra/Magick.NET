@@ -21,7 +21,7 @@ namespace Magick.NET.Tests
     public partial class MagickScriptsTests
     {
         [TestMethod]
-        public void Test_InvalidScript()
+        public void Constructor_ScriptThatDoesNotFollowXmlSchema_ThrowsException()
         {
             ExceptionAssert.Throws<XmlSchemaValidationException>(delegate
             {

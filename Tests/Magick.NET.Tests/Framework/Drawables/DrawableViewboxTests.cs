@@ -22,21 +22,27 @@ namespace Magick.NET.Tests
     public partial class DrawableViewboxTests
     {
         [TestMethod]
-        public void Test_Constructor_Rectangle()
+        public void Constructor_WithRectangle_PropertiesAreSet()
         {
             var rectangle = new Rectangle(1, 2, 3, 4);
 
-            var viewbox = new DrawableViewbox(rectangle);
+            var viewbox = new DrawableRectangle(rectangle);
             Assert.AreEqual(1, viewbox.UpperLeftX);
             Assert.AreEqual(2, viewbox.UpperLeftY);
             Assert.AreEqual(4, viewbox.LowerRightX);
             Assert.AreEqual(6, viewbox.LowerRightY);
+        }
 
-            viewbox = (DrawableViewbox)rectangle;
-            Assert.AreEqual(1, viewbox.UpperLeftX);
-            Assert.AreEqual(2, viewbox.UpperLeftY);
-            Assert.AreEqual(4, viewbox.LowerRightX);
-            Assert.AreEqual(6, viewbox.LowerRightY);
+        [TestMethod]
+        public void ExplicitCastFromRectangle_PropertiesAreSet()
+        {
+            var rectangle = new Rectangle(4, 3, 2, 1);
+
+            var viewbox = (DrawableViewbox)rectangle;
+            Assert.AreEqual(4, viewbox.UpperLeftX);
+            Assert.AreEqual(3, viewbox.UpperLeftY);
+            Assert.AreEqual(6, viewbox.LowerRightX);
+            Assert.AreEqual(4, viewbox.LowerRightY);
         }
     }
 }

@@ -21,28 +21,36 @@ namespace Magick.NET.Tests
     public partial class MagickColorTests
     {
         [TestMethod]
-        public void Test_Transparent()
+        public void Equals_MagickColorIsNull_EqualToColorEmpty()
         {
             MagickColor transparent = null;
             Color transparentColor = transparent;
 
             Assert.AreEqual(Color.Empty, transparentColor);
+        }
 
-            transparent = MagickColors.Transparent;
-
-            ColorAssert.IsTransparent(transparent.A);
+        [TestMethod]
+        public void Equals_MagickColorTransparent_EqualToColorTransparent()
+        {
+            MagickColor transparent = MagickColors.Transparent;
             ColorAssert.AreEqual(Color.Transparent, transparent);
+        }
 
-            transparent = new MagickColor("transparent");
-
-            ColorAssert.IsTransparent(transparent.A);
+        [TestMethod]
+        public void Equals_MagickColorWithConstructedWithStringSetToTransparent_EqualToColorTransparent()
+        {
+            MagickColor transparent = new MagickColor("transparent");
             ColorAssert.AreEqual(Color.Transparent, transparent);
+        }
 
-            transparentColor = transparent;
-            Assert.AreEqual(Color.Transparent.R, transparentColor.R);
-            Assert.AreEqual(Color.Transparent.G, transparentColor.G);
-            Assert.AreEqual(Color.Transparent.B, transparentColor.B);
-            Assert.AreEqual(Color.Transparent.A, transparentColor.A);
+        [TestMethod]
+        public void TransparentColor_ChannelValuesEqualToColorTransparent()
+        {
+            MagickColor transparent = MagickColors.Transparent;
+            Assert.AreEqual(Color.Transparent.R, transparent.R);
+            Assert.AreEqual(Color.Transparent.G, transparent.G);
+            Assert.AreEqual(Color.Transparent.B, transparent.B);
+            Assert.AreEqual(Color.Transparent.A, transparent.A);
         }
     }
 }

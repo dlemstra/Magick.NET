@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
     public partial class DrawableFillColorTests
     {
         [TestMethod]
-        public void Test_Constructor_Color()
+        public void Constructor_WithColor_ColorPropertyIsCorrect()
         {
             DrawableFillColor fillColor = new DrawableFillColor(Color.DarkKhaki);
             ColorAssert.AreEqual(MagickColors.DarkKhaki, fillColor.Color);

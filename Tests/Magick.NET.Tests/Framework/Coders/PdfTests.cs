@@ -18,12 +18,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public partial class PdfTests
+    public sealed partial class PdfTests
     {
         private delegate void ReadDelegate();
 
         [TestMethod]
-        public void Test_Multithreading()
+        public void ReadMultithreaded_FileIsReadCorrectly()
         {
             ReadDelegate action = () =>
             {

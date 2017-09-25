@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
     public partial class DrawableStrokeColorTests
     {
         [TestMethod]
-        public void Test_Constructor_Color()
+        public void Constructor_WithColor_ColorPropertyIsCorrect()
         {
             DrawableStrokeColor strokeColor = new DrawableStrokeColor(Color.GhostWhite);
             ColorAssert.AreEqual(MagickColors.GhostWhite, strokeColor.Color);

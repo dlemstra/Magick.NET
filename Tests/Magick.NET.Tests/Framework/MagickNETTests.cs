@@ -20,7 +20,7 @@ namespace Magick.NET.Tests
     public partial class MagickNETTests
     {
         [TestMethod]
-        public void Test_Version()
+        public void Version_ContainsCorrectPlatform()
         {
 #if PLATFORM_AnyCPU
             StringAssert.Contains(MagickNET.Version, "AnyCPU");
@@ -29,7 +29,11 @@ namespace Magick.NET.Tests
 #else
             StringAssert.Contains(MagickNET.Version, "x86");
 #endif
+        }
 
+        [TestMethod]
+        public void Version_ContainsNet40()
+        {
             StringAssert.Contains(MagickNET.Version, "net40");
         }
     }

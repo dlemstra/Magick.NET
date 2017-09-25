@@ -21,7 +21,7 @@ namespace Magick.NET.Tests
     public partial class MagickGeometryTests
     {
         [TestMethod]
-        public void Test_Rectangle()
+        public void Constructor_WithRectangle_PropertiesAreSet()
         {
             var rectangle = new Rectangle(1, 2, 3, 4);
 
@@ -30,8 +30,18 @@ namespace Magick.NET.Tests
             Assert.AreEqual(2, geometry.Y);
             Assert.AreEqual(3, geometry.Width);
             Assert.AreEqual(4, geometry.Height);
+        }
 
-            Assert.AreEqual(geometry, (MagickGeometry)rectangle);
+        [TestMethod]
+        public void ExplicitCastFromRectangle_PropertiesAreSet()
+        {
+            var rectangle = new Rectangle(4, 3, 2, 1);
+
+            var geometry = (MagickGeometry)rectangle;
+            Assert.AreEqual(4, geometry.X);
+            Assert.AreEqual(3, geometry.Y);
+            Assert.AreEqual(2, geometry.Width);
+            Assert.AreEqual(1, geometry.Height);
         }
     }
 }

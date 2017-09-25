@@ -12,6 +12,7 @@
 
 #if !NETCOREAPP1_1
 
+using System;
 using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -22,7 +23,7 @@ namespace Magick.NET.Tests
     public partial class DrawableBorderColorTests
     {
         [TestMethod]
-        public void Test_Constructor_Color()
+        public void Constructor_WithColor_ColorPropertyIsCorrect()
         {
             DrawableBorderColor borderColor = new DrawableBorderColor(Color.GreenYellow);
             ColorAssert.AreEqual(MagickColors.GreenYellow, borderColor.Color);

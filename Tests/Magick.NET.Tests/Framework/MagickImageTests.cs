@@ -36,13 +36,17 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [TestMethod]
-        public void Test_Constructor_Bitmap()
+        public void Constructor_BitmapIsNull_ThrowsException()
         {
             ExceptionAssert.Throws<ArgumentNullException>(() =>
             {
                 new MagickImage((Bitmap)null);
             });
+        }
 
+        [TestMethod]
+        public void Constructor_WithPngBitmap_CreatesPngImage()
+        {
             using (Bitmap bitmap = new Bitmap(Files.SnakewarePNG))
             {
                 using (IMagickImage image = new MagickImage(bitmap))
@@ -52,35 +56,26 @@ namespace Magick.NET.Tests
                     Assert.AreEqual(MagickFormat.Png, image.Format);
                 }
             }
+        }
 
+        [TestMethod]
+        public void Constructor_WithMemoryBmp_CreatesBmpImage()
+        {
             using (Bitmap bitmap = new Bitmap(50, 100, PixelFormat.Format24bppRgb))
             {
+                Assert.AreEqual(bitmap.RawFormat, ImageFormat.MemoryBmp);
+
                 using (IMagickImage image = new MagickImage(bitmap))
                 {
                     Assert.AreEqual(50, image.Width);
                     Assert.AreEqual(100, image.Height);
                     Assert.AreEqual(MagickFormat.Bmp3, image.Format);
-
-                    image.Dispose();
                 }
             }
         }
 
         [TestMethod]
-        public void Test_Bitmap()
-        {
-            using (Bitmap bitmap = new Bitmap(400, 400, PixelFormat.Format24bppRgb))
-            {
-                using (IMagickImage image = new MagickImage(bitmap))
-                {
-                    Assert.AreEqual(400, image.Width);
-                    Assert.AreEqual(400, image.Height);
-                }
-            }
-        }
-
-        [TestMethod]
-        public void Test_Read_Bitmap()
+        public void Read_BitmapIsNull_ThrowsException()
         {
             using (IMagickImage image = new MagickImage())
             {
@@ -88,18 +83,36 @@ namespace Magick.NET.Tests
                 {
                     image.Read((Bitmap)null);
                 });
+            }
+        }
 
-                using (Bitmap bitmap = new Bitmap(Files.SnakewarePNG))
+        [TestMethod]
+        public void Read_WithPngBitmap_CreatesPngImage()
+        {
+            using (Bitmap bitmap = new Bitmap(Files.SnakewarePNG))
+            {
+                using (IMagickImage image = new MagickImage())
                 {
                     image.Read(bitmap);
+
                     Assert.AreEqual(286, image.Width);
                     Assert.AreEqual(67, image.Height);
                     Assert.AreEqual(MagickFormat.Png, image.Format);
                 }
+            }
+        }
 
-                using (Bitmap bitmap = new Bitmap(100, 50, PixelFormat.Format24bppRgb))
+        [TestMethod]
+        public void Read_WithMemoryBmp_CreatesBmpImage()
+        {
+            using (Bitmap bitmap = new Bitmap(100, 50, PixelFormat.Format24bppRgb))
+            {
+                Assert.AreEqual(bitmap.RawFormat, ImageFormat.MemoryBmp);
+
+                using (IMagickImage image = new MagickImage())
                 {
                     image.Read(bitmap);
+
                     Assert.AreEqual(100, image.Width);
                     Assert.AreEqual(50, image.Height);
                     Assert.AreEqual(MagickFormat.Bmp3, image.Format);
@@ -108,43 +121,91 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_ToBitmap()
+        public void Read_FileNameStartsWithTilde_UsesBaseDirectoryOfCurrentAppDomain()
         {
-            using (IMagickImage image = new MagickImage(MagickColors.Red, 10, 10))
+            using (IMagickImage image = new MagickImage())
             {
-                ExceptionAssert.Throws<NotSupportedException>(() =>
+                Exception exception = ExceptionAssert.Throws<MagickBlobErrorException>("error/blob.c/OpenBlob", () =>
                 {
-                    image.ToBitmap(ImageFormat.Exif);
+                    image.Read("~/test.gif");
                 });
 
-                using (Bitmap bitmap = image.ToBitmap())
-                {
-                    Assert.AreEqual(ImageFormat.MemoryBmp, bitmap.RawFormat);
-                    ColorAssert.AreEqual(MagickColors.Red, bitmap.GetPixel(0, 0));
-                    ColorAssert.AreEqual(MagickColors.Red, bitmap.GetPixel(5, 5));
-                    ColorAssert.AreEqual(MagickColors.Red, bitmap.GetPixel(9, 9));
-                }
-
-                Test_ToBitmap(image, ImageFormat.Bmp);
-                Test_ToBitmap(image, ImageFormat.Gif);
-                Test_ToBitmap(image, ImageFormat.Icon);
-                Test_ToBitmap(image, ImageFormat.Jpeg);
-                Test_ToBitmap(image, ImageFormat.Png);
-                Test_ToBitmap(image, ImageFormat.Tiff);
+                string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                Assert.IsTrue(exception.Message.Contains(baseDirectory));
             }
+        }
 
-            using (IMagickImage image = new MagickImage(new MagickColor(0, Quantum.Max, Quantum.Max, 0), 10, 10))
+        [TestMethod]
+        public void Read_FileNameSetToTilde_DoesNotUseBaseDirectoryOfCurrentAppDomain()
+        {
+            using (IMagickImage image = new MagickImage())
             {
-                using (Bitmap bitmap = image.ToBitmap())
+                Exception exception = ExceptionAssert.Throws<MagickBlobErrorException>("error/blob.c/OpenBlob", () =>
                 {
-                    Assert.AreEqual(ImageFormat.MemoryBmp, bitmap.RawFormat);
-                    MagickColor color = MagickColor.FromRgba(0, 255, 255, 0);
-                    ColorAssert.AreEqual(color, bitmap.GetPixel(0, 0));
-                    ColorAssert.AreEqual(color, bitmap.GetPixel(5, 5));
-                    ColorAssert.AreEqual(color, bitmap.GetPixel(9, 9));
-                }
-            }
+                    image.Read("~");
+                });
 
+                Assert.IsTrue(exception.Message.Contains("~"));
+            }
+        }
+
+        [TestMethod]
+        public void ToBitmap_ImageFormatIsExif_ThrowsException()
+        {
+            ToBitmap_UnsupportedImageFormat_ThrowsException(ImageFormat.Exif);
+        }
+
+        [TestMethod]
+        public void ToBitmap_ImageFormatIsEmf_ThrowsException()
+        {
+            ToBitmap_UnsupportedImageFormat_ThrowsException(ImageFormat.Emf);
+        }
+
+        [TestMethod]
+        public void ToBitmap_ImageFormatIsWmf_ThrowsException()
+        {
+            ToBitmap_UnsupportedImageFormat_ThrowsException(ImageFormat.Wmf);
+        }
+
+        [TestMethod]
+        public void ToBitmap_ImageFormatIsBmp_ReturnsBitmap()
+        {
+            ToBitmap_SupportedFormat_ReturnsBitmap(ImageFormat.Bmp);
+        }
+
+        [TestMethod]
+        public void ToBitmap_ImageFormatIsGif_ReturnsBitmap()
+        {
+            ToBitmap_SupportedFormat_ReturnsBitmap(ImageFormat.Gif);
+        }
+
+        [TestMethod]
+        public void ToBitmap_ImageFormatIsIcon_ReturnsBitmap()
+        {
+            ToBitmap_SupportedFormat_ReturnsBitmap(ImageFormat.Icon);
+        }
+
+        [TestMethod]
+        public void ToBitmap_ImageFormatIsJpeg_ReturnsBitmap()
+        {
+            ToBitmap_SupportedFormat_ReturnsBitmap(ImageFormat.Jpeg);
+        }
+
+        [TestMethod]
+        public void ToBitmap_ImageFormatIsPng_ReturnsBitmap()
+        {
+            ToBitmap_SupportedFormat_ReturnsBitmap(ImageFormat.Png);
+        }
+
+        [TestMethod]
+        public void ToBitmap_ImageFormatIsTiff_ReturnsBitmap()
+        {
+            ToBitmap_SupportedFormat_ReturnsBitmap(ImageFormat.Tiff);
+        }
+
+        [TestMethod]
+        public void ToBitmap_CmykImage_ReturnsBitmapWithCorrectColors()
+        {
             using (IMagickImage image = new MagickImage(Files.CMYKJPG))
             {
                 using (Bitmap bitmap = image.ToBitmap())
@@ -157,82 +218,101 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_CheckForBaseDirectory()
+        public void ToBitmapSource_RgbImage_ReturnsBitmapSourceWithRgb24Format()
         {
-            using (IMagickImage image = new MagickImage())
+            byte[] pixels = new byte[150];
+
+            using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
             {
-                Exception exception = ExceptionAssert.Throws<MagickBlobErrorException>("error/blob.c/OpenBlob", () =>
-                {
-                    image.Read("~/test.gif");
-                });
+                BitmapSource bitmapSource = image.ToBitmapSource();
 
-                string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                Assert.IsTrue(exception.Message.Contains(baseDirectory));
+                Assert.AreEqual(MediaPixelFormats.Rgb24, bitmapSource.Format);
+                Assert.AreEqual(5, bitmapSource.Width);
+                Assert.AreEqual(10, bitmapSource.Height);
 
-                exception = ExceptionAssert.Throws<MagickBlobErrorException>("error/blob.c/OpenBlob", () =>
-                {
-                    image.Read("~");
-                });
-
-                Assert.IsTrue(exception.Message.Contains("~"));
-            }
-        }
-
-        [TestMethod]
-        public void Test_ToBitmapSource()
-        {
-            byte[] pixels = new byte[600];
-
-            using (IMagickImage image = new MagickImage(MagickColors.Red, 10, 10))
-            {
-                BitmapSource bitmap = image.ToBitmapSource();
-                Assert.AreEqual(MediaPixelFormats.Rgb24, bitmap.Format);
-                bitmap.CopyPixels(pixels, 60, 0);
+                bitmapSource.CopyPixels(pixels, 15, 0);
 
                 Assert.AreEqual(255, pixels[0]);
                 Assert.AreEqual(0, pixels[1]);
                 Assert.AreEqual(0, pixels[2]);
+            }
+        }
 
+        [TestMethod]
+        public void ToBitmapSource_CmykImage_ReturnsBitmapSourceWithCmyk32Format()
+        {
+            byte[] pixels = new byte[200];
+
+            using (IMagickImage image = new MagickImage(MagickColors.Red, 10, 5))
+            {
                 image.ColorSpace = ColorSpace.CMYK;
 
-                bitmap = image.ToBitmapSource();
-                Assert.AreEqual(MediaPixelFormats.Cmyk32, bitmap.Format);
-                bitmap.CopyPixels(pixels, 60, 0);
+                BitmapSource bitmapSource = image.ToBitmapSource();
+
+                Assert.AreEqual(MediaPixelFormats.Cmyk32, bitmapSource.Format);
+                Assert.AreEqual(10, bitmapSource.Width);
+                Assert.AreEqual(5, bitmapSource.Height);
+
+                bitmapSource.CopyPixels(pixels, 40, 0);
 
                 Assert.AreEqual(0, pixels[0]);
                 Assert.AreEqual(255, pixels[1]);
                 Assert.AreEqual(255, pixels[2]);
                 Assert.AreEqual(0, pixels[3]);
+            }
+        }
 
-                image.AddProfile(ColorProfile.USWebCoatedSWOP);
-                image.AddProfile(ColorProfile.SRGB);
+        [TestMethod]
+        public void ToBitmapSource_RgbaImage_ReturnsBitmapSourceWithBgra32Format()
+        {
+            byte[] pixels = new byte[200];
 
-                bitmap = image.ToBitmapSource();
-                Assert.AreEqual(MediaPixelFormats.Rgb24, bitmap.Format);
-                bitmap.CopyPixels(pixels, 60, 0);
-
-                Assert.AreEqual(237, pixels[0]);
-                Assert.AreEqual(28, pixels[1]);
-                Assert.AreEqual(36, pixels[2]);
-
+            using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+            {
                 image.HasAlpha = true;
 
-                bitmap = image.ToBitmapSource();
-                Assert.AreEqual(MediaPixelFormats.Bgra32, bitmap.Format);
-                bitmap.CopyPixels(pixels, 60, 0);
+                BitmapSource bitmapSource = image.ToBitmapSource();
 
-                Assert.AreEqual(36, pixels[0]);
-                Assert.AreEqual(28, pixels[1]);
-                Assert.AreEqual(237, pixels[2]);
+                Assert.AreEqual(MediaPixelFormats.Bgra32, bitmapSource.Format);
+                Assert.AreEqual(5, bitmapSource.Width);
+                Assert.AreEqual(10, bitmapSource.Height);
+
+                bitmapSource.CopyPixels(pixels, 20, 0);
+
+                Assert.AreEqual(0, pixels[0]);
+                Assert.AreEqual(0, pixels[1]);
+                Assert.AreEqual(255, pixels[2]);
                 Assert.AreEqual(255, pixels[3]);
             }
         }
 
-        private static void Test_ToBitmap(IMagickImage image, ImageFormat format)
+        private static void ToBitmap_UnsupportedImageFormat_ThrowsException(ImageFormat imageFormat)
         {
-            using (Bitmap bmp = image.ToBitmap(format))
+            using (IMagickImage image = new MagickImage(MagickColors.Red, 10, 10))
             {
-                Assert.AreEqual(format, bmp.RawFormat);
+                ExceptionAssert.Throws<NotSupportedException>(() =>
+                {
+                    image.ToBitmap(imageFormat);
+                });
+            }
+        }
+
+        private static void ToBitmap_SupportedFormat_ReturnsBitmap(ImageFormat imageFormat)
+        {
+            using (IMagickImage image = new MagickImage(MagickColors.Red, 10, 10))
+            {
+                using (Bitmap bitmap = image.ToBitmap(imageFormat))
+                {
+                    Assert.AreEqual(imageFormat, bitmap.RawFormat);
+
+                    // Cannot test JPEG due to rounding issues.
+                    if (imageFormat != ImageFormat.Jpeg)
+                    {
+                        ColorAssert.AreEqual(MagickColors.Red, bitmap.GetPixel(0, 0));
+                        ColorAssert.AreEqual(MagickColors.Red, bitmap.GetPixel(5, 5));
+                        ColorAssert.AreEqual(MagickColors.Red, bitmap.GetPixel(9, 9));
+                    }
+                }
             }
         }
     }

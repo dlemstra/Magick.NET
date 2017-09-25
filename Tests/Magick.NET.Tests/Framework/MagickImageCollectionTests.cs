@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
     public partial class MagickImageCollectionTests
     {
         [TestMethod]
-        public void Test_ToBitmap()
+        public void ToBitmap_CollectionWithThreeImages_ReturnsBitmapWithThreeFrames()
         {
             using (IMagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
             {
