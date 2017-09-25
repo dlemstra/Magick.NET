@@ -605,7 +605,7 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_Quantize()
+        public void Quantize_CollectionIsEmpty_ThrowsException()
         {
             using (IMagickImageCollection collection = new MagickImageCollection())
             {
@@ -613,19 +613,36 @@ namespace Magick.NET.Tests
                 {
                     collection.Quantize();
                 });
+            }
+        }
 
+        [TestMethod]
+        public void Quantize_SettingsAreNull_ThrowsException()
+        {
+            using (IMagickImageCollection collection = new MagickImageCollection())
+            {
                 collection.Add(Files.FujiFilmFinePixS1ProJPG);
 
                 ExceptionAssert.Throws<ArgumentNullException>(() =>
                 {
                     collection.Quantize(null);
                 });
+            }
+        }
 
-                QuantizeSettings settings = new QuantizeSettings();
-                settings.Colors = 3;
+        [TestMethod]
+        public void Quantize_ThreeColors_ChangesPixels()
+        {
+            using (IMagickImageCollection collection = new MagickImageCollection())
+            {
+                collection.Add(Files.FujiFilmFinePixS1ProJPG);
 
-                MagickErrorInfo errorInfo = collection.Quantize(settings);
-                Assert.IsNull(errorInfo);
+                QuantizeSettings settings = new QuantizeSettings
+                {
+                    Colors = 3,
+                };
+
+                collection.Quantize(settings);
 
 #if Q8
                 ColorAssert.AreEqual(new MagickColor("#2b414f"), collection[0], 66, 115);
@@ -638,6 +655,24 @@ namespace Magick.NET.Tests
 #else
 #error Not implemented!
 #endif
+            }
+        }
+
+        [TestMethod]
+        public void Quantize_MeasureErrorsIsFalse_ReturnsNull()
+        {
+            using (IMagickImageCollection collection = new MagickImageCollection())
+            {
+                collection.Add(Files.FujiFilmFinePixS1ProJPG);
+
+                QuantizeSettings settings = new QuantizeSettings
+                {
+                    Colors = 1,
+                    MeasureErrors = false,
+                };
+
+                MagickErrorInfo errorInfo = collection.Quantize(settings);
+                Assert.IsNull(errorInfo);
             }
         }
 
