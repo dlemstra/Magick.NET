@@ -20,6 +20,9 @@ namespace ImageMagick
     {
         public static XmlElement CreateElement(XmlNode node, string name)
         {
+            DebugThrow.IfNull(nameof(node), node);
+            DebugThrow.IfNullOrEmpty(nameof(name), name);
+
             XmlDocument doc = node.GetType() == typeof(XmlDocument) ? (XmlDocument)node : node.OwnerDocument;
             XmlElement element = doc.CreateElement(name);
             node.AppendChild(element);
@@ -44,8 +47,8 @@ namespace ImageMagick
 
         public static void SetAttribute<TType>(XmlElement element, string name, TType value)
         {
-            if (element == null)
-                return;
+            DebugThrow.IfNull(nameof(element), element);
+            DebugThrow.IfNullOrEmpty(nameof(name), name);
 
             XmlAttribute attribute;
             if (element.HasAttribute(name))

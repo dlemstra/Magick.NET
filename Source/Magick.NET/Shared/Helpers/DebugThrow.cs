@@ -36,5 +36,14 @@ namespace ImageMagick
         {
             Throw.IfNull(paramName, value);
         }
+
+        [Conditional("DEBUG")]
+        public static void IfNullOrEmpty(string paramName, string value)
+        {
+            IfNull(paramName, value);
+
+            if (value.Length == 0)
+                throw new ArgumentException("Value cannot be empty.", paramName);
+        }
     }
 }

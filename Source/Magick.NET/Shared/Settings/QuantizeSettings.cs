@@ -10,8 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
-
 namespace ImageMagick
 {
     /// <summary>
@@ -65,7 +63,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Gets or setsthe quantization tree-depth.
+        /// Gets or sets the quantization tree-depth.
         /// </summary>
         public int TreeDepth
         {
@@ -78,7 +76,7 @@ namespace ImageMagick
             NativeQuantizeSettings instance = new NativeQuantizeSettings();
             instance.SetColors(Colors);
             instance.SetColorSpace(ColorSpace);
-            instance.SetDitherMethod(DitherMethod.HasValue ? DitherMethod.Value : ImageMagick.DitherMethod.No);
+            instance.SetDitherMethod(DitherMethod ?? ImageMagick.DitherMethod.No);
             instance.SetMeasureErrors(MeasureErrors);
             instance.SetTreeDepth(TreeDepth);
 

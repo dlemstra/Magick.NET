@@ -623,7 +623,7 @@ namespace Magick.NET.Tests
             {
                 collection.Add(Files.FujiFilmFinePixS1ProJPG);
 
-                ExceptionAssert.Throws<ArgumentNullException>(() =>
+                ExceptionAssert.ThrowsArgumentNullException("settings", () =>
                 {
                     collection.Quantize(null);
                 });
@@ -673,6 +673,36 @@ namespace Magick.NET.Tests
 
                 MagickErrorInfo errorInfo = collection.Quantize(settings);
                 Assert.IsNull(errorInfo);
+            }
+        }
+
+        [TestMethod]
+        public void Quantize_MeasureErrorsIsTrue_ReturnsErrorInfo()
+        {
+            using (IMagickImageCollection collection = new MagickImageCollection())
+            {
+                collection.Add(Files.FujiFilmFinePixS1ProJPG);
+
+                QuantizeSettings settings = new QuantizeSettings
+                {
+                    Colors = 3,
+                    MeasureErrors = true,
+                };
+
+                MagickErrorInfo errorInfo = collection.Quantize(settings);
+                Assert.IsNotNull(errorInfo);
+
+#if Q8
+                Assert.AreEqual(13.54, errorInfo.MeanErrorPerPixel, 0.01);
+                Assert.AreEqual(0.46, errorInfo.NormalizedMaximumError, 0.01);
+                Assert.AreEqual(0.006, errorInfo.NormalizedMeanError, 0.001);
+#elif Q16 || Q16HDRI
+                Assert.AreEqual(3504, errorInfo.MeanErrorPerPixel, 1);
+                Assert.AreEqual(0.46, errorInfo.NormalizedMaximumError, 0.01);
+                Assert.AreEqual(0.006, errorInfo.NormalizedMeanError, 0.001);
+#else
+#error Not implemented!
+#endif
             }
         }
 

@@ -47,10 +47,19 @@ namespace Magick.NET.Tests
         public void TransparentColor_ChannelValuesEqualToColorTransparent()
         {
             MagickColor transparent = MagickColors.Transparent;
-            Assert.AreEqual(Color.Transparent.R, transparent.R);
-            Assert.AreEqual(Color.Transparent.G, transparent.G);
-            Assert.AreEqual(Color.Transparent.B, transparent.B);
-            Assert.AreEqual(Color.Transparent.A, transparent.A);
+
+#if Q8
+            int multiplication = 1;
+#elif Q16 || Q16HDRI
+            int multiplication = 257;
+#else
+#error Not implemented!
+#endif
+
+            Assert.AreEqual(Color.Transparent.R * multiplication, transparent.R);
+            Assert.AreEqual(Color.Transparent.G * multiplication, transparent.G);
+            Assert.AreEqual(Color.Transparent.B * multiplication, transparent.B);
+            Assert.AreEqual(Color.Transparent.A * multiplication, transparent.A);
         }
     }
 }
