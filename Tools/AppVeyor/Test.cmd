@@ -6,7 +6,7 @@ if "%1" == "AnyCPU" (
   set platform="x86"
 )
 
-set vstest="%VSINSTALLDIR%Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe"
+set vstest="%VSINSTALLDIR%\Common7\IDE\Extensions\TestPlatform\vstest.console.exe"
 
 for /r ..\..\Tests\Magick.NET.Tests\bin %%a in (*.dll) do (
   if "%%~nxa"=="Magick.NET.Tests.dll" (
