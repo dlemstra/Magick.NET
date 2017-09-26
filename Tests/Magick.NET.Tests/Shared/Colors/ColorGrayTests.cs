@@ -115,12 +115,12 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Constructor()
         {
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("shade", () =>
             {
                 new ColorGray(1.01);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("shade", () =>
             {
                 new ColorGray(-0.01);
             });

@@ -4958,7 +4958,10 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Resize(Percentage percentage)
         {
-            Resize(percentage, percentage);
+            Throw.IfNegative(nameof(percentage), percentage);
+
+            MagickGeometry geometry = new MagickGeometry(percentage, percentage);
+            Resize(geometry);
         }
 
         /// <summary>

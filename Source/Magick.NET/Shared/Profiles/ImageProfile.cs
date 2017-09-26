@@ -58,6 +58,7 @@ namespace ImageMagick
         public ImageProfile(string name, string fileName)
         {
             Throw.IfNullOrEmpty(nameof(name), name);
+            Throw.IfNullOrEmpty(nameof(fileName), fileName);
 
             Name = name;
 

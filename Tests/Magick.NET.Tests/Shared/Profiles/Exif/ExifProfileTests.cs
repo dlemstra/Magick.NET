@@ -169,7 +169,7 @@ namespace Magick.NET.Tests
                     ExifValue value = profile.GetValue(ExifTag.Software);
                     TestValue(value, "Magick.NET");
 
-                    ExceptionAssert.Throws<ArgumentException>(() =>
+                    ExceptionAssert.ThrowsArgumentException("value", () =>
                     {
                         value.Value = 15;
                     });
@@ -179,7 +179,7 @@ namespace Magick.NET.Tests
                     value = profile.GetValue(ExifTag.ShutterSpeedValue);
                     TestRationalValue(value, "1511/20");
 
-                    ExceptionAssert.Throws<ArgumentException>(() =>
+                    ExceptionAssert.ThrowsArgumentException("value", () =>
                     {
                         value.Value = 75;
                     });
@@ -189,7 +189,7 @@ namespace Magick.NET.Tests
                     value = profile.GetValue(ExifTag.XResolution);
                     TestRationalValue(value, "150");
 
-                    ExceptionAssert.Throws<ArgumentException>(() =>
+                    ExceptionAssert.ThrowsArgumentException("value", () =>
                     {
                         value.Value = "Magick.NET";
                     });

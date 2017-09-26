@@ -22,19 +22,19 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Constructor()
         {
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("order", () =>
             {
                 new MagickColorMatrix(-1);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("order", () =>
             {
                 new MagickColorMatrix(7);
             });
 
             new MagickColorMatrix(1);
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("values", () =>
             {
                 new MagickColorMatrix(2, 1.0);
             });

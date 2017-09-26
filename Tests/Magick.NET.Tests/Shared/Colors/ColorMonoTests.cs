@@ -110,10 +110,10 @@ namespace Magick.NET.Tests
             mono = ColorMono.FromMagickColor(MagickColors.White);
             Assert.IsFalse(mono.IsBlack);
 
-            ExceptionAssert.ThrowsArgumentException(() =>
+            ExceptionAssert.ThrowsArgumentException("color", () =>
             {
                 ColorMono.FromMagickColor(MagickColors.Gray);
-            }, "color", "Invalid");
+            }, "Invalid");
         }
     }
 }

@@ -25,12 +25,12 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Constructor()
         {
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
             {
                 new MagickScript((string)null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("stream", () =>
             {
                 new MagickScript((Stream)null);
             });
@@ -188,7 +188,7 @@ namespace Magick.NET.Tests
 
             using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
             {
-                ExceptionAssert.Throws<ArgumentNullException>(() =>
+                ExceptionAssert.ThrowsArgumentNullException("attribute", () =>
                 {
                     script.Execute(image);
                 });
@@ -202,7 +202,7 @@ namespace Magick.NET.Tests
 
                 script.Variables.Set("width", 100);
 
-                ExceptionAssert.Throws<ArgumentNullException>(() =>
+                ExceptionAssert.ThrowsArgumentNullException("attribute", () =>
                 {
                     script.Execute(image);
                 });

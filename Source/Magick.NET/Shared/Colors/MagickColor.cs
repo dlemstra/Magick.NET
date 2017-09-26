@@ -534,7 +534,8 @@ namespace ImageMagick
 
         private void ParseHexColor(string color)
         {
-            List<QuantumType> colors = HexColor.Parse(color);
+            if (!HexColor.TryParse(color, out List<QuantumType> colors))
+                throw new ArgumentException("Invalid hex value.", nameof(color));
 
             if (colors.Count == 1)
                 Initialize(colors[0], colors[0], colors[0], Quantum.Max);

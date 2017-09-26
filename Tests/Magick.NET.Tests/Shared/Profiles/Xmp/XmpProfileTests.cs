@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
 
                 IXPathNavigable doc = profile.ToIXPathNavigable();
 
-                ExceptionAssert.Throws<ArgumentNullException>(() =>
+                ExceptionAssert.ThrowsArgumentNullException("document", () =>
                 {
                     XmpProfile.FromIXPathNavigable(null);
                 });
@@ -81,7 +81,7 @@ namespace Magick.NET.Tests
 
                 XDocument doc = profile.ToXDocument();
 
-                ExceptionAssert.Throws<ArgumentNullException>(() =>
+                ExceptionAssert.ThrowsArgumentNullException("document", () =>
                 {
                     XmpProfile.FromXDocument(null);
                 });

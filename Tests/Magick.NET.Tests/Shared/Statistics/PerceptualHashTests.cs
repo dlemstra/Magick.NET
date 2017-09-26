@@ -128,22 +128,22 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Constructor()
         {
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("hash", () =>
             {
                 new PerceptualHash(null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("hash", () =>
             {
                 new PerceptualHash(string.Empty);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("hash", () =>
             {
                 new PerceptualHash("a0df");
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("hash", () =>
             {
                 new PerceptualHash("H00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
             });

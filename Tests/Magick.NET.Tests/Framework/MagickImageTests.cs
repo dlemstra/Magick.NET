@@ -38,7 +38,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Constructor_BitmapIsNull_ThrowsException()
         {
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("bitmap", () =>
             {
                 new MagickImage((Bitmap)null);
             });
@@ -79,7 +79,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage())
             {
-                ExceptionAssert.Throws<ArgumentNullException>(() =>
+                ExceptionAssert.ThrowsArgumentNullException("bitmap", () =>
                 {
                     image.Read((Bitmap)null);
                 });
@@ -125,10 +125,10 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage())
             {
-                Exception exception = ExceptionAssert.Throws<MagickBlobErrorException>("error/blob.c/OpenBlob", () =>
+                Exception exception = ExceptionAssert.Throws<MagickBlobErrorException>(() =>
                 {
                     image.Read("~/test.gif");
-                });
+                }, "error/blob.c/OpenBlob");
 
                 string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 Assert.IsTrue(exception.Message.Contains(baseDirectory));
@@ -140,10 +140,10 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage())
             {
-                Exception exception = ExceptionAssert.Throws<MagickBlobErrorException>("error/blob.c/OpenBlob", () =>
+                Exception exception = ExceptionAssert.Throws<MagickBlobErrorException>(() =>
                 {
                     image.Read("~");
-                });
+                }, "error/blob.c/OpenBlob");
 
                 Assert.IsTrue(exception.Message.Contains("~"));
             }

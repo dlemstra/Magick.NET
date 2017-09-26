@@ -22,12 +22,12 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Constructor()
         {
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("value", () =>
             {
                 new MagickGeometry(null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("value", () =>
             {
                 new MagickGeometry(string.Empty);
             });

@@ -42,37 +42,37 @@ namespace Magick.NET.Tests
             Assert.AreEqual(3.3, density.Y);
             Assert.AreEqual(DensityUnit.Undefined, density.Units);
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("value", () =>
             {
                 new Density(null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("value", () =>
             {
                 new Density(string.Empty);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("value", () =>
             {
                 new Density("1.0x");
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("value", () =>
             {
                 new Density("x1.0");
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("value", () =>
             {
                 new Density("ax1.0");
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("value", () =>
             {
                 new Density("1.0xb");
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("value", () =>
             {
                 new Density("1.0x6 magick");
             });

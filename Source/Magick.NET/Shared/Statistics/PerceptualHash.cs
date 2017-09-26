@@ -25,16 +25,16 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="PerceptualHash"/> class.
         /// </summary>
-        /// <param name="perceptualHash">The</param>
-        public PerceptualHash(string perceptualHash)
+        /// <param name="hash">The</param>
+        public PerceptualHash(string hash)
           : this()
         {
-            Throw.IfNullOrEmpty(nameof(perceptualHash), perceptualHash);
-            Throw.IfFalse(nameof(perceptualHash), perceptualHash.Length == 210, "Invalid hash size.");
+            Throw.IfNullOrEmpty(nameof(hash), hash);
+            Throw.IfFalse(nameof(hash), hash.Length == 210, "Invalid hash size.");
 
-            _channels[PixelChannel.Red] = new ChannelPerceptualHash(PixelChannel.Red, perceptualHash.Substring(0, 70));
-            _channels[PixelChannel.Green] = new ChannelPerceptualHash(PixelChannel.Green, perceptualHash.Substring(70, 70));
-            _channels[PixelChannel.Blue] = new ChannelPerceptualHash(PixelChannel.Blue, perceptualHash.Substring(140, 70));
+            _channels[PixelChannel.Red] = new ChannelPerceptualHash(PixelChannel.Red, hash.Substring(0, 70));
+            _channels[PixelChannel.Green] = new ChannelPerceptualHash(PixelChannel.Green, hash.Substring(70, 70));
+            _channels[PixelChannel.Blue] = new ChannelPerceptualHash(PixelChannel.Blue, hash.Substring(140, 70));
         }
 
         internal PerceptualHash(MagickImage image, IntPtr list)

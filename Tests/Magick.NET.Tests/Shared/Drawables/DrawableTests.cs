@@ -183,52 +183,52 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Drawables_Exceptions()
         {
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("coordinates", () =>
             {
                 new DrawableBezier();
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("coordinates", () =>
             {
                 new DrawableBezier(null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("coordinates", () =>
             {
                 new DrawableBezier(new PointD[] { });
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("clipPath", () =>
             {
                 new DrawableClipPath(null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("clipPath", () =>
             {
                 new DrawableClipPath(string.Empty);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("offset", () =>
             {
                 new DrawableComposite(null, new MagickImage(Files.Builtin.Logo));
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("image", () =>
             {
                 new DrawableComposite(new MagickGeometry(), null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("color", () =>
             {
                 new DrawableFillColor(null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("family", () =>
             {
                 new DrawableFont(null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("family", () =>
             {
                 new DrawableFont(string.Empty);
             });
@@ -241,32 +241,32 @@ namespace Magick.NET.Tests
                 }
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("coordinates", () =>
             {
                 new DrawablePolygon(new PointD[] { new PointD(0, 0) });
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("coordinates", () =>
             {
                 new DrawablePolyline(new PointD[] { new PointD(0, 0), new PointD(0, 0) });
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("color", () =>
             {
                 new DrawableStrokeColor(null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("value", () =>
             {
                 new DrawableText(0, 0, null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("value", () =>
             {
                 new DrawableText(0, 0, string.Empty);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("encoding", () =>
             {
                 new DrawableTextEncoding(null);
             });

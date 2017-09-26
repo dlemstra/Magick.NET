@@ -86,72 +86,72 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Path_Exceptions()
         {
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("coordinates", () =>
             {
                 new PathArcAbs();
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("coordinates", () =>
             {
                 new PathArcAbs(null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("coordinates", () =>
             {
                 new PathArcAbs(new PathArc[] { });
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("coordinates", () =>
             {
                 new PathArcAbs(new PathArc[] { null });
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("coordinates", () =>
             {
                 new PathArcRel();
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("coordinates", () =>
             {
                 new PathArcRel(null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("coordinates", () =>
             {
                 new PathArcRel(new PathArc[] { });
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("coordinates", () =>
             {
                 new PathArcRel(new PathArc[] { null });
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("coordinates", () =>
             {
                 new PathLineToAbs();
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("coordinates", () =>
             {
                 new PathLineToAbs(null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("coordinates", () =>
             {
                 new PathLineToAbs(new PointD[] { });
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("coordinates", () =>
             {
                 new PathLineToRel();
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("coordinates", () =>
             {
                 new PathLineToRel(null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("coordinates", () =>
             {
                 new PathLineToRel(new PointD[] { });
             });

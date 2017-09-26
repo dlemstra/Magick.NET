@@ -53,9 +53,9 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_Exceptions()
+        public void Draw_ImageIsNull_ThrowsException()
         {
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("image", () =>
             {
                 new Drawables().Draw(null);
             });

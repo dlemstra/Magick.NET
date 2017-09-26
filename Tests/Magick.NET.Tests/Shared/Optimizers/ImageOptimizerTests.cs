@@ -51,19 +51,19 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Compress_FileNameIsInvalid_ThrowsException()
         {
-            ExceptionAssert.Throws<MagickBlobErrorException>("error/blob.c/OpenBlob", () =>
+            ExceptionAssert.Throws<MagickBlobErrorException>(() =>
             {
                 Optimizer.Compress(Files.Missing);
-            });
+            }, "error/blob.c/OpenBlob");
         }
 
         [TestMethod]
         public void Compress_InvalidFile_ThrowsException()
         {
-            ExceptionAssert.Throws<MagickCorruptImageErrorException>("Invalid format", () =>
+            ExceptionAssert.Throws<MagickCorruptImageErrorException>(() =>
             {
                 Optimizer.Compress(Files.InvitationTif);
-            });
+            }, "Invalid format");
         }
 
         [TestMethod]
@@ -108,19 +108,19 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void LosslessCompress_FileNameIsInvalid_ThrowsException()
         {
-            ExceptionAssert.Throws<MagickBlobErrorException>("error/blob.c/OpenBlob", () =>
+            ExceptionAssert.Throws<MagickBlobErrorException>(() =>
             {
                 Optimizer.LosslessCompress(Files.Missing);
-            });
+            }, "error/blob.c/OpenBlob");
         }
 
         [TestMethod]
         public void LosslessCompress_InvalidFile_ThrowsException()
         {
-            ExceptionAssert.Throws<MagickCorruptImageErrorException>("Invalid format", () =>
+            ExceptionAssert.Throws<MagickCorruptImageErrorException>(() =>
             {
                 Optimizer.LosslessCompress(Files.InvitationTif);
-            });
+            }, "Invalid format");
         }
 
         [TestMethod]

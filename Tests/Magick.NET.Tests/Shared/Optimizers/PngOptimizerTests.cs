@@ -56,10 +56,10 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Compress_FileNameIsInvalid_ThrowsException()
         {
-            ExceptionAssert.Throws<MagickBlobErrorException>("error/blob.c/OpenBlob", () =>
+            ExceptionAssert.Throws<MagickBlobErrorException>(() =>
             {
                 Optimizer.Compress(Files.Missing);
-            });
+            }, "error/blob.c/OpenBlob");
         }
 
         [TestMethod]
@@ -119,10 +119,10 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void LosslessCompress_FileNameIsInvalid_ThrowsException()
         {
-            ExceptionAssert.Throws<MagickBlobErrorException>("error/blob.c/OpenBlob", () =>
+            ExceptionAssert.Throws<MagickBlobErrorException>(() =>
             {
                 Optimizer.LosslessCompress(Files.Missing);
-            });
+            }, "error/blob.c/OpenBlob");
         }
 
         [TestMethod]

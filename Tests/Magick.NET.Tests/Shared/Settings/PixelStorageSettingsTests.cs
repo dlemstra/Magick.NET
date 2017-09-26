@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
                 MagickReadSettings settings = new MagickReadSettings();
                 settings.PixelStorage = new PixelStorageSettings();
 
-                ExceptionAssert.Throws<ArgumentException>(() =>
+                ExceptionAssert.ThrowsArgumentException("readSettings", () =>
                 {
                     collection.Read(Files.RoseSparkleGIF, settings);
                 });
@@ -37,42 +37,42 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Image_Exceptions()
         {
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("readSettings", () =>
             {
                 MagickReadSettings settings = CreateSettings();
                 settings.PixelStorage.StorageType = StorageType.Undefined;
                 new MagickImage(Files.SnakewarePNG, settings);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("readSettings", () =>
             {
                 MagickReadSettings settings = CreateSettings();
                 settings.PixelStorage.Mapping = null;
                 new MagickImage(Files.SnakewarePNG, settings);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("readSettings", () =>
             {
                 MagickReadSettings settings = CreateSettings();
                 settings.PixelStorage.Mapping = string.Empty;
                 new MagickImage(Files.SnakewarePNG, settings);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("readSettings", () =>
             {
                 MagickReadSettings settings = CreateSettings();
                 settings.Width = null;
                 new MagickImage(Files.SnakewarePNG, settings);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("readSettings", () =>
             {
                 MagickReadSettings settings = CreateSettings();
                 settings.Height = null;
                 new MagickImage(Files.SnakewarePNG, settings);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("data", () =>
             {
                 MagickReadSettings settings = CreateSettings();
                 byte[] data = new byte[] { 0 };

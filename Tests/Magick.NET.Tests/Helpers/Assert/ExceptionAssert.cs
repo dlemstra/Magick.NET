@@ -20,27 +20,12 @@ namespace Magick.NET.Tests
     internal static class ExceptionAssert
     {
         public static TException Throws<TException>(Action action)
-           where TException : Exception
-        {
-            return Throws<TException>(action, "Exception of type {0} was not thrown.", typeof(TException).Name);
-        }
-
-        public static TException Throws<TException>(string messagePart, Action action)
-           where TException : Exception
-        {
-            TException exception = Throws<TException>(action);
-            AssertMessagePart(exception, messagePart);
-
-            return exception;
-        }
-
-        public static TException Throws<TException>(Action action, string message, params object[] arguments)
-       where TException : Exception
+            where TException : Exception
         {
             try
             {
                 action();
-                Fail(message, arguments);
+                Fail("Exception of type {0} was not thrown.", typeof(TException).Name);
                 return null;
             }
             catch (TException exception)
@@ -55,6 +40,15 @@ namespace Magick.NET.Tests
             {
                 throw;
             }
+        }
+
+        public static TException Throws<TException>(Action action, string messagePart)
+           where TException : Exception
+        {
+            TException exception = Throws<TException>(action);
+            AssertMessagePart(exception, messagePart);
+
+            return exception;
         }
 
         public static void ThrowsArgumentNullException(string paramName, Action action)
@@ -76,7 +70,7 @@ namespace Magick.NET.Tests
             Assert.AreEqual(paramName, exception.ParamName);
         }
 
-        public static void ThrowsArgumentException(Action action, string paramName, string messagePart)
+        public static void ThrowsArgumentException(string paramName, Action action, string messagePart)
         {
             ArgumentException exception = Throws<ArgumentException>(action);
             Assert.AreEqual(paramName, exception.ParamName);

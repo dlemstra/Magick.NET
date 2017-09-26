@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Constructor_MatrixIsNull_ThrowsException()
         {
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("matrix", () =>
             {
                 new DrawableAffine(null);
             });

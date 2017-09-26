@@ -34,32 +34,32 @@ namespace Magick.NET.Tests
             Assert.AreEqual(5.0, point.X);
             Assert.AreEqual(10.0, point.Y);
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("value", () =>
             {
                 new PointD(null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("value", () =>
             {
                 new PointD(string.Empty);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("value", () =>
             {
                 new PointD("1.0x");
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("value", () =>
             {
                 new PointD("x1.0");
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("value", () =>
             {
                 new PointD("ax1.0");
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("value", () =>
             {
                 new PointD("1.0xb");
             });

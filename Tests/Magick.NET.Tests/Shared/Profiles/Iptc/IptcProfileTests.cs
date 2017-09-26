@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
                 IptcProfile profile = image.GetIptcProfile();
                 TestProfileValues(profile);
 
-                ExceptionAssert.Throws<ArgumentNullException>(() =>
+                ExceptionAssert.ThrowsArgumentNullException("encoding", () =>
                 {
                     profile.SetEncoding(null);
                 });
@@ -98,7 +98,7 @@ namespace Magick.NET.Tests
                     value = profile.GetValue(IptcTag.Credit);
                     TestValue(value, credit);
 
-                    ExceptionAssert.Throws<ArgumentNullException>(() =>
+                    ExceptionAssert.ThrowsArgumentNullException("encoding", () =>
                     {
                         profile.SetValue(IptcTag.Caption, null, "Test");
                     });

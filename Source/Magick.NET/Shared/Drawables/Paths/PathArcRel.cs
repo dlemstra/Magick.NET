@@ -31,19 +31,19 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="PathArcRel"/> class.
         /// </summary>
-        /// <param name="pathArcs">The coordinates to use.</param>
-        public PathArcRel(params PathArc[] pathArcs)
+        /// <param name="coordinates">The coordinates to use.</param>
+        public PathArcRel(params PathArc[] coordinates)
         {
-            _coordinates = new PathArcCoordinates(pathArcs);
+            _coordinates = new PathArcCoordinates(coordinates);
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PathArcRel"/> class.
         /// </summary>
-        /// <param name="pathArcs">The coordinates to use.</param>
-        public PathArcRel(IEnumerable<PathArc> pathArcs)
+        /// <param name="coordinates">The coordinates to use.</param>
+        public PathArcRel(IEnumerable<PathArc> coordinates)
         {
-            _coordinates = new PathArcCoordinates(pathArcs);
+            _coordinates = new PathArcCoordinates(coordinates);
         }
 
         /// <summary>

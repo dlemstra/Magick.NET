@@ -53,7 +53,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Initialize_PathIsNull_ThrowsException()
         {
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("path", () =>
             {
                 MagickNET.Initialize((string)null);
             });
@@ -62,7 +62,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Initialize_PathIsInvalid_ThrowsException()
         {
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("path", () =>
             {
                 MagickNET.Initialize("Invalid");
             });
@@ -80,19 +80,24 @@ namespace Magick.NET.Tests
 
                 File.Move(fileName, tempFile);
 
-                ExceptionAssert.Throws<ArgumentException>(() =>
+                try
                 {
-                    MagickNET.Initialize(path);
-                }, "MagickNET._ImageMagickFiles does not contain: " + Path.GetFileName(fileName));
-
-                File.Move(tempFile, fileName);
+                    ExceptionAssert.ThrowsArgumentException("path", () =>
+                    {
+                        MagickNET.Initialize(path);
+                    }, "Unable to find file: " + Path.GetFullPath(fileName));
+                }
+                finally
+                {
+                    File.Move(tempFile, fileName);
+                }
             }
         }
 
         [TestMethod]
         public void Initialize_ConfigurationFilesIsNull_ThrowsException()
         {
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("configFiles", () =>
             {
                 MagickNET.Initialize((ConfigurationFiles)null);
             });
@@ -138,35 +143,28 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Initialize_WithPathAndConfigurationFilesIsNull_ThrowsException()
         {
-            ArgumentNullException exception = ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("configFiles", () =>
             {
                 MagickNET.Initialize(null, Path.GetTempPath());
             });
-
-            Assert.AreEqual("configFiles", exception.ParamName);
         }
 
         [TestMethod]
         public void Initialize_WithPathAndPathIsNull_ThrowsException()
         {
-            ArgumentNullException exception = ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("path", () =>
             {
                 MagickNET.Initialize(ConfigurationFiles.Default, null);
             });
-
-            Assert.AreEqual("path", exception.ParamName);
         }
 
         [TestMethod]
         public void Initialize_WithPathAndPathIsInvalid_ThrowsException()
         {
-            ArgumentException exception = ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("path", () =>
             {
                 MagickNET.Initialize(ConfigurationFiles.Default, "invalid");
-            });
-
-            Assert.AreEqual("path", exception.ParamName);
-            Assert.IsTrue(exception.Message.Contains("Unable to find directory"));
+            }, "Unable to find directory");
         }
 
         [TestMethod]
@@ -280,7 +278,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void SetTempDirectory_PathIsNull_ThrowsException()
         {
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("path", () =>
             {
                 MagickNET.SetTempDirectory(null);
             });
@@ -289,7 +287,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void SetTempDirectory_PathIsInvalid_ThrowsException()
         {
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("path", () =>
             {
                 MagickNET.SetTempDirectory("Invalid");
             });

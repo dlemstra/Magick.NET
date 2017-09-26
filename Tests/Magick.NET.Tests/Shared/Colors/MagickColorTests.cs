@@ -92,32 +92,32 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Constructor()
         {
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("color", () =>
             {
                 new MagickColor((string)null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("color", () =>
             {
                 new MagickColor("FFFFFF");
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("color", () =>
             {
                 new MagickColor("#FFFFF");
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("color", () =>
             {
                 new MagickColor("#GGFFF");
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("color", () =>
             {
                 new MagickColor("#FGF");
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("color", () =>
             {
                 new MagickColor("#FFFG000000000000");
             });

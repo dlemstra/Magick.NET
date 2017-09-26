@@ -181,30 +181,35 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Constructor()
         {
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("data", () =>
             {
                 new MagickImageCollection(new byte[0]);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("data", () =>
             {
                 new MagickImageCollection((byte[])null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("file", () =>
+            {
+                new MagickImageCollection((FileInfo)null);
+            });
+
+            ExceptionAssert.ThrowsArgumentNullException("stream", () =>
             {
                 new MagickImageCollection((Stream)null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
             {
                 new MagickImageCollection((string)null);
             });
 
-            ExceptionAssert.Throws<MagickBlobErrorException>("error/blob.c/OpenBlob", () =>
+            ExceptionAssert.Throws<MagickBlobErrorException>(() =>
             {
                 new MagickImageCollection(Files.Missing);
-            });
+            }, "error/blob.c/OpenBlob");
         }
 
         [TestMethod]
@@ -231,7 +236,7 @@ namespace Magick.NET.Tests
                 images = new MagickImage[1];
                 collection.CopyTo(images, 0);
 
-                ExceptionAssert.Throws<ArgumentNullException>(() =>
+                ExceptionAssert.ThrowsArgumentNullException("array", () =>
                 {
                     collection.CopyTo(null, -1);
                 });
@@ -390,7 +395,7 @@ namespace Magick.NET.Tests
 
                         collection.Read(Files.RoseSparkleGIF);
 
-                        ExceptionAssert.Throws<ArgumentNullException>(() =>
+                        ExceptionAssert.ThrowsArgumentNullException("image", () =>
                         {
                             collection.Map(null);
                         });
@@ -742,30 +747,35 @@ namespace Magick.NET.Tests
         {
             IMagickImageCollection collection = new MagickImageCollection();
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("data", () =>
             {
                 collection.Ping(new byte[0]);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("data", () =>
             {
                 collection.Ping((byte[])null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("file", () =>
+            {
+                collection.Ping((FileInfo)null);
+            });
+
+            ExceptionAssert.ThrowsArgumentNullException("stream", () =>
             {
                 collection.Ping((Stream)null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
             {
                 collection.Ping((string)null);
             });
 
-            ExceptionAssert.Throws<MagickBlobErrorException>("error/blob.c/OpenBlob", () =>
+            ExceptionAssert.Throws<MagickBlobErrorException>(() =>
             {
                 collection.Ping(Files.Missing);
-            });
+            }, "error/blob.c/OpenBlob");
 
             collection.Ping(Files.FujiFilmFinePixS1ProJPG);
             Test_Ping(collection);
@@ -798,30 +808,35 @@ namespace Magick.NET.Tests
         {
             IMagickImageCollection collection = new MagickImageCollection();
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("data", () =>
             {
                 collection.Read(new byte[0]);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("data", () =>
             {
                 collection.Read((byte[])null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("file", () =>
+            {
+                collection.Read((FileInfo)null);
+            });
+
+            ExceptionAssert.ThrowsArgumentNullException("stream", () =>
             {
                 collection.Read((Stream)null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
             {
                 collection.Read((string)null);
             });
 
-            ExceptionAssert.Throws<MagickBlobErrorException>("error/blob.c/OpenBlob", () =>
+            ExceptionAssert.Throws<MagickBlobErrorException>(() =>
             {
                 collection.Read(Files.Missing);
-            });
+            }, "error/blob.c/OpenBlob");
 
             collection.Read(File.ReadAllBytes(Files.RoseSparkleGIF));
             Assert.AreEqual(3, collection.Count);

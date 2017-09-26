@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Constructor()
         {
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("defines", () =>
             {
                 MagickReadSettings settings = new MagickReadSettings((IReadDefines)null);
             });
@@ -86,10 +86,12 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Image_Exceptions()
         {
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("readSettings", () =>
             {
-                MagickReadSettings settings = new MagickReadSettings();
-                settings.FrameCount = 2;
+                MagickReadSettings settings = new MagickReadSettings
+                {
+                    FrameCount = 2,
+                };
                 new MagickImage(Files.RoseSparkleGIF, settings);
             });
         }

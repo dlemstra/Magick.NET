@@ -25,35 +25,35 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Constructor()
         {
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("data", () =>
             {
                 new MagickImageInfo(new byte[0]);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("data", () =>
             {
                 new MagickImageInfo((byte[])null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("file", () =>
             {
                 new MagickImageInfo((FileInfo)null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("stream", () =>
             {
                 new MagickImageInfo((Stream)null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
             {
                 new MagickImageInfo((string)null);
             });
 
-            ExceptionAssert.Throws<MagickBlobErrorException>("error/blob.c/OpenBlob", () =>
+            ExceptionAssert.Throws<MagickBlobErrorException>(() =>
             {
                 new MagickImageInfo(Files.Missing);
-            });
+            }, "error/blob.c/OpenBlob");
         }
 
         [TestMethod]
@@ -132,35 +132,35 @@ namespace Magick.NET.Tests
         {
             IMagickImageInfo imageInfo = new MagickImageInfo();
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("data", () =>
             {
                 imageInfo.Read(new byte[0]);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("data", () =>
             {
                 imageInfo.Read((byte[])null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("file", () =>
             {
                 imageInfo.Read((FileInfo)null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("stream", () =>
             {
                 imageInfo.Read((Stream)null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>(() =>
+            ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
             {
                 imageInfo.Read((string)null);
             });
 
-            ExceptionAssert.Throws<MagickBlobErrorException>("error/blob.c/OpenBlob", () =>
+            ExceptionAssert.Throws<MagickBlobErrorException>(() =>
             {
                 imageInfo.Read(Files.Missing);
-            });
+            }, "error/blob.c/OpenBlob");
 
             imageInfo.Read(File.ReadAllBytes(Files.SnakewarePNG));
 

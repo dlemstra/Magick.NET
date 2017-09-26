@@ -22,19 +22,19 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Constructor()
         {
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("order", () =>
             {
                 new ConvolveMatrix(-1);
             });
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("order", () =>
             {
                 new ConvolveMatrix(6);
             });
 
             new ConvolveMatrix(1);
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("values", () =>
             {
                 new ConvolveMatrix(2, 1.0);
             });
@@ -46,7 +46,7 @@ namespace Magick.NET.Tests
 
             Test_Values(matrix);
 
-            ExceptionAssert.Throws<ArgumentException>(() =>
+            ExceptionAssert.ThrowsArgumentException("order", () =>
             {
                 new ConvolveMatrix(2, null);
             });

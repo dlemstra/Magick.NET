@@ -56,10 +56,10 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Compress_FileNameIsInvalid_ThrowsException()
         {
-            ExceptionAssert.Throws<MagickCorruptImageErrorException>("Unable to decompress the jpeg file.", () =>
+            ExceptionAssert.Throws<MagickCorruptImageErrorException>(() =>
             {
                 Optimizer.Compress(Files.Missing);
-            });
+            }, "Unable to decompress the jpeg file.");
         }
 
         [TestMethod]
@@ -151,10 +151,10 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void LosslessCompress_FileNameIsInvalid_ThrowsException()
         {
-            ExceptionAssert.Throws<MagickCorruptImageErrorException>("Unable to decompress the jpeg file.", () =>
+            ExceptionAssert.Throws<MagickCorruptImageErrorException>(() =>
             {
                 Optimizer.LosslessCompress(Files.Missing);
-            });
+            }, "Unable to decompress the jpeg file.");
         }
 
         [TestMethod]
