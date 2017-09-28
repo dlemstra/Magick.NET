@@ -21,83 +21,82 @@ SetFolder $scriptPath
 
 . Tools\Scripts\Shared\Build.ps1
 
-$Q8Builds = @(
-  @{Name = "Q8"; QuantumDepth = "8"; PlatformToolset = "v141"}
-)
-$Q16Builds = @(
-  @{Name= "Q16"; QuantumDepth = "16"; PlatformToolset = "v141"}
-)
-$Q16HDRIBuilds = @(
-  @{Name = "Q16-HDRI"; QuantumDepth = "16"; PlatformToolset = "v141"}
-)
+$Q8Build = @{Name = "Q8"; QuantumDepth = "8"; PlatformToolset = "v141"}
+$Q16Build = @{Name= "Q16"; QuantumDepth = "16"; PlatformToolset = "v141"}
+$Q16HDRIBuild = @{Name = "Q16-HDRI"; QuantumDepth = "16"; PlatformToolset = "v141"}
+
 $configurations = @(
-  @{Platform = "x86"; Options = "/opencl /noHdri";      Builds = $Q8Builds}
-  @{Platform = "x64"; Options = "/opencl /x64 /noHdri"; Builds = $Q8Builds}
-  @{Platform = "x86"; Options = "/opencl /noHdri";      Builds = $Q16Builds}
-  @{Platform = "x64"; Options = "/opencl /x64 /noHdri"; Builds = $Q16Builds}
-  @{Platform = "x86"; Options = "/opencl";              Builds = $Q16HDRIBuilds}
-  @{Platform = "x64"; Options = "/opencl /x64";         Builds = $Q16HDRIBuilds}
+  @{Platform = "x86"; Folder = "x86";        Options = "/opencl /noHdri /noOpenMP";      Build = $Q8Build}
+  @{Platform = "x64"; Folder = "x64";        Options = "/opencl /x64 /noHdri /noOpenMP"; Build = $Q8Build}
+  @{Platform = "x64"; Folder = "OpenMP-x64"; Options = "/opencl /x64 /noHdr";            Build = $Q8Build}
+  @{Platform = "x86"; Folder = "x86";        Options = "/opencl /noHdri /noOpenMP";      Build = $Q16Build}
+  @{Platform = "x64"; Folder = "x64";        Options = "/opencl /x64 /noHdri /noOpenMP"; Build = $Q16Build}
+  @{Platform = "x64"; Folder = "OpenMP-x64"; Options = "/opencl /x64 /noHdri";           Build = $Q16Build}
+  @{Platform = "x86"; Folder = "x86";        Options = "/opencl /noOpenMP";              Build = $Q16HDRIBuild}
+  @{Platform = "x64"; Folder = "x64";        Options = "/opencl /x64 /noOpenMP";         Build = $Q16HDRIBuild}
+  @{Platform = "x64"; Folder = "OpenMP-x64"; Options = "/opencl /x64";                   Build = $Q16HDRIBuild}
 )
 
-function Build($platform, $builds)
+function Build($config)
 {
+  CreateSolution $config
+
   $configFile = FullPath "ImageMagick\Source\ImageMagick\ImageMagick\MagickCore\magick-baseconfig.h"
-  $config = [IO.File]::ReadAllText($configFile, [System.Text.Encoding]::Default)
+  $baseconfig = [IO.File]::ReadAllText($configFile, [System.Text.Encoding]::Default)
 
   if ($configuration -eq "Release")
   {
     ModifyDebugInformationFormat
   }
 
-  foreach ($build in $builds)
+  $build = $config.Build;
+  $newConfig = $baseconfig.Replace("#define MAGICKCORE_QUANTUM_DEPTH 16", "#define MAGICKCORE_QUANTUM_DEPTH " + $build.QuantumDepth)
+  $newConfig = $newConfig.Replace("//#define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"", "#define MAGICKCORE_LIBRARY_NAME `"Magick.NET-" + $build.Name + "-" + $config.Platform + ".Native.dll`"")
+  [IO.File]::WriteAllText($configFile, $newConfig, [System.Text.Encoding]::Default)
+
+  ModifyPlatformToolset $build
+
+  $platformName = "Win32"
+  if ($config.Platform -eq "x64")
   {
-    $newConfig = $config.Replace("#define MAGICKCORE_QUANTUM_DEPTH 16", "#define MAGICKCORE_QUANTUM_DEPTH " + $build.QuantumDepth)
-    $newConfig = $newConfig.Replace("//#define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"", "#define MAGICKCORE_LIBRARY_NAME `"Magick.NET-" + $build.Name + "-" + $platform + ".Native.dll`"")
-    [IO.File]::WriteAllText($configFile, $newConfig, [System.Text.Encoding]::Default)
-
-    ModifyPlatformToolset $build
-
-    $platformName = "Win32"
-    if ($platform -eq "x64")
-    {
-      $platformName = "x64";
-    }
-
-    $options = "Configuration=$configuration,Platform=$($platformName),PlatformToolset=$($build.PlatformToolset),VCBuildAdditionalOptions=/arch:SSE"
-
-    BuildSolution "ImageMagick\Source\ImageMagick\VisualMagick\VisualStaticMT.sln" $options
-
-    Copy-Item $configFile "ImageMagick\$($build.Name)\include\MagickCore"
-    $newConfig = $newConfig.Replace("#define MAGICKCORE_LIBRARY_NAME `"Magick.NET-" + $platform + ".dll`"", "//#define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"")
-    [IO.File]::WriteAllText($configFile, $newConfig, [System.Text.Encoding]::Default)
-
-    $type = "RL"
-    if ($configuration -eq "Debug")
-    {
-      $type = "DB"
-    }
-
-    CreateFolder "ImageMagick\lib\$($configuration)\$($platform)"
-    Copy-Item "ImageMagick\Source\ImageMagick\VisualMagick\lib\CORE_$($type)_*.lib" "ImageMagick\lib\$($configuration)\$($platform)"
-    
-    if ($configuration -eq "Debug")
-    {
-      Copy-Item "ImageMagick\Source\ImageMagick\VisualMagick\lib\CORE_$($type)_*.pdb" "ImageMagick\lib\$($configuration)\$($platform)"
-    }
-
-    CreateFolder "ImageMagick\$($build.Name)\lib\$($configuration)\$($platform)"
-    Move-Item "ImageMagick\lib\$($configuration)\$($platform)\CORE_$($type)_coders_.*"     "ImageMagick\$($build.Name)\lib\$($configuration)\$($platform)" -force
-    Move-Item "ImageMagick\lib\$($configuration)\$($platform)\CORE_$($type)_MagickCore_.*" "ImageMagick\$($build.Name)\lib\$($configuration)\$($platform)" -force
-    Move-Item "ImageMagick\lib\$($configuration)\$($platform)\CORE_$($type)_MagickWand_.*" "ImageMagick\$($build.Name)\lib\$($configuration)\$($platform)" -force
+    $platformName = "x64";
   }
+
+  $options = "Configuration=$configuration,Platform=$($platformName),PlatformToolset=$($build.PlatformToolset),VCBuildAdditionalOptions=/#arch:SSE"
+
+  BuildSolution "ImageMagick\Source\ImageMagick\VisualMagick\VisualStaticMT.sln" $options
+
+  Copy-Item $configFile "ImageMagick\$($build.Name)\include\MagickCore"
+  $newConfig = $newConfig.Replace("#define MAGICKCORE_LIBRARY_NAME `"Magick.NET-" + $config.Platform + ".dll`"", "//#define MAGICKCORE_LIBRARY_NAME #`"MyImageMagick.dll`"")
+  [IO.File]::WriteAllText($configFile, $newConfig, [System.Text.Encoding]::Default)
+
+  $type = "RL"
+  if ($configuration -eq "Debug")
+  {
+    $type = "DB"
+  }
+
+  $folder = "lib\$($configuration)\$($config.Folder)"
+
+  CreateFolder "ImageMagick\$($folder)"
+  Copy-Item "ImageMagick\Source\ImageMagick\VisualMagick\lib\CORE_$($type)_*.lib" "ImageMagick\$($folder)"
+
+  if ($configuration -eq "Debug")
+  {
+    Copy-Item "ImageMagick\Source\ImageMagick\VisualMagick\lib\CORE_$($type)_*.pdb" "ImageMagick\$($folder)"
+  }
+
+  CreateFolder "ImageMagick\$($build.Name)\$($folder)"
+  Move-Item "ImageMagick\$($folder)\CORE_$($type)_coders_.*"     "ImageMagick\$($build.Name)\$($folder)" -force
+  Move-Item "ImageMagick\$($folder)\CORE_$($type)_MagickCore_.*" "ImageMagick\$($build.Name)\$($folder)" -force
+  Move-Item "ImageMagick\$($folder)\CORE_$($type)_MagickWand_.*" "ImageMagick\$($build.Name)\$($folder)" -force
 }
 
 function BuildAll()
 {
   foreach ($config in $configurations)
   {
-    CreateSolution $config.Platform $config.Options
-    Build $config.Platform $config.Builds
+    Build $config
   }
 }
 
@@ -123,22 +122,22 @@ function BuildDevelopment($dev)
   {
     if ($platform -eq "x86")
     {
-      $config = $configurations[2]
+      $config = $configurations[3]
     }
     elseif ($platform -eq "x64")
     {
-      $config = $configurations[3]
+      $config = $configurations[4]
     }
   }
   elseif ($quantum -eq "Q16-HDRI")
   {
     if ($platform -eq "x86")
     {
-      $config = $configurations[4]
+      $config = $configurations[6]
     }
     elseif ($platform -eq "x64")
     {
-      $config = $configurations[5]
+      $config = $configurations[7]
     }
   }
 
@@ -147,10 +146,7 @@ function BuildDevelopment($dev)
     return
   }
 
-  $build = @($config.Builds[0]);
-
-  CreateSolution $config.Platform $config.Options
-  Build $config.Platform $build
+  Build $config
 }
 
 function CopyFiles($folder)
@@ -177,7 +173,7 @@ function CopyFiles($folder)
   }
 }
 
-function CreateSolution($platform, $options)
+function CreateSolution($config)
 {
   $solutionFile = FullPath "ImageMagick\Source\ImageMagick\VisualMagick\VisualStaticMT.sln"
 
@@ -190,13 +186,9 @@ function CreateSolution($platform, $options)
   set-location "ImageMagick\Source\ImageMagick\VisualMagick\configure"
 
   Write-Host ""
-  Write-Host "Static Multi-Threaded DLL runtimes ($platform)."
-  if ($options -ne "")
-  {
-    Write-Host "Options: $options."
-  }
+  Write-Host "Static Multi-Threaded DLL runtimes ($($config.Platform))."
 
-  Start-Process .\configure.exe -ArgumentList "/smt /noWizard /noOpenMP /VS2017 $options" -wait
+  Start-Process .\configure.exe -ArgumentList "/smt /noWizard /VS2017 $($config.Options)" -wait
 
   set-location $location
 }
