@@ -230,6 +230,18 @@ function Publish($builds)
   CreateZipFiles $builds
 }
 
+function PublishOpenMP($builds)
+{
+  foreach ($build in $builds)
+  {
+    $properties="Configuration=OpenMP-Release$($build.Quantum),RunCodeAnalysis=false,Platform=$($build.Platform)"
+    BuildSolution "$($build.Name).sln" $properties
+
+    $id = "Magick.NET-$($build.Quantum)-$($build.Platform)-OpenMP"
+    CreateOpenMPNuGetPackage $id $version $build
+  }
+}
+
 function TestBuild($build)
 {
   $platform=$($build.Platform).Replace("AnyCPU", "x64")
@@ -256,4 +268,5 @@ GzipAssemblies
 PreparePublish $anyCPUbuilds
 Publish $builds
 Publish $anyCPUbuilds
+PublishOpenMP $openMPbuilds
 CleanupZipFolder

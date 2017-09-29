@@ -23,6 +23,11 @@ $anyCPUbuilds = @(
   @{Name = "Magick.NET"; Quantum = "Q16";      Platform = "AnyCPU"}
   @{Name = "Magick.NET"; Quantum = "Q16-HDRI"; Platform = "AnyCPU"}
 )
+$openMPbuilds = @(
+  @{Name = "Magick.NET"; Quantum = "Q8";       Platform = "x64"}
+  @{Name = "Magick.NET"; Quantum = "Q16";      Platform = "x64"}
+  @{Name = "Magick.NET"; Quantum = "Q16-HDRI"; Platform = "x64"}
+)
 
 function GetBuilds($quantum, $platform)
 {

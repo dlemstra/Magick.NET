@@ -56,6 +56,33 @@ function CheckStrongNames($builds)
   }
 }
 
+function AddLibraryToPackage($xml,$build,$platform)
+{
+  AddFileElement $xml "..\..\Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)\$($platform)\Magick.NET-$($build.Quantum)-$($build.Platform).dll" "lib\$($platform)"
+  AddFileElement $xml "..\..\Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)\$($platform)\Magick.NET-$($build.Quantum)-$($build.Platform).xml" "lib\$($platform)"
+}
+
+function AddDocumentsToPackage($xml)
+{
+  AddFileElement $xml "..\Readme.txt" "Readme.txt"
+  AddFileElement $xml "..\..\Copyright.txt" "Copyright.txt"
+}
+
+function CreateOpenMPNuGetPackage($id, $version, $build)
+{
+  $path = FullPath "Publish\NuGet\Magick.NET.nuspec"
+  $xml = [xml](Get-Content $path)
+
+  AddLibraryToPackage $xml $build "net40"
+
+  AddFileElement $xml "..\..\Source\Magick.NET.Native\bin\OpenMP-Release$($build.Quantum)\$($build.Platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.dll" "runtimes\win7-$($build.Platform)\native"
+  AddFileElement $xml "Magick.NET.targets" "build\net40\$id.targets"
+
+  AddDocumentsToPackage $xml
+
+  WriteNuGetPackage $id $version $xml
+}
+
 function CreateNuGetPackages($id, $version, $build)
 {
   $path = FullPath "Publish\NuGet\Magick.NET.nuspec"
@@ -67,14 +94,9 @@ function CreateNuGetPackages($id, $version, $build)
     $platform = "Win32"
   }
 
-  AddFileElement $xml "..\..\Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)\net20\Magick.NET-$($build.Quantum)-$($build.Platform).dll" "lib\net20"
-  AddFileElement $xml "..\..\Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)\net20\Magick.NET-$($build.Quantum)-$($build.Platform).xml" "lib\net20"
-
-  AddFileElement $xml "..\..\Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)\net40\Magick.NET-$($build.Quantum)-$($build.Platform).dll" "lib\net40"
-  AddFileElement $xml "..\..\Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)\net40\Magick.NET-$($build.Quantum)-$($build.Platform).xml" "lib\net40"
-
-  AddFileElement $xml "..\..\Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)\netstandard13\Magick.NET-$($build.Quantum)-$($build.Platform).dll" "lib\netstandard13"
-  AddFileElement $xml "..\..\Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)\netstandard13\Magick.NET-$($build.Quantum)-$($build.Platform).xml" "lib\netstandard13"
+  AddLibraryToPackage $xml $build "net20"
+  AddLibraryToPackage $xml $build "net40"
+  AddLibraryToPackage $xml $build "netstandard13"
 
   if ($build.Platform -ne "AnyCPU")
   {
@@ -93,8 +115,7 @@ function CreateNuGetPackages($id, $version, $build)
     AddFileElement $xml "..\..\ImageMagick\$($build.Quantum)\lib\Release\CrossPlatform\ubuntu.16.04\Magick.NET-$($build.Quantum)-x64.Native.dll.so" "runtimes\linux-x64\native"
   }
 
-  AddFileElement $xml "..\Readme.txt" "Readme.txt"
-  AddFileElement $xml "..\..\Copyright.txt" "Copyright.txt"
+  AddDocumentsToPackage $xml
 
   WriteNuGetPackage $id $version $xml
 
@@ -105,8 +126,7 @@ function CreateNuGetPackages($id, $version, $build)
   AddFileElement $xml "..\..\Source\Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)\net40\Magick.NET.Web-$($build.Quantum)-$($build.Platform).dll" "lib\net40"
   AddFileElement $xml "..\..\Source\Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)\net40\Magick.NET.Web-$($build.Quantum)-$($build.Platform).xml" "lib\net40"
 
-  AddFileElement $xml "..\Readme.Web.txt" "Readme.txt"
-  AddFileElement $xml "..\..\Copyright.txt" "Copyright.txt"
+  AddDocumentsToPackage $xml
 
   WriteNuGetPackage $webId $version $xml
 }
