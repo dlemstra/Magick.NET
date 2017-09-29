@@ -31,6 +31,11 @@ function AddFileElement($xml, $src, $target)
   [void]$file.Attributes.Append($targetAtt)
 
   [void]$files.AppendChild($file)
+
+  if ($src -match ".dll$")
+  {
+    SignFile $src.replace("..\..\","")
+  }
 }
 
 function CheckStrongName($build, $framework)
@@ -154,6 +159,15 @@ function SetValue($content, $startMatch, $endMatch, $value)
 
   $newContent += $content.Substring($start)
   return $newContent
+}
+
+function SignFile($fileName)
+{
+  & signtool verify /q /pa $fileName
+  if ($LastExitCode -ne 0)
+  {
+    & signtool sign /n "ImageMagick Studio LLC" /tr http://sha256timestamp.ws.symantec.com/sha256/timestamp /td sha256 /fd sha256 $fileName
+  }
 }
 
 function UpdateVersion($fileName, $version)
