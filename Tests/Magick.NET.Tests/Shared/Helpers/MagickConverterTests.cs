@@ -56,6 +56,15 @@ namespace Magick.NET.Tests.Shared.Helpers
         }
 
         [TestMethod]
+        public void ConvertWithObject_TypeIsPercentageAndValueIsBool_ThrowsException()
+        {
+            ExceptionAssert.Throws<InvalidCastException>(() =>
+            {
+                Percentage value = MagickConverter.Convert<Percentage>(false);
+            });
+        }
+
+        [TestMethod]
         public void ConvertWithObject_TypeIsIntegerAndValueIsString_ReturnsValue()
         {
             int value = MagickConverter.Convert<int>((object)"4");
