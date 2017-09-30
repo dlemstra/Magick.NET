@@ -55,7 +55,7 @@ namespace Magick.NET.Tests
             {
                 using (IPixelCollection pixels = image.GetPixels())
                 {
-                    ExceptionAssert.ThrowsArgumentException<ArgumentOutOfRangeException>("x", () =>
+                    ExceptionAssert.ThrowsArgumentOutOfRangeException("x", () =>
                     {
                         Pixel pixel = pixels[image.Width + 1, 0];
                     });
@@ -271,7 +271,7 @@ namespace Magick.NET.Tests
             {
                 using (IPixelCollection pixels = image.GetPixels())
                 {
-                    ExceptionAssert.ThrowsArgumentException<ArgumentOutOfRangeException>("x", () =>
+                    ExceptionAssert.ThrowsArgumentOutOfRangeException("x", () =>
                     {
                         pixels.GetPixel(image.Width + 1, 0);
                     });
@@ -353,7 +353,7 @@ namespace Magick.NET.Tests
             {
                 using (IPixelCollection pixels = image.GetPixels())
                 {
-                    ExceptionAssert.ThrowsArgumentException<ArgumentOutOfRangeException>("y", () =>
+                    ExceptionAssert.ThrowsArgumentOutOfRangeException("y", () =>
                     {
                         pixels.SetPixel(new Pixel(0, image.Height + 1, 3));
                     });
@@ -492,7 +492,7 @@ namespace Magick.NET.Tests
             {
                 using (IPixelCollection pixels = image.GetPixels())
                 {
-                    ExceptionAssert.ThrowsArgumentException<ArgumentOutOfRangeException>("x", () =>
+                    ExceptionAssert.ThrowsArgumentOutOfRangeException("x", () =>
                     {
                         pixels.SetPixel(image.Width + 1, 0, new QuantumType[] { 0 });
                     });
@@ -932,7 +932,7 @@ namespace Magick.NET.Tests
             {
                 using (IPixelCollection pixels = image.GetPixels())
                 {
-                    ExceptionAssert.ThrowsArgumentException<ArgumentOutOfRangeException>("x", () =>
+                    ExceptionAssert.ThrowsArgumentOutOfRangeException("x", () =>
                     {
                         pixels.ToByteArray(-1, 0, 1, 1, "RGB");
                     });
@@ -1082,7 +1082,7 @@ namespace Magick.NET.Tests
             {
                 using (IPixelCollection pixels = image.GetPixels())
                 {
-                    ExceptionAssert.ThrowsArgumentException<ArgumentOutOfRangeException>("x", () =>
+                    ExceptionAssert.ThrowsArgumentOutOfRangeException("x", () =>
                     {
                         pixels.ToShortArray(-1, 0, 1, 1, "RGB");
                     });
@@ -1231,7 +1231,7 @@ namespace Magick.NET.Tests
             {
                 using (IPixelCollection pixels = image.GetPixels())
                 {
-                    ExceptionAssert.ThrowsArgumentException<ArgumentOutOfRangeException>(paramName, () =>
+                    ExceptionAssert.ThrowsArgumentOutOfRangeException(paramName, () =>
                     {
                         pixels.GetArea(x, y, width, height);
                     });
@@ -1245,7 +1245,7 @@ namespace Magick.NET.Tests
             {
                 using (IPixelCollection pixels = image.GetPixels())
                 {
-                    ExceptionAssert.ThrowsArgumentException<ArgumentOutOfRangeException>(paramName, () =>
+                    ExceptionAssert.ThrowsArgumentOutOfRangeException(paramName, () =>
                     {
                         pixels.GetValue(x, y);
                     });
