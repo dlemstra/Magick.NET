@@ -40,7 +40,6 @@ namespace ImageMagick
 
         private static void CheckOrder(int order)
         {
-            Throw.IfTrue(nameof(order), order < 1, "Invalid order specified, value has to be at least 1.");
             Throw.IfTrue(nameof(order), order % 2 == 0, "Order must be an odd number.");
         }
     }

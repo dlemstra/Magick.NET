@@ -10,7 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
+using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -20,90 +20,313 @@ namespace Magick.NET.Tests
     public class ColorMatrixTests
     {
         [TestMethod]
-        public void Test_Constructor()
+        public void Constructor_OrderIsTooLow_ThrowsException()
         {
             ExceptionAssert.ThrowsArgumentException("order", () =>
             {
-                new MagickColorMatrix(-1);
-            });
-
-            ExceptionAssert.ThrowsArgumentException("order", () =>
-            {
-                new MagickColorMatrix(7);
-            });
-
-            new MagickColorMatrix(1);
-
-            ExceptionAssert.ThrowsArgumentException("values", () =>
-            {
-                new MagickColorMatrix(2, 1.0);
-            });
-
-            MagickColorMatrix matrix = new MagickColorMatrix(2, 0.0, 1.0, 0.1, 1.1);
-            Assert.AreEqual(0.0, matrix.GetValue(0, 0));
-            Assert.AreEqual(1.0, matrix.GetValue(1, 0));
-            Assert.AreEqual(0.1, matrix.GetValue(0, 1));
-            Assert.AreEqual(1.1, matrix.GetValue(1, 1));
-
-            ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-            {
-                matrix.GetValue(2, 1);
-            });
-
-            ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-            {
-                matrix.GetValue(1, 2);
-            });
-
-            ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-            {
-                matrix.GetValue(1, -1);
-            });
-
-            ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
-            {
-                matrix.GetValue(-1, 1);
+                new MagickColorMatrix(0);
             });
         }
 
         [TestMethod]
-        public void Test_SetColumn()
+        public void Constructor_OrderIsTooHigh_ThrowsException()
+        {
+            ExceptionAssert.ThrowsArgumentException("order", () =>
+            {
+                new MagickColorMatrix(7);
+            });
+        }
+
+        [TestMethod]
+        public void Constructor_NotEnoughValues_ThrowsException()
+        {
+            ExceptionAssert.ThrowsArgumentException("values", () =>
+            {
+                new MagickColorMatrix(2, 1.0);
+            });
+        }
+
+        [TestMethod]
+        public void Constructor_ValidOrder_PropertiesAreSet()
+        {
+            MagickColorMatrix matrix = new MagickColorMatrix(2, 0.0, 1.0, 0.1, 1.1);
+
+            Assert.AreEqual(2, matrix.Order);
+            Assert.AreEqual(0.0, matrix.GetValue(0, 0));
+            Assert.AreEqual(1.0, matrix.GetValue(1, 0));
+            Assert.AreEqual(0.1, matrix.GetValue(0, 1));
+            Assert.AreEqual(1.1, matrix.GetValue(1, 1));
+        }
+
+        [TestMethod]
+        public void ConstructorWithValues_OrderIsTooLow_ThrowsException()
+        {
+            ExceptionAssert.ThrowsArgumentException("order", () =>
+            {
+                new MagickColorMatrix(0, 1);
+            });
+        }
+
+        [TestMethod]
+        public void ConstructorWithValues_OrderIsTooHigh_ThrowsException()
+        {
+            ExceptionAssert.ThrowsArgumentException("order", () =>
+            {
+                double[] values = Enumerable.Repeat(1.0, 7 * 7).ToArray();
+
+                new MagickColorMatrix(7, values);
+            });
+        }
+
+        [TestMethod]
+        public void Indexer_XTooLow_ThrowsException()
+        {
+            Indexer_InvalidIndex_ThrowsException("x", -1, 1);
+        }
+
+        [TestMethod]
+        public void Indexer_XTooHigh_ThrowsException()
+        {
+            Indexer_InvalidIndex_ThrowsException("x", 2, 1);
+        }
+
+        [TestMethod]
+        public void Indexer_YTooLow_ThrowsException()
+        {
+            Indexer_InvalidIndex_ThrowsException("y", 1, -1);
+        }
+
+        [TestMethod]
+        public void Indexer_YTooHigh_ThrowsException()
+        {
+            Indexer_InvalidIndex_ThrowsException("y", 1, 2);
+        }
+
+        [TestMethod]
+        public void Indexer_ValidIndex_ReturnValue()
+        {
+            MagickColorMatrix matrix = new MagickColorMatrix(1, 8);
+
+            Assert.AreEqual(8, matrix[0, 0]);
+        }
+
+        [TestMethod]
+        public void GetValue_XTooLow_ThrowsException()
+        {
+            GetValue_InvalidIndex_ThrowsException("x", -1, 1);
+        }
+
+        [TestMethod]
+        public void GetValue_XTooHigh_ThrowsException()
+        {
+            GetValue_InvalidIndex_ThrowsException("x", 2, 1);
+        }
+
+        [TestMethod]
+        public void GetValue_YTooLow_ThrowsException()
+        {
+            GetValue_InvalidIndex_ThrowsException("y", 1, -1);
+        }
+
+        [TestMethod]
+        public void GetValue_YTooHigh_ThrowsException()
+        {
+            GetValue_InvalidIndex_ThrowsException("y", 1, 2);
+        }
+
+        [TestMethod]
+        public void GetValue_ValidIndex_ReturnValue()
+        {
+            MagickColorMatrix matrix = new MagickColorMatrix(1, 4);
+
+            Assert.AreEqual(4, matrix.GetValue(0, 0));
+        }
+
+        [TestMethod]
+        public void SetColumn_YTooLow_ThrowsException()
+        {
+            SetColumn_InvalidColumn_ThrowsException(-1);
+        }
+
+        [TestMethod]
+        public void SetColumn_YTooHigh_ThrowsException()
+        {
+            SetColumn_InvalidColumn_ThrowsException(2);
+        }
+
+        [TestMethod]
+        public void SetColumn_ValuesIsNull_ThrowsException()
         {
             MagickColorMatrix matrix = new MagickColorMatrix(2);
 
-            matrix.SetColumn(0, 2, 4);
-            Assert.AreEqual(2, matrix.GetValue(0, 0));
-            Assert.AreEqual(4, matrix.GetValue(0, 1));
+            ExceptionAssert.ThrowsArgumentNullException("values", () =>
+            {
+                matrix.SetColumn(0, null);
+            });
+        }
+
+        [TestMethod]
+        public void SetColumn_InvalidNumberOfValues_ThrowsException()
+        {
+            MagickColorMatrix matrix = new MagickColorMatrix(2);
+
+            ExceptionAssert.ThrowsArgumentException("values", () =>
+            {
+                matrix.SetColumn(0, 1, 2, 3);
+            });
+        }
+
+        [TestMethod]
+        public void SetColumn_CorrectNumberOfValues_SetsColumn()
+        {
+            MagickColorMatrix matrix = new MagickColorMatrix(2);
 
             matrix.SetColumn(1, 6, 8);
+            Assert.AreEqual(0, matrix.GetValue(0, 0));
+            Assert.AreEqual(0, matrix.GetValue(0, 1));
             Assert.AreEqual(6, matrix.GetValue(1, 0));
             Assert.AreEqual(8, matrix.GetValue(1, 1));
         }
 
         [TestMethod]
-        public void Test_SetRow()
+        public void SetRow_XTooLow_ThrowsException()
+        {
+            SetRow_InvalidRow_ThrowsException(-1);
+        }
+
+        [TestMethod]
+        public void SetRow_XTooHigh_ThrowsException()
+        {
+            SetRow_InvalidRow_ThrowsException(2);
+        }
+
+        [TestMethod]
+        public void SetRowValuesIsNull_ThrowsException()
         {
             MagickColorMatrix matrix = new MagickColorMatrix(2);
 
-            matrix.SetRow(0, 2, 4);
-            Assert.AreEqual(2, matrix.GetValue(0, 0));
-            Assert.AreEqual(4, matrix.GetValue(1, 0));
+            ExceptionAssert.ThrowsArgumentNullException("values", () =>
+            {
+                matrix.SetRow(0, null);
+            });
+        }
+
+        [TestMethod]
+        public void SetRow_InvalidNumberOfValues_ThrowsException()
+        {
+            MagickColorMatrix matrix = new MagickColorMatrix(2);
+
+            ExceptionAssert.ThrowsArgumentException("values", () =>
+            {
+                matrix.SetRow(0, 1, 2, 3);
+            });
+        }
+
+        [TestMethod]
+        public void SetRow_CorrectNumberOfValues_SetsColumn()
+        {
+            MagickColorMatrix matrix = new MagickColorMatrix(2);
 
             matrix.SetRow(1, 6, 8);
+            Assert.AreEqual(0, matrix.GetValue(0, 0));
             Assert.AreEqual(6, matrix.GetValue(0, 1));
+            Assert.AreEqual(0, matrix.GetValue(1, 0));
             Assert.AreEqual(8, matrix.GetValue(1, 1));
         }
 
         [TestMethod]
-        public void Test_Value()
+        public void SetValue_XTooLow_ThrowsException()
+        {
+            SetValue_InvalidIndex_ThrowsException("x", -1, 1);
+        }
+
+        [TestMethod]
+        public void SetValue_XTooHigh_ThrowsException()
+        {
+            SetValue_InvalidIndex_ThrowsException("x", 2, 1);
+        }
+
+        [TestMethod]
+        public void SetValue_YTooLow_ThrowsException()
+        {
+            SetValue_InvalidIndex_ThrowsException("y", 1, -1);
+        }
+
+        [TestMethod]
+        public void SetValue_YTooHigh_ThrowsException()
+        {
+            SetValue_InvalidIndex_ThrowsException("y", 1, 2);
+        }
+
+        [TestMethod]
+        public void SetValue_ValidIndex_SetsValue()
         {
             MagickColorMatrix matrix = new MagickColorMatrix(2);
 
-            matrix.SetValue(0, 0, 1.5);
-            Assert.AreEqual(1.5, matrix.GetValue(0, 0));
+            matrix.SetValue(1, 0, 1.5);
 
+            Assert.AreEqual(0.0, matrix.GetValue(0, 0));
             Assert.AreEqual(0.0, matrix.GetValue(0, 1));
-            Assert.AreEqual(0.0, matrix.GetValue(1, 0));
+            Assert.AreEqual(1.5, matrix.GetValue(1, 0));
+            Assert.AreEqual(0.0, matrix.GetValue(1, 1));
+        }
+
+        [TestMethod]
+        public void ToArray_ReturnsArray()
+        {
+            MagickColorMatrix matrix = new MagickColorMatrix(1, 6);
+
+            CollectionAssert.AreEqual(new double[] { 6 }, matrix.ToArray());
+        }
+
+        private static void Indexer_InvalidIndex_ThrowsException(string paramName, int x, int y)
+        {
+            MagickColorMatrix matrix = new MagickColorMatrix(2);
+
+            ExceptionAssert.ThrowsArgumentOutOfRangeException(paramName, () =>
+            {
+                double foo = matrix[x, y];
+            });
+        }
+
+        private static void GetValue_InvalidIndex_ThrowsException(string paramName, int x, int y)
+        {
+            MagickColorMatrix matrix = new MagickColorMatrix(2);
+
+            ExceptionAssert.ThrowsArgumentOutOfRangeException(paramName, () =>
+            {
+                matrix.GetValue(x, y);
+            });
+        }
+
+        private static void SetColumn_InvalidColumn_ThrowsException(int x)
+        {
+            MagickColorMatrix matrix = new MagickColorMatrix(2);
+
+            ExceptionAssert.ThrowsArgumentOutOfRangeException("x", () =>
+            {
+                matrix.SetColumn(x, 1.0, 2.0);
+            });
+        }
+
+        private static void SetRow_InvalidRow_ThrowsException(int y)
+        {
+            MagickColorMatrix matrix = new MagickColorMatrix(2);
+
+            ExceptionAssert.ThrowsArgumentOutOfRangeException("y", () =>
+            {
+                matrix.SetRow(y, 1.0, 2.0);
+            });
+        }
+
+        private static void SetValue_InvalidIndex_ThrowsException(string paramName, int x, int y)
+        {
+            MagickColorMatrix matrix = new MagickColorMatrix(2);
+
+            ExceptionAssert.ThrowsArgumentOutOfRangeException(paramName, () =>
+            {
+                matrix.SetValue(x, y, 1);
+            });
         }
     }
 }

@@ -63,6 +63,12 @@ namespace Magick.NET.Tests
             Assert.AreEqual(paramName, exception.ParamName);
         }
 
+        public static void ThrowsArgumentOutOfRangeException(string paramName, Action action)
+        {
+            ArgumentException exception = Throws<ArgumentOutOfRangeException>(action);
+            Assert.AreEqual(paramName, exception.ParamName);
+        }
+
         public static void ThrowsArgumentException<TException>(string paramName, Action action)
             where TException : ArgumentException
         {

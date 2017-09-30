@@ -28,6 +28,8 @@ namespace ImageMagick
         /// <param name="values">The values to initialize the matrix with.</param>
         protected DoubleMatrix(int order, double[] values)
         {
+            Throw.IfTrue(nameof(order), order < 1, "Invalid order specified, value has to be at least 1.");
+
             Order = order;
 
             _values = new double[Order * Order];
