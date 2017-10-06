@@ -246,18 +246,18 @@
 */
 #if !defined(double_t)
 #define MAGICKCORE_HAVE_DOUBLE_T
-#if !defined(__MINGW32__) && !defined(__MINGW64__)
+#if !defined(__MINGW32__)
 typedef double double_t;
 #endif
 #endif
 #if !defined(float_t)
 #define MAGICKCORE_HAVE_FLOAT_T
-#if !defined(__MINGW32__) && !defined(__MINGW64__)
+#if !defined(__MINGW32__)
 typedef float float_t;
 #endif
 #endif
-#if !defined(ssize_t) && !defined(__MINGW32__) && !defined(__MINGW64__)
-#if defined(_WIN64) 
+#if !defined(ssize_t) && !defined(__MINGW32__)
+#if defined(_WIN64)
 typedef __int64 ssize_t;
 #else
 typedef long ssize_t;

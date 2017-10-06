@@ -28,7 +28,7 @@ $Q16HDRIBuild = @{Name = "Q16-HDRI"; QuantumDepth = "16"; PlatformToolset = "v14
 $configurations = @(
   @{Platform = "x86"; Folder = "x86";        Options = "/opencl /noHdri /noOpenMP";      Build = $Q8Build}
   @{Platform = "x64"; Folder = "x64";        Options = "/opencl /x64 /noHdri /noOpenMP"; Build = $Q8Build}
-  @{Platform = "x64"; Folder = "OpenMP-x64"; Options = "/opencl /x64 /noHdr";            Build = $Q8Build}
+  @{Platform = "x64"; Folder = "OpenMP-x64"; Options = "/opencl /x64 /noHdri";            Build = $Q8Build}
   @{Platform = "x86"; Folder = "x86";        Options = "/opencl /noHdri /noOpenMP";      Build = $Q16Build}
   @{Platform = "x64"; Folder = "x64";        Options = "/opencl /x64 /noHdri /noOpenMP"; Build = $Q16Build}
   @{Platform = "x64"; Folder = "OpenMP-x64"; Options = "/opencl /x64 /noHdri";           Build = $Q16Build}
