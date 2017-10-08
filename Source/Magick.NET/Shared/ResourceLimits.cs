@@ -48,6 +48,15 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Gets or sets the number of threads used in multithreaded operations.
+        /// </summary>
+        public static ulong Thread
+        {
+            get { return NativeResourceLimits.Thread; }
+            set { NativeResourceLimits.Thread = value; }
+        }
+
+        /// <summary>
         /// Gets or sets the time specified in milliseconds to periodically yield the CPU for.
         /// </summary>
         public static ulong Throttle

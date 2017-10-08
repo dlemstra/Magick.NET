@@ -40,6 +40,10 @@ namespace Magick.NET.Tests
             Assert.AreEqual(10000000U, ResourceLimits.Memory);
             ResourceLimits.Memory = 8585838592U;
 
+            Assert.AreEqual(1U, ResourceLimits.Thread);
+            ResourceLimits.Thread = 2U;
+            Assert.AreEqual(1U, ResourceLimits.Thread);
+
             ResourceLimits.Throttle = 1U;
             Assert.AreEqual(1U, ResourceLimits.Throttle);
             ResourceLimits.Throttle = 0U;

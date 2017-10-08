@@ -15,6 +15,10 @@
             "type": "ulong"
         },
         {
+            "name": "Thread",
+            "type": "ulong"
+        },
+        {
             "name": "Throttle",
             "type": "ulong"
         },

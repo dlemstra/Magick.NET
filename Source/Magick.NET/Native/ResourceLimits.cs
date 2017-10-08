@@ -51,6 +51,10 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void ResourceLimits_Memory_Set(ulong value);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern ulong ResourceLimits_Thread_Get();
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void ResourceLimits_Thread_Set(ulong value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern ulong ResourceLimits_Throttle_Get();
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void ResourceLimits_Throttle_Set(ulong value);
@@ -79,6 +83,10 @@ namespace ImageMagick
                 public static extern ulong ResourceLimits_Memory_Get();
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void ResourceLimits_Memory_Set(ulong value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern ulong ResourceLimits_Thread_Get();
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void ResourceLimits_Thread_Set(ulong value);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern ulong ResourceLimits_Throttle_Get();
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -195,6 +203,41 @@ namespace ImageMagick
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     NativeMethods.X86.ResourceLimits_Memory_Set(value);
+                    #endif
+                }
+            }
+            public static ulong Thread
+            {
+                get
+                {
+                    ulong result;
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.ResourceLimits_Thread_Get();
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.ResourceLimits_Thread_Get();
+                    #endif
+                    return result;
+                }
+                set
+                {
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.ResourceLimits_Thread_Set(value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.ResourceLimits_Thread_Set(value);
                     #endif
                 }
             }
