@@ -49,6 +49,14 @@ Magick.NET is linked with ImageMagick 7. Most examples on the Internet use Image
 The biggest difference between 6 and 7 is that the latter uses Alpha instead of Opacity. You can find some more information about ImageMagick 7
 here: https://www.imagemagick.org/script/porting.php.
 
+## OpenMP
+
+Magick.NET no longer uses OpenMP because the C++ Redistributable is statically linked. OpenMP is used to perform multithreaded operation on 
+an image to increase the perforance. The best use case for this would be a standalone applicatiom. Starting with Magick.NET 7.0.700 there
+are extra packages for the x64 build of Magick.NET that has OpenMP support. This version requires you to install the
+[Microsoft Visual C++ Redistributable for Visual Studio 2017](https://go.microsoft.com/fwlink/?LinkId=746572) on the machine that runs the
+application.
+
 ## Ghostscript
 
 You only need to install Ghostscript if you want to convert EPS/PDF/PS files. Make sure you only install the version of GhostScript with the same
