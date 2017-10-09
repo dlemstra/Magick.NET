@@ -57,6 +57,15 @@ namespace ImageMagick.ImageOptimizers
         bool Compress(string fileName);
 
         /// <summary>
+        /// Performs compression on the specified stream. With some formats the image will be decoded
+        /// and encoded and this will result in a small quality reduction. If the new size is not
+        /// smaller the stream won't be overwritten.
+        /// </summary>
+        /// <param name="stream">The stream of the image to compress.</param>
+        /// <returns>True when the image could be compressed otherwise false.</returns>
+        bool Compress(Stream stream);
+
+        /// <summary>
         /// Performs lossless compression on the specified file. If the new file size is not smaller
         /// the file won't be overwritten.
         /// </summary>
@@ -71,5 +80,13 @@ namespace ImageMagick.ImageOptimizers
         /// <param name="fileName">The file name of the image to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
         bool LosslessCompress(string fileName);
+
+        /// <summary>
+        /// Performs lossless compression on the specified stream. If the new stream size is not smaller
+        /// the stream won't be overwritten.
+        /// </summary>
+        /// <param name="stream">The stream of the image to compress.</param>
+        /// <returns>True when the image could be compressed otherwise false.</returns>
+        bool LosslessCompress(Stream stream);
     }
 }

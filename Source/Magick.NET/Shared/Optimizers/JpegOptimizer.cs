@@ -63,7 +63,7 @@ namespace ImageMagick.ImageOptimizers
         /// and encoded and this will result in a small quality reduction. If the new file size is not
         /// smaller the file won't be overwritten.
         /// </summary>
-        /// <param name="file">The image file to compress.</param>
+        /// <param name="file">The jpeg file to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool Compress(FileInfo file)
         {
@@ -75,7 +75,7 @@ namespace ImageMagick.ImageOptimizers
         /// and encoded and this will result in a small quality reduction. If the new file size is not
         /// smaller the file won't be overwritten.
         /// </summary>
-        /// <param name="file">The image file to compress.</param>
+        /// <param name="file">The jpeg file to compress.</param>
         /// <param name="quality">The jpeg quality.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool Compress(FileInfo file, int quality)
@@ -90,7 +90,7 @@ namespace ImageMagick.ImageOptimizers
         /// and encoded and this will result in a small quality reduction. If the new file size is not
         /// smaller the file won't be overwritten.
         /// </summary>
-        /// <param name="fileName">The file name of the image to compress.</param>
+        /// <param name="fileName">The file name of the jpeg image to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool Compress(string fileName)
         {
@@ -102,7 +102,7 @@ namespace ImageMagick.ImageOptimizers
         /// and encoded and this will result in a small quality reduction. If the new file size is not
         /// smaller the file won't be overwritten.
         /// </summary>
-        /// <param name="fileName">The file name of the image to compress.</param>
+        /// <param name="fileName">The file name of the jpeg image to compress.</param>
         /// <param name="quality">The jpeg quality.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool Compress(string fileName, int quality)
@@ -111,6 +111,31 @@ namespace ImageMagick.ImageOptimizers
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             return DoCompress(new FileInfo(fileName), false, quality);
+        }
+
+        /// <summary>
+        /// Performs compression on the specified stream. With some formats the image will be decoded
+        /// and encoded and this will result in a small quality reduction. If the new size is not
+        /// smaller the stream won't be overwritten.
+        /// </summary>
+        /// <param name="stream">The stream of the jpeg image to compress.</param>
+        /// <returns>True when the image could be compressed otherwise false.</returns>
+        public bool Compress(Stream stream)
+        {
+            return Compress(stream, 0);
+        }
+
+        /// <summary>
+        /// Performs compression on the specified file. With some formats the image will be decoded
+        /// and encoded and this will result in a small quality reduction. If the new file size is not
+        /// smaller the file won't be overwritten.
+        /// </summary>
+        /// <param name="stream">The stream of the jpeg image to compress.</param>
+        /// <param name="quality">The jpeg quality.</param>
+        /// <returns>True when the image could be compressed otherwise false.</returns>
+        public bool Compress(Stream stream, int quality)
+        {
+            throw new System.NotSupportedException();
         }
 
         /// <summary>
@@ -130,7 +155,7 @@ namespace ImageMagick.ImageOptimizers
         /// Performs lossless compression on the specified file. If the new file size is not smaller
         /// the file won't be overwritten.
         /// </summary>
-        /// <param name="fileName">The file name of the jpg image to compress.</param>
+        /// <param name="fileName">The file name of the jpeg image to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool LosslessCompress(string fileName)
         {
@@ -138,6 +163,17 @@ namespace ImageMagick.ImageOptimizers
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             return DoCompress(new FileInfo(fileName), true, 0);
+        }
+
+        /// <summary>
+        /// Performs lossless compression on the specified stream. If the new stream size is not smaller
+        /// the stream won't be overwritten.
+        /// </summary>
+        /// <param name="stream">The stream of the jpeg image to compress.</param>
+        /// <returns>True when the image could be compressed otherwise false.</returns>
+        public bool LosslessCompress(Stream stream)
+        {
+            throw new System.NotSupportedException();
         }
 
         private static bool DoCompress(FileInfo file, FileInfo output, bool progressive, bool lossless, int quality)

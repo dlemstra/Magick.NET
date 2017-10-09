@@ -80,6 +80,18 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Performs compression on the specified stream. With some formats the image will be decoded
+        /// and encoded and this will result in a small quality reduction. If the new size is not
+        /// smaller the stream won't be overwritten.
+        /// </summary>
+        /// <param name="stream">The stream of the image to compress.</param>
+        /// <returns>True when the image could be compressed otherwise false.</returns>
+        public bool Compress(Stream stream)
+        {
+            throw new System.NotSupportedException();
+        }
+
+        /// <summary>
         /// Returns true when the supplied file name is supported based on the extension of the file.
         /// </summary>
         /// <param name="file">The file to check.</param>
@@ -143,6 +155,17 @@ namespace ImageMagick
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             return DoLosslessCompress(new FileInfo(filePath));
+        }
+
+        /// <summary>
+        /// Performs lossless compression on the specified stream. If the new stream size is not smaller
+        /// the stream won't be overwritten.
+        /// </summary>
+        /// <param name="stream">The stream of the image to compress.</param>
+        /// <returns>True when the image could be compressed otherwise false.</returns>
+        public bool LosslessCompress(Stream stream)
+        {
+            throw new System.NotSupportedException();
         }
 
         private static Collection<IImageOptimizer> CreateImageOptimizers()
