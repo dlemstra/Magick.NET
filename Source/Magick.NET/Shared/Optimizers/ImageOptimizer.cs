@@ -131,6 +131,24 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Returns true when the supplied stream is supported.
+        /// </summary>
+        /// <param name="stream">The stream to check.</param>
+        /// <returns>True when the supplied stream is supported.</returns>
+        public bool IsSupported(Stream stream)
+        {
+            Throw.IfNull(nameof(stream), stream);
+
+            if (!stream.CanRead || !stream.CanWrite || !stream.CanSeek)
+                return false;
+
+            long startPosition = stream.Position;
+            IMagickImageInfo info = new MagickImageInfo(stream);
+            stream.Position = startPosition;
+            return IsSupported(MagickFormatInfo.Create(info.Format));
+        }
+
+        /// <summary>
         /// Performs lossless compression on the specified file. If the new file size is not smaller
         /// the file won't be overwritten.
         /// </summary>

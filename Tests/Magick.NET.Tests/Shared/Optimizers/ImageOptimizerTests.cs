@@ -232,6 +232,82 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
+        public void IsSupported_StreamIsNull_ThrowsException()
+        {
+            ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+            {
+                Optimizer.IsSupported((Stream)null);
+            });
+        }
+
+        [TestMethod]
+        public void IsSupported_StreamCannotRead_ReturnsFalse()
+        {
+            using (TestStream stream = new TestStream(false, true, true))
+            {
+                Assert.IsFalse(Optimizer.IsSupported(stream));
+            }
+        }
+
+        [TestMethod]
+        public void IsSupported_StreamCannotWrite_ReturnsFalse()
+        {
+            using (TestStream stream = new TestStream(true, false, true))
+            {
+                Assert.IsFalse(Optimizer.IsSupported(stream));
+            }
+        }
+
+        [TestMethod]
+        public void IsSupported_StreamCannotSeek_ReturnsFalse()
+        {
+            using (TestStream stream = new TestStream(true, true, false))
+            {
+                Assert.IsFalse(Optimizer.IsSupported(stream));
+            }
+        }
+
+        [TestMethod]
+        public void IsSupported_StreamIsGifFile_ReturnsTrue()
+        {
+            using (FileStream fileStream = OpenFile(Files.FujiFilmFinePixS1ProGIF))
+            {
+                Assert.IsTrue(Optimizer.IsSupported(fileStream));
+                Assert.AreEqual(0, fileStream.Position);
+            }
+        }
+
+        [TestMethod]
+        public void IsSupported_StreamIsJpgFile_ReturnsTrue()
+        {
+            using (FileStream fileStream = OpenFile(Files.ImageMagickJPG))
+            {
+                Assert.IsTrue(Optimizer.IsSupported(fileStream));
+                Assert.AreEqual(0, fileStream.Position);
+            }
+        }
+
+        [TestMethod]
+        public void IsSupported_StreamIsPngFile_ReturnsTrue()
+        {
+            using (FileStream fileStream = OpenFile(Files.SnakewarePNG))
+            {
+                Assert.IsTrue(Optimizer.IsSupported(fileStream));
+                Assert.AreEqual(0, fileStream.Position);
+            }
+        }
+
+        [TestMethod]
+        public void IsSupported_StreamIsTifFile_ReturnsFalse()
+        {
+            using (FileStream fileStream = OpenFile(Files.InvitationTif))
+            {
+                Assert.IsFalse(Optimizer.IsSupported(fileStream));
+                Assert.AreEqual(0, fileStream.Position);
+            }
+        }
+
+        [TestMethod]
         public void Compress_CanCompressGifFile_FileIsSmaller()
         {
             AssertCompress(Files.FujiFilmFinePixS1ProGIF, true, (FileInfo file) =>
@@ -337,6 +413,11 @@ namespace Magick.NET.Tests
             {
                 return Optimizer.LosslessCompress(file);
             });
+        }
+
+        private static FileStream OpenFile(string path)
+        {
+            return File.Open(path, FileMode.Open, FileAccess.ReadWrite);
         }
     }
 }
