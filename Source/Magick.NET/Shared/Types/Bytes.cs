@@ -22,6 +22,7 @@ namespace ImageMagick
         public Bytes(Stream stream)
         {
             Throw.IfNull(nameof(stream), stream);
+            Throw.IfFalse(nameof(stream), stream.Position == 0, "The position of the stream should be at zero.");
 
             SetData(stream);
         }
@@ -46,7 +47,7 @@ namespace ImageMagick
         {
             MemoryStream memStream = stream as MemoryStream;
 
-            if (memStream == null)
+            if (memStream == null || memStream.Position != 0)
                 return null;
 
             Bytes bytes = new Bytes();

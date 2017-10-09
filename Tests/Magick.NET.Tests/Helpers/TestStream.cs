@@ -22,6 +22,7 @@ namespace Magick.NET.Tests
         private readonly bool _canRead;
         private readonly bool _canSeek;
         private readonly bool _canWrite;
+        private long _length;
 
         public TestStream(bool canRead, bool canWrite, bool canSeek)
         {
@@ -51,7 +52,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return InnerStream.Length;
+                return InnerStream?.Length ?? _length;
             }
         }
 
@@ -59,7 +60,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return InnerStream.Position;
+                return InnerStream?.Position ?? 0;
             }
 
             set
@@ -87,7 +88,7 @@ namespace Magick.NET.Tests
 
         public override void SetLength(long value)
         {
-            throw new NotImplementedException();
+            _length = value;
         }
 
         public override void Write(byte[] buffer, int offset, int count)

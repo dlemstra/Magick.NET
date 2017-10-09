@@ -4055,6 +4055,8 @@ namespace Magick.NET.Tests
 
                     Assert.AreEqual(fileSize, memStream.Length);
 
+                    memStream.Position = 0;
+
                     using (IMagickImage result = new MagickImage(memStream))
                     {
                         Assert.AreEqual(image.Width, result.Width);
@@ -4072,6 +4074,8 @@ namespace Magick.NET.Tests
                 {
                     image.Write(memStream, format);
 
+                    memStream.Position = 0;
+
                     using (IMagickImage result = new MagickImage(memStream))
                     {
                         Assert.AreEqual(image.Width, result.Width);
@@ -4086,13 +4090,10 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
                 {
-                    using (MemoryStream memStream = new MemoryStream())
-                    {
-                        image.Write(fileName);
+                    image.Write(fileName);
 
-                        FileInfo file = new FileInfo(fileName);
-                        Assert.AreEqual(image.FileSize, file.Length);
-                    }
+                    FileInfo file = new FileInfo(fileName);
+                    Assert.AreEqual(image.FileSize, file.Length);
                 }
             }
             finally
