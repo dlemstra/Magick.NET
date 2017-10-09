@@ -60,5 +60,34 @@ namespace Magick.NET.Tests
                 return after;
             }
         }
+
+        protected long AssertCompress(string fileName, bool resultIsSmaller, Func<Stream, bool> action)
+        {
+            using (FileStream fileStream = File.Open(fileName, FileMode.Open, FileAccess.ReadWrite))
+            {
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    memoryStream.Position = 42;
+                    fileStream.CopyTo(memoryStream);
+                    memoryStream.Position = 42;
+
+                    long before = memoryStream.Length;
+
+                    bool result = action(memoryStream);
+
+                    long after = memoryStream.Length;
+
+                    Assert.AreEqual(42, memoryStream.Position);
+                    Assert.AreEqual(resultIsSmaller, result);
+
+                    if (resultIsSmaller)
+                        Assert.IsTrue(after < before, "{0} is not smaller than {1}", after, before);
+                    else
+                        Assert.AreEqual(before, after);
+
+                    return after - 42;
+                }
+            }
+        }
     }
 }

@@ -115,14 +115,21 @@ namespace ImageMagick.ImageOptimizers
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool LosslessCompress(Stream stream)
         {
-            throw new System.NotSupportedException();
-        }
+            Throw.IfNull(nameof(stream), stream);
+            ImageOptimizerHelper.CheckStream(stream);
 
-        private static void CheckFormat(IMagickImage image)
-        {
-            MagickFormat format = image.FormatInfo.Module;
-            if (format != MagickFormat.Gif)
-                throw new MagickCorruptImageErrorException("Invalid image format: " + format.ToString());
+            bool isCompressed = false;
+            long startPosition = stream.Position;
+
+            using (IMagickImageCollection images = new MagickImageCollection(stream))
+            {
+                if (images.Count == 1)
+                    isCompressed = DoLosslessCompress(stream, startPosition, images[0]);
+
+                stream.Position = startPosition;
+            }
+
+            return isCompressed;
         }
 
         private static bool DoLosslessCompress(FileInfo file)
@@ -130,9 +137,7 @@ namespace ImageMagick.ImageOptimizers
             using (IMagickImageCollection images = new MagickImageCollection(file))
             {
                 if (images.Count == 1)
-                {
                     return DoLosslessCompress(file, images[0]);
-                }
             }
 
             return false;
@@ -140,15 +145,13 @@ namespace ImageMagick.ImageOptimizers
 
         private static bool DoLosslessCompress(FileInfo file, IMagickImage image)
         {
-            CheckFormat(image);
+            ImageOptimizerHelper.CheckFormat(image, MagickFormat.Gif);
 
             bool isCompressed = false;
 
-            image.Strip();
-
             using (TemporaryFile tempFile = new TemporaryFile())
             {
-                image.Settings.Interlace = Interlace.NoInterlace;
+                LosslessCompress(image);
                 image.Write(tempFile);
 
                 if (tempFile.Length < file.Length)
@@ -156,6 +159,34 @@ namespace ImageMagick.ImageOptimizers
                     isCompressed = true;
                     tempFile.CopyTo(file);
                     file.Refresh();
+                }
+            }
+
+            return isCompressed;
+        }
+
+        private static void LosslessCompress(IMagickImage image)
+        {
+            image.Strip();
+            image.Settings.Interlace = Interlace.NoInterlace;
+        }
+
+        private static bool DoLosslessCompress(Stream stream, long startPosition, IMagickImage image)
+        {
+            ImageOptimizerHelper.CheckFormat(image, MagickFormat.Gif);
+
+            bool isCompressed = false;
+
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                LosslessCompress(image);
+                image.Write(memStream);
+
+                if (memStream.Length < (stream.Length - startPosition))
+                {
+                    isCompressed = true;
+                    memStream.CopyTo(stream);
+                    stream.SetLength(startPosition + memStream.Length);
                 }
             }
 

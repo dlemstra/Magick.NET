@@ -72,15 +72,60 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
+        public void Compress_StreamIsNull_ThrowsException()
+        {
+            ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+            {
+                Optimizer.Compress((Stream)null);
+            });
+        }
+
+        [TestMethod]
+        public void Compress_StreamCannotRead_ThrowsException()
+        {
+            using (TestStream stream = new TestStream(false, true, true))
+            {
+                ExceptionAssert.ThrowsArgumentException("stream", () =>
+                {
+                    Optimizer.Compress(stream);
+                });
+            }
+        }
+
+        [TestMethod]
+        public void Compress_StreamCannotWrite_ThrowsException()
+        {
+            using (TestStream stream = new TestStream(true, false, true))
+            {
+                ExceptionAssert.ThrowsArgumentException("stream", () =>
+                {
+                    Optimizer.Compress(stream);
+                });
+            }
+        }
+
+        [TestMethod]
+        public void Compress_StreamCannotSeek_ThrowsException()
+        {
+            using (TestStream stream = new TestStream(true, true, false))
+            {
+                ExceptionAssert.ThrowsArgumentException("stream", () =>
+                {
+                    Optimizer.Compress(stream);
+                });
+            }
+        }
+
+        [TestMethod]
         public void Compress_CanCompress_FileIsSmaller()
         {
-            AssertCompressSmaller(Files.FujiFilmFinePixS1ProGIF);
+            NewAssertCompressSmaller(Files.FujiFilmFinePixS1ProGIF);
         }
 
         [TestMethod]
         public void Compress_CannotCompress_FileIsNotSmaller()
         {
-            AssertCompressNotSmaller(Files.RoseSparkleGIF);
+            NewAssertCompressNotSmaller(Files.RoseSparkleGIF);
         }
 
         [TestMethod]
@@ -137,13 +182,13 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void LosslessCompress_CanCompress_FileIsSmaller()
         {
-            AssertLosslessCompressSmaller(Files.FujiFilmFinePixS1ProGIF);
+            NewAssertLosslessCompressSmaller(Files.FujiFilmFinePixS1ProGIF);
         }
 
         [TestMethod]
         public void LosslessCompress_CannotCompress_FileIsNotSmaller()
         {
-            AssertLosslessCompressNotSmaller(Files.RoseSparkleGIF);
+            NewAssertLosslessCompressNotSmaller(Files.RoseSparkleGIF);
         }
 
         [TestMethod]
