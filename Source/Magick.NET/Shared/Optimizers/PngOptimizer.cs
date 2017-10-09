@@ -124,13 +124,6 @@ namespace ImageMagick.ImageOptimizers
             throw new System.NotSupportedException();
         }
 
-        private static void CheckFormat(MagickImage image)
-        {
-            MagickFormat format = image.FormatInfo.Module;
-            if (format != MagickFormat.Png)
-                throw new MagickCorruptImageErrorException("Invalid image format: " + format.ToString());
-        }
-
         private static void CheckTransparency(MagickImage image)
         {
             if (!image.HasAlpha)
@@ -146,7 +139,7 @@ namespace ImageMagick.ImageOptimizers
 
             using (MagickImage image = new MagickImage(file))
             {
-                CheckFormat(image);
+                ImageOptimizerHelper.CheckFormat(image, MagickFormat.Png);
 
                 image.Strip();
                 image.Settings.SetDefine(MagickFormat.Png, "exclude-chunks", "all");
