@@ -83,11 +83,7 @@ namespace ImageMagick.Web.Handlers
                     {
                         using (Stream input = ImageData.ReadImage())
                         {
-                            byte[] buffer = new byte[81920];
-                            int len;
-
-                            while ((len = input.Read(buffer, 0, buffer.Length)) > 0)
-                                output.Write(buffer, 0, len);
+                            input.CopyTo(output);
                         }
                     }
                 }
