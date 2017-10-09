@@ -39,7 +39,7 @@ namespace ImageMagick.ImageOptimizers
         }
 
         /// <summary>
-        /// Performs compression on the specified the file. With some formats the image will be decoded
+        /// Performs compression on the specified file. With some formats the image will be decoded
         /// and encoded and this will result in a small quality reduction. If the new file size is not
         /// smaller the file won't be overwritten.
         /// </summary>
@@ -48,7 +48,7 @@ namespace ImageMagick.ImageOptimizers
         bool Compress(FileInfo file);
 
         /// <summary>
-        /// Performs compression on the specified the file. With some formats the image will be decoded
+        /// Performs compression on the specified file. With some formats the image will be decoded
         /// and encoded and this will result in a small quality reduction. If the new file size is not
         /// smaller the file won't be overwritten.
         /// </summary>
@@ -57,7 +57,7 @@ namespace ImageMagick.ImageOptimizers
         bool Compress(string fileName);
 
         /// <summary>
-        /// Performs lossless compression on the specified the file. If the new file size is not smaller
+        /// Performs lossless compression on the specified file. If the new file size is not smaller
         /// the file won't be overwritten.
         /// </summary>
         /// <param name="file">The image file to compress.</param>

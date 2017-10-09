@@ -51,7 +51,7 @@ namespace ImageMagick.ImageOptimizers
         }
 
         /// <summary>
-        /// Performs compression on the specified the file. With some formats the image will be decoded
+        /// Performs compression on the specified file. With some formats the image will be decoded
         /// and encoded and this will result in a small quality reduction. If the new file size is not
         /// smaller the file won't be overwritten.
         /// </summary>
@@ -63,7 +63,7 @@ namespace ImageMagick.ImageOptimizers
         }
 
         /// <summary>
-        /// Performs compression on the specified the file. With some formats the image will be decoded
+        /// Performs compression on the specified file. With some formats the image will be decoded
         /// and encoded and this will result in a small quality reduction. If the new file size is not
         /// smaller the file won't be overwritten.
         /// </summary>
@@ -75,7 +75,7 @@ namespace ImageMagick.ImageOptimizers
         }
 
         /// <summary>
-        /// Performs lossless compression on the specified the file. If the new file size is not smaller
+        /// Performs lossless compression on the specified file. If the new file size is not smaller
         /// the file won't be overwritten.
         /// </summary>
         /// <param name="file">The png file to optimize.</param>
@@ -88,7 +88,7 @@ namespace ImageMagick.ImageOptimizers
         }
 
         /// <summary>
-        /// Performs lossless compression on the specified the file. If the new file size is not smaller
+        /// Performs lossless compression on the specified file. If the new file size is not smaller
         /// the file won't be overwritten.
         /// </summary>
         /// <param name="fileName">The png file to optimize.</param>

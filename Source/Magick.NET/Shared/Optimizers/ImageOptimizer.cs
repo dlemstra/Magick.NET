@@ -51,11 +51,11 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Performs compression on the specified the file. With some formats the image will be decoded
+        /// Performs compression on the specified file. With some formats the image will be decoded
         /// and encoded and this will result in a small quality reduction. If the new file size is not
         /// smaller the file won't be overwritten.
         /// </summary>
-        /// <param name="file">The image file to compress</param>
+        /// <param name="file">The image file to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool Compress(FileInfo file)
         {
@@ -65,11 +65,11 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Performs compression on the specified the file. With some formats the image will be decoded
+        /// Performs compression on the specified file. With some formats the image will be decoded
         /// and encoded and this will result in a small quality reduction. If the new file size is not
         /// smaller the file won't be overwritten.
         /// </summary>
-        /// <param name="fileName">The file name of the image to compress</param>
+        /// <param name="fileName">The file name of the image to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool Compress(string fileName)
         {
@@ -119,10 +119,10 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Performs lossless compression on the specified the file. If the new file size is not smaller
+        /// Performs lossless compression on the specified file. If the new file size is not smaller
         /// the file won't be overwritten.
         /// </summary>
-        /// <param name="file">The image file to compress</param>
+        /// <param name="file">The image file to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool LosslessCompress(FileInfo file)
         {
@@ -135,7 +135,7 @@ namespace ImageMagick
         /// Performs lossless compression on the specified file. If the new file size is not smaller
         /// the file won't be overwritten.
         /// </summary>
-        /// <param name="fileName">The file name of the image to compress</param>
+        /// <param name="fileName">The file name of the image to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool LosslessCompress(string fileName)
         {
