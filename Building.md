@@ -12,15 +12,16 @@ This document describes the requirements and instructions to build Magick.NET on
 
 ### Build ImageMagick 7
 
-Magick.NET uses the ImageMagick 7 library and you need to build that first. Below are the steps for that.
+Magick.NET uses the ImageMagick 7 library and that needs to be build first. The easiest way is to copy the precompiled .lib files from
+[DropBox](https://www.dropbox.com/sh/5m3zllq81n4eyhm/AACQFGl4PKi9xnd15EbU5S1Ia?dl=0) and copy them to the folder `ImageMagick\lib`.
+Another option is building ImageMagick yourself. Below are the steps for that.
 
-1. This step is optional but you can decide to use the latest GIT revision. To do this you need to edit the file `ImageMagick\Source\Checkout.cmd` and change the `DATE`
-   variable to the current date and time.
+1. This step is optional but you can decide to use the latest GIT revision. To do this you need to edit the file `ImageMagick\Source\Checkout.sh`
+   and change the `date` variable to the current date and time.
 2. Then you need to run `ImageMagick\Source\Checkout.cmd` that will clone the master branch of the GIT repository of ImageMagick.
 3. Now run `ImageMagick\Source\BuildAll.cmd` or one of the files in `ImageMagick\Source\Development` to target a specific platform and Quantum.
 
-You can also download the precompiled .lib files from [DropBox](https://www.dropbox.com/sh/5m3zllq81n4eyhm/AACQFGl4PKi9xnd15EbU5S1Ia?dl=0) and copy them to `ImageMagick\lib`.
-And with the files in the `ImageMagick\Source\Debug` folder you can run a debug build.
+And with the files in the `ImageMagick\Source\Debug` folder you can create a debug build.
 
 ### Build Magick.NET (.NET 4.0/2.0 x86/x64)
 
