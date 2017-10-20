@@ -124,7 +124,7 @@ namespace ImageMagick.ImageOptimizers
             using (IMagickImageCollection images = new MagickImageCollection(stream))
             {
                 if (images.Count == 1)
-                    isCompressed = DoLosslessCompress(stream, startPosition, images[0]);
+                    isCompressed = DoLosslessCompress(images[0], stream, startPosition);
 
                 stream.Position = startPosition;
             }
@@ -171,7 +171,7 @@ namespace ImageMagick.ImageOptimizers
             image.Settings.Interlace = Interlace.NoInterlace;
         }
 
-        private static bool DoLosslessCompress(Stream stream, long startPosition, IMagickImage image)
+        private static bool DoLosslessCompress(IMagickImage image, Stream stream, long startPosition)
         {
             ImageOptimizerHelper.CheckFormat(image, MagickFormat.Gif);
 
