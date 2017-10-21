@@ -204,13 +204,13 @@ namespace ImageMagick
         }
         private void ExecutePathArcAbs(XmlElement element, Collection<IPath> paths)
         {
-            IEnumerable<PathArc> pathArcs_ = CreatePathArcs(element);
-            paths.Add(new PathArcAbs(pathArcs_));
+            IEnumerable<PathArc> coordinates_ = CreatePathArcs(element);
+            paths.Add(new PathArcAbs(coordinates_));
         }
         private void ExecutePathArcRel(XmlElement element, Collection<IPath> paths)
         {
-            IEnumerable<PathArc> pathArcs_ = CreatePathArcs(element);
-            paths.Add(new PathArcRel(pathArcs_));
+            IEnumerable<PathArc> coordinates_ = CreatePathArcs(element);
+            paths.Add(new PathArcRel(coordinates_));
         }
         private void ExecutePathCurveToAbs(XmlElement element, Collection<IPath> paths)
         {

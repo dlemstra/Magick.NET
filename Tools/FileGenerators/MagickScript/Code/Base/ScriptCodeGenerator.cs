@@ -266,6 +266,9 @@ namespace FileGenerator.MagickScript
                 case "IDefines":
                     Write("CreateIDefines");
                     break;
+                case "IEnumerable<MagickColor>":
+                    Write("CreateMagickColorCollection");
+                    break;
                 case "IEnumerable<MagickGeometry>":
                     Write("CreateMagickGeometryCollection");
                     break;

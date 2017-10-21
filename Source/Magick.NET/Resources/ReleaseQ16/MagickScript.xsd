@@ -2553,6 +2553,14 @@
           </xs:complexType>
         </xs:element>
         <xs:element name="magnify" type="empty" />
+        <xs:element name="map">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="image" minOccurs="0" type="image" />
+              <xs:element name="settings" minOccurs="0" type="quantizeSettings" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="meanShift">
           <xs:complexType>
             <xs:attribute name="colorDistance" type="double" />

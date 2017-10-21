@@ -854,6 +854,11 @@ namespace ImageMagick
                                     ExecuteMagnify(image);
                                     return;
                                 }
+                                case 'p':
+                                {
+                                    ExecuteMap(element, image);
+                                    return;
+                                }
                             }
                             break;
                         }
@@ -2839,6 +2844,29 @@ namespace ImageMagick
         private static void ExecuteMagnify(IMagickImage image)
         {
             image.Magnify();
+        }
+        private void ExecuteMap(XmlElement element, IMagickImage image)
+        {
+            Hashtable arguments = new Hashtable();
+            foreach (XmlElement elem in element.SelectNodes("*"))
+            {
+                if (elem.Name == "colors")
+                    arguments["colors"] = CreateMagickColorCollection(elem);
+                else if (elem.Name == "image")
+                    arguments["image"] = CreateMagickImage(elem);
+                else if (elem.Name == "settings")
+                    arguments["settings"] = CreateQuantizeSettings(elem);
+            }
+            if (OnlyContains(arguments, "colors"))
+                image.Map((IEnumerable<MagickColor>)arguments["colors"]);
+            else if (OnlyContains(arguments, "colors", "settings"))
+                image.Map((IEnumerable<MagickColor>)arguments["colors"], (QuantizeSettings)arguments["settings"]);
+            else if (OnlyContains(arguments, "image"))
+                image.Map((IMagickImage)arguments["image"]);
+            else if (OnlyContains(arguments, "image", "settings"))
+                image.Map((IMagickImage)arguments["image"], (QuantizeSettings)arguments["settings"]);
+            else
+                throw new ArgumentException("Invalid argument combination for 'map', allowed combinations are: [colors] [colors, settings] [image] [image, settings]");
         }
         private void ExecuteMeanShift(XmlElement element, IMagickImage image)
         {

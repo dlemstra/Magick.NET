@@ -21,7 +21,7 @@ namespace FileGenerator.MagickScript
         {
             get
             {
-                return new Type[] { Types.GetType("MagickGeometry") };
+                return new Type[] { Types.GetType("MagickColor"), Types.GetType("MagickGeometry") };
             }
         }
 

@@ -22,7 +22,12 @@ namespace FileGenerator.MagickScript
     {
         private static readonly string[] _UnsupportedMethods = new string[]
         {
-      "Add", "AddRange", "Clear", "Dispose", "Draw", "Insert", "Ping", "Read", "RemoveAt", "Write"
+            "Add", "AddRange", "Clear", "Compare", "Dispose", "Draw", "Insert", "Ping", "Read", "RemoveAt", "Write"
+        };
+
+        private static readonly string[] _IgnoredReturnTypes = new string[]
+        {
+            "MagickErrorInfo"
         };
 
         private static bool CanIgnoreResult(MethodInfo method)
@@ -30,7 +35,7 @@ namespace FileGenerator.MagickScript
             if (method.IsSpecialName)
                 return false;
 
-            if (method.Name == "Quantize")
+            if (_IgnoredReturnTypes.Contains(method.ReturnType.Name))
                 return true;
 
             return false;
@@ -130,6 +135,7 @@ namespace FileGenerator.MagickScript
                 case "IEnumerable<Double>":
                 case "IEnumerable<Drawable>":
                 case "IEnumerable<IPath>":
+                case "IEnumerable<MagickColor>":
                 case "IEnumerable<MagickGeometry>":
                 case "IEnumerable<PathArc>":
                 case "IEnumerable<PointD>":
@@ -244,7 +250,8 @@ namespace FileGenerator.MagickScript
         private static bool IsSupported(MethodInfo method)
         {
             if (method.ReturnType != typeof(void))
-                return CanIgnoreResult(method);
+                if (!CanIgnoreResult(method))
+                    return false;
 
             return IsSupportedMethod(method);
         }

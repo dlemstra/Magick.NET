@@ -33,6 +33,15 @@ namespace ImageMagick
 {
     public sealed partial class MagickScript
     {
+        private Collection<MagickColor> CreateMagickColorCollection(XmlElement element)
+        {
+            Collection<MagickColor> collection = new Collection<MagickColor>();
+            foreach (XmlElement elem in element.SelectNodes("*"))
+            {
+                collection.Add(Variables.GetValue<MagickColor>(elem, "value"));
+            }
+            return collection;
+        }
         private Collection<MagickGeometry> CreateMagickGeometryCollection(XmlElement element)
         {
             Collection<MagickGeometry> collection = new Collection<MagickGeometry>();
