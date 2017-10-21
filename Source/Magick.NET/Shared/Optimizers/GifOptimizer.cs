@@ -185,6 +185,7 @@ namespace ImageMagick.ImageOptimizers
                 if (memStream.Length < (stream.Length - startPosition))
                 {
                     isCompressed = true;
+                    memStream.Position = 0;
                     memStream.CopyTo(stream);
                     stream.SetLength(startPosition + memStream.Length);
                 }
