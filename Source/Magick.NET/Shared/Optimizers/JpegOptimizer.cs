@@ -10,7 +10,9 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.IO;
+using System.Threading;
 
 namespace ImageMagick.ImageOptimizers
 {
@@ -135,7 +137,7 @@ namespace ImageMagick.ImageOptimizers
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool Compress(Stream stream, int quality)
         {
-            throw new System.NotSupportedException();
+            return DoCompress(stream, false, quality);
         }
 
         /// <summary>
@@ -173,13 +175,36 @@ namespace ImageMagick.ImageOptimizers
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool LosslessCompress(Stream stream)
         {
-            throw new System.NotSupportedException();
+            return DoCompress(stream, true, 0);
         }
 
-        private static bool DoCompress(FileInfo file, FileInfo output, bool progressive, bool lossless, int quality)
+        private static void DoNativeCompress(FileInfo file, FileInfo output, bool progressive, bool lossless, int quality)
         {
-            int result = NativeJpegOptimizer.Compress(file.FullName, output.FullName, progressive, lossless, quality);
+            int result = NativeJpegOptimizer.CompressFile(file.FullName, output.FullName, progressive, lossless, quality);
 
+            CheckCompressResult(result);
+
+            output.Refresh();
+        }
+
+        private static void DoNativeCompress(Stream input, Stream output, bool progressive, bool lossless, int quality)
+        {
+            using (StreamWrapper readWrapper = StreamWrapper.CreateForReading(input))
+            {
+                using (StreamWrapper writeWrapper = StreamWrapper.CreateForWriting(output))
+                {
+                    ReadWriteStreamDelegate readStream = new ReadWriteStreamDelegate(readWrapper.Read);
+                    ReadWriteStreamDelegate writeStream = new ReadWriteStreamDelegate(writeWrapper.Write);
+
+                    int result = NativeJpegOptimizer.CompressStream(readStream, writeStream, progressive, lossless, quality);
+
+                    CheckCompressResult(result);
+                }
+            }
+        }
+
+        private static void CheckCompressResult(int result)
+        {
             if (result == 1)
                 throw new MagickCorruptImageErrorException("Unable to decompress the jpeg file.");
 
@@ -187,31 +212,23 @@ namespace ImageMagick.ImageOptimizers
                 throw new MagickCorruptImageErrorException("Unable to compress the jpeg file.");
 
             if (result != 0)
-                return false;
-
-            output.Refresh();
-            return true;
+                throw new InvalidOperationException("Unknown status code.");
         }
 
         private bool DoCompress(FileInfo file, bool lossless, int quality)
         {
             using (TemporaryFile tempFile = new TemporaryFile())
             {
-                if (!DoCompress(file, tempFile, Progressive, lossless, quality))
-                    return false;
+                DoNativeCompress(file, tempFile, Progressive, lossless, quality);
 
                 if (OptimalCompression)
                 {
                     using (TemporaryFile tempFileOptimal = new TemporaryFile())
                     {
-                        if (!DoCompress(file, tempFileOptimal, Progressive, lossless, quality))
-                            return false;
+                        DoNativeCompress(file, tempFileOptimal, !Progressive, lossless, quality);
 
-                        if (tempFileOptimal.Length < file.Length && tempFileOptimal.Length < tempFile.Length)
-                        {
-                            tempFileOptimal.CopyTo(file);
-                            return false;
-                        }
+                        if (tempFileOptimal.Length < tempFile.Length)
+                            tempFileOptimal.CopyTo(tempFile);
                     }
                 }
 
@@ -221,6 +238,58 @@ namespace ImageMagick.ImageOptimizers
                 tempFile.CopyTo(file);
                 return true;
             }
+        }
+
+        private bool DoCompress(Stream stream, bool lossless, int quality)
+        {
+            Throw.IfNull(nameof(stream), stream);
+            ImageOptimizerHelper.CheckStream(stream);
+
+            bool isCompressed = false;
+            long startPosition = stream.Position;
+
+            MemoryStream memStream = new MemoryStream();
+
+            try
+            {
+                DoNativeCompress(stream, memStream, Progressive, lossless, quality);
+
+                if (OptimalCompression)
+                {
+                    stream.Position = startPosition;
+
+                    MemoryStream memStreamOptimal = new MemoryStream();
+
+                    try
+                    {
+                        DoNativeCompress(stream, memStreamOptimal, !Progressive, lossless, quality);
+
+                        if (memStreamOptimal.Length < memStream.Length)
+                            memStreamOptimal = Interlocked.Exchange(ref memStream, memStreamOptimal);
+                    }
+                    finally
+                    {
+                        memStreamOptimal.Dispose();
+                    }
+                }
+
+                if (memStream.Length < (stream.Length - startPosition))
+                {
+                    isCompressed = true;
+                    stream.Position = startPosition;
+                    memStream.Position = 0;
+                    memStream.CopyTo(stream);
+                    stream.SetLength(startPosition + memStream.Length);
+                }
+
+                stream.Position = startPosition;
+            }
+            finally
+            {
+                memStream.Dispose();
+            }
+
+            return isCompressed;
         }
     }
 }

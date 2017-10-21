@@ -31,6 +31,10 @@ typedef struct _ClientData
     *inputFileName,
     *outputFileName;
 
+  CustomStreamHandler
+    reader,
+    writer;
+
   boolean
     progressive;
 
@@ -62,6 +66,9 @@ typedef struct _SourceManager
   FILE
     *inputFile;
 
+  CustomStreamHandler
+    reader;
+
   boolean
     startOfBlob;
 } SourceManager;
@@ -76,6 +83,9 @@ typedef struct _DestinationManager
 
   FILE
     *outputFile;
+
+  CustomStreamHandler
+    writer;
 } DestinationManager;
 
 static void JpegErrorHandler(j_common_ptr jpeg_info)
@@ -110,9 +120,14 @@ static void InitializeSource(j_decompress_ptr decompress_info)
   source = (SourceManager *)decompress_info->src;
   source->startOfBlob = TRUE;
 
-  source->inputFile = fopen_utf8(client_data->inputFileName, "rb");
-  if (source->inputFile == (FILE*)NULL)
-    ERREXIT(decompress_info, JERR_FILE_READ);
+  if (client_data->inputFileName != (const char *)NULL)
+  {
+    source->inputFile = fopen_utf8(client_data->inputFileName, "rb");
+    if (source->inputFile == (FILE*)NULL)
+      ERREXIT(decompress_info, JERR_FILE_READ);
+  }
+  else
+    source->reader = client_data->reader;
 }
 
 static inline boolean FillInputBuffer(j_decompress_ptr decompress_info)
@@ -121,8 +136,11 @@ static inline boolean FillInputBuffer(j_decompress_ptr decompress_info)
     *source;
 
   source = (SourceManager *)decompress_info->src;
-  source->manager.bytes_in_buffer = (size_t)fread(source->buffer, 1, MaxBufferExtent,
-    source->inputFile);
+
+  if (source->inputFile != (FILE *)NULL)
+    source->manager.bytes_in_buffer = (size_t)fread(source->buffer, 1, MaxBufferExtent, source->inputFile);
+  else
+    source->manager.bytes_in_buffer = (size_t)source->reader(source->buffer, MaxBufferExtent, (void*)NULL);
   if (source->manager.bytes_in_buffer == 0)
   {
     if (source->startOfBlob != FALSE)
@@ -161,8 +179,11 @@ static void TerminateSource(j_decompress_ptr decompress_info)
     *source;
 
   source = (SourceManager *)decompress_info->src;
-  fclose(source->inputFile);
-  source->inputFile = (FILE *)NULL;
+  if (source->inputFile != (FILE *)NULL)
+  {
+    fclose(source->inputFile);
+    source->inputFile = (FILE *)NULL;
+  }
 }
 
 static SourceManager* CreateSourceManager(j_decompress_ptr decompress_info)
@@ -183,6 +204,8 @@ static SourceManager* CreateSourceManager(j_decompress_ptr decompress_info)
     source->manager.term_source = TerminateSource;
     source->manager.bytes_in_buffer = 0;
     source->manager.next_input_byte = (const JOCTET *)NULL;
+    source->inputFile = (FILE *)NULL;
+    source->reader = (CustomStreamHandler)NULL;
     decompress_info->src = (struct jpeg_source_mgr *) source;
   }
 
@@ -392,9 +415,14 @@ static void InitializeDestination(j_compress_ptr compress_info)
   destination->manager.next_output_byte = destination->buffer;
   destination->manager.free_in_buffer = MaxBufferExtent;
 
-  destination->outputFile = fopen_utf8(client_data->outputFileName, "wb");
-  if (destination->outputFile == (FILE*)NULL)
-    ERREXIT(compress_info, JERR_FILE_WRITE);
+  if (client_data->outputFileName != (const char *)NULL)
+  {
+    destination->outputFile = fopen_utf8(client_data->outputFileName, "wb");
+    if (destination->outputFile == (FILE*)NULL)
+      ERREXIT(compress_info, JERR_FILE_WRITE);
+  }
+  else
+    destination->writer = client_data->writer;
 }
 
 static boolean EmptyOutputBuffer(j_compress_ptr compress_info)
@@ -403,8 +431,10 @@ static boolean EmptyOutputBuffer(j_compress_ptr compress_info)
     *destination;
 
   destination = (DestinationManager *)compress_info->dest;
-  destination->manager.free_in_buffer = fwrite((const char *)destination->buffer, 1,
-    MaxBufferExtent, destination->outputFile);
+  if (destination->outputFile != (FILE *)NULL)
+    destination->manager.free_in_buffer = fwrite((const char *)destination->buffer, 1, MaxBufferExtent, destination->outputFile);
+  else
+    destination->manager.free_in_buffer = (size_t)destination->writer((unsigned char *)destination->buffer, MaxBufferExtent, (void*)NULL);
   if (destination->manager.free_in_buffer != MaxBufferExtent)
     ERREXIT(compress_info, JERR_FILE_WRITE);
   destination->manager.next_output_byte = destination->buffer;
@@ -423,11 +453,19 @@ static void TerminateDestination(j_compress_ptr compress_info)
   count = (MaxBufferExtent - (int)destination->manager.free_in_buffer);
   if (count > 0)
   {
-    if (fwrite((const char *)destination->buffer, 1, count, destination->outputFile) != count)
-      ERREXIT(compress_info, JERR_FILE_WRITE);
+    if (destination->outputFile != (FILE *)NULL)
+    {
+      if (fwrite((const char *)destination->buffer, 1, count, destination->outputFile) != count)
+        ERREXIT(compress_info, JERR_FILE_WRITE);
+    }
+    else
+      destination->writer((unsigned char *)destination->buffer, count, (void*)NULL);
   }
-  fclose(destination->outputFile);
-  destination->outputFile = (FILE *)NULL;
+  if (destination->outputFile != (FILE *)NULL)
+  {
+    fclose(destination->outputFile);
+    destination->outputFile = (FILE *)NULL;
+  }
 }
 
 static inline DestinationManager* CreateDestinationManager(j_compress_ptr compress_info)
@@ -435,12 +473,18 @@ static inline DestinationManager* CreateDestinationManager(j_compress_ptr compre
   DestinationManager
     *destination;
 
+  destination = (DestinationManager *)NULL;
   compress_info->dest = (struct jpeg_destination_mgr *) (*compress_info->mem->alloc_small)
     ((j_common_ptr)compress_info, JPOOL_IMAGE, sizeof(DestinationManager));
-  destination = (DestinationManager *)compress_info->dest;
-  destination->manager.init_destination = InitializeDestination;
-  destination->manager.empty_output_buffer = EmptyOutputBuffer;
-  destination->manager.term_destination = TerminateDestination;
+  if (compress_info->dest != (struct jpeg_destination_mgr *)NULL)
+  {
+    destination = (DestinationManager *)compress_info->dest;
+    destination->manager.init_destination = InitializeDestination;
+    destination->manager.empty_output_buffer = EmptyOutputBuffer;
+    destination->manager.term_destination = TerminateDestination;
+    destination->outputFile = (FILE *)NULL;
+    destination->writer = (CustomStreamHandler)NULL;
+  }
   return destination;
 }
 
@@ -546,48 +590,67 @@ static void TerminateClientData(ClientData *client_data)
   client_data->height = 0;
 }
 
-MAGICK_NET_EXPORT size_t JpegOptimizer_Compress(const char *input, const char *output, const MagickBooleanType progressive, const MagickBooleanType lessless, const MagickBooleanType quality)
+static size_t JpegOptimizer_Compress(ClientData *client_data, const MagickBooleanType progressive, const MagickBooleanType lessless, const MagickBooleanType quality)
 {
-  ClientData
-    client_data;
-
   struct jpeg_decompress_struct
     decompress_info;
 
   struct jpeg_error_mgr
     jpeg_error;
 
-  ResetMagickMemory(&client_data, 0, sizeof(client_data));
+  client_data->progressive = progressive != MagickFalse ? TRUE : FALSE;
+  client_data->lossless = lessless != MagickFalse ? TRUE : FALSE;
+  client_data->quality = quality;
+
   ResetMagickMemory(&decompress_info, 0, sizeof(decompress_info));
-
-  client_data.progressive = progressive != MagickFalse ? TRUE : FALSE;
-  client_data.lossless = lessless != MagickFalse ? TRUE : FALSE;
-  client_data.inputFileName = input;
-  client_data.outputFileName = output;
-  client_data.quality = quality;
-
   decompress_info.err = jpeg_std_error(&jpeg_error);
   decompress_info.err->emit_message = (void(*)(j_common_ptr, int)) JpegWarningHandler;
   decompress_info.err->error_exit = (void(*)(j_common_ptr)) JpegErrorHandler;
-  decompress_info.client_data = (void *)&client_data;
+  decompress_info.client_data = (void *)client_data;
 
-  if (ReadJpeg(&decompress_info, &client_data) == FALSE)
+  if (ReadJpeg(&decompress_info, client_data) == FALSE)
   {
     jpeg_destroy_decompress(&decompress_info);
-    TerminateClientData(&client_data);
+    TerminateClientData(client_data);
     return 1;
   }
 
-  if (WriteJpeg(&decompress_info, &client_data) == FALSE)
+  if (WriteJpeg(&decompress_info, client_data) == FALSE)
   {
     jpeg_destroy_decompress(&decompress_info);
-    TerminateClientData(&client_data);
+    TerminateClientData(client_data);
     return 2;
   }
 
   jpeg_finish_decompress(&decompress_info);
   jpeg_destroy_decompress(&decompress_info);
-  TerminateClientData(&client_data);
+  TerminateClientData(client_data);
 
   return 0;
+}
+
+MAGICK_NET_EXPORT size_t JpegOptimizer_CompressFile(const char *input, const char *output, const MagickBooleanType progressive, const MagickBooleanType lessless, const MagickBooleanType quality)
+{
+  ClientData
+    client_data;
+
+  ResetMagickMemory(&client_data, 0, sizeof(client_data));
+
+  client_data.inputFileName = input;
+  client_data.outputFileName = output;
+
+  return(JpegOptimizer_Compress(&client_data, progressive, lessless, quality));
+}
+
+MAGICK_NET_EXPORT size_t JpegOptimizer_CompressStream(const CustomStreamHandler reader, const CustomStreamHandler writer, const MagickBooleanType progressive, const MagickBooleanType lessless, const MagickBooleanType quality)
+{
+  ClientData
+    client_data;
+
+  ResetMagickMemory(&client_data, 0, sizeof(client_data));
+
+  client_data.reader = reader;
+  client_data.writer = writer;
+
+  return(JpegOptimizer_Compress(&client_data, progressive, lessless, quality));
 }
