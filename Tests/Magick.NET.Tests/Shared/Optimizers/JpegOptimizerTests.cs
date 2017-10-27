@@ -72,6 +72,51 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
+        public void Compress_StreamIsNull_ThrowsException()
+        {
+            ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+            {
+                Optimizer.Compress((Stream)null);
+            });
+        }
+
+        [TestMethod]
+        public void Compress_StreamCannotRead_ThrowsException()
+        {
+            using (TestStream stream = new TestStream(false, true, true))
+            {
+                ExceptionAssert.ThrowsArgumentException("stream", () =>
+                {
+                    Optimizer.Compress(stream);
+                });
+            }
+        }
+
+        [TestMethod]
+        public void Compress_StreamCannotWrite_ThrowsException()
+        {
+            using (TestStream stream = new TestStream(true, false, true))
+            {
+                ExceptionAssert.ThrowsArgumentException("stream", () =>
+                {
+                    Optimizer.Compress(stream);
+                });
+            }
+        }
+
+        [TestMethod]
+        public void Compress_StreamCannotSeek_ThrowsException()
+        {
+            using (TestStream stream = new TestStream(true, true, false))
+            {
+                ExceptionAssert.ThrowsArgumentException("stream", () =>
+                {
+                    Optimizer.Compress(stream);
+                });
+            }
+        }
+
+        [TestMethod]
         public void Compress_CanCompress_FileIsSmaller()
         {
             NewAssertCompressSmaller(Files.ImageMagickJPG);
@@ -164,6 +209,51 @@ namespace Magick.NET.Tests
             {
                 Optimizer.LosslessCompress(Files.InvitationTif);
             });
+        }
+
+        [TestMethod]
+        public void LosslessCompress_StreamIsNull_ThrowsException()
+        {
+            ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+            {
+                Optimizer.LosslessCompress((Stream)null);
+            });
+        }
+
+        [TestMethod]
+        public void LosslessCompress_StreamCannotRead_ThrowsException()
+        {
+            using (TestStream stream = new TestStream(false, true, true))
+            {
+                ExceptionAssert.ThrowsArgumentException("stream", () =>
+                {
+                    Optimizer.LosslessCompress(stream);
+                });
+            }
+        }
+
+        [TestMethod]
+        public void LosslessCompress_StreamCannotWrite_ThrowsException()
+        {
+            using (TestStream stream = new TestStream(true, false, true))
+            {
+                ExceptionAssert.ThrowsArgumentException("stream", () =>
+                {
+                    Optimizer.LosslessCompress(stream);
+                });
+            }
+        }
+
+        [TestMethod]
+        public void LosslessCompress_StreamCannotSeek_ThrowsException()
+        {
+            using (TestStream stream = new TestStream(true, true, false))
+            {
+                ExceptionAssert.ThrowsArgumentException("stream", () =>
+                {
+                    Optimizer.LosslessCompress(stream);
+                });
+            }
         }
 
         [TestMethod]

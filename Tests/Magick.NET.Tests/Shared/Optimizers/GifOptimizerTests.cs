@@ -180,6 +180,51 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
+        public void LosslessCompress_StreamIsNull_ThrowsException()
+        {
+            ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+            {
+                Optimizer.LosslessCompress((Stream)null);
+            });
+        }
+
+        [TestMethod]
+        public void LosslessCompress_StreamCannotRead_ThrowsException()
+        {
+            using (TestStream stream = new TestStream(false, true, true))
+            {
+                ExceptionAssert.ThrowsArgumentException("stream", () =>
+                {
+                    Optimizer.LosslessCompress(stream);
+                });
+            }
+        }
+
+        [TestMethod]
+        public void LosslessCompress_StreamCannotWrite_ThrowsException()
+        {
+            using (TestStream stream = new TestStream(true, false, true))
+            {
+                ExceptionAssert.ThrowsArgumentException("stream", () =>
+                {
+                    Optimizer.LosslessCompress(stream);
+                });
+            }
+        }
+
+        [TestMethod]
+        public void LosslessCompress_StreamCannotSeek_ThrowsException()
+        {
+            using (TestStream stream = new TestStream(true, true, false))
+            {
+                ExceptionAssert.ThrowsArgumentException("stream", () =>
+                {
+                    Optimizer.LosslessCompress(stream);
+                });
+            }
+        }
+
+        [TestMethod]
         public void LosslessCompress_CanCompress_FileIsSmaller()
         {
             NewAssertLosslessCompressSmaller(Files.FujiFilmFinePixS1ProGIF);
