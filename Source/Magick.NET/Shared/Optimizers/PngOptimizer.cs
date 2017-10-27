@@ -59,7 +59,7 @@ namespace ImageMagick.ImageOptimizers
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool Compress(FileInfo file)
         {
-            return LosslessCompress(file);
+            return DoCompress(file, false);
         }
 
         /// <summary>
@@ -71,7 +71,10 @@ namespace ImageMagick.ImageOptimizers
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool Compress(string fileName)
         {
-            return LosslessCompress(fileName);
+            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            Throw.IfNullOrEmpty(nameof(fileName), filePath);
+
+            return DoCompress(new FileInfo(filePath), false);
         }
 
         /// <summary>
@@ -83,7 +86,7 @@ namespace ImageMagick.ImageOptimizers
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool Compress(Stream stream)
         {
-            return LosslessCompress(stream);
+            return DoCompress(stream, false);
         }
 
         /// <summary>
@@ -96,7 +99,7 @@ namespace ImageMagick.ImageOptimizers
         {
             Throw.IfNull(nameof(file), file);
 
-            return DoLosslessCompress(file);
+            return DoCompress(file, true);
         }
 
         /// <summary>
@@ -110,7 +113,7 @@ namespace ImageMagick.ImageOptimizers
             string filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
-            return DoLosslessCompress(new FileInfo(filePath));
+            return DoCompress(new FileInfo(filePath), true);
         }
 
         /// <summary>
@@ -121,7 +124,7 @@ namespace ImageMagick.ImageOptimizers
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool LosslessCompress(Stream stream)
         {
-            throw new System.NotSupportedException();
+            return DoCompress(stream, true);
         }
 
         private static void CheckTransparency(MagickImage image)
@@ -133,18 +136,27 @@ namespace ImageMagick.ImageOptimizers
                 image.HasAlpha = false;
         }
 
-        private bool DoLosslessCompress(FileInfo file)
+        private static void StartCompression(MagickImage image, bool lossless)
+        {
+            ImageOptimizerHelper.CheckFormat(image, MagickFormat.Png);
+
+            if (!lossless)
+            {
+                image.Strip();
+                image.Settings.SetDefine(MagickFormat.Png, "exclude-chunks", "all");
+                image.Settings.SetDefine(MagickFormat.Png, "include-chunks", "tRNS,gAMA");
+            }
+
+            CheckTransparency(image);
+        }
+
+        private bool DoCompress(FileInfo file, bool lossless)
         {
             bool isCompressed = false;
 
             using (MagickImage image = new MagickImage(file))
             {
-                ImageOptimizerHelper.CheckFormat(image, MagickFormat.Png);
-
-                image.Strip();
-                image.Settings.SetDefine(MagickFormat.Png, "exclude-chunks", "all");
-                image.Settings.SetDefine(MagickFormat.Png, "include-chunks", "tRNS,gAMA");
-                CheckTransparency(image);
+                StartCompression(image, lossless);
 
                 Collection<TemporaryFile> tempFiles = new Collection<TemporaryFile>();
 
@@ -177,6 +189,68 @@ namespace ImageMagick.ImageOptimizers
                     {
                         tempFile.Dispose();
                     }
+                }
+            }
+
+            return isCompressed;
+        }
+
+        private bool DoCompress(Stream stream, bool lossless)
+        {
+            Throw.IfNull(nameof(stream), stream);
+            ImageOptimizerHelper.CheckStream(stream);
+
+            bool isCompressed = false;
+            long startPosition = stream.Position;
+
+            using (MagickImage image = new MagickImage(stream))
+            {
+                StartCompression(image, lossless);
+
+                MemoryStream bestStream = null;
+
+                try
+                {
+                    foreach (int quality in GetQualityList())
+                    {
+                        MemoryStream memStream = new MemoryStream();
+
+                        try
+                        {
+                            image.Quality = quality;
+                            image.Write(memStream);
+
+                            if (bestStream == null || memStream.Length < bestStream.Length)
+                            {
+                                if (bestStream != null)
+                                    bestStream.Dispose();
+
+                                bestStream = memStream;
+                                memStream = null;
+                            }
+                        }
+                        finally
+                        {
+                            if (memStream != null)
+                                memStream.Dispose();
+                        }
+                    }
+
+                    if (bestStream.Length < (stream.Length - startPosition))
+                    {
+                        isCompressed = true;
+                        stream.Position = startPosition;
+                        bestStream.Position = 0;
+                        bestStream.CopyTo(stream);
+                        stream.SetLength(startPosition + bestStream.Length);
+                    }
+
+                    stream.Position = startPosition;
+                }
+                finally
+                {
+                    if (bestStream != null)
+                        bestStream.Dispose();
                 }
             }
 

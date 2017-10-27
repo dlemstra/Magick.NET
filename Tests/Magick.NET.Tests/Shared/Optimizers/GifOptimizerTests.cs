@@ -119,13 +119,13 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Compress_CanCompress_FileIsSmaller()
         {
-            NewAssertCompressSmaller(Files.FujiFilmFinePixS1ProGIF);
+            AssertCompressSmaller(Files.FujiFilmFinePixS1ProGIF);
         }
 
         [TestMethod]
         public void Compress_CannotCompress_FileIsNotSmaller()
         {
-            NewAssertCompressNotSmaller(Files.RoseSparkleGIF);
+            AssertCompressNotSmaller(Files.RoseSparkleGIF);
         }
 
         [TestMethod]
@@ -227,13 +227,13 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void LosslessCompress_CanCompress_FileIsSmaller()
         {
-            NewAssertLosslessCompressSmaller(Files.FujiFilmFinePixS1ProGIF);
+            AssertLosslessCompressSmaller(Files.FujiFilmFinePixS1ProGIF);
         }
 
         [TestMethod]
         public void LosslessCompress_CannotCompress_FileIsNotSmaller()
         {
-            NewAssertLosslessCompressNotSmaller(Files.RoseSparkleGIF);
+            AssertLosslessCompressNotSmaller(Files.RoseSparkleGIF);
         }
 
         [TestMethod]
