@@ -877,9 +877,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Ping(FileInfo file)
         {
-            Throw.IfNull(nameof(file), file);
-
-            Ping(file.FullName);
+            Ping(file, null);
         }
 
         /// <summary>
@@ -924,8 +922,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Ping(string fileName)
         {
-            Clear();
-            AddImages(fileName, null, true);
+            Ping(fileName, null);
         }
 
         /// <summary>
@@ -981,31 +978,6 @@ namespace ImageMagick
         /// <summary>
         /// Read all image frames.
         /// </summary>
-        /// <param name="file">The file to read the frames from.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Read(FileInfo file)
-        {
-            Throw.IfNull(nameof(file), file);
-
-            Read(file.FullName);
-        }
-
-        /// <summary>
-        /// Read all image frames.
-        /// </summary>
-        /// <param name="file">The file to read the frames from.</param>
-        /// <param name="readSettings">The settings to use when reading the image.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Read(FileInfo file, MagickReadSettings readSettings)
-        {
-            Throw.IfNull(nameof(file), file);
-
-            Read(file.FullName, readSettings);
-        }
-
-        /// <summary>
-        /// Read all image frames.
-        /// </summary>
         /// <param name="data">The byte array to read the image data from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Read(byte[] data)
@@ -1025,6 +997,29 @@ namespace ImageMagick
 
             Clear();
             AddImages(data, data.Length, readSettings, false);
+        }
+
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
+        /// <param name="file">The file to read the frames from.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Read(FileInfo file)
+        {
+            Read(file, null);
+        }
+
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
+        /// <param name="file">The file to read the frames from.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Read(FileInfo file, MagickReadSettings readSettings)
+        {
+            Throw.IfNull(nameof(file), file);
+
+            Read(file.FullName, readSettings);
         }
 
         /// <summary>

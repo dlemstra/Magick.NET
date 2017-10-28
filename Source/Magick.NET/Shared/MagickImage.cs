@@ -4484,9 +4484,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Ping(FileInfo file)
         {
-            Throw.IfNull(nameof(file), file);
-
-            Read(file.FullName, null, true);
+            Ping(file, null);
         }
 
         /// <summary>
@@ -4530,7 +4528,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Ping(string fileName)
         {
-            Read(fileName, null, true);
+            Ping(fileName, null);
         }
 
         /// <summary>
@@ -4723,9 +4721,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Read(FileInfo file)
         {
-            Throw.IfNull(nameof(file), file);
-
-            Read(file.FullName);
+            Read(file, null);
         }
 
         /// <summary>
