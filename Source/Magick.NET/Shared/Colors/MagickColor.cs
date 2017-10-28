@@ -98,14 +98,25 @@ namespace ImageMagick
             Initialize(red, green, blue, alpha);
         }
 
+#if Q8
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickColor"/> class.
         /// </summary>
-        /// <param name="cyan">Cyan component value of this color.</param>
-        /// <param name="magenta">Magenta component value of this color.</param>
-        /// <param name="yellow">Yellow component value of this color.</param>
-        /// <param name="black">Black component value of this color.</param>
-        /// <param name="alpha">Alpha component value of this color.</param>
+        /// <param name="cyan">Cyan component value of this color (0-255).</param>
+        /// <param name="magenta">Magenta component value of this color (0-255).</param>
+        /// <param name="yellow">Yellow component value of this color (0-255).</param>
+        /// <param name="black">Black component value of this color (0-255).</param>
+        /// <param name="alpha">Alpha component value of this color (0-255).</param>
+#elif Q16 || Q16HDRI
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickColor"/> class.
+        /// </summary>
+        /// <param name="cyan">Cyan component value of this color (0-65535).</param>
+        /// <param name="magenta">Magenta component value of this color (0-65535).</param>
+        /// <param name="yellow">Yellow component value of this color (0-65535).</param>
+        /// <param name="black">Black component value of this color (0-65535).</param>
+        /// <param name="alpha">Alpha component value of this color (0-65535).</param>
+#endif
         public MagickColor(QuantumType cyan, QuantumType magenta, QuantumType yellow, QuantumType black, QuantumType alpha)
         {
             Initialize(cyan, magenta, yellow, alpha);
