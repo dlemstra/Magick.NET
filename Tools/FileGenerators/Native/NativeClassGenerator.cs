@@ -167,6 +167,9 @@ namespace FileGenerator.Native
 
             WriteDelegates();
 
+            WriteLine("#if !NETSTANDARD1_3");
+            WriteLine("[SuppressUnmanagedCodeSecurity]");
+            WriteLine("#endif");
             WriteLine("private static class NativeMethods");
             WriteStartColon();
             WriteX64();
