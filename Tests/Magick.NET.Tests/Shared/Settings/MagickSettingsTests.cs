@@ -321,7 +321,7 @@ namespace Magick.NET.Tests
                 image.Settings.FontWeight = FontWeight.ExtraBold;
                 image.Read("label:Test");
 
-                Assert.AreEqual(98, image.Width);
+                Assert.AreEqual(97, image.Width);
                 Assert.AreEqual(48, image.Height);
                 ColorAssert.AreEqual(MagickColors.Black, image, 16, 16);
             }
@@ -532,13 +532,13 @@ namespace Magick.NET.Tests
                 image.Settings.TextInterlineSpacing = 10;
                 image.Read("label:First\nSecond");
 
-                Assert.AreEqual(42, image.Width);
+                Assert.AreEqual(43, image.Width);
                 Assert.AreEqual(39, image.Height);
 
                 image.Settings.TextInterlineSpacing = 20;
                 image.Read("label:First\nSecond");
 
-                Assert.AreEqual(42, image.Width);
+                Assert.AreEqual(43, image.Width);
                 Assert.AreEqual(49, image.Height);
             }
         }
@@ -553,13 +553,13 @@ namespace Magick.NET.Tests
                 image.Settings.TextInterwordSpacing = 10;
                 image.Read("label:First second");
 
-                Assert.AreEqual(73, image.Width);
+                Assert.AreEqual(74, image.Width);
                 Assert.AreEqual(15, image.Height);
 
                 image.Settings.TextInterwordSpacing = 20;
                 image.Read("label:First second");
 
-                Assert.AreEqual(83, image.Width);
+                Assert.AreEqual(84, image.Width);
                 Assert.AreEqual(15, image.Height);
             }
         }
@@ -574,13 +574,13 @@ namespace Magick.NET.Tests
                 image.Settings.TextKerning = 10;
                 image.Read("label:First");
 
-                Assert.AreEqual(65, image.Width);
+                Assert.AreEqual(64, image.Width);
                 Assert.AreEqual(15, image.Height);
 
                 image.Settings.TextKerning = 20;
                 image.Read("label:First");
 
-                Assert.AreEqual(105, image.Width);
+                Assert.AreEqual(104, image.Width);
                 Assert.AreEqual(15, image.Height);
             }
         }
@@ -595,20 +595,20 @@ namespace Magick.NET.Tests
                 image.Settings.TextUnderColor = MagickColors.Purple;
                 image.Read("label:First");
 
-                Assert.AreEqual(25, image.Width);
+                Assert.AreEqual(24, image.Width);
                 Assert.AreEqual(15, image.Height);
 
                 ColorAssert.AreEqual(MagickColors.Purple, image, 0, 0);
-                ColorAssert.AreEqual(MagickColors.White, image, 24, 0);
+                ColorAssert.AreEqual(MagickColors.Purple, image, 23, 0);
 
                 image.Settings.TextUnderColor = null;
                 image.Read("label:First");
 
-                Assert.AreEqual(25, image.Width);
+                Assert.AreEqual(24, image.Width);
                 Assert.AreEqual(15, image.Height);
 
                 ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
-                ColorAssert.AreEqual(MagickColors.White, image, 24, 0);
+                ColorAssert.AreEqual(MagickColors.White, image, 23, 0);
             }
         }
 

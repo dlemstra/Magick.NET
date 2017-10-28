@@ -28,15 +28,17 @@ extern "C" {
 #endif
 
 /*
-  Single threaded unless workload justifies the threading overhead.
+  Number of threads bounded by the amount of work and any thread resource limit.
+  The limit is 2 if the pixel cache type is not memory or memory-mapped.
 */
-#define magick_threads(source,destination,chunk,expression) \
-  num_threads((((expression) != 0) && \
-    ((GetImagePixelCacheType(source) == MemoryCache) || \
-     (GetImagePixelCacheType(source) == MapCache)) && \
-    ((GetImagePixelCacheType(destination) == MemoryCache) || \
-     (GetImagePixelCacheType(destination) == MapCache))) ? \
-    MagickMax(1,MagickMin(GetMagickResourceLimit(ThreadResource),(chunk)/16)) : 1)
+#define magick_number_threads(source,destination,chunk,multithreaded) \
+  num_threads((multithreaded) == 0 ? 1 : \
+    ((GetImagePixelCacheType(source) != MemoryCache) && \
+     (GetImagePixelCacheType(source) != MapCache)) || \
+    ((GetImagePixelCacheType(destination) != MemoryCache) && \
+     (GetImagePixelCacheType(destination) != MapCache)) ? \
+    MagickMax(MagickMin(GetMagickResourceLimit(ThreadResource),2),1) : \
+    MagickMax(MagickMin((ssize_t) GetMagickResourceLimit(ThreadResource),(ssize_t) (chunk)/64),1))
 
 #if defined(__clang__) || (__GNUC__ > 3) || ((__GNUC__ == 3) && (__GNUC_MINOR__ > 10))
 #define MagickCachePrefetch(address,mode,locality) \
