@@ -71,3 +71,4 @@ This can be resolved by setting `LD_LIBRARY_PATH`: `export LD_LIBRARY_PATH=$LD_L
 Getting Magick.NET working on Mono sometimes requires an extra step. The Magick.NET.Native library is not always automatically copied to the output
 directory when the NuGet reference is added to the project. The copy does not happens when the project is build on Windows instead of a Linux machine.
 The native library located in the folder `runtimes/linux-x64/native` of the NuGet package should then be copied to the output folder of the project.
+And it is possible that you will need to rename the native library and prefix it with `lib` (e.g `libMagick.NET-Q8-x64.Native.dll.so`).
