@@ -52,7 +52,18 @@ namespace ImageMagick
                 }
                 case 'd':
                 {
-                    return CreateDdsWriteDefines(element);
+                    switch(element.Name[3])
+                    {
+                        case 'R':
+                        {
+                            return CreateDdsReadDefines(element);
+                        }
+                        case 'W':
+                        {
+                            return CreateDdsWriteDefines(element);
+                        }
+                    }
+                    break;
                 }
                 case 'j':
                 {
@@ -145,6 +156,14 @@ namespace ImageMagick
                 return null;
             BmpWriteDefines result = new BmpWriteDefines();
             result.Subtype = Variables.GetValue<Nullable<ImageMagick.Defines.BmpSubtype>>(element, "subtype");
+            return result;
+        }
+        private IDefines CreateDdsReadDefines(XmlElement element)
+        {
+            if (element == null)
+                return null;
+            DdsReadDefines result = new DdsReadDefines();
+            result.SkipMipmaps = Variables.GetValue<Nullable<Boolean>>(element, "skipMipmaps");
             return result;
         }
         private IDefines CreateDdsWriteDefines(XmlElement element)

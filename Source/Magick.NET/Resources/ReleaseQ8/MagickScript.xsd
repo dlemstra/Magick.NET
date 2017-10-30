@@ -1313,6 +1313,9 @@
   <xs:complexType name="bmpWriteDefines">
     <xs:attribute name="subtype" type="BmpSubtype" />
   </xs:complexType>
+  <xs:complexType name="ddsReadDefines">
+    <xs:attribute name="skipMipmaps" type="bool" />
+  </xs:complexType>
   <xs:complexType name="ddsWriteDefines">
     <xs:attribute name="clusterFit" type="bool" />
     <xs:attribute name="compression" type="DdsCompression" />
@@ -3114,6 +3117,7 @@
     <xs:sequence>
       <xs:choice>
         <xs:element name="bmpWriteDefines" type="bmpWriteDefines" />
+        <xs:element name="ddsReadDefines" type="ddsReadDefines" />
         <xs:element name="ddsWriteDefines" type="ddsWriteDefines" />
         <xs:element name="jp2ReadDefines" type="jp2ReadDefines" />
         <xs:element name="jp2WriteDefines" type="jp2WriteDefines" />
@@ -3598,6 +3602,7 @@
   <xs:group name="iReadDefines">
     <xs:sequence>
       <xs:choice>
+        <xs:element name="ddsReadDefines" type="ddsReadDefines" />
         <xs:element name="jp2ReadDefines" type="jp2ReadDefines" />
         <xs:element name="jpegReadDefines" type="jpegReadDefines" />
         <xs:element name="pdfReadDefines" type="pdfReadDefines" />
