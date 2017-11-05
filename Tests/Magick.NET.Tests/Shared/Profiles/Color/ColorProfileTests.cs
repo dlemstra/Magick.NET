@@ -16,7 +16,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Magick.NET.Tests
 {
     [TestClass]
-    public sealed class ColorProfileTests
+    public class ColorProfileTests
     {
         [TestMethod]
         public void Test_ColorSpace()

@@ -26,7 +26,7 @@ using QuantumType = System.Single;
 namespace Magick.NET.Tests
 {
     [TestClass]
-    public sealed class PixelTests
+    public class PixelTests
     {
         [TestMethod]
         public void Test_IEquatable()

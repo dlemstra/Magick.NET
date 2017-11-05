@@ -10,7 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
@@ -21,7 +20,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Magick.NET.Tests
 {
     [TestClass]
-    public sealed class XmpProfileTests
+    public class XmpProfileTests
     {
         [TestMethod]
         public void Test_CreateReader()

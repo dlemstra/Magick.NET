@@ -10,7 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +29,7 @@ using QuantumType = System.Single;
 namespace Magick.NET.Tests
 {
     [TestClass]
-    public sealed class SafePixelCollectionTests
+    public class SafePixelCollectionTests
     {
         [TestMethod]
         public void Channels_ReturnsChannelCountOfImage()

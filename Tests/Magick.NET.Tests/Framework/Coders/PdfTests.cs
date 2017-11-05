@@ -18,7 +18,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public sealed partial class PdfTests
+    public partial class PdfTests
     {
         private delegate void ReadDelegate();
 

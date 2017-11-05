@@ -30,7 +30,7 @@ using QuantumType = System.Single;
 namespace Magick.NET.Tests
 {
     [TestClass]
-    public sealed class UnsafePixelCollectionTests
+    public class UnsafePixelCollectionTests
     {
         private static bool Is64Bit => IntPtr.Size == 8;
 
