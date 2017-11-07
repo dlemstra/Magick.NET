@@ -237,7 +237,7 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void LoslessCompress_CanCompress_CanBeCalledTwice()
+        public void LosslessCompress_CanCompress_CanBeCalledTwice()
         {
             AssertCompressTwice(Files.SnakewarePNG);
         }

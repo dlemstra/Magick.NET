@@ -269,13 +269,13 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void LoslessCompress_CanCompress_CanBeCalledTwice()
+        public void LosslessCompress_CanCompress_CanBeCalledTwice()
         {
             AssertCompressTwice(Files.ImageMagickJPG);
         }
 
         [TestMethod]
-        public void LoslessCompress_CompareWithCompress_CompressIsSmallerThanLosslessCompress()
+        public void LosslessCompress_CompareWithCompress_CompressIsSmallerThanLosslessCompress()
         {
             long compress = AssertCompressSmaller(Files.ImageMagickJPG);
             long losslessCompress = AssertLosslessCompressSmaller(Files.ImageMagickJPG);
