@@ -922,11 +922,32 @@ namespace ImageMagick
         /// Returns the distortion based on the specified metric.
         /// </summary>
         /// <param name="image">The other image to compare with this image.</param>
+        /// <param name="settings">The settings to use.</param>
+        /// <param name="difference">The image that will contain the difference.</param>
+        /// <returns>The distortion based on the specified metric.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        double Compare(IMagickImage image, CompareSettings settings, IMagickImage difference);
+
+        /// <summary>
+        /// Returns the distortion based on the specified metric.
+        /// </summary>
+        /// <param name="image">The other image to compare with this image.</param>
         /// <param name="metric">The metric to use.</param>
         /// <param name="difference">The image that will contain the difference.</param>
         /// <returns>The distortion based on the specified metric.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         double Compare(IMagickImage image, ErrorMetric metric, IMagickImage difference);
+
+        /// <summary>
+        /// Returns the distortion based on the specified metric.
+        /// </summary>
+        /// <param name="image">The other image to compare with this image.</param>
+        /// <param name="settings">The settings to use.</param>
+        /// <param name="difference">The image that will contain the difference.</param>
+        /// <param name="channels">The channel(s) to compare.</param>
+        /// <returns>The distortion based on the specified metric.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        double Compare(IMagickImage image, CompareSettings settings, IMagickImage difference, Channels channels);
 
         /// <summary>
         /// Returns the distortion based on the specified metric.
@@ -3157,18 +3178,6 @@ namespace ImageMagick
         /// <param name="color">The color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void SetColormap(int index, MagickColor color);
-
-        /// <summary>
-        /// When comparing images, emphasize pixel differences with this color.
-        /// </summary>
-        /// <param name="color">The color.</param>
-        void SetHighlightColor(MagickColor color);
-
-        /// <summary>
-        /// When comparing images, de-emphasize pixel differences with this color.
-        /// </summary>
-        /// <param name="color">The color.</param>
-        void SetLowlightColor(MagickColor color);
 
         /// <summary>
         /// Shade image using distant light source.

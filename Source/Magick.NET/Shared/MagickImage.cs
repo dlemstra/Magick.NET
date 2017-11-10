@@ -1864,6 +1864,19 @@ namespace ImageMagick
         /// Returns the distortion based on the specified metric.
         /// </summary>
         /// <param name="image">The other image to compare with this image.</param>
+        /// <param name="settings">The settings to use.</param>
+        /// <param name="difference">The image that will contain the difference.</param>
+        /// <returns>The distortion based on the specified metric.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public double Compare(IMagickImage image, CompareSettings settings, IMagickImage difference)
+        {
+            return Compare(image, settings, difference, ImageMagick.Channels.Composite);
+        }
+
+        /// <summary>
+        /// Returns the distortion based on the specified metric.
+        /// </summary>
+        /// <param name="image">The other image to compare with this image.</param>
         /// <param name="metric">The metric to use.</param>
         /// <param name="difference">The image that will contain the difference.</param>
         /// <returns>The distortion based on the specified metric.</returns>
@@ -1884,14 +1897,38 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public double Compare(IMagickImage image, ErrorMetric metric, IMagickImage difference, Channels channels)
         {
+            return Compare(image, new CompareSettings { Metric = metric }, difference, channels);
+        }
+
+        /// <summary>
+        /// Returns the distortion based on the specified metric.
+        /// </summary>
+        /// <param name="image">The other image to compare with this image.</param>
+        /// <param name="settings">The settings to use.</param>
+        /// <param name="difference">The image that will contain the difference.</param>
+        /// <param name="channels">The channel(s) to compare.</param>
+        /// <returns>The distortion based on the specified metric.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public double Compare(IMagickImage image, CompareSettings settings, IMagickImage difference, Channels channels)
+        {
             Throw.IfNull(nameof(image), image);
+            Throw.IfNull(nameof(settings), settings);
             Throw.IfNull(nameof(difference), difference);
 
             MagickImage differenceImage = difference as MagickImage;
             if (differenceImage == null)
                 throw new NotSupportedException();
 
-            IntPtr result = _nativeInstance.Compare(image, metric, channels, out double distortion);
+            if (settings.HighlightColor != null)
+                SetArtifact("compare:highlight-color", settings.HighlightColor.ToString());
+
+            if (settings.LowlightColor != null)
+                SetArtifact("compare:lowlight-color", settings.LowlightColor.ToString());
+
+            if (settings.MasklightColor != null)
+                SetArtifact("compare:masklight-color", settings.MasklightColor.ToString());
+
+            IntPtr result = _nativeInstance.Compare(image, settings.Metric, channels, out double distortion);
             if (result != IntPtr.Zero)
                 differenceImage._nativeInstance.Instance = result;
 
@@ -5315,28 +5352,6 @@ namespace ImageMagick
             Throw.IfNull(nameof(color), color);
 
             _nativeInstance.SetColormap(index, color);
-        }
-
-        /// <summary>
-        /// When comparing images, emphasize pixel differences with this color.
-        /// </summary>
-        /// <param name="color">The color.</param>
-        public void SetHighlightColor(MagickColor color)
-        {
-            Throw.IfNull(nameof(color), color);
-
-            SetArtifact("highlight-color", color.ToString());
-        }
-
-        /// <summary>
-        /// When comparing images, de-emphasize pixel differences with this color.
-        /// </summary>
-        /// <param name="color">The color.</param>
-        public void SetLowlightColor(MagickColor color)
-        {
-            Throw.IfNull(nameof(color), color);
-
-            SetArtifact("lowlight-color", color.ToString());
         }
 
         /// <summary>

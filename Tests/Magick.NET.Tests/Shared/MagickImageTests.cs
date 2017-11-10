@@ -3156,38 +3156,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_SetHighlightColor()
-        {
-            using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.SetHighlightColor(MagickColors.Fuchsia);
-#if Q8
-                Assert.AreEqual("#FF00FFFF", image.GetArtifact("highlight-color"));
-#elif Q16 || Q16HDRI
-                Assert.AreEqual("#FFFF0000FFFFFFFF", image.GetArtifact("highlight-color"));
-#else
-#error Not implemented!
-#endif
-            }
-        }
-
-        [TestMethod]
-        public void Test_SetLowlightColor()
-        {
-            using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.SetLowlightColor(MagickColors.Purple);
-#if Q8
-                Assert.AreEqual("#800080FF", image.GetArtifact("lowlight-color"));
-#elif Q16 || Q16HDRI
-                Assert.AreEqual("#808000008080FFFF", image.GetArtifact("lowlight-color"));
-#else
-#error Not implemented!
-#endif
-            }
-        }
-
-        [TestMethod]
         public void Test_Shade()
         {
             using (IMagickImage image = new MagickImage())

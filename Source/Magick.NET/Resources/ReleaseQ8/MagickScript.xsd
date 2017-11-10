@@ -2817,16 +2817,6 @@
             <xs:attribute name="index" use="required" type="int" />
           </xs:complexType>
         </xs:element>
-        <xs:element name="setHighlightColor">
-          <xs:complexType>
-            <xs:attribute name="color" use="required" type="color" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="setLowlightColor">
-          <xs:complexType>
-            <xs:attribute name="color" use="required" type="color" />
-          </xs:complexType>
-        </xs:element>
         <xs:element name="shade">
           <xs:complexType>
             <xs:attribute name="azimuth" type="double" />

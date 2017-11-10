@@ -1198,16 +1198,6 @@ namespace ImageMagick
                                             }
                                             break;
                                         }
-                                        case 'H':
-                                        {
-                                            ExecuteSetHighlightColor(element, image);
-                                            return;
-                                        }
-                                        case 'L':
-                                        {
-                                            ExecuteSetLowlightColor(element, image);
-                                            return;
-                                        }
                                     }
                                     break;
                                 }
@@ -3407,16 +3397,6 @@ namespace ImageMagick
             Int32 index_ = Variables.GetValue<Int32>(element, "index");
             MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
             image.SetColormap(index_, color_);
-        }
-        private void ExecuteSetHighlightColor(XmlElement element, IMagickImage image)
-        {
-            MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
-            image.SetHighlightColor(color_);
-        }
-        private void ExecuteSetLowlightColor(XmlElement element, IMagickImage image)
-        {
-            MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
-            image.SetLowlightColor(color_);
         }
         private void ExecuteShade(XmlElement element, IMagickImage image)
         {
