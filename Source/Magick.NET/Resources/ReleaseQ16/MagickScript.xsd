@@ -1879,6 +1879,16 @@
     <xs:attribute name="title" type="xs:string" />
     <xs:attribute name="transparentColor" type="color" />
   </xs:complexType>
+  <xs:complexType name="morphologySettings">
+    <xs:attribute name="channels" type="Channels" />
+    <xs:attribute name="convolveBias" type="double" />
+    <xs:attribute name="convolveScale" type="geometry" />
+    <xs:attribute name="iterations" type="int" />
+    <xs:attribute name="kernel" type="Kernel" />
+    <xs:attribute name="kernelArguments" type="xs:string" />
+    <xs:attribute name="method" type="MorphologyMethod" />
+    <xs:attribute name="userKernel" type="xs:string" />
+  </xs:complexType>
   <xs:complexType name="paths">
     <xs:sequence>
       <xs:group ref="paths" maxOccurs="unbounded" />
@@ -2592,6 +2602,9 @@
         </xs:element>
         <xs:element name="morphology">
           <xs:complexType>
+            <xs:sequence>
+              <xs:element name="settings" minOccurs="0" type="morphologySettings" />
+            </xs:sequence>
             <xs:attribute name="arguments" type="xs:string" />
             <xs:attribute name="channels" type="Channels" />
             <xs:attribute name="iterations" type="int" />

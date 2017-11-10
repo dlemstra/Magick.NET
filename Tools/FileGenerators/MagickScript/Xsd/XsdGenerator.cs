@@ -426,6 +426,7 @@ namespace FileGenerator.MagickScript
                         break;
                     case "distortSettings":
                     case "montageSettings":
+                    case "morphologySettings":
                     case "pixelStorageSettings":
                     case "quantizeSettings":
                         ReplaceWithClass(annotation, annotationID);

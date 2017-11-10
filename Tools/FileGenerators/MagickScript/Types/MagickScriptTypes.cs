@@ -184,12 +184,8 @@ namespace FileGenerator.MagickScript
                 case "Drawable":
                 case "IDefines":
                 case "IReadDefines":
-                case "MagickSettings":
-                case "MontageSettings":
                 case "PathArc":
                 case "PrimaryInfo":
-                case "PixelStorageSettings":
-                case "QuantizeSettings":
                     return char.ToLowerInvariant(typeName[0]) + typeName.Substring(1);
                 case "IEnumerable<Drawable>":
                     return "drawables";
@@ -208,6 +204,9 @@ namespace FileGenerator.MagickScript
                 case "IMagickImage":
                     return "image";
                 default:
+                    if (typeName.EndsWith("Settings"))
+                        return char.ToLowerInvariant(typeName[0]) + typeName.Substring(1);
+
                     return null;
             }
         }
