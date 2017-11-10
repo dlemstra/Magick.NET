@@ -244,8 +244,7 @@ namespace ImageMagick
             string[] xyValues = values[0].Split('x');
             Throw.IfTrue(nameof(value), xyValues.Length > 2, "Invalid density specified.");
 
-            double x;
-            Throw.IfFalse(nameof(value), double.TryParse(xyValues[0], NumberStyles.Number, CultureInfo.InvariantCulture, out x), "Invalid density specified.");
+            Throw.IfFalse(nameof(value), double.TryParse(xyValues[0], NumberStyles.Number, CultureInfo.InvariantCulture, out double x), "Invalid density specified.");
 
             double y;
             if (xyValues.Length == 1)

@@ -129,8 +129,7 @@ namespace ImageMagick
 
             for (int i = 0; i < 14; i++)
             {
-                int hex;
-                if (!int.TryParse(hash.Substring(i * 5, 5), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out hex))
+                if (!int.TryParse(hash.Substring(i * 5, 5), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out int hex))
                     throw new ArgumentException("Invalid hash specified", nameof(hash));
 
                 double value = (ushort)hex / Math.Pow(10.0, hex >> 17);

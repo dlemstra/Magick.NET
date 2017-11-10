@@ -1891,9 +1891,7 @@ namespace ImageMagick
             if (differenceImage == null)
                 throw new NotSupportedException();
 
-            double distortion;
-
-            IntPtr result = _nativeInstance.Compare(image, metric, channels, out distortion);
+            IntPtr result = _nativeInstance.Compare(image, metric, channels, out double distortion);
             if (result != IntPtr.Zero)
                 differenceImage._nativeInstance.Instance = result;
 
@@ -5868,10 +5866,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(image), image);
 
-            double similarityMetric;
-
-            MagickRectangle rectangle;
-            IntPtr result = _nativeInstance.SubImageSearch(image, metric, similarityThreshold, out rectangle, out similarityMetric);
+            IntPtr result = _nativeInstance.SubImageSearch(image, metric, similarityThreshold, out MagickRectangle rectangle, out double similarityMetric);
             return new MagickSearchResult(Create(result, image.Settings), MagickGeometry.FromRectangle(rectangle), similarityMetric);
         }
 
