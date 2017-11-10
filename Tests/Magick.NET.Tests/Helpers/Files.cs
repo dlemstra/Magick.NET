@@ -107,19 +107,19 @@ namespace Magick.NET.Tests
             }
         }
 
-        public static string LetterJPG
-        {
-            get
-            {
-                return _Root + @"Images/Letter.jpg";
-            }
-        }
-
         public static string ImageMagickTXT
         {
             get
             {
                 return _Root + @"Images/ImageMagick.txt";
+            }
+        }
+
+        public static string LetterJPG
+        {
+            get
+            {
+                return _Root + @"Images/Letter.jpg";
             }
         }
 
@@ -144,6 +144,14 @@ namespace Magick.NET.Tests
             get
             {
                 return _Root + @"Images/Noise.png";
+            }
+        }
+
+        public static string PictureJPG
+        {
+            get
+            {
+                return _Root + @"Images/Picture.jpg";
             }
         }
 

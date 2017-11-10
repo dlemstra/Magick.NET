@@ -176,6 +176,31 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
+        public void Compress_ShouldPreserveTheColorProfile()
+        {
+            using (MagickImage image = new MagickImage())
+            {
+                image.Ping(Files.PictureJPG);
+
+                Assert.IsNotNull(image.GetColorProfile());
+            }
+
+            using (TemporaryFile tempFile = new TemporaryFile(Files.PictureJPG))
+            {
+                var result = Optimizer.Compress(tempFile);
+
+                Assert.IsTrue(result);
+
+                using (MagickImage image = new MagickImage())
+                {
+                    image.Ping(Files.PictureJPG);
+
+                    Assert.IsNotNull(image.GetColorProfile());
+                }
+            }
+        }
+
+        [TestMethod]
         public void LosslessCompress_FileNameIsNull_ThrowsException()
         {
             ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
@@ -281,6 +306,31 @@ namespace Magick.NET.Tests
             long losslessCompress = AssertLosslessCompressSmaller(Files.ImageMagickJPG);
 
             Assert.IsTrue(compress < losslessCompress, "{0} is not smaller than {1}", compress, losslessCompress);
+        }
+
+        [TestMethod]
+        public void LosslessCompress_ShouldPreserveTheColorProfile()
+        {
+            using (MagickImage image = new MagickImage())
+            {
+                image.Ping(Files.PictureJPG);
+
+                Assert.IsNotNull(image.GetColorProfile());
+            }
+
+            using (TemporaryFile tempFile = new TemporaryFile(Files.PictureJPG))
+            {
+                var result = Optimizer.LosslessCompress(tempFile);
+
+                Assert.IsTrue(result);
+
+                using (MagickImage image = new MagickImage())
+                {
+                    image.Ping(Files.PictureJPG);
+
+                    Assert.IsNotNull(image.GetColorProfile());
+                }
+            }
         }
     }
 }

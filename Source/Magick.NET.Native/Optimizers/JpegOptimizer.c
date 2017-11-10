@@ -25,8 +25,24 @@
 
 #define MaxBufferExtent 16384
 
+typedef struct _Marker
+{
+  JOCTET
+    *buffer;
+
+  int
+    code;
+
+  size_t
+    length;
+} Marker;
+
 typedef struct _ClientData
 {
+  boolean
+    lossless,
+    progressive;
+
   const char
     *inputFileName,
     *outputFileName;
@@ -35,24 +51,21 @@ typedef struct _ClientData
     reader,
     writer;
 
-  boolean
-    progressive;
-
-  boolean
-    lossless;
-
-  jvirt_barray_ptr
-    *coefficients;
+  jmp_buf
+    error_recovery;
 
   JSAMPARRAY
     buffer;
 
+  jvirt_barray_ptr
+    *coefficients;
+
+  Marker
+    *icc_marker;
+
   size_t
     height,
     quality;
-
-  jmp_buf
-    error_recovery;
 } ClientData;
 
 typedef struct _SourceManager
@@ -357,6 +370,54 @@ static boolean DecompressJpeg(j_decompress_ptr decompress_info, ClientData *clie
   return TRUE;
 }
 
+static int GetCharacter(j_decompress_ptr jpeg_info)
+{
+  if (jpeg_info->src->bytes_in_buffer == 0)
+    (void) (*jpeg_info->src->fill_input_buffer)(jpeg_info);
+  jpeg_info->src->bytes_in_buffer--;
+  return (int)GETJOCTET(*jpeg_info->src->next_input_byte++);
+}
+
+static boolean ReadICCMarker(j_decompress_ptr jpeg_info)
+{
+  ClientData
+    *client_data;
+
+  register ssize_t
+    i;
+
+  register JOCTET
+    *p;
+
+  size_t
+    length;
+
+  length = (size_t)((size_t)GetCharacter(jpeg_info) << 8);
+  length += (size_t)GetCharacter(jpeg_info);
+  if (length <= 2)
+    return TRUE;
+  length -= 2;
+
+  client_data = (ClientData *)jpeg_info->client_data;
+  client_data->icc_marker = malloc(sizeof(*client_data->icc_marker));
+  if (client_data->icc_marker == (Marker *)NULL)
+    return FALSE;
+
+  ResetMagickMemory(client_data->icc_marker, 0, sizeof(*client_data->icc_marker));
+
+  client_data->icc_marker->code = jpeg_info->unread_marker;
+  client_data->icc_marker->length = length;
+  client_data->icc_marker->buffer = malloc(length * sizeof(*client_data->icc_marker->buffer));
+  if (client_data->icc_marker->buffer == (JOCTET *)NULL)
+    return FALSE;
+
+  p = client_data->icc_marker->buffer;
+  for (i = 0; i < (ssize_t)length; i++)
+    *p++ = (JOCTET)GetCharacter(jpeg_info);
+
+  return TRUE;
+}
+
 static boolean ReadJpeg(j_decompress_ptr decompress_info, ClientData *client_data)
 {
   SourceManager
@@ -376,13 +437,16 @@ static boolean ReadJpeg(j_decompress_ptr decompress_info, ClientData *client_dat
   if (source == (SourceManager *)NULL)
     return FALSE;
 
+  /* For now we only preserve the ICC profile */
+  jpeg_set_marker_processor(decompress_info, (int)(JPEG_APP0 + 2), ReadICCMarker);
+
   jpeg_read_header(decompress_info, TRUE);
 
   /*
       When the chroma subsampling is 4:4:4 it will be change to 4:2:0 but this will
       require reading the scanlines.
   */
-  if ((client_data->lossless == MagickFalse) &&
+  if ((client_data->lossless == FALSE) &&
     (decompress_info->comp_info[0].h_samp_factor == 1) &&
     (decompress_info->comp_info[0].v_samp_factor == 1) &&
     (decompress_info->comp_info[1].h_samp_factor == 1) &&
@@ -529,6 +593,14 @@ static void WriteCoefficients(j_decompress_ptr decompress_info, j_compress_ptr c
   jpeg_write_coefficients(compress_info, client_data->coefficients);
 }
 
+static void WriteICCMarker(j_compress_ptr compress_info, ClientData *client_data)
+{
+  if (client_data->icc_marker == (Marker*)NULL)
+    return;
+
+  jpeg_write_marker(compress_info, client_data->icc_marker->code, (const JOCTET *)client_data->icc_marker->buffer, (unsigned int)client_data->icc_marker->length);
+}
+
 static boolean WriteJpeg(j_decompress_ptr decompress_info, ClientData *client_data)
 {
   DestinationManager
@@ -569,6 +641,8 @@ static boolean WriteJpeg(j_decompress_ptr decompress_info, ClientData *client_da
   else
     WriteCoefficients(decompress_info, &compress_info, client_data);
 
+  WriteICCMarker(&compress_info, client_data);
+
   jpeg_finish_compress(&compress_info);
   jpeg_destroy_compress(&compress_info);
 
@@ -579,6 +653,13 @@ static void TerminateClientData(ClientData *client_data)
 {
   size_t
     i;
+
+  if (client_data->icc_marker != (Marker *)NULL)
+  {
+    if (client_data->icc_marker->buffer != (JOCTET *) NULL)
+      free(client_data->icc_marker->buffer);
+    free(client_data->icc_marker);
+  }
 
   if (client_data->height == 0)
     return;
