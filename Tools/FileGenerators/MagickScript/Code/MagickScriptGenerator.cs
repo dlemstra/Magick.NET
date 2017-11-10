@@ -82,6 +82,7 @@ namespace FileGenerator.MagickScript
 
         private void WriteSettings()
         {
+            CreateCodeFile(new DistortSettingsGenerator());
             CreateCodeFile(new MagickSettingsGenerator());
             CreateCodeFile(new MontageSettingsGenerator());
             CreateCodeFile(new MorphologySettingsGenerator());

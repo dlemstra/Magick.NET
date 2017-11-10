@@ -59,6 +59,10 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <xs:complexType name="distortSettings">
+        <xs:annotation id="distortSettings"/>
+    </xs:complexType>
+
     <xs:complexType name="doubleArray">
         <xs:sequence>
             <xs:element name="value" type="xs:double" minOccurs="0" maxOccurs="unbounded"/>

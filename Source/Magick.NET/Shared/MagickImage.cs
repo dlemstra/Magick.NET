@@ -2505,7 +2505,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Distort(DistortMethod method, params double[] arguments)
         {
-            Distort(method, false, arguments);
+            Distort(method, new DistortSettings(), arguments);
         }
 
         /// <summary>
@@ -2514,14 +2514,21 @@ namespace ImageMagick
         /// 'bestfit' is set to true.
         /// </summary>
         /// <param name="method">The distortion method to use.</param>
-        /// <param name="bestfit">Attempt to 'bestfit' the size of the resulting image.</param>
+        /// <param name="settings">The settings for the distort operation.</param>
         /// <param name="arguments">An array containing the arguments for the distortion.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Distort(DistortMethod method, bool bestfit, params double[] arguments)
+        public void Distort(DistortMethod method, DistortSettings settings, params double[] arguments)
         {
+            Throw.IfNull(nameof(settings), settings);
             Throw.IfNullOrEmpty(nameof(arguments), arguments);
 
-            _nativeInstance.Distort(method, bestfit, arguments, arguments.Length);
+            if (settings.Scale != null)
+                SetArtifact("distort:scale", settings.Scale.Value.ToString());
+
+            if (settings.Viewport != null)
+                SetArtifact("distort:viewport", settings.Viewport.ToString());
+
+            _nativeInstance.Distort(method, settings.Bestfit, arguments, arguments.Length);
         }
 
         /// <summary>

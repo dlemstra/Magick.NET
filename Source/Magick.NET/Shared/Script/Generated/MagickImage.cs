@@ -2324,21 +2324,21 @@ namespace ImageMagick
             Hashtable arguments = new Hashtable();
             foreach (XmlAttribute attribute in element.Attributes)
             {
-                if (attribute.Name == "bestfit")
-                    arguments["bestfit"] = Variables.GetValue<Boolean>(attribute);
-                else if (attribute.Name == "method")
-                    arguments["method"] = Variables.GetValue<DistortMethod>(attribute);
+                arguments[attribute.Name] = Variables.GetValue<DistortMethod>(attribute);
             }
             foreach (XmlElement elem in element.SelectNodes("*"))
             {
-                arguments[elem.Name] = Variables.GetDoubleArray(elem);
+                if (elem.Name == "arguments")
+                    arguments["arguments"] = Variables.GetDoubleArray(elem);
+                else if (elem.Name == "settings")
+                    arguments["settings"] = CreateDistortSettings(elem);
             }
             if (OnlyContains(arguments, "method", "arguments"))
                 image.Distort((DistortMethod)arguments["method"], (Double[])arguments["arguments"]);
-            else if (OnlyContains(arguments, "method", "bestfit", "arguments"))
-                image.Distort((DistortMethod)arguments["method"], (Boolean)arguments["bestfit"], (Double[])arguments["arguments"]);
+            else if (OnlyContains(arguments, "method", "settings", "arguments"))
+                image.Distort((DistortMethod)arguments["method"], (DistortSettings)arguments["settings"], (Double[])arguments["arguments"]);
             else
-                throw new ArgumentException("Invalid argument combination for 'distort', allowed combinations are: [method, arguments] [method, bestfit, arguments]");
+                throw new ArgumentException("Invalid argument combination for 'distort', allowed combinations are: [method, arguments] [method, settings, arguments]");
         }
         private void ExecuteEdge(XmlElement element, IMagickImage image)
         {

@@ -1382,6 +1382,11 @@
       <xs:pattern value="((\d+x?\d*)|(\d*x\d+))( cm| inch)*" />
     </xs:restriction>
   </xs:simpleType>
+  <xs:complexType name="distortSettings">
+    <xs:attribute name="bestfit" type="bool" />
+    <xs:attribute name="scale" type="double" />
+    <xs:attribute name="viewport" type="geometry" />
+  </xs:complexType>
   <xs:complexType name="doubleArray">
     <xs:sequence>
       <xs:element name="value" type="xs:double" minOccurs="0" maxOccurs="unbounded" />
@@ -2343,8 +2348,8 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="arguments" type="doubleArray" />
+              <xs:element name="settings" minOccurs="0" type="distortSettings" />
             </xs:sequence>
-            <xs:attribute name="bestfit" type="bool" />
             <xs:attribute name="method" use="required" type="DistortMethod" />
           </xs:complexType>
         </xs:element>

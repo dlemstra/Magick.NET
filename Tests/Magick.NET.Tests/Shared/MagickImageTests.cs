@@ -1388,32 +1388,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_Distort()
-        {
-            using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                ExceptionAssert.ThrowsArgumentNullException("arguments", () =>
-                {
-                    image.Distort(DistortMethod.Perspective, null);
-                });
-
-                ExceptionAssert.ThrowsArgumentException("arguments", () =>
-                {
-                    image.Distort(DistortMethod.Perspective, new double[] { });
-                });
-
-                image.BackgroundColor = MagickColors.Cornsilk;
-                image.VirtualPixelMethod = VirtualPixelMethod.Background;
-                image.Distort(DistortMethod.Perspective, new double[] { 0, 0, 0, 0, 0, 90, 0, 90, 90, 0, 90, 25, 90, 90, 90, 65 });
-                image.Clamp();
-
-                ColorAssert.AreEqual(new MagickColor("#0000"), image, 1, 64);
-                ColorAssert.AreEqual(MagickColors.Cornsilk, image, 104, 50);
-                ColorAssert.AreEqual(new MagickColor("#aa4de148f9cb"), image, 66, 62);
-            }
-        }
-
-        [TestMethod]
         public void Test_Drawable()
         {
             using (IMagickImage image = new MagickImage(MagickColors.Red, 10, 10))

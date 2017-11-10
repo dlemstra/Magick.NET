@@ -259,6 +259,9 @@ namespace FileGenerator.MagickScript
                 case "ColorProfile":
                     Write("CreateColorProfile");
                     break;
+                case "DistortSettings":
+                    Write("CreateDistortSettings");
+                    break;
                 case "Double[]":
                 case "IEnumerable<Double>":
                     Write("Variables.GetDoubleArray");

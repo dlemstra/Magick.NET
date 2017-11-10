@@ -129,6 +129,7 @@ namespace FileGenerator.MagickScript
                 case "UInt16":
                     return "short";
                 case "ColorProfile":
+                case "DistortSettings":
                 case "Double[]":
                 case "Drawable":
                 case "IDefines":
@@ -179,6 +180,7 @@ namespace FileGenerator.MagickScript
                 case "IEnumerable<Double>":
                     return "doubleArray";
                 case "ColorProfile":
+                case "DistortSettings":
                 case "Drawable":
                 case "IDefines":
                 case "IReadDefines":
@@ -288,6 +290,7 @@ namespace FileGenerator.MagickScript
                 case "Encoding":
                 case "ColorProfile":
                 case "Density":
+                case "DistortSettings":
                 case "Double":
                 case "Double[]":
                 case "IDefines":
