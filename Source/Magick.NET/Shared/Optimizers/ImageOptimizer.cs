@@ -88,7 +88,14 @@ namespace ImageMagick
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool Compress(Stream stream)
         {
-            throw new System.NotSupportedException();
+            ImageOptimizerHelper.CheckStream(stream);
+
+            IImageOptimizer optimizer = GetOptimizer(stream);
+            if (optimizer == null)
+                return false;
+
+            optimizer.OptimalCompression = OptimalCompression;
+            return optimizer.Compress(stream);
         }
 
         /// <summary>
@@ -183,7 +190,14 @@ namespace ImageMagick
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool LosslessCompress(Stream stream)
         {
-            throw new System.NotSupportedException();
+            ImageOptimizerHelper.CheckStream(stream);
+
+            IImageOptimizer optimizer = GetOptimizer(stream);
+            if (optimizer == null)
+                return false;
+
+            optimizer.OptimalCompression = OptimalCompression;
+            return optimizer.LosslessCompress(stream);
         }
 
         private static Collection<IImageOptimizer> CreateImageOptimizers()
@@ -230,6 +244,23 @@ namespace ImageMagick
         {
             MagickFormatInfo info = GetFormatInformation(file);
             DebugThrow.IfNull(nameof(info), info);
+
+            foreach (IImageOptimizer optimizer in _optimizers)
+            {
+                if (optimizer.Format.Module == info.Module)
+                    return optimizer;
+            }
+
+            throw new MagickCorruptImageErrorException("Invalid format, supported formats are: " + SupportedFormats);
+        }
+
+        private IImageOptimizer GetOptimizer(Stream stream)
+        {
+            long position = stream.Position;
+            MagickImageInfo imageInfo = new MagickImageInfo(stream);
+            stream.Position = position;
+
+            MagickFormatInfo info = MagickNET.GetFormatInformation(imageInfo.Format);
 
             foreach (IImageOptimizer optimizer in _optimizers)
             {

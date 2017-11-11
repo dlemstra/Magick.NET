@@ -79,6 +79,51 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
+        public void Compress_StreamIsNull_ThrowsException()
+        {
+            ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+            {
+                Optimizer.Compress((Stream)null);
+            });
+        }
+
+        [TestMethod]
+        public void Compress_StreamCannotRead_ThrowsException()
+        {
+            using (TestStream stream = new TestStream(false, true, true))
+            {
+                ExceptionAssert.ThrowsArgumentException("stream", () =>
+                {
+                    Optimizer.Compress(stream);
+                });
+            }
+        }
+
+        [TestMethod]
+        public void Compress_StreamCannotWrite_ThrowsException()
+        {
+            using (TestStream stream = new TestStream(true, false, true))
+            {
+                ExceptionAssert.ThrowsArgumentException("stream", () =>
+                {
+                    Optimizer.Compress(stream);
+                });
+            }
+        }
+
+        [TestMethod]
+        public void Compress_StreamCannotSeek_ThrowsException()
+        {
+            using (TestStream stream = new TestStream(true, true, false))
+            {
+                ExceptionAssert.ThrowsArgumentException("stream", () =>
+                {
+                    Optimizer.Compress(stream);
+                });
+            }
+        }
+
+        [TestMethod]
         public void LosslessCompress_FileIsNull_ThrowsException()
         {
             ExceptionAssert.ThrowsArgumentNullException("file", () =>
@@ -131,6 +176,51 @@ namespace Magick.NET.Tests
                 ExceptionAssert.Throws<MagickMissingDelegateErrorException>(() =>
                 {
                     Optimizer.LosslessCompress(file);
+                });
+            }
+        }
+
+        [TestMethod]
+        public void LosslessCompress_StreamIsNull_ThrowsException()
+        {
+            ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+            {
+                Optimizer.LosslessCompress((Stream)null);
+            });
+        }
+
+        [TestMethod]
+        public void LosslessCompress_StreamCannotRead_ThrowsException()
+        {
+            using (TestStream stream = new TestStream(false, true, true))
+            {
+                ExceptionAssert.ThrowsArgumentException("stream", () =>
+                {
+                    Optimizer.LosslessCompress(stream);
+                });
+            }
+        }
+
+        [TestMethod]
+        public void LosslessCompress_StreamCannotWrite_ThrowsException()
+        {
+            using (TestStream stream = new TestStream(true, false, true))
+            {
+                ExceptionAssert.ThrowsArgumentException("stream", () =>
+                {
+                    Optimizer.LosslessCompress(stream);
+                });
+            }
+        }
+
+        [TestMethod]
+        public void LosslessCompress_StreamCannotSeek_ThrowsException()
+        {
+            using (TestStream stream = new TestStream(true, true, false))
+            {
+                ExceptionAssert.ThrowsArgumentException("stream", () =>
+                {
+                    Optimizer.LosslessCompress(stream);
                 });
             }
         }
@@ -310,7 +400,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Compress_CanCompressGifFile_FileIsSmaller()
         {
-            AssertCompress(Files.FujiFilmFinePixS1ProGIF, true, (FileInfo file) =>
+            AssertCompress(Files.FujiFilmFinePixS1ProGIF, true, (string file) =>
             {
                 return Optimizer.Compress(file);
             });
@@ -328,7 +418,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Compress_CanCompressPngFile_FileIsSmaller()
         {
-            AssertCompress(Files.SnakewarePNG, true, (FileInfo file) =>
+            AssertCompress(Files.SnakewarePNG, true, (Stream file) =>
             {
                 return Optimizer.Compress(file);
             });
@@ -337,7 +427,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Compress_CannotCompressGifFile_FileNotIsSmaller()
         {
-            AssertCompress(Files.RoseSparkleGIF, false, (string file) =>
+            AssertCompress(Files.RoseSparkleGIF, false, (Stream file) =>
             {
                 return Optimizer.Compress(file);
             });
@@ -346,7 +436,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Compress_CannotCompressJpgFile_FileIsNotSmaller()
         {
-            AssertCompress(Files.LetterJPG, false, (string file) =>
+            AssertCompress(Files.LetterJPG, false, (FileInfo file) =>
             {
                 return Optimizer.Compress(file);
             });
@@ -373,7 +463,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void LosslessCompress_CanCompressJpgFile_FileIsSmaller()
         {
-            AssertCompress(Files.ImageMagickJPG, true, (FileInfo file) =>
+            AssertCompress(Files.ImageMagickJPG, true, (string file) =>
             {
                 return Optimizer.LosslessCompress(file);
             });
@@ -382,7 +472,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void LosslessCompress_CanCompressPngFile_FileIsSmaller()
         {
-            AssertCompress(Files.SnakewarePNG, true, (FileInfo file) =>
+            AssertCompress(Files.SnakewarePNG, true, (Stream file) =>
             {
                 return Optimizer.LosslessCompress(file);
             });
@@ -391,7 +481,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void LosslessCompress_CannotCompressGifFile_FileNotIsSmaller()
         {
-            AssertCompress(Files.RoseSparkleGIF, false, (string file) =>
+            AssertCompress(Files.RoseSparkleGIF, false, (FileInfo file) =>
             {
                 return Optimizer.LosslessCompress(file);
             });
@@ -400,7 +490,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void LosslessCompress_CannotCompressJpgFile_FileIsNotSmaller()
         {
-            AssertCompress(Files.LetterJPG, false, (string file) =>
+            AssertCompress(Files.LetterJPG, false, (Stream file) =>
             {
                 return Optimizer.LosslessCompress(file);
             });
