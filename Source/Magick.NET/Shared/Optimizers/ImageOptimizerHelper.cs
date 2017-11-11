@@ -26,6 +26,7 @@ namespace ImageMagick
 
         internal static void CheckStream(Stream stream)
         {
+            Throw.IfNull(nameof(stream), stream);
             Throw.IfFalse(nameof(stream), stream.CanRead, "The stream should be readable.");
             Throw.IfFalse(nameof(stream), stream.CanWrite, "The stream should be writeable.");
             Throw.IfFalse(nameof(stream), stream.CanSeek, "The stream should be seekable.");

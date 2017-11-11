@@ -242,7 +242,6 @@ namespace ImageMagick.ImageOptimizers
 
         private bool DoCompress(Stream stream, bool lossless, int quality)
         {
-            Throw.IfNull(nameof(stream), stream);
             ImageOptimizerHelper.CheckStream(stream);
 
             bool isCompressed = false;

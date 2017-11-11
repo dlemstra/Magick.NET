@@ -115,7 +115,6 @@ namespace ImageMagick.ImageOptimizers
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool LosslessCompress(Stream stream)
         {
-            Throw.IfNull(nameof(stream), stream);
             ImageOptimizerHelper.CheckStream(stream);
 
             bool isCompressed = false;
