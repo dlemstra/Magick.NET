@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2006
+VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magick.NET", "Source\Magick.NET\Magick.NET.csproj", "{DAAE3844-6435-4912-8F69-9F7A9242B4AC}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -115,7 +115,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{6D1DE15B-EE1E-44DF-81CC-BEA1195B5BCE}"
 	ProjectSection(SolutionItems) = preProject
 		Building.md = Building.md
-		Changes.md = Changes.md
 		Readme.md = Readme.md
 	EndProjectSection
 EndProject
@@ -139,6 +138,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		Documentation\ReadRawImageFromCamera.md = Documentation\ReadRawImageFromCamera.md
 		Documentation\ResizeImage.md = Documentation\ResizeImage.md
 		Documentation\UsingColors.md = Documentation\UsingColors.md
+		Documentation\Versioning.md = Documentation\Versioning.md
 		Documentation\Watermark.md = Documentation\Watermark.md
 	EndProjectSection
 EndProject

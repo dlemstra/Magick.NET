@@ -31,6 +31,10 @@ Every commit to Magick.NET is automatically build and tested with the help of [A
 These packages can be downloaded from the following NuGet feed: [https://ci.appveyor.com/nuget/Magick.NET](https://ci.appveyor.com/nuget/Magick.NET). It is not recommended to use
 this build in a production environment.
 
+## Versioning
+
+Magick.NET uses the following: [versioning strategy](Documentation/Versioning.md).
+
 ## Donate
 
 If you have an uncontrollable urge to give me something for the time and effort I am putting into this project then please buy me something from my
