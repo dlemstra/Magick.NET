@@ -252,7 +252,13 @@ namespace Magick.NET.Tests
 
                         MagickErrorInfo errorInfo = image.Compare(other);
 
+#if Q8
                         Assert.AreEqual(44.55, errorInfo.MeanErrorPerPixel, 0.01);
+#elif Q16 || Q16HDRI
+                        Assert.AreEqual(11450.85, errorInfo.MeanErrorPerPixel, 0.01);
+#else
+#error Not implemented!
+#endif
                         Assert.AreEqual(1, errorInfo.NormalizedMaximumError);
                         Assert.AreEqual(0.13, errorInfo.NormalizedMeanError, 0.01);
                     }
