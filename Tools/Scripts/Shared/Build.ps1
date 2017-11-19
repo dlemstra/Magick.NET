@@ -10,9 +10,9 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 
-function BuildRelease($build,$codecov)
+function BuildRelease($build)
 {
-    Build $build $codecov "Release"
+    Build $build $false "Release"
 }
 
 function BuildTest($build,$codecov)
