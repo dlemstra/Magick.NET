@@ -10,43 +10,53 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 
-function Build($build,$codecov)
+function BuildRelease($build,$codecov)
 {
-  $platform=$($build.Platform).Replace("AnyCPU", "Any CPU")
-  $properties="Configuration=Tests$($build.Quantum),RunCodeAnalysis=false,Platform=$platform"
-  if ($codecov -eq $true)
-  {
-    $properties+=",CodeCov=true"
-  }
-  BuildSolution "$($build.Name).sln" $properties
+    Build $build $codecov "Release"
+}
+
+function BuildTest($build,$codecov)
+{
+    Build $build $codecov "Test"
+}
+
+function Build($build,$codecov,$configuration)
+{
+    $platform=$($build.Platform).Replace("AnyCPU", "Any CPU")
+    $properties="Configuration=$($configuration)$($build.Quantum),RunCodeAnalysis=false,Platform=$platform"
+    if ($codecov -eq $true)
+    {
+        $properties+=",CodeCov=true"
+    }
+    BuildSolution "$($build.Name).sln" $properties
 }
 
 function BuildSolution($solution, $properties)
 {
-  $path = FullPath $solution
-  $directory = Split-Path -parent $path
-  $filename = Split-Path -leaf $path
+    $path = FullPath $solution
+    $directory = Split-Path -parent $path
+    $filename = Split-Path -leaf $path
 
-  .\Tools\Programs\nuget.exe restore $solution
+    .\Tools\Programs\nuget.exe restore $solution
 
-  $location = $(Get-Location)
-  Set-Location $directory
+    $location = $(Get-Location)
+    Set-Location $directory
 
-  msbuild $filename /t:Restore ("/p:$($properties)")
-  CheckExitCode "Failed to restore: $($path)"
+    msbuild $filename /t:Restore ("/p:$($properties)")
+    CheckExitCode "Failed to restore: $($path)"
 
-  msbuild $filename /t:Rebuild ("/p:$($properties)")
-  CheckExitCode "Failed to build: $($path)"
+    msbuild $filename /t:Rebuild ("/p:$($properties)")
+    CheckExitCode "Failed to build: $($path)"
 
-  Set-Location $location
+    Set-Location $location
 }
 
 function CopyNativeLibrary($directory, $platform, $binDir)
 {
-  $quantum = ($directory.Replace(".Native", "").Split('-') | Select-Object -Skip 1) -join '-'
+    $quantum = ($directory.Replace(".Native", "").Split('-') | Select-Object -Skip 1) -join '-'
 
-  $target = "$directory\runtimes\win7-$platform\native"
-  CreateFolder $target
+    $target = "$directory\runtimes\win7-$platform\native"
+    CreateFolder $target
 
-  Copy-Item "Source\Magick.NET.Native\bin\Release$quantum\$binDir\*.Native.dll" "$directory\runtimes\win7-$platform\native"
+    Copy-Item "Source\Magick.NET.Native\bin\Release$quantum\$binDir\*.Native.dll" "$directory\runtimes\win7-$platform\native"
 }

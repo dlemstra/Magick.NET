@@ -22,33 +22,33 @@ SetFolder $scriptPath
 
 function AppVeyorBuild($quantum, $platform, $version)
 {
-  if ($platform -eq "AnyCPU")
-  {
-    AppVeyorBuild $quantum "x86" $version
-    AppVeyorBuild $quantum "x64" $version
+    if ($platform -eq "AnyCPU")
+    {
+        AppVeyorBuild $quantum "x86" $version
+        AppVeyorBuild $quantum "x64" $version
 
     if ($quantum -eq "Q8")
     {
-      GzipAssembliesQ8
+        GzipAssembliesQ8
     }
     elseif ($quantum -eq "Q16")
     {
-      GzipAssembliesQ16
+        GzipAssembliesQ16
     }
     else
     {
-      GzipAssembliesQ16HDRI
+        GzipAssembliesQ16HDRI
     }
-  }
+    }
 
-  $builds = GetBuilds $quantum $platform
+    $builds = GetBuilds $quantum $platform
 
-  UpdateResourceFiles $builds $version
+    UpdateResourceFiles $builds $version
 
-  foreach ($build in $builds)
-  {
-    Build $build $true
-  }
+    foreach ($build in $builds)
+    {
+        BuildTest $build $true
+    }
 }
 
 $quantum = $args[0]
