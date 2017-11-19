@@ -15,6 +15,7 @@ $scriptPath = "$scriptPath\.."
 . $scriptPath\Shared\Functions.ps1
 SetFolder $scriptPath
 
+. Tools\Scripts\Shared\Build.ps1
 . Tools\Scripts\Shared\Config.ps1
 . Tools\Scripts\Shared\Publish.ps1
 
