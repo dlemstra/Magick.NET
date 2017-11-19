@@ -27,18 +27,18 @@ function AppVeyorBuild($quantum, $platform, $version)
         AppVeyorBuild $quantum "x86" $version
         AppVeyorBuild $quantum "x64" $version
 
-    if ($quantum -eq "Q8")
-    {
-        GzipAssembliesQ8
-    }
-    elseif ($quantum -eq "Q16")
-    {
-        GzipAssembliesQ16
-    }
-    else
-    {
-        GzipAssembliesQ16HDRI
-    }
+        if ($quantum -eq "Q8")
+        {
+            GzipAssembliesQ8
+        }
+        elseif ($quantum -eq "Q16")
+        {
+            GzipAssembliesQ16
+        }
+        else
+        {
+            GzipAssembliesQ16HDRI
+        }
     }
 
     $builds = GetBuilds $quantum $platform
