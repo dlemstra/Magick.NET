@@ -126,13 +126,7 @@
         <EmbeddedResource Include="Resources\ColorProfiles\RGB\SRGB.icm">
             <LogicalName>ImageMagick.Resources.ColorProfiles.RGB.SRGB.icm</LogicalName>
         </EmbeddedResource>
-        <EmbeddedResource Condition="'$(Configuration)' == 'DebugQ8' or '$(Configuration)' == 'ReleaseQ8'" Include="Resources\ReleaseQ8\MagickScript.xsd">
-            <LogicalName>ImageMagick.Resources.MagickScript.xsd</LogicalName>
-        </EmbeddedResource>
-        <EmbeddedResource Condition="'$(Configuration)' == 'DebugQ16' or '$(Configuration)' == 'ReleaseQ16'" Include="Resources\ReleaseQ16\MagickScript.xsd">
-            <LogicalName>ImageMagick.Resources.MagickScript.xsd</LogicalName>
-        </EmbeddedResource>
-        <EmbeddedResource Condition="'$(Configuration)' == 'DebugQ16-HDRI' or '$(Configuration)' == 'ReleaseQ16-HDRI'" Include="Resources\ReleaseQ16-HDRI\MagickScript.xsd">
+        <EmbeddedResource Include="Resources\Release$(QuantumType)\MagickScript.xsd">
             <LogicalName>ImageMagick.Resources.MagickScript.xsd</LogicalName>
         </EmbeddedResource>
         <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\coder.xml">
