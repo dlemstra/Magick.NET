@@ -408,7 +408,13 @@ namespace Magick.NET.Tests
                 image.RenderingIntent = RenderingIntent.Relative;
 
                 image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.USWebCoatedSWOP);
-                ColorAssert.AreEqual(new MagickColor("#da478d06323d"), image, 130, 100);
+#if Q8
+                ColorAssert.AreEqual(new MagickColor("#d98c31"), image, 130, 100);
+#elif Q16 || Q16HDRI
+                ColorAssert.AreEqual(new MagickColor("#da7a8d1b3189"), image, 130, 100);
+#else
+#error Not implemented!
+#endif
 
                 image.Read(Files.FujiFilmFinePixS1ProPNG);
 
@@ -417,8 +423,13 @@ namespace Magick.NET.Tests
                 image.BlackPointCompensation = true;
 
                 image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.USWebCoatedSWOP);
-
-                ColorAssert.AreEqual(new MagickColor("#cd0a844e3209"), image, 130, 100);
+#if Q8
+                ColorAssert.AreEqual(new MagickColor("#cc8331"), image, 130, 100);
+#elif Q16 || Q16HDRI
+                ColorAssert.AreEqual(new MagickColor("#ccf7847231b2"), image, 130, 100);
+#else
+#error Not implemented!
+#endif
             }
         }
 
@@ -2724,7 +2735,7 @@ namespace Magick.NET.Tests
             image.Read(Files.Builtin.Rose);
             Assert.AreEqual(70, image.Width);
             Assert.AreEqual(46, image.Height);
-            Assert.AreEqual(MagickFormat.Ppm, image.Format);
+            Assert.AreEqual(MagickFormat.Pnm, image.Format);
 
             image.Read(Files.RoseSparkleGIF);
             Assert.AreEqual("RöseSparkle.gif", Path.GetFileName(image.FileName));
@@ -3624,7 +3635,7 @@ namespace Magick.NET.Tests
                 bytes = image.ToByteArray(MagickFormat.Jpg);
 
                 image.Read(bytes);
-                Assert.AreEqual(MagickFormat.Jpeg, image.Format);
+                Assert.AreEqual(MagickFormat.Jpg, image.Format);
 
                 bytes = image.ToByteArray(MagickFormat.Dds);
 

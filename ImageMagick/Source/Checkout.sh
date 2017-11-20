@@ -3,7 +3,7 @@
 clone_repository()
 {
   repos="https://github.com/ImageMagick"
-  date="2017-11-11 14:14"
+  date="2017-11-20 23:01"
 
   echo ''
   echo "Cloning $1 at $date"
