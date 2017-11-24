@@ -79,7 +79,13 @@ function CopyPdbFiles($builds)
 
     if ($build.Platform -ne "AnyCPU")
     {
-      $source = "Source\Magick.NET.Native$($build.Suffix)\bin\Release$($build.Quantum)\$($build.Platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.pdb"
+      $platform = $($build.Platform)
+      if ($platform -eq "x86")
+      {
+        $platform = "Win32"
+      }
+
+      $source = "Source\Magick.NET.Native$($build.Suffix)\bin\Release$($build.Quantum)\$($platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.pdb"
       if (Test-Path $source)
       {
         $destination = "Publish\Pdb\Magick.NET-$($build.Quantum)-$($build.Platform).Native.pdb"
