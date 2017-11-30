@@ -22,5 +22,5 @@ Magick.NET is build with the following libraries:
 - png 1.6.34 (29 September 2017)
 - tiff 4.0.8 (21 May 2017)
 - ttf 2.8.0 (13 May 2017)
-- webp 0.51.1 (7 July 2016)
+- webp 0.6.0 (26 January 2017)
 - zlib 1.2.11 (15 January 2017)
