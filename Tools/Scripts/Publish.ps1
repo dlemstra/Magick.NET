@@ -26,8 +26,9 @@ function BuildAll($builds)
 {
   foreach ($build in $builds)
   {
-    Build $build
+    BuildTest $build
     TestBuild $build
+    BuildRelease $build
   }
 }
 
@@ -252,7 +253,7 @@ function TestBuild($build)
 {
   $platform=$($build.Platform).Replace("AnyCPU", "x64")
   $platform = "/Platform:$($platform)"
-  $dll = "Tests\Magick.NET.Tests\bin\Release$($build.Quantum)\$($build.Platform)\net45\Magick.NET.Tests.dll"
+  $dll = "Tests\Magick.NET.Tests\bin\Test$($build.Quantum)\$($build.Platform)\net45\Magick.NET.Tests.dll"
   vstest.console.exe /inIsolation $platform $dll
   CheckExitCode ("Test failed for Magick.NET-" + $build.Quantum + "-" + $build.Platform)
 }
