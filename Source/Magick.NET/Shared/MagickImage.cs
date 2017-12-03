@@ -6435,7 +6435,7 @@ namespace ImageMagick
 
         internal static IMagickImage Clone(IMagickImage image)
         {
-            return image != null ? image.Clone() : null;
+            return image?.Clone();
         }
 
         internal static MagickImage Create(IntPtr image)
