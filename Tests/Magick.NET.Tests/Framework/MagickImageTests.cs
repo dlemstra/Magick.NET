@@ -89,7 +89,7 @@ namespace Magick.NET.Tests
 
                 using (IMagickImage image = new MagickImage(bytes))
                 {
-                    image.CompressionMethod = CompressionMethod.Group4;
+                    image.Compression = Compression.Group4;
 
                     using (MemoryStream memStream = new MemoryStream())
                     {

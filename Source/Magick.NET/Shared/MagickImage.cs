@@ -528,10 +528,10 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the compression method to use.
         /// </summary>
-        public CompressionMethod CompressionMethod
+        public Compression Compression
         {
-            get { return _nativeInstance.CompressionMethod; }
-            set { _nativeInstance.CompressionMethod = value; }
+            get { return _nativeInstance.Compression; }
+            set { _nativeInstance.Compression = value; }
         }
 
         /// <summary>

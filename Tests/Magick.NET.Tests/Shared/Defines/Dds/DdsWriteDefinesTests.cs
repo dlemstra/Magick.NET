@@ -87,7 +87,7 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImage output = WriteDds(input))
                 {
-                    Assert.AreEqual(CompressionMethod.DXT1, output.CompressionMethod);
+                    Assert.AreEqual(Compression.DXT1, output.Compression);
                 }
             }
         }
@@ -101,7 +101,7 @@ namespace Magick.NET.Tests
 
                 using (IMagickImage output = WriteDds(input))
                 {
-                    Assert.AreEqual(CompressionMethod.DXT5, output.CompressionMethod);
+                    Assert.AreEqual(Compression.DXT5, output.Compression);
                 }
             }
         }
@@ -118,7 +118,7 @@ namespace Magick.NET.Tests
 
                 using (IMagickImage output = WriteDds(input))
                 {
-                    Assert.AreEqual(CompressionMethod.NoCompression, output.CompressionMethod);
+                    Assert.AreEqual(Compression.NoCompression, output.Compression);
                 }
             }
         }
@@ -135,7 +135,7 @@ namespace Magick.NET.Tests
 
                 using (IMagickImage output = WriteDds(input))
                 {
-                    Assert.AreEqual(CompressionMethod.DXT1, output.CompressionMethod);
+                    Assert.AreEqual(Compression.DXT1, output.Compression);
                 }
             }
         }
@@ -154,7 +154,7 @@ namespace Magick.NET.Tests
 
                 using (IMagickImage output = WriteDds(input))
                 {
-                    Assert.AreEqual(CompressionMethod.DXT1, output.CompressionMethod);
+                    Assert.AreEqual(Compression.DXT1, output.Compression);
                 }
             }
         }

@@ -35,7 +35,7 @@ namespace ImageMagick
                 BackgroundColor = instance.BackgroundColor;
                 ColorSpace = instance.ColorSpace;
                 ColorType = instance.ColorType;
-                CompressionMethod = instance.CompressionMethod;
+                Compression = instance.Compression;
                 Debug = instance.Debug;
                 Density = Density.Create(instance.Density);
                 Endian = instance.Endian;
@@ -101,7 +101,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the compression method to use.
         /// </summary>
-        public CompressionMethod CompressionMethod
+        public Compression Compression
         {
             get;
             set;
@@ -750,7 +750,7 @@ namespace ImageMagick
             BackgroundColor = MagickColor.Clone(settings.BackgroundColor);
             ColorSpace = settings.ColorSpace;
             ColorType = settings.ColorType;
-            CompressionMethod = settings.CompressionMethod;
+            Compression = settings.Compression;
             Debug = settings.Debug;
             Density = Density.Clone(settings.Density);
             Endian = settings.Endian;
@@ -794,7 +794,7 @@ namespace ImageMagick
             instance.BackgroundColor = BackgroundColor;
             instance.ColorSpace = ColorSpace;
             instance.ColorType = ColorType;
-            instance.CompressionMethod = CompressionMethod;
+            instance.Compression = Compression;
             instance.Debug = Debug;
             instance.Density = Density?.ToString(DensityUnit.Undefined);
             instance.Endian = Endian;

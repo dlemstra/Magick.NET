@@ -15,8 +15,8 @@
             "type": "ColorType"
         },
         {
-            "name": "CompressionMethod",
-            "type": "CompressionMethod"
+            "name": "Compression",
+            "type": "Compression"
         },
         {
             "name": "Debug",

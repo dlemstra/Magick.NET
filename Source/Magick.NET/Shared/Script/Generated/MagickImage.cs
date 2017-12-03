@@ -1608,7 +1608,7 @@ namespace ImageMagick
         }
         private void ExecuteCompressionMethod(XmlElement element, IMagickImage image)
         {
-            image.CompressionMethod = Variables.GetValue<CompressionMethod>(element, "value");
+            image.Compression = Variables.GetValue<Compression>(element, "value");
         }
         private void ExecuteDensity(XmlElement element, IMagickImage image)
         {

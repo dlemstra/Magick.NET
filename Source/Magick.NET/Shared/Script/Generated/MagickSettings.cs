@@ -357,7 +357,7 @@ namespace ImageMagick
         }
         private void ExecuteCompressionMethod(XmlElement element, MagickSettings settings)
         {
-            settings.CompressionMethod = Variables.GetValue<CompressionMethod>(element, "value");
+            settings.Compression = Variables.GetValue<Compression>(element, "value");
         }
         private void ExecuteDebug(XmlElement element, MagickSettings settings)
         {

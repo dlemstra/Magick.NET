@@ -55,12 +55,12 @@ MAGICK_NET_EXPORT void MagickSettings_ColorType_Set(ImageInfo *instance, const s
   instance->type = (ImageType)value;
 }
 
-MAGICK_NET_EXPORT size_t MagickSettings_CompressionMethod_Get(const ImageInfo *instance)
+MAGICK_NET_EXPORT size_t MagickSettings_Compression_Get(const ImageInfo *instance)
 {
   return instance->compression;
 }
 
-MAGICK_NET_EXPORT void MagickSettings_CompressionMethod_Set(ImageInfo *instance, const size_t value)
+MAGICK_NET_EXPORT void MagickSettings_Compression_Set(ImageInfo *instance, const size_t value)
 {
   instance->compression = value;
 }

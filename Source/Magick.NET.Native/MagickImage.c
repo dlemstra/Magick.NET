@@ -333,12 +333,12 @@ MAGICK_NET_EXPORT void MagickImage_Compose_Set(Image *instance, const size_t val
   instance->compose = (CompositeOperator)value;
 }
 
-MAGICK_NET_EXPORT size_t MagickImage_CompressionMethod_Get(const Image *instance)
+MAGICK_NET_EXPORT size_t MagickImage_Compression_Get(const Image *instance)
 {
   return (size_t)instance->compression;
 }
 
-MAGICK_NET_EXPORT void MagickImage_CompressionMethod_Set(Image *instance, const size_t value)
+MAGICK_NET_EXPORT void MagickImage_Compression_Set(Image *instance, const size_t value)
 {
   instance->compression = (CompressionType)value;
 }

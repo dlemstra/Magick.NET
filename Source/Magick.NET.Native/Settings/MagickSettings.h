@@ -24,8 +24,8 @@ MAGICK_NET_EXPORT void MagickSettings_ColorSpace_Set(ImageInfo *, const size_t v
 MAGICK_NET_EXPORT size_t MagickSettings_ColorType_Get(const ImageInfo *);
 MAGICK_NET_EXPORT void MagickSettings_ColorType_Set(ImageInfo *, const size_t value);
 
-MAGICK_NET_EXPORT size_t MagickSettings_CompressionMethod_Get(const ImageInfo *);
-MAGICK_NET_EXPORT void MagickSettings_CompressionMethod_Set(ImageInfo *, const size_t);
+MAGICK_NET_EXPORT size_t MagickSettings_Compression_Get(const ImageInfo *);
+MAGICK_NET_EXPORT void MagickSettings_Compression_Set(ImageInfo *, const size_t);
 
 MAGICK_NET_EXPORT const MagickBooleanType MagickSettings_Debug_Get(const ImageInfo *);
 MAGICK_NET_EXPORT void MagickSettings_Debug_Set(ImageInfo *, const MagickBooleanType);

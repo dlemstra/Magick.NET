@@ -174,8 +174,8 @@
             "type": "CompositeOperator"
         },
         {
-            "name": "CompressionMethod",
-            "type": "CompressionMethod"
+            "name": "Compression",
+            "type": "Compression"
         },
         {
             "name": "Depth",

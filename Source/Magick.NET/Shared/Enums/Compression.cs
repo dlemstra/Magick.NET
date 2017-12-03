@@ -15,7 +15,7 @@ namespace ImageMagick
     /// <summary>
     /// Specifies compression methods.
     /// </summary>
-    public enum CompressionMethod
+    public enum Compression
     {
         /// <summary>
         /// Undefined

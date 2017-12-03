@@ -59,9 +59,9 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickSettings_ColorType_Set(IntPtr instance, UIntPtr value);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickSettings_CompressionMethod_Get(IntPtr instance);
+                public static extern UIntPtr MagickSettings_Compression_Get(IntPtr instance);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickSettings_CompressionMethod_Set(IntPtr instance, UIntPtr value);
+                public static extern void MagickSettings_Compression_Set(IntPtr instance, UIntPtr value);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 [return: MarshalAs(UnmanagedType.Bool)]
                 public static extern bool MagickSettings_Debug_Get(IntPtr instance);
@@ -151,9 +151,9 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickSettings_ColorType_Set(IntPtr instance, UIntPtr value);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickSettings_CompressionMethod_Get(IntPtr instance);
+                public static extern UIntPtr MagickSettings_Compression_Get(IntPtr instance);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickSettings_CompressionMethod_Set(IntPtr instance, UIntPtr value);
+                public static extern void MagickSettings_Compression_Set(IntPtr instance, UIntPtr value);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 [return: MarshalAs(UnmanagedType.Bool)]
                 public static extern bool MagickSettings_Debug_Get(IntPtr instance);
@@ -370,7 +370,7 @@ namespace ImageMagick
                     #endif
                 }
             }
-            public CompressionMethod CompressionMethod
+            public Compression Compression
             {
                 get
                 {
@@ -379,15 +379,15 @@ namespace ImageMagick
                     if (NativeLibrary.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickSettings_CompressionMethod_Get(Instance);
+                    result = NativeMethods.X64.MagickSettings_Compression_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickSettings_CompressionMethod_Get(Instance);
+                    result = NativeMethods.X86.MagickSettings_Compression_Get(Instance);
                     #endif
-                    return (CompressionMethod)result;
+                    return (Compression)result;
                 }
                 set
                 {
@@ -395,13 +395,13 @@ namespace ImageMagick
                     if (NativeLibrary.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickSettings_CompressionMethod_Set(Instance, (UIntPtr)value);
+                    NativeMethods.X64.MagickSettings_Compression_Set(Instance, (UIntPtr)value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickSettings_CompressionMethod_Set(Instance, (UIntPtr)value);
+                    NativeMethods.X86.MagickSettings_Compression_Set(Instance, (UIntPtr)value);
                     #endif
                 }
             }

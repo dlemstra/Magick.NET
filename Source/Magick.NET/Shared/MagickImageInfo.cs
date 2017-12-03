@@ -131,7 +131,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the compression method of the image.
         /// </summary>
-        public CompressionMethod CompressionMethod
+        public Compression Compression
         {
             get;
             private set;
@@ -469,7 +469,7 @@ namespace ImageMagick
 
             return
               ColorSpace == other.ColorSpace &&
-              CompressionMethod == other.CompressionMethod &&
+              Compression == other.Compression &&
               Density == other.Density &&
               FileName == other.FileName &&
               Format == other.Format &&
@@ -486,7 +486,7 @@ namespace ImageMagick
         {
             return
               ColorSpace.GetHashCode() ^
-              CompressionMethod.GetHashCode() ^
+              Compression.GetHashCode() ^
               Density.GetHashCode() ^
               FileName.GetHashCode() ^
               Format.GetHashCode() ^
@@ -614,7 +614,7 @@ namespace ImageMagick
         private void Initialize(MagickImage image)
         {
             ColorSpace = image.ColorSpace;
-            CompressionMethod = image.CompressionMethod;
+            Compression = image.Compression;
             Density = image.Density;
             FileName = image.FileName;
             Format = image.Format;
