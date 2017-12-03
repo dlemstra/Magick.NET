@@ -163,9 +163,9 @@ namespace ImageMagick
         CompositeOperator Compose { get; set; }
 
         /// <summary>
-        /// Gets or sets the compression method to use.
+        /// Gets the compression method of the image.
         /// </summary>
-        Compression Compression { get; set; }
+        Compression Compression { get; }
 
         /// <summary>
         /// Gets or sets the vertical and horizontal resolution in pixels of the image.

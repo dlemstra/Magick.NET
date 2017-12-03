@@ -289,7 +289,7 @@
       </xs:simpleType>
     </xs:union>
   </xs:simpleType>
-  <xs:simpleType name="CompressionMethod">
+  <xs:simpleType name="Compression">
     <xs:union>
       <xs:simpleType>
         <xs:restriction base="xs:NMTOKEN">
@@ -1448,9 +1448,9 @@
                   <xs:attribute name="value" use="required" type="ColorType" />
                 </xs:complexType>
               </xs:element>
-              <xs:element name="compressionMethod">
+              <xs:element name="compression">
                 <xs:complexType>
-                  <xs:attribute name="value" use="required" type="CompressionMethod" />
+                  <xs:attribute name="value" use="required" type="Compression" />
                 </xs:complexType>
               </xs:element>
               <xs:element name="debug">
@@ -1688,9 +1688,9 @@
             <xs:attribute name="value" use="required" type="ColorType" />
           </xs:complexType>
         </xs:element>
-        <xs:element name="compressionMethod">
+        <xs:element name="compression">
           <xs:complexType>
-            <xs:attribute name="value" use="required" type="CompressionMethod" />
+            <xs:attribute name="value" use="required" type="Compression" />
           </xs:complexType>
         </xs:element>
         <xs:element name="debug">
@@ -2016,11 +2016,6 @@
         <xs:element name="compose">
           <xs:complexType>
             <xs:attribute name="value" use="required" type="CompositeOperator" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="compressionMethod">
-          <xs:complexType>
-            <xs:attribute name="value" use="required" type="CompressionMethod" />
           </xs:complexType>
         </xs:element>
         <xs:element name="density">

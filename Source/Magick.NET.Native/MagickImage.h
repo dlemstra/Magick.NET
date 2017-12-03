@@ -69,7 +69,6 @@ MAGICK_NET_EXPORT size_t MagickImage_Compose_Get(const Image *);
 MAGICK_NET_EXPORT void MagickImage_Compose_Set(Image *, const size_t);
 
 MAGICK_NET_EXPORT size_t MagickImage_Compression_Get(const Image *);
-MAGICK_NET_EXPORT void MagickImage_Compression_Set(Image *, const size_t);
 
 MAGICK_NET_EXPORT size_t MagickImage_Depth_Get(const Image *);
 MAGICK_NET_EXPORT void MagickImage_Depth_Set(Image *, const size_t);

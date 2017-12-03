@@ -126,8 +126,6 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern UIntPtr MagickImage_Compression_Get(IntPtr instance);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Compression_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern UIntPtr MagickImage_Depth_Get(IntPtr instance);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_Depth_Set(IntPtr instance, UIntPtr value);
@@ -674,8 +672,6 @@ namespace ImageMagick
                 public static extern void MagickImage_Compose_Set(IntPtr instance, UIntPtr value);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern UIntPtr MagickImage_Compression_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Compression_Set(IntPtr instance, UIntPtr value);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern UIntPtr MagickImage_Depth_Get(IntPtr instance);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1855,21 +1851,6 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImage_Compression_Get(Instance);
                     #endif
                     return (Compression)result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_Compression_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_Compression_Set(Instance, (UIntPtr)value);
-                    #endif
                 }
             }
             public int Depth

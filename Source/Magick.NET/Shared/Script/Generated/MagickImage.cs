@@ -396,28 +396,16 @@ namespace ImageMagick
                                         }
                                         case 'p':
                                         {
-                                            switch(element.Name[4])
+                                            switch(element.Name[6])
                                             {
-                                                case 'o':
+                                                case 'e':
                                                 {
-                                                    switch(element.Name[6])
-                                                    {
-                                                        case 'e':
-                                                        {
-                                                            ExecuteCompose(element, image);
-                                                            return;
-                                                        }
-                                                        case 'i':
-                                                        {
-                                                            ExecuteComposite(element, image);
-                                                            return;
-                                                        }
-                                                    }
-                                                    break;
+                                                    ExecuteCompose(element, image);
+                                                    return;
                                                 }
-                                                case 'r':
+                                                case 'i':
                                                 {
-                                                    ExecuteCompressionMethod(element, image);
+                                                    ExecuteComposite(element, image);
                                                     return;
                                                 }
                                             }
@@ -1605,10 +1593,6 @@ namespace ImageMagick
         private void ExecuteCompose(XmlElement element, IMagickImage image)
         {
             image.Compose = Variables.GetValue<CompositeOperator>(element, "value");
-        }
-        private void ExecuteCompressionMethod(XmlElement element, IMagickImage image)
-        {
-            image.Compression = Variables.GetValue<Compression>(element, "value");
         }
         private void ExecuteDensity(XmlElement element, IMagickImage image)
         {

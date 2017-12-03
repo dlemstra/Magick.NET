@@ -79,7 +79,7 @@ namespace ImageMagick
                         }
                         case 'm':
                         {
-                            ExecuteCompressionMethod(element, settings);
+                            ExecuteCompression(element, settings);
                             return;
                         }
                     }
@@ -355,7 +355,7 @@ namespace ImageMagick
         {
             settings.ColorType = Variables.GetValue<ColorType>(element, "value");
         }
-        private void ExecuteCompressionMethod(XmlElement element, MagickSettings settings)
+        private void ExecuteCompression(XmlElement element, MagickSettings settings)
         {
             settings.Compression = Variables.GetValue<Compression>(element, "value");
         }

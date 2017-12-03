@@ -3573,7 +3573,7 @@ namespace Magick.NET.Tests
                 using (MemoryStream memStream = new MemoryStream())
                 {
                     image.Threshold(new Percentage(80));
-                    image.Compression = Compression.Group4;
+                    image.Settings.Compression = Compression.Group4;
                     image.Format = MagickFormat.Pdf;
                     image.Write(memStream);
                 }
