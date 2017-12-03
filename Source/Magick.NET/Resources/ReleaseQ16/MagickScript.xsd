@@ -280,6 +280,7 @@
           <xs:enumeration value="SrcIn" />
           <xs:enumeration value="SrcOut" />
           <xs:enumeration value="SrcOver" />
+          <xs:enumeration value="Stereo" />
           <xs:enumeration value="Threshold" />
           <xs:enumeration value="VividLight" />
           <xs:enumeration value="Xor" />

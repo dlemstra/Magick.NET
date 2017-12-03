@@ -371,5 +371,10 @@ namespace ImageMagick
         /// Xor
         /// </summary>
         Xor,
+
+        /// <summary>
+        /// Stereo
+        /// </summary>
+        Stereo,
     }
 }
