@@ -297,6 +297,15 @@ namespace ImageMagick
         void Ping(string fileName, MagickReadSettings readSettings);
 
         /// <summary>
+        /// Returns a new image where each pixel is the sum of the pixels in the image sequence after applying its
+        /// corresponding terms (coefficient and degree pairs).
+        /// </summary>
+        /// <param name="terms">The list of polynomial coefficients and degree pairs and a constant.</param>
+        /// <returns>A new image where each pixel is the sum of the pixels in the image sequence after applying its
+        /// corresponding terms (coefficient and degree pairs).</returns>
+        IMagickImage Polynomial(double[] terms);
+
+        /// <summary>
         /// Quantize images (reduce number of colors).
         /// </summary>
         /// <returns>The resulting image of the quantize operation.</returns>

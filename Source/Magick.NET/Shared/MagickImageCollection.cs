@@ -938,6 +938,31 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Returns a new image where each pixel is the sum of the pixels in the image sequence after applying its
+        /// corresponding terms (coefficient and degree pairs).
+        /// </summary>
+        /// <param name="terms">The list of polynomial coefficients and degree pairs and a constant.</param>
+        /// <returns>A new image where each pixel is the sum of the pixels in the image sequence after applying its
+        /// corresponding terms (coefficient and degree pairs).</returns>
+        public IMagickImage Polynomial(double[] terms)
+        {
+            ThrowIfEmpty();
+
+            Throw.IfNullOrEmpty(nameof(terms), terms);
+
+            try
+            {
+                AttachImages();
+                IntPtr image = _nativeInstance.Polynomial(_images[0], terms, terms.Length);
+                return MagickImage.Create(image, _images[0].Settings);
+            }
+            finally
+            {
+                DetachImages();
+            }
+        }
+
+        /// <summary>
         /// Quantize images (reduce number of colors).
         /// </summary>
         /// <returns>The resulting image of the quantize operation.</returns>

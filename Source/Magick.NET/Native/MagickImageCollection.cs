@@ -77,6 +77,8 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImageCollection_OptimizeTransparency(IntPtr image, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickImageCollection_Polynomial(IntPtr image, double[] terms, UIntPtr length, out IntPtr exception);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImageCollection_Quantize(IntPtr image, IntPtr settings, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImageCollection_ReadBlob(IntPtr settings, byte[] data, UIntPtr length, out IntPtr exception);
@@ -127,6 +129,8 @@ namespace ImageMagick
                 public static extern IntPtr MagickImageCollection_OptimizePlus(IntPtr image, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImageCollection_OptimizeTransparency(IntPtr image, out IntPtr exception);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickImageCollection_Polynomial(IntPtr image, double[] terms, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImageCollection_Quantize(IntPtr image, IntPtr settings, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -487,6 +491,32 @@ namespace ImageMagick
                 NativeMethods.X86.MagickImageCollection_OptimizeTransparency(image.GetInstance(), out exception);
                 #endif
                 CheckException(exception);
+            }
+            public IntPtr Polynomial(IMagickImage image, double[] terms, int length)
+            {
+                IntPtr exception = IntPtr.Zero;
+                IntPtr result;
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImageCollection_Polynomial(image.GetInstance(), terms, (UIntPtr)length, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImageCollection_Polynomial(image.GetInstance(), terms, (UIntPtr)length, out exception);
+                #endif
+                MagickException magickException = MagickExceptionHelper.Create(exception);
+                if (MagickExceptionHelper.IsError(magickException))
+                {
+                    if (result != IntPtr.Zero)
+                        Dispose(result);
+                    throw magickException;
+                }
+                RaiseWarning(magickException);
+                return result;
             }
             public void Quantize(IMagickImage image, QuantizeSettings settings)
             {

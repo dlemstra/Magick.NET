@@ -277,6 +277,28 @@
             ]
         },
         {
+            "name": "Polynomial",
+            "type": "Instance",
+            "instance": true,
+            "throws": true,
+            "static": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                },
+                {
+                    "name": "terms",
+                    "type": "double[]"
+                },
+                {
+                    "name": "length",
+                    "type": "size_t"
+                }
+            ]
+        },
+        {
             "name": "Quantize",
             "throws": true,
             "static": true,

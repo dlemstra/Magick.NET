@@ -39,6 +39,8 @@ MAGICK_NET_EXPORT Image *MagickImageCollection_OptimizePlus(const Image *, Excep
 
 MAGICK_NET_EXPORT void MagickImageCollection_OptimizeTransparency(Image *, ExceptionInfo **);
 
+MAGICK_NET_EXPORT Image *MagickImageCollection_Polynomial(Image *, const double *, const size_t , ExceptionInfo **);
+
 MAGICK_NET_EXPORT void MagickImageCollection_Quantize(Image *, const QuantizeInfo *, ExceptionInfo **);
 
 MAGICK_NET_EXPORT Image *MagickImageCollection_ReadBlob(const ImageInfo *, const unsigned char *, const size_t, ExceptionInfo **);

@@ -184,6 +184,18 @@ MAGICK_NET_EXPORT void MagickImageCollection_OptimizeTransparency(Image *images,
   MAGICK_NET_SET_EXCEPTION;
 }
 
+MAGICK_NET_EXPORT Image *MagickImageCollection_Polynomial(Image *instance, const double *terms, const size_t length, ExceptionInfo **exception)
+{
+  Image
+    *image;
+
+  MAGICK_NET_GET_EXCEPTION;
+  image = PolynomialImage(instance, length, terms, exceptionInfo);
+  MAGICK_NET_SET_EXCEPTION;
+  return image;
+}
+
+
 MAGICK_NET_EXPORT void MagickImageCollection_Quantize(Image *images, const QuantizeInfo *settings, ExceptionInfo **exception)
 {
   MAGICK_NET_GET_EXCEPTION;
