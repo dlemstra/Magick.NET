@@ -29,7 +29,7 @@ namespace ImageMagick
         public ImageProfile(string name, byte[] data)
         {
             Throw.IfNullOrEmpty(nameof(name), name);
-            Throw.IfNullOrEmpty(nameof(data), data);
+            Throw.IfNull(nameof(data), data);
 
             Name = name;
             Data = Copy(data);

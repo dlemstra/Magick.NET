@@ -51,11 +51,6 @@ namespace Magick.NET.Tests
             {
                 new ImageProfile("name", string.Empty);
             });
-
-            ExceptionAssert.ThrowsArgumentException("data", () =>
-            {
-                new ImageProfile("name", new byte[] { });
-            });
         }
 
         [TestMethod]
