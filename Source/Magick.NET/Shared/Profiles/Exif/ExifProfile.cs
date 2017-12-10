@@ -181,7 +181,12 @@ namespace ImageMagick
         /// </summary>
         protected override void UpdateData()
         {
-            if (_values == null || _values.Count == 0)
+            if (_values == null)
+            {
+                return;
+            }
+
+            if (_values.Count == 0)
             {
                 Data = null;
                 return;

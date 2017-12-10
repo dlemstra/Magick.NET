@@ -23,30 +23,42 @@ namespace Magick.NET.Tests.Shared.Profiles.Exif
             [TestMethod]
             public void ShouldReturnEmptyArrayWhenEmpty()
             {
-                var exifProfile = new ExifProfile();
+                var profile = new ExifProfile();
 
-                var bytes = exifProfile.ToByteArray();
+                var bytes = profile.ToByteArray();
                 Assert.AreEqual(0, bytes.Length);
             }
 
             [TestMethod]
             public void ShouldReturnEmptyArrayWhenAllValuesAreInvalid()
             {
-                var exifProfile = new ExifProfile();
-                exifProfile.SetValue(ExifTag.ImageWidth, 42);
+                var profile = new ExifProfile();
+                profile.SetValue(ExifTag.ImageWidth, 42);
 
-                var bytes = exifProfile.ToByteArray();
+                var bytes = profile.ToByteArray();
                 bytes[16] = 42;
 
-                exifProfile = new ExifProfile(bytes);
+                profile = new ExifProfile(bytes);
 
                 var unkownTag = (ExifTag)298;
-                var value = exifProfile.GetValue(unkownTag);
+                var value = profile.GetValue(unkownTag);
                 Assert.AreEqual(42, value.Value);
                 Assert.AreEqual("42", value.ToString());
 
-                bytes = exifProfile.ToByteArray();
+                bytes = profile.ToByteArray();
                 Assert.AreEqual(0, bytes.Length);
+            }
+
+            [TestMethod]
+            public void ShouldReturnOriginalDataWhenNotParsed()
+            {
+                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+                {
+                    ExifProfile profile = image.GetExifProfile();
+
+                    var bytes = profile.ToByteArray();
+                    Assert.AreEqual(4706, bytes.Length);
+                }
             }
         }
     }
