@@ -2,7 +2,7 @@
 
 1. Magick.NET copyright:
 
-Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 
 Licensed under the ImageMagick License (the "License"); you may not use this
 file except in compliance with the License. You may obtain a copy of the License
@@ -19,7 +19,7 @@ specific language governing permissions and limitations under the License.
 
 2. ImageMagick copyright:
 
-Copyright 1999-2015 ImageMagick Studio LLC, a non-profit organization dedicated
+Copyright 1999-2018 ImageMagick Studio LLC, a non-profit organization dedicated
 to making software imaging solutions freely available.
 
 You may not use this file except in compliance with the License. You may obtain
