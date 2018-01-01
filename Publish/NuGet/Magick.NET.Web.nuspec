@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>This package contains a httpmodule that uses various handlers to script/optimize/compress images.</description>
     <releaseNotes/>
-    <copyright>Copyright 2013-2017 Dirk Lemstra</copyright>
+    <copyright>Copyright 2013-2018 Dirk Lemstra</copyright>
     <tags>ImageMagick Magick.NET Image Convert Resize Draw Effects</tags>
     <dependencies>
       <dependency id="" version="" />
