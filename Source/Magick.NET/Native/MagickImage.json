@@ -194,12 +194,7 @@
         {
             "name": "FileName",
             "type": "string"
-        },
-        {
-            "name": "FileSize",
-            "type": "long",
-            "readonly": true
-        },
+        }, 
         {
             "name": "FilterType",
             "type": "FilterType"

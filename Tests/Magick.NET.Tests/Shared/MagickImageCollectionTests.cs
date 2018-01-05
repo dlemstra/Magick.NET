@@ -1012,12 +1012,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Write()
         {
-            long fileSize;
-            using (IMagickImage image = new MagickImage(Files.RoseSparkleGIF))
-            {
-                fileSize = image.FileSize;
-            }
-
+            long fileSize = new FileInfo(Files.RoseSparkleGIF).Length;
             Assert.AreEqual(fileSize, 9891);
 
             using (IMagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))

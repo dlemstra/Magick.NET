@@ -3650,12 +3650,12 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.Builtin.Wizard))
             {
-                Assert.AreEqual("Gif 480x640 8-bit sRGB 97.34kB", image.ToString());
+                Assert.AreEqual("Gif 480x640 8-bit sRGB", image.ToString());
             }
 
             using (IMagickImage image = new MagickImage(Files.TestPNG))
             {
-                Assert.AreEqual("Png 150x100 16-bit sRGB 7.42kB", image.ToString());
+                Assert.AreEqual("Png 150x100 16-bit sRGB", image.ToString());
             }
         }
 
@@ -4000,7 +4000,7 @@ namespace Magick.NET.Tests
 
             using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
             {
-                long fileSize = image.FileSize;
+                long fileSize = new FileInfo(Files.SnakewarePNG).Length;
 
                 using (MemoryStream memStream = new MemoryStream())
                 {
@@ -4041,12 +4041,13 @@ namespace Magick.NET.Tests
             string fileName = Path.GetTempFileName();
             try
             {
-                using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+                var file = new FileInfo(Files.SnakewarePNG);
+                using (IMagickImage image = new MagickImage(file))
                 {
                     image.Write(fileName);
 
-                    FileInfo file = new FileInfo(fileName);
-                    Assert.AreEqual(image.FileSize, file.Length);
+                    FileInfo output = new FileInfo(fileName);
+                    Assert.AreEqual(file.Length, output.Length);
                 }
             }
             finally
@@ -4057,15 +4058,13 @@ namespace Magick.NET.Tests
             fileName = Path.GetTempFileName();
             try
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                var file = new FileInfo(Files.SnakewarePNG);
+                using (IMagickImage image = new MagickImage(file))
                 {
-                    using (MemoryStream memStream = new MemoryStream())
-                    {
-                        FileInfo file = new FileInfo(fileName);
-                        image.Write(file);
+                    FileInfo output = new FileInfo(fileName);
+                    image.Write(output);
 
-                        Assert.AreEqual(image.FileSize, file.Length);
-                    }
+                    Assert.AreEqual(file.Length, output.Length);
                 }
             }
             finally

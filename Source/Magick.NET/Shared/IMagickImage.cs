@@ -195,11 +195,6 @@ namespace ImageMagick
         string FileName { get; }
 
         /// <summary>
-        /// Gets the image file size.
-        /// </summary>
-        long FileSize { get; }
-
-        /// <summary>
         /// Gets or sets the filter to use when resizing image.
         /// </summary>
         FilterType FilterType { get; set; }

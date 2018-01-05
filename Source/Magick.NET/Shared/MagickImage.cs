@@ -594,14 +594,6 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Gets the image file size.
-        /// </summary>
-        public long FileSize
-        {
-            get { return _nativeInstance.FileSize; }
-        }
-
-        /// <summary>
         /// Gets or sets the filter to use when resizing image.
         /// </summary>
         public FilterType FilterType
@@ -6084,7 +6076,7 @@ namespace ImageMagick
         /// <returns>A string that represents the current image.</returns>
         public override string ToString()
         {
-            return string.Format(CultureInfo.InvariantCulture, "{0} {1}x{2} {3}-bit {4} {5}", Format, Width, Height, Depth, ColorSpace, FormatedFileSize());
+            return string.Format(CultureInfo.InvariantCulture, "{0} {1}x{2} {3}-bit {4}", Format, Width, Height, Depth, ColorSpace);
         }
 
         /// <summary>
@@ -6574,30 +6566,6 @@ namespace ImageMagick
 
             _nativeInstance.Warning -= OnWarning;
             _nativeInstance.Dispose();
-        }
-
-        private string FormatedFileSize()
-        {
-            decimal fileSize = FileSize;
-
-            string suffix = string.Empty;
-            if (fileSize > 1073741824)
-            {
-                fileSize /= 1073741824;
-                suffix = "GB";
-            }
-            else if (fileSize > 1048576)
-            {
-                fileSize /= 1048576;
-                suffix = "MB";
-            }
-            else if (fileSize > 1024)
-            {
-                fileSize /= 1024;
-                suffix = "kB";
-            }
-
-            return string.Format(CultureInfo.InvariantCulture, "{0:N2}{1}", fileSize, suffix);
         }
 
         private void FloodFill(QuantumType alpha, int x, int y, bool invert)

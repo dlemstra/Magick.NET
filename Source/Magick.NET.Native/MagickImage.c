@@ -379,11 +379,6 @@ MAGICK_NET_EXPORT void MagickImage_FileName_Set(Image *instance, const char *val
     CopyMagickString(instance->filename, value, MaxTextExtent);
 }
 
-MAGICK_NET_EXPORT long MagickImage_FileSize_Get(const Image *instance)
-{
-  return (long)GetBlobSize(instance);
-}
-
 MAGICK_NET_EXPORT size_t MagickImage_FilterType_Get(const Image *instance)
 {
   return (size_t)instance->filter;
