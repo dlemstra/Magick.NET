@@ -185,5 +185,10 @@ namespace ImageMagick
         /// YUV
         /// </summary>
         YUV,
+
+        /// <summary>
+        /// LinearGRAY
+        /// </summary>
+        LinearGRAY,
     }
 }
