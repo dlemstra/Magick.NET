@@ -60,6 +60,18 @@ namespace Magick.NET.Tests.Shared
                     }, "ReadPNGImage");
                 }
             }
+
+            [TestMethod]
+            public void ShouldReadAIFromNonSeekableStream()
+            {
+                using (NonSeekableStream stream = new NonSeekableStream(Files.Coders.CartoonNetworkStudiosLogoAI))
+                {
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        image.Read(stream);
+                    }
+                }
+            }
         }
     }
 }
