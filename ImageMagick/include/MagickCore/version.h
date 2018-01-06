@@ -32,8 +32,8 @@ extern "C" {
 #define MagickCopyright  "Copyright (C) 1999-2015 ImageMagick Studio LLC"
 #define MagickLibVersion  0x707
 #define MagickLibVersionText  "7.0.7"
-#define MagickLibVersionNumber  7,0,7,20
-#define MagickLibAddendum  "-20"
+#define MagickLibVersionNumber  7,0,7,21
+#define MagickLibAddendum  "-21"
 #define MagickLibInterface  5
 #define MagickLibMinInterface  0
 #if defined(_WIN64)
