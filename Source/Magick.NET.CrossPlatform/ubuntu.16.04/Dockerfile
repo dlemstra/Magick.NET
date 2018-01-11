@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 
 # Install packages
 RUN apt-get update
-RUN apt-get install -y gcc g++ make autoconf libjpeg-turbo8-dev git openssh-server
+apt-get install -y gcc g++ make autoconf libjpeg-turbo8-dev libtiff5-dev libpng16-dev libwebp-dev git openssh-server
 
 # Initialize the sshd server
 RUN mkdir /var/run/sshd;chmod 755 /var/run/sshd
