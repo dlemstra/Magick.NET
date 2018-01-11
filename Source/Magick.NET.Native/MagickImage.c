@@ -1,4 +1,4 @@
-// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -377,11 +377,6 @@ MAGICK_NET_EXPORT void MagickImage_FileName_Set(Image *instance, const char *val
     *instance->filename = '\0';
   else
     CopyMagickString(instance->filename, value, MaxTextExtent);
-}
-
-MAGICK_NET_EXPORT long MagickImage_FileSize_Get(const Image *instance)
-{
-  return (long)GetBlobSize(instance);
 }
 
 MAGICK_NET_EXPORT size_t MagickImage_FilterType_Get(const Image *instance)

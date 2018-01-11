@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -591,14 +591,6 @@ namespace ImageMagick
         public string FileName
         {
             get { return _nativeInstance.FileName; }
-        }
-
-        /// <summary>
-        /// Gets the image file size.
-        /// </summary>
-        public long FileSize
-        {
-            get { return _nativeInstance.FileSize; }
         }
 
         /// <summary>
@@ -6084,7 +6076,7 @@ namespace ImageMagick
         /// <returns>A string that represents the current image.</returns>
         public override string ToString()
         {
-            return string.Format(CultureInfo.InvariantCulture, "{0} {1}x{2} {3}-bit {4} {5}", Format, Width, Height, Depth, ColorSpace, FormatedFileSize());
+            return string.Format(CultureInfo.InvariantCulture, "{0} {1}x{2} {3}-bit {4}", Format, Width, Height, Depth, ColorSpace);
         }
 
         /// <summary>
@@ -6574,30 +6566,6 @@ namespace ImageMagick
 
             _nativeInstance.Warning -= OnWarning;
             _nativeInstance.Dispose();
-        }
-
-        private string FormatedFileSize()
-        {
-            decimal fileSize = FileSize;
-
-            string suffix = string.Empty;
-            if (fileSize > 1073741824)
-            {
-                fileSize /= 1073741824;
-                suffix = "GB";
-            }
-            else if (fileSize > 1048576)
-            {
-                fileSize /= 1048576;
-                suffix = "MB";
-            }
-            else if (fileSize > 1024)
-            {
-                fileSize /= 1024;
-                suffix = "kB";
-            }
-
-            return string.Format(CultureInfo.InvariantCulture, "{0:N2}{1}", fileSize, suffix);
         }
 
         private void FloodFill(QuantumType alpha, int x, int y, bool invert)

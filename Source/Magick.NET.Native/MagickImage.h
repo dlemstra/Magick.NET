@@ -1,4 +1,4 @@
-// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -80,8 +80,6 @@ MAGICK_NET_EXPORT void MagickImage_Endian_Set(Image *, const size_t);
 
 MAGICK_NET_EXPORT const char *MagickImage_FileName_Get(const Image *);
 MAGICK_NET_EXPORT void MagickImage_FileName_Set(Image *, const char *);
-
-MAGICK_NET_EXPORT long MagickImage_FileSize_Get(const Image *);
 
 MAGICK_NET_EXPORT size_t MagickImage_FilterType_Get(const Image *);
 MAGICK_NET_EXPORT void MagickImage_FilterType_Set(Image *, const size_t);

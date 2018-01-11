@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -985,7 +985,7 @@ namespace ImageMagick
         [ExifTagDescription((ushort)71, "Fired, Red-eye reduction, Return detected")]
         [ExifTagDescription((ushort)73, "On, Red-eye reduction")]
         [ExifTagDescription((ushort)77, "On, Red-eye reduction, Return not detected")]
-        [ExifTagDescription((ushort)69, "On, Red-eye reduction, Return detected")]
+        [ExifTagDescription((ushort)79, "On, Red-eye reduction, Return detected")]
         [ExifTagDescription((ushort)80, "Off, Red-eye reduction")]
         [ExifTagDescription((ushort)88, "Auto, Did not fire, Red-eye reduction")]
         [ExifTagDescription((ushort)89, "Auto, Fired, Red-eye reduction")]

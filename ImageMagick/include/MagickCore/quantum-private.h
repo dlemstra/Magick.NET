@@ -1,5 +1,5 @@
 /*
-  Copyright 1999-2017 ImageMagick Studio LLC, a non-profit organization
+  Copyright 1999-2018 ImageMagick Studio LLC, a non-profit organization
   dedicated to making software imaging solutions freely available.
 
   You may not use this file except in compliance with the License.
@@ -265,6 +265,35 @@ static inline const unsigned char *PushShortPixel(const EndianType endian,
   quantum=(unsigned int) (*pixels++ << 8);
   quantum|=(unsigned int) *pixels++;
   *pixel=(unsigned short) (quantum & 0xffff);
+  return(pixels);
+}
+
+static inline const unsigned char *PushFloatPixel(const EndianType endian,
+  const unsigned char *pixels,MagickFloatType *pixel)
+{
+  union
+  {
+    unsigned int
+      unsigned_value;
+
+    MagickFloatType
+      float_value;
+  } quantum;
+
+  if (endian == LSBEndian)
+    {
+      quantum.unsigned_value=((unsigned int) *pixels++);
+      quantum.unsigned_value|=((unsigned int) *pixels++ << 8);
+      quantum.unsigned_value|=((unsigned int) *pixels++ << 16);
+      quantum.unsigned_value|=((unsigned int) *pixels++ << 24);
+      *pixel=quantum.float_value;
+      return(pixels);
+    }
+  quantum.unsigned_value=((unsigned int) *pixels++ << 24);
+  quantum.unsigned_value|=((unsigned int) *pixels++ << 16);
+  quantum.unsigned_value|=((unsigned int) *pixels++ << 8);
+  quantum.unsigned_value|=((unsigned int) *pixels++);
+  *pixel=quantum.float_value;
   return(pixels);
 }
 

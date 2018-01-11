@@ -1,5 +1,5 @@
 /*
-  Copyright 1999-2017 ImageMagick Studio LLC, a non-profit organization
+  Copyright 1999-2018 ImageMagick Studio LLC, a non-profit organization
   dedicated to making software imaging solutions freely available.
   
   You may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ typedef enum
   UndefinedColorspace,
   CMYColorspace,           /* negated linear RGB colorspace */
   CMYKColorspace,          /* CMY with Black separation */
-  GRAYColorspace,          /* Single Channel greyscale (linear) image */
+  GRAYColorspace,          /* Single Channel greyscale (non-linear) image */
   HCLColorspace,
   HCLpColorspace,
   HSBColorspace,
@@ -56,8 +56,12 @@ typedef enum
   YDbDrColorspace,
   YIQColorspace,
   YPbPrColorspace,
-  YUVColorspace
+  YUVColorspace,
+  LinearGRAYColorspace     /* Single Channel greyscale (linear) image */
 } ColorspaceType;
+
+extern MagickExport ColorspaceType
+  GetImageColorspaceType(const Image *,ExceptionInfo *);
 
 extern MagickExport MagickBooleanType
   SetImageColorspace(Image *,const ColorspaceType,ExceptionInfo *),

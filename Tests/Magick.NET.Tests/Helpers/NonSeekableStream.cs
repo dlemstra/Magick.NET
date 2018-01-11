@@ -10,19 +10,15 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-namespace ImageMagick.Defines
+using System.IO;
+
+namespace Magick.NET.Tests
 {
-    /// <summary>
-    /// Base class that can create write defines.
-    /// </summary>
-    public abstract class ReadDefinesCreator : DefinesCreator, IReadDefines
+    [ExcludeFromCodeCoverage]
+    internal sealed class NonSeekableStream : TestStream
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ReadDefinesCreator"/> class.
-        /// </summary>
-        /// <param name="format">The format where the defines are for.</param>
-        protected ReadDefinesCreator(MagickFormat format)
-          : base(format)
+        public NonSeekableStream(string fileName)
+          : base(File.OpenRead(fileName), false)
         {
         }
     }

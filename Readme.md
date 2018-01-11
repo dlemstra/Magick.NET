@@ -1,4 +1,4 @@
-# The .NET wrapper for the ImageMagick library: Magick.NET
+# The .NET library for ImageMagick: Magick.NET
 
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-green.svg)](https://raw.githubusercontent.com/dlemstra/Magick.NET/master/License.txt)
 [![Build status](https://ci.appveyor.com/api/projects/status/5y970okju7ru901x?svg=true)](https://ci.appveyor.com/project/dlemstra/magick-net)
