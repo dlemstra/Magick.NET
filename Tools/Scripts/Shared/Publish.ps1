@@ -161,6 +161,27 @@ function SetValue($content, $startMatch, $endMatch, $value)
   return $newContent
 }
 
+function GetValue($content, $startMatch, $endMatch)
+{
+  $start = $content.IndexOf($startMatch)
+  if ($start -eq -1)
+  {
+    Write-Error "Unable to find startMatch"
+    Exit
+  }
+
+  $start += $startMatch.Length
+
+  $end = $content.IndexOf($endMatch, $start)
+  if ($end -eq -1)
+  {
+    Write-Error "Unable to find endMatch"
+    Exit
+  }
+
+  return $content.Substring($start, $end - $start)
+}
+
 function SignFile($fileName)
 {
   & signtool verify /q /pa $fileName
@@ -174,6 +195,14 @@ function UpdateVersion($fileName, $version)
 {
   $path = FullPath $fileName
   $content = [IO.File]::ReadAllText($path, [System.Text.Encoding]::Default)
+  $assemblyVersion = GetValue $content "`<AssemblyVersion>" "`<"
+  $semVer = $assemblyVersion.Substring(0, $assemblyVersion.LastIndexOf(".") + 1)
+  if (!($version.StartsWith($semVer)))
+  {
+    Write-Error "Invalid assembly file version $assemblyVersion"
+    Exit
+  }
+
   $content = SetValue $content "`<Version`>" "`<" $version
   $content = SetValue $content "`<FileVersion`>" "`<" $version
   [IO.File]::WriteAllText($path, $content, [System.Text.Encoding]::Default)
