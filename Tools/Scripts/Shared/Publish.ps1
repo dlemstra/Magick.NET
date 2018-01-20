@@ -142,7 +142,7 @@ function SetValue($content, $startMatch, $endMatch, $value)
   if ($start -eq -1)
   {
     Write-Error "Unable to find startMatch"
-    Exit
+    Exit 1
   }
 
   $start += $startMatch.Length
@@ -154,7 +154,7 @@ function SetValue($content, $startMatch, $endMatch, $value)
   if ($start -eq -1)
   {
     Write-Error "Unable to find endMatch"
-    Exit
+    Exit 1
   }
 
   $newContent += $content.Substring($start)
@@ -167,7 +167,7 @@ function GetValue($content, $startMatch, $endMatch)
   if ($start -eq -1)
   {
     Write-Error "Unable to find startMatch"
-    Exit
+    Exit 1
   }
 
   $start += $startMatch.Length
@@ -176,7 +176,7 @@ function GetValue($content, $startMatch, $endMatch)
   if ($end -eq -1)
   {
     Write-Error "Unable to find endMatch"
-    Exit
+    Exit 1
   }
 
   return $content.Substring($start, $end - $start)
@@ -191,16 +191,19 @@ function SignFile($fileName)
   }
 }
 
-function UpdateVersion($fileName, $version)
+function UpdateVersion($fileName, $version, $checkAssemblyVersion)
 {
   $path = FullPath $fileName
   $content = [IO.File]::ReadAllText($path, [System.Text.Encoding]::Default)
-  $assemblyVersion = GetValue $content "`<AssemblyVersion>" "`<"
-  $semVer = $assemblyVersion.Substring(0, $assemblyVersion.LastIndexOf(".") + 1)
-  if (!($version.StartsWith($semVer)))
+  if ($checkAssemblyVersion -eq $true)
   {
-    Write-Error "Invalid assembly file version $assemblyVersion"
-    Exit
+    $assemblyVersion = GetValue $content "`<AssemblyVersion>" "`<"
+    $semVer = $assemblyVersion.Substring(0, $assemblyVersion.LastIndexOf(".") + 1)
+    if (!($version.StartsWith($semVer)))
+    {
+      Write-Error "Invalid assembly file version $assemblyVersion"
+      Exit 1
+    }
   }
 
   $content = SetValue $content "`<Version`>" "`<" $version
@@ -208,10 +211,10 @@ function UpdateVersion($fileName, $version)
   [IO.File]::WriteAllText($path, $content, [System.Text.Encoding]::Default)
 }
 
-function UpdateVersions($version)
+function UpdateVersions($version, $checkAssemblyVersion)
 {
-  UpdateVersion "Source\Magick.NET\Magick.NET.csproj" $version
-  UpdateVersion "Source\Magick.NET.Web\Magick.NET.Web.csproj" $version
+  UpdateVersion "Source\Magick.NET\Magick.NET.csproj" $version $checkAssemblyVersion
+  UpdateVersion "Source\Magick.NET.Web\Magick.NET.Web.csproj" $version $checkAssemblyVersion
 }
 
 function UpdateResourceFile($fileName, $version)

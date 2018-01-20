@@ -55,5 +55,5 @@ $quantum = $args[0]
 $platform = $args[1]
 
 $version = GetDevVersion
-UpdateVersions $version
+UpdateVersions $version $false
 AppVeyorBuild $quantum $platform $version
