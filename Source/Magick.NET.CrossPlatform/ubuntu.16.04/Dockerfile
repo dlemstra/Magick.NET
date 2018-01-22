@@ -13,9 +13,9 @@ RUN mkdir ~/.ssh;echo "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAwFyerjwW+MpAIV056qHP0
 RUN mkdir Magick.NET
 RUN git clone --depth 1 https://github.com/dlemstra/Magick.NET.git Magick.NET
 RUN cd Magick.NET/ImageMagick/Source;bash Checkout.sh
-RUN cd Magick.NET/ImageMagick/Source/ImageMagick/ImageMagick;./configure CFLAGS="-fPIC -Wall -O2" CXXFLAGS="-fPIC -Wall -O2" --disable-shared --enable-static --enable-delegate-build --with-magick-plus-plus=no --with-quantum-depth=8 --enable-hdri=no;make install
-RUN cd Magick.NET/ImageMagick/Source/ImageMagick/ImageMagick;./configure CFLAGS="-fPIC -Wall -O2" CXXFLAGS="-fPIC -Wall -O2" --disable-shared --enable-static --enable-delegate-build --with-magick-plus-plus=no --with-quantum-depth=16 --enable-hdri=no;make install
-RUN cd Magick.NET/ImageMagick/Source/ImageMagick/ImageMagick;./configure CFLAGS="-fPIC -Wall -O2" CXXFLAGS="-fPIC -Wall -O2" --disable-shared --enable-static --enable-delegate-build --with-magick-plus-plus=no --with-quantum-depth=16;make install
+RUN cd Magick.NET/ImageMagick/Source/ImageMagick/ImageMagick;./configure CFLAGS="-fPIC -Wall -O3" CXXFLAGS="-fPIC -Wall -O3" --disable-shared --enable-static --enable-delegate-build --with-magick-plus-plus=no --with-quantum-depth=8 --enable-hdri=no;make install
+RUN cd Magick.NET/ImageMagick/Source/ImageMagick/ImageMagick;./configure CFLAGS="-fPIC -Wall -O3" CXXFLAGS="-fPIC -Wall -O3" --disable-shared --enable-static --enable-delegate-build --with-magick-plus-plus=no --with-quantum-depth=16 --enable-hdri=no;make install
+RUN cd Magick.NET/ImageMagick/Source/ImageMagick/ImageMagick;./configure CFLAGS="-fPIC -Wall -O3" CXXFLAGS="-fPIC -Wall -O3" --disable-shared --enable-static --enable-delegate-build --with-magick-plus-plus=no --with-quantum-depth=16;make install
 
 # Start sshd on port 22
 EXPOSE 22
