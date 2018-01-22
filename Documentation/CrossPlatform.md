@@ -12,25 +12,37 @@ folders.
 
 ## Compiling ImageMagick
 
-Because Magick.NET is linked against the code of the ImageMagick github repository it is very likely that the Linux machine where Magick.NET should
-run on is not using the correct version of ImageMagick. The steps below are required to build ImageMagick. This is an example for Ubuntu 16.04 so it
-might be a bit different on another Linux distribution.
+The dockerfile referenced above includes configuration and compilation steps for ImageMagick, and the Magick.NET.Native.dll.so files created will link 
+statically against those libraries. To build against a different version of ImageMagick, simply edit the dockerfile and change the git checkout to reference 
+the tag or commit of your choice (or just let it get latest). You can also use the `apt-get install` command in the dockerfile to control which formats and 
+compression schemes are supported. For example, to build against IM 7.0.7-20, go to `Source/Magick.NET.CrossPlatform/ubuntu.16.04` and make sure the 
+dockerfile includes this:
 
-- Clone the Magick.NET repository from `https://github.com/dlemstra/Magick.NET.git`.
-- Switch to the tag that has the same version as the version of Magick.NET (for example `git checkout tags/1.2.3.4`).
-- Run `ImageMagick/Source/Checkout.sh` that will clone the ImageMagick repository.
-- An optional step is `sudo apt-get build-dep imagemagick` that will install all the dependencies.
-- Go to the folder `ImageMagick/Source/ImageMagick/ImageMagick` and run one of the following commands (depening on the quantum)
-    - Q8: `./configure --with-magick-plus-plus=no --with-quantum-depth=8 --enable-hdri=no`
-    - Q16: `./configure --with-magick-plus-plus=no --with-quantum-depth=16 --enable-hdri=no`
-    - Q16-HDRI: `./configure --with-magick-plus-plus=no --with-quantum-depth=16`
-- The next step is `make install` or `sudo make install`.
+```
+RUN cd ~/ImageMagick; git checkout tags/7.0.7-20;
+```
+
+Then run:
+
+```
+docker build -t <some tag name> .
+```
+
+This will build an Ubuntu 16.04 image with a fresh copy of ImageMagick and various support libraries, ready to support building Magick.NET.Native
+from Visual Studio or the BuildCrossPlatform script.
 
 ## Extra requirements
 
-Magick.NET is also linked again `libjpeg.so.8` (used by the `JpegOptimizer`). Not all Linux platforms have this available by
-default which means it might be required to build [libjpeg-turbo](https://www.libjpeg-turbo.org/) from source. On Windows the following version of
-`libjpeg-turbo` is used: https://github.com/ImageMagick/jpeg-turbo.
+By default, Magick.NET has support for JPEG, TIFF, PNG, and WebP formats. Magick.NET also has references to OpenMP and various compression libraries. 
+Library support for those formats must be installed on your system, or you will see a `DllNotFoundException` during initialization. On Ubuntu 16, the
+necessary libraries may be installed as follows:
+
+```
+apt-get update
+apt-get install libjpeg-turbo8 libtiff5 libpng16-16 libwebpmux1 libgomp1
+```
+
+On other Linux distributions you may need to inspect the Magick.NET .so via `ldd` to determine what libraries you are missing.
 
 ## Using Magick.NET on Linux
 
@@ -43,28 +55,6 @@ Running Magick.NET with .NET Core on Linux requires adding the library as a pack
     <PackageReference Include="Magick.NET-Q8-x64" Version="7.x.x.x" />
   </ItemGroup>
 ```
-
-When running the project it is possible that the following error occurs:
-
-```
-Unhandled Exception: System.TypeInitializationException: The type initializer for 'NativeMagickSettings' threw an exception. --->
-  System.DllNotFoundException: Unable to load DLL 'Magick.NET-Q8-x64.Native.dll': The specified module could not be found.
-```
-
-This is most likely because the `Magick.NET-Q8-x64.Native.dll.so` file cannot find the ImageMagick libraries. This can be checked with the following
-command: `ldd Magick.NET-Q8-x64.Native.dll.so`:
-
-```
-linux-vdso.so.1 =>  (0x00007ffe95fea000)
-libMagickCore-7.Q8.so.3 => not found
-libMagickWand-7.Q8.so.3 => not found
-libjpeg.so.8 => /usr/lib/x86_64-linux-gnu/libjpeg.so.8 (0x00007fc00888b000)
-libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007fc008582000)
-libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007fc0081b8000)
-/lib64/ld-linux-x86-64.so.2 (0x00005568c223f000)
-```
-
-This can be resolved by setting `LD_LIBRARY_PATH`: `export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/ImageMagick/libraries`
 
 ### Mono
 
