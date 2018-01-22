@@ -3,33 +3,28 @@
 ## Compiling Magick.NET.Native on Linux
 
 This step is not required but documented to explain how the Magick.NET.Native is compiled on Linux. To build Magick.NET.Native it is required to have
-a Linux build machine running. A docker file for this can be found in `Source/Magick.NET.CrossPlatform/ubuntu.16.04`. After changing the SSH-key
-and starting the container the `Magick.NET.CrossPlatform.sln` solution should be opened. It is possible that this requires installation of some
-extra components, instructions for that can be found [here](https://blogs.msdn.microsoft.com/vcblog/2016/03/30/visual-c-for-linux-development/).
-After opening the solution the `Remote Build Machine` should be configured. The project could be build from the solution but it is easier to use
+a Linux build machine running. A docker file for this can be found in `Source/Magick.NET.CrossPlatform/ubuntu.16.04`. After adding your public ssh key
+to `authorized_keys` and starting the container the `Magick.NET.CrossPlatform.sln` solution should be opened. It is possible that this requires installation 
+of some extra components, instructions for that can be found [here](https://blogs.msdn.microsoft.com/vcblog/2016/03/30/visual-c-for-linux-development/).
+After opening the solution the `Remote Build Machine` should be configured. The project could be built from the solution but it is easier to use
 `Tools\BuildCrossPlatform.cmd` for this. This script will also copy the `.so` files to the `ImageMagick\(Q8/Q16/Q16-HDRI)\lib\Release\CrossPlatform`
 folders.
 
 ## Compiling ImageMagick
 
-The dockerfile referenced above includes configuration and compilation steps for ImageMagick, and the Magick.NET.Native.dll.so files created will link 
-statically against those libraries. To build against a different version of ImageMagick, simply edit the dockerfile and change the git checkout to reference 
-the tag or commit of your choice (or just let it get latest). You can also use the `apt-get install` command in the dockerfile to control which formats and 
-compression schemes are supported. For example, to build against IM 7.0.7-20, go to `Source/Magick.NET.CrossPlatform/ubuntu.16.04` and make sure the 
-dockerfile includes this:
+Building the dockerfile referenced above is the simplest way to get a fresh build of ImageMagick itself. The dockerfile includes configuration and compilation 
+steps for ImageMagick, and the Magick.NET.CrossPlatform project will link against that build. To build against a different version of ImageMagick, simply edit 
+the dockerfile and change the git checkout to reference the tag or commit of your choice (or just let it get latest). You can also use the `apt-get install` 
+command in the dockerfile to control which formats and compression schemes are supported. 
+
+For example, to build against IM 7.0.7-20, go to `Source/Magick.NET.CrossPlatform/ubuntu.16.04` and make sure the dockerfile includes this:
 
 ```
 RUN cd ~/ImageMagick; git checkout tags/7.0.7-20;
 ```
 
-Then run:
-
-```
-docker build -t <some tag name> .
-```
-
-This will build an Ubuntu 16.04 image with a fresh copy of ImageMagick and various support libraries, ready to support building Magick.NET.Native
-from Visual Studio or the BuildCrossPlatform script.
+Then rerun `docker build` and start a fresh container from the result. This will create an Ubuntu 16.04 container with a fresh copy of ImageMagick and various 
+image libraries, ready to support building Magick.NET.Native from Visual Studio or the BuildCrossPlatform script.
 
 ## Extra requirements
 
