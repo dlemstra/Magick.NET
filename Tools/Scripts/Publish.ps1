@@ -267,7 +267,7 @@ $version = $args[0]
 
 CheckArchive
 Cleanup
-UpdateVersions $version
+UpdateVersions $version $true
 UpdateResourceFiles $builds $version
 CreatePreProcessedFiles
 PreparePublish $builds
