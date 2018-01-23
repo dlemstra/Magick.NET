@@ -140,9 +140,12 @@
       <PositionIndependentCode Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">true</PositionIndependentCode>
     </ClCompile>
     <Link>
-      <LibraryDependencies Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">MagickWand-7.Q8;MagickCore-7.Q8;jpeg;gomp;tiff;png16;webp;webpmux;webpdemux;z;lzma;jbig;pthread</LibraryDependencies>
-      <LibraryDependencies Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">MagickWand-7.Q16;MagickCore-7.Q16;jpeg;gomp;tiff;png16;webp;webpmux;webpdemux;z;lzma;jbig;pthread</LibraryDependencies>
-      <LibraryDependencies Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'">MagickWand-7.Q16HDRI;MagickCore-7.Q16HDRI;jpeg;gomp;tiff;png16;webp;webpmux;webpdemux;z;lzma;jbig;pthread</LibraryDependencies>
+      <LibraryDependencies Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">z;lzma;bz2;pthread</LibraryDependencies>
+      <LibraryDependencies Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">z;lzma;bz2;pthread</LibraryDependencies>
+      <LibraryDependencies Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'">z;lzma;bz2;pthread</LibraryDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">$(StlAdditionalDependencies);%(AdditionalDependencies);/usr/local/lib/libMagickWand-7.Q8.a;/usr/local/lib/libMagickCore-7.Q8.a;/usr/local/lib64/libjpeg.a;/usr/local/lib/libpng16.a;/usr/local/lib/libtiff.a;/usr/local/lib/libwebp.a;/usr/local/lib/libwebpmux.a;/usr/local/lib/libwebpdemux.a</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">$(StlAdditionalDependencies);%(AdditionalDependencies);/usr/local/lib/libMagickWand-7.Q16.a;/usr/local/lib/libMagickCore-7.Q16.a;/usr/local/lib64/libjpeg.a;/usr/local/lib/libpng16.a;/usr/local/lib/libtiff.a;/usr/local/lib/libwebp.a;/usr/local/lib/libwebpmux.a;/usr/local/lib/libwebpdemux.a</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'">$(StlAdditionalDependencies);%(AdditionalDependencies);/usr/local/lib/libMagickWand-7.Q16HDRI.a;/usr/local/lib/libMagickCore-7.Q16HDRI.a;/usr/local/lib64/libjpeg.a;/usr/local/lib/libpng16.a;/usr/local/lib/libtiff.a;/usr/local/lib/libwebp.a;/usr/local/lib/libwebpmux.a;/usr/local/lib/libwebpdemux.a</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

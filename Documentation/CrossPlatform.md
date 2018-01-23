@@ -13,9 +13,9 @@ folders.
 ## Compiling ImageMagick
 
 Building the dockerfile referenced above is the simplest way to get a fresh build of ImageMagick itself. The dockerfile includes configuration and compilation 
-steps for ImageMagick, and the Magick.NET.CrossPlatform project will link against that build. To build against a different version of ImageMagick, simply edit 
-the dockerfile and change the git checkout to reference the tag or commit of your choice (or just let it get latest). You can also use the `apt-get install` 
-command in the dockerfile to control which formats and compression schemes are supported. 
+steps for ImageMagick and it's dependencies, and the Magick.NET.CrossPlatform project will link against that build. To build against a different version of 
+ImageMagick or a particular image library, simply edit the dockerfile and change the relevant git checkout to reference the tag or commit of your choice (or 
+just let it get latest). You can also use the `apt-get install` command in the dockerfile to control which formats and compression schemes are supported. 
 
 For example, to build against IM 7.0.7-20, go to `Source/Magick.NET.CrossPlatform/ubuntu.16.04` and make sure the dockerfile includes this:
 
@@ -28,13 +28,14 @@ image libraries, ready to support building Magick.NET.Native from Visual Studio 
 
 ## Extra requirements
 
-By default, Magick.NET has support for JPEG, TIFF, PNG, and WebP formats. Magick.NET also has references to OpenMP and various compression libraries. 
-Library support for those formats must be installed on your system, or you will see a `DllNotFoundException` during initialization. On Ubuntu 16, the
-necessary libraries may be installed as follows:
+By default, Magick.NET has support built in for JPEG, TIFF, PNG, and WebP formats. Underlying compression libraries like zlib and lzma must be installed on your
+system, as well as OpenMP support, or you may see a `DllNotFoundException` during initialization. 
+
+On Ubuntu 16, the necessary libraries may be installed as follows:
 
 ```
 apt-get update
-apt-get install libjpeg-turbo8 libtiff5 libpng16-16 libwebpmux1 libgomp1
+apt-get install zlibg1 liblzma libjbig
 ```
 
 On other Linux distributions you may need to inspect the Magick.NET .so via `ldd` to determine what libraries you are missing.
