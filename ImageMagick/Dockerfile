@@ -35,11 +35,23 @@ COPY ./Q16-HDRI/lib/Release/CrossPlatform/ubuntu.16.04/Magick.NET-Q16-HDRI-x64.N
 COPY verify ./verify
 RUN ./verify
 
-FROM alpine:3.5
-#RUN apk update; apk add libgomp xz-libs libbz2 libgcc
-RUN ln -s /usr/lib/libbz2.so.1.0.6 /usr/lib/libbz2.so.1.0
+FROM microsoft/dotnet:2.0-runtime
 COPY ./Q8/lib/Release/CrossPlatform/ubuntu.16.04/Magick.NET-Q8-x64.Native.dll.so ./Magick.NET-Q8-x64.Native.dll.so
 COPY ./Q16/lib/Release/CrossPlatform/ubuntu.16.04/Magick.NET-Q16-x64.Native.dll.so ./Magick.NET-Q16-x64.Native.dll.so
 COPY ./Q16-HDRI/lib/Release/CrossPlatform/ubuntu.16.04/Magick.NET-Q16-HDRI-x64.Native.dll.so ./Magick.NET-Q16-HDRI-x64.Native.dll.so
 COPY verify ./verify
 RUN ./verify
+
+FROM microsoft/dotnet:latest
+COPY ./Q8/lib/Release/CrossPlatform/ubuntu.16.04/Magick.NET-Q8-x64.Native.dll.so ./Magick.NET-Q8-x64.Native.dll.so
+COPY ./Q16/lib/Release/CrossPlatform/ubuntu.16.04/Magick.NET-Q16-x64.Native.dll.so ./Magick.NET-Q16-x64.Native.dll.so
+COPY ./Q16-HDRI/lib/Release/CrossPlatform/ubuntu.16.04/Magick.NET-Q16-HDRI-x64.Native.dll.so ./Magick.NET-Q16-HDRI-x64.Native.dll.so
+COPY verify ./verify
+RUN ./verify
+
+#FROM alpine:3.5
+#COPY ./Q8/lib/Release/CrossPlatform/ubuntu.16.04/Magick.NET-Q8-x64.Native.dll.so ./Magick.NET-Q8-x64.Native.dll.so
+#COPY ./Q16/lib/Release/CrossPlatform/ubuntu.16.04/Magick.NET-Q16-x64.Native.dll.so ./Magick.NET-Q16-x64.Native.dll.so
+#COPY ./Q16-HDRI/lib/Release/CrossPlatform/ubuntu.16.04/Magick.NET-Q16-HDRI-x64.Native.dll.so ./Magick.NET-Q16-HDRI-x64.Native.dll.so
+#COPY verify ./verify
+#RUN ./verify
