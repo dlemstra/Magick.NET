@@ -1,5 +1,4 @@
 # Quick script to run ldd against binaries on a variety of platforms. 
-# Quantum folders from <Magick.NET project>/ImageMagick must be copied to this folder before building.
 
 FROM ubuntu:16.04
 COPY ./Q8/lib/Release/CrossPlatform/ubuntu.16.04/Magick.NET-Q8-x64.Native.dll.so ./Magick.NET-Q8-x64.Native.dll.so
