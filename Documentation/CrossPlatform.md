@@ -13,9 +13,9 @@ folders.
 ## Compiling ImageMagick
 
 Building the dockerfile referenced above is the simplest way to get a fresh build of ImageMagick itself. The dockerfile includes configuration and compilation 
-steps for ImageMagick, and the Magick.NET.CrossPlatform project will link against that build. To build against a different version of ImageMagick, simply edit 
-the dockerfile and change the git checkout to reference the tag or commit of your choice (or just let it get latest). You can also use the `apt-get install` 
-command in the dockerfile to control which formats and compression schemes are supported. 
+steps for ImageMagick and it's dependencies, and the Magick.NET.CrossPlatform project will link against that build. To build against a different version of 
+ImageMagick or a particular image library, simply edit the dockerfile and change the relevant git checkout to reference the tag or commit of your choice (or 
+just let it get latest). You can also use the `apt-get install` command in the dockerfile to control which formats and compression schemes are supported. 
 
 For example, to build against IM 7.0.7-20, go to `Source/Magick.NET.CrossPlatform/ubuntu.16.04` and make sure the dockerfile includes this:
 
@@ -28,18 +28,13 @@ image libraries, ready to support building Magick.NET.Native from Visual Studio 
 
 ## Extra requirements
 
-By default, Magick.NET has support for JPEG, TIFF, PNG, and WebP formats. Magick.NET also has references to OpenMP and various compression libraries. 
-Library support for those formats must be installed on your system, or you will see a `DllNotFoundException` during initialization. On Ubuntu 16, the
-necessary libraries may be installed as follows:
+By default, Magick.NET has support built in for JPEG, TIFF, PNG, and WebP file formats. Lossless compression support includes zlib, lzma, and bzip2. There
+are no external dependencies beyond basic system libraries and glibc6/libm, which should be present by default on most Linux distros. 
 
-```
-apt-get update
-apt-get install libjpeg-turbo8 libtiff5 libpng16-16 libwebpmux1 libgomp1
-```
+Distributions based on musl libc such as Alpine will not have a glibc available, and will not work with Magick.NET out of the box. Compatibility layers for 
+glibc on musl-libc systems exist, but have not been tested successfully with Magick.NET. YMMV.
 
-On other Linux distributions you may need to inspect the Magick.NET .so via `ldd` to determine what libraries you are missing.
-
-## Using Magick.NET on Linux
+Windows-based systems should not need any extra components or configuration.
 
 ### .NET Core
 
