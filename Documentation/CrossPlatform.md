@@ -28,17 +28,8 @@ image libraries, ready to support building Magick.NET.Native from Visual Studio 
 
 ## Extra requirements
 
-By default, Magick.NET has support built in for JPEG, TIFF, PNG, and WebP formats. Underlying compression libraries like zlib and lzma must be installed on your
-system, as well as OpenMP support, or you may see a `DllNotFoundException` during initialization. 
-
-On Ubuntu 16, the necessary libraries may be installed as follows:
-
-```
-apt-get update
-apt-get install zlibg1 liblzma libjbig
-```
-
-On other Linux distributions you may need to inspect the Magick.NET .so via `ldd` to determine what libraries you are missing.
+By default, Magick.NET has support built in for JPEG, TIFF, PNG, and WebP file formats. Lossless compression support includes zlib, lzma, and bzip2. There
+are no external dependencies beyond basic system libraries and glibc6/libm, which should be present by default on most Linux distros. 
 
 ## Using Magick.NET on Linux
 
