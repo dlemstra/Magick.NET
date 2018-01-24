@@ -31,7 +31,10 @@ image libraries, ready to support building Magick.NET.Native from Visual Studio 
 By default, Magick.NET has support built in for JPEG, TIFF, PNG, and WebP file formats. Lossless compression support includes zlib, lzma, and bzip2. There
 are no external dependencies beyond basic system libraries and glibc6/libm, which should be present by default on most Linux distros. 
 
-## Using Magick.NET on Linux
+Distributions based on musl libc such as Alpine will not have a glibc available, and will not work with Magick.NET out of the box. Compatibility layers for 
+glibc on musl-libc systems exist, but have not been tested successfully with Magick.NET. YMMV.
+
+Windows-based systems should not need any extra components or configuration.
 
 ### .NET Core
 
