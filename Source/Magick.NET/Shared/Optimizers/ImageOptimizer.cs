@@ -116,7 +116,8 @@ namespace ImageMagick
         /// <returns>True when the supplied formation information is supported.</returns>
         public bool IsSupported(MagickFormatInfo formatInfo)
         {
-            Throw.IfNull(nameof(formatInfo), formatInfo);
+            if (formatInfo == null)
+                return false;
 
             foreach (IImageOptimizer optimizer in _optimizers)
             {

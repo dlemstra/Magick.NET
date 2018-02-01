@@ -253,12 +253,9 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void IsSupported_FileNameIsInvalid_ThrowsException()
+        public void IsSupported_FileNameIsInvalid_ReturnsFalse()
         {
-            ExceptionAssert.ThrowsArgumentNullException("formatInfo", () =>
-            {
-                Optimizer.IsSupported("invalid");
-            });
+            Assert.IsFalse(Optimizer.IsSupported("invalid"));
         }
 
         [TestMethod]
