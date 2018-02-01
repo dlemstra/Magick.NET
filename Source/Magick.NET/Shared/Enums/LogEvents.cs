@@ -101,7 +101,7 @@ namespace ImageMagick
         Resource = 0x04000,
 
         /// <summary>
-        /// Resource
+        /// Trace
         /// </summary>
         Trace = 0x08000,
 
@@ -123,6 +123,11 @@ namespace ImageMagick
         /// <summary>
         /// All log events except Trace.
         /// </summary>
-        All = 0x7fff7fff,
+        Detailed = 0x7fff7fff,
+
+        /// <summary>
+        /// All log.
+        /// </summary>
+        All = Detailed | Trace,
     }
 }

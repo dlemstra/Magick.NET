@@ -281,13 +281,10 @@ namespace ImageMagick
         {
             string eventFlags = null;
 
-            if (EnumHelper.HasFlag(_logEvents, LogEvents.All))
-            {
-                if (EnumHelper.HasFlag(_logEvents, LogEvents.Trace))
-                    eventFlags = "All,Trace";
-                else
-                    eventFlags = "All";
-            }
+            if (EnumHelper.HasFlag(_logEvents, LogEvents.Detailed))
+                eventFlags = "All";
+            else if (EnumHelper.HasFlag(_logEvents, LogEvents.All))
+                eventFlags = "All,Trace";
             else
                 eventFlags = EnumHelper.ConvertFlags(_logEvents);
 

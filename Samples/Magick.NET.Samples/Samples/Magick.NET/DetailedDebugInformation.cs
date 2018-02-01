@@ -31,7 +31,7 @@ namespace RootNamespace.Samples.MagickNET
         public static void ReadImage()
         {
             // Log all events
-            ImageMagick.MagickNET.SetLogEvents(LogEvents.All | LogEvents.Trace);
+            ImageMagick.MagickNET.SetLogEvents(LogEvents.All);
             // Set the log handler (all threads use the same handler)
             ImageMagick.MagickNET.Log += MagickNET_Log;
 
