@@ -9,7 +9,7 @@
             <TestConfig>$(Configuration.Replace('Release','Test'))</TestConfig>
         </PropertyGroup>
         
-        <Copy Condition="'$(Platform)|$(Configuration)'=='Win32|ReleaseQ16'" SourceFiles="@(NativeFiles)" DestinationFolder="$(SolutionDir)\Source\Magick.NET.Samples\bin\$(Configuration)" />
+        <Copy Condition="'$(Platform)|$(Configuration)'=='Win32|ReleaseQ16'" SourceFiles="@(NativeFiles)" DestinationFolder="$(SolutionDir)\Samples\Magick.NET.Samples\bin\$(Configuration)" />
 
         <Copy Condition="'$(Platform)'=='Win32'" SourceFiles="@(NativeFiles)" DestinationFolder="$(SolutionDir)\Tests\Magick.NET.Tests\bin\$(TestConfig)\x86\net45" />
         <Copy Condition="'$(Platform)'=='Win32'" SourceFiles="@(NativeFiles)" DestinationFolder="$(SolutionDir)\Tests\Magick.NET.Tests\bin\$(TestConfig)\x86\netcoreapp1.1" />
