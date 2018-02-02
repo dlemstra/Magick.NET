@@ -58,6 +58,7 @@ function CheckStrongNames($builds)
   {
     CheckStrongName $build "net20"
     CheckStrongName $build "net40"
+    CheckStrongName $build "netstandard13"
   }
 }
 
