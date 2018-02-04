@@ -89,6 +89,22 @@ namespace Magick.NET.Tests.Shared
                     Assert.AreEqual(ColorSpace.CMYK, image.ColorSpace);
                 }
             }
+
+            [TestMethod]
+            public void ShouldClampPixels()
+            {
+                using (IMagickImage image = new MagickImage(MagickColors.White, 1, 1))
+                {
+                    image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.AdobeRGB1998);
+#if Q8
+                    ColorAssert.AreEqual(new MagickColor("#ffffff"), image, 1, 1);
+#elif Q16 || Q16HDRI
+                    ColorAssert.AreEqual(new MagickColor("#fffffffbffffffff"), image, 1, 1);
+#else
+#error Not implemented!
+#endif
+                }
+            }
         }
     }
 }
