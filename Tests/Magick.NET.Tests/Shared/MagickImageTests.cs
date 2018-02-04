@@ -3780,21 +3780,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_TransformColorSpace()
-        {
-            using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                Assert.AreEqual(ColorSpace.sRGB, image.ColorSpace);
-
-                image.TransformColorSpace(ColorProfile.USWebCoatedSWOP, ColorProfile.USWebCoatedSWOP);
-                Assert.AreEqual(ColorSpace.sRGB, image.ColorSpace);
-
-                image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.USWebCoatedSWOP);
-                Assert.AreEqual(ColorSpace.CMYK, image.ColorSpace);
-            }
-        }
-
-        [TestMethod]
         public void Test_UniqueColors()
         {
             using (IMagickImage image = new MagickImage(Files.Builtin.Logo))

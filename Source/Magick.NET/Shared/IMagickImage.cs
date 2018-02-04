@@ -3643,13 +3643,22 @@ namespace ImageMagick
         byte[] ToByteArray(MagickFormat format);
 
         /// <summary>
-        ///  Transforms the image from the colorspace of the source profile to the target profile. The
-        ///  source profile will only be used if the image does not contain a color profile. Nothing
-        ///  will happen if the source profile has a different colorspace then that of the image.
+        /// Transforms the image from the colorspace of the source profile to the target profile. This
+        /// requires the image to have a color profile. Nothing will happen if the image has no color profile.
+        /// </summary>
+        /// <param name="target">The target color profile</param>
+        /// <returns>True when the colorspace was transformed otherwise false.</returns>
+        bool TransformColorSpace(ColorProfile target);
+
+        /// <summary>
+        /// Transforms the image from the colorspace of the source profile to the target profile. The
+        /// source profile will only be used if the image does not contain a color profile. Nothing
+        /// will happen if the source profile has a different colorspace then that of the image.
         /// </summary>
         /// <param name="source">The source color profile.</param>
         /// <param name="target">The target color profile</param>
-        void TransformColorSpace(ColorProfile source, ColorProfile target);
+        /// <returns>True when the colorspace was transformed otherwise false.</returns>
+        bool TransformColorSpace(ColorProfile source, ColorProfile target);
 
         /// <summary>
         /// Add alpha channel to image, setting pixels matching color to transparent.
