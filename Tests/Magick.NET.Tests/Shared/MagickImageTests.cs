@@ -409,9 +409,9 @@ namespace Magick.NET.Tests
 
                 image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.USWebCoatedSWOP);
 #if Q8
-                ColorAssert.AreEqual(new MagickColor("#d98c31"), image, 130, 100);
+                ColorAssert.AreEqual(new MagickColor("#da8d31"), image, 130, 100);
 #elif Q16 || Q16HDRI
-                ColorAssert.AreEqual(new MagickColor("#da7a8d1b3189"), image, 130, 100);
+                ColorAssert.AreEqual(new MagickColor("#da7b8d1c318a"), image, 130, 100);
 #else
 #error Not implemented!
 #endif
@@ -424,9 +424,9 @@ namespace Magick.NET.Tests
 
                 image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.USWebCoatedSWOP);
 #if Q8
-                ColorAssert.AreEqual(new MagickColor("#cc8331"), image, 130, 100);
+                ColorAssert.AreEqual(new MagickColor("#cc8432"), image, 130, 100);
 #elif Q16 || Q16HDRI
-                ColorAssert.AreEqual(new MagickColor("#ccf7847231b2"), image, 130, 100);
+                ColorAssert.AreEqual(new MagickColor("#ccf7847331b2"), image, 130, 100);
 #else
 #error Not implemented!
 #endif

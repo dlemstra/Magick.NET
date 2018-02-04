@@ -3,7 +3,7 @@
 clone_repository()
 {
   repos="https://github.com/ImageMagick"
-  date="2018-01-06 15:18"
+  date="2018-02-04 17:55"
 
   echo ''
   echo "Cloning $1 at $date"
@@ -59,6 +59,7 @@ clone_repository 'zlib'
 
 rm -rf VisualMagick/dcraw
 rm -rf VisualMagick/demos
+rm -rf VisualMagick/fuzz
 rm -rf VisualMagick/ImageMagickObject
 rm -rf VisualMagick/IMDisplay
 rm -rf VisualMagick/iptcutil
