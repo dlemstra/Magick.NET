@@ -48,10 +48,3 @@ COPY ./Q16/lib/Release/CrossPlatform/ubuntu.16.04/Magick.NET-Q16-x64.Native.dll.
 COPY ./Q16-HDRI/lib/Release/CrossPlatform/ubuntu.16.04/Magick.NET-Q16-HDRI-x64.Native.dll.so ./Magick.NET-Q16-HDRI-x64.Native.dll.so
 COPY verify ./verify
 RUN ./verify
-
-#FROM alpine:3.5
-#COPY ./Q8/lib/Release/CrossPlatform/ubuntu.16.04/Magick.NET-Q8-x64.Native.dll.so ./Magick.NET-Q8-x64.Native.dll.so
-#COPY ./Q16/lib/Release/CrossPlatform/ubuntu.16.04/Magick.NET-Q16-x64.Native.dll.so ./Magick.NET-Q16-x64.Native.dll.so
-#COPY ./Q16-HDRI/lib/Release/CrossPlatform/ubuntu.16.04/Magick.NET-Q16-HDRI-x64.Native.dll.so ./Magick.NET-Q16-HDRI-x64.Native.dll.so
-#COPY verify ./verify
-#RUN ./verify

@@ -19,7 +19,7 @@ just let it get latest). You can also use the `apt-get install` command in the d
 
 For example, to build against IM 7.0.7-20, go to `Source/Magick.NET.CrossPlatform/ubuntu.16.04` and make sure the dockerfile includes this:
 
-```
+```Dockerfile
 RUN cd ~/ImageMagick; git checkout tags/7.0.7-20;
 ```
 
@@ -33,8 +33,6 @@ are no external dependencies beyond basic system libraries and glibc6/libm, whic
 
 Distributions based on musl libc such as Alpine will not have a glibc available, and will not work with Magick.NET out of the box. Compatibility layers for 
 glibc on musl-libc systems exist, but have not been tested successfully with Magick.NET. YMMV.
-
-Windows-based systems should not need any extra components or configuration.
 
 ### .NET Core
 
