@@ -18,7 +18,9 @@
 #ifndef MAGICKCORE_QUANTUM_PRIVATE_H
 #define MAGICKCORE_QUANTUM_PRIVATE_H
 
+#include "MagickCore/memory_.h"
 #include "MagickCore/cache.h"
+#include "MagickCore/image-private.h"
 
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
@@ -66,7 +68,7 @@ struct _QuantumInfo
   size_t
     number_threads;
 
-  unsigned char
+  MemoryInfo
     **pixels;
 
   size_t
@@ -94,7 +96,8 @@ static inline MagickSizeType GetQuantumRange(const size_t depth)
     one;
 
   one=1;
-  return((MagickSizeType) ((one << (depth-1))+((one << (depth-1))-1)));
+  return((MagickSizeType) ((one << (MagickMin(depth,64)-1))+
+    ((one << (MagickMin(depth,64)-1))-1)));
 }
 
 static inline float HalfToSinglePrecision(const unsigned short half)

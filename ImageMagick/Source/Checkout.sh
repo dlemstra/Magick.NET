@@ -92,6 +92,7 @@ clone_date 'zlib' "$commitDate"
 
 rm -rf VisualMagick/dcraw
 rm -rf VisualMagick/demos
+rm -rf VisualMagick/fuzz
 rm -rf VisualMagick/ImageMagickObject
 rm -rf VisualMagick/IMDisplay
 rm -rf VisualMagick/iptcutil

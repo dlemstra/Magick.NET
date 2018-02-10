@@ -352,7 +352,7 @@ namespace Magick.NET.Tests
 
                 MagickNET.Log += logDelegate;
 
-                MagickNET.SetLogEvents(LogEvents.All);
+                MagickNET.SetLogEvents(LogEvents.Detailed);
 
                 image.Flip();
                 Assert.AreNotEqual(0, count);
@@ -377,7 +377,7 @@ namespace Magick.NET.Tests
 
                 MagickNET.Log += logDelegate;
 
-                MagickNET.SetLogEvents(LogEvents.All);
+                MagickNET.SetLogEvents(LogEvents.Detailed);
 
                 MagickNET.Log -= logDelegate;
 

@@ -33,6 +33,16 @@ MAGICK_NET_EXPORT void ResourceLimits_Height_Set(const MagickSizeType limit)
   SetMagickResourceLimit(HeightResource, limit);
 }
 
+MAGICK_NET_EXPORT MagickSizeType ResourceLimits_ListLength_Get(void)
+{
+  return GetMagickResourceLimit(ListLengthResource);
+}
+
+MAGICK_NET_EXPORT void ResourceLimits_ListLength_Set(const MagickSizeType limit)
+{
+  SetMagickResourceLimit(ListLengthResource, limit);
+}
+
 MAGICK_NET_EXPORT MagickSizeType ResourceLimits_Memory_Get(void)
 {
   return GetMagickResourceLimit(MemoryResource);

@@ -38,6 +38,15 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Gets or sets the maximum number of images in an image list.
+        /// </summary>
+        public static ulong ListLength
+        {
+            get { return NativeResourceLimits.ListLength; }
+            set { NativeResourceLimits.ListLength = value; }
+        }
+
+        /// <summary>
         /// Gets or sets the pixel cache limit in bytes. Once this memory limit is exceeded, all subsequent pixels cache
         /// operations are to/from disk.
         /// </summary>

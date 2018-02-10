@@ -6080,22 +6080,43 @@ namespace ImageMagick
         }
 
         /// <summary>
-        ///  Transforms the image from the colorspace of the source profile to the target profile. The
-        ///  source profile will only be used if the image does not contain a color profile. Nothing
-        ///  will happen if the source profile has a different colorspace then that of the image.
+        /// Transforms the image from the colorspace of the source profile to the target profile. This
+        /// requires the image to have a color profile. Nothing will happen if the image has no color profile.
+        /// </summary>
+        /// <param name="target">The target color profile</param>
+        /// <returns>True when the colorspace was transformed otherwise false.</returns>
+        public bool TransformColorSpace(ColorProfile target)
+        {
+            Throw.IfNull(nameof(target), target);
+
+            if (!_nativeInstance.HasProfile(target.Name))
+                return false;
+
+            AddProfile(target);
+
+            return true;
+        }
+
+        /// <summary>
+        /// Transforms the image from the colorspace of the source profile to the target profile. The
+        /// source profile will only be used if the image does not contain a color profile. Nothing
+        /// will happen if the source profile has a different colorspace then that of the image.
         /// </summary>
         /// <param name="source">The source color profile.</param>
         /// <param name="target">The target color profile</param>
-        public void TransformColorSpace(ColorProfile source, ColorProfile target)
+        /// <returns>True when the colorspace was transformed otherwise false.</returns>
+        public bool TransformColorSpace(ColorProfile source, ColorProfile target)
         {
             Throw.IfNull(nameof(source), source);
             Throw.IfNull(nameof(target), target);
 
             if (source.ColorSpace != ColorSpace)
-                return;
+                return false;
 
             AddProfile(source, false);
             AddProfile(target);
+
+            return true;
         }
 
         /// <summary>

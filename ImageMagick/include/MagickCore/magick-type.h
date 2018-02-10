@@ -29,11 +29,11 @@ extern "C" {
 #endif
 
 #if defined(MAGICKCORE_WINDOWS_SUPPORT) && !defined(__MINGW32__)
-#  define MagickLLConstant(c)  (MagickOffsetType) (c ## i64)
-#  define MagickULLConstant(c)  (MagickSizeType) (c ## ui64)
+#  define MagickLLConstant(c)  ((MagickOffsetType) (c ## i64))
+#  define MagickULLConstant(c)  ((MagickSizeType) (c ## ui64))
 #else
-#  define MagickLLConstant(c)  (MagickOffsetType) (c ## LL)
-#  define MagickULLConstant(c)  (MagickSizeType) (c ## ULL)
+#  define MagickLLConstant(c)  ((MagickOffsetType) (c ## LL))
+#  define MagickULLConstant(c)  ((MagickSizeType) (c ## ULL))
 #endif
 
 #if MAGICKCORE_SIZEOF_FLOAT_T == 0
@@ -179,7 +179,7 @@ typedef enum
 #  define IsNaN(a) (a != a)
 #endif
 #if !defined(INFINITY)
-#  define INFINITY (log(0))
+#  define INFINITY (-logf(0f))
 #endif
 
 typedef struct _BlobInfo BlobInfo;
