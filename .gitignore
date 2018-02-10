@@ -26,3 +26,4 @@ runtimes
 /TestResults
 /Tools/AppVeyor/OpenCover*
 /Source/Magick.NET.CrossPlatform/ubuntu.16.04/authorized_keys
+/ImageMagick/Source/authorized_keys
