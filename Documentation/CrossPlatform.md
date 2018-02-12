@@ -64,7 +64,8 @@ libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007fc0081b8000)
 /lib64/ld-linux-x86-64.so.2 (0x00005568c223f000)
 ```
 
-This can be resolved by setting `LD_LIBRARY_PATH`: `export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/ImageMagick/libraries`
+This can be resolved by setting the PATH to the folder where the `libMagickCore` library files are installed on your machine.  
+`LD_LIBRARY_PATH`: `export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/ImageMagick/libraries`
 
 ### Mono
 
