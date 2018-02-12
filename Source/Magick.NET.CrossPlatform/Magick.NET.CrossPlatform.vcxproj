@@ -22,7 +22,7 @@
     <ApplicationTypeRevision>1.0</ApplicationTypeRevision>
     <TargetLinuxPlatform>Generic</TargetLinuxPlatform>
     <LinuxProjectType>{2238F9CD-F817-4ECC-BD14-2524D2669B35}</LinuxProjectType>
-    <ProjectName>Magick.NET.ubuntu.16.04</ProjectName>
+    <ProjectName>Magick.NET.CrossPlatform</ProjectName>
     <OutDir>$(ProjectDir)bin\ubuntu.16.04-$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)obj\ubuntu.16.04-$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>

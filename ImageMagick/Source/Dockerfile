@@ -1,4 +1,9 @@
-# Creates image suitable for building Magick.NET.CrossPlatform project on Linux
+#
+# Creates an image suitable for building the Magick.NET.CrossPlatform project for Linux.
+# 
+# This image requires that ImageMagick and it's dependencies already be checked out to your
+# machine under ImageMagick/Source, ideally using Checkout.cmd.
+
 FROM ubuntu:16.04
 
 # Install packages

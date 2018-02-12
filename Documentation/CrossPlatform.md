@@ -19,6 +19,18 @@ ImageMagick or a particular image library, simply update the relevant project un
 If you are adding additional projects to the build, make sure you also add lines to `ImageMagick/Source/.dockerignore` to ensure they are included in the docker
 build context.
 
+After adding a project to the ImageMagick build, you will also need to add it to the Magick.NET.CrossPlatform project. In Visual Studio, this is configured in 
+Project Properties->Linker->Input, or look for these sections in the `Magick.NET.CrossPlatform.vcxproj`:
+
+```xml
+    <Link>
+      <LibraryDependencies>pthread</LibraryDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">$(StlAdditionalDependencies);%(AdditionalDependencies);/usr/local/lib/libMagickWand-7.Q8.a;/usr/local/lib/libMagickCore-7.Q8.a;/usr/local/lib64/libjpeg.a;/usr/local/lib/libpng16.a;/usr/local/lib/libtiff.a;/usr/local/lib/libwebp.a;/usr/local/lib/libwebpmux.a;/usr/local/lib/libwebpdemux.a;/usr/local/lib/libz.a;/usr/local/lib/liblzma.a;/usr/local/lib/libbz2.a</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">$(StlAdditionalDependencies);%(AdditionalDependencies);/usr/local/lib/libMagickWand-7.Q16.a;/usr/local/lib/libMagickCore-7.Q16.a;/usr/local/lib64/libjpeg.a;/usr/local/lib/libpng16.a;/usr/local/lib/libtiff.a;/usr/local/lib/libwebp.a;/usr/local/lib/libwebpmux.a;/usr/local/lib/libwebpdemux.a;/usr/local/lib/libz.a;/usr/local/lib/liblzma.a;/usr/local/lib/libbz2.a</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'">$(StlAdditionalDependencies);%(AdditionalDependencies);/usr/local/lib/libMagickWand-7.Q16HDRI.a;/usr/local/lib/libMagickCore-7.Q16HDRI.a;/usr/local/lib64/libjpeg.a;/usr/local/lib/libpng16.a;/usr/local/lib/libtiff.a;/usr/local/lib/libwebp.a;/usr/local/lib/libwebpmux.a;/usr/local/lib/libwebpdemux.a;/usr/local/lib/libz.a;/usr/local/lib/liblzma.a;/usr/local/lib/libbz2.a</AdditionalDependencies>
+    </Link>
+```
+
 Then rerun `docker build` and start a fresh container from the result. This will create an Ubuntu 16.04 container with a fresh copy of ImageMagick and various 
 image libraries, ready to support building Magick.NET.Native from Visual Studio or the BuildCrossPlatform script.
 
