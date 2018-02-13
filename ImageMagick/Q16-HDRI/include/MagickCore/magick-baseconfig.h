@@ -113,6 +113,11 @@
 #define MAGICKCORE_HAVE_LCMS2_H
 
 /*
+  Define to use the libde265 library
+*/
+#define MAGICKCORE_HEIC_DELEGATE
+
+/*
   Define to use the Raw library
 */
 #define MAGICKCORE_RAW_R_DELEGATE

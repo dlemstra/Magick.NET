@@ -383,6 +383,11 @@ namespace ImageMagick
         Hald,
 
         /// <summary>
+        /// Apple High Efficiency Image Format
+        /// </summary>
+        Heic,
+
+        /// <summary>
         /// Radiance RGBE image format
         /// </summary>
         Hdr,
