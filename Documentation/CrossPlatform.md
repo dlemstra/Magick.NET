@@ -17,10 +17,11 @@ Building the dockerfile referenced above is the simplest way to get a fresh buil
 steps for ImageMagick and it's dependencies, and the Magick.NET.CrossPlatform project will link against that build. To build against a different version of 
 ImageMagick or a particular image library, simply update the relevant project under `ImageMagick/Source` or update build options in `ImageMagick/Source/Dockerfile`.
 If you are adding additional projects to the build, make sure you also add lines to `ImageMagick/Source/.dockerignore` to ensure they are included in the docker
-build context.
+build context. Then `docker build` and start a fresh container from the result. This will create an Ubuntu 16.04 container with a fresh copy of ImageMagick 
+and various image libraries, ready to support building Magick.NET.Native from Visual Studio or the BuildCrossPlatform script.
 
 After adding a project to the ImageMagick build, you will also need to add it to the Magick.NET.CrossPlatform project. In Visual Studio, this is configured in 
-Project Properties->Linker->Input, or look for these sections in the `Magick.NET.CrossPlatform.vcxproj`:
+Project Properties->Linker->Input, or look for these sections in `Magick.NET.CrossPlatform.vcxproj`:
 
 ```xml
     <Link>
@@ -31,8 +32,55 @@ Project Properties->Linker->Input, or look for these sections in the `Magick.NET
     </Link>
 ```
 
-Then rerun `docker build` and start a fresh container from the result. This will create an Ubuntu 16.04 container with a fresh copy of ImageMagick and various 
-image libraries, ready to support building Magick.NET.Native from Visual Studio or the BuildCrossPlatform script.
+## Adding support for other formats
+
+Magick.NET uses a statically linked build of ImageMagick to allow for an extremely portable Linux binary. This means for most use cases, it will "just work" on
+standard glibc-based Linux distributions like Ubuntu or CentOS. Unfortunately, it also means some libraries and formats are left unsupported where an incompatible
+license or other issue prevents it.
+
+If you wish to create a custom build of Magick.NET for those situations, there are a few steps to follow. If, for example, you want to build Magick.NET with
+support for TIFF, JPEG, and SVG using shared objects, you could simple add an extra install step to `ImageMagick/Source/Dockerfile`:
+
+```Dockerfile
+RUN apt-get install -y librsvg2-dev libxml2-dev libfreetype6-dev libtiff5-dev libjpeg-turbo8-dev
+```
+
+Remove the steps to copy and build delegate libraries from source, and update the ImageMagick configure options. You'd be left with a dockerfile like this:
+
+```Dockerfile
+FROM ubuntu:16.04
+
+# Install packages
+RUN apt-get update
+RUN apt-get install -y gcc g++ make autoconf autopoint pkg-config libtool nasm git openssh-server dos2unix
+
+# Initialize the sshd server
+RUN mkdir /var/run/sshd; chmod 755 /var/run/sshd
+RUN sed -i -e 's/#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
+COPY authorized_keys /root/.ssh/authorized_keys
+RUN chmod 600 ~/.ssh/authorized_keys
+
+# Add image libraries
+RUN apt-get install -y librsvg2-dev libxml2-dev libfreetype6-dev libtiff5-dev libjpeg-turbo8-dev
+
+# Build ImageMagick
+COPY /ImageMagick/ImageMagick /ImageMagick
+WORKDIR /ImageMagick
+# Note several scripts need forced line-ending conversion due to odd characters
+RUN find . -type f -print0 | xargs -0 dos2unix; \
+    dos2unix -f configure Makefile.in config/ltmain.sh;
+RUN ./configure CFLAGS="-fPIC -Wall -O3" CXXFLAGS="-fPIC -Wall -O3" --with-rsvg --enable-delegate-build --enable-static --with-magick-plus-plus=no --with-quantum-depth=8 --enable-hdri=no; \
+    make install
+RUN ./configure CFLAGS="-fPIC -Wall -O3" CXXFLAGS="-fPIC -Wall -O3" --with-rsvg --enable-delegate-build --enable-static --with-magick-plus-plus=no --with-quantum-depth=16 --enable-hdri=no; \
+    make install
+RUN ./configure CFLAGS="-fPIC -Wall -O3" CXXFLAGS="-fPIC -Wall -O3" --with-rsvg --enable-delegate-build --enable-static --with-magick-plus-plus=no --with-quantum-depth=16; \
+    make install
+
+# Start sshd on port 22
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]
+
+```
 
 ## Extra requirements
 
