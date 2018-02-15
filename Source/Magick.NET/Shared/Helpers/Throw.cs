@@ -36,6 +36,14 @@ namespace ImageMagick
                 throw new ArgumentNullException(paramName, FormatMessage(message, args));
         }
 
+        public static void IfNullOrEmpty(string paramName, Stream value)
+        {
+            IfNull(paramName, value);
+
+            if (value.CanSeek && value.Position == value.Length)
+                throw new ArgumentException("Value cannot be empty.", paramName);
+        }
+
         public static void IfNullOrEmpty(string paramName, [ValidatedNotNull] string value)
         {
             IfNull(paramName, value);

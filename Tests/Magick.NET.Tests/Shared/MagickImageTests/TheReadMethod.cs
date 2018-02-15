@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.IO;
 using System.Text;
 using ImageMagick;
@@ -69,6 +70,21 @@ namespace Magick.NET.Tests.Shared
                     using (IMagickImage image = new MagickImage())
                     {
                         image.Read(stream);
+                    }
+                }
+            }
+
+            [TestMethod]
+            public void ShouldThrowAnExceptionWhenTheStreamIsEmpty()
+            {
+                using (MemoryStream memStream = new MemoryStream())
+                {
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.Throws<ArgumentException>(() =>
+                        {
+                            image.Read(memStream);
+                        }, "Value cannot be empty.");
                     }
                 }
             }

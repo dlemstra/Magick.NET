@@ -308,7 +308,7 @@ namespace ImageMagick
 
         private void Initialize(Stream stream)
         {
-            Throw.IfNull(nameof(stream), stream);
+            Throw.IfNullOrEmpty(nameof(stream), stream);
 
             using (XmlReader xmlReader = XmlReader.Create(stream, _ReaderSettings))
             {

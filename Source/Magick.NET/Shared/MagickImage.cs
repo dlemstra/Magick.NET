@@ -6740,7 +6740,7 @@ namespace ImageMagick
 
         private void Read(Stream stream, MagickReadSettings readSettings, bool ping)
         {
-            Throw.IfNull(nameof(stream), stream);
+            Throw.IfNullOrEmpty(nameof(stream), stream);
 
             Bytes bytes = Bytes.FromStreamBuffer(stream);
             if (bytes != null)
