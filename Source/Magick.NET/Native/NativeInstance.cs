@@ -18,13 +18,7 @@ namespace ImageMagick
     {
         private IntPtr _instance = IntPtr.Zero;
 
-        public static INativeInstance Zero
-        {
-            get
-            {
-                return new ZeroInstance();
-            }
-        }
+        public static INativeInstance Zero => new ZeroInstance();
 
         public IntPtr Instance
         {
@@ -43,6 +37,8 @@ namespace ImageMagick
                 _instance = value;
             }
         }
+
+        public bool IsDisposed => _instance == IntPtr.Zero;
 
         protected abstract string TypeName
         {
@@ -72,13 +68,7 @@ namespace ImageMagick
 
         private class ZeroInstance : INativeInstance
         {
-            public IntPtr Instance
-            {
-                get
-                {
-                    return IntPtr.Zero;
-                }
-            }
+            public IntPtr Instance => IntPtr.Zero;
 
             public void Dispose()
             {

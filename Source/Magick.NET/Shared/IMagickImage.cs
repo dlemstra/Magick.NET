@@ -246,6 +246,11 @@ namespace ImageMagick
         PixelInterpolateMethod Interpolate { get; set; }
 
         /// <summary>
+        /// Gets a value indicating whether the instance is disposed.
+        /// </summary>
+        bool IsDisposed { get; }
+
+        /// <summary>
         /// Gets a value indicating whether none of the pixels in the image have an alpha value other
         /// than OpaqueAlpha (QuantumRange).
         /// </summary>

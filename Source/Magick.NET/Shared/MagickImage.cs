@@ -709,13 +709,15 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Gets a value indicating whether the instance is disposed.
+        /// </summary>
+        public bool IsDisposed => _nativeInstance.IsDisposed;
+
+        /// <summary>
         /// Gets a value indicating whether none of the pixels in the image have an alpha value other
         /// than OpaqueAlpha (QuantumRange).
         /// </summary>
-        public bool IsOpaque
-        {
-            get { return _nativeInstance.IsOpaque; }
-        }
+        public bool IsOpaque => _nativeInstance.IsOpaque;
 
         /// <summary>
         /// Gets or sets the label of the image.
