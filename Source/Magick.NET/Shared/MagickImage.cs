@@ -6735,7 +6735,10 @@ namespace ImageMagick
             }
 
             Settings.Ping = ping;
+
             _nativeInstance.ReadBlob(Settings, data, length);
+
+            ResetSettings();
         }
 
         private void Read(Stream stream, MagickReadSettings readSettings, bool ping)
@@ -6776,6 +6779,8 @@ namespace ImageMagick
 
                 _nativeInstance.ReadStream(Settings, readStream, seekStream, tellStream);
             }
+
+            ResetSettings();
         }
 
         private void Read(string fileName, MagickReadSettings readSettings, bool ping)
@@ -6797,6 +6802,8 @@ namespace ImageMagick
             Settings.FileName = filePath;
 
             _nativeInstance.ReadFile(Settings);
+
+            ResetSettings();
         }
 
         private void ReadPixels(byte[] data, int length, MagickReadSettings readSettings)
@@ -6810,6 +6817,11 @@ namespace ImageMagick
             Throw.IfTrue(nameof(data), length < expectedLength, "The array length is " + length + " but should be at least " + expectedLength + ".");
 
             _nativeInstance.ReadPixels(readSettings.Width.Value, readSettings.Height.Value, readSettings.PixelStorage.Mapping, readSettings.PixelStorage.StorageType, data);
+        }
+
+        private void ResetSettings()
+        {
+            Settings.Format = MagickFormat.Unknown;
         }
 
         private void SetInstance(NativeMagickImage instance)

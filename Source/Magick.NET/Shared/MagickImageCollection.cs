@@ -1458,6 +1458,8 @@ namespace ImageMagick
 
         private void AddImages(IntPtr result, MagickSettings settings)
         {
+            settings.Format = MagickFormat.Unknown;
+
             foreach (IMagickImage image in MagickImage.CreateList(result, settings))
             {
                 _images.Add(image);

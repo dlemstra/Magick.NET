@@ -88,6 +88,53 @@ namespace Magick.NET.Tests.Shared
                     }
                 }
             }
+
+            [TestMethod]
+            public void ShouldResetTheFormatAfterReadingFile()
+            {
+                var readSettings = new MagickReadSettings()
+                {
+                    Format = MagickFormat.Png,
+                };
+
+                using (IMagickImage input = new MagickImage(Files.CirclePNG, readSettings))
+                {
+                    Assert.AreEqual(MagickFormat.Unknown, input.Settings.Format);
+                }
+            }
+
+            [TestMethod]
+            public void ShouldResetTheFormatAfterReadingStream()
+            {
+                var readSettings = new MagickReadSettings()
+                {
+                    Format = MagickFormat.Png,
+                };
+
+                using (var stream = File.OpenRead(Files.CirclePNG))
+                {
+                    using (IMagickImage input = new MagickImage(stream, readSettings))
+                    {
+                        Assert.AreEqual(MagickFormat.Unknown, input.Settings.Format);
+                    }
+                }
+            }
+
+            [TestMethod]
+            public void ShouldResetTheFormatAfterReadingBytes()
+            {
+                var readSettings = new MagickReadSettings()
+                {
+                    Format = MagickFormat.Png,
+                };
+
+                var bytes = File.ReadAllBytes(Files.CirclePNG);
+
+                using (IMagickImage input = new MagickImage(bytes, readSettings))
+                {
+                    Assert.AreEqual(MagickFormat.Unknown, input.Settings.Format);
+                }
+            }
         }
     }
 }
