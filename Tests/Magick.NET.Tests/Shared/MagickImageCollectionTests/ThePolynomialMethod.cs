@@ -16,7 +16,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public partial class MagickImageTests
+    public partial class MagickImageCollectionTests
     {
         [TestClass]
         public class ThePolynomialMethod
