@@ -132,27 +132,46 @@ namespace ImageMagick
         /// <returns>A <see cref="BitmapSource"/>.</returns>
         public BitmapSource ToBitmapSource()
         {
+            IMagickImage image = this;
+
             string mapping = "RGB";
             MediaPixelFormat format = MediaPixelFormats.Rgb24;
-            if (HasAlpha)
+
+            try
             {
-                mapping = "BGRA";
-                format = MediaPixelFormats.Bgra32;
+                if (ColorSpace == ColorSpace.CMYK)
+                {
+                    mapping = "CMYK";
+                    format = MediaPixelFormats.Cmyk32;
+                }
+                else
+                {
+                    if (ColorSpace != ColorSpace.sRGB)
+                    {
+                        image = Clone();
+                        image.ColorSpace = ColorSpace.sRGB;
+                    }
+
+                    if (image.HasAlpha)
+                    {
+                        mapping = "BGRA";
+                        format = MediaPixelFormats.Bgra32;
+                    }
+                }
+
+                int step = format.BitsPerPixel / 8;
+                int stride = Width * step;
+
+                using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                {
+                    byte[] bytes = pixels.ToByteArray(mapping);
+                    return BitmapSource.Create(Width, Height, 96, 96, format, null, bytes, stride);
+                }
             }
-
-            if (ColorSpace == ColorSpace.CMYK)
+            finally
             {
-                mapping = "CMYK";
-                format = MediaPixelFormats.Cmyk32;
-            }
-
-            int step = format.BitsPerPixel / 8;
-            int stride = Width * step;
-
-            using (IPixelCollection pixels = GetPixelsUnsafe())
-            {
-                byte[] bytes = pixels.ToByteArray(mapping);
-                return BitmapSource.Create(Width, Height, 96, 96, format, null, bytes, stride);
+                if (!ReferenceEquals(this, image))
+                    image.Dispose();
             }
         }
 #endif

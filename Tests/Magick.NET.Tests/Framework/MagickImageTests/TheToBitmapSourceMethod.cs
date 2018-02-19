@@ -12,11 +12,10 @@
 
 #if !NETCOREAPP1_1
 
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using MediaPixelFormats = System.Windows.Media.PixelFormats;
 
 namespace Magick.NET.Tests.Framework
 {
@@ -34,7 +33,7 @@ namespace Magick.NET.Tests.Framework
                 {
                     BitmapSource bitmapSource = image.ToBitmapSource();
 
-                    Assert.AreEqual(MediaPixelFormats.Rgb24, bitmapSource.Format);
+                    Assert.AreEqual(PixelFormats.Rgb24, bitmapSource.Format);
                     Assert.AreEqual(5, bitmapSource.Width);
                     Assert.AreEqual(10, bitmapSource.Height);
 
@@ -57,7 +56,7 @@ namespace Magick.NET.Tests.Framework
 
                     BitmapSource bitmapSource = image.ToBitmapSource();
 
-                    Assert.AreEqual(MediaPixelFormats.Cmyk32, bitmapSource.Format);
+                    Assert.AreEqual(PixelFormats.Cmyk32, bitmapSource.Format);
                     Assert.AreEqual(10, bitmapSource.Width);
                     Assert.AreEqual(5, bitmapSource.Height);
 
@@ -81,7 +80,7 @@ namespace Magick.NET.Tests.Framework
 
                     BitmapSource bitmapSource = image.ToBitmapSource();
 
-                    Assert.AreEqual(MediaPixelFormats.Bgra32, bitmapSource.Format);
+                    Assert.AreEqual(PixelFormats.Bgra32, bitmapSource.Format);
                     Assert.AreEqual(5, bitmapSource.Width);
                     Assert.AreEqual(10, bitmapSource.Height);
 
@@ -91,6 +90,29 @@ namespace Magick.NET.Tests.Framework
                     Assert.AreEqual(0, pixels[1]);
                     Assert.AreEqual(255, pixels[2]);
                     Assert.AreEqual(255, pixels[3]);
+                }
+            }
+
+            [TestMethod]
+            public void ShouldReturnImageWithRgb24FormatForYCbCrImage()
+            {
+                byte[] pixels = new byte[150];
+
+                using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+                {
+                    image.ColorSpace = ColorSpace.YCbCr;
+
+                    BitmapSource bitmapSource = image.ToBitmapSource();
+
+                    Assert.AreEqual(PixelFormats.Rgb24, bitmapSource.Format);
+                    Assert.AreEqual(5, bitmapSource.Width);
+                    Assert.AreEqual(10, bitmapSource.Height);
+
+                    bitmapSource.CopyPixels(pixels, 15, 0);
+
+                    Assert.AreEqual(255, pixels[0]);
+                    Assert.AreEqual(0, pixels[1]);
+                    Assert.AreEqual(0, pixels[2]);
                 }
             }
         }
