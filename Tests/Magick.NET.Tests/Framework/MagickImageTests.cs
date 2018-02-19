@@ -29,9 +29,6 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-using System.Windows.Media.Imaging;
-using MediaPixelFormats = System.Windows.Media.PixelFormats;
-
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
@@ -248,75 +245,6 @@ namespace Magick.NET.Tests
 
                     ColorAssert.AreEqual(new MagickColor("#26ffb1"), bitmap.GetPixel(1142, 42));
                 }
-            }
-        }
-
-        [TestMethod]
-        public void ToBitmapSource_RgbImage_ReturnsBitmapSourceWithRgb24Format()
-        {
-            byte[] pixels = new byte[150];
-
-            using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
-            {
-                BitmapSource bitmapSource = image.ToBitmapSource();
-
-                Assert.AreEqual(MediaPixelFormats.Rgb24, bitmapSource.Format);
-                Assert.AreEqual(5, bitmapSource.Width);
-                Assert.AreEqual(10, bitmapSource.Height);
-
-                bitmapSource.CopyPixels(pixels, 15, 0);
-
-                Assert.AreEqual(255, pixels[0]);
-                Assert.AreEqual(0, pixels[1]);
-                Assert.AreEqual(0, pixels[2]);
-            }
-        }
-
-        [TestMethod]
-        public void ToBitmapSource_CmykImage_ReturnsBitmapSourceWithCmyk32Format()
-        {
-            byte[] pixels = new byte[200];
-
-            using (IMagickImage image = new MagickImage(MagickColors.Red, 10, 5))
-            {
-                image.ColorSpace = ColorSpace.CMYK;
-
-                BitmapSource bitmapSource = image.ToBitmapSource();
-
-                Assert.AreEqual(MediaPixelFormats.Cmyk32, bitmapSource.Format);
-                Assert.AreEqual(10, bitmapSource.Width);
-                Assert.AreEqual(5, bitmapSource.Height);
-
-                bitmapSource.CopyPixels(pixels, 40, 0);
-
-                Assert.AreEqual(0, pixels[0]);
-                Assert.AreEqual(255, pixels[1]);
-                Assert.AreEqual(255, pixels[2]);
-                Assert.AreEqual(0, pixels[3]);
-            }
-        }
-
-        [TestMethod]
-        public void ToBitmapSource_RgbaImage_ReturnsBitmapSourceWithBgra32Format()
-        {
-            byte[] pixels = new byte[200];
-
-            using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
-            {
-                image.HasAlpha = true;
-
-                BitmapSource bitmapSource = image.ToBitmapSource();
-
-                Assert.AreEqual(MediaPixelFormats.Bgra32, bitmapSource.Format);
-                Assert.AreEqual(5, bitmapSource.Width);
-                Assert.AreEqual(10, bitmapSource.Height);
-
-                bitmapSource.CopyPixels(pixels, 20, 0);
-
-                Assert.AreEqual(0, pixels[0]);
-                Assert.AreEqual(0, pixels[1]);
-                Assert.AreEqual(255, pixels[2]);
-                Assert.AreEqual(255, pixels[3]);
             }
         }
 
