@@ -25,7 +25,8 @@ RUN make CFLAGS="-Wall -Winline -O3 -fPIC -g -D_FILE_OFFSET_BITS=64"; \
 # Build zlib
 COPY /ImageMagick/Source/ImageMagick/zlib /zlib
 WORKDIR /zlib
-RUN chmod 755 ./configure; \
+RUN sleep 1; \
+    chmod +x ./configure; \
     export CFLAGS="-O3 -fPIC"; \
     ./configure --static; \
     make; \
@@ -34,7 +35,7 @@ RUN chmod 755 ./configure; \
 # Build libjpeg-turbo
 COPY /ImageMagick/Source/ImageMagick/jpeg /jpeg
 WORKDIR /jpeg
-RUN chmod 755 ./simd/nasm_lt.sh; \
+RUN chmod +x ./simd/nasm_lt.sh; \
     autoreconf -fiv; \
     ./configure --with-jpeg8 CFLAGS="-O3 -fPIC"; \
     make; \
