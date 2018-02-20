@@ -31,16 +31,6 @@ RUN export CFLAGS="-O3 -fPIC"; \
     make; \
     make install
 
-# Build lzma
-RUN git clone -n https://git.tukaani.org/xz.git /lzma; 
-WORKDIR /lzma
-RUN git checkout tags/v5.2.3
-RUN autoreconf -fiv; \
-    export CFLAGS="-O3 -fPIC"; \
-    ./configure; \
-    make; \
-    make install;
-
 # Build libjpeg-turbo
 COPY /ImageMagick/jpeg /jpeg
 WORKDIR /jpeg
