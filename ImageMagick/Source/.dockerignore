@@ -1,0 +1,17 @@
+# ignore all
+*
+
+# except needed projects
+!/ImageMagick/ImageMagick
+!/ImageMagick/png
+!/ImageMagick/tiff
+!/ImageMagick/jpeg
+!/ImageMagick/zlib
+!/ImageMagick/bzlib
+!/ImageMagick/webp
+
+# ssh keys
+!authorized_keys
+
+# skip .git repo data
+**/.git

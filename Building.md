@@ -19,7 +19,9 @@ Another option is building ImageMagick yourself. Below are the steps for that.
 1. This step is optional but you can decide to use the latest GIT revision. To do this you need to edit the file `ImageMagick\Source\Checkout.sh`
    and change the `date` variable to the current date and time.
 2. Then you need to run `ImageMagick\Source\Checkout.cmd` that will clone the master branch of the GIT repository of ImageMagick.
-3. Now run `ImageMagick\Source\BuildAll.cmd` or one of the files in `ImageMagick\Source\Development` to target a specific platform and Quantum.
+3. Now run `ImageMagick\Source\BuildAll.cmd` or one of the files in `ImageMagick\Source\Development` to target a specific platform and Quantum. If you see
+   errors related to stdafx.h, check that "MFC and ATL support (x86 and x64)" is installed as part of Visual Studio 2017. If you see errors related to 
+   new.h, you may need to install Windows SDK 10.0.10240.0 (or another pre-10586 version)
 
 And with the files in the `ImageMagick\Source\Debug` folder you can create a debug build.
 

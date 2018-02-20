@@ -22,7 +22,7 @@
     <ApplicationTypeRevision>1.0</ApplicationTypeRevision>
     <TargetLinuxPlatform>Generic</TargetLinuxPlatform>
     <LinuxProjectType>{2238F9CD-F817-4ECC-BD14-2524D2669B35}</LinuxProjectType>
-    <ProjectName>Magick.NET.ubuntu.16.04</ProjectName>
+    <ProjectName>Magick.NET.CrossPlatform</ProjectName>
     <OutDir>$(ProjectDir)bin\ubuntu.16.04-$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)obj\ubuntu.16.04-$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -130,16 +130,18 @@
     <ClCompile>
       <ThreadSafeStatics />
       <RuntimeTypeInfo />
-      <AdditionalIncludeDirectories>/usr/local/include/ImageMagick-7;/root/projects/Magick.NET.ubuntu.16.04;/usr/include;$(StlIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>-fPIC %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>/usr/local/include/ImageMagick-7;/root/projects/Magick.NET.CrossPlatform;/usr/include;$(StlIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-fPIC -pthread %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">NDEBUG;MAGICK_NET_LINUX;MAGICKCORE_QUANTUM_DEPTH=8;MAGICKCORE_HDRI_ENABLE=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">NDEBUG;MAGICK_NET_LINUX;MAGICKCORE_QUANTUM_DEPTH=16;MAGICKCORE_HDRI_ENABLE=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'">NDEBUG;MAGICK_NET_LINUX;MAGICKCORE_QUANTUM_DEPTH=16;MAGICKCORE_HDRI_ENABLE=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PositionIndependentCode>true</PositionIndependentCode>
     </ClCompile>
     <Link>
-      <LibraryDependencies Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">MagickCore-7.Q8;MagickWand-7.Q8;jpeg</LibraryDependencies>
-      <LibraryDependencies Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">MagickCore-7.Q16;MagickWand-7.Q16;jpeg</LibraryDependencies>
-      <LibraryDependencies Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'">MagickCore-7.Q16HDRI;MagickWand-7.Q16HDRI;jpeg</LibraryDependencies>
+      <LibraryDependencies>pthread</LibraryDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">$(StlAdditionalDependencies);%(AdditionalDependencies);/usr/local/lib/libMagickWand-7.Q8.a;/usr/local/lib/libMagickCore-7.Q8.a;/usr/local/lib64/libjpeg.a;/usr/local/lib/libpng16.a;/usr/local/lib/libtiff.a;/usr/local/lib/libwebp.a;/usr/local/lib/libwebpmux.a;/usr/local/lib/libwebpdemux.a;/usr/local/lib/libz.a;/usr/local/lib/libbz2.a</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">$(StlAdditionalDependencies);%(AdditionalDependencies);/usr/local/lib/libMagickWand-7.Q16.a;/usr/local/lib/libMagickCore-7.Q16.a;/usr/local/lib64/libjpeg.a;/usr/local/lib/libpng16.a;/usr/local/lib/libtiff.a;/usr/local/lib/libwebp.a;/usr/local/lib/libwebpmux.a;/usr/local/lib/libwebpdemux.a;/usr/local/lib/libz.a;/usr/local/lib/libbz2.a</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'">$(StlAdditionalDependencies);%(AdditionalDependencies);/usr/local/lib/libMagickWand-7.Q16HDRI.a;/usr/local/lib/libMagickCore-7.Q16HDRI.a;/usr/local/lib64/libjpeg.a;/usr/local/lib/libpng16.a;/usr/local/lib/libtiff.a;/usr/local/lib/libwebp.a;/usr/local/lib/libwebpmux.a;/usr/local/lib/libwebpdemux.a;/usr/local/lib/libz.a;/usr/local/lib/libbz2.a</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
