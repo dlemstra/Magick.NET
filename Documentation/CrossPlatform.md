@@ -45,42 +45,7 @@ support for TIFF, JPEG, and SVG using shared objects, you could simple add an ex
 RUN apt-get install -y librsvg2-dev libxml2-dev libfreetype6-dev libtiff5-dev libjpeg-turbo8-dev
 ```
 
-Remove the steps to copy and build delegate libraries from source, and update the ImageMagick configure options. You'd be left with a dockerfile like this:
-
-```Dockerfile
-FROM ubuntu:16.04
-
-# Install packages
-RUN apt-get update
-RUN apt-get install -y gcc g++ make autoconf autopoint pkg-config libtool nasm git openssh-server dos2unix
-
-# Initialize the sshd server
-RUN mkdir /var/run/sshd; chmod 755 /var/run/sshd
-RUN sed -i -e 's/#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
-COPY authorized_keys /root/.ssh/authorized_keys
-RUN chmod 600 ~/.ssh/authorized_keys
-
-# Add image libraries
-RUN apt-get install -y librsvg2-dev libxml2-dev libfreetype6-dev libtiff5-dev libjpeg-turbo8-dev
-
-# Build ImageMagick
-COPY /ImageMagick/ImageMagick /ImageMagick
-WORKDIR /ImageMagick
-# Note several scripts need forced line-ending conversion due to odd characters
-RUN find . -type f -print0 | xargs -0 dos2unix; \
-    dos2unix -f configure Makefile.in config/ltmain.sh;
-RUN ./configure CFLAGS="-fPIC -Wall -O3" CXXFLAGS="-fPIC -Wall -O3" --with-rsvg --enable-delegate-build --enable-static --with-magick-plus-plus=no --with-quantum-depth=8 --enable-hdri=no; \
-    make install
-RUN ./configure CFLAGS="-fPIC -Wall -O3" CXXFLAGS="-fPIC -Wall -O3" --with-rsvg --enable-delegate-build --enable-static --with-magick-plus-plus=no --with-quantum-depth=16 --enable-hdri=no; \
-    make install
-RUN ./configure CFLAGS="-fPIC -Wall -O3" CXXFLAGS="-fPIC -Wall -O3" --with-rsvg --enable-delegate-build --enable-static --with-magick-plus-plus=no --with-quantum-depth=16; \
-    make install
-
-# Start sshd on port 22
-EXPOSE 22
-CMD ["/usr/sbin/sshd", "-D"]
-
-```
+Remove the steps to copy and build delegate libraries from source, and update the ImageMagick configure options.
 
 ## Extra requirements
 
