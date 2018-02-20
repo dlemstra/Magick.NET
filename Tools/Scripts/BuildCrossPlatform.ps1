@@ -19,18 +19,18 @@ SetFolder $scriptPath
 function BuildCrossPlatform()
 {
     $configurations = @(
-        @{Distribution = "ubuntu.16.04"; Quantum = "Q8"}
-        @{Distribution = "ubuntu.16.04"; Quantum = "Q16"}
-        @{Distribution = "ubuntu.16.04"; Quantum = "Q16-HDRI"}
+        @{OperatingSystem = "linux"; Quantum = "Q8"}
+        @{OperatingSystem = "linux"; Quantum = "Q16"}
+        @{OperatingSystem = "linux"; Quantum = "Q16-HDRI"}
     )
 
     foreach ($configuration in $configurations)
     {
         BuildSolution "Magick.NET.CrossPlatform.sln" "Configuration=Release$($configuration.Quantum),Platform=x64"
 
-        $dir = "ImageMagick\$($configuration.Quantum)\lib\Release\CrossPlatform\$($configuration.Distribution)"
+        $dir = "ImageMagick\$($configuration.Quantum)\lib\Release\CrossPlatform\$($configuration.OperatingSystem)"
         CreateFolder $dir
-        Copy-Item "Source\Magick.NET.CrossPlatform\bin\$($configuration.Distribution)-x64\Release$($configuration.Quantum)\*.Native.dll.so" $dir
+        Copy-Item "Source\Magick.NET.CrossPlatform\bin\$($configuration.OperatingSystem)-x64\Release$($configuration.Quantum)\*.Native.dll.so" $dir
     }
 }
 
