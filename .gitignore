@@ -25,5 +25,3 @@ runtimes
 /Samples/Magick.NET.Samples/Samples/Magick.NET/Scripts/*.pp
 /TestResults
 /Tools/AppVeyor/OpenCover*
-/Source/Magick.NET.CrossPlatform/ubuntu.16.04/authorized_keys
-/ImageMagick/Source/authorized_keys
