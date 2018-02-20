@@ -12,6 +12,7 @@ Magick.NET is build with the following libraries:
 - jp2 1.900.6 (17 October 2016)
 - jpeg 1.5.2 (7 July 2017)
 - lcms 2.8 (20 July 2016)
+- libde265 1.0.2 (14 Jul 2015)
 - libraw 0.18.2 (8 March 2017)
 - librsvg 2.40.18 (19 July 2017)
 - libxml 2.9.4 (23 May 2016)
