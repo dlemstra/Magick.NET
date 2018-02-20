@@ -32,7 +32,7 @@ clone_commit()
   cd ..
 }
 
-#clone and check out a specific commit
+#clone and check out a specific date
 clone_date()
 {
   local repo=$1
@@ -46,7 +46,6 @@ clone_date()
   git checkout `git rev-list -n 1 --before="$date" origin/master`
   cd ..
 }
-
 
 if [ ! -d "ImageMagick" ]; then
   mkdir ImageMagick
@@ -62,11 +61,21 @@ declare -r commitDate=`git log -1 --format=%ci`
 echo "Set latest commit date as $commitDate" 
 cd ..
 
-if [ "$1" != "Windows" ]; then
-	exit
+if [ "$1" != "Linux" ] && [ "$1" != "Windows" ]; then
+  exit
 fi
 
 clone_date 'bzlib' "$commitDate"
+clone_date 'jpeg-turbo' "$commitDate" 'jpeg'
+clone_date 'png' "$commitDate"
+clone_date 'tiff' "$commitDate"
+clone_date 'webp' "$commitDate"
+clone_date 'zlib' "$commitDate"
+
+if [ "$1" != "Windows" ]; then
+  exit
+fi
+
 clone_date 'cairo' "$commitDate"
 clone_date 'croco' "$commitDate"
 clone_date 'exr' "$commitDate"
@@ -74,7 +83,6 @@ clone_date 'ffi' "$commitDate"
 clone_date 'flif' "$commitDate"
 clone_date 'glib' "$commitDate"
 clone_date 'jp2' "$commitDate"
-clone_date 'jpeg-turbo' "$commitDate" 'jpeg' 
 clone_date 'lcms' "$commitDate"
 clone_date 'libde265' "$commitDate"
 clone_date 'libraw' "$commitDate"
@@ -84,12 +92,8 @@ clone_date 'lqr' "$commitDate"
 clone_date 'openjpeg' "$commitDate"
 clone_date 'pango' "$commitDate"
 clone_date 'pixman' "$commitDate"
-clone_date 'png' "$commitDate"
-clone_date 'tiff' "$commitDate"
 clone_date 'ttf' "$commitDate"
 clone_date 'VisualMagick' "$commitDate"
-clone_date 'webp' "$commitDate"
-clone_date 'zlib' "$commitDate"
 
 rm -rf VisualMagick/dcraw
 rm -rf VisualMagick/demos
