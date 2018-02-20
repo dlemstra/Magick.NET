@@ -1,0 +1,7 @@
+
+
+az container create -g magicknet --name linux --image dlemstra/magick.net-linux --ip-address public --port 22
+
+az container list -g magicknet -o table
+
+az container delete -g magicknet --name linux

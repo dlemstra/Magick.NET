@@ -1,13 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2026
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Magick.NET.CrossPlatform", "Source\Magick.NET.CrossPlatform\Magick.NET.CrossPlatform.vcxproj", "{6F17FA39-6A72-4FF6-963E-2C66AE8D969D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{ED719399-610E-40B1-A3DE-0BABB2477012}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{ED719399-610E-40B1-A3DE-0BABB2477012}"
 	ProjectSection(SolutionItems) = preProject
 		Source\Magick.NET.CrossPlatform\authorized_keys = Source\Magick.NET.CrossPlatform\authorized_keys
+		Source\Magick.NET.CrossPlatform\Azure.txt = Source\Magick.NET.CrossPlatform\Azure.txt
 		Source\Magick.NET.CrossPlatform\Build.Linux.sh = Source\Magick.NET.CrossPlatform\Build.Linux.sh
 		Source\Magick.NET.CrossPlatform\Linux.Dockerfile = Source\Magick.NET.CrossPlatform\Linux.Dockerfile
 	EndProjectSection
