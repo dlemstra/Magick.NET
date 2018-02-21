@@ -25,8 +25,8 @@ RUN make CFLAGS="-Wall -Winline -O3 -fPIC -g -D_FILE_OFFSET_BITS=64"; \
 # Build zlib
 COPY /ImageMagick/Source/ImageMagick/zlib /zlib
 WORKDIR /zlib
-RUN sleep 1; \
-    chmod +x ./configure; \
+RUN chmod +x ./configure; \
+    sync; \
     export CFLAGS="-O3 -fPIC"; \
     ./configure --static; \
     make; \
