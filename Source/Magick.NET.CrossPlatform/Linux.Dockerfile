@@ -32,11 +32,22 @@ RUN chmod +x ./configure; \
     make; \
     make install
 
+# Build freetype
+COPY /ImageMagick/Source/ImageMagick/freetype /freetype
+WORKDIR /freetype
+RUN autoreconf -fiv; \
+    sync; \
+    export CFLAGS="-O3 -fPIC"; \
+    ./configure; \
+    make; \
+    make install
+
 # Build libjpeg-turbo
 COPY /ImageMagick/Source/ImageMagick/jpeg /jpeg
 WORKDIR /jpeg
 RUN chmod +x ./simd/nasm_lt.sh; \
     autoreconf -fiv; \
+    sync; \
     ./configure --with-jpeg8 CFLAGS="-O3 -fPIC"; \
     make; \
     make install prefix=/usr/local libdir=/usr/local/lib64
@@ -45,6 +56,7 @@ RUN chmod +x ./simd/nasm_lt.sh; \
 COPY /ImageMagick/Source/ImageMagick/png /png
 WORKDIR /png
 RUN autoreconf -fiv; \
+    sync; \
     export CFLAGS="-O3 -fPIC"; \
     ./configure --enable-mips-msa=off --enable-arm-neon=off --enable-powerpc-vsx=off; \
     make; \
@@ -54,6 +66,7 @@ RUN autoreconf -fiv; \
 COPY /ImageMagick/Source/ImageMagick/tiff /tiff
 WORKDIR /tiff
 RUN autoreconf -fiv; \
+    sync; \
     export CFLAGS="-O3 -fPIC"; \
     ./configure; \
     make; \
@@ -63,6 +76,7 @@ RUN autoreconf -fiv; \
 COPY /ImageMagick/Source/ImageMagick/webp /webp
 WORKDIR /webp
 RUN autoreconf -fiv; \
+    sync; \
     export CFLAGS="-O3 -fPIC"; \
     ./configure --enable-libwebpmux --enable-libwebpdemux; \
     make; \
