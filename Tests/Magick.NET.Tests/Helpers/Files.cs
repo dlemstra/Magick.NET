@@ -191,7 +191,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                return _Root + "Images/Viceland.png";
+                return _Root + "Images/viceland.png";
             }
         }
 
