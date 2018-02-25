@@ -53,7 +53,7 @@ fi
 
 cd ImageMagick
 
-clone_commit 'ImageMagick' '6aa7d5d9a39b6d42a4f6c7eacd6ad2169b68fc4f'
+clone_commit 'ImageMagick' '5c3fbf6c9eb9ca8bf608ffa6d8ca463e166b3d8f'
 
 # get a commit date from the current ImageMagick checkout
 cd ImageMagick
@@ -67,6 +67,7 @@ fi
 
 clone_date 'bzlib' "$commitDate"
 clone_date 'jpeg-turbo' "$commitDate" 'jpeg'
+clone_date 'libxml' "$commitDate"
 clone_date 'png' "$commitDate"
 clone_date 'tiff' "$commitDate"
 clone_date 'webp' "$commitDate"
@@ -87,7 +88,6 @@ clone_date 'lcms' "$commitDate"
 clone_date 'libde265' "$commitDate"
 clone_date 'libraw' "$commitDate"
 clone_date 'librsvg' "$commitDate"
-clone_date 'libxml' "$commitDate"
 clone_date 'lqr' "$commitDate"
 clone_date 'openjpeg' "$commitDate"
 clone_date 'pango' "$commitDate"
