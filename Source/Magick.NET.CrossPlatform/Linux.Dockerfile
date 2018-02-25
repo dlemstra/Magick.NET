@@ -9,6 +9,7 @@ FROM ubuntu:16.04
 # Install packages
 RUN apt-get update
 RUN apt-get install -y gcc g++ make autoconf autopoint pkg-config libtool nasm git openssh-server
+RUN apt-get install -y python-pip gperf
 
 # Initialize the sshd server
 RUN mkdir /var/run/sshd; chmod 755 /var/run/sshd
@@ -32,25 +33,15 @@ RUN chmod +x ./configure; \
     make; \
     make install
 
-# Build freetype
-COPY /ImageMagick/Source/ImageMagick/freetype /freetype
-WORKDIR /freetype
+# Build libxml
+COPY /ImageMagick/Source/ImageMagick/libxml /libxml
+WORKDIR /libxml
 RUN autoreconf -fiv; \
     sync; \
     export CFLAGS="-O3 -fPIC"; \
     ./configure; \
     make; \
-    make install
-
-# Build libjpeg-turbo
-COPY /ImageMagick/Source/ImageMagick/jpeg /jpeg
-WORKDIR /jpeg
-RUN chmod +x ./simd/nasm_lt.sh; \
-    autoreconf -fiv; \
-    sync; \
-    ./configure --with-jpeg8 CFLAGS="-O3 -fPIC"; \
-    make; \
-    make install prefix=/usr/local libdir=/usr/local/lib64
+    make install;
 
 # Build libpng
 COPY /ImageMagick/Source/ImageMagick/png /png
@@ -61,6 +52,43 @@ RUN autoreconf -fiv; \
     ./configure --enable-mips-msa=off --enable-arm-neon=off --enable-powerpc-vsx=off; \
     make; \
     make install
+
+# Build freetype
+COPY /ImageMagick/Source/ImageMagick/freetype /freetype
+WORKDIR /freetype
+RUN ./autogen.sh; \
+    sync; \
+    export CFLAGS="-O3 -fPIC"; \
+    ./configure; \
+    make; \
+    make install
+
+# build fontconfig
+COPY /ImageMagick/Source/ImageMagick/fontconfig /fontconfig
+WORKDIR /fontconfig
+RUN autoreconf -fiv; \
+    sync; \
+    pip install lxml; \
+    pip install six; \
+    export CFLAGS="-O3 -fPIC"; \
+    ./configure --enable-libxml2 --enable-static=yes; \
+    sed -i -e 's/HAVE_FT_GET_BDF_PROPERTY 1/HAVE_FT_GET_BDF_PROPERTY 0/' config.h; \
+    sed -i -e 's/HAVE_FT_GET_PS_FONT_INFO 1/HAVE_FT_GET_PS_FONT_INFO 0/' config.h; \
+    sed -i -e 's/HAVE_FT_HAS_PS_GLYPH_NAMES 1/HAVE_FT_HAS_PS_GLYPH_NAMES 0/' config.h; \
+    sed -i -e 's/if (!FT_Get_MM_Var (face, \&master))/if (0)/' src/fcfreetype.c; \
+    make; \
+    export LD_LIBRARY_PATH="/usr/local/lib"; \
+    make install;
+
+# Build libjpeg-turbo
+COPY /ImageMagick/Source/ImageMagick/jpeg /jpeg
+WORKDIR /jpeg
+RUN chmod +x ./simd/nasm_lt.sh; \
+    autoreconf -fiv; \
+    sync; \
+    ./configure --with-jpeg8 CFLAGS="-O3 -fPIC"; \
+    make; \
+    make install prefix=/usr/local libdir=/usr/local/lib64
 
 # Build libtiff
 COPY /ImageMagick/Source/ImageMagick/tiff /tiff
