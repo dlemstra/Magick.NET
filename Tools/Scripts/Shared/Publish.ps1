@@ -118,7 +118,7 @@ function CreateNuGetPackages($id, $version, $build)
 
   if ($build.Platform -ne "x86")
   {
-    AddFileElement $xml "..\..\ImageMagick\$($build.Quantum)\lib\Release\CrossPlatform\ubuntu.16.04\Magick.NET-$($build.Quantum)-x64.Native.dll.so" "runtimes\linux-x64\native"
+    AddFileElement $xml "..\..\ImageMagick\$($build.Quantum)\lib\Release\CrossPlatform\linux\Magick.NET-$($build.Quantum)-x64.Native.dll.so" "runtimes\linux-x64\native"
   }
 
   AddDocumentsToPackage $xml
