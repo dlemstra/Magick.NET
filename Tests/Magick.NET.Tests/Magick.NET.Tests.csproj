@@ -9,7 +9,7 @@
         <Configurations>DebugQ8;DebugQ16;DebugQ16-HDRI;TestQ8;TestQ16;TestQ16-HDRI</Configurations>
     </PropertyGroup>
 
-    <PropertyGroup>
+    <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
         <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>..\..\Magick.NET.snk</AssemblyOriginatorKeyFile>
     </PropertyGroup>

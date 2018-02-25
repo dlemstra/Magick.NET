@@ -43,9 +43,10 @@
         <TreatWarningsAsErrors Condition="'$(OS)' == 'Windows_NT'">true</TreatWarningsAsErrors>
     </PropertyGroup>
 
-    <PropertyGroup>
+    <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
         <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>..\..\Magick.NET.snk</AssemblyOriginatorKeyFile>
+        <DefineConstants>$(DefineConstants);WINDOWS_BUILD</DefineConstants>
     </PropertyGroup>
 
     <ItemGroup Condition="$(TargetFramework) != 'netstandard13'">
