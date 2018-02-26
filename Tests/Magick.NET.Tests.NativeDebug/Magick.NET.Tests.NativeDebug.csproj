@@ -20,9 +20,9 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ8|x86'">
+  <PropertyGroup>
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\DebugQ8\x86\</OutputPath>
+    <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
