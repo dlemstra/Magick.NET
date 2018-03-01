@@ -72,10 +72,6 @@ RUN autoreconf -fiv; \
     pip install six; \
     export CFLAGS="-O3 -fPIC"; \
     ./configure --enable-libxml2 --enable-static=yes; \
-    sed -i -e 's/HAVE_FT_GET_BDF_PROPERTY 1/HAVE_FT_GET_BDF_PROPERTY 0/' config.h; \
-    sed -i -e 's/HAVE_FT_GET_PS_FONT_INFO 1/HAVE_FT_GET_PS_FONT_INFO 0/' config.h; \
-    sed -i -e 's/HAVE_FT_HAS_PS_GLYPH_NAMES 1/HAVE_FT_HAS_PS_GLYPH_NAMES 0/' config.h; \
-    sed -i -e 's/if (!FT_Get_MM_Var (face, \&master))/if (0)/' src/fcfreetype.c; \
     make; \
     export LD_LIBRARY_PATH="/usr/local/lib"; \
     make install;
