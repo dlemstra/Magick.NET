@@ -1386,7 +1386,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Frame(const Image *instance, const Rectangl
     info;
 
   Image
-    *result;
+    *image;
 
   info.x = geometry->width;
   info.y = geometry->height;
@@ -1396,9 +1396,9 @@ MAGICK_NET_EXPORT Image *MagickImage_Frame(const Image *instance, const Rectangl
   info.inner_bevel = geometry->y;
 
   MAGICK_NET_GET_EXCEPTION;
-  result = FrameImage(instance, &info, instance->compose, exceptionInfo);
+  image = FrameImage(instance, &info, instance->compose, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
-  return result;
+  return image;
 }
 
 MAGICK_NET_EXPORT Image *MagickImage_Fx(Image *instance, const char *expression, const size_t channels, ExceptionInfo **exception)
@@ -1603,7 +1603,7 @@ MAGICK_NET_EXPORT void MagickImage_LinearStretch(Image *instance, const double b
 MAGICK_NET_EXPORT Image *MagickImage_LiquidRescale(const Image *instance, const char *geometry, ExceptionInfo **exception)
 {
   Image
-    *result;
+    *image;
 
   size_t
     height,
@@ -1618,9 +1618,9 @@ MAGICK_NET_EXPORT Image *MagickImage_LiquidRescale(const Image *instance, const 
   ParseMetaGeometry(geometry, &x, &y, &width, &height);
 
   MAGICK_NET_GET_EXCEPTION;
-  result = LiquidRescaleImage(instance, width, height, (double)x, (double)y, exceptionInfo);
+  image = LiquidRescaleImage(instance, width, height, (double)x, (double)y, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
-  return result;
+  return image;
 }
 
 MAGICK_NET_EXPORT Image *MagickImage_LocalContrast(const Image *instance, const double radius, const double strength, ExceptionInfo **exception)
