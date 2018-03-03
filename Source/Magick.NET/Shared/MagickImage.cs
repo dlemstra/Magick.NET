@@ -1018,7 +1018,8 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void AdaptiveResize(int width, int height)
         {
-            _nativeInstance.AdaptiveResize(width, height);
+            MagickGeometry geometry = new MagickGeometry(width, height);
+            AdaptiveResize(geometry);
         }
 
         /// <summary>
@@ -1032,7 +1033,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(geometry), geometry);
 
-            AdaptiveResize(geometry.Width, geometry.Height);
+            _nativeInstance.AdaptiveResize(MagickGeometry.ToString(geometry));
         }
 
         /// <summary>

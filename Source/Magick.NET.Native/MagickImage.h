@@ -152,7 +152,7 @@ MAGICK_NET_EXPORT void MagickImage_WriteMask_Set(Image *, const Image *, Excepti
 
 MAGICK_NET_EXPORT Image *MagickImage_AdaptiveBlur(const Image *, const double, const double, ExceptionInfo **);
 
-MAGICK_NET_EXPORT Image *MagickImage_AdaptiveResize(const Image *, const size_t, const size_t, ExceptionInfo **);
+MAGICK_NET_EXPORT Image *MagickImage_AdaptiveResize(const Image *, const char *, ExceptionInfo **);
 
 MAGICK_NET_EXPORT Image *MagickImage_AdaptiveSharpen(Image *, const double, const double, const size_t, ExceptionInfo **);
 

@@ -670,13 +670,19 @@ MAGICK_NET_EXPORT Image *MagickImage_AdaptiveBlur(const Image *instance, const d
   return image;
 }
 
-MAGICK_NET_EXPORT Image *MagickImage_AdaptiveResize(const Image *instance, const size_t width, const size_t height, ExceptionInfo **exception)
+MAGICK_NET_EXPORT Image *MagickImage_AdaptiveResize(const Image *instance, const char *geometry, ExceptionInfo **exception)
 {
   Image
     *image;
 
+  RectangleInfo
+    rectangle;
+
+  SetGeometry(instance, &rectangle);
+  ParseMetaGeometry(geometry, &rectangle.x, &rectangle.y, &rectangle.width, &rectangle.height);
+
   MAGICK_NET_GET_EXCEPTION;
-  image = AdaptiveResizeImage(instance, width, height, exceptionInfo);
+  image = AdaptiveResizeImage(instance, rectangle.width, rectangle.height, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
