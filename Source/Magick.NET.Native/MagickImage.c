@@ -1605,20 +1605,14 @@ MAGICK_NET_EXPORT Image *MagickImage_LiquidRescale(const Image *instance, const 
   Image
     *image;
 
-  size_t
-    height,
-    width;
+  RectangleInfo
+    rectangle;
 
-  ssize_t
-    x = 0,
-    y = 0;
-
-  width = instance->columns;
-  height = instance->rows;
-  ParseMetaGeometry(geometry, &x, &y, &width, &height);
+  SetGeometry(instance, &rectangle);
+  ParseMetaGeometry(geometry, &rectangle.x, &rectangle.y, &rectangle.width, &rectangle.height);
 
   MAGICK_NET_GET_EXCEPTION;
-  image = LiquidRescaleImage(instance, width, height, (double)x, (double)y, exceptionInfo);
+  image = LiquidRescaleImage(instance, rectangle.width, rectangle.height, (double)rectangle.x, (double)rectangle.y, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
