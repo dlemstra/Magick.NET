@@ -354,6 +354,9 @@ namespace ImageMagick
         /// Resize using mesh interpolation. It works well for small resizes of less than +/- 50%
         /// of the original image size. For larger resizing on images a full filtered and slower resize
         /// function should be used instead.
+        /// <para />
+        /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
+        /// Use the <see cref="MagickGeometry"/> overload for more control over the resulting size.
         /// </summary>
         /// <param name="width">The new width.</param>
         /// <param name="height">The new height.</param>
@@ -2921,6 +2924,9 @@ namespace ImageMagick
 
         /// <summary>
         /// Resize image to specified size.
+        /// <para />
+        /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
+        /// Use the <see cref="MagickGeometry"/> overload for more control over the resulting size.
         /// </summary>
         /// <param name="width">The new width.</param>
         /// <param name="height">The new height.</param>
@@ -2981,15 +2987,10 @@ namespace ImageMagick
         void RotationalBlur(double angle, Channels channels);
 
         /// <summary>
-        /// Resize image by using simple ratio algorithm.
-        /// </summary>
-        /// <param name="width">The new width.</param>
-        /// <param name="height">The new height.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Scale(int width, int height);
-
-        /// <summary>
         /// Resize image by using pixel sampling algorithm.
+        /// <para />
+        /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
+        /// Use the <see cref="MagickGeometry"/> overload for more control over the resulting size.
         /// </summary>
         /// <param name="width">The new width.</param>
         /// <param name="height">The new height.</param>
@@ -3017,6 +3018,17 @@ namespace ImageMagick
         /// <param name="percentageHeight">The percentage of the height.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Sample(Percentage percentageWidth, Percentage percentageHeight);
+
+        /// <summary>
+        /// Resize image by using simple ratio algorithm.
+        /// <para />
+        /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
+        /// Use the <see cref="MagickGeometry"/> overload for more control over the resulting size.
+        /// </summary>
+        /// <param name="width">The new width.</param>
+        /// <param name="height">The new height.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Scale(int width, int height);
 
         /// <summary>
         /// Resize image by using simple ratio algorithm.
@@ -3548,6 +3560,9 @@ namespace ImageMagick
 
         /// <summary>
         /// Resize image to thumbnail size.
+        /// <para />
+        /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
+        /// Use the <see cref="MagickGeometry"/> overload for more control over the resulting size.
         /// </summary>
         /// <param name="width">The new width.</param>
         /// <param name="height">The new height.</param>
