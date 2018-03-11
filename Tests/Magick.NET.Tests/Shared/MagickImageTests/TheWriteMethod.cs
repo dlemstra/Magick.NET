@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -37,6 +38,27 @@ namespace Magick.NET.Tests.Shared
                         using (IMagickImage output = new MagickImage(tempFile))
                         {
                             Assert.AreEqual(MagickFormat.Jpeg, output.Format);
+                        }
+                    }
+                }
+            }
+
+            [TestMethod]
+            public void ShouldUseTheSpecifiedFormat()
+            {
+                using (IMagickImage input = new MagickImage(Files.CirclePNG))
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        using (var stream = new NonSeekableStream(memoryStream))
+                        {
+                            input.Write(stream, MagickFormat.Tiff);
+
+                            memoryStream.Position = 0;
+                            using (IMagickImage output = new MagickImage(stream))
+                            {
+                                Assert.AreEqual(MagickFormat.Tiff, output.Format);
+                            }
                         }
                     }
                 }

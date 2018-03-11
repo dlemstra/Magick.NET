@@ -21,5 +21,10 @@ namespace Magick.NET.Tests
           : base(File.OpenRead(fileName), false)
         {
         }
+
+        public NonSeekableStream(Stream innerStream)
+          : base(innerStream, false)
+        {
+        }
     }
 }
