@@ -51,19 +51,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_AdaptiveResize()
-        {
-            using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                image.AdaptiveResize(100, 80);
-                Assert.AreEqual(100, image.Width);
-                Assert.AreEqual(80, image.Height);
-                ColorAssert.AreEqual(new MagickColor("#347bbd"), image, 34, 46);
-                ColorAssert.AreEqual(new MagickColor("#a8dff8"), image, 46, 46);
-            }
-        }
-
-        [TestMethod]
         public void Test_AdaptiveSharpen()
         {
             using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
@@ -1460,7 +1447,7 @@ namespace Magick.NET.Tests
                 image.Emboss(4, 2);
 
 #if Q8
-                ColorAssert.AreEqual(new MagickColor("#ff5e43"), image, 325, 175);
+                ColorAssert.AreEqual(new MagickColor("#ff5b43"), image, 325, 175);
                 ColorAssert.AreEqual(new MagickColor("#4344ff"), image, 99, 270);
 #elif Q16
                 ColorAssert.AreEqual(new MagickColor("#ffff597e4397"), image, 325, 175);
@@ -3214,15 +3201,9 @@ namespace Magick.NET.Tests
                 using (IPixelCollection pixels = image.GetPixels())
                 {
                     Pixel pixel = pixels.GetPixel(90, 9);
-#if Q8 || Q16
                     Assert.AreEqual(0, pixel.ToColor().A);
-#elif Q16HDRI
-                    Assert.AreEqual(OpenCLValue.Get(0.5, 0.0), pixel.ToColor().A);
-#else
-#error Not implemented!
-#endif
-                    pixel = pixels.GetPixel(34, 55);
 
+                    pixel = pixels.GetPixel(34, 55);
 #if Q8
                     Assert.AreEqual(68, pixel.ToColor().A);
 #elif Q16 || Q16HDRI

@@ -373,6 +373,11 @@ namespace ImageMagick
         Gray,
 
         /// <summary>
+        /// Raw gray and alpha samples
+        /// </summary>
+        Graya,
+
+        /// <summary>
         /// Raw CCITT Group4
         /// </summary>
         Group4,

@@ -46,6 +46,21 @@ namespace Magick.NET.Tests.Shared
                     Assert.AreEqual(512, image.Height);
                 }
             }
+
+            [TestMethod]
+            public void ShouldResizeTheImage()
+            {
+                using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+                {
+                    image.AdaptiveResize(100, 80);
+
+                    Assert.AreEqual(80, image.Width);
+                    Assert.AreEqual(80, image.Height);
+
+                    ColorAssert.AreEqual(new MagickColor("#347bbd"), image, 23, 42);
+                    ColorAssert.AreEqual(new MagickColor("#a8dff8"), image, 42, 42);
+                }
+            }
         }
     }
 }
