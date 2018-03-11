@@ -107,7 +107,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            MagickNET.SetRandomSeed(-1);
+            MagickNET.ResetRandomSeed();
         }
 
         [TestMethod]

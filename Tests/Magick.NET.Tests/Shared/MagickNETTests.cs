@@ -399,7 +399,7 @@ namespace Magick.NET.Tests
 
         private void SetRandomSeed_SetToFixedValue_ImagesWithPlasmaAreEqual()
         {
-            MagickNET.SetRandomSeed(1337);
+            MagickNET.SetRandomSeed(42);
 
             using (IMagickImage first = new MagickImage("plasma:red", 10, 10))
             {
@@ -408,6 +408,8 @@ namespace Magick.NET.Tests
                     Assert.AreEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
                 }
             }
+
+            MagickNET.ResetRandomSeed();
         }
     }
 }

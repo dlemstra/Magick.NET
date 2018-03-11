@@ -202,6 +202,14 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Resets the pseudo-random number generator secret key.
+        /// </summary>
+        public static void ResetRandomSeed()
+        {
+            NativeMagickNET.SetRandomSeed(-1);
+        }
+
+        /// <summary>
         /// Set the events that will be written to the log. The log will be written to the Log event
         /// and the debug window in VisualStudio. To change the log settings you must use a custom
         /// log.xml file.
