@@ -49,3 +49,9 @@ COPY ./verify/Magick.NET-Q16-HDRI-x64.Native.dll.so ./Magick.NET-Q16-HDRI-x64.Na
 COPY Linux.Verify ./Linux.Verify
 RUN ./Linux.Verify
 
+FROM lambci/lambda:dotnetcore2.0
+COPY ./verify/Magick.NET-Q8-x64.Native.dll.so ./Magick.NET-Q8-x64.Native.dll.so
+COPY ./verify/Magick.NET-Q16-x64.Native.dll.so ./Magick.NET-Q16-x64.Native.dll.so
+COPY ./verify/Magick.NET-Q16-HDRI-x64.Native.dll.so ./Magick.NET-Q16-HDRI-x64.Native.dll.so
+COPY Linux.Verify ./Linux.Verify
+RUN ./Linux.Verify
