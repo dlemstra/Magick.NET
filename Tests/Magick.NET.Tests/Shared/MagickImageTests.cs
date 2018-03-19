@@ -2594,7 +2594,9 @@ namespace Magick.NET.Tests
                 image.Progress += progressEvent;
 
                 image.Flip();
+
                 Assert.IsTrue(progress <= (Percentage)1);
+                Assert.IsTrue(image.IsDisposed);
             }
         }
 
