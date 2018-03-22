@@ -40,7 +40,7 @@ namespace ImageMagick
         {
             IfNull(paramName, value);
 
-            if (value.CanSeek && value.Position == value.Length)
+            if (!value.CanSeek && value.Position == value.Length)
                 throw new ArgumentException("Value cannot be empty.", paramName);
         }
 
