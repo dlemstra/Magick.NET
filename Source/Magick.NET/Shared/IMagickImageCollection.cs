@@ -162,6 +162,15 @@ namespace ImageMagick
         IMagickImage Flatten();
 
         /// <summary>
+        /// Flatten this collection into a single image.
+        /// This is useful for combining Photoshop layers into a single image.
+        /// </summary>
+        /// <param name="backgroundColor">The background color of the output image.</param>
+        /// <returns>The resulting image of the flatten operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        IMagickImage Flatten(MagickColor backgroundColor);
+
+        /// <summary>
         /// Inserts an image with the specified file name into the collection.
         /// </summary>
         /// <param name="index">The index to insert the image.</param>

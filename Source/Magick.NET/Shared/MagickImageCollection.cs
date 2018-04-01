@@ -588,6 +588,32 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Flatten this collection into a single image.
+        /// This is useful for combining Photoshop layers into a single image.
+        /// </summary>
+        /// <param name="backgroundColor">The background color of the output image.</param>
+        /// <returns>The resulting image of the flatten operation.</returns>
+        public IMagickImage Flatten(MagickColor backgroundColor)
+        {
+            ThrowIfEmpty();
+
+            var originalColor = _images[0].BackgroundColor;
+            _images[0].BackgroundColor = backgroundColor;
+
+            try
+            {
+                AttachImages();
+                IntPtr image = _nativeInstance.Flatten(_images[0]);
+                return MagickImage.Create(image, _images[0].Settings);
+            }
+            finally
+            {
+                DetachImages();
+                _images[0].BackgroundColor = originalColor;
+            }
+        }
+
+        /// <summary>
         /// Returns an enumerator that iterates through the images.
         /// </summary>
         /// <returns>An enumerator that iterates through the images.</returns>
