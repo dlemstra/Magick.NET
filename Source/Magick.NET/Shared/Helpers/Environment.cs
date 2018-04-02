@@ -19,6 +19,9 @@ namespace ImageMagick
 
         public static void Initialize()
         {
+            if (_initialized)
+                return;
+
             lock (_lock)
             {
                 if (_initialized)
