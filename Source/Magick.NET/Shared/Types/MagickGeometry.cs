@@ -232,8 +232,8 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
         public static bool operator >(MagickGeometry left, MagickGeometry right)
         {
-            if (ReferenceEquals(left, null))
-                return ReferenceEquals(right, null);
+            if (left is null)
+                return right is null;
 
             return left.CompareTo(right) == 1;
         }
@@ -245,8 +245,8 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
         public static bool operator <(MagickGeometry left, MagickGeometry right)
         {
-            if (ReferenceEquals(left, null))
-                return !ReferenceEquals(right, null);
+            if (left is null)
+                return !(right is null);
 
             return left.CompareTo(right) == -1;
         }
@@ -258,8 +258,8 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
         public static bool operator >=(MagickGeometry left, MagickGeometry right)
         {
-            if (ReferenceEquals(left, null))
-                return ReferenceEquals(right, null);
+            if (left is null)
+                return right is null;
 
             return left.CompareTo(right) >= 0;
         }
@@ -271,8 +271,8 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
         public static bool operator <=(MagickGeometry left, MagickGeometry right)
         {
-            if (ReferenceEquals(left, null))
-                return !ReferenceEquals(right, null);
+            if (left is null)
+                return !(right is null);
 
             return left.CompareTo(right) <= 0;
         }
@@ -316,7 +316,7 @@ namespace ImageMagick
         /// <returns>True when the specified <see cref="MagickGeometry"/> is equal to the current <see cref="MagickGeometry"/>.</returns>
         public bool Equals(MagickGeometry other)
         {
-            if (ReferenceEquals(other, null))
+            if (other is null)
                 return false;
 
             if (ReferenceEquals(this, other))
