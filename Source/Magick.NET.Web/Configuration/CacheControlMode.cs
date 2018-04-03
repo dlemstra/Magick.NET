@@ -26,6 +26,6 @@ namespace ImageMagick.Web
         /// Adds a Cache-Control: max-age=&gt;nnn&lt; header to the response based on the value
         /// specified in the CacheControlMaxAge property.
         /// </summary>
-        UseMaxAge
+        UseMaxAge,
     }
 }
