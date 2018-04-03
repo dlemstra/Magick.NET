@@ -106,6 +106,18 @@ namespace Magick.NET.Tests.Shared.Types
             }
 
             [TestMethod]
+            public void ShouldSetAspectRatio()
+            {
+                var geometry = new MagickGeometry("3:2");
+
+                Assert.AreEqual(0, geometry.X);
+                Assert.AreEqual(0, geometry.Y);
+                Assert.AreEqual(3, geometry.Width);
+                Assert.AreEqual(2, geometry.Height);
+                Assert.AreEqual(true, geometry.AspectRatio);
+            }
+
+            [TestMethod]
             public void ShouldSetWidthAndHeight()
             {
                 var geometry = new MagickGeometry(5, 10);

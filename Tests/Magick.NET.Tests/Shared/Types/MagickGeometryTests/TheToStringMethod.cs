@@ -68,7 +68,7 @@ namespace Magick.NET.Tests.Shared.Types
                 var geometry = new MagickGeometry(5, 10);
                 geometry.Greater = true;
 
-                Assert.AreEqual(true, geometry.ToString());
+                Assert.AreEqual("5x10>", geometry.ToString());
             }
 
             [TestMethod]
@@ -90,16 +90,21 @@ namespace Magick.NET.Tests.Shared.Types
             }
 
             [TestMethod]
+            public void ShouldReturnCorrectValueForAspectRation()
+            {
+                var geometry = new MagickGeometry(3, 2);
+                geometry.AspectRatio = true;
+
+                Assert.AreEqual("3:2", geometry.ToString());
+            }
+
+            [TestMethod]
             public void ShouldSetGreaterAndIsPercentage()
             {
-                var geometry = new MagickGeometry("50%x0>");
+                var geometry = new MagickGeometry(new Percentage(50), new Percentage(0));
+                geometry.Greater = true;
 
-                Assert.AreEqual(0, geometry.X);
-                Assert.AreEqual(0, geometry.Y);
-                Assert.AreEqual(50, geometry.Width);
-                Assert.AreEqual(0, geometry.Height);
-                Assert.AreEqual(true, geometry.IsPercentage);
-                Assert.AreEqual(true, geometry.Greater);
+                Assert.AreEqual("50%>", geometry.ToString());
             }
         }
     }

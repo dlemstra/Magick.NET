@@ -21,5 +21,6 @@ namespace ImageMagick
         Greater = 0x8000,           /* '>'  resize larger - spacial use flag */
         FillArea = 0x10000,         /* '^'  special handling needed */
         LimitPixels = 0x20000,      /* '@'  resize to area - special use flag */
+        AspectRatio = 0x100000,     /* '~'  special handling needed  */
     }
 }
