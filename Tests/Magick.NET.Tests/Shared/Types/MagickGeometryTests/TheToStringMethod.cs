@@ -43,6 +43,64 @@ namespace Magick.NET.Tests.Shared.Types
 
                 Assert.AreEqual("20x10-1-2", geometry.ToString());
             }
+
+            [TestMethod]
+            public void ShouldReturnCorrectValueForIgnoreAspectRatio()
+            {
+                var geometry = new MagickGeometry(5, 10);
+                geometry.IgnoreAspectRatio = true;
+
+                Assert.AreEqual("5x10!", geometry.ToString());
+            }
+
+            [TestMethod]
+            public void ShouldSetLess()
+            {
+                var geometry = new MagickGeometry(2, 1, 10, 5);
+                geometry.Less = true;
+
+                Assert.AreEqual("10x5+2+1<", geometry.ToString());
+            }
+
+            [TestMethod]
+            public void ShouldSetGreater()
+            {
+                var geometry = new MagickGeometry(5, 10);
+                geometry.Greater = true;
+
+                Assert.AreEqual(true, geometry.ToString());
+            }
+
+            [TestMethod]
+            public void ShouldSetFillArea()
+            {
+                var geometry = new MagickGeometry(10, 15);
+                geometry.FillArea = true;
+
+                Assert.AreEqual("10x15^", geometry.ToString());
+            }
+
+            [TestMethod]
+            public void ShouldSetLimitPixels()
+            {
+                var geometry = new MagickGeometry(10, 0);
+                geometry.LimitPixels = true;
+
+                Assert.AreEqual("10@", geometry.ToString());
+            }
+
+            [TestMethod]
+            public void ShouldSetGreaterAndIsPercentage()
+            {
+                var geometry = new MagickGeometry("50%x0>");
+
+                Assert.AreEqual(0, geometry.X);
+                Assert.AreEqual(0, geometry.Y);
+                Assert.AreEqual(50, geometry.Width);
+                Assert.AreEqual(0, geometry.Height);
+                Assert.AreEqual(true, geometry.IsPercentage);
+                Assert.AreEqual(true, geometry.Greater);
+            }
         }
     }
 }
