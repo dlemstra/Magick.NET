@@ -2421,7 +2421,10 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(geometry), geometry);
 
-            _nativeInstance.Crop(MagickRectangle.FromGeometry(geometry, this));
+            if (geometry.AspectRatio)
+                _nativeInstance.CropAspectRatio(geometry.ToString(), Gravity.Undefined);
+            else
+                _nativeInstance.Crop(MagickRectangle.FromGeometry(geometry, this));
         }
 
         /// <summary>
@@ -2435,7 +2438,10 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(geometry), geometry);
 
-            Crop(geometry.Width, geometry.Height, gravity);
+            if (geometry.AspectRatio)
+                _nativeInstance.CropAspectRatio(geometry.ToString(), gravity);
+            else
+                Crop(geometry.Width, geometry.Height, gravity);
         }
 
         /// <summary>

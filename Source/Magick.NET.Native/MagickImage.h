@@ -234,6 +234,8 @@ MAGICK_NET_EXPORT void MagickImage_CopyPixels(Image *, const Image *, const Rect
 
 MAGICK_NET_EXPORT Image *MagickImage_Crop(const Image *, const RectangleInfo *, ExceptionInfo **);
 
+MAGICK_NET_EXPORT Image *MagickImage_CropAspectRatio(Image *, const char *, const GravityType, ExceptionInfo **);
+
 MAGICK_NET_EXPORT Image *MagickImage_CropToTiles(const Image *, const char *, ExceptionInfo **);
 
 MAGICK_NET_EXPORT void MagickImage_CycleColormap(Image *, const ssize_t, ExceptionInfo **);

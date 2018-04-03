@@ -980,6 +980,22 @@
             ]
         },
         {
+            "name": "CropAspectRatio",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "geometry",
+                    "type": "string"
+                },
+                {
+                    "name": "gravity",
+                    "type": "Gravity"
+                }
+            ]
+        },
+        {
             "name": "CropToTiles",
             "type": "Instance",
             "throws": true,

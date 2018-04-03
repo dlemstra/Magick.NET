@@ -1118,6 +1118,27 @@ MAGICK_NET_EXPORT Image *MagickImage_Crop(const Image *instance, const Rectangle
   return image;
 }
 
+MAGICK_NET_EXPORT Image *MagickImage_CropAspectRatio(Image *instance, const char *geometry, const GravityType gravity, ExceptionInfo **exception)
+{
+  Image
+    *image;
+
+  GravityType
+    original_gravity;
+
+  MAGICK_NET_GET_EXCEPTION;
+  original_gravity = instance->gravity;
+  instance->gravity = gravity;
+  image = CropImageToTiles(instance, geometry, exceptionInfo);
+  RemoveFrames(image);
+  if (image != (Image *)NULL)
+    image->gravity = original_gravity;
+  else
+    instance->gravity = original_gravity;
+  MAGICK_NET_SET_EXCEPTION;
+  return image;
+}
+
 MAGICK_NET_EXPORT Image *MagickImage_CropToTiles(const Image *instance, const char *geometry, ExceptionInfo **exception)
 {
   Image
