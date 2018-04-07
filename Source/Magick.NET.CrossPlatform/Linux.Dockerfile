@@ -17,12 +17,6 @@ RUN sed -i -e 's/#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/s
 COPY /Source/Magick.NET.CrossPlatform/authorized_keys /root/.ssh/authorized_keys
 RUN chmod 600 ~/.ssh/authorized_keys
 
-# Build libbz2
-COPY /ImageMagick/Source/ImageMagick/bzlib /bzlib
-WORKDIR /bzlib
-RUN make CFLAGS="-Wall -Winline -O3 -fPIC -g -D_FILE_OFFSET_BITS=64"; \
-    make install
-
 # Build zlib
 COPY /ImageMagick/Source/ImageMagick/zlib /zlib
 WORKDIR /zlib

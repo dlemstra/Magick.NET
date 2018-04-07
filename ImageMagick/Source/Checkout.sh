@@ -65,7 +65,6 @@ if [ "$1" != "Linux" ] && [ "$1" != "Windows" ]; then
   exit
 fi
 
-clone_date 'bzlib' "$commitDate"
 clone_date 'jpeg-turbo' "$commitDate" 'jpeg'
 clone_date 'libxml' "$commitDate"
 clone_date 'png' "$commitDate"
@@ -95,6 +94,7 @@ clone_date 'pixman' "$commitDate"
 clone_date 'ttf' "$commitDate"
 clone_date 'VisualMagick' "$commitDate"
 
+rm -rf VisualMagick/bzlib
 rm -rf VisualMagick/dcraw
 rm -rf VisualMagick/demos
 rm -rf VisualMagick/fuzz
