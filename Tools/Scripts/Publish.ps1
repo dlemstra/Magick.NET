@@ -77,6 +77,7 @@ function CopyPdbFiles($builds)
     CopyPdbFile $build "net20"
     CopyPdbFile $build "net40"
     CopyPdbFile $build "netstandard13"
+    CopyPdbFile $build "netstandard20"
 
     if ($build.Platform -ne "AnyCPU")
     {

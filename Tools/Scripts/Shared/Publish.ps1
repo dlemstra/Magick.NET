@@ -59,6 +59,7 @@ function CheckStrongNames($builds)
     CheckStrongName $build "net20"
     CheckStrongName $build "net40"
     CheckStrongName $build "netstandard13"
+    CheckStrongName $build "netstandard20"
   }
 }
 
@@ -103,6 +104,7 @@ function CreateNuGetPackages($id, $version, $build)
   AddLibraryToPackage $xml $build "net20"
   AddLibraryToPackage $xml $build "net40"
   AddLibraryToPackage $xml $build "netstandard13"
+  AddLibraryToPackage $xml $build "netstandard20"
 
   if ($build.Platform -ne "AnyCPU")
   {
