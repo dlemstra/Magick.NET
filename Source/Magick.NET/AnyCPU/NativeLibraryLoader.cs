@@ -10,7 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if PLATFORM_AnyCPU && !NETSTANDARD1_3
+#if PLATFORM_AnyCPU && !NETSTANDARD
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.Compression;

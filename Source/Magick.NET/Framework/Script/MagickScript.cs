@@ -12,7 +12,6 @@
 
 #if !NETSTANDARD1_3
 
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml;
 using System.Xml.Schema;

@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
     <PropertyGroup>
-        <TargetFrameworks>net20;net40;netstandard13</TargetFrameworks>
+        <TargetFrameworks>net20;net40;netstandard13;netstandard20</TargetFrameworks>
         <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <AssemblyVersion>7.4.3.0</AssemblyVersion>
@@ -46,7 +46,11 @@
         <DefineConstants>$(DefineConstants);WINDOWS_BUILD</DefineConstants>
     </PropertyGroup>
 
-    <ItemGroup Condition="$(TargetFramework) != 'netstandard13'">
+    <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard'))">
+      <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>
+    </PropertyGroup>
+
+    <ItemGroup Condition="!$(TargetFramework.StartsWith('netstandard'))">
         <Reference Include="System.Drawing" />
     </ItemGroup>
 
