@@ -3691,11 +3691,19 @@ namespace ImageMagick
             else
                 throw new ArgumentException("Invalid argument combination for 'tint', allowed combinations are: [opacity] [opacity, color]");
         }
-        private static void ExecuteTransformColorSpace(XmlElement element, IMagickImage image)
+        private void ExecuteTransformColorSpace(XmlElement element, IMagickImage image)
         {
-            ColorProfile source_ = CreateColorProfile(element["source"]);
-            ColorProfile target_ = CreateColorProfile(element["target"]);
-            image.TransformColorSpace(source_, target_);
+            Hashtable arguments = new Hashtable();
+            foreach (XmlElement elem in element.SelectNodes("*"))
+            {
+                arguments[elem.Name] = CreateColorProfile(elem);
+            }
+            if (OnlyContains(arguments, "source", "target"))
+                image.TransformColorSpace((ColorProfile)arguments["source"], (ColorProfile)arguments["target"]);
+            else if (OnlyContains(arguments, "target"))
+                image.TransformColorSpace((ColorProfile)arguments["target"]);
+            else
+                throw new ArgumentException("Invalid argument combination for 'transformColorSpace', allowed combinations are: [source, target] [target]");
         }
         private void ExecuteTransparent(XmlElement element, IMagickImage image)
         {

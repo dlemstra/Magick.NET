@@ -162,6 +162,7 @@
           <xs:enumeration value="LCH" />
           <xs:enumeration value="LCHab" />
           <xs:enumeration value="LCHuv" />
+          <xs:enumeration value="LinearGRAY" />
           <xs:enumeration value="LMS" />
           <xs:enumeration value="Log" />
           <xs:enumeration value="Luv" />
@@ -796,9 +797,11 @@
           <xs:enumeration value="Gif87" />
           <xs:enumeration value="Gradient" />
           <xs:enumeration value="Gray" />
+          <xs:enumeration value="Graya" />
           <xs:enumeration value="Group4" />
           <xs:enumeration value="Hald" />
           <xs:enumeration value="Hdr" />
+          <xs:enumeration value="Heic" />
           <xs:enumeration value="Histogram" />
           <xs:enumeration value="Hrz" />
           <xs:enumeration value="Htm" />
@@ -2959,7 +2962,7 @@
         <xs:element name="transformColorSpace">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="source" type="colorProfile" />
+              <xs:element name="source" minOccurs="0" type="colorProfile" />
               <xs:element name="target" type="colorProfile" />
             </xs:sequence>
           </xs:complexType>
@@ -3083,7 +3086,11 @@
                   <xs:attribute name="evaluateOperator" use="required" type="EvaluateOperator" />
                 </xs:complexType>
               </xs:element>
-              <xs:element name="flatten" type="empty" />
+              <xs:element name="flatten">
+                <xs:complexType>
+                  <xs:attribute name="backgroundColor" type="color" />
+                </xs:complexType>
+              </xs:element>
               <xs:element name="merge" type="empty" />
               <xs:element name="montage">
                 <xs:complexType>
@@ -3093,6 +3100,13 @@
                 </xs:complexType>
               </xs:element>
               <xs:element name="mosaic" type="empty" />
+              <xs:element name="polynomial">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="terms" type="doubleArray" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
               <xs:element name="smushHorizontal">
                 <xs:complexType>
                   <xs:attribute name="offset" use="required" type="int" />

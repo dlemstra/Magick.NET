@@ -155,7 +155,11 @@ namespace ImageMagick
                 }
                 case 'f':
                 {
-                    return ExecuteFlatten(collection);
+                    return ExecuteFlatten(element, collection);
+                }
+                case 'p':
+                {
+                    return ExecutePolynomial(element, collection);
                 }
                 case 's':
                 {
@@ -291,9 +295,19 @@ namespace ImageMagick
             EvaluateOperator evaluateOperator_ = Variables.GetValue<EvaluateOperator>(element, "evaluateOperator");
             return collection.Evaluate(evaluateOperator_);
         }
-        private static IMagickImage ExecuteFlatten(IMagickImageCollection collection)
+        private IMagickImage ExecuteFlatten(XmlElement element, IMagickImageCollection collection)
         {
-            return collection.Flatten();
+            Hashtable arguments = new Hashtable();
+            foreach (XmlAttribute attribute in element.Attributes)
+            {
+                arguments[attribute.Name] = Variables.GetValue<MagickColor>(attribute);
+            }
+            if (arguments.Count == 0)
+                return collection.Flatten();
+            else if (OnlyContains(arguments, "backgroundColor"))
+                return collection.Flatten((MagickColor)arguments["backgroundColor"]);
+            else
+                throw new ArgumentException("Invalid argument combination for 'flatten', allowed combinations are: [] [backgroundColor]");
         }
         private static IMagickImage ExecuteMerge(IMagickImageCollection collection)
         {
@@ -307,6 +321,11 @@ namespace ImageMagick
         private static IMagickImage ExecuteMosaic(IMagickImageCollection collection)
         {
             return collection.Mosaic();
+        }
+        private IMagickImage ExecutePolynomial(XmlElement element, IMagickImageCollection collection)
+        {
+            Double[] terms_ = Variables.GetDoubleArray(element["terms"]);
+            return collection.Polynomial(terms_);
         }
         private IMagickImage ExecuteSmushHorizontal(XmlElement element, IMagickImageCollection collection)
         {

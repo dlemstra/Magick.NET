@@ -22,12 +22,12 @@ namespace FileGenerator.MagickScript
     {
         private static readonly string[] _UnsupportedMethods = new string[]
         {
-            "Add", "AddRange", "Clear", "Compare", "Dispose", "Draw", "Insert", "Ping", "Read", "RemoveAt", "Write"
+            "Add", "AddRange", "Clear", "Compare", "Contains", "Dispose", "Equals", "Draw", "Insert", "Ping", "Read", "Remove", "RemoveAt", "Write"
         };
 
         private static readonly string[] _IgnoredReturnTypes = new string[]
         {
-            "MagickErrorInfo"
+            "MagickErrorInfo", "Boolean"
         };
 
         private static bool CanIgnoreResult(MethodInfo method)
