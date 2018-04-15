@@ -26,21 +26,18 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Features_ContainsExpectedFeatures()
         {
-#if Q8 || Q16
+            var expected = "Cipher DPC ";
+#if Q16HDRI
+            expected += "HDRI ";
+#endif
+#if WINDOWS_BUILD
+            expected += "OpenCL ";
+#endif
 #if DEBUG_TEST
-            Assert.AreEqual("Debug Cipher DPC OpenCL ", MagickNET.Features);
-#else
-            Assert.AreEqual("Cipher DPC OpenCL ", MagickNET.Features);
+            expected = "Debug " + expected;
 #endif
-#elif Q16HDRI
-#if DEBUG_TEST
-            Assert.AreEqual("Debug Cipher DPC HDRI OpenCL ", MagickNET.Features);
-#else
-            Assert.AreEqual("Cipher DPC HDRI OpenCL ", MagickNET.Features);
-#endif
-#else
-#error Not implemented!
-#endif
+
+            Assert.AreEqual(expected, MagickNET.Features);
         }
 
         [TestMethod]
