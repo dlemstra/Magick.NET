@@ -67,6 +67,7 @@ fi
 
 clone_date 'jpeg-turbo' "$commitDate" 'jpeg'
 clone_date 'libxml' "$commitDate"
+clone_date 'openjpeg' "$commitDate"
 clone_date 'png' "$commitDate"
 clone_date 'tiff' "$commitDate"
 clone_date 'webp' "$commitDate"
@@ -88,7 +89,6 @@ clone_date 'libde265' "$commitDate"
 clone_date 'libraw' "$commitDate"
 clone_date 'librsvg' "$commitDate"
 clone_date 'lqr' "$commitDate"
-clone_date 'openjpeg' "$commitDate"
 clone_date 'pango' "$commitDate"
 clone_date 'pixman' "$commitDate"
 clone_date 'ttf' "$commitDate"
