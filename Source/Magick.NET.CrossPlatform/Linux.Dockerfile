@@ -4,11 +4,11 @@
 # This image requires that ImageMagick and it's dependencies already be checked out to your
 # machine under ImageMagick/Source, ideally using Checkout.cmd.
 
-FROM ubuntu:16.04
+FROM ubuntu:rolling
 
 # Install packages
 RUN apt-get update
-RUN apt-get install -y gcc g++ make autoconf autopoint pkg-config libtool nasm git openssh-server
+RUN apt-get install -y gcc g++ make cmake autoconf autopoint pkg-config libtool nasm git openssh-server
 RUN apt-get install -y python-pip gperf
 
 # Initialize the sshd server
@@ -99,6 +99,14 @@ RUN autoreconf -fiv; \
     ./configure --enable-libwebpmux --enable-libwebpdemux; \
     make; \
     make install;
+
+# Build openjpeg
+COPY /ImageMagick/Source/ImageMagick/openjpeg /openjpeg
+WORKDIR /openjpeg
+RUN cmake . -DCMAKE_INSTALL_PREFIX=/usr/local -DBUILD_SHARED_LIBS=off -DBUILD_CODEC=off -DCMAKE_BUILD_TYPE=Release; \
+    sync; \
+    make; \
+    make install
 
 # Build ImageMagick
 COPY /ImageMagick/Source/ImageMagick/ImageMagick /ImageMagick
