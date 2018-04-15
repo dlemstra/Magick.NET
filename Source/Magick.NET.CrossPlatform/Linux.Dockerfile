@@ -105,6 +105,7 @@ COPY /ImageMagick/Source/ImageMagick/openjpeg /openjpeg
 WORKDIR /openjpeg
 RUN cmake . -DCMAKE_INSTALL_PREFIX=/usr/local -DBUILD_SHARED_LIBS=off -DBUILD_CODEC=off -DCMAKE_BUILD_TYPE=Release; \
     sync; \
+    export CFLAGS="-O3 -fPIC"; \
     make; \
     make install
 
