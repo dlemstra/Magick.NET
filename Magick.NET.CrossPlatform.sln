@@ -10,6 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution 
 		Source\Magick.NET.CrossPlatform\authorized_keys = Source\Magick.NET.CrossPlatform\authorized_keys
 		Source\Magick.NET.CrossPlatform\Azure.txt = Source\Magick.NET.CrossPlatform\Azure.txt
 		Source\Magick.NET.CrossPlatform\Build.Linux.sh = Source\Magick.NET.CrossPlatform\Build.Linux.sh
+		ImageMagick\Source\Checkout.sh = ImageMagick\Source\Checkout.sh
 		Source\Magick.NET.CrossPlatform\Linux.Dockerfile = Source\Magick.NET.CrossPlatform\Linux.Dockerfile
 		Source\Magick.NET.CrossPlatform\Linux.Verify = Source\Magick.NET.CrossPlatform\Linux.Verify
 		Source\Magick.NET.CrossPlatform\Linux.Verify.Dockerfile = Source\Magick.NET.CrossPlatform\Linux.Verify.Dockerfile
