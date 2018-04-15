@@ -96,7 +96,7 @@
         <DocumentationFile>bin\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET-$(QuantumType)-$(Platform).xml</DocumentationFile>
     </PropertyGroup>
 
-    <ItemGroup Condition="'$(Platform)' == 'AnyCPU' and '$(TargetFramework)' != 'netstandard13'">
+    <ItemGroup Condition="'$(Platform)' == 'AnyCPU' and !$(TargetFramework.StartsWith('netstandard'))">
         <EmbeddedResource Include="$(MSBuildThisFileDirectory)\Resources\Release$(QuantumType)\Magick.NET-$(QuantumType)-x86.Native.gz">
             <LogicalName>ImageMagick.Resources.Library.Magick.NET.Native_x86.gz</LogicalName>
         </EmbeddedResource>
