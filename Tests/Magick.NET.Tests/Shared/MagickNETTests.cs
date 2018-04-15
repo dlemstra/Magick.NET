@@ -41,11 +41,13 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void FontFamilies_ContainsDejaVuSans()
+        public void FontFamilies_ContainsArialOrDejaVuSans()
         {
             var fontFamilies = MagickNET.FontFamilies.ToArray();
             string fontFamily = fontFamilies.FirstOrDefault(f => f == "DejaVu Sans");
-            Assert.IsNotNull(fontFamily, $"Unable to find DejaVu Sans in font families: {string.Join(",", fontFamilies)}");
+            if (fontFamily == null)
+                fontFamily = fontFamilies.FirstOrDefault(f => f == "Arial");
+            Assert.IsNotNull(fontFamily, $"Unable to find DejaVu Sans or Arial in font families: {string.Join(",", fontFamilies)}");
         }
 
         [TestMethod]
