@@ -43,8 +43,9 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void FontFamilies_ContainsArial()
         {
-            string fontFamily = MagickNET.FontFamilies.FirstOrDefault(f => f == "Arial");
-            Assert.IsNotNull(fontFamily);
+            var fontFamilies = MagickNET.FontFamilies.ToArray();
+            string fontFamily = fontFamilies.FirstOrDefault(f => f == "Arial");
+            Assert.IsNotNull(fontFamily, $"Unable to find Arial in font families: {string.Join(",", fontFamilies)}");
         }
 
         [TestMethod]
