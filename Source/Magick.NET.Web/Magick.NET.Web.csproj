@@ -1,79 +1,79 @@
 <Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
-    <PropertyGroup>
-        <TargetFrameworks>net40</TargetFrameworks>
-        <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
-        <SignAssembly>true</SignAssembly>
-        <AssemblyOriginatorKeyFile>..\..\Magick.NET.snk</AssemblyOriginatorKeyFile>
-        <AssemblyVersion>7.4.3.0</AssemblyVersion>
-        <FileVersion>7.4.3.0</FileVersion>
-        <Version>7.4.3.0</Version>
-        <Authors>Dirk Lemstra</Authors>
-        <Copyright>Copyright 2013-2017 Dirk Lemstra</Copyright>
-        <Platforms>x86;x64;AnyCPU</Platforms>
-        <Configurations>DebugQ8;DebugQ16;DebugQ16-HDRI;ReleaseQ8;ReleaseQ16;ReleaseQ16-HDRI;TestQ8;TestQ16;TestQ16-HDRI</Configurations>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFrameworks>net40</TargetFrameworks>
+    <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\Magick.NET.snk</AssemblyOriginatorKeyFile>
+    <AssemblyVersion>7.4.4.0</AssemblyVersion>
+    <FileVersion>7.4.4.0</FileVersion>
+    <Version>7.4.4.0</Version>
+    <Authors>Dirk Lemstra</Authors>
+    <Copyright>Copyright 2013-2018 Dirk Lemstra</Copyright>
+    <Platforms>x86;x64;AnyCPU</Platforms>
+    <Configurations>DebugQ8;DebugQ16;DebugQ16-HDRI;ReleaseQ8;ReleaseQ16;ReleaseQ16-HDRI;TestQ8;TestQ16;TestQ16-HDRI</Configurations>
+  </PropertyGroup>
 
-    <PropertyGroup Condition="$(Configuration.EndsWith('Q8'))">
-        <DefineConstants>Q8;PLATFORM_$(Platform)</DefineConstants>
-        <QuantumType>Q8</QuantumType>
-    </PropertyGroup>
+  <PropertyGroup Condition="$(Configuration.EndsWith('Q8'))">
+    <DefineConstants>Q8;PLATFORM_$(Platform)</DefineConstants>
+    <QuantumType>Q8</QuantumType>
+  </PropertyGroup>
 
-    <PropertyGroup Condition="$(Configuration.EndsWith('Q16'))">
-        <DefineConstants>Q16;PLATFORM_$(Platform)</DefineConstants>
-        <QuantumType>Q16</QuantumType>
-    </PropertyGroup>
+  <PropertyGroup Condition="$(Configuration.EndsWith('Q16'))">
+    <DefineConstants>Q16;PLATFORM_$(Platform)</DefineConstants>
+    <QuantumType>Q16</QuantumType>
+  </PropertyGroup>
 
-    <PropertyGroup Condition="$(Configuration.EndsWith('Q16-HDRI'))">
-        <DefineConstants>Q16HDRI;PLATFORM_$(Platform)</DefineConstants>
-        <QuantumType>Q16-HDRI</QuantumType>
-    </PropertyGroup>
+  <PropertyGroup Condition="$(Configuration.EndsWith('Q16-HDRI'))">
+    <DefineConstants>Q16HDRI;PLATFORM_$(Platform)</DefineConstants>
+    <QuantumType>Q16-HDRI</QuantumType>
+  </PropertyGroup>
 
-    <PropertyGroup Condition="$(Configuration.Contains('Debug'))">
-        <Optimize>false</Optimize>
-    </PropertyGroup>
+  <PropertyGroup Condition="$(Configuration.Contains('Debug'))">
+    <Optimize>false</Optimize>
+  </PropertyGroup>
 
-    <PropertyGroup Condition="!$(Configuration.Contains('Debug'))">
-        <Optimize>true</Optimize>
-    </PropertyGroup>
+  <PropertyGroup Condition="!$(Configuration.Contains('Debug'))">
+    <Optimize>true</Optimize>
+  </PropertyGroup>
 
-    <PropertyGroup>
-        <SignAssembly>true</SignAssembly>
-        <AssemblyOriginatorKeyFile>..\..\Magick.NET.snk</AssemblyOriginatorKeyFile>
-    </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\Magick.NET.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <Reference Include="System.Configuration" />
-        <Reference Include="System.Web" />
-    </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta006" PrivateAssets="All" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta006" PrivateAssets="All" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <AdditionalFiles Include="..\..\stylecop.json" Link="stylecop.json" />
-        <AdditionalFiles Include="..\Magick.NET.ruleset" Link="Magick.NET.ruleset" />
-    </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\stylecop.json" Link="stylecop.json" />
+    <AdditionalFiles Include="..\Magick.NET.ruleset" Link="Magick.NET.ruleset" />
+  </ItemGroup>
 
-    <PropertyGroup>
-        <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
-    </PropertyGroup>
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Platform)' == 'x86'">
-        <PlatformTarget>x86</PlatformTarget>
-    </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'x86'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Platform)' == 'x64'">
-        <PlatformTarget>x64</PlatformTarget>
-    </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'x64'">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
 
-    <PropertyGroup>
-        <AssemblyName>Magick.NET.Web-$(QuantumType)-$(Platform)</AssemblyName>
-        <AssemblyTitle>Magick.NET.Web $(QuantumType) $(Platform) $(TargetFrameWork)</AssemblyTitle>
-        <DocumentationFile>bin\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET.Web-$(QuantumType)-$(Platform).xml</DocumentationFile>
-    </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyName>Magick.NET.Web-$(QuantumType)-$(Platform)</AssemblyName>
+    <AssemblyTitle>Magick.NET.Web $(QuantumType) $(Platform) $(TargetFrameWork)</AssemblyTitle>
+    <DocumentationFile>bin\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET.Web-$(QuantumType)-$(Platform).xml</DocumentationFile>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\Magick.NET\Magick.NET.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Magick.NET\Magick.NET.csproj" />
+  </ItemGroup>
 </Project>

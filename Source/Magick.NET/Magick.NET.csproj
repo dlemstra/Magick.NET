@@ -3,11 +3,11 @@
     <TargetFrameworks>net20;net40;netstandard13;netstandard20</TargetFrameworks>
     <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <AssemblyVersion>7.4.3.0</AssemblyVersion>
-    <FileVersion>7.4.3.0</FileVersion>
-    <Version>7.4.3.0</Version>
+    <AssemblyVersion>7.4.4.0</AssemblyVersion>
+    <FileVersion>7.4.4.0</FileVersion>
+    <Version>7.4.4.0</Version>
     <Authors>Dirk Lemstra</Authors>
-    <Copyright>Copyright 2013-2017 Dirk Lemstra</Copyright>
+    <Copyright>Copyright 2013-2018 Dirk Lemstra</Copyright>
     <DebugType Condition="$(CodeCov) == 'true'">full</DebugType>
     <DebugType Condition="$(CodeCov) != 'true'">pdbonly</DebugType>
     <RunCodeAnalysis Condition="'$(Configuration)|$(TargetFramework)' == 'ReleaseQ16|net40'">true</RunCodeAnalysis>
