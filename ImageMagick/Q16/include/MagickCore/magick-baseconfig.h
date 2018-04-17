@@ -82,11 +82,6 @@
 //#define MAGICKCORE_ZERO_CONFIGURATION_SUPPORT
 
 /*
-  Define to use the bzip2 compression library
-*/
-#define MAGICKCORE_BZLIB_DELEGATE
-
-/*
   Define to use the OpenEXR library
 */
 #define MAGICKCORE_OPENEXR_DELEGATE

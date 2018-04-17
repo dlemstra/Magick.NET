@@ -43,6 +43,7 @@ namespace Magick.NET.Tests.Shared.Drawables
 
                     ColorAssert.AreEqual(MagickColors.Thistle, image, 0, 0);
                     ColorAssert.AreEqual(MagickColors.Green, image, 20, 20);
+                    ColorAssert.AreEqual(MagickColors.Green, image, 80, 80);
                     ColorAssert.AreEqual(MagickColors.Red, image, 50, 50);
                 }
             }

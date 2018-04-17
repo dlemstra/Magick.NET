@@ -98,7 +98,9 @@ extern "C" {
 #endif
 #if defined(MAGICKCORE_WINDOWS_SUPPORT)
 # include <io.h>
+#if !defined(__CYGWIN__)
 # include <direct.h>
+#endif
 # if !defined(MAGICKCORE_HAVE_STRERROR)
 #  define HAVE_STRERROR
 # endif
@@ -336,7 +338,7 @@ extern int vsnprintf(char *,size_t,const char *,va_list);
 /*
   Magick defines.
 */
-#define MagickMaxRecursionDepth  1024
+#define MagickMaxRecursionDepth  600
 #define Swap(x,y) ((x)^=(y), (y)^=(x), (x)^=(y))
 #if defined(_MSC_VER)
 # define DisableMSCWarning(nr) __pragma(warning(push)) \

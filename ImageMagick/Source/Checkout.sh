@@ -53,7 +53,7 @@ fi
 
 cd ImageMagick
 
-clone_commit 'ImageMagick' '53449bb87075d4c6fbf4f3f1882f05ad7baacb5c'
+clone_commit 'ImageMagick' '9fdda6391e38aaad3bfd6a30bd6a72bd31aeee02'
 
 # get a commit date from the current ImageMagick checkout
 cd ImageMagick
@@ -101,6 +101,7 @@ rm -rf VisualMagick/fuzz
 rm -rf VisualMagick/ImageMagickObject
 rm -rf VisualMagick/IMDisplay
 rm -rf VisualMagick/iptcutil
+rm -rf VisualMagick/liblzma
 rm -rf VisualMagick/Magick++
 rm -rf VisualMagick/NtMagick
 rm -rf VisualMagick/tests
