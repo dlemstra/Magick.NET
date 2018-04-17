@@ -98,14 +98,13 @@ RUN autoreconf -fiv; \
     export CFLAGS="-O3 -fPIC"; \
     ./configure --enable-libwebpmux --enable-libwebpdemux; \
     make; \
-    make install;
+    make install
 
 # Build openjpeg
 COPY /ImageMagick/Source/ImageMagick/openjpeg /openjpeg
 WORKDIR /openjpeg
-RUN cmake . -DCMAKE_INSTALL_PREFIX=/usr/local -DBUILD_SHARED_LIBS=off -DBUILD_CODEC=off -DCMAKE_BUILD_TYPE=Release; \
+RUN cmake . -DCMAKE_INSTALL_PREFIX=/usr/local -DBUILD_SHARED_LIBS=off -DBUILD_CODEC=off -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-O3 -fPIC"; \
     sync; \
-    export CFLAGS="-O3 -fPIC"; \
     make; \
     make install
 
