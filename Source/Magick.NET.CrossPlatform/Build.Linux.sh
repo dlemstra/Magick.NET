@@ -9,7 +9,7 @@ if [ ! -d "ImageMagick/freetype" ]; then
 fi
 cd ImageMagick/freetype
 git reset --hard
-git pull origin master
+git fetch
 git checkout VER-2-9
 cd ../../
 
@@ -19,7 +19,7 @@ if [ ! -d "ImageMagick/fontconfig" ]; then
 fi
 cd ImageMagick/fontconfig
 git reset --hard
-git pull origin master
+git fetch
 git checkout 2.12.6
 cd ../../
 
