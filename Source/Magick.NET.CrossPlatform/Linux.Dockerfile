@@ -108,6 +108,16 @@ RUN cmake . -DCMAKE_INSTALL_PREFIX=/usr/local -DBUILD_SHARED_LIBS=off -DBUILD_CO
     make; \
     make install
 
+# Build lcms
+COPY /ImageMagick/Source/ImageMagick/lcms /lcms
+WORKDIR /lcms
+RUN autoreconf -fiv; \
+    sync; \
+    export CFLAGS="-O3 -fPIC"; \
+    ./configure --disable-shared --prefix=/usr/local; \
+    make; \
+    make install
+
 # Build ImageMagick
 COPY /ImageMagick/Source/ImageMagick/ImageMagick /ImageMagick
 WORKDIR /ImageMagick
