@@ -1,5 +1,10 @@
 #!/bin/bash -e
 
+# Install fonts
+sudo sh -c "echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections"
+sudo apt-get install ttf-mscorefonts-installer
+sudo fc-cache
+
 # Build Q8
 dotnet build Tests/Magick.NET.Tests/Magick.NET.Tests.csproj -f netcoreapp2.0 --runtime linux-x64 -c TestQ8
 
