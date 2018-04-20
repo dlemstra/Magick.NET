@@ -1,5 +1,6 @@
-#!/bin/bash -eu
-cd ..
+#!/bin/bash
+set -e
+cd ../..
 
 # Build Q8
 dotnet build Tests/Magick.NET.Tests/Magick.NET.Tests.csproj -f netcoreapp2.0 --runtime linux-x64 -c TestQ8

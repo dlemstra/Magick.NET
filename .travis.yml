@@ -13,4 +13,4 @@ matrix:
       dist: trusty
 
 script:
-  - travis/build.sh
+  - Tools/Travis/Build.sh
