@@ -1,0 +1,16 @@
+language: csharp
+
+sudo: required
+
+branches:
+  only:
+    - master
+
+matrix:
+  include:
+    - dotnet: 2.0.0
+      mono: none
+      dist: trusty
+
+script:
+  - travis/build.sh
