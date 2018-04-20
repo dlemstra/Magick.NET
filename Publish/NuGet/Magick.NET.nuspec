@@ -25,6 +25,7 @@
         <dependency id="System.Xml.XPath.XDocument" version="4.3.0" />
         <dependency id="System.Xml.XPath.XmlDocument" version="4.3.0" />
       </group>
+      <group targetFramework=".NETStandard2.0"/>
     </dependencies>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System.Drawing"/>
