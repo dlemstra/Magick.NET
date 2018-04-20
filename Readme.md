@@ -1,11 +1,14 @@
 # The .NET library for ImageMagick: Magick.NET
 
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-green.svg)](https://raw.githubusercontent.com/dlemstra/Magick.NET/master/License.txt)
-[![Build status](https://ci.appveyor.com/api/projects/status/5y970okju7ru901x?svg=true)](https://ci.appveyor.com/project/dlemstra/magick-net)
-[![codecov](https://codecov.io/gh/dlemstra/Magick.NET/branch/master/graph/badge.svg)](https://codecov.io/gh/dlemstra/Magick.NET)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Magick-NET/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Twitter URL](https://img.shields.io/badge/twitter-follow-1da1f2.svg)](https://twitter.com/MagickNET)
 [![Donate](https://img.shields.io/badge/%24-donate-ff00ff.svg)](https://www.paypal.me/DirkLemstra)
+
+|             |Build Status|Code Coverage|
+|-------------|:----------:|:-----------:|
+|**Linux**| [![Build Status](https://travis-ci.org/dlemstra/Magick.NET.svg?branch=master)](https://travis-ci.org/dlemstra/Magick.NET.svg)|[![codecov](https://codecov.io/gh/dlemstra/Magick.NET/branch/master/graph/badge.svg)](https://codecov.io/gh/dlemstra/Magick.NET)|
+|**Windows**  | [![Build status](https://ci.appveyor.com/api/projects/status/5y970okju7ru901x?svg=true)](https://ci.appveyor.com/project/dlemstra/magick-net)|[![codecov](https://codecov.io/gh/dlemstra/Magick.NET/branch/master/graph/badge.svg)](https://codecov.io/gh/dlemstra/Magick.NET)|
 
 ImageMagick is a powerful image manipulation library that supports over [100 major file formats](https://www.imagemagick.org/script/formats.php) (not including sub-formats).
 With Magick.NET you can use ImageMagick in your C#/VB.NET/.NET Core application without having to install ImageMagick on your server or desktop.
