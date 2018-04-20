@@ -17,7 +17,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Magick.NET.Tests
 {
     [TestClass]
-    public class MagickSettingsTests
+    public partial class MagickSettingsTests
     {
         [TestMethod]
         public void Test_Affine()
@@ -32,22 +32,6 @@ namespace Magick.NET.Tests
                 image.Settings.Affine = new DrawableAffine(10, 20, 30, 40, 50, 60);
                 image.Annotate("Magick.NET", Gravity.Center);
                 ColorAssert.AreEqual(MagickColors.Black, image, 200, 200);
-            }
-        }
-
-        [TestMethod]
-        public void Test_BackgroundColor()
-        {
-            using (IMagickImage image = new MagickImage())
-            {
-                ColorAssert.AreEqual(MagickColors.White, image.Settings.BackgroundColor);
-
-                image.Read(Files.Logos.MagickNETSVG);
-                ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
-
-                image.Settings.BackgroundColor = MagickColors.Yellow;
-                image.Read(Files.Logos.MagickNETSVG);
-                ColorAssert.AreEqual(MagickColors.Yellow, image, 0, 0);
             }
         }
 
@@ -142,22 +126,6 @@ namespace Magick.NET.Tests
             using (IMagickImage image = new MagickImage())
             {
                 Assert.AreEqual(false, image.Settings.Debug);
-            }
-        }
-
-        [TestMethod]
-        public void Test_Density()
-        {
-            using (IMagickImage image = new MagickImage())
-            {
-                Assert.AreEqual(null, image.Settings.Density);
-
-                image.Settings.Density = new Density(100);
-
-                image.Read(Files.Logos.MagickNETSVG);
-                Assert.AreEqual(new Density(100, DensityUnit.Undefined), image.Density);
-                Assert.AreEqual(524, image.Width);
-                Assert.AreEqual(252, image.Height);
             }
         }
 
@@ -262,23 +230,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_Font()
-        {
-            using (IMagickImage image = new MagickImage())
-            {
-                Assert.AreEqual(null, image.Settings.Font);
-
-                image.Settings.Font = "Courier New Bold Oblique";
-                image.Settings.FontPointsize = 40;
-                image.Read("pango:Test");
-
-                Assert.AreEqual(120, image.Width);
-                Assert.AreEqual(57, image.Height);
-                ColorAssert.AreEqual(MagickColors.Black, image, 21, 18);
-            }
-        }
-
-        [TestMethod]
         public void Test_Interlace()
         {
             using (IMagickImage image = new MagickImage(MagickColors.Fuchsia, 100, 60))
@@ -324,22 +275,6 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(97, image.Width);
                 Assert.AreEqual(48, image.Height);
                 ColorAssert.AreEqual(MagickColors.Black, image, 16, 16);
-            }
-        }
-
-        [TestMethod]
-        public void Test_Page()
-        {
-            using (IMagickImage image = new MagickImage())
-            {
-                Assert.AreEqual(null, image.Settings.Page);
-
-                image.Settings.Font = "Courier New";
-                image.Settings.Page = new MagickGeometry(50, 50, 100, 100);
-                image.Read("pango:Test");
-
-                Assert.AreEqual(136, image.Width);
-                Assert.AreEqual(117, image.Height);
             }
         }
 

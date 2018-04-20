@@ -153,11 +153,6 @@ namespace ImageMagick
         Clip,
 
         /// <summary>
-        /// The system clipboard
-        /// </summary>
-        Clipboard,
-
-        /// <summary>
         /// Raw cyan, magenta, yellow, and black samples
         /// </summary>
         Cmyk,
@@ -238,11 +233,6 @@ namespace ImageMagick
         Dxt5,
 
         /// <summary>
-        /// Windows Enhanced Meta File
-        /// </summary>
-        Emf,
-
-        /// <summary>
         /// Encapsulated Portable Document Format
         /// </summary>
         Epdf,
@@ -298,11 +288,6 @@ namespace ImageMagick
         Erf,
 
         /// <summary>
-        /// High Dynamic-range (HDR)
-        /// </summary>
-        Exr,
-
-        /// <summary>
         /// Group 3 FAX
         /// </summary>
         Fax,
@@ -316,11 +301,6 @@ namespace ImageMagick
         /// Flexible Image Transport System
         /// </summary>
         Fits,
-
-        /// <summary>
-        /// Free Lossless Image Format
-        /// </summary>
-        Flif,
 
         /// <summary>
         /// Plasma fractal image
@@ -386,11 +366,6 @@ namespace ImageMagick
         /// Identity Hald color lookup table image
         /// </summary>
         Hald,
-
-        /// <summary>
-        /// Apple High Efficiency Image Format
-        /// </summary>
-        Heic,
 
         /// <summary>
         /// Radiance RGBE image format
@@ -1173,11 +1148,6 @@ namespace ImageMagick
         Wbmp,
 
         /// <summary>
-        /// Windows Meta File
-        /// </summary>
-        Wmf,
-
-        /// <summary>
         /// Windows Media Video
         /// </summary>
         Wmv,
@@ -1241,5 +1211,40 @@ namespace ImageMagick
         /// CCIR 601 4:1:1 or 4:2:2
         /// </summary>
         Yuv,
+
+#if WINDOWS_BUILD
+
+        /// <summary>
+        /// The system clipboard
+        /// </summary>
+        Clipboard,
+
+        /// <summary>
+        /// Windows Enhanced Meta File
+        /// </summary>
+        Emf,
+
+        /// <summary>
+        /// High Dynamic-range (HDR)
+        /// </summary>
+        Exr,
+
+        /// <summary>
+        /// Free Lossless Image Format
+        /// </summary>
+        Flif,
+
+        /// <summary>
+        /// Apple High Efficiency Image Format
+        /// </summary>
+        Heic,
+
+        /// <summary>
+        /// Windows Meta File
+        /// </summary>
+        Wmf,
+
+#endif
+
     }
 }

@@ -10,28 +10,35 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+#if WINDOWS_BUILD
+
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
-    public partial class PdfTests
+    public partial class MagickSettingsTests
     {
-        [TestMethod]
-        public void Test_Format()
+        [TestClass]
+        public class TheDensityProperty
         {
-            using (IMagickImage image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI))
+            [TestMethod]
+            public void ShouldSetTheCorrectDimensionsWhenReadingImage()
             {
-                Test_Image(image);
-            }
-        }
+                using (IMagickImage image = new MagickImage())
+                {
+                    Assert.AreEqual(null, image.Settings.Density);
 
-        private static void Test_Image(IMagickImage image)
-        {
-            Assert.AreEqual(765, image.Width);
-            Assert.AreEqual(361, image.Height);
-            Assert.AreEqual(MagickFormat.Ai, image.Format);
+                    image.Settings.Density = new Density(100);
+
+                    image.Read(Files.Logos.MagickNETSVG);
+                    Assert.AreEqual(new Density(100, DensityUnit.Undefined), image.Density);
+                    Assert.AreEqual(524, image.Width);
+                    Assert.AreEqual(252, image.Height);
+                }
+            }
         }
     }
 }
+
+#endif

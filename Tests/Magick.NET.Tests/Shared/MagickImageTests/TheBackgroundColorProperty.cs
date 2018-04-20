@@ -10,30 +10,24 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System.Threading.Tasks;
+using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Shared.Coders
+namespace Magick.NET.Tests.Shared
 {
-    [TestClass]
-    public class PangoTests
+    public partial class MagickImageTests
     {
-        [TestMethod]
-        public void PangoDecoderIsThreadSafe()
+        public class TheBackgroundColorProperty
         {
-            string signature = LoadImage();
-            Parallel.For(1, 10, (int i) =>
+            public void ShouldThrowExceptionWhenImageIsDisposed()
             {
-                Assert.AreEqual(signature, LoadImage());
-            });
-        }
+                IMagickImage image = new MagickImage();
+                image.Dispose();
 
-        private static string LoadImage()
-        {
-            using (var image = new MagickImage("pango:1"))
-            {
-                return image.Signature;
+                ExceptionAssert.Throws<ObjectDisposedException>(() =>
+                {
+                    image.BackgroundColor = MagickColors.PaleGreen;
+                });
             }
         }
     }

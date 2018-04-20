@@ -224,25 +224,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void MagickFormats_ContainsFormatInformationForAllFormats()
-        {
-            List<string> missingFormats = new List<string>();
-
-            foreach (MagickFormat format in Enum.GetValues(typeof(MagickFormat)))
-            {
-                if (format == MagickFormat.Unknown)
-                    continue;
-
-                MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(format);
-                if (formatInfo == null)
-                    missingFormats.Add(format.ToString());
-            }
-
-            if (missingFormats.Count > 0)
-                Assert.Fail("Cannot find MagickFormatInfo for: " + string.Join(", ", missingFormats.ToArray()));
-        }
-
-        [TestMethod]
         public void SetRandomSeed_OrderedTests()
         {
             SetRandomSeed_NotSet_ImagesWithPlasmaAreNotEqual();
