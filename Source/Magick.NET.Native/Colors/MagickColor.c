@@ -91,6 +91,12 @@ MAGICK_NET_EXPORT MagickBooleanType MagickColor_IsCMYK_Get(const PixelInfo *colo
   return color->colorspace == CMYKColorspace ? MagickTrue : MagickFalse;
 }
 
+MAGICK_NET_EXPORT void MagickColor_IsCMYK_Set(PixelInfo *color, MagickBooleanType value)
+{
+  if (value != MagickFalse)
+    color->colorspace = CMYKColorspace;
+}
+
 MAGICK_NET_EXPORT PixelInfo *MagickColor_Clone(const PixelInfo *color)
 {
   PixelInfo

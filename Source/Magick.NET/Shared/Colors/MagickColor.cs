@@ -245,8 +245,8 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="MagickColor"/> to compare.</param>
         public static bool operator >(MagickColor left, MagickColor right)
         {
-            if (ReferenceEquals(left, null))
-                return ReferenceEquals(right, null);
+            if (left is null)
+                return right is null;
 
             return left.CompareTo(right) == 1;
         }
@@ -258,8 +258,8 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="MagickColor"/> to compare.</param>
         public static bool operator <(MagickColor left, MagickColor right)
         {
-            if (ReferenceEquals(left, null))
-                return !ReferenceEquals(right, null);
+            if (left is null)
+                return !(right is null);
 
             return left.CompareTo(right) == -1;
         }
@@ -271,8 +271,8 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="MagickColor"/> to compare.</param>
         public static bool operator >=(MagickColor left, MagickColor right)
         {
-            if (ReferenceEquals(left, null))
-                return ReferenceEquals(right, null);
+            if (left is null)
+                return right is null;
 
             return left.CompareTo(right) >= 0;
         }
@@ -284,8 +284,8 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="MagickColor"/> to compare.</param>
         public static bool operator <=(MagickColor left, MagickColor right)
         {
-            if (ReferenceEquals(left, null))
-                return !ReferenceEquals(right, null);
+            if (left is null)
+                return !(right is null);
 
             return left.CompareTo(right) <= 0;
         }
@@ -337,7 +337,7 @@ namespace ImageMagick
         /// <returns>A signed number indicating the relative values of this instance and value.</returns>
         public int CompareTo(MagickColor other)
         {
-            if (ReferenceEquals(other, null))
+            if (other is null)
                 return 1;
 
             if (R < other.R)
@@ -393,7 +393,7 @@ namespace ImageMagick
         /// <returns>True when the specified color is equal to the current color.</returns>
         public bool Equals(MagickColor other)
         {
-            if (ReferenceEquals(other, null))
+            if (other is null)
                 return false;
 
             if (ReferenceEquals(this, other))
@@ -416,7 +416,7 @@ namespace ImageMagick
         /// <returns>True when the specified color is fuzzy equal to the current instance.</returns>
         public bool FuzzyEquals(MagickColor other, Percentage fuzz)
         {
-            if (ReferenceEquals(other, null))
+            if (other is null)
                 return false;
 
             if (ReferenceEquals(this, other))
@@ -507,6 +507,7 @@ namespace ImageMagick
                 Blue = B,
                 Alpha = A,
                 Black = K,
+                IsCMYK = _isCmyk,
             };
             return instance;
         }

@@ -13,7 +13,7 @@
 
 MAGICK_NET_EXPORT PixelInfo *MagickColor_Create(void);
 
-MAGICK_NET_EXPORT void MagickColor_Dispose(PixelInfo *instance);
+MAGICK_NET_EXPORT void MagickColor_Dispose(PixelInfo *);
 
 MAGICK_NET_EXPORT MagickSizeType MagickColor_Count_Get(const PixelInfo *);
 
@@ -33,9 +33,10 @@ MAGICK_NET_EXPORT Quantum MagickColor_Black_Get(const PixelInfo *);
 MAGICK_NET_EXPORT void MagickColor_Black_Set(PixelInfo *, const Quantum);
 
 MAGICK_NET_EXPORT MagickBooleanType MagickColor_IsCMYK_Get(const PixelInfo *);
+MAGICK_NET_EXPORT void MagickColor_IsCMYK_Set(PixelInfo *,MagickBooleanType);
 
 MAGICK_NET_EXPORT PixelInfo *MagickColor_Clone(const PixelInfo *);
 
-MAGICK_NET_EXPORT MagickBooleanType MagickColor_FuzzyEquals(const PixelInfo *, const PixelInfo *, const Quantum fuzz);
+MAGICK_NET_EXPORT MagickBooleanType MagickColor_FuzzyEquals(const PixelInfo *, const PixelInfo *, const Quantum);
 
-MAGICK_NET_EXPORT MagickBooleanType MagickColor_Initialize(PixelInfo *, const char *value);
+MAGICK_NET_EXPORT MagickBooleanType MagickColor_Initialize(PixelInfo *, const char *);
