@@ -7,7 +7,7 @@
 
 |             |Build Status|Code Coverage|
 |-------------|:----------:|:-----------:|
-|**Linux**| [![Build Status](https://travis-ci.org/dlemstra/Magick.NET.svg?branch=master)](https://travis-ci.org/dlemstra/Magick.NET.svg)|[![codecov](https://codecov.io/gh/dlemstra/Magick.NET/branch/master/graph/badge.svg)](https://codecov.io/gh/dlemstra/Magick.NET)|
+|**Linux**| [![Build Status](https://travis-ci.org/dlemstra/Magick.NET.svg?branch=master)](https://travis-ci.org/dlemstra/Magick.NET)|[![codecov](https://codecov.io/gh/dlemstra/Magick.NET/branch/master/graph/badge.svg)](https://codecov.io/gh/dlemstra/Magick.NET)|
 |**Windows**  | [![Build status](https://ci.appveyor.com/api/projects/status/5y970okju7ru901x?svg=true)](https://ci.appveyor.com/project/dlemstra/magick-net)|[![codecov](https://codecov.io/gh/dlemstra/Magick.NET/branch/master/graph/badge.svg)](https://codecov.io/gh/dlemstra/Magick.NET)|
 
 ImageMagick is a powerful image manipulation library that supports over [100 major file formats](https://www.imagemagick.org/script/formats.php) (not including sub-formats).
