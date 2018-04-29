@@ -45,6 +45,12 @@ namespace ImageMagick
             if (values != null)
                 base.SetArea(x, y, width, height, values);
         }
+
+        public override void SetArea(MagickGeometry geometry, byte[] values)
+        {
+            if (geometry != null)
+                base.SetArea(geometry, values);
+        }
 #endif
 
         public override void SetArea(int x, int y, int width, int height, double[] values)
@@ -53,16 +59,34 @@ namespace ImageMagick
                 base.SetArea(x, y, width, height, values);
         }
 
+        public override void SetArea(MagickGeometry geometry, double[] values)
+        {
+            if (geometry != null)
+                base.SetArea(geometry, values);
+        }
+
         public override void SetArea(int x, int y, int width, int height, int[] values)
         {
             if (values != null)
                 base.SetArea(x, y, width, height, values);
         }
 
+        public override void SetArea(MagickGeometry geometry, int[] values)
+        {
+            if (geometry != null)
+                base.SetArea(geometry, values);
+        }
+
         public override void SetArea(int x, int y, int width, int height, QuantumType[] values)
         {
             if (values != null)
                 base.SetArea(x, y, width, height, values);
+        }
+
+        public override void SetArea(MagickGeometry geometry, QuantumType[] values)
+        {
+            if (geometry != null)
+                base.SetArea(geometry, values);
         }
 
         public override void SetPixel(IEnumerable<Pixel> pixels)

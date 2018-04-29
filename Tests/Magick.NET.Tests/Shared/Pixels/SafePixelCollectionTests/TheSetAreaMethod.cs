@@ -93,6 +93,36 @@ namespace Magick.NET.Tests.Shared.Pixels
             }
 
             [TestMethod]
+            public void ShouldThrowExceptionWhenByteArrayIsSpecifiedAndGeometryIsNull()
+            {
+                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                {
+                    using (IPixelCollection pixels = image.GetPixels())
+                    {
+                        ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
+                        {
+                            pixels.SetArea(null, new byte[] { 0 });
+                        });
+                    }
+                }
+            }
+
+            [TestMethod]
+            public void ShouldChangePixelsWhenGeometryAndByteArrayAreSpecified()
+            {
+                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                {
+                    using (IPixelCollection pixels = image.GetPixels())
+                    {
+                        var values = new byte[113 * 108 * image.ChannelCount];
+                        pixels.SetArea(new MagickGeometry(10, 10, 113, 108), values);
+
+                        ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
+                    }
+                }
+            }
+
+            [TestMethod]
             public void ShouldThrowExceptionWhenDoubleArrayIsNull()
             {
                 using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
@@ -147,6 +177,36 @@ namespace Magick.NET.Tests.Shared.Pixels
                     {
                         var values = new double[113 * 108 * image.ChannelCount];
                         pixels.SetArea(10, 10, 113, 108, values);
+
+                        ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
+                    }
+                }
+            }
+
+            [TestMethod]
+            public void ShouldThrowExceptionWhenDoubleArrayIsSpecifiedAndGeometryIsNull()
+            {
+                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                {
+                    using (IPixelCollection pixels = image.GetPixels())
+                    {
+                        ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
+                        {
+                            pixels.SetArea(null, new double[] { 0 });
+                        });
+                    }
+                }
+            }
+
+            [TestMethod]
+            public void ShouldChangePixelsWhenGeometryAndDoubleArrayAreSpecified()
+            {
+                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                {
+                    using (IPixelCollection pixels = image.GetPixels())
+                    {
+                        var values = new double[113 * 108 * image.ChannelCount];
+                        pixels.SetArea(new MagickGeometry(10, 10, 113, 108), values);
 
                         ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                     }
@@ -215,6 +275,36 @@ namespace Magick.NET.Tests.Shared.Pixels
             }
 
             [TestMethod]
+            public void ShouldThrowExceptionWhenIntArrayIsSpecifiedAndGeometryIsNull()
+            {
+                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                {
+                    using (IPixelCollection pixels = image.GetPixels())
+                    {
+                        ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
+                        {
+                            pixels.SetArea(null, new int[] { 0 });
+                        });
+                    }
+                }
+            }
+
+            [TestMethod]
+            public void ShouldChangePixelsWhenGeometryAndIntArrayAreSpecified()
+            {
+                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                {
+                    using (IPixelCollection pixels = image.GetPixels())
+                    {
+                        var values = new int[113 * 108 * image.ChannelCount];
+                        pixels.SetArea(new MagickGeometry(10, 10, 113, 108), values);
+
+                        ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
+                    }
+                }
+            }
+
+            [TestMethod]
             public void ShouldThrowExceptionWhenArrayIsNull()
             {
                 using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
@@ -269,6 +359,36 @@ namespace Magick.NET.Tests.Shared.Pixels
                     {
                         var values = new QuantumType[113 * 108 * image.ChannelCount];
                         pixels.SetArea(10, 10, 113, 108, values);
+
+                        ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
+                    }
+                }
+            }
+
+            [TestMethod]
+            public void ShouldThrowExceptionWhenArrayIsSpecifiedAndGeometryIsNull()
+            {
+                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                {
+                    using (IPixelCollection pixels = image.GetPixels())
+                    {
+                        ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
+                        {
+                            pixels.SetArea(null, new QuantumType[] { 0 });
+                        });
+                    }
+                }
+            }
+
+            [TestMethod]
+            public void ShouldChangePixelsWhenGeometryAndArrayAreSpecified()
+            {
+                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                {
+                    using (IPixelCollection pixels = image.GetPixels())
+                    {
+                        var values = new QuantumType[113 * 108 * image.ChannelCount];
+                        pixels.SetArea(new MagickGeometry(10, 10, 113, 108), values);
 
                         ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                     }

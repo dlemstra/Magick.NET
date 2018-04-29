@@ -153,6 +153,11 @@ namespace ImageMagick
             QuantumType[] castedValues = CastArray(values, Quantum.Convert);
             SetAreaUnchecked(x, y, width, height, castedValues);
         }
+
+        public virtual void SetArea(MagickGeometry geometry, byte[] values)
+        {
+            SetArea(geometry.X, geometry.Y, geometry.Width, geometry.Height, values);
+        }
 #endif
 
         public virtual void SetArea(int x, int y, int width, int height, double[] values)
@@ -161,15 +166,30 @@ namespace ImageMagick
             SetAreaUnchecked(x, y, width, height, castedValues);
         }
 
+        public virtual void SetArea(MagickGeometry geometry, double[] values)
+        {
+            SetArea(geometry.X, geometry.Y, geometry.Width, geometry.Height, values);
+        }
+
         public virtual void SetArea(int x, int y, int width, int height, int[] values)
         {
             QuantumType[] castedValues = CastArray(values, Quantum.Convert);
             SetAreaUnchecked(x, y, width, height, castedValues);
         }
 
+        public virtual void SetArea(MagickGeometry geometry, int[] values)
+        {
+            SetArea(geometry.X, geometry.Y, geometry.Width, geometry.Height, values);
+        }
+
         public virtual void SetArea(int x, int y, int width, int height, QuantumType[] values)
         {
             SetAreaUnchecked(x, y, width, height, values);
+        }
+
+        public virtual void SetArea(MagickGeometry geometry, QuantumType[] values)
+        {
+            SetArea(geometry.X, geometry.Y, geometry.Width, geometry.Height, values);
         }
 
         public QuantumType[] ToArray()

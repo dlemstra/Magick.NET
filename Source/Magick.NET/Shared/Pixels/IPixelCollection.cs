@@ -145,6 +145,13 @@ namespace ImageMagick
         /// <param name="height">The height of the area.</param>
         /// <param name="values">The values of the pixels.</param>
         void SetArea(int x, int y, int width, int height, byte[] values);
+
+        /// <summary>
+        /// Changes the values of the specified pixels.
+        /// </summary>
+        /// <param name="geometry">The geometry of the area.</param>
+        /// <param name="values">The values of the pixels.</param>
+        void SetArea(MagickGeometry geometry, byte[] values);
 #endif
 
         /// <summary>
@@ -160,6 +167,13 @@ namespace ImageMagick
         /// <summary>
         /// Changes the values of the specified pixels.
         /// </summary>
+        /// <param name="geometry">The geometry of the area.</param>
+        /// <param name="values">The values of the pixels.</param>
+        void SetArea(MagickGeometry geometry, double[] values);
+
+        /// <summary>
+        /// Changes the values of the specified pixels.
+        /// </summary>
         /// <param name="x">The X coordinate of the area.</param>
         /// <param name="y">The Y coordinate of the area.</param>
         /// <param name="width">The width of the area.</param>
@@ -170,12 +184,26 @@ namespace ImageMagick
         /// <summary>
         /// Changes the values of the specified pixels.
         /// </summary>
+        /// <param name="geometry">The geometry of the area.</param>
+        /// <param name="values">The values of the pixels.</param>
+        void SetArea(MagickGeometry geometry, int[] values);
+
+        /// <summary>
+        /// Changes the values of the specified pixels.
+        /// </summary>
         /// <param name="x">The X coordinate of the area.</param>
         /// <param name="y">The Y coordinate of the area.</param>
         /// <param name="width">The width of the area.</param>
         /// <param name="height">The height of the area.</param>
         /// <param name="values">The values of the pixels.</param>
         void SetArea(int x, int y, int width, int height, QuantumType[] values);
+
+        /// <summary>
+        /// Changes the values of the specified pixels.
+        /// </summary>
+        /// <param name="geometry">The geometry of the area.</param>
+        /// <param name="values">The values of the pixels.</param>
+        void SetArea(MagickGeometry geometry, QuantumType[] values);
 
         /// <summary>
         /// Returns the values of the pixels as an array.

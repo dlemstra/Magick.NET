@@ -114,6 +114,13 @@ namespace ImageMagick
             CheckValues(x, y, width, height, values);
             base.SetArea(x, y, width, height, values);
         }
+
+        public override void SetArea(MagickGeometry geometry, byte[] values)
+        {
+            Throw.IfNull(nameof(geometry), geometry);
+
+            base.SetArea(geometry, values);
+        }
 #endif
 
         public override void SetArea(int x, int y, int width, int height, double[] values)
@@ -122,16 +129,37 @@ namespace ImageMagick
             base.SetArea(x, y, width, height, values);
         }
 
+        public override void SetArea(MagickGeometry geometry, double[] values)
+        {
+            Throw.IfNull(nameof(geometry), geometry);
+
+            base.SetArea(geometry, values);
+        }
+
         public override void SetArea(int x, int y, int width, int height, int[] values)
         {
             CheckValues(x, y, width, height, values);
             base.SetArea(x, y, width, height, values);
         }
 
+        public override void SetArea(MagickGeometry geometry, int[] values)
+        {
+            Throw.IfNull(nameof(geometry), geometry);
+
+            base.SetArea(geometry, values);
+        }
+
         public override void SetArea(int x, int y, int width, int height, QuantumType[] values)
         {
             CheckValues(x, y, width, height, values);
             base.SetArea(x, y, width, height, values);
+        }
+
+        public override void SetArea(MagickGeometry geometry, QuantumType[] values)
+        {
+            Throw.IfNull(nameof(geometry), geometry);
+
+            base.SetArea(geometry, values);
         }
 
         public override byte[] ToByteArray(MagickGeometry geometry, string mapping)
