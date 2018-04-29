@@ -39,7 +39,7 @@ namespace Magick.NET.Tests.Shared.Pixels
                     {
                         ExceptionAssert.ThrowsArgumentNullException("values", () =>
                         {
-                            pixels.SetPixels(new byte[] { 0, 0, 0, 0 });
+                            pixels.SetPixels((byte[])null);
                         });
                     }
                 }
@@ -100,7 +100,7 @@ namespace Magick.NET.Tests.Shared.Pixels
                     {
                         ExceptionAssert.ThrowsArgumentNullException("values", () =>
                         {
-                            pixels.SetPixels(new double[] { 0, 0, 0, 0 });
+                            pixels.SetPixels((double[])null);
                         });
                     }
                 }
@@ -161,7 +161,7 @@ namespace Magick.NET.Tests.Shared.Pixels
                     {
                         ExceptionAssert.ThrowsArgumentNullException("values", () =>
                         {
-                            pixels.SetPixels(new int[] { 0, 0, 0, 0 });
+                            pixels.SetPixels((int[])null);
                         });
                     }
                 }
@@ -222,7 +222,7 @@ namespace Magick.NET.Tests.Shared.Pixels
                     {
                         ExceptionAssert.ThrowsArgumentNullException("values", () =>
                         {
-                            pixels.SetPixels(new QuantumType[] { 0, 0, 0, 0 });
+                            pixels.SetPixels((QuantumType[])null);
                         });
                     }
                 }

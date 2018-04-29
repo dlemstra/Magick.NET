@@ -147,16 +147,14 @@ namespace Magick.NET.Tests.Shared.Pixels
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenGeometryIsNull()
+            public void ShouldReturnNullWhenGeometryIsNull()
             {
                 using (IMagickImage image = new MagickImage(Files.RedPNG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
-                        {
-                            pixels.GetArea(null);
-                        });
+                        var area = pixels.GetArea(null);
+                        Assert.IsNull(area);
                     }
                 }
             }

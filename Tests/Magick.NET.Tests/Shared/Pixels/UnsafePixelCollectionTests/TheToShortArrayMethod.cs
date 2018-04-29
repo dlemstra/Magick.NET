@@ -61,31 +61,27 @@ namespace Magick.NET.Tests.Shared.Pixels
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenGeometryIsNull()
+            public void ShouldReturnNullWhenGeometryIsNull()
             {
                 using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
-                        {
-                            pixels.ToShortArray(null, "RGB");
-                        });
+                        var values = pixels.ToShortArray(null, "RGB");
+                        Assert.IsNull(values);
                     }
                 }
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenGeometryIsSpecifiedAndMappingIsNull()
+            public void ShouldReturnNullWhenGeometryIsSpecifiedAndMappingIsNull()
             {
                 using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("mapping", () =>
-                        {
-                            pixels.ToShortArray(new MagickGeometry(1, 2, 3, 4), null);
-                        });
+                        var values = pixels.ToShortArray(new MagickGeometry(1, 2, 3, 4), null);
+                        Assert.IsNull(values);
                     }
                 }
             }
@@ -97,9 +93,9 @@ namespace Magick.NET.Tests.Shared.Pixels
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
-                        ExceptionAssert.ThrowsArgumentException("mapping", () =>
+                        ExceptionAssert.Throws<MagickResourceLimitErrorException> (() =>
                         {
-                            pixels.ToShortArray(new MagickGeometry(1, 2, 3, 4), string.Empty);
+                            var values = pixels.ToShortArray(new MagickGeometry(1, 2, 3, 4), string.Empty);
                         });
                     }
                 }
@@ -121,16 +117,14 @@ namespace Magick.NET.Tests.Shared.Pixels
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenMappingIsNull()
+            public void ShouldReturnNullWhenMappingIsNull()
             {
                 using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("mapping", () =>
-                        {
-                            pixels.ToShortArray(null);
-                        });
+                        var values = pixels.ToShortArray(null);
+                        Assert.IsNull(values);
                     }
                 }
             }
@@ -142,7 +136,7 @@ namespace Magick.NET.Tests.Shared.Pixels
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
-                        ExceptionAssert.ThrowsArgumentException("mapping", () =>
+                        ExceptionAssert.Throws<MagickResourceLimitErrorException>(() =>
                         {
                             pixels.ToShortArray(string.Empty);
                         });

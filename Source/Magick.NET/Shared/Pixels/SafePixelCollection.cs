@@ -33,6 +33,13 @@ namespace ImageMagick
         {
         }
 
+        public override byte[] GetArea(MagickGeometry geometry)
+        {
+            Throw.IfNull(nameof(geometry), geometry);
+
+            return base.GetArea(geometry);
+        }
+
         public override QuantumType[] GetArea(int x, int y, int width, int height)
         {
             CheckArea(x, y, width, height);
@@ -59,6 +66,13 @@ namespace ImageMagick
             Throw.IfNull(nameof(pixel), pixel);
 
             SetPixelPrivate(pixel.X, pixel.Y, pixel.Value);
+        }
+
+        public override void SetPixel(IEnumerable<Pixel> pixels)
+        {
+            Throw.IfNull(nameof(pixels), pixels);
+
+            base.SetPixel(pixels);
         }
 
         public override void SetPixel(int x, int y, QuantumType[] value)
@@ -120,14 +134,32 @@ namespace ImageMagick
             base.SetArea(x, y, width, height, values);
         }
 
+        public override byte[] ToByteArray(MagickGeometry geometry, string mapping)
+        {
+            Throw.IfNull(nameof(geometry), geometry);
+
+            return base.ToByteArray(geometry, mapping);
+        }
+
         public override byte[] ToByteArray(int x, int y, int width, int height, string mapping)
         {
+            Throw.IfNullOrEmpty(nameof(mapping), mapping);
+
             CheckArea(x, y, width, height);
             return base.ToByteArray(x, y, width, height, mapping);
         }
 
+        public override ushort[] ToShortArray(MagickGeometry geometry, string mapping)
+        {
+            Throw.IfNull(nameof(geometry), geometry);
+
+            return base.ToShortArray(geometry, mapping);
+        }
+
         public override ushort[] ToShortArray(int x, int y, int width, int height, string mapping)
         {
+            Throw.IfNullOrEmpty(nameof(mapping), mapping);
+
             CheckArea(x, y, width, height);
             return base.ToShortArray(x, y, width, height, mapping);
         }

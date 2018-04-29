@@ -119,16 +119,13 @@ namespace Magick.NET.Tests.Shared.Pixels
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenIEnumerablePixelIsNull()
+            public void ShouldNotThrowExceptionWhenIEnumerablePixelIsNull()
             {
                 using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("pixels", () =>
-                        {
-                            pixels.SetPixel((IEnumerable<Pixel>)null);
-                        });
+                        pixels.SetPixel((IEnumerable<Pixel>)null);
                     }
                 }
             }

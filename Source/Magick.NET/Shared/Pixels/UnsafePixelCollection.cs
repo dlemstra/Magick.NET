@@ -10,8 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 #if Q8
@@ -33,10 +31,108 @@ namespace ImageMagick
         {
         }
 
+        public override byte[] GetArea(MagickGeometry geometry)
+        {
+            if (geometry == null)
+                return null;
+
+            return base.GetArea(geometry);
+        }
+
+#if !Q8
+        public override void SetArea(int x, int y, int width, int height, byte[] values)
+        {
+            if (values != null)
+                base.SetArea(x, y, width, height, values);
+        }
+#endif
+
+        public override void SetArea(int x, int y, int width, int height, double[] values)
+        {
+            if (values != null)
+                base.SetArea(x, y, width, height, values);
+        }
+
+        public override void SetArea(int x, int y, int width, int height, int[] values)
+        {
+            if (values != null)
+                base.SetArea(x, y, width, height, values);
+        }
+
+        public override void SetArea(int x, int y, int width, int height, QuantumType[] values)
+        {
+            if (values != null)
+                base.SetArea(x, y, width, height, values);
+        }
+
+        public override void SetPixel(IEnumerable<Pixel> pixels)
+        {
+            if (pixels != null)
+                base.SetPixel(pixels);
+        }
+
         public override void SetPixel(int x, int y, QuantumType[] value)
         {
             if (value != null)
                 base.SetPixel(x, y, value);
+        }
+
+#if !Q8
+        public override void SetPixels(byte[] values)
+        {
+            if (values != null)
+                base.SetPixels(values);
+        }
+#endif
+
+        public override void SetPixels(QuantumType[] values)
+        {
+            if (values != null)
+                base.SetPixels(values);
+        }
+
+        public override void SetPixels(double[] values)
+        {
+            if (values != null)
+                base.SetPixels(values);
+        }
+
+        public override void SetPixels(int[] values)
+        {
+            if (values != null)
+                base.SetPixels(values);
+        }
+
+        public override byte[] ToByteArray(MagickGeometry geometry, string mapping)
+        {
+            if (geometry == null)
+                return null;
+
+            return base.ToByteArray(geometry, mapping);
+        }
+
+        public override byte[] ToByteArray(int x, int y, int width, int height, string mapping)
+        {
+            if (mapping == null)
+                return null;
+
+            return base.ToByteArray(x, y, width, height, mapping);
+        }
+
+        public override ushort[] ToShortArray(MagickGeometry geometry, string mapping)
+        {
+            if (geometry == null)
+                return null;
+
+            return base.ToShortArray(geometry, mapping);
+        }
+
+        public override ushort[] ToShortArray(int x, int y, int width, int height, string mapping)
+        {
+            if (mapping == null)
+                return null;
+
+            return base.ToShortArray(x, y, width, height, mapping);
         }
     }
 }
