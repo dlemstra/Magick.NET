@@ -299,6 +299,14 @@ namespace Magick.NET.Tests
                 }
             }
 
+            public static string PdfExamplePasswordOriginalPDF
+            {
+                get
+                {
+                    return _Root + @"Images/Coders/pdf-example-password.original.pdf";
+                }
+            }
+
             public static string PlayerPSD
             {
                 get

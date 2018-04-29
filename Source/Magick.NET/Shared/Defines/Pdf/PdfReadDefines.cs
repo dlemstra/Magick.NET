@@ -38,6 +38,15 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Gets or sets the password that should be used to open the pdf (authenticate).
+        /// </summary>
+        public string Password
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether use of the cropbox should be forced (pdf:use-trimbox).
         /// </summary>
         public bool? UseCropBox
@@ -64,6 +73,9 @@ namespace ImageMagick
             {
                 if (FitPage != null)
                     yield return CreateDefine("fit-page", FitPage);
+
+                if (Password != null)
+                    yield return new MagickDefine("authenticate", Password);
 
                 if (UseCropBox.HasValue)
                     yield return CreateDefine("use-cropbox", UseCropBox.Value);
