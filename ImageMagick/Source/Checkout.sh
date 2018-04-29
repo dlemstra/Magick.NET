@@ -53,7 +53,7 @@ fi
 
 cd ImageMagick
 
-clone_commit 'ImageMagick' '9fdda6391e38aaad3bfd6a30bd6a72bd31aeee02'
+clone_commit 'ImageMagick' '2e4a1359e151950c135aebbbdff2640071b3f6a2'
 
 # get a commit date from the current ImageMagick checkout
 cd ImageMagick
@@ -86,6 +86,7 @@ clone_date 'flif' "$commitDate"
 clone_date 'glib' "$commitDate"
 clone_date 'jp2' "$commitDate"
 clone_date 'libde265' "$commitDate"
+clone_date 'libheif' "$commitDate"
 clone_date 'libraw' "$commitDate"
 clone_date 'librsvg' "$commitDate"
 clone_date 'lqr' "$commitDate"

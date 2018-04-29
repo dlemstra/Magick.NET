@@ -22,6 +22,7 @@
 #include "MagickCore/image.h"
 #include "MagickCore/pixel.h"
 #include "MagickCore/type.h"
+#include "MagickCore/color.h"
 
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
@@ -327,8 +328,13 @@ typedef struct _DrawInfo
 
   MagickBooleanType
     clip_path;
-} DrawInfo;
 
+  Image
+    *clipping_mask;
+
+  ComplianceType
+    compliance;
+} DrawInfo;
 
 typedef struct _PrimitiveInfo
 {

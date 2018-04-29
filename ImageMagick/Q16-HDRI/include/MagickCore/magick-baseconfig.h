@@ -108,7 +108,7 @@
 #define MAGICKCORE_HAVE_LCMS2_H
 
 /*
-  Define to use the libde265 library
+  Define to use the libheif library
 */
 #define MAGICKCORE_HEIC_DELEGATE
 
