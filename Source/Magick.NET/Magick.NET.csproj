@@ -8,8 +8,6 @@
     <Version>7.4.4.0</Version>
     <Authors>Dirk Lemstra</Authors>
     <Copyright>Copyright 2013-2018 Dirk Lemstra</Copyright>
-    <DebugType Condition="$(CodeCov) == 'true'">full</DebugType>
-    <DebugType Condition="$(CodeCov) != 'true'">pdbonly</DebugType>
     <RunCodeAnalysis Condition="'$(Configuration)|$(TargetFramework)' == 'ReleaseQ16|net40'">true</RunCodeAnalysis>
     <Platforms>x86;x64;AnyCPU</Platforms>
     <Configurations>DebugQ8;DebugQ16;DebugQ16-HDRI;ReleaseQ8;ReleaseQ16;ReleaseQ16-HDRI;TestQ8;TestQ16;TestQ16-HDRI</Configurations>
@@ -33,10 +31,12 @@
 
   <PropertyGroup Condition="!$(Configuration.Contains('Release'))">
     <Optimize>false</Optimize>
+    <DebugType>full</DebugType>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration.Contains('Release'))">
     <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
     <TreatWarningsAsErrors Condition="'$(OS)' == 'Windows_NT'">true</TreatWarningsAsErrors>
   </PropertyGroup>
 

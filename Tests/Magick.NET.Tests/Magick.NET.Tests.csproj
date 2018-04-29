@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
     <TargetFrameworks>net45;netcoreapp2.0</TargetFrameworks>
-    <DebugType Condition="$(CodeCov) == 'true'">full</DebugType>
     <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
     <AssemblyName>Magick.NET.Tests</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -24,13 +23,9 @@
     <QuantumType>Q16-HDRI</QuantumType>
   </PropertyGroup>
 
-  <PropertyGroup Condition="!$(Configuration.Contains('Release'))">
+  <PropertyGroup>
     <Optimize>false</Optimize>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="$(Configuration.Contains('Release'))">
-    <Optimize>true</Optimize>
-    <TreatWarningsAsErrors Condition="'$(OS)' == 'Windows_NT'">true</TreatWarningsAsErrors>
+    <DebugType>full</DebugType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
