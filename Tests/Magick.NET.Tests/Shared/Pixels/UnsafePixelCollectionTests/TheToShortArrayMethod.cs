@@ -93,7 +93,7 @@ namespace Magick.NET.Tests.Shared.Pixels
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
-                        ExceptionAssert.Throws<MagickResourceLimitErrorException> (() =>
+                        ExceptionAssert.Throws<MagickResourceLimitErrorException>(() =>
                         {
                             var values = pixels.ToShortArray(new MagickGeometry(1, 2, 3, 4), string.Empty);
                         });
