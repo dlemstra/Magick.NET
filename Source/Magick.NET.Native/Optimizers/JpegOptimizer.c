@@ -567,7 +567,7 @@ static void CompressJpeg(j_decompress_ptr decompress_info, j_compress_ptr compre
     quality = client_data->quality;
   else
     quality = DetermineQuality(decompress_info);
-  jpeg_set_quality(compress_info, quality, TRUE);
+  jpeg_set_quality(compress_info, (int)quality, TRUE);
   compress_info->optimize_coding = TRUE;
   if (client_data->progressive != FALSE)
     jpeg_simple_progression(compress_info);
@@ -577,7 +577,7 @@ static void CompressJpeg(j_decompress_ptr decompress_info, j_compress_ptr compre
   while (compress_info->next_scanline < compress_info->image_height)
   {
     jpeg_write_scanlines(compress_info, &client_data->buffer[compress_info->next_scanline],
-      client_data->height);
+      (JDIMENSION)client_data->height);
   }
 }
 
@@ -656,7 +656,7 @@ static void TerminateClientData(ClientData *client_data)
 
   if (client_data->icc_marker != (Marker *)NULL)
   {
-    if (client_data->icc_marker->buffer != (JOCTET *) NULL)
+    if (client_data->icc_marker->buffer != (JOCTET *)NULL)
       free(client_data->icc_marker->buffer);
     free(client_data->icc_marker);
   }

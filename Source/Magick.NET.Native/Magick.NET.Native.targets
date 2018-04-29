@@ -1,21 +1,23 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <Target Name="AfterBuild">
-        <ItemGroup>
-            <NativeFiles Include="$(TargetDir)\$(TargetName).dll" />
-            <NativeFiles Include="$(TargetDir)\$(TargetName).pdb" />
-        </ItemGroup>
+  <Target Name="AfterBuild">
+    <ItemGroup>
+      <NativeFiles Include="$(TargetDir)\$(TargetName).dll" />
+      <NativeFiles Include="$(TargetDir)\$(TargetName).pdb" />
+    </ItemGroup>
 
-        <PropertyGroup>
-            <TestConfig>$(Configuration.Replace('Release','Test'))</TestConfig>
-        </PropertyGroup>
-        
-        <Copy Condition="'$(Platform)|$(Configuration)'=='Win32|ReleaseQ16'" SourceFiles="@(NativeFiles)" DestinationFolder="$(SolutionDir)\Samples\Magick.NET.Samples\bin\$(Configuration)" />
+    <PropertyGroup>
+      <TestConfig>$(Configuration.Replace('Release','Test'))</TestConfig>
+    </PropertyGroup>
 
-        <Copy Condition="'$(Platform)'=='Win32'" SourceFiles="@(NativeFiles)" DestinationFolder="$(SolutionDir)\Tests\Magick.NET.Tests\bin\$(TestConfig)\x86\net45" />
-        <Copy Condition="'$(Platform)'=='Win32'" SourceFiles="@(NativeFiles)" DestinationFolder="$(SolutionDir)\Tests\Magick.NET.Tests\bin\$(TestConfig)\x86\netcoreapp2.0" />
-        <Copy Condition="'$(Platform)'=='x64'" SourceFiles="@(NativeFiles)" DestinationFolder="$(SolutionDir)\Tests\Magick.NET.Tests\bin\$(TestConfig)\x64\net45" />
-        <Copy Condition="'$(Platform)'=='x64'" SourceFiles="@(NativeFiles)" DestinationFolder="$(SolutionDir)\Tests\Magick.NET.Tests\bin\$(TestConfig)\x64\netcoreapp2.0" />
+    <Copy Condition="'$(Platform)|$(Configuration)'=='Win32|ReleaseQ16'" SourceFiles="@(NativeFiles)" DestinationFolder="$(SolutionDir)\Samples\Magick.NET.Samples\bin\$(Configuration)" />
 
-        <Copy Condition="'$(Platform)'=='Win32'" SourceFiles="@(NativeFiles)" DestinationFolder="$(SolutionDir)\Tests\Magick.NET.Tests.NativeDebug\bin\$(Configuration)\x86" />
-    </Target>
+    <Copy Condition="'$(Platform)'=='Win32'" SourceFiles="@(NativeFiles)" DestinationFolder="$(SolutionDir)\Tests\Magick.NET.Tests\bin\$(TestConfig)\x86\net45" />
+    <Copy Condition="'$(Platform)'=='Win32'" SourceFiles="@(NativeFiles)" DestinationFolder="$(SolutionDir)\Tests\Magick.NET.Tests\bin\$(TestConfig)\x86\netcoreapp2.0" />
+    <Copy Condition="'$(Platform)'=='x64'" SourceFiles="@(NativeFiles)" DestinationFolder="$(SolutionDir)\Tests\Magick.NET.Tests\bin\$(TestConfig)\x64\net45" />
+    <Copy Condition="'$(Platform)'=='x64'" SourceFiles="@(NativeFiles)" DestinationFolder="$(SolutionDir)\Tests\Magick.NET.Tests\bin\$(TestConfig)\x64\netcoreapp2.0" />
+
+    <Copy Condition="'$(Platform)'=='Win32'" SourceFiles="@(NativeFiles)" DestinationFolder="$(SolutionDir)\Tests\Magick.NET.Tests.NativeDebug\bin\$(Configuration)\x86" />
+
+    <Copy Condition="'$(Platform)'=='x64'" SourceFiles="@(NativeFiles)" DestinationFolder="$(SolutionDir)\Tests\Magick.NET.Tests.NativeDebug\bin\$(Configuration)\x64" />
+  </Target>
 </Project>
