@@ -125,7 +125,7 @@ RUN autoreconf -fiv; \
     sync; \
     export CFLAGS="-O3 -fPIC"; \
     export CXXFLAGS="-O3 -fPIC"; \
-    ./configure --prefix=/usr/local; \
+    ./configure --disable-shared --prefix=/usr/local; \
     make; \
     make install
 
@@ -136,7 +136,7 @@ RUN autoreconf -fiv; \
     sync; \
     export CFLAGS="-O3 -fPIC"; \
     export CXXFLAGS="-O3 -fPIC"; \
-    ./configure --prefix=/usr/local; \
+    ./configure --disable-shared --prefix=/usr/local; \
     make; \
     make install
 
