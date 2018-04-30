@@ -33,7 +33,7 @@ namespace ImageMagick
         {
         }
 
-        public override byte[] GetArea(MagickGeometry geometry)
+        public override QuantumType[] GetArea(MagickGeometry geometry)
         {
             Throw.IfNull(nameof(geometry), geometry);
 
