@@ -118,6 +118,28 @@ RUN autoreconf -fiv; \
     make; \
     make install
 
+# Build libde265
+COPY /ImageMagick/Source/ImageMagick/libde265 /libde265
+WORKDIR /libde265
+RUN autoreconf -fiv; \
+    sync; \
+    export CFLAGS="-O3 -fPIC"; \
+    export CXXFLAGS="-O3 -fPIC"; \
+    ./configure --prefix=/usr/local; \
+    make; \
+    make install
+
+# Build libheif
+COPY /ImageMagick/Source/ImageMagick/libheif /libheif
+WORKDIR /libheif
+RUN autoreconf -fiv; \
+    sync; \
+    export CFLAGS="-O3 -fPIC"; \
+    export CXXFLAGS="-O3 -fPIC"; \
+    ./configure --prefix=/usr/local; \
+    make; \
+    make install
+
 # Build ImageMagick
 COPY /ImageMagick/Source/ImageMagick/ImageMagick /ImageMagick
 WORKDIR /ImageMagick

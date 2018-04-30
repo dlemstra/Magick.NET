@@ -67,6 +67,8 @@ fi
 
 clone_date 'jpeg-turbo' "$commitDate" 'jpeg'
 clone_date 'lcms' "$commitDate"
+clone_date 'libde265' "$commitDate"
+clone_date 'libheif' "$commitDate"
 clone_date 'libxml' "$commitDate"
 clone_date 'openjpeg' "$commitDate"
 clone_date 'png' "$commitDate"
@@ -85,8 +87,6 @@ clone_date 'ffi' "$commitDate"
 clone_date 'flif' "$commitDate"
 clone_date 'glib' "$commitDate"
 clone_date 'jp2' "$commitDate"
-clone_date 'libde265' "$commitDate"
-clone_date 'libheif' "$commitDate"
 clone_date 'libraw' "$commitDate"
 clone_date 'librsvg' "$commitDate"
 clone_date 'lqr' "$commitDate"
