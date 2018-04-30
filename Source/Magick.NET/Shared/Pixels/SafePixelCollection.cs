@@ -44,7 +44,7 @@ namespace ImageMagick
         {
             CheckArea(x, y, width, height);
 
-            return GetAreaUnchecked(x, y, width, height);
+            return base.GetArea(x, y, width, height);
         }
 
         public override Pixel GetPixel(int x, int y)
@@ -58,7 +58,7 @@ namespace ImageMagick
         {
             CheckIndex(x, y);
 
-            return GetAreaUnchecked(x, y, 1, 1);
+            return base.GetValue(x, y);
         }
 
         public override void SetPixel(Pixel pixel)
