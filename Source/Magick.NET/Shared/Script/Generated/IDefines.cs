@@ -231,6 +231,7 @@ namespace ImageMagick
                 return null;
             PdfReadDefines result = new PdfReadDefines();
             result.FitPage = Variables.GetValue<MagickGeometry>(element, "fitPage");
+            result.Password = Variables.GetValue<String>(element, "password");
             result.UseCropBox = Variables.GetValue<Nullable<Boolean>>(element, "useCropBox");
             result.UseTrimBox = Variables.GetValue<Nullable<Boolean>>(element, "useTrimBox");
             return result;

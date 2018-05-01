@@ -1356,6 +1356,7 @@
   </xs:complexType>
   <xs:complexType name="pdfReadDefines">
     <xs:attribute name="fitPage" type="geometry" />
+    <xs:attribute name="password" type="xs:string" />
     <xs:attribute name="useCropBox" type="bool" />
     <xs:attribute name="useTrimBox" type="bool" />
   </xs:complexType>
@@ -2559,6 +2560,7 @@
         </xs:element>
         <xs:element name="localContrast">
           <xs:complexType>
+            <xs:attribute name="channels" type="Channels" />
             <xs:attribute name="radius" use="required" type="double" />
             <xs:attribute name="strength" use="required" type="double" />
           </xs:complexType>
