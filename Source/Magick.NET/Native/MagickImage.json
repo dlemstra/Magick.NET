@@ -1666,6 +1666,10 @@
                 {
                     "name": "strength",
                     "type": "double"
+                },
+                {
+                    "name": "channels",
+                    "type": "Channels"
                 }
             ]
         },

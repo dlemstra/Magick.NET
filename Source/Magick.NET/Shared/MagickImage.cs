@@ -3945,7 +3945,19 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void LocalContrast(double radius, Percentage strength)
         {
-            _nativeInstance.LocalContrast(radius, strength.ToDouble());
+            LocalContrast(radius, strength, ImageMagick.Channels.Composite);
+        }
+
+        /// <summary>
+        /// Local contrast enhancement.
+        /// </summary>
+        /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+        /// <param name="strength">The strength of the blur mask.</param>
+        /// <param name="channels">The channel(s) that should be changed.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void LocalContrast(double radius, Percentage strength, Channels channels)
+        {
+            _nativeInstance.LocalContrast(radius, strength.ToDouble(), channels);
         }
 
         /// <summary>

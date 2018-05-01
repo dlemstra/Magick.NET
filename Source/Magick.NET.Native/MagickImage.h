@@ -338,7 +338,7 @@ MAGICK_NET_EXPORT void MagickImage_LinearStretch(Image *, const double, const do
 
 MAGICK_NET_EXPORT Image *MagickImage_LiquidRescale(const Image *, const char *, ExceptionInfo **);
 
-MAGICK_NET_EXPORT Image *MagickImage_LocalContrast(const Image *, const double, const double, ExceptionInfo **);
+MAGICK_NET_EXPORT Image *MagickImage_LocalContrast(Image *, const double, const double, const size_t, ExceptionInfo **);
 
 MAGICK_NET_EXPORT Image *MagickImage_Magnify(const Image *, ExceptionInfo **);
 

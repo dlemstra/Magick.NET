@@ -1644,13 +1644,15 @@ MAGICK_NET_EXPORT Image *MagickImage_LiquidRescale(const Image *instance, const 
   return image;
 }
 
-MAGICK_NET_EXPORT Image *MagickImage_LocalContrast(const Image *instance, const double radius, const double strength, ExceptionInfo **exception)
+MAGICK_NET_EXPORT Image *MagickImage_LocalContrast(Image *instance, const double radius, const double strength, const size_t channels, ExceptionInfo **exception)
 {
   Image
     *image;
 
   MAGICK_NET_GET_EXCEPTION;
+  SetChannelMask(instance, channels);
   image = LocalContrastImage(instance, radius, strength, exceptionInfo);
+  RestoreChannelMask(instance);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
