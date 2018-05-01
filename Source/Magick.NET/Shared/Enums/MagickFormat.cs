@@ -373,6 +373,11 @@ namespace ImageMagick
         Hdr,
 
         /// <summary>
+        /// High Efficiency Image Format
+        /// </summary>
+        Heic,
+
+        /// <summary>
         /// Histogram of the image
         /// </summary>
         Histogram,
@@ -1233,11 +1238,6 @@ namespace ImageMagick
         /// Free Lossless Image Format
         /// </summary>
         Flif,
-
-        /// <summary>
-        /// Apple High Efficiency Image Format
-        /// </summary>
-        Heic,
 
         /// <summary>
         /// Windows Meta File
