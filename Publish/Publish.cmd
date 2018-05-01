@@ -1,4 +1,4 @@
 @echo off
 call "..\Tools\VsDevCmd.cmd"
-powershell -ExecutionPolicy Unrestricted ..\Tools\Scripts\Publish.ps1 "7.4.4.0"
+powershell -ExecutionPolicy Unrestricted ..\Tools\Scripts\Publish.ps1 "7.4.5.0"
 pause
