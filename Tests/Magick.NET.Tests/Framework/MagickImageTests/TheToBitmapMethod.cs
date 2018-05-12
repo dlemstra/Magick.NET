@@ -79,6 +79,22 @@ namespace Magick.NET.Tests.Framework
                 AssertSupportedImageFormat(ImageFormat.Tiff);
             }
 
+            [TestMethod]
+            public void ShouldChangeTheColorSpaceToSrgb()
+            {
+                using (IMagickImage image = new MagickImage(Color.Red, 1, 1))
+                {
+                    image.ColorSpace = ColorSpace.YCbCr;
+
+                    using (Bitmap bitmap = image.ToBitmap())
+                    {
+                        ColorAssert.AreEqual(MagickColors.Red, bitmap.GetPixel(0, 0));
+                    }
+
+                    Assert.AreEqual(ColorSpace.YCbCr, image.ColorSpace);
+                }
+            }
+
             private void AssertUnsupportedImageFormat(ImageFormat imageFormat)
             {
                 using (IMagickImage image = new MagickImage(MagickColors.Red, 10, 10))
