@@ -334,6 +334,9 @@ typedef struct _DrawInfo
 
   ComplianceType
     compliance;
+
+  Image
+    *composite_mask;
 } DrawInfo;
 
 typedef struct _PrimitiveInfo
@@ -352,6 +355,9 @@ typedef struct _PrimitiveInfo
 
   char
     *text;
+
+  MagickBooleanType
+    closed_subpath;
 } PrimitiveInfo;
 
 typedef struct _TypeMetric
