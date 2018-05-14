@@ -300,7 +300,6 @@
       <SDLCheck>true</SDLCheck>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\..\ImageMagick\lib\Debug\x86;..\..\ImageMagick\Q8\lib\Debug\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -321,7 +320,6 @@
       <SDLCheck>true</SDLCheck>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\..\ImageMagick\lib\Debug\x64;..\..\ImageMagick\Q8\lib\Debug\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -342,7 +340,6 @@
       <SDLCheck>true</SDLCheck>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\..\ImageMagick\lib\Debug\x86;..\..\ImageMagick\Q16\lib\Debug\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -363,7 +360,6 @@
       <SDLCheck>true</SDLCheck>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\..\ImageMagick\lib\Debug\x64;..\..\ImageMagick\Q16\lib\Debug\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -384,7 +380,6 @@
       <SDLCheck>true</SDLCheck>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\..\ImageMagick\lib\Debug\x86;..\..\ImageMagick\Q16-HDRI\lib\Debug\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -405,7 +400,6 @@
       <SDLCheck>true</SDLCheck>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\..\ImageMagick\lib\Debug\x64;..\..\ImageMagick\Q16-HDRI\lib\Debug\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -428,7 +422,6 @@
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\..\ImageMagick\lib\Release\x86;..\..\ImageMagick\Q8\lib\Release\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -450,7 +443,6 @@
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\..\ImageMagick\lib\Release\x64;..\..\ImageMagick\Q8\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -472,7 +464,6 @@
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\..\ImageMagick\lib\Release\x86;..\..\ImageMagick\Q16\lib\Release\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -494,7 +485,6 @@
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\..\ImageMagick\lib\Release\x64;..\..\ImageMagick\Q16\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -516,7 +506,6 @@
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\..\ImageMagick\lib\Release\x86;..\..\ImageMagick\Q16-HDRI\lib\Release\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -538,7 +527,6 @@
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\..\ImageMagick\lib\Release\x64;..\..\ImageMagick\Q16-HDRI\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -561,7 +549,6 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <OpenMPSupport>true</OpenMPSupport>
-      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\..\ImageMagick\lib\Release\OpenMP-x64;..\..\ImageMagick\Q8\lib\Release\OpenMP-x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -584,7 +571,6 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <OpenMPSupport>true</OpenMPSupport>
-      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\..\ImageMagick\lib\Release\OpenMP-x64;..\..\ImageMagick\Q16\lib\Release\OpenMP-x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -607,7 +593,6 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <OpenMPSupport>true</OpenMPSupport>
-      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\..\ImageMagick\lib\Release\OpenMP-x64;..\..\ImageMagick\Q16-HDRI\lib\Release\OpenMP-x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
