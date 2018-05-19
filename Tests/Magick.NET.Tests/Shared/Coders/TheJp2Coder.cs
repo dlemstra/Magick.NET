@@ -16,10 +16,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Magick.NET.Tests
 {
     [TestClass]
-    public class Jp2Tests
+    public class TheJp2Coder
     {
         [TestMethod]
-        public void Test_Dimensions()
+        public void ShouldReadTheImageWithCorrectDimensions()
         {
             using (IMagickImage image = new MagickImage(Files.Coders.GrimJp2))
             {

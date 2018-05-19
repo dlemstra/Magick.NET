@@ -17,10 +17,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Magick.NET.Tests
 {
     [TestClass]
-    public partial class TiffTests
+    public partial class TheTiffCoder
     {
         [TestMethod]
-        public void Test_IgnoreTags()
+        public void ShouldIgnoreTheSpecifiedTags()
         {
             using (IMagickImage image = new MagickImage())
             {
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_IptcProfile()
+        public void ShouldBeAbleToReadAndWriteIptcValues()
         {
             using (IMagickImage input = new MagickImage(Files.MagickNETIconPNG))
             {

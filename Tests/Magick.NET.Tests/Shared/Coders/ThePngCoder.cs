@@ -17,10 +17,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Magick.NET.Tests
 {
     [TestClass]
-    public class PNGTests
+    public class ThePngCoder
     {
         [TestMethod]
-        public void CorruptImage_TryhRead_ThrowsExceptionAndDoesNotChangeOriginalImage()
+        public void ShouldThrowExceptionAndNotChangeTheOriginalImageWhenTheImageIsCorrupt()
         {
             using (IMagickImage image = new MagickImage(MagickColors.Purple, 4, 2))
             {
@@ -35,7 +35,7 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void PngWithLargeIDAT_ImageCanBeRead()
+        public void ShouldBeAbleToReadPngWithLargeIDAT()
         {
             using (IMagickImage image = new MagickImage(Files.VicelandPNG))
             {
@@ -45,7 +45,7 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void PNGWithValidModificationDateThatBecomes24Hours_NoWarningIsRaised()
+        public void ShouldNotRaiseWarningForValidModificationDateThatBecomes24Hours()
         {
             using (IMagickImage image = new MagickImage("logo:"))
             {
@@ -57,7 +57,7 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void PNGWithValidModificationDateThatBecomes60Minutes_NoWarningIsRaised()
+        public void ShouldNotRaiseWarningForValidModificationDateThatBecomes60Minutes()
         {
             using (IMagickImage image = new MagickImage("logo:"))
             {

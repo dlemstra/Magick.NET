@@ -13,30 +13,30 @@
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Shared.Coders
 {
     [TestClass]
-    public class BgrTests
+    public class TheBgrCoder
     {
-        [TestMethod]
-        public void Test_Read_Bytes()
-        {
 #if Q8
-            var bytes = new byte[] { 1, 2, 3, 4 };
+        private readonly byte[] _bytes = new byte[] { 1, 2, 3, 4 };
 #elif Q16 || Q16HDRI
-            var bytes = new byte[] { 1, 0, 2, 0, 3, 0, 4, 0 };
+        private readonly byte[] _bytes = new byte[] { 1, 0, 2, 0, 3, 0, 4, 0 };
 #else
 #error Not implemented!
 #endif
 
-            MagickReadSettings settings = new MagickReadSettings()
-            {
-                Width = 1,
-                Height = 1,
-            };
+        private readonly MagickReadSettings _settings = new MagickReadSettings()
+        {
+            Width = 1,
+            Height = 1,
+        };
 
-            settings.Format = MagickFormat.Bgra;
-            using (IMagickImage image = new MagickImage(bytes, settings))
+        [TestMethod]
+        public void ShouldSetTheCorrectValueForTheAlphaChannel()
+        {
+            _settings.Format = MagickFormat.Bgra;
+            using (IMagickImage image = new MagickImage(_bytes, _settings))
             {
                 using (IPixelCollection pixels = image.GetPixels())
                 {
@@ -48,9 +48,13 @@ namespace Magick.NET.Tests
                     Assert.AreEqual(4, pixel.GetChannel(3));
                 }
             }
+        }
 
-            settings.Format = MagickFormat.Bgro;
-            using (IMagickImage image = new MagickImage(bytes, settings))
+        [TestMethod]
+        public void ShouldSetTheCorrectValueForTheOpacityChannel()
+        {
+            _settings.Format = MagickFormat.Bgro;
+            using (IMagickImage image = new MagickImage(_bytes, _settings))
             {
                 using (IPixelCollection pixels = image.GetPixels())
                 {

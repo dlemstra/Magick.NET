@@ -17,19 +17,20 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Magick.NET.Tests
 {
     [TestClass]
-    public class MvgTests
+    public class TheMslCoder
     {
         [TestMethod]
-        public void Test_Disabled()
+        public void ShouldBeDisabled()
         {
             using (MemoryStream memStream = new MemoryStream())
             {
                 using (StreamWriter writer = new StreamWriter(memStream))
                 {
-                    writer.Write(@"push graphic-context
-                      viewbox 0 0 640 480
-                      image over 0,0 0,0 ""label:Magick.NET""
-                      pop graphic-context");
+                    writer.Write(@"
+                        <?xml version=""1.0"" encoding=""UTF-8""?>
+                        <image>
+                          <read filename=""/tmp/text.gif"" />
+                        </image>");
 
                     writer.Flush();
 
@@ -37,19 +38,14 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.Throws<MagickMissingDelegateErrorException>(() =>
+                        MagickReadSettings readSettings = new MagickReadSettings()
                         {
-                            image.Read(memStream);
-                        });
+                            Format = MagickFormat.Msl,
+                        };
 
                         ExceptionAssert.Throws<MagickPolicyErrorException>(() =>
                         {
-                            MagickReadSettings settings = new MagickReadSettings()
-                            {
-                                Format = MagickFormat.Mvg,
-                            };
-
-                            image.Read(memStream, settings);
+                            image.Read(memStream, readSettings);
                         });
                     }
                 }

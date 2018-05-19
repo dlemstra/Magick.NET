@@ -16,10 +16,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Magick.NET.Tests
 {
     [TestClass]
-    public class PSDTests
+    public class ThePsdCoder
     {
         [TestMethod]
-        public void Test_Colors()
+        public void ShouldReadTheCorrectColors()
         {
             using (IMagickImage image = new MagickImage(Files.Coders.PlayerPSD))
             {
