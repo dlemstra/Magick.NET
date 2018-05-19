@@ -284,7 +284,7 @@ namespace ImageMagick
                 value = ConvertValue(dataType, data, numberOfComponents);
             }
 
-            bool isArray = value != null && numberOfComponents > 1;
+            bool isArray = value != null && numberOfComponents != 1;
             return new ExifValue(tag, dataType, value, isArray);
         }
 
