@@ -11,6 +11,7 @@
 // and limitations under the License.
 
 using System;
+using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -65,6 +66,32 @@ namespace Magick.NET.Tests
                 image.SetAttribute("date:modify", "2017-09-10T15:30:00+03:30");
 
                 image.ToByteArray(MagickFormat.Png);
+            }
+        }
+
+        [TestMethod]
+        public void ShouldReadTheExifChunk()
+        {
+            using (IMagickImage input = new MagickImage(MagickColors.YellowGreen, 1, 1))
+            {
+                ExifProfile exifProfile = new ExifProfile();
+                exifProfile.SetValue(ExifTag.ImageUniqueID, "Have a nice day");
+
+                input.AddProfile(exifProfile);
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    input.Write(memoryStream, MagickFormat.Png);
+
+                    memoryStream.Position = 0;
+
+                    using (IMagickImage output = new MagickImage(memoryStream))
+                    {
+                        exifProfile = output.GetExifProfile();
+
+                        Assert.IsNotNull(exifProfile);
+                    }
+                }
             }
         }
 
