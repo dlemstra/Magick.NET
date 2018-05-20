@@ -25,7 +25,25 @@ For more information about ImageMagick go to: [http://www.imagemagick.org/](http
 
 ## Download
 
-Click [here](https://github.com/dlemstra/Magick.NET/releases) to download Magick.NET. You can also install Magick.NET using NuGet, click [here](https://nuget.org/profiles/dlemstra/) to
+You can add Magick.NET to your project with one of the following NuGet packages:
+
+| Package | Linux | Windows | Downloads
+|-|-|-|-|
+| [Magick.NET-Q8-x64](https://www.nuget.org/packages/Magick.NET-Q8-x64/) | ![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-x64.svg) | ![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-x64.svg) | ![NuGet](https://img.shields.io/nuget/dt/Magick.NET-Q8-x64.svg)
+| [Magick.NET-Q8-x86](https://www.nuget.org/packages/Magick.NET-Q8-x86/) | | ![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-x86.svg) | ![NuGet](https://img.shields.io/nuget/dt/Magick.NET-Q8-x86.svg)
+| [Magick.NET-Q8-AnyCPU](https://www.nuget.org/packages/Magick.NET-Q8-AnyCPU/) | ![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-AnyCPU.svg)| ![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-AnyCPU.svg) | ![NuGet](https://img.shields.io/nuget/dt/Magick.NET-Q8-AnyCPU.svg)
+| [Magick.NET-Q8-x64-OpenMP](https://www.nuget.org/packages/Magick.NET-Q8-x64-OpenMP/)| | ![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-x64-OpenMP.svg) | ![NuGet](https://img.shields.io/nuget/dt/Magick.NET-Q8-x64-OpenMP.svg) 
+| [Magick.NET-Q16-x64](https://www.nuget.org/packages/Magick.NET-Q16-x64/) | ![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-x64.svg) | ![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-x64.svg) | ![NuGet](https://img.shields.io/nuget/dt/Magick.NET-Q16-x64.svg)
+| [Magick.NET-Q16-x86](https://www.nuget.org/packages/Magick.NET-Q16-x86/) | | ![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-x86.svg) | ![NuGet](https://img.shields.io/nuget/dt/Magick.NET-Q16-x86.svg)
+| [Magick.NET-Q16-AnyCPU](https://www.nuget.org/packages/Magick.NET-Q16-AnyCPU/) | ![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-AnyCPU.svg) | ![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-AnyCPU.svg) | ![NuGet](https://img.shields.io/nuget/dt/Magick.NET-Q16-AnyCPU.svg)
+| [Magick.NET-Q16-x64-OpenMP](https://www.nuget.org/packages/Magick.NET-Q16-x64-OpenMP/) | | ![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-x64-OpenMP.svg) | ![NuGet](https://img.shields.io/nuget/dt/Magick.NET-Q16-x64-OpenMP.svg)
+| [Magick.NET-Q16-HDRI-x64](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-x64/) | ![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-x64.svg) | ![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-x64.svg) | ![NuGet](https://img.shields.io/nuget/dt/Magick.NET-Q16-HDRI-x64.svg)
+| [Magick.NET-Q16-HDRI-x86](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-x86/) | | ![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-x86.svg) | ![NuGet](https://img.shields.io/nuget/dt/Magick.NET-Q16-HDRI-x86.svg)
+| [Magick.NET-Q16-HDRI-AnyCPU](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-AnyCPU/) | ![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-AnyCPU.svg) | ![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-AnyCPU.svg) | ![NuGet](https://img.shields.io/nuget/dt/Magick.NET-Q16-HDRI-AnyCPU.svg)
+| [Magick.NET-Q16-HDRI-x64-OpenMP](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-x64-OpenMP/) | | ![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-x64-OpenMP.svg) | ![NuGet](https://img.shields.io/nuget/dt/Magick.NET-Q16-HDRI-x64-OpenMP.svg)
+
+
+Or uoi can click [here](https://github.com/dlemstra/Magick.NET/releases) to download Magick.NET. You can also install Magick.NET samples from NuGet, click [here](https://nuget.org/profiles/dlemstra/) to
 see the available packages. And follow me on twitter([@MagickNET](https://twitter.com/MagickNET)) to receive information about new downloads and changes to Magick.NET and ImageMagick.
 
 ## Development build
