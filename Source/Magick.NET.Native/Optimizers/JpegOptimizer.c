@@ -61,10 +61,11 @@ typedef struct _ClientData
     *coefficients;
 
   Marker
-    *icc_marker;
+    **markers;
 
   size_t
     height,
+    markers_count,
     quality;
 } ClientData;
 
@@ -373,15 +374,28 @@ static boolean DecompressJpeg(j_decompress_ptr decompress_info, ClientData *clie
 static int GetCharacter(j_decompress_ptr jpeg_info)
 {
   if (jpeg_info->src->bytes_in_buffer == 0)
-    (void) (*jpeg_info->src->fill_input_buffer)(jpeg_info);
+    (void)(*jpeg_info->src->fill_input_buffer)(jpeg_info);
   jpeg_info->src->bytes_in_buffer--;
   return (int)GETJOCTET(*jpeg_info->src->next_input_byte++);
 }
 
-static boolean ReadICCMarker(j_decompress_ptr jpeg_info)
+static Marker* AcquireMarker(ClientData *client_data)
+{
+  if (client_data->markers_count == 0)
+  {
+    client_data->markers = malloc(sizeof(*client_data->markers));
+  }
+  client_data->markers[client_data->markers_count] = malloc(sizeof(**client_data->markers));
+  return client_data->markers[client_data->markers_count++];
+}
+
+static boolean ReadMarker(j_decompress_ptr jpeg_info)
 {
   ClientData
     *client_data;
+
+  Marker
+    *marker;
 
   register ssize_t
     i;
@@ -399,19 +413,19 @@ static boolean ReadICCMarker(j_decompress_ptr jpeg_info)
   length -= 2;
 
   client_data = (ClientData *)jpeg_info->client_data;
-  client_data->icc_marker = malloc(sizeof(*client_data->icc_marker));
-  if (client_data->icc_marker == (Marker *)NULL)
+  marker = AcquireMarker(client_data);
+  if (marker == (Marker *)NULL)
     return FALSE;
 
-  ResetMagickMemory(client_data->icc_marker, 0, sizeof(*client_data->icc_marker));
+  ResetMagickMemory(marker, 0, sizeof(*marker));
 
-  client_data->icc_marker->code = jpeg_info->unread_marker;
-  client_data->icc_marker->length = length;
-  client_data->icc_marker->buffer = malloc(length * sizeof(*client_data->icc_marker->buffer));
-  if (client_data->icc_marker->buffer == (JOCTET *)NULL)
+  marker->code = jpeg_info->unread_marker;
+  marker->length = length;
+  marker->buffer = malloc(length * sizeof(*marker->buffer));
+  if (marker->buffer == (JOCTET *)NULL)
     return FALSE;
 
-  p = client_data->icc_marker->buffer;
+  p = marker->buffer;
   for (i = 0; i < (ssize_t)length; i++)
     *p++ = (JOCTET)GetCharacter(jpeg_info);
 
@@ -438,7 +452,7 @@ static boolean ReadJpeg(j_decompress_ptr decompress_info, ClientData *client_dat
     return FALSE;
 
   /* For now we only preserve the ICC profile */
-  jpeg_set_marker_processor(decompress_info, (int)(JPEG_APP0 + 2), ReadICCMarker);
+  jpeg_set_marker_processor(decompress_info, (int)(JPEG_APP0 + 2), ReadMarker);
 
   jpeg_read_header(decompress_info, TRUE);
 
@@ -593,12 +607,15 @@ static void WriteCoefficients(j_decompress_ptr decompress_info, j_compress_ptr c
   jpeg_write_coefficients(compress_info, client_data->coefficients);
 }
 
-static void WriteICCMarker(j_compress_ptr compress_info, ClientData *client_data)
+static void WriteMarkers(j_compress_ptr compress_info, ClientData *client_data)
 {
-  if (client_data->icc_marker == (Marker*)NULL)
-    return;
+  register ssize_t
+    i;
 
-  jpeg_write_marker(compress_info, client_data->icc_marker->code, (const JOCTET *)client_data->icc_marker->buffer, (unsigned int)client_data->icc_marker->length);
+  for (i = 0; i < (ssize_t)client_data->markers_count; i++)
+  {
+    jpeg_write_marker(compress_info, client_data->markers[i]->code, (const JOCTET *)client_data->markers[i]->buffer, (unsigned int)client_data->markers[i]->length);
+  }
 }
 
 static boolean WriteJpeg(j_decompress_ptr decompress_info, ClientData *client_data)
@@ -641,7 +658,7 @@ static boolean WriteJpeg(j_decompress_ptr decompress_info, ClientData *client_da
   else
     WriteCoefficients(decompress_info, &compress_info, client_data);
 
-  WriteICCMarker(&compress_info, client_data);
+  WriteMarkers(&compress_info, client_data);
 
   jpeg_finish_compress(&compress_info);
   jpeg_destroy_compress(&compress_info);
@@ -651,20 +668,24 @@ static boolean WriteJpeg(j_decompress_ptr decompress_info, ClientData *client_da
 
 static void TerminateClientData(ClientData *client_data)
 {
-  size_t
+  register ssize_t
     i;
 
-  if (client_data->icc_marker != (Marker *)NULL)
+  if (client_data->markers_count > 0)
   {
-    if (client_data->icc_marker->buffer != (JOCTET *)NULL)
-      free(client_data->icc_marker->buffer);
-    free(client_data->icc_marker);
+    for (i = 0; i < (ssize_t)client_data->markers_count; i++)
+    {
+      if (client_data->markers[i]->buffer != (JOCTET *)NULL)
+        free(client_data->markers[i]->buffer);
+      free(client_data->markers[i]);
+    }
+    free(client_data->markers);
   }
 
   if (client_data->height == 0)
     return;
 
-  for (i = 0; i < client_data->height; i++)
+  for (i = 0; i < (ssize_t)client_data->height; i++)
     free(client_data->buffer[i]);
   free(client_data->buffer);
 
