@@ -10,7 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
 using System.Linq;
 using System.Text;
 using ImageMagick;
@@ -71,7 +70,7 @@ namespace Magick.NET.Tests
                 image.Draw(new DrawablePolyline(coordinates.ToList()));
                 image.Draw(new DrawableRectangle(30, 30, 70, 70));
                 image.Draw(new DrawableRotation(180));
-                image.Draw(new DrawableRoundRectangle(50, 50, 30, 30, 70, 70));
+                image.Draw(new DrawableRoundRectangle(30, 30, 50, 50, 70, 70));
                 image.Draw(new DrawableScaling(15, 15));
                 image.Draw(new DrawableSkewX(90));
                 image.Draw(new DrawableSkewY(90));
@@ -144,7 +143,7 @@ namespace Magick.NET.Tests
             Test_Drawables_Draw(new DrawablePolyline(coordinates));
             Test_Drawables_Draw(new DrawableRectangle(30, 30, 70, 70));
             Test_Drawables_Draw(new DrawableRotation(180));
-            Test_Drawables_Draw(new DrawableRoundRectangle(50, 50, 30, 30, 70, 70));
+            Test_Drawables_Draw(new DrawableRoundRectangle(30, 30, 50, 50, 70, 70));
             Test_Drawables_Draw(new DrawableScaling(15, 15));
             Test_Drawables_Draw(new DrawableSkewX(90));
             Test_Drawables_Draw(new DrawableSkewY(90));
