@@ -16,7 +16,7 @@ using System.Xml.XPath;
 using ImageMagick;
 using ImageMagick.Web;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Web
 {
     [ExcludeFromCodeCoverage]
     public sealed class TestScriptData : IScriptData

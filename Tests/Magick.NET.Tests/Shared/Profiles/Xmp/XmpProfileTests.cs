@@ -17,7 +17,7 @@ using System.Xml.XPath;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Profiles
 {
     [TestClass]
     public class XmpProfileTests

@@ -13,10 +13,10 @@
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Colors
 {
     [TestClass]
-    public class ColorCMYKTests : ColorBaseTests<ColorCMYK>
+    public partial class ColorCMYKTests : ColorBaseTests<ColorCMYK>
     {
         [TestMethod]
         public void Test_IComparable()

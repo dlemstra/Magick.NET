@@ -15,7 +15,7 @@
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Settings
 {
     public partial class MagickSettingsTests
     {

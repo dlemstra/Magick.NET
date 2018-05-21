@@ -14,7 +14,7 @@ using System.Xml;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Shared.Helpers
+namespace Magick.NET.Tests.Helpers
 {
     [TestClass]
     public class XmlHelperTests

@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Coders
 {
     [TestClass]
     public class PangoTests

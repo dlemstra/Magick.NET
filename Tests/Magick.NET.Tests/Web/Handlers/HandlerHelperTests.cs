@@ -16,7 +16,7 @@ using ImageMagick;
 using ImageMagick.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Web.Handlers
 {
     [TestClass]
     public class HandlerHelperTests

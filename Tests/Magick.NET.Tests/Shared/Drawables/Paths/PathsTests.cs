@@ -14,7 +14,7 @@ using System.Collections;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Drawables
 {
     [TestClass]
     public class PathsTests
@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(MagickColors.Green, 100, 10))
             {
-                image.Draw(new Drawables()
+                image.Draw(new ImageMagick.Drawables()
                   .StrokeColor(MagickColors.Red)
                   .StrokeWidth(5)
                   .Paths()
@@ -64,8 +64,8 @@ namespace Magick.NET.Tests
         {
             Paths paths = null;
 
-            Drawables drawables = paths;
-            Assert.IsNull(paths);
+            ImageMagick.Drawables drawables = paths;
+            Assert.IsNull(drawables);
 
             paths = new Paths();
             IEnumerator enumerator = ((IEnumerable)paths).GetEnumerator();

@@ -24,7 +24,7 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace Magick.NET.Tests.Shared.Pixels
+namespace Magick.NET.Tests.Pixels
 {
     public partial class SafePixelCollectionTests
     {

@@ -13,7 +13,7 @@
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Shared.Drawables
+namespace Magick.NET.Tests.Drawables
 {
     public partial class DrawableClipPathTests
     {

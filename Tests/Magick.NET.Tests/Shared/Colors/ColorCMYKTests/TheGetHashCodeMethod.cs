@@ -13,9 +13,9 @@
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Shared.Colors
+namespace Magick.NET.Tests.Colors
 {
-    public partial class ColorCMYKTests
+    public partial class ColorCMYKTests : ColorBaseTests<ColorCMYK>
     {
         [TestClass]
         public class TheGetHashCodeMethod

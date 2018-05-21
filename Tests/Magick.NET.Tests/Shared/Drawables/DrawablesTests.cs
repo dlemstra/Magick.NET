@@ -15,7 +15,7 @@ using System.Collections;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Drawables
 {
     [TestClass]
     public class DrawablesTests
@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(MagickColors.Fuchsia, 100, 100))
             {
-                Drawables drawables = new Drawables()
+                var drawables = new ImageMagick.Drawables()
                   .FillColor(MagickColors.Red)
                   .Rectangle(10, 10, 90, 90);
 
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
                 ColorAssert.AreEqual(MagickColors.Red, image, 90, 90);
                 ColorAssert.AreEqual(MagickColors.Fuchsia, image, 91, 91);
 
-                image.Draw(new Drawables()
+                image.Draw(new ImageMagick.Drawables()
                   .FillColor(MagickColors.Green)
                   .Rectangle(15, 15, 85, 85));
 
@@ -57,7 +57,7 @@ namespace Magick.NET.Tests
         {
             ExceptionAssert.ThrowsArgumentNullException("image", () =>
             {
-                new Drawables().Draw(null);
+                new ImageMagick.Drawables().Draw(null);
             });
         }
     }

@@ -17,7 +17,7 @@ using System.IO;
 using ImageMagick.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Web
 {
     [ExcludeFromCodeCoverage]
     public sealed class TestSectionLoader : ISectionLoader
@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
         {
             ExeConfigurationFileMap map = new ExeConfigurationFileMap();
             map.ExeConfigFilename = _tempFile;
-            Configuration config = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
+            var config = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
 
             return config.GetSection(name) as MagickWebSettings;
         }

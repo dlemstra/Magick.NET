@@ -14,7 +14,7 @@ using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Matrices
 {
     [TestClass]
     public class ColorMatrixTests

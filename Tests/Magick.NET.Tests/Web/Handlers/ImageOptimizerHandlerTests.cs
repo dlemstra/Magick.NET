@@ -22,7 +22,7 @@ using ImageMagick.Web;
 using ImageMagick.Web.Handlers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Web.Handlers
 {
     [TestClass]
     public class ImageOptimizerHandlerTests

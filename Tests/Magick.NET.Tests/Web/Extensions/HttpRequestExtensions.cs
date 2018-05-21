@@ -16,7 +16,7 @@ using System.Collections;
 using System.Reflection;
 using System.Web;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Web
 {
     [ExcludeFromCodeCoverage]
     internal static class HttpRequestExtensions

@@ -14,7 +14,7 @@ using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Coders
 {
     [TestClass]
     public partial class TheTiffCoder

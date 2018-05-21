@@ -16,7 +16,7 @@ using System.Web;
 using ImageMagick.Web;
 using ImageMagick.Web.Handlers;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Web
 {
     [ExcludeFromCodeCoverage]
     internal sealed class TestMagickHandler : MagickHandler

@@ -13,7 +13,7 @@
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Windows.Defines.Pdf
+namespace Magick.NET.Tests.Defines
 {
     public partial class PdfReadDefinesTests
     {

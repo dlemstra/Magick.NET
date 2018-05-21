@@ -15,11 +15,11 @@ using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Profiles
 {
     // TODO: Move methods to another class
     [TestClass]
-    public class ExifProfileTests
+    public partial class ExifProfileTests
     {
         [TestMethod]
         public void Test_Fraction()

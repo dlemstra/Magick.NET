@@ -19,7 +19,7 @@ using System.Linq;
 using ImageMagick.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Web.Configuration
 {
     [TestClass]
     public class MagickWebSettingsTests
@@ -87,7 +87,7 @@ namespace Magick.NET.Tests
   <optimization enabled=""false"" lossless=""false"" optimalCompression=""true""/>
   <resourceLimits width=""1"" height=""2""/>
   <urlResolvers>
-    <urlResolver type=""Magick.NET.Tests.TestFileUrlResolver, Magick.NET.Tests""/>
+    <urlResolver type=""Magick.NET.Tests.Web.TestFileUrlResolver, Magick.NET.Tests""/>
   </urlResolvers>
 </magick.net.web>";
 

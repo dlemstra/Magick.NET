@@ -33,7 +33,7 @@ namespace Magick.NET.Tests.Web
             string config = @"
 <magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" useOpenCL=""true"">
   <urlResolvers>
-    <urlResolver type=""Magick.NET.Tests.TestFileUrlResolver, Magick.NET.Tests""/>
+    <urlResolver type=""Magick.NET.Tests.Web.TestFileUrlResolver, Magick.NET.Tests""/>
   </urlResolvers>
 </magick.net.web>";
 
@@ -52,7 +52,7 @@ namespace Magick.NET.Tests.Web
 <magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"">
   <resourceLimits width=""10000"" height=""20000""/>
   <urlResolvers>
-    <urlResolver type=""Magick.NET.Tests.TestFileUrlResolver, Magick.NET.Tests""/>
+    <urlResolver type=""Magick.NET.Tests.Web.TestFileUrlResolver, Magick.NET.Tests""/>
   </urlResolvers>
 </magick.net.web>";
 
@@ -210,7 +210,7 @@ namespace Magick.NET.Tests.Web
             return CreateModule(@"
 <magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"">
   <urlResolvers>
-    <urlResolver type=""Magick.NET.Tests.TestFileUrlResolver, Magick.NET.Tests""/>
+    <urlResolver type=""Magick.NET.Tests.Web.TestFileUrlResolver, Magick.NET.Tests""/>
   </urlResolvers>
 </magick.net.web>");
         }
@@ -220,7 +220,7 @@ namespace Magick.NET.Tests.Web
             return CreateModule(@"
 <magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"">
   <urlResolvers>
-    <urlResolver type=""Magick.NET.Tests.TestStreamUrlResolver, Magick.NET.Tests""/>
+    <urlResolver type=""Magick.NET.Tests.Web.TestStreamUrlResolver, Magick.NET.Tests""/>
   </urlResolvers>
 </magick.net.web>");
         }

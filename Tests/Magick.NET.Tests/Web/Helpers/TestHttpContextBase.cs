@@ -16,7 +16,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Web;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Web
 {
     [ExcludeFromCodeCoverage]
     public sealed class TestHttpContextBase : HttpContextBase

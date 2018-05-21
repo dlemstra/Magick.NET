@@ -15,7 +15,7 @@ using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Core.Helpers
+namespace Magick.NET.Tests.Helpers
 {
     [TestClass]
     public class StreamWrapperTests

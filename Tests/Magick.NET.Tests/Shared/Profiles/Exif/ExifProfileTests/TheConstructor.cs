@@ -14,7 +14,7 @@ using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Shared.Profiles.Exif
+namespace Magick.NET.Tests.Profiles
 {
     public partial class ExifProfileTests
     {

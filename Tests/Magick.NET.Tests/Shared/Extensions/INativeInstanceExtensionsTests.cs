@@ -14,7 +14,7 @@ using System;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Shared.Extensions
+namespace Magick.NET.Tests.Extensions
 {
     [TestClass]
     public class INativeInstanceExtensionsTests

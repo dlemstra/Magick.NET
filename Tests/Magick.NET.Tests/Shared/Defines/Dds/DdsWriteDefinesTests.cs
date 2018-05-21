@@ -15,7 +15,7 @@ using ImageMagick;
 using ImageMagick.Defines;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Defines
 {
     [TestClass]
     public class DdsWriteDefinesTests

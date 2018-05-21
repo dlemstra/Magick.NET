@@ -13,7 +13,7 @@
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Statistics
 {
     [TestClass]
     public class StatisticsTests
@@ -23,14 +23,14 @@ namespace Magick.NET.Tests
         {
             IMagickImage image = new MagickImage(Files.SnakewarePNG);
 
-            Statistics first = image.Statistics();
+            var first = image.Statistics();
 
             Assert.IsFalse(first == null);
             Assert.IsFalse(first.Equals(null));
             Assert.IsTrue(first.Equals(first));
             Assert.IsTrue(first.Equals((object)first));
 
-            Statistics second = image.Statistics();
+            var second = image.Statistics();
 
             Assert.IsTrue(first == second);
             Assert.IsTrue(first.Equals(second));
@@ -49,7 +49,7 @@ namespace Magick.NET.Tests
         {
             IMagickImage image = new MagickImage(Files.SnakewarePNG);
 
-            Statistics statistics = image.Statistics();
+            var statistics = image.Statistics();
 
             ChannelStatistics red = statistics.GetChannel(PixelChannel.Red);
 

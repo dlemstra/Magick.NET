@@ -14,7 +14,7 @@ using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Shared.Types
+namespace Magick.NET.Tests.Types
 {
     [TestClass]
     public class BytesTests

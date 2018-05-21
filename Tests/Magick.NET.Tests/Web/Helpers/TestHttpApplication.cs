@@ -16,7 +16,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Web
 {
     [ExcludeFromCodeCoverage]
     public sealed class TestHttpApplication : HttpApplication

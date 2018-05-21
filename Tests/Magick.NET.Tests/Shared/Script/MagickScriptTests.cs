@@ -17,7 +17,7 @@ using System.Xml;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Script
 {
     [TestClass]
     public partial class MagickScriptsTests
