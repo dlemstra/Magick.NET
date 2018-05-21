@@ -1647,7 +1647,7 @@ namespace ImageMagick
         {
             Throw.IfNullOrEmpty(nameof(pathName), pathName);
 
-            _nativeInstance.ClipPath(pathName, !inside);
+            _nativeInstance.ClipPath(pathName, inside);
         }
 
         /// <summary>

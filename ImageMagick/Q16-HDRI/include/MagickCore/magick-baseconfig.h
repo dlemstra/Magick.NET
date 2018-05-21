@@ -82,6 +82,11 @@
 //#define MAGICKCORE_ZERO_CONFIGURATION_SUPPORT
 
 /*
+  Define to use the CAIRO library
+*/
+#define MAGICKCORE_CAIRO_DELEGATE
+
+/*
   Define to use the OpenEXR library
 */
 #define MAGICKCORE_OPENEXR_DELEGATE
@@ -121,7 +126,6 @@
   Define to use the RSVG library
 */
 #define MAGICKCORE_RSVG_DELEGATE
-#define MAGICKCORE_CAIRO_DELEGATE
 
 /*
   Define to use the GNOME XML library

@@ -393,7 +393,7 @@ namespace Magick.NET.Tests.Settings
             using (IMagickImage image = new MagickImage(MagickColors.Purple, 300, 300))
             {
                 Assert.AreEqual(1, image.Settings.StrokeWidth);
-                Assert.AreEqual(new MagickColor(0, 0, 0, 0), image.Settings.StrokeColor);
+                Assert.AreEqual(new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max, 0), image.Settings.StrokeColor);
 
                 image.Settings.StrokeWidth = 40;
                 image.Settings.StrokeColor = MagickColors.Orange;

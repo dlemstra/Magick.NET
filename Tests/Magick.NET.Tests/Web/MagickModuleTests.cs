@@ -50,7 +50,7 @@ namespace Magick.NET.Tests.Web
 
             config = @"
 <magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"">
-  <resourceLimits width=""10000"" height=""20000""/>
+  <resourceLimits width=""30000"" height=""20000""/>
   <urlResolvers>
     <urlResolver type=""Magick.NET.Tests.Web.TestFileUrlResolver, Magick.NET.Tests""/>
   </urlResolvers>
@@ -60,7 +60,7 @@ namespace Magick.NET.Tests.Web
             module.Initialize();
 
             Assert.IsFalse(OpenCL.IsEnabled);
-            Assert.AreEqual(10000UL, ResourceLimits.Width);
+            Assert.AreEqual(30000UL, ResourceLimits.Width);
             Assert.AreEqual(20000UL, ResourceLimits.Height);
         }
 

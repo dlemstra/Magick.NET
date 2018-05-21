@@ -53,7 +53,7 @@ fi
 
 cd ImageMagick
 
-clone_commit 'ImageMagick' '2678d86a95653ec81760f0466a03d9efbf7f831d'
+clone_commit 'ImageMagick' 'e30320899e85764cb79ab7df8082fbe3555e8d46'
 
 # get a commit date from the current ImageMagick checkout
 cd ImageMagick
