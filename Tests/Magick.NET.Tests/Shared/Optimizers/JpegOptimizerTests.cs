@@ -193,9 +193,34 @@ namespace Magick.NET.Tests.Optimizers
 
                 using (MagickImage image = new MagickImage())
                 {
-                    image.Ping(Files.PictureJPG);
+                    image.Ping(tempFile);
 
                     Assert.IsNotNull(image.GetColorProfile());
+                }
+            }
+        }
+
+        [TestMethod]
+        public void Compress_ShouldNotPreserveTheExifProfile()
+        {
+            using (MagickImage image = new MagickImage())
+            {
+                image.Ping(Files.PictureJPG);
+
+                Assert.IsNotNull(image.GetExifProfile());
+            }
+
+            using (TemporaryFile tempFile = new TemporaryFile(Files.PictureJPG))
+            {
+                var result = Optimizer.Compress(tempFile);
+
+                Assert.IsTrue(result);
+
+                using (MagickImage image = new MagickImage())
+                {
+                    image.Ping(tempFile);
+
+                    Assert.IsNull(image.GetExifProfile());
                 }
             }
         }
@@ -326,9 +351,34 @@ namespace Magick.NET.Tests.Optimizers
 
                 using (MagickImage image = new MagickImage())
                 {
-                    image.Ping(Files.PictureJPG);
+                    image.Ping(tempFile);
 
                     Assert.IsNotNull(image.GetColorProfile());
+                }
+            }
+        }
+
+        [TestMethod]
+        public void LosslessCompress_ShouldPreserveTheExifProfile()
+        {
+            using (MagickImage image = new MagickImage())
+            {
+                image.Ping(Files.PictureJPG);
+
+                Assert.IsNotNull(image.GetExifProfile());
+            }
+
+            using (TemporaryFile tempFile = new TemporaryFile(Files.PictureJPG))
+            {
+                var result = Optimizer.LosslessCompress(tempFile);
+
+                Assert.IsTrue(result);
+
+                using (MagickImage image = new MagickImage())
+                {
+                    image.Ping(tempFile);
+
+                    Assert.IsNotNull(image.GetExifProfile());
                 }
             }
         }

@@ -61,7 +61,7 @@ typedef struct _ClientData
     *coefficients;
 
   Marker
-    **markers;
+    *markers[15];
 
   size_t
     height,
@@ -379,16 +379,6 @@ static int GetCharacter(j_decompress_ptr jpeg_info)
   return (int)GETJOCTET(*jpeg_info->src->next_input_byte++);
 }
 
-static Marker* AcquireMarker(ClientData *client_data)
-{
-  if (client_data->markers_count == 0)
-  {
-    client_data->markers = malloc(sizeof(*client_data->markers));
-  }
-  client_data->markers[client_data->markers_count] = malloc(sizeof(**client_data->markers));
-  return client_data->markers[client_data->markers_count++];
-}
-
 static boolean ReadMarker(j_decompress_ptr jpeg_info)
 {
   ClientData
@@ -413,9 +403,14 @@ static boolean ReadMarker(j_decompress_ptr jpeg_info)
   length -= 2;
 
   client_data = (ClientData *)jpeg_info->client_data;
-  marker = AcquireMarker(client_data);
+  if (client_data->markers_count == sizeof(client_data->markers))
+    return FALSE;
+
+  marker = malloc(sizeof(*marker));
   if (marker == (Marker *)NULL)
     return FALSE;
+
+  client_data->markers[client_data->markers_count++] = marker;
 
   ResetMagickMemory(marker, 0, sizeof(*marker));
 
@@ -451,8 +446,18 @@ static boolean ReadJpeg(j_decompress_ptr decompress_info, ClientData *client_dat
   if (source == (SourceManager *)NULL)
     return FALSE;
 
-  /* For now we only preserve the ICC profile */
+  /* The ICC profile will always be preserved */
   jpeg_set_marker_processor(decompress_info, (int)(JPEG_APP0 + 2), ReadMarker);
+
+  if (client_data->lossless != FALSE)
+  {
+    ssize_t
+      i;
+
+    for (i = 1; i < 16; i++)
+      if (i != 2)
+        jpeg_set_marker_processor(decompress_info, (int)(JPEG_APP0 + i), ReadMarker);
+  }
 
   jpeg_read_header(decompress_info, TRUE);
 
@@ -671,15 +676,11 @@ static void TerminateClientData(ClientData *client_data)
   register ssize_t
     i;
 
-  if (client_data->markers_count > 0)
+  for (i = 0; i < (ssize_t)client_data->markers_count; i++)
   {
-    for (i = 0; i < (ssize_t)client_data->markers_count; i++)
-    {
-      if (client_data->markers[i]->buffer != (JOCTET *)NULL)
-        free(client_data->markers[i]->buffer);
-      free(client_data->markers[i]);
-    }
-    free(client_data->markers);
+    if (client_data->markers[i]->buffer != (JOCTET *)NULL)
+      free(client_data->markers[i]->buffer);
+    free(client_data->markers[i]);
   }
 
   if (client_data->height == 0)
