@@ -84,6 +84,19 @@ namespace Magick.NET.Tests
                     ColorAssert.AreEqual(MagickColors.Red, image, 222, 0);
                 }
             }
+
+            [TestMethod]
+            public void ShouldUseOffsetFromMagickGeometryAndGravity()
+            {
+                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                {
+                    image.Crop(new MagickGeometry(10, 10, 100, 100), Gravity.Center);
+
+                    Assert.AreEqual(100, image.Width);
+                    Assert.AreEqual(100, image.Height);
+                    ColorAssert.AreEqual(MagickColors.White, image, 99, 99);
+                }
+            }
         }
     }
 }
