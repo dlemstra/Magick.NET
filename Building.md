@@ -4,11 +4,11 @@ This document describes the requirements and instructions to build Magick.NET on
 
 ### Requirements
 
-- Visual Studio 2017 (Community)
+- Visual Studio 2017 (community)
 - Powershell (>= 3.0)
 - Git for Windows (>= 2.7.2)
 - Windows SDK (>= 10.0.10586)
-- AMD APP SDK (Optional for OpenCL support)
+- AMD APP SDK (optional for OpenCL support)
 
 ### Build ImageMagick 7
 
@@ -17,7 +17,7 @@ Magick.NET uses the ImageMagick 7 library and that needs to be build first. The 
 Another option is building ImageMagick yourself. Below are the steps for that.
 
 1. This step is optional but you can decide to use the latest GIT revision. To do this you need to edit the file `ImageMagick\Source\Checkout.sh`
-   and change the `date` variable to the current date and time.
+   and change the commit id in the call to `clone_commit`.
 2. Then you need to run `ImageMagick\Source\Checkout.cmd` that will clone the master branch of the GIT repository of ImageMagick.
 3. Now run `ImageMagick\Source\BuildAll.cmd` or one of the files in `ImageMagick\Source\Development` to target a specific platform and Quantum. If you see
    errors related to stdafx.h, check that "MFC and ATL support (x86 and x64)" is installed as part of Visual Studio 2017. If you see errors related to 
