@@ -20,8 +20,8 @@ MAGICK_NET_EXPORT void PerceptualHash_DisposeList(ChannelPerceptualHash *list)
 
 MAGICK_NET_EXPORT const ChannelPerceptualHash *PerceptualHash_GetInstance(const Image *instance, const ChannelPerceptualHash *list, const size_t channel)
 {
-  if ((GetPixelChannelTraits(instance, (ChannelType)channel) & UpdatePixelTrait) == 0)
+  if ((GetPixelChannelTraits(instance, (PixelChannel)channel) & UpdatePixelTrait) == 0)
     return (ChannelPerceptualHash *)NULL;
 
-  return &list[(ChannelType)channel];
+  return &list[(PixelChannel)channel];
 }
