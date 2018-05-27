@@ -762,7 +762,7 @@ MAGICK_NET_EXPORT void MagickImage_Annotate(Image *instance, const DrawInfo *set
   drawInfo->text = text;
   drawInfo->geometry = DestroyString(drawInfo->geometry);
   drawInfo->geometry = boundingArea;
-  drawInfo->gravity = (GradientType)gravity;
+  drawInfo->gravity = (GravityType)gravity;
 
   if (angle != 0.0)
     SetTransformRotation(drawInfo, angle);
