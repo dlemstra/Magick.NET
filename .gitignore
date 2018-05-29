@@ -1,4 +1,4 @@
-﻿
+
 *.aps
 *.db
 *.lock.json
@@ -25,4 +25,3 @@ runtimes
 /Samples/Magick.NET.Samples/Samples/Magick.NET/Scripts/*.pp
 /TestResults
 /Tools/AppVeyor/OpenCover*
-/ImageMagick/release
