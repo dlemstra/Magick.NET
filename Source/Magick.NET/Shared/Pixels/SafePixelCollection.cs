@@ -10,7 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using ImageMagick.Shared.Pixels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -173,6 +172,7 @@ namespace ImageMagick
         public override byte[] ToByteArray(MagickGeometry geometry, PixelMapping mapping)
         {
             Throw.IfNull(nameof(geometry), geometry);
+
             return base.ToByteArray(geometry, mapping.ToString());
         }
 

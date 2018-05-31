@@ -10,15 +10,19 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-namespace ImageMagick.Shared.Pixels
+namespace ImageMagick
 {
+
+    /// <summary>
+    /// // a mapping enum to determin the bytes needs for every pixel. This is used in ToShortArray and ToByteArray methods.
+    // for example RGB means 3 bytes and RGBA 4.
+    // </summary>
     public enum PixelMapping
     {
-        RG, 
         RGB,
         BGR,
         RGBA,
-        ABGR,        
+        ABGR,
         CMYK,
     }
 }

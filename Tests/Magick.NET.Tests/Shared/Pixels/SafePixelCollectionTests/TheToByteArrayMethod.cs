@@ -11,7 +11,6 @@
 // and limitations under the License.
 
 using ImageMagick;
-using ImageMagick.Shared.Pixels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests.Pixels
@@ -37,7 +36,7 @@ namespace Magick.NET.Tests.Pixels
             }
 
             [TestMethod]
-            public void ShouldReturnPixelsWhenAreaIsCorrecy()
+            public void ShouldReturnPixelsWhenAreaIsCorrect()
             {
                 using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
                 {
@@ -52,7 +51,7 @@ namespace Magick.NET.Tests.Pixels
             }
 
             [TestMethod]
-            public void ShouldReturnPixelsWhenAreaAndMappingAreCorrect()
+            public void ShouldReturnPixelsWhenAreaIsCorrectAndMappingIsEnum()
             {
                 using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
                 {
@@ -76,6 +75,21 @@ namespace Magick.NET.Tests.Pixels
                         ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
                         {
                             pixels.ToByteArray(null, "RGB");
+                        });
+                    }
+                }
+            }
+
+            [TestMethod]
+            public void ShouldThrowExceptionWhenGeometryIsNullAndMappingIsEnum()
+            {
+                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                {
+                    using (IPixelCollection pixels = image.GetPixels())
+                    {
+                        ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
+                        {
+                            pixels.ToByteArray(null, PixelMapping.RGB);
                         });
                     }
                 }
@@ -127,14 +141,14 @@ namespace Magick.NET.Tests.Pixels
             }
 
             [TestMethod]
-            public void ShouldReturnArrayWhenGeometryIsCorrectAndMappingHasbeenProvided()
+            public void ShouldReturnArrayWhenGeometryIsCorrectAndMappingIsEnum()
             {
                 using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        var values = pixels.ToByteArray(new MagickGeometry(10, 10, 113, 108), "RG");
-                        int length = 113 * 108 * 2;
+                        var values = pixels.ToByteArray(new MagickGeometry(10, 10, 113, 108), PixelMapping.RGB);
+                        int length = 113 * 108 * 3;
 
                         Assert.AreEqual(length, values.Length);
                     }
@@ -202,14 +216,14 @@ namespace Magick.NET.Tests.Pixels
             }
 
             [TestMethod]
-            public void ShouldReturnArrayWhenTwoChannelsAreSuppliedAsPixelMappingEnum()
+            public void ShouldReturnArrayWhenTwoChannelsAreSuppliedAndMappingIsEnum()
             {
                 using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        var values = pixels.ToByteArray(PixelMapping.RG);
-                        int length = image.Width * image.Height * 2;
+                        var values = pixels.ToByteArray(PixelMapping.RGB);
+                        int length = image.Width * image.Height * 3;
 
                         Assert.AreEqual(length, values.Length);
                     }

@@ -12,7 +12,6 @@
 
 using System;
 using ImageMagick;
-using ImageMagick.Shared.Pixels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests.Pixels
@@ -133,14 +132,14 @@ namespace Magick.NET.Tests.Pixels
             }
 
             [TestMethod]
-            public void ShouldReturnArrayWhenGeometryAndMAppingAreCorrect()
+            public void ShouldReturnArrayWhenGeometryIsCorrectAndMappingIsEnum()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
-                        var values = pixels.ToByteArray(new MagickGeometry(10, 10, 113, 108), PixelMapping.RG);
-                        int length = 113 * 108 * 2;
+                        var values = pixels.ToByteArray(new MagickGeometry(10, 10, 113, 108), PixelMapping.RGB);
+                        var length = 113 * 108 * 3;
 
                         Assert.AreEqual(length, values.Length);
                     }
@@ -155,6 +154,7 @@ namespace Magick.NET.Tests.Pixels
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
                         var values = pixels.ToByteArray(null);
+
                         Assert.IsNull(values);
                     }
                 }
@@ -206,14 +206,14 @@ namespace Magick.NET.Tests.Pixels
             }
 
             [TestMethod]
-            public void ShouldReturnArrayWhenTwoChannelsAreSuppliedAsPixelMappingEnum()
+            public void ShouldReturnArrayWhenTwoChannelsAreSuppliedAndMappingIsEnum()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
-                        var values = pixels.ToByteArray(PixelMapping.RG);
-                        int length = image.Width * image.Height * 2;
+                        var values = pixels.ToByteArray(PixelMapping.RGB);
+                        var length = image.Width * image.Height * 3;
 
                         Assert.AreEqual(length, values.Length);
                     }

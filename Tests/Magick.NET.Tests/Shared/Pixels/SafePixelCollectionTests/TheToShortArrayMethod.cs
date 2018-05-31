@@ -11,7 +11,6 @@
 // and limitations under the License.
 
 using ImageMagick;
-using ImageMagick.Shared.Pixels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests.Pixels
@@ -52,7 +51,7 @@ namespace Magick.NET.Tests.Pixels
             }
 
             [TestMethod]
-            public void ShouldReturnPixelsWhenAreaAndMAppingAreCorrect()
+            public void ShouldReturnPixelsWhenAreaIsCorrectAndMappingIsEnum()
             {
                 using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
                 {
@@ -76,6 +75,21 @@ namespace Magick.NET.Tests.Pixels
                         ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
                         {
                             pixels.ToShortArray(null, "RGB");
+                        });
+                    }
+                }
+            }
+
+            [TestMethod]
+            public void ShouldThrowExceptionWhenGeometryIsNullAndMappingIsEnum()
+            {
+                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                {
+                    using (IPixelCollection pixels = image.GetPixels())
+                    {
+                        ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
+                        {
+                            pixels.ToShortArray(null, PixelMapping.RGB);
                         });
                     }
                 }
@@ -127,14 +141,14 @@ namespace Magick.NET.Tests.Pixels
             }
 
             [TestMethod]
-            public void ShouldReturnArrayWhenGeometryAndMappingAreCorrect()
+            public void ShouldReturnArrayWhenGeometryIsCorrectAndMappingIsEnum()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
-                        var values = pixels.ToShortArray(new MagickGeometry(10, 10, 113, 108), PixelMapping.RG);
-                        int length = 113 * 108 * 2;
+                        var values = pixels.ToShortArray(new MagickGeometry(10, 10, 113, 108), PixelMapping.RGB);
+                        var length = 113 * 108 * 3;
 
                         Assert.AreEqual(length, values.Length);
                     }
@@ -202,14 +216,14 @@ namespace Magick.NET.Tests.Pixels
             }
 
             [TestMethod]
-            public void ShouldReturnArrayWhenTwoChannelsAreSuppliedAsPixelMappingEnum()
+            public void ShouldReturnArrayWhenTwoChannelsAreSuppliedAndMappingIsEnum()
             {
                 using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        var values = pixels.ToShortArray(PixelMapping.RG);
-                        int length = image.Width * image.Height * 2;
+                        var values = pixels.ToShortArray(PixelMapping.RGB);
+                        int length = image.Width * image.Height * 3;
 
                         Assert.AreEqual(length, values.Length);
                     }
