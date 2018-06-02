@@ -13,7 +13,7 @@
 #include "Stdafx.h"
 #include "JpegOptimizer.h"
 
-#ifdef MAGICK_NET_LINUX
+#if defined(MAGICK_NET_LINUX) || defined(MAGICK_NET_MACOS)
 #include <jpeglib.h>
 #include <jerror.h>
 #define fopen_utf8 fopen

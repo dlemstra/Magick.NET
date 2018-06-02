@@ -11,9 +11,7 @@
 // and limitations under the License.
 #pragma once
 
-#ifdef MAGICK_NET_LINUX
-
-#include <MagickCore/magick-config.h>
+#if defined(MAGICK_NET_LINUX) || defined(MAGICK_NET_MACOS)
 
 #include <MagickCore/MagickCore.h>
 #include <MagickWand/MagickWand.h>
@@ -32,8 +30,6 @@
 #pragma warning(disable : 4255)
 #pragma warning(disable : 4668)
 #pragma warning(disable : 4996)
-
-#include "MagickCore/magick-config.h"
 
 #include <MagickCore/MagickCore.h>
 #include <MagickWand/MagickWand.h>
