@@ -257,28 +257,6 @@ namespace Magick.NET.Tests.Settings
         }
 
         [TestMethod]
-        public void Test_FontFamily()
-        {
-            using (IMagickImage image = new MagickImage())
-            {
-                Assert.AreEqual(null, image.Settings.FontFamily);
-                Assert.AreEqual(0, image.Settings.FontPointsize);
-                Assert.AreEqual(FontStyleType.Undefined, image.Settings.FontStyle);
-                Assert.AreEqual(FontWeight.Undefined, image.Settings.FontWeight);
-
-                image.Settings.FontFamily = "Courier New";
-                image.Settings.FontPointsize = 40;
-                image.Settings.FontStyle = FontStyleType.Oblique;
-                image.Settings.FontWeight = FontWeight.ExtraBold;
-                image.Read("label:Test");
-
-                Assert.AreEqual(97, image.Width);
-                Assert.AreEqual(48, image.Height);
-                ColorAssert.AreEqual(MagickColors.Black, image, 16, 16);
-            }
-        }
-
-        [TestMethod]
         public void Test_StrokeAntiAlias()
         {
             using (IMagickImage image = new MagickImage(MagickColors.Purple, 300, 300))
