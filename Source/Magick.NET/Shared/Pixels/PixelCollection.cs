@@ -270,7 +270,7 @@ namespace ImageMagick
 
         public virtual ushort[] ToShortArray(MagickGeometry geometry, PixelMapping mapping)
         {
-            return ToShortArray(geometry.X, geometry.Y, geometry.Width, geometry.Height, mapping.ToString());
+            return ToShortArray(geometry, mapping.ToString());
         }
 
         public ushort[] ToShortArray(string mapping)
