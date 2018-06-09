@@ -8,9 +8,14 @@ branches:
 
 matrix:
   include:
-    - dotnet: 2.0.0
+    - os: linux
+      dotnet: 2.0.0
       mono: none
       dist: trusty
+    - os: osx
+      dotnet: 2.0.0
+      mono: none
+      osx_image: xcode8.3
 
 script:
   - Tools/Travis/Build.sh
