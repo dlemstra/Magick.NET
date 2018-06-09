@@ -61,10 +61,6 @@ declare -r commitDate=`git log -1 --format=%ci`
 echo "Set latest commit date as $commitDate" 
 cd ..
 
-if [ "$1" != "Linux" ] && [ "$1" != "Windows" ]; then
-  exit
-fi
-
 clone_date 'jpeg-turbo' "$commitDate" 'jpeg'
 clone_date 'lcms' "$commitDate"
 clone_date 'libde265' "$commitDate"
@@ -76,7 +72,11 @@ clone_date 'tiff' "$commitDate"
 clone_date 'webp' "$commitDate"
 clone_date 'zlib' "$commitDate"
 
-if [ "$1" != "Windows" ]; then
+if [ "$1" == "macOS" ]; then
+  exit
+fi
+
+if [ "$1" == "Linux" ]; then
   exit
 fi
 
