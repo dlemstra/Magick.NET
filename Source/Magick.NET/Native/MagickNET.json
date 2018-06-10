@@ -20,6 +20,11 @@
     "properties":
     [
         {
+            "name": "Delegates",
+            "type": "string",
+            "readonly": true
+        },
+        {
             "name": "Features",
             "type": "string",
             "readonly": true

@@ -11,6 +11,8 @@
 // and limitations under the License.
 #pragma once
 
+MAGICK_NET_EXPORT const char *MagickNET_Delegates_Get(void);
+
 MAGICK_NET_EXPORT const char *MagickNET_Features_Get(void);
 
 MAGICK_NET_EXPORT const TypeInfo **MagickNET_GetFontFamilies(size_t *, ExceptionInfo **);

@@ -13,6 +13,11 @@
 #include "Stdafx.h"
 #include "MagickNET.h"
 
+MAGICK_NET_EXPORT const char *MagickNET_Delegates_Get(void)
+{
+  return GetMagickDelegates();
+}
+
 MAGICK_NET_EXPORT const char *MagickNET_Features_Get(void)
 {
   return GetMagickFeatures();

@@ -58,7 +58,18 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Gets the features reported by ImageMagick.
+        /// Gets the ImageMagick delegate libraries.
+        /// </summary>
+        public static string Delegates
+        {
+            get
+            {
+                return NativeMagickNET.Delegates;
+            }
+        }
+
+        /// <summary>
+        /// Gets the ImageMagick features.
         /// </summary>
         public static string Features
         {
