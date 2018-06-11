@@ -7,6 +7,7 @@ brew install autoconf
 brew install automake
 brew install libtool
 brew install libiconv
+brew install ossp-uuid
 
 cd ../../ImageMagick/Source
 
@@ -27,7 +28,7 @@ git clone git://anongit.freedesktop.org/fontconfig fontconfig
 cd fontconfig
 git reset --hard
 git fetch
-git checkout 2.12.6
+git checkout 2.13.0
 cd ../
 
 # Build zlib
@@ -60,12 +61,13 @@ make install
 
 # Build fontconfig
 cd ../fontconfig
+export PATH=${PATH}:/usr/local/opt/gettext/bin
 autoreconf -fiv
 sudo easy_install pip
 sudo python -m pip install lxml
 sudo python -m pip install six
 export CFLAGS="-O3 -fPIC"
-./configure --enable-libxml2 --enable-static=yes
+./configure --enable-libxml2 --enable-static=yes --with-add-fonts=/System/Library/Fonts,/Library/Fonts,~/Library/Fonts
 make install
 
 # Build libjpeg-turbo
