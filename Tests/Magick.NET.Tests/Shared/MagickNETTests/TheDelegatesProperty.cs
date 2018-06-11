@@ -23,7 +23,11 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnAllDelegates()
             {
+#if WINDOWS_BUILD
                 Assert.AreEqual("cairo flif freetype gslib heic jng jp2 jpeg lcms lqr openexr pangocairo png ps raw rsvg tiff webp xml zlib", MagickNET.Delegates);
+#else
+                Assert.AreEqual("fontconfig freetype heic jng jp2 jpeg lcms lzma png tiff webp xml zlib", MagickNET.Delegates);
+#endif
             }
         }
     }
