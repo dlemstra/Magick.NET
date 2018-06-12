@@ -1,28 +1,151 @@
 #!/bin/bash
+set -e
 
 cd ../../ImageMagick/Source
+
 ./Checkout.sh Linux
 
-if [ ! -d "ImageMagick/freetype" ]; then
-  git clone git://git.sv.nongnu.org/freetype/freetype2.git ImageMagick/freetype
-  if [ $? != 0 ]; then echo "Error during checkout"; exit; fi
-fi
-cd ImageMagick/freetype
+cd ImageMagick
+
+# Clone freetype
+git clone git://git.sv.nongnu.org/freetype/freetype2.git freetype
+cd freetype
 git reset --hard
 git fetch
 git checkout VER-2-9
-cd ../../
+cd ../
 
-if [ ! -d "ImageMagick/fontconfig" ]; then
-  git clone git://anongit.freedesktop.org/fontconfig ImageMagick/fontconfig
-  if [ $? != 0 ]; then echo "Error during checkout"; exit; fi
-fi
-cd ImageMagick/fontconfig
+# Clone fontconfig
+git clone git://anongit.freedesktop.org/fontconfig fontconfig
+cd fontconfig
 git reset --hard
 git fetch
 git checkout 2.12.6
-cd ../../
+cd ../
 
-cd ../../
-docker build -t dlemstra/magick.net-linux -f Source/Magick.NET.CrossPlatform/Linux.Dockerfile .
-docker push dlemstra/magick.net-linux
+# Build zlib
+cd zlib
+chmod +x ./configure
+export CFLAGS="-O3 -fPIC"
+./configure --static
+make install
+
+# Build libxml
+cd ../libxml
+autoreconf -fiv
+export CFLAGS="-O3 -fPIC"
+./configure --with-python=no
+make install
+
+# Build libpng
+cd ../png
+autoreconf -fiv
+export CFLAGS="-O3 -fPIC"
+./configure --enable-mips-msa=off --enable-arm-neon=off --enable-powerpc-vsx=off
+make install
+
+# Build freetype
+cd ../freetype
+./autogen.sh
+export CFLAGS="-O3 -fPIC"
+./configure
+make install
+
+# Build fontconfig
+cd ../fontconfig
+autoreconf -fiv
+pip install lxml
+pip install six
+export CFLAGS="-O3 -fPIC"
+./configure --enable-libxml2 --enable-static=yes
+make install
+
+# Build libjpeg-turbo
+cd ../jpeg
+chmod +x ./simd/nasm_lt.sh
+autoreconf -fiv
+./configure --with-jpeg8 CFLAGS="-O3 -fPIC"
+make install prefix=/usr/local libdir=/usr/local/lib64
+
+# Build libtiff
+cd ../tiff
+autoreconf -fiv
+export CFLAGS="-O3 -fPIC"
+./configure
+make install
+
+# Build libwebpmux/demux
+cd ../webp
+autoreconf -fiv
+export CFLAGS="-O3 -fPIC"
+./configure --enable-libwebpmux --enable-libwebpdemux
+make install
+
+# Build openjpeg
+cd ../openjpeg
+cmake . -DCMAKE_INSTALL_PREFIX=/usr/local -DBUILD_SHARED_LIBS=off -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-O3 -fPIC"
+make install
+cp bin/libopenjp2.a /usr/local/lib
+
+# Build lcms
+cd ../lcms
+autoreconf -fiv
+export CFLAGS="-O3 -fPIC"
+./configure --disable-shared --prefix=/usr/local
+make install
+
+# Build libde265
+cd ../libde265
+autoreconf -fiv
+export CFLAGS="-O3 -fPIC"
+export CXXFLAGS="-O3 -fPIC"
+./configure --disable-shared --prefix=/usr/local
+make install
+
+# Build libheif
+cd ../libheif
+autoreconf -fiv
+export CFLAGS="-O3 -fPIC"
+export CXXFLAGS="-O3 -fPIC"
+./configure --disable-shared --prefix=/usr/local
+make install
+
+buildMagickNET() {
+    local quantum=$1
+
+    # Set ImageMagick variables
+    local quantum_name=$quantum
+    local hdri=no
+    local hdri_enable=0
+    local depth=8
+    if [ "$quantum" == "Q16" ]; then
+        depth=16
+    elif [ "$quantum" == "Q16-HDRI" ]; then
+        quantum_name=Q16HDRI
+        depth=16
+        hdri=yes
+        hdri_enable=1
+    fi
+
+    # Build ImageMagick
+    cd ImageMagick/Source/ImageMagick/ImageMagick
+    ./configure CFLAGS="-fPIC -Wall -O3" CXXFLAGS="-fPIC -Wall -O3" --disable-shared --disable-openmp --enable-static --enable-delegate-build --with-magick-plus-plus=no --with-utilities=no --with-bzlib=no --with-quantum-depth=$depth --enable-hdri=$hdri
+    make install
+
+    # Build Magick.NET
+    cd ../../../../Source/Magick.NET.Native
+    mkdir $quantum
+    cd $quantum
+
+    cmake -D DEPTH=$depth -D QUANTUM=$quantum -D HDRI_ENABLE=$hdri_enable -DQUANTUM_NAME=$quantum_name ..
+    make
+    cp libMagick.NET-$quantum-x64.Native.dll.so ../../../Output/Magick.NET-$quantum-x64.Native.dll.so
+    cd ../../../
+}
+
+cd ../../../../
+mkdir Output
+
+buildMagickNET "Q8"
+buildMagickNET "Q16"
+buildMagickNET "Q16-HDRI"
