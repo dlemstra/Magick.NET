@@ -1,6 +1,12 @@
 #!/bin/bash
 set -e
 
+sudo apt-get update
+sudo apt-get install pkg-config
+sudo apt-get install gperf
+sudo apt-get install nasm
+sudo apt-get remove -y zlib1g-dev
+
 cd ../../ImageMagick/Source
 
 ./Checkout.sh Linux
