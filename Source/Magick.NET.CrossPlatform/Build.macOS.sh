@@ -151,7 +151,7 @@ buildMagickNET() {
     mkdir $quantum
     cd $quantum
 
-    cmake -D DEPTH=$depth -D QUANTUM=$quantum -D HDRI_ENABLE=$hdri_enable -DQUANTUM_NAME=$quantum_name ..
+    cmake -D DEPTH=$depth -D QUANTUM=$quantum -D HDRI_ENABLE=$hdri_enable -DQUANTUM_NAME=$quantum_name -DPLATFORM=MACOS ..
     make
     cp libMagick.NET-$quantum-x64.Native.dll.dylib ../../../Output
     cd ../../../

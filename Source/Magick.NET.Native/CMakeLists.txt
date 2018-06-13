@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 2.8.8)
 
 project(Magick.NET)
 
-add_definitions(-DMAGICK_NET_MACOS -DMAGICKCORE_QUANTUM_DEPTH=${DEPTH} -DMAGICKCORE_HDRI_ENABLE=${HDRI_ENABLE})
+add_definitions(-DMAGICK_NET_${PLATFORM} -DMAGICKCORE_QUANTUM_DEPTH=${DEPTH} -DMAGICKCORE_HDRI_ENABLE=${HDRI_ENABLE})
 
 include_directories(.)
 include_directories(/usr/local/include/ImageMagick-7/)
@@ -68,4 +68,5 @@ target_link_libraries(
     ${LIBLZMA}
 
     ${STDCPLUSPLUS}
+    -fPIC
 )
