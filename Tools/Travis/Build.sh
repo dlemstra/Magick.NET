@@ -16,8 +16,8 @@ if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
   filename=Magick.NET-Q8-x64.Native.dll.so
 else
   dotnet build Tests/Magick.NET.Tests/Magick.NET.Tests.csproj -f netcoreapp2.0 --runtime osx-x64 -c TestQ8
-  link=https://www.dropbox.com/s/w9569iz6cryg1a0/libMagick.NET-Q8-x64.Native.dll.dylib?dl=1
-  filename=libMagick.NET-Q8-x64.Native.dll.dylib
+  link=https://www.dropbox.com/s/w9569iz6cryg1a0/Magick.NET-Q8-x64.Native.dll.dylib?dl=1
+  filename=Magick.NET-Q8-x64.Native.dll.dylib
 fi
 wget -O Tests/Magick.NET.Tests/bin/TestQ8/AnyCPU/netcoreapp2.0/$filename "$link"
 
@@ -30,8 +30,8 @@ if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
   filename=Magick.NET-Q16-x64.Native.dll.so
 else
   dotnet build Tests/Magick.NET.Tests/Magick.NET.Tests.csproj -f netcoreapp2.0 --runtime osx-x64 -c TestQ16
-  link=https://www.dropbox.com/s/84vbyl4bms1eg9g/libMagick.NET-Q16-x64.Native.dll.dylib?dl=1
-  filename=libMagick.NET-Q16-x64.Native.dll.dylib
+  link=https://www.dropbox.com/s/84vbyl4bms1eg9g/Magick.NET-Q16-x64.Native.dll.dylib?dl=1
+  filename=Magick.NET-Q16-x64.Native.dll.dylib
 fi
 wget -O Tests/Magick.NET.Tests/bin/TestQ16/AnyCPU/netcoreapp2.0/$filename "$link"
 
@@ -44,8 +44,8 @@ if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
   filename=Magick.NET-Q16-HDRI-x64.Native.dll.so
 else
   dotnet build Tests/Magick.NET.Tests/Magick.NET.Tests.csproj -f netcoreapp2.0 --runtime osx-x64 -c TestQ16-HDRI
-  link=https://www.dropbox.com/s/zqd8d1jjxswt1sp/libMagick.NET-Q16-HDRI-x64.Native.dll.dylib?dl=1
-  filename=libMagick.NET-Q16-HDRI-x64.Native.dll.dylib
+  link=https://www.dropbox.com/s/zqd8d1jjxswt1sp/Magick.NET-Q16-HDRI-x64.Native.dll.dylib?dl=1
+  filename=Magick.NET-Q16-HDRI-x64.Native.dll.dylib
 fi
 wget -O Tests/Magick.NET.Tests/bin/TestQ16-HDRI/AnyCPU/netcoreapp2.0/$filename "$link"
 
