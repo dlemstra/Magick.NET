@@ -3,13 +3,8 @@
 rm -Rf verify
 mkdir verify
 
-wget -O verify/Q8.zip https://www.dropbox.com/sh/tycq7qh50zssgr8/AACt2zhBn8GdVlWVxsKzw71Ka?dl=1
-unzip verify/Q8.zip -d verify
-
-wget -O verify/Q16.zip https://www.dropbox.com/sh/5xmw2tl3q7a930u/AADN7QlNsvzhFXazc3FrleTYa?dl=1
-unzip verify/Q16.zip -d verify
-
-wget -O verify/Q16-HDRI.zip https://www.dropbox.com/sh/tbsisu1byt8csbr/AABv32VeYzU6IBE5EyWL3v9za?dl=1
-unzip verify/Q16-HDRI.zip -d verify
+wget -O verify/Magick.NET-Q8-x64.Native.dll.so https://www.dropbox.com/s/j2bf7pjg78un8p9/Magick.NET-Q8-x64.Native.dll.so?dl=1
+wget -O verify/Magick.NET-Q16-x64.Native.dll.so https://www.dropbox.com/s/04i9mjj7f43en9x/Magick.NET-Q16-x64.Native.dll.so?dl=1
+wget -O verify/Magick.NET-Q16-HDRI-x64.Native.dll.so https://www.dropbox.com/s/hhhcjoumoeoejun/Magick.NET-Q16-HDRI-x64.Native.dll.so?dl=1
 
 docker build -f Linux.Verify.Dockerfile .
