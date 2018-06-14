@@ -25,6 +25,10 @@ find_library(LIBLDE265 libde265.a)
 find_library(LIBLHEIF libheif.a)
 find_library(LIBGCC libheif.a)
 
+file(GLOB_RECURSE ALL_FILES . *.c)
+file(GLOB_RECURSE CMAKE_FILES **/CMakeFiles/*.c)
+list(REMOVE_ITEM ALL_FILES ${CMAKE_FILES})
+
 if (APPLE)
     find_library(LIBICONV NAMES libiconv.a PATHS /usr/local/opt/libiconv/lib)
     find_library(LIBLZMA liblzma.a)
@@ -35,19 +39,17 @@ if (APPLE)
 else()
     find_library(LIBJPEG libjpeg.a PATHS /usr/local/lib64)
 
+    list(APPEND ALL_FILES foo.cxx)
+
     set(STDCPLUSPLUS -static-libstdc++ -static-libgcc)
 endif()
-
-file(GLOB_RECURSE ALL_FILES . *.c)
-file(GLOB_RECURSE CMAKE_FILES **/CMakeFiles/*.c)
-list(REMOVE_ITEM ALL_FILES ${CMAKE_FILES})
 
 add_library(Magick.NET-${QUANTUM}-x64.Native.dll SHARED ${ALL_FILES})
 
 target_link_libraries(
     Magick.NET-${QUANTUM}-x64.Native.dll
     ${MAGICKCORE}
-    ${MAGICKWAND}    
+    ${MAGICKWAND}
 
     ${LIBZ}
     ${LIBXML}
@@ -68,5 +70,4 @@ target_link_libraries(
     ${LIBLZMA}
 
     ${STDCPLUSPLUS}
-    -fPIC
 )

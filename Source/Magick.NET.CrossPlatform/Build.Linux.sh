@@ -140,6 +140,7 @@ buildMagickNET() {
 
     # Build Magick.NET
     cd ../../../../Source/Magick.NET.Native
+    echo "" > foo.cxx
     mkdir $quantum
     cd $quantum
 
