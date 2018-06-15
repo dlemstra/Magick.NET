@@ -10,6 +10,8 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+#if WINDOWS_BUILD
+
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -23,12 +25,10 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnAllDelegates()
             {
-#if WINDOWS_BUILD
                 Assert.AreEqual("cairo flif freetype gslib heic jng jp2 jpeg lcms lqr openexr pangocairo png ps raw rsvg tiff webp xml zlib", MagickNET.Delegates);
-#else
-                Assert.AreEqual("fontconfig freetype heic jng jp2 jpeg lcms lzma png tiff webp xml zlib", MagickNET.Delegates);
-#endif
             }
         }
     }
 }
+
+#endif
