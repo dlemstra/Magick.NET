@@ -2,11 +2,11 @@
 set -e
 
 sudo apt-get update
-sudo apt-get install pkg-config
-sudo apt-get install gperf
-sudo apt-get install nasm
-sudo apt-get install autoconf
-sudo apt-get remove -y zlib1g-dev
+sudo apt-get install pkg-config -y
+sudo apt-get install gperf -y
+sudo apt-get install nasm -y
+sudo apt-get install autoconf -y
+sudo apt-get remove zlib1g-dev -y
 
 cd ../../ImageMagick/Source
 
