@@ -32,6 +32,7 @@ namespace Magick.NET.Tests.Defines
                     Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "preserve-iCCP"));
                     Assert.AreEqual(null, image.Settings.GetDefine("profile:skip"));
                     Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
+                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "chunk-cache-max"));
                 }
             }
         }

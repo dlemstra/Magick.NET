@@ -29,6 +29,16 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Gets or sets the total number of sPLT, text, and unknown chunks that can be stored
+        /// (png:chunk-cache-max). 0 means unlimited.
+        /// </summary>
+        public long? ChunkCacheMax
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether the PNG decoder and encoder examine any ICC profile
         /// that is present. By default, the PNG decoder and encoder examine any ICC profile that is present,
         /// either from an iCCP chunk in the PNG input or supplied via an option, and if the profile is
@@ -69,6 +79,9 @@ namespace ImageMagick
         {
             get
             {
+                if (ChunkCacheMax.HasValue)
+                    yield return CreateDefine("chunk-cache-max", ChunkCacheMax.Value);
+
                 if (PreserveiCCP)
                     yield return CreateDefine("preserve-iCCP", PreserveiCCP);
 
