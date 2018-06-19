@@ -69,6 +69,7 @@ pip install lxml
 pip install six
 export CFLAGS="-O3 -fPIC"
 ./configure --enable-libxml2 --enable-static=yes
+export LD_LIBRARY_PATH="/usr/local/lib"
 make install
 
 # Build libjpeg-turbo
