@@ -41,5 +41,10 @@ namespace ImageMagick
         /// Any
         /// </summary>
         Any,
+
+        /// <summary>
+        /// Bold
+        /// </summary>
+        Bold,
     }
 }
