@@ -13,28 +13,47 @@
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Defines
+namespace Magick.NET.Tests.Shared.Defines.Png
 {
     public partial class PngReadDefinesTests
     {
         [TestClass]
-        public partial class TheConstructor
+        public class TheChunkMallocMaxProperty
         {
             [TestMethod]
-            public void ShouldNotSetAnyDefine()
+            public void ShouldSetTheDefine()
             {
                 using (IMagickImage image = new MagickImage())
                 {
                     image.Settings.SetDefines(new PngReadDefines()
                     {
+                        ChunkMallocMax = 20,
                     });
 
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "preserve-iCCP"));
-                    Assert.AreEqual(null, image.Settings.GetDefine("profile:skip"));
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "chunk-cache-max"));
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "chunk-malloc-max"));
+                    Assert.AreEqual("20", image.Settings.GetDefine(MagickFormat.Png, "chunk-malloc-max"));
                 }
+            }
+
+            [TestMethod]
+            public void ShouldLimitTheChunkSize()
+            {
+                var settings = new MagickReadSettings()
+                {
+                    Defines = new PngReadDefines()
+                    {
+                        ChunkMallocMax = 2,
+                    },
+                };
+
+                var exception = ExceptionAssert.Throws<MagickCoderErrorException>(() =>
+                {
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        image.Read(Files.SnakewarePNG, settings);
+                    }
+                });
+
+                StringAssert.Contains(exception.Message, "IHDR: chunk data is too large");
             }
         }
     }
