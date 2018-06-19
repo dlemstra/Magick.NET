@@ -1,12 +1,16 @@
 #!/bin/bash
 set -e
 
+# Uninstall already installed development libraries
+sudo apt-get remove zlib1g-dev -y
+sudo apt-get remove libpng12-0 -y
+
 sudo apt-get update
+
 sudo apt-get install pkg-config -y
 sudo apt-get install gperf -y
 sudo apt-get install nasm -y
 sudo apt-get install autoconf -y
-sudo apt-get remove zlib1g-dev -y
 
 cd ../../ImageMagick/Source
 

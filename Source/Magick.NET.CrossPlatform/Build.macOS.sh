@@ -9,6 +9,9 @@ brew install libtool
 brew install libiconv
 brew install ossp-uuid
 
+# Uninstall already installed development libraries
+brew uninstall --force libpng
+
 cd ../../ImageMagick/Source
 
 ./Checkout.sh macOS
