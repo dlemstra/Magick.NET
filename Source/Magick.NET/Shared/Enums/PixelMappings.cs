@@ -14,15 +14,29 @@ namespace ImageMagick
 {
 
     /// <summary>
-    /// // a mapping enum to determin the bytes needs for every pixel. This is used in ToShortArray and ToByteArray methods.
-    // for example RGB means 3 bytes and RGBA 4.
+    /// am enumerator for pixel mapping mode.
     // </summary>
     public enum PixelMapping
     {
+        /// <summary>
+        /// RGB
+        /// </summary>
         RGB,
+        /// <summary>
+        /// BGR
+        /// </summary>
         BGR,
+        /// <summary>
+        /// RGBA
+        /// </summary>
         RGBA,
+        /// <summary>
+        /// ABGR
+        /// </summary>
         ABGR,
+        /// <summary>
+        /// CMYK
+        /// </summary>
         CMYK,
     }
 }
