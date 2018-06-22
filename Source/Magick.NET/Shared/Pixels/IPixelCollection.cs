@@ -291,7 +291,7 @@ namespace ImageMagick
         /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
         /// <returns>An <see cref="ushort"/> array.</returns>
         ushort[] ToShortArray(MagickGeometry geometry, string mapping);
-        
+
         /// <summary>
         /// Returns the values of the pixels as an array.
         /// </summary>

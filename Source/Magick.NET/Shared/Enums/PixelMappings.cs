@@ -12,7 +12,6 @@
 
 namespace ImageMagick
 {
-
     /// <summary>
     /// am enumerator for pixel mapping mode.
     /// </summary>
@@ -22,18 +21,22 @@ namespace ImageMagick
         /// RGB
         /// </summary>
         RGB,
+
         /// <summary>
         /// BGR
         /// </summary>
         BGR,
+
         /// <summary>
         /// RGBA
         /// </summary>
         RGBA,
+
         /// <summary>
         /// ABGR
         /// </summary>
         ABGR,
+
         /// <summary>
         /// CMYK
         /// </summary>
