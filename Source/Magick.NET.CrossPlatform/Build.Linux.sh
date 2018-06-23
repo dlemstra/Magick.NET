@@ -12,6 +12,9 @@ sudo apt-get install gperf -y
 sudo apt-get install nasm -y
 sudo apt-get install autoconf -y
 
+sudo sh -c "echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections"
+sudo apt-get install ttf-mscorefonts-installer -y
+
 cd ../../ImageMagick/Source
 
 ./Checkout.sh Linux
@@ -122,6 +125,9 @@ export CXXFLAGS="-O3 -fPIC"
 ./configure --disable-shared --prefix=/usr/local
 make install
 
+cd ../../../../
+mkdir Output
+
 buildMagickNET() {
     local quantum=$1
 
@@ -156,9 +162,20 @@ buildMagickNET() {
     cd ../../../
 }
 
-cd ../../../../
-mkdir Output
-
 buildMagickNET "Q8"
 buildMagickNET "Q16"
 buildMagickNET "Q16-HDRI"
+
+testMagickNET() {
+    local quantum=$1
+
+    dotnet build Tests/Magick.NET.Tests/Magick.NET.Tests.csproj -f netcoreapp2.0 -c Test${quantum}
+
+    cp Output/Magick.NET-$quantum-x64.Native.dll.so Tests/Magick.NET.Tests/bin/Test${quantum}/AnyCPU/netcoreapp2.0
+
+    dotnet test Tests/Magick.NET.Tests/Magick.NET.Tests.csproj -f netcoreapp2.0 -c Test${quantum}
+}
+
+testMagickNET "Q8"
+testMagickNET "Q16"
+testMagickNET "Q16-HDRI"
