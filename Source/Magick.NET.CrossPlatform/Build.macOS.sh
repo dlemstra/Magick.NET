@@ -127,6 +127,9 @@ export CXXFLAGS="-O3 -fPIC"
 ./configure --disable-shared --prefix=/usr/local
 make install
 
+cd ../../../../
+mkdir Output
+
 buildMagickNET() {
     local quantum=$1
 
@@ -160,9 +163,20 @@ buildMagickNET() {
     cd ../../../
 }
 
-cd ../../../../
-mkdir Output
-
 buildMagickNET "Q8"
 buildMagickNET "Q16"
 buildMagickNET "Q16-HDRI"
+
+testMagickNET() {
+    local quantum=$1
+
+    dotnet build Tests/Magick.NET.Tests/Magick.NET.Tests.csproj -f netcoreapp2.0 -c Test${quantum}
+
+    cp Output/Magick.NET-$quantum-x64.Native.dll.dylib Tests/Magick.NET.Tests/bin/Test${quantum}/AnyCPU/netcoreapp2.0
+
+    dotnet test Tests/Magick.NET.Tests/Magick.NET.Tests.csproj -f netcoreapp2.0 -c Test${quantum}
+}
+
+testMagickNET "Q8"
+testMagickNET "Q16"
+testMagickNET "Q16-HDRI"
