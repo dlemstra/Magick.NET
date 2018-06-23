@@ -5,11 +5,11 @@
 [![Twitter URL](https://img.shields.io/badge/twitter-follow-1da1f2.svg)](https://twitter.com/MagickNET)
 [![Donate](https://img.shields.io/badge/%24-donate-ff00ff.svg)](https://www.paypal.me/DirkLemstra)
 
-|             |Build Status|Code Coverage|
-|-------------|:----------:|:-----------:|
-|**Windows**  | [![Build status](https://ci.appveyor.com/api/projects/status/5y970okju7ru901x?svg=true)](https://ci.appveyor.com/project/dlemstra/magick-net)|[![codecov](https://codecov.io/gh/dlemstra/Magick.NET/branch/master/graph/badge.svg)](https://codecov.io/gh/dlemstra/Magick.NET)|
-|**Linux**| [![Build Status](https://travis-ci.org/dlemstra/Magick.NET.svg?branch=master)](https://travis-ci.org/dlemstra/Magick.NET)|[![codecov](https://codecov.io/gh/dlemstra/Magick.NET/branch/master/graph/badge.svg)](https://codecov.io/gh/dlemstra/Magick.NET)|
-|**macOS**| [![Build Status](https://travis-ci.org/dlemstra/Magick.NET.svg?branch=master)](https://travis-ci.org/dlemstra/Magick.NET)|[![codecov](https://codecov.io/gh/dlemstra/Magick.NET/branch/master/graph/badge.svg)](https://codecov.io/gh/dlemstra/Magick.NET)|
+|             |Native build|Build Status|Code Coverage|
+|-------------|:----------:|:----------:|:-----------:|
+|**Windows**  ||[![Build status](https://ci.appveyor.com/api/projects/status/5y970okju7ru901x?svg=true)](https://ci.appveyor.com/project/dlemstra/magick-net)|[![codecov](https://codecov.io/gh/dlemstra/Magick.NET/branch/master/graph/badge.svg)](https://codecov.io/gh/dlemstra/Magick.NET)|
+|**Linux**    |[![Build status](https://dlemstra.visualstudio.com/Magick.NET/_apis/build/status/Magick.NET-Linux)](https://dlemstra.visualstudio.com/Magick.NET/_build/latest?definitionId=4)|[![Build Status](https://travis-ci.org/dlemstra/Magick.NET.svg?branch=master)](https://travis-ci.org/dlemstra/Magick.NET)|[![codecov](https://codecov.io/gh/dlemstra/Magick.NET/branch/master/graph/badge.svg)](https://codecov.io/gh/dlemstra/Magick.NET)|
+|**macOS**    |[![Build status](https://dlemstra.visualstudio.com/Magick.NET/_apis/build/status/Magick.NET-macOS)](https://dlemstra.visualstudio.com/Magick.NET/_build/latest?definitionId=5)|[![Build Status](https://travis-ci.org/dlemstra/Magick.NET.svg?branch=master)](https://travis-ci.org/dlemstra/Magick.NET)|[![codecov](https://codecov.io/gh/dlemstra/Magick.NET/branch/master/graph/badge.svg)](https://codecov.io/gh/dlemstra/Magick.NET)|
 
 ImageMagick is a powerful image manipulation library that supports over [100 major file formats](https://www.imagemagick.org/script/formats.php) (not including sub-formats).
 With Magick.NET you can use ImageMagick in your C#/VB.NET/.NET Core application without having to install ImageMagick on your server or desktop.
