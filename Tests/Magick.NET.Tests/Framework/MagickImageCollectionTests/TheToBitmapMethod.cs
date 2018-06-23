@@ -17,20 +17,26 @@ using System.Drawing.Imaging;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Framework
 {
     public partial class MagickImageCollectionTests
     {
-        [TestMethod]
-        public void ToBitmap_CollectionWithThreeImages_ReturnsBitmapWithThreeFrames()
+        [TestClass]
+        public class TheToBitmapMethod
         {
-            using (IMagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
+            [TestMethod]
+            public void ShouldReturnBitmap()
             {
-                Assert.AreEqual(3, collection.Count);
+                using (IMagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
+                {
+                    Assert.AreEqual(3, collection.Count);
 
-                Bitmap bitmap = collection.ToBitmap();
-                Assert.IsNotNull(bitmap);
-                Assert.AreEqual(3, bitmap.GetFrameCount(FrameDimension.Page));
+                    using (Bitmap bitmap = collection.ToBitmap())
+                    {
+                        Assert.IsNotNull(bitmap);
+                        Assert.AreEqual(3, bitmap.GetFrameCount(FrameDimension.Page));
+                    }
+                }
             }
         }
     }

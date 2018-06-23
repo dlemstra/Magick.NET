@@ -12,21 +12,28 @@
 
 #if !NETCORE
 
-using System.Xml.Schema;
+using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Script
+namespace Magick.NET.Tests.Framework.Drawables
 {
-    public partial class MagickScriptsTests
+    public partial class DrawableRectangleTests
     {
-        [TestMethod]
-        public void Constructor_ScriptThatDoesNotFollowXmlSchema_ThrowsException()
+        [TestClass]
+        public class TheConstructor
         {
-            ExceptionAssert.Throws<XmlSchemaValidationException>(delegate
+            [TestMethod]
+            public void ShouldSetTheProperties()
             {
-                new MagickScript(Files.Scripts.Invalid);
-            });
+                var rectangle = new Rectangle(1, 2, 3, 4);
+
+                var drawRectangle = new DrawableRectangle(rectangle);
+                Assert.AreEqual(1, drawRectangle.UpperLeftX);
+                Assert.AreEqual(2, drawRectangle.UpperLeftY);
+                Assert.AreEqual(4, drawRectangle.LowerRightX);
+                Assert.AreEqual(6, drawRectangle.LowerRightY);
+            }
         }
     }
 }

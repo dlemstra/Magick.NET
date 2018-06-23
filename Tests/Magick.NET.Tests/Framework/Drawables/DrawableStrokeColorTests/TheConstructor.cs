@@ -16,16 +16,19 @@ using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Colors
+namespace Magick.NET.Tests.Framework.Drawables
 {
-    public partial class ColorRGBTests : ColorBaseTests<ColorRGB>
+    public partial class DrawableStrokeColorTests
     {
-        [TestMethod]
-        public void Constructor_WithSystemDrawingColor_IsEqualToMagickColor()
+        [TestClass]
+        public class TheConstructor
         {
-            ColorRGB fuchsia = new ColorRGB(Color.Fuchsia);
-
-            ColorAssert.AreEqual(fuchsia, MagickColors.Fuchsia);
+            [TestMethod]
+            public void ShouldSetTheProperties()
+            {
+                DrawableStrokeColor strokeColor = new DrawableStrokeColor(Color.GhostWhite);
+                ColorAssert.AreEqual(MagickColors.GhostWhite, strokeColor.Color);
+            }
         }
     }
 }

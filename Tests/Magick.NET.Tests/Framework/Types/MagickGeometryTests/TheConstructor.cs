@@ -16,32 +16,24 @@ using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Framework.Types
 {
     public partial class MagickGeometryTests
     {
-        [TestMethod]
-        public void Constructor_WithRectangle_PropertiesAreSet()
+        [TestClass]
+        public class TheConstructor
         {
-            var rectangle = new Rectangle(1, 2, 3, 4);
+            [TestMethod]
+            public void ShouldSetTheProperties()
+            {
+                var rectangle = new Rectangle(1, 2, 3, 4);
 
-            var geometry = new MagickGeometry(rectangle);
-            Assert.AreEqual(1, geometry.X);
-            Assert.AreEqual(2, geometry.Y);
-            Assert.AreEqual(3, geometry.Width);
-            Assert.AreEqual(4, geometry.Height);
-        }
-
-        [TestMethod]
-        public void ExplicitCastFromRectangle_PropertiesAreSet()
-        {
-            var rectangle = new Rectangle(4, 3, 2, 1);
-
-            var geometry = (MagickGeometry)rectangle;
-            Assert.AreEqual(4, geometry.X);
-            Assert.AreEqual(3, geometry.Y);
-            Assert.AreEqual(2, geometry.Width);
-            Assert.AreEqual(1, geometry.Height);
+                var geometry = new MagickGeometry(rectangle);
+                Assert.AreEqual(1, geometry.X);
+                Assert.AreEqual(2, geometry.Y);
+                Assert.AreEqual(3, geometry.Width);
+                Assert.AreEqual(4, geometry.Height);
+            }
         }
     }
 }

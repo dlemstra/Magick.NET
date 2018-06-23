@@ -16,16 +16,24 @@ using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Drawables
+namespace Magick.NET.Tests.Framework.Drawables
 {
-    [TestClass]
-    public partial class DrawableStrokeColorTests
+    public partial class DrawableRectangleTests
     {
-        [TestMethod]
-        public void Constructor_WithColor_ColorPropertyIsCorrect()
+        [TestClass]
+        public class CastFromRectangle
         {
-            DrawableStrokeColor strokeColor = new DrawableStrokeColor(Color.GhostWhite);
-            ColorAssert.AreEqual(MagickColors.GhostWhite, strokeColor.Color);
+            [TestMethod]
+            public void ShouldSetTheProperties()
+            {
+                var rectangle = new Rectangle(4, 3, 2, 1);
+
+                var drawRectangle = (DrawableRectangle)rectangle;
+                Assert.AreEqual(4, drawRectangle.UpperLeftX);
+                Assert.AreEqual(3, drawRectangle.UpperLeftY);
+                Assert.AreEqual(6, drawRectangle.LowerRightX);
+                Assert.AreEqual(4, drawRectangle.LowerRightY);
+            }
         }
     }
 }

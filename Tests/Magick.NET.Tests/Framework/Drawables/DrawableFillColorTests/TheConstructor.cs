@@ -16,16 +16,19 @@ using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Drawables
+namespace Magick.NET.Tests.Framework.Drawables
 {
-    [TestClass]
-    public partial class DrawableBorderColorTests
+    public partial class DrawableFillColorTests
     {
-        [TestMethod]
-        public void Constructor_WithColor_ColorPropertyIsCorrect()
+        [TestClass]
+        public class TheConstructor
         {
-            DrawableBorderColor borderColor = new DrawableBorderColor(Color.GreenYellow);
-            ColorAssert.AreEqual(MagickColors.GreenYellow, borderColor.Color);
+            [TestMethod]
+            public void Constructor_WithColor_ColorPropertyIsCorrect()
+            {
+                DrawableFillColor fillColor = new DrawableFillColor(Color.DarkKhaki);
+                ColorAssert.AreEqual(MagickColors.DarkKhaki, fillColor.Color);
+            }
         }
     }
 }

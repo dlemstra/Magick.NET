@@ -21,7 +21,7 @@ namespace Magick.NET.Tests.Drawables
     public partial class DrawableAffineTests
     {
         [TestMethod]
-        public void Constructor_MatrixIsNull_ThrowsException()
+        public void ShouldThrowExceptionWhenMatrixIsNull()
         {
             ExceptionAssert.ThrowsArgumentNullException("matrix", () =>
             {
@@ -30,7 +30,7 @@ namespace Magick.NET.Tests.Drawables
         }
 
         [TestMethod]
-        public void Constructor_WithMatrix_PropertiesAreSet()
+        public void ShouldSetTheProperties()
         {
             Matrix matrix = new Matrix(11, 12, 21, 22, 0, 1);
             DrawableAffine affine = new DrawableAffine(matrix);

@@ -12,29 +12,28 @@
 
 #if !NETCORE
 
+using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Framework.Types
 {
-    public partial class MagickNETTests
+    public partial class MagickGeometryTests
     {
-        [TestMethod]
-        public void Version_ContainsCorrectPlatform()
+        [TestClass]
+        public class CastFromRectange
         {
-#if PLATFORM_AnyCPU
-            StringAssert.Contains(MagickNET.Version, "AnyCPU");
-#elif PLATFORM_x64
-            StringAssert.Contains(MagickNET.Version, "x64");
-#else
-            StringAssert.Contains(MagickNET.Version, "x86");
-#endif
-        }
+            [TestMethod]
+            public void ShouldSetTheProperties()
+            {
+                var rectangle = new Rectangle(4, 3, 2, 1);
 
-        [TestMethod]
-        public void Version_ContainsNet40()
-        {
-            StringAssert.Contains(MagickNET.Version, "net40");
+                var geometry = (MagickGeometry)rectangle;
+                Assert.AreEqual(4, geometry.X);
+                Assert.AreEqual(3, geometry.Y);
+                Assert.AreEqual(2, geometry.Width);
+                Assert.AreEqual(1, geometry.Height);
+            }
         }
     }
 }

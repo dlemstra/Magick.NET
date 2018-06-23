@@ -16,22 +16,23 @@ using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Framework.Drawables
 {
-    public partial class MagickFactoryTests
+    public partial class DrawableViewboxTests
     {
-        [TestMethod]
-        public void CreateImage_WithBitmap_ReturnsMagickImage()
+        [TestClass]
+        public class CastFromRectangle
         {
-            using (Bitmap bitmap = new Bitmap(Files.SnakewarePNG))
+            [TestMethod]
+            public void ShouldSetTheProperties()
             {
-                MagickFactory factory = new MagickFactory();
-                using (IMagickImage image = factory.CreateImage(bitmap))
-                {
-                    Assert.AreEqual(286, image.Width);
-                    Assert.AreEqual(67, image.Height);
-                    Assert.AreEqual(MagickFormat.Png, image.Format);
-                }
+                var rectangle = new Rectangle(4, 3, 2, 1);
+
+                var viewbox = (DrawableViewbox)rectangle;
+                Assert.AreEqual(4, viewbox.UpperLeftX);
+                Assert.AreEqual(3, viewbox.UpperLeftY);
+                Assert.AreEqual(6, viewbox.LowerRightX);
+                Assert.AreEqual(4, viewbox.LowerRightY);
             }
         }
     }

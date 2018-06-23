@@ -12,20 +12,22 @@
 
 #if !NETCORE
 
-using System.Drawing;
+using System.Xml.Schema;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Drawables
+namespace Magick.NET.Tests.Framework.Script
 {
-    [TestClass]
-    public partial class DrawableFillColorTests
+    public partial class MagickScriptTests
     {
-        [TestMethod]
-        public void Constructor_WithColor_ColorPropertyIsCorrect()
+        [TestClass]
+        public class TheConstructor
         {
-            DrawableFillColor fillColor = new DrawableFillColor(Color.DarkKhaki);
-            ColorAssert.AreEqual(MagickColors.DarkKhaki, fillColor.Color);
+            [TestMethod]
+            public void ShouldThrowExceptionWhenScriptDoesNotFollowXmlSchema()
+            {
+                ExceptionAssert.Throws<XmlSchemaValidationException>(() => new MagickScript(Files.Scripts.Invalid));
+            }
         }
     }
 }
