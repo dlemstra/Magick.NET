@@ -29,7 +29,7 @@ namespace Magick.NET.Tests.Framework.Colors
 #if Q8
                 int multiplication = 1;
 #elif Q16 || Q16HDRI
-            int multiplication = 257;
+                int multiplication = 257;
 #else
 #error Not implemented!
 #endif
