@@ -134,9 +134,9 @@ namespace Magick.NET.Tests.Pixels
             [TestMethod]
             public void ShouldReturnArrayWhenGeometryIsCorrectAndMappingIsEnum()
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
+                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
                         var values = pixels.ToShortArray(new MagickGeometry(10, 10, 113, 108), PixelMapping.RGB);
                         var length = 113 * 108 * 3;

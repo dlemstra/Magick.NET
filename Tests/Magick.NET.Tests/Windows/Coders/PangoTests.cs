@@ -42,7 +42,7 @@ namespace Magick.NET.Tests.Coders
 
         private static string LoadImage()
         {
-            using (var image = new MagickImage("pango:1"))
+            using (IMagickImage image = new MagickImage("pango:1"))
             {
                 return image.Signature;
             }

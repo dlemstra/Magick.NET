@@ -95,7 +95,7 @@ namespace Magick.NET.Tests.Coders
 
         private static string LoadImage(byte[] bytes)
         {
-            using (var image = new MagickImage(bytes))
+            using (IMagickImage image = new MagickImage(bytes))
             {
                 return image.Signature;
             }
