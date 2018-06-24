@@ -224,7 +224,7 @@ namespace ImageMagick
         {
             return ToByteArray(geometry.X, geometry.Y, geometry.Width, geometry.Height, mapping);
         }
-        
+
         public virtual byte[] ToByteArray(MagickGeometry geometry, PixelMapping mapping)
         {
             return ToByteArray(geometry.X, geometry.Y, geometry.Width, geometry.Height, mapping.ToString());
