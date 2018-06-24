@@ -13,7 +13,7 @@
 namespace ImageMagick
 {
     /// <summary>
-    /// An enumerator for pixel mapping mode.
+    /// An enumeration for pixel mapping mode.
     /// </summary>
     public enum PixelMapping
     {
