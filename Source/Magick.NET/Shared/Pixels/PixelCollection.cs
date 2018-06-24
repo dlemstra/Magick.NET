@@ -215,14 +215,29 @@ namespace ImageMagick
             return result;
         }
 
+        public virtual byte[] ToByteArray(int x, int y, int width, int height, PixelMapping mapping)
+        {
+            return ToByteArray(x, y, width, height, mapping.ToString());
+        }
+
         public virtual byte[] ToByteArray(MagickGeometry geometry, string mapping)
         {
             return ToByteArray(geometry.X, geometry.Y, geometry.Width, geometry.Height, mapping);
         }
 
+        public virtual byte[] ToByteArray(MagickGeometry geometry, PixelMapping mapping)
+        {
+            return ToByteArray(geometry.X, geometry.Y, geometry.Width, geometry.Height, mapping.ToString());
+        }
+
         public byte[] ToByteArray(string mapping)
         {
             return ToByteArray(0, 0, Image.Width, Image.Height, mapping);
+        }
+
+        public byte[] ToByteArray(PixelMapping mapping)
+        {
+            return ToByteArray(0, 0, Image.Width, Image.Height, mapping.ToString());
         }
 
         public virtual ushort[] ToShortArray(int x, int y, int width, int height, string mapping)
@@ -243,14 +258,29 @@ namespace ImageMagick
             return result;
         }
 
+        public virtual ushort[] ToShortArray(int x, int y, int width, int height, PixelMapping mapping)
+        {
+            return ToShortArray(x, y, width, height, mapping.ToString());
+        }
+
         public virtual ushort[] ToShortArray(MagickGeometry geometry, string mapping)
         {
             return ToShortArray(geometry.X, geometry.Y, geometry.Width, geometry.Height, mapping);
         }
 
+        public virtual ushort[] ToShortArray(MagickGeometry geometry, PixelMapping mapping)
+        {
+            return ToShortArray(geometry, mapping.ToString());
+        }
+
         public ushort[] ToShortArray(string mapping)
         {
             return ToShortArray(0, 0, Image.Width, Image.Height, mapping);
+        }
+
+        public ushort[] ToShortArray(PixelMapping mapping)
+        {
+            return ToShortArray(0, 0, Image.Width, Image.Height, mapping.ToString());
         }
 
         internal QuantumType[] GetAreaUnchecked(int x, int y, int width, int height)

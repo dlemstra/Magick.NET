@@ -169,6 +169,13 @@ namespace ImageMagick
             return base.ToByteArray(geometry, mapping);
         }
 
+        public override byte[] ToByteArray(MagickGeometry geometry, PixelMapping mapping)
+        {
+            Throw.IfNull(nameof(geometry), geometry);
+
+            return base.ToByteArray(geometry, mapping.ToString());
+        }
+
         public override byte[] ToByteArray(int x, int y, int width, int height, string mapping)
         {
             Throw.IfNullOrEmpty(nameof(mapping), mapping);
