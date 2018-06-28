@@ -67,6 +67,20 @@ namespace Magick.NET.Tests.Shared
             }
 
             [TestMethod]
+            public void ShouldThrowExceptionWhenGeometryIsPercentage()
+            {
+                using (IMagickImage image = new MagickImage())
+                {
+                    ExceptionAssert.ThrowsArgumentException("geometry", () =>
+                    {
+                        var geometry = new MagickGeometry(new Percentage(100), new Percentage(100));
+
+                        image.Evaluate(Channels.Red, geometry, EvaluateOperator.Set, 0.0);
+                    });
+                }
+            }
+
+            [TestMethod]
             public void ShouldChangeTheSpecifiedChannels()
             {
                 using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
