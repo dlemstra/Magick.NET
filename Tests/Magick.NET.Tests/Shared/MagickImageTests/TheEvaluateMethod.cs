@@ -13,6 +13,16 @@
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace Magick.NET.Tests.Shared
 {
     public partial class MagickImageTests
@@ -74,6 +84,28 @@ namespace Magick.NET.Tests.Shared
 
                     ColorAssert.AreEqual(new MagickColor("#00f"), image, 99, 195);
                     ColorAssert.AreEqual(new MagickColor("#90680000ffff"), image, 100, 295);
+                }
+            }
+
+            [TestMethod]
+            public void ShouldUseWriteMask()
+            {
+                using (IMagickImage image = new MagickImage(MagickColors.Black, 2, 1))
+                {
+                    using (IMagickImage mask = new MagickImage(MagickColors.White, 2, 1))
+                    {
+                        using (IPixelCollection pixels = mask.GetPixelsUnsafe())
+                        {
+                            pixels.SetPixel(0, 0, new QuantumType[] { 0, 0, 0 });
+                        }
+
+                        image.WriteMask = mask;
+
+                        image.Evaluate(Channels.Red, EvaluateOperator.Set, Quantum.Max);
+
+                        ColorAssert.AreEqual(MagickColors.Red, image, 0, 0);
+                        ColorAssert.AreEqual(MagickColors.Black, image, 1, 0);
+                    }
                 }
             }
         }
