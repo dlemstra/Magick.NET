@@ -1480,42 +1480,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_Evaluate()
-        {
-            using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
-            {
-                ExceptionAssert.ThrowsArgumentNullException("arguments", () =>
-                {
-                    image.Evaluate(Channels.Red, EvaluateFunction.Arcsin, null);
-                });
-
-                ExceptionAssert.ThrowsArgumentException("arguments", () =>
-                {
-                    image.Evaluate(Channels.Red, EvaluateFunction.Arcsin, new double[] { });
-                });
-
-                ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
-                {
-                    image.Evaluate(Channels.Red, null, EvaluateOperator.Set, 0.0);
-                });
-
-                image.Evaluate(Channels.Red, EvaluateFunction.Arcsin, new double[] { 5.0 });
-
-                ColorAssert.AreEqual(new MagickColor("#9068ffffffff"), image, 100, 295);
-
-                image.Evaluate(Channels.Red, new MagickGeometry(0, 0, 100, 295), EvaluateOperator.Set, 0);
-
-                ColorAssert.AreEqual(new MagickColor("#0ff"), image, 99, 195);
-                ColorAssert.AreEqual(new MagickColor("#9068ffffffff"), image, 100, 295);
-
-                image.Evaluate(Channels.Green, EvaluateOperator.Set, 0);
-
-                ColorAssert.AreEqual(new MagickColor("#00f"), image, 99, 195);
-                ColorAssert.AreEqual(new MagickColor("#90680000ffff"), image, 100, 295);
-            }
-        }
-
-        [TestMethod]
         public void Test_Extent()
         {
             using (IMagickImage image = new MagickImage())
