@@ -118,6 +118,8 @@ namespace FileGenerator.MagickScript
                     return "double";
                 case "Int32":
                     return "int";
+                case "Int64":
+                    return "long";
                 case "MagickColor":
                     return "color";
                 case "MagickGeometry":
@@ -296,6 +298,7 @@ namespace FileGenerator.MagickScript
                 case "ImageProfile":
                 case "IMagickImage":
                 case "Int32":
+                case "Int64":
                 case "IPath":
                 case "IReadDefines":
                 case "MagickColor":

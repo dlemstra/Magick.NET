@@ -241,6 +241,8 @@ namespace ImageMagick
             if (element == null)
                 return null;
             PngReadDefines result = new PngReadDefines();
+            result.ChunkCacheMax = Variables.GetValue<Nullable<Int64>>(element, "chunkCacheMax");
+            result.ChunkMallocMax = Variables.GetValue<Nullable<Int64>>(element, "chunkMallocMax");
             result.PreserveiCCP = Variables.GetValue<Boolean>(element, "preserveiCCP");
             result.SkipProfiles = Variables.GetValue<Nullable<ImageMagick.Defines.ProfileTypes>>(element, "skipProfiles");
             result.SwapBytes = Variables.GetValue<Boolean>(element, "swapBytes");

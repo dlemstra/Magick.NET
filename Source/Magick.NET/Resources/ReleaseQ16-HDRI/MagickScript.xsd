@@ -27,6 +27,9 @@
   <xs:simpleType name="int">
     <xs:union memberTypes="xs:int var" />
   </xs:simpleType>
+  <xs:simpleType name="long">
+    <xs:union memberTypes="xs:long var" />
+  </xs:simpleType>
   <xs:simpleType name="color">
     <xs:union>
       <xs:simpleType>
@@ -172,7 +175,7 @@
           <xs:enumeration value="LCH" />
           <xs:enumeration value="LCHab" />
           <xs:enumeration value="LCHuv" />
-          <xs:enumeration value="LinearGRAY" />
+          <xs:enumeration value="LinearGray" />
           <xs:enumeration value="LMS" />
           <xs:enumeration value="Log" />
           <xs:enumeration value="Luv" />
@@ -556,6 +559,7 @@
       <xs:simpleType>
         <xs:restriction base="xs:NMTOKEN">
           <xs:enumeration value="Any" />
+          <xs:enumeration value="Bold" />
           <xs:enumeration value="Italic" />
           <xs:enumeration value="Normal" />
           <xs:enumeration value="Oblique" />
@@ -1372,6 +1376,8 @@
     <xs:attribute name="useTrimBox" type="bool" />
   </xs:complexType>
   <xs:complexType name="pngReadDefines">
+    <xs:attribute name="chunkCacheMax" type="long" />
+    <xs:attribute name="chunkMallocMax" type="long" />
     <xs:attribute name="preserveiCCP" type="bool" />
     <xs:attribute name="skipProfiles" type="ProfileTypes" />
     <xs:attribute name="swapBytes" type="bool" />
