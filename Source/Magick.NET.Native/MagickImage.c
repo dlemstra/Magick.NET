@@ -1516,6 +1516,8 @@ MAGICK_NET_EXPORT Image *MagickImage_GetReadMask(const Image *instance, Exceptio
     *image;
 
   MAGICK_NET_GET_EXCEPTION;
+  if ((instance->channels & ReadMaskChannel) == 0)
+    return (Image *) NULL;
   image = GetImageMask(instance, ReadPixelMask, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return image;

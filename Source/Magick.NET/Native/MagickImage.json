@@ -2369,7 +2369,6 @@
         },
         {
             "name": "SetReadMask",
-            "instance": true,
             "throws": true,
             "arguments":
             [

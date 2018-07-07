@@ -517,7 +517,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_SetProgressDelegate(IntPtr Instance, ProgressDelegate method);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_SetReadMask(IntPtr Instance, IntPtr image, out IntPtr exception);
+                public static extern void MagickImage_SetReadMask(IntPtr Instance, IntPtr image, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Shade(IntPtr Instance, double azimuth, double elevation, [MarshalAs(UnmanagedType.Bool)] bool colorShading, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1064,7 +1064,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_SetProgressDelegate(IntPtr Instance, ProgressDelegate method);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_SetReadMask(IntPtr Instance, IntPtr image, out IntPtr exception);
+                public static extern void MagickImage_SetReadMask(IntPtr Instance, IntPtr image, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Shade(IntPtr Instance, double azimuth, double elevation, [MarshalAs(UnmanagedType.Bool)] bool colorShading, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -5530,21 +5530,19 @@ namespace ImageMagick
             public void SetReadMask(IMagickImage image)
             {
                 IntPtr exception = IntPtr.Zero;
-                IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (NativeLibrary.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_SetReadMask(Instance, image.GetInstance(), out exception);
+                NativeMethods.X64.MagickImage_SetReadMask(Instance, image.GetInstance(), out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_SetReadMask(Instance, image.GetInstance(), out exception);
+                NativeMethods.X86.MagickImage_SetReadMask(Instance, image.GetInstance(), out exception);
                 #endif
-                CheckException(exception, result);
-                Instance = result;
+                CheckException(exception);
             }
             public void Shade(double azimuth, double elevation, bool colorShading, Channels channels)
             {
