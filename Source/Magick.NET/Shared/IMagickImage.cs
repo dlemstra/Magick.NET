@@ -287,12 +287,6 @@ namespace ImageMagick
         int Quality { get; set; }
 
         /// <summary>
-        /// Gets or sets the associated read mask of the image. The mask must be the same dimensions as the image and
-        /// only contain the colors black and white. Pass null to unset an existing mask.
-        /// </summary>
-        IMagickImage ReadMask { get; set; }
-
-        /// <summary>
         /// Gets or sets the type of rendering intent.
         /// </summary>
         RenderingIntent RenderingIntent { get; set; }
@@ -1823,6 +1817,13 @@ namespace ImageMagick
         ImageProfile GetProfile(string name);
 
         /// <summary>
+        /// Gets the associated read mask of the image.
+        /// </summary>
+        /// <returns>The associated read mask of the image.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        IMagickImage GetReadMask();
+
+        /// <summary>
         /// Retrieve the xmp profile from the image.
         /// </summary>
         /// <returns>The xmp profile from the image.</returns>
@@ -2911,6 +2912,12 @@ namespace ImageMagick
         void RemoveProfile(string name);
 
         /// <summary>
+        /// Removes the associated read mask of the image.
+        /// </summary>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void RemoveReadMask();
+
+        /// <summary>
         /// Resets the page property of this image.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -3199,6 +3206,14 @@ namespace ImageMagick
         /// <param name="color">The color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void SetColormap(int index, MagickColor color);
+
+        /// <summary>
+        /// Sets the associated read mask of the image. The mask must be the same dimensions as the image and
+        /// only contain the colors black and white.
+        /// </summary>
+        /// <param name="image">The image that contains the read mask.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void SetReadMask(IMagickImage image);
 
         /// <summary>
         /// Shade image using distant light source.

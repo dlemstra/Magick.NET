@@ -995,11 +995,6 @@ namespace ImageMagick
                         {
                             switch(element.Name[2])
                             {
-                                case 'a':
-                                {
-                                    ExecuteReadMask(element, image);
-                                    return;
-                                }
                                 case 'n':
                                 {
                                     ExecuteRenderingIntent(element, image);
@@ -1043,8 +1038,20 @@ namespace ImageMagick
                                         }
                                         case 'R':
                                         {
-                                            ExecuteRemoveRegionMask(image);
-                                            return;
+                                            switch(element.Name[8])
+                                            {
+                                                case 'a':
+                                                {
+                                                    ExecuteRemoveReadMask(image);
+                                                    return;
+                                                }
+                                                case 'g':
+                                                {
+                                                    ExecuteRemoveRegionMask(image);
+                                                    return;
+                                                }
+                                            }
+                                            break;
                                         }
                                     }
                                     break;
@@ -1185,6 +1192,11 @@ namespace ImageMagick
                                                 }
                                             }
                                             break;
+                                        }
+                                        case 'R':
+                                        {
+                                            ExecuteSetReadMask(element, image);
+                                            return;
                                         }
                                     }
                                     break;
@@ -1649,10 +1661,6 @@ namespace ImageMagick
         private void ExecuteQuality(XmlElement element, IMagickImage image)
         {
             image.Quality = Variables.GetValue<Int32>(element, "value");
-        }
-        private void ExecuteReadMask(XmlElement element, IMagickImage image)
-        {
-            image.ReadMask = CreateMagickImage(element);
         }
         private void ExecuteRenderingIntent(XmlElement element, IMagickImage image)
         {
@@ -3156,6 +3164,10 @@ namespace ImageMagick
             String name_ = Variables.GetValue<String>(element, "name");
             image.RemoveProfile(name_);
         }
+        private static void ExecuteRemoveReadMask(IMagickImage image)
+        {
+            image.RemoveReadMask();
+        }
         private static void ExecuteRemoveRegionMask(IMagickImage image)
         {
             image.RemoveRegionMask();
@@ -3394,6 +3406,11 @@ namespace ImageMagick
             Int32 index_ = Variables.GetValue<Int32>(element, "index");
             MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
             image.SetColormap(index_, color_);
+        }
+        private void ExecuteSetReadMask(XmlElement element, IMagickImage image)
+        {
+            IMagickImage image_ = CreateMagickImage(element["image"]);
+            image.SetReadMask(image_);
         }
         private void ExecuteShade(XmlElement element, IMagickImage image)
         {

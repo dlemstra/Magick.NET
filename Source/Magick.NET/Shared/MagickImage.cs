@@ -813,16 +813,6 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Gets or sets the associated read mask of the image. The mask must be the same dimensions as the image and
-        /// only contain the colors black and white. Pass null to unset an existing mask.
-        /// </summary>
-        public IMagickImage ReadMask
-        {
-            get { return _nativeInstance.ReadMask; }
-            set { _nativeInstance.ReadMask = value; }
-        }
-
-        /// <summary>
         /// Gets or sets the type of rendering intent.
         /// </summary>
         public RenderingIntent RenderingIntent
@@ -3298,6 +3288,16 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Gets the associated read mask of the image.
+        /// </summary>
+        /// <returns>The associated read mask of the image.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public IMagickImage GetReadMask()
+        {
+            return Create(_nativeInstance.GetReadMask());
+        }
+
+        /// <summary>
         /// Retrieve the xmp profile from the image.
         /// </summary>
         /// <returns>The xmp profile from the image.</returns>
@@ -4906,6 +4906,15 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Removes the associated read mask of the image.
+        /// </summary>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void RemoveReadMask()
+        {
+            _nativeInstance.SetReadMask(null);
+        }
+
+        /// <summary>
         /// Resets the page property of this image.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -5332,6 +5341,19 @@ namespace ImageMagick
             Throw.IfNull(nameof(color), color);
 
             _nativeInstance.SetColormap(index, color);
+        }
+
+        /// <summary>
+        /// Sets the associated read mask of the image. The mask must be the same dimensions as the image and
+        /// only contain the colors black and white.
+        /// </summary>
+        /// <param name="image">The image that contains the read mask.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void SetReadMask(IMagickImage image)
+        {
+            Throw.IfNull(nameof(image), image);
+
+            _nativeInstance.SetReadMask(image);
         }
 
         /// <summary>

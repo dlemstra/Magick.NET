@@ -268,11 +268,6 @@
             "type": "size_t"
         },
         {
-            "name": "ReadMask",
-            "type": "IMagickImage",
-            "throws": true
-        },
-        {
             "name": "RenderingIntent",
             "type": "RenderingIntent"
         },
@@ -1447,6 +1442,11 @@
             ]
         },
         {
+            "name": "GetReadMask",
+            "type": "Instance",
+            "throws": true
+        },
+        {
             "name": "Grayscale",
             "throws": true,
             "arguments":
@@ -2364,6 +2364,18 @@
                 {
                     "name": "method",
                     "type": "ProgressDelegate"
+                }
+            ]
+        },
+        {
+            "name": "SetReadMask",
+            "instance": true,
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
                 }
             ]
         },

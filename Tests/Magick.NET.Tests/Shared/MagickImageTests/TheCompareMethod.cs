@@ -280,7 +280,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage mask = new MagickImage("xc:white", image.Width, image.Height - 100))
                     {
-                        image.ReadMask = mask;
+                        image.SetReadMask(mask);
                     }
 
                     using (IMagickImage other = new MagickImage(Files.Builtin.Logo))
