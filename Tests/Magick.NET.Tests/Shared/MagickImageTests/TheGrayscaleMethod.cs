@@ -17,6 +17,7 @@ namespace Magick.NET.Tests.Shared
 {
     public partial class MagickImageTests
     {
+        [TestClass]
         public class TheGrayscaleMethod
         {
             [TestMethod]
