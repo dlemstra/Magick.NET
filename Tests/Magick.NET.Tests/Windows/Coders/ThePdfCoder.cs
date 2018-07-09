@@ -10,41 +10,30 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if !NETCORE
+#if WINDOWS_BUILD
 
-using System;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests.Coders
 {
-    public partial class PdfTests
+    [TestClass]
+    public partial class ThePdfCoder
     {
-        private delegate void ReadDelegate();
-
         [TestMethod]
-        public void ReadMultithreaded_FileIsReadCorrectly()
+        public void Test_Format()
         {
-            ReadDelegate action = () =>
+            using (IMagickImage image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI))
             {
-                using (IMagickImage image = new MagickImage())
-                {
-                    image.Read(Files.Coders.CartoonNetworkStudiosLogoAI);
-                    Test_Image(image);
-                }
-            };
-
-            IAsyncResult[] results = new IAsyncResult[3];
-
-            for (int i = 0; i < results.Length; ++i)
-            {
-                results[i] = action.BeginInvoke(null, null);
+                Test_Image(image);
             }
+        }
 
-            for (int i = 0; i < results.Length; ++i)
-            {
-                action.EndInvoke(results[i]);
-            }
+        private static void Test_Image(IMagickImage image)
+        {
+            Assert.AreEqual(765, image.Width);
+            Assert.AreEqual(361, image.Height);
+            Assert.AreEqual(MagickFormat.Ai, image.Format);
         }
     }
 }
