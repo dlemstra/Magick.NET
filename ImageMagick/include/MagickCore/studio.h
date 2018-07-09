@@ -121,9 +121,12 @@ extern "C" {
 #endif
 #if defined(MAGICKCORE_THREAD_SUPPORT)
 # include <pthread.h>
-#elif defined(MAGICKCORE_WINDOWS_SUPPORT)
+#endif
+#if defined(MAGICKCORE_WINDOWS_SUPPORT)
+#if !defined(__CYGWIN__)
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#endif
 #include <windows.h>
 #pragma comment (lib, "ws2_32.lib")
 #endif
