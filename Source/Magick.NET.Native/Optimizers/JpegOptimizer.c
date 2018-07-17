@@ -345,20 +345,23 @@ static boolean DecompressJpeg(j_decompress_ptr decompress_info, ClientData *clie
 {
   size_t
     i,
+    size,
     width;
 
   jpeg_start_decompress(decompress_info);
 
-  client_data->buffer = malloc(sizeof(JSAMPROW) * decompress_info->output_height);
+  size = sizeof(JSAMPROW) * decompress_info->output_height;
+  client_data->buffer = malloc(size);
   if (client_data->buffer == (JSAMPARRAY)NULL)
     return FALSE;
+  (void)memset(client_data->buffer, 0, size);
   client_data->height = decompress_info->output_height;
 
   width = sizeof(JSAMPLE) * decompress_info->output_width * decompress_info->out_color_components;
   for (i = 0; i < decompress_info->output_height; i++)
   {
     client_data->buffer[i] = malloc(width);
-    if (client_data->buffer[i] == (JSAMPLE *)NULL)
+    if (client_data->buffer[i] == (JSAMPROW)NULL)
       return FALSE;
   }
 
@@ -687,7 +690,8 @@ static void TerminateClientData(ClientData *client_data)
     return;
 
   for (i = 0; i < (ssize_t)client_data->height; i++)
-    free(client_data->buffer[i]);
+    if (client_data->buffer[i] != (JSAMPROW)NULL)
+      free(client_data->buffer[i]);
   free(client_data->buffer);
 
   client_data->height = 0;
