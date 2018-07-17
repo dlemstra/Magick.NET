@@ -412,7 +412,7 @@ static boolean ReadMarker(j_decompress_ptr jpeg_info)
 
   client_data->markers[client_data->markers_count++] = marker;
 
-  ResetMagickMemory(marker, 0, sizeof(*marker));
+  (void)memset(marker, 0, sizeof(*marker));
 
   marker->code = jpeg_info->unread_marker;
   marker->length = length;
@@ -634,7 +634,7 @@ static boolean WriteJpeg(j_decompress_ptr decompress_info, ClientData *client_da
   struct jpeg_error_mgr
     jpeg_error;
 
-  ResetMagickMemory(&compress_info, 0, sizeof(compress_info));
+  (void)memset(&compress_info, 0, sizeof(compress_info));
 
   destination = (DestinationManager *)NULL;
   if (setjmp(client_data->error_recovery) != 0)
@@ -705,7 +705,7 @@ static size_t JpegOptimizer_Compress(ClientData *client_data, const MagickBoolea
   client_data->lossless = lessless != MagickFalse ? TRUE : FALSE;
   client_data->quality = quality;
 
-  ResetMagickMemory(&decompress_info, 0, sizeof(decompress_info));
+  (void)memset(&decompress_info, 0, sizeof(decompress_info));
   decompress_info.err = jpeg_std_error(&jpeg_error);
   decompress_info.err->emit_message = (void(*)(j_common_ptr, int)) JpegWarningHandler;
   decompress_info.err->error_exit = (void(*)(j_common_ptr)) JpegErrorHandler;
@@ -737,7 +737,7 @@ MAGICK_NET_EXPORT size_t JpegOptimizer_CompressFile(const char *input, const cha
   ClientData
     client_data;
 
-  ResetMagickMemory(&client_data, 0, sizeof(client_data));
+  (void)memset(&client_data, 0, sizeof(client_data));
 
   client_data.inputFileName = input;
   client_data.outputFileName = output;
@@ -750,7 +750,7 @@ MAGICK_NET_EXPORT size_t JpegOptimizer_CompressStream(const CustomStreamHandler 
   ClientData
     client_data;
 
-  ResetMagickMemory(&client_data, 0, sizeof(client_data));
+  (void)memset(&client_data, 0, sizeof(client_data));
 
   client_data.reader = reader;
   client_data.writer = writer;
