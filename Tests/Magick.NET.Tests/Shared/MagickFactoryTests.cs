@@ -365,19 +365,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void CreateImageInfo_WithBytesAndSettings_ReturnsMagickImageInfo()
-        {
-            var data = new byte[] { 255 };
-            MagickReadSettings readSettings = CreateReadSettings();
-
-            MagickFactory factory = new MagickFactory();
-            IMagickImageInfo imageInfo = factory.CreateImageInfo(data, readSettings);
-
-            Assert.IsInstanceOfType(imageInfo, typeof(MagickImageInfo));
-            Assert.AreEqual(1, imageInfo.Width);
-        }
-
-        [TestMethod]
         public void CreateImageInfo_WithFileInfo_ReturnsMagickImageInfo()
         {
             var file = new FileInfo(Files.ImageMagickJPG);
@@ -387,22 +374,6 @@ namespace Magick.NET.Tests
 
             Assert.IsInstanceOfType(imageInfo, typeof(MagickImageInfo));
             Assert.AreEqual(123, imageInfo.Width);
-        }
-
-        [TestMethod]
-        public void CreateImageInfo_WithFileInfoAndSettings_ReturnsMagickImageInfo()
-        {
-            var data = new byte[] { 255 };
-            var readSettings = CreateReadSettings();
-
-            using (TemporaryFile file = new TemporaryFile(data))
-            {
-                MagickFactory factory = new MagickFactory();
-                IMagickImageInfo imageInfo = factory.CreateImageInfo(file, readSettings);
-
-                Assert.IsInstanceOfType(imageInfo, typeof(MagickImageInfo));
-                Assert.AreEqual(1, imageInfo.Width);
-            }
         }
 
         [TestMethod]
@@ -419,25 +390,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void CreateImageInfo_WithStreamAndSettings_ReturnsMagickImageInfo()
-        {
-            var data = new byte[] { 255 };
-            var readSettings = CreateReadSettings();
-
-            using (TemporaryFile file = new TemporaryFile(data))
-            {
-                using (var stream = file.OpenRead())
-                {
-                    MagickFactory factory = new MagickFactory();
-                    IMagickImageInfo imageInfo = factory.CreateImageInfo(stream, readSettings);
-
-                    Assert.IsInstanceOfType(imageInfo, typeof(MagickImageInfo));
-                    Assert.AreEqual(1, imageInfo.Width);
-                }
-            }
-        }
-
-        [TestMethod]
         public void CreateImageInfo_WithFileName_ReturnsMagickImageInfo()
         {
             MagickFactory factory = new MagickFactory();
@@ -445,36 +397,6 @@ namespace Magick.NET.Tests
 
             Assert.IsInstanceOfType(imageInfo, typeof(MagickImageInfo));
             Assert.AreEqual(123, imageInfo.Width);
-        }
-
-        [TestMethod]
-        public void CreateImageInfo_WithFileNameAndSettings_ReturnsMagickImageInfo()
-        {
-            var data = new byte[] { 255 };
-            var readSettings = CreateReadSettings();
-
-            using (TemporaryFile file = new TemporaryFile(data))
-            {
-                MagickFactory factory = new MagickFactory();
-                IMagickImageInfo imageInfo = factory.CreateImageInfo(file.FullName, readSettings);
-
-                Assert.IsInstanceOfType(imageInfo, typeof(MagickImageInfo));
-                Assert.AreEqual(1, imageInfo.Width);
-            }
-        }
-
-        private static MagickReadSettings CreateReadSettings()
-        {
-            return new MagickReadSettings
-            {
-                Width = 1,
-                Height = 1,
-                PixelStorage = new PixelStorageSettings()
-                {
-                    Mapping = "R",
-                    StorageType = StorageType.Char,
-                },
-            };
         }
     }
 }

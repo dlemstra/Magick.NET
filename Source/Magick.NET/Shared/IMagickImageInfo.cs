@@ -102,25 +102,9 @@ namespace ImageMagick
         /// <summary>
         /// Read basic information about an image.
         /// </summary>
-        /// <param name="data">The byte array to read the information from.</param>
-        /// <param name="readSettings">The settings to use when reading the image.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Read(byte[] data, MagickReadSettings readSettings);
-
-        /// <summary>
-        /// Read basic information about an image.
-        /// </summary>
         /// <param name="file">The file to read the image from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Read(FileInfo file);
-
-        /// <summary>
-        /// Read basic information about an image.
-        /// </summary>
-        /// <param name="file">The file to read the image from.</param>
-        /// <param name="readSettings">The settings to use when reading the image.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Read(FileInfo file, MagickReadSettings readSettings);
 
         /// <summary>
         /// Read basic information about an image.
@@ -132,24 +116,8 @@ namespace ImageMagick
         /// <summary>
         /// Read basic information about an image.
         /// </summary>
-        /// <param name="stream">The stream to read the image data from.</param>
-        /// <param name="readSettings">The settings to use when reading the image.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Read(Stream stream, MagickReadSettings readSettings);
-
-        /// <summary>
-        /// Read basic information about an image.
-        /// </summary>
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Read(string fileName);
-
-        /// <summary>
-        /// Read basic information about an image.
-        /// </summary>
-        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-        /// <param name="readSettings">The settings to use when reading the image.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Read(string fileName, MagickReadSettings readSettings);
     }
 }

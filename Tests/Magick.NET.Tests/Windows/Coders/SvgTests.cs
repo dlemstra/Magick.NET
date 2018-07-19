@@ -12,7 +12,6 @@
 
 #if WINDOWS_BUILD
 
-using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using ImageMagick;
@@ -56,24 +55,6 @@ namespace Magick.NET.Tests.Coders
 
                 Assert.AreEqual(300, image.Width);
                 Assert.AreEqual(144, image.Height);
-
-                using (FileStream fs = File.OpenRead(Files.Logos.MagickNETSVG))
-                {
-                    fs.Seek(55, SeekOrigin.Begin);
-
-                    ExceptionAssert.Throws<MagickMissingDelegateErrorException>(() =>
-                    {
-                        new MagickImageInfo(fs, settings);
-                    });
-
-                    fs.Seek(55, SeekOrigin.Begin);
-
-                    settings.Format = MagickFormat.Svg;
-
-                    MagickImageInfo info = new MagickImageInfo(fs, settings);
-                    Assert.AreEqual(300, info.Width);
-                    Assert.AreEqual(144, info.Height);
-                }
             }
         }
 
