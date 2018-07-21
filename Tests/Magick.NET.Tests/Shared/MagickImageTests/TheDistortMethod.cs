@@ -124,7 +124,7 @@ namespace Magick.NET.Tests
 
                     ColorAssert.AreEqual(new MagickColor("#0000"), image, 1, 64);
                     ColorAssert.AreEqual(MagickColors.Cornsilk, image, 104, 50);
-                    ColorAssert.AreEqual(new MagickColor("#aa4de148f9cb"), image, 66, 62);
+                    ColorAssert.AreEqual(new MagickColor("#a8d8e007f90a"), image, 66, 62);
                 }
             }
         }

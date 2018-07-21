@@ -1,241 +1,54 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="60.063mm"
-   height="63.984001mm"
-   viewBox="0 0 212.82165 226.71496"
-   id="svg3479"
-   version="1.1"
-   inkscape:version="0.91 r13725"
-   sodipodi:docname="Magick.NET.icon.svg">
-  <defs
-     id="defs3481">
-    <clipPath
-       id="clipPath3513"
-       clipPathUnits="userSpaceOnUse">
-      <path
-         inkscape:connector-curvature="0"
-         id="path3515"
-         d="m 0,182.021 170.917,0 L 170.917,0 0,0 0,182.021 Z" />
-    </clipPath>
-    <clipPath
-       id="clipPath3521"
-       clipPathUnits="userSpaceOnUse">
-      <path
-         inkscape:connector-curvature="0"
-         id="path3523"
-         d="m 38.2061,26.8262 19.3925,0 0,-9.8067 -19.3925,0 0,9.8067 z" />
-    </clipPath>
-    <clipPath
-       id="clipPath3525"
-       clipPathUnits="userSpaceOnUse">
-      <path
-         inkscape:connector-curvature="0"
-         id="path3527"
-         d="m 38.425,17.545 -0.219,-0.525 19.171,9.279 0.222,0.527 -19.174,-9.281 z" />
-    </clipPath>
-    <linearGradient
-       id="linearGradient3533"
-       spreadMethod="pad"
-       gradientTransform="matrix(-87.541763,164.43617,164.43617,87.541779,77.780273,-34.199219)"
-       gradientUnits="userSpaceOnUse"
-       y2="0"
-       x2="1"
-       y1="0"
-       x1="0">
-      <stop
-         id="stop3535"
-         offset="0"
-         style="stop-opacity:0;stop-color:#ffffff" />
-      <stop
-         id="stop3537"
-         offset="1"
-         style="stop-opacity:1;stop-color:#ffffff" />
-    </linearGradient>
-    <mask
-       id="mask3539"
-       height="1"
-       width="1"
-       y="0"
-       x="0"
-       maskUnits="userSpaceOnUse">
-      <g
-         id="g3541">
-        <g
-           id="g3543">
-          <g
-             id="g3545">
-            <g
-               id="g3547">
-              <path
-                 inkscape:connector-curvature="0"
-                 id="path3549"
-                 style="fill:url(#linearGradient3533);stroke:none"
-                 d="m -32768,32767 65535,0 0,-65534 -65535,0 0,65534 z" />
-            </g>
-          </g>
-        </g>
-      </g>
-    </mask>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient3533"
-       id="linearGradient3628"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(-87.541763,164.43617,164.43617,87.541779,77.780273,-34.199219)"
-       spreadMethod="pad"
-       x1="0"
-       y1="0"
-       x2="1"
-       y2="0" />
-  </defs>
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="375"
-     inkscape:cy="400"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer1"
-     showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="1148"
-     inkscape:window-x="1672"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
-     showborder="false" />
-  <metadata
-     id="metadata3484">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     inkscape:label="Laag 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(0,-825.64724)">
-    <g
-       transform="matrix(1.25,0,0,-1.25,0,1053.1723)"
-       inkscape:label="logo"
-       id="g3495">
-      <g
-         transform="translate(0,123.0993)"
-         id="g3497">
-        <path
-           inkscape:connector-curvature="0"
-           id="path3499"
-           style="fill:#347bbd;fill-opacity:1;fill-rule:nonzero;stroke:none"
-           d="m 0,0 52.262,-49.352 -25.821,-62.001 11.985,5.798 24.722,59.364 L 13.875,0.337 0,0 Z" />
-      </g>
-      <g
-         transform="translate(106.3379,44.8281)"
-         id="g3501">
-        <path
-           inkscape:connector-curvature="0"
-           id="path3503"
-           style="fill:#347bbd;fill-opacity:1;fill-rule:nonzero;stroke:none"
-           d="M 0,0 63.92,-44.18 60.848,-31.658 9.297,3.969 0,0 Z" />
-      </g>
-      <g
-         transform="translate(115.6816,173.7642)"
-         id="g3505">
-        <path
-           inkscape:connector-curvature="0"
-           id="path3507"
-           style="fill:#347bbd;fill-opacity:1;fill-rule:nonzero;stroke:none"
-           d="m 0,0 -3.768,8.257 -36.439,-55.372 9.351,0.228 L 0,0 Z" />
-      </g>
-      <g
-         id="g3509">
-        <g
-           clip-path="url(#clipPath3513)"
-           id="g3511">
-          <g
-             id="g3517">
-            <g
-               id="g3519" />
-            <g
-               id="g3557">
-              <g
-                 style="opacity:0.80000299"
-                 id="g3559"
-                 clip-path="url(#clipPath3521)">
-                <g
-                   id="g3561">
-                  <g
-                     id="g3563"
-                     clip-path="url(#clipPath3525)">
-                    <g
-                       id="g3565">
-                      <g
-                         id="g3567" />
-                      <g
-                         id="g3569"
-                         mask="url(#mask3539)">
-                        <g
-                           id="g3571">
-                          <path
-                             inkscape:connector-curvature="0"
-                             id="path3573"
-                             style="fill:url(#linearGradient3628);stroke:none"
-                             d="m 38.425,17.545 -0.219,-0.525 19.171,9.279 0.222,0.527 -19.174,-9.281 z" />
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-              </g>
-            </g>
-          </g>
-        </g>
-      </g>
-      <g
-         transform="translate(154.3848,65.3379)"
-         id="g3575">
-        <path
-           inkscape:connector-curvature="0"
-           id="path3577"
-           style="fill:#a8dff8;fill-opacity:1;fill-rule:nonzero;stroke:none"
-           d="M 0,0 -38.75,-16.541 12.801,-52.168 0,0 Z" />
-      </g>
-      <g
-         transform="translate(53.7598,124.4063)"
-         id="g3579">
-        <path
-           inkscape:connector-curvature="0"
-           id="path3581"
-           style="fill:#a8dff8;fill-opacity:1;fill-rule:nonzero;stroke:none"
-           d="M 0,0 -39.885,-0.97 9.388,-47.498 -15.334,-106.861 23.998,-87.82 41.051,-38.762 0,0 Z" />
-      </g>
-      <g
-         transform="translate(115.6816,173.7642)"
-         id="g3583">
-        <path
-           inkscape:connector-curvature="0"
-           id="path3585"
-           style="fill:#a8dff8;fill-opacity:1;fill-rule:nonzero;stroke:none"
-           d="m 0,0 -30.856,-46.887 28.061,0.681 14.102,21.431 L 0,0 Z" />
-      </g>
-    </g>
-  </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) -->
+<svg version="1.1"
+ id="svg3479" inkscape:version="0.91 r13725" sodipodi:docname="Magick.NET.icon.svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg"
+ xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 170.3 181.4"
+ style="enable-background:new 0 0 170.3 181.4;" xml:space="preserve">
+<style type="text/css">
+ .st0{fill:none;}
+ .st1{fill:#347BBD;}
+ .st2{fill:url(#SVGID_1_);}
+ .st3{fill:url(#SVGID_2_);}
+ .st4{fill:#A8DFF8;}
+</style>
+<sodipodi:namedview bordercolor="#666666" borderopacity="1.0" id="base" inkscape:current-layer="layer1" inkscape:cx="375" inkscape:cy="400" inkscape:document-units="px" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:window-height="1148" inkscape:window-maximized="1" inkscape:window-width="1920" inkscape:window-x="1672" inkscape:window-y="-8" inkscape:zoom="1" pagecolor="#ffffff" showborder="false" showgrid="false">
+ </sodipodi:namedview>
+<g id="g3509">
+ <g id="g3519">
+ </g>
+ <g id="g3567">
+ </g>
+</g>
+<g>
+ <polygon class="st0" points="38.2,165 38.2,165 57.6,165 57.6,155.2 57.4,155.7 "/>
+ <polygon class="st0" points="38.2,164.6 38.2,165 38.4,164.5 "/>
+ <polygon class="st0" points="57.6,155.2 57.6,155.2 57.6,155.2 39.6,163.9 "/>
+ <path class="st0" d="M111.9,0l3,9.4l9.1,28.2l-11.1,16.9l-28.1,0.7l-9.4,0.2L111.9,0H0v58.9l13.9-0.3l0,0l39.9-1l41.1,38.8
+ l-17.1,49.1l-20.2,9.8h0v0v0v9.8H38.2v0v0v-0.4l-11.8,5.7l25.8-62L0,58.9V182h170.9V0H111.9z M106.3,137.2l9.3-4l0,0l34.4-14.7
+ L166,168l4.3,13.4L106.3,137.2z"/>
+ <polygon class="st1" points="13.9,58.6 0,58.9 52.3,108.3 26.4,170.3 38.2,164.6 38.4,164.5 38.4,164.5 38.4,164.5 42.3,155.2 
+ 63.1,105.1 "/>
+ <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-336.8259" y1="387.2104" x2="-335.8259" y2="387.2104" gradientTransform="matrix(-87.5418 -164.4362 -164.4362 87.5418 34262.8398 -89067.2344)">
+ <stop offset="0" style="stop-color:#FFFFFF;stop-opacity:0"/>
+ <stop offset="1" style="stop-color:#FFFFFF"/>
+ </linearGradient>
+ <polygon class="st2" points="38.4,164.5 38.4,164.5 38.4,164.5 38.2,165 38.2,165 57.4,155.7 57.6,155.2 57.6,155.2 39.6,163.9 "/>
+ <polygon class="st1" points="38.4,164.5 38.4,164.5 38.4,164.5 38.4,164.5 38.4,164.5 38.4,164.5 "/>
+ <linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="-336.5047" y1="387.2664" x2="-336.4583" y2="387.2664" gradientTransform="matrix(-87.5418 -164.4362 -164.4362 87.5418 34262.8398 -89067.2344)">
+ <stop offset="0" style="stop-color:#FFFFFF;stop-opacity:0"/>
+ <stop offset="1" style="stop-color:#FFFFFF"/>
+ </linearGradient>
+ <polygon class="st3" points="38.4,164.5 38.4,164.5 38.4,164.5 38.4,164.5 38.4,164.5 38.4,164.5 "/>
+ <polygon class="st4" points="53.8,57.6 13.9,58.6 13.9,58.6 13.9,58.6 63.1,105.1 42.3,155.2 38.4,164.5 39.6,163.9 57.6,155.2 
+ 77.8,145.4 94.8,96.4 "/>
+ <polygon class="st4" points="38.4,164.5 42.3,155.2 42.3,155.2 38.4,164.5 "/>
+ <polygon class="st4" points="42.3,155.2 42.3,155.2 63.1,105.1 13.9,58.6 13.9,58.6 63.1,105.1 "/>
+ <polygon class="st4" points="39.6,163.9 38.4,164.5 38.4,164.5 "/>
+ <polygon class="st4" points="38.4,164.5 38.4,164.5 38.4,164.5 38.4,164.5 "/>
+ <polygon class="st1" points="115.6,133.2 115.6,133.2 115.6,133.2 106.3,137.2 170.3,181.4 166,168 "/>
+ <polygon class="st1" points="84.8,55.1 114.9,9.4 111.9,0 111.9,0 75.5,55.4 "/>
+ <polygon class="st1" points="111.9,0 111.9,0 111.9,0 "/>
+ <polygon class="st4" points="166,168 150,118.5 115.6,133.2 115.6,133.2 "/>
+ <polygon class="st4" points="112.9,54.5 124,37.6 114.9,9.4 84.8,55.1 "/>
+</g>
 </svg>

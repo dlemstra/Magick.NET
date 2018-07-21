@@ -188,11 +188,11 @@ namespace Magick.NET.Tests.Statistics
 
                     PerceptualHash otherPhash = other.PerceptualHash();
 #if Q8
-                    OpenCLValue.Assert(312.06, 311.71, phash.SumSquaredDistance(otherPhash), 0.01);
+                    OpenCLValue.Assert(394.74, 394.32, phash.SumSquaredDistance(otherPhash), 0.01);
 #elif Q16
-                    OpenCLValue.Assert(311.40, 311.45, phash.SumSquaredDistance(otherPhash), 0.02);
+                    OpenCLValue.Assert(395.28, 395.33, phash.SumSquaredDistance(otherPhash), 0.02);
 #elif Q16HDRI
-                    OpenCLValue.Assert(311.24, 311.27, phash.SumSquaredDistance(otherPhash), 0.02);
+                    OpenCLValue.Assert(395.60, 395.59, phash.SumSquaredDistance(otherPhash), 0.02);
 #else
 #error Not implemented!
 #endif

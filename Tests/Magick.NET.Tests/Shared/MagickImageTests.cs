@@ -40,7 +40,7 @@ namespace Magick.NET.Tests
                 image.AdaptiveBlur(10, 5);
 
 #if Q8 || Q16
-                ColorAssert.AreEqual(new MagickColor("#a867dfa7f8d7fe76"), image, 56, 68);
+                ColorAssert.AreEqual(new MagickColor("#a872dfb1f8ddfe8b"), image, 56, 68);
 #elif Q16HDRI
                 ColorAssert.AreEqual(new MagickColor("#a8a8dfdff8f8"), image, 56, 68);
 #else
@@ -56,7 +56,7 @@ namespace Magick.NET.Tests
             {
                 image.AdaptiveSharpen(10, 10);
 #if Q8 || Q16
-                ColorAssert.AreEqual(new MagickColor("#a986e09ff969"), image, 56, 68);
+                ColorAssert.AreEqual(new MagickColor("#a95ce07af952"), image, 56, 68);
 #elif Q16HDRI
                 ColorAssert.AreEqual(new MagickColor("#a8a8dfdff8f8"), image, 56, 68);
 #else
