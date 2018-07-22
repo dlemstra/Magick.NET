@@ -15,22 +15,22 @@ environment:
   matrix:
     - im_quantum:  "Q8"
       im_platform: "x86"
-    - im_quantum:  "Q8"
-      im_platform: "x64"
-    - im_quantum:  "Q8"
-      im_platform: "AnyCPU"
-
     - im_quantum:  "Q16"
       im_platform: "x86"
-    - im_quantum:  "Q16"
-      im_platform: "x64"
-    - im_quantum:  "Q16"
-      im_platform: "AnyCPU"
-
     - im_quantum:  "Q16-HDRI"
       im_platform: "x86"
+
+    - im_quantum:  "Q8"
+      im_platform: "x64"
+    - im_quantum:  "Q16"
+      im_platform: "x64"
     - im_quantum:  "Q16-HDRI"
       im_platform: "x64"
+
+    - im_quantum:  "Q8"
+      im_platform: "AnyCPU"
+    - im_quantum:  "Q16"
+      im_platform: "AnyCPU"
     - im_quantum:  "Q16-HDRI"
       im_platform: "AnyCPU"
 
