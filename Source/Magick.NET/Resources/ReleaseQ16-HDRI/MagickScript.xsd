@@ -1215,8 +1215,8 @@
           <xs:enumeration value="Char" />
           <xs:enumeration value="Double" />
           <xs:enumeration value="Float" />
-          <xs:enumeration value="Long" />
-          <xs:enumeration value="LongLong" />
+          <xs:enumeration value="Int32" />
+          <xs:enumeration value="Int64" />
           <xs:enumeration value="Quantum" />
           <xs:enumeration value="Short" />
         </xs:restriction>

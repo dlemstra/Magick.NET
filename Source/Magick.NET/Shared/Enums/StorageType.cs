@@ -38,14 +38,14 @@ namespace ImageMagick
         Float,
 
         /// <summary>
-        /// Long
+        /// Int32
         /// </summary>
-        Long,
+        Int32,
 
         /// <summary>
-        /// LongLong
+        /// Int64
         /// </summary>
-        LongLong,
+        Int64,
 
         /// <summary>
         /// Quantum

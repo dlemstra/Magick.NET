@@ -6513,14 +6513,14 @@ namespace ImageMagick
                     return length * sizeof(double);
                 case StorageType.Float:
                     return length * sizeof(float);
-                case StorageType.Long:
-                    return length * sizeof(int);
-                case StorageType.LongLong:
-                    return length * sizeof(long);
+                case StorageType.Int32:
+                    return length * sizeof(Int32);
+                case StorageType.Int64:
+                    return length * sizeof(Int64);
                 case StorageType.Quantum:
                     return length * sizeof(QuantumType);
                 case StorageType.Short:
-                    return length * sizeof(short);
+                    return length * sizeof(ushort);
                 case StorageType.Undefined:
                 default:
                     throw new NotSupportedException();
