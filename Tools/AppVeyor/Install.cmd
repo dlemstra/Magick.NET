@@ -12,4 +12,6 @@ echo Extracting .lib files
 7z x -o%LIBDIR% AACQFGl4PKi9xnd15EbU5S1Ia
 if %errorlevel% neq 0 exit /b %errorlevel%
 
+dotnet restore ..\..\Tests\Magick.NET.Tests\Magick.NET.Tests.csproj
+
 :done
