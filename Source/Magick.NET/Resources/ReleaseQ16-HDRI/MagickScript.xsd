@@ -2110,7 +2110,6 @@
             <xs:attribute name="value" use="required" type="int" />
           </xs:complexType>
         </xs:element>
-        <xs:element name="readMask" type="image" />
         <xs:element name="renderingIntent">
           <xs:complexType>
             <xs:attribute name="value" use="required" type="RenderingIntent" />
@@ -2122,7 +2121,6 @@
             <xs:attribute name="value" use="required" type="VirtualPixelMethod" />
           </xs:complexType>
         </xs:element>
-        <xs:element name="writeMask" type="image" />
         <xs:element name="adaptiveBlur">
           <xs:complexType>
             <xs:attribute name="radius" type="double" />
@@ -2729,7 +2727,9 @@
             <xs:attribute name="name" use="required" type="xs:string" />
           </xs:complexType>
         </xs:element>
+        <xs:element name="removeReadMask" type="empty" />
         <xs:element name="removeRegionMask" type="empty" />
+        <xs:element name="removeWriteMask" type="empty" />
         <xs:element name="rePage" type="empty" />
         <xs:element name="resample">
           <xs:complexType>
@@ -2833,6 +2833,20 @@
           <xs:complexType>
             <xs:attribute name="color" use="required" type="color" />
             <xs:attribute name="index" use="required" type="int" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="setReadMask">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="image" type="image" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="setWriteMask">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="image" type="image" />
+            </xs:sequence>
           </xs:complexType>
         </xs:element>
         <xs:element name="shade">

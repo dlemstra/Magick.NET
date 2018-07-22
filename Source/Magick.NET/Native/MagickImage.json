@@ -268,11 +268,6 @@
             "type": "size_t"
         },
         {
-            "name": "ReadMask",
-            "type": "IMagickImage",
-            "throws": true
-        },
-        {
             "name": "RenderingIntent",
             "type": "RenderingIntent"
         },
@@ -309,11 +304,6 @@
             "name": "Width",
             "type": "size_t",
             "readonly": true
-        },
-        {
-            "name": "WriteMask",
-            "type": "IMagickImage",
-            "throws": true
         }
     ],
     "methods":
@@ -1447,6 +1437,16 @@
             ]
         },
         {
+            "name": "GetReadMask",
+            "type": "Instance",
+            "throws": true
+        },
+        {
+            "name": "GetWriteMask",
+            "type": "Instance",
+            "throws": true
+        },
+        {
             "name": "Grayscale",
             "throws": true,
             "arguments":
@@ -2364,6 +2364,28 @@
                 {
                     "name": "method",
                     "type": "ProgressDelegate"
+                }
+            ]
+        },
+        {
+            "name": "SetReadMask",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                }
+            ]
+        },
+        {
+            "name": "SetWriteMask",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
                 }
             ]
         },

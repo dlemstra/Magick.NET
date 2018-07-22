@@ -995,11 +995,6 @@ namespace ImageMagick
                         {
                             switch(element.Name[2])
                             {
-                                case 'a':
-                                {
-                                    ExecuteReadMask(element, image);
-                                    return;
-                                }
                                 case 'n':
                                 {
                                     ExecuteRenderingIntent(element, image);
@@ -1043,7 +1038,24 @@ namespace ImageMagick
                                         }
                                         case 'R':
                                         {
-                                            ExecuteRemoveRegionMask(image);
+                                            switch(element.Name[8])
+                                            {
+                                                case 'a':
+                                                {
+                                                    ExecuteRemoveReadMask(image);
+                                                    return;
+                                                }
+                                                case 'g':
+                                                {
+                                                    ExecuteRemoveRegionMask(image);
+                                                    return;
+                                                }
+                                            }
+                                            break;
+                                        }
+                                        case 'W':
+                                        {
+                                            ExecuteRemoveWriteMask(image);
                                             return;
                                         }
                                     }
@@ -1185,6 +1197,16 @@ namespace ImageMagick
                                                 }
                                             }
                                             break;
+                                        }
+                                        case 'R':
+                                        {
+                                            ExecuteSetReadMask(element, image);
+                                            return;
+                                        }
+                                        case 'W':
+                                        {
+                                            ExecuteSetWriteMask(element, image);
+                                            return;
                                         }
                                     }
                                     break;
@@ -1359,46 +1381,6 @@ namespace ImageMagick
                     }
                     break;
                 }
-                case 'w':
-                {
-                    switch(element.Name[1])
-                    {
-                        case 'r':
-                        {
-                            if (element.Name.Length == 5)
-                            {
-                                ExecuteWrite(element, image);
-                                return;
-                            }
-                            if (element.Name.Length == 9)
-                            {
-                                ExecuteWriteMask(element, image);
-                                return;
-                            }
-                            break;
-                        }
-                        case 'a':
-                        {
-                            if (element.Name.Length == 4)
-                            {
-                                ExecuteWave(element, image);
-                                return;
-                            }
-                            if (element.Name.Length == 14)
-                            {
-                                ExecuteWaveletDenoise(element, image);
-                                return;
-                            }
-                            break;
-                        }
-                        case 'h':
-                        {
-                            ExecuteWhiteThreshold(element, image);
-                            return;
-                        }
-                    }
-                    break;
-                }
                 case 'k':
                 {
                     ExecuteKuwahara(element, image);
@@ -1527,6 +1509,37 @@ namespace ImageMagick
                     ExecuteUnsharpMask(element, image);
                     return;
                 }
+                case 'w':
+                {
+                    switch(element.Name[1])
+                    {
+                        case 'a':
+                        {
+                            if (element.Name.Length == 4)
+                            {
+                                ExecuteWave(element, image);
+                                return;
+                            }
+                            if (element.Name.Length == 14)
+                            {
+                                ExecuteWaveletDenoise(element, image);
+                                return;
+                            }
+                            break;
+                        }
+                        case 'h':
+                        {
+                            ExecuteWhiteThreshold(element, image);
+                            return;
+                        }
+                        case 'r':
+                        {
+                            ExecuteWrite(element, image);
+                            return;
+                        }
+                    }
+                    break;
+                }
             }
             throw new NotSupportedException(element.Name);
         }
@@ -1650,10 +1663,6 @@ namespace ImageMagick
         {
             image.Quality = Variables.GetValue<Int32>(element, "value");
         }
-        private void ExecuteReadMask(XmlElement element, IMagickImage image)
-        {
-            image.ReadMask = CreateMagickImage(element);
-        }
         private void ExecuteRenderingIntent(XmlElement element, IMagickImage image)
         {
             image.RenderingIntent = Variables.GetValue<RenderingIntent>(element, "value");
@@ -1665,10 +1674,6 @@ namespace ImageMagick
         private void ExecuteVirtualPixelMethod(XmlElement element, IMagickImage image)
         {
             image.VirtualPixelMethod = Variables.GetValue<VirtualPixelMethod>(element, "value");
-        }
-        private void ExecuteWriteMask(XmlElement element, IMagickImage image)
-        {
-            image.WriteMask = CreateMagickImage(element);
         }
         private void ExecuteAdaptiveBlur(XmlElement element, IMagickImage image)
         {
@@ -3156,9 +3161,17 @@ namespace ImageMagick
             String name_ = Variables.GetValue<String>(element, "name");
             image.RemoveProfile(name_);
         }
+        private static void ExecuteRemoveReadMask(IMagickImage image)
+        {
+            image.RemoveReadMask();
+        }
         private static void ExecuteRemoveRegionMask(IMagickImage image)
         {
             image.RemoveRegionMask();
+        }
+        private static void ExecuteRemoveWriteMask(IMagickImage image)
+        {
+            image.RemoveWriteMask();
         }
         private static void ExecuteRePage(IMagickImage image)
         {
@@ -3394,6 +3407,16 @@ namespace ImageMagick
             Int32 index_ = Variables.GetValue<Int32>(element, "index");
             MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
             image.SetColormap(index_, color_);
+        }
+        private void ExecuteSetReadMask(XmlElement element, IMagickImage image)
+        {
+            IMagickImage image_ = CreateMagickImage(element["image"]);
+            image.SetReadMask(image_);
+        }
+        private void ExecuteSetWriteMask(XmlElement element, IMagickImage image)
+        {
+            IMagickImage image_ = CreateMagickImage(element["image"]);
+            image.SetWriteMask(image_);
         }
         private void ExecuteShade(XmlElement element, IMagickImage image)
         {

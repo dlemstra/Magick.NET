@@ -287,12 +287,6 @@ namespace ImageMagick
         int Quality { get; set; }
 
         /// <summary>
-        /// Gets or sets the associated read mask of the image. The mask must be the same dimensions as the image and
-        /// only contain the colors black and white. Pass null to unset an existing mask.
-        /// </summary>
-        IMagickImage ReadMask { get; set; }
-
-        /// <summary>
         /// Gets or sets the type of rendering intent.
         /// </summary>
         RenderingIntent RenderingIntent { get; set; }
@@ -322,12 +316,6 @@ namespace ImageMagick
         /// Gets the width of the image.
         /// </summary>
         int Width { get; }
-
-        /// <summary>
-        /// Gets or sets the associated write mask of the image. The mask must be the same dimensions as the image and
-        /// only contain the colors black and white. Pass null to unset an existing mask.
-        /// </summary>
-        IMagickImage WriteMask { get; set; }
 
         /// <summary>
         /// Adaptive-blur image with the default blur factor (0x1).
@@ -1823,6 +1811,20 @@ namespace ImageMagick
         ImageProfile GetProfile(string name);
 
         /// <summary>
+        /// Gets the associated read mask of the image.
+        /// </summary>
+        /// <returns>The associated read mask of the image.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        IMagickImage GetReadMask();
+
+        /// <summary>
+        /// Gets the associated write mask of the image.
+        /// </summary>
+        /// <returns>The associated write mask of the image.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        IMagickImage GetWriteMask();
+
+        /// <summary>
         /// Retrieve the xmp profile from the image.
         /// </summary>
         /// <returns>The xmp profile from the image.</returns>
@@ -2911,6 +2913,18 @@ namespace ImageMagick
         void RemoveProfile(string name);
 
         /// <summary>
+        /// Removes the associated read mask of the image.
+        /// </summary>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void RemoveReadMask();
+
+        /// <summary>
+        /// Removes the associated write mask of the image.
+        /// </summary>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void RemoveWriteMask();
+
+        /// <summary>
         /// Resets the page property of this image.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -3199,6 +3213,22 @@ namespace ImageMagick
         /// <param name="color">The color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void SetColormap(int index, MagickColor color);
+
+        /// <summary>
+        /// Sets the associated read mask of the image. The mask must be the same dimensions as the image and
+        /// only contain the colors black and white.
+        /// </summary>
+        /// <param name="image">The image that contains the read mask.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void SetReadMask(IMagickImage image);
+
+        /// <summary>
+        /// Sets the associated write mask of the image. The mask must be the same dimensions as the image and
+        /// only contains the colors black and white.
+        /// </summary>
+        /// <param name="image">The image that contains the write mask.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void SetWriteMask(IMagickImage image);
 
         /// <summary>
         /// Shade image using distant light source.

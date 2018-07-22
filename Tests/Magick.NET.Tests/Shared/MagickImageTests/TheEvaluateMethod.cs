@@ -113,7 +113,7 @@ namespace Magick.NET.Tests.Shared
                             pixels.SetPixel(0, 0, new QuantumType[] { 0, 0, 0 });
                         }
 
-                        image.WriteMask = mask;
+                        image.SetWriteMask(mask);
 
                         image.Evaluate(Channels.Red, EvaluateOperator.Set, Quantum.Max);
 
