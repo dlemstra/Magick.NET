@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text.RegularExpressions;
@@ -61,6 +62,7 @@ namespace ImageMagick
         public object Get(string name)
         {
             Throw.IfNullOrEmpty(nameof(name), name);
+            Throw.IfFalse(nameof(name), _variables.ContainsKey(name), "Invalid variable name: {0}", name);
 
             return _variables[name];
         }
@@ -73,88 +75,40 @@ namespace ImageMagick
         public void Set(string name, object value)
         {
             Throw.IfNullOrEmpty(nameof(name), name);
-            Throw.IfFalse(nameof(name), _variables.ContainsKey(name), "Invalid variable name: {0}", value);
+            Throw.IfFalse(nameof(name), _variables.ContainsKey(name), "Invalid variable name: {0}", name);
 
             _variables[name] = value;
         }
 
         internal double[] GetDoubleArray(XmlElement element)
         {
-            if (element == null)
-                return null;
-
-            XmlAttribute attribute = element.Attributes["variable"];
-            if (attribute != null)
-            {
-                string[] names = GetNames(attribute.Value);
-                if (names != null)
-                    return (double[])_variables[names[0]];
-            }
-
-            double[] result = new double[element.ChildNodes.Count];
-            int index = 0;
-            foreach (XmlElement child in element.ChildNodes)
-            {
-                result[index++] = double.Parse(child.InnerText, CultureInfo.InvariantCulture);
-            }
-
-            return result;
+            return GetArray<double>("double", element);
         }
 
         internal float[] GetSingleArray(XmlElement element)
         {
-            if (element == null)
-                return null;
-
-            XmlAttribute attribute = element.Attributes["variable"];
-            if (attribute != null)
-            {
-                string[] names = GetNames(attribute.Value);
-                if (names != null)
-                    return (float[])_variables[names[0]];
-            }
-
-            float[] result = new float[element.ChildNodes.Count];
-            int index = 0;
-            foreach (XmlElement child in element.ChildNodes)
-            {
-                result[index++] = float.Parse(child.InnerText, CultureInfo.InvariantCulture);
-            }
-
-            return result;
+            return GetArray<float>("float", element);
         }
 
         internal string[] GetStringArray(XmlElement element)
         {
-            if (element == null)
-                return null;
-
-            XmlAttribute attribute = element.Attributes["variable"];
-            if (attribute != null)
-            {
-                string[] names = GetNames(attribute.Value);
-                if (names != null)
-                    return (string[])_variables[names[0]];
-            }
-
-            string[] result = new string[element.ChildNodes.Count];
-            int index = 0;
-            foreach (XmlElement child in element.ChildNodes)
-            {
-                result[index++] = child.InnerText;
-            }
-
-            return result;
+            return GetArray<string>("string", element);
         }
 
-        internal T GetValue<T>(XmlAttribute attribute)
+        internal bool TryGetValue<T>(XmlAttribute attribute, out T value)
         {
             if (attribute == null)
-                return default(T);
+            {
+                value = default(T);
+                return true;
+            }
 
             string[] names = GetNames(attribute.Value);
             if (names == null)
-                return XmlHelper.GetValue<T>(attribute);
+            {
+                value = default(T);
+                return false;
+            }
 
             if (typeof(T) == typeof(string))
             {
@@ -164,7 +118,8 @@ namespace ImageMagick
                     newValue = newValue.Replace(newValue, MagickConverter.Convert<string>(_variables[name]));
                 }
 
-                return (T)(object)newValue;
+                value = (T)(object)newValue;
+                return true;
             }
             else
             {
@@ -173,13 +128,9 @@ namespace ImageMagick
                 if (TypeHelper.IsValueType(typeof(T)))
                     Throw.IfNull(nameof(attribute), _variables[name], "The variable {0} should be set.", name);
 
-                return MagickConverter.Convert<T>(_variables[name]);
+                value = MagickConverter.Convert<T>(_variables[name]);
+                return true;
             }
-        }
-
-        internal T GetValue<T>(XmlElement element, string attribute)
-        {
-            return GetValue<T>(element.Attributes[attribute]);
         }
 
         private static string[] GetNames(string value)
@@ -200,8 +151,40 @@ namespace ImageMagick
             return result;
         }
 
+        private T[] GetArray<T>(string typeName, XmlElement element)
+        {
+            if (element == null)
+                return null;
+
+            XmlAttribute attribute = element.Attributes["variable"];
+            if (attribute == null)
+                return null;
+
+            string[] names = GetNames(attribute.Value);
+            if (names == null)
+                return null;
+
+            var name = names[0];
+            if (!_variables.TryGetValue(name, out var value))
+            {
+                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "Invalid variable name: {0}.", name));
+            }
+
+            if (value is T[])
+            {
+                return (T[])value;
+            }
+
+            throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "The value of variable '{0}' is not a {1}[].", name, typeName));
+        }
+
         private void GetNames(XmlElement element)
         {
+            if (element == null)
+            {
+                return;
+            }
+
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 string[] names = GetNames(attribute.Value);

@@ -10,25 +10,27 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if !NETCORE
-
-using System.Xml.Schema;
+using System.Linq;
+using System.Xml;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Framework.Script
+namespace Magick.NET.Tests
 {
-    public partial class MagickScriptTests
+    public partial class ScriptVariablesTests
     {
-        public partial class TheConstructor
+        [TestClass]
+        public class TheNamesProperty
         {
             [TestMethod]
-            public void ShouldThrowExceptionWhenScriptDoesNotFollowXmlSchema()
+            public void ShouldReturnTheNamesOfTheVariables()
             {
-                ExceptionAssert.Throws<XmlSchemaValidationException>(() => new MagickScript(Files.Scripts.Invalid));
+                var document = new XmlDocument();
+                document.LoadXml("<test foo=\"{$foo}\" bar=\"{$bar}\"/>");
+                var scriptVariables = new ScriptVariables(document);
+
+                CollectionAssert.AreEqual(new string[] { "foo", "bar" }, scriptVariables.Names.ToArray());
             }
         }
     }
 }
-
-#endif

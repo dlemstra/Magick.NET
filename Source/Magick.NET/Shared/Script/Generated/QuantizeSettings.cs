@@ -38,11 +38,11 @@ namespace ImageMagick
             if (element == null)
                 return null;
             QuantizeSettings result = new QuantizeSettings();
-            result.Colors = Variables.GetValue<Int32>(element, "colors");
-            result.ColorSpace = Variables.GetValue<ColorSpace>(element, "colorSpace");
-            result.DitherMethod = Variables.GetValue<Nullable<DitherMethod>>(element, "ditherMethod");
-            result.MeasureErrors = Variables.GetValue<Boolean>(element, "measureErrors");
-            result.TreeDepth = Variables.GetValue<Int32>(element, "treeDepth");
+            result.Colors = GetValue<Int32>(element, "colors");
+            result.ColorSpace = GetValue<ColorSpace>(element, "colorSpace");
+            result.DitherMethod = GetValue<Nullable<DitherMethod>>(element, "ditherMethod");
+            result.MeasureErrors = GetValue<Boolean>(element, "measureErrors");
+            result.TreeDepth = GetValue<Int32>(element, "treeDepth");
             return result;
         }
     }

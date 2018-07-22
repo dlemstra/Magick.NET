@@ -31,7 +31,6 @@ namespace ImageMagick
         public string Id
         {
             get;
-            private set;
         }
 
         /// <summary>
@@ -40,7 +39,6 @@ namespace ImageMagick
         public IMagickImage Image
         {
             get;
-            private set;
         }
     }
 }

@@ -155,7 +155,7 @@ namespace ImageMagick
             if (element == null)
                 return null;
             BmpWriteDefines result = new BmpWriteDefines();
-            result.Subtype = Variables.GetValue<Nullable<ImageMagick.Defines.BmpSubtype>>(element, "subtype");
+            result.Subtype = GetValue<Nullable<ImageMagick.Defines.BmpSubtype>>(element, "subtype");
             return result;
         }
         private IDefines CreateDdsReadDefines(XmlElement element)
@@ -163,7 +163,7 @@ namespace ImageMagick
             if (element == null)
                 return null;
             DdsReadDefines result = new DdsReadDefines();
-            result.SkipMipmaps = Variables.GetValue<Nullable<Boolean>>(element, "skipMipmaps");
+            result.SkipMipmaps = GetValue<Nullable<Boolean>>(element, "skipMipmaps");
             return result;
         }
         private IDefines CreateDdsWriteDefines(XmlElement element)
@@ -171,12 +171,12 @@ namespace ImageMagick
             if (element == null)
                 return null;
             DdsWriteDefines result = new DdsWriteDefines();
-            result.ClusterFit = Variables.GetValue<Nullable<Boolean>>(element, "clusterFit");
-            result.Compression = Variables.GetValue<Nullable<ImageMagick.Defines.DdsCompression>>(element, "compression");
-            result.FastMipmaps = Variables.GetValue<Nullable<Boolean>>(element, "fastMipmaps");
-            result.Mipmaps = Variables.GetValue<Nullable<Int32>>(element, "mipmaps");
-            result.MipmapsFromCollection = Variables.GetValue<Nullable<Boolean>>(element, "mipmapsFromCollection");
-            result.WeightByAlpha = Variables.GetValue<Nullable<Boolean>>(element, "weightByAlpha");
+            result.ClusterFit = GetValue<Nullable<Boolean>>(element, "clusterFit");
+            result.Compression = GetValue<Nullable<ImageMagick.Defines.DdsCompression>>(element, "compression");
+            result.FastMipmaps = GetValue<Nullable<Boolean>>(element, "fastMipmaps");
+            result.Mipmaps = GetValue<Nullable<Int32>>(element, "mipmaps");
+            result.MipmapsFromCollection = GetValue<Nullable<Boolean>>(element, "mipmapsFromCollection");
+            result.WeightByAlpha = GetValue<Nullable<Boolean>>(element, "weightByAlpha");
             return result;
         }
         private IDefines CreateJp2ReadDefines(XmlElement element)
@@ -184,8 +184,8 @@ namespace ImageMagick
             if (element == null)
                 return null;
             Jp2ReadDefines result = new Jp2ReadDefines();
-            result.QualityLayers = Variables.GetValue<Nullable<Int32>>(element, "qualityLayers");
-            result.ReduceFactor = Variables.GetValue<Nullable<Int32>>(element, "reduceFactor");
+            result.QualityLayers = GetValue<Nullable<Int32>>(element, "qualityLayers");
+            result.ReduceFactor = GetValue<Nullable<Int32>>(element, "reduceFactor");
             return result;
         }
         private IDefines CreateJp2WriteDefines(XmlElement element)
@@ -193,10 +193,10 @@ namespace ImageMagick
             if (element == null)
                 return null;
             Jp2WriteDefines result = new Jp2WriteDefines();
-            result.NumberResolutions = Variables.GetValue<Nullable<Int32>>(element, "numberResolutions");
-            result.ProgressionOrder = Variables.GetValue<Nullable<ImageMagick.Defines.Jp2ProgressionOrder>>(element, "progressionOrder");
-            result.Quality = Variables.GetSingleArray(element["quality"]);
-            result.Rate = Variables.GetSingleArray(element["rate"]);
+            result.NumberResolutions = GetValue<Nullable<Int32>>(element, "numberResolutions");
+            result.ProgressionOrder = GetValue<Nullable<ImageMagick.Defines.Jp2ProgressionOrder>>(element, "progressionOrder");
+            result.Quality = GetSingleArray(element["quality"]);
+            result.Rate = GetSingleArray(element["rate"]);
             return result;
         }
         private IDefines CreateJpegReadDefines(XmlElement element)
@@ -204,12 +204,12 @@ namespace ImageMagick
             if (element == null)
                 return null;
             JpegReadDefines result = new JpegReadDefines();
-            result.BlockSmoothing = Variables.GetValue<Nullable<Boolean>>(element, "blockSmoothing");
-            result.Colors = Variables.GetValue<Nullable<Int32>>(element, "colors");
-            result.DctMethod = Variables.GetValue<Nullable<ImageMagick.Defines.DctMethod>>(element, "dctMethod");
-            result.FancyUpsampling = Variables.GetValue<Nullable<Boolean>>(element, "fancyUpsampling");
-            result.Size = Variables.GetValue<MagickGeometry>(element, "size");
-            result.SkipProfiles = Variables.GetValue<Nullable<ImageMagick.Defines.ProfileTypes>>(element, "skipProfiles");
+            result.BlockSmoothing = GetValue<Nullable<Boolean>>(element, "blockSmoothing");
+            result.Colors = GetValue<Nullable<Int32>>(element, "colors");
+            result.DctMethod = GetValue<Nullable<ImageMagick.Defines.DctMethod>>(element, "dctMethod");
+            result.FancyUpsampling = GetValue<Nullable<Boolean>>(element, "fancyUpsampling");
+            result.Size = GetValue<MagickGeometry>(element, "size");
+            result.SkipProfiles = GetValue<Nullable<ImageMagick.Defines.ProfileTypes>>(element, "skipProfiles");
             return result;
         }
         private IDefines CreateJpegWriteDefines(XmlElement element)
@@ -217,11 +217,11 @@ namespace ImageMagick
             if (element == null)
                 return null;
             JpegWriteDefines result = new JpegWriteDefines();
-            result.DctMethod = Variables.GetValue<Nullable<ImageMagick.Defines.DctMethod>>(element, "dctMethod");
-            result.Extent = Variables.GetValue<Nullable<Int32>>(element, "extent");
-            result.OptimizeCoding = Variables.GetValue<Nullable<Boolean>>(element, "optimizeCoding");
-            result.Quality = Variables.GetValue<MagickGeometry>(element, "quality");
-            result.QuantizationTables = Variables.GetValue<String>(element, "quantizationTables");
+            result.DctMethod = GetValue<Nullable<ImageMagick.Defines.DctMethod>>(element, "dctMethod");
+            result.Extent = GetValue<Nullable<Int32>>(element, "extent");
+            result.OptimizeCoding = GetValue<Nullable<Boolean>>(element, "optimizeCoding");
+            result.Quality = GetValue<MagickGeometry>(element, "quality");
+            result.QuantizationTables = GetValue<String>(element, "quantizationTables");
             result.SamplingFactors = CreateMagickGeometryCollection(element);
             return result;
         }
@@ -230,10 +230,10 @@ namespace ImageMagick
             if (element == null)
                 return null;
             PdfReadDefines result = new PdfReadDefines();
-            result.FitPage = Variables.GetValue<MagickGeometry>(element, "fitPage");
-            result.Password = Variables.GetValue<String>(element, "password");
-            result.UseCropBox = Variables.GetValue<Nullable<Boolean>>(element, "useCropBox");
-            result.UseTrimBox = Variables.GetValue<Nullable<Boolean>>(element, "useTrimBox");
+            result.FitPage = GetValue<MagickGeometry>(element, "fitPage");
+            result.Password = GetValue<String>(element, "password");
+            result.UseCropBox = GetValue<Nullable<Boolean>>(element, "useCropBox");
+            result.UseTrimBox = GetValue<Nullable<Boolean>>(element, "useTrimBox");
             return result;
         }
         private IDefines CreatePngReadDefines(XmlElement element)
@@ -241,11 +241,11 @@ namespace ImageMagick
             if (element == null)
                 return null;
             PngReadDefines result = new PngReadDefines();
-            result.ChunkCacheMax = Variables.GetValue<Nullable<Int64>>(element, "chunkCacheMax");
-            result.ChunkMallocMax = Variables.GetValue<Nullable<Int64>>(element, "chunkMallocMax");
-            result.PreserveiCCP = Variables.GetValue<Boolean>(element, "preserveiCCP");
-            result.SkipProfiles = Variables.GetValue<Nullable<ImageMagick.Defines.ProfileTypes>>(element, "skipProfiles");
-            result.SwapBytes = Variables.GetValue<Boolean>(element, "swapBytes");
+            result.ChunkCacheMax = GetValue<Nullable<Int64>>(element, "chunkCacheMax");
+            result.ChunkMallocMax = GetValue<Nullable<Int64>>(element, "chunkMallocMax");
+            result.PreserveiCCP = GetValue<Boolean>(element, "preserveiCCP");
+            result.SkipProfiles = GetValue<Nullable<ImageMagick.Defines.ProfileTypes>>(element, "skipProfiles");
+            result.SwapBytes = GetValue<Boolean>(element, "swapBytes");
             return result;
         }
         private IDefines CreatePsdReadDefines(XmlElement element)
@@ -253,7 +253,7 @@ namespace ImageMagick
             if (element == null)
                 return null;
             PsdReadDefines result = new PsdReadDefines();
-            result.AlphaUnblend = Variables.GetValue<Nullable<Boolean>>(element, "alphaUnblend");
+            result.AlphaUnblend = GetValue<Nullable<Boolean>>(element, "alphaUnblend");
             return result;
         }
         private IDefines CreatePsdWriteDefines(XmlElement element)
@@ -261,7 +261,7 @@ namespace ImageMagick
             if (element == null)
                 return null;
             PsdWriteDefines result = new PsdWriteDefines();
-            result.AdditionalInfo = Variables.GetValue<PsdAdditionalInfo>(element, "additionalInfo");
+            result.AdditionalInfo = GetValue<PsdAdditionalInfo>(element, "additionalInfo");
             return result;
         }
         private IDefines CreateTiffReadDefines(XmlElement element)
@@ -269,8 +269,8 @@ namespace ImageMagick
             if (element == null)
                 return null;
             TiffReadDefines result = new TiffReadDefines();
-            result.IgnoreExifPoperties = Variables.GetValue<Nullable<Boolean>>(element, "ignoreExifPoperties");
-            result.IgnoreTags = Variables.GetStringArray(element["ignoreTags"]);
+            result.IgnoreExifPoperties = GetValue<Nullable<Boolean>>(element, "ignoreExifPoperties");
+            result.IgnoreTags = GetStringArray(element["ignoreTags"]);
             return result;
         }
         private IDefines CreateTiffWriteDefines(XmlElement element)
@@ -278,11 +278,11 @@ namespace ImageMagick
             if (element == null)
                 return null;
             TiffWriteDefines result = new TiffWriteDefines();
-            result.Alpha = Variables.GetValue<Nullable<ImageMagick.Defines.TiffAlpha>>(element, "alpha");
-            result.Endian = Variables.GetValue<Nullable<Endian>>(element, "endian");
-            result.FillOrder = Variables.GetValue<Nullable<Endian>>(element, "fillOrder");
-            result.RowsPerStrip = Variables.GetValue<Nullable<Int32>>(element, "rowsPerStrip");
-            result.TileGeometry = Variables.GetValue<MagickGeometry>(element, "tileGeometry");
+            result.Alpha = GetValue<Nullable<ImageMagick.Defines.TiffAlpha>>(element, "alpha");
+            result.Endian = GetValue<Nullable<Endian>>(element, "endian");
+            result.FillOrder = GetValue<Nullable<Endian>>(element, "fillOrder");
+            result.RowsPerStrip = GetValue<Nullable<Int32>>(element, "rowsPerStrip");
+            result.TileGeometry = GetValue<MagickGeometry>(element, "tileGeometry");
             return result;
         }
     }

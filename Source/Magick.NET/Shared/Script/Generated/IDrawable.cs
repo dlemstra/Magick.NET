@@ -484,29 +484,29 @@ namespace ImageMagick
         }
         private void ExecuteDrawableAffine(XmlElement element, Collection<IDrawable> drawables)
         {
-            double scaleX_ = Variables.GetValue<double>(element, "scaleX");
-            double scaleY_ = Variables.GetValue<double>(element, "scaleY");
-            double shearX_ = Variables.GetValue<double>(element, "shearX");
-            double shearY_ = Variables.GetValue<double>(element, "shearY");
-            double translateX_ = Variables.GetValue<double>(element, "translateX");
-            double translateY_ = Variables.GetValue<double>(element, "translateY");
+            double scaleX_ = GetValue<double>(element, "scaleX");
+            double scaleY_ = GetValue<double>(element, "scaleY");
+            double shearX_ = GetValue<double>(element, "shearX");
+            double shearY_ = GetValue<double>(element, "shearY");
+            double translateX_ = GetValue<double>(element, "translateX");
+            double translateY_ = GetValue<double>(element, "translateY");
             drawables.Add(new DrawableAffine(scaleX_, scaleY_, shearX_, shearY_, translateX_, translateY_));
         }
         private void ExecuteDrawableAlpha(XmlElement element, Collection<IDrawable> drawables)
         {
-            double x_ = Variables.GetValue<double>(element, "x");
-            double y_ = Variables.GetValue<double>(element, "y");
-            PaintMethod paintMethod_ = Variables.GetValue<PaintMethod>(element, "paintMethod");
+            double x_ = GetValue<double>(element, "x");
+            double y_ = GetValue<double>(element, "y");
+            PaintMethod paintMethod_ = GetValue<PaintMethod>(element, "paintMethod");
             drawables.Add(new DrawableAlpha(x_, y_, paintMethod_));
         }
         private void ExecuteDrawableArc(XmlElement element, Collection<IDrawable> drawables)
         {
-            double startX_ = Variables.GetValue<double>(element, "startX");
-            double startY_ = Variables.GetValue<double>(element, "startY");
-            double endX_ = Variables.GetValue<double>(element, "endX");
-            double endY_ = Variables.GetValue<double>(element, "endY");
-            double startDegrees_ = Variables.GetValue<double>(element, "startDegrees");
-            double endDegrees_ = Variables.GetValue<double>(element, "endDegrees");
+            double startX_ = GetValue<double>(element, "startX");
+            double startY_ = GetValue<double>(element, "startY");
+            double endX_ = GetValue<double>(element, "endX");
+            double endY_ = GetValue<double>(element, "endY");
+            double startDegrees_ = GetValue<double>(element, "startDegrees");
+            double endDegrees_ = GetValue<double>(element, "endDegrees");
             drawables.Add(new DrawableArc(startX_, startY_, endX_, endY_, startDegrees_, endDegrees_));
         }
         private void ExecuteDrawableBezier(XmlElement element, Collection<IDrawable> drawables)
@@ -516,37 +516,37 @@ namespace ImageMagick
         }
         private void ExecuteDrawableBorderColor(XmlElement element, Collection<IDrawable> drawables)
         {
-            MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
+            MagickColor color_ = GetValue<MagickColor>(element, "color");
             drawables.Add(new DrawableBorderColor(color_));
         }
         private void ExecuteDrawableCircle(XmlElement element, Collection<IDrawable> drawables)
         {
-            double originX_ = Variables.GetValue<double>(element, "originX");
-            double originY_ = Variables.GetValue<double>(element, "originY");
-            double perimeterX_ = Variables.GetValue<double>(element, "perimeterX");
-            double perimeterY_ = Variables.GetValue<double>(element, "perimeterY");
+            double originX_ = GetValue<double>(element, "originX");
+            double originY_ = GetValue<double>(element, "originY");
+            double perimeterX_ = GetValue<double>(element, "perimeterX");
+            double perimeterY_ = GetValue<double>(element, "perimeterY");
             drawables.Add(new DrawableCircle(originX_, originY_, perimeterX_, perimeterY_));
         }
         private void ExecuteDrawableClipPath(XmlElement element, Collection<IDrawable> drawables)
         {
-            String clipPath_ = Variables.GetValue<String>(element, "clipPath");
+            String clipPath_ = GetValue<String>(element, "clipPath");
             drawables.Add(new DrawableClipPath(clipPath_));
         }
         private void ExecuteDrawableClipRule(XmlElement element, Collection<IDrawable> drawables)
         {
-            FillRule fillRule_ = Variables.GetValue<FillRule>(element, "fillRule");
+            FillRule fillRule_ = GetValue<FillRule>(element, "fillRule");
             drawables.Add(new DrawableClipRule(fillRule_));
         }
         private void ExecuteDrawableClipUnits(XmlElement element, Collection<IDrawable> drawables)
         {
-            ClipPathUnit units_ = Variables.GetValue<ClipPathUnit>(element, "units");
+            ClipPathUnit units_ = GetValue<ClipPathUnit>(element, "units");
             drawables.Add(new DrawableClipUnits(units_));
         }
         private void ExecuteDrawableColor(XmlElement element, Collection<IDrawable> drawables)
         {
-            double x_ = Variables.GetValue<double>(element, "x");
-            double y_ = Variables.GetValue<double>(element, "y");
-            PaintMethod paintMethod_ = Variables.GetValue<PaintMethod>(element, "paintMethod");
+            double x_ = GetValue<double>(element, "x");
+            double y_ = GetValue<double>(element, "y");
+            PaintMethod paintMethod_ = GetValue<PaintMethod>(element, "paintMethod");
             drawables.Add(new DrawableColor(x_, y_, paintMethod_));
         }
         private void ExecuteDrawableComposite(XmlElement element, Collection<IDrawable> drawables)
@@ -555,13 +555,13 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "compose")
-                    arguments["compose"] = Variables.GetValue<CompositeOperator>(attribute);
+                    arguments["compose"] = GetValue<CompositeOperator>(attribute);
                 else if (attribute.Name == "offset")
-                    arguments["offset"] = Variables.GetValue<MagickGeometry>(attribute);
+                    arguments["offset"] = GetValue<MagickGeometry>(attribute);
                 else if (attribute.Name == "x")
-                    arguments["x"] = Variables.GetValue<double>(attribute);
+                    arguments["x"] = GetValue<double>(attribute);
                 else if (attribute.Name == "y")
-                    arguments["y"] = Variables.GetValue<double>(attribute);
+                    arguments["y"] = GetValue<double>(attribute);
             }
             foreach (XmlElement elem in element.SelectNodes("*"))
             {
@@ -584,9 +584,9 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "density")
-                    arguments["density"] = Variables.GetValue<double>(attribute);
+                    arguments["density"] = GetValue<double>(attribute);
                 else if (attribute.Name == "pointDensity")
-                    arguments["pointDensity"] = Variables.GetValue<PointD>(attribute);
+                    arguments["pointDensity"] = GetValue<PointD>(attribute);
             }
             if (OnlyContains(arguments, "density"))
                 drawables.Add(new DrawableDensity((double)arguments["density"]));
@@ -597,32 +597,32 @@ namespace ImageMagick
         }
         private void ExecuteDrawableEllipse(XmlElement element, Collection<IDrawable> drawables)
         {
-            double originX_ = Variables.GetValue<double>(element, "originX");
-            double originY_ = Variables.GetValue<double>(element, "originY");
-            double radiusX_ = Variables.GetValue<double>(element, "radiusX");
-            double radiusY_ = Variables.GetValue<double>(element, "radiusY");
-            double startDegrees_ = Variables.GetValue<double>(element, "startDegrees");
-            double endDegrees_ = Variables.GetValue<double>(element, "endDegrees");
+            double originX_ = GetValue<double>(element, "originX");
+            double originY_ = GetValue<double>(element, "originY");
+            double radiusX_ = GetValue<double>(element, "radiusX");
+            double radiusY_ = GetValue<double>(element, "radiusY");
+            double startDegrees_ = GetValue<double>(element, "startDegrees");
+            double endDegrees_ = GetValue<double>(element, "endDegrees");
             drawables.Add(new DrawableEllipse(originX_, originY_, radiusX_, radiusY_, startDegrees_, endDegrees_));
         }
         private void ExecuteDrawableFillColor(XmlElement element, Collection<IDrawable> drawables)
         {
-            MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
+            MagickColor color_ = GetValue<MagickColor>(element, "color");
             drawables.Add(new DrawableFillColor(color_));
         }
         private void ExecuteDrawableFillOpacity(XmlElement element, Collection<IDrawable> drawables)
         {
-            Percentage opacity_ = Variables.GetValue<Percentage>(element, "opacity");
+            Percentage opacity_ = GetValue<Percentage>(element, "opacity");
             drawables.Add(new DrawableFillOpacity(opacity_));
         }
         private void ExecuteDrawableFillPatternUrl(XmlElement element, Collection<IDrawable> drawables)
         {
-            String url_ = Variables.GetValue<String>(element, "url");
+            String url_ = GetValue<String>(element, "url");
             drawables.Add(new DrawableFillPatternUrl(url_));
         }
         private void ExecuteDrawableFillRule(XmlElement element, Collection<IDrawable> drawables)
         {
-            FillRule fillRule_ = Variables.GetValue<FillRule>(element, "fillRule");
+            FillRule fillRule_ = GetValue<FillRule>(element, "fillRule");
             drawables.Add(new DrawableFillRule(fillRule_));
         }
         private void ExecuteDrawableFont(XmlElement element, Collection<IDrawable> drawables)
@@ -631,13 +631,13 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "family")
-                    arguments["family"] = Variables.GetValue<String>(attribute);
+                    arguments["family"] = GetValue<String>(attribute);
                 else if (attribute.Name == "stretch")
-                    arguments["stretch"] = Variables.GetValue<FontStretch>(attribute);
+                    arguments["stretch"] = GetValue<FontStretch>(attribute);
                 else if (attribute.Name == "style")
-                    arguments["style"] = Variables.GetValue<FontStyleType>(attribute);
+                    arguments["style"] = GetValue<FontStyleType>(attribute);
                 else if (attribute.Name == "weight")
-                    arguments["weight"] = Variables.GetValue<FontWeight>(attribute);
+                    arguments["weight"] = GetValue<FontWeight>(attribute);
             }
             if (OnlyContains(arguments, "family"))
                 drawables.Add(new DrawableFont((String)arguments["family"]));
@@ -648,20 +648,20 @@ namespace ImageMagick
         }
         private void ExecuteDrawableFontPointSize(XmlElement element, Collection<IDrawable> drawables)
         {
-            double pointSize_ = Variables.GetValue<double>(element, "pointSize");
+            double pointSize_ = GetValue<double>(element, "pointSize");
             drawables.Add(new DrawableFontPointSize(pointSize_));
         }
         private void ExecuteDrawableGravity(XmlElement element, Collection<IDrawable> drawables)
         {
-            Gravity gravity_ = Variables.GetValue<Gravity>(element, "gravity");
+            Gravity gravity_ = GetValue<Gravity>(element, "gravity");
             drawables.Add(new DrawableGravity(gravity_));
         }
         private void ExecuteDrawableLine(XmlElement element, Collection<IDrawable> drawables)
         {
-            double startX_ = Variables.GetValue<double>(element, "startX");
-            double startY_ = Variables.GetValue<double>(element, "startY");
-            double endX_ = Variables.GetValue<double>(element, "endX");
-            double endY_ = Variables.GetValue<double>(element, "endY");
+            double startX_ = GetValue<double>(element, "startX");
+            double startY_ = GetValue<double>(element, "startY");
+            double endX_ = GetValue<double>(element, "endX");
+            double endY_ = GetValue<double>(element, "endY");
             drawables.Add(new DrawableLine(startX_, startY_, endX_, endY_));
         }
         private void ExecuteDrawablePath(XmlElement element, Collection<IDrawable> drawables)
@@ -671,8 +671,8 @@ namespace ImageMagick
         }
         private void ExecuteDrawablePoint(XmlElement element, Collection<IDrawable> drawables)
         {
-            double x_ = Variables.GetValue<double>(element, "x");
-            double y_ = Variables.GetValue<double>(element, "y");
+            double x_ = GetValue<double>(element, "x");
+            double y_ = GetValue<double>(element, "y");
             drawables.Add(new DrawablePoint(x_, y_));
         }
         private void ExecuteDrawablePolygon(XmlElement element, Collection<IDrawable> drawables)
@@ -687,171 +687,171 @@ namespace ImageMagick
         }
         private void ExecuteDrawablePushClipPath(XmlElement element, Collection<IDrawable> drawables)
         {
-            String clipPath_ = Variables.GetValue<String>(element, "clipPath");
+            String clipPath_ = GetValue<String>(element, "clipPath");
             drawables.Add(new DrawablePushClipPath(clipPath_));
         }
         private void ExecuteDrawablePushPattern(XmlElement element, Collection<IDrawable> drawables)
         {
-            String id_ = Variables.GetValue<String>(element, "id");
-            double x_ = Variables.GetValue<double>(element, "x");
-            double y_ = Variables.GetValue<double>(element, "y");
-            double width_ = Variables.GetValue<double>(element, "width");
-            double height_ = Variables.GetValue<double>(element, "height");
+            String id_ = GetValue<String>(element, "id");
+            double x_ = GetValue<double>(element, "x");
+            double y_ = GetValue<double>(element, "y");
+            double width_ = GetValue<double>(element, "width");
+            double height_ = GetValue<double>(element, "height");
             drawables.Add(new DrawablePushPattern(id_, x_, y_, width_, height_));
         }
         private void ExecuteDrawableRectangle(XmlElement element, Collection<IDrawable> drawables)
         {
-            double upperLeftX_ = Variables.GetValue<double>(element, "upperLeftX");
-            double upperLeftY_ = Variables.GetValue<double>(element, "upperLeftY");
-            double lowerRightX_ = Variables.GetValue<double>(element, "lowerRightX");
-            double lowerRightY_ = Variables.GetValue<double>(element, "lowerRightY");
+            double upperLeftX_ = GetValue<double>(element, "upperLeftX");
+            double upperLeftY_ = GetValue<double>(element, "upperLeftY");
+            double lowerRightX_ = GetValue<double>(element, "lowerRightX");
+            double lowerRightY_ = GetValue<double>(element, "lowerRightY");
             drawables.Add(new DrawableRectangle(upperLeftX_, upperLeftY_, lowerRightX_, lowerRightY_));
         }
         private void ExecuteDrawableRotation(XmlElement element, Collection<IDrawable> drawables)
         {
-            double angle_ = Variables.GetValue<double>(element, "angle");
+            double angle_ = GetValue<double>(element, "angle");
             drawables.Add(new DrawableRotation(angle_));
         }
         private void ExecuteDrawableRoundRectangle(XmlElement element, Collection<IDrawable> drawables)
         {
-            double upperLeftX_ = Variables.GetValue<double>(element, "upperLeftX");
-            double upperLeftY_ = Variables.GetValue<double>(element, "upperLeftY");
-            double lowerRightX_ = Variables.GetValue<double>(element, "lowerRightX");
-            double lowerRightY_ = Variables.GetValue<double>(element, "lowerRightY");
-            double cornerWidth_ = Variables.GetValue<double>(element, "cornerWidth");
-            double cornerHeight_ = Variables.GetValue<double>(element, "cornerHeight");
+            double upperLeftX_ = GetValue<double>(element, "upperLeftX");
+            double upperLeftY_ = GetValue<double>(element, "upperLeftY");
+            double lowerRightX_ = GetValue<double>(element, "lowerRightX");
+            double lowerRightY_ = GetValue<double>(element, "lowerRightY");
+            double cornerWidth_ = GetValue<double>(element, "cornerWidth");
+            double cornerHeight_ = GetValue<double>(element, "cornerHeight");
             drawables.Add(new DrawableRoundRectangle(upperLeftX_, upperLeftY_, lowerRightX_, lowerRightY_, cornerWidth_, cornerHeight_));
         }
         private void ExecuteDrawableScaling(XmlElement element, Collection<IDrawable> drawables)
         {
-            double x_ = Variables.GetValue<double>(element, "x");
-            double y_ = Variables.GetValue<double>(element, "y");
+            double x_ = GetValue<double>(element, "x");
+            double y_ = GetValue<double>(element, "y");
             drawables.Add(new DrawableScaling(x_, y_));
         }
         private void ExecuteDrawableSkewX(XmlElement element, Collection<IDrawable> drawables)
         {
-            double angle_ = Variables.GetValue<double>(element, "angle");
+            double angle_ = GetValue<double>(element, "angle");
             drawables.Add(new DrawableSkewX(angle_));
         }
         private void ExecuteDrawableSkewY(XmlElement element, Collection<IDrawable> drawables)
         {
-            double angle_ = Variables.GetValue<double>(element, "angle");
+            double angle_ = GetValue<double>(element, "angle");
             drawables.Add(new DrawableSkewY(angle_));
         }
         private void ExecuteDrawableStrokeAntialias(XmlElement element, Collection<IDrawable> drawables)
         {
-            Boolean isEnabled_ = Variables.GetValue<Boolean>(element, "isEnabled");
+            Boolean isEnabled_ = GetValue<Boolean>(element, "isEnabled");
             drawables.Add(new DrawableStrokeAntialias(isEnabled_));
         }
         private void ExecuteDrawableStrokeColor(XmlElement element, Collection<IDrawable> drawables)
         {
-            MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
+            MagickColor color_ = GetValue<MagickColor>(element, "color");
             drawables.Add(new DrawableStrokeColor(color_));
         }
         private void ExecuteDrawableStrokeDashArray(XmlElement element, Collection<IDrawable> drawables)
         {
-            Double[] dash_ = Variables.GetDoubleArray(element["dash"]);
+            Double[] dash_ = GetDoubleArray(element["dash"]);
             drawables.Add(new DrawableStrokeDashArray(dash_));
         }
         private void ExecuteDrawableStrokeDashOffset(XmlElement element, Collection<IDrawable> drawables)
         {
-            double offset_ = Variables.GetValue<double>(element, "offset");
+            double offset_ = GetValue<double>(element, "offset");
             drawables.Add(new DrawableStrokeDashOffset(offset_));
         }
         private void ExecuteDrawableStrokeLineCap(XmlElement element, Collection<IDrawable> drawables)
         {
-            LineCap lineCap_ = Variables.GetValue<LineCap>(element, "lineCap");
+            LineCap lineCap_ = GetValue<LineCap>(element, "lineCap");
             drawables.Add(new DrawableStrokeLineCap(lineCap_));
         }
         private void ExecuteDrawableStrokeLineJoin(XmlElement element, Collection<IDrawable> drawables)
         {
-            LineJoin lineJoin_ = Variables.GetValue<LineJoin>(element, "lineJoin");
+            LineJoin lineJoin_ = GetValue<LineJoin>(element, "lineJoin");
             drawables.Add(new DrawableStrokeLineJoin(lineJoin_));
         }
         private void ExecuteDrawableStrokeMiterLimit(XmlElement element, Collection<IDrawable> drawables)
         {
-            Int32 miterlimit_ = Variables.GetValue<Int32>(element, "miterlimit");
+            Int32 miterlimit_ = GetValue<Int32>(element, "miterlimit");
             drawables.Add(new DrawableStrokeMiterLimit(miterlimit_));
         }
         private void ExecuteDrawableStrokeOpacity(XmlElement element, Collection<IDrawable> drawables)
         {
-            Percentage opacity_ = Variables.GetValue<Percentage>(element, "opacity");
+            Percentage opacity_ = GetValue<Percentage>(element, "opacity");
             drawables.Add(new DrawableStrokeOpacity(opacity_));
         }
         private void ExecuteDrawableStrokePatternUrl(XmlElement element, Collection<IDrawable> drawables)
         {
-            String url_ = Variables.GetValue<String>(element, "url");
+            String url_ = GetValue<String>(element, "url");
             drawables.Add(new DrawableStrokePatternUrl(url_));
         }
         private void ExecuteDrawableStrokeWidth(XmlElement element, Collection<IDrawable> drawables)
         {
-            double width_ = Variables.GetValue<double>(element, "width");
+            double width_ = GetValue<double>(element, "width");
             drawables.Add(new DrawableStrokeWidth(width_));
         }
         private void ExecuteDrawableText(XmlElement element, Collection<IDrawable> drawables)
         {
-            double x_ = Variables.GetValue<double>(element, "x");
-            double y_ = Variables.GetValue<double>(element, "y");
-            String value_ = Variables.GetValue<String>(element, "value");
+            double x_ = GetValue<double>(element, "x");
+            double y_ = GetValue<double>(element, "y");
+            String value_ = GetValue<String>(element, "value");
             drawables.Add(new DrawableText(x_, y_, value_));
         }
         private void ExecuteDrawableTextAlignment(XmlElement element, Collection<IDrawable> drawables)
         {
-            TextAlignment alignment_ = Variables.GetValue<TextAlignment>(element, "alignment");
+            TextAlignment alignment_ = GetValue<TextAlignment>(element, "alignment");
             drawables.Add(new DrawableTextAlignment(alignment_));
         }
         private void ExecuteDrawableTextAntialias(XmlElement element, Collection<IDrawable> drawables)
         {
-            Boolean isEnabled_ = Variables.GetValue<Boolean>(element, "isEnabled");
+            Boolean isEnabled_ = GetValue<Boolean>(element, "isEnabled");
             drawables.Add(new DrawableTextAntialias(isEnabled_));
         }
         private void ExecuteDrawableTextDecoration(XmlElement element, Collection<IDrawable> drawables)
         {
-            TextDecoration decoration_ = Variables.GetValue<TextDecoration>(element, "decoration");
+            TextDecoration decoration_ = GetValue<TextDecoration>(element, "decoration");
             drawables.Add(new DrawableTextDecoration(decoration_));
         }
         private void ExecuteDrawableTextDirection(XmlElement element, Collection<IDrawable> drawables)
         {
-            TextDirection direction_ = Variables.GetValue<TextDirection>(element, "direction");
+            TextDirection direction_ = GetValue<TextDirection>(element, "direction");
             drawables.Add(new DrawableTextDirection(direction_));
         }
         private void ExecuteDrawableTextEncoding(XmlElement element, Collection<IDrawable> drawables)
         {
-            Encoding encoding_ = Variables.GetValue<Encoding>(element, "encoding");
+            Encoding encoding_ = GetValue<Encoding>(element, "encoding");
             drawables.Add(new DrawableTextEncoding(encoding_));
         }
         private void ExecuteDrawableTextInterlineSpacing(XmlElement element, Collection<IDrawable> drawables)
         {
-            double spacing_ = Variables.GetValue<double>(element, "spacing");
+            double spacing_ = GetValue<double>(element, "spacing");
             drawables.Add(new DrawableTextInterlineSpacing(spacing_));
         }
         private void ExecuteDrawableTextInterwordSpacing(XmlElement element, Collection<IDrawable> drawables)
         {
-            double spacing_ = Variables.GetValue<double>(element, "spacing");
+            double spacing_ = GetValue<double>(element, "spacing");
             drawables.Add(new DrawableTextInterwordSpacing(spacing_));
         }
         private void ExecuteDrawableTextKerning(XmlElement element, Collection<IDrawable> drawables)
         {
-            double kerning_ = Variables.GetValue<double>(element, "kerning");
+            double kerning_ = GetValue<double>(element, "kerning");
             drawables.Add(new DrawableTextKerning(kerning_));
         }
         private void ExecuteDrawableTextUnderColor(XmlElement element, Collection<IDrawable> drawables)
         {
-            MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
+            MagickColor color_ = GetValue<MagickColor>(element, "color");
             drawables.Add(new DrawableTextUnderColor(color_));
         }
         private void ExecuteDrawableTranslation(XmlElement element, Collection<IDrawable> drawables)
         {
-            double x_ = Variables.GetValue<double>(element, "x");
-            double y_ = Variables.GetValue<double>(element, "y");
+            double x_ = GetValue<double>(element, "x");
+            double y_ = GetValue<double>(element, "y");
             drawables.Add(new DrawableTranslation(x_, y_));
         }
         private void ExecuteDrawableViewbox(XmlElement element, Collection<IDrawable> drawables)
         {
-            double upperLeftX_ = Variables.GetValue<double>(element, "upperLeftX");
-            double upperLeftY_ = Variables.GetValue<double>(element, "upperLeftY");
-            double lowerRightX_ = Variables.GetValue<double>(element, "lowerRightX");
-            double lowerRightY_ = Variables.GetValue<double>(element, "lowerRightY");
+            double upperLeftX_ = GetValue<double>(element, "upperLeftX");
+            double upperLeftY_ = GetValue<double>(element, "upperLeftY");
+            double lowerRightX_ = GetValue<double>(element, "lowerRightX");
+            double lowerRightY_ = GetValue<double>(element, "lowerRightY");
             drawables.Add(new DrawableViewbox(upperLeftX_, upperLeftY_, lowerRightX_, lowerRightY_));
         }
     }

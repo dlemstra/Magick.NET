@@ -54,7 +54,7 @@ namespace FileGenerator.MagickScript
                 WriteLine(">();");
                 WriteLine("foreach (XmlElement elem in element.SelectNodes(\"*\"))");
                 WriteStartColon();
-                Write("collection.Add(Variables.GetValue<");
+                Write("collection.Add(GetValue<");
                 Write(typeName);
                 WriteLine(">(elem, \"value\"));");
                 WriteEndColon();

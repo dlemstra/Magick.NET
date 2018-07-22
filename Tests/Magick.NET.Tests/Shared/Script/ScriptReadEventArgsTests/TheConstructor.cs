@@ -10,25 +10,26 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if !NETCORE
-
-using System.Xml.Schema;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Framework.Script
+namespace Magick.NET.Tests
 {
-    public partial class MagickScriptTests
+    public partial class ScriptReadEventArgsTests
     {
-        public partial class TheConstructor
+        [TestClass]
+        public class TheConstructor
         {
             [TestMethod]
-            public void ShouldThrowExceptionWhenScriptDoesNotFollowXmlSchema()
+            public void ShouldSetTheProperties()
             {
-                ExceptionAssert.Throws<XmlSchemaValidationException>(() => new MagickScript(Files.Scripts.Invalid));
+                var readSettings = new MagickReadSettings();
+
+                var eventArgs = new ScriptReadEventArgs("test", readSettings);
+
+                Assert.AreEqual("test", eventArgs.Id);
+                Assert.AreEqual(readSettings, eventArgs.Settings);
             }
         }
     }
 }
-
-#endif

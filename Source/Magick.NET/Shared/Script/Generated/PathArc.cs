@@ -35,13 +35,13 @@ namespace ImageMagick
     {
         private PathArc CreatePathArc(XmlElement element)
         {
-            double x_ = Variables.GetValue<double>(element, "x");
-            double y_ = Variables.GetValue<double>(element, "y");
-            double radiusX_ = Variables.GetValue<double>(element, "radiusX");
-            double radiusY_ = Variables.GetValue<double>(element, "radiusY");
-            double rotationX_ = Variables.GetValue<double>(element, "rotationX");
-            Boolean useLargeArc_ = Variables.GetValue<Boolean>(element, "useLargeArc");
-            Boolean useSweep_ = Variables.GetValue<Boolean>(element, "useSweep");
+            double x_ = GetValue<double>(element, "x");
+            double y_ = GetValue<double>(element, "y");
+            double radiusX_ = GetValue<double>(element, "radiusX");
+            double radiusY_ = GetValue<double>(element, "radiusY");
+            double rotationX_ = GetValue<double>(element, "rotationX");
+            Boolean useLargeArc_ = GetValue<Boolean>(element, "useLargeArc");
+            Boolean useSweep_ = GetValue<Boolean>(element, "useSweep");
             return new PathArc(x_, y_, radiusX_, radiusY_, rotationX_, useLargeArc_, useSweep_);
         }
         private Collection<PathArc> CreatePathArcs(XmlElement element)

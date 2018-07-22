@@ -39,13 +39,13 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "value")
-                    arguments["value"] = Variables.GetValue<String>(attribute);
+                    arguments["value"] = GetValue<String>(attribute);
                 else if (attribute.Name == "x")
-                    arguments["x"] = Variables.GetValue<double>(attribute);
+                    arguments["x"] = GetValue<double>(attribute);
                 else if (attribute.Name == "xy")
-                    arguments["xy"] = Variables.GetValue<double>(attribute);
+                    arguments["xy"] = GetValue<double>(attribute);
                 else if (attribute.Name == "y")
-                    arguments["y"] = Variables.GetValue<double>(attribute);
+                    arguments["y"] = GetValue<double>(attribute);
             }
             if (OnlyContains(arguments, "value"))
                 return new PointD((String)arguments["value"]);

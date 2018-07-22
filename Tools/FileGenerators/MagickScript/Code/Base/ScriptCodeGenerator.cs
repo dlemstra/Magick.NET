@@ -43,7 +43,7 @@ namespace FileGenerator.MagickScript
 
             if (parameters.DistinctBy(p => GetName(p)).Count() == 1)
             {
-                Write("arguments[attribute.Name] = Variables.GetValue<");
+                Write("arguments[attribute.Name] = GetValue<");
                 Write(GetName(parameters[0]));
                 WriteLine(">(attribute);");
             }
@@ -146,7 +146,7 @@ namespace FileGenerator.MagickScript
 
         protected void WriteGetElementValue(string typeName, string attributeName)
         {
-            Write("Variables.GetValue<");
+            Write("GetValue<");
             Write(typeName);
             Write(">(element, \"");
             Write(attributeName);
@@ -264,7 +264,7 @@ namespace FileGenerator.MagickScript
                     break;
                 case "Double[]":
                 case "IEnumerable<Double>":
-                    Write("Variables.GetDoubleArray");
+                    Write("GetDoubleArray");
                     break;
                 case "IDefines":
                     Write("CreateIDefines");
@@ -285,13 +285,13 @@ namespace FileGenerator.MagickScript
                     Write("CreatePointDs");
                     break;
                 case "IEnumerable<Single>":
-                    Write("Variables.GetSingleArray");
+                    Write("GetSingleArray");
                     break;
                 case "IEnumerable<SparseColorArg>":
                     Write("CreateSparseColorArgs");
                     break;
                 case "IEnumerable<String>":
-                    Write("Variables.GetStringArray");
+                    Write("GetStringArray");
                     break;
                 case "ImageProfile":
                     Write("CreateProfile");
@@ -333,7 +333,7 @@ namespace FileGenerator.MagickScript
 
         protected void WriteGetAttributeValue(string typeName)
         {
-            Write("Variables.GetValue<");
+            Write("GetValue<");
             Write(typeName);
             WriteLine(">(attribute);");
         }

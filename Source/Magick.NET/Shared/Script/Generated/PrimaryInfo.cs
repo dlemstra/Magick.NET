@@ -35,9 +35,9 @@ namespace ImageMagick
     {
         private PrimaryInfo CreatePrimaryInfo(XmlElement element)
         {
-            double x_ = Variables.GetValue<double>(element, "x");
-            double y_ = Variables.GetValue<double>(element, "y");
-            double z_ = Variables.GetValue<double>(element, "z");
+            double x_ = GetValue<double>(element, "x");
+            double y_ = GetValue<double>(element, "y");
+            double z_ = GetValue<double>(element, "z");
             return new PrimaryInfo(x_, y_, z_);
         }
         private Collection<PrimaryInfo> CreatePrimaryInfos(XmlElement element)

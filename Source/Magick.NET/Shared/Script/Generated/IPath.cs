@@ -218,23 +218,23 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "controlPointEnd")
-                    arguments["controlPointEnd"] = Variables.GetValue<PointD>(attribute);
+                    arguments["controlPointEnd"] = GetValue<PointD>(attribute);
                 else if (attribute.Name == "controlPointStart")
-                    arguments["controlPointStart"] = Variables.GetValue<PointD>(attribute);
+                    arguments["controlPointStart"] = GetValue<PointD>(attribute);
                 else if (attribute.Name == "end")
-                    arguments["end"] = Variables.GetValue<PointD>(attribute);
+                    arguments["end"] = GetValue<PointD>(attribute);
                 else if (attribute.Name == "x")
-                    arguments["x"] = Variables.GetValue<double>(attribute);
+                    arguments["x"] = GetValue<double>(attribute);
                 else if (attribute.Name == "x1")
-                    arguments["x1"] = Variables.GetValue<double>(attribute);
+                    arguments["x1"] = GetValue<double>(attribute);
                 else if (attribute.Name == "x2")
-                    arguments["x2"] = Variables.GetValue<double>(attribute);
+                    arguments["x2"] = GetValue<double>(attribute);
                 else if (attribute.Name == "y")
-                    arguments["y"] = Variables.GetValue<double>(attribute);
+                    arguments["y"] = GetValue<double>(attribute);
                 else if (attribute.Name == "y1")
-                    arguments["y1"] = Variables.GetValue<double>(attribute);
+                    arguments["y1"] = GetValue<double>(attribute);
                 else if (attribute.Name == "y2")
-                    arguments["y2"] = Variables.GetValue<double>(attribute);
+                    arguments["y2"] = GetValue<double>(attribute);
             }
             if (OnlyContains(arguments, "controlPointStart", "controlPointEnd", "end"))
                 paths.Add(new PathCurveToAbs((PointD)arguments["controlPointStart"], (PointD)arguments["controlPointEnd"], (PointD)arguments["end"]));
@@ -249,23 +249,23 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "controlPointEnd")
-                    arguments["controlPointEnd"] = Variables.GetValue<PointD>(attribute);
+                    arguments["controlPointEnd"] = GetValue<PointD>(attribute);
                 else if (attribute.Name == "controlPointStart")
-                    arguments["controlPointStart"] = Variables.GetValue<PointD>(attribute);
+                    arguments["controlPointStart"] = GetValue<PointD>(attribute);
                 else if (attribute.Name == "end")
-                    arguments["end"] = Variables.GetValue<PointD>(attribute);
+                    arguments["end"] = GetValue<PointD>(attribute);
                 else if (attribute.Name == "x")
-                    arguments["x"] = Variables.GetValue<double>(attribute);
+                    arguments["x"] = GetValue<double>(attribute);
                 else if (attribute.Name == "x1")
-                    arguments["x1"] = Variables.GetValue<double>(attribute);
+                    arguments["x1"] = GetValue<double>(attribute);
                 else if (attribute.Name == "x2")
-                    arguments["x2"] = Variables.GetValue<double>(attribute);
+                    arguments["x2"] = GetValue<double>(attribute);
                 else if (attribute.Name == "y")
-                    arguments["y"] = Variables.GetValue<double>(attribute);
+                    arguments["y"] = GetValue<double>(attribute);
                 else if (attribute.Name == "y1")
-                    arguments["y1"] = Variables.GetValue<double>(attribute);
+                    arguments["y1"] = GetValue<double>(attribute);
                 else if (attribute.Name == "y2")
-                    arguments["y2"] = Variables.GetValue<double>(attribute);
+                    arguments["y2"] = GetValue<double>(attribute);
             }
             if (OnlyContains(arguments, "controlPointStart", "controlPointEnd", "end"))
                 paths.Add(new PathCurveToRel((PointD)arguments["controlPointStart"], (PointD)arguments["controlPointEnd"], (PointD)arguments["end"]));
@@ -279,7 +279,7 @@ namespace ImageMagick
             Hashtable arguments = new Hashtable();
             foreach (XmlAttribute attribute in element.Attributes)
             {
-                arguments[attribute.Name] = Variables.GetValue<double>(attribute);
+                arguments[attribute.Name] = GetValue<double>(attribute);
             }
             foreach (XmlElement elem in element.SelectNodes("*"))
             {
@@ -294,12 +294,12 @@ namespace ImageMagick
         }
         private void ExecutePathLineToHorizontalAbs(XmlElement element, Collection<IPath> paths)
         {
-            double x_ = Variables.GetValue<double>(element, "x");
+            double x_ = GetValue<double>(element, "x");
             paths.Add(new PathLineToHorizontalAbs(x_));
         }
         private void ExecutePathLineToHorizontalRel(XmlElement element, Collection<IPath> paths)
         {
-            double x_ = Variables.GetValue<double>(element, "x");
+            double x_ = GetValue<double>(element, "x");
             paths.Add(new PathLineToHorizontalRel(x_));
         }
         private void ExecutePathLineToRel(XmlElement element, Collection<IPath> paths)
@@ -307,7 +307,7 @@ namespace ImageMagick
             Hashtable arguments = new Hashtable();
             foreach (XmlAttribute attribute in element.Attributes)
             {
-                arguments[attribute.Name] = Variables.GetValue<double>(attribute);
+                arguments[attribute.Name] = GetValue<double>(attribute);
             }
             foreach (XmlElement elem in element.SelectNodes("*"))
             {
@@ -322,12 +322,12 @@ namespace ImageMagick
         }
         private void ExecutePathLineToVerticalAbs(XmlElement element, Collection<IPath> paths)
         {
-            double y_ = Variables.GetValue<double>(element, "y");
+            double y_ = GetValue<double>(element, "y");
             paths.Add(new PathLineToVerticalAbs(y_));
         }
         private void ExecutePathLineToVerticalRel(XmlElement element, Collection<IPath> paths)
         {
-            double y_ = Variables.GetValue<double>(element, "y");
+            double y_ = GetValue<double>(element, "y");
             paths.Add(new PathLineToVerticalRel(y_));
         }
         private void ExecutePathMoveToAbs(XmlElement element, Collection<IPath> paths)
@@ -336,11 +336,11 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "coordinate")
-                    arguments["coordinate"] = Variables.GetValue<PointD>(attribute);
+                    arguments["coordinate"] = GetValue<PointD>(attribute);
                 else if (attribute.Name == "x")
-                    arguments["x"] = Variables.GetValue<double>(attribute);
+                    arguments["x"] = GetValue<double>(attribute);
                 else if (attribute.Name == "y")
-                    arguments["y"] = Variables.GetValue<double>(attribute);
+                    arguments["y"] = GetValue<double>(attribute);
             }
             if (OnlyContains(arguments, "coordinate"))
                 paths.Add(new PathMoveToAbs((PointD)arguments["coordinate"]));
@@ -355,11 +355,11 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "coordinate")
-                    arguments["coordinate"] = Variables.GetValue<PointD>(attribute);
+                    arguments["coordinate"] = GetValue<PointD>(attribute);
                 else if (attribute.Name == "x")
-                    arguments["x"] = Variables.GetValue<double>(attribute);
+                    arguments["x"] = GetValue<double>(attribute);
                 else if (attribute.Name == "y")
-                    arguments["y"] = Variables.GetValue<double>(attribute);
+                    arguments["y"] = GetValue<double>(attribute);
             }
             if (OnlyContains(arguments, "coordinate"))
                 paths.Add(new PathMoveToRel((PointD)arguments["coordinate"]));
@@ -374,17 +374,17 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "controlPoint")
-                    arguments["controlPoint"] = Variables.GetValue<PointD>(attribute);
+                    arguments["controlPoint"] = GetValue<PointD>(attribute);
                 else if (attribute.Name == "end")
-                    arguments["end"] = Variables.GetValue<PointD>(attribute);
+                    arguments["end"] = GetValue<PointD>(attribute);
                 else if (attribute.Name == "x")
-                    arguments["x"] = Variables.GetValue<double>(attribute);
+                    arguments["x"] = GetValue<double>(attribute);
                 else if (attribute.Name == "x1")
-                    arguments["x1"] = Variables.GetValue<double>(attribute);
+                    arguments["x1"] = GetValue<double>(attribute);
                 else if (attribute.Name == "y")
-                    arguments["y"] = Variables.GetValue<double>(attribute);
+                    arguments["y"] = GetValue<double>(attribute);
                 else if (attribute.Name == "y1")
-                    arguments["y1"] = Variables.GetValue<double>(attribute);
+                    arguments["y1"] = GetValue<double>(attribute);
             }
             if (OnlyContains(arguments, "controlPoint", "end"))
                 paths.Add(new PathQuadraticCurveToAbs((PointD)arguments["controlPoint"], (PointD)arguments["end"]));
@@ -399,17 +399,17 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "controlPoint")
-                    arguments["controlPoint"] = Variables.GetValue<PointD>(attribute);
+                    arguments["controlPoint"] = GetValue<PointD>(attribute);
                 else if (attribute.Name == "end")
-                    arguments["end"] = Variables.GetValue<PointD>(attribute);
+                    arguments["end"] = GetValue<PointD>(attribute);
                 else if (attribute.Name == "x")
-                    arguments["x"] = Variables.GetValue<double>(attribute);
+                    arguments["x"] = GetValue<double>(attribute);
                 else if (attribute.Name == "x1")
-                    arguments["x1"] = Variables.GetValue<double>(attribute);
+                    arguments["x1"] = GetValue<double>(attribute);
                 else if (attribute.Name == "y")
-                    arguments["y"] = Variables.GetValue<double>(attribute);
+                    arguments["y"] = GetValue<double>(attribute);
                 else if (attribute.Name == "y1")
-                    arguments["y1"] = Variables.GetValue<double>(attribute);
+                    arguments["y1"] = GetValue<double>(attribute);
             }
             if (OnlyContains(arguments, "controlPoint", "end"))
                 paths.Add(new PathQuadraticCurveToRel((PointD)arguments["controlPoint"], (PointD)arguments["end"]));
@@ -424,17 +424,17 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "controlPoint")
-                    arguments["controlPoint"] = Variables.GetValue<PointD>(attribute);
+                    arguments["controlPoint"] = GetValue<PointD>(attribute);
                 else if (attribute.Name == "end")
-                    arguments["end"] = Variables.GetValue<PointD>(attribute);
+                    arguments["end"] = GetValue<PointD>(attribute);
                 else if (attribute.Name == "x")
-                    arguments["x"] = Variables.GetValue<double>(attribute);
+                    arguments["x"] = GetValue<double>(attribute);
                 else if (attribute.Name == "x2")
-                    arguments["x2"] = Variables.GetValue<double>(attribute);
+                    arguments["x2"] = GetValue<double>(attribute);
                 else if (attribute.Name == "y")
-                    arguments["y"] = Variables.GetValue<double>(attribute);
+                    arguments["y"] = GetValue<double>(attribute);
                 else if (attribute.Name == "y2")
-                    arguments["y2"] = Variables.GetValue<double>(attribute);
+                    arguments["y2"] = GetValue<double>(attribute);
             }
             if (OnlyContains(arguments, "controlPoint", "end"))
                 paths.Add(new PathSmoothCurveToAbs((PointD)arguments["controlPoint"], (PointD)arguments["end"]));
@@ -449,17 +449,17 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "controlPoint")
-                    arguments["controlPoint"] = Variables.GetValue<PointD>(attribute);
+                    arguments["controlPoint"] = GetValue<PointD>(attribute);
                 else if (attribute.Name == "end")
-                    arguments["end"] = Variables.GetValue<PointD>(attribute);
+                    arguments["end"] = GetValue<PointD>(attribute);
                 else if (attribute.Name == "x")
-                    arguments["x"] = Variables.GetValue<double>(attribute);
+                    arguments["x"] = GetValue<double>(attribute);
                 else if (attribute.Name == "x2")
-                    arguments["x2"] = Variables.GetValue<double>(attribute);
+                    arguments["x2"] = GetValue<double>(attribute);
                 else if (attribute.Name == "y")
-                    arguments["y"] = Variables.GetValue<double>(attribute);
+                    arguments["y"] = GetValue<double>(attribute);
                 else if (attribute.Name == "y2")
-                    arguments["y2"] = Variables.GetValue<double>(attribute);
+                    arguments["y2"] = GetValue<double>(attribute);
             }
             if (OnlyContains(arguments, "controlPoint", "end"))
                 paths.Add(new PathSmoothCurveToRel((PointD)arguments["controlPoint"], (PointD)arguments["end"]));
@@ -474,11 +474,11 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "end")
-                    arguments["end"] = Variables.GetValue<PointD>(attribute);
+                    arguments["end"] = GetValue<PointD>(attribute);
                 else if (attribute.Name == "x")
-                    arguments["x"] = Variables.GetValue<double>(attribute);
+                    arguments["x"] = GetValue<double>(attribute);
                 else if (attribute.Name == "y")
-                    arguments["y"] = Variables.GetValue<double>(attribute);
+                    arguments["y"] = GetValue<double>(attribute);
             }
             if (OnlyContains(arguments, "end"))
                 paths.Add(new PathSmoothQuadraticCurveToAbs((PointD)arguments["end"]));
@@ -493,11 +493,11 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "end")
-                    arguments["end"] = Variables.GetValue<PointD>(attribute);
+                    arguments["end"] = GetValue<PointD>(attribute);
                 else if (attribute.Name == "x")
-                    arguments["x"] = Variables.GetValue<double>(attribute);
+                    arguments["x"] = GetValue<double>(attribute);
                 else if (attribute.Name == "y")
-                    arguments["y"] = Variables.GetValue<double>(attribute);
+                    arguments["y"] = GetValue<double>(attribute);
             }
             if (OnlyContains(arguments, "end"))
                 paths.Add(new PathSmoothQuadraticCurveToRel((PointD)arguments["end"]));

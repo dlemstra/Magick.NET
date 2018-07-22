@@ -35,9 +35,9 @@ namespace ImageMagick
     {
         private SparseColorArg CreateSparseColorArg(XmlElement element)
         {
-            double x_ = Variables.GetValue<double>(element, "x");
-            double y_ = Variables.GetValue<double>(element, "y");
-            MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
+            double x_ = GetValue<double>(element, "x");
+            double y_ = GetValue<double>(element, "y");
+            MagickColor color_ = GetValue<MagickColor>(element, "color");
             return new SparseColorArg(x_, y_, color_);
         }
         private Collection<SparseColorArg> CreateSparseColorArgs(XmlElement element)

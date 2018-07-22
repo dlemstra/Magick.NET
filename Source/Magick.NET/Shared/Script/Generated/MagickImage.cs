@@ -1545,23 +1545,23 @@ namespace ImageMagick
         }
         private void ExecuteAnimationDelay(XmlElement element, IMagickImage image)
         {
-            image.AnimationDelay = Variables.GetValue<Int32>(element, "value");
+            image.AnimationDelay = GetValue<Int32>(element, "value");
         }
         private void ExecuteAnimationIterations(XmlElement element, IMagickImage image)
         {
-            image.AnimationIterations = Variables.GetValue<Int32>(element, "value");
+            image.AnimationIterations = GetValue<Int32>(element, "value");
         }
         private void ExecuteBackgroundColor(XmlElement element, IMagickImage image)
         {
-            image.BackgroundColor = Variables.GetValue<MagickColor>(element, "value");
+            image.BackgroundColor = GetValue<MagickColor>(element, "value");
         }
         private void ExecuteBlackPointCompensation(XmlElement element, IMagickImage image)
         {
-            image.BlackPointCompensation = Variables.GetValue<Boolean>(element, "value");
+            image.BlackPointCompensation = GetValue<Boolean>(element, "value");
         }
         private void ExecuteBorderColor(XmlElement element, IMagickImage image)
         {
-            image.BorderColor = Variables.GetValue<MagickColor>(element, "value");
+            image.BorderColor = GetValue<MagickColor>(element, "value");
         }
         private void ExecuteChromaBluePrimary(XmlElement element, IMagickImage image)
         {
@@ -1581,91 +1581,91 @@ namespace ImageMagick
         }
         private void ExecuteClassType(XmlElement element, IMagickImage image)
         {
-            image.ClassType = Variables.GetValue<ClassType>(element, "value");
+            image.ClassType = GetValue<ClassType>(element, "value");
         }
         private void ExecuteColorFuzz(XmlElement element, IMagickImage image)
         {
-            image.ColorFuzz = Variables.GetValue<Percentage>(element, "value");
+            image.ColorFuzz = GetValue<Percentage>(element, "value");
         }
         private void ExecuteColormapSize(XmlElement element, IMagickImage image)
         {
-            image.ColormapSize = Variables.GetValue<Int32>(element, "value");
+            image.ColormapSize = GetValue<Int32>(element, "value");
         }
         private void ExecuteColorSpace(XmlElement element, IMagickImage image)
         {
-            image.ColorSpace = Variables.GetValue<ColorSpace>(element, "value");
+            image.ColorSpace = GetValue<ColorSpace>(element, "value");
         }
         private void ExecuteColorType(XmlElement element, IMagickImage image)
         {
-            image.ColorType = Variables.GetValue<ColorType>(element, "value");
+            image.ColorType = GetValue<ColorType>(element, "value");
         }
         private void ExecuteComment(XmlElement element, IMagickImage image)
         {
-            image.Comment = Variables.GetValue<String>(element, "value");
+            image.Comment = GetValue<String>(element, "value");
         }
         private void ExecuteCompose(XmlElement element, IMagickImage image)
         {
-            image.Compose = Variables.GetValue<CompositeOperator>(element, "value");
+            image.Compose = GetValue<CompositeOperator>(element, "value");
         }
         private void ExecuteDensity(XmlElement element, IMagickImage image)
         {
-            image.Density = Variables.GetValue<Density>(element, "value");
+            image.Density = GetValue<Density>(element, "value");
         }
         private void ExecuteDepth(XmlElement element, IMagickImage image)
         {
-            image.Depth = Variables.GetValue<Int32>(element, "value");
+            image.Depth = GetValue<Int32>(element, "value");
         }
         private void ExecuteEndian(XmlElement element, IMagickImage image)
         {
-            image.Endian = Variables.GetValue<Endian>(element, "value");
+            image.Endian = GetValue<Endian>(element, "value");
         }
         private void ExecuteFilterType(XmlElement element, IMagickImage image)
         {
-            image.FilterType = Variables.GetValue<FilterType>(element, "value");
+            image.FilterType = GetValue<FilterType>(element, "value");
         }
         private void ExecuteFormat(XmlElement element, IMagickImage image)
         {
-            image.Format = Variables.GetValue<MagickFormat>(element, "value");
+            image.Format = GetValue<MagickFormat>(element, "value");
         }
         private void ExecuteGifDisposeMethod(XmlElement element, IMagickImage image)
         {
-            image.GifDisposeMethod = Variables.GetValue<GifDisposeMethod>(element, "value");
+            image.GifDisposeMethod = GetValue<GifDisposeMethod>(element, "value");
         }
         private void ExecuteHasAlpha(XmlElement element, IMagickImage image)
         {
-            image.HasAlpha = Variables.GetValue<Boolean>(element, "value");
+            image.HasAlpha = GetValue<Boolean>(element, "value");
         }
         private void ExecuteInterlace(XmlElement element, IMagickImage image)
         {
-            image.Interlace = Variables.GetValue<Interlace>(element, "value");
+            image.Interlace = GetValue<Interlace>(element, "value");
         }
         private void ExecuteInterpolate(XmlElement element, IMagickImage image)
         {
-            image.Interpolate = Variables.GetValue<PixelInterpolateMethod>(element, "value");
+            image.Interpolate = GetValue<PixelInterpolateMethod>(element, "value");
         }
         private void ExecuteLabel(XmlElement element, IMagickImage image)
         {
-            image.Label = Variables.GetValue<String>(element, "value");
+            image.Label = GetValue<String>(element, "value");
         }
         private void ExecuteMatteColor(XmlElement element, IMagickImage image)
         {
-            image.MatteColor = Variables.GetValue<MagickColor>(element, "value");
+            image.MatteColor = GetValue<MagickColor>(element, "value");
         }
         private void ExecuteOrientation(XmlElement element, IMagickImage image)
         {
-            image.Orientation = Variables.GetValue<OrientationType>(element, "value");
+            image.Orientation = GetValue<OrientationType>(element, "value");
         }
         private void ExecutePage(XmlElement element, IMagickImage image)
         {
-            image.Page = Variables.GetValue<MagickGeometry>(element, "value");
+            image.Page = GetValue<MagickGeometry>(element, "value");
         }
         private void ExecuteQuality(XmlElement element, IMagickImage image)
         {
-            image.Quality = Variables.GetValue<Int32>(element, "value");
+            image.Quality = GetValue<Int32>(element, "value");
         }
         private void ExecuteRenderingIntent(XmlElement element, IMagickImage image)
         {
-            image.RenderingIntent = Variables.GetValue<RenderingIntent>(element, "value");
+            image.RenderingIntent = GetValue<RenderingIntent>(element, "value");
         }
         private void ExecuteSettings(XmlElement element, IMagickImage image)
         {
@@ -1673,14 +1673,14 @@ namespace ImageMagick
         }
         private void ExecuteVirtualPixelMethod(XmlElement element, IMagickImage image)
         {
-            image.VirtualPixelMethod = Variables.GetValue<VirtualPixelMethod>(element, "value");
+            image.VirtualPixelMethod = GetValue<VirtualPixelMethod>(element, "value");
         }
         private void ExecuteAdaptiveBlur(XmlElement element, IMagickImage image)
         {
             Hashtable arguments = new Hashtable();
             foreach (XmlAttribute attribute in element.Attributes)
             {
-                arguments[attribute.Name] = Variables.GetValue<double>(attribute);
+                arguments[attribute.Name] = GetValue<double>(attribute);
             }
             if (arguments.Count == 0)
                 image.AdaptiveBlur();
@@ -1697,11 +1697,11 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "geometry")
-                    arguments["geometry"] = Variables.GetValue<MagickGeometry>(attribute);
+                    arguments["geometry"] = GetValue<MagickGeometry>(attribute);
                 else if (attribute.Name == "height")
-                    arguments["height"] = Variables.GetValue<Int32>(attribute);
+                    arguments["height"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "width")
-                    arguments["width"] = Variables.GetValue<Int32>(attribute);
+                    arguments["width"] = GetValue<Int32>(attribute);
             }
             if (OnlyContains(arguments, "geometry"))
                 image.AdaptiveResize((MagickGeometry)arguments["geometry"]);
@@ -1716,11 +1716,11 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "radius")
-                    arguments["radius"] = Variables.GetValue<double>(attribute);
+                    arguments["radius"] = GetValue<double>(attribute);
                 else if (attribute.Name == "sigma")
-                    arguments["sigma"] = Variables.GetValue<double>(attribute);
+                    arguments["sigma"] = GetValue<double>(attribute);
             }
             if (arguments.Count == 0)
                 image.AdaptiveSharpen();
@@ -1739,13 +1739,13 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "bias")
-                    arguments["bias"] = Variables.GetValue<double>(attribute);
+                    arguments["bias"] = GetValue<double>(attribute);
                 else if (attribute.Name == "biasPercentage")
-                    arguments["biasPercentage"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["biasPercentage"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "height")
-                    arguments["height"] = Variables.GetValue<Int32>(attribute);
+                    arguments["height"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "width")
-                    arguments["width"] = Variables.GetValue<Int32>(attribute);
+                    arguments["width"] = GetValue<Int32>(attribute);
             }
             if (OnlyContains(arguments, "width", "height"))
                 image.AdaptiveThreshold((Int32)arguments["width"], (Int32)arguments["height"]);
@@ -1762,11 +1762,11 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "attenuate")
-                    arguments["attenuate"] = Variables.GetValue<double>(attribute);
+                    arguments["attenuate"] = GetValue<double>(attribute);
                 else if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "noiseType")
-                    arguments["noiseType"] = Variables.GetValue<NoiseType>(attribute);
+                    arguments["noiseType"] = GetValue<NoiseType>(attribute);
             }
             if (OnlyContains(arguments, "noiseType"))
                 image.AddNoise((NoiseType)arguments["noiseType"]);
@@ -1784,7 +1784,7 @@ namespace ImageMagick
             Hashtable arguments = new Hashtable();
             foreach (XmlAttribute attribute in element.Attributes)
             {
-                arguments[attribute.Name] = Variables.GetValue<Boolean>(attribute);
+                arguments[attribute.Name] = GetValue<Boolean>(attribute);
             }
             foreach (XmlElement elem in element.SelectNodes("*"))
             {
@@ -1799,7 +1799,7 @@ namespace ImageMagick
         }
         private void ExecuteAlpha(XmlElement element, IMagickImage image)
         {
-            AlphaOption value_ = Variables.GetValue<AlphaOption>(element, "value");
+            AlphaOption value_ = GetValue<AlphaOption>(element, "value");
             image.Alpha(value_);
         }
         private void ExecuteAnnotate(XmlElement element, IMagickImage image)
@@ -1808,13 +1808,13 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "angle")
-                    arguments["angle"] = Variables.GetValue<double>(attribute);
+                    arguments["angle"] = GetValue<double>(attribute);
                 else if (attribute.Name == "boundingArea")
-                    arguments["boundingArea"] = Variables.GetValue<MagickGeometry>(attribute);
+                    arguments["boundingArea"] = GetValue<MagickGeometry>(attribute);
                 else if (attribute.Name == "gravity")
-                    arguments["gravity"] = Variables.GetValue<Gravity>(attribute);
+                    arguments["gravity"] = GetValue<Gravity>(attribute);
                 else if (attribute.Name == "text")
-                    arguments["text"] = Variables.GetValue<String>(attribute);
+                    arguments["text"] = GetValue<String>(attribute);
             }
             if (OnlyContains(arguments, "text", "boundingArea"))
                 image.Annotate((String)arguments["text"], (MagickGeometry)arguments["boundingArea"]);
@@ -1832,7 +1832,7 @@ namespace ImageMagick
             Hashtable arguments = new Hashtable();
             foreach (XmlAttribute attribute in element.Attributes)
             {
-                arguments[attribute.Name] = Variables.GetValue<Channels>(attribute);
+                arguments[attribute.Name] = GetValue<Channels>(attribute);
             }
             if (arguments.Count == 0)
                 image.AutoGamma();
@@ -1846,7 +1846,7 @@ namespace ImageMagick
             Hashtable arguments = new Hashtable();
             foreach (XmlAttribute attribute in element.Attributes)
             {
-                arguments[attribute.Name] = Variables.GetValue<Channels>(attribute);
+                arguments[attribute.Name] = GetValue<Channels>(attribute);
             }
             if (arguments.Count == 0)
                 image.AutoLevel();
@@ -1861,7 +1861,7 @@ namespace ImageMagick
         }
         private void ExecuteAutoThreshold(XmlElement element, IMagickImage image)
         {
-            AutoThresholdMethod method_ = Variables.GetValue<AutoThresholdMethod>(element, "method");
+            AutoThresholdMethod method_ = GetValue<AutoThresholdMethod>(element, "method");
             image.AutoThreshold(method_);
         }
         private void ExecuteBitDepth(XmlElement element, IMagickImage image)
@@ -1870,9 +1870,9 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "value")
-                    arguments["value"] = Variables.GetValue<Int32>(attribute);
+                    arguments["value"] = GetValue<Int32>(attribute);
             }
             if (OnlyContains(arguments, "channels", "value"))
                 image.BitDepth((Channels)arguments["channels"], (Int32)arguments["value"]);
@@ -1887,9 +1887,9 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "threshold")
-                    arguments["threshold"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["threshold"] = GetValue<Percentage>(attribute);
             }
             if (OnlyContains(arguments, "threshold"))
                 image.BlackThreshold((Percentage)arguments["threshold"]);
@@ -1903,7 +1903,7 @@ namespace ImageMagick
             Hashtable arguments = new Hashtable();
             foreach (XmlAttribute attribute in element.Attributes)
             {
-                arguments[attribute.Name] = Variables.GetValue<double>(attribute);
+                arguments[attribute.Name] = GetValue<double>(attribute);
             }
             if (arguments.Count == 0)
                 image.BlueShift();
@@ -1918,11 +1918,11 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "radius")
-                    arguments["radius"] = Variables.GetValue<double>(attribute);
+                    arguments["radius"] = GetValue<double>(attribute);
                 else if (attribute.Name == "sigma")
-                    arguments["sigma"] = Variables.GetValue<double>(attribute);
+                    arguments["sigma"] = GetValue<double>(attribute);
             }
             if (arguments.Count == 0)
                 image.Blur();
@@ -1940,7 +1940,7 @@ namespace ImageMagick
             Hashtable arguments = new Hashtable();
             foreach (XmlAttribute attribute in element.Attributes)
             {
-                arguments[attribute.Name] = Variables.GetValue<Int32>(attribute);
+                arguments[attribute.Name] = GetValue<Int32>(attribute);
             }
             if (OnlyContains(arguments, "size"))
                 image.Border((Int32)arguments["size"]);
@@ -1955,11 +1955,11 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "brightness")
-                    arguments["brightness"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["brightness"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "contrast")
-                    arguments["contrast"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["contrast"] = GetValue<Percentage>(attribute);
             }
             if (OnlyContains(arguments, "brightness", "contrast"))
                 image.BrightnessContrast((Percentage)arguments["brightness"], (Percentage)arguments["contrast"]);
@@ -1974,13 +1974,13 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "lower")
-                    arguments["lower"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["lower"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "radius")
-                    arguments["radius"] = Variables.GetValue<double>(attribute);
+                    arguments["radius"] = GetValue<double>(attribute);
                 else if (attribute.Name == "sigma")
-                    arguments["sigma"] = Variables.GetValue<double>(attribute);
+                    arguments["sigma"] = GetValue<double>(attribute);
                 else if (attribute.Name == "upper")
-                    arguments["upper"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["upper"] = GetValue<Percentage>(attribute);
             }
             if (arguments.Count == 0)
                 image.CannyEdge();
@@ -1994,7 +1994,7 @@ namespace ImageMagick
             Hashtable arguments = new Hashtable();
             foreach (XmlAttribute attribute in element.Attributes)
             {
-                arguments[attribute.Name] = Variables.GetValue<double>(attribute);
+                arguments[attribute.Name] = GetValue<double>(attribute);
             }
             if (arguments.Count == 0)
                 image.Charcoal();
@@ -2009,15 +2009,15 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "geometry")
-                    arguments["geometry"] = Variables.GetValue<MagickGeometry>(attribute);
+                    arguments["geometry"] = GetValue<MagickGeometry>(attribute);
                 else if (attribute.Name == "height")
-                    arguments["height"] = Variables.GetValue<Int32>(attribute);
+                    arguments["height"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "width")
-                    arguments["width"] = Variables.GetValue<Int32>(attribute);
+                    arguments["width"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "xOffset")
-                    arguments["xOffset"] = Variables.GetValue<Int32>(attribute);
+                    arguments["xOffset"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "yOffset")
-                    arguments["yOffset"] = Variables.GetValue<Int32>(attribute);
+                    arguments["yOffset"] = GetValue<Int32>(attribute);
             }
             if (OnlyContains(arguments, "geometry"))
                 image.Chop((MagickGeometry)arguments["geometry"]);
@@ -2028,14 +2028,14 @@ namespace ImageMagick
         }
         private void ExecuteChopHorizontal(XmlElement element, IMagickImage image)
         {
-            Int32 offset_ = Variables.GetValue<Int32>(element, "offset");
-            Int32 width_ = Variables.GetValue<Int32>(element, "width");
+            Int32 offset_ = GetValue<Int32>(element, "offset");
+            Int32 width_ = GetValue<Int32>(element, "width");
             image.ChopHorizontal(offset_, width_);
         }
         private void ExecuteChopVertical(XmlElement element, IMagickImage image)
         {
-            Int32 offset_ = Variables.GetValue<Int32>(element, "offset");
-            Int32 height_ = Variables.GetValue<Int32>(element, "height");
+            Int32 offset_ = GetValue<Int32>(element, "offset");
+            Int32 height_ = GetValue<Int32>(element, "height");
             image.ChopVertical(offset_, height_);
         }
         private void ExecuteClamp(XmlElement element, IMagickImage image)
@@ -2043,7 +2043,7 @@ namespace ImageMagick
             Hashtable arguments = new Hashtable();
             foreach (XmlAttribute attribute in element.Attributes)
             {
-                arguments[attribute.Name] = Variables.GetValue<Channels>(attribute);
+                arguments[attribute.Name] = GetValue<Channels>(attribute);
             }
             if (arguments.Count == 0)
                 image.Clamp();
@@ -2058,9 +2058,9 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "inside")
-                    arguments["inside"] = Variables.GetValue<Boolean>(attribute);
+                    arguments["inside"] = GetValue<Boolean>(attribute);
                 else if (attribute.Name == "pathName")
-                    arguments["pathName"] = Variables.GetValue<String>(attribute);
+                    arguments["pathName"] = GetValue<String>(attribute);
             }
             if (arguments.Count == 0)
                 image.Clip();
@@ -2075,9 +2075,9 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "method")
-                    arguments["method"] = Variables.GetValue<PixelInterpolateMethod>(attribute);
+                    arguments["method"] = GetValue<PixelInterpolateMethod>(attribute);
             }
             foreach (XmlElement elem in element.SelectNodes("*"))
             {
@@ -2094,12 +2094,12 @@ namespace ImageMagick
         }
         private void ExecuteColorAlpha(XmlElement element, IMagickImage image)
         {
-            MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
+            MagickColor color_ = GetValue<MagickColor>(element, "color");
             image.ColorAlpha(color_);
         }
         private void ExecuteColorDecisionList(XmlElement element, IMagickImage image)
         {
-            String fileName_ = Variables.GetValue<String>(element, "fileName");
+            String fileName_ = GetValue<String>(element, "fileName");
             image.ColorDecisionList(fileName_);
         }
         private void ExecuteColorize(XmlElement element, IMagickImage image)
@@ -2108,15 +2108,15 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "alpha")
-                    arguments["alpha"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["alpha"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "alphaBlue")
-                    arguments["alphaBlue"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["alphaBlue"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "alphaGreen")
-                    arguments["alphaGreen"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["alphaGreen"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "alphaRed")
-                    arguments["alphaRed"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["alphaRed"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "color")
-                    arguments["color"] = Variables.GetValue<MagickColor>(attribute);
+                    arguments["color"] = GetValue<MagickColor>(attribute);
             }
             if (OnlyContains(arguments, "color", "alpha"))
                 image.Colorize((MagickColor)arguments["color"], (Percentage)arguments["alpha"]);
@@ -2131,17 +2131,17 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "args")
-                    arguments["args"] = Variables.GetValue<String>(attribute);
+                    arguments["args"] = GetValue<String>(attribute);
                 else if (attribute.Name == "compose")
-                    arguments["compose"] = Variables.GetValue<CompositeOperator>(attribute);
+                    arguments["compose"] = GetValue<CompositeOperator>(attribute);
                 else if (attribute.Name == "gravity")
-                    arguments["gravity"] = Variables.GetValue<Gravity>(attribute);
+                    arguments["gravity"] = GetValue<Gravity>(attribute);
                 else if (attribute.Name == "offset")
-                    arguments["offset"] = Variables.GetValue<PointD>(attribute);
+                    arguments["offset"] = GetValue<PointD>(attribute);
                 else if (attribute.Name == "x")
-                    arguments["x"] = Variables.GetValue<Int32>(attribute);
+                    arguments["x"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "y")
-                    arguments["y"] = Variables.GetValue<Int32>(attribute);
+                    arguments["y"] = GetValue<Int32>(attribute);
             }
             foreach (XmlElement elem in element.SelectNodes("*"))
             {
@@ -2179,7 +2179,7 @@ namespace ImageMagick
             Hashtable arguments = new Hashtable();
             foreach (XmlAttribute attribute in element.Attributes)
             {
-                arguments[attribute.Name] = Variables.GetValue<Boolean>(attribute);
+                arguments[attribute.Name] = GetValue<Boolean>(attribute);
             }
             if (arguments.Count == 0)
                 image.Contrast();
@@ -2194,11 +2194,11 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "blackPoint")
-                    arguments["blackPoint"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["blackPoint"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "whitePoint")
-                    arguments["whitePoint"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["whitePoint"] = GetValue<Percentage>(attribute);
             }
             if (OnlyContains(arguments, "blackPoint"))
                 image.ContrastStretch((Percentage)arguments["blackPoint"]);
@@ -2215,15 +2215,15 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "geometry")
-                    arguments["geometry"] = Variables.GetValue<MagickGeometry>(attribute);
+                    arguments["geometry"] = GetValue<MagickGeometry>(attribute);
                 else if (attribute.Name == "offset")
-                    arguments["offset"] = Variables.GetValue<PointD>(attribute);
+                    arguments["offset"] = GetValue<PointD>(attribute);
                 else if (attribute.Name == "x")
-                    arguments["x"] = Variables.GetValue<Int32>(attribute);
+                    arguments["x"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "y")
-                    arguments["y"] = Variables.GetValue<Int32>(attribute);
+                    arguments["y"] = GetValue<Int32>(attribute);
             }
             foreach (XmlElement elem in element.SelectNodes("*"))
             {
@@ -2254,17 +2254,17 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "geometry")
-                    arguments["geometry"] = Variables.GetValue<MagickGeometry>(attribute);
+                    arguments["geometry"] = GetValue<MagickGeometry>(attribute);
                 else if (attribute.Name == "gravity")
-                    arguments["gravity"] = Variables.GetValue<Gravity>(attribute);
+                    arguments["gravity"] = GetValue<Gravity>(attribute);
                 else if (attribute.Name == "height")
-                    arguments["height"] = Variables.GetValue<Int32>(attribute);
+                    arguments["height"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "width")
-                    arguments["width"] = Variables.GetValue<Int32>(attribute);
+                    arguments["width"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "x")
-                    arguments["x"] = Variables.GetValue<Int32>(attribute);
+                    arguments["x"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "y")
-                    arguments["y"] = Variables.GetValue<Int32>(attribute);
+                    arguments["y"] = GetValue<Int32>(attribute);
             }
             if (OnlyContains(arguments, "geometry"))
                 image.Crop((MagickGeometry)arguments["geometry"]);
@@ -2281,17 +2281,17 @@ namespace ImageMagick
         }
         private void ExecuteCycleColormap(XmlElement element, IMagickImage image)
         {
-            Int32 amount_ = Variables.GetValue<Int32>(element, "amount");
+            Int32 amount_ = GetValue<Int32>(element, "amount");
             image.CycleColormap(amount_);
         }
         private void ExecuteDecipher(XmlElement element, IMagickImage image)
         {
-            String passphrase_ = Variables.GetValue<String>(element, "passphrase");
+            String passphrase_ = GetValue<String>(element, "passphrase");
             image.Decipher(passphrase_);
         }
         private void ExecuteDeskew(XmlElement element, IMagickImage image)
         {
-            Percentage threshold_ = Variables.GetValue<Percentage>(element, "threshold");
+            Percentage threshold_ = GetValue<Percentage>(element, "threshold");
             image.Deskew(threshold_);
         }
         private static void ExecuteDespeckle(IMagickImage image)
@@ -2303,12 +2303,12 @@ namespace ImageMagick
             Hashtable arguments = new Hashtable();
             foreach (XmlAttribute attribute in element.Attributes)
             {
-                arguments[attribute.Name] = Variables.GetValue<DistortMethod>(attribute);
+                arguments[attribute.Name] = GetValue<DistortMethod>(attribute);
             }
             foreach (XmlElement elem in element.SelectNodes("*"))
             {
                 if (elem.Name == "arguments")
-                    arguments["arguments"] = Variables.GetDoubleArray(elem);
+                    arguments["arguments"] = GetDoubleArray(elem);
                 else if (elem.Name == "settings")
                     arguments["settings"] = CreateDistortSettings(elem);
             }
@@ -2321,7 +2321,7 @@ namespace ImageMagick
         }
         private void ExecuteEdge(XmlElement element, IMagickImage image)
         {
-            double radius_ = Variables.GetValue<double>(element, "radius");
+            double radius_ = GetValue<double>(element, "radius");
             image.Edge(radius_);
         }
         private void ExecuteEmboss(XmlElement element, IMagickImage image)
@@ -2329,7 +2329,7 @@ namespace ImageMagick
             Hashtable arguments = new Hashtable();
             foreach (XmlAttribute attribute in element.Attributes)
             {
-                arguments[attribute.Name] = Variables.GetValue<double>(attribute);
+                arguments[attribute.Name] = GetValue<double>(attribute);
             }
             if (arguments.Count == 0)
                 image.Emboss();
@@ -2340,7 +2340,7 @@ namespace ImageMagick
         }
         private void ExecuteEncipher(XmlElement element, IMagickImage image)
         {
-            String passphrase_ = Variables.GetValue<String>(element, "passphrase");
+            String passphrase_ = GetValue<String>(element, "passphrase");
             image.Encipher(passphrase_);
         }
         private static void ExecuteEnhance(IMagickImage image)
@@ -2357,21 +2357,21 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "evaluateFunction")
-                    arguments["evaluateFunction"] = Variables.GetValue<EvaluateFunction>(attribute);
+                    arguments["evaluateFunction"] = GetValue<EvaluateFunction>(attribute);
                 else if (attribute.Name == "evaluateOperator")
-                    arguments["evaluateOperator"] = Variables.GetValue<EvaluateOperator>(attribute);
+                    arguments["evaluateOperator"] = GetValue<EvaluateOperator>(attribute);
                 else if (attribute.Name == "geometry")
-                    arguments["geometry"] = Variables.GetValue<MagickGeometry>(attribute);
+                    arguments["geometry"] = GetValue<MagickGeometry>(attribute);
                 else if (attribute.Name == "percentage")
-                    arguments["percentage"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["percentage"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "value")
-                    arguments["value"] = Variables.GetValue<double>(attribute);
+                    arguments["value"] = GetValue<double>(attribute);
             }
             foreach (XmlElement elem in element.SelectNodes("*"))
             {
-                arguments[elem.Name] = Variables.GetDoubleArray(elem);
+                arguments[elem.Name] = GetDoubleArray(elem);
             }
             if (OnlyContains(arguments, "channels", "evaluateFunction", "arguments"))
                 image.Evaluate((Channels)arguments["channels"], (EvaluateFunction)arguments["evaluateFunction"], (Double[])arguments["arguments"]);
@@ -2392,19 +2392,19 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "backgroundColor")
-                    arguments["backgroundColor"] = Variables.GetValue<MagickColor>(attribute);
+                    arguments["backgroundColor"] = GetValue<MagickColor>(attribute);
                 else if (attribute.Name == "geometry")
-                    arguments["geometry"] = Variables.GetValue<MagickGeometry>(attribute);
+                    arguments["geometry"] = GetValue<MagickGeometry>(attribute);
                 else if (attribute.Name == "gravity")
-                    arguments["gravity"] = Variables.GetValue<Gravity>(attribute);
+                    arguments["gravity"] = GetValue<Gravity>(attribute);
                 else if (attribute.Name == "height")
-                    arguments["height"] = Variables.GetValue<Int32>(attribute);
+                    arguments["height"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "width")
-                    arguments["width"] = Variables.GetValue<Int32>(attribute);
+                    arguments["width"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "x")
-                    arguments["x"] = Variables.GetValue<Int32>(attribute);
+                    arguments["x"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "y")
-                    arguments["y"] = Variables.GetValue<Int32>(attribute);
+                    arguments["y"] = GetValue<Int32>(attribute);
             }
             if (OnlyContains(arguments, "geometry"))
                 image.Extent((MagickGeometry)arguments["geometry"]);
@@ -2437,17 +2437,17 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "alpha")
-                    arguments["alpha"] = Variables.GetValue<QuantumType>(attribute);
+                    arguments["alpha"] = GetValue<QuantumType>(attribute);
                 else if (attribute.Name == "color")
-                    arguments["color"] = Variables.GetValue<MagickColor>(attribute);
+                    arguments["color"] = GetValue<MagickColor>(attribute);
                 else if (attribute.Name == "coordinate")
-                    arguments["coordinate"] = Variables.GetValue<PointD>(attribute);
+                    arguments["coordinate"] = GetValue<PointD>(attribute);
                 else if (attribute.Name == "target")
-                    arguments["target"] = Variables.GetValue<MagickColor>(attribute);
+                    arguments["target"] = GetValue<MagickColor>(attribute);
                 else if (attribute.Name == "x")
-                    arguments["x"] = Variables.GetValue<Int32>(attribute);
+                    arguments["x"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "y")
-                    arguments["y"] = Variables.GetValue<Int32>(attribute);
+                    arguments["y"] = GetValue<Int32>(attribute);
             }
             foreach (XmlElement elem in element.SelectNodes("*"))
             {
@@ -2484,15 +2484,15 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "geometry")
-                    arguments["geometry"] = Variables.GetValue<MagickGeometry>(attribute);
+                    arguments["geometry"] = GetValue<MagickGeometry>(attribute);
                 else if (attribute.Name == "height")
-                    arguments["height"] = Variables.GetValue<Int32>(attribute);
+                    arguments["height"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "innerBevel")
-                    arguments["innerBevel"] = Variables.GetValue<Int32>(attribute);
+                    arguments["innerBevel"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "outerBevel")
-                    arguments["outerBevel"] = Variables.GetValue<Int32>(attribute);
+                    arguments["outerBevel"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "width")
-                    arguments["width"] = Variables.GetValue<Int32>(attribute);
+                    arguments["width"] = GetValue<Int32>(attribute);
             }
             if (arguments.Count == 0)
                 image.Frame();
@@ -2511,9 +2511,9 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "expression")
-                    arguments["expression"] = Variables.GetValue<String>(attribute);
+                    arguments["expression"] = GetValue<String>(attribute);
             }
             if (OnlyContains(arguments, "expression"))
                 image.Fx((String)arguments["expression"]);
@@ -2528,9 +2528,9 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "gamma")
-                    arguments["gamma"] = Variables.GetValue<double>(attribute);
+                    arguments["gamma"] = GetValue<double>(attribute);
             }
             if (OnlyContains(arguments, "gamma"))
                 image.GammaCorrect((double)arguments["gamma"]);
@@ -2545,11 +2545,11 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "radius")
-                    arguments["radius"] = Variables.GetValue<double>(attribute);
+                    arguments["radius"] = GetValue<double>(attribute);
                 else if (attribute.Name == "sigma")
-                    arguments["sigma"] = Variables.GetValue<double>(attribute);
+                    arguments["sigma"] = GetValue<double>(attribute);
             }
             if (OnlyContains(arguments, "radius", "sigma"))
                 image.GaussianBlur((double)arguments["radius"], (double)arguments["sigma"]);
@@ -2560,7 +2560,7 @@ namespace ImageMagick
         }
         private void ExecuteGrayscale(XmlElement element, IMagickImage image)
         {
-            PixelIntensityMethod method_ = Variables.GetValue<PixelIntensityMethod>(element, "method");
+            PixelIntensityMethod method_ = GetValue<PixelIntensityMethod>(element, "method");
             image.Grayscale(method_);
         }
         private void ExecuteHaldClut(XmlElement element, IMagickImage image)
@@ -2573,7 +2573,7 @@ namespace ImageMagick
             Hashtable arguments = new Hashtable();
             foreach (XmlAttribute attribute in element.Attributes)
             {
-                arguments[attribute.Name] = Variables.GetValue<Int32>(attribute);
+                arguments[attribute.Name] = GetValue<Int32>(attribute);
             }
             if (arguments.Count == 0)
                 image.HoughLine();
@@ -2584,8 +2584,8 @@ namespace ImageMagick
         }
         private void ExecuteImplode(XmlElement element, IMagickImage image)
         {
-            double amount_ = Variables.GetValue<double>(element, "amount");
-            PixelInterpolateMethod method_ = Variables.GetValue<PixelInterpolateMethod>(element, "method");
+            double amount_ = GetValue<double>(element, "amount");
+            PixelInterpolateMethod method_ = GetValue<PixelInterpolateMethod>(element, "method");
             image.Implode(amount_, method_);
         }
         private void ExecuteInverseFloodFill(XmlElement element, IMagickImage image)
@@ -2594,17 +2594,17 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "alpha")
-                    arguments["alpha"] = Variables.GetValue<QuantumType>(attribute);
+                    arguments["alpha"] = GetValue<QuantumType>(attribute);
                 else if (attribute.Name == "color")
-                    arguments["color"] = Variables.GetValue<MagickColor>(attribute);
+                    arguments["color"] = GetValue<MagickColor>(attribute);
                 else if (attribute.Name == "coordinate")
-                    arguments["coordinate"] = Variables.GetValue<PointD>(attribute);
+                    arguments["coordinate"] = GetValue<PointD>(attribute);
                 else if (attribute.Name == "target")
-                    arguments["target"] = Variables.GetValue<MagickColor>(attribute);
+                    arguments["target"] = GetValue<MagickColor>(attribute);
                 else if (attribute.Name == "x")
-                    arguments["x"] = Variables.GetValue<Int32>(attribute);
+                    arguments["x"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "y")
-                    arguments["y"] = Variables.GetValue<Int32>(attribute);
+                    arguments["y"] = GetValue<Int32>(attribute);
             }
             foreach (XmlElement elem in element.SelectNodes("*"))
             {
@@ -2637,17 +2637,17 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "blackPoint")
-                    arguments["blackPoint"] = Variables.GetValue<QuantumType>(attribute);
+                    arguments["blackPoint"] = GetValue<QuantumType>(attribute);
                 else if (attribute.Name == "blackPointPercentage")
-                    arguments["blackPointPercentage"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["blackPointPercentage"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "midpoint")
-                    arguments["midpoint"] = Variables.GetValue<double>(attribute);
+                    arguments["midpoint"] = GetValue<double>(attribute);
                 else if (attribute.Name == "whitePoint")
-                    arguments["whitePoint"] = Variables.GetValue<QuantumType>(attribute);
+                    arguments["whitePoint"] = GetValue<QuantumType>(attribute);
                 else if (attribute.Name == "whitePointPercentage")
-                    arguments["whitePointPercentage"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["whitePointPercentage"] = GetValue<Percentage>(attribute);
             }
             if (OnlyContains(arguments, "blackPoint", "whitePoint"))
                 image.InverseLevel((QuantumType)arguments["blackPoint"], (QuantumType)arguments["whitePoint"]);
@@ -2674,11 +2674,11 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "blackColor")
-                    arguments["blackColor"] = Variables.GetValue<MagickColor>(attribute);
+                    arguments["blackColor"] = GetValue<MagickColor>(attribute);
                 else if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "whiteColor")
-                    arguments["whiteColor"] = Variables.GetValue<MagickColor>(attribute);
+                    arguments["whiteColor"] = GetValue<MagickColor>(attribute);
             }
             if (OnlyContains(arguments, "blackColor", "whiteColor"))
                 image.InverseLevelColors((MagickColor)arguments["blackColor"], (MagickColor)arguments["whiteColor"]);
@@ -2689,19 +2689,19 @@ namespace ImageMagick
         }
         private void ExecuteInverseOpaque(XmlElement element, IMagickImage image)
         {
-            MagickColor target_ = Variables.GetValue<MagickColor>(element, "target");
-            MagickColor fill_ = Variables.GetValue<MagickColor>(element, "fill");
+            MagickColor target_ = GetValue<MagickColor>(element, "target");
+            MagickColor fill_ = GetValue<MagickColor>(element, "fill");
             image.InverseOpaque(target_, fill_);
         }
         private void ExecuteInverseTransparent(XmlElement element, IMagickImage image)
         {
-            MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
+            MagickColor color_ = GetValue<MagickColor>(element, "color");
             image.InverseTransparent(color_);
         }
         private void ExecuteInverseTransparentChroma(XmlElement element, IMagickImage image)
         {
-            MagickColor colorLow_ = Variables.GetValue<MagickColor>(element, "colorLow");
-            MagickColor colorHigh_ = Variables.GetValue<MagickColor>(element, "colorHigh");
+            MagickColor colorLow_ = GetValue<MagickColor>(element, "colorLow");
+            MagickColor colorHigh_ = GetValue<MagickColor>(element, "colorHigh");
             image.InverseTransparentChroma(colorLow_, colorHigh_);
         }
         private void ExecuteKuwahara(XmlElement element, IMagickImage image)
@@ -2709,7 +2709,7 @@ namespace ImageMagick
             Hashtable arguments = new Hashtable();
             foreach (XmlAttribute attribute in element.Attributes)
             {
-                arguments[attribute.Name] = Variables.GetValue<double>(attribute);
+                arguments[attribute.Name] = GetValue<double>(attribute);
             }
             if (arguments.Count == 0)
                 image.Kuwahara();
@@ -2724,17 +2724,17 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "blackPoint")
-                    arguments["blackPoint"] = Variables.GetValue<QuantumType>(attribute);
+                    arguments["blackPoint"] = GetValue<QuantumType>(attribute);
                 else if (attribute.Name == "blackPointPercentage")
-                    arguments["blackPointPercentage"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["blackPointPercentage"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "gamma")
-                    arguments["gamma"] = Variables.GetValue<double>(attribute);
+                    arguments["gamma"] = GetValue<double>(attribute);
                 else if (attribute.Name == "whitePoint")
-                    arguments["whitePoint"] = Variables.GetValue<QuantumType>(attribute);
+                    arguments["whitePoint"] = GetValue<QuantumType>(attribute);
                 else if (attribute.Name == "whitePointPercentage")
-                    arguments["whitePointPercentage"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["whitePointPercentage"] = GetValue<Percentage>(attribute);
             }
             if (OnlyContains(arguments, "blackPoint", "whitePoint"))
                 image.Level((QuantumType)arguments["blackPoint"], (QuantumType)arguments["whitePoint"]);
@@ -2761,11 +2761,11 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "blackColor")
-                    arguments["blackColor"] = Variables.GetValue<MagickColor>(attribute);
+                    arguments["blackColor"] = GetValue<MagickColor>(attribute);
                 else if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "whiteColor")
-                    arguments["whiteColor"] = Variables.GetValue<MagickColor>(attribute);
+                    arguments["whiteColor"] = GetValue<MagickColor>(attribute);
             }
             if (OnlyContains(arguments, "blackColor", "whiteColor"))
                 image.LevelColors((MagickColor)arguments["blackColor"], (MagickColor)arguments["whiteColor"]);
@@ -2776,8 +2776,8 @@ namespace ImageMagick
         }
         private void ExecuteLinearStretch(XmlElement element, IMagickImage image)
         {
-            Percentage blackPoint_ = Variables.GetValue<Percentage>(element, "blackPoint");
-            Percentage whitePoint_ = Variables.GetValue<Percentage>(element, "whitePoint");
+            Percentage blackPoint_ = GetValue<Percentage>(element, "blackPoint");
+            Percentage whitePoint_ = GetValue<Percentage>(element, "whitePoint");
             image.LinearStretch(blackPoint_, whitePoint_);
         }
         private void ExecuteLiquidRescale(XmlElement element, IMagickImage image)
@@ -2786,17 +2786,17 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "geometry")
-                    arguments["geometry"] = Variables.GetValue<MagickGeometry>(attribute);
+                    arguments["geometry"] = GetValue<MagickGeometry>(attribute);
                 else if (attribute.Name == "height")
-                    arguments["height"] = Variables.GetValue<Int32>(attribute);
+                    arguments["height"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "percentage")
-                    arguments["percentage"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["percentage"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "percentageHeight")
-                    arguments["percentageHeight"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["percentageHeight"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "percentageWidth")
-                    arguments["percentageWidth"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["percentageWidth"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "width")
-                    arguments["width"] = Variables.GetValue<Int32>(attribute);
+                    arguments["width"] = GetValue<Int32>(attribute);
             }
             if (OnlyContains(arguments, "geometry"))
                 image.LiquidRescale((MagickGeometry)arguments["geometry"]);
@@ -2815,11 +2815,11 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "radius")
-                    arguments["radius"] = Variables.GetValue<double>(attribute);
+                    arguments["radius"] = GetValue<double>(attribute);
                 else if (attribute.Name == "strength")
-                    arguments["strength"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["strength"] = GetValue<Percentage>(attribute);
             }
             if (OnlyContains(arguments, "radius", "strength"))
                 image.LocalContrast((double)arguments["radius"], (Percentage)arguments["strength"]);
@@ -2830,7 +2830,7 @@ namespace ImageMagick
         }
         private void ExecuteLower(XmlElement element, IMagickImage image)
         {
-            Int32 size_ = Variables.GetValue<Int32>(element, "size");
+            Int32 size_ = GetValue<Int32>(element, "size");
             image.Lower(size_);
         }
         private static void ExecuteMagnify(IMagickImage image)
@@ -2866,13 +2866,13 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "colorDistance")
-                    arguments["colorDistance"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["colorDistance"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "height")
-                    arguments["height"] = Variables.GetValue<Int32>(attribute);
+                    arguments["height"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "size")
-                    arguments["size"] = Variables.GetValue<Int32>(attribute);
+                    arguments["size"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "width")
-                    arguments["width"] = Variables.GetValue<Int32>(attribute);
+                    arguments["width"] = GetValue<Int32>(attribute);
             }
             if (OnlyContains(arguments, "size"))
                 image.MeanShift((Int32)arguments["size"]);
@@ -2890,7 +2890,7 @@ namespace ImageMagick
             Hashtable arguments = new Hashtable();
             foreach (XmlAttribute attribute in element.Attributes)
             {
-                arguments[attribute.Name] = Variables.GetValue<Int32>(attribute);
+                arguments[attribute.Name] = GetValue<Int32>(attribute);
             }
             if (arguments.Count == 0)
                 image.MedianFilter();
@@ -2908,7 +2908,7 @@ namespace ImageMagick
             Hashtable arguments = new Hashtable();
             foreach (XmlAttribute attribute in element.Attributes)
             {
-                arguments[attribute.Name] = Variables.GetValue<Percentage>(attribute);
+                arguments[attribute.Name] = GetValue<Percentage>(attribute);
             }
             if (OnlyContains(arguments, "brightness"))
                 image.Modulate((Percentage)arguments["brightness"]);
@@ -2925,17 +2925,17 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "arguments")
-                    arguments["arguments"] = Variables.GetValue<String>(attribute);
+                    arguments["arguments"] = GetValue<String>(attribute);
                 else if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "iterations")
-                    arguments["iterations"] = Variables.GetValue<Int32>(attribute);
+                    arguments["iterations"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "kernel")
-                    arguments["kernel"] = Variables.GetValue<Kernel>(attribute);
+                    arguments["kernel"] = GetValue<Kernel>(attribute);
                 else if (attribute.Name == "method")
-                    arguments["method"] = Variables.GetValue<MorphologyMethod>(attribute);
+                    arguments["method"] = GetValue<MorphologyMethod>(attribute);
                 else if (attribute.Name == "userKernel")
-                    arguments["userKernel"] = Variables.GetValue<String>(attribute);
+                    arguments["userKernel"] = GetValue<String>(attribute);
             }
             foreach (XmlElement elem in element.SelectNodes("*"))
             {
@@ -2972,9 +2972,9 @@ namespace ImageMagick
         }
         private void ExecuteMotionBlur(XmlElement element, IMagickImage image)
         {
-            double radius_ = Variables.GetValue<double>(element, "radius");
-            double sigma_ = Variables.GetValue<double>(element, "sigma");
-            double angle_ = Variables.GetValue<double>(element, "angle");
+            double radius_ = GetValue<double>(element, "radius");
+            double sigma_ = GetValue<double>(element, "sigma");
+            double angle_ = GetValue<double>(element, "angle");
             image.MotionBlur(radius_, sigma_, angle_);
         }
         private void ExecuteNegate(XmlElement element, IMagickImage image)
@@ -2983,9 +2983,9 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "onlyGrayscale")
-                    arguments["onlyGrayscale"] = Variables.GetValue<Boolean>(attribute);
+                    arguments["onlyGrayscale"] = GetValue<Boolean>(attribute);
             }
             if (arguments.Count == 0)
                 image.Negate();
@@ -3007,7 +3007,7 @@ namespace ImageMagick
             Hashtable arguments = new Hashtable();
             foreach (XmlAttribute attribute in element.Attributes)
             {
-                arguments[attribute.Name] = Variables.GetValue<double>(attribute);
+                arguments[attribute.Name] = GetValue<double>(attribute);
             }
             if (arguments.Count == 0)
                 image.OilPaint();
@@ -3018,8 +3018,8 @@ namespace ImageMagick
         }
         private void ExecuteOpaque(XmlElement element, IMagickImage image)
         {
-            MagickColor target_ = Variables.GetValue<MagickColor>(element, "target");
-            MagickColor fill_ = Variables.GetValue<MagickColor>(element, "fill");
+            MagickColor target_ = GetValue<MagickColor>(element, "target");
+            MagickColor fill_ = GetValue<MagickColor>(element, "fill");
             image.Opaque(target_, fill_);
         }
         private void ExecuteOrderedDither(XmlElement element, IMagickImage image)
@@ -3028,9 +3028,9 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "thresholdMap")
-                    arguments["thresholdMap"] = Variables.GetValue<String>(attribute);
+                    arguments["thresholdMap"] = GetValue<String>(attribute);
             }
             if (OnlyContains(arguments, "thresholdMap"))
                 image.OrderedDither((String)arguments["thresholdMap"]);
@@ -3045,9 +3045,9 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "epsilon")
-                    arguments["epsilon"] = Variables.GetValue<double>(attribute);
+                    arguments["epsilon"] = GetValue<double>(attribute);
             }
             if (OnlyContains(arguments, "epsilon"))
                 image.Perceptible((double)arguments["epsilon"]);
@@ -3058,9 +3058,9 @@ namespace ImageMagick
         }
         private void ExecutePolaroid(XmlElement element, IMagickImage image)
         {
-            String caption_ = Variables.GetValue<String>(element, "caption");
-            double angle_ = Variables.GetValue<double>(element, "angle");
-            PixelInterpolateMethod method_ = Variables.GetValue<PixelInterpolateMethod>(element, "method");
+            String caption_ = GetValue<String>(element, "caption");
+            double angle_ = GetValue<double>(element, "angle");
+            PixelInterpolateMethod method_ = GetValue<PixelInterpolateMethod>(element, "method");
             image.Polaroid(caption_, angle_, method_);
         }
         private void ExecutePosterize(XmlElement element, IMagickImage image)
@@ -3069,11 +3069,11 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "levels")
-                    arguments["levels"] = Variables.GetValue<Int32>(attribute);
+                    arguments["levels"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "method")
-                    arguments["method"] = Variables.GetValue<DitherMethod>(attribute);
+                    arguments["method"] = GetValue<DitherMethod>(attribute);
             }
             if (OnlyContains(arguments, "levels"))
                 image.Posterize((Int32)arguments["levels"]);
@@ -3097,7 +3097,7 @@ namespace ImageMagick
         }
         private void ExecuteRaise(XmlElement element, IMagickImage image)
         {
-            Int32 size_ = Variables.GetValue<Int32>(element, "size");
+            Int32 size_ = GetValue<Int32>(element, "size");
             image.Raise(size_);
         }
         private void ExecuteRandomThreshold(XmlElement element, IMagickImage image)
@@ -3106,15 +3106,15 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "high")
-                    arguments["high"] = Variables.GetValue<QuantumType>(attribute);
+                    arguments["high"] = GetValue<QuantumType>(attribute);
                 else if (attribute.Name == "low")
-                    arguments["low"] = Variables.GetValue<QuantumType>(attribute);
+                    arguments["low"] = GetValue<QuantumType>(attribute);
                 else if (attribute.Name == "percentageHigh")
-                    arguments["percentageHigh"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["percentageHigh"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "percentageLow")
-                    arguments["percentageLow"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["percentageLow"] = GetValue<Percentage>(attribute);
             }
             if (OnlyContains(arguments, "low", "high"))
                 image.RandomThreshold((QuantumType)arguments["low"], (QuantumType)arguments["high"]);
@@ -3132,7 +3132,7 @@ namespace ImageMagick
             Hashtable arguments = new Hashtable();
             foreach (XmlAttribute attribute in element.Attributes)
             {
-                arguments[attribute.Name] = Variables.GetValue<Int32>(attribute);
+                arguments[attribute.Name] = GetValue<Int32>(attribute);
             }
             if (arguments.Count == 0)
                 image.ReduceNoise();
@@ -3143,22 +3143,22 @@ namespace ImageMagick
         }
         private void ExecuteRegionMask(XmlElement element, IMagickImage image)
         {
-            MagickGeometry region_ = Variables.GetValue<MagickGeometry>(element, "region");
+            MagickGeometry region_ = GetValue<MagickGeometry>(element, "region");
             image.RegionMask(region_);
         }
         private void ExecuteRemoveArtifact(XmlElement element, IMagickImage image)
         {
-            String name_ = Variables.GetValue<String>(element, "name");
+            String name_ = GetValue<String>(element, "name");
             image.RemoveArtifact(name_);
         }
         private void ExecuteRemoveAttribute(XmlElement element, IMagickImage image)
         {
-            String name_ = Variables.GetValue<String>(element, "name");
+            String name_ = GetValue<String>(element, "name");
             image.RemoveAttribute(name_);
         }
         private void ExecuteRemoveProfile(XmlElement element, IMagickImage image)
         {
-            String name_ = Variables.GetValue<String>(element, "name");
+            String name_ = GetValue<String>(element, "name");
             image.RemoveProfile(name_);
         }
         private static void ExecuteRemoveReadMask(IMagickImage image)
@@ -3183,11 +3183,11 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "density")
-                    arguments["density"] = Variables.GetValue<PointD>(attribute);
+                    arguments["density"] = GetValue<PointD>(attribute);
                 else if (attribute.Name == "resolutionX")
-                    arguments["resolutionX"] = Variables.GetValue<double>(attribute);
+                    arguments["resolutionX"] = GetValue<double>(attribute);
                 else if (attribute.Name == "resolutionY")
-                    arguments["resolutionY"] = Variables.GetValue<double>(attribute);
+                    arguments["resolutionY"] = GetValue<double>(attribute);
             }
             if (OnlyContains(arguments, "density"))
                 image.Resample((PointD)arguments["density"]);
@@ -3202,17 +3202,17 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "geometry")
-                    arguments["geometry"] = Variables.GetValue<MagickGeometry>(attribute);
+                    arguments["geometry"] = GetValue<MagickGeometry>(attribute);
                 else if (attribute.Name == "height")
-                    arguments["height"] = Variables.GetValue<Int32>(attribute);
+                    arguments["height"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "percentage")
-                    arguments["percentage"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["percentage"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "percentageHeight")
-                    arguments["percentageHeight"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["percentageHeight"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "percentageWidth")
-                    arguments["percentageWidth"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["percentageWidth"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "width")
-                    arguments["width"] = Variables.GetValue<Int32>(attribute);
+                    arguments["width"] = GetValue<Int32>(attribute);
             }
             if (OnlyContains(arguments, "geometry"))
                 image.Resize((MagickGeometry)arguments["geometry"]);
@@ -3227,13 +3227,13 @@ namespace ImageMagick
         }
         private void ExecuteRoll(XmlElement element, IMagickImage image)
         {
-            Int32 x_ = Variables.GetValue<Int32>(element, "x");
-            Int32 y_ = Variables.GetValue<Int32>(element, "y");
+            Int32 x_ = GetValue<Int32>(element, "x");
+            Int32 y_ = GetValue<Int32>(element, "y");
             image.Roll(x_, y_);
         }
         private void ExecuteRotate(XmlElement element, IMagickImage image)
         {
-            double degrees_ = Variables.GetValue<double>(element, "degrees");
+            double degrees_ = GetValue<double>(element, "degrees");
             image.Rotate(degrees_);
         }
         private void ExecuteRotationalBlur(XmlElement element, IMagickImage image)
@@ -3242,9 +3242,9 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "angle")
-                    arguments["angle"] = Variables.GetValue<double>(attribute);
+                    arguments["angle"] = GetValue<double>(attribute);
                 else if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
             }
             if (OnlyContains(arguments, "angle"))
                 image.RotationalBlur((double)arguments["angle"]);
@@ -3259,17 +3259,17 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "geometry")
-                    arguments["geometry"] = Variables.GetValue<MagickGeometry>(attribute);
+                    arguments["geometry"] = GetValue<MagickGeometry>(attribute);
                 else if (attribute.Name == "height")
-                    arguments["height"] = Variables.GetValue<Int32>(attribute);
+                    arguments["height"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "percentage")
-                    arguments["percentage"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["percentage"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "percentageHeight")
-                    arguments["percentageHeight"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["percentageHeight"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "percentageWidth")
-                    arguments["percentageWidth"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["percentageWidth"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "width")
-                    arguments["width"] = Variables.GetValue<Int32>(attribute);
+                    arguments["width"] = GetValue<Int32>(attribute);
             }
             if (OnlyContains(arguments, "geometry"))
                 image.Sample((MagickGeometry)arguments["geometry"]);
@@ -3288,17 +3288,17 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "geometry")
-                    arguments["geometry"] = Variables.GetValue<MagickGeometry>(attribute);
+                    arguments["geometry"] = GetValue<MagickGeometry>(attribute);
                 else if (attribute.Name == "height")
-                    arguments["height"] = Variables.GetValue<Int32>(attribute);
+                    arguments["height"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "percentage")
-                    arguments["percentage"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["percentage"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "percentageHeight")
-                    arguments["percentageHeight"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["percentageHeight"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "percentageWidth")
-                    arguments["percentageWidth"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["percentageWidth"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "width")
-                    arguments["width"] = Variables.GetValue<Int32>(attribute);
+                    arguments["width"] = GetValue<Int32>(attribute);
             }
             if (OnlyContains(arguments, "geometry"))
                 image.Scale((MagickGeometry)arguments["geometry"]);
@@ -3317,11 +3317,11 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "clusterThreshold")
-                    arguments["clusterThreshold"] = Variables.GetValue<double>(attribute);
+                    arguments["clusterThreshold"] = GetValue<double>(attribute);
                 else if (attribute.Name == "quantizeColorSpace")
-                    arguments["quantizeColorSpace"] = Variables.GetValue<ColorSpace>(attribute);
+                    arguments["quantizeColorSpace"] = GetValue<ColorSpace>(attribute);
                 else if (attribute.Name == "smoothingThreshold")
-                    arguments["smoothingThreshold"] = Variables.GetValue<double>(attribute);
+                    arguments["smoothingThreshold"] = GetValue<double>(attribute);
             }
             if (arguments.Count == 0)
                 image.Segment();
@@ -3336,15 +3336,15 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "radius")
-                    arguments["radius"] = Variables.GetValue<double>(attribute);
+                    arguments["radius"] = GetValue<double>(attribute);
                 else if (attribute.Name == "sigma")
-                    arguments["sigma"] = Variables.GetValue<double>(attribute);
+                    arguments["sigma"] = GetValue<double>(attribute);
                 else if (attribute.Name == "threshold")
-                    arguments["threshold"] = Variables.GetValue<double>(attribute);
+                    arguments["threshold"] = GetValue<double>(attribute);
                 else if (attribute.Name == "thresholdPercentage")
-                    arguments["thresholdPercentage"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["thresholdPercentage"] = GetValue<Percentage>(attribute);
             }
             if (OnlyContains(arguments, "radius", "sigma", "threshold"))
                 image.SelectiveBlur((double)arguments["radius"], (double)arguments["sigma"], (double)arguments["threshold"]);
@@ -3362,7 +3362,7 @@ namespace ImageMagick
             Hashtable arguments = new Hashtable();
             foreach (XmlAttribute attribute in element.Attributes)
             {
-                arguments[attribute.Name] = Variables.GetValue<Percentage>(attribute);
+                arguments[attribute.Name] = GetValue<Percentage>(attribute);
             }
             if (arguments.Count == 0)
                 image.SepiaTone();
@@ -3373,19 +3373,19 @@ namespace ImageMagick
         }
         private void ExecuteSetArtifact(XmlElement element, IMagickImage image)
         {
-            String name_ = Variables.GetValue<String>(element, "name");
-            String value_ = Variables.GetValue<String>(element, "value");
+            String name_ = GetValue<String>(element, "name");
+            String value_ = GetValue<String>(element, "value");
             image.SetArtifact(name_, value_);
         }
         private void ExecuteSetAttenuate(XmlElement element, IMagickImage image)
         {
-            double attenuate_ = Variables.GetValue<double>(element, "attenuate");
+            double attenuate_ = GetValue<double>(element, "attenuate");
             image.SetAttenuate(attenuate_);
         }
         private void ExecuteSetAttribute(XmlElement element, IMagickImage image)
         {
-            String name_ = Variables.GetValue<String>(element, "name");
-            String value_ = Variables.GetValue<String>(element, "value");
+            String name_ = GetValue<String>(element, "name");
+            String value_ = GetValue<String>(element, "value");
             image.SetAttribute(name_, value_);
         }
         private void ExecuteSetClippingPath(XmlElement element, IMagickImage image)
@@ -3393,7 +3393,7 @@ namespace ImageMagick
             Hashtable arguments = new Hashtable();
             foreach (XmlAttribute attribute in element.Attributes)
             {
-                arguments[attribute.Name] = Variables.GetValue<String>(attribute);
+                arguments[attribute.Name] = GetValue<String>(attribute);
             }
             if (OnlyContains(arguments, "value"))
                 image.SetClippingPath((String)arguments["value"]);
@@ -3404,8 +3404,8 @@ namespace ImageMagick
         }
         private void ExecuteSetColormap(XmlElement element, IMagickImage image)
         {
-            Int32 index_ = Variables.GetValue<Int32>(element, "index");
-            MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
+            Int32 index_ = GetValue<Int32>(element, "index");
+            MagickColor color_ = GetValue<MagickColor>(element, "color");
             image.SetColormap(index_, color_);
         }
         private void ExecuteSetReadMask(XmlElement element, IMagickImage image)
@@ -3424,13 +3424,13 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "azimuth")
-                    arguments["azimuth"] = Variables.GetValue<double>(attribute);
+                    arguments["azimuth"] = GetValue<double>(attribute);
                 else if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "colorShading")
-                    arguments["colorShading"] = Variables.GetValue<Boolean>(attribute);
+                    arguments["colorShading"] = GetValue<Boolean>(attribute);
                 else if (attribute.Name == "elevation")
-                    arguments["elevation"] = Variables.GetValue<double>(attribute);
+                    arguments["elevation"] = GetValue<double>(attribute);
             }
             if (arguments.Count == 0)
                 image.Shade();
@@ -3449,15 +3449,15 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "alpha")
-                    arguments["alpha"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["alpha"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "color")
-                    arguments["color"] = Variables.GetValue<MagickColor>(attribute);
+                    arguments["color"] = GetValue<MagickColor>(attribute);
                 else if (attribute.Name == "sigma")
-                    arguments["sigma"] = Variables.GetValue<double>(attribute);
+                    arguments["sigma"] = GetValue<double>(attribute);
                 else if (attribute.Name == "x")
-                    arguments["x"] = Variables.GetValue<Int32>(attribute);
+                    arguments["x"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "y")
-                    arguments["y"] = Variables.GetValue<Int32>(attribute);
+                    arguments["y"] = GetValue<Int32>(attribute);
             }
             if (arguments.Count == 0)
                 image.Shadow();
@@ -3476,11 +3476,11 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "radius")
-                    arguments["radius"] = Variables.GetValue<double>(attribute);
+                    arguments["radius"] = GetValue<double>(attribute);
                 else if (attribute.Name == "sigma")
-                    arguments["sigma"] = Variables.GetValue<double>(attribute);
+                    arguments["sigma"] = GetValue<double>(attribute);
             }
             if (arguments.Count == 0)
                 image.Sharpen();
@@ -3495,14 +3495,14 @@ namespace ImageMagick
         }
         private void ExecuteShave(XmlElement element, IMagickImage image)
         {
-            Int32 leftRight_ = Variables.GetValue<Int32>(element, "leftRight");
-            Int32 topBottom_ = Variables.GetValue<Int32>(element, "topBottom");
+            Int32 leftRight_ = GetValue<Int32>(element, "leftRight");
+            Int32 topBottom_ = GetValue<Int32>(element, "topBottom");
             image.Shave(leftRight_, topBottom_);
         }
         private void ExecuteShear(XmlElement element, IMagickImage image)
         {
-            double xAngle_ = Variables.GetValue<double>(element, "xAngle");
-            double yAngle_ = Variables.GetValue<double>(element, "yAngle");
+            double xAngle_ = GetValue<double>(element, "xAngle");
+            double yAngle_ = GetValue<double>(element, "yAngle");
             image.Shear(xAngle_, yAngle_);
         }
         private void ExecuteSigmoidalContrast(XmlElement element, IMagickImage image)
@@ -3511,13 +3511,13 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "contrast")
-                    arguments["contrast"] = Variables.GetValue<double>(attribute);
+                    arguments["contrast"] = GetValue<double>(attribute);
                 else if (attribute.Name == "midpoint")
-                    arguments["midpoint"] = Variables.GetValue<double>(attribute);
+                    arguments["midpoint"] = GetValue<double>(attribute);
                 else if (attribute.Name == "midpointPercentage")
-                    arguments["midpointPercentage"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["midpointPercentage"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "sharpen")
-                    arguments["sharpen"] = Variables.GetValue<Boolean>(attribute);
+                    arguments["sharpen"] = GetValue<Boolean>(attribute);
             }
             if (OnlyContains(arguments, "contrast"))
                 image.SigmoidalContrast((double)arguments["contrast"]);
@@ -3539,7 +3539,7 @@ namespace ImageMagick
             Hashtable arguments = new Hashtable();
             foreach (XmlAttribute attribute in element.Attributes)
             {
-                arguments[attribute.Name] = Variables.GetValue<double>(attribute);
+                arguments[attribute.Name] = GetValue<double>(attribute);
             }
             if (arguments.Count == 0)
                 image.Sketch();
@@ -3554,9 +3554,9 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "factor")
-                    arguments["factor"] = Variables.GetValue<double>(attribute);
+                    arguments["factor"] = GetValue<double>(attribute);
                 else if (attribute.Name == "factorPercentage")
-                    arguments["factorPercentage"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["factorPercentage"] = GetValue<Percentage>(attribute);
             }
             if (arguments.Count == 0)
                 image.Solarize();
@@ -3573,9 +3573,9 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "method")
-                    arguments["method"] = Variables.GetValue<SparseColorMethod>(attribute);
+                    arguments["method"] = GetValue<SparseColorMethod>(attribute);
             }
             foreach (XmlElement elem in element.SelectNodes("*"))
             {
@@ -3590,7 +3590,7 @@ namespace ImageMagick
         }
         private void ExecuteSplice(XmlElement element, IMagickImage image)
         {
-            MagickGeometry geometry_ = Variables.GetValue<MagickGeometry>(element, "geometry");
+            MagickGeometry geometry_ = GetValue<MagickGeometry>(element, "geometry");
             image.Splice(geometry_);
         }
         private void ExecuteSpread(XmlElement element, IMagickImage image)
@@ -3599,9 +3599,9 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "method")
-                    arguments["method"] = Variables.GetValue<PixelInterpolateMethod>(attribute);
+                    arguments["method"] = GetValue<PixelInterpolateMethod>(attribute);
                 else if (attribute.Name == "radius")
-                    arguments["radius"] = Variables.GetValue<double>(attribute);
+                    arguments["radius"] = GetValue<double>(attribute);
             }
             if (arguments.Count == 0)
                 image.Spread();
@@ -3614,9 +3614,9 @@ namespace ImageMagick
         }
         private void ExecuteStatistic(XmlElement element, IMagickImage image)
         {
-            StatisticType type_ = Variables.GetValue<StatisticType>(element, "type");
-            Int32 width_ = Variables.GetValue<Int32>(element, "width");
-            Int32 height_ = Variables.GetValue<Int32>(element, "height");
+            StatisticType type_ = GetValue<StatisticType>(element, "type");
+            Int32 width_ = GetValue<Int32>(element, "width");
+            Int32 height_ = GetValue<Int32>(element, "height");
             image.Statistic(type_, width_, height_);
         }
         private void ExecuteStegano(XmlElement element, IMagickImage image)
@@ -3639,9 +3639,9 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "degrees")
-                    arguments["degrees"] = Variables.GetValue<double>(attribute);
+                    arguments["degrees"] = GetValue<double>(attribute);
                 else if (attribute.Name == "method")
-                    arguments["method"] = Variables.GetValue<PixelInterpolateMethod>(attribute);
+                    arguments["method"] = GetValue<PixelInterpolateMethod>(attribute);
             }
             if (OnlyContains(arguments, "degrees"))
                 image.Swirl((double)arguments["degrees"]);
@@ -3657,7 +3657,7 @@ namespace ImageMagick
         }
         private void ExecuteThreshold(XmlElement element, IMagickImage image)
         {
-            Percentage percentage_ = Variables.GetValue<Percentage>(element, "percentage");
+            Percentage percentage_ = GetValue<Percentage>(element, "percentage");
             image.Threshold(percentage_);
         }
         private void ExecuteThumbnail(XmlElement element, IMagickImage image)
@@ -3666,17 +3666,17 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "geometry")
-                    arguments["geometry"] = Variables.GetValue<MagickGeometry>(attribute);
+                    arguments["geometry"] = GetValue<MagickGeometry>(attribute);
                 else if (attribute.Name == "height")
-                    arguments["height"] = Variables.GetValue<Int32>(attribute);
+                    arguments["height"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "percentage")
-                    arguments["percentage"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["percentage"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "percentageHeight")
-                    arguments["percentageHeight"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["percentageHeight"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "percentageWidth")
-                    arguments["percentageWidth"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["percentageWidth"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "width")
-                    arguments["width"] = Variables.GetValue<Int32>(attribute);
+                    arguments["width"] = GetValue<Int32>(attribute);
             }
             if (OnlyContains(arguments, "geometry"))
                 image.Thumbnail((MagickGeometry)arguments["geometry"]);
@@ -3695,9 +3695,9 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "args")
-                    arguments["args"] = Variables.GetValue<String>(attribute);
+                    arguments["args"] = GetValue<String>(attribute);
                 else if (attribute.Name == "compose")
-                    arguments["compose"] = Variables.GetValue<CompositeOperator>(attribute);
+                    arguments["compose"] = GetValue<CompositeOperator>(attribute);
             }
             foreach (XmlElement elem in element.SelectNodes("*"))
             {
@@ -3716,9 +3716,9 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "color")
-                    arguments["color"] = Variables.GetValue<MagickColor>(attribute);
+                    arguments["color"] = GetValue<MagickColor>(attribute);
                 else if (attribute.Name == "opacity")
-                    arguments["opacity"] = Variables.GetValue<String>(attribute);
+                    arguments["opacity"] = GetValue<String>(attribute);
             }
             if (OnlyContains(arguments, "opacity"))
                 image.Tint((String)arguments["opacity"]);
@@ -3743,13 +3743,13 @@ namespace ImageMagick
         }
         private void ExecuteTransparent(XmlElement element, IMagickImage image)
         {
-            MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
+            MagickColor color_ = GetValue<MagickColor>(element, "color");
             image.Transparent(color_);
         }
         private void ExecuteTransparentChroma(XmlElement element, IMagickImage image)
         {
-            MagickColor colorLow_ = Variables.GetValue<MagickColor>(element, "colorLow");
-            MagickColor colorHigh_ = Variables.GetValue<MagickColor>(element, "colorHigh");
+            MagickColor colorLow_ = GetValue<MagickColor>(element, "colorLow");
+            MagickColor colorHigh_ = GetValue<MagickColor>(element, "colorHigh");
             image.TransparentChroma(colorLow_, colorHigh_);
         }
         private static void ExecuteTranspose(IMagickImage image)
@@ -3770,15 +3770,15 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "amount")
-                    arguments["amount"] = Variables.GetValue<double>(attribute);
+                    arguments["amount"] = GetValue<double>(attribute);
                 else if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "radius")
-                    arguments["radius"] = Variables.GetValue<double>(attribute);
+                    arguments["radius"] = GetValue<double>(attribute);
                 else if (attribute.Name == "sigma")
-                    arguments["sigma"] = Variables.GetValue<double>(attribute);
+                    arguments["sigma"] = GetValue<double>(attribute);
                 else if (attribute.Name == "threshold")
-                    arguments["threshold"] = Variables.GetValue<double>(attribute);
+                    arguments["threshold"] = GetValue<double>(attribute);
             }
             if (OnlyContains(arguments, "radius", "sigma"))
                 image.UnsharpMask((double)arguments["radius"], (double)arguments["sigma"]);
@@ -3797,13 +3797,13 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "radius")
-                    arguments["radius"] = Variables.GetValue<double>(attribute);
+                    arguments["radius"] = GetValue<double>(attribute);
                 else if (attribute.Name == "sigma")
-                    arguments["sigma"] = Variables.GetValue<double>(attribute);
+                    arguments["sigma"] = GetValue<double>(attribute);
                 else if (attribute.Name == "x")
-                    arguments["x"] = Variables.GetValue<Int32>(attribute);
+                    arguments["x"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "y")
-                    arguments["y"] = Variables.GetValue<Int32>(attribute);
+                    arguments["y"] = GetValue<Int32>(attribute);
             }
             if (arguments.Count == 0)
                 image.Vignette();
@@ -3818,11 +3818,11 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "amplitude")
-                    arguments["amplitude"] = Variables.GetValue<double>(attribute);
+                    arguments["amplitude"] = GetValue<double>(attribute);
                 else if (attribute.Name == "length")
-                    arguments["length"] = Variables.GetValue<double>(attribute);
+                    arguments["length"] = GetValue<double>(attribute);
                 else if (attribute.Name == "method")
-                    arguments["method"] = Variables.GetValue<PixelInterpolateMethod>(attribute);
+                    arguments["method"] = GetValue<PixelInterpolateMethod>(attribute);
             }
             if (arguments.Count == 0)
                 image.Wave();
@@ -3837,11 +3837,11 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "softness")
-                    arguments["softness"] = Variables.GetValue<double>(attribute);
+                    arguments["softness"] = GetValue<double>(attribute);
                 else if (attribute.Name == "threshold")
-                    arguments["threshold"] = Variables.GetValue<QuantumType>(attribute);
+                    arguments["threshold"] = GetValue<QuantumType>(attribute);
                 else if (attribute.Name == "thresholdPercentage")
-                    arguments["thresholdPercentage"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["thresholdPercentage"] = GetValue<Percentage>(attribute);
             }
             if (OnlyContains(arguments, "threshold"))
                 image.WaveletDenoise((QuantumType)arguments["threshold"]);
@@ -3860,9 +3860,9 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "channels")
-                    arguments["channels"] = Variables.GetValue<Channels>(attribute);
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "threshold")
-                    arguments["threshold"] = Variables.GetValue<Percentage>(attribute);
+                    arguments["threshold"] = GetValue<Percentage>(attribute);
             }
             if (OnlyContains(arguments, "threshold"))
                 image.WhiteThreshold((Percentage)arguments["threshold"]);

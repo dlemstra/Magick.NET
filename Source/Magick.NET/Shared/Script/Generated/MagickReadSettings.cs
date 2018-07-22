@@ -402,27 +402,27 @@ namespace ImageMagick
         }
         private void ExecuteBackgroundColor(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.BackgroundColor = Variables.GetValue<MagickColor>(element, "value");
+            readSettings.BackgroundColor = GetValue<MagickColor>(element, "value");
         }
         private void ExecuteBorderColor(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.BorderColor = Variables.GetValue<MagickColor>(element, "value");
+            readSettings.BorderColor = GetValue<MagickColor>(element, "value");
         }
         private void ExecuteColorSpace(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.ColorSpace = Variables.GetValue<ColorSpace>(element, "value");
+            readSettings.ColorSpace = GetValue<ColorSpace>(element, "value");
         }
         private void ExecuteColorType(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.ColorType = Variables.GetValue<ColorType>(element, "value");
+            readSettings.ColorType = GetValue<ColorType>(element, "value");
         }
         private void ExecuteCompression(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.Compression = Variables.GetValue<CompressionMethod>(element, "value");
+            readSettings.Compression = GetValue<CompressionMethod>(element, "value");
         }
         private void ExecuteDebug(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.Debug = Variables.GetValue<Boolean>(element, "value");
+            readSettings.Debug = GetValue<Boolean>(element, "value");
         }
         private void ExecuteDefines(XmlElement element, MagickReadSettings readSettings)
         {
@@ -430,19 +430,19 @@ namespace ImageMagick
         }
         private void ExecuteDensity(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.Density = Variables.GetValue<Density>(element, "value");
+            readSettings.Density = GetValue<Density>(element, "value");
         }
         private void ExecuteEndian(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.Endian = Variables.GetValue<Endian>(element, "value");
+            readSettings.Endian = GetValue<Endian>(element, "value");
         }
         private void ExecuteExtractArea(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.ExtractArea = Variables.GetValue<MagickGeometry>(element, "value");
+            readSettings.ExtractArea = GetValue<MagickGeometry>(element, "value");
         }
         private void ExecuteFillColor(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.FillColor = Variables.GetValue<MagickColor>(element, "value");
+            readSettings.FillColor = GetValue<MagickColor>(element, "value");
         }
         private void ExecuteFillPattern(XmlElement element, MagickReadSettings readSettings)
         {
@@ -450,47 +450,47 @@ namespace ImageMagick
         }
         private void ExecuteFillRule(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.FillRule = Variables.GetValue<FillRule>(element, "value");
+            readSettings.FillRule = GetValue<FillRule>(element, "value");
         }
         private void ExecuteFont(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.Font = Variables.GetValue<String>(element, "value");
+            readSettings.Font = GetValue<String>(element, "value");
         }
         private void ExecuteFontFamily(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.FontFamily = Variables.GetValue<String>(element, "value");
+            readSettings.FontFamily = GetValue<String>(element, "value");
         }
         private void ExecuteFontPointsize(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.FontPointsize = Variables.GetValue<double>(element, "value");
+            readSettings.FontPointsize = GetValue<double>(element, "value");
         }
         private void ExecuteFontStyle(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.FontStyle = Variables.GetValue<FontStyleType>(element, "value");
+            readSettings.FontStyle = GetValue<FontStyleType>(element, "value");
         }
         private void ExecuteFontWeight(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.FontWeight = Variables.GetValue<FontWeight>(element, "value");
+            readSettings.FontWeight = GetValue<FontWeight>(element, "value");
         }
         private void ExecuteFormat(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.Format = Variables.GetValue<MagickFormat>(element, "value");
+            readSettings.Format = GetValue<MagickFormat>(element, "value");
         }
         private void ExecuteFrameCount(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.FrameCount = Variables.GetValue<Nullable<Int32>>(element, "value");
+            readSettings.FrameCount = GetValue<Nullable<Int32>>(element, "value");
         }
         private void ExecuteFrameIndex(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.FrameIndex = Variables.GetValue<Nullable<Int32>>(element, "value");
+            readSettings.FrameIndex = GetValue<Nullable<Int32>>(element, "value");
         }
         private void ExecuteHeight(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.Height = Variables.GetValue<Nullable<Int32>>(element, "value");
+            readSettings.Height = GetValue<Nullable<Int32>>(element, "value");
         }
         private void ExecutePage(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.Page = Variables.GetValue<MagickGeometry>(element, "value");
+            readSettings.Page = GetValue<MagickGeometry>(element, "value");
         }
         private void ExecutePixelStorage(XmlElement element, MagickReadSettings readSettings)
         {
@@ -498,31 +498,31 @@ namespace ImageMagick
         }
         private void ExecuteStrokeAntiAlias(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.StrokeAntiAlias = Variables.GetValue<Boolean>(element, "value");
+            readSettings.StrokeAntiAlias = GetValue<Boolean>(element, "value");
         }
         private void ExecuteStrokeColor(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.StrokeColor = Variables.GetValue<MagickColor>(element, "value");
+            readSettings.StrokeColor = GetValue<MagickColor>(element, "value");
         }
         private void ExecuteStrokeDashArray(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.StrokeDashArray = Variables.GetDoubleArray(element);
+            readSettings.StrokeDashArray = GetDoubleArray(element);
         }
         private void ExecuteStrokeDashOffset(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.StrokeDashOffset = Variables.GetValue<double>(element, "value");
+            readSettings.StrokeDashOffset = GetValue<double>(element, "value");
         }
         private void ExecuteStrokeLineCap(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.StrokeLineCap = Variables.GetValue<LineCap>(element, "value");
+            readSettings.StrokeLineCap = GetValue<LineCap>(element, "value");
         }
         private void ExecuteStrokeLineJoin(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.StrokeLineJoin = Variables.GetValue<LineJoin>(element, "value");
+            readSettings.StrokeLineJoin = GetValue<LineJoin>(element, "value");
         }
         private void ExecuteStrokeMiterLimit(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.StrokeMiterLimit = Variables.GetValue<Int32>(element, "value");
+            readSettings.StrokeMiterLimit = GetValue<Int32>(element, "value");
         }
         private void ExecuteStrokePattern(XmlElement element, MagickReadSettings readSettings)
         {
@@ -530,51 +530,51 @@ namespace ImageMagick
         }
         private void ExecuteStrokeWidth(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.StrokeWidth = Variables.GetValue<double>(element, "value");
+            readSettings.StrokeWidth = GetValue<double>(element, "value");
         }
         private void ExecuteTextAntiAlias(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.TextAntiAlias = Variables.GetValue<Boolean>(element, "value");
+            readSettings.TextAntiAlias = GetValue<Boolean>(element, "value");
         }
         private void ExecuteTextDirection(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.TextDirection = Variables.GetValue<TextDirection>(element, "value");
+            readSettings.TextDirection = GetValue<TextDirection>(element, "value");
         }
         private void ExecuteTextEncoding(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.TextEncoding = Variables.GetValue<Encoding>(element, "value");
+            readSettings.TextEncoding = GetValue<Encoding>(element, "value");
         }
         private void ExecuteTextGravity(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.TextGravity = Variables.GetValue<Gravity>(element, "value");
+            readSettings.TextGravity = GetValue<Gravity>(element, "value");
         }
         private void ExecuteTextInterlineSpacing(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.TextInterlineSpacing = Variables.GetValue<double>(element, "value");
+            readSettings.TextInterlineSpacing = GetValue<double>(element, "value");
         }
         private void ExecuteTextInterwordSpacing(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.TextInterwordSpacing = Variables.GetValue<double>(element, "value");
+            readSettings.TextInterwordSpacing = GetValue<double>(element, "value");
         }
         private void ExecuteTextKerning(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.TextKerning = Variables.GetValue<double>(element, "value");
+            readSettings.TextKerning = GetValue<double>(element, "value");
         }
         private void ExecuteTextUnderColor(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.TextUnderColor = Variables.GetValue<MagickColor>(element, "value");
+            readSettings.TextUnderColor = GetValue<MagickColor>(element, "value");
         }
         private void ExecuteUseMonochrome(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.UseMonochrome = Variables.GetValue<Boolean>(element, "value");
+            readSettings.UseMonochrome = GetValue<Boolean>(element, "value");
         }
         private void ExecuteVerbose(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.Verbose = Variables.GetValue<Boolean>(element, "value");
+            readSettings.Verbose = GetValue<Boolean>(element, "value");
         }
         private void ExecuteWidth(XmlElement element, MagickReadSettings readSettings)
         {
-            readSettings.Width = Variables.GetValue<Nullable<Int32>>(element, "value");
+            readSettings.Width = GetValue<Nullable<Int32>>(element, "value");
         }
         private void ExecuteRemoveDefine(XmlElement element, MagickReadSettings readSettings)
         {
@@ -582,9 +582,9 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "format")
-                    arguments["format"] = Variables.GetValue<MagickFormat>(attribute);
+                    arguments["format"] = GetValue<MagickFormat>(attribute);
                 else if (attribute.Name == "name")
-                    arguments["name"] = Variables.GetValue<String>(attribute);
+                    arguments["name"] = GetValue<String>(attribute);
             }
             if (OnlyContains(arguments, "format", "name"))
                 readSettings.RemoveDefine((MagickFormat)arguments["format"], (String)arguments["name"]);
@@ -599,13 +599,13 @@ namespace ImageMagick
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 if (attribute.Name == "flag")
-                    arguments["flag"] = Variables.GetValue<Boolean>(attribute);
+                    arguments["flag"] = GetValue<Boolean>(attribute);
                 else if (attribute.Name == "format")
-                    arguments["format"] = Variables.GetValue<MagickFormat>(attribute);
+                    arguments["format"] = GetValue<MagickFormat>(attribute);
                 else if (attribute.Name == "name")
-                    arguments["name"] = Variables.GetValue<String>(attribute);
+                    arguments["name"] = GetValue<String>(attribute);
                 else if (attribute.Name == "value")
-                    arguments["value"] = Variables.GetValue<String>(attribute);
+                    arguments["value"] = GetValue<String>(attribute);
             }
             if (OnlyContains(arguments, "format", "name", "flag"))
                 readSettings.SetDefine((MagickFormat)arguments["format"], (String)arguments["name"], (Boolean)arguments["flag"]);

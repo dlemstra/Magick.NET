@@ -35,8 +35,8 @@ namespace ImageMagick
     {
         private ImageProfile CreateImageProfile(XmlElement element)
         {
-            String name_ = Variables.GetValue<String>(element, "name");
-            String fileName_ = Variables.GetValue<String>(element, "fileName");
+            String name_ = GetValue<String>(element, "name");
+            String fileName_ = GetValue<String>(element, "fileName");
             return new ImageProfile(name_, fileName_);
         }
     }

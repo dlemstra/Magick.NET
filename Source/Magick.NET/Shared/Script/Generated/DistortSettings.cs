@@ -38,9 +38,9 @@ namespace ImageMagick
             if (element == null)
                 return null;
             DistortSettings result = new DistortSettings();
-            result.Bestfit = Variables.GetValue<Boolean>(element, "bestfit");
-            result.Scale = Variables.GetValue<Nullable<Double>>(element, "scale");
-            result.Viewport = Variables.GetValue<MagickGeometry>(element, "viewport");
+            result.Bestfit = GetValue<Boolean>(element, "bestfit");
+            result.Scale = GetValue<Nullable<Double>>(element, "scale");
+            result.Viewport = GetValue<MagickGeometry>(element, "viewport");
             return result;
         }
     }

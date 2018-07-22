@@ -14,6 +14,7 @@ using System;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.IO;
 using System.Xml;
 using System.Xml.XPath;
@@ -304,6 +305,81 @@ namespace ImageMagick
                 ScriptWriteEventArgs eventArgs = new ScriptWriteEventArgs(id, image);
                 Write(this, eventArgs);
             }
+        }
+
+        private double[] GetDoubleArray(XmlElement element)
+        {
+            if (element == null)
+                return null;
+
+            var result = Variables.GetDoubleArray(element);
+            if (result != null)
+                return result;
+
+            result = new double[element.ChildNodes.Count];
+            int index = 0;
+            foreach (XmlElement child in element.ChildNodes)
+            {
+                result[index++] = double.Parse(child.InnerText, CultureInfo.InvariantCulture);
+            }
+
+            return result;
+        }
+
+        private float[] GetSingleArray(XmlElement element)
+        {
+            if (element == null)
+                return null;
+
+            var result = Variables.GetSingleArray(element);
+            if (result != null)
+                return result;
+
+            result = new float[element.ChildNodes.Count];
+            int index = 0;
+            foreach (XmlElement child in element.ChildNodes)
+            {
+                result[index++] = float.Parse(child.InnerText, CultureInfo.InvariantCulture);
+            }
+
+            return result;
+        }
+
+        private string[] GetStringArray(XmlElement element)
+        {
+            if (element == null)
+                return null;
+
+            var result = Variables.GetStringArray(element);
+            if (result != null)
+                return result;
+
+            result = new string[element.ChildNodes.Count];
+            int index = 0;
+            foreach (XmlElement child in element.ChildNodes)
+            {
+                result[index++] = child.InnerText;
+            }
+
+            return result;
+        }
+
+        private T GetValue<T>(XmlAttribute attribute)
+        {
+            if (attribute == null)
+                return default(T);
+
+            if (Variables.TryGetValue(attribute, out T value))
+            {
+                return value;
+            }
+
+            return XmlHelper.GetValue<T>(attribute);
+        }
+
+        private T GetValue<T>(XmlElement element, string attribute)
+        {
+            return GetValue<T>(element.Attributes[attribute]);
         }
 
         private void Initialize(Stream stream)

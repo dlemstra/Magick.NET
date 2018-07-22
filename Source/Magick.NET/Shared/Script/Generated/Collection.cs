@@ -38,7 +38,7 @@ namespace ImageMagick
             Collection<MagickColor> collection = new Collection<MagickColor>();
             foreach (XmlElement elem in element.SelectNodes("*"))
             {
-                collection.Add(Variables.GetValue<MagickColor>(elem, "value"));
+                collection.Add(GetValue<MagickColor>(elem, "value"));
             }
             return collection;
         }
@@ -47,7 +47,7 @@ namespace ImageMagick
             Collection<MagickGeometry> collection = new Collection<MagickGeometry>();
             foreach (XmlElement elem in element.SelectNodes("*"))
             {
-                collection.Add(Variables.GetValue<MagickGeometry>(elem, "value"));
+                collection.Add(GetValue<MagickGeometry>(elem, "value"));
             }
             return collection;
         }
