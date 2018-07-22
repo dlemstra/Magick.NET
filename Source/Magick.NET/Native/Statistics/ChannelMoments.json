@@ -1,47 +1,44 @@
 ﻿{
-    "dynamic": "NativeToManaged",
-    "const": true,
-    "nativeConstructor": true,
-    "properties":
-    [
+  "dynamic": "NativeToManaged",
+  "const": true,
+  "nativeConstructor": true,
+  "properties": [
+    {
+      "name": "Centroid",
+      "type": "PointInfo",
+      "readonly": true
+    },
+    {
+      "name": "EllipseAngle",
+      "type": "double",
+      "readonly": true
+    },
+    {
+      "name": "EllipseAxis",
+      "type": "PointInfo",
+      "readonly": true
+    },
+    {
+      "name": "EllipseEccentricity",
+      "type": "double",
+      "readonly": true
+    },
+    {
+      "name": "EllipseIntensity",
+      "type": "double",
+      "readonly": true
+    }
+  ],
+  "methods": [
+    {
+      "name": "GetHuInvariants",
+      "type": "double",
+      "arguments": [
         {
-            "name": "Centroid",
-            "type": "PointInfo",
-            "readonly": true
-        },
-        {
-            "name": "EllipseAngle",
-            "type": "double",
-            "readonly": true
-        },
-        {
-            "name": "EllipseAxis",
-            "type": "PointInfo",
-            "readonly": true
-        },
-        {
-            "name": "EllipseEccentricity",
-            "type": "double",
-            "readonly": true
-        },
-        {
-            "name": "EllipseIntensity",
-            "type": "double",
-            "readonly": true
+          "name": "index",
+          "type": "size_t"
         }
-    ],
-    "methods":
-    [
-        {
-            "name": "GetHuInvariants",
-            "type": "double",
-            "arguments":
-            [
-                {
-                    "name": "index",
-                    "type": "size_t"
-                }
-            ]
-        }
-    ]
+      ]
+    }
+  ]
 }

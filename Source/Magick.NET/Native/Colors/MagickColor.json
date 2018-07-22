@@ -1,64 +1,60 @@
 ﻿{
-    "dynamic": "Both",
-    "properties":
-    [
+  "dynamic": "Both",
+  "properties": [
+    {
+      "name": "Count",
+      "type": "ulong",
+      "readonly": true
+    },
+    {
+      "name": "Red",
+      "type": "QuantumType"
+    },
+    {
+      "name": "Green",
+      "type": "QuantumType"
+    },
+    {
+      "name": "Blue",
+      "type": "QuantumType"
+    },
+    {
+      "name": "Alpha",
+      "type": "QuantumType"
+    },
+    {
+      "name": "Black",
+      "type": "QuantumType"
+    },
+    {
+      "name": "IsCMYK",
+      "type": "bool"
+    }
+  ],
+  "methods": [
+    {
+      "name": "FuzzyEquals",
+      "type": "bool",
+      "arguments": [
         {
-            "name": "Count",
-            "type": "ulong",
-            "readonly": true
+          "name": "other",
+          "type": "MagickColor"
         },
         {
-            "name": "Red",
-            "type": "QuantumType"
-        },
-        {
-            "name": "Green",
-            "type": "QuantumType"
-        },
-        {
-            "name": "Blue",
-            "type": "QuantumType"
-        },
-        {
-            "name": "Alpha",
-            "type": "QuantumType"
-        },
-        {
-            "name": "Black",
-            "type": "QuantumType"
-        },
-        {
-            "name": "IsCMYK",
-            "type": "bool"
+          "name": "fuzz",
+          "type": "QuantumType"
         }
-    ],
-    "methods":
-    [
+      ]
+    },
+    {
+      "name": "Initialize",
+      "type": "bool",
+      "arguments": [
         {
-            "name": "FuzzyEquals",
-            "type": "bool",
-            "arguments":
-            [
-                {
-                    "name": "other",
-                    "type": "MagickColor"
-                },
-                {
-                    "name": "fuzz",
-                    "type": "QuantumType"
-                }
-            ]
-        },
-        {
-            "name": "Initialize",
-            "type": "bool",
-            "arguments":
-            [
-                {
-                    "name": "value",
-                    "type": "string"
-                }
-            ]
+          "name": "value",
+          "type": "string"
         }
-    ]
+      ]
+    }
+  ]
 }

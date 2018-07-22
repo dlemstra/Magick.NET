@@ -1,24 +1,22 @@
 ﻿{
-    "access": "internal",
-    "static": true,
-    "methods":
-    [
+  "access": "internal",
+  "static": true,
+  "methods": [
+    {
+      "name": "Initialize"
+    },
+    {
+      "name": "SetEnv",
+      "arguments": [
         {
-            "name": "Initialize"
+          "name": "name",
+          "type": "string"
         },
         {
-            "name": "SetEnv",
-            "arguments":
-            [
-                {
-                    "name": "name",
-                    "type": "string"
-                },
-                {
-                    "name": "value",
-                    "type": "string"
-                }
-            ]
+          "name": "value",
+          "type": "string"
         }
-    ]
+      ]
+    }
+  ]
 }

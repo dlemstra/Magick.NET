@@ -1,34 +1,33 @@
 ﻿{
-    "static": true,
-    "properties":
-    [
-        {
-            "name": "Disk",
-            "type": "ulong"
-        },
-        {
-            "name": "Height",
-            "type": "ulong"
-        },
-        {
-            "name": "ListLength",
-            "type": "ulong"
-        },
-        {
-            "name": "Memory",
-            "type": "ulong"
-        },
-        {
-            "name": "Thread",
-            "type": "ulong"
-        },
-        {
-            "name": "Throttle",
-            "type": "ulong"
-        },
-        {
-            "name": "Width",
-            "type": "ulong"
-        }
-    ]
+  "static": true,
+  "properties": [
+    {
+      "name": "Disk",
+      "type": "ulong"
+    },
+    {
+      "name": "Height",
+      "type": "ulong"
+    },
+    {
+      "name": "ListLength",
+      "type": "ulong"
+    },
+    {
+      "name": "Memory",
+      "type": "ulong"
+    },
+    {
+      "name": "Thread",
+      "type": "ulong"
+    },
+    {
+      "name": "Throttle",
+      "type": "ulong"
+    },
+    {
+      "name": "Width",
+      "type": "ulong"
+    }
+  ]
 }

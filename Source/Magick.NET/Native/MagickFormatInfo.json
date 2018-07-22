@@ -1,134 +1,125 @@
 ﻿{
-    "dynamic": "NativeToManaged",
-    "const": true,
-    "properties":
-    [
+  "dynamic": "NativeToManaged",
+  "const": true,
+  "properties": [
+    {
+      "name": "Description",
+      "type": "string",
+      "readonly": true
+    },
+    {
+      "name": "CanReadMultithreaded",
+      "type": "bool",
+      "readonly": true
+    },
+    {
+      "name": "CanWriteMultithreaded",
+      "type": "bool",
+      "readonly": true
+    },
+    {
+      "name": "Format",
+      "type": "string",
+      "readonly": true
+    },
+    {
+      "name": "IsMultiFrame",
+      "type": "bool",
+      "readonly": true
+    },
+    {
+      "name": "IsReadable",
+      "type": "bool",
+      "readonly": true
+    },
+    {
+      "name": "IsWritable",
+      "type": "bool",
+      "readonly": true
+    },
+    {
+      "name": "MimeType",
+      "type": "string",
+      "readonly": true
+    },
+    {
+      "name": "Module",
+      "type": "string",
+      "readonly": true
+    }
+  ],
+  "methods": [
+    {
+      "name": "CreateList",
+      "type": "Instance",
+      "static": true,
+      "throws": true,
+      "cleanup": {
+        "name": "DisposeList",
+        "arguments": [
+          "(int)length"
+        ]
+      },
+      "arguments": [
         {
-            "name": "Description",
-            "type": "string",
-            "readonly": true
-        },
-        {
-            "name": "CanReadMultithreaded",
-            "type": "bool",
-            "readonly": true
-        },
-        {
-            "name": "CanWriteMultithreaded",
-            "type": "bool",
-            "readonly": true
-        },
-        {
-            "name": "Format",
-            "type": "string",
-            "readonly": true
-        },
-        {
-            "name": "IsMultiFrame",
-            "type": "bool",
-            "readonly": true
-        },
-        {
-            "name": "IsReadable",
-            "type": "bool",
-            "readonly": true
-        },
-        {
-            "name": "IsWritable",
-            "type": "bool",
-            "readonly": true
-        },
-        {
-            "name": "MimeType",
-            "type": "string",
-            "readonly": true
-        },
-        {
-            "name": "Module",
-            "type": "string",
-            "readonly": true
+          "name": "length",
+          "type": "size_t",
+          "out": true
         }
-    ],
-    "methods":
-    [
+      ]
+    },
+    {
+      "name": "DisposeList",
+      "static": true,
+      "arguments": [
         {
-            "name": "CreateList",
-            "type": "Instance",
-            "static": true,
-            "throws": true,
-            "cleanup":
-            {
-                "name": "DisposeList",
-                "arguments":
-                [
-                    "(int)length"
-                ]
-            },
-            "arguments":
-            [
-                {
-                    "name": "length",
-                    "type": "size_t",
-                    "out": true
-                }
-            ]
+          "name": "instance",
+          "type": "Instance"
         },
         {
-            "name": "DisposeList",
-            "static": true,
-            "arguments":
-            [
-                {
-                    "name": "instance",
-                    "type": "Instance"
-                },
-                {
-                    "name": "length",
-                    "type": "size_t"
-                }
-            ]
-        },
-        {
-            "name": "GetInfo",
-            "instance": true,
-            "static": true,
-            "throws": true,
-            "arguments":
-            [
-                {
-                    "name": "list",
-                    "type": "Instance"
-                },
-                {
-                    "name": "index",
-                    "type": "size_t"
-                }
-            ]
-        },
-        {
-            "name": "GetInfoByName",
-            "instance": true,
-            "static": true,
-            "throws": true,
-            "arguments":
-            [
-                {
-                    "name": "name",
-                    "type": "string"
-                }
-            ]
-        },
-        {
-            "name": "Unregister",
-            "type": "bool",
-            "static": true,
-            "arguments":
-            [
-                {
-                    "name": "name",
-                    "type": "string"
-                }
-            ]
+          "name": "length",
+          "type": "size_t"
         }
-    ]
+      ]
+    },
+    {
+      "name": "GetInfo",
+      "instance": true,
+      "static": true,
+      "throws": true,
+      "arguments": [
+        {
+          "name": "list",
+          "type": "Instance"
+        },
+        {
+          "name": "index",
+          "type": "size_t"
+        }
+      ]
+    },
+    {
+      "name": "GetInfoByName",
+      "instance": true,
+      "static": true,
+      "throws": true,
+      "arguments": [
+        {
+          "name": "name",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "Unregister",
+      "type": "bool",
+      "static": true,
+      "arguments": [
+        {
+          "name": "name",
+          "type": "string"
+        }
+      ]
+    }
+  ]
 }

@@ -1,108 +1,97 @@
 ﻿{
-    "static": true,
-    "delegates":
-    [
+  "static": true,
+  "delegates": [
+    {
+      "name": "Log",
+      "arguments": [
         {
-            "name": "Log",
-            "arguments":
-            [
-                {
-                    "name": "type",
-                    "type": "LogEvents"
-                },
-                {
-                    "name": "value",
-                    "type": "IntPtr"
-                }
-            ]
+          "name": "type",
+          "type": "LogEvents"
+        },
+        {
+          "name": "value",
+          "type": "IntPtr"
         }
-    ],
-    "properties":
-    [
+      ]
+    }
+  ],
+  "properties": [
+    {
+      "name": "Delegates",
+      "type": "string",
+      "readonly": true
+    },
+    {
+      "name": "Features",
+      "type": "string",
+      "readonly": true
+    }
+  ],
+  "methods": [
+    {
+      "name": "GetFontFamilies",
+      "type": "Instance",
+      "throws": true,
+      "cleanup": {
+        "name": "DisposeFontFamilies"
+      },
+      "arguments": [
         {
-            "name": "Delegates",
-            "type": "string",
-            "readonly": true
-        },
-        {
-            "name": "Features",
-            "type": "string",
-            "readonly": true
+          "name": "length",
+          "type": "size_t",
+          "out": true
         }
-    ],
-    "methods":
-    [
+      ]
+    },
+    {
+      "name": "GetFontFamily",
+      "type": "string",
+      "arguments": [
         {
-            "name": "GetFontFamilies",
-            "type": "Instance",
-            "throws": true,
-            "cleanup":
-            {
-                "name": "DisposeFontFamilies"
-            },
-            "arguments":
-            [
-                {
-                    "name": "length",
-                    "type": "size_t",
-                    "out": true
-                }
-            ]
+          "name": "instance",
+          "type": "Instance"
         },
         {
-            "name": "GetFontFamily",
-            "type": "string",
-            "arguments":
-            [
-                {
-                    "name": "instance",
-                    "type": "Instance"
-                },
-                {
-                    "name": "index",
-                    "type": "size_t"
-                }
-            ]
-        },
-        {
-            "name": "DisposeFontFamilies",
-            "arguments":
-            [
-                {
-                    "name": "instance",
-                    "type": "Instance"
-                }
-            ]
-        },
-        {
-            "name": "SetLogDelegate",
-            "arguments":
-            [
-                {
-                    "name": "method",
-                    "type": "LogDelegate"
-                }
-            ]
-        },
-        {
-            "name": "SetLogEvents",
-            "arguments":
-            [
-                {
-                    "name": "events",
-                    "type": "string"
-                }
-            ]
-        },
-        {
-            "name": "SetRandomSeed",
-            "arguments":
-            [
-                {
-                    "name": "value",
-                    "type": "long"
-                }
-            ]
+          "name": "index",
+          "type": "size_t"
         }
-    ]
+      ]
+    },
+    {
+      "name": "DisposeFontFamilies",
+      "arguments": [
+        {
+          "name": "instance",
+          "type": "Instance"
+        }
+      ]
+    },
+    {
+      "name": "SetLogDelegate",
+      "arguments": [
+        {
+          "name": "method",
+          "type": "LogDelegate"
+        }
+      ]
+    },
+    {
+      "name": "SetLogEvents",
+      "arguments": [
+        {
+          "name": "events",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "SetRandomSeed",
+      "arguments": [
+        {
+          "name": "value",
+          "type": "long"
+        }
+      ]
+    }
+  ]
 }

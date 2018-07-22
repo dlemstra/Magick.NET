@@ -1,17 +1,15 @@
 ﻿{
-    "static": true,
-    "access": "internal",
-    "methods":
-    [
+  "static": true,
+  "access": "internal",
+  "methods": [
+    {
+      "name": "Relinquish",
+      "arguments": [
         {
-            "name": "Relinquish",
-            "arguments":
-            [
-                {
-                    "name": "value",
-                    "type": "Instance"
-                }
-            ]
+          "name": "value",
+          "type": "Instance"
         }
-    ]
+      ]
+    }
+  ]
 }

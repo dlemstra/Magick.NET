@@ -1,38 +1,35 @@
 ﻿{
-    "dynamic": "NativeToManaged",
-    "instance": false,
-    "methods":
-    [
+  "dynamic": "NativeToManaged",
+  "instance": false,
+  "methods": [
+    {
+      "name": "DisposeList",
+      "static": true,
+      "arguments": [
         {
-            "name": "DisposeList",
-            "static": true,
-            "arguments":
-            [
-                {
-                    "name": "list",
-                    "type": "Instance"
-                }
-            ]
+          "name": "list",
+          "type": "Instance"
+        }
+      ]
+    },
+    {
+      "name": "GetInstance",
+      "type": "Instance",
+      "static": true,
+      "arguments": [
+        {
+          "name": "image",
+          "type": "IMagickImage"
         },
         {
-            "name": "GetInstance",
-            "type": "Instance",
-            "static": true,
-            "arguments":
-            [
-                {
-                    "name": "image",
-                    "type": "IMagickImage"
-                },
-                {
-                    "name": "list",
-                    "type": "Instance"
-                },
-                {
-                    "name": "channel",
-                    "type": "PixelChannel"
-                }
-            ]
+          "name": "list",
+          "type": "Instance"
+        },
+        {
+          "name": "channel",
+          "type": "PixelChannel"
         }
-    ]
+      ]
+    }
+  ]
 }

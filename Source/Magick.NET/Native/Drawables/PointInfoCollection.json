@@ -1,34 +1,30 @@
 ﻿{
-    "access": "internal",
-    "constructor":
-    {
-        "arguments":
-        [
-            {
-                "name": "length",
-                "type": "size_t"
-            }
-        ]
-    },
-    "methods":
-    [
-        {
-            "name": "Set",
-            "arguments":
-            [
-                {
-                    "name": "index",
-                    "type": "size_t"
-                },
-                {
-                    "name": "x",
-                    "type": "double"
-                },
-                {
-                    "name": "y",
-                    "type": "double"
-                }
-            ]
-        }
+  "access": "internal",
+  "constructor": {
+    "arguments": [
+      {
+        "name": "length",
+        "type": "size_t"
+      }
     ]
+  },
+  "methods": [
+    {
+      "name": "Set",
+      "arguments": [
+        {
+          "name": "index",
+          "type": "size_t"
+        },
+        {
+          "name": "x",
+          "type": "double"
+        },
+        {
+          "name": "y",
+          "type": "double"
+        }
+      ]
+    }
+  ]
 }

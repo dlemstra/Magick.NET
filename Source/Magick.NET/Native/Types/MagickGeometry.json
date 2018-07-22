@@ -1,40 +1,37 @@
 ﻿{
-    "dynamic": "NativeToManaged",
-    "properties":
-    [
+  "dynamic": "NativeToManaged",
+  "properties": [
+    {
+      "name": "X",
+      "type": "double",
+      "readonly": true
+    },
+    {
+      "name": "Y",
+      "type": "double",
+      "readonly": true
+    },
+    {
+      "name": "Width",
+      "type": "double",
+      "readonly": true
+    },
+    {
+      "name": "Height",
+      "type": "double",
+      "readonly": true
+    }
+  ],
+  "methods": [
+    {
+      "name": "Initialize",
+      "type": "GeometryFlags",
+      "arguments": [
         {
-            "name": "X",
-            "type": "double",
-            "readonly": true
-        },
-        {
-            "name": "Y",
-            "type": "double",
-            "readonly": true
-        },
-        {
-            "name": "Width",
-            "type": "double",
-            "readonly": true
-        },
-        {
-            "name": "Height",
-            "type": "double",
-            "readonly": true
+          "name": "value",
+          "type": "string"
         }
-    ],
-    "methods":
-    [
-        {
-            "name": "Initialize",
-            "type": "GeometryFlags",
-            "arguments":
-            [
-                {
-                    "name": "value",
-                    "type": "string"
-                }
-            ]
-        }
-    ]
+      ]
+    }
+  ]
 }

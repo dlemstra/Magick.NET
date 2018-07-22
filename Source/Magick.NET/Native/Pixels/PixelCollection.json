@@ -1,136 +1,127 @@
 ﻿{
-    "access": "internal",
-    "constructor":
-    {
-        "throws": true,
-        "arguments":
-        [
-            {
-                "name": "image",
-                "type": "IMagickImage"
-            }
-        ]
-    },
-    "methods":
-    [
-        {
-            "name": "GetArea",
-            "type": "Instance",
-            "throws": "true",
-            "arguments":
-            [
-                {
-                    "name": "x",
-                    "type": "size_t"
-                },
-                {
-                    "name": "y",
-                    "type": "size_t"
-                },
-                {
-                    "name": "width",
-                    "type": "size_t"
-                },
-                {
-                    "name": "height",
-                    "type": "size_t"
-                }
-            ]
-        },
-        {
-            "name": "SetArea",
-            "throws": "true",
-            "arguments":
-            [
-                {
-                    "name": "x",
-                    "type": "size_t"
-                },
-                {
-                    "name": "y",
-                    "type": "size_t"
-                },
-                {
-                    "name": "width",
-                    "type": "size_t"
-                },
-                {
-                    "name": "height",
-                    "type": "size_t"
-                },
-                {
-                    "name": "values",
-                    "type": "QuantumType[]"
-                },
-                {
-                    "name": "length",
-                    "type": "size_t"
-                }
-            ]
-        },
-        {
-            "name": "ToByteArray",
-            "type": "Instance",
-            "throws": "true",
-            "cleanup":
-            {
-                "name": "MagickMemory.Relinquish"
-            },
-            "arguments":
-            [
-                {
-                    "name": "x",
-                    "type": "size_t"
-                },
-                {
-                    "name": "y",
-                    "type": "size_t"
-                },
-                {
-                    "name": "width",
-                    "type": "size_t"
-                },
-                {
-                    "name": "height",
-                    "type": "size_t"
-                },
-                {
-                    "name": "mapping",
-                    "type": "string"
-                }
-            ]
-        },
-        {
-            "name": "ToShortArray",
-            "type": "Instance",
-            "throws": "true",
-            "cleanup":
-            {
-                "name": "MagickMemory.Relinquish"
-            },
-            "arguments":
-            [
-                {
-                    "name": "x",
-                    "type": "size_t"
-                },
-                {
-                    "name": "y",
-                    "type": "size_t"
-                },
-                {
-                    "name": "width",
-                    "type": "size_t"
-                },
-                {
-                    "name": "height",
-                    "type": "size_t"
-                },
-                {
-                    "name": "mapping",
-                    "type": "string"
-                }
-            ]
-        }
+  "access": "internal",
+  "constructor": {
+    "throws": true,
+    "arguments": [
+      {
+        "name": "image",
+        "type": "IMagickImage"
+      }
     ]
+  },
+  "methods": [
+    {
+      "name": "GetArea",
+      "type": "Instance",
+      "throws": "true",
+      "arguments": [
+        {
+          "name": "x",
+          "type": "size_t"
+        },
+        {
+          "name": "y",
+          "type": "size_t"
+        },
+        {
+          "name": "width",
+          "type": "size_t"
+        },
+        {
+          "name": "height",
+          "type": "size_t"
+        }
+      ]
+    },
+    {
+      "name": "SetArea",
+      "throws": "true",
+      "arguments": [
+        {
+          "name": "x",
+          "type": "size_t"
+        },
+        {
+          "name": "y",
+          "type": "size_t"
+        },
+        {
+          "name": "width",
+          "type": "size_t"
+        },
+        {
+          "name": "height",
+          "type": "size_t"
+        },
+        {
+          "name": "values",
+          "type": "QuantumType[]"
+        },
+        {
+          "name": "length",
+          "type": "size_t"
+        }
+      ]
+    },
+    {
+      "name": "ToByteArray",
+      "type": "Instance",
+      "throws": "true",
+      "cleanup": {
+        "name": "MagickMemory.Relinquish"
+      },
+      "arguments": [
+        {
+          "name": "x",
+          "type": "size_t"
+        },
+        {
+          "name": "y",
+          "type": "size_t"
+        },
+        {
+          "name": "width",
+          "type": "size_t"
+        },
+        {
+          "name": "height",
+          "type": "size_t"
+        },
+        {
+          "name": "mapping",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "ToShortArray",
+      "type": "Instance",
+      "throws": "true",
+      "cleanup": {
+        "name": "MagickMemory.Relinquish"
+      },
+      "arguments": [
+        {
+          "name": "x",
+          "type": "size_t"
+        },
+        {
+          "name": "y",
+          "type": "size_t"
+        },
+        {
+          "name": "width",
+          "type": "size_t"
+        },
+        {
+          "name": "height",
+          "type": "size_t"
+        },
+        {
+          "name": "mapping",
+          "type": "string"
+        }
+      ]
+    }
+  ]
 }

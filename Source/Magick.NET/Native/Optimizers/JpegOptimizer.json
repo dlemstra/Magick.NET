@@ -1,86 +1,81 @@
 ﻿{
-    "namespace": "ImageMagick.ImageOptimizers",
-    "dynamic": "NativeToManaged",
-    "instance": false,
-    "delegates":
-    [
+  "namespace": "ImageMagick.ImageOptimizers",
+  "dynamic": "NativeToManaged",
+  "instance": false,
+  "delegates": [
+    {
+      "name": "ReadWriteStream",
+      "type": "int",
+      "arguments": [
         {
-            "name": "ReadWriteStream",
-            "type": "int",
-            "arguments":
-            [
-                {
-                    "name": "data",
-                    "type": "Instance"
-                },
-                {
-                    "name": "length",
-                    "type": "size_t"
-                },
-                {
-                    "name": "user_data",
-                    "type": "Instance"
-                }
-            ]
-        }
-    ],
-    "methods":
-    [
-        {
-            "name": "CompressFile",
-            "type": "size_t",
-            "static": true,
-            "arguments":
-            [
-                {
-                    "name": "input",
-                    "type": "string"
-                },
-                {
-                    "name": "output",
-                    "type": "string"
-                },
-                {
-                    "name": "progressive",
-                    "type": "bool"
-                },
-                {
-                    "name": "lossless",
-                    "type": "bool"
-                },
-                {
-                    "name": "quality",
-                    "type": "size_t"
-                }
-            ]
+          "name": "data",
+          "type": "Instance"
         },
         {
-            "name": "CompressStream",
-            "type": "size_t",
-            "static": true,
-            "arguments":
-            [
-                {
-                    "name": "reader",
-                    "type": "ReadWriteStreamDelegate"
-                },
-                {
-                    "name": "writer",
-                    "type": "ReadWriteStreamDelegate"
-                },
-                {
-                    "name": "progressive",
-                    "type": "bool"
-                },
-                {
-                    "name": "lossless",
-                    "type": "bool"
-                },
-                {
-                    "name": "quality",
-                    "type": "size_t"
-                }
-            ]
+          "name": "length",
+          "type": "size_t"
+        },
+        {
+          "name": "user_data",
+          "type": "Instance"
         }
-    ]
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "CompressFile",
+      "type": "size_t",
+      "static": true,
+      "arguments": [
+        {
+          "name": "input",
+          "type": "string"
+        },
+        {
+          "name": "output",
+          "type": "string"
+        },
+        {
+          "name": "progressive",
+          "type": "bool"
+        },
+        {
+          "name": "lossless",
+          "type": "bool"
+        },
+        {
+          "name": "quality",
+          "type": "size_t"
+        }
+      ]
+    },
+    {
+      "name": "CompressStream",
+      "type": "size_t",
+      "static": true,
+      "arguments": [
+        {
+          "name": "reader",
+          "type": "ReadWriteStreamDelegate"
+        },
+        {
+          "name": "writer",
+          "type": "ReadWriteStreamDelegate"
+        },
+        {
+          "name": "progressive",
+          "type": "bool"
+        },
+        {
+          "name": "lossless",
+          "type": "bool"
+        },
+        {
+          "name": "quality",
+          "type": "size_t"
+        }
+      ]
+    }
+  ]
 }
