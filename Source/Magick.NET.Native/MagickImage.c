@@ -1512,7 +1512,7 @@ MAGICK_NET_EXPORT Image *MagickImage_GetWriteMask(const Image *instance, Excepti
 
   MAGICK_NET_GET_EXCEPTION;
   if ((instance->channels & WriteMaskChannel) == 0)
-	  return (Image *)NULL;
+    return (Image *)NULL;
   image = GetImageMask(instance, WritePixelMask, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return image;
