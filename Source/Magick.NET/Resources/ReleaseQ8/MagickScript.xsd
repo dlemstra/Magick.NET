@@ -294,7 +294,7 @@
       </xs:simpleType>
     </xs:union>
   </xs:simpleType>
-  <xs:simpleType name="Compression">
+  <xs:simpleType name="CompressionMethod">
     <xs:union>
       <xs:simpleType>
         <xs:restriction base="xs:NMTOKEN">
@@ -1461,7 +1461,7 @@
               </xs:element>
               <xs:element name="compression">
                 <xs:complexType>
-                  <xs:attribute name="value" use="required" type="Compression" />
+                  <xs:attribute name="value" use="required" type="CompressionMethod" />
                 </xs:complexType>
               </xs:element>
               <xs:element name="debug">
@@ -1701,7 +1701,7 @@
         </xs:element>
         <xs:element name="compression">
           <xs:complexType>
-            <xs:attribute name="value" use="required" type="Compression" />
+            <xs:attribute name="value" use="required" type="CompressionMethod" />
           </xs:complexType>
         </xs:element>
         <xs:element name="debug">

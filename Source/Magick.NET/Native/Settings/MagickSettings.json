@@ -16,7 +16,7 @@
         },
         {
             "name": "Compression",
-            "type": "Compression"
+            "type": "CompressionMethod"
         },
         {
             "name": "Debug",

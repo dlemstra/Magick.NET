@@ -83,7 +83,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the compression method of the image.
         /// </summary>
-        public Compression Compression
+        public CompressionMethod Compression
         {
             get;
             private set;

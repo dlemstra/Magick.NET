@@ -165,7 +165,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the compression method of the image.
         /// </summary>
-        Compression Compression { get; }
+        CompressionMethod Compression { get; }
 
         /// <summary>
         /// Gets or sets the vertical and horizontal resolution in pixels of the image.

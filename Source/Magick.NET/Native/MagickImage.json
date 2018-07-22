@@ -175,7 +175,7 @@
         },
         {
             "name": "Compression",
-            "type": "Compression",
+            "type": "CompressionMethod",
             "readonly": true
         },
         {

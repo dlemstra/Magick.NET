@@ -31,7 +31,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the compression method of the image.
         /// </summary>
-        Compression Compression
+        CompressionMethod Compression
         {
             get;
         }

@@ -101,7 +101,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the compression method to use.
         /// </summary>
-        public Compression Compression
+        public CompressionMethod Compression
         {
             get;
             set;

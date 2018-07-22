@@ -370,7 +370,7 @@ namespace ImageMagick
                     #endif
                 }
             }
-            public Compression Compression
+            public CompressionMethod Compression
             {
                 get
                 {
@@ -387,7 +387,7 @@ namespace ImageMagick
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     result = NativeMethods.X86.MagickSettings_Compression_Get(Instance);
                     #endif
-                    return (Compression)result;
+                    return (CompressionMethod)result;
                 }
                 set
                 {
