@@ -10,7 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
 using System.IO;
 
 namespace ImageMagick
@@ -24,7 +23,7 @@ namespace ImageMagick
                 throw new MagickCorruptImageErrorException("Invalid image format: " + format.ToString());
         }
 
-        internal static void CheckStream(Stream stream)
+        internal static void CheckStream([ValidatedNotNull] Stream stream)
         {
             Throw.IfNullOrEmpty(nameof(stream), stream);
             Throw.IfFalse(nameof(stream), stream.CanRead, "The stream should be readable.");

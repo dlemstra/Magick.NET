@@ -46,23 +46,20 @@ namespace FileGenerator.MagickScript
             if (methods == null)
                 return false;
 
-            if (methods.Length != 1)
-                return false;
-
-            ParameterInfo[] parameters = methods[0].GetParameters();
-
-            if (parameters.Length == 0)
-                return true;
-
-            foreach (ParameterInfo parameter in parameters)
+            foreach (var method in methods)
             {
-                string xsdTypeName = MagickScriptTypes.GetXsdAttributeType(parameter);
-                if (xsdTypeName != null)
-                    return false;
+                var parameters = method.GetParameters();
 
-                string typeName = GetName(parameter);
-                if (!HasStaticCreateMethod(typeName))
-                    return false;
+                foreach (ParameterInfo parameter in parameters)
+                {
+                    string xsdTypeName = MagickScriptTypes.GetXsdAttributeType(parameter);
+                    if (xsdTypeName != null)
+                        return false;
+
+                    string typeName = GetName(parameter);
+                    if (!HasStaticCreateMethod(typeName))
+                        return false;
+                }
             }
 
             return true;

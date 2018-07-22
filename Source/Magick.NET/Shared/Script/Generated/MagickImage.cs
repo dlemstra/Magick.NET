@@ -3727,7 +3727,7 @@ namespace ImageMagick
             else
                 throw new ArgumentException("Invalid argument combination for 'tint', allowed combinations are: [opacity] [opacity, color]");
         }
-        private void ExecuteTransformColorSpace(XmlElement element, IMagickImage image)
+        private static void ExecuteTransformColorSpace(XmlElement element, IMagickImage image)
         {
             Hashtable arguments = new Hashtable();
             foreach (XmlElement elem in element.SelectNodes("*"))

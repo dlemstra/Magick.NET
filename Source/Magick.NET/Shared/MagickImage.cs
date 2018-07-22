@@ -2497,7 +2497,7 @@ namespace ImageMagick
             Throw.IfNullOrEmpty(nameof(arguments), arguments);
 
             if (settings.Scale != null)
-                SetArtifact("distort:scale", settings.Scale.Value.ToString());
+                SetArtifact("distort:scale", settings.Scale.Value.ToString(CultureInfo.InvariantCulture));
 
             if (settings.Viewport != null)
                 SetArtifact("distort:viewport", settings.Viewport.ToString());

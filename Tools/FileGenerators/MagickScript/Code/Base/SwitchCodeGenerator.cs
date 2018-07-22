@@ -97,6 +97,7 @@ namespace FileGenerator.MagickScript
                 case "IEnumerable<Double>":
                 case "IEnumerable<MagickGeometry>":
                 case "IEnumerable<IPath>":
+                case "IEnumerable<MagickColor>":
                 case "IEnumerable<PathArc>":
                 case "IEnumerable<PointD>":
                 case "IEnumerable<SparseColorArg>":
@@ -105,6 +106,7 @@ namespace FileGenerator.MagickScript
                 case "IMagickImage":
                 case "MagickGeometry":
                 case "MontageSettings":
+                case "MorphologySettings":
                 case "PixelStorageSettings":
                 case "QuantizeSettings":
                     return false;

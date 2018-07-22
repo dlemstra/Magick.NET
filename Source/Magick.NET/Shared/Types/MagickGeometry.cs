@@ -10,6 +10,8 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System.Globalization;
+
 namespace ImageMagick
 {
     /// <summary>
@@ -105,8 +107,8 @@ namespace ImageMagick
 
                 AspectRatio = true;
                 var ratio = value.Split(':');
-                Width = int.Parse(ratio[0]);
-                Height = int.Parse(ratio[1]);
+                Width = int.Parse(ratio[0], CultureInfo.InvariantCulture);
+                Height = int.Parse(ratio[1], CultureInfo.InvariantCulture);
             }
         }
 
