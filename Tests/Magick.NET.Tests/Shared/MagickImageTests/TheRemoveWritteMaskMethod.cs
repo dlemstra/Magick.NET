@@ -18,28 +18,28 @@ namespace Magick.NET.Tests.Shared
     public partial class MagickImageTests
     {
         [TestClass]
-        public class TheRemoveReadMaskMethod
+        public class TheRemoveWriteMaskMethod
         {
             [TestMethod]
-            public void ShouldRemoveReadMask()
+            public void ShouldRemoveWriteMask()
             {
                 using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
                 {
-                    using (var readMask = new MagickImage(MagickColors.Black, image.Width, image.Height))
+                    using (var writeMask = new MagickImage(MagickColors.Black, image.Width, image.Height))
                     {
-                        image.SetReadMask(readMask);
+                        image.SetWriteMask(writeMask);
                     }
 
-                    using (var readMask = image.GetReadMask())
+                    using (var writeMask = image.GetWriteMask())
                     {
-                        Assert.IsNotNull(readMask);
+                        Assert.IsNotNull(writeMask);
                     }
 
-                    image.RemoveReadMask();
+                    image.RemoveWriteMask();
 
-                    using (var readMask = image.GetReadMask())
+                    using (var writeMask = image.GetWriteMask())
                     {
-                        Assert.IsNull(readMask);
+                        Assert.IsNull(writeMask);
                     }
                 }
             }

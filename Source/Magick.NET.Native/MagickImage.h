@@ -313,6 +313,8 @@ MAGICK_NET_EXPORT const StringInfo *MagickImage_GetProfile(const Image *, const 
 
 MAGICK_NET_EXPORT Image *MagickImage_GetReadMask(const Image *, ExceptionInfo **);
 
+MAGICK_NET_EXPORT Image *MagickImage_GetWriteMask(const Image *, ExceptionInfo **);
+
 MAGICK_NET_EXPORT void MagickImage_Grayscale(Image *, const size_t, ExceptionInfo **);
 
 MAGICK_NET_EXPORT void MagickImage_HaldClut(Image *, const Image *, ExceptionInfo **);
@@ -440,6 +442,8 @@ MAGICK_NET_EXPORT void MagickImage_SetNext(Image *, Image *);
 MAGICK_NET_EXPORT void MagickImage_SetProgressDelegate(Image *, const MagickProgressMonitor);
 
 MAGICK_NET_EXPORT void MagickImage_SetReadMask(Image *, const Image *, ExceptionInfo **);
+
+MAGICK_NET_EXPORT void MagickImage_SetWriteMask(Image *, const Image *, ExceptionInfo **);
 
 MAGICK_NET_EXPORT Image *MagickImage_Shade(Image *, const double, const double, const MagickBooleanType, const size_t, ExceptionInfo **);
 

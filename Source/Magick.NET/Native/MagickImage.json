@@ -304,11 +304,6 @@
             "name": "Width",
             "type": "size_t",
             "readonly": true
-        },
-        {
-            "name": "WriteMask",
-            "type": "IMagickImage",
-            "throws": true
         }
     ],
     "methods":
@@ -1447,6 +1442,11 @@
             "throws": true
         },
         {
+            "name": "GetWriteMask",
+            "type": "Instance",
+            "throws": true
+        },
+        {
             "name": "Grayscale",
             "throws": true,
             "arguments":
@@ -2369,6 +2369,17 @@
         },
         {
             "name": "SetReadMask",
+            "throws": true,
+            "arguments":
+            [
+                {
+                    "name": "image",
+                    "type": "IMagickImage"
+                }
+            ]
+        },
+        {
+            "name": "SetWriteMask",
             "throws": true,
             "arguments":
             [

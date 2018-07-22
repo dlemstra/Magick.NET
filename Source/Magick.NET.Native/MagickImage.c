@@ -623,24 +623,6 @@ MAGICK_NET_EXPORT size_t MagickImage_Width_Get(const Image *instance)
   return instance->columns;
 }
 
-MAGICK_NET_EXPORT Image *MagickImage_WriteMask_Get(const Image *instance, ExceptionInfo **exception)
-{
-  Image
-    *image;
-
-  MAGICK_NET_GET_EXCEPTION;
-  image = GetImageMask(instance, WritePixelMask, exceptionInfo);
-  MAGICK_NET_SET_EXCEPTION;
-  return image;
-}
-
-MAGICK_NET_EXPORT void MagickImage_WriteMask_Set(Image *instance, const Image *mask, ExceptionInfo **exception)
-{
-  MAGICK_NET_GET_EXCEPTION;
-  SetImageMask(instance, WritePixelMask, mask, exceptionInfo);
-  MAGICK_NET_SET_EXCEPTION;
-}
-
 MAGICK_NET_EXPORT Image *MagickImage_AdaptiveBlur(const Image *instance, const double radius, const double sigma, ExceptionInfo **exception)
 {
   Image
@@ -1523,6 +1505,19 @@ MAGICK_NET_EXPORT Image *MagickImage_GetReadMask(const Image *instance, Exceptio
   return image;
 }
 
+MAGICK_NET_EXPORT Image *MagickImage_GetWriteMask(const Image *instance, ExceptionInfo **exception)
+{
+  Image
+    *image;
+
+  MAGICK_NET_GET_EXCEPTION;
+  if ((instance->channels & WriteMaskChannel) == 0)
+	  return (Image *)NULL;
+  image = GetImageMask(instance, WritePixelMask, exceptionInfo);
+  MAGICK_NET_SET_EXCEPTION;
+  return image;
+}
+
 MAGICK_NET_EXPORT void MagickImage_Grayscale(Image *instance, const size_t method, ExceptionInfo **exception)
 {
   MAGICK_NET_GET_EXCEPTION;
@@ -2170,6 +2165,13 @@ MAGICK_NET_EXPORT void MagickImage_SetReadMask(Image *instance, const Image *mas
 {
   MAGICK_NET_GET_EXCEPTION;
   SetImageMask(instance, ReadPixelMask, mask, exceptionInfo);
+  MAGICK_NET_SET_EXCEPTION;
+}
+
+MAGICK_NET_EXPORT void MagickImage_SetWriteMask(Image *instance, const Image *mask, ExceptionInfo **exception)
+{
+  MAGICK_NET_GET_EXCEPTION;
+  SetImageMask(instance, WritePixelMask, mask, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
 }
 

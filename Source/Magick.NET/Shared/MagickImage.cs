@@ -865,16 +865,6 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Gets or sets the associated write mask of the image. The mask must be the same dimensions as the image and
-        /// only contain the colors black and white. Pass null to unset an existing mask.
-        /// </summary>
-        public IMagickImage WriteMask
-        {
-            get { return _nativeInstance.WriteMask; }
-            set { _nativeInstance.WriteMask = value; }
-        }
-
-        /// <summary>
         /// Converts the specified instance to a byte array.
         /// </summary>
         /// <param name="image">The <see cref="MagickImage"/> to convert.</param>
@@ -3298,6 +3288,16 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Gets the associated write mask of the image.
+        /// </summary>
+        /// <returns>The associated write mask of the image.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public IMagickImage GetWriteMask()
+        {
+            return Create(_nativeInstance.GetWriteMask());
+        }
+
+        /// <summary>
         /// Retrieve the xmp profile from the image.
         /// </summary>
         /// <returns>The xmp profile from the image.</returns>
@@ -4915,6 +4915,15 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Removes the associated write mask of the image.
+        /// </summary>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void RemoveWriteMask()
+        {
+            _nativeInstance.SetWriteMask(null);
+        }
+
+        /// <summary>
         /// Resets the page property of this image.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -5354,6 +5363,19 @@ namespace ImageMagick
             Throw.IfNull(nameof(image), image);
 
             _nativeInstance.SetReadMask(image);
+        }
+
+        /// <summary>
+        /// Sets the associated write mask of the image. The mask must be the same dimensions as the image and
+        /// only contains the colors black and white.
+        /// </summary>
+        /// <param name="image">The image that contains the write mask.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>z
+        public void SetWriteMask(IMagickImage image)
+        {
+            Throw.IfNull(nameof(image), image);
+
+            _nativeInstance.SetWriteMask(image);
         }
 
         /// <summary>

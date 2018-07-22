@@ -1053,6 +1053,11 @@ namespace ImageMagick
                                             }
                                             break;
                                         }
+                                        case 'W':
+                                        {
+                                            ExecuteRemoveWriteMask(image);
+                                            return;
+                                        }
                                     }
                                     break;
                                 }
@@ -1196,6 +1201,11 @@ namespace ImageMagick
                                         case 'R':
                                         {
                                             ExecuteSetReadMask(element, image);
+                                            return;
+                                        }
+                                        case 'W':
+                                        {
+                                            ExecuteSetWriteMask(element, image);
                                             return;
                                         }
                                     }
@@ -1371,46 +1381,6 @@ namespace ImageMagick
                     }
                     break;
                 }
-                case 'w':
-                {
-                    switch(element.Name[1])
-                    {
-                        case 'r':
-                        {
-                            if (element.Name.Length == 5)
-                            {
-                                ExecuteWrite(element, image);
-                                return;
-                            }
-                            if (element.Name.Length == 9)
-                            {
-                                ExecuteWriteMask(element, image);
-                                return;
-                            }
-                            break;
-                        }
-                        case 'a':
-                        {
-                            if (element.Name.Length == 4)
-                            {
-                                ExecuteWave(element, image);
-                                return;
-                            }
-                            if (element.Name.Length == 14)
-                            {
-                                ExecuteWaveletDenoise(element, image);
-                                return;
-                            }
-                            break;
-                        }
-                        case 'h':
-                        {
-                            ExecuteWhiteThreshold(element, image);
-                            return;
-                        }
-                    }
-                    break;
-                }
                 case 'k':
                 {
                     ExecuteKuwahara(element, image);
@@ -1538,6 +1508,37 @@ namespace ImageMagick
                 {
                     ExecuteUnsharpMask(element, image);
                     return;
+                }
+                case 'w':
+                {
+                    switch(element.Name[1])
+                    {
+                        case 'a':
+                        {
+                            if (element.Name.Length == 4)
+                            {
+                                ExecuteWave(element, image);
+                                return;
+                            }
+                            if (element.Name.Length == 14)
+                            {
+                                ExecuteWaveletDenoise(element, image);
+                                return;
+                            }
+                            break;
+                        }
+                        case 'h':
+                        {
+                            ExecuteWhiteThreshold(element, image);
+                            return;
+                        }
+                        case 'r':
+                        {
+                            ExecuteWrite(element, image);
+                            return;
+                        }
+                    }
+                    break;
                 }
             }
             throw new NotSupportedException(element.Name);
@@ -1673,10 +1674,6 @@ namespace ImageMagick
         private void ExecuteVirtualPixelMethod(XmlElement element, IMagickImage image)
         {
             image.VirtualPixelMethod = Variables.GetValue<VirtualPixelMethod>(element, "value");
-        }
-        private void ExecuteWriteMask(XmlElement element, IMagickImage image)
-        {
-            image.WriteMask = CreateMagickImage(element);
         }
         private void ExecuteAdaptiveBlur(XmlElement element, IMagickImage image)
         {
@@ -3172,6 +3169,10 @@ namespace ImageMagick
         {
             image.RemoveRegionMask();
         }
+        private static void ExecuteRemoveWriteMask(IMagickImage image)
+        {
+            image.RemoveWriteMask();
+        }
         private static void ExecuteRePage(IMagickImage image)
         {
             image.RePage();
@@ -3411,6 +3412,11 @@ namespace ImageMagick
         {
             IMagickImage image_ = CreateMagickImage(element["image"]);
             image.SetReadMask(image_);
+        }
+        private void ExecuteSetWriteMask(XmlElement element, IMagickImage image)
+        {
+            IMagickImage image_ = CreateMagickImage(element["image"]);
+            image.SetWriteMask(image_);
         }
         private void ExecuteShade(XmlElement element, IMagickImage image)
         {
