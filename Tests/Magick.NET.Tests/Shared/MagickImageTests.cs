@@ -3330,7 +3330,7 @@ namespace Magick.NET.Tests
                 using (MemoryStream memStream = new MemoryStream())
                 {
                     image.Threshold(new Percentage(80));
-                    image.Settings.Compression = Compression.Group4;
+                    image.Settings.Compression = CompressionMethod.Group4;
                     image.Format = MagickFormat.Pdf;
                     image.Write(memStream);
                 }
@@ -3386,7 +3386,7 @@ namespace Magick.NET.Tests
                 byte[] bytes = image.ToByteArray(MagickFormat.Dds);
 
                 image.Read(bytes);
-                Assert.AreEqual(Compression.DXT5, image.Compression);
+                Assert.AreEqual(CompressionMethod.DXT5, image.Compression);
                 Assert.AreEqual(MagickFormat.Dds, image.Format);
 
                 bytes = image.ToByteArray(MagickFormat.Jpg);
@@ -3397,7 +3397,7 @@ namespace Magick.NET.Tests
                 bytes = image.ToByteArray(MagickFormat.Dds);
 
                 image.Read(bytes);
-                Assert.AreEqual(Compression.DXT1, image.Compression);
+                Assert.AreEqual(CompressionMethod.DXT1, image.Compression);
                 Assert.AreEqual(MagickFormat.Dds, image.Format);
             }
         }

@@ -100,11 +100,11 @@ namespace Magick.NET.Tests.Settings
         {
             using (IMagickImage image = new MagickImage())
             {
-                Assert.AreEqual(Compression.Undefined, image.Settings.Compression);
+                Assert.AreEqual(CompressionMethod.Undefined, image.Settings.Compression);
 
                 image.Read(Files.Builtin.Wizard);
 
-                image.Settings.Compression = Compression.NoCompression;
+                image.Settings.Compression = CompressionMethod.NoCompression;
 
                 using (MemoryStream memStream = new MemoryStream())
                 {
@@ -114,7 +114,7 @@ namespace Magick.NET.Tests.Settings
 
                     using (IMagickImage result = new MagickImage(memStream))
                     {
-                        Assert.AreEqual(Compression.NoCompression, result.Compression);
+                        Assert.AreEqual(CompressionMethod.NoCompression, result.Compression);
                     }
                 }
             }
