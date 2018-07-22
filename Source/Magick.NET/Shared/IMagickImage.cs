@@ -1815,6 +1815,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The associated read mask of the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Should be a method.")]
         IMagickImage GetReadMask();
 
         /// <summary>
@@ -1822,6 +1823,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The associated write mask of the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Should be a method.")]
         IMagickImage GetWriteMask();
 
         /// <summary>
