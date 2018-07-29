@@ -151,53 +151,6 @@ function CreateAllNuGetPackages($builds)
   {
     $id = "Magick.NET-$($build.Quantum)-$($build.Platform)"
     CreateNuGetPackages $id $version $build
-
-    if ($build.Quantum -eq "Q16")
-    {
-      CreateNuGetPackageWithSamples $build $id
-    }
-  }
-}
-
-function CreateNuGetPackageWithSamples($build, $id)
-{
-  $path = FullPath "Publish\NuGet\Magick.NET.Sample.nuspec"
-  $xml = [xml](Get-Content $path)
-
-  $xml.package.metadata.dependencies.dependency.id = $id
-  $xml.package.metadata.dependencies.dependency.version = $version
-
-  $id = "Magick.NET-$($build.Quantum)-$($build.Platform).Sample"
-  $samples = FullPath "Samples\Magick.NET.Samples\Samples\Magick.NET"
-  $files = Get-ChildItem -File -Path $samples\* -Exclude *.cs,*.msl,*.vb -Recurse
-  $offset = $files[0].FullName.LastIndexOf("\Magick.NET.Samples\") + 20
-  foreach($file in $files)
-  {
-    AddFileElement $xml $file "Content\$($file.FullName.SubString($offset))"
-  }
-
-  $file = FullPath "Publish\NuGet\Sample.Install.ps1"
-  AddFileElement $xml $file "Tools\Install.ps1"
-
-  WriteNuGetPackage $id $version $xml
-}
-
-function CreatePreProcessedFiles()
-{
-  $samples = FullPath "Samples\Magick.NET.Samples\Samples\Magick.NET"
-  $files = Get-ChildItem -Path $samples\* -Include *.cs,*.msl,*.vb -Recurse
-  foreach($file in $files)
-  {
-    $content = Get-Content $file
-    if ($file.FullName.EndsWith(".cs"))
-    {
-      $content = $content.Replace("namespace RootNamespace.","namespace `$rootnamespace`$.")
-    }
-    if ($file.FullName.EndsWith(".vb"))
-    {
-      $content = $content.Replace("Namespace RootNamespace.","Namespace `$rootnamespace`$.")
-    }
-    Set-Content "$file.pp" $content
   }
 }
 
@@ -270,7 +223,6 @@ CheckArchive
 Cleanup
 UpdateVersions $version $true
 UpdateResourceFiles $builds $version
-CreatePreProcessedFiles
 PreparePublish $builds
 GzipAssemblies
 PreparePublish $anyCPUbuilds
