@@ -13,3 +13,5 @@ echo Extracting .lib files
 if %errorlevel% neq 0 exit /b %errorlevel%
 
 :done
+
+nuget restore ..\..\Magick.NET.sln

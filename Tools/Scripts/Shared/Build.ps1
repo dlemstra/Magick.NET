@@ -42,9 +42,6 @@ function BuildSolution($solution, $properties)
     $location = $(Get-Location)
     Set-Location $directory
 
-    msbuild $filename /t:Restore ("/p:$($properties)")
-    CheckExitCode "Failed to restore: $($path)"
-
     msbuild $filename /t:Rebuild ("/p:$($properties)")
     CheckExitCode "Failed to build: $($path)"
 
