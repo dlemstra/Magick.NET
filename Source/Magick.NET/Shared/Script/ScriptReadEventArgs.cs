@@ -19,10 +19,11 @@ namespace ImageMagick
     /// </summary>
     public sealed class ScriptReadEventArgs : EventArgs
     {
-        internal ScriptReadEventArgs(string id, MagickReadSettings settings)
+        internal ScriptReadEventArgs(string id, MagickReadSettings readSettings, PixelStorageSettings pixelStorageSettings)
         {
             Id = id;
-            Settings = settings;
+            ReadSettings = readSettings;
+            PixelStorageSettings = pixelStorageSettings;
         }
 
         /// <summary>
@@ -45,7 +46,15 @@ namespace ImageMagick
         /// <summary>
         /// Gets the read settings for the image.
         /// </summary>
-        public MagickReadSettings Settings
+        public MagickReadSettings ReadSettings
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets the pixel storage settings for the image.
+        /// </summary>
+        public PixelStorageSettings PixelStorageSettings
         {
             get;
         }

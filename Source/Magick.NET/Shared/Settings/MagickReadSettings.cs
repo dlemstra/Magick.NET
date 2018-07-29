@@ -95,15 +95,6 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Gets or sets the settings for pixel storage.
-        /// </summary>
-        public PixelStorageSettings PixelStorage
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether the monochrome reader shoul be used. This is
         /// supported by: PCL, PDF, PS and XPS.
         /// </summary>
@@ -188,7 +179,6 @@ namespace ImageMagick
             FrameCount = settings.FrameCount;
             Height = settings.Height;
             Width = settings.Width;
-            PixelStorage = settings.PixelStorage?.Clone();
         }
     }
 }

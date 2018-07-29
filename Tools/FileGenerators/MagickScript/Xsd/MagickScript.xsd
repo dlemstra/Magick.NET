@@ -112,15 +112,14 @@
 
   <xs:complexType name="image">
     <xs:sequence>
-      <xs:element name="readSettings" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:choice minOccurs="0" maxOccurs="unbounded">
-              <xs:annotation id="magickReadSettings"/>
-            </xs:choice>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
+      <xs:choice minOccurs="0">
+        <xs:element name="readSettings" minOccurs="0" type="magickReadSettings"/>
+        <xs:element name="pixelStorageSettings" minOccurs="0">
+          <xs:complexType>
+            <xs:annotation id="pixelStorageSettings"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
       <xs:group ref="actions" />
     </xs:sequence>
     <xs:attribute name="fileName" type="xs:string"/>
@@ -133,6 +132,14 @@
 
   <xs:complexType name="iReadDefines">
     <xs:group ref="iReadDefines" />
+  </xs:complexType>
+
+  <xs:complexType name="magickReadSettings">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation id="magickReadSettings"/>
+      </xs:choice>
+    </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="magickSettings">
@@ -165,10 +172,6 @@
     <xs:sequence>
       <xs:element name="coordinate" maxOccurs="unbounded" type="pathArc"/>
     </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="pixelStorageSettings">
-    <xs:annotation id="pixelStorageSettings"/>
   </xs:complexType>
 
   <xs:complexType name="points">

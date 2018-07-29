@@ -22,8 +22,7 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
-        public class TheConstructor
+        public partial class TheConstructor
         {
             [TestMethod]
             public void ShouldThrowExceptionWhenBitmapIsNull()

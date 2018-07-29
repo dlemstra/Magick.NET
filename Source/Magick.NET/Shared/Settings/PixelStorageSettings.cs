@@ -20,19 +20,36 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="PixelStorageSettings"/> class.
         /// </summary>
-        public PixelStorageSettings()
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="storageType">The pixel storage type</param>
+        /// <param name="mapping">The mapping of the pixels.</param>
+        public PixelStorageSettings(int width, int height, StorageType storageType, PixelMapping mapping)
+            : this(width, height, storageType, mapping.ToString())
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PixelStorageSettings"/> class.
         /// </summary>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
         /// <param name="storageType">The pixel storage type</param>
         /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
-        public PixelStorageSettings(StorageType storageType, string mapping)
+        public PixelStorageSettings(int width, int height, StorageType storageType, string mapping)
         {
-            Mapping = mapping;
+            ReadSettings = new MagickReadSettings()
+            {
+                Width = width,
+                Height = height,
+            };
             StorageType = storageType;
+            Mapping = mapping;
+        }
+
+        internal PixelStorageSettings()
+        {
+            ReadSettings = new MagickReadSettings();
         }
 
         /// <summary>
@@ -53,13 +70,13 @@ namespace ImageMagick
             set;
         }
 
-        internal PixelStorageSettings Clone()
+        /// <summary>
+        /// Gets the settings to use when reading the image.
+        /// </summary>
+        public MagickReadSettings ReadSettings
         {
-            return new PixelStorageSettings()
-            {
-                Mapping = Mapping,
-                StorageType = StorageType,
-            };
+            get;
+            internal set;
         }
     }
 }

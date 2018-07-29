@@ -168,6 +168,18 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImage"/>.
         /// </summary>
+        /// <param name="data">The byte array to read the image data from.</param>
+        /// <param name="pixelStorageSettings">The pixel storage settings to use when reading the image.</param>
+        /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public IMagickImage CreateImage(byte[] data, PixelStorageSettings pixelStorageSettings)
+        {
+            return new MagickImage(data, pixelStorageSettings);
+        }
+
+        /// <summary>
+        /// Initializes a new instance that implements <see cref="IMagickImage"/>.
+        /// </summary>
         /// <param name="file">The file to read the image from.</param>
         /// <returns>A new <see cref="MagickImage"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -186,6 +198,18 @@ namespace ImageMagick
         public IMagickImage CreateImage(FileInfo file, MagickReadSettings readSettings)
         {
             return new MagickImage(file, readSettings);
+        }
+
+        /// <summary>
+        /// Initializes a new instance that implements <see cref="IMagickImage"/>.
+        /// </summary>
+        /// <param name="file">The file to read the image from.</param>
+        /// <param name="pixelStorageSettings">The pixel storage settings to use when reading the image.</param>
+        /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public IMagickImage CreateImage(FileInfo file, PixelStorageSettings pixelStorageSettings)
+        {
+            return new MagickImage(file, pixelStorageSettings);
         }
 
         /// <summary>
@@ -226,6 +250,18 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImage"/>.
         /// </summary>
+        /// <param name="stream">The stream to read the image data from.</param>
+        /// <param name="pixelStorageSettings">The pixel storage settings to use when reading the image.</param>
+        /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public IMagickImage CreateImage(Stream stream, PixelStorageSettings pixelStorageSettings)
+        {
+            return new MagickImage(stream, pixelStorageSettings);
+        }
+
+        /// <summary>
+        /// Initializes a new instance that implements <see cref="IMagickImage"/>.
+        /// </summary>
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
         /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -257,6 +293,18 @@ namespace ImageMagick
         public IMagickImage CreateImage(string fileName, MagickReadSettings readSettings)
         {
             return new MagickImage(fileName, readSettings);
+        }
+
+        /// <summary>
+        /// Initializes a new instance that implements <see cref="IMagickImage"/>.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="pixelStorageSettings">The pixel storage settings to use when reading the image.</param>
+        /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public IMagickImage CreateImage(string fileName, PixelStorageSettings pixelStorageSettings)
+        {
+            return new MagickImage(fileName, pixelStorageSettings);
         }
 
         /// <summary>

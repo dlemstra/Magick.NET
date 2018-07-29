@@ -2792,7 +2792,7 @@ namespace ImageMagick
         void Read(byte[] data);
 
         /// <summary>
-        /// Read single vector image frame.
+        /// Read single image frame.
         /// </summary>
         /// <param name="data">The byte array to read the image data from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
@@ -2816,7 +2816,7 @@ namespace ImageMagick
         void Read(FileInfo file, int width, int height);
 
         /// <summary>
-        /// Read single vector image frame.
+        /// Read single image frame.
         /// </summary>
         /// <param name="file">The file to read the image from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
@@ -2824,7 +2824,7 @@ namespace ImageMagick
         void Read(FileInfo file, MagickReadSettings readSettings);
 
         /// <summary>
-        /// Read single vector image frame.
+        /// Read single image frame.
         /// </summary>
         /// <param name="color">The color to fill the image with.</param>
         /// <param name="width">The width.</param>
@@ -2855,7 +2855,7 @@ namespace ImageMagick
         void Read(string fileName);
 
         /// <summary>
-        /// Read single vector image frame.
+        /// Read single image frame.
         /// </summary>
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
         /// <param name="width">The width.</param>
@@ -2864,12 +2864,44 @@ namespace ImageMagick
         void Read(string fileName, int width, int height);
 
         /// <summary>
-        /// Read single vector image frame.
+        /// Read single image frame.
         /// </summary>
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Read(string fileName, MagickReadSettings readSettings);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="data">The byte array to read the image data from.</param>
+        /// <param name="settings">The pixel storage settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void ReadPixels(byte[] data, PixelStorageSettings settings);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="file">The file to read the image from.</param>
+        /// <param name="settings">The pixel storage settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void ReadPixels(FileInfo file, PixelStorageSettings settings);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="stream">The stream to read the image data from.</param>
+        /// <param name="settings">The pixel storage settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void ReadPixels(Stream stream, PixelStorageSettings settings);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="settings">The pixel storage settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void ReadPixels(string fileName, PixelStorageSettings settings);
 
         /// <summary>
         /// Reduce noise in image using a noise peak elimination filter.

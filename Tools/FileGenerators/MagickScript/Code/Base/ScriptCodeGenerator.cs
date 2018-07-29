@@ -305,6 +305,9 @@ namespace FileGenerator.MagickScript
                 case "MagickGeometry":
                     Write("CreateMagickGeometry");
                     break;
+                case "MagickReadSettings":
+                    Write("CreateReadSettings");
+                    break;
                 case "MagickSettings":
                     Write("CreateMagickSettings");
                     break;
@@ -428,6 +431,7 @@ namespace FileGenerator.MagickScript
                     break;
                 case "ColorProfile":
                 case "IDefines":
+                case "MagickReadSettings":
                 case "MagickSettings":
                 case "MontageSettings":
                 case "PixelStorageSettings":

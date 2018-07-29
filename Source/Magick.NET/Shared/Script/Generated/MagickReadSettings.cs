@@ -221,20 +221,8 @@ namespace ImageMagick
                 }
                 case 'p':
                 {
-                    switch(element.Name[1])
-                    {
-                        case 'a':
-                        {
-                            ExecutePage(element, readSettings);
-                            return;
-                        }
-                        case 'i':
-                        {
-                            ExecutePixelStorage(element, readSettings);
-                            return;
-                        }
-                    }
-                    break;
+                    ExecutePage(element, readSettings);
+                    return;
                 }
                 case 's':
                 {
@@ -491,10 +479,6 @@ namespace ImageMagick
         private void ExecutePage(XmlElement element, MagickReadSettings readSettings)
         {
             readSettings.Page = GetValue<MagickGeometry>(element, "value");
-        }
-        private void ExecutePixelStorage(XmlElement element, MagickReadSettings readSettings)
-        {
-            readSettings.PixelStorage = CreatePixelStorageSettings(element[""]);
         }
         private void ExecuteStrokeAntiAlias(XmlElement element, MagickReadSettings readSettings)
         {

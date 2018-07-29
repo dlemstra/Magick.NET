@@ -1423,8 +1423,6 @@ namespace ImageMagick
             if (readSettings == null)
                 return new MagickSettings();
 
-            Throw.IfTrue(nameof(readSettings), readSettings.PixelStorage != null, "Settings the pixel storage is not supported for images with multiple frames/layers.");
-
             return new MagickReadSettings(readSettings);
         }
 

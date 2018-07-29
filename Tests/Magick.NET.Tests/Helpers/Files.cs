@@ -404,6 +404,14 @@ namespace Magick.NET.Tests
                 }
             }
 
+            public static string PixelStorage
+            {
+                get
+                {
+                    return _Root + @"Shared/Script/PixelStorage.msl";
+                }
+            }
+
             public static string Resize
             {
                 get

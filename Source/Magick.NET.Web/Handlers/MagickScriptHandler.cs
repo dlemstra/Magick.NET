@@ -64,7 +64,7 @@ namespace ImageMagick.Web.Handlers
 
         private void OnScriptRead(object sender, ScriptReadEventArgs arguments)
         {
-            arguments.Image = ImageData.ReadImage(arguments.Settings);
+            arguments.Image = ImageData.ReadImage(arguments.ReadSettings);
         }
 
         private void WriteToCache(IMagickImage image, string cacheFileName)

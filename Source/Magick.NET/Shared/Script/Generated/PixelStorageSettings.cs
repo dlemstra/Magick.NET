@@ -39,6 +39,7 @@ namespace ImageMagick
                 return null;
             PixelStorageSettings result = new PixelStorageSettings();
             result.Mapping = GetValue<String>(element, "mapping");
+            result.ReadSettings = CreateReadSettings(element["readSettings"]);
             result.StorageType = GetValue<StorageType>(element, "storageType");
             return result;
         }
