@@ -3926,6 +3926,14 @@ namespace ImageMagick
         void Write(FileInfo file, IWriteDefines defines);
 
         /// <summary>
+        /// Writes the image to the specified file.
+        /// </summary>
+        /// <param name="file">The file to write the image to.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Write(FileInfo file, MagickFormat format);
+
+        /// <summary>
         /// Writes the image to the specified stream.
         /// </summary>
         /// <param name="stream">The stream to write the image data to.</param>
@@ -3962,5 +3970,13 @@ namespace ImageMagick
         /// <param name="defines">The defines to set.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Write(string fileName, IWriteDefines defines);
+
+        /// <summary>
+        /// Writes the image to the specified file name.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Write(string fileName, MagickFormat format);
     }
 }
