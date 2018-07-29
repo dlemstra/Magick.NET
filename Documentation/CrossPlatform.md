@@ -1,36 +1,10 @@
 # Cross-platform
 
-## Compiling Magick.NET.Native on Linux
+## Compiling Magick.NET.Native on Linux and macOS
 
-This step is not required but documented to explain how the Magick.NET.Native is compiled on Linux. To build Magick.NET.Native it is required to have
-a Linux build machine running. A docker file for this can be found in `ImageMagick/Source`. The docker build requires that ImageMagick sources be checked out
-on your machine, as described in `Building.md`. After adding your public ssh key to `ImageMagick/Source/authorized_keys`, running `docker build`,
-and starting the container, the `Magick.NET.CrossPlatform.sln` solution should be opened. It is possible that this requires installation 
-of some extra components, instructions for that can be found [here](https://blogs.msdn.microsoft.com/vcblog/2016/03/30/visual-c-for-linux-development/).
-After opening the solution the `Remote Build Machine` should be configured. The project could be built from the solution but it is easier to use
-`Tools\BuildCrossPlatform.cmd` for this. This script will also copy the `.so` files to the `ImageMagick\(Q8/Q16/Q16-HDRI)\lib\Release\CrossPlatform`
-folders.
-
-## Compiling ImageMagick
-
-Building the dockerfile referenced above is the simplest way to get a fresh build of ImageMagick itself. The dockerfile includes configuration and compilation 
-steps for ImageMagick and it's dependencies, and the Magick.NET.CrossPlatform project will link against that build. To build against a different version of 
-ImageMagick or a particular image library, simply update the relevant project under `ImageMagick/Source` or update build options in `ImageMagick/Source/Dockerfile`.
-If you are adding additional projects to the build, make sure you also add lines to `ImageMagick/Source/.dockerignore` to ensure they are included in the docker
-build context. Then `docker build` and start a fresh container from the result. This will create an Ubuntu 16.04 container with a fresh copy of ImageMagick 
-and various image libraries, ready to support building Magick.NET.Native from Visual Studio or the BuildCrossPlatform script.
-
-After adding a project to the ImageMagick build, you will also need to add it to the Magick.NET.CrossPlatform project. In Visual Studio, this is configured in 
-Project Properties->Linker->Input, or look for these sections in `Magick.NET.CrossPlatform.vcxproj`:
-
-```xml
-    <Link>
-      <LibraryDependencies>pthread</LibraryDependencies>
-      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">$(StlAdditionalDependencies);%(AdditionalDependencies);/usr/local/lib/libMagickWand-7.Q8.a;/usr/local/lib/libMagickCore-7.Q8.a;/usr/local/lib64/libjpeg.a;/usr/local/lib/libpng16.a;/usr/local/lib/libtiff.a;/usr/local/lib/libwebp.a;/usr/local/lib/libwebpmux.a;/usr/local/lib/libwebpdemux.a;/usr/local/lib/libz.a;/usr/local/lib/liblzma.a;/usr/local/lib/libbz2.a</AdditionalDependencies>
-      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">$(StlAdditionalDependencies);%(AdditionalDependencies);/usr/local/lib/libMagickWand-7.Q16.a;/usr/local/lib/libMagickCore-7.Q16.a;/usr/local/lib64/libjpeg.a;/usr/local/lib/libpng16.a;/usr/local/lib/libtiff.a;/usr/local/lib/libwebp.a;/usr/local/lib/libwebpmux.a;/usr/local/lib/libwebpdemux.a;/usr/local/lib/libz.a;/usr/local/lib/liblzma.a;/usr/local/lib/libbz2.a</AdditionalDependencies>
-      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'">$(StlAdditionalDependencies);%(AdditionalDependencies);/usr/local/lib/libMagickWand-7.Q16HDRI.a;/usr/local/lib/libMagickCore-7.Q16HDRI.a;/usr/local/lib64/libjpeg.a;/usr/local/lib/libpng16.a;/usr/local/lib/libtiff.a;/usr/local/lib/libwebp.a;/usr/local/lib/libwebpmux.a;/usr/local/lib/libwebpdemux.a;/usr/local/lib/libz.a;/usr/local/lib/liblzma.a;/usr/local/lib/libbz2.a</AdditionalDependencies>
-    </Link>
-```
+The binaries for Linux and macOS are build on VSTS (https://dlemstra.visualstudio.com/Magick.NET/_build) with the help of scripts in the `Source/Magick.NET.CrossPlatform`
+folder. The `Build.Linux.sh` and `Build.macOS.sh` scripts in that folder create a statically linked library. Cloning the Magick.NET repository and running those scripts
+on a Linux or macOS machine can be done to create a custom build of the native library.
 
 ## Adding support for other formats
 
@@ -38,14 +12,7 @@ Magick.NET uses a statically linked build of ImageMagick to allow for an extreme
 standard glibc-based Linux distributions like Ubuntu or CentOS. Unfortunately, it also means some libraries and formats are left unsupported where an incompatible
 license or other issue prevents it.
 
-If you wish to create a custom build of Magick.NET for those situations, there are a few steps to follow. If, for example, you want to build Magick.NET with
-support for TIFF, JPEG, and SVG using shared objects, you could simple add an extra install step to `ImageMagick/Source/Dockerfile`:
-
-```Dockerfile
-RUN apt-get install -y librsvg2-dev libxml2-dev libfreetype6-dev libtiff5-dev libjpeg-turbo8-dev
-```
-
-Remove the steps to copy and build delegate libraries from source, and update the ImageMagick configure options.
+To create a custom build of the native library Magick.NET the `Build.Linux.sh` or the `Build.macOS.sh` file will need to be tweaked.
 
 ## Extra requirements
 

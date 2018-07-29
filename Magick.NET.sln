@@ -18,7 +18,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magick.NET.Samples", "Sampl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{642B2576-373D-4B84-A3C0-F6F9AC2A23D5}"
 	ProjectSection(SolutionItems) = preProject
-		Tools\BuildCrossPlatform.cmd = Tools\BuildCrossPlatform.cmd
 		Tools\GenerateAnyCPU.cmd = Tools\GenerateAnyCPU.cmd
 		Tools\GenerateDrawables.cmd = Tools\GenerateDrawables.cmd
 		Tools\GenerateMagickColors.cmd = Tools\GenerateMagickColors.cmd
@@ -158,6 +157,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Travis", "Travis", "{CE53D0C8-1D5B-4093-9200-53DB1FE76335}"
 	ProjectSection(SolutionItems) = preProject
 		Tools\Travis\Build.sh = Tools\Travis\Build.sh
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Magick.NET.CrossPlatform", "Magick.NET.CrossPlatform", "{72D84941-4530-4FFE-AF89-3613DA9B94C2}"
+	ProjectSection(SolutionItems) = preProject
+		Source\Magick.NET.CrossPlatform\authorized_keys = Source\Magick.NET.CrossPlatform\authorized_keys
+		Source\Magick.NET.CrossPlatform\Build.Linux.sh = Source\Magick.NET.CrossPlatform\Build.Linux.sh
+		Source\Magick.NET.CrossPlatform\Build.macOS.sh = Source\Magick.NET.CrossPlatform\Build.macOS.sh
+		Source\Magick.NET.CrossPlatform\Linux.Verify = Source\Magick.NET.CrossPlatform\Linux.Verify
+		Source\Magick.NET.CrossPlatform\Linux.Verify.Dockerfile = Source\Magick.NET.CrossPlatform\Linux.Verify.Dockerfile
+		Source\Magick.NET.CrossPlatform\Verify.Linux.sh = Source\Magick.NET.CrossPlatform\Verify.Linux.sh
 	EndProjectSection
 EndProject
 Global
@@ -539,6 +548,7 @@ Global
 		{26979C42-868B-4228-A4DB-C6780ED03E0D} = {6D1DE15B-EE1E-44DF-81CC-BEA1195B5BCE}
 		{6D5038BB-3775-4C21-82E2-22458CE24DC6} = {CADB374F-AC1D-4456-940E-2317DF1372C2}
 		{CE53D0C8-1D5B-4093-9200-53DB1FE76335} = {642B2576-373D-4B84-A3C0-F6F9AC2A23D5}
+		{72D84941-4530-4FFE-AF89-3613DA9B94C2} = {61345F8D-8813-4CA8-B037-2DE221FFB5D2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F6887AA-E540-48B3-BDC0-068B342ABEBE}
