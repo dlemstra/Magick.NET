@@ -93,7 +93,7 @@ namespace ImageMagick
 
             WriteAssembly(tempFile);
 
-            NativeMethods.SetDllDirectory(cacheDirectory);
+            MagickNET.SetNativeLibraryDirectory(cacheDirectory);
 
             MagickNET.Initialize(ConfigurationFiles.Default, cacheDirectory);
         }
@@ -128,13 +128,6 @@ namespace ImageMagick
                     }
                 }
             }
-        }
-
-        private static class NativeMethods
-        {
-            [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-            [return: MarshalAs(UnmanagedType.Bool)]
-            public static extern bool SetDllDirectory(string lpPathName);
         }
     }
 }
