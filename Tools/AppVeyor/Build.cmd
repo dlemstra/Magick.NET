@@ -21,4 +21,6 @@ xcopy %LIBDIR%\%1\lib\Release %TARGET%\%1\lib\Release /Y /S /I
 rmdir /S /Q %LIBDIR%
 xcopy %TARGET% %LIBDIR% /Y /S /I
 
+nuget restore ..\..\Magick.NET.sln
+
 powershell -ExecutionPolicy Unrestricted ..\Scripts\AppVeyor\Build.ps1 %1 %2
