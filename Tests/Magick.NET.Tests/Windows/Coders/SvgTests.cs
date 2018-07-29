@@ -27,20 +27,22 @@ namespace Magick.NET.Tests.Coders
         {
             using (IMagickImage image = new MagickImage())
             {
-                MagickReadSettings settings = new MagickReadSettings();
-                settings.Width = 100;
+                MagickReadSettings settings = new MagickReadSettings
+                {
+                    Width = 100,
+                };
 
                 image.Read(Files.Logos.MagickNETSVG, settings);
 
                 Assert.AreEqual(100, image.Width);
-                Assert.AreEqual(48, image.Height);
+                Assert.AreEqual(47, image.Height);
 
                 settings.Width = null;
                 settings.Height = 200;
 
                 image.Read(Files.Logos.MagickNETSVG, settings);
 
-                Assert.AreEqual(416, image.Width);
+                Assert.AreEqual(417, image.Width);
                 Assert.AreEqual(200, image.Height);
 
                 settings.Width = 300;
@@ -49,12 +51,12 @@ namespace Magick.NET.Tests.Coders
                 image.Read(Files.Logos.MagickNETSVG, settings);
 
                 Assert.AreEqual(300, image.Width);
-                Assert.AreEqual(144, image.Height);
+                Assert.AreEqual(143, image.Height);
 
                 image.Ping(Files.Logos.MagickNETSVG, settings);
 
                 Assert.AreEqual(300, image.Width);
-                Assert.AreEqual(144, image.Height);
+                Assert.AreEqual(143, image.Height);
             }
         }
 
