@@ -6675,6 +6675,7 @@ namespace ImageMagick
             _nativeInstance.SetNext(image.GetInstance());
         }
 
+        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "ReadSettings", Justification = "This is the correct spelling.")]
         private static int GetExpectedLength(PixelStorageSettings pixelStorageSettings)
         {
             Throw.IfTrue(nameof(pixelStorageSettings), pixelStorageSettings.ReadSettings.Width == null, "ReadSettings.Width should be defined");
