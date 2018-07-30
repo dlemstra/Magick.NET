@@ -23,7 +23,7 @@ function BuildTest($build,$codecov)
 function Build($build,$codecov,$configuration)
 {
     $platform=$($build.Platform).Replace("AnyCPU", "Any CPU")
-    $properties="Configuration=$($configuration)$($build.Quantum),RunCodeAnalysis=false,Platform=$platform"
+    $properties="Configuration=$($configuration)$($build.Quantum),Platform=$platform"
     if ($codecov -eq $true)
     {
         $properties+=",CodeCov=true"
