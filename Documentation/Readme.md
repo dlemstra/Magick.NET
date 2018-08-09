@@ -52,7 +52,7 @@ here: https://www.imagemagick.org/script/porting.php.
 ## OpenMP
 
 Magick.NET no longer uses OpenMP because the C++ Redistributable is statically linked. OpenMP is used to perform multithreaded operation on 
-an image to increase the perforance. The best use case for this would be a standalone applicatiom. Starting with Magick.NET 7.0.7.700 there
+an image to increase the performance. The best use case for this would be a standalone applicatiom. Starting with Magick.NET 7.0.7.700 there
 are extra packages for the x64 build of Magick.NET that has OpenMP support. This version requires you to install the
 [Microsoft Visual C++ Redistributable for Visual Studio 2017](https://go.microsoft.com/fwlink/?LinkId=746572) on the machine that runs the
 application.
