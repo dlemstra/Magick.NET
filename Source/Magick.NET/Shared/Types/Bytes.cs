@@ -69,8 +69,7 @@ namespace ImageMagick
 
         private void SetData(Stream stream)
         {
-            MemoryStream memStream = stream as MemoryStream;
-            if (memStream != null)
+            if (stream is MemoryStream memStream)
             {
                 SetDataWithMemoryStream(memStream);
                 return;

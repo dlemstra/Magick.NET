@@ -4854,7 +4854,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Read(string fileName)
         {
-            Read(fileName, (MagickReadSettings)null);
+            Read(fileName, null);
         }
 
         /// <summary>
