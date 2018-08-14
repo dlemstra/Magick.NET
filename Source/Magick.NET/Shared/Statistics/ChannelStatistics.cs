@@ -205,7 +205,7 @@ namespace ImageMagick
         /// <returns>True when the specified <see cref="ChannelStatistics"/> is equal to the current <see cref="ChannelStatistics"/>.</returns>
         public bool Equals(ChannelStatistics other)
         {
-            if (ReferenceEquals(other, null))
+            if (other is null)
                 return false;
 
             if (ReferenceEquals(this, other))

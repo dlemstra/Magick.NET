@@ -148,7 +148,7 @@ namespace ImageMagick
         /// <returns>True when the specified pixel is equal to the current pixel.</returns>
         public bool Equals(Pixel other)
         {
-            if (ReferenceEquals(other, null))
+            if (other is null)
                 return false;
 
             if (ReferenceEquals(this, other))

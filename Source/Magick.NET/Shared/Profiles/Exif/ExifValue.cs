@@ -165,7 +165,7 @@ namespace ImageMagick
         /// <returns>True when the specified exif value is equal to the current <see cref="ExifValue"/>.</returns>
         public bool Equals(ExifValue other)
         {
-            if (ReferenceEquals(other, null))
+            if (other is null)
                 return false;
 
             if (ReferenceEquals(this, other))

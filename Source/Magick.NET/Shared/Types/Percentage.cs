@@ -113,8 +113,8 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="Percentage"/> to compare.</param>
         public static bool operator >(Percentage left, Percentage right)
         {
-            if (ReferenceEquals(left, null))
-                return ReferenceEquals(right, null);
+            if (left is null)
+                return right is null;
 
             return left.CompareTo(right) == 1;
         }
@@ -126,8 +126,8 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="Percentage"/> to compare.</param>
         public static bool operator <(Percentage left, Percentage right)
         {
-            if (ReferenceEquals(left, null))
-                return !ReferenceEquals(right, null);
+            if (left is null)
+                return !(right is null);
 
             return left.CompareTo(right) == -1;
         }
@@ -139,8 +139,8 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="Percentage"/> to compare.</param>
         public static bool operator >=(Percentage left, Percentage right)
         {
-            if (ReferenceEquals(left, null))
-                return ReferenceEquals(right, null);
+            if (left is null)
+                return right is null;
 
             return left.CompareTo(right) >= 0;
         }
@@ -152,8 +152,8 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="Percentage"/> to compare.</param>
         public static bool operator <=(Percentage left, Percentage right)
         {
-            if (ReferenceEquals(left, null))
-                return !ReferenceEquals(right, null);
+            if (left is null)
+                return !(right is null);
 
             return left.CompareTo(right) <= 0;
         }

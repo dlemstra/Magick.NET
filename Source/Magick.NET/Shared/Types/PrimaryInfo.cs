@@ -73,7 +73,7 @@ namespace ImageMagick
         /// <returns>True when the specified <see cref="PrimaryInfo"/> is equal to the current <see cref="PrimaryInfo"/>.</returns>
         public bool Equals(PrimaryInfo other)
         {
-            if (ReferenceEquals(other, null))
+            if (other is null)
                 return false;
 
             if (ReferenceEquals(this, other))
