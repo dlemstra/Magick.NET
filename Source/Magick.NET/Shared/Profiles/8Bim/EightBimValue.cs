@@ -77,7 +77,7 @@ namespace ImageMagick
         /// <returns>True when the specified <see cref="EightBimValue"/> is equal to the current <see cref="EightBimValue"/>.</returns>
         public bool Equals(EightBimValue other)
         {
-            if (ReferenceEquals(other, null))
+            if (other is null)
                 return false;
 
             if (ReferenceEquals(this, other))
@@ -86,10 +86,10 @@ namespace ImageMagick
             if (ID != other.ID)
                 return false;
 
-            if (ReferenceEquals(_data, null))
-                return ReferenceEquals(other._data, null);
+            if (_data is null)
+                return other._data is null;
 
-            if (ReferenceEquals(other._data, null))
+            if (other._data is null)
                 return false;
 
             if (_data.Length != other._data.Length)
