@@ -135,7 +135,7 @@ namespace ImageMagick
         /// <returns>True when the specified image compare is equal to the current <see cref="ImageProfile"/>.</returns>
         public bool Equals(ImageProfile other)
         {
-            if (ReferenceEquals(other, null))
+            if (other is null)
                 return false;
 
             if (ReferenceEquals(this, other))
@@ -146,10 +146,10 @@ namespace ImageMagick
 
             UpdateData();
 
-            if (ReferenceEquals(Data, null))
-                return ReferenceEquals(other.Data, null);
+            if (Data is null)
+                return other.Data is null;
 
-            if (ReferenceEquals(other.Data, null))
+            if (other.Data is null)
                 return false;
 
             if (Data.Length != other.Data.Length)

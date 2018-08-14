@@ -94,7 +94,7 @@ namespace ImageMagick
         /// <returns>True when the specified image statistics is equal to the current <see cref="Statistics"/>.</returns>
         public bool Equals(Statistics other)
         {
-            if (ReferenceEquals(other, null))
+            if (other is null)
                 return false;
 
             if (ReferenceEquals(this, other))

@@ -132,7 +132,7 @@ namespace ImageMagick
         /// <returns>True when the specified iptc value is equal to the current <see cref="IptcValue"/>.</returns>
         public bool Equals(IptcValue other)
         {
-            if (ReferenceEquals(other, null))
+            if (other is null)
                 return false;
 
             if (ReferenceEquals(this, other))
@@ -141,10 +141,10 @@ namespace ImageMagick
             if (Tag != other.Tag)
                 return false;
 
-            if (ReferenceEquals(_data, null))
-                return ReferenceEquals(other._data, null);
+            if (_data is null)
+                return other._data is null;
 
-            if (ReferenceEquals(other._data, null))
+            if (other._data is null)
                 return false;
 
             if (_data.Length != other._data.Length)

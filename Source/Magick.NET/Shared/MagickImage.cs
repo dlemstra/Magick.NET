@@ -950,8 +950,8 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
         public static bool operator >(MagickImage left, MagickImage right)
         {
-            if (ReferenceEquals(left, null))
-                return ReferenceEquals(right, null);
+            if (left is null)
+                return right is null;
 
             return left.CompareTo(right) == 1;
         }

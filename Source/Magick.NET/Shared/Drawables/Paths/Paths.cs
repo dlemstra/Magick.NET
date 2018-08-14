@@ -44,7 +44,7 @@ namespace ImageMagick
         /// <param name="paths">The <see cref="Paths"/> to convert.</param>
         public static implicit operator Drawables(Paths paths)
         {
-            if (ReferenceEquals(paths, null))
+            if (paths is null)
                 return null;
 
             if (paths._drawables == null)
