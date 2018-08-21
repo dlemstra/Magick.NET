@@ -193,6 +193,11 @@ namespace ImageMagick
         Dcr,
 
         /// <summary>
+        /// Raw Photo Decoder (dcraw) (Dng)
+        /// </summary>
+        Dcraw,
+
+        /// <summary>
         /// ZSoft IBM PC multi-page Paintbrush
         /// </summary>
         Dcx,
