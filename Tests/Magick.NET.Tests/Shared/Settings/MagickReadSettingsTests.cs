@@ -203,7 +203,7 @@ namespace Magick.NET.Tests.Settings
 
                 Assert.AreEqual(1, numberScenes);
                 Assert.AreEqual(0, scene);
-                Assert.AreEqual("0-1", scenes);
+                Assert.AreEqual(null, scenes);
             }
         }
     }

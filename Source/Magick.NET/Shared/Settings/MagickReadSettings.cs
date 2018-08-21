@@ -129,7 +129,7 @@ namespace ImageMagick
 
         private string GetScenes()
         {
-            if (!FrameIndex.HasValue && !FrameCount.HasValue)
+            if (!FrameIndex.HasValue && (!FrameCount.HasValue || FrameCount.Value == 1))
                 return null;
 
             if (FrameIndex.HasValue && (!FrameCount.HasValue || FrameCount.Value == 1))
