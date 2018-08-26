@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using ImageMagick;
@@ -147,6 +148,16 @@ namespace Magick.NET.Tests.Shared
                 {
                     new MagickImageCollection(Files.Missing);
                 }, "error/blob.c/OpenBlob");
+            }
+
+            [TestMethod]
+            public void ShouldThrowExceptionWhenImagesContainsDuplicates()
+            {
+                ExceptionAssert.Throws<InvalidOperationException>(() =>
+                {
+                    var image = new MagickImage();
+                    new MagickImageCollection(new[] { image, image });
+                });
             }
 
             [TestMethod]

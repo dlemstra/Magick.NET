@@ -199,6 +199,12 @@ namespace ImageMagick
 
             set
             {
+                if (value == null)
+                    throw new InvalidOperationException("Not allowed to add null value.");
+
+                if (!ReferenceEquals(value, _images[index]))
+                    CheckDuplication(value);
+
                 _images[index] = value;
             }
         }
@@ -207,7 +213,7 @@ namespace ImageMagick
         /// Converts the specified instance to a byte array.
         /// </summary>
         /// <param name="collection">The <see cref="MagickImageCollection"/> to convert.</param>
-        public static explicit operator byte[](MagickImageCollection collection)
+        public static explicit operator byte[] (MagickImageCollection collection)
         {
             Throw.IfNull(nameof(collection), collection);
 
@@ -230,6 +236,8 @@ namespace ImageMagick
         public void Add(IMagickImage item)
         {
             Throw.IfNull(nameof(item), item);
+
+            CheckDuplication(item);
 
             _images.Add(item);
         }
@@ -621,6 +629,8 @@ namespace ImageMagick
         /// <param name="item">The image to insert.</param>
         public void Insert(int index, IMagickImage item)
         {
+            CheckDuplication(item);
+
             _images.Insert(index, item);
         }
 
@@ -1477,6 +1487,15 @@ namespace ImageMagick
             for (int i = 0; i < _images.Count - 1; i++)
             {
                 _images[i].SetNext(_images[i + 1]);
+            }
+        }
+
+        private void CheckDuplication(IMagickImage item)
+        {
+            foreach (var image in _images)
+            {
+                if (ReferenceEquals(image, item))
+                    throw new InvalidOperationException("Not allowed to add the same image to the collection.");
             }
         }
 

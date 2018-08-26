@@ -19,44 +19,8 @@ namespace Magick.NET.Tests.Shared
     public partial class MagickImageCollectionTests
     {
         [TestClass]
-        public class TheAddMethod
+        public class TheInsertMethod
         {
-            [TestMethod]
-            public void ShouldThrowExceptionWhenItemIsNull()
-            {
-                using (IMagickImageCollection images = new MagickImageCollection())
-                {
-                    ExceptionAssert.ThrowsArgumentNullException("item", () =>
-                    {
-                        images.Add((IMagickImage)null);
-                    });
-                }
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenFileNameIsNull()
-            {
-                ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
-                {
-                    using (IMagickImageCollection images = new MagickImageCollection())
-                    {
-                        images.Add(null);
-                    }
-                });
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenFileNameIsEmpty()
-            {
-                ExceptionAssert.ThrowsArgumentException("fileName", () =>
-                {
-                    using (IMagickImageCollection images = new MagickImageCollection())
-                    {
-                        images.Add(string.Empty);
-                    }
-                });
-            }
-
             [TestMethod]
             public void ShouldThrowExceptionWhenCollectionAlreadyContainsItem()
             {
@@ -67,7 +31,7 @@ namespace Magick.NET.Tests.Shared
 
                     ExceptionAssert.Throws<InvalidOperationException>(() =>
                     {
-                        images.Add(image);
+                        images.Insert(0, image);
                     });
                 }
             }
