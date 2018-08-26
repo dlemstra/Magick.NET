@@ -273,6 +273,7 @@ namespace ImageMagick
         public void AddRange(IEnumerable<IMagickImage> images)
         {
             Throw.IfNull(nameof(images), images);
+            Throw.IfTrue(nameof(images), images is MagickImageCollection, "Not allowed to add MagickImageCollection.");
 
             foreach (IMagickImage image in images)
             {

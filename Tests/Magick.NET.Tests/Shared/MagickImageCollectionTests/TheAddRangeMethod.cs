@@ -83,15 +83,15 @@ namespace Magick.NET.Tests.Shared
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenCollectionIsNull()
+            public void ShouldThrowExceptionWhenImagesIsMagickImageCollection()
             {
-                ExceptionAssert.ThrowsArgumentNullException("images", () =>
+                using (var images = new MagickImageCollection(Files.SnakewarePNG))
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    ExceptionAssert.ThrowsArgumentException("images", () =>
                     {
-                        images.AddRange((IMagickImageCollection)null);
-                    }
-                });
+                        images.AddRange(images);
+                    });
+                }
             }
 
             [TestMethod]
