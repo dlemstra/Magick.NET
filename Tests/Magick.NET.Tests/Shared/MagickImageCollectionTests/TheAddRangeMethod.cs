@@ -99,7 +99,7 @@ namespace Magick.NET.Tests.Shared
             {
                 using (IMagickImageCollection images = new MagickImageCollection())
                 {
-                    images.AddRange(new MagickImageCollection());
+                    images.AddRange(new IMagickImage[] { });
 
                     Assert.AreEqual(0, images.Count);
                 }
@@ -113,6 +113,18 @@ namespace Magick.NET.Tests.Shared
                     using (IMagickImageCollection images = new MagickImageCollection())
                     {
                         images.AddRange((string)null);
+                    }
+                });
+            }
+
+            [TestMethod]
+            public void ShouldThrowExceptionWhenFileNameIsEmpty()
+            {
+                ExceptionAssert.ThrowsArgumentException("fileName", () =>
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        images.AddRange(string.Empty);
                     }
                 });
             }
