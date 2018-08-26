@@ -107,7 +107,7 @@ namespace ImageMagick
         public MagickImageCollection(Stream stream)
           : this()
         {
-            AddRange(stream);
+            Read(stream);
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace ImageMagick
         public MagickImageCollection(Stream stream, MagickReadSettings readSettings)
           : this()
         {
-            AddRange(stream, readSettings);
+            Read(stream, readSettings);
         }
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace ImageMagick
         public MagickImageCollection(string fileName)
           : this()
         {
-            AddRange(fileName);
+            Read(fileName);
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace ImageMagick
         public MagickImageCollection(string fileName, MagickReadSettings readSettings)
           : this()
         {
-            AddRange(fileName, readSettings);
+            Read(fileName, readSettings);
         }
 
         /// <summary>

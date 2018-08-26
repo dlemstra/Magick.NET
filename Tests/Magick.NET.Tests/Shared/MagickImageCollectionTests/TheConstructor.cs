@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System.Collections.Generic;
 using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -40,11 +41,42 @@ namespace Magick.NET.Tests.Shared
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenFilIsNull()
+            public void ShouldNotThrowExceptionWhenByteArrayReadSettingsIsNull()
+            {
+                var bytes = File.ReadAllBytes(Files.SnakewarePNG);
+
+                using (IMagickImageCollection images = new MagickImageCollection(bytes, null))
+                {
+                    Assert.AreEqual(1, images.Count);
+                }
+            }
+
+            [TestMethod]
+            public void ShouldThrowExceptionWhenFileIsNull()
             {
                 ExceptionAssert.ThrowsArgumentNullException("file", () =>
                 {
                     new MagickImageCollection((FileInfo)null);
+                });
+            }
+
+            [TestMethod]
+            public void ShouldNotThrowExceptionWhenFileReadSettingsIsNull()
+            {
+                var file = new FileInfo(Files.SnakewarePNG);
+
+                using (IMagickImageCollection images = new MagickImageCollection(file, null))
+                {
+                    Assert.AreEqual(1, images.Count);
+                }
+            }
+
+            [TestMethod]
+            public void ShouldThrowExceptionWhenImagesIsNull()
+            {
+                ExceptionAssert.ThrowsArgumentNullException("images", () =>
+                {
+                    new MagickImageCollection((IEnumerable<IMagickImage>)null);
                 });
             }
 
@@ -55,6 +87,18 @@ namespace Magick.NET.Tests.Shared
                 {
                     new MagickImageCollection((Stream)null);
                 });
+            }
+
+            [TestMethod]
+            public void ShouldNotThrowExceptionWhenStreamSettingsIsNull()
+            {
+                using (var stream = File.OpenRead(Files.SnakewarePNG))
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection(stream, null))
+                    {
+                        Assert.AreEqual(1, images.Count);
+                    }
+                }
             }
 
             [TestMethod]
@@ -73,6 +117,15 @@ namespace Magick.NET.Tests.Shared
                 {
                     new MagickImageCollection(string.Empty);
                 });
+            }
+
+            [TestMethod]
+            public void ShouldNotThrowExceptionWhenFileNameSettingsIsNull()
+            {
+                using (IMagickImageCollection images = new MagickImageCollection(Files.SnakewarePNG, null))
+                {
+                    Assert.AreEqual(1, images.Count);
+                }
             }
 
             [TestMethod]
@@ -128,6 +181,19 @@ namespace Magick.NET.Tests.Shared
                 using (IMagickImageCollection input = new MagickImageCollection(bytes, readSettings))
                 {
                     Assert.AreEqual(MagickFormat.Unknown, input[0].Settings.Format);
+                }
+            }
+
+            [TestMethod]
+            public void ShouldNotCloneTheImagesWhenInputIsIEnumerableMagickImage()
+            {
+                using (IMagickImageCollection images = new MagickImageCollection(Files.RoseSparkleGIF))
+                {
+                    using (IMagickImageCollection other = new MagickImageCollection((IEnumerable<IMagickImage>)images))
+                    {
+                        Assert.AreEqual(3, other.Count);
+                        Assert.IsTrue(ReferenceEquals(images[0], other[0]));
+                    }
                 }
             }
         }

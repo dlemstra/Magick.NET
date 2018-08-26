@@ -54,6 +54,8 @@ namespace Magick.NET.Tests.Shared
                 using (IMagickImageCollection images = new MagickImageCollection())
                 {
                     images.AddRange(bytes, null);
+
+                    Assert.AreEqual(1, images.Count);
                 }
             }
 
@@ -121,6 +123,8 @@ namespace Magick.NET.Tests.Shared
                 using (IMagickImageCollection images = new MagickImageCollection())
                 {
                     images.AddRange(Files.SnakewarePNG, null);
+
+                    Assert.AreEqual(1, images.Count);
                 }
             }
 
@@ -156,6 +160,8 @@ namespace Magick.NET.Tests.Shared
                     using (var stream = File.OpenRead(Files.SnakewarePNG))
                     {
                         images.AddRange(stream, null);
+
+                        Assert.AreEqual(1, images.Count);
                     }
                 }
             }
@@ -192,11 +198,11 @@ namespace Magick.NET.Tests.Shared
             {
                 using (IMagickImageCollection images = new MagickImageCollection(Files.RoseSparkleGIF))
                 {
-                    using (IMagickImageCollection other = new MagickImageCollection(Files.RoseSparkleGIF))
+                    using (IMagickImageCollection other = new MagickImageCollection())
                     {
-                        images.AddRange((IEnumerable<IMagickImage>)other);
+                        other.AddRange((IEnumerable<IMagickImage>)images);
 
-                        Assert.AreEqual(6, images.Count);
+                        Assert.AreEqual(3, other.Count);
                         Assert.IsFalse(ReferenceEquals(images[0], other[0]));
                     }
                 }
