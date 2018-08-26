@@ -229,6 +229,8 @@ namespace ImageMagick
         /// <param name="item">The image to add.</param>
         public void Add(IMagickImage item)
         {
+            Throw.IfNull(nameof(item), item);
+
             _images.Add(item);
         }
 
