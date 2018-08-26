@@ -13,9 +13,5 @@
     <Copy Condition="'$(Platform)'=='Win32'" SourceFiles="@(NativeFiles)" DestinationFolder="$(SolutionDir)\Tests\Magick.NET.Tests\bin\$(TestConfig)\x86\netcoreapp2.0" />
     <Copy Condition="'$(Platform)'=='x64'" SourceFiles="@(NativeFiles)" DestinationFolder="$(SolutionDir)\Tests\Magick.NET.Tests\bin\$(TestConfig)\x64\net45" />
     <Copy Condition="'$(Platform)'=='x64'" SourceFiles="@(NativeFiles)" DestinationFolder="$(SolutionDir)\Tests\Magick.NET.Tests\bin\$(TestConfig)\x64\netcoreapp2.0" />
-
-    <Copy Condition="'$(Platform)'=='Win32'" SourceFiles="@(NativeFiles)" DestinationFolder="$(SolutionDir)\Tests\Magick.NET.Tests.NativeDebug\bin\$(Configuration)\x86" />
-
-    <Copy Condition="'$(Platform)'=='x64'" SourceFiles="@(NativeFiles)" DestinationFolder="$(SolutionDir)\Tests\Magick.NET.Tests.NativeDebug\bin\$(Configuration)\x64" />
   </Target>
 </Project>
