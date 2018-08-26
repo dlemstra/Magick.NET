@@ -83,6 +83,53 @@ namespace Magick.NET.Tests.Shared
                     new MagickImageCollection(Files.Missing);
                 }, "error/blob.c/OpenBlob");
             }
+
+            [TestMethod]
+            public void ShouldResetTheFormatAfterReadingFile()
+            {
+                var readSettings = new MagickReadSettings()
+                {
+                    Format = MagickFormat.Png,
+                };
+
+                using (IMagickImageCollection input = new MagickImageCollection(Files.CirclePNG, readSettings))
+                {
+                    Assert.AreEqual(MagickFormat.Unknown, input[0].Settings.Format);
+                }
+            }
+
+            [TestMethod]
+            public void ShouldResetTheFormatAfterReadingStream()
+            {
+                var readSettings = new MagickReadSettings()
+                {
+                    Format = MagickFormat.Png,
+                };
+
+                using (var stream = File.OpenRead(Files.CirclePNG))
+                {
+                    using (IMagickImageCollection input = new MagickImageCollection(stream, readSettings))
+                    {
+                        Assert.AreEqual(MagickFormat.Unknown, input[0].Settings.Format);
+                    }
+                }
+            }
+
+            [TestMethod]
+            public void ShouldResetTheFormatAfterReadingBytes()
+            {
+                var readSettings = new MagickReadSettings()
+                {
+                    Format = MagickFormat.Png,
+                };
+
+                var bytes = File.ReadAllBytes(Files.CirclePNG);
+
+                using (IMagickImageCollection input = new MagickImageCollection(bytes, readSettings))
+                {
+                    Assert.AreEqual(MagickFormat.Unknown, input[0].Settings.Format);
+                }
+            }
         }
     }
 }

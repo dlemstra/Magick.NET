@@ -22,6 +22,90 @@ namespace Magick.NET.Tests
         public class TheReadMethod
         {
             [TestMethod]
+            public void ShouldThrowExceptionWhenByteArrayIsNull()
+            {
+                ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        images.Read((byte[])null);
+                    }
+                });
+            }
+
+            [TestMethod]
+            public void ShouldThrowExceptionWhenByteArrayIsEmpty()
+            {
+                ExceptionAssert.ThrowsArgumentException("data", () =>
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        images.Read(new byte[0]);
+                    }
+                });
+            }
+
+            [TestMethod]
+            public void ShouldThrowExceptionWhenFilIsNull()
+            {
+                ExceptionAssert.ThrowsArgumentNullException("file", () =>
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        images.Read((FileInfo)null);
+                    }
+                });
+            }
+
+            [TestMethod]
+            public void ShouldThrowExceptionWhenStreamIsNull()
+            {
+                ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        images.Read((Stream)null);
+                    }
+                });
+            }
+
+            [TestMethod]
+            public void ShouldThrowExceptionWhenFileNameIsNull()
+            {
+                ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        images.Read((string)null);
+                    }
+                });
+            }
+
+            [TestMethod]
+            public void ShouldThrowExceptionWhenFileNameIsEmpty()
+            {
+                ExceptionAssert.ThrowsArgumentException("fileName", () =>
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        images.Read(string.Empty);
+                    }
+                });
+            }
+
+            [TestMethod]
+            public void ShouldThrowExceptionWhenFileNameIsInvalid()
+            {
+                ExceptionAssert.Throws<MagickBlobErrorException>(() =>
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        images.Read(Files.Missing);
+                    }
+                }, "error/blob.c/OpenBlob");
+            }
+
+            [TestMethod]
             public void ShouldResetTheFormatAfterReadingFile()
             {
                 var readSettings = new MagickReadSettings()
@@ -29,8 +113,10 @@ namespace Magick.NET.Tests
                     Format = MagickFormat.Png,
                 };
 
-                using (IMagickImageCollection input = new MagickImageCollection(Files.CirclePNG, readSettings))
+                using (IMagickImageCollection input = new MagickImageCollection())
                 {
+                    input.Read(Files.CirclePNG, readSettings);
+
                     Assert.AreEqual(MagickFormat.Unknown, input[0].Settings.Format);
                 }
             }
@@ -45,8 +131,10 @@ namespace Magick.NET.Tests
 
                 using (var stream = File.OpenRead(Files.CirclePNG))
                 {
-                    using (IMagickImageCollection input = new MagickImageCollection(stream, readSettings))
+                    using (IMagickImageCollection input = new MagickImageCollection())
                     {
+                        input.Read(stream, readSettings);
+
                         Assert.AreEqual(MagickFormat.Unknown, input[0].Settings.Format);
                     }
                 }
@@ -62,8 +150,10 @@ namespace Magick.NET.Tests
 
                 var bytes = File.ReadAllBytes(Files.CirclePNG);
 
-                using (IMagickImageCollection input = new MagickImageCollection(bytes, readSettings))
+                using (IMagickImageCollection input = new MagickImageCollection())
                 {
+                    input.Read(bytes, readSettings);
+
                     Assert.AreEqual(MagickFormat.Unknown, input[0].Settings.Format);
                 }
             }
