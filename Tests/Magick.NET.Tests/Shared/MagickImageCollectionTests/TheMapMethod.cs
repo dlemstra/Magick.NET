@@ -24,11 +24,11 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenCollectionIsEmpty()
             {
-                using (IMagickImageCollection collection = new MagickImageCollection())
+                using (IMagickImageCollection images = new MagickImageCollection())
                 {
                     ExceptionAssert.Throws<InvalidOperationException>(() =>
                     {
-                        collection.Map(null);
+                        images.Map(null);
                     });
                 }
             }
@@ -57,13 +57,13 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenImageIsNull()
             {
-                using (IMagickImageCollection collection = new MagickImageCollection())
+                using (IMagickImageCollection images = new MagickImageCollection())
                 {
-                    collection.Read(Files.RoseSparkleGIF);
+                    images.Read(Files.RoseSparkleGIF);
 
                     ExceptionAssert.ThrowsArgumentNullException("image", () =>
                     {
-                        collection.Map(null);
+                        images.Map(null);
                     });
                 }
             }
@@ -71,13 +71,13 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenSettingsIsNull()
             {
-                using (IMagickImageCollection collection = new MagickImageCollection())
+                using (IMagickImageCollection images = new MagickImageCollection())
                 {
-                    collection.Read(Files.RoseSparkleGIF);
+                    images.Read(Files.RoseSparkleGIF);
 
                     ExceptionAssert.ThrowsArgumentNullException("settings", () =>
                     {
-                        collection.Map(collection[0], null);
+                        images.Map(images[0], null);
                     });
                 }
             }

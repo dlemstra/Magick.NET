@@ -11,7 +11,6 @@
 // and limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ImageMagick;
@@ -32,109 +31,6 @@ namespace Magick.NET.Tests
     [TestClass]
     public partial class MagickImageCollectionTests
     {
-        [TestMethod]
-        public void Test_AddRange()
-        {
-            using (IMagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
-            {
-                Assert.AreEqual(3, collection.Count);
-
-                collection.AddRange(Files.RoseSparkleGIF);
-                Assert.AreEqual(6, collection.Count);
-
-                collection.AddRange(collection);
-                Assert.AreEqual(12, collection.Count);
-
-                List<IMagickImage> images = new List<IMagickImage>();
-                images.Add(new MagickImage("xc:red", 100, 100));
-                collection.AddRange(images);
-                Assert.AreEqual(13, collection.Count);
-            }
-        }
-
-        [TestMethod]
-        public void Test_Append()
-        {
-            int width = 70;
-            int height = 46;
-
-            using (IMagickImageCollection collection = new MagickImageCollection())
-            {
-                ExceptionAssert.Throws<InvalidOperationException>(() =>
-                {
-                    collection.AppendHorizontally();
-                });
-
-                ExceptionAssert.Throws<InvalidOperationException>(() =>
-                {
-                    collection.AppendVertically();
-                });
-
-                collection.Read(Files.RoseSparkleGIF);
-
-                Assert.AreEqual(width, collection[0].Width);
-                Assert.AreEqual(height, collection[0].Height);
-
-                using (IMagickImage image = collection.AppendHorizontally())
-                {
-                    Assert.AreEqual(width * 3, image.Width);
-                    Assert.AreEqual(height, image.Height);
-                }
-
-                using (IMagickImage image = collection.AppendVertically())
-                {
-                    Assert.AreEqual(width, image.Width);
-                    Assert.AreEqual(height * 3, image.Height);
-                }
-            }
-        }
-
-        [TestMethod]
-        public void Test_Clone()
-        {
-            using (IMagickImageCollection collection = new MagickImageCollection())
-            {
-                collection.Add(Files.Builtin.Logo);
-                collection.Add(Files.Builtin.Rose);
-                collection.Add(Files.Builtin.Wizard);
-
-                using (IMagickImageCollection clones = collection.Clone())
-                {
-                    Assert.AreEqual(collection[0], clones[0]);
-                    Assert.AreEqual(collection[1], clones[1]);
-                    Assert.AreEqual(collection[2], clones[2]);
-                }
-            }
-        }
-
-        [TestMethod]
-        public void Test_Coalesce()
-        {
-            using (IMagickImageCollection collection = new MagickImageCollection())
-            {
-                ExceptionAssert.Throws<InvalidOperationException>(() =>
-                {
-                    collection.Coalesce();
-                });
-
-                collection.Read(Files.RoseSparkleGIF);
-
-                using (IPixelCollection pixels = collection[1].GetPixels())
-                {
-                    MagickColor color = pixels.GetPixel(53, 3).ToColor();
-                    Assert.AreEqual(0, color.A);
-                }
-
-                collection.Coalesce();
-
-                using (IPixelCollection pixels = collection[1].GetPixels())
-                {
-                    MagickColor color = pixels.GetPixel(53, 3).ToColor();
-                    Assert.AreEqual(Quantum.Max, color.A);
-                }
-            }
-        }
-
         [TestMethod]
         public void Test_Combine_sRGB()
         {
@@ -176,40 +72,6 @@ namespace Magick.NET.Tests
                     Assert.AreEqual(0.0, cmyk.Compare(image, ErrorMetric.RootMeanSquared));
                 }
             }
-        }
-
-        [TestMethod]
-        public void Test_Constructor()
-        {
-            ExceptionAssert.ThrowsArgumentException("data", () =>
-            {
-                new MagickImageCollection(new byte[0]);
-            });
-
-            ExceptionAssert.ThrowsArgumentNullException("data", () =>
-            {
-                new MagickImageCollection((byte[])null);
-            });
-
-            ExceptionAssert.ThrowsArgumentNullException("file", () =>
-            {
-                new MagickImageCollection((FileInfo)null);
-            });
-
-            ExceptionAssert.ThrowsArgumentNullException("stream", () =>
-            {
-                new MagickImageCollection((Stream)null);
-            });
-
-            ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
-            {
-                new MagickImageCollection((string)null);
-            });
-
-            ExceptionAssert.Throws<MagickBlobErrorException>(() =>
-            {
-                new MagickImageCollection(Files.Missing);
-            }, "error/blob.c/OpenBlob");
         }
 
         [TestMethod]
@@ -280,22 +142,6 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(new MagickGeometry(10, 0, 10, 20), collection[1].Page);
                 ColorAssert.AreEqual(MagickColors.Purple, collection[1], 3, 3);
             }
-        }
-
-        [TestMethod]
-        public void Test_Dispose()
-        {
-            IMagickImage image = new MagickImage(MagickColors.Red, 10, 10);
-
-            IMagickImageCollection collection = new MagickImageCollection();
-            collection.Add(image);
-            collection.Dispose();
-
-            Assert.AreEqual(0, collection.Count);
-            ExceptionAssert.Throws<ObjectDisposedException>(() =>
-            {
-                image.Flip();
-            });
         }
 
         [TestMethod]

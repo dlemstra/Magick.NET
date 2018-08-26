@@ -14,12 +14,12 @@ using System;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Shared
 {
     public partial class MagickImageCollectionTests
     {
         [TestClass]
-        public class TheFlattenMethod
+        public class TheAppendAppendVerticallyMethod
         {
             [TestMethod]
             public void ShouldThrowExceptionWhenCollectionIsEmpty()
@@ -28,44 +28,28 @@ namespace Magick.NET.Tests
                 {
                     ExceptionAssert.Throws<InvalidOperationException>(() =>
                     {
-                        images.Flatten();
+                        images.AppendVertically();
                     });
                 }
             }
 
             [TestMethod]
-            public void ShouldUseImageBackground()
+            public void ShouldAppendTheImagesVertically()
             {
+                int width = 70;
+                int height = 46;
+
                 using (IMagickImageCollection images = new MagickImageCollection())
                 {
-                    var image = new MagickImage(MagickColors.Red, 10, 10);
-                    image.Extent(110, 110, Gravity.Center, MagickColors.None);
-                    image.BackgroundColor = MagickColors.Moccasin;
+                    images.Read(Files.RoseSparkleGIF);
 
-                    images.Add(image);
+                    Assert.AreEqual(width, images[0].Width);
+                    Assert.AreEqual(height, images[0].Height);
 
-                    using (IMagickImage result = images.Flatten())
+                    using (IMagickImage image = images.AppendVertically())
                     {
-                        ColorAssert.AreEqual(MagickColors.Moccasin, result, 0, 0);
-                    }
-                }
-            }
-
-            [TestMethod]
-            public void ShouldUseSpecifiedBackground()
-            {
-                using (IMagickImageCollection images = new MagickImageCollection())
-                {
-                    var image = new MagickImage(MagickColors.Red, 10, 10);
-                    image.Extent(110, 110, Gravity.Center, MagickColors.None);
-                    image.BackgroundColor = MagickColors.Moccasin;
-
-                    images.Add(image);
-
-                    using (IMagickImage result = images.Flatten(MagickColors.MistyRose))
-                    {
-                        ColorAssert.AreEqual(MagickColors.MistyRose, result, 0, 0);
-                        Assert.AreEqual(MagickColors.Moccasin, image.BackgroundColor);
+                        Assert.AreEqual(width, image.Width);
+                        Assert.AreEqual(height * 3, image.Height);
                     }
                 }
             }

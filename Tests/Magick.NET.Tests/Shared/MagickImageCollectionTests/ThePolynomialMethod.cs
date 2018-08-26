@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
         public class ThePolynomialMethod
         {
             [TestMethod]
-            public void ShouldThrowExceptionWhenCollectionEmpty()
+            public void ShouldThrowExceptionWhenCollectionIsEmpty()
             {
                 using (IMagickImageCollection images = new MagickImageCollection())
                 {

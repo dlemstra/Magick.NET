@@ -14,12 +14,12 @@ using System;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Shared
 {
     public partial class MagickImageCollectionTests
     {
         [TestClass]
-        public partial class TheQuantizeMethod
+        public class TheCoalesceMethod
         {
             [TestMethod]
             public void ShouldThrowExceptionWhenCollectionIsEmpty()
@@ -28,40 +28,31 @@ namespace Magick.NET.Tests
                 {
                     ExceptionAssert.Throws<InvalidOperationException>(() =>
                     {
-                        images.Quantize();
+                        images.Coalesce();
                     });
                 }
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenSettingsIsNull()
+            public void ShouldMergeTheImages()
             {
-                using (IMagickImageCollection images = new MagickImageCollection())
+                using (IMagickImageCollection collection = new MagickImageCollection())
                 {
-                    images.Add(Files.FujiFilmFinePixS1ProJPG);
+                    collection.Read(Files.RoseSparkleGIF);
 
-                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    using (IPixelCollection pixels = collection[1].GetPixels())
                     {
-                        images.Quantize(null);
-                    });
-                }
-            }
+                        MagickColor color = pixels.GetPixel(53, 3).ToColor();
+                        Assert.AreEqual(0, color.A);
+                    }
 
-            [TestMethod]
-            public void ShouldReturnNullWhenMeasureErrorsIsFalse()
-            {
-                using (IMagickImageCollection images = new MagickImageCollection())
-                {
-                    images.Add(Files.FujiFilmFinePixS1ProJPG);
+                    collection.Coalesce();
 
-                    QuantizeSettings settings = new QuantizeSettings
+                    using (IPixelCollection pixels = collection[1].GetPixels())
                     {
-                        Colors = 1,
-                        MeasureErrors = false,
-                    };
-
-                    MagickErrorInfo errorInfo = images.Quantize(settings);
-                    Assert.IsNull(errorInfo);
+                        MagickColor color = pixels.GetPixel(53, 3).ToColor();
+                        Assert.AreEqual(Quantum.Max, color.A);
+                    }
                 }
             }
         }
