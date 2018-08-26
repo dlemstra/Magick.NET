@@ -49,7 +49,7 @@ namespace ImageMagick
         void AddRange(byte[] data, MagickReadSettings readSettings);
 
         /// <summary>
-        /// Adds a the specified images to this collection.
+        /// Adds a Clone of the specified images to this collection.
         /// </summary>
         /// <param name="images">The images to add to the collection.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>

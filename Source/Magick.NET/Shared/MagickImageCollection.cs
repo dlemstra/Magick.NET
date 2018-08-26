@@ -279,10 +279,8 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(images), images);
 
-            foreach (IMagickImage image in images)
-            {
-                Add(image);
-            }
+            var imageList = new List<IMagickImage>(images);
+            AddList(imageList);
         }
 
         /// <summary>
@@ -294,11 +292,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(images), images);
 
-            int count = images.Count;
-            for (int i = 0; i < count; i++)
-            {
-                Add(images[i].Clone());
-            }
+            AddList(images);
         }
 
         /// <summary>
@@ -1487,6 +1481,15 @@ namespace ImageMagick
             foreach (IMagickImage image in MagickImage.CreateList(result, settings))
             {
                 _images.Add(image);
+            }
+        }
+
+        private void AddList(IList<IMagickImage> images)
+        {
+            int count = images.Count;
+            for (int i = 0; i < count; i++)
+            {
+                Add(images[i].Clone());
             }
         }
 
