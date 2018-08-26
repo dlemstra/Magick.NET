@@ -91,12 +91,7 @@ namespace ImageMagick
         public MagickImageCollection(IEnumerable<IMagickImage> images)
           : this()
         {
-            Throw.IfNull(nameof(images), images);
-
-            foreach (IMagickImage image in images)
-            {
-                Add(image);
-            }
+            AddRange(images);
         }
 
         /// <summary>
@@ -271,7 +266,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a the specified images to this collection.
+        /// Adds the specified images to this collection.
         /// </summary>
         /// <param name="images">The images to add to the collection.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -279,8 +274,10 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(images), images);
 
-            var imageList = new List<IMagickImage>(images);
-            AddList(imageList);
+            foreach (IMagickImage image in images)
+            {
+                Add(image);
+            }
         }
 
         /// <summary>
@@ -292,7 +289,11 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(images), images);
 
-            AddList(images);
+            int count = images.Count;
+            for (int i = 0; i < count; i++)
+            {
+                Add(images[i].Clone());
+            }
         }
 
         /// <summary>
@@ -1481,15 +1482,6 @@ namespace ImageMagick
             foreach (IMagickImage image in MagickImage.CreateList(result, settings))
             {
                 _images.Add(image);
-            }
-        }
-
-        private void AddList(IList<IMagickImage> images)
-        {
-            int count = images.Count;
-            for (int i = 0; i < count; i++)
-            {
-                Add(images[i].Clone());
             }
         }
 

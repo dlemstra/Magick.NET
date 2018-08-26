@@ -194,7 +194,7 @@ namespace Magick.NET.Tests.Shared
             }
 
             [TestMethod]
-            public void ShouldCloneTheImagesWhenInputIsIEnumerableMagickImage()
+            public void ShouldNotCloneTheImagesWhenInputIsIEnumerableMagickImage()
             {
                 using (IMagickImageCollection images = new MagickImageCollection(Files.RoseSparkleGIF))
                 {
@@ -203,7 +203,7 @@ namespace Magick.NET.Tests.Shared
                         other.AddRange((IEnumerable<IMagickImage>)images);
 
                         Assert.AreEqual(3, other.Count);
-                        Assert.IsFalse(ReferenceEquals(images[0], other[0]));
+                        Assert.IsTrue(ReferenceEquals(images[0], other[0]));
                     }
                 }
             }
@@ -214,18 +214,6 @@ namespace Magick.NET.Tests.Shared
                 using (IMagickImageCollection images = new MagickImageCollection(Files.RoseSparkleGIF))
                 {
                     images.AddRange(images);
-
-                    Assert.AreEqual(6, images.Count);
-                    Assert.IsFalse(ReferenceEquals(images[0], images[3]));
-                }
-            }
-
-            [TestMethod]
-            public void ShouldHandleInsertingTheSameEnumerableCollection()
-            {
-                using (IMagickImageCollection images = new MagickImageCollection(Files.RoseSparkleGIF))
-                {
-                    images.AddRange((IEnumerable<IMagickImage>)images);
 
                     Assert.AreEqual(6, images.Count);
                     Assert.IsFalse(ReferenceEquals(images[0], images[3]));
