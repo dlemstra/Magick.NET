@@ -281,22 +281,6 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a Clone of the images from the specified collection to this collection.
-        /// </summary>
-        /// <param name="images">A collection of MagickImages.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void AddRange(IMagickImageCollection images)
-        {
-            Throw.IfNull(nameof(images), images);
-
-            int count = images.Count;
-            for (int i = 0; i < count; i++)
-            {
-                Add(images[i].Clone());
-            }
-        }
-
-        /// <summary>
         /// Adds the image(s) from the specified file name to the collection.
         /// </summary>
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
