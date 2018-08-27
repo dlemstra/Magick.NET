@@ -43,7 +43,7 @@ namespace ImageMagick
 
         public static StreamWrapper CreateForWriting(Stream stream)
         {
-            Throw.IfFalse(nameof(stream), stream.CanWrite, "The stream should be writeable.");
+            Throw.IfFalse(nameof(stream), stream.CanWrite, "The stream should be writable.");
 
             return new StreamWrapper(stream);
         }
@@ -62,6 +62,9 @@ namespace ImageMagick
         {
             int total = (int)count;
             if (total == 0)
+                return 0;
+
+            if (data == IntPtr.Zero)
                 return 0;
 
             byte* p = (byte*)data.ToPointer();
@@ -106,9 +109,17 @@ namespace ImageMagick
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Exceptions will result in a memory leak.")]
         public long Tell(IntPtr user_data)
         {
-            return _stream.Position;
+            try
+            {
+                return _stream.Position;
+            }
+            catch
+            {
+                return -1;
+            }
         }
 
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Exceptions will result in a memory leak.")]
@@ -116,6 +127,9 @@ namespace ImageMagick
         {
             int total = (int)count;
             if (total == 0)
+                return 0;
+
+            if (data == IntPtr.Zero)
                 return 0;
 
             byte* p = (byte*)data.ToPointer();
