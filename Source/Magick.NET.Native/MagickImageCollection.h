@@ -39,7 +39,7 @@ MAGICK_NET_EXPORT Image *MagickImageCollection_OptimizePlus(const Image *, Excep
 
 MAGICK_NET_EXPORT void MagickImageCollection_OptimizeTransparency(Image *, ExceptionInfo **);
 
-MAGICK_NET_EXPORT Image *MagickImageCollection_Polynomial(Image *, const double *, const size_t , ExceptionInfo **);
+MAGICK_NET_EXPORT Image *MagickImageCollection_Polynomial(Image *, const double *, const size_t, ExceptionInfo **);
 
 MAGICK_NET_EXPORT void MagickImageCollection_Quantize(Image *, const QuantizeInfo *, ExceptionInfo **);
 
@@ -53,4 +53,4 @@ MAGICK_NET_EXPORT Image *MagickImageCollection_Smush(const Image *, const ssize_
 
 MAGICK_NET_EXPORT void MagickImageCollection_WriteFile(Image *, const ImageInfo *, ExceptionInfo **);
 
-MAGICK_NET_EXPORT void MagickImageCollection_WriteStream(Image *, ImageInfo *, const CustomStreamHandler, const CustomStreamHandler, const CustomStreamSeeker, const CustomStreamTeller, ExceptionInfo **);
+MAGICK_NET_EXPORT void MagickImageCollection_WriteStream(Image *, ImageInfo *, const CustomStreamHandler, const CustomStreamSeeker, const CustomStreamTeller, const CustomStreamHandler, ExceptionInfo **);

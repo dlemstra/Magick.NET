@@ -193,10 +193,10 @@ namespace ImageMagick.ImageOptimizers
             {
                 using (StreamWrapper writeWrapper = StreamWrapper.CreateForWriting(output))
                 {
-                    ReadWriteStreamDelegate readStream = new ReadWriteStreamDelegate(readWrapper.Read);
-                    ReadWriteStreamDelegate writeStream = new ReadWriteStreamDelegate(writeWrapper.Write);
+                    ReadWriteStreamDelegate reader = new ReadWriteStreamDelegate(readWrapper.Read);
+                    ReadWriteStreamDelegate writer = new ReadWriteStreamDelegate(writeWrapper.Write);
 
-                    int result = NativeJpegOptimizer.CompressStream(readStream, writeStream, progressive, lossless, quality);
+                    int result = NativeJpegOptimizer.CompressStream(reader, writer, progressive, lossless, quality);
 
                     CheckCompressResult(result);
                 }

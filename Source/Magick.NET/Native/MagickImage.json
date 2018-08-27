@@ -2767,6 +2767,10 @@
         {
           "name": "teller",
           "type": "TellStreamDelegate"
+        },
+        {
+          "name": "reader",
+          "type": "ReadWriteStreamDelegate"
         }
       ]
     }

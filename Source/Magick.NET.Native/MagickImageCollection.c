@@ -264,17 +264,17 @@ MAGICK_NET_EXPORT void MagickImageCollection_WriteFile(Image *image, const Image
   MAGICK_NET_SET_EXCEPTION;
 }
 
-MAGICK_NET_EXPORT void MagickImageCollection_WriteStream(Image *image, ImageInfo *settings, const CustomStreamHandler reader, const CustomStreamHandler writer, const CustomStreamSeeker seeker, const CustomStreamTeller teller, ExceptionInfo **exception)
+MAGICK_NET_EXPORT void MagickImageCollection_WriteStream(Image *image, ImageInfo *settings, const CustomStreamHandler writer, const CustomStreamSeeker seeker, const CustomStreamTeller teller, const CustomStreamHandler reader,ExceptionInfo **exception)
 {
   CustomStreamInfo
     *info;
 
   MAGICK_NET_GET_EXCEPTION;
   info = AcquireCustomStreamInfo(exceptionInfo);
-  SetCustomStreamReader(info, reader);
   SetCustomStreamWriter(info, writer);
   SetCustomStreamSeeker(info, seeker);
   SetCustomStreamTeller(info, teller);
+  SetCustomStreamReader(info, reader);
   SetImageInfoCustomStream(settings, info);
   ImagesToCustomStream(settings, image, exceptionInfo);
   SetImageInfoCustomStream(settings, (CustomStreamInfo *)NULL);

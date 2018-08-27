@@ -6534,22 +6534,21 @@ namespace ImageMagick
 
             using (StreamWrapper wrapper = StreamWrapper.CreateForWriting(stream))
             {
-                ReadWriteStreamDelegate writeStream = new ReadWriteStreamDelegate(wrapper.Write);
-                ReadWriteStreamDelegate readStream = null;
-                SeekStreamDelegate seekStream = null;
-                TellStreamDelegate tellStream = null;
+                ReadWriteStreamDelegate writer = new ReadWriteStreamDelegate(wrapper.Write);
+                ReadWriteStreamDelegate reader = null;
+                SeekStreamDelegate seeker = null;
+                TellStreamDelegate teller = null;
+
                 if (stream.CanSeek)
                 {
-                    seekStream = new SeekStreamDelegate(wrapper.Seek);
-                    tellStream = new TellStreamDelegate(wrapper.Tell);
+                    seeker = new SeekStreamDelegate(wrapper.Seek);
+                    teller = new TellStreamDelegate(wrapper.Tell);
                 }
 
                 if (stream.CanRead)
-                {
-                    readStream = new ReadWriteStreamDelegate(wrapper.Read);
-                }
+                    reader = new ReadWriteStreamDelegate(wrapper.Read);
 
-                _nativeInstance.WriteStream(Settings, writeStream, seekStream, tellStream, readStream);
+                _nativeInstance.WriteStream(Settings, writer, seeker, teller, reader);
             }
         }
 

@@ -1325,17 +1325,21 @@ namespace ImageMagick
 
                 using (StreamWrapper wrapper = StreamWrapper.CreateForWriting(stream))
                 {
-                    ReadWriteStreamDelegate readStream = new ReadWriteStreamDelegate(wrapper.Read);
-                    ReadWriteStreamDelegate writeStream = new ReadWriteStreamDelegate(wrapper.Write);
-                    SeekStreamDelegate seekStream = null;
-                    TellStreamDelegate tellStream = null;
+                    ReadWriteStreamDelegate writer = new ReadWriteStreamDelegate(wrapper.Write);
+                    ReadWriteStreamDelegate reader = null;
+                    SeekStreamDelegate seeker = null;
+                    TellStreamDelegate teller = null;
+
                     if (stream.CanSeek)
                     {
-                        seekStream = new SeekStreamDelegate(wrapper.Seek);
-                        tellStream = new TellStreamDelegate(wrapper.Tell);
+                        seeker = new SeekStreamDelegate(wrapper.Seek);
+                        teller = new TellStreamDelegate(wrapper.Tell);
                     }
 
-                    _nativeInstance.WriteStream(_images[0], settings, readStream, writeStream, seekStream, tellStream);
+                    if (stream.CanRead)
+                        reader = new ReadWriteStreamDelegate(wrapper.Read);
+
+                    _nativeInstance.WriteStream(_images[0], settings, writer, seeker, teller, reader);
                 }
             }
             finally
@@ -1457,17 +1461,17 @@ namespace ImageMagick
 
             using (StreamWrapper wrapper = StreamWrapper.CreateForReading(stream))
             {
-                ReadWriteStreamDelegate readStream = new ReadWriteStreamDelegate(wrapper.Read);
-                SeekStreamDelegate seekStream = null;
-                TellStreamDelegate tellStream = null;
+                ReadWriteStreamDelegate reader = new ReadWriteStreamDelegate(wrapper.Read);
+                SeekStreamDelegate seeker = null;
+                TellStreamDelegate teller = null;
 
                 if (stream.CanSeek)
                 {
-                    seekStream = new SeekStreamDelegate(wrapper.Seek);
-                    tellStream = new TellStreamDelegate(wrapper.Tell);
+                    seeker = new SeekStreamDelegate(wrapper.Seek);
+                    teller = new TellStreamDelegate(wrapper.Tell);
                 }
 
-                IntPtr result = _nativeInstance.ReadStream(settings, readStream, seekStream, tellStream);
+                IntPtr result = _nativeInstance.ReadStream(settings, reader, seeker, teller);
                 AddImages(result, settings);
             }
         }
