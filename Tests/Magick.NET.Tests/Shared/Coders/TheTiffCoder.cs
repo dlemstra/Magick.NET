@@ -69,6 +69,19 @@ namespace Magick.NET.Tests.Coders
             }
         }
 
+        [TestMethod]
+        public void ShouldBeAbleToWriteLzwPTiffToStream()
+        {
+            using (IMagickImage image = new MagickImage(Files.InvitationTif))
+            {
+                image.Settings.Compression = CompressionMethod.LZW;
+                using (var stream = new MemoryStream())
+                {
+                    image.Write(stream, MagickFormat.Ptif);
+                }
+            }
+        }
+
         private static void TestValue(IptcProfile profile, IptcTag tag, string expectedValue)
         {
             IptcValue value = profile.GetValue(tag);
