@@ -63,6 +63,10 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_AnimationIterations_Set(IntPtr instance, UIntPtr value);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern UIntPtr MagickImage_AnimationTicksPerSecond_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickImage_AnimationTicksPerSecond_Set(IntPtr instance, UIntPtr value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_BackgroundColor_Get(IntPtr instance);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_BackgroundColor_Set(IntPtr instance, IntPtr value);
@@ -609,6 +613,10 @@ namespace ImageMagick
                 public static extern UIntPtr MagickImage_AnimationIterations_Get(IntPtr instance);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_AnimationIterations_Set(IntPtr instance, UIntPtr value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern UIntPtr MagickImage_AnimationTicksPerSecond_Get(IntPtr instance);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickImage_AnimationTicksPerSecond_Set(IntPtr instance, UIntPtr value);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_BackgroundColor_Get(IntPtr instance);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1257,6 +1265,41 @@ namespace ImageMagick
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     NativeMethods.X86.MagickImage_AnimationIterations_Set(Instance, (UIntPtr)value);
+                    #endif
+                }
+            }
+            public int AnimationTicksPerSecond
+            {
+                get
+                {
+                    UIntPtr result;
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.MagickImage_AnimationTicksPerSecond_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.MagickImage_AnimationTicksPerSecond_Get(Instance);
+                    #endif
+                    return (int)result;
+                }
+                set
+                {
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.MagickImage_AnimationTicksPerSecond_Set(Instance, (UIntPtr)value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.MagickImage_AnimationTicksPerSecond_Set(Instance, (UIntPtr)value);
                     #endif
                 }
             }

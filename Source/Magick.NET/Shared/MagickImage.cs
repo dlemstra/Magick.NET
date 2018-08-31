@@ -312,6 +312,19 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Gets or sets the ticks per seconds for the animation delay.
+        /// </summary>
+        public int AnimationTicksPerSecond
+        {
+            get => _nativeInstance.AnimationTicksPerSecond;
+            set
+            {
+                if (value >= 0)
+                    _nativeInstance.AnimationTicksPerSecond = value;
+            }
+        }
+
+        /// <summary>
         /// Gets the names of the artifacts.
         /// </summary>
         public IEnumerable<string> ArtifactNames

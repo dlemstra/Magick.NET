@@ -109,6 +109,16 @@ MAGICK_NET_EXPORT void MagickImage_AnimationIterations_Set(Image *instance, cons
   instance->iterations = value;
 }
 
+MAGICK_NET_EXPORT size_t MagickImage_AnimationTicksPerSecond_Get(const Image *instance)
+{
+  return instance->ticks_per_second;
+}
+
+MAGICK_NET_EXPORT void MagickImage_AnimationTicksPerSecond_Set(Image *instance, const size_t value)
+{
+  instance->ticks_per_second = value;
+}
+
 MAGICK_NET_EXPORT PixelInfo *MagickImage_BackgroundColor_Get(const Image *instance)
 {
   return MagickColor_Clone(&instance->background_color);

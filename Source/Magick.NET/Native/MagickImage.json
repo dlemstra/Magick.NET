@@ -89,6 +89,10 @@
       "type": "size_t"
     },
     {
+      "name": "AnimationTicksPerSecond",
+      "type": "size_t"
+    },
+    {
       "name": "BackgroundColor",
       "type": "MagickColor"
     },

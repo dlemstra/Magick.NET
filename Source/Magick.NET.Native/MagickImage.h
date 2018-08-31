@@ -21,6 +21,9 @@ MAGICK_NET_EXPORT void MagickImage_AnimationDelay_Set(Image *, const size_t);
 MAGICK_NET_EXPORT size_t MagickImage_AnimationIterations_Get(const Image *);
 MAGICK_NET_EXPORT void MagickImage_AnimationIterations_Set(Image *, const size_t);
 
+MAGICK_NET_EXPORT size_t MagickImage_AnimationTicksPerSecond_Get(const Image *);
+MAGICK_NET_EXPORT void MagickImage_AnimationTicksPerSecond_Set(Image *, const size_t);
+
 MAGICK_NET_EXPORT PixelInfo *MagickImage_BackgroundColor_Get(const Image *);
 MAGICK_NET_EXPORT void MagickImage_BackgroundColor_Set(Image *, const PixelInfo *);
 

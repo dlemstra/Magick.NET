@@ -54,6 +54,11 @@ namespace ImageMagick
         int AnimationIterations { get; set; }
 
         /// <summary>
+        /// Gets or sets the ticks per seconds for the animation delay.
+        /// </summary>
+        int AnimationTicksPerSecond { get; set; }
+
+        /// <summary>
         /// Gets the names of the artifacts.
         /// </summary>
         IEnumerable<string> ArtifactNames { get; }
