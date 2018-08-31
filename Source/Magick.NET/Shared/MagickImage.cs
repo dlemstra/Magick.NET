@@ -277,22 +277,12 @@ namespace ImageMagick
         /// </summary>
         public event EventHandler<WarningEventArgs> Warning
         {
-            add
-            {
-                _warning += value;
-            }
-
-            remove
-            {
-                _warning -= value;
-            }
+            add => _warning += value;
+            remove => _warning -= value;
         }
 
         /// <inheritdoc/>
-        IntPtr INativeInstance.Instance
-        {
-            get { return _nativeInstance.Instance; }
-        }
+        IntPtr INativeInstance.Instance => _nativeInstance.Instance;
 
         /// <summary>
         /// Gets or sets the time in 1/100ths of a second which must expire before splaying the next image in an
@@ -300,11 +290,7 @@ namespace ImageMagick
         /// </summary>
         public int AnimationDelay
         {
-            get
-            {
-                return _nativeInstance.AnimationDelay;
-            }
-
+            get => _nativeInstance.AnimationDelay;
             set
             {
                 if (value >= 0)
@@ -317,11 +303,7 @@ namespace ImageMagick
         /// </summary>
         public int AnimationIterations
         {
-            get
-            {
-                return _nativeInstance.AnimationIterations;
-            }
-
+            get => _nativeInstance.AnimationIterations;
             set
             {
                 if (value >= 0)
@@ -368,11 +350,7 @@ namespace ImageMagick
         /// </summary>
         public MagickColor BackgroundColor
         {
-            get
-            {
-                return _nativeInstance.BackgroundColor;
-            }
-
+            get => _nativeInstance.BackgroundColor;
             set
             {
                 _nativeInstance.BackgroundColor = value;
@@ -383,26 +361,20 @@ namespace ImageMagick
         /// <summary>
         /// Gets the height of the image before transformations.
         /// </summary>
-        public int BaseHeight
-        {
-            get { return _nativeInstance.BaseHeight; }
-        }
+        public int BaseHeight => _nativeInstance.BaseHeight;
 
         /// <summary>
         /// Gets the width of the image before transformations.
         /// </summary>
-        public int BaseWidth
-        {
-            get { return _nativeInstance.BaseWidth; }
-        }
+        public int BaseWidth => _nativeInstance.BaseWidth;
 
         /// <summary>
         /// Gets or sets a value indicating whether black point compensation should be used.
         /// </summary>
         public bool BlackPointCompensation
         {
-            get { return _nativeInstance.BlackPointCompensation; }
-            set { _nativeInstance.BlackPointCompensation = value; }
+            get => _nativeInstance.BlackPointCompensation;
+            set => _nativeInstance.BlackPointCompensation = value;
         }
 
         /// <summary>
@@ -410,26 +382,20 @@ namespace ImageMagick
         /// </summary>
         public MagickColor BorderColor
         {
-            get { return _nativeInstance.BorderColor; }
-            set { _nativeInstance.BorderColor = value; }
+            get => _nativeInstance.BorderColor;
+            set => _nativeInstance.BorderColor = value;
         }
 
         /// <summary>
         /// Gets the smallest bounding box enclosing non-border pixels. The current fuzz value is used
         /// when discriminating between pixels.
         /// </summary>
-        public MagickGeometry BoundingBox
-        {
-            get { return MagickGeometry.FromRectangle(_nativeInstance.BoundingBox); }
-        }
+        public MagickGeometry BoundingBox => MagickGeometry.FromRectangle(_nativeInstance.BoundingBox);
 
         /// <summary>
         /// Gets the number of channels that the image contains.
         /// </summary>
-        public int ChannelCount
-        {
-            get { return _nativeInstance.ChannelCount; }
-        }
+        public int ChannelCount => _nativeInstance.ChannelCount;
 
         /// <summary>
         /// Gets the channels of the image.
@@ -456,8 +422,8 @@ namespace ImageMagick
         /// </summary>
         public PrimaryInfo ChromaBluePrimary
         {
-            get { return _nativeInstance.ChromaBluePrimary; }
-            set { _nativeInstance.ChromaBluePrimary = value; }
+            get => _nativeInstance.ChromaBluePrimary;
+            set => _nativeInstance.ChromaBluePrimary = value;
         }
 
         /// <summary>
@@ -465,8 +431,8 @@ namespace ImageMagick
         /// </summary>
         public PrimaryInfo ChromaGreenPrimary
         {
-            get { return _nativeInstance.ChromaGreenPrimary; }
-            set { _nativeInstance.ChromaGreenPrimary = value; }
+            get => _nativeInstance.ChromaGreenPrimary;
+            set => _nativeInstance.ChromaGreenPrimary = value;
         }
 
         /// <summary>
@@ -474,8 +440,8 @@ namespace ImageMagick
         /// </summary>
         public PrimaryInfo ChromaRedPrimary
         {
-            get { return _nativeInstance.ChromaRedPrimary; }
-            set { _nativeInstance.ChromaRedPrimary = value; }
+            get => _nativeInstance.ChromaRedPrimary;
+            set => _nativeInstance.ChromaRedPrimary = value;
         }
 
         /// <summary>
@@ -483,8 +449,8 @@ namespace ImageMagick
         /// </summary>
         public PrimaryInfo ChromaWhitePoint
         {
-            get { return _nativeInstance.ChromaWhitePoint; }
-            set { _nativeInstance.ChromaWhitePoint = value; }
+            get => _nativeInstance.ChromaWhitePoint;
+            set => _nativeInstance.ChromaWhitePoint = value;
         }
 
         /// <summary>
@@ -495,8 +461,8 @@ namespace ImageMagick
         /// </summary>
         public ClassType ClassType
         {
-            get { return _nativeInstance.ClassType; }
-            set { _nativeInstance.ClassType = value; }
+            get => _nativeInstance.ClassType;
+            set => _nativeInstance.ClassType = value;
         }
 
         /// <summary>
@@ -504,11 +470,7 @@ namespace ImageMagick
         /// </summary>
         public Percentage ColorFuzz
         {
-            get
-            {
-                return Percentage.FromQuantum(_nativeInstance.ColorFuzz);
-            }
-
+            get => Percentage.FromQuantum(_nativeInstance.ColorFuzz);
             set
             {
                 double newValue = value.ToQuantum();
@@ -522,8 +484,8 @@ namespace ImageMagick
         /// </summary>
         public int ColormapSize
         {
-            get { return _nativeInstance.ColormapSize; }
-            set { _nativeInstance.ColormapSize = value; }
+            get => _nativeInstance.ColormapSize;
+            set => _nativeInstance.ColormapSize = value;
         }
 
         /// <summary>
@@ -531,8 +493,8 @@ namespace ImageMagick
         /// </summary>
         public ColorSpace ColorSpace
         {
-            get { return _nativeInstance.ColorSpace; }
-            set { _nativeInstance.ColorSpace = value; }
+            get => _nativeInstance.ColorSpace;
+            set => _nativeInstance.ColorSpace = value;
         }
 
         /// <summary>
@@ -560,8 +522,8 @@ namespace ImageMagick
         /// </summary>
         public string Comment
         {
-            get { return Settings.GetOption("Comment"); }
-            set { Settings.SetOption("Comment", value); }
+            get => Settings.GetOption("Comment");
+            set => Settings.SetOption("Comment", value);
         }
 
         /// <summary>
@@ -569,28 +531,21 @@ namespace ImageMagick
         /// </summary>
         public CompositeOperator Compose
         {
-            get { return _nativeInstance.Compose; }
-            set { _nativeInstance.Compose = value; }
+            get => _nativeInstance.Compose;
+            set => _nativeInstance.Compose = value;
         }
 
         /// <summary>
         /// Gets the compression method of the image.
         /// </summary>
-        public CompressionMethod Compression
-        {
-            get { return _nativeInstance.Compression; }
-        }
+        public CompressionMethod Compression => _nativeInstance.Compression;
 
         /// <summary>
         /// Gets or sets the vertical and horizontal resolution in pixels of the image.
         /// </summary>
         public Density Density
         {
-            get
-            {
-                return new Density(_nativeInstance.ResolutionX, _nativeInstance.ResolutionY, _nativeInstance.ResolutionUnits);
-            }
-
+            get => new Density(_nativeInstance.ResolutionX, _nativeInstance.ResolutionY, _nativeInstance.ResolutionUnits);
             set
             {
                 if (value == null)
@@ -607,21 +562,15 @@ namespace ImageMagick
         /// </summary>
         public int Depth
         {
-            get { return _nativeInstance.Depth; }
-            set { _nativeInstance.Depth = value; }
+            get => _nativeInstance.Depth;
+            set => _nativeInstance.Depth = value;
         }
 
         /// <summary>
         /// Gets the preferred size of the image when encoding.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickGeometry EncodingGeometry
-        {
-            get
-            {
-                return MagickGeometry.FromString(_nativeInstance.EncodingGeometry);
-            }
-        }
+        public MagickGeometry EncodingGeometry => MagickGeometry.FromString(_nativeInstance.EncodingGeometry);
 
         /// <summary>
         /// Gets or sets the endianness (little like Intel or big like SPARC) for image formats which support
@@ -629,25 +578,22 @@ namespace ImageMagick
         /// </summary>
         public Endian Endian
         {
-            get { return _nativeInstance.Endian; }
-            set { _nativeInstance.Endian = value; }
+            get => _nativeInstance.Endian;
+            set => _nativeInstance.Endian = value;
         }
 
         /// <summary>
         /// Gets the original file name of the image (only available if read from disk).
         /// </summary>
-        public string FileName
-        {
-            get { return _nativeInstance.FileName; }
-        }
+        public string FileName => _nativeInstance.FileName;
 
         /// <summary>
         /// Gets or sets the filter to use when resizing image.
         /// </summary>
         public FilterType FilterType
         {
-            get { return _nativeInstance.FilterType; }
-            set { _nativeInstance.FilterType = value; }
+            get => _nativeInstance.FilterType;
+            set => _nativeInstance.FilterType = value;
         }
 
         /// <summary>
@@ -655,10 +601,7 @@ namespace ImageMagick
         /// </summary>
         public MagickFormat Format
         {
-            get
-            {
-                return EnumHelper.Parse(_nativeInstance.Format, MagickFormat.Unknown);
-            }
+            get => EnumHelper.Parse(_nativeInstance.Format, MagickFormat.Unknown);
 
             set
             {
@@ -670,47 +613,34 @@ namespace ImageMagick
         /// <summary>
         /// Gets the information about the format of the image.
         /// </summary>
-        public MagickFormatInfo FormatInfo
-        {
-            get { return MagickNET.GetFormatInformation(Format); }
-        }
+        public MagickFormatInfo FormatInfo => MagickNET.GetFormatInformation(Format);
 
         /// <summary>
         /// Gets the gamma level of the image.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public double Gamma
-        {
-            get { return _nativeInstance.Gamma; }
-        }
+        public double Gamma => _nativeInstance.Gamma;
 
         /// <summary>
         /// Gets or sets the gif disposal method.
         /// </summary>
         public GifDisposeMethod GifDisposeMethod
         {
-            get { return _nativeInstance.GifDisposeMethod; }
-            set { _nativeInstance.GifDisposeMethod = value; }
+            get => _nativeInstance.GifDisposeMethod;
+            set => _nativeInstance.GifDisposeMethod = value;
         }
 
         /// <summary>
         /// Gets a value indicating whether the image contains a clipping path.
         /// </summary>
-        public bool HasClippingPath
-        {
-            get { return !string.IsNullOrEmpty(GetClippingPath()); }
-        }
+        public bool HasClippingPath => !string.IsNullOrEmpty(GetClippingPath());
 
         /// <summary>
         /// Gets or sets a value indicating whether the image supports transparency (alpha channel).
         /// </summary>
         public bool HasAlpha
         {
-            get
-            {
-                return _nativeInstance.HasAlpha;
-            }
-
+            get => _nativeInstance.HasAlpha;
             set
             {
                 if (_nativeInstance.HasAlpha != value)
@@ -725,21 +655,14 @@ namespace ImageMagick
         /// <summary>
         /// Gets the height of the image.
         /// </summary>
-        public int Height
-        {
-            get { return _nativeInstance.Height; }
-        }
+        public int Height => _nativeInstance.Height;
 
         /// <summary>
         /// Gets or sets the type of interlacing to use.
         /// </summary>
         public Interlace Interlace
         {
-            get
-            {
-                return _nativeInstance.Interlace;
-            }
-
+            get => _nativeInstance.Interlace;
             set
             {
                 _nativeInstance.Interlace = value;
@@ -752,8 +675,8 @@ namespace ImageMagick
         /// </summary>
         public PixelInterpolateMethod Interpolate
         {
-            get { return _nativeInstance.Interpolate; }
-            set { _nativeInstance.Interpolate = value; }
+            get => _nativeInstance.Interpolate;
+            set => _nativeInstance.Interpolate = value;
         }
 
         /// <summary>
@@ -772,11 +695,7 @@ namespace ImageMagick
         /// </summary>
         public string Label
         {
-            get
-            {
-                return GetAttribute("Label");
-            }
-
+            get => GetAttribute("Label");
             set
             {
                 if (value == null)
@@ -791,8 +710,8 @@ namespace ImageMagick
         /// </summary>
         public MagickColor MatteColor
         {
-            get { return _nativeInstance.MatteColor; }
-            set { _nativeInstance.MatteColor = value; }
+            get => _nativeInstance.MatteColor;
+            set => _nativeInstance.MatteColor = value;
         }
 
         /// <summary>
@@ -800,8 +719,8 @@ namespace ImageMagick
         /// </summary>
         public OrientationType Orientation
         {
-            get { return _nativeInstance.Orientation; }
-            set { _nativeInstance.Orientation = value; }
+            get => _nativeInstance.Orientation;
+            set => _nativeInstance.Orientation = value;
         }
 
         /// <summary>
@@ -809,17 +728,11 @@ namespace ImageMagick
         /// </summary>
         public MagickGeometry Page
         {
-            get
-            {
-                return MagickGeometry.FromRectangle(_nativeInstance.Page);
-            }
-
+            get => MagickGeometry.FromRectangle(_nativeInstance.Page);
             set
             {
-                if (value == null)
-                    return;
-
-                _nativeInstance.Page = MagickRectangle.FromGeometry(value, this);
+                if (value != null)
+                    _nativeInstance.Page = MagickRectangle.FromGeometry(value, this);
             }
         }
 
@@ -845,11 +758,7 @@ namespace ImageMagick
         /// </summary>
         public int Quality
         {
-            get
-            {
-                return _nativeInstance.Quality;
-            }
-
+            get => _nativeInstance.Quality;
             set
             {
                 int quality = value < 1 ? 1 : value;
@@ -865,8 +774,8 @@ namespace ImageMagick
         /// </summary>
         public RenderingIntent RenderingIntent
         {
-            get { return _nativeInstance.RenderingIntent; }
-            set { _nativeInstance.RenderingIntent = value; }
+            get => _nativeInstance.RenderingIntent;
+            set => _nativeInstance.RenderingIntent = value;
         }
 
         /// <summary>
@@ -882,35 +791,26 @@ namespace ImageMagick
         /// Gets the signature of this image.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public string Signature
-        {
-            get { return _nativeInstance.Signature; }
-        }
+        public string Signature => _nativeInstance.Signature;
 
         /// <summary>
         /// Gets the number of colors in the image.
         /// </summary>
-        public int TotalColors
-        {
-            get { return _nativeInstance.TotalColors; }
-        }
+        public int TotalColors => _nativeInstance.TotalColors;
 
         /// <summary>
         /// Gets or sets the virtual pixel method.
         /// </summary>
         public VirtualPixelMethod VirtualPixelMethod
         {
-            get { return _nativeInstance.VirtualPixelMethod; }
-            set { _nativeInstance.VirtualPixelMethod = value; }
+            get => _nativeInstance.VirtualPixelMethod;
+            set => _nativeInstance.VirtualPixelMethod = value;
         }
 
         /// <summary>
         /// Gets the width of the image.
         /// </summary>
-        public int Width
-        {
-            get { return _nativeInstance.Width; }
-        }
+        public int Width => _nativeInstance.Width;
 
         /// <summary>
         /// Converts the specified instance to a byte array.
