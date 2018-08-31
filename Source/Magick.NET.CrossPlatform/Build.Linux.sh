@@ -4,6 +4,8 @@ set -e
 # Uninstall already installed development libraries
 sudo apt-get remove zlib1g-dev -y
 sudo apt-get remove libpng12-0 -y
+sudo apt-get remove imagemagick -y
+sudo apt-get auto-remove -y
 
 sudo apt-get update
 
@@ -179,3 +181,11 @@ testMagickNET() {
 testMagickNET "Q8"
 testMagickNET "Q16"
 testMagickNET "Q16-HDRI"
+
+# Verify libraries
+cd Source/Magick.NET.CrossPlatform
+mkdir verify
+cp ../../Output/Magick.NET-Q8-x64.Native.dll.so verify
+cp ../../Output/Magick.NET-Q16-x64.Native.dll.so verify
+cp ../../Output/Magick.NET-Q16-HDRI-x64.Native.dll.so verify
+docker build -f Linux.Verify.Dockerfile .
