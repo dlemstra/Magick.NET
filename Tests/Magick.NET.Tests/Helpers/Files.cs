@@ -322,6 +322,14 @@ namespace Magick.NET.Tests
                     return _Root + @"Images/Coders/Test.dds";
                 }
             }
+
+            public static string TestMng
+            {
+                get
+                {
+                    return _Root + @"Images/Coders/Test.mng";
+                }
+            }
         }
 
         public static class Logos

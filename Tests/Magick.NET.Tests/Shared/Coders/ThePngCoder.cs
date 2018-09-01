@@ -10,7 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
 using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -91,6 +90,21 @@ namespace Magick.NET.Tests.Coders
 
                         Assert.IsNotNull(exifProfile);
                     }
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ShouldSetTheAnimationProperties()
+        {
+            using (IMagickImageCollection images = new MagickImageCollection(Files.Coders.TestMng))
+            {
+                Assert.AreEqual(8, images.Count);
+
+                foreach (var image in images)
+                {
+                    Assert.AreEqual(20, image.AnimationDelay);
+                    Assert.AreEqual(100, image.AnimationTicksPerSecond);
                 }
             }
         }
