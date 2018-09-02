@@ -13,28 +13,18 @@
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Shared
 {
-    [TestClass]
-    public class QuantumTests
+    public partial class QuantumTests
     {
-        [TestMethod]
-        public void Depth_ShouldHaveTheCorrectValue()
+        [TestClass]
+        public class TheMaxProperty
         {
+            [TestMethod]
+            public void ShouldHaveTheCorrectValue()
+            {
 #if Q8
-            Assert.AreEqual(Quantum.Depth, 8);
-#elif Q16 || Q16HDRI
-            Assert.AreEqual(Quantum.Depth, 16);
-#else
-#error Not implemented!
-#endif
-        }
-
-        [TestMethod]
-        public void Max_ShouldHaveTheCorrectValue()
-        {
-#if Q8
-            Assert.AreEqual(Quantum.Max, byte.MaxValue);
+                Assert.AreEqual(Quantum.Max, byte.MaxValue);
 #elif Q16
             Assert.AreEqual(Quantum.Max, ushort.MaxValue);
 #elif Q16HDRI
@@ -42,6 +32,7 @@ namespace Magick.NET.Tests
 #else
 #error Not implemented!
 #endif
+            }
         }
     }
 }
