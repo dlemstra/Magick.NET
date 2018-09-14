@@ -2927,17 +2927,17 @@ namespace ImageMagick
         /// Obtain font metrics for text string given current font, pointsize, and density settings.
         /// </summary>
         /// <param name="text">The text to get the font metrics for.</param>
-        /// <param name="ignoreNewLines">Specifies if new lines should be ignored.</param>
+        /// <param name="ignoreNewlines">Specifies if newlines should be ignored.</param>
         /// <returns>The font metrics for text.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public TypeMetric FontTypeMetrics(string text, bool ignoreNewLines)
+        public TypeMetric FontTypeMetrics(string text, bool ignoreNewlines)
         {
             Throw.IfNullOrEmpty(nameof(text), text);
 
             DrawingSettings settings = Settings.Drawing;
 
             settings.Text = text;
-            IntPtr result = _nativeInstance.FontTypeMetrics(settings, ignoreNewLines);
+            IntPtr result = _nativeInstance.FontTypeMetrics(settings, ignoreNewlines);
             settings.Text = null;
             return TypeMetric.CreateInstance(result);
         }

@@ -1207,7 +1207,7 @@
           "type": "DrawingSettings"
         },
         {
-          "name": "ignoreNewLines",
+          "name": "ignoreNewlines",
           "type": "bool"
         }
       ],

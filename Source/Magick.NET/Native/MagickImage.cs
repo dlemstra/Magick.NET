@@ -353,7 +353,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Flop(IntPtr Instance, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_FontTypeMetrics(IntPtr Instance, IntPtr settings, [MarshalAs(UnmanagedType.Bool)] bool ignoreNewLines, out IntPtr exception);
+                public static extern IntPtr MagickImage_FontTypeMetrics(IntPtr Instance, IntPtr settings, [MarshalAs(UnmanagedType.Bool)] bool ignoreNewlines, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_FormatExpression(IntPtr Instance, IntPtr settings, IntPtr expression, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -904,7 +904,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Flop(IntPtr Instance, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_FontTypeMetrics(IntPtr Instance, IntPtr settings, [MarshalAs(UnmanagedType.Bool)] bool ignoreNewLines, out IntPtr exception);
+                public static extern IntPtr MagickImage_FontTypeMetrics(IntPtr Instance, IntPtr settings, [MarshalAs(UnmanagedType.Bool)] bool ignoreNewlines, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_FormatExpression(IntPtr Instance, IntPtr settings, IntPtr expression, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -3994,7 +3994,7 @@ namespace ImageMagick
                 CheckException(exception, result);
                 Instance = result;
             }
-            public IntPtr FontTypeMetrics(DrawingSettings settings, bool ignoreNewLines)
+            public IntPtr FontTypeMetrics(DrawingSettings settings, bool ignoreNewlines)
             {
                 using (INativeInstance settingsNative = DrawingSettings.CreateInstance(settings))
                 {
@@ -4004,13 +4004,13 @@ namespace ImageMagick
                     if (NativeLibrary.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_FontTypeMetrics(Instance, settingsNative.Instance, ignoreNewLines, out exception);
+                    result = NativeMethods.X64.MagickImage_FontTypeMetrics(Instance, settingsNative.Instance, ignoreNewlines, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_FontTypeMetrics(Instance, settingsNative.Instance, ignoreNewLines, out exception);
+                    result = NativeMethods.X86.MagickImage_FontTypeMetrics(Instance, settingsNative.Instance, ignoreNewlines, out exception);
                     #endif
                     MagickException magickException = MagickExceptionHelper.Create(exception);
                     if (MagickExceptionHelper.IsError(magickException))
