@@ -182,10 +182,21 @@ testMagickNET "Q8"
 testMagickNET "Q16"
 testMagickNET "Q16-HDRI"
 
-# Verify libraries
+verifyPlatform() {
+    local platform=$1
+
+    echo 'FROM ${platform}' | cat - Verify.Dockerfile > Verify.Platform.Dockerfile
+    docker build -f Verify.Platform.Dockerfile .
+    docker image prune -a -f
+}
+
 cd Source/Magick.NET.CrossPlatform
-mkdir verify
-cp ../../Output/Magick.NET-Q8-x64.Native.dll.so verify
-cp ../../Output/Magick.NET-Q16-x64.Native.dll.so verify
-cp ../../Output/Magick.NET-Q16-HDRI-x64.Native.dll.so verify
-docker build -f Linux.Verify.Dockerfile .
+copy ../../Output/Magick.NET-Q8-x64.Native.dll.so .
+copy ../../Output/Magick.NET-Q16-x64.Native.dll.so .
+copy ../../Output/Magick.NET-Q16-HDRI-x64.Native.dll.s .
+
+platforms=("ubuntu:16.04", "ubuntu:17.10", "ubuntu:18.04", "ubuntu:latest", "centos:7", "microsoft/dotnet:2.0-runtime", "microsoft/dotnet:latest", "lambci/lambda:dotnetcore2.0")
+for platform in "${platforms[@]}"
+do
+    verifyPlatform ${platform}
+done

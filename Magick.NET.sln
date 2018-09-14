@@ -162,9 +162,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Magick.NET.CrossPlatform", 
 		Source\Magick.NET.CrossPlatform\authorized_keys = Source\Magick.NET.CrossPlatform\authorized_keys
 		Source\Magick.NET.CrossPlatform\Build.Linux.sh = Source\Magick.NET.CrossPlatform\Build.Linux.sh
 		Source\Magick.NET.CrossPlatform\Build.macOS.sh = Source\Magick.NET.CrossPlatform\Build.macOS.sh
-		Source\Magick.NET.CrossPlatform\Linux.Verify = Source\Magick.NET.CrossPlatform\Linux.Verify
-		Source\Magick.NET.CrossPlatform\Linux.Verify.Dockerfile = Source\Magick.NET.CrossPlatform\Linux.Verify.Dockerfile
-		Source\Magick.NET.CrossPlatform\Verify.Linux.sh = Source\Magick.NET.CrossPlatform\Verify.Linux.sh
+		Source\Magick.NET.CrossPlatform\RunLdd.sh = Source\Magick.NET.CrossPlatform\RunLdd.sh
+		Source\Magick.NET.CrossPlatform\Verify.Dockerfile = Source\Magick.NET.CrossPlatform\Verify.Dockerfile
 	EndProjectSection
 EndProject
 Global
