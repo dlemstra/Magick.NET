@@ -5,7 +5,7 @@
   You may not use this file except in compliance with the License.
   obtain a copy of the License at
 
-    https://www.imagemagick.org/script/license.php
+    https://imagemagick.org/script/license.php
 
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
@@ -399,27 +399,27 @@ static inline void GetPixelInfoPixel(const Image *magick_restrict image,
       pixel_info->fuzz=image->fuzz;
       pixel_info->depth=image->depth;
       pixel_info->alpha_trait=image->alpha_trait;
-    }
-  if (pixel != (Quantum *) NULL)
-    {
-      pixel_info->red=(MagickRealType)
-        pixel[image->channel_map[RedPixelChannel].offset];
-      pixel_info->green=(MagickRealType)
-        pixel[image->channel_map[GreenPixelChannel].offset];
-      pixel_info->blue=(MagickRealType)
-        pixel[image->channel_map[BluePixelChannel].offset];
-      if (image->channel_map[BlackPixelChannel].traits != UndefinedPixelTrait)
-        pixel_info->black=(MagickRealType)
-          pixel[image->channel_map[BlackPixelChannel].offset];
-      if (image->channel_map[AlphaPixelChannel].traits != UndefinedPixelTrait)
+      if (pixel != (Quantum *) NULL)
         {
-          pixel_info->alpha=(MagickRealType)
-            pixel[image->channel_map[AlphaPixelChannel].offset];
-          pixel_info->alpha_trait=BlendPixelTrait;
+          pixel_info->red=(MagickRealType)
+            pixel[image->channel_map[RedPixelChannel].offset];
+          pixel_info->green=(MagickRealType)
+            pixel[image->channel_map[GreenPixelChannel].offset];
+          pixel_info->blue=(MagickRealType)
+            pixel[image->channel_map[BluePixelChannel].offset];
+          if (image->channel_map[BlackPixelChannel].traits != UndefinedPixelTrait)
+            pixel_info->black=(MagickRealType)
+              pixel[image->channel_map[BlackPixelChannel].offset];
+          if (image->channel_map[AlphaPixelChannel].traits != UndefinedPixelTrait)
+            {
+              pixel_info->alpha=(MagickRealType)
+                pixel[image->channel_map[AlphaPixelChannel].offset];
+              pixel_info->alpha_trait=BlendPixelTrait;
+            }
+          if (image->channel_map[IndexPixelChannel].traits != UndefinedPixelTrait)
+            pixel_info->index=(MagickRealType)
+          pixel[image->channel_map[IndexPixelChannel].offset];
         }
-      if (image->channel_map[IndexPixelChannel].traits != UndefinedPixelTrait)
-        pixel_info->index=(MagickRealType)
-      pixel[image->channel_map[IndexPixelChannel].offset];
     }
 }
 
