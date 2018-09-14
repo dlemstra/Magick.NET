@@ -21,7 +21,6 @@ namespace Magick.NET.Tests
         [TestClass]
         public class TheGetEnumeratorMethod
         {
-
             [TestMethod]
             public void ShouldReturnAnEnumerator()
             {
