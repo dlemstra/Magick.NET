@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(MagickColors.Green, 100, 10))
             {
-                image.Draw(new ImageMagick.Drawables()
+                image.Draw(new Drawables()
                   .StrokeColor(MagickColors.Red)
                   .StrokeWidth(5)
                   .Paths()
@@ -64,7 +64,7 @@ namespace Magick.NET.Tests
         {
             Paths paths = null;
 
-            ImageMagick.Drawables drawables = paths;
+            Drawables drawables = paths;
             Assert.IsNull(drawables);
 
             paths = new Paths();

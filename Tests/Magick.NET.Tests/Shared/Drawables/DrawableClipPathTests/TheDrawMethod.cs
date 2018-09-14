@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
                 {
                     SetClipMask(image, 20, 20, 80, 80);
 
-                    new ImageMagick.Drawables()
+                    new Drawables()
                         .StrokeColor(MagickColors.Red)
                         .FillColor(MagickColors.Green)
                         .Rectangle(0, 0, 99, 99)
@@ -35,7 +35,7 @@ namespace Magick.NET.Tests
 
                     SetClipMask(image, 40, 40, 60, 60);
 
-                    new ImageMagick.Drawables()
+                    new Drawables()
                         .StrokeColor(MagickColors.Red)
                         .StrokeWidth(10)
                         .Line(0, 0, 99, 99)
@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
 
             private void SetClipMask(IMagickImage image, int x0, int y0, int x1, int y1)
             {
-                var drawables = new ImageMagick.Drawables();
+                var drawables = new Drawables();
 
                 var paths = drawables.Paths()
                     .MoveToAbs(x0, y0)

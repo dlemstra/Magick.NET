@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(MagickColors.Fuchsia, 100, 100))
             {
-                var drawables = new ImageMagick.Drawables()
+                var drawables = new Drawables()
                   .FillColor(MagickColors.Red)
                   .Rectangle(10, 10, 90, 90);
 
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
                 ColorAssert.AreEqual(MagickColors.Red, image, 90, 90);
                 ColorAssert.AreEqual(MagickColors.Fuchsia, image, 91, 91);
 
-                image.Draw(new ImageMagick.Drawables()
+                image.Draw(new Drawables()
                   .FillColor(MagickColors.Green)
                   .Rectangle(15, 15, 85, 85));
 
@@ -57,7 +57,7 @@ namespace Magick.NET.Tests
         {
             ExceptionAssert.ThrowsArgumentNullException("image", () =>
             {
-                new ImageMagick.Drawables().Draw(null);
+                new Drawables().Draw(null);
             });
         }
     }
