@@ -122,6 +122,7 @@ MAGICK_NET_EXPORT void DrawingWand_Composite(DrawingWand *instance, const double
 
   magick_wand = NewMagickWandFromImage(image);
   DrawComposite(instance, (const CompositeOperator) compositeOperator, x, y, width, height, magick_wand);
+  DestroyMagickWand(magick_wand);
   MAGICK_NET_SET_DRAW_EXCEPTION;
 }
 
