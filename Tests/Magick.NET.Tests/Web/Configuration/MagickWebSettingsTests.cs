@@ -16,6 +16,7 @@ using System;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using ImageMagick;
 using ImageMagick.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -33,7 +34,7 @@ namespace Magick.NET.Tests
             });
 
             string config = @"
-<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"">
+<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" useOpenCL=""true"">
   <urlResolvers>
     <urlResolver type=""Magick.NET.Tests.MagickWebSettingsTests, Magick.NET.Tests""/>
   </urlResolvers>
@@ -75,6 +76,8 @@ namespace Magick.NET.Tests
                 Assert.IsTrue(Directory.Exists(tempDir));
 
                 settings = TestSectionLoader.Load(config);
+
+                OpenCL.IsEnabled = true;
             }
         }
 
@@ -87,7 +90,7 @@ namespace Magick.NET.Tests
   <optimization enabled=""false"" lossless=""false"" optimalCompression=""true""/>
   <resourceLimits width=""1"" height=""2""/>
   <urlResolvers>
-    <urlResolver type=""Magick.NET.Tests.Web.TestFileUrlResolver, Magick.NET.Tests""/>
+    <urlResolver type=""Magick.NET.Tests.TestFileUrlResolver, Magick.NET.Tests""/>
   </urlResolvers>
 </magick.net.web>";
 

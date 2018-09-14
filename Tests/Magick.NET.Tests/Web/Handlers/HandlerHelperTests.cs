@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_CanCompress()
         {
-            string config = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" enableGzip=""false""/>";
+            string config = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" useOpenCL=""true"" enableGzip=""false""/>";
 
             MagickWebSettings settings = TestSectionLoader.Load(config);
 
@@ -41,7 +41,7 @@ namespace Magick.NET.Tests
         public void Test_CanOptimize()
         {
             string config = @"
-<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"">
+<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" useOpenCL=""true"">
   <optimization enabled=""false""/>
 </magick.net.web>";
 

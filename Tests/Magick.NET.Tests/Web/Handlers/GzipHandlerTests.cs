@@ -45,7 +45,7 @@ namespace Magick.NET.Tests
             {
                 string tempDir = directory.FullName;
 
-                string config = $@"<magick.net.web cacheDirectory=""{tempDir}"" tempDirectory=""{tempDir}""/>";
+                string config = $@"<magick.net.web cacheDirectory=""{tempDir}"" tempDirectory=""{tempDir}"" useOpenCL=""true""/>";
 
                 MagickWebSettings settings = TestSectionLoader.Load(config);
 

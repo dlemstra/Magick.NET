@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
             string config = @"
 <magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" useOpenCL=""true"">
   <urlResolvers>
-    <urlResolver type=""Magick.NET.Tests.Web.TestFileUrlResolver, Magick.NET.Tests""/>
+    <urlResolver type=""Magick.NET.Tests.TestFileUrlResolver, Magick.NET.Tests""/>
   </urlResolvers>
 </magick.net.web>";
 
@@ -52,7 +52,7 @@ namespace Magick.NET.Tests
 <magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"">
   <resourceLimits width=""40000"" height=""30000""/>
   <urlResolvers>
-    <urlResolver type=""Magick.NET.Tests.Web.TestFileUrlResolver, Magick.NET.Tests""/>
+    <urlResolver type=""Magick.NET.Tests.TestFileUrlResolver, Magick.NET.Tests""/>
   </urlResolvers>
 </magick.net.web>";
 
@@ -194,7 +194,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Exceptions()
         {
-            string config = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache""/>";
+            string config = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" useOpenCL=""true""/>";
 
             MagickModule module = CreateModule(config);
 
@@ -212,9 +212,9 @@ namespace Magick.NET.Tests
         private static MagickModule CreateFileModule()
         {
             return CreateModule(@"
-<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"">
+<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" useOpenCL=""true"">
   <urlResolvers>
-    <urlResolver type=""Magick.NET.Tests.Web.TestFileUrlResolver, Magick.NET.Tests""/>
+    <urlResolver type=""Magick.NET.Tests.TestFileUrlResolver, Magick.NET.Tests""/>
   </urlResolvers>
 </magick.net.web>");
         }
@@ -222,9 +222,9 @@ namespace Magick.NET.Tests
         private static MagickModule CreateStreamModule()
         {
             return CreateModule(@"
-<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"">
+<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" useOpenCL=""true"">
   <urlResolvers>
-    <urlResolver type=""Magick.NET.Tests.Web.TestStreamUrlResolver, Magick.NET.Tests""/>
+    <urlResolver type=""Magick.NET.Tests.TestStreamUrlResolver, Magick.NET.Tests""/>
   </urlResolvers>
 </magick.net.web>");
         }

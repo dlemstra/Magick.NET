@@ -75,7 +75,7 @@ namespace Magick.NET.Tests
             {
                 string tempDir = directory.FullName;
 
-                string config = $@"<magick.net.web cacheDirectory=""{tempDir}"" tempDirectory=""{tempDir}""/>";
+                string config = $@"<magick.net.web cacheDirectory=""{tempDir}"" tempDirectory=""{tempDir}"" useOpenCL=""true""/>";
 
                 MagickWebSettings settings = TestSectionLoader.Load(config);
 
@@ -170,7 +170,7 @@ namespace Magick.NET.Tests
                 string tempDir = directory.FullName;
 
                 string config = $@"
-<magick.net.web cacheDirectory=""{tempDir}"" tempDirectory=""{tempDir}"">
+<magick.net.web cacheDirectory=""{tempDir}"" tempDirectory=""{tempDir}"" useOpenCL=""true"">
   <optimization enabled=""false""/>
 </magick.net.web>";
 
@@ -197,7 +197,7 @@ namespace Magick.NET.Tests
                     file.Delete();
                 }
 
-                config = $@"<magick.net.web cacheDirectory=""{tempDir}"" tempDirectory=""{tempDir}""/>";
+                config = $@"<magick.net.web cacheDirectory=""{tempDir}"" tempDirectory=""{tempDir}"" useOpenCL=""true""/>";
                 settings = TestSectionLoader.Load(config);
 
                 using (StreamWriter writer = new StreamWriter(outputFile.FullName, false, Encoding))

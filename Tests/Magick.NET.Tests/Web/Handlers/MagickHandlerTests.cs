@@ -30,10 +30,10 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_CacheControlMode()
         {
-            string configCache = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache""/>";
+            string configCache = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" useOpenCL=""true""/>";
 
             string configNoCache = @"
-<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"">
+<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" useOpenCL=""true"">
   <clientCache cacheControlMode=""NoControl""/>
 </magick.net.web>";
 
@@ -64,7 +64,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Version()
         {
-            string config = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" showVersion=""true""/>";
+            string config = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" useOpenCL=""true"" showVersion=""true""/>";
 
             MagickWebSettings settings = TestSectionLoader.Load(config);
 
@@ -90,7 +90,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Write304()
         {
-            string config = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache""/>";
+            string config = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" useOpenCL=""true""/>";
 
             MagickWebSettings settings = TestSectionLoader.Load(config);
 
@@ -155,7 +155,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_WriteFile()
         {
-            string config = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache""/>";
+            string config = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" useOpenCL=""true""/>";
 
             MagickWebSettings settings = TestSectionLoader.Load(config);
 
