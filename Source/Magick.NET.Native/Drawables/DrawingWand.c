@@ -12,6 +12,7 @@
 
 #include "Stdafx.h"
 #include "DrawingWand.h"
+#include "Types/TypeMetric.h"
 
 #define MAGICK_NET_GET_PIXEL_WAND(color) \
   PixelWand \
@@ -183,6 +184,17 @@ MAGICK_NET_EXPORT void DrawingWand_FontPointSize(DrawingWand *instance, const do
 {
   DrawSetFontSize(instance, value);
   MAGICK_NET_SET_DRAW_EXCEPTION;
+}
+
+MAGICK_NET_EXPORT TypeMetric *DrawingWand_FontTypeMetrics(DrawingWand *instance, const char *text, const MagickBooleanType ignoreNewlines, ExceptionInfo **exception)
+{
+  TypeMetric
+    *result;
+
+  result = TypeMetric_Create();
+  DrawGetTypeMetrics(instance, text, ignoreNewlines, result);
+  MAGICK_NET_SET_DRAW_EXCEPTION;
+  return result;
 }
 
 MAGICK_NET_EXPORT void DrawingWand_Gravity(DrawingWand *instance, const size_t value, ExceptionInfo **exception)

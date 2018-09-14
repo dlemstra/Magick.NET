@@ -54,6 +54,37 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Obtain font metrics for text string given current font, pointsize, and density settings.
+        /// </summary>
+        /// <param name="text">The text to get the font metrics for.</param>
+        /// <returns>The font metrics for text.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public TypeMetric FontTypeMetrics(string text)
+        {
+            return FontTypeMetrics(text, false);
+        }
+
+        /// <summary>
+        /// Obtain font metrics for text string given current font, pointsize, and density settings.
+        /// </summary>
+        /// <param name="text">The text to get the font metrics for.</param>
+        /// <param name="ignoreNewlines">Specifies if newlines should be ignored.</param>
+        /// <returns>The font metrics for text.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public TypeMetric FontTypeMetrics(string text, bool ignoreNewlines)
+        {
+            using (var image = new MagickImage(MagickColors.Transparent, 1, 1))
+            {
+                using (DrawingWand wand = new DrawingWand(image))
+                {
+                    wand.Draw(this);
+
+                    return wand.FontTypeMetrics(text, ignoreNewlines);
+                }
+            }
+        }
+
+        /// <summary>
         /// Creates a new <see cref="Paths"/> instance.
         /// </summary>
         /// <returns>A new <see cref="Paths"/> instance.</returns>

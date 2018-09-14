@@ -55,6 +55,8 @@ MAGICK_NET_EXPORT void DrawingWand_FontFamily(DrawingWand *, const char *, const
 
 MAGICK_NET_EXPORT void DrawingWand_FontPointSize(DrawingWand *, const double, ExceptionInfo **);
 
+MAGICK_NET_EXPORT TypeMetric *DrawingWand_FontTypeMetrics(DrawingWand *, const char *, const MagickBooleanType, ExceptionInfo **);
+
 MAGICK_NET_EXPORT void DrawingWand_Gravity(DrawingWand *, const size_t, ExceptionInfo **);
 
 MAGICK_NET_EXPORT void DrawingWand_Line(DrawingWand *, const double, const double, const double, const double, ExceptionInfo **);

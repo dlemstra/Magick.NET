@@ -87,6 +87,8 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void DrawingWand_FontPointSize(IntPtr Instance, double value, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr DrawingWand_FontTypeMetrics(IntPtr Instance, IntPtr text, [MarshalAs(UnmanagedType.Bool)] bool ignoreNewLines, out IntPtr exception);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void DrawingWand_Gravity(IntPtr Instance, UIntPtr value, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void DrawingWand_Line(IntPtr Instance, double startX, double startY, double endX, double endY, out IntPtr exception);
@@ -261,6 +263,8 @@ namespace ImageMagick
                 public static extern void DrawingWand_FontFamily(IntPtr Instance, IntPtr family, UIntPtr style, UIntPtr weight, UIntPtr stretch, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void DrawingWand_FontPointSize(IntPtr Instance, double value, out IntPtr exception);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr DrawingWand_FontTypeMetrics(IntPtr Instance, IntPtr text, [MarshalAs(UnmanagedType.Bool)] bool ignoreNewLines, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void DrawingWand_Gravity(IntPtr Instance, UIntPtr value, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -792,6 +796,35 @@ namespace ImageMagick
                 NativeMethods.X86.DrawingWand_FontPointSize(Instance, value, out exception);
                 #endif
                 CheckException(exception);
+            }
+            public IntPtr FontTypeMetrics(string text, bool ignoreNewLines)
+            {
+                using (INativeInstance textNative = UTF8Marshaler.CreateInstance(text))
+                {
+                    IntPtr exception = IntPtr.Zero;
+                    IntPtr result;
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.DrawingWand_FontTypeMetrics(Instance, textNative.Instance, ignoreNewLines, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.DrawingWand_FontTypeMetrics(Instance, textNative.Instance, ignoreNewLines, out exception);
+                    #endif
+                    MagickException magickException = MagickExceptionHelper.Create(exception);
+                    if (MagickExceptionHelper.IsError(magickException))
+                    {
+                        if (result != IntPtr.Zero)
+                            ImageMagick.TypeMetric.Dispose(result);
+                        throw magickException;
+                    }
+                    RaiseWarning(magickException);
+                    return result;
+                }
             }
             public void Gravity(Gravity value)
             {

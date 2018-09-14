@@ -12,7 +12,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
@@ -20,7 +19,7 @@ namespace ImageMagick
 {
     internal sealed partial class DrawingWand : IDisposable
     {
-        public DrawingWand(MagickImage image)
+        public DrawingWand(IMagickImage image)
         {
             _nativeInstance = new NativeDrawingWand(image, image.Settings.Drawing);
         }
@@ -142,6 +141,12 @@ namespace ImageMagick
         public void FontPointSize(double value)
         {
             _nativeInstance.FontPointSize(value);
+        }
+
+        public TypeMetric FontTypeMetrics(string text, bool ignoreNewlines)
+        {
+            IntPtr result = _nativeInstance.FontTypeMetrics(text, ignoreNewlines);
+            return TypeMetric.CreateInstance(result);
         }
 
         public void Gravity(Gravity value)

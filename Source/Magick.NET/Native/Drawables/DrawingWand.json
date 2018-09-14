@@ -338,6 +338,25 @@
       ]
     },
     {
+      "name": "FontTypeMetrics",
+      "type": "TypeMetric",
+      "instance": true,
+      "throws": true,
+      "arguments": [
+        {
+          "name": "text",
+          "type": "string"
+        },
+        {
+          "name": "ignoreNewLines",
+          "type": "bool"
+        }
+      ],
+      "cleanup": {
+        "name": "ImageMagick.TypeMetric.Dispose"
+      }
+    },
+    {
       "name": "Gravity",
       "throws": true,
       "arguments": [
