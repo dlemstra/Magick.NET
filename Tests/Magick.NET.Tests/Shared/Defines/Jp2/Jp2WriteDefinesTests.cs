@@ -14,7 +14,7 @@ using ImageMagick;
 using ImageMagick.Defines;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Defines
+namespace Magick.NET.Tests
 {
     [TestClass]
     public class Jp2WriteDefinesTests

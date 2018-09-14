@@ -23,7 +23,7 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace Magick.NET.Tests.Colors
+namespace Magick.NET.Tests
 {
     [TestClass]
     public partial class ColorRGBTests : ColorBaseTests<ColorRGB>

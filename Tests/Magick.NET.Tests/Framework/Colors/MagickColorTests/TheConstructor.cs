@@ -14,7 +14,7 @@ using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Framework.Colors
+namespace Magick.NET.Tests
 {
     public partial class MagickColorTests
     {

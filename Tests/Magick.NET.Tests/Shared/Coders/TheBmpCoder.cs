@@ -13,7 +13,7 @@
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Shared.Coders
+namespace Magick.NET.Tests
 {
     [TestClass]
     public class TheBmpCoder

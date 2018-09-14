@@ -14,7 +14,7 @@ using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Defines
+namespace Magick.NET.Tests
 {
     [TestClass]
     public class PsdWriteDefinesTests

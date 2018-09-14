@@ -14,7 +14,7 @@ using System.IO;
 using ImageMagick.ImageOptimizers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Optimizers
+namespace Magick.NET.Tests
 {
     public abstract class ImageOptimizerTestHelper<TOptimizer> : ImageOptimizerTestHelper
         where TOptimizer : IImageOptimizer, new()

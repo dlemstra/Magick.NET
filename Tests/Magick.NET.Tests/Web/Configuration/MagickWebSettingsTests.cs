@@ -19,7 +19,7 @@ using System.Linq;
 using ImageMagick.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Web.Configuration
+namespace Magick.NET.Tests
 {
     [TestClass]
     public class MagickWebSettingsTests

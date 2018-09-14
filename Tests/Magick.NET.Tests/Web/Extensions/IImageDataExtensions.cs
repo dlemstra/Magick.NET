@@ -15,7 +15,7 @@
 using System.IO;
 using ImageMagick.Web;
 
-namespace Magick.NET.Tests.Web
+namespace Magick.NET.Tests
 {
     [ExcludeFromCodeCoverage]
     internal static class IImageDataExtensions

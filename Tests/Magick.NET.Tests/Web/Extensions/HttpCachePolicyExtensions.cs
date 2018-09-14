@@ -16,7 +16,7 @@ using System;
 using System.Reflection;
 using System.Web;
 
-namespace Magick.NET.Tests.Web
+namespace Magick.NET.Tests
 {
     [ExcludeFromCodeCoverage]
     internal static class HttpCachePolicyExtensions

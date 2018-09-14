@@ -15,7 +15,7 @@ using ImageMagick;
 using ImageMagick.ImageOptimizers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Optimizers
+namespace Magick.NET.Tests
 {
     [TestClass]
     public class GifOptimizerTests : ImageOptimizerTestHelper<GifOptimizer>

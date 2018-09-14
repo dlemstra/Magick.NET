@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Magick.NET.Tests.Web
+namespace Magick.NET.Tests
 {
     [ExcludeFromCodeCoverage]
     internal static class StringExtensions

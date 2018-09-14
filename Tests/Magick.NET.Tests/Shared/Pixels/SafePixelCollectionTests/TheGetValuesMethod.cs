@@ -13,7 +13,7 @@
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Pixels
+namespace Magick.NET.Testssssssssssssssssssssssssss
 {
     public partial class SafePixelCollectionTests
     {

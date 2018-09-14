@@ -13,12 +13,12 @@
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Defines
+namespace Magick.NET.Tests
 {
     public partial class PngReadDefinesTests
     {
         [TestClass]
-        public partial class TheConstructor
+        public class TheConstructor
         {
             [TestMethod]
             public void ShouldNotSetAnyDefine()

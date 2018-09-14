@@ -15,7 +15,7 @@
 
 using System.Runtime.InteropServices;
 
-namespace Magick.NET.Tests.Exceptions
+namespace Magick.NET.Tests
 {
     /// <summary>
     /// This struct only has the fields that we need.

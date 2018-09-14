@@ -14,7 +14,7 @@ using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Profiles
+namespace Magick.NET.Tests
 {
     [TestClass]
     public class EightBimValueTests

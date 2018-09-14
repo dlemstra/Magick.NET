@@ -16,7 +16,7 @@ using System.Text;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Exceptions
+namespace Magick.NET.Tests
 {
     [TestClass]
     public class ExceptionHelperTests

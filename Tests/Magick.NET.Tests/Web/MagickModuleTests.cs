@@ -22,7 +22,7 @@ using ImageMagick.Web;
 using ImageMagick.Web.Handlers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Web
+namespace Magick.NET.Tests
 {
     [TestClass]
     public class MagickModuleTests

@@ -14,7 +14,7 @@ using ImageMagick;
 using ImageMagick.Defines;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Shared.Defines.Png
+namespace Magick.NET.Tests
 {
     public partial class PngReadDefinesTests
     {

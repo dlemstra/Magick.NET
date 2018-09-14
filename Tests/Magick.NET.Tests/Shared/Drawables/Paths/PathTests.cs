@@ -15,7 +15,7 @@ using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Drawables
+namespace Magick.NET.Tests
 {
     [TestClass]
     public class PathTests

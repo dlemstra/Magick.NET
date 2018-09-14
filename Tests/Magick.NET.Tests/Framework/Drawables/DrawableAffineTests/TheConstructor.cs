@@ -16,7 +16,7 @@ using System.Drawing.Drawing2D;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Drawables
+namespace Magick.NET.Tests
 {
     public partial class DrawableAffineTests
     {

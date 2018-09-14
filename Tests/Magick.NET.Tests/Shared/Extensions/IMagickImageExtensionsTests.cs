@@ -15,7 +15,7 @@ using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 
-namespace Magick.NET.Tests.Extensions
+namespace Magick.NET.Tests
 {
     [TestClass]
     public class IMagickImageExtensionsTests

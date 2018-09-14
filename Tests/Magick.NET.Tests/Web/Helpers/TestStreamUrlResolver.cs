@@ -17,7 +17,7 @@ using System.IO;
 using ImageMagick;
 using ImageMagick.Web;
 
-namespace Magick.NET.Tests.Web
+namespace Magick.NET.Tests
 {
     [ExcludeFromCodeCoverage]
     public sealed class TestStreamUrlResolver : IStreamUrlResolver

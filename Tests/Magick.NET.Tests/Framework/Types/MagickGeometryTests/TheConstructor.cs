@@ -16,7 +16,7 @@ using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Framework.Types
+namespace Magick.NET.Tests
 {
     public partial class MagickGeometryTests
     {

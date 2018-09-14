@@ -13,7 +13,7 @@
 using System;
 using ImageMagick;
 
-namespace Magick.NET.Tests.Shared
+namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {

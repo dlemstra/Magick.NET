@@ -15,7 +15,7 @@
 using System;
 using System.Web;
 
-namespace Magick.NET.Tests.Web
+namespace Magick.NET.Tests
 {
     [ExcludeFromCodeCoverage]
     public sealed class TestHttpRequest : HttpRequestBase

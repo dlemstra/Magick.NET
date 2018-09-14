@@ -13,7 +13,7 @@
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Colors
+namespace Magick.NET.Tests
 {
     [TestClass]
     public class ColorHSVTests : ColorBaseTests<ColorHSV>

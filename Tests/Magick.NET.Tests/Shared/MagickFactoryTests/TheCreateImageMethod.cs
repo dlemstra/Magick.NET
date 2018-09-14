@@ -20,7 +20,7 @@ namespace Magick.NET.Tests
     public partial class MagickFactoryTests
     {
         [TestClass]
-        public class TheCreateImageMethod
+        public partial class TheCreateImageMethod
         {
             [TestMethod]
             public void ShouldThrowExceptionWhenByteArrayIsNullAndPixelStorageSettingsIsSpecified()

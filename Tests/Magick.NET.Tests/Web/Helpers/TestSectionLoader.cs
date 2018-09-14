@@ -17,7 +17,7 @@ using System.IO;
 using ImageMagick.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Web
+namespace Magick.NET.Tests
 {
     [ExcludeFromCodeCoverage]
     public sealed class TestSectionLoader : ISectionLoader

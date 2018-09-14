@@ -13,7 +13,7 @@
 using ImageMagick.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Configuration
+namespace Magick.NET.Tests
 {
     [TestClass]
     public class ConfigurationFilesTests

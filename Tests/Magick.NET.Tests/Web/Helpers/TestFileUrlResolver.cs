@@ -17,7 +17,7 @@ using System.Xml.XPath;
 using ImageMagick;
 using ImageMagick.Web;
 
-namespace Magick.NET.Tests.Web
+namespace Magick.NET.Tests
 {
     [ExcludeFromCodeCoverage]
     public sealed class TestFileUrlResolver : IFileUrlResolver, IScriptData

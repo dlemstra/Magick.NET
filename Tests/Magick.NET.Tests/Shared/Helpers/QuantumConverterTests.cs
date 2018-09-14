@@ -24,7 +24,7 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace Magick.NET.Tests.Helpers
+namespace Magick.NET.Tests
 {
     [TestClass]
     public class QuantumConverterTests

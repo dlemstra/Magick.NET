@@ -20,7 +20,7 @@ namespace Magick.NET.Tests
     public partial class MagickScriptTests
     {
         [TestClass]
-        public class TheConstructor
+        public partial class TheConstructor
         {
             [TestMethod]
             public void ShouldThrowExceptionWhenFileNameIsNull()
