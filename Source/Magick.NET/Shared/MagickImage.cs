@@ -3275,6 +3275,15 @@ namespace ImageMagick
         /// <summary>
         /// Converts the colors in the image to gray.
         /// </summary>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Grayscale()
+        {
+            Grayscale(PixelIntensityMethod.Undefined);
+        }
+
+        /// <summary>
+        /// Converts the colors in the image to gray.
+        /// </summary>
         /// <param name="method">The pixel intensity method to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Grayscale(PixelIntensityMethod method)

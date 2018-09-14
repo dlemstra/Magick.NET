@@ -21,13 +21,29 @@ namespace Magick.NET.Tests
         public class TheGrayscaleMethod
         {
             [TestMethod]
+            public void ShouldUseTheDefaultPixelIntensityMethod()
+            {
+                using (IMagickImage imageA = new MagickImage(MagickColors.Purple, 1, 1))
+                {
+                    imageA.Grayscale();
+
+                    using (IMagickImage imageB = new MagickImage(MagickColors.Purple, 1, 1))
+                    {
+                        imageB.Grayscale(PixelIntensityMethod.Brightness);
+
+                        Assert.AreNotEqual(0.0, imageA.Compare(imageB, ErrorMetric.RootMeanSquared));
+                    }
+                }
+            }
+
+            [TestMethod]
             public void ShouldNotRoundWhenHdriEnabled()
             {
-                using (IMagickImage img = new MagickImage(MagickColors.Black, 0, 0))
+                using (IMagickImage image = new MagickImage(MagickColors.Black, 0, 0))
                 {
-                    img.Grayscale(PixelIntensityMethod.Average);
+                    image.Grayscale(PixelIntensityMethod.Average);
 
-                    using (var pixels = img.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         var pixel = pixels.GetValue(0, 0);
 
