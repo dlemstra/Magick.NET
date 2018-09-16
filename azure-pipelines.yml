@@ -6,6 +6,7 @@ jobs:
     vmImage: 'Ubuntu 16.04'
   steps:
   - bash: ./CheckNative.sh
+    workingDirectory: Build
     displayName: 'CheckNative.sh'
 - job: Linux
   dependsOn: CheckNative
