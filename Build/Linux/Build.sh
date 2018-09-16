@@ -78,9 +78,8 @@ make install
 
 # Build libjpeg-turbo
 cd ../jpeg
-autoreconf -fiv
-./configure --with-jpeg8 CFLAGS="-O3 -fPIC"
-make install prefix=/usr/local libdir=/usr/local/lib64
+cmake . -DCMAKE_INSTALL_PREFIX=/usr/local -DENABLE_SHARED=off -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-O3 -fPIC"
+make install
 
 # Build libtiff
 cd ../tiff

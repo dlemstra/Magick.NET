@@ -24,6 +24,7 @@ find_library(LIBLCMS liblcms2.a)
 find_library(LIBLDE265 libde265.a)
 find_library(LIBLHEIF libheif.a)
 find_library(LIBGCC libheif.a)
+find_library(LIBJPEG libjpeg.a)
 
 file(GLOB_RECURSE ALL_FILES . *.c)
 file(GLOB_RECURSE CMAKE_FILES **/CMakeFiles/*.c)
@@ -33,12 +34,8 @@ if (APPLE)
     find_library(LIBICONV NAMES libiconv.a PATHS /usr/local/opt/libiconv/lib)
     find_library(LIBLZMA liblzma.a)
 
-    find_library(LIBJPEG libjpeg.a)
-
     set(STDCPLUSPLUS stdc++)
 else()
-    find_library(LIBJPEG libjpeg.a PATHS /usr/local/lib64)
-
     list(APPEND ALL_FILES foo.cxx)
 
     set(STDCPLUSPLUS -static-libstdc++ -static-libgcc)
