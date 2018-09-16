@@ -2,20 +2,19 @@
 set -e
 
 # Uninstall already installed development libraries
-sudo apt-get remove zlib1g-dev -y
-sudo apt-get remove libpng12-0 -y
-sudo apt-get remove imagemagick -y
-sudo apt-get auto-remove -y
+dpkg --configure -a
+apt-get remove --autoremove zlib1g-dev -y
+apt-get remove --autoremove imagemagick -y
 
-sudo apt-get update
+apt-get update
 
-sudo apt-get install pkg-config -y
-sudo apt-get install gperf -y
-sudo apt-get install nasm -y
-sudo apt-get install autoconf -y
+apt-get install pkg-config -y
+apt-get install gperf -y
+apt-get install nasm -y
+apt-get install autoconf -y
 
-sudo sh -c "echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections"
-sudo apt-get install ttf-mscorefonts-installer -y
+sh -c "echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections"
+apt-get install ttf-mscorefonts-installer -y
 
 cd ../../ImageMagick/Source
 
@@ -149,7 +148,7 @@ buildMagickNET() {
 
     # Build ImageMagick
     cd ImageMagick/Source/ImageMagick/ImageMagick
-    ./configure CFLAGS="-fPIC -Wall -O3" CXXFLAGS="-fPIC -Wall -O3" --disable-shared --disable-openmp --enable-static --enable-delegate-build --with-magick-plus-plus=no --with-utilities=no --with-bzlib=no --with-quantum-depth=$depth --enable-hdri=$hdri
+    ./configure CFLAGS="-fPIC -Wall -O3" CXXFLAGS="-fPIC -Wall -O3" --disable-shared --disable-openmp --enable-static --enable-delegate-build --with-magick-plus-plus=no --with-utilities=no --with-bzlib=no --with-x=no --with-quantum-depth=$depth --enable-hdri=$hdri
     make install
 
     # Build Magick.NET
