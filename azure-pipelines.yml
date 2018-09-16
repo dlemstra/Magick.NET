@@ -1,12 +1,16 @@
 name: $(Date:yyyyMMdd.HHmm)
 
 jobs:
-- job: Linux
+- job: CheckNative
   pool:
     vmImage: 'Ubuntu 16.04'
   steps:
-  - bash: ./Check.sh
-    workingDirectory: Build
-    displayName: 'Linux/Check.sh'
+  - bash: ./CheckNative.sh
+    displayName: 'CheckNative.sh'
+- job: Linux
+  dependsOn: CheckNative
+  condition: and(succeeded(), eq(variables['BuildNative'], 'true'))
+  pool:
+    vmImage: 'Ubuntu 16.04'
+  steps:
   - template: Build/Linux/Build.yml
-    condition: and(succeeded(), eq(variables['BuildLinux'], 'true'))
