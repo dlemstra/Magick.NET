@@ -16,7 +16,7 @@ apt-get install autoconf -y
 sh -c "echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections"
 apt-get install ttf-mscorefonts-installer -y
 
-cd ../../ImageMagick/Source
+cd ../ImageMagick/Source
 
 ./Checkout.sh Linux
 
