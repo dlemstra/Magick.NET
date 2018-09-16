@@ -1,0 +1,8 @@
+name: $(Date:yyyyMMdd.HHmm)
+
+jobs:
+- job: Linux
+  pool:
+    vmImage: 'Ubuntu 16.04'
+  steps:
+  - template: build/linux.yml
