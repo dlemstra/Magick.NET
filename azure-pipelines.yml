@@ -2,7 +2,7 @@ name: $(Date:yyyyMMdd.HHmm)
 
 jobs:
 - job: Linux
-  queue:
-    name: Hosted Linux Preview
+  pool:
+    vmImage: 'linux_preview'
   steps:
   - template: Build/linux.yml
