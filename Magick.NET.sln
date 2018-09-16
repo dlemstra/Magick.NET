@@ -146,6 +146,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{B83A96D1
 		.travis.yml = .travis.yml
 		appveyor.yml = appveyor.yml
 		azure-pipelines.yml = azure-pipelines.yml
+		Build\CheckNative.ps1 = Build\CheckNative.ps1
 		codecov.yml = codecov.yml
 	EndProjectSection
 EndProject
@@ -170,7 +171,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Linux", "Linux", "{DCB4B8B6-AFCC-4D01-877D-F44ACFCDCE1A}"
 	ProjectSection(SolutionItems) = preProject
 		Build\Linux\Build.yml = Build\Linux\Build.yml
-		Build\Linux\Check.sh = Build\Linux\Check.sh
 	EndProjectSection
 EndProject
 Global

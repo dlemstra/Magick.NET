@@ -3,15 +3,15 @@ name: $(Date:yyyyMMdd.HHmm)
 jobs:
 - job: CheckNative
   pool:
-    vmImage: 'Ubuntu 16.04'
+    vmImage: vs2017-win2016
   steps:
-  - bash: ./CheckNative.sh
+  - powershell: ./CheckNative.ps1
     workingDirectory: Build
-    displayName: 'CheckNative.sh'
+    displayName: 'CheckNative.ps1'
 - job: Linux
   dependsOn: CheckNative
   condition: and(succeeded(), eq(variables['BuildNative'], 'true'))
   pool:
-    vmImage: 'Ubuntu 16.04'
+    vmImage: Ubuntu 16.04
   steps:
   - template: Build/Linux/Build.yml
