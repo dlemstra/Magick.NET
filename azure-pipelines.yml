@@ -5,4 +5,8 @@ jobs:
   pool:
     vmImage: 'Ubuntu 16.04'
   steps:
-  - template: Build/linux.yml
+  - bash: ./Check.sh
+    workingDirectory: Build
+    displayName: 'Linux/Check.sh'
+  - template: Build/Linux/Build.yml
+    condition: and(succeeded(), eq(variables['BuildLinux'], 'true'))

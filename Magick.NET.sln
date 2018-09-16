@@ -147,7 +147,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{B83A96D1
 		appveyor.yml = appveyor.yml
 		azure-pipelines.yml = azure-pipelines.yml
 		codecov.yml = codecov.yml
-		Build\linux.yml = Build\linux.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{61345F8D-8813-4CA8-B037-2DE221FFB5D2}"
@@ -166,6 +165,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Magick.NET.CrossPlatform", 
 		Source\Magick.NET.CrossPlatform\Build.macOS.sh = Source\Magick.NET.CrossPlatform\Build.macOS.sh
 		Source\Magick.NET.CrossPlatform\RunLdd.sh = Source\Magick.NET.CrossPlatform\RunLdd.sh
 		Source\Magick.NET.CrossPlatform\Verify.Dockerfile = Source\Magick.NET.CrossPlatform\Verify.Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Linux", "Linux", "{DCB4B8B6-AFCC-4D01-877D-F44ACFCDCE1A}"
+	ProjectSection(SolutionItems) = preProject
+		Build\Linux\Build.yml = Build\Linux\Build.yml
+		Build\Linux\Check.sh = Build\Linux\Check.sh
 	EndProjectSection
 EndProject
 Global
@@ -505,6 +510,7 @@ Global
 		{26979C42-868B-4228-A4DB-C6780ED03E0D} = {6D1DE15B-EE1E-44DF-81CC-BEA1195B5BCE}
 		{CE53D0C8-1D5B-4093-9200-53DB1FE76335} = {642B2576-373D-4B84-A3C0-F6F9AC2A23D5}
 		{72D84941-4530-4FFE-AF89-3613DA9B94C2} = {61345F8D-8813-4CA8-B037-2DE221FFB5D2}
+		{DCB4B8B6-AFCC-4D01-877D-F44ACFCDCE1A} = {B83A96D1-8221-416D-B02B-C4D8112142CF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F6887AA-E540-48B3-BDC0-068B342ABEBE}

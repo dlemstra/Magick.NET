@@ -1,4 +1,4 @@
 steps:
-- bash: ./Build.Linux.sh
+- bash: sudo ./Build.Linux.sh
   workingDirectory: Source/Magick.NET.CrossPlatform
   displayName: 'Build.Linux.sh'
