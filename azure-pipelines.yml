@@ -5,4 +5,4 @@ jobs:
   pool:
     vmImage: 'Ubuntu 16.04'
   steps:
-  - template: build/linux.yml
+  - template: Build/linux.yml
