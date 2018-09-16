@@ -47,13 +47,15 @@ clone_date()
   cd ..
 }
 
+commit=$(<ImageMagick.commit)
+
 if [ ! -d "ImageMagick" ]; then
   mkdir ImageMagick
 fi
 
 cd ImageMagick
 
-clone_commit 'ImageMagick' '0a53306a7b3e98a3b3ca10cdc59f19f4b0e5bed8'
+clone_commit 'ImageMagick' $commit
 
 # get a commit date from the current ImageMagick checkout
 cd ImageMagick
