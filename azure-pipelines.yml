@@ -8,9 +8,10 @@ jobs:
   - powershell: ./CheckNative.ps1
     workingDirectory: Build
     displayName: 'CheckNative.ps1'
+    name: checkNative
 - job: Linux
   dependsOn: CheckNative
-  condition: and(succeeded(), eq(variables['BuildNative'], 'true'))
+  condition: and(succeeded(), eq(dependencies.CheckNative.outputs['checkNative.BuildNative'], 'true'))
   pool:
     vmImage: Ubuntu 16.04
   steps:
