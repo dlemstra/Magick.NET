@@ -78,7 +78,6 @@ make install
 
 # Build libjpeg-turbo
 cd ../jpeg
-chmod +x ./simd/nasm_lt.sh
 autoreconf -fiv
 ./configure --with-jpeg8 CFLAGS="-O3 -fPIC"
 make install prefix=/usr/local libdir=/usr/local/lib64
