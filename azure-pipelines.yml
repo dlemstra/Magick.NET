@@ -3,6 +3,6 @@ name: $(Date:yyyyMMdd.HHmm)
 jobs:
 - job: Linux
   pool:
-    vmImage: 'Ubuntu 16.04'
+    vmImage: 'Linux Preview'
   steps:
   - template: Build/linux.yml
