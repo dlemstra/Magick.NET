@@ -7,7 +7,7 @@ jobs:
   steps:
   - powershell: ./CheckNative.ps1
     workingDirectory: Build
-    displayName: 'CheckNative.ps1'
+    displayName: 'Check if native libraries should be build'
     name: checkNative
 - job: Linux
   dependsOn: CheckNative
