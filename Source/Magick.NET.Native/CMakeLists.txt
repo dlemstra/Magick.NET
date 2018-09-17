@@ -12,7 +12,7 @@ find_library(MAGICKWAND libMagickWand-7.${QUANTUM_NAME}.a)
 
 find_library(LIBZ libz.a)
 find_library(LIBXML libxml2.a)
-find_library(LIBPNG libpng.a)
+find_library(LIBPNG libpng16.a)
 find_library(LIBFREETYPE libfreetype.a)
 find_library(LIBFONTCONFIG libfontconfig.a)
 find_library(LIBTIFF libtiff.a)
