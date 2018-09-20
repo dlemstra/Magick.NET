@@ -1,6 +1,7 @@
 name: $(Date:yyyyMMdd.HHmm)
 
 jobs:
+
 - job: CheckNative
   pool:
     vmImage: vs2017-win2016
@@ -9,10 +10,19 @@ jobs:
     workingDirectory: Build
     displayName: 'Check if native libraries should be build'
     name: checkNative
-- job: Linux
+
+- job: LinuxNative
   dependsOn: CheckNative
   condition: and(succeeded(), eq(dependencies.CheckNative.outputs['checkNative.BuildNative'], 'true'))
   pool:
     vmImage: Ubuntu 16.04
   steps:
   - template: Build/Linux/Build.yml
+
+- job: macOSNative
+  dependsOn: CheckNative
+  condition: and(succeeded(), eq(dependencies.CheckNative.outputs['checkNative.BuildNative'], 'true'))
+  pool:
+    vmImage: macOS 10.13
+  steps:
+  - template: Build/macOS/Build.yml

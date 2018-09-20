@@ -1,0 +1,8 @@
+steps:
+- bash: sudo ./Build.sh
+  workingDirectory: Build/macOS
+  displayName: 'Build macOS'
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: macOS'
+  inputs:
+    PathtoPublish: Output
