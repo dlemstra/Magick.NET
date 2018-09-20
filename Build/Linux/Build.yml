@@ -2,3 +2,7 @@ steps:
 - bash: sudo ./Build.sh
   workingDirectory: Build/Linux
   displayName: 'Build Linux'
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: Linux'
+  inputs:
+    PathtoPublish: Output
