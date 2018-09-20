@@ -1629,10 +1629,10 @@ namespace ImageMagick
         /// Obtain font metrics for text string given current font, pointsize, and density settings.
         /// </summary>
         /// <param name="text">The text to get the font metrics for.</param>
-        /// <param name="ignoreNewLines">Specifies if new lines should be ignored.</param>
+        /// <param name="ignoreNewlines">Specifies if newlines should be ignored.</param>
         /// <returns>The font metrics for text.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        TypeMetric FontTypeMetrics(string text, bool ignoreNewLines);
+        TypeMetric FontTypeMetrics(string text, bool ignoreNewlines);
 
         /// <summary>
         /// Formats the specified expression, more info here: http://www.imagemagick.org/script/escape.php.
