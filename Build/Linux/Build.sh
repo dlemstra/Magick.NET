@@ -186,7 +186,7 @@ verifyPlatform() {
     docker image prune -a -f
 }
 
-cd Source/Magick.NET.CrossPlatform
+cd Build/Linux
 cp ../../Output/Magick.NET-Q8-x64.Native.dll.so .
 cp ../../Output/Magick.NET-Q16-x64.Native.dll.so .
 cp ../../Output/Magick.NET-Q16-HDRI-x64.Native.dll.so .
