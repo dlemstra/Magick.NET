@@ -2,11 +2,10 @@
 set -e
 
 # Uninstall already installed development libraries
-dpkg --configure -a
+apt-get update
+
 apt-get remove --autoremove zlib1g-dev -y
 apt-get remove --autoremove imagemagick -y
-
-apt-get update
 
 apt-get install pkg-config -y
 apt-get install gperf -y
