@@ -82,6 +82,44 @@ namespace Magick.NET.Tests
             }
         }
 
+        [TestMethod]
+        public void ShouldBeAbleToUseGroup4Compression()
+        {
+            using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
+            {
+                input.Settings.Compression = CompressionMethod.Group4;
+                using (var stream = new MemoryStream())
+                {
+                    input.Write(stream, MagickFormat.Tiff);
+
+                    stream.Position = 0;
+                    using (IMagickImage output = new MagickImage(stream))
+                    {
+                        Assert.AreEqual(output.Compression, CompressionMethod.Group4);
+                    }
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ShouldBeAbleToUseFaxCompression()
+        {
+            using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
+            {
+                input.Settings.Compression = CompressionMethod.Fax;
+                using (var stream = new MemoryStream())
+                {
+                    input.Write(stream, MagickFormat.Tiff);
+
+                    stream.Position = 0;
+                    using (IMagickImage output = new MagickImage(stream))
+                    {
+                        Assert.AreEqual(output.Compression, CompressionMethod.Fax);
+                    }
+                }
+            }
+        }
+
         private static void TestValue(IptcProfile profile, IptcTag tag, string expectedValue)
         {
             IptcValue value = profile.GetValue(tag);
