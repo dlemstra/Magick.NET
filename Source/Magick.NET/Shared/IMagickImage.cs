@@ -1632,6 +1632,7 @@ namespace ImageMagick
         /// <param name="ignoreNewlines">Specifies if newlines should be ignored.</param>
         /// <returns>The font metrics for text.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "Newlines", Justification = "The casing is correct.")]
         TypeMetric FontTypeMetrics(string text, bool ignoreNewlines);
 
         /// <summary>
