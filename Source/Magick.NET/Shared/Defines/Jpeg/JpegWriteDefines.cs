@@ -29,6 +29,15 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether arithmetic coding is enabled or disabled (jpeg:arithmetic-coding).
+        /// </summary>
+        public bool? ArithmeticCoding
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Gets or sets the dtc method that will be used (jpeg:dct-method).
         /// </summary>
         public DctMethod? DctMethod
@@ -89,6 +98,9 @@ namespace ImageMagick
         {
             get
             {
+                if (ArithmeticCoding.HasValue)
+                    yield return CreateDefine("arithmetic-coding", ArithmeticCoding.Value);
+
                 if (DctMethod.HasValue)
                     yield return CreateDefine("dct-method", DctMethod.Value);
 

@@ -29,6 +29,7 @@ namespace Magick.NET.Tests
                     {
                     });
 
+                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "arithmetic-coding"));
                     Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
                     Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "extent"));
                     Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
