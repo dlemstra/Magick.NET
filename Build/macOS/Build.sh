@@ -75,10 +75,7 @@ make install
 
 # Build libjpeg-turbo
 cd ../jpeg
-chmod +x ./configure
-chmod +x ./simd/nasm_lt.sh
-autoreconf -fiv
-./configure CFLAGS="-O3 -fPIC" --disable-shared --prefix=/usr/local
+cmake . -DCMAKE_INSTALL_PREFIX=/usr/local -DENABLE_SHARED=off -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-O3 -fPIC"
 make install
 
 # Build libtiff

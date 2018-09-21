@@ -1,5 +1,5 @@
 steps:
-- bash: sudo ./Build.sh
+- bash: ./Build.sh
   workingDirectory: Build/macOS
   displayName: 'Build macOS'
 - task: PublishBuildArtifacts@1
