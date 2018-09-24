@@ -60,8 +60,8 @@ target_link_libraries(
     ${LIBWEBPDEMUX}
     ${LIBOPENJP2}
     ${LIBLCMS}
-    ${LIBLDE265}
     ${LIBLHEIF}
+    ${LIBLDE265}
 
     ${LIBICONV}
     ${LIBLZMA}
