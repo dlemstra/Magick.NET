@@ -134,6 +134,9 @@ namespace ImageMagick
             using (XmlReader reader = CreateReader())
             {
                 XmlDocument result = new XmlDocument();
+#if !NETSTANDARD1_3
+                result.XmlResolver = null;
+#endif
                 result.Load(reader);
                 return result.CreateNavigator();
             }
