@@ -23,7 +23,7 @@ namespace ImageMagick
     public sealed class ExifValue : IEquatable<ExifValue>
     {
         private object _value;
-
+        
         internal ExifValue(ExifTag tag, ExifDataType dataType, bool isArray)
         {
             Tag = tag;
@@ -126,6 +126,82 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Converts the string representation of a value to the correct representation based on the EXIF tag to generate.
+        /// </summary>
+        /// <param name="exifTag">The EXIF tag of the resulting EXIF value</param>
+        /// <param name="value">The value to try and set</param>
+        /// <param name="result">The newly created ExifValue</param>
+        /// <returns>Indicates whether the conversion was successful or not.</returns>
+        public static bool TryParse(ExifTag exifTag, string value, out ExifValue result)
+        {
+            var exifDefinition = (ExifDefinition)ExifDefinition.ExifDefinitions[exifTag];
+            Throw.IfTrue(nameof(exifTag), exifDefinition == null || exifTag == ExifTag.Unknown, "Invalid Tag");
+
+            // ReSharper disable once PossibleNullReferenceException - Doesn't recognise Throw.IfTrue
+            var internalResult = new ExifValue(exifDefinition.ExifTag, exifDefinition.ExifDataType, exifDefinition.IsArray);
+
+            switch (exifDefinition.ExifDataType)
+            {
+                case ExifDataType.Byte:
+                    if (exifDefinition.IsArray)
+                    {
+                        throw new NotImplementedException();
+                    }
+                    else
+                    {
+                        throw new NotImplementedException();
+                    }
+
+                    break;
+                case ExifDataType.Ascii:
+                    internalResult.Value = value;
+                    break;
+                case ExifDataType.Short:
+                    if (ushort.TryParse(value, out var ushortResult))
+                        internalResult.Value = ushortResult;
+
+                    break;
+                case ExifDataType.Long:
+                    if (ulong.TryParse(value, out var ulongResult))
+                        internalResult.Value = ulongResult;
+
+                    break;
+                case ExifDataType.Rational:
+                    throw new NotImplementedException();
+                case ExifDataType.SignedByte:
+                    throw new NotImplementedException();
+                case ExifDataType.SignedShort:
+                    if (short.TryParse(value, out var shortResult))
+                        internalResult.Value = shortResult;
+
+                    break;
+                case ExifDataType.SignedLong:
+                    if (long.TryParse(value, out var longResult))
+                        internalResult.Value = longResult;
+
+                    break;
+                case ExifDataType.SignedRational:
+                    throw new NotImplementedException();
+                case ExifDataType.SingleFloat:
+                    if (float.TryParse(value, out var singlefloatResult))
+                        internalResult.Value = singlefloatResult;
+
+                    break;
+                case ExifDataType.DoubleFloat:
+                    if (double.TryParse(value, out var doubleFloatResult))
+                        internalResult.Value = doubleFloatResult;
+
+                    break;
+            }
+
+            result = internalResult.HasValue
+                ? null
+                : internalResult;
+
+            return internalResult.HasValue;
+        }
+
+        /// <summary>
         /// Determines whether the specified <see cref="ExifValue"/> instances are considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="ExifValue"/> to compare.</param>
@@ -216,11 +292,18 @@ namespace ImageMagick
         internal static ExifValue Create(ExifTag tag, object value)
         {
             Throw.IfTrue(nameof(tag), tag == ExifTag.Unknown, "Invalid Tag");
-
             ExifValue exifValue = null;
             Type type = value != null ? value.GetType() : null;
             if (type != null && type.IsArray)
                 type = type.GetElementType();
+
+            /* TODO Replace switch once all cases are handled in TryParse.
+            bool isValid = TryParse(tag, value.ToString(), out var result);
+            if (result == null)
+                throw new NotSupportedException();
+
+            return result;
+            */
 
             switch (tag)
             {
