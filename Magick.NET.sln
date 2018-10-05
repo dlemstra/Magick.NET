@@ -72,6 +72,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ImageMagick", "ImageMagick"
 		ImageMagick\Source\Checkout.sh = ImageMagick\Source\Checkout.sh
 		ImageMagick\CopyLibsFromDropbox.cmd = ImageMagick\CopyLibsFromDropbox.cmd
 		ImageMagick\CopyLibsToDropbox.cmd = ImageMagick\CopyLibsToDropbox.cmd
+		ImageMagick\Source\ImageMagick.commit = ImageMagick\Source\ImageMagick.commit
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Debug", "Debug", "{EE2D8A24-038F-4609-B258-08FB13D59DB0}"
