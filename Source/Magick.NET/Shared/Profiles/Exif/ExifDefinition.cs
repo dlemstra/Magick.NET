@@ -1,4 +1,16 @@
-﻿using System.Collections;
+﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+//
+// Licensed under the ImageMagick License (the "License"); you may not use this file except in
+// compliance with the License. You may obtain a copy of the License at
+//
+//   https://www.imagemagick.org/script/license.php
+//
+// Unless required by applicable law or agreed to in writing, software distributed under the
+// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+// either express or implied. See the License for the specific language governing permissions
+// and limitations under the License.
+
+using System.Collections;
 
 namespace ImageMagick
 {
@@ -10,9 +22,9 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="ExifDefinition"/> class.
         /// </summary>
-        /// <param name="exifTag"></param>
-        /// <param name="exifDataType"></param>
-        /// <param name="isArray"></param>
+        /// <param name="exifTag">Key for ExifDefinition</param>
+        /// <param name="exifDataType">DataType of the ExifTag</param>
+        /// <param name="isArray">Indicates whether the definition is an array</param>
         internal ExifDefinition(ExifTag exifTag, ExifDataType exifDataType, bool isArray)
         {
             ExifTag = exifTag;
@@ -25,28 +37,31 @@ namespace ImageMagick
         /// </summary>
         public ExifTag ExifTag
         {
-            get; 
+            get;
             private set;
         }
 
         /// <summary>
         /// Gets a value indicating ExifDataType for the current definition.
         /// </summary>
-        public ExifDataType ExifDataType 
+        public ExifDataType ExifDataType
         {
-            get; 
+            get;
             private set;
         }
 
         /// <summary>
         /// Gets a value indicating whether current definition contains an array value.
         /// </summary>
-        public bool IsArray 
+        public bool IsArray
         {
-            get; 
+            get;
             private set;
         }
 
+        /// <summary>
+        /// Gets a list of available ExifDefinitions
+        /// </summary>
         public static Hashtable ExifDefinitions { get; } = new Hashtable
         {
             { ExifTag.SubfileType, new ExifDefinition(ExifTag.SubfileType, ExifDataType.Short, false) },
@@ -92,7 +107,6 @@ namespace ImageMagick
             { ExifTag.TileLength, new ExifDefinition(ExifTag.TileLength, ExifDataType.Short, false) },
             { ExifTag.TileOffsets, new ExifDefinition(ExifTag.TileOffsets, ExifDataType.Short, false) },
             { ExifTag.TileByteCounts, new ExifDefinition(ExifTag.TileByteCounts, ExifDataType.Short, false) },
-            //{ ExifTag.SubIFDs, new ExifDefinition(ExifTag.SubIFDs, ExifDataType.Long, false) },
             { ExifTag.InkSet, new ExifDefinition(ExifTag.InkSet, ExifDataType.Short, false) },
             { ExifTag.InkNames, new ExifDefinition(ExifTag.InkNames, ExifDataType.Ascii, false) },
             { ExifTag.NumberOfInks, new ExifDefinition(ExifTag.NumberOfInks, ExifDataType.Short, false) },
@@ -122,7 +136,6 @@ namespace ImageMagick
             { ExifTag.YCbCrSubsampling, new ExifDefinition(ExifTag.YCbCrSubsampling, ExifDataType.Short, false) },
             { ExifTag.YCbCrPositioning, new ExifDefinition(ExifTag.YCbCrPositioning, ExifDataType.Short, false) },
             { ExifTag.ReferenceBlackWhite, new ExifDefinition(ExifTag.ReferenceBlackWhite, ExifDataType.Rational, false) },
-            //{ ExifTag.XMLPacket, new ExifDefinition(ExifTag.XMLPacket, ExifDataType.Byte, false) },
             { ExifTag.Rating, new ExifDefinition(ExifTag.Rating, ExifDataType.Short, false) },
             { ExifTag.RatingPercent, new ExifDefinition(ExifTag.RatingPercent, ExifDataType.Short, false) },
             { ExifTag.ImageID, new ExifDefinition(ExifTag.ImageID, ExifDataType.Ascii, false) },
@@ -132,13 +145,8 @@ namespace ImageMagick
             { ExifTag.Copyright, new ExifDefinition(ExifTag.Copyright, ExifDataType.Ascii, false) },
             { ExifTag.ExposureTime, new ExifDefinition(ExifTag.ExposureTime, ExifDataType.Rational, false) },
             { ExifTag.FNumber, new ExifDefinition(ExifTag.FNumber, ExifDataType.Rational, false) },
-            //{ ExifTag.IPTCNAA, new ExifDefinition(ExifTag.IPTCNAA, ExifDataType.Long, false) },
-            //{ ExifTag.ImageResources, new ExifDefinition(ExifTag.ImageResources, ExifDataType.Byte, false) },
-            //{ ExifTag.ExifTag, new ExifDefinition(ExifTag.ExifTag, ExifDataType.Long, false) },
-            //{ ExifTag.InterColorProfile, new ExifDefinition(ExifTag.InterColorProfile, ExifDataType.Undefined, false) },
             { ExifTag.ExposureProgram, new ExifDefinition(ExifTag.ExposureProgram, ExifDataType.Short, false) },
             { ExifTag.SpectralSensitivity, new ExifDefinition(ExifTag.SpectralSensitivity, ExifDataType.Ascii, false) },
-            //{ ExifTag.GPSTag, new ExifDefinition(ExifTag.GPSTag, ExifDataType.Long, false) },
             { ExifTag.ISOSpeedRatings, new ExifDefinition(ExifTag.ISOSpeedRatings, ExifDataType.Short, false) },
             { ExifTag.OECF, new ExifDefinition(ExifTag.OECF, ExifDataType.Undefined, false) },
             { ExifTag.Interlace, new ExifDefinition(ExifTag.Interlace, ExifDataType.Short, false) },
@@ -174,85 +182,7 @@ namespace ImageMagick
             { ExifTag.XPAuthor, new ExifDefinition(ExifTag.XPAuthor, ExifDataType.Byte, false) },
             { ExifTag.XPKeywords, new ExifDefinition(ExifTag.XPKeywords, ExifDataType.Byte, false) },
             { ExifTag.XPSubject, new ExifDefinition(ExifTag.XPSubject, ExifDataType.Byte, false) },
-            //{ ExifTag.PrintImageMatching, new ExifDefinition(ExifTag.PrintImageMatching, ExifDataType.Undefined, false) },
-            //{ ExifTag.DNGVersion, new ExifDefinition(ExifTag.DNGVersion, ExifDataType.Byte, false) },
-            //{ ExifTag.DNGBackwardVersion, new ExifDefinition(ExifTag.DNGBackwardVersion, ExifDataType.Byte, false) },
-            //{ ExifTag.UniqueCameraModel, new ExifDefinition(ExifTag.UniqueCameraModel, ExifDataType.Ascii, false) },
-            //{ ExifTag.LocalizedCameraModel, new ExifDefinition(ExifTag.LocalizedCameraModel, ExifDataType.Byte, false) },
-            //{ ExifTag.CFAPlaneColor, new ExifDefinition(ExifTag.CFAPlaneColor, ExifDataType.Byte, false) },
-            //{ ExifTag.CFALayout, new ExifDefinition(ExifTag.CFALayout, ExifDataType.Short, false) },
-            //{ ExifTag.LinearizationTable, new ExifDefinition(ExifTag.LinearizationTable, ExifDataType.Short, false) },
-            //{ ExifTag.BlackLevelRepeatDim, new ExifDefinition(ExifTag.BlackLevelRepeatDim, ExifDataType.Short, false) },
-            //{ ExifTag.BlackLevel, new ExifDefinition(ExifTag.BlackLevel, ExifDataType.Rational, false) },
-            //{ ExifTag.BlackLevelDeltaH, new ExifDefinition(ExifTag.BlackLevelDeltaH, ExifDataType.SignedRational, false) },
-            //{ ExifTag.BlackLevelDeltaV, new ExifDefinition(ExifTag.BlackLevelDeltaV, ExifDataType.SignedRational, false) },
-            //{ ExifTag.WhiteLevel, new ExifDefinition(ExifTag.WhiteLevel, ExifDataType.Short, false) },
-            //{ ExifTag.DefaultScale, new ExifDefinition(ExifTag.DefaultScale, ExifDataType.Rational, false) },
-            //{ ExifTag.DefaultCropOrigin, new ExifDefinition(ExifTag.DefaultCropOrigin, ExifDataType.Short, false) },
-            //{ ExifTag.DefaultCropSize, new ExifDefinition(ExifTag.DefaultCropSize, ExifDataType.Short, false) },
-            //{ ExifTag.ColorMatrix1, new ExifDefinition(ExifTag.ColorMatrix1, ExifDataType.SignedRational, false) },
-            //{ ExifTag.ColorMatrix2, new ExifDefinition(ExifTag.ColorMatrix2, ExifDataType.SignedRational, false) },
-            //{ ExifTag.CameraCalibration1, new ExifDefinition(ExifTag.CameraCalibration1, ExifDataType.SignedRational, false) },
-            //{ ExifTag.CameraCalibration2, new ExifDefinition(ExifTag.CameraCalibration2, ExifDataType.SignedRational, false) },
-            //{ ExifTag.ReductionMatrix1, new ExifDefinition(ExifTag.ReductionMatrix1, ExifDataType.SignedRational, false) },
-            //{ ExifTag.ReductionMatrix2, new ExifDefinition(ExifTag.ReductionMatrix2, ExifDataType.SignedRational, false) },
-            //{ ExifTag.AnalogBalance, new ExifDefinition(ExifTag.AnalogBalance, ExifDataType.Rational, false) },
-            //{ ExifTag.AsShotNeutral, new ExifDefinition(ExifTag.AsShotNeutral, ExifDataType.Short, false) },
-            //{ ExifTag.AsShotWhiteXY, new ExifDefinition(ExifTag.AsShotWhiteXY, ExifDataType.Rational, false) },
-            //{ ExifTag.BaselineExposure, new ExifDefinition(ExifTag.BaselineExposure, ExifDataType.SignedRational, false) },
-            //{ ExifTag.BaselineNoise, new ExifDefinition(ExifTag.BaselineNoise, ExifDataType.Rational, false) },
-            //{ ExifTag.BaselineSharpness, new ExifDefinition(ExifTag.BaselineSharpness, ExifDataType.Rational, false) },
-            //{ ExifTag.BayerGreenSplit, new ExifDefinition(ExifTag.BayerGreenSplit, ExifDataType.Long, false) },
-            //{ ExifTag.LinearResponseLimit, new ExifDefinition(ExifTag.LinearResponseLimit, ExifDataType.Rational, false) },
-            //{ ExifTag.CameraSerialNumber, new ExifDefinition(ExifTag.CameraSerialNumber, ExifDataType.Ascii, false) },
             { ExifTag.LensInfo, new ExifDefinition(ExifTag.LensInfo, ExifDataType.Rational, false) },
-            //{ ExifTag.ChromaBlurRadius, new ExifDefinition(ExifTag.ChromaBlurRadius, ExifDataType.Rational, false) },
-            //{ ExifTag.AntiAliasStrength, new ExifDefinition(ExifTag.AntiAliasStrength, ExifDataType.Rational, false) },
-            //{ ExifTag.ShadowScale, new ExifDefinition(ExifTag.ShadowScale, ExifDataType.SignedRational, false) },
-            //{ ExifTag.DNGPrivateData, new ExifDefinition(ExifTag.DNGPrivateData, ExifDataType.Byte, false) },
-            //{ ExifTag.MakerNoteSafety, new ExifDefinition(ExifTag.MakerNoteSafety, ExifDataType.Short, false) },
-            //{ ExifTag.CalibrationIlluminant1, new ExifDefinition(ExifTag.CalibrationIlluminant1, ExifDataType.Short, false) },
-            //{ ExifTag.CalibrationIlluminant2, new ExifDefinition(ExifTag.CalibrationIlluminant2, ExifDataType.Short, false) },
-            //{ ExifTag.BestQualityScale, new ExifDefinition(ExifTag.BestQualityScale, ExifDataType.Rational, false) },
-            //{ ExifTag.RawDataUniqueID, new ExifDefinition(ExifTag.RawDataUniqueID, ExifDataType.Byte, false) },
-            //{ ExifTag.OriginalRawFileName, new ExifDefinition(ExifTag.OriginalRawFileName, ExifDataType.Byte, false) },
-            //{ ExifTag.OriginalRawFileData, new ExifDefinition(ExifTag.OriginalRawFileData, ExifDataType.Undefined, false) },
-            //{ ExifTag.ActiveArea, new ExifDefinition(ExifTag.ActiveArea, ExifDataType.Short, false) },
-            //{ ExifTag.MaskedAreas, new ExifDefinition(ExifTag.MaskedAreas, ExifDataType.Short, false) },
-            //{ ExifTag.AsShotICCProfile, new ExifDefinition(ExifTag.AsShotICCProfile, ExifDataType.Undefined, false) },
-            //{ ExifTag.AsShotPreProfileMatrix, new ExifDefinition(ExifTag.AsShotPreProfileMatrix, ExifDataType.SignedRational, false) },
-            //{ ExifTag.CurrentICCProfile, new ExifDefinition(ExifTag.CurrentICCProfile, ExifDataType.Undefined, false) },
-            //{ ExifTag.CurrentPreProfileMatrix, new ExifDefinition(ExifTag.CurrentPreProfileMatrix, ExifDataType.SignedRational, false) },
-            //{ ExifTag.ColorimetricReference, new ExifDefinition(ExifTag.ColorimetricReference, ExifDataType.Short, false) },
-            //{ ExifTag.CameraCalibrationSignature, new ExifDefinition(ExifTag.CameraCalibrationSignature, ExifDataType.Byte, false) },
-            //{ ExifTag.ProfileCalibrationSignature, new ExifDefinition(ExifTag.ProfileCalibrationSignature, ExifDataType.Byte, false) },
-            //{ ExifTag.AsShotProfileName, new ExifDefinition(ExifTag.AsShotProfileName, ExifDataType.Byte, false) },
-            //{ ExifTag.NoiseReductionApplied, new ExifDefinition(ExifTag.NoiseReductionApplied, ExifDataType.Rational, false) },
-            //{ ExifTag.ProfileName, new ExifDefinition(ExifTag.ProfileName, ExifDataType.Byte, false) },
-            //{ ExifTag.ProfileHueSatMapDims, new ExifDefinition(ExifTag.ProfileHueSatMapDims, ExifDataType.Long, false) },
-            //{ ExifTag.ProfileHueSatMapData1, new ExifDefinition(ExifTag.ProfileHueSatMapData1, ExifDataType.Float, false) },
-            //{ ExifTag.ProfileHueSatMapData2, new ExifDefinition(ExifTag.ProfileHueSatMapData2, ExifDataType.Float, false) },
-            //{ ExifTag.ProfileToneCurve, new ExifDefinition(ExifTag.ProfileToneCurve, ExifDataType.Float, false) },
-            //{ ExifTag.ProfileEmbedPolicy, new ExifDefinition(ExifTag.ProfileEmbedPolicy, ExifDataType.Long, false) },
-            //{ ExifTag.ProfileCopyright, new ExifDefinition(ExifTag.ProfileCopyright, ExifDataType.Byte, false) },
-            //{ ExifTag.ForwardMatrix1, new ExifDefinition(ExifTag.ForwardMatrix1, ExifDataType.SignedRational, false) },
-            //{ ExifTag.ForwardMatrix2, new ExifDefinition(ExifTag.ForwardMatrix2, ExifDataType.SignedRational, false) },
-            //{ ExifTag.PreviewApplicationName, new ExifDefinition(ExifTag.PreviewApplicationName, ExifDataType.Byte, false) },
-            //{ ExifTag.PreviewApplicationVersion, new ExifDefinition(ExifTag.PreviewApplicationVersion, ExifDataType.Byte, false) },
-            //{ ExifTag.PreviewSettingsName, new ExifDefinition(ExifTag.PreviewSettingsName, ExifDataType.Byte, false) },
-            //{ ExifTag.PreviewSettingsDigest, new ExifDefinition(ExifTag.PreviewSettingsDigest, ExifDataType.Byte, false) },
-            //{ ExifTag.PreviewColorSpace, new ExifDefinition(ExifTag.PreviewColorSpace, ExifDataType.Long, false) },
-            //{ ExifTag.PreviewDateTime, new ExifDefinition(ExifTag.PreviewDateTime, ExifDataType.Ascii, false) },
-            //{ ExifTag.RawImageDigest, new ExifDefinition(ExifTag.RawImageDigest, ExifDataType.Undefined, false) },
-            //{ ExifTag.OriginalRawFileDigest, new ExifDefinition(ExifTag.OriginalRawFileDigest, ExifDataType.Undefined, false) },
-            //{ ExifTag.SubTileBlockSize, new ExifDefinition(ExifTag.SubTileBlockSize, ExifDataType.Long, false) },
-            //{ ExifTag.RowInterleaveFactor, new ExifDefinition(ExifTag.RowInterleaveFactor, ExifDataType.Long, false) },
-            //{ ExifTag.ProfileLookTableDims, new ExifDefinition(ExifTag.ProfileLookTableDims, ExifDataType.Long, false) },
-            //{ ExifTag.ProfileLookTableData, new ExifDefinition(ExifTag.ProfileLookTableData, ExifDataType.Float, false) },
-            //{ ExifTag.OpcodeList1, new ExifDefinition(ExifTag.OpcodeList1, ExifDataType.Undefined, false) },
-            //{ ExifTag.OpcodeList2, new ExifDefinition(ExifTag.OpcodeList2, ExifDataType.Undefined, false) },
-            //{ ExifTag.OpcodeList3, new ExifDefinition(ExifTag.OpcodeList3, ExifDataType.Undefined, false) },
-            //{ ExifTag.NoiseProfile, new ExifDefinition(ExifTag.NoiseProfile, ExifDataType.Double, false) },
             { ExifTag.ExposureTime, new ExifDefinition(ExifTag.ExposureTime, ExifDataType.Rational, false) },
             { ExifTag.FNumber, new ExifDefinition(ExifTag.FNumber, ExifDataType.Rational, false) },
             { ExifTag.ExposureProgram, new ExifDefinition(ExifTag.ExposureProgram, ExifDataType.Short, false) },
@@ -291,7 +221,6 @@ namespace ImageMagick
             { ExifTag.PixelXDimension, new ExifDefinition(ExifTag.PixelXDimension, ExifDataType.Long, false) },
             { ExifTag.PixelYDimension, new ExifDefinition(ExifTag.PixelYDimension, ExifDataType.Long, false) },
             { ExifTag.RelatedSoundFile, new ExifDefinition(ExifTag.RelatedSoundFile, ExifDataType.Ascii, false) },
-            //{ ExifTag.InteroperabilityTag, new ExifDefinition(ExifTag.InteroperabilityTag, ExifDataType.Long, false) },
             { ExifTag.FlashEnergy, new ExifDefinition(ExifTag.FlashEnergy, ExifDataType.Rational, false) },
             { ExifTag.SpatialFrequencyResponse, new ExifDefinition(ExifTag.SpatialFrequencyResponse, ExifDataType.Undefined, false) },
             { ExifTag.FocalPlaneXResolution, new ExifDefinition(ExifTag.FocalPlaneXResolution, ExifDataType.Rational, false) },
@@ -316,17 +245,9 @@ namespace ImageMagick
             { ExifTag.DeviceSettingDescription, new ExifDefinition(ExifTag.DeviceSettingDescription, ExifDataType.Undefined, false) },
             { ExifTag.SubjectDistanceRange, new ExifDefinition(ExifTag.SubjectDistanceRange, ExifDataType.Short, false) },
             { ExifTag.ImageUniqueID, new ExifDefinition(ExifTag.ImageUniqueID, ExifDataType.Ascii, false) },
-            //{ ExifTag.CameraOwnerName, new ExifDefinition(ExifTag.CameraOwnerName, ExifDataType.Ascii, false) },
-            //{ ExifTag.BodySerialNumber, new ExifDefinition(ExifTag.BodySerialNumber, ExifDataType.Ascii, false) },
-            //{ ExifTag.LensSpecification, new ExifDefinition(ExifTag.LensSpecification, ExifDataType.Rational, false) },
             { ExifTag.LensMake, new ExifDefinition(ExifTag.LensMake, ExifDataType.Ascii, false) },
             { ExifTag.LensModel, new ExifDefinition(ExifTag.LensModel, ExifDataType.Ascii, false) },
             { ExifTag.LensSerialNumber, new ExifDefinition(ExifTag.LensSerialNumber, ExifDataType.Ascii, false) },
-            //{ ExifTag.InteroperabilityIndex, new ExifDefinition(ExifTag.InteroperabilityIndex, ExifDataType.Ascii, false) },
-            //{ ExifTag.InteroperabilityVersion, new ExifDefinition(ExifTag.InteroperabilityVersion, ExifDataType.Undefined, false) },
-            //{ ExifTag.RelatedImageFileFormat, new ExifDefinition(ExifTag.RelatedImageFileFormat, ExifDataType.Ascii, false) },
-            //{ ExifTag.RelatedImageWidth, new ExifDefinition(ExifTag.RelatedImageWidth, ExifDataType.Long, false) },
-            //{ ExifTag.RelatedImageLength, new ExifDefinition(ExifTag.RelatedImageLength, ExifDataType.Long, false) },
             { ExifTag.GPSVersionID, new ExifDefinition(ExifTag.GPSVersionID, ExifDataType.Byte, false) },
             { ExifTag.GPSLatitudeRef, new ExifDefinition(ExifTag.GPSLatitudeRef, ExifDataType.Ascii, false) },
             { ExifTag.GPSLatitude, new ExifDefinition(ExifTag.GPSLatitude, ExifDataType.Rational, false) },
@@ -334,7 +255,6 @@ namespace ImageMagick
             { ExifTag.GPSLongitude, new ExifDefinition(ExifTag.GPSLongitude, ExifDataType.Rational, false) },
             { ExifTag.GPSAltitudeRef, new ExifDefinition(ExifTag.GPSAltitudeRef, ExifDataType.Byte, false) },
             { ExifTag.GPSAltitude, new ExifDefinition(ExifTag.GPSAltitude, ExifDataType.Rational, false) },
-            //{ ExifTag.GPSTimeStamp, new ExifDefinition(ExifTag.GPSTimeStamp, ExifDataType.Rational, false) },
             { ExifTag.GPSTimestamp, new ExifDefinition(ExifTag.GPSTimestamp, ExifDataType.Rational, false) },
             { ExifTag.GPSSatellites, new ExifDefinition(ExifTag.GPSSatellites, ExifDataType.Ascii, false) },
             { ExifTag.GPSStatus, new ExifDefinition(ExifTag.GPSStatus, ExifDataType.Ascii, false) },
@@ -360,5 +280,104 @@ namespace ImageMagick
             { ExifTag.GPSDateStamp, new ExifDefinition(ExifTag.GPSDateStamp, ExifDataType.Ascii, false) },
             { ExifTag.GPSDifferential, new ExifDefinition(ExifTag.GPSDifferential, ExifDataType.Short, false) },
         };
+
+        /* The following ExifDefinitions link to ExifTag values which don't currently appear in the enum
+        { ExifTag.SubIFDs, new ExifDefinition(ExifTag.SubIFDs, ExifDataType.Long, false) },
+        { ExifTag.XMLPacket, new ExifDefinition(ExifTag.XMLPacket, ExifDataType.Byte, false) },
+        { ExifTag.IPTCNAA, new ExifDefinition(ExifTag.IPTCNAA, ExifDataType.Long, false) },
+        { ExifTag.ImageResources, new ExifDefinition(ExifTag.ImageResources, ExifDataType.Byte, false) },
+        { ExifTag.ExifTag, new ExifDefinition(ExifTag.ExifTag, ExifDataType.Long, false) },
+        { ExifTag.InterColorProfile, new ExifDefinition(ExifTag.InterColorProfile, ExifDataType.Undefined, false) },
+        { ExifTag.GPSTag, new ExifDefinition(ExifTag.GPSTag, ExifDataType.Long, false) },
+        { ExifTag.PrintImageMatching, new ExifDefinition(ExifTag.PrintImageMatching, ExifDataType.Undefined, false) },
+        { ExifTag.DNGVersion, new ExifDefinition(ExifTag.DNGVersion, ExifDataType.Byte, false) },
+        { ExifTag.DNGBackwardVersion, new ExifDefinition(ExifTag.DNGBackwardVersion, ExifDataType.Byte, false) },
+        { ExifTag.UniqueCameraModel, new ExifDefinition(ExifTag.UniqueCameraModel, ExifDataType.Ascii, false) },
+        { ExifTag.LocalizedCameraModel, new ExifDefinition(ExifTag.LocalizedCameraModel, ExifDataType.Byte, false) },
+        { ExifTag.CFAPlaneColor, new ExifDefinition(ExifTag.CFAPlaneColor, ExifDataType.Byte, false) },
+        { ExifTag.CFALayout, new ExifDefinition(ExifTag.CFALayout, ExifDataType.Short, false) },
+        { ExifTag.LinearizationTable, new ExifDefinition(ExifTag.LinearizationTable, ExifDataType.Short, false) },
+        { ExifTag.BlackLevelRepeatDim, new ExifDefinition(ExifTag.BlackLevelRepeatDim, ExifDataType.Short, false) },
+        { ExifTag.BlackLevel, new ExifDefinition(ExifTag.BlackLevel, ExifDataType.Rational, false) },
+        { ExifTag.BlackLevelDeltaH, new ExifDefinition(ExifTag.BlackLevelDeltaH, ExifDataType.SignedRational, false) },
+        { ExifTag.BlackLevelDeltaV, new ExifDefinition(ExifTag.BlackLevelDeltaV, ExifDataType.SignedRational, false) },
+        { ExifTag.WhiteLevel, new ExifDefinition(ExifTag.WhiteLevel, ExifDataType.Short, false) },
+        { ExifTag.DefaultScale, new ExifDefinition(ExifTag.DefaultScale, ExifDataType.Rational, false) },
+        { ExifTag.DefaultCropOrigin, new ExifDefinition(ExifTag.DefaultCropOrigin, ExifDataType.Short, false) },
+        { ExifTag.DefaultCropSize, new ExifDefinition(ExifTag.DefaultCropSize, ExifDataType.Short, false) },
+        { ExifTag.ColorMatrix1, new ExifDefinition(ExifTag.ColorMatrix1, ExifDataType.SignedRational, false) },
+        { ExifTag.ColorMatrix2, new ExifDefinition(ExifTag.ColorMatrix2, ExifDataType.SignedRational, false) },
+        { ExifTag.CameraCalibration1, new ExifDefinition(ExifTag.CameraCalibration1, ExifDataType.SignedRational, false) },
+        { ExifTag.CameraCalibration2, new ExifDefinition(ExifTag.CameraCalibration2, ExifDataType.SignedRational, false) },
+        { ExifTag.ReductionMatrix1, new ExifDefinition(ExifTag.ReductionMatrix1, ExifDataType.SignedRational, false) },
+        { ExifTag.ReductionMatrix2, new ExifDefinition(ExifTag.ReductionMatrix2, ExifDataType.SignedRational, false) },
+        { ExifTag.AnalogBalance, new ExifDefinition(ExifTag.AnalogBalance, ExifDataType.Rational, false) },
+        { ExifTag.AsShotNeutral, new ExifDefinition(ExifTag.AsShotNeutral, ExifDataType.Short, false) },
+        { ExifTag.AsShotWhiteXY, new ExifDefinition(ExifTag.AsShotWhiteXY, ExifDataType.Rational, false) },
+        { ExifTag.BaselineExposure, new ExifDefinition(ExifTag.BaselineExposure, ExifDataType.SignedRational, false) },
+        { ExifTag.BaselineNoise, new ExifDefinition(ExifTag.BaselineNoise, ExifDataType.Rational, false) },
+        { ExifTag.BaselineSharpness, new ExifDefinition(ExifTag.BaselineSharpness, ExifDataType.Rational, false) },
+        { ExifTag.BayerGreenSplit, new ExifDefinition(ExifTag.BayerGreenSplit, ExifDataType.Long, false) },
+        { ExifTag.LinearResponseLimit, new ExifDefinition(ExifTag.LinearResponseLimit, ExifDataType.Rational, false) },
+        { ExifTag.CameraSerialNumber, new ExifDefinition(ExifTag.CameraSerialNumber, ExifDataType.Ascii, false) },
+        { ExifTag.ChromaBlurRadius, new ExifDefinition(ExifTag.ChromaBlurRadius, ExifDataType.Rational, false) },
+        { ExifTag.AntiAliasStrength, new ExifDefinition(ExifTag.AntiAliasStrength, ExifDataType.Rational, false) },
+        { ExifTag.ShadowScale, new ExifDefinition(ExifTag.ShadowScale, ExifDataType.SignedRational, false) },
+        { ExifTag.DNGPrivateData, new ExifDefinition(ExifTag.DNGPrivateData, ExifDataType.Byte, false) },
+        { ExifTag.MakerNoteSafety, new ExifDefinition(ExifTag.MakerNoteSafety, ExifDataType.Short, false) },
+        { ExifTag.CalibrationIlluminant1, new ExifDefinition(ExifTag.CalibrationIlluminant1, ExifDataType.Short, false) },
+        { ExifTag.CalibrationIlluminant2, new ExifDefinition(ExifTag.CalibrationIlluminant2, ExifDataType.Short, false) },
+        { ExifTag.BestQualityScale, new ExifDefinition(ExifTag.BestQualityScale, ExifDataType.Rational, false) },
+        { ExifTag.RawDataUniqueID, new ExifDefinition(ExifTag.RawDataUniqueID, ExifDataType.Byte, false) },
+        { ExifTag.OriginalRawFileName, new ExifDefinition(ExifTag.OriginalRawFileName, ExifDataType.Byte, false) },
+        { ExifTag.OriginalRawFileData, new ExifDefinition(ExifTag.OriginalRawFileData, ExifDataType.Undefined, false) },
+        { ExifTag.ActiveArea, new ExifDefinition(ExifTag.ActiveArea, ExifDataType.Short, false) },
+        { ExifTag.MaskedAreas, new ExifDefinition(ExifTag.MaskedAreas, ExifDataType.Short, false) },
+        { ExifTag.AsShotICCProfile, new ExifDefinition(ExifTag.AsShotICCProfile, ExifDataType.Undefined, false) },
+        { ExifTag.AsShotPreProfileMatrix, new ExifDefinition(ExifTag.AsShotPreProfileMatrix, ExifDataType.SignedRational, false) },
+        { ExifTag.CurrentICCProfile, new ExifDefinition(ExifTag.CurrentICCProfile, ExifDataType.Undefined, false) },
+        { ExifTag.CurrentPreProfileMatrix, new ExifDefinition(ExifTag.CurrentPreProfileMatrix, ExifDataType.SignedRational, false) },
+        { ExifTag.ColorimetricReference, new ExifDefinition(ExifTag.ColorimetricReference, ExifDataType.Short, false) },
+        { ExifTag.CameraCalibrationSignature, new ExifDefinition(ExifTag.CameraCalibrationSignature, ExifDataType.Byte, false) },
+        { ExifTag.ProfileCalibrationSignature, new ExifDefinition(ExifTag.ProfileCalibrationSignature, ExifDataType.Byte, false) },
+        { ExifTag.AsShotProfileName, new ExifDefinition(ExifTag.AsShotProfileName, ExifDataType.Byte, false) },
+        { ExifTag.NoiseReductionApplied, new ExifDefinition(ExifTag.NoiseReductionApplied, ExifDataType.Rational, false) },
+        { ExifTag.ProfileName, new ExifDefinition(ExifTag.ProfileName, ExifDataType.Byte, false) },
+        { ExifTag.ProfileHueSatMapDims, new ExifDefinition(ExifTag.ProfileHueSatMapDims, ExifDataType.Long, false) },
+        { ExifTag.ProfileHueSatMapData1, new ExifDefinition(ExifTag.ProfileHueSatMapData1, ExifDataType.Float, false) },
+        { ExifTag.ProfileHueSatMapData2, new ExifDefinition(ExifTag.ProfileHueSatMapData2, ExifDataType.Float, false) },
+        { ExifTag.ProfileToneCurve, new ExifDefinition(ExifTag.ProfileToneCurve, ExifDataType.Float, false) },
+        { ExifTag.ProfileEmbedPolicy, new ExifDefinition(ExifTag.ProfileEmbedPolicy, ExifDataType.Long, false) },
+        { ExifTag.ProfileCopyright, new ExifDefinition(ExifTag.ProfileCopyright, ExifDataType.Byte, false) },
+        { ExifTag.ForwardMatrix1, new ExifDefinition(ExifTag.ForwardMatrix1, ExifDataType.SignedRational, false) },
+        { ExifTag.ForwardMatrix2, new ExifDefinition(ExifTag.ForwardMatrix2, ExifDataType.SignedRational, false) },
+        { ExifTag.PreviewApplicationName, new ExifDefinition(ExifTag.PreviewApplicationName, ExifDataType.Byte, false) },
+        { ExifTag.PreviewApplicationVersion, new ExifDefinition(ExifTag.PreviewApplicationVersion, ExifDataType.Byte, false) },
+        { ExifTag.PreviewSettingsName, new ExifDefinition(ExifTag.PreviewSettingsName, ExifDataType.Byte, false) },
+        { ExifTag.PreviewSettingsDigest, new ExifDefinition(ExifTag.PreviewSettingsDigest, ExifDataType.Byte, false) },
+        { ExifTag.PreviewColorSpace, new ExifDefinition(ExifTag.PreviewColorSpace, ExifDataType.Long, false) },
+        { ExifTag.PreviewDateTime, new ExifDefinition(ExifTag.PreviewDateTime, ExifDataType.Ascii, false) },
+        { ExifTag.RawImageDigest, new ExifDefinition(ExifTag.RawImageDigest, ExifDataType.Undefined, false) },
+        { ExifTag.OriginalRawFileDigest, new ExifDefinition(ExifTag.OriginalRawFileDigest, ExifDataType.Undefined, false) },
+        { ExifTag.SubTileBlockSize, new ExifDefinition(ExifTag.SubTileBlockSize, ExifDataType.Long, false) },
+        { ExifTag.RowInterleaveFactor, new ExifDefinition(ExifTag.RowInterleaveFactor, ExifDataType.Long, false) },
+        { ExifTag.ProfileLookTableDims, new ExifDefinition(ExifTag.ProfileLookTableDims, ExifDataType.Long, false) },
+        { ExifTag.ProfileLookTableData, new ExifDefinition(ExifTag.ProfileLookTableData, ExifDataType.Float, false) },
+        { ExifTag.OpcodeList1, new ExifDefinition(ExifTag.OpcodeList1, ExifDataType.Undefined, false) },
+        { ExifTag.OpcodeList2, new ExifDefinition(ExifTag.OpcodeList2, ExifDataType.Undefined, false) },
+        { ExifTag.OpcodeList3, new ExifDefinition(ExifTag.OpcodeList3, ExifDataType.Undefined, false) },
+        { ExifTag.NoiseProfile, new ExifDefinition(ExifTag.NoiseProfile, ExifDataType.Double, false) },
+        { ExifTag.InteroperabilityTag, new ExifDefinition(ExifTag.InteroperabilityTag, ExifDataType.Long, false) },
+        { ExifTag.CameraOwnerName, new ExifDefinition(ExifTag.CameraOwnerName, ExifDataType.Ascii, false) },
+        { ExifTag.BodySerialNumber, new ExifDefinition(ExifTag.BodySerialNumber, ExifDataType.Ascii, false) },
+        { ExifTag.LensSpecification, new ExifDefinition(ExifTag.LensSpecification, ExifDataType.Rational, false) },
+        { ExifTag.InteroperabilityIndex, new ExifDefinition(ExifTag.InteroperabilityIndex, ExifDataType.Ascii, false) },
+        { ExifTag.InteroperabilityVersion, new ExifDefinition(ExifTag.InteroperabilityVersion, ExifDataType.Undefined, false) },
+        { ExifTag.RelatedImageFileFormat, new ExifDefinition(ExifTag.RelatedImageFileFormat, ExifDataType.Ascii, false) },
+        { ExifTag.RelatedImageWidth, new ExifDefinition(ExifTag.RelatedImageWidth, ExifDataType.Long, false) },
+        { ExifTag.RelatedImageLength, new ExifDefinition(ExifTag.RelatedImageLength, ExifDataType.Long, false) },
+        { ExifTag.GPSTimeStamp, new ExifDefinition(ExifTag.GPSTimeStamp, ExifDataType.Rational, false) },
+
+        */
     }
 }

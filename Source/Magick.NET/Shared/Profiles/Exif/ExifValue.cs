@@ -23,7 +23,7 @@ namespace ImageMagick
     public sealed class ExifValue : IEquatable<ExifValue>
     {
         private object _value;
-        
+
         internal ExifValue(ExifTag tag, ExifDataType dataType, bool isArray)
         {
             Tag = tag;
