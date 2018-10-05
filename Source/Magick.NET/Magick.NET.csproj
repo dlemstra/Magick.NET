@@ -131,9 +131,6 @@
     <EmbeddedResource Include="Resources\Release$(QuantumType)\MagickScript.xsd">
       <LogicalName>ImageMagick.Resources.MagickScript.xsd</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\coder.xml">
-      <LogicalName>ImageMagick.Resources.Xml.coder.xml</LogicalName>
-    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\colors.xml">
       <LogicalName>ImageMagick.Resources.Xml.colors.xml</LogicalName>
     </EmbeddedResource>
@@ -151,9 +148,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\log.xml">
       <LogicalName>ImageMagick.Resources.Xml.log.xml</LogicalName>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\magic.xml">
-      <LogicalName>ImageMagick.Resources.Xml.magic.xml</LogicalName>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\policy.xml">
       <LogicalName>ImageMagick.Resources.Xml.policy.xml</LogicalName>

@@ -280,14 +280,12 @@ namespace Magick.NET.Tests
 
         private static void AssertFiles(string path)
         {
-            Assert.IsTrue(File.Exists(Path.Combine(path, "coder.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(path, "colors.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(path, "configure.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(path, "delegates.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(path, "english.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(path, "locale.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(path, "log.xml")));
-            Assert.IsTrue(File.Exists(Path.Combine(path, "magic.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(path, "policy.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(path, "thresholds.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(path, "type.xml")));

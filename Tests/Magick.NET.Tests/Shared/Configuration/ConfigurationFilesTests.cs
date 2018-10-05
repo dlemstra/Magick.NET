@@ -21,15 +21,6 @@ namespace Magick.NET.Tests
         private ConfigurationFiles _default = ConfigurationFiles.Default;
 
         [TestMethod]
-        public void Default_Coder_IsInitialized()
-        {
-            Assert.IsNotNull(_default.Coder);
-            Assert.AreEqual("coder.xml", _default.Coder.FileName);
-            Assert.IsNotNull(_default.Coder.Data);
-            Assert.IsTrue(_default.Coder.Data.Contains("<codermap>"));
-        }
-
-        [TestMethod]
         public void Default_Colors_IsInitialized()
         {
             Assert.IsNotNull(_default.Colors);
@@ -81,15 +72,6 @@ namespace Magick.NET.Tests
             Assert.AreEqual("log.xml", _default.Log.FileName);
             Assert.IsNotNull(_default.Log.Data);
             Assert.IsTrue(_default.Log.Data.Contains(@"<logmap>"));
-        }
-
-        [TestMethod]
-        public void Default_Magic_IsInitialized()
-        {
-            Assert.IsNotNull(_default.Magic);
-            Assert.AreEqual("magic.xml", _default.Magic.FileName);
-            Assert.IsNotNull(_default.Magic.Data);
-            Assert.IsTrue(_default.Magic.Data.Contains(@"<magicmap>"));
         }
 
         [TestMethod]

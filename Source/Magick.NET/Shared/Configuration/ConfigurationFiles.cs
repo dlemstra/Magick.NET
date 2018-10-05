@@ -24,14 +24,12 @@ namespace ImageMagick.Configuration
     {
         private ConfigurationFiles()
         {
-            Coder = new ConfigurationFile("coder.xml");
             Colors = new ConfigurationFile("colors.xml");
             Configure = new ConfigurationFile("configure.xml");
             Delegates = new ConfigurationFile("delegates.xml");
             English = new ConfigurationFile("english.xml");
             Locale = new ConfigurationFile("locale.xml");
             Log = new ConfigurationFile("log.xml");
-            Magic = new ConfigurationFile("magic.xml");
             Policy = new ConfigurationFile("policy.xml");
             Thresholds = new ConfigurationFile("thresholds.xml");
             Type = new ConfigurationFile("type.xml");
@@ -42,11 +40,6 @@ namespace ImageMagick.Configuration
         /// Gets the default configuration.
         /// </summary>
         public static ConfigurationFiles Default => new ConfigurationFiles();
-
-        /// <summary>
-        /// Gets the coder configuration.
-        /// </summary>
-        public IConfigurationFile Coder { get; }
 
         /// <summary>
         /// Gets the colors configuration.
@@ -79,11 +72,6 @@ namespace ImageMagick.Configuration
         public IConfigurationFile Log { get; }
 
         /// <summary>
-        /// Gets the magic configuration.
-        /// </summary>
-        public IConfigurationFile Magic { get; }
-
-        /// <summary>
         /// Gets the policy configuration.
         /// </summary>
         public IConfigurationFile Policy { get; }
@@ -108,14 +96,12 @@ namespace ImageMagick.Configuration
         {
             get
             {
-                yield return Coder;
                 yield return Colors;
                 yield return Configure;
                 yield return Delegates;
                 yield return English;
                 yield return Locale;
                 yield return Log;
-                yield return Magic;
                 yield return Policy;
                 yield return Thresholds;
                 yield return Type;
