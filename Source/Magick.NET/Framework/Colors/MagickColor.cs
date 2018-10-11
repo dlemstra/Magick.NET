@@ -36,7 +36,7 @@ namespace ImageMagick
         /// <param name="color">The <see cref="MagickColor"/> to convert.</param>
         public static implicit operator Color(MagickColor color)
         {
-            if (ReferenceEquals(color, null))
+            if (color is null)
                 return Color.Empty;
 
             return color.ToColor();

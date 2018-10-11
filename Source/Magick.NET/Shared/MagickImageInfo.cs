@@ -179,8 +179,8 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="MagickImageInfo"/> to compare.</param>
         public static bool operator >(MagickImageInfo left, MagickImageInfo right)
         {
-            if (ReferenceEquals(left, null))
-                return ReferenceEquals(right, null);
+            if (left is null)
+                return right is null;
 
             return left.CompareTo(right) == 1;
         }
@@ -192,8 +192,8 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="MagickImageInfo"/> to compare.</param>
         public static bool operator <(MagickImageInfo left, MagickImageInfo right)
         {
-            if (ReferenceEquals(left, null))
-                return !ReferenceEquals(right, null);
+            if (left is null)
+                return !(right is null);
 
             return left.CompareTo(right) == -1;
         }
@@ -205,8 +205,8 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="MagickImageInfo"/> to compare.</param>
         public static bool operator >=(MagickImageInfo left, MagickImageInfo right)
         {
-            if (ReferenceEquals(left, null))
-                return ReferenceEquals(right, null);
+            if (left is null)
+                return right is null;
 
             return left.CompareTo(right) >= 0;
         }
@@ -218,8 +218,8 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="MagickImageInfo"/> to compare.</param>
         public static bool operator <=(MagickImageInfo left, MagickImageInfo right)
         {
-            if (ReferenceEquals(left, null))
-                return !ReferenceEquals(right, null);
+            if (left is null)
+                return !(right is null);
 
             return left.CompareTo(right) <= 0;
         }
@@ -304,7 +304,7 @@ namespace ImageMagick
         /// <returns>A signed number indicating the relative values of this instance and value.</returns>
         public int CompareTo(IMagickImageInfo other)
         {
-            if (ReferenceEquals(other, null))
+            if (other is null)
                 return 1;
 
             int left = Width * Height;
