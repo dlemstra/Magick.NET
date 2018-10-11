@@ -34,7 +34,7 @@ namespace ImageMagick
         [Conditional("DEBUG")]
         public static void IfNull(string paramName, object value)
         {
-            if (ReferenceEquals(value, null))
+            if (value is null)
                 throw new ArgumentNullException(paramName);
         }
     }

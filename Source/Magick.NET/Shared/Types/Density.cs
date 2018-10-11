@@ -141,7 +141,7 @@ namespace ImageMagick
         /// <returns>True when the specified <see cref="Density"/> is equal to the current <see cref="Density"/>.</returns>
         public bool Equals(Density other)
         {
-            if (ReferenceEquals(other, null))
+            if (other is null)
                 return false;
 
             if (ReferenceEquals(this, other))

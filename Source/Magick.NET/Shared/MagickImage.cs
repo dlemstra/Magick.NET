@@ -876,8 +876,8 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
         public static bool operator <(MagickImage left, MagickImage right)
         {
-            if (ReferenceEquals(left, null))
-                return !ReferenceEquals(right, null);
+            if (left is null)
+                return !(right is null);
 
             return left.CompareTo(right) == -1;
         }
@@ -889,8 +889,8 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
         public static bool operator >=(MagickImage left, MagickImage right)
         {
-            if (ReferenceEquals(left, null))
-                return ReferenceEquals(right, null);
+            if (left is null)
+                return right is null;
 
             return left.CompareTo(right) >= 0;
         }
@@ -902,8 +902,8 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
         public static bool operator <=(MagickImage left, MagickImage right)
         {
-            if (ReferenceEquals(left, null))
-                return !ReferenceEquals(right, null);
+            if (left is null)
+                return !(right is null);
 
             return left.CompareTo(right) <= 0;
         }
@@ -1880,7 +1880,7 @@ namespace ImageMagick
         /// <returns>A signed number indicating the relative values of this instance and value.</returns>
         public int CompareTo(IMagickImage other)
         {
-            if (ReferenceEquals(other, null))
+            if (other is null)
                 return 1;
 
             int left = Width * Height;
@@ -2581,7 +2581,7 @@ namespace ImageMagick
         /// <returns>True when the specified <see cref="IMagickImage"/> is equal to the current <see cref="MagickImage"/>.</returns>
         public bool Equals(IMagickImage other)
         {
-            if (ReferenceEquals(other, null))
+            if (other is null)
                 return false;
 
             if (Width != other.Width || Height != other.Height)
