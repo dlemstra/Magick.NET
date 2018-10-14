@@ -35,6 +35,15 @@ namespace ImageMagick
             set;
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether to skip unsupported files instead of throwing an exception.
+        /// </summary>
+        public bool IgnoreUnsupportedFormats
+        {
+            get;
+            set;
+        }
+
         private string SupportedFormats
         {
             get
@@ -252,7 +261,10 @@ namespace ImageMagick
                     return optimizer;
             }
 
-            throw new MagickCorruptImageErrorException("Invalid format, supported formats are: " + SupportedFormats);
+            if (IgnoreUnsupportedFormats)
+                return null;
+            else
+                throw new MagickCorruptImageErrorException("Invalid format, supported formats are: " + SupportedFormats);
         }
 
         private IImageOptimizer GetOptimizer(Stream stream)
@@ -269,7 +281,10 @@ namespace ImageMagick
                     return optimizer;
             }
 
-            throw new MagickCorruptImageErrorException("Invalid format, supported formats are: " + SupportedFormats);
+            if (IgnoreUnsupportedFormats)
+                return null;
+            else
+                throw new MagickCorruptImageErrorException("Invalid format, supported formats are: " + SupportedFormats);
         }
     }
 }

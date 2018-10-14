@@ -449,6 +449,23 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
+        public void Compress_IgnoreUnsupportedFile_DoesNotThrowException()
+        {
+            var optimizer = new ImageOptimizer { IgnoreUnsupportedFormats = true };
+            Assert.IsFalse(optimizer.Compress(Files.InvitationTif));
+        }
+
+        [TestMethod]
+        public void Compress_IgnoreUnsupportedStream_DoesNotThrowException()
+        {
+            var optimizer = new ImageOptimizer { IgnoreUnsupportedFormats = true };
+            using (FileStream fileStream = OpenFile(Files.InvitationTif))
+            {
+                Assert.IsFalse(optimizer.Compress(fileStream));
+            }
+        }
+
+        [TestMethod]
         public void LosslessCompress_CanCompressGifFile_FileIsSmaller()
         {
             AssertCompress(Files.FujiFilmFinePixS1ProGIF, true, (FileInfo file) =>
@@ -500,6 +517,23 @@ namespace Magick.NET.Tests
             {
                 return Optimizer.LosslessCompress(file);
             });
+        }
+
+        [TestMethod]
+        public void LosslessCompress_IgnoreUnsupportedFile_DoesNotThrowException()
+        {
+            var optimizer = new ImageOptimizer { IgnoreUnsupportedFormats = true };
+            Assert.IsFalse(optimizer.LosslessCompress(Files.InvitationTif));
+        }
+
+        [TestMethod]
+        public void LosslessCompress_IgnoreUnsupportedStream_DoesNotThrowException()
+        {
+            var optimizer = new ImageOptimizer { IgnoreUnsupportedFormats = true };
+            using (FileStream fileStream = OpenFile(Files.InvitationTif))
+            {
+                Assert.IsFalse(optimizer.LosslessCompress(fileStream));
+            }
         }
 
         private static FileStream OpenFile(string path)
