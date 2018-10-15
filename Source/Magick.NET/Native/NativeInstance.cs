@@ -55,8 +55,11 @@ namespace ImageMagick
 
         protected void CheckException(IntPtr exception, IntPtr result)
         {
-            MagickException magickException = MagickExceptionHelper.Create(exception);
-            if (MagickExceptionHelper.IsError(magickException))
+            var magickException = MagickExceptionHelper.Create(exception);
+            if (magickException == null)
+                return;
+
+            if (magickException is MagickErrorException)
             {
                 if (result != IntPtr.Zero)
                     Dispose(result);

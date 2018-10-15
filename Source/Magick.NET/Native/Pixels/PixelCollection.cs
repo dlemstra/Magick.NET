@@ -177,8 +177,10 @@ namespace ImageMagick
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     result = NativeMethods.X86.PixelCollection_ToByteArray(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
                     #endif
-                    MagickException magickException = MagickExceptionHelper.Create(exception);
-                    if (MagickExceptionHelper.IsError(magickException))
+                    var magickException = MagickExceptionHelper.Create(exception);
+                    if (magickException == null)
+                        return result;
+                    if (magickException is MagickErrorException)
                     {
                         if (result != IntPtr.Zero)
                             MagickMemory.Relinquish(result);
@@ -206,8 +208,10 @@ namespace ImageMagick
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     result = NativeMethods.X86.PixelCollection_ToShortArray(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
                     #endif
-                    MagickException magickException = MagickExceptionHelper.Create(exception);
-                    if (MagickExceptionHelper.IsError(magickException))
+                    var magickException = MagickExceptionHelper.Create(exception);
+                    if (magickException == null)
+                        return result;
+                    if (magickException is MagickErrorException)
                     {
                         if (result != IntPtr.Zero)
                             MagickMemory.Relinquish(result);

@@ -167,8 +167,10 @@ namespace ImageMagick
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickImageCollection_Append(image.GetInstance(), stack, out exception);
                 #endif
-                MagickException magickException = MagickExceptionHelper.Create(exception);
-                if (MagickExceptionHelper.IsError(magickException))
+                var magickException = MagickExceptionHelper.Create(exception);
+                if (magickException == null)
+                    return result;
+                if (magickException is MagickErrorException)
                 {
                     if (result != IntPtr.Zero)
                         Dispose(result);
@@ -193,8 +195,10 @@ namespace ImageMagick
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickImageCollection_Coalesce(image.GetInstance(), out exception);
                 #endif
-                MagickException magickException = MagickExceptionHelper.Create(exception);
-                if (MagickExceptionHelper.IsError(magickException))
+                var magickException = MagickExceptionHelper.Create(exception);
+                if (magickException == null)
+                    return result;
+                if (magickException is MagickErrorException)
                 {
                     if (result != IntPtr.Zero)
                         Dispose(result);
@@ -219,8 +223,10 @@ namespace ImageMagick
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickImageCollection_Combine(image.GetInstance(), (UIntPtr)colorSpace, out exception);
                 #endif
-                MagickException magickException = MagickExceptionHelper.Create(exception);
-                if (MagickExceptionHelper.IsError(magickException))
+                var magickException = MagickExceptionHelper.Create(exception);
+                if (magickException == null)
+                    return result;
+                if (magickException is MagickErrorException)
                 {
                     if (result != IntPtr.Zero)
                         Dispose(result);
@@ -245,8 +251,10 @@ namespace ImageMagick
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickImageCollection_Deconstruct(image.GetInstance(), out exception);
                 #endif
-                MagickException magickException = MagickExceptionHelper.Create(exception);
-                if (MagickExceptionHelper.IsError(magickException))
+                var magickException = MagickExceptionHelper.Create(exception);
+                if (magickException == null)
+                    return result;
+                if (magickException is MagickErrorException)
                 {
                     if (result != IntPtr.Zero)
                         Dispose(result);
@@ -286,8 +294,10 @@ namespace ImageMagick
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickImageCollection_Evaluate(image.GetInstance(), (UIntPtr)evaluateOperator, out exception);
                 #endif
-                MagickException magickException = MagickExceptionHelper.Create(exception);
-                if (MagickExceptionHelper.IsError(magickException))
+                var magickException = MagickExceptionHelper.Create(exception);
+                if (magickException == null)
+                    return result;
+                if (magickException is MagickErrorException)
                 {
                     if (result != IntPtr.Zero)
                         Dispose(result);
@@ -312,8 +322,10 @@ namespace ImageMagick
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickImageCollection_Flatten(image.GetInstance(), out exception);
                 #endif
-                MagickException magickException = MagickExceptionHelper.Create(exception);
-                if (MagickExceptionHelper.IsError(magickException))
+                var magickException = MagickExceptionHelper.Create(exception);
+                if (magickException == null)
+                    return result;
+                if (magickException is MagickErrorException)
                 {
                     if (result != IntPtr.Zero)
                         Dispose(result);
@@ -358,8 +370,10 @@ namespace ImageMagick
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickImageCollection_Merge(image.GetInstance(), (UIntPtr)method, out exception);
                 #endif
-                MagickException magickException = MagickExceptionHelper.Create(exception);
-                if (MagickExceptionHelper.IsError(magickException))
+                var magickException = MagickExceptionHelper.Create(exception);
+                if (magickException == null)
+                    return result;
+                if (magickException is MagickErrorException)
                 {
                     if (result != IntPtr.Zero)
                         Dispose(result);
@@ -386,8 +400,10 @@ namespace ImageMagick
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     result = NativeMethods.X86.MagickImageCollection_Montage(image.GetInstance(), settingsNative.Instance, out exception);
                     #endif
-                    MagickException magickException = MagickExceptionHelper.Create(exception);
-                    if (MagickExceptionHelper.IsError(magickException))
+                    var magickException = MagickExceptionHelper.Create(exception);
+                    if (magickException == null)
+                        return result;
+                    if (magickException is MagickErrorException)
                     {
                         if (result != IntPtr.Zero)
                             Dispose(result);
@@ -413,8 +429,10 @@ namespace ImageMagick
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickImageCollection_Morph(image.GetInstance(), (UIntPtr)frames, out exception);
                 #endif
-                MagickException magickException = MagickExceptionHelper.Create(exception);
-                if (MagickExceptionHelper.IsError(magickException))
+                var magickException = MagickExceptionHelper.Create(exception);
+                if (magickException == null)
+                    return result;
+                if (magickException is MagickErrorException)
                 {
                     if (result != IntPtr.Zero)
                         Dispose(result);
@@ -439,8 +457,10 @@ namespace ImageMagick
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickImageCollection_Optimize(image.GetInstance(), out exception);
                 #endif
-                MagickException magickException = MagickExceptionHelper.Create(exception);
-                if (MagickExceptionHelper.IsError(magickException))
+                var magickException = MagickExceptionHelper.Create(exception);
+                if (magickException == null)
+                    return result;
+                if (magickException is MagickErrorException)
                 {
                     if (result != IntPtr.Zero)
                         Dispose(result);
@@ -465,8 +485,10 @@ namespace ImageMagick
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickImageCollection_OptimizePlus(image.GetInstance(), out exception);
                 #endif
-                MagickException magickException = MagickExceptionHelper.Create(exception);
-                if (MagickExceptionHelper.IsError(magickException))
+                var magickException = MagickExceptionHelper.Create(exception);
+                if (magickException == null)
+                    return result;
+                if (magickException is MagickErrorException)
                 {
                     if (result != IntPtr.Zero)
                         Dispose(result);
@@ -508,8 +530,10 @@ namespace ImageMagick
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickImageCollection_Polynomial(image.GetInstance(), terms, (UIntPtr)length, out exception);
                 #endif
-                MagickException magickException = MagickExceptionHelper.Create(exception);
-                if (MagickExceptionHelper.IsError(magickException))
+                var magickException = MagickExceptionHelper.Create(exception);
+                if (magickException == null)
+                    return result;
+                if (magickException is MagickErrorException)
                 {
                     if (result != IntPtr.Zero)
                         Dispose(result);
@@ -556,8 +580,10 @@ namespace ImageMagick
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     result = NativeMethods.X86.MagickImageCollection_ReadBlob(settingsNative.Instance, data, (UIntPtr)length, out exception);
                     #endif
-                    MagickException magickException = MagickExceptionHelper.Create(exception);
-                    if (MagickExceptionHelper.IsError(magickException))
+                    var magickException = MagickExceptionHelper.Create(exception);
+                    if (magickException == null)
+                        return result;
+                    if (magickException is MagickErrorException)
                     {
                         if (result != IntPtr.Zero)
                             Dispose(result);
@@ -585,8 +611,10 @@ namespace ImageMagick
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     result = NativeMethods.X86.MagickImageCollection_ReadFile(settingsNative.Instance, out exception);
                     #endif
-                    MagickException magickException = MagickExceptionHelper.Create(exception);
-                    if (MagickExceptionHelper.IsError(magickException))
+                    var magickException = MagickExceptionHelper.Create(exception);
+                    if (magickException == null)
+                        return result;
+                    if (magickException is MagickErrorException)
                     {
                         if (result != IntPtr.Zero)
                             Dispose(result);
@@ -614,8 +642,10 @@ namespace ImageMagick
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     result = NativeMethods.X86.MagickImageCollection_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
                     #endif
-                    MagickException magickException = MagickExceptionHelper.Create(exception);
-                    if (MagickExceptionHelper.IsError(magickException))
+                    var magickException = MagickExceptionHelper.Create(exception);
+                    if (magickException == null)
+                        return result;
+                    if (magickException is MagickErrorException)
                     {
                         if (result != IntPtr.Zero)
                             Dispose(result);
@@ -641,8 +671,10 @@ namespace ImageMagick
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickImageCollection_Smush(image.GetInstance(), (IntPtr)offset, stack, out exception);
                 #endif
-                MagickException magickException = MagickExceptionHelper.Create(exception);
-                if (MagickExceptionHelper.IsError(magickException))
+                var magickException = MagickExceptionHelper.Create(exception);
+                if (magickException == null)
+                    return result;
+                if (magickException is MagickErrorException)
                 {
                     if (result != IntPtr.Zero)
                         Dispose(result);
@@ -689,8 +721,10 @@ namespace ImageMagick
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     result = NativeMethods.X86.MagickImageCollection_WriteStream(image.GetInstance(), settingsNative.Instance, writer, seeker, teller, reader, out exception);
                     #endif
-                    MagickException magickException = MagickExceptionHelper.Create(exception);
-                    if (MagickExceptionHelper.IsError(magickException))
+                    var magickException = MagickExceptionHelper.Create(exception);
+                    if (magickException == null)
+                        return result;
+                    if (magickException is MagickErrorException)
                     {
                         if (result != IntPtr.Zero)
                             Dispose(result);

@@ -11,8 +11,8 @@
 // and limitations under the License.
 
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FileGenerator.Native
 {
@@ -66,11 +66,11 @@ namespace FileGenerator.Native
 
         private void WriteCleanup(string cleanupString)
         {
-            WriteLine("MagickException magickException = MagickExceptionHelper.Create(exception);");
-            WriteLine("if (MagickExceptionHelper.IsError(magickException))");
+            WriteLine("var magickException = MagickExceptionHelper.Create(exception);");
+            WriteIf("magickException == null", "return result;");
+            WriteLine("if (magickException is MagickErrorException)");
             WriteStartColon();
-            if (!string.IsNullOrEmpty(cleanupString))
-                WriteIf("result != IntPtr.Zero", cleanupString);
+            WriteIf("result != IntPtr.Zero", cleanupString);
             WriteLine("throw magickException;");
             WriteEndColon();
             if (!Class.IsStatic)
