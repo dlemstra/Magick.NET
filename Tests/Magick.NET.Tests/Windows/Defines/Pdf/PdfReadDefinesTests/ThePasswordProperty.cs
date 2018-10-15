@@ -12,6 +12,7 @@
 
 #if WINDOWS_BUILD
 
+using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -58,7 +59,13 @@ namespace Magick.NET.Tests
                     }
                     catch (MagickDelegateErrorException exception)
                     {
-                        StringAssert.Contains(exception.Message, "This file requires a password for access.");
+                        var message = exception.Message;
+
+                        var relatedException = exception.RelatedExceptions.FirstOrDefault();
+                        if (relatedException != null)
+                            message += relatedException.Message;
+
+                        StringAssert.Contains(message, "This file requires a password for access.");
                         return;
                     }
 
