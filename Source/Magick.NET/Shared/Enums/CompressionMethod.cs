@@ -126,5 +126,15 @@ namespace ImageMagick
         /// ZipS
         /// </summary>
         ZipS,
+
+        /// <summary>
+        /// Zstd
+        /// </summary>
+        Zstd,
+
+        /// <summary>
+        /// WebP
+        /// </summary>
+        WebP,
     }
 }
