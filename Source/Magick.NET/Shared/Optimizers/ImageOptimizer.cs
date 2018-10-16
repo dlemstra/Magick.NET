@@ -25,6 +25,15 @@ namespace ImageMagick
         private readonly Collection<IImageOptimizer> _optimizers = CreateImageOptimizers();
 
         /// <summary>
+        /// Gets or sets a value indicating whether to skip unsupported files instead of throwing an exception.
+        /// </summary>
+        public bool IgnoreUnsupportedFormats
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether various compression types will be used to find
         /// the smallest file. This process will take extra time because the file has to be written
         /// multiple times.
@@ -252,6 +261,9 @@ namespace ImageMagick
                     return optimizer;
             }
 
+            if (IgnoreUnsupportedFormats)
+                return null;
+
             throw new MagickCorruptImageErrorException("Invalid format, supported formats are: " + SupportedFormats);
         }
 
@@ -268,6 +280,9 @@ namespace ImageMagick
                 if (optimizer.Format.Module == info.Module)
                     return optimizer;
             }
+
+            if (IgnoreUnsupportedFormats)
+                return null;
 
             throw new MagickCorruptImageErrorException("Invalid format, supported formats are: " + SupportedFormats);
         }
