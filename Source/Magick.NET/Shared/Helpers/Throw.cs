@@ -46,7 +46,7 @@ namespace ImageMagick
                     throw new ArgumentException("Value cannot be empty.", paramName);
 
                 if (value.Position == value.Length)
-                    throw new ArgumentException("Stream position is at the end of the stream. Make sure to reset stream position to 0.", paramName);
+                    throw new ArgumentException("Stream position is at the end of the stream. Make sure to reset the stream position to 0.", paramName);
             }
         }
 
