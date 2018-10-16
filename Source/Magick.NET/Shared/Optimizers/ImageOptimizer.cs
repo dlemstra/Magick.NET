@@ -25,20 +25,20 @@ namespace ImageMagick
         private readonly Collection<IImageOptimizer> _optimizers = CreateImageOptimizers();
 
         /// <summary>
-        /// Gets or sets a value indicating whether various compression types will be used to find
-        /// the smallest file. This process will take extra time because the file has to be written
-        /// multiple times.
+        /// Gets or sets a value indicating whether to skip unsupported files instead of throwing an exception.
         /// </summary>
-        public bool OptimalCompression
+        public bool IgnoreUnsupportedFormats
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to skip unsupported files instead of throwing an exception.
+        /// Gets or sets a value indicating whether various compression types will be used to find
+        /// the smallest file. This process will take extra time because the file has to be written
+        /// multiple times.
         /// </summary>
-        public bool IgnoreUnsupportedFormats
+        public bool OptimalCompression
         {
             get;
             set;
@@ -263,8 +263,8 @@ namespace ImageMagick
 
             if (IgnoreUnsupportedFormats)
                 return null;
-            else
-                throw new MagickCorruptImageErrorException("Invalid format, supported formats are: " + SupportedFormats);
+
+            throw new MagickCorruptImageErrorException("Invalid format, supported formats are: " + SupportedFormats);
         }
 
         private IImageOptimizer GetOptimizer(Stream stream)
@@ -283,8 +283,8 @@ namespace ImageMagick
 
             if (IgnoreUnsupportedFormats)
                 return null;
-            else
-                throw new MagickCorruptImageErrorException("Invalid format, supported formats are: " + SupportedFormats);
+
+            throw new MagickCorruptImageErrorException("Invalid format, supported formats are: " + SupportedFormats);
         }
     }
 }
