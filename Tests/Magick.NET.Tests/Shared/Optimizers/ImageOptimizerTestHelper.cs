@@ -16,9 +16,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public abstract class ImageOptimizerTestHelper
+    public static class ImageOptimizerTestHelper
     {
-        protected long AssertCompress(string fileName, bool resultIsSmaller, Func<FileInfo, bool> action)
+        public static long AssertCompress(string fileName, bool resultIsSmaller, Func<FileInfo, bool> action)
         {
             using (TemporaryFile tempFile = new TemporaryFile(fileName))
             {
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
             }
         }
 
-        protected long AssertCompress(string fileName, bool resultIsSmaller, Func<string, bool> action)
+        public static long AssertCompress(string fileName, bool resultIsSmaller, Func<string, bool> action)
         {
             using (TemporaryFile tempFile = new TemporaryFile(fileName))
             {
@@ -61,7 +61,7 @@ namespace Magick.NET.Tests
             }
         }
 
-        protected long AssertCompress(string fileName, bool resultIsSmaller, Func<Stream, bool> action)
+        public static long AssertCompress(string fileName, bool resultIsSmaller, Func<Stream, bool> action)
         {
             using (FileStream fileStream = File.Open(fileName, FileMode.Open, FileAccess.ReadWrite))
             {
