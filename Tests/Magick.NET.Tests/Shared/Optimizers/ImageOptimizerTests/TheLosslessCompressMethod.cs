@@ -6,7 +6,6 @@ namespace Magick.NET.Tests.Shared.Optimizers.ImageOptimizerTests
 {
     public partial class ImageOptimizerTests
     {
-        [TestClass]
         public class TheLosslessCompressMethod
         {
             [TestClass]
