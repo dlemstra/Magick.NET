@@ -25,6 +25,7 @@ find_library(LIBLDE265 libde265.a)
 find_library(LIBLHEIF libheif.a)
 find_library(LIBGCC libheif.a)
 find_library(LIBJPEG libjpeg.a)
+find_library(LIBRAW libraw_r.a)
 
 file(GLOB_RECURSE ALL_FILES . *.c)
 file(GLOB_RECURSE CMAKE_FILES **/CMakeFiles/*.c)
@@ -62,6 +63,7 @@ target_link_libraries(
     ${LIBLCMS}
     ${LIBLHEIF}
     ${LIBLDE265}
+    ${LIBRAW}
 
     ${LIBICONV}
     ${LIBLZMA}
