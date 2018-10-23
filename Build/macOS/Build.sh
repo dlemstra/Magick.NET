@@ -133,6 +133,7 @@ cd ../libraw
 chmod +x ./version.sh
 chmod +x ./shlib-version.sh
 autoreconf -fiv
+chmod +x ./configure
 export CFLAGS="-O3 -fPIC"
 export CXXFLAGS="-O3 -fPIC"
 ./configure --disable-shared --disable-examples --prefix=/usr/local
