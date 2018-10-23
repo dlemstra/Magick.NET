@@ -59,7 +59,7 @@ namespace Magick.NET.Tests
                 image.Read(Files.Logos.MagickNETSVG, settings);
 
                 Assert.AreEqual(100, image.Width);
-                Assert.AreEqual(47, image.Height);
+                Assert.AreEqual(48, image.Height);
             }
         }
 
@@ -91,12 +91,12 @@ namespace Magick.NET.Tests
                 image.Read(Files.Logos.MagickNETSVG, settings);
 
                 Assert.AreEqual(300, image.Width);
-                Assert.AreEqual(143, image.Height);
+                Assert.AreEqual(144, image.Height);
 
                 image.Ping(Files.Logos.MagickNETSVG, settings);
 
                 Assert.AreEqual(300, image.Width);
-                Assert.AreEqual(143, image.Height);
+                Assert.AreEqual(144, image.Height);
             }
         }
 
