@@ -9,9 +9,6 @@
 // License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
-
-#if WINDOWS_BUILD
-
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -25,10 +22,16 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnAllDelegates()
             {
-                Assert.AreEqual("cairo flif freetype gslib heic jng jp2 jpeg lcms lqr openexr pangocairo png ps raw rsvg tiff webp xml zlib", MagickNET.Delegates);
+                var delegates = MagickNET.Delegates; // Cannot detect difference between macOS and Linux build at the moment
+
+#if WINDOWS_BUILD
+                Assert.AreEqual("cairo flif freetype gslib heic jng jp2 jpeg lcms lqr openexr pangocairo png ps raw rsvg tiff webp xml zlib", delegates);
+#else
+                // On Linux we get `ps` support so we need to remove this
+                delegates = delegates.Replace("ps ", string.Empty);
+                Assert.AreEqual("mpeg fontconfig freetype heic jng jpeg lcms openjp2 png raw tiff webp xml zlib", delegates);
+#endif
             }
         }
     }
 }
-
-#endif
