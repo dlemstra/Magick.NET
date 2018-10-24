@@ -33,7 +33,6 @@ list(REMOVE_ITEM ALL_FILES ${CMAKE_FILES})
 
 if (APPLE)
     find_library(LIBICONV NAMES libiconv.a PATHS /usr/local/opt/libiconv/lib)
-    find_library(LIBLZMA liblzma.a)
 
     set(STDCPLUSPLUS stdc++)
 else()
@@ -66,7 +65,6 @@ target_link_libraries(
     ${LIBRAW}
 
     ${LIBICONV}
-    ${LIBLZMA}
 
     ${STDCPLUSPLUS}
 )
