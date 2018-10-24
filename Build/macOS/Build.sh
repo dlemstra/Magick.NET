@@ -11,6 +11,7 @@ brew install ossp-uuid
 
 # Uninstall already installed development libraries
 brew uninstall --force libpng
+brew uninstall --ignore-dependencies xz
 
 cd ../../ImageMagick/Source
 
