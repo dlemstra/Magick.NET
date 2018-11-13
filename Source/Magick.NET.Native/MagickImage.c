@@ -32,6 +32,11 @@
     SetPixelChannelMask(image, channel_mask); \
   }
 
+#define RestoreChannelMasks(image, result) \
+    SetPixelChannelMask(image, channel_mask); \
+    SetPixelChannelMask(result, channel_mask); \
+  }
+
 static inline void RemoveFrames(Image *image)
 {
   if (image != (Image *)NULL && image->next != (Image *)NULL)
@@ -693,7 +698,7 @@ MAGICK_NET_EXPORT Image *MagickImage_AddNoise(Image *instance, const size_t nois
   MAGICK_NET_GET_EXCEPTION;
   SetChannelMask(instance, channels);
   image = AddNoiseImage(instance, (const NoiseType)noiseType, attenuate, exceptionInfo);
-  RestoreChannelMask(instance);
+  RestoreChannelMasks(instance, image);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
@@ -830,7 +835,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Blur(Image *instance, const double radius, 
   MAGICK_NET_GET_EXCEPTION;
   SetChannelMask(instance, channels);
   image = BlurImage(instance, radius, sigma, exceptionInfo);
-  RestoreChannelMask(instance);
+  RestoreChannelMasks(instance, image);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
@@ -1410,7 +1415,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Fx(Image *instance, const char *expression,
   MAGICK_NET_GET_EXCEPTION;
   SetChannelMask(instance, channels);
   image = FxImage(instance, expression, exceptionInfo);
-  RestoreChannelMask(instance);
+  RestoreChannelMasks(instance, image);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
@@ -1432,7 +1437,7 @@ MAGICK_NET_EXPORT Image *MagickImage_GaussianBlur(Image *instance, const double 
   MAGICK_NET_GET_EXCEPTION;
   SetChannelMask(instance, channels);
   image = GaussianBlurImage(instance, radius, sigma, exceptionInfo);
-  RestoreChannelMask(instance);
+  RestoreChannelMasks(instance, image);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
@@ -1652,7 +1657,7 @@ MAGICK_NET_EXPORT Image *MagickImage_LocalContrast(Image *instance, const double
   MAGICK_NET_GET_EXCEPTION;
   SetChannelMask(instance, channels);
   image = LocalContrastImage(instance, radius, strength, exceptionInfo);
-  RestoreChannelMask(instance);
+  RestoreChannelMasks(instance, image);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
@@ -1736,7 +1741,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Morphology(Image *instance, const size_t me
   }
   SetChannelMask(instance, channels);
   image = MorphologyImage(instance, (const MorphologyMethod)method, iterations, kernelInfo, exceptionInfo);
-  RestoreChannelMask(instance);
+  RestoreChannelMasks(instance, image);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
@@ -2014,7 +2019,7 @@ MAGICK_NET_EXPORT Image *MagickImage_RotationalBlur(Image *instance, const doubl
   MAGICK_NET_GET_EXCEPTION;
   SetChannelMask(instance, channels);
   image = RotationalBlurImage(instance, angle, exceptionInfo);
-  RestoreChannelMask(instance);
+  RestoreChannelMasks(instance, image);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
@@ -2069,7 +2074,7 @@ MAGICK_NET_EXPORT Image *MagickImage_SelectiveBlur(Image *instance, const double
   MAGICK_NET_GET_EXCEPTION;
   SetChannelMask(instance, channels);
   image = SelectiveBlurImage(instance, radius, sigma, threshold, exceptionInfo);
-  RestoreChannelMask(instance);
+  RestoreChannelMasks(instance, image);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
@@ -2193,7 +2198,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Shade(Image *instance, const double azimuth
   MAGICK_NET_GET_EXCEPTION;
   SetChannelMask(instance, channels);
   image = ShadeImage(instance, colorShading, azimuth, elevation, exceptionInfo);
-  RestoreChannelMask(instance);
+  RestoreChannelMasks(instance, image);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
@@ -2217,7 +2222,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Sharpen(Image *instance, const double radiu
   MAGICK_NET_GET_EXCEPTION;
   SetChannelMask(instance, channels);
   image = SharpenImage(instance, radius, sigma, exceptionInfo);
-  RestoreChannelMask(instance);
+  RestoreChannelMasks(instance, image);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
@@ -2264,7 +2269,7 @@ MAGICK_NET_EXPORT Image *MagickImage_SparseColor(Image *instance, const size_t c
   MAGICK_NET_GET_EXCEPTION;
   SetChannelMask(instance, channels);
   image = SparseColorImage(instance, (const SparseColorMethod)method, length, arguments, exceptionInfo);
-  RestoreChannelMask(instance);
+  RestoreChannelMasks(instance, image);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
@@ -2490,7 +2495,7 @@ MAGICK_NET_EXPORT Image *MagickImage_UnsharpMask(Image *instance, const double r
   MAGICK_NET_GET_EXCEPTION;
   SetChannelMask(instance, channels);
   image = UnsharpMaskImage(instance, radius, sigma, amount, threshold, exceptionInfo);
-  RestoreChannelMask(instance);
+  RestoreChannelMasks(instance, image);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
