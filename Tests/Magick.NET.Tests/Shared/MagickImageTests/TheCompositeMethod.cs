@@ -17,23 +17,50 @@ namespace Magick.NET.Tests.Shared
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheCompositeMethod
         {
-            [TestMethod]
-            public void ShouldAddTransparencyWithCopyAlpha()
+            [TestClass]
+            public class WithCopyAlphaOperator
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 2, 1))
+                [TestMethod]
+                public void ShouldAddTransparency()
                 {
-                    using (IMagickImage alpha = new MagickImage(MagickColors.Black, 1, 1))
+                    using (IMagickImage image = new MagickImage(MagickColors.Red, 2, 1))
                     {
-                        alpha.BackgroundColor = MagickColors.White;
-                        alpha.Extent(2, 1, Gravity.East);
+                        using (IMagickImage alpha = new MagickImage(MagickColors.Black, 1, 1))
+                        {
+                            alpha.BackgroundColor = MagickColors.White;
+                            alpha.Extent(2, 1, Gravity.East);
 
-                        image.Composite(alpha, CompositeOperator.CopyAlpha);
+                            image.Composite(alpha, CompositeOperator.CopyAlpha);
 
-                        ColorAssert.AreEqual(MagickColors.Red, image, 0, 0);
-                        ColorAssert.AreEqual(new MagickColor("#f000"), image, 1, 0);
+                            ColorAssert.AreEqual(MagickColors.Red, image, 0, 0);
+                            ColorAssert.AreEqual(new MagickColor("#f000"), image, 1, 0);
+                        }
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldCopyTheAlphaChannel()
+                {
+                    var readSettings = new MagickReadSettings()
+                    {
+                        BackgroundColor = MagickColors.None,
+                        FillColor = MagickColors.White,
+                        FontPointsize = 100,
+                    };
+
+                    using (IMagickImage image = new MagickImage("label:Test", readSettings))
+                    {
+                        using (IMagickImage alpha = image.Clone())
+                        {
+                            alpha.Alpha(AlphaOption.Extract);
+                            alpha.Shade(130, 30);
+                            alpha.Composite(image, CompositeOperator.CopyAlpha);
+
+                            ColorAssert.AreEqual(new MagickColor("#7f7f7f00"), alpha, 0, 0);
+                            ColorAssert.AreEqual(new MagickColor("#7f7f7fff"), alpha, 30, 30);
+                        }
                     }
                 }
             }
