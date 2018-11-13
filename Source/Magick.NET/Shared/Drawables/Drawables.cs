@@ -48,10 +48,7 @@ namespace ImageMagick
         /// Returns an enumerator that iterates through the collection.
         /// </summary>
         /// <returns>An enumerator.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => _drawables.GetEnumerator();
 
         /// <summary>
         /// Obtain font metrics for text string given current font, pointsize, and density settings.
@@ -97,9 +94,6 @@ namespace ImageMagick
         /// Returns an enumerator that iterates through the collection.
         /// </summary>
         /// <returns>An enumerator.</returns>
-        public IEnumerator<IDrawable> GetEnumerator()
-        {
-            return _drawables.GetEnumerator();
-        }
+        public IEnumerator<IDrawable> GetEnumerator() => _drawables.GetEnumerator();
     }
 }

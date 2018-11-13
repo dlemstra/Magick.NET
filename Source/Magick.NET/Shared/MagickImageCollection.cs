@@ -224,10 +224,7 @@ namespace ImageMagick
         /// Returns an enumerator that iterates through the collection.
         /// </summary>
         /// <returns>An enumerator that iterates through the collection.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _images.GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => _images.GetEnumerator();
 
         /// <summary>
         /// Adds an image to the collection.
@@ -607,20 +604,14 @@ namespace ImageMagick
         /// Returns an enumerator that iterates through the images.
         /// </summary>
         /// <returns>An enumerator that iterates through the images.</returns>
-        public IEnumerator<IMagickImage> GetEnumerator()
-        {
-            return _images.GetEnumerator();
-        }
+        public IEnumerator<IMagickImage> GetEnumerator() => _images.GetEnumerator();
 
         /// <summary>
         /// Determines the index of the specified image.
         /// </summary>
         /// <param name="item">The image to check.</param>
         /// <returns>The index of the specified image.</returns>
-        public int IndexOf(IMagickImage item)
-        {
-            return _images.IndexOf(item);
-        }
+        public int IndexOf(IMagickImage item) => _images.IndexOf(item);
 
         /// <summary>
         /// Inserts an image into the collection.

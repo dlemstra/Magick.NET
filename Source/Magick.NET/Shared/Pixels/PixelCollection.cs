@@ -73,15 +73,9 @@ namespace ImageMagick
             return GetArea(geometry.X, geometry.Y, geometry.Width, geometry.Height);
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public IEnumerator<Pixel> GetEnumerator()
-        {
-            return new PixelCollectionEnumerator(this, Image.Width, Image.Height);
-        }
+        public IEnumerator<Pixel> GetEnumerator() => new PixelCollectionEnumerator(this, Image.Width, Image.Height);
 
         public int GetIndex(PixelChannel channel)
         {
