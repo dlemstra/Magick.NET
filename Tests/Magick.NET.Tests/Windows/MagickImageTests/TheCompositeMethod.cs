@@ -19,23 +19,28 @@ namespace Magick.NET.Tests.Shared
     {
         public partial class TheCompositeMethod
         {
-            [TestClass]
             public partial class WithCopyAlphaOperator
             {
                 [TestMethod]
-                public void ShouldAddTransparency()
+                public void ShouldCopyTheAlphaChannel()
                 {
-                    using (IMagickImage image = new MagickImage(MagickColors.Red, 2, 1))
+                    var readSettings = new MagickReadSettings()
                     {
-                        using (IMagickImage alpha = new MagickImage(MagickColors.Black, 1, 1))
+                        BackgroundColor = MagickColors.None,
+                        FillColor = MagickColors.White,
+                        FontPointsize = 100,
+                    };
+
+                    using (IMagickImage image = new MagickImage("label:Test", readSettings))
+                    {
+                        using (IMagickImage alpha = image.Clone())
                         {
-                            alpha.BackgroundColor = MagickColors.White;
-                            alpha.Extent(2, 1, Gravity.East);
+                            alpha.Alpha(AlphaOption.Extract);
+                            alpha.Shade(130, 30);
+                            alpha.Composite(image, CompositeOperator.CopyAlpha);
 
-                            image.Composite(alpha, CompositeOperator.CopyAlpha);
-
-                            ColorAssert.AreEqual(MagickColors.Red, image, 0, 0);
-                            ColorAssert.AreEqual(new MagickColor("#f000"), image, 1, 0);
+                            ColorAssert.AreEqual(new MagickColor("#7f7f7f00"), alpha, 0, 0);
+                            ColorAssert.AreEqual(new MagickColor("#7f7f7fff"), alpha, 30, 30);
                         }
                     }
                 }
