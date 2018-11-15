@@ -52,8 +52,8 @@ function CopyNativeLibrary($directory, $platform, $binDir)
 {
     $quantum = ($directory.Replace(".Native", "").Split('-') | Select-Object -Skip 1) -join '-'
 
-    $target = "$directory\runtimes\win7-$platform\native"
+    $target = "$directory\runtimes\win-$platform\native"
     CreateFolder $target
 
-    Copy-Item "Source\Magick.NET.Native\bin\Release$quantum\$binDir\*.Native.dll" "$directory\runtimes\win7-$platform\native"
+    Copy-Item "Source\Magick.NET.Native\bin\Release$quantum\$binDir\*.Native.dll" "$directory\runtimes\win-$platform\native"
 }

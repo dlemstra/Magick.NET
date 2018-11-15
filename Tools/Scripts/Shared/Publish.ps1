@@ -82,7 +82,7 @@ function CreateOpenMPNuGetPackage($id, $version, $build)
 
   AddLibraryToPackage $xml $build "net40"
 
-  AddFileElement $xml "..\..\Source\Magick.NET.Native\bin\OpenMP-Release$($build.Quantum)\$($build.Platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.dll" "runtimes\win7-$($build.Platform)\native"
+  AddFileElement $xml "..\..\Source\Magick.NET.Native\bin\OpenMP-Release$($build.Quantum)\$($build.Platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.dll" "runtimes\win-$($build.Platform)\native"
   AddFileElement $xml "Magick.NET.targets" "build\net40\$id.targets"
 
   AddDocumentsToPackage $xml
@@ -108,14 +108,14 @@ function CreateNuGetPackages($id, $version, $build)
 
   if ($build.Platform -ne "AnyCPU")
   {
-    AddFileElement $xml "..\..\Source\Magick.NET.Native\bin\Release$($build.Quantum)\$($platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.dll" "runtimes\win7-$($build.Platform)\native"
+    AddFileElement $xml "..\..\Source\Magick.NET.Native\bin\Release$($build.Quantum)\$($platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.dll" "runtimes\win-$($build.Platform)\native"
     AddFileElement $xml "Magick.NET.targets" "build\net20\$id.targets"
     AddFileElement $xml "Magick.NET.targets" "build\net40\$id.targets"
   }
   else
   {
-    AddFileElement $xml "..\..\Source\Magick.NET.Native\bin\Release$($build.Quantum)\Win32\Magick.NET-$($build.Quantum)-x86.Native.dll" "runtimes\win7-x86\native"
-    AddFileElement $xml "..\..\Source\Magick.NET.Native\bin\Release$($build.Quantum)\x64\Magick.NET-$($build.Quantum)-x64.Native.dll" "runtimes\win7-x64\native"
+    AddFileElement $xml "..\..\Source\Magick.NET.Native\bin\Release$($build.Quantum)\Win32\Magick.NET-$($build.Quantum)-x86.Native.dll" "runtimes\win-x86\native"
+    AddFileElement $xml "..\..\Source\Magick.NET.Native\bin\Release$($build.Quantum)\x64\Magick.NET-$($build.Quantum)-x64.Native.dll" "runtimes\win-x64\native"
   }
 
   if ($build.Platform -ne "x86")
@@ -228,7 +228,7 @@ function UpdateResourceFile($fileName, $version)
   $content = SetValue $content "PRODUCTVERSION " `r $version.Replace('.', ',')
   $content = SetValue $content "`"FileVersion`", `""  "`"" $version
   $content = SetValue $content "`"ProductVersion`", `"" "`"" $version
-  $content = SetValue $content "`"LegalCopyright`", `"" "`"" "Copyright © Dirk Lemstra $((Get-Date).year)"
+  $content = SetValue $content "`"LegalCopyright`", `"" "`"" "Copyright ï¿½ Dirk Lemstra $((Get-Date).year)"
 
   [IO.File]::WriteAllText($fileName, $content, [System.Text.Encoding]::Unicode)
 }
