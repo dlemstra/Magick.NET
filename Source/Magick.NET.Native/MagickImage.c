@@ -34,7 +34,8 @@
 
 #define RestoreChannelMasks(image, result) \
     SetPixelChannelMask(image, channel_mask); \
-    SetPixelChannelMask(result, channel_mask); \
+    if (result != (Image *)NULL) \
+      SetPixelChannelMask(result, channel_mask); \
   }
 
 static inline void RemoveFrames(Image *image)
