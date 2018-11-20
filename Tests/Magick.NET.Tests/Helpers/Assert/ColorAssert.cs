@@ -39,10 +39,10 @@ namespace Magick.NET.Tests
             QuantumType delta = 0;
 #endif
 
-            AreEqual(expected.R, actual.R, actual, delta, "R");
-            AreEqual(expected.G, actual.G, actual, delta, "G");
-            AreEqual(expected.B, actual.B, actual, delta, "B");
-            AreEqual(expected.A, actual.A, actual, delta, "A");
+            AreEqual(expected.R, actual.R, expected, actual, delta, "R");
+            AreEqual(expected.G, actual.G, expected, actual, delta, "G");
+            AreEqual(expected.B, actual.B, expected, actual, delta, "B");
+            AreEqual(expected.A, actual.A, expected, actual, delta, "A");
         }
 
         public static void AreEqual(MagickColor expected, IMagickImage image, int x, int y)
@@ -83,14 +83,14 @@ namespace Magick.NET.Tests
             AreEqual(expected, actual.ToColor());
         }
 
-        private static void AreEqual(QuantumType expected, QuantumType actual, MagickColor actualColor, float delta, string channel)
+        private static void AreEqual(QuantumType expected, QuantumType actual, MagickColor expectedColor, MagickColor actualColor, float delta, string channel)
         {
 #if Q16HDRI
             if (double.IsNaN(actual))
                 actual = 0;
 #endif
 
-            Assert.AreEqual(expected, actual, delta, channel + " is not equal (" + actualColor.ToString() + ")");
+            Assert.AreEqual(expected, actual, delta, channel + " is not equal (" + expectedColor.ToString() + " != " + actualColor.ToString() + ")");
         }
 
         private static void AreNotEqual(MagickColor expected, Pixel actual)
