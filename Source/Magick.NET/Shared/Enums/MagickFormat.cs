@@ -183,6 +183,11 @@ namespace ImageMagick
         Cut,
 
         /// <summary>
+        /// Base64-encoded inline images
+        /// </summary>
+        Data,
+
+        /// <summary>
         /// Digital Imaging and Communications in Medicine image
         /// </summary>
         Dcm,

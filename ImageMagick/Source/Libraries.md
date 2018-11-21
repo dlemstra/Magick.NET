@@ -18,10 +18,10 @@ Magick.NET is build with the following libraries:
 - libxml 2.9.4 (23 May 2016)
 - lqr 0.4.2 (4 December 2012)
 - openjpeg 2.3.0 (5 October 2017)
-- pango 1.40.11 (19 August 2017)
+- pango 1.42.4 (20 August 2018)
 - pixman 0.30.2
 - png 1.6.35 (15 July 2017)
 - tiff 4.0.9 (18 November 2017)
 - ttf 2.9.1 (2 May 2018)
-- webp 0.6.0 (26 January 2017)
+- webp 1.0.0 (2 April 2018)
 - zlib 1.2.11 (15 January 2017)

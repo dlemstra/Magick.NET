@@ -41,8 +41,8 @@ namespace Magick.NET.Tests.Shared
                             alpha.Shade(130, 30);
                             alpha.Composite(image, CompositeOperator.CopyAlpha);
 
-                            ColorAssert.AreEqual(new MagickColor("#7f7f7f00"), alpha, 0, 0);
-                            ColorAssert.AreEqual(new MagickColor("#7f7f7fff"), alpha, 30, 30);
+                            ColorAssert.AreEqual(new MagickColor("#7fff7fff7fff0000"), alpha, 0, 0);
+                            ColorAssert.AreEqual(new MagickColor("#7fff7fff7fffffff"), alpha, 30, 30);
                         }
                     }
                 }

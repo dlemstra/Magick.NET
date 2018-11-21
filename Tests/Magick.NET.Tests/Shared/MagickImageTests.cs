@@ -1755,7 +1755,7 @@ namespace Magick.NET.Tests
                     image.HaldClut(clut);
 
                     ColorAssert.AreEqual(new MagickColor("#052467fc2bb4"), image, 228, 276);
-                    ColorAssert.AreEqual(new MagickColor("#144f623a2801"), image, 295, 270);
+                    ColorAssert.AreEqual(new MagickColor("#15f862442644"), image, 295, 270);
                 }
             }
         }
@@ -2030,13 +2030,13 @@ namespace Magick.NET.Tests
                     using (IMagickImage histogram = new MagickImage(memStream))
                     {
 #if Q8
-                        ColorAssert.AreEqual(MagickColors.Red, histogram, 65, 12);
-                        ColorAssert.AreEqual(MagickColors.Lime, histogram, 95, 122);
-                        ColorAssert.AreEqual(MagickColors.Blue, histogram, 205, 81);
+                        ColorAssert.AreEqual(MagickColors.Red, histogram, 67, 14);
+                        ColorAssert.AreEqual(MagickColors.Lime, histogram, 97, 127);
+                        ColorAssert.AreEqual(MagickColors.Blue, histogram, 202, 61);
 #elif Q16 || Q16HDRI
-                        ColorAssert.AreEqual(MagickColors.Red, histogram, 34, 182);
-                        ColorAssert.AreEqual(MagickColors.Lime, histogram, 122, 193);
-                        ColorAssert.AreEqual(MagickColors.Blue, histogram, 210, 194);
+                        ColorAssert.AreEqual(MagickColors.Red, histogram, 35, 183);
+                        ColorAssert.AreEqual(MagickColors.Lime, histogram, 127, 194);
+                        ColorAssert.AreEqual(MagickColors.Blue, histogram, 211, 194);
 #else
 #error Not implemented!
 #endif
@@ -2053,17 +2053,17 @@ namespace Magick.NET.Tests
                     using (IMagickImage histogram = new MagickImage(memStream))
                     {
 #if Q8
-                        ColorAssert.AreEqual(MagickColors.Red, histogram, 102, 183);
-                        ColorAssert.AreEqual(MagickColors.Lime, histogram, 147, 188);
+                        ColorAssert.AreEqual(MagickColors.Red, histogram, 98, 171);
+                        ColorAssert.AreEqual(MagickColors.Lime, histogram, 148, 189);
                         ColorAssert.AreEqual(MagickColors.Blue, histogram, 195, 190);
 #elif Q16
-                        ColorAssert.AreEqual(MagickColors.Red, histogram, 221, 182);
-                        ColorAssert.AreEqual(MagickColors.Lime, histogram, 11, 184);
-                        ColorAssert.AreEqual(MagickColors.Blue, histogram, 45, 194);
+                        ColorAssert.AreEqual(MagickColors.Red, histogram, 220, 182);
+                        ColorAssert.AreEqual(MagickColors.Lime, histogram, 10, 184);
+                        ColorAssert.AreEqual(MagickColors.Blue, histogram, 44, 194);
 #elif Q16HDRI
-                        ColorAssert.AreEqual(MagickColors.Red, histogram, 221, 182);
-                        ColorAssert.AreEqual(MagickColors.Lime, histogram, 12, 184);
-                        ColorAssert.AreEqual(MagickColors.Blue, histogram, 45, 194);
+                        ColorAssert.AreEqual(MagickColors.Red, histogram, 220, 182);
+                        ColorAssert.AreEqual(MagickColors.Lime, histogram, 10, 184);
+                        ColorAssert.AreEqual(MagickColors.Blue, histogram, 44, 194);
 #else
 #error Not implemented!
 #endif
@@ -2295,7 +2295,7 @@ namespace Magick.NET.Tests
             using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
                 image.OilPaint(2, 5);
-                ColorAssert.AreEqual(new MagickColor("#6a7e85"), image, 180, 98);
+                ColorAssert.AreEqual(new MagickColor("#6a7f84"), image, 180, 98);
             }
         }
 
@@ -2560,9 +2560,9 @@ namespace Magick.NET.Tests
             {
                 MagickErrorInfo errorInfo = image.Quantize(settings);
 #if Q8
-                Assert.AreEqual(6.975, errorInfo.MeanErrorPerPixel, 0.001);
+                Assert.AreEqual(7.063, errorInfo.MeanErrorPerPixel, 0.001);
 #elif Q16 || Q16HDRI
-                Assert.AreEqual(1803.2, errorInfo.MeanErrorPerPixel, 0.1);
+                Assert.AreEqual(1815.8, errorInfo.MeanErrorPerPixel, 0.1);
 #else
 #error Not implemented!
 #endif
@@ -2593,16 +2593,16 @@ namespace Magick.NET.Tests
             {
                 image.Raise(30);
 
-                ColorAssert.AreEqual(new MagickColor("#6ee29508b532"), image, 29, 30);
-                ColorAssert.AreEqual(new MagickColor("#2f2054867aac"), image, 570, 265);
+                ColorAssert.AreEqual(new MagickColor("#6e229448b472"), image, 29, 30);
+                ColorAssert.AreEqual(new MagickColor("#2f205486792d"), image, 570, 265);
             }
 
             using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
                 image.Lower(30);
 
-                ColorAssert.AreEqual(new MagickColor("#2da153c773f1"), image, 29, 30);
-                ColorAssert.AreEqual(new MagickColor("#706195c7bbed"), image, 570, 265);
+                ColorAssert.AreEqual(new MagickColor("#2ce153077331"), image, 29, 30);
+                ColorAssert.AreEqual(new MagickColor("#706195c7ba6e"), image, 570, 265);
             }
         }
 

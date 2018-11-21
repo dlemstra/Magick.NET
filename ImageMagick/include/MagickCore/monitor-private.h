@@ -18,24 +18,15 @@
 #ifndef MAGICKCORE_MONITOR_PRIVATE_H
 #define MAGICKCORE_MONITOR_PRIVATE_H
 
-#include "MagickCore/image.h"
-
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
 
-static inline MagickBooleanType SetImageProgress(const Image *image,
-  const char *tag,const MagickOffsetType offset,const MagickSizeType extent)
-{
-  char
-    message[MagickPathExtent];
+extern MagickPrivate MagickBooleanType
+  MonitorComponentGenesis(void);
 
-  if (image->progress_monitor == (MagickProgressMonitor) NULL)
-    return(MagickTrue);
-  (void) FormatLocaleString(message,MagickPathExtent,"%s/%s",tag,
-    image->filename);
-  return(image->progress_monitor(message,offset,extent,image->client_data));
-}
+extern MagickPrivate void
+  MonitorComponentTerminus(void);
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }
