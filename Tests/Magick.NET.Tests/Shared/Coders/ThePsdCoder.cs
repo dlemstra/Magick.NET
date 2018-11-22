@@ -28,5 +28,19 @@ namespace Magick.NET.Tests
                 ColorAssert.AreEqual(MagickColor.FromRgb(15, 43, 255), image, 8, 6);
             }
         }
+
+        [TestMethod]
+        public void ShouldReadTheProfileForAllLayers()
+        {
+            using (IMagickImageCollection images = new MagickImageCollection(Files.Coders.LayerStylesSamplePSD))
+            {
+                Assert.AreEqual(4, images.Count);
+
+                foreach (var image in images)
+                {
+                    Assert.IsNotNull(image.Get8BimProfile());
+                }
+            }
+        }
     }
 }
