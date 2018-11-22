@@ -560,18 +560,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public IMagickImage Flatten()
         {
-            ThrowIfEmpty();
-
-            try
-            {
-                AttachImages();
-                IntPtr image = _nativeInstance.Merge(_images[0], LayerMethod.Flatten);
-                return MagickImage.Create(image, _images[0].Settings);
-            }
-            finally
-            {
-                DetachImages();
-            }
+            return Merge(LayerMethod.Flatten);
         }
 
         /// <summary>
@@ -677,18 +666,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public IMagickImage Merge()
         {
-            ThrowIfEmpty();
-
-            try
-            {
-                AttachImages();
-                IntPtr image = _nativeInstance.Merge(_images[0], LayerMethod.Merge);
-                return MagickImage.Create(image, _images[0].Settings);
-            }
-            finally
-            {
-                DetachImages();
-            }
+            return Merge(LayerMethod.Merge);
         }
 
         /// <summary>
@@ -767,18 +745,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public IMagickImage Mosaic()
         {
-            ThrowIfEmpty();
-
-            try
-            {
-                AttachImages();
-                IntPtr image = _nativeInstance.Merge(_images[0], LayerMethod.Mosaic);
-                return MagickImage.Create(image, _images[0].Settings);
-            }
-            finally
-            {
-                DetachImages();
-            }
+            return Merge(LayerMethod.Mosaic);
         }
 
         /// <summary>
@@ -1511,6 +1478,22 @@ namespace ImageMagick
 
             if (disposing)
                 Clear();
+        }
+
+        private IMagickImage Merge(LayerMethod layerMethod)
+        {
+            ThrowIfEmpty();
+
+            try
+            {
+                AttachImages();
+                IntPtr image = _nativeInstance.Merge(_images[0], layerMethod);
+                return MagickImage.Create(image, _images[0].Settings);
+            }
+            finally
+            {
+                DetachImages();
+            }
         }
 
         private void OnWarning(object sender, WarningEventArgs arguments)
