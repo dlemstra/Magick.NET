@@ -104,17 +104,6 @@ MAGICK_NET_EXPORT Image *MagickImageCollection_Evaluate(const Image *images, con
   return result;
 }
 
-MAGICK_NET_EXPORT Image *MagickImageCollection_Flatten(Image *images, ExceptionInfo **exception)
-{
-  Image
-    *image;
-
-  MAGICK_NET_GET_EXCEPTION;
-  image = MergeImageLayers(images, FlattenLayer, exceptionInfo);
-  MAGICK_NET_SET_EXCEPTION;
-  return image;
-}
-
 MAGICK_NET_EXPORT void MagickImageCollection_Map(Image *images, const QuantizeInfo *settings, const Image *remapImage, ExceptionInfo **exception)
 {
   MAGICK_NET_GET_EXCEPTION;

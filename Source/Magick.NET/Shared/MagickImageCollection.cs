@@ -565,7 +565,7 @@ namespace ImageMagick
             try
             {
                 AttachImages();
-                IntPtr image = _nativeInstance.Flatten(_images[0]);
+                IntPtr image = _nativeInstance.Merge(_images[0], LayerMethod.Flatten);
                 return MagickImage.Create(image, _images[0].Settings);
             }
             finally
@@ -590,7 +590,7 @@ namespace ImageMagick
             try
             {
                 AttachImages();
-                IntPtr image = _nativeInstance.Flatten(_images[0]);
+                IntPtr image = _nativeInstance.Merge(_images[0], LayerMethod.Flatten);
                 return MagickImage.Create(image, _images[0].Settings);
             }
             finally
