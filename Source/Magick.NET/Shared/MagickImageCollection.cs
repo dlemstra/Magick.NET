@@ -553,8 +553,8 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Flatten this collection into a single image.
-        /// This is useful for combining Photoshop layers into a single image.
+        /// Use the virtual canvas size of first image. Images which fall outside this canvas is clipped.
+        /// This can be used to 'fill out' a given virtual canvas.
         /// </summary>
         /// <returns>The resulting image of the flatten operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -670,8 +670,8 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Merge this collection into a single image.
-        /// This is useful for combining Photoshop layers into a single image.
+        /// Merge all layers onto a canvas just large enough to hold all the actual images.The virtual
+        /// canvas of the first image is preserved but otherwise ignored.
         /// </summary>
         /// <returns>The resulting image of the merge operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -760,7 +760,8 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Inlay the images to form a single coherent picture.
+        /// Start with the virtual canvas of the first image, enlarging left and right edges to contain
+        /// all images. Images with negative offsets will be clipped.
         /// </summary>
         /// <returns>The resulting image of the mosaic operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -1248,8 +1249,9 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Merge this collection into a single image.
-        /// This is useful for combining Photoshop layers into a single image.
+        /// Determine the overall bounds of all the image layers just as in <see cref="Merge"/>,
+        /// then adjust the the canvas and offsets to be relative to those bounds,
+        /// without overlaying the images.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void TrimBounds()
