@@ -109,6 +109,43 @@ namespace Magick.NET.Tests
             }
         }
 
+        [TestMethod]
+        public void ShouldWritePng00Correctly()
+        {
+            using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+            {
+                using (var stream = new MemoryStream())
+                {
+                    image.Write(stream, MagickFormat.Png);
+
+                    stream.Position = 0;
+
+                    image.Read(stream);
+
+                    var setting = new QuantizeSettings
+                    {
+                        ColorSpace = ColorSpace.Gray,
+                        DitherMethod = DitherMethod.Riemersma,
+                        Colors = 2,
+                    };
+
+                    image.Quantize(setting);
+
+                    image.Warning += HandleWarning;
+
+                    image.Write(stream, MagickFormat.Png00);
+
+                    stream.Position = 0;
+
+                    image.Read(stream);
+
+                    Assert.AreEqual(ColorType.Palette, image.ColorType);
+                    ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
+                    ColorAssert.AreEqual(MagickColors.Black, image, 305, 248);
+                }
+            }
+        }
+
         private void HandleWarning(object sender, WarningEventArgs e)
         {
             Assert.Fail("Warning was raised: " + e.Message);
