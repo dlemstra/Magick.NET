@@ -101,6 +101,28 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
+        public void ShouldReadFontsWithQuotes()
+        {
+            var svg = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<svg version=""1.1"" xmlns=""http://www.w3.org/2000/svg"" xmlns:xlink=""http://www.w3.org/1999/xlink"" viewBox=""0 0 220 80"">
+<style type=""text/css"">
+  .st0{font-family:'Tahoma';font-size:40}
+  .st1{font-family:""Courier"";font-size:40}
+</style>
+<g id=""changable-text"">
+  <text transform=""matrix(1 0 0 1 1 35)"" class=""st0"">FONT TEST</text>
+  <text transform=""matrix(1 0 0 1 1 70)"" class=""st1"">FONT TEST</text>
+</g>
+</svg>";
+            var bytes = Encoding.UTF8.GetBytes(svg);
+            using (IMagickImage image = new MagickImage(bytes))
+            {
+                ColorAssert.AreEqual(MagickColors.Black, image, 133, 55);
+                ColorAssert.AreEqual(MagickColors.Black, image, 124, 20);
+            }
+        }
+
+        [TestMethod]
         public void IsThreadSafe()
         {
             var svg = @"<?xml version=""1.0"" encoding=""UTF-8""?>
