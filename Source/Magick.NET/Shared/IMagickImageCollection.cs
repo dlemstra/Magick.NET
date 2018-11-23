@@ -186,7 +186,7 @@ namespace ImageMagick
         void Map(IMagickImage image, QuantizeSettings settings);
 
         /// <summary>
-        /// Merge all layers onto a canvas just large enough to hold all the actual images.The virtual
+        /// Merge all layers onto a canvas just large enough to hold all the actual images. The virtual
         /// canvas of the first image is preserved but otherwise ignored.
         /// </summary>
         /// <returns>The resulting image of the merge operation.</returns>
