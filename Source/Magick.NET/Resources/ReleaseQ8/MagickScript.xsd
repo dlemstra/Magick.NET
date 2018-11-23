@@ -317,8 +317,10 @@
           <xs:enumeration value="Piz" />
           <xs:enumeration value="Pxr24" />
           <xs:enumeration value="RLE" />
+          <xs:enumeration value="WebP" />
           <xs:enumeration value="Zip" />
           <xs:enumeration value="ZipS" />
+          <xs:enumeration value="Zstd" />
         </xs:restriction>
       </xs:simpleType>
       <xs:simpleType>
@@ -763,8 +765,10 @@
           <xs:enumeration value="Crw" />
           <xs:enumeration value="Cur" />
           <xs:enumeration value="Cut" />
+          <xs:enumeration value="Data" />
           <xs:enumeration value="Dcm" />
           <xs:enumeration value="Dcr" />
+          <xs:enumeration value="Dcraw" />
           <xs:enumeration value="Dcx" />
           <xs:enumeration value="Dds" />
           <xs:enumeration value="Dfont" />
@@ -1352,6 +1356,7 @@
     <xs:sequence>
       <xs:element name="samplingFactors" minOccurs="0" type="geometries" />
     </xs:sequence>
+    <xs:attribute name="arithmeticCoding" type="bool" />
     <xs:attribute name="dctMethod" type="DctMethod" />
     <xs:attribute name="extent" type="int" />
     <xs:attribute name="optimizeCoding" type="bool" />
@@ -1980,6 +1985,11 @@
             <xs:attribute name="value" use="required" type="int" />
           </xs:complexType>
         </xs:element>
+        <xs:element name="animationTicksPerSecond">
+          <xs:complexType>
+            <xs:attribute name="value" use="required" type="int" />
+          </xs:complexType>
+        </xs:element>
         <xs:element name="backgroundColor">
           <xs:complexType>
             <xs:attribute name="value" use="required" type="color" />
@@ -2458,7 +2468,7 @@
         </xs:element>
         <xs:element name="grayscale">
           <xs:complexType>
-            <xs:attribute name="method" use="required" type="PixelIntensityMethod" />
+            <xs:attribute name="method" type="PixelIntensityMethod" />
           </xs:complexType>
         </xs:element>
         <xs:element name="haldClut">

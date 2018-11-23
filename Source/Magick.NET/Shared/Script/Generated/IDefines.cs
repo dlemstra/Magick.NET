@@ -217,6 +217,7 @@ namespace ImageMagick
             if (element == null)
                 return null;
             JpegWriteDefines result = new JpegWriteDefines();
+            result.ArithmeticCoding = GetValue<Nullable<Boolean>>(element, "arithmeticCoding");
             result.DctMethod = GetValue<Nullable<ImageMagick.Defines.DctMethod>>(element, "dctMethod");
             result.Extent = GetValue<Nullable<Int32>>(element, "extent");
             result.OptimizeCoding = GetValue<Nullable<Boolean>>(element, "optimizeCoding");

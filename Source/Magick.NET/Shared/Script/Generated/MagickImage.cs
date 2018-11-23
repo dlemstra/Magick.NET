@@ -61,6 +61,11 @@ namespace ImageMagick
                                             ExecuteAnimationIterations(element, image);
                                             return;
                                         }
+                                        case 'T':
+                                        {
+                                            ExecuteAnimationTicksPerSecond(element, image);
+                                            return;
+                                        }
                                     }
                                     break;
                                 }
@@ -1551,6 +1556,10 @@ namespace ImageMagick
         {
             image.AnimationIterations = GetValue<Int32>(element, "value");
         }
+        private void ExecuteAnimationTicksPerSecond(XmlElement element, IMagickImage image)
+        {
+            image.AnimationTicksPerSecond = GetValue<Int32>(element, "value");
+        }
         private void ExecuteBackgroundColor(XmlElement element, IMagickImage image)
         {
             image.BackgroundColor = GetValue<MagickColor>(element, "value");
@@ -2560,8 +2569,17 @@ namespace ImageMagick
         }
         private void ExecuteGrayscale(XmlElement element, IMagickImage image)
         {
-            PixelIntensityMethod method_ = GetValue<PixelIntensityMethod>(element, "method");
-            image.Grayscale(method_);
+            Hashtable arguments = new Hashtable();
+            foreach (XmlAttribute attribute in element.Attributes)
+            {
+                arguments[attribute.Name] = GetValue<PixelIntensityMethod>(attribute);
+            }
+            if (arguments.Count == 0)
+                image.Grayscale();
+            else if (OnlyContains(arguments, "method"))
+                image.Grayscale((PixelIntensityMethod)arguments["method"]);
+            else
+                throw new ArgumentException("Invalid argument combination for 'grayscale', allowed combinations are: [] [method]");
         }
         private void ExecuteHaldClut(XmlElement element, IMagickImage image)
         {
