@@ -1216,7 +1216,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Determine the overall bounds of all the image layers just as in <see cref="Merge"/>,
+        /// Determine the overall bounds of all the image layers just as in <see cref="Merge()"/>,
         /// then adjust the the canvas and offsets to be relative to those bounds,
         /// without overlaying the images.
         /// </summary>
