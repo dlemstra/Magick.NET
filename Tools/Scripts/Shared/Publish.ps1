@@ -265,6 +265,7 @@ function WriteNuGetPackage($id, $version, $xml)
 
   $dir = FullPath "Publish\NuGet"
   $nuspecFile = "$dir\$id.nuspec"
+  $nupkgFile = "$dir\$id.nupkg"
   if (Test-Path $nuspecFile)
   {
     Remove-Item $nuspecFile
@@ -274,6 +275,8 @@ function WriteNuGetPackage($id, $version, $xml)
 
   .\Tools\Programs\NuGet.exe pack $nuspecFile -NoPackageAnalysis -OutputDirectory $dir
   CheckExitCode "Failed to create NuGet package"
+  .\Tools\Programs\NuGet.exe sign $nupkgFile -CertificateSubjectName "ImageMagick Studio LLC" -Timestamper http://sha256timestamp.ws.symantec.com/sha256/timestamp
+  CheckExitCode "Failed to sign NuGet package"
 
   Remove-Item $nuspecFile
 }
