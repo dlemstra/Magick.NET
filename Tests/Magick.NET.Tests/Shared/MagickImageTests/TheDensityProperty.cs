@@ -43,7 +43,7 @@ namespace Magick.NET.Tests
                     {
                         var profile = image.GetExifProfile();
                         var value = profile.GetValue(ExifTag.XResolution);
-                        Assert.AreEqual(value.ToString(), "300");
+                        Assert.AreEqual("300", value.ToString());
 
                         image.Density = new Density(72);
 
@@ -56,7 +56,7 @@ namespace Magick.NET.Tests
                         var profile = image.GetExifProfile();
                         var value = profile.GetValue(ExifTag.XResolution);
 
-                        Assert.AreEqual(value.ToString(), "72");
+                        Assert.AreEqual("72", value.ToString());
                     }
                 }
             }
