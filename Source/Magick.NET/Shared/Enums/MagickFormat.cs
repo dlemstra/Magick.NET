@@ -173,6 +173,11 @@ namespace ImageMagick
         Crw,
 
         /// <summary>
+        /// Cube color lookup table image
+        /// </summary>
+        Cube,
+
+        /// <summary>
         /// Microsoft icon
         /// </summary>
         Cur,
