@@ -33,8 +33,8 @@ namespace Magick.NET.Tests
                     image.Settings.FontPointsize = 40;
                     image.Read("pango:Test");
 
-                    Assert.AreEqual(120, image.Width);
-                    Assert.AreEqual(57, image.Height);
+                    Assert.AreEqual(128, image.Width);
+                    Assert.AreEqual(61, image.Height);
                     ColorAssert.AreEqual(MagickColors.Black, image, 21, 18);
                 }
             }
