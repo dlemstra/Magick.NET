@@ -1,5 +1,5 @@
 /*
-  Copyright 1999-2018 ImageMagick Studio LLC, a non-profit organization
+  Copyright 1999-2019 ImageMagick Studio LLC, a non-profit organization
   dedicated to making software imaging solutions freely available.
 
   You may not use this file except in compliance with the License.
@@ -101,6 +101,8 @@ extern WandExport MagickBooleanType
   MagickCharcoalImage(MagickWand *,const double,const double),
   MagickChopImage(MagickWand *,const size_t,const size_t,const ssize_t,
     const ssize_t),
+  MagickCLAHEImage(MagickWand *,const size_t,const size_t,const double,
+    const double),
   MagickClampImage(MagickWand *),
   MagickClipImage(MagickWand *),
   MagickClipImagePath(MagickWand *,const char *,const MagickBooleanType),
