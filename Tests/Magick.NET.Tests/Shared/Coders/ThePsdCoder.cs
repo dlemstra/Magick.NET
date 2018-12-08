@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.Coders.PlayerPSD))
             {
-                ColorAssert.AreEqual(MagickColors.Transparent, image, 0, 0);
+                ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
 
                 ColorAssert.AreEqual(MagickColor.FromRgb(15, 43, 255), image, 8, 6);
             }
