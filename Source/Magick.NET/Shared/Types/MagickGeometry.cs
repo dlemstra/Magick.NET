@@ -100,15 +100,9 @@ namespace ImageMagick
                 var flags = instance.Initialize(value);
 
                 if (!EnumHelper.HasFlag(flags, GeometryFlags.AspectRatio))
-                {
                     Initialize(instance, flags);
-                    return;
-                }
-
-                AspectRatio = true;
-                var ratio = value.Split(':');
-                Width = int.Parse(ratio[0], CultureInfo.InvariantCulture);
-                Height = int.Parse(ratio[1], CultureInfo.InvariantCulture);
+                else
+                    InitializeFromAspectRation(instance, value);
             }
         }
 
@@ -510,6 +504,31 @@ namespace ImageMagick
             Greater = EnumHelper.HasFlag(flags, GeometryFlags.Greater);
             Less = EnumHelper.HasFlag(flags, GeometryFlags.Less);
             LimitPixels = EnumHelper.HasFlag(flags, GeometryFlags.LimitPixels);
+        }
+
+        private void InitializeFromAspectRation(NativeMagickGeometry instance, string value)
+        {
+            AspectRatio = true;
+
+            var ratio = value.Split(':');
+            Width = ParseInt(ratio[0]);
+            Height = ParseInt(ratio[1]);
+
+            X = (int)instance.X;
+            Y = (int)instance.Y;
+        }
+
+        private int ParseInt(string value)
+        {
+            int index = 0;
+            while (index < value.Length && !char.IsNumber(value[index]))
+                index++;
+
+            int start = index;
+            while (index < value.Length && char.IsNumber(value[index]))
+                index++;
+
+            return int.Parse(value.Substring(start, index), CultureInfo.InvariantCulture);
         }
     }
 }

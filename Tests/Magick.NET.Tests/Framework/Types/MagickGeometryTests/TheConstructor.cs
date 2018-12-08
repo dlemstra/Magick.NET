@@ -20,8 +20,7 @@ namespace Magick.NET.Tests
 {
     public partial class MagickGeometryTests
     {
-        [TestClass]
-        public class TheConstructor
+        public partial class TheConstructor
         {
             [TestMethod]
             public void ShouldSetTheProperties()
