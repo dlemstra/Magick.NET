@@ -188,11 +188,28 @@ function GetValue($content, $startMatch, $endMatch)
 
 function SignFile($fileName)
 {
+  if ($env:APPVEYOR -eq "True")
+  {
+    return
+  }
+
   & signtool verify /q /pa $fileName
   if ($LastExitCode -ne 0)
   {
     & signtool sign /n "ImageMagick Studio LLC" /tr http://sha256timestamp.ws.symantec.com/sha256/timestamp /td sha256 /fd sha256 $fileName
+    CheckExitCode "Failed to sign: $filename"
   }
+}
+
+function SignNuGetPackage($nupkgFile)
+{
+  if ($env:APPVEYOR -eq "True")
+  {
+    return
+  }
+
+  .\Tools\Programs\NuGet.exe sign $nupkgFile -CertificateSubjectName "ImageMagick Studio LLC" -Timestamper http://sha256timestamp.ws.symantec.com/sha256/timestamp
+  CheckExitCode "Failed to sign NuGet package"
 }
 
 function UpdateVersion($fileName, $version, $checkAssemblyVersion)
@@ -275,8 +292,8 @@ function WriteNuGetPackage($id, $version, $xml)
 
   .\Tools\Programs\NuGet.exe pack $nuspecFile -NoPackageAnalysis -OutputDirectory $dir
   CheckExitCode "Failed to create NuGet package"
-  .\Tools\Programs\NuGet.exe sign $nupkgFile -CertificateSubjectName "ImageMagick Studio LLC" -Timestamper http://sha256timestamp.ws.symantec.com/sha256/timestamp
-  CheckExitCode "Failed to sign NuGet package"
+
+  SignNuGetPackage $nupkgFile
 
   Remove-Item $nuspecFile
 }
