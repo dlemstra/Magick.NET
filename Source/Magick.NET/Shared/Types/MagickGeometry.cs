@@ -467,6 +467,19 @@ namespace ImageMagick
             return value?.ToString();
         }
 
+        private static int ParseInt(string value)
+        {
+            int index = 0;
+            while (index < value.Length && !char.IsNumber(value[index]))
+                index++;
+
+            int start = index;
+            while (index < value.Length && char.IsNumber(value[index]))
+                index++;
+
+            return int.Parse(value.Substring(start, index), CultureInfo.InvariantCulture);
+        }
+
         private NativeMagickGeometry CreateNativeInstance()
         {
             NativeMagickGeometry instance = new NativeMagickGeometry();
@@ -516,19 +529,6 @@ namespace ImageMagick
 
             X = (int)instance.X;
             Y = (int)instance.Y;
-        }
-
-        private int ParseInt(string value)
-        {
-            int index = 0;
-            while (index < value.Length && !char.IsNumber(value[index]))
-                index++;
-
-            int start = index;
-            while (index < value.Length && char.IsNumber(value[index]))
-                index++;
-
-            return int.Parse(value.Substring(start, index), CultureInfo.InvariantCulture);
         }
     }
 }
