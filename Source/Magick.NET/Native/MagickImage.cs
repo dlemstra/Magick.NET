@@ -268,6 +268,8 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Chop(IntPtr Instance, IntPtr geometry, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickImage_Clahe(IntPtr Instance, UIntPtr xTiles, UIntPtr yTiles, UIntPtr numberBins, double clipLimit, out IntPtr exception);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_Clamp(IntPtr Instance, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_ClampChannel(IntPtr Instance, UIntPtr channels, out IntPtr exception);
@@ -818,6 +820,8 @@ namespace ImageMagick
                 public static extern IntPtr MagickImage_Charcoal(IntPtr Instance, double radius, double sigma, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Chop(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickImage_Clahe(IntPtr Instance, UIntPtr xTiles, UIntPtr yTiles, UIntPtr numberBins, double clipLimit, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_Clamp(IntPtr Instance, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -3179,6 +3183,23 @@ namespace ImageMagick
                     CheckException(exception, result);
                     Instance = result;
                 }
+            }
+            public void Clahe(int xTiles, int yTiles, int numberBins, double clipLimit)
+            {
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_Clahe(Instance, (UIntPtr)xTiles, (UIntPtr)yTiles, (UIntPtr)numberBins, clipLimit, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_Clahe(Instance, (UIntPtr)xTiles, (UIntPtr)yTiles, (UIntPtr)numberBins, clipLimit, out exception);
+                #endif
+                CheckException(exception);
             }
             public void Clamp()
             {

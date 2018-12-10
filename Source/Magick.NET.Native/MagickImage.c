@@ -899,6 +899,13 @@ MAGICK_NET_EXPORT Image *MagickImage_Chop(const Image *instance, const Rectangle
   return image;
 }
 
+MAGICK_NET_EXPORT void MagickImage_Clahe(Image *instance, const size_t xTiles, const size_t yTiles, const size_t numberBins, const double clipLimit, ExceptionInfo **exception)
+{
+  MAGICK_NET_GET_EXCEPTION;
+  CLAHEImage(instance, xTiles, yTiles, numberBins,clipLimit, exceptionInfo);
+  MAGICK_NET_SET_EXCEPTION;
+}
+
 MAGICK_NET_EXPORT void MagickImage_Clamp(Image *instance, ExceptionInfo **exception)
 {
   MAGICK_NET_GET_EXCEPTION;

@@ -194,6 +194,8 @@ MAGICK_NET_EXPORT Image *MagickImage_Charcoal(const Image *, const double, const
 
 MAGICK_NET_EXPORT Image *MagickImage_Chop(const Image *, const RectangleInfo *, ExceptionInfo **);
 
+MAGICK_NET_EXPORT void MagickImage_Clahe(Image *,const size_t,const size_t,const size_t,const double, ExceptionInfo **);
+
 MAGICK_NET_EXPORT void MagickImage_Clamp(Image *, ExceptionInfo **);
 
 MAGICK_NET_EXPORT void MagickImage_ClampChannel(Image *, const size_t, ExceptionInfo **);
