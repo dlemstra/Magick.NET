@@ -318,6 +318,11 @@ namespace ImageMagick
                                             ExecuteClassType(element, image);
                                             return;
                                         }
+                                        case 'h':
+                                        {
+                                            ExecuteClahe(element, image);
+                                            return;
+                                        }
                                         case 'm':
                                         {
                                             ExecuteClamp(element, image);
@@ -2046,6 +2051,14 @@ namespace ImageMagick
             Int32 offset_ = GetValue<Int32>(element, "offset");
             Int32 height_ = GetValue<Int32>(element, "height");
             image.ChopVertical(offset_, height_);
+        }
+        private void ExecuteClahe(XmlElement element, IMagickImage image)
+        {
+            Int32 xTiles_ = GetValue<Int32>(element, "xTiles");
+            Int32 yTiles_ = GetValue<Int32>(element, "yTiles");
+            Int32 numberBins_ = GetValue<Int32>(element, "numberBins");
+            double clipLimit_ = GetValue<double>(element, "clipLimit");
+            image.Clahe(xTiles_, yTiles_, numberBins_, clipLimit_);
         }
         private void ExecuteClamp(XmlElement element, IMagickImage image)
         {
