@@ -40,14 +40,14 @@
 
 static inline void RemoveFrames(Image *image)
 {
-  if (image != (Image *)NULL && image->next != (Image *)NULL)
+  if (image != (Image *) NULL && image->next != (Image *) NULL)
   {
     Image
       *next;
 
     next = image->next;
-    image->next = (Image *)NULL;
-    next->previous = (Image *)NULL;
+    image->next = (Image *) NULL;
+    next->previous = (Image *) NULL;
     DestroyImageList(next);
   }
 }
@@ -132,7 +132,7 @@ MAGICK_NET_EXPORT PixelInfo *MagickImage_BackgroundColor_Get(const Image *instan
 
 MAGICK_NET_EXPORT void MagickImage_BackgroundColor_Set(Image *instance, const PixelInfo *value)
 {
-  if (value != (PixelInfo *)NULL)
+  if (value != (PixelInfo *) NULL)
     instance->background_color = *value;
 }
 
@@ -163,7 +163,7 @@ MAGICK_NET_EXPORT PixelInfo *MagickImage_BorderColor_Get(const Image *instance)
 
 MAGICK_NET_EXPORT void MagickImage_BorderColor_Set(Image *instance, const PixelInfo *value)
 {
-  if (value != (PixelInfo *)NULL)
+  if (value != (PixelInfo *) NULL)
     instance->border_color = *value;
 }
 
@@ -196,7 +196,7 @@ MAGICK_NET_EXPORT PrimaryInfo *MagickImage_ChromaBluePrimary_Get(const Image *in
 
 MAGICK_NET_EXPORT void MagickImage_ChromaBluePrimary_Set(Image *instance, const PrimaryInfo *value)
 {
-  if (value != (PrimaryInfo *)NULL)
+  if (value != (PrimaryInfo *) NULL)
     instance->chromaticity.blue_primary = *value;
 }
 
@@ -212,7 +212,7 @@ MAGICK_NET_EXPORT PrimaryInfo *MagickImage_ChromaGreenPrimary_Get(const Image *i
 
 MAGICK_NET_EXPORT void MagickImage_ChromaGreenPrimary_Set(Image *instance, const PrimaryInfo *value)
 {
-  if (value != (PrimaryInfo *)NULL)
+  if (value != (PrimaryInfo *) NULL)
     instance->chromaticity.green_primary = *value;
 }
 
@@ -228,7 +228,7 @@ MAGICK_NET_EXPORT PrimaryInfo *MagickImage_ChromaRedPrimary_Get(const Image *ins
 
 MAGICK_NET_EXPORT void MagickImage_ChromaRedPrimary_Set(Image *instance, const PrimaryInfo *value)
 {
-  if (value != (PrimaryInfo *)NULL)
+  if (value != (PrimaryInfo *) NULL)
     instance->chromaticity.red_primary = *value;
 }
 
@@ -244,13 +244,13 @@ MAGICK_NET_EXPORT PrimaryInfo *MagickImage_ChromaWhitePoint_Get(const Image *ins
 
 MAGICK_NET_EXPORT void MagickImage_ChromaWhitePoint_Set(Image *instance, const PrimaryInfo *value)
 {
-  if (value != (PrimaryInfo *)NULL)
+  if (value != (PrimaryInfo *) NULL)
     instance->chromaticity.white_point = *value;
 }
 
 MAGICK_NET_EXPORT size_t MagickImage_ClassType_Get(const Image *instance, ExceptionInfo **exception)
 {
-  (void)exception;
+  (void) exception;
 
   return instance->storage_class;
 }
@@ -258,13 +258,13 @@ MAGICK_NET_EXPORT size_t MagickImage_ClassType_Get(const Image *instance, Except
 MAGICK_NET_EXPORT void MagickImage_ClassType_Set(Image *instance, const size_t value, ExceptionInfo **exception)
 {
   MAGICK_NET_GET_EXCEPTION;
-  if ((ClassType)value == DirectClass && instance->storage_class == PseudoClass)
+  if ((ClassType) value == DirectClass && instance->storage_class == PseudoClass)
   {
     SyncImage(instance, exceptionInfo);
-    instance->colormap = (PixelInfo *)RelinquishMagickMemory(instance->colormap);
+    instance->colormap = (PixelInfo *) RelinquishMagickMemory(instance->colormap);
     instance->storage_class = DirectClass;
   }
-  else if ((ClassType)value == PseudoClass && instance->storage_class == DirectClass)
+  else if ((ClassType) value == PseudoClass && instance->storage_class == DirectClass)
   {
     QuantizeInfo
       *settings;
@@ -290,9 +290,9 @@ MAGICK_NET_EXPORT void MagickImage_ColorFuzz_Set(Image *instance, const double v
 
 MAGICK_NET_EXPORT ssize_t MagickImage_ColormapSize_Get(const Image *instance, ExceptionInfo **exception)
 {
-  (void)exception;
+  (void) exception;
 
-  if (instance->colormap == (PixelInfo *)NULL)
+  if (instance->colormap == (PixelInfo *) NULL)
     return -1;
 
   return instance->colors;
@@ -304,54 +304,54 @@ MAGICK_NET_EXPORT void MagickImage_ColormapSize_Set(Image *instance, const ssize
     return;
 
   MAGICK_NET_GET_EXCEPTION;
-  AcquireImageColormap(instance, (size_t)value, exceptionInfo);
+  AcquireImageColormap(instance, (size_t) value, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
 }
 
 MAGICK_NET_EXPORT size_t MagickImage_ColorSpace_Get(const Image *instance, ExceptionInfo **exception)
 {
-  (void)exception;
+  (void) exception;
 
-  return (size_t)instance->colorspace;
+  return (size_t) instance->colorspace;
 }
 
 MAGICK_NET_EXPORT void MagickImage_ColorSpace_Set(Image *instance, const size_t value, ExceptionInfo **exception)
 {
-  if (instance->colorspace == (ColorspaceType)value)
+  if (instance->colorspace == (ColorspaceType) value)
     return;
 
   MAGICK_NET_GET_EXCEPTION;
-  TransformImageColorspace(instance, (const ColorspaceType)value, exceptionInfo);
+  TransformImageColorspace(instance, (const ColorspaceType) value, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
 }
 
 MAGICK_NET_EXPORT size_t MagickImage_ColorType_Get(const Image *instance, ExceptionInfo **exception)
 {
-  (void)exception;
+  (void) exception;
 
-  return (size_t)GetImageType(instance);
+  return (size_t) GetImageType(instance);
 }
 
 MAGICK_NET_EXPORT void MagickImage_ColorType_Set(Image *instance, const size_t value, ExceptionInfo **exception)
 {
   MAGICK_NET_GET_EXCEPTION;
-  SetImageType(instance, (const ImageType)value, exceptionInfo);
+  SetImageType(instance, (const ImageType) value, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
 }
 
 MAGICK_NET_EXPORT size_t MagickImage_Compose_Get(const Image *instance)
 {
-  return (size_t)instance->compose;
+  return (size_t) instance->compose;
 }
 
 MAGICK_NET_EXPORT void MagickImage_Compose_Set(Image *instance, const size_t value)
 {
-  instance->compose = (CompositeOperator)value;
+  instance->compose = (CompositeOperator) value;
 }
 
 MAGICK_NET_EXPORT size_t MagickImage_Compression_Get(const Image *instance)
 {
-  return (size_t)instance->compression;
+  return (size_t) instance->compression;
 }
 
 MAGICK_NET_EXPORT size_t MagickImage_Depth_Get(const Image *instance)
@@ -374,12 +374,12 @@ MAGICK_NET_EXPORT const char *MagickImage_EncodingGeometry_Get(const Image *inst
 
 MAGICK_NET_EXPORT size_t MagickImage_Endian_Get(const Image *instance)
 {
-  return (size_t)instance->endian;
+  return (size_t) instance->endian;
 }
 
 MAGICK_NET_EXPORT void MagickImage_Endian_Set(Image *instance, const size_t value)
 {
-  instance->endian = (EndianType)value;
+  instance->endian = (EndianType) value;
 }
 
 MAGICK_NET_EXPORT const char *MagickImage_FileName_Get(const Image *instance)
@@ -389,7 +389,7 @@ MAGICK_NET_EXPORT const char *MagickImage_FileName_Get(const Image *instance)
 
 MAGICK_NET_EXPORT void MagickImage_FileName_Set(Image *instance, const char *value)
 {
-  if (value == (const char *)NULL)
+  if (value == (const char *) NULL)
     *instance->filename = '\0';
   else
     CopyMagickString(instance->filename, value, MaxTextExtent);
@@ -397,12 +397,12 @@ MAGICK_NET_EXPORT void MagickImage_FileName_Set(Image *instance, const char *val
 
 MAGICK_NET_EXPORT size_t MagickImage_FilterType_Get(const Image *instance)
 {
-  return (size_t)instance->filter;
+  return (size_t) instance->filter;
 }
 
 MAGICK_NET_EXPORT void MagickImage_FilterType_Set(Image *instance, const size_t value)
 {
-  instance->filter = (FilterType)value;
+  instance->filter = (FilterType) value;
 }
 
 MAGICK_NET_EXPORT const char *MagickImage_Format_Get(const Image *instance)
@@ -412,7 +412,7 @@ MAGICK_NET_EXPORT const char *MagickImage_Format_Get(const Image *instance)
 
 MAGICK_NET_EXPORT void MagickImage_Format_Set(Image *instance, const char *value)
 {
-  if (value == (const char *)NULL)
+  if (value == (const char *) NULL)
     *instance->magick = '\0';
   else
     CopyMagickString(instance->magick, value, MaxTextExtent);
@@ -425,22 +425,22 @@ MAGICK_NET_EXPORT double MagickImage_Gamma_Get(const Image *instance)
 
 MAGICK_NET_EXPORT size_t MagickImage_GifDisposeMethod_Get(const Image *instance)
 {
-  return (size_t)instance->dispose;
+  return (size_t) instance->dispose;
 }
 
 MAGICK_NET_EXPORT void MagickImage_GifDisposeMethod_Set(Image *instance, const size_t value)
 {
-  instance->dispose = (DisposeType)value;
+  instance->dispose = (DisposeType) value;
 }
 
 MAGICK_NET_EXPORT size_t MagickImage_Interpolate_Get(const Image *instance)
 {
-  return (size_t)instance->interpolate;
+  return (size_t) instance->interpolate;
 }
 
 MAGICK_NET_EXPORT void MagickImage_Interpolate_Set(Image *instance, const size_t value)
 {
-  instance->interpolate = (PixelInterpolateMethod)value;
+  instance->interpolate = (PixelInterpolateMethod) value;
 }
 
 MAGICK_NET_EXPORT MagickBooleanType MagickImage_HasAlpha_Get(const Image *instance, ExceptionInfo **exception)
@@ -457,7 +457,7 @@ MAGICK_NET_EXPORT void MagickImage_HasAlpha_Set(Image *instance, const MagickBoo
   instance->alpha_trait = value ? BlendPixelTrait : UndefinedPixelTrait;
   MAGICK_NET_GET_EXCEPTION;
   cache_view = AcquireAuthenticCacheView(instance, exceptionInfo);
-  (void)GetCacheViewAuthenticPixels(cache_view, 0, 0, 1, 1, exceptionInfo);
+  (void) GetCacheViewAuthenticPixels(cache_view, 0, 0, 1, 1, exceptionInfo);
   cache_view = DestroyCacheView(cache_view);
   MAGICK_NET_SET_EXCEPTION;
 }
@@ -469,12 +469,12 @@ MAGICK_NET_EXPORT size_t MagickImage_Height_Get(const Image *instance)
 
 MAGICK_NET_EXPORT size_t MagickImage_Interlace_Get(const Image *instance)
 {
-  return (size_t)instance->interlace;
+  return (size_t) instance->interlace;
 }
 
 MAGICK_NET_EXPORT void MagickImage_Interlace_Set(Image *instance, const size_t value)
 {
-  instance->interlace = (InterlaceType)value;
+  instance->interlace = (InterlaceType) value;
 }
 
 MAGICK_NET_EXPORT MagickBooleanType MagickImage_IsOpaque_Get(const Image *instance, ExceptionInfo **exception)
@@ -495,7 +495,7 @@ MAGICK_NET_EXPORT PixelInfo *MagickImage_MatteColor_Get(const Image *instance)
 
 MAGICK_NET_EXPORT void MagickImage_MatteColor_Set(Image *instance, const PixelInfo *value)
 {
-  if (value != (PixelInfo *)NULL)
+  if (value != (PixelInfo *) NULL)
     instance->matte_color = *value;
 }
 
@@ -516,22 +516,22 @@ MAGICK_NET_EXPORT double MagickImage_NormalizedMeanError_Get(const Image *instan
 
 MAGICK_NET_EXPORT size_t MagickImage_Orientation_Get(const Image *instance)
 {
-  return (size_t)instance->orientation;
+  return (size_t) instance->orientation;
 }
 
 MAGICK_NET_EXPORT void MagickImage_Orientation_Set(Image *instance, const size_t value)
 {
-  instance->orientation = (OrientationType)value;
+  instance->orientation = (OrientationType) value;
 }
 
 MAGICK_NET_EXPORT size_t MagickImage_RenderingIntent_Get(const Image *instance)
 {
-  return (size_t)instance->rendering_intent;
+  return (size_t) instance->rendering_intent;
 }
 
 MAGICK_NET_EXPORT void MagickImage_RenderingIntent_Set(Image *instance, const size_t value)
 {
-  instance->rendering_intent = (RenderingIntent)value;
+  instance->rendering_intent = (RenderingIntent) value;
 }
 
 MAGICK_NET_EXPORT RectangleInfo *MagickImage_Page_Get(const Image *instance)
@@ -539,9 +539,9 @@ MAGICK_NET_EXPORT RectangleInfo *MagickImage_Page_Get(const Image *instance)
   RectangleInfo
     *rectangle_info;
 
-  rectangle_info = (RectangleInfo *)AcquireMagickMemory(sizeof(*rectangle_info));
-  if (rectangle_info == (RectangleInfo *)NULL)
-    return (RectangleInfo *)NULL;
+  rectangle_info = (RectangleInfo *) AcquireMagickMemory(sizeof(*rectangle_info));
+  if (rectangle_info == (RectangleInfo *) NULL)
+    return (RectangleInfo *) NULL;
   *rectangle_info = instance->page;
   return rectangle_info;
 }
@@ -563,12 +563,12 @@ MAGICK_NET_EXPORT void MagickImage_Quality_Set(Image *instance, const size_t val
 
 MAGICK_NET_EXPORT size_t MagickImage_ResolutionUnits_Get(const Image *instance)
 {
-  return (size_t)instance->units;
+  return (size_t) instance->units;
 }
 
 MAGICK_NET_EXPORT void MagickImage_ResolutionUnits_Set(Image *instance, const size_t value)
 {
-  instance->units = (ResolutionType)value;
+  instance->units = (ResolutionType) value;
 }
 
 MAGICK_NET_EXPORT double MagickImage_ResolutionX_Get(const Image *instance)
@@ -597,10 +597,10 @@ MAGICK_NET_EXPORT const char *MagickImage_Signature_Get(Image *instance, Excepti
     *property;
 
   MAGICK_NET_GET_EXCEPTION;
-  property = (const char *)NULL;
+  property = (const char *) NULL;
   if (instance->taint == MagickFalse)
     property = GetImageProperty(instance, "Signature", exceptionInfo);
-  if (property == (const char *)NULL)
+  if (property == (const char *) NULL)
   {
     SignatureImage(instance, exceptionInfo);
     property = GetImageProperty(instance, "Signature", exceptionInfo);
@@ -615,14 +615,14 @@ MAGICK_NET_EXPORT size_t MagickImage_TotalColors_Get(const Image *instance, Exce
     colors;
 
   MAGICK_NET_GET_EXCEPTION;
-  colors = GetNumberColors(instance, (FILE *)NULL, exceptionInfo);
+  colors = GetNumberColors(instance, (FILE *) NULL, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return colors;
 }
 
 MAGICK_NET_EXPORT size_t MagickImage_VirtualPixelMethod_Get(const Image *instance, ExceptionInfo **exception)
 {
-  (void)exception;
+  (void) exception;
 
   return GetImageVirtualPixelMethod(instance);
 }
@@ -630,7 +630,7 @@ MAGICK_NET_EXPORT size_t MagickImage_VirtualPixelMethod_Get(const Image *instanc
 MAGICK_NET_EXPORT void MagickImage_VirtualPixelMethod_Set(Image *instance, const size_t value, ExceptionInfo **exception)
 {
   MAGICK_NET_GET_EXCEPTION;
-  SetImageVirtualPixelMethod(instance, (const VirtualPixelMethod)value, exceptionInfo);
+  SetImageVirtualPixelMethod(instance, (const VirtualPixelMethod) value, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION
 }
 
@@ -698,7 +698,7 @@ MAGICK_NET_EXPORT Image *MagickImage_AddNoise(Image *instance, const size_t nois
 
   MAGICK_NET_GET_EXCEPTION;
   SetChannelMask(instance, channels);
-  image = AddNoiseImage(instance, (const NoiseType)noiseType, attenuate, exceptionInfo);
+  image = AddNoiseImage(instance, (const NoiseType) noiseType, attenuate, exceptionInfo);
   RestoreChannelMasks(instance, image);
   MAGICK_NET_SET_EXCEPTION;
   return image;
@@ -737,20 +737,20 @@ MAGICK_NET_EXPORT void MagickImage_Annotate(Image *instance, const DrawInfo *set
   DrawInfo
     *drawInfo;
 
-  drawInfo = CloneDrawInfo((const ImageInfo *)NULL, settings);
+  drawInfo = CloneDrawInfo((const ImageInfo *) NULL, settings);
   drawInfo->text = DestroyString(drawInfo->text);
   drawInfo->text = text;
   drawInfo->geometry = DestroyString(drawInfo->geometry);
   drawInfo->geometry = boundingArea;
-  drawInfo->gravity = (GravityType)gravity;
+  drawInfo->gravity = (GravityType) gravity;
 
   if (angle != 0.0)
     SetTransformRotation(drawInfo, angle);
 
   MAGICK_NET_GET_EXCEPTION;
   AnnotateImage(instance, drawInfo, exceptionInfo);
-  drawInfo->text = (char *)NULL;
-  drawInfo->geometry = (char *)NULL;
+  drawInfo->text = (char *) NULL;
+  drawInfo->geometry = (char *) NULL;
   DestroyDrawInfo(drawInfo);
   MAGICK_NET_SET_EXCEPTION;
 }
@@ -760,14 +760,14 @@ MAGICK_NET_EXPORT void MagickImage_AnnotateGravity(Image *instance, const DrawIn
   DrawInfo
     *drawInfo;
 
-  drawInfo = CloneDrawInfo((const ImageInfo *)NULL, settings);
+  drawInfo = CloneDrawInfo((const ImageInfo *) NULL, settings);
   drawInfo->text = DestroyString(drawInfo->text);
   drawInfo->text = text;
-  drawInfo->gravity = (GravityType)gravity;
+  drawInfo->gravity = (GravityType) gravity;
 
   MAGICK_NET_GET_EXCEPTION;
   AnnotateImage(instance, drawInfo, exceptionInfo);
-  drawInfo->text = (char *)NULL;
+  drawInfo->text = (char *) NULL;
   DestroyDrawInfo(drawInfo);
   MAGICK_NET_SET_EXCEPTION;
 }
@@ -934,8 +934,8 @@ MAGICK_NET_EXPORT Image *MagickImage_Clone(const Image *instance, ExceptionInfo 
   Image
     *image;
 
-  if (instance == (const Image *)NULL)
-    return (Image *)NULL;
+  if (instance == (const Image *) NULL)
+    return (Image *) NULL;
 
   MAGICK_NET_GET_EXCEPTION;
   image = CloneImage(instance, 0, 0, MagickTrue, exceptionInfo);
@@ -949,8 +949,8 @@ MAGICK_NET_EXPORT Image *MagickImage_CloneArea(const Image *instance, const size
   Image
     *image;
 
-  if (instance == (const Image *)NULL)
-    return (Image *)NULL;
+  if (instance == (const Image *) NULL)
+    return (Image *) NULL;
 
   MAGICK_NET_GET_EXCEPTION;
   image = CloneImage(instance, width, height, MagickTrue, exceptionInfo);
@@ -963,7 +963,7 @@ MAGICK_NET_EXPORT void MagickImage_Clut(Image *instance, Image *clutImage, const
 {
   MAGICK_NET_GET_EXCEPTION;
   SetChannelMask(clutImage, channels);
-  ClutImage(instance, clutImage, (const PixelInterpolateMethod)method, exceptionInfo);
+  ClutImage(instance, clutImage, (const PixelInterpolateMethod) method, exceptionInfo);
   RestoreChannelMask(clutImage);
   MAGICK_NET_SET_EXCEPTION;
 }
@@ -1004,7 +1004,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Compare(Image *instance, Image *reference, 
 
   MAGICK_NET_GET_EXCEPTION;
   SetChannelMask(reference, channels);
-  image = CompareImages(instance, reference, (const MetricType)metric, distortion, exceptionInfo);
+  image = CompareImages(instance, reference, (const MetricType) metric, distortion, exceptionInfo);
   RestoreChannelMask(reference);
   MAGICK_NET_SET_EXCEPTION;
   return image;
@@ -1017,7 +1017,7 @@ MAGICK_NET_EXPORT double MagickImage_CompareDistortion(Image *instance, Image *r
 
   MAGICK_NET_GET_EXCEPTION;
   SetChannelMask(reference, channels);
-  GetImageDistortion(instance, reference, (const MetricType)metric, &result, exceptionInfo);
+  GetImageDistortion(instance, reference, (const MetricType) metric, &result, exceptionInfo);
   RestoreChannelMask(reference);
   MAGICK_NET_SET_EXCEPTION;
   return result;
@@ -1026,7 +1026,7 @@ MAGICK_NET_EXPORT double MagickImage_CompareDistortion(Image *instance, Image *r
 MAGICK_NET_EXPORT void MagickImage_Composite(Image *instance, const Image *reference, const ssize_t x, const ssize_t y, const size_t compose, ExceptionInfo **exception)
 {
   MAGICK_NET_GET_EXCEPTION;
-  CompositeImage(instance, reference, (const CompositeOperator)compose, MagickTrue, x, y, exceptionInfo);
+  CompositeImage(instance, reference, (const CompositeOperator) compose, MagickTrue, x, y, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
 }
 
@@ -1111,7 +1111,7 @@ MAGICK_NET_EXPORT Image *MagickImage_CropAspectRatio(Image *instance, const char
   instance->gravity = gravity;
   image = CropImageToTiles(instance, geometry, exceptionInfo);
   RemoveFrames(image);
-  if (image != (Image *)NULL)
+  if (image != (Image *) NULL)
     image->gravity = original_gravity;
   else
     instance->gravity = original_gravity;
@@ -1183,7 +1183,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Distort(const Image *instance, const size_t
     *image;
 
   MAGICK_NET_GET_EXCEPTION;
-  image = DistortImage(instance, (const DistortMethod)method, length, arguments, bestfit, exceptionInfo);
+  image = DistortImage(instance, (const DistortMethod) method, length, arguments, bestfit, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
@@ -1250,7 +1250,7 @@ MAGICK_NET_EXPORT void MagickImage_EvaluateFunction(Image *instance, const size_
 {
   MAGICK_NET_GET_EXCEPTION;
   SetChannelMask(instance, channels);
-  FunctionImage(instance, (const MagickFunction)evaluateFunction, length, values, exceptionInfo);
+  FunctionImage(instance, (const MagickFunction) evaluateFunction, length, values, exceptionInfo);
   RestoreChannelMask(instance);
   MAGICK_NET_SET_EXCEPTION;
 }
@@ -1274,7 +1274,7 @@ MAGICK_NET_EXPORT void MagickImage_EvaluateOperator(Image *instance, const size_
 {
   MAGICK_NET_GET_EXCEPTION;
   SetChannelMask(instance, channels);
-  EvaluateImage(instance, (const MagickEvaluateOperator)evaluateOperator, value, exceptionInfo);
+  EvaluateImage(instance, (const MagickEvaluateOperator) evaluateOperator, value, exceptionInfo);
   RestoreChannelMask(instance);
   MAGICK_NET_SET_EXCEPTION;
 }
@@ -1306,7 +1306,7 @@ MAGICK_NET_EXPORT Image *MagickImage_ExtentGravity(const Image *instance, const 
 
   SetGeometry(instance, &rectangle);
   ParseMetaGeometry(geometry, &rectangle.x, &rectangle.y, &rectangle.width, &rectangle.height);
-  GravityAdjustGeometry(instance->columns, instance->rows, (const GravityType)gravity, &rectangle);
+  GravityAdjustGeometry(instance->columns, instance->rows, (const GravityType) gravity, &rectangle);
 
   MAGICK_NET_GET_EXCEPTION;
   image = ExtentImage(instance, &rectangle, exceptionInfo);
@@ -1319,13 +1319,13 @@ MAGICK_NET_EXPORT MagickBooleanType MagickImage_HasChannel(const Image *instance
   PixelChannel
     pixelChannel;
 
-  pixelChannel = (PixelChannel)channel;
+  pixelChannel = (PixelChannel) channel;
   if (GetPixelChannelTraits(instance, pixelChannel) == UndefinedPixelTrait)
     return MagickFalse;
 
   if (pixelChannel == GreenPixelChannel || pixelChannel == BluePixelChannel)
   {
-    if (GetPixelChannelOffset(instance, pixelChannel) != (ssize_t)channel)
+    if (GetPixelChannelOffset(instance, pixelChannel) != (ssize_t) channel)
       return MagickFalse;
   }
 
@@ -1397,8 +1397,8 @@ MAGICK_NET_EXPORT Image *MagickImage_Frame(const Image *instance, const Rectangl
 
   info.x = geometry->width;
   info.y = geometry->height;
-  info.width = instance->columns + (((size_t)info.x) << 1);
-  info.height = instance->rows + (((size_t)info.y) << 1);
+  info.width = instance->columns + (((size_t) info.x) << 1);
+  info.height = instance->rows + (((size_t) info.y) << 1);
   info.outer_bevel = geometry->x;
   info.inner_bevel = geometry->y;
 
@@ -1474,11 +1474,11 @@ MAGICK_NET_EXPORT size_t MagickImage_GetBitDepth(Image *instance, const size_t c
 
 MAGICK_NET_EXPORT PixelInfo *MagickImage_GetColormap(const Image *instance, const size_t index)
 {
-  if (instance->colormap == (PixelInfo *)NULL)
-    return (PixelInfo *)NULL;
+  if (instance->colormap == (PixelInfo *) NULL)
+    return (PixelInfo *) NULL;
 
   if (index >= instance->colors)
-    return (PixelInfo *)NULL;
+    return (PixelInfo *) NULL;
 
   return MagickColor_Clone(&instance->colormap[index]);
 }
@@ -1528,7 +1528,7 @@ MAGICK_NET_EXPORT Image *MagickImage_GetWriteMask(const Image *instance, Excepti
 
   MAGICK_NET_GET_EXCEPTION;
   if ((instance->channels & WriteMaskChannel) == 0)
-    return (Image *)NULL;
+    return (Image *) NULL;
   image = GetImageMask(instance, WritePixelMask, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return image;
@@ -1537,7 +1537,7 @@ MAGICK_NET_EXPORT Image *MagickImage_GetWriteMask(const Image *instance, Excepti
 MAGICK_NET_EXPORT void MagickImage_Grayscale(Image *instance, const size_t method, ExceptionInfo **exception)
 {
   MAGICK_NET_GET_EXCEPTION;
-  GrayscaleImage(instance, (const PixelIntensityMethod)method, exceptionInfo);
+  GrayscaleImage(instance, (const PixelIntensityMethod) method, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
 }
 
@@ -1550,7 +1550,7 @@ MAGICK_NET_EXPORT void MagickImage_HaldClut(Image *instance, const Image *image,
 
 MAGICK_NET_EXPORT MagickBooleanType MagickImage_HasProfile(const Image *instance, const char *name)
 {
-  return (GetImageProfile(instance, name) == (const StringInfo *)NULL) ? MagickFalse : MagickTrue;
+  return (GetImageProfile(instance, name) == (const StringInfo *) NULL) ? MagickFalse : MagickTrue;
 }
 
 MAGICK_NET_EXPORT PixelInfo *MagickImage_Histogram(const Image *instance, size_t *length, ExceptionInfo **exception)
@@ -1561,7 +1561,7 @@ MAGICK_NET_EXPORT PixelInfo *MagickImage_Histogram(const Image *instance, size_t
   MAGICK_NET_GET_EXCEPTION;
   result = GetImageHistogram(instance, length, exceptionInfo);
   if (*length == 0)
-    result = (PixelInfo*)RelinquishMagickMemory(result);
+    result = (PixelInfo*) RelinquishMagickMemory(result);
   MAGICK_NET_SET_EXCEPTION;
   return result;
 }
@@ -1583,7 +1583,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Implode(const Image *instance, const double
     *image;
 
   MAGICK_NET_GET_EXCEPTION;
-  image = ImplodeImage(instance, amount, (const PixelInterpolateMethod)method, exceptionInfo);
+  image = ImplodeImage(instance, amount, (const PixelInterpolateMethod) method, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
@@ -1645,7 +1645,7 @@ MAGICK_NET_EXPORT Image *MagickImage_LiquidRescale(const Image *instance, const 
   ParseMetaGeometry(geometry, &rectangle.x, &rectangle.y, &rectangle.width, &rectangle.height);
 
   MAGICK_NET_GET_EXCEPTION;
-  image = LiquidRescaleImage(instance, rectangle.width, rectangle.height, (double)rectangle.x, (double)rectangle.y, exceptionInfo);
+  image = LiquidRescaleImage(instance, rectangle.width, rectangle.height, (double) rectangle.x, (double) rectangle.y, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
@@ -1735,13 +1735,13 @@ MAGICK_NET_EXPORT Image *MagickImage_Morphology(Image *instance, const size_t me
 
   MAGICK_NET_GET_EXCEPTION;
   kernelInfo = AcquireKernelInfo(kernel, exceptionInfo);
-  if (kernelInfo == (KernelInfo *)NULL)
+  if (kernelInfo == (KernelInfo *) NULL)
   {
     MAGICK_NET_RAISE_EXCEPTION(OptionError, "Unable to parse kernel.");
-    return (Image *)NULL;
+    return (Image *) NULL;
   }
   SetChannelMask(instance, channels);
-  image = MorphologyImage(instance, (const MorphologyMethod)method, iterations, kernelInfo, exceptionInfo);
+  image = MorphologyImage(instance, (const MorphologyMethod) method, iterations, kernelInfo, exceptionInfo);
   RestoreChannelMasks(instance, image);
   MAGICK_NET_SET_EXCEPTION;
   return image;
@@ -1834,7 +1834,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Polaroid(Image *instance, const DrawInfo *s
     *image;
 
   MAGICK_NET_GET_EXCEPTION;
-  image = PolaroidImage(instance, settings, caption, angle, (const PixelInterpolateMethod)method, exceptionInfo);
+  image = PolaroidImage(instance, settings, caption, angle, (const PixelInterpolateMethod) method, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
@@ -1843,7 +1843,7 @@ MAGICK_NET_EXPORT void MagickImage_Posterize(Image *instance, const size_t level
 {
   MAGICK_NET_GET_EXCEPTION;
   SetChannelMask(instance, channels);
-  PosterizeImage(instance, levels, (const DitherMethod)method, exceptionInfo);
+  PosterizeImage(instance, levels, (const DitherMethod) method, exceptionInfo);
   RestoreChannelMask(instance);
   MAGICK_NET_SET_EXCEPTION;
 }
@@ -1873,7 +1873,7 @@ MAGICK_NET_EXPORT Image *MagickImage_ReadBlob(const ImageInfo *settings, const u
     *image;
 
   MAGICK_NET_GET_EXCEPTION;
-  image = BlobToImage(settings, (const void *)data, length, exceptionInfo);
+  image = BlobToImage(settings, (const void *) data, length, exceptionInfo);
   RemoveFrames(image);
   MAGICK_NET_SET_EXCEPTION;
   return image;
@@ -1897,7 +1897,7 @@ MAGICK_NET_EXPORT Image *MagickImage_ReadPixels(const size_t width, const size_t
     *image;
 
   MAGICK_NET_GET_EXCEPTION;
-  image = ConstituteImage(width, height, map, (const StorageType)storageType, (const void *)data, exceptionInfo);
+  image = ConstituteImage(width, height, map, (const StorageType) storageType, (const void *) data, exceptionInfo);
   RemoveFrames(image);
   MAGICK_NET_SET_EXCEPTION;
   return image;
@@ -1918,7 +1918,7 @@ MAGICK_NET_EXPORT Image *MagickImage_ReadStream(ImageInfo *settings, const Custo
   SetCustomStreamTeller(info, teller);
   SetImageInfoCustomStream(settings, info);
   image = CustomStreamToImage(settings, exceptionInfo);
-  SetImageInfoCustomStream(settings, (CustomStreamInfo *)NULL);
+  SetImageInfoCustomStream(settings, (CustomStreamInfo *) NULL);
   info = DestroyCustomStreamInfo(info);
   MAGICK_NET_SET_EXCEPTION;
   return(image);
@@ -1927,24 +1927,24 @@ MAGICK_NET_EXPORT Image *MagickImage_ReadStream(ImageInfo *settings, const Custo
 MAGICK_NET_EXPORT void MagickImage_RegionMask(Image *instance, const RectangleInfo *region, ExceptionInfo **exception)
 {
   MAGICK_NET_GET_EXCEPTION;
-  (void)SetImageRegionMask(instance, ReadPixelMask, region, exceptionInfo);
-  (void)SetImageRegionMask(instance, WritePixelMask, region, exceptionInfo);
+  (void) SetImageRegionMask(instance, ReadPixelMask, region, exceptionInfo);
+  (void) SetImageRegionMask(instance, WritePixelMask, region, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
 }
 
 MAGICK_NET_EXPORT void MagickImage_RemoveArtifact(Image *instance, const char *name)
 {
-  (void)DeleteImageArtifact(instance, name);
+  (void) DeleteImageArtifact(instance, name);
 }
 
 MAGICK_NET_EXPORT void MagickImage_RemoveAttribute(Image *instance, const char *name)
 {
-  (void)DeleteImageProperty(instance, name);
+  (void) DeleteImageProperty(instance, name);
 }
 
 MAGICK_NET_EXPORT void MagickImage_RemoveProfile(Image *instance, const char *name)
 {
-  (void)DeleteImageProfile(instance, name);
+  (void) DeleteImageProfile(instance, name);
 }
 
 MAGICK_NET_EXPORT void MagickImage_ResetArtifactIterator(const Image *instance)
@@ -2063,7 +2063,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Scale(const Image *instance, const char *ge
 MAGICK_NET_EXPORT void MagickImage_Segment(Image *instance, const size_t colorSpace, const double clusterThreshold, const double smoothingThreshold, ExceptionInfo **exception)
 {
   MAGICK_NET_GET_EXCEPTION;
-  SegmentImage(instance, (const ColorspaceType)colorSpace, MagickFalse, clusterThreshold, smoothingThreshold, exceptionInfo);
+  SegmentImage(instance, (const ColorspaceType) colorSpace, MagickFalse, clusterThreshold, smoothingThreshold, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
 }
 
@@ -2107,13 +2107,13 @@ MAGICK_NET_EXPORT Image *MagickImage_SepiaTone(Image *instance, const double thr
 MAGICK_NET_EXPORT void MagickImage_SetAlpha(Image *instance, const size_t value, ExceptionInfo **exception)
 {
   MAGICK_NET_GET_EXCEPTION;
-  SetImageAlphaChannel(instance, (const AlphaChannelOption)value, exceptionInfo);
+  SetImageAlphaChannel(instance, (const AlphaChannelOption) value, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
 }
 
 MAGICK_NET_EXPORT void MagickImage_SetArtifact(Image *instance, const char *name, const char *value)
 {
-  (void)SetImageArtifact(instance, name, value);
+  (void) SetImageArtifact(instance, name, value);
 }
 
 MAGICK_NET_EXPORT void MagickImage_SetAttribute(Image *instance, const char *name, const char *value, ExceptionInfo **exception)
@@ -2134,7 +2134,7 @@ MAGICK_NET_EXPORT void MagickImage_SetBitDepth(Image *instance, const size_t cha
 
 MAGICK_NET_EXPORT void MagickImage_SetColormap(Image *instance, const size_t index, const PixelInfo *color, ExceptionInfo **exception)
 {
-  if (instance->colormap == (PixelInfo *)NULL || color == (const PixelInfo *)NULL)
+  if (instance->colormap == (PixelInfo *) NULL || color == (const PixelInfo *) NULL)
     return;
 
   if (index >= MaxColormapSize)
@@ -2159,11 +2159,11 @@ MAGICK_NET_EXPORT MagickBooleanType MagickImage_SetColorMetric(Image *instance, 
 
 MAGICK_NET_EXPORT void MagickImage_SetNext(Image *image, Image *next)
 {
-  if (next == (Image *)NULL)
+  if (next == (Image *) NULL)
   {
-    if (image->next != (Image *)NULL)
-      image->next->previous = (Image *)NULL;
-    image->next = (Image *)NULL;
+    if (image->next != (Image *) NULL)
+      image->next->previous = (Image *) NULL;
+    image->next = (Image *) NULL;
   }
   else
   {
@@ -2269,7 +2269,7 @@ MAGICK_NET_EXPORT Image *MagickImage_SparseColor(Image *instance, const size_t c
 
   MAGICK_NET_GET_EXCEPTION;
   SetChannelMask(instance, channels);
-  image = SparseColorImage(instance, (const SparseColorMethod)method, length, arguments, exceptionInfo);
+  image = SparseColorImage(instance, (const SparseColorMethod) method, length, arguments, exceptionInfo);
   RestoreChannelMasks(instance, image);
   MAGICK_NET_SET_EXCEPTION;
   return image;
@@ -2281,7 +2281,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Spread(const Image *instance, const size_t 
     *image;
 
   MAGICK_NET_GET_EXCEPTION;
-  image = SpreadImage(instance, (const PixelInterpolateMethod)method, radius, exceptionInfo);
+  image = SpreadImage(instance, (const PixelInterpolateMethod) method, radius, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
@@ -2321,7 +2321,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Statistic(const Image *instance, const size
     *image;
 
   MAGICK_NET_GET_EXCEPTION;
-  image = StatisticImage(instance, (const StatisticType)type, width, height, exceptionInfo);
+  image = StatisticImage(instance, (const StatisticType) type, width, height, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
@@ -2372,7 +2372,7 @@ MAGICK_NET_EXPORT Image *MagickImage_SubImageSearch(Image *instance, const Image
     *image;
 
   MAGICK_NET_GET_EXCEPTION;
-  image = SimilarityImage(instance, reference, (const MetricType)metric, similarityThreshold, offset, similarityMetric, exceptionInfo);
+  image = SimilarityImage(instance, reference, (const MetricType) metric, similarityThreshold, offset, similarityMetric, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
@@ -2383,7 +2383,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Swirl(const Image *instance, const size_t m
     *image;
 
   MAGICK_NET_GET_EXCEPTION;
-  image = SwirlImage(instance, degrees, (const PixelInterpolateMethod)method, exceptionInfo);
+  image = SwirlImage(instance, degrees, (const PixelInterpolateMethod) method, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
@@ -2518,7 +2518,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Wave(const Image *instance, const size_t me
     *image;
 
   MAGICK_NET_GET_EXCEPTION;
-  image = WaveImage(instance, amplitude, length, (const PixelInterpolateMethod)method, exceptionInfo);
+  image = WaveImage(instance, amplitude, length, (const PixelInterpolateMethod) method, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
@@ -2563,7 +2563,7 @@ MAGICK_NET_EXPORT void MagickImage_WriteStream(Image *instance, ImageInfo *setti
   SetCustomStreamReader(info, reader);
   SetImageInfoCustomStream(settings, info);
   ImageToCustomStream(settings, instance, exceptionInfo);
-  SetImageInfoCustomStream(settings, (CustomStreamInfo *)NULL);
+  SetImageInfoCustomStream(settings, (CustomStreamInfo *) NULL);
   info = DestroyCustomStreamInfo(info);
   MAGICK_NET_SET_EXCEPTION;
 }
