@@ -282,7 +282,8 @@ function WriteNuGetPackage($id, $version, $xml)
 
   $dir = FullPath "Publish\NuGet"
   $nuspecFile = "$dir\$id.nuspec"
-  $nupkgFile = "$dir\$id.nupkg"
+  $nugetVersion = $version -replace "\.0$",""
+  $nupkgFile = "$dir\$id.$nugetVersion.nupkg"
   if (Test-Path $nuspecFile)
   {
     Remove-Item $nuspecFile
