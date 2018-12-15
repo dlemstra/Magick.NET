@@ -72,7 +72,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldBeAbleToWriteLzwPTiffToStream()
         {
-            using (IMagickImage image = new MagickImage(Files.InvitationTif))
+            using (IMagickImage image = new MagickImage(Files.InvitationTIF))
             {
                 image.Settings.Compression = CompressionMethod.LZW;
                 using (var stream = new MemoryStream())

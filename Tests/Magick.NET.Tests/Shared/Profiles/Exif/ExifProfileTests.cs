@@ -128,7 +128,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_ExifTypeUndefined()
         {
-            using (IMagickImage image = new MagickImage(Files.ExifUndefType))
+            using (IMagickImage image = new MagickImage(Files.ExifUndefTypeJPG))
             {
                 ExifProfile profile = image.GetExifProfile();
                 Assert.IsNotNull(profile);

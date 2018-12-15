@@ -76,7 +76,7 @@ namespace Magick.NET.Tests
                 ExtractArea = new MagickGeometry(10, 10, 20, 30),
             };
 
-            using (IMagickImage image = new MagickImage(Files.Coders.GrimJp2, readSettings))
+            using (IMagickImage image = new MagickImage(Files.Coders.GrimJP2, readSettings))
             {
                 Assert.AreEqual(20, image.Width);
                 Assert.AreEqual(30, image.Height);

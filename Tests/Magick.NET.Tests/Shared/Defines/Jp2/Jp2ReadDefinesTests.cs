@@ -46,7 +46,7 @@ namespace Magick.NET.Tests
 
             using (IMagickImage image = new MagickImage())
             {
-                image.Read(Files.Coders.GrimJp2, settings);
+                image.Read(Files.Coders.GrimJP2, settings);
 
                 Assert.AreEqual("4", image.Settings.GetDefine(MagickFormat.Jp2, "quality-layers"));
                 Assert.AreEqual("2", image.Settings.GetDefine(MagickFormat.Jp2, "reduce-factor"));

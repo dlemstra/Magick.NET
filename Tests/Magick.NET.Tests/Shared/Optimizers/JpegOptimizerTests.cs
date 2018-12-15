@@ -67,7 +67,7 @@ namespace Magick.NET.Tests
         {
             ExceptionAssert.Throws<MagickCorruptImageErrorException>(() =>
             {
-                Optimizer.Compress(Files.InvitationTif);
+                Optimizer.Compress(Files.InvitationTIF);
             });
         }
 
@@ -257,7 +257,7 @@ namespace Magick.NET.Tests
         {
             ExceptionAssert.Throws<MagickCorruptImageErrorException>(() =>
             {
-                Optimizer.LosslessCompress(Files.InvitationTif);
+                Optimizer.LosslessCompress(Files.InvitationTIF);
             });
         }
 

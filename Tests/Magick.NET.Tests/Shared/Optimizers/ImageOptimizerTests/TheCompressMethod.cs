@@ -106,7 +106,7 @@ namespace Magick.NET.Tests.Shared.Optimizers.ImageOptimizerTests
                     var optimizer = new ImageOptimizer();
                     ExceptionAssert.Throws<MagickCorruptImageErrorException>(() =>
                     {
-                        optimizer.Compress(Files.InvitationTif);
+                        optimizer.Compress(Files.InvitationTIF);
                     }, "Invalid format");
                 }
 
@@ -134,7 +134,7 @@ namespace Magick.NET.Tests.Shared.Optimizers.ImageOptimizerTests
                 public void ShouldNotThrowExceptionWhenIgnoringUnsupportedFileName()
                 {
                     var optimizer = new ImageOptimizer { IgnoreUnsupportedFormats = true };
-                    var compressionSuccess = optimizer.Compress(Files.InvitationTif);
+                    var compressionSuccess = optimizer.Compress(Files.InvitationTIF);
                     Assert.IsFalse(compressionSuccess);
                 }
             }
@@ -215,7 +215,7 @@ namespace Magick.NET.Tests.Shared.Optimizers.ImageOptimizerTests
                 public void ShouldNotThrowExceptionWhenIgnoringUnsupportedStream()
                 {
                     var optimizer = new ImageOptimizer { IgnoreUnsupportedFormats = true };
-                    using (FileStream fileStream = OpenFile(Files.InvitationTif))
+                    using (FileStream fileStream = OpenFile(Files.InvitationTIF))
                     {
                         var compressionSuccess = optimizer.Compress(fileStream);
                         Assert.IsFalse(compressionSuccess);

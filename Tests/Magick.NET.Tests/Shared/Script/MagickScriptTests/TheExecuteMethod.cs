@@ -271,7 +271,7 @@ namespace Magick.NET.Tests
 
             private static void DefinesScriptRead(object sender, ScriptReadEventArgs arguments)
             {
-                arguments.Image = new MagickImage(Files.InvitationTif, arguments.ReadSettings);
+                arguments.Image = new MagickImage(Files.InvitationTIF, arguments.ReadSettings);
                 Assert.IsNull(arguments.Image.GetAttribute("exif:PixelXDimension"));
             }
 

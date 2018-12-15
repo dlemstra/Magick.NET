@@ -1581,7 +1581,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual("a48a7f2fdc26e9ccf75b0c85a254c958f004cc182d0ca8c3060c1df734645367", image.FormatExpression("%#"));
             }
 
-            using (IMagickImage image = new MagickImage(Files.InvitationTif))
+            using (IMagickImage image = new MagickImage(Files.InvitationTIF))
             {
                 Assert.AreEqual("sRGB IEC61966-2.1", image.FormatExpression("%[profile:icc]"));
             }
@@ -1680,10 +1680,10 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_GammaCorrect()
         {
-            IMagickImage first = new MagickImage(Files.InvitationTif);
+            IMagickImage first = new MagickImage(Files.InvitationTIF);
             first.GammaCorrect(2.0);
 
-            IMagickImage second = new MagickImage(Files.InvitationTif);
+            IMagickImage second = new MagickImage(Files.InvitationTIF);
             second.GammaCorrect(2.0, Channels.Red);
 
             Assert.AreNotEqual(first, second);
@@ -1720,7 +1720,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_GetClippingPath()
         {
-            using (IMagickImage image = new MagickImage(Files.InvitationTif))
+            using (IMagickImage image = new MagickImage(Files.InvitationTIF))
             {
                 string clippingPath = image.GetClippingPath();
                 Assert.IsNotNull(clippingPath);
@@ -1768,7 +1768,7 @@ namespace Magick.NET.Tests
                 Assert.IsFalse(noPath.HasClippingPath);
             }
 
-            using (IMagickImage hasPath = new MagickImage(Files.InvitationTif))
+            using (IMagickImage hasPath = new MagickImage(Files.InvitationTIF))
             {
                 Assert.IsTrue(hasPath.HasClippingPath);
             }
@@ -2913,7 +2913,7 @@ namespace Magick.NET.Tests
             {
                 Assert.IsFalse(image.HasClippingPath);
 
-                using (IMagickImage path = new MagickImage(Files.InvitationTif))
+                using (IMagickImage path = new MagickImage(Files.InvitationTIF))
                 {
                     string clippingPath = path.GetClippingPath();
 

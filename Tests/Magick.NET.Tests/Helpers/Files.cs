@@ -17,199 +17,53 @@ namespace Magick.NET.Tests
 {
     public static class Files
     {
-        private static readonly string _Root = GetRoot();
+        public static string CirclePNG => Root + @"Images/Circle.png";
 
-        public static string CirclePNG
-        {
-            get
-            {
-                return _Root + @"Images/Circle.png";
-            }
-        }
+        public static string CMYKJPG => Root + @"Images/CMYK.jpg";
 
-        public static string CMYKJPG
-        {
-            get
-            {
-                return _Root + @"Images/CMYK.jpg";
-            }
-        }
+        public static string CorruptPNG => Root + @"Images/Corrupt.png";
 
-        public static string CorruptPNG
-        {
-            get
-            {
-                return _Root + @"Images/Corrupt.png";
-            }
-        }
+        public static string ConnectedComponentsPNG => Root + @"Images/ConnectedComponents.png";
 
-        public static string ConnectedComponentsPNG
-        {
-            get
-            {
-                return _Root + @"Images/ConnectedComponents.png";
-            }
-        }
+        public static string EightBimTIF => Root + @"Images/8Bim.tif";
 
-        public static string EightBimTIF
-        {
-            get
-            {
-                return _Root + @"Images/8Bim.tif";
-            }
-        }
+        public static string FujiFilmFinePixS1ProGIF => Root + @"Images/FujiFilmFinePixS1Pro.gif";
 
-        public static string FujiFilmFinePixS1ProGIF
-        {
-            get
-            {
-                return _Root + @"Images/FujiFilmFinePixS1Pro.gif";
-            }
-        }
+        public static string FujiFilmFinePixS1ProJPG => Root + @"Images/FujiFilmFinePixS1Pro.jpg";
 
-        public static string FujiFilmFinePixS1ProJPG
-        {
-            get
-            {
-                return _Root + @"Images/FujiFilmFinePixS1Pro.jpg";
-            }
-        }
+        public static string ExifUndefTypeJPG => Root + @"Images/ExifUndefType.jpg";
 
-        public static string ExifUndefType
-        {
-            get
-            {
-                return _Root + @"Images/ExifUndefType.jpg";
-            }
-        }
+        public static string FujiFilmFinePixS1ProPNG => Root + @"Images/FujiFilmFinePixS1Pro.png";
 
-        public static string FujiFilmFinePixS1ProPNG
-        {
-            get
-            {
-                return _Root + @"Images/FujiFilmFinePixS1Pro.png";
-            }
-        }
+        public static string ImageMagickJPG => Root + @"Images/ImageMagick.jpg";
 
-        public static string ImageMagickJPG
-        {
-            get
-            {
-                return _Root + @"Images/ImageMagick.jpg";
-            }
-        }
+        public static string InvitationTIF => Root + @"Images/Invitation.tif";
 
-        public static string InvitationTif
-        {
-            get
-            {
-                return _Root + @"Images/Invitation.tif";
-            }
-        }
+        public static string ImageMagickTXT => Root + @"Images/ImageMagick.txt";
 
-        public static string ImageMagickTXT
-        {
-            get
-            {
-                return _Root + @"Images/ImageMagick.txt";
-            }
-        }
+        public static string LetterJPG => Root + @"Images/Letter.jpg";
 
-        public static string LetterJPG
-        {
-            get
-            {
-                return _Root + @"Images/Letter.jpg";
-            }
-        }
+        public static string MagickNETIconPNG => Root + @"Images/Magick.NET.icon.png";
 
-        public static string MagickNETIconPNG
-        {
-            get
-            {
-                return _Root + @"Images/Magick.NET.icon.png";
-            }
-        }
+        public static string Missing => @"/Foo/Bar.png";
 
-        public static string Missing
-        {
-            get
-            {
-                return @"/Foo/Bar.png";
-            }
-        }
+        public static string NoisePNG => Root + @"Images/Noise.png";
 
-        public static string NoisePNG
-        {
-            get
-            {
-                return _Root + @"Images/Noise.png";
-            }
-        }
+        public static string PictureJPG => Root + @"Images/Picture.jpg";
 
-        public static string PictureJPG
-        {
-            get
-            {
-                return _Root + @"Images/Picture.jpg";
-            }
-        }
+        public static string RedPNG => Root + @"Images/Red.png";
 
-        public static string RedPNG
-        {
-            get
-            {
-                return _Root + @"Images/Red.png";
-            }
-        }
+        public static string RoseSparkleGIF => Root + @"Images/RöseSparkle.gif";
 
-        public static string RoseSparkleGIF
-        {
-            get
-            {
-                return _Root + @"Images/RöseSparkle.gif";
-            }
-        }
+        public static string Root { get; } = GetRoot();
 
-        public static string Root
-        {
-            get
-            {
-                return _Root;
-            }
-        }
+        public static string SnakewarePNG => Root + @"Images/Snakeware.png";
 
-        public static string SnakewarePNG
-        {
-            get
-            {
-                return _Root + @"Images/Snakeware.png";
-            }
-        }
+        public static string VicelandPNG => Root + "Images/viceland.png";
 
-        public static string VicelandPNG
-        {
-            get
-            {
-                return _Root + "Images/viceland.png";
-            }
-        }
+        public static string WireframeTIF => Root + @"Images/wireframe.tif";
 
-        public static string WireframeTIF
-        {
-            get
-            {
-                return _Root + @"Images/wireframe.tif";
-            }
-        }
-
-        public static string TestPNG
-        {
-            get
-            {
-                return _Root + @"Images/Test.png";
-            }
-        }
+        public static string TestPNG => Root + @"Images/Test.png";
 
         [ExcludeFromCodeCoverage]
         private static string GetRoot()
@@ -232,209 +86,65 @@ namespace Magick.NET.Tests
 
         public static class Builtin
         {
-            public static string Logo
-            {
-                get
-                {
-                    return "logo:";
-                }
-            }
+            public static string Logo => "logo:";
 
-            public static string Rose
-            {
-                get
-                {
-                    return "rose:";
-                }
-            }
+            public static string Rose => "rose:";
 
-            public static string Wizard
-            {
-                get
-                {
-                    return "wizard:";
-                }
-            }
+            public static string Wizard => "wizard:";
         }
 
         public static class Coders
         {
-            public static string CartoonNetworkStudiosLogoAI
-            {
-                get
-                {
-                    return _Root + @"Images/Coders/CN Studios Logo.ai";
-                }
-            }
+            public static string CartoonNetworkStudiosLogoAI => Root + @"Images/Coders/CN Studios Logo.ai";
 
-            public static string GrimJp2
-            {
-                get
-                {
-                    return _Root + @"Images/Coders/grim.jp2";
-                }
-            }
+            public static string GrimJP2 => Root + @"Images/Coders/grim.jp2";
 
-            public static string IgnoreTagTIF
-            {
-                get
-                {
-                    return _Root + @"Images/Coders/IgnoreTag.tif";
-                }
-            }
+            public static string IgnoreTagTIF => Root + @"Images/Coders/IgnoreTag.tif";
 
-            public static string LayerStylesSamplePSD
-            {
-                get
-                {
-                    return _Root + @"Images/Coders/layer-styles-sample.psd";
-                }
-            }
+            public static string LayerStylesSamplePSD => Root + @"Images/Coders/layer-styles-sample.psd";
 
-            public static string PageTIF
-            {
-                get
-                {
-                    return _Root + @"Images/Coders/Page.tif";
-                }
-            }
+            public static string PageTIF => Root + @"Images/Coders/Page.tif";
 
-            public static string PdfExamplePasswordOriginalPDF
-            {
-                get
-                {
-                    return _Root + @"Images/Coders/pdf-example-password.original.pdf";
-                }
-            }
+            public static string PdfExamplePasswordOriginalPDF => Root + @"Images/Coders/pdf-example-password.original.pdf";
 
-            public static string PlayerPSD
-            {
-                get
-                {
-                    return _Root + @"Images/Coders/Player.psd";
-                }
-            }
+            public static string PlayerPSD => Root + @"Images/Coders/Player.psd";
 
-            public static string TestDds
-            {
-                get
-                {
-                    return _Root + @"Images/Coders/Test.dds";
-                }
-            }
+            public static string TestDDS => Root + @"Images/Coders/Test.dds";
 
-            public static string TestMng
-            {
-                get
-                {
-                    return _Root + @"Images/Coders/Test.mng";
-                }
-            }
+            public static string TestMNG => Root + @"Images/Coders/Test.mng";
         }
 
         public static class Logos
         {
-            public static string MagickNETSVG
-            {
-                get
-                {
-                    return _Root + @"../../Logo/Magick.NET.svg";
-                }
-            }
+            public static string MagickNETSVG => Root + @"../../Logo/Magick.NET.svg";
         }
 
         public static class Patterns
         {
-            public static string Checkerboard
-            {
-                get
-                {
-                    return "pattern:checkerboard";
-                }
-            }
+            public static string Checkerboard => "pattern:checkerboard";
         }
 
         public static class Scripts
         {
-            public static string Collection
-            {
-                get
-                {
-                    return _Root + @"Shared/Script/Collection.msl";
-                }
-            }
+            public static string Collection => Root + @"Shared/Script/Collection.msl";
 
-            public static string Draw
-            {
-                get
-                {
-                    return _Root + @"Shared/Script/Draw.msl";
-                }
-            }
+            public static string Draw => Root + @"Shared/Script/Draw.msl";
 
-            public static string Defines
-            {
-                get
-                {
-                    return _Root + @"Shared/Script/Defines.msl";
-                }
-            }
+            public static string Defines => Root + @"Shared/Script/Defines.msl";
 
-            public static string Distort
-            {
-                get
-                {
-                    return _Root + @"Shared/Script/Distort.msl";
-                }
-            }
+            public static string Distort => Root + @"Shared/Script/Distort.msl";
 
-            public static string Events
-            {
-                get
-                {
-                    return _Root + @"Shared/Script/Events.msl";
-                }
-            }
+            public static string Events => Root + @"Shared/Script/Events.msl";
 
-            public static string ImageProfile
-            {
-                get
-                {
-                    return _Root + @"Shared/Script/ImageProfile.msl";
-                }
-            }
+            public static string ImageProfile => Root + @"Shared/Script/ImageProfile.msl";
 
-            public static string Invalid
-            {
-                get
-                {
-                    return _Root + @"Framework/Script/Invalid.msl";
-                }
-            }
+            public static string Invalid => Root + @"Framework/Script/Invalid.msl";
 
-            public static string PixelStorage
-            {
-                get
-                {
-                    return _Root + @"Shared/Script/PixelStorage.msl";
-                }
-            }
+            public static string PixelStorage => Root + @"Shared/Script/PixelStorage.msl";
 
-            public static string Resize
-            {
-                get
-                {
-                    return _Root + @"Shared/Script/Resize.msl";
-                }
-            }
+            public static string Resize => Root + @"Shared/Script/Resize.msl";
 
-            public static string Variables
-            {
-                get
-                {
-                    return _Root + @"Shared/Script/Variables.msl";
-                }
-            }
+            public static string Variables => Root + @"Shared/Script/Variables.msl";
         }
     }
 }

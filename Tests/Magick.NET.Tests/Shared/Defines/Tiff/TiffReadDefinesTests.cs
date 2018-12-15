@@ -54,10 +54,10 @@ namespace Magick.NET.Tests
 
             using (IMagickImage image = new MagickImage())
             {
-                image.Read(Files.InvitationTif);
+                image.Read(Files.InvitationTIF);
                 Assert.IsNotNull(image.GetAttribute("exif:PixelXDimension"));
 
-                image.Read(Files.InvitationTif, settings);
+                image.Read(Files.InvitationTIF, settings);
                 Assert.IsNull(image.GetAttribute("exif:PixelXDimension"));
             }
         }

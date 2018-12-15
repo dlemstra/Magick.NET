@@ -44,7 +44,7 @@ namespace Magick.NET.Tests
 
             using (IMagickImageCollection images = new MagickImageCollection())
             {
-                images.Read(Files.Coders.TestDds, settings);
+                images.Read(Files.Coders.TestDDS, settings);
 
                 Assert.AreEqual(5, images.Count);
                 Assert.AreEqual("False", images[0].Settings.GetDefine(MagickFormat.Dds, "skip-mipmaps"));

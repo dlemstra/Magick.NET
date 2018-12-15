@@ -65,7 +65,7 @@ namespace Magick.NET.Tests.Shared.Optimizers.ImageOptimizerTests
                 public void ShouldReturnFalseWhenFileIsFileIsTifFile()
                 {
                     var optimizer = new ImageOptimizer();
-                    Assert.IsFalse(optimizer.IsSupported(new FileInfo(Files.InvitationTif)));
+                    Assert.IsFalse(optimizer.IsSupported(new FileInfo(Files.InvitationTIF)));
                 }
             }
 
@@ -131,7 +131,7 @@ namespace Magick.NET.Tests.Shared.Optimizers.ImageOptimizerTests
                 public void ShouldReturnFalseWhenFileNameIsTifFile()
                 {
                     var optimizer = new ImageOptimizer();
-                    Assert.IsFalse(optimizer.IsSupported(Files.InvitationTif));
+                    Assert.IsFalse(optimizer.IsSupported(Files.InvitationTIF));
                 }
             }
 
@@ -215,7 +215,7 @@ namespace Magick.NET.Tests.Shared.Optimizers.ImageOptimizerTests
                 public void ShouldReturnFalseWhenStreamIsTifFile()
                 {
                     var optimizer = new ImageOptimizer();
-                    using (FileStream fileStream = OpenFile(Files.InvitationTif))
+                    using (FileStream fileStream = OpenFile(Files.InvitationTIF))
                     {
                         Assert.IsFalse(optimizer.IsSupported(fileStream));
                         Assert.AreEqual(0, fileStream.Position);

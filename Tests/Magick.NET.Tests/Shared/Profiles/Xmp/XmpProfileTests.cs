@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_CreateReader()
         {
-            using (IMagickImage image = new MagickImage(Files.InvitationTif))
+            using (IMagickImage image = new MagickImage(Files.InvitationTIF))
             {
                 XmpProfile profile = image.GetXmpProfile();
                 Assert.IsNotNull(profile);
@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_FromIXPathNavigable()
         {
-            using (IMagickImage image = new MagickImage(Files.InvitationTif))
+            using (IMagickImage image = new MagickImage(Files.InvitationTIF))
             {
                 XmpProfile profile = image.GetXmpProfile();
                 Assert.IsNotNull(profile);
@@ -73,7 +73,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_FromXDocument()
         {
-            using (IMagickImage image = new MagickImage(Files.InvitationTif))
+            using (IMagickImage image = new MagickImage(Files.InvitationTIF))
             {
                 XmpProfile profile = image.GetXmpProfile();
                 Assert.IsNotNull(profile);
@@ -104,7 +104,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_ToIXPathNavigable()
         {
-            using (IMagickImage image = new MagickImage(Files.InvitationTif))
+            using (IMagickImage image = new MagickImage(Files.InvitationTIF))
             {
                 XmpProfile profile = image.GetXmpProfile();
                 Assert.IsNotNull(profile);
@@ -117,7 +117,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_ToXDocument()
         {
-            using (IMagickImage image = new MagickImage(Files.InvitationTif))
+            using (IMagickImage image = new MagickImage(Files.InvitationTIF))
             {
                 XmpProfile profile = image.GetXmpProfile();
                 Assert.IsNotNull(profile);
