@@ -95,6 +95,8 @@ namespace Magick.NET.Tests
 
         public static class Coders
         {
+            public static string AnimatedPNGexampleBouncingBeachBallPNG => Root + "Images/Coders/Animated_PNG_example_bouncing_beach_ball.png";
+
             public static string CartoonNetworkStudiosLogoAI => Root + @"Images/Coders/CN Studios Logo.ai";
 
             public static string GrimJP2 => Root + @"Images/Coders/grim.jp2";

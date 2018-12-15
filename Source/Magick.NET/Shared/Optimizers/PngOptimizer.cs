@@ -156,6 +156,11 @@ namespace ImageMagick.ImageOptimizers
 
             using (MagickImage image = new MagickImage(file))
             {
+                if (image.GetAttribute("png:acTL") != null)
+                {
+                    return false;
+                }
+
                 StartCompression(image, lossless);
 
                 Collection<TemporaryFile> tempFiles = new Collection<TemporaryFile>();
