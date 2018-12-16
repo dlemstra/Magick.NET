@@ -101,6 +101,21 @@ namespace ImageMagick
         public static bool operator !=(Density left, Density right) => !Equals(left, right);
 
         /// <summary>
+        /// Changes the density of the instance to the specified units.
+        /// </summary>
+        /// <param name="units">The units to use.</param>
+        /// <returns>A new <see cref="Density"/> with the specified units.</returns>
+        public Density ChangeUnits(DensityUnit units)
+        {
+            if (Units == units || Units == DensityUnit.Undefined || units == DensityUnit.Undefined)
+                return new Density(X, Y, units);
+            else if (Units == DensityUnit.PixelsPerCentimeter && units == DensityUnit.PixelsPerInch)
+                return new Density(X * 2.54, Y * 2.54, units);
+            else
+                return new Density(X / 2.54, Y / 2.54, units);
+        }
+
+        /// <summary>
         /// Determines whether the specified object is equal to the <see cref="Density"/>.
         /// </summary>
         /// <param name="obj">The object to compare this <see cref="Density"/> with.</param>
