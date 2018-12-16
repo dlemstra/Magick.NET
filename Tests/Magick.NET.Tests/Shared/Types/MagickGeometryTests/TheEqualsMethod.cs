@@ -77,7 +77,7 @@ namespace Magick.NET.Tests
                 var first = new MagickGeometry(10, 5);
                 var second = new MagickGeometry(5, 10);
 
-                Assert.IsFalse(first.Equals(second));
+                Assert.IsFalse(first.Equals((object)second));
             }
         }
     }
