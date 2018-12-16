@@ -74,49 +74,31 @@ namespace ImageMagick
         /// <summary>
         /// Gets the units.
         /// </summary>
-        public DensityUnit Units
-        {
-            get;
-            private set;
-        }
+        public DensityUnit Units { get; private set; }
 
         /// <summary>
         /// Gets the x resolution.
         /// </summary>
-        public double X
-        {
-            get;
-            private set;
-        }
+        public double X { get; private set; }
 
         /// <summary>
         /// Gets the y resolution.
         /// </summary>
-        public double Y
-        {
-            get;
-            private set;
-        }
+        public double Y { get; private set; }
 
         /// <summary>
         /// Determines whether the specified <see cref="Density"/> instances are considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="Density"/> to compare.</param>
         /// <param name="right"> The second <see cref="Density"/> to compare.</param>
-        public static bool operator ==(Density left, Density right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(Density left, Density right) => Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified <see cref="Density"/> instances are not considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="Density"/> to compare.</param>
         /// <param name="right"> The second <see cref="Density"/> to compare.</param>
-        public static bool operator !=(Density left, Density right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator !=(Density left, Density right) => !Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified object is equal to the <see cref="Density"/>.
