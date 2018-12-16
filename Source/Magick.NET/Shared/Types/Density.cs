@@ -177,17 +177,12 @@ namespace ImageMagick
         /// <returns>A string that represents the current <see cref="Density"/>.</returns>
         public string ToString(DensityUnit units)
         {
-            string result = string.Format(CultureInfo.InvariantCulture, "{0}x{1}", X, Y);
-
-            switch (units)
-            {
-                case DensityUnit.PixelsPerCentimeter:
-                    return result + " cm";
-                case DensityUnit.PixelsPerInch:
-                    return result + " inch";
-                default:
-                    return result;
-            }
+            if (Units == units || units == DensityUnit.Undefined)
+                return ToString(X, Y, units);
+            else if (Units == DensityUnit.PixelsPerCentimeter && units == DensityUnit.PixelsPerInch)
+                return ToString(X * 2.54, Y * 2.54, units);
+            else
+                return ToString(X / 2.54, Y / 2.54, units);
         }
 
         internal static Density Create(string value)
@@ -204,6 +199,21 @@ namespace ImageMagick
                 return null;
 
             return new Density(value.X, value.Y, value.Units);
+        }
+
+        private static string ToString(double x, double y, DensityUnit units)
+        {
+            string result = string.Format(CultureInfo.InvariantCulture, "{0}x{1}", x, y);
+
+            switch (units)
+            {
+                case DensityUnit.PixelsPerCentimeter:
+                    return result + " cm";
+                case DensityUnit.PixelsPerInch:
+                    return result + " inch";
+                default:
+                    return result;
+            }
         }
 
         private void Initialize(string value)
