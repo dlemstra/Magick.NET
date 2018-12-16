@@ -148,8 +148,8 @@ namespace ImageMagick
         {
             IMagickImage image = this;
 
-            string mapping = "RGB";
-            MediaPixelFormat format = MediaPixelFormats.Rgb24;
+            var mapping = "RGB";
+            var format = MediaPixelFormats.Rgb24;
 
             try
             {
@@ -173,21 +173,14 @@ namespace ImageMagick
                     }
                 }
 
-                int step = format.BitsPerPixel / 8;
-                int stride = Width * step;
+                var step = format.BitsPerPixel / 8;
+                var stride = Width * step;
 
                 using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    byte[] bytes = pixels.ToByteArray(mapping);
-                    switch(Density.Units)
-                    {
-                        case DensityUnit.PixelsPerCentimeter:
-                            return BitmapSource.Create(Width, Height, Math.Round(Density.X*2.54), Math.Round(Density.Y*2.54), format, null, bytes, stride);
-                        case DensityUnit.PixelsPerInch:
-                            return BitmapSource.Create(Width, Height, Density.X, Density.Y, format, null, bytes, stride);
-                        default:
-                            return BitmapSource.Create(Width, Height, 96, 96, format, null, bytes, stride);
-                    }
+                    var bytes = pixels.ToByteArray(mapping);
+                    var dpi = GetDpi();
+                    return BitmapSource.Create(Width, Height, dpi.X, dpi.Y, format, null, bytes, stride);
                 }
             }
             finally
@@ -208,6 +201,16 @@ namespace ImageMagick
               format.Guid.Equals(ImageFormat.Png.Guid) ||
               format.Guid.Equals(ImageFormat.Tiff.Guid);
         }
+
+#if !NET20
+        private Density GetDpi()
+        {
+            if (Density.Units == DensityUnit.Undefined && Density.X == 0 && Density.Y == 0)
+                return new Density(96);
+
+            return Density.ChangeUnits(DensityUnit.PixelsPerInch);
+        }
+#endif
     }
 }
 
