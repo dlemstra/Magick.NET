@@ -179,7 +179,15 @@ namespace ImageMagick
                 using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     byte[] bytes = pixels.ToByteArray(mapping);
-                    return BitmapSource.Create(Width, Height, 96, 96, format, null, bytes, stride);
+                    switch(Density.Units)
+                    {
+                        case DensityUnit.PixelsPerCentimeter:
+                            return BitmapSource.Create(Width, Height, Math.Round(Density.X*2.54), Math.Round(Density.Y*2.54), format, null, bytes, stride);
+                        case DensityUnit.PixelsPerInch:
+                            return BitmapSource.Create(Width, Height, Density.X, Density.Y, format, null, bytes, stride);
+                        default:
+                            return BitmapSource.Create(Width, Height, 96, 96, format, null, bytes, stride);
+                    }
                 }
             }
             finally
