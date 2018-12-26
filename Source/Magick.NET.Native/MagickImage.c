@@ -38,6 +38,17 @@
       SetPixelChannelMask(result, channel_mask); \
   }
 
+static inline void SetRectangleInfo(Image *image, const char *geometry, const GravityType gravity, RectangleInfo *rectangle, ExceptionInfo *exception)
+{
+  GravityType
+    original_gravity;
+
+  original_gravity = image->gravity;
+  image->gravity = gravity;
+  (void) ParseGravityGeometry(image, geometry, rectangle, exception);
+  image->gravity = original_gravity;
+}
+
 static inline void RemoveFrames(Image *image)
 {
   if (image != (Image *) NULL && image->next != (Image *) NULL)
@@ -902,7 +913,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Chop(const Image *instance, const Rectangle
 MAGICK_NET_EXPORT void MagickImage_Clahe(Image *instance, const size_t xTiles, const size_t yTiles, const size_t numberBins, const double clipLimit, ExceptionInfo **exception)
 {
   MAGICK_NET_GET_EXCEPTION;
-  CLAHEImage(instance, xTiles, yTiles, numberBins,clipLimit, exceptionInfo);
+  CLAHEImage(instance, xTiles, yTiles, numberBins, clipLimit, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
 }
 
@@ -1094,34 +1105,18 @@ MAGICK_NET_EXPORT void MagickImage_CopyPixels(Image *instance, const Image *imag
   MAGICK_NET_SET_EXCEPTION;
 }
 
-MAGICK_NET_EXPORT Image *MagickImage_Crop(const Image *instance, const RectangleInfo *geometry, ExceptionInfo **exception)
+MAGICK_NET_EXPORT Image *MagickImage_Crop(const Image *instance, const char *geometry, const GravityType gravity, ExceptionInfo **exception)
 {
   Image
     *image;
 
-  MAGICK_NET_GET_EXCEPTION;
-  image = CropImage(instance, geometry, exceptionInfo);
-  MAGICK_NET_SET_EXCEPTION;
-  return image;
-}
+  RectangleInfo
+    rectangle;
 
-MAGICK_NET_EXPORT Image *MagickImage_CropAspectRatio(Image *instance, const char *geometry, const GravityType gravity, ExceptionInfo **exception)
-{
-  Image
-    *image;
-
-  GravityType
-    original_gravity;
 
   MAGICK_NET_GET_EXCEPTION;
-  original_gravity = instance->gravity;
-  instance->gravity = gravity;
-  image = CropImageToTiles(instance, geometry, exceptionInfo);
-  RemoveFrames(image);
-  if (image != (Image *) NULL)
-    image->gravity = original_gravity;
-  else
-    instance->gravity = original_gravity;
+  SetRectangleInfo((Image *) instance, geometry, gravity, &rectangle, exceptionInfo);
+  image = CropImage(instance, &rectangle, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }

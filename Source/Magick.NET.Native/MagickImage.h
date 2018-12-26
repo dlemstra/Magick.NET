@@ -234,9 +234,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Convolve(const Image *, const KernelInfo *,
 
 MAGICK_NET_EXPORT void MagickImage_CopyPixels(Image *, const Image *, const RectangleInfo *, const OffsetInfo *, const size_t, ExceptionInfo **);
 
-MAGICK_NET_EXPORT Image *MagickImage_Crop(const Image *, const RectangleInfo *, ExceptionInfo **);
-
-MAGICK_NET_EXPORT Image *MagickImage_CropAspectRatio(Image *, const char *, const GravityType, ExceptionInfo **);
+MAGICK_NET_EXPORT Image *MagickImage_Crop(const Image *, const char *, const GravityType, ExceptionInfo **);
 
 MAGICK_NET_EXPORT Image *MagickImage_CropToTiles(const Image *, const char *, ExceptionInfo **);
 

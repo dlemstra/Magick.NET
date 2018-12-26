@@ -308,9 +308,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_CopyPixels(IntPtr Instance, IntPtr image, IntPtr geometry, IntPtr offset, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Crop(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_CropAspectRatio(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
+                public static extern IntPtr MagickImage_Crop(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_CropToTiles(IntPtr Instance, IntPtr geometry, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -861,9 +859,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_CopyPixels(IntPtr Instance, IntPtr image, IntPtr geometry, IntPtr offset, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Crop(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_CropAspectRatio(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
+                public static extern IntPtr MagickImage_Crop(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_CropToTiles(IntPtr Instance, IntPtr geometry, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -3564,29 +3560,7 @@ namespace ImageMagick
                     }
                 }
             }
-            public void Crop(MagickRectangle geometry)
-            {
-                using (INativeInstance geometryNative = MagickRectangle.CreateInstance(geometry))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_Crop(Instance, geometryNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_Crop(Instance, geometryNative.Instance, out exception);
-                    #endif
-                    CheckException(exception, result);
-                    Instance = result;
-                }
-            }
-            public void CropAspectRatio(string geometry, Gravity gravity)
+            public void Crop(string geometry, Gravity gravity)
             {
                 using (INativeInstance geometryNative = UTF8Marshaler.CreateInstance(geometry))
                 {
@@ -3596,13 +3570,13 @@ namespace ImageMagick
                     if (NativeLibrary.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_CropAspectRatio(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
+                    result = NativeMethods.X64.MagickImage_Crop(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_CropAspectRatio(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
+                    result = NativeMethods.X86.MagickImage_Crop(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
                     #endif
                     CheckException(exception, result);
                     Instance = result;

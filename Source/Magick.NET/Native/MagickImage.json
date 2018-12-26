@@ -944,17 +944,6 @@
       "arguments": [
         {
           "name": "geometry",
-          "type": "MagickRectangle"
-        }
-      ]
-    },
-    {
-      "name": "CropAspectRatio",
-      "instance": true,
-      "throws": true,
-      "arguments": [
-        {
-          "name": "geometry",
           "type": "string"
         },
         {

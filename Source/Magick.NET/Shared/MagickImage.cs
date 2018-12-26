@@ -2292,7 +2292,20 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Crop(int width, int height)
         {
-            Crop(width, height, Gravity.Center);
+            Crop(width, height, Gravity.Undefined);
+        }
+
+        /// <summary>
+        /// Crop image (subregion of original image). You should call RePage afterwards unless you
+        /// need the Page information.
+        /// </summary>
+        /// <param name="width">The width of the subregion.</param>
+        /// <param name="height">The height of the subregion.</param>
+        /// <param name="gravity">The position where the cropping should start from.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Crop(int width, int height, Gravity gravity)
+        {
+            Crop(new MagickGeometry(0, 0, width, height), gravity);
         }
 
         /// <summary>
@@ -2313,29 +2326,11 @@ namespace ImageMagick
         /// Crop image (subregion of original image). You should call RePage afterwards unless you
         /// need the Page information.
         /// </summary>
-        /// <param name="width">The width of the subregion.</param>
-        /// <param name="height">The height of the subregion.</param>
-        /// <param name="gravity">The position where the cropping should start from.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Crop(int width, int height, Gravity gravity)
-        {
-            Crop(0, 0, width, height, gravity);
-        }
-
-        /// <summary>
-        /// Crop image (subregion of original image). You should call RePage afterwards unless you
-        /// need the Page information.
-        /// </summary>
         /// <param name="geometry">The subregion to crop.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Crop(MagickGeometry geometry)
         {
-            Throw.IfNull(nameof(geometry), geometry);
-
-            if (geometry.AspectRatio)
-                _nativeInstance.CropAspectRatio(geometry.ToString(), Gravity.Undefined);
-            else
-                _nativeInstance.Crop(MagickRectangle.FromGeometry(geometry, this));
+            Crop(geometry, Gravity.Undefined);
         }
 
         /// <summary>
@@ -2349,10 +2344,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(geometry), geometry);
 
-            if (geometry.AspectRatio)
-                _nativeInstance.CropAspectRatio(geometry.ToString(), gravity);
-            else
-                Crop(geometry.X, geometry.Y, geometry.Width, geometry.Height, gravity);
+            _nativeInstance.Crop(geometry.ToString(), gravity);
         }
 
         /// <summary>
@@ -6677,58 +6669,6 @@ namespace ImageMagick
             newReadSettings.ForceSingleFrame();
 
             return newReadSettings;
-        }
-
-        private void Crop(int x, int y, int width, int height, Gravity gravity)
-        {
-            int imageWidth = Width;
-            int imageHeight = Height;
-
-            int newWidth = width > imageWidth ? imageWidth : width;
-            int newHeight = height > imageHeight ? imageHeight : height;
-
-            if (newWidth == imageWidth && newHeight == imageHeight)
-                return;
-
-            MagickGeometry geometry = new MagickGeometry(newWidth, newHeight);
-            switch (gravity)
-            {
-                case Gravity.North:
-                    geometry.X = (imageWidth - newWidth) / 2;
-                    break;
-                case Gravity.Northeast:
-                    geometry.X = imageWidth - newWidth;
-                    break;
-                case Gravity.East:
-                    geometry.X = imageWidth - newWidth;
-                    geometry.Y = (imageHeight - newHeight) / 2;
-                    break;
-                case Gravity.Southeast:
-                    geometry.X = imageWidth - newWidth;
-                    geometry.Y = imageHeight - newHeight;
-                    break;
-                case Gravity.South:
-                    geometry.X = (imageWidth - newWidth) / 2;
-                    geometry.Y = imageHeight - newHeight;
-                    break;
-                case Gravity.Southwest:
-                    geometry.Y = imageHeight - newHeight;
-                    break;
-                case Gravity.West:
-                    geometry.Y = (imageHeight - newHeight) / 2;
-                    break;
-                case Gravity.Northwest:
-                    break;
-                case Gravity.Center:
-                    geometry.X = (imageWidth - newWidth) / 2;
-                    geometry.Y = (imageHeight - newHeight) / 2;
-                    break;
-            }
-
-            geometry.X += x;
-            geometry.Y += y;
-
-            Crop(geometry);
         }
 
         private void Dispose(bool disposing)
