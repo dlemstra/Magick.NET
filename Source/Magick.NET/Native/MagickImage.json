@@ -1153,17 +1153,6 @@
         {
           "name": "geometry",
           "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "ExtentGravity",
-      "instance": true,
-      "throws": true,
-      "arguments": [
-        {
-          "name": "geometry",
-          "type": "string"
         },
         {
           "name": "gravity",

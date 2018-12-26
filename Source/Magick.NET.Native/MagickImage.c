@@ -38,15 +38,15 @@
       SetPixelChannelMask(result, channel_mask); \
   }
 
-static inline void SetRectangleInfo(Image *image, const char *geometry, const GravityType gravity, RectangleInfo *rectangle, ExceptionInfo *exception)
+static inline void SetRectangleInfo(const Image *image, const char *geometry, const GravityType gravity, RectangleInfo *rectangle, ExceptionInfo *exception)
 {
   GravityType
     original_gravity;
 
   original_gravity = image->gravity;
-  image->gravity = gravity;
+  ((Image *) image)->gravity = gravity;
   (void) ParseGravityGeometry(image, geometry, rectangle, exception);
-  image->gravity = original_gravity;
+  ((Image *) image)->gravity = original_gravity;
 }
 
 static inline void RemoveFrames(Image *image)
@@ -1115,7 +1115,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Crop(const Image *instance, const char *geo
 
 
   MAGICK_NET_GET_EXCEPTION;
-  SetRectangleInfo((Image *) instance, geometry, gravity, &rectangle, exceptionInfo);
+  SetRectangleInfo(instance, geometry, gravity, &rectangle, exceptionInfo);
   image = CropImage(instance, &rectangle, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return image;
@@ -1281,7 +1281,7 @@ MAGICK_NET_EXPORT void MagickImage_EvaluateOperator(Image *instance, const size_
   MAGICK_NET_SET_EXCEPTION;
 }
 
-MAGICK_NET_EXPORT Image *MagickImage_Extent(const Image *instance, const char *geometry, ExceptionInfo **exception)
+MAGICK_NET_EXPORT Image *MagickImage_Extent(const Image *instance, const char *geometry, const GravityType gravity, ExceptionInfo **exception)
 {
   Image
     *image;
@@ -1289,28 +1289,8 @@ MAGICK_NET_EXPORT Image *MagickImage_Extent(const Image *instance, const char *g
   RectangleInfo
     rectangle;
 
-  SetGeometry(instance, &rectangle);
-  ParseMetaGeometry(geometry, &rectangle.x, &rectangle.y, &rectangle.width, &rectangle.height);
-
   MAGICK_NET_GET_EXCEPTION;
-  image = ExtentImage(instance, &rectangle, exceptionInfo);
-  MAGICK_NET_SET_EXCEPTION;
-  return image;
-}
-
-MAGICK_NET_EXPORT Image *MagickImage_ExtentGravity(const Image *instance, const char *geometry, const size_t gravity, ExceptionInfo **exception)
-{
-  Image
-    *image;
-
-  RectangleInfo
-    rectangle;
-
-  SetGeometry(instance, &rectangle);
-  ParseMetaGeometry(geometry, &rectangle.x, &rectangle.y, &rectangle.width, &rectangle.height);
-  GravityAdjustGeometry(instance->columns, instance->rows, (const GravityType) gravity, &rectangle);
-
-  MAGICK_NET_GET_EXCEPTION;
+  SetRectangleInfo(instance, geometry, gravity, &rectangle, exceptionInfo);
   image = ExtentImage(instance, &rectangle, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return image;

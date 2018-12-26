@@ -343,9 +343,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_EvaluateOperator(IntPtr Instance, UIntPtr channels, UIntPtr evaluateOperator, double value, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Extent(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ExtentGravity(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
+                public static extern IntPtr MagickImage_Extent(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Flip(IntPtr Instance, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -894,9 +892,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_EvaluateOperator(IntPtr Instance, UIntPtr channels, UIntPtr evaluateOperator, double value, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Extent(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ExtentGravity(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
+                public static extern IntPtr MagickImage_Extent(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Flip(IntPtr Instance, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -3884,7 +3880,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void Extent(string geometry)
+            public void Extent(string geometry, Gravity gravity)
             {
                 using (INativeInstance geometryNative = UTF8Marshaler.CreateInstance(geometry))
                 {
@@ -3894,35 +3890,13 @@ namespace ImageMagick
                     if (NativeLibrary.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_Extent(Instance, geometryNative.Instance, out exception);
+                    result = NativeMethods.X64.MagickImage_Extent(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_Extent(Instance, geometryNative.Instance, out exception);
-                    #endif
-                    CheckException(exception, result);
-                    Instance = result;
-                }
-            }
-            public void ExtentGravity(string geometry, Gravity gravity)
-            {
-                using (INativeInstance geometryNative = UTF8Marshaler.CreateInstance(geometry))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_ExtentGravity(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_ExtentGravity(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
+                    result = NativeMethods.X86.MagickImage_Extent(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
                     #endif
                     CheckException(exception, result);
                     Instance = result;

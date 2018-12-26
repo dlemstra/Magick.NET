@@ -2720,10 +2720,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Extent(MagickGeometry geometry)
         {
-            Throw.IfNull(nameof(geometry), geometry);
-
-            geometry.IgnoreAspectRatio = true;
-            _nativeInstance.Extent(MagickGeometry.ToString(geometry));
+            Extent(geometry, Gravity.Undefined);
         }
 
         /// <summary>
@@ -2750,8 +2747,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(geometry), geometry);
 
-            geometry.IgnoreAspectRatio = true;
-            _nativeInstance.ExtentGravity(MagickGeometry.ToString(geometry), gravity);
+            _nativeInstance.Extent(MagickGeometry.ToString(geometry), gravity);
         }
 
         /// <summary>

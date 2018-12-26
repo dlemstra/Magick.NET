@@ -194,7 +194,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Charcoal(const Image *, const double, const
 
 MAGICK_NET_EXPORT Image *MagickImage_Chop(const Image *, const RectangleInfo *, ExceptionInfo **);
 
-MAGICK_NET_EXPORT void MagickImage_Clahe(Image *,const size_t,const size_t,const size_t,const double, ExceptionInfo **);
+MAGICK_NET_EXPORT void MagickImage_Clahe(Image *, const size_t, const size_t, const size_t, const double, ExceptionInfo **);
 
 MAGICK_NET_EXPORT void MagickImage_Clamp(Image *, ExceptionInfo **);
 
@@ -268,9 +268,7 @@ MAGICK_NET_EXPORT void MagickImage_EvaluateGeometry(Image *, const size_t, const
 
 MAGICK_NET_EXPORT void MagickImage_EvaluateOperator(Image *, const size_t, const size_t, const double, ExceptionInfo **);
 
-MAGICK_NET_EXPORT Image *MagickImage_Extent(const Image *, const char *, ExceptionInfo **);
-
-MAGICK_NET_EXPORT Image *MagickImage_ExtentGravity(const Image *, const char *, const size_t, ExceptionInfo **);
+MAGICK_NET_EXPORT Image *MagickImage_Extent(const Image *, const char *, const GravityType, ExceptionInfo **);
 
 MAGICK_NET_EXPORT MagickBooleanType MagickImage_HasChannel(const Image *, const size_t);
 
