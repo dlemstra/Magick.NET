@@ -2372,8 +2372,6 @@
             <xs:attribute name="gravity" type="Gravity" />
             <xs:attribute name="height" type="int" />
             <xs:attribute name="width" type="int" />
-            <xs:attribute name="x" type="int" />
-            <xs:attribute name="y" type="int" />
           </xs:complexType>
         </xs:element>
         <xs:element name="cycleColormap">

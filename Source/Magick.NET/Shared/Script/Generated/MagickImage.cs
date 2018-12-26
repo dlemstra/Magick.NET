@@ -2283,10 +2283,6 @@ namespace ImageMagick
                     arguments["height"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "width")
                     arguments["width"] = GetValue<Int32>(attribute);
-                else if (attribute.Name == "x")
-                    arguments["x"] = GetValue<Int32>(attribute);
-                else if (attribute.Name == "y")
-                    arguments["y"] = GetValue<Int32>(attribute);
             }
             if (OnlyContains(arguments, "geometry"))
                 image.Crop((MagickGeometry)arguments["geometry"]);
@@ -2296,10 +2292,8 @@ namespace ImageMagick
                 image.Crop((Int32)arguments["width"], (Int32)arguments["height"]);
             else if (OnlyContains(arguments, "width", "height", "gravity"))
                 image.Crop((Int32)arguments["width"], (Int32)arguments["height"], (Gravity)arguments["gravity"]);
-            else if (OnlyContains(arguments, "x", "y", "width", "height"))
-                image.Crop((Int32)arguments["x"], (Int32)arguments["y"], (Int32)arguments["width"], (Int32)arguments["height"]);
             else
-                throw new ArgumentException("Invalid argument combination for 'crop', allowed combinations are: [geometry] [geometry, gravity] [width, height] [width, height, gravity] [x, y, width, height]");
+                throw new ArgumentException("Invalid argument combination for 'crop', allowed combinations are: [geometry] [geometry, gravity] [width, height] [width, height, gravity]");
         }
         private void ExecuteCycleColormap(XmlElement element, IMagickImage image)
         {

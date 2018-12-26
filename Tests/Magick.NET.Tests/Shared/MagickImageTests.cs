@@ -514,7 +514,7 @@ namespace Magick.NET.Tests
                 image.CannyEdge();
                 ColorAssert.AreEqual(MagickColors.Black, image, 150, 365);
 
-                image.Crop(260, 180, 215, 200);
+                image.Crop(new MagickGeometry(260, 180, 215, 200));
 
                 image.Settings.FillColor = MagickColors.Red;
                 image.Settings.StrokeColor = MagickColors.Red;

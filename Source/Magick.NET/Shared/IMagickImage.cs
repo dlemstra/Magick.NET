@@ -1230,17 +1230,6 @@ namespace ImageMagick
         void Crop(int width, int height);
 
         /// <summary>
-        /// Crop image (subregion of original image) using CropPosition.Center. You should call
-        /// RePage afterwards unless you need the Page information.
-        /// </summary>
-        /// <param name="x">The X offset from origin.</param>
-        /// <param name="y">The Y offset from origin.</param>
-        /// <param name="width">The width of the subregion.</param>
-        /// <param name="height">The height of the subregion.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Crop(int x, int y, int width, int height);
-
-        /// <summary>
         /// Crop image (subregion of original image). You should call RePage afterwards unless you
         /// need the Page information.
         /// </summary>
