@@ -25,10 +25,7 @@ namespace ImageMagick
         /// Initializes a new instance of the <see cref="MagickGeometry"/> class.
         /// </summary>
         /// <param name="rectangle">The rectangle to use.</param>
-        public MagickGeometry(Rectangle rectangle)
-        {
-            Initialize(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height, false);
-        }
+        public MagickGeometry(Rectangle rectangle) => Initialize(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
 
         /// <summary>
         /// Converts the specified rectangle to an instance of this type.

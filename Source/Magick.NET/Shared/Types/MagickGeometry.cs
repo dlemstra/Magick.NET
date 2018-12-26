@@ -22,29 +22,20 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickGeometry"/> class.
         /// </summary>
-        public MagickGeometry()
-        {
-            Initialize(0, 0, 0, 0, false);
-        }
+        public MagickGeometry() => Initialize(0, 0, 0, 0);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified width and height.
         /// </summary>
         /// <param name="widthAndHeight">The width and height.</param>
-        public MagickGeometry(int widthAndHeight)
-        {
-            Initialize(0, 0, widthAndHeight, widthAndHeight, false);
-        }
+        public MagickGeometry(int widthAndHeight) => Initialize(0, 0, widthAndHeight, widthAndHeight);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified width and height.
         /// </summary>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        public MagickGeometry(int width, int height)
-        {
-            Initialize(0, 0, width, height, false);
-        }
+        public MagickGeometry(int width, int height) => Initialize(0, 0, width, height);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified offsets, width and height.
@@ -53,10 +44,7 @@ namespace ImageMagick
         /// <param name="y">The Y offset from origin.</param>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        public MagickGeometry(int x, int y, int width, int height)
-        {
-            Initialize(x, y, width, height, false);
-        }
+        public MagickGeometry(int x, int y, int width, int height) => Initialize(x, y, width, height);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified width and height.
@@ -68,7 +56,7 @@ namespace ImageMagick
             Throw.IfNegative(nameof(percentageWidth), percentageWidth);
             Throw.IfNegative(nameof(percentageHeight), percentageHeight);
 
-            Initialize(0, 0, (int)percentageWidth, (int)percentageHeight, true);
+            InitializeFromPercentage(0, 0, (int)percentageWidth, (int)percentageHeight);
         }
 
         /// <summary>
@@ -83,7 +71,7 @@ namespace ImageMagick
             Throw.IfNegative(nameof(percentageWidth), percentageWidth);
             Throw.IfNegative(nameof(percentageHeight), percentageHeight);
 
-            Initialize(x, y, (int)percentageWidth, (int)percentageHeight, true);
+            InitializeFromPercentage(x, y, (int)percentageWidth, (int)percentageHeight);
         }
 
         /// <summary>
@@ -106,10 +94,7 @@ namespace ImageMagick
             }
         }
 
-        private MagickGeometry(NativeMagickGeometry instance)
-        {
-            Initialize(instance);
-        }
+        private MagickGeometry(NativeMagickGeometry instance) => Initialize(instance);
 
         /// <summary>
         /// Gets or sets a value indicating whether the image is resized based on the smallest fitting dimension (^).
@@ -488,13 +473,18 @@ namespace ImageMagick
             return instance;
         }
 
-        private void Initialize(int x, int y, int width, int height, bool isPercentage)
+        private void Initialize(int x, int y, int width, int height)
         {
             X = x;
             Y = y;
             Width = width;
             Height = height;
-            IsPercentage = isPercentage;
+        }
+
+        private void InitializeFromPercentage(int x, int y, int width, int height)
+        {
+            Initialize(x, y, width, height);
+            IsPercentage = true;
         }
 
         private void Initialize(NativeMagickGeometry instance)

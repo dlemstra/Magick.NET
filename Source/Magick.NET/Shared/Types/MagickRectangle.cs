@@ -80,7 +80,7 @@ namespace ImageMagick
 
         internal static MagickRectangle CreateInstance(INativeInstance nativeInstance)
         {
-            NativeMagickRectangle instance = nativeInstance as NativeMagickRectangle;
+            var instance = nativeInstance as NativeMagickRectangle;
             if (instance == null)
                 throw new InvalidOperationException();
 
@@ -89,13 +89,13 @@ namespace ImageMagick
 
         private NativeMagickRectangle CreateNativeInstance()
         {
-            NativeMagickRectangle instance = new NativeMagickRectangle();
-            instance.X = X;
-            instance.Y = Y;
-            instance.Width = Width;
-            instance.Height = Height;
-
-            return instance;
+            return new NativeMagickRectangle
+            {
+                X = X,
+                Y = Y,
+                Width = Width,
+                Height = Height,
+            };
         }
     }
 }
