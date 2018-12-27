@@ -33,6 +33,20 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
+            public void ShouldUseUndefinedGravityAsTheDefault()
+            {
+                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                {
+                    image.Crop(150, 40);
+
+                    Assert.AreEqual(150, image.Width);
+                    Assert.AreEqual(40, image.Height);
+
+                    ColorAssert.AreEqual(new MagickColor("#fecd08ff"), image, 146, 25);
+                }
+            }
+
+            [TestMethod]
             public void ShouldUseCenterGravity()
             {
                 using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -95,6 +109,20 @@ namespace Magick.NET.Tests
                     Assert.AreEqual(100, image.Width);
                     Assert.AreEqual(100, image.Height);
                     ColorAssert.AreEqual(MagickColors.White, image, 99, 99);
+                }
+            }
+
+            [TestMethod]
+            public void ShouldUseUndefinedGravityAsTheDefaultForMagickGeometry()
+            {
+                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                {
+                    image.Crop(new MagickGeometry("150x40"));
+
+                    Assert.AreEqual(150, image.Width);
+                    Assert.AreEqual(40, image.Height);
+
+                    ColorAssert.AreEqual(new MagickColor("#fecd08ff"), image, 146, 25);
                 }
             }
         }
