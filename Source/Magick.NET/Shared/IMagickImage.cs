@@ -726,16 +726,6 @@ namespace ImageMagick
         void Charcoal(double radius, double sigma);
 
         /// <summary>
-        /// Chop image (remove vertical and horizontal subregion of image).
-        /// </summary>
-        /// <param name="xOffset">The X offset from origin.</param>
-        /// <param name="width">The width of the part to chop horizontally.</param>
-        /// <param name="yOffset">The Y offset from origin.</param>
-        /// <param name="height">The height of the part to chop vertically.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Chop(int xOffset, int width, int yOffset, int height);
-
-        /// <summary>
         /// Chop image (remove vertical or horizontal subregion of image) using the specified geometry.
         /// </summary>
         /// <param name="geometry">The geometry to use.</param>

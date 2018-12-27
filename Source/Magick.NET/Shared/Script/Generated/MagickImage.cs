@@ -2019,26 +2019,8 @@ namespace ImageMagick
         }
         private void ExecuteChop(XmlElement element, IMagickImage image)
         {
-            Hashtable arguments = new Hashtable();
-            foreach (XmlAttribute attribute in element.Attributes)
-            {
-                if (attribute.Name == "geometry")
-                    arguments["geometry"] = GetValue<MagickGeometry>(attribute);
-                else if (attribute.Name == "height")
-                    arguments["height"] = GetValue<Int32>(attribute);
-                else if (attribute.Name == "width")
-                    arguments["width"] = GetValue<Int32>(attribute);
-                else if (attribute.Name == "xOffset")
-                    arguments["xOffset"] = GetValue<Int32>(attribute);
-                else if (attribute.Name == "yOffset")
-                    arguments["yOffset"] = GetValue<Int32>(attribute);
-            }
-            if (OnlyContains(arguments, "geometry"))
-                image.Chop((MagickGeometry)arguments["geometry"]);
-            else if (OnlyContains(arguments, "xOffset", "width", "yOffset", "height"))
-                image.Chop((Int32)arguments["xOffset"], (Int32)arguments["width"], (Int32)arguments["yOffset"], (Int32)arguments["height"]);
-            else
-                throw new ArgumentException("Invalid argument combination for 'chop', allowed combinations are: [geometry] [xOffset, width, yOffset, height]");
+            MagickGeometry geometry_ = GetValue<MagickGeometry>(element, "geometry");
+            image.Chop(geometry_);
         }
         private void ExecuteChopHorizontal(XmlElement element, IMagickImage image)
         {

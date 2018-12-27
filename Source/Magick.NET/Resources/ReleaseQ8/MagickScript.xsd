@@ -2252,11 +2252,7 @@
         </xs:element>
         <xs:element name="chop">
           <xs:complexType>
-            <xs:attribute name="geometry" type="geometry" />
-            <xs:attribute name="height" type="int" />
-            <xs:attribute name="width" type="int" />
-            <xs:attribute name="xOffset" type="int" />
-            <xs:attribute name="yOffset" type="int" />
+            <xs:attribute name="geometry" use="required" type="geometry" />
           </xs:complexType>
         </xs:element>
         <xs:element name="chopHorizontal">
