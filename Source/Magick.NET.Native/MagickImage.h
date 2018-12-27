@@ -234,7 +234,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Convolve(const Image *, const KernelInfo *,
 
 MAGICK_NET_EXPORT void MagickImage_CopyPixels(Image *, const Image *, const RectangleInfo *, const OffsetInfo *, const size_t, ExceptionInfo **);
 
-MAGICK_NET_EXPORT Image *MagickImage_Crop(const Image *, const char *, const GravityType, ExceptionInfo **);
+MAGICK_NET_EXPORT Image *MagickImage_Crop(const Image *, const char *, const size_t, ExceptionInfo **);
 
 MAGICK_NET_EXPORT Image *MagickImage_CropToTiles(const Image *, const char *, ExceptionInfo **);
 
@@ -268,7 +268,7 @@ MAGICK_NET_EXPORT void MagickImage_EvaluateGeometry(Image *, const size_t, const
 
 MAGICK_NET_EXPORT void MagickImage_EvaluateOperator(Image *, const size_t, const size_t, const double, ExceptionInfo **);
 
-MAGICK_NET_EXPORT Image *MagickImage_Extent(const Image *, const char *, const GravityType, ExceptionInfo **);
+MAGICK_NET_EXPORT Image *MagickImage_Extent(const Image *, const char *, const size_t, ExceptionInfo **);
 
 MAGICK_NET_EXPORT MagickBooleanType MagickImage_HasChannel(const Image *, const size_t);
 

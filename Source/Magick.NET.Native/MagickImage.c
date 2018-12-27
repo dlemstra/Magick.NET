@@ -38,13 +38,13 @@
       SetPixelChannelMask(result, channel_mask); \
   }
 
-static inline void SetRectangleInfo(const Image *image, const char *geometry, const GravityType gravity, RectangleInfo *rectangle, ExceptionInfo *exception)
+static inline void SetRectangleInfo(const Image *image, const char *geometry, const size_t gravity, RectangleInfo *rectangle, ExceptionInfo *exception)
 {
   GravityType
     original_gravity;
 
   original_gravity = image->gravity;
-  ((Image *) image)->gravity = gravity;
+  ((Image *) image)->gravity = (GravityType) gravity;
   (void) ParseGravityGeometry(image, geometry, rectangle, exception);
   ((Image *) image)->gravity = original_gravity;
 }
@@ -1105,7 +1105,7 @@ MAGICK_NET_EXPORT void MagickImage_CopyPixels(Image *instance, const Image *imag
   MAGICK_NET_SET_EXCEPTION;
 }
 
-MAGICK_NET_EXPORT Image *MagickImage_Crop(const Image *instance, const char *geometry, const GravityType gravity, ExceptionInfo **exception)
+MAGICK_NET_EXPORT Image *MagickImage_Crop(const Image *instance, const char *geometry, const size_t gravity, ExceptionInfo **exception)
 {
   Image
     *image;
@@ -1281,7 +1281,7 @@ MAGICK_NET_EXPORT void MagickImage_EvaluateOperator(Image *instance, const size_
   MAGICK_NET_SET_EXCEPTION;
 }
 
-MAGICK_NET_EXPORT Image *MagickImage_Extent(const Image *instance, const char *geometry, const GravityType gravity, ExceptionInfo **exception)
+MAGICK_NET_EXPORT Image *MagickImage_Extent(const Image *instance, const char *geometry, const size_t gravity, ExceptionInfo **exception)
 {
   Image
     *image;
