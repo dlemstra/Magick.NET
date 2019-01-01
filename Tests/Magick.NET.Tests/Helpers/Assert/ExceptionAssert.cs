@@ -30,15 +30,11 @@ namespace Magick.NET.Tests
             }
             catch (TException exception)
             {
-                Type type = exception.GetType();
+                var type = exception.GetType();
                 if (type != typeof(TException))
                     Fail("Exception of type {0} was not thrown an exception of type {1} was thrown.", typeof(TException).Name, type.Name);
 
                 return exception;
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
