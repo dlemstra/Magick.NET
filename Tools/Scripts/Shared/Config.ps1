@@ -88,8 +88,8 @@ function GetDevVersion()
   }
   else
   {
-    $utcNow = [System.DateTime]::Now.ToUniversalTime()
-    $build = [int]($utcNow.Date - (New-Object System.DateTime �ArgumentList 2000, 1, 1).Date).TotalDays
+    $utcNow = [System.DateTime]::UtcNow
+    $build = [int]($utcNow.Date - (Get-Date -Date "2000-01-01 00:00:00Z").ToUniversalTime()).TotalDays
     $revision = [int]($utcNow.TimeOfDay.TotalSeconds / 2)
     $version = "1.0.$build.$revision"
     [IO.File]::WriteAllText($fileName, $version, [System.Text.Encoding]::Default)
