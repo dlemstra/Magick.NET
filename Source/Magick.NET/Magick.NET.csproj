@@ -7,7 +7,7 @@
     <FileVersion>7.9.2.0</FileVersion>
     <Version>7.9.2.0</Version>
     <Authors>Dirk Lemstra</Authors>
-    <Copyright>Copyright 2013-2018 Dirk Lemstra</Copyright>
+    <Copyright>Copyright 2013-2019 Dirk Lemstra</Copyright>
     <RunCodeAnalysis Condition="'$(Configuration)|$(TargetFramework)' == 'ReleaseQ16|net40'">true</RunCodeAnalysis>
     <CodeAnalysisCulture>en-US</CodeAnalysisCulture>
     <Platforms>x86;x64;AnyCPU</Platforms>

@@ -8,7 +8,7 @@
     <FileVersion>7.9.2.0</FileVersion>
     <Version>7.9.2.0</Version>
     <Authors>Dirk Lemstra</Authors>
-    <Copyright>Copyright 2013-2018 Dirk Lemstra</Copyright>
+    <Copyright>Copyright 2013-2019 Dirk Lemstra</Copyright>
     <Platforms>x86;x64;AnyCPU</Platforms>
     <Configurations>DebugQ8;DebugQ16;DebugQ16-HDRI;ReleaseQ8;ReleaseQ16;ReleaseQ16-HDRI;TestQ8;TestQ16;TestQ16-HDRI</Configurations>
   </PropertyGroup>
