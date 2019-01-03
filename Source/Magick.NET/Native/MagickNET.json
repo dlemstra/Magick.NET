@@ -29,17 +29,31 @@
   ],
   "methods": [
     {
-      "name": "GetFontFamilies",
+      "name": "GetFonts",
       "type": "Instance",
       "throws": true,
       "cleanup": {
-        "name": "DisposeFontFamilies"
+        "name": "DisposeFonts"
       },
       "arguments": [
         {
           "name": "length",
           "type": "size_t",
           "out": true
+        }
+      ]
+    },
+    {
+      "name": "GetFontName",
+      "type": "string",
+      "arguments": [
+        {
+          "name": "instance",
+          "type": "Instance"
+        },
+        {
+          "name": "index",
+          "type": "size_t"
         }
       ]
     },
@@ -58,7 +72,7 @@
       ]
     },
     {
-      "name": "DisposeFontFamilies",
+      "name": "DisposeFonts",
       "arguments": [
         {
           "name": "instance",

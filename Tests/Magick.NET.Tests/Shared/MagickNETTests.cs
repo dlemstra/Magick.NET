@@ -11,7 +11,6 @@
 // and limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ImageMagick;
@@ -46,6 +45,21 @@ namespace Magick.NET.Tests
             var fontFamilies = MagickNET.FontFamilies.ToArray();
             var fontFamily = fontFamilies.FirstOrDefault(f => f == "Arial");
             Assert.IsNotNull(fontFamily, $"Unable to find Arial in font families: {string.Join(",", fontFamilies)}");
+        }
+
+        [TestMethod]
+        public void FontFamilies_ContainsNoDuplicates()
+        {
+            var fontFamilies = MagickNET.FontFamilies.ToArray();
+            Assert.AreEqual(fontFamilies.Count(), fontFamilies.Distinct().Count());
+        }
+
+        [TestMethod]
+        public void FontNames_ContainsArial()
+        {
+            var fontNames = MagickNET.FontNames.ToArray();
+            var fontName = fontNames.FirstOrDefault(f => f == "Arial");
+            Assert.IsNotNull(fontName, $"Unable to find Arial in font families: {string.Join(",", fontNames)}");
         }
 
         [TestMethod]

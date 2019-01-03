@@ -104,19 +104,52 @@ namespace ImageMagick
 
                 try
                 {
-                    list = NativeMagickNET.GetFontFamilies(out length);
+                    list = NativeMagickNET.GetFonts(out length);
 
                     for (int i = 0; i < (int)length; i++)
                     {
                         string fontFamily = NativeMagickNET.GetFontFamily(list, i);
-                        if (!string.IsNullOrEmpty(fontFamily))
+                        if (!string.IsNullOrEmpty(fontFamily) && !result.Contains(fontFamily))
                             result.Add(fontFamily);
                     }
                 }
                 finally
                 {
                     if (list != IntPtr.Zero)
-                        NativeMagickNET.DisposeFontFamilies(list);
+                        NativeMagickNET.DisposeFonts(list);
+                }
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Gets the font names that are known by ImageMagick.
+        /// </summary>
+        public static IEnumerable<string> FontNames
+        {
+            get
+            {
+                List<string> result = new List<string>();
+
+                IntPtr list = IntPtr.Zero;
+                UIntPtr length = (UIntPtr)0;
+
+                try
+                {
+                    list = NativeMagickNET.GetFonts(out length);
+
+                    for (int i = 0; i < (int)length; i++)
+                    {
+                        string fontName = NativeMagickNET.GetFontName(list, i);
+                        if (!string.IsNullOrEmpty(fontName))
+                            result.Add(fontName);
+                    }
+                }
+                finally
+                {
+                    if (list != IntPtr.Zero)
+                        NativeMagickNET.DisposeFonts(list);
                 }
 
                 return result;

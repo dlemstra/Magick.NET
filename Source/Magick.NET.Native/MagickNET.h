@@ -15,11 +15,13 @@ MAGICK_NET_EXPORT const char *MagickNET_Delegates_Get(void);
 
 MAGICK_NET_EXPORT const char *MagickNET_Features_Get(void);
 
-MAGICK_NET_EXPORT const TypeInfo **MagickNET_GetFontFamilies(size_t *, ExceptionInfo **);
+MAGICK_NET_EXPORT const TypeInfo **MagickNET_GetFonts(size_t *, ExceptionInfo **);
 
 MAGICK_NET_EXPORT const char *MagickNET_GetFontFamily(const TypeInfo **, const size_t);
 
-MAGICK_NET_EXPORT void MagickNET_DisposeFontFamilies(TypeInfo **);
+MAGICK_NET_EXPORT const char *MagickNET_GetFontName(const TypeInfo **, const size_t);
+
+MAGICK_NET_EXPORT void MagickNET_DisposeFonts(TypeInfo **);
 
 MAGICK_NET_EXPORT void MagickNET_SetLogDelegate(const MagickLogMethod);
 

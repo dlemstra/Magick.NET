@@ -23,7 +23,7 @@ MAGICK_NET_EXPORT const char *MagickNET_Features_Get(void)
   return GetMagickFeatures();
 }
 
-MAGICK_NET_EXPORT const TypeInfo **MagickNET_GetFontFamilies(size_t *length, ExceptionInfo **exception)
+MAGICK_NET_EXPORT const TypeInfo **MagickNET_GetFonts(size_t *length, ExceptionInfo **exception)
 {
   const TypeInfo
     **font_families;
@@ -42,7 +42,15 @@ MAGICK_NET_EXPORT const char *MagickNET_GetFontFamily(const TypeInfo **list, con
   return list[index]->family;
 }
 
-MAGICK_NET_EXPORT void MagickNET_DisposeFontFamilies(TypeInfo **list)
+MAGICK_NET_EXPORT const char *MagickNET_GetFontName(const TypeInfo **list, const size_t index)
+{
+  if (list[index]->stealth != MagickFalse)
+    return (const char *) NULL;
+
+  return list[index]->name;
+}
+
+MAGICK_NET_EXPORT void MagickNET_DisposeFonts(TypeInfo **list)
 {
   RelinquishMagickMemory((void *) list);
 }
