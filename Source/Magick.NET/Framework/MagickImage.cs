@@ -153,7 +153,7 @@ namespace ImageMagick
 
             try
             {
-                if (ColorSpace == ColorSpace.CMYK)
+                if (ColorSpace == ColorSpace.CMYK && !image.HasAlpha)
                 {
                     mapping = "CMYK";
                     format = MediaPixelFormats.Cmyk32;
