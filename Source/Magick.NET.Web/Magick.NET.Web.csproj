@@ -4,9 +4,9 @@
     <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\Magick.NET.snk</AssemblyOriginatorKeyFile>
-    <AssemblyVersion>7.10.0.0</AssemblyVersion>
-    <FileVersion>7.10.0.0</FileVersion>
-    <Version>7.10.0.0</Version>
+    <AssemblyVersion>7.10.1.0</AssemblyVersion>
+    <FileVersion>7.10.1.0</FileVersion>
+    <Version>7.10.1.0</Version>
     <Authors>Dirk Lemstra</Authors>
     <Copyright>Copyright 2013-2019 Dirk Lemstra</Copyright>
     <Platforms>x86;x64;AnyCPU</Platforms>
