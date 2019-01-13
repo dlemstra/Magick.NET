@@ -245,7 +245,7 @@ function UpdateResourceFile($fileName, $version)
   $content = SetValue $content "PRODUCTVERSION " `r $version.Replace('.', ',')
   $content = SetValue $content "`"FileVersion`", `""  "`"" $version
   $content = SetValue $content "`"ProductVersion`", `"" "`"" $version
-  $content = SetValue $content "`"LegalCopyright`", `"" "`"" "Copyright � Dirk Lemstra $((Get-Date).year)"
+  $content = SetValue $content "`"LegalCopyright`", `"" "`"" "Copyright 2013-$((Get-Date).year) Dirk Lemstra"
 
   [IO.File]::WriteAllText($fileName, $content, [System.Text.Encoding]::Unicode)
 }
