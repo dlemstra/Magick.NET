@@ -8,13 +8,11 @@
 <configuremap>
   <configure name="NAME" value="ImageMagick"/>
   <configure name="LIB_VERSION" value="0x708"/>
-  <configure name="LIB_VERSION_NUMBER" value="7,0,8,23"/>
-  <configure name="RELEASE_DATE" value="2019-01-01"/>
+  <configure name="LIB_VERSION_NUMBER" value="7,0,8,24"/>
+  <configure name="RELEASE_DATE" value="2019-01-13"/>
   <configure name="VERSION" value="7.0.8"/>
-  <configure name="CC" value="vs10"/>
+  <configure name="CC" value="VS2017"/>
   <configure name="HOST" value="Windows"/>
-  <configure name="DELEGATES" value="bzlib freetype jpeg jp2 lcms png raw tiff x11 xml wmf zlib"/>
-  <configure name="FEATURES" value="OpenMP"/>
-  <configure name="COPYRIGHT" value="Copyright (C) 1999-2018 ImageMagick Studio LLC"/>
+  <configure name="COPYRIGHT" value="Copyright (C) 1999-2019 ImageMagick Studio LLC"/>
   <configure name="WEBSITE" value="http://www.imagemagick.org"/>
 </configuremap>
