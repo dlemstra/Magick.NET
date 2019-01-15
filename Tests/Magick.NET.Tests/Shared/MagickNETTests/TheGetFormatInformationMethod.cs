@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
         public class TheGetFormatInformationMethod
         {
             [TestMethod]
-            public void ReturnsFormatInfoForAllFormats()
+            public void ShouldReturnFormatInfoForAllFormats()
             {
                 List<string> missingFormats = new List<string>();
 
