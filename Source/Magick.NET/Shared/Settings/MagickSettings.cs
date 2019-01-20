@@ -834,6 +834,8 @@ namespace ImageMagick
                     return "3G2";
                 case MagickFormat.ThreeGp:
                     return "3GP";
+                case MagickFormat.SparseColor:
+                    return "SPARSE-COLOR";
                 default:
                     return EnumHelper.GetName(Format).ToUpperInvariant();
             }
