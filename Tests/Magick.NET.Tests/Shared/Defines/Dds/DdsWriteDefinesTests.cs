@@ -268,6 +268,36 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
+        public void Raw_NotSet_DefineIsNotSet()
+        {
+            using (IMagickImage image = new MagickImage())
+            {
+                var defines = new DdsWriteDefines();
+
+                image.Settings.SetDefines(defines);
+
+                Assert.AreEqual(null, defines.Raw);
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "raw"));
+            }
+        }
+
+        [TestMethod]
+        public void Raw_IsSet_DefineIsSet()
+        {
+            using (IMagickImage image = new MagickImage())
+            {
+                var defines = new DdsWriteDefines
+                {
+                    Raw = true,
+                };
+
+                image.Settings.SetDefines(defines);
+
+                Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Dds, "raw"));
+            }
+        }
+
+        [TestMethod]
         public void WeightByAlpha_NotSet_DefineIsNotSet()
         {
             using (IMagickImage image = new MagickImage())

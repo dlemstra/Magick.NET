@@ -54,6 +54,11 @@ namespace ImageMagick
         public bool? MipmapsFromCollection { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether only the raw pixels should be written (dds:raw).
+        /// </summary>
+        public bool? Raw { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether weight by alpha is enabled or disabled when cluster fit is used (dds:weight-by-alpha).
         /// </summary>
         public bool? WeightByAlpha { get; set; }
@@ -78,6 +83,9 @@ namespace ImageMagick
                     yield return CreateDefine("mipmaps", "fromlist");
                 else if (Mipmaps.HasValue)
                     yield return CreateDefine("mipmaps", Mipmaps.Value);
+
+                if (Raw.HasValue)
+                    yield return CreateDefine("raw", Raw.Value);
 
                 if (WeightByAlpha.HasValue)
                     yield return CreateDefine("weight-by-alpha", WeightByAlpha.Value);
