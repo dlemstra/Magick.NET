@@ -98,8 +98,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Publish", "Publish", "{660486E5-ECAD-49B3-AEBB-A34953E48A72}"
 	ProjectSection(SolutionItems) = preProject
 		Publish\Publish.cmd = Publish\Publish.cmd
-		Publish\Readme.txt = Publish\Readme.txt
-		Publish\Readme.Web.txt = Publish\Readme.Web.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{9CFDAF8C-504E-4816-9EAD-89E48FD99E16}"

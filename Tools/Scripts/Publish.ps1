@@ -137,7 +137,6 @@ function CopyZipFiles($builds)
     CreateFolder $rootDir
 
     Copy-Item "Copyright.txt" $rootDir
-    Copy-Item "Publish\Readme.txt" $rootDir
     Copy-Item "Source\Magick.NET\Resources\Release$($build.Quantum)\MagickScript.xsd" $rootDir
 
     CopyFrameworkToZipFile $build $rootDir "net20"

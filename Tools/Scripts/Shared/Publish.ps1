@@ -71,7 +71,6 @@ function AddLibraryToPackage($xml,$build,$platform)
 
 function AddDocumentsToPackage($xml)
 {
-  AddFileElement $xml "..\Readme.txt" "Readme.txt"
   AddFileElement $xml "..\..\Copyright.txt" "Copyright.txt"
 }
 
