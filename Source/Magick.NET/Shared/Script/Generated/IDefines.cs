@@ -176,6 +176,7 @@ namespace ImageMagick
             result.FastMipmaps = GetValue<Nullable<Boolean>>(element, "fastMipmaps");
             result.Mipmaps = GetValue<Nullable<Int32>>(element, "mipmaps");
             result.MipmapsFromCollection = GetValue<Nullable<Boolean>>(element, "mipmapsFromCollection");
+            result.Raw = GetValue<Nullable<Boolean>>(element, "raw");
             result.WeightByAlpha = GetValue<Nullable<Boolean>>(element, "weightByAlpha");
             return result;
         }

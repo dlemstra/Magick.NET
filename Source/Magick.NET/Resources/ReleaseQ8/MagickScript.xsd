@@ -1335,6 +1335,7 @@
     <xs:attribute name="fastMipmaps" type="bool" />
     <xs:attribute name="mipmaps" type="int" />
     <xs:attribute name="mipmapsFromCollection" type="bool" />
+    <xs:attribute name="raw" type="bool" />
     <xs:attribute name="weightByAlpha" type="bool" />
   </xs:complexType>
   <xs:complexType name="jp2ReadDefines">
