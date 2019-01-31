@@ -1,4 +1,4 @@
-// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -194,6 +194,8 @@ MAGICK_NET_EXPORT Image *MagickImage_Charcoal(const Image *, const double, const
 
 MAGICK_NET_EXPORT Image *MagickImage_Chop(const Image *, const RectangleInfo *, ExceptionInfo **);
 
+MAGICK_NET_EXPORT void MagickImage_Clahe(Image *, const size_t, const size_t, const size_t, const double, ExceptionInfo **);
+
 MAGICK_NET_EXPORT void MagickImage_Clamp(Image *, ExceptionInfo **);
 
 MAGICK_NET_EXPORT void MagickImage_ClampChannel(Image *, const size_t, ExceptionInfo **);
@@ -232,9 +234,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Convolve(const Image *, const KernelInfo *,
 
 MAGICK_NET_EXPORT void MagickImage_CopyPixels(Image *, const Image *, const RectangleInfo *, const OffsetInfo *, const size_t, ExceptionInfo **);
 
-MAGICK_NET_EXPORT Image *MagickImage_Crop(const Image *, const RectangleInfo *, ExceptionInfo **);
-
-MAGICK_NET_EXPORT Image *MagickImage_CropAspectRatio(Image *, const char *, const GravityType, ExceptionInfo **);
+MAGICK_NET_EXPORT Image *MagickImage_Crop(const Image *, const char *, const size_t, ExceptionInfo **);
 
 MAGICK_NET_EXPORT Image *MagickImage_CropToTiles(const Image *, const char *, ExceptionInfo **);
 
@@ -268,9 +268,7 @@ MAGICK_NET_EXPORT void MagickImage_EvaluateGeometry(Image *, const size_t, const
 
 MAGICK_NET_EXPORT void MagickImage_EvaluateOperator(Image *, const size_t, const size_t, const double, ExceptionInfo **);
 
-MAGICK_NET_EXPORT Image *MagickImage_Extent(const Image *, const char *, ExceptionInfo **);
-
-MAGICK_NET_EXPORT Image *MagickImage_ExtentGravity(const Image *, const char *, const size_t, ExceptionInfo **);
+MAGICK_NET_EXPORT Image *MagickImage_Extent(const Image *, const char *, const size_t, ExceptionInfo **);
 
 MAGICK_NET_EXPORT MagickBooleanType MagickImage_HasChannel(const Image *, const size_t);
 

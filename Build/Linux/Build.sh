@@ -22,7 +22,9 @@ cd ../../ImageMagick/Source
 cd ImageMagick
 
 # Clone freetype
-git clone git://git.sv.nongnu.org/freetype/freetype2.git freetype
+if [ ! -d freetype ]; then
+  git clone git://git.sv.nongnu.org/freetype/freetype2.git freetype
+fi
 cd freetype
 git reset --hard
 git fetch
@@ -30,7 +32,9 @@ git checkout VER-2-9
 cd ../
 
 # Clone fontconfig
-git clone git://anongit.freedesktop.org/fontconfig fontconfig
+if [ ! -d fontconfig ]; then
+  git clone git://anongit.freedesktop.org/fontconfig fontconfig
+fi
 cd fontconfig
 git reset --hard
 git fetch
@@ -123,6 +127,16 @@ export CXXFLAGS="-O3 -fPIC"
 ./configure --disable-shared --prefix=/usr/local
 make install
 
+# Build libraw
+cd ../libraw
+chmod +x ./version.sh
+chmod +x ./shlib-version.sh
+autoreconf -fiv
+export CFLAGS="-O3 -fPIC"
+export CXXFLAGS="-O3 -fPIC"
+./configure --disable-shared --disable-examples --prefix=/usr/local
+make install
+
 cd ../../../../
 mkdir Output
 
@@ -145,7 +159,7 @@ buildMagickNET() {
 
     # Build ImageMagick
     cd ImageMagick/Source/ImageMagick/ImageMagick
-    ./configure CFLAGS="-fPIC -Wall -O3" CXXFLAGS="-fPIC -Wall -O3" --disable-shared --disable-openmp --enable-static --enable-delegate-build --with-magick-plus-plus=no --with-utilities=no --with-bzlib=no --with-x=no --with-quantum-depth=$depth --enable-hdri=$hdri
+    ./configure CFLAGS="-fPIC -Wall -O3" CXXFLAGS="-fPIC -Wall -O3" --disable-shared --disable-openmp --enable-static --enable-delegate-build --with-magick-plus-plus=no --with-utilities=no --with-bzlib=no --with-lzma=no --with-x=no --with-quantum-depth=$depth --enable-hdri=$hdri
     make install
 
     # Build Magick.NET

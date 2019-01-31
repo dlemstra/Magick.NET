@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -264,6 +264,36 @@ namespace Magick.NET.Tests
                 image.Settings.SetDefines(defines);
 
                 Assert.AreEqual("4", image.Settings.GetDefine(MagickFormat.Dds, "mipmaps"));
+            }
+        }
+
+        [TestMethod]
+        public void Raw_NotSet_DefineIsNotSet()
+        {
+            using (IMagickImage image = new MagickImage())
+            {
+                var defines = new DdsWriteDefines();
+
+                image.Settings.SetDefines(defines);
+
+                Assert.AreEqual(null, defines.Raw);
+                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "raw"));
+            }
+        }
+
+        [TestMethod]
+        public void Raw_IsSet_DefineIsSet()
+        {
+            using (IMagickImage image = new MagickImage())
+            {
+                var defines = new DdsWriteDefines
+                {
+                    Raw = true,
+                };
+
+                image.Settings.SetDefines(defines);
+
+                Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Dds, "raw"));
             }
         }
 

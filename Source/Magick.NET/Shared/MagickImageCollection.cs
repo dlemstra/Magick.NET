@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -224,10 +224,7 @@ namespace ImageMagick
         /// Returns an enumerator that iterates through the collection.
         /// </summary>
         /// <returns>An enumerator that iterates through the collection.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _images.GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => _images.GetEnumerator();
 
         /// <summary>
         /// Adds an image to the collection.
@@ -556,25 +553,14 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Flatten this collection into a single image.
-        /// This is useful for combining Photoshop layers into a single image.
+        /// Use the virtual canvas size of first image. Images which fall outside this canvas is clipped.
+        /// This can be used to 'fill out' a given virtual canvas.
         /// </summary>
         /// <returns>The resulting image of the flatten operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public IMagickImage Flatten()
         {
-            ThrowIfEmpty();
-
-            try
-            {
-                AttachImages();
-                IntPtr image = _nativeInstance.Flatten(_images[0]);
-                return MagickImage.Create(image, _images[0].Settings);
-            }
-            finally
-            {
-                DetachImages();
-            }
+            return Merge(LayerMethod.Flatten);
         }
 
         /// <summary>
@@ -593,7 +579,7 @@ namespace ImageMagick
             try
             {
                 AttachImages();
-                IntPtr image = _nativeInstance.Flatten(_images[0]);
+                IntPtr image = _nativeInstance.Merge(_images[0], LayerMethod.Flatten);
                 return MagickImage.Create(image, _images[0].Settings);
             }
             finally
@@ -607,20 +593,14 @@ namespace ImageMagick
         /// Returns an enumerator that iterates through the images.
         /// </summary>
         /// <returns>An enumerator that iterates through the images.</returns>
-        public IEnumerator<IMagickImage> GetEnumerator()
-        {
-            return _images.GetEnumerator();
-        }
+        public IEnumerator<IMagickImage> GetEnumerator() => _images.GetEnumerator();
 
         /// <summary>
         /// Determines the index of the specified image.
         /// </summary>
         /// <param name="item">The image to check.</param>
         /// <returns>The index of the specified image.</returns>
-        public int IndexOf(IMagickImage item)
-        {
-            return _images.IndexOf(item);
-        }
+        public int IndexOf(IMagickImage item) => _images.IndexOf(item);
 
         /// <summary>
         /// Inserts an image into the collection.
@@ -679,25 +659,14 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Merge this collection into a single image.
-        /// This is useful for combining Photoshop layers into a single image.
+        /// Merge all layers onto a canvas just large enough to hold all the actual images. The virtual
+        /// canvas of the first image is preserved but otherwise ignored.
         /// </summary>
         /// <returns>The resulting image of the merge operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public IMagickImage Merge()
         {
-            ThrowIfEmpty();
-
-            try
-            {
-                AttachImages();
-                IntPtr image = _nativeInstance.Merge(_images[0], LayerMethod.Merge);
-                return MagickImage.Create(image, _images[0].Settings);
-            }
-            finally
-            {
-                DetachImages();
-            }
+            return Merge(LayerMethod.Merge);
         }
 
         /// <summary>
@@ -769,24 +738,14 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Inlay the images to form a single coherent picture.
+        /// Start with the virtual canvas of the first image, enlarging left and right edges to contain
+        /// all images. Images with negative offsets will be clipped.
         /// </summary>
         /// <returns>The resulting image of the mosaic operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public IMagickImage Mosaic()
         {
-            ThrowIfEmpty();
-
-            try
-            {
-                AttachImages();
-                IntPtr image = _nativeInstance.Merge(_images[0], LayerMethod.Mosaic);
-                return MagickImage.Create(image, _images[0].Settings);
-            }
-            finally
-            {
-                DetachImages();
-            }
+            return Merge(LayerMethod.Mosaic);
         }
 
         /// <summary>
@@ -1257,8 +1216,9 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Merge this collection into a single image.
-        /// This is useful for combining Photoshop layers into a single image.
+        /// Determine the overall bounds of all the image layers just as in <see cref="Merge()"/>,
+        /// then adjust the the canvas and offsets to be relative to those bounds,
+        /// without overlaying the images.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void TrimBounds()
@@ -1518,6 +1478,22 @@ namespace ImageMagick
 
             if (disposing)
                 Clear();
+        }
+
+        private IMagickImage Merge(LayerMethod layerMethod)
+        {
+            ThrowIfEmpty();
+
+            try
+            {
+                AttachImages();
+                IntPtr image = _nativeInstance.Merge(_images[0], layerMethod);
+                return MagickImage.Create(image, _images[0].Settings);
+            }
+            finally
+            {
+                DetachImages();
+            }
         }
 
         private void OnWarning(object sender, WarningEventArgs arguments)

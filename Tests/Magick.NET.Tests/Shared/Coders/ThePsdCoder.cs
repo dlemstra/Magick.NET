@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -23,9 +23,23 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.Coders.PlayerPSD))
             {
-                ColorAssert.AreEqual(MagickColors.Transparent, image, 0, 0);
+                ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
 
                 ColorAssert.AreEqual(MagickColor.FromRgb(15, 43, 255), image, 8, 6);
+            }
+        }
+
+        [TestMethod]
+        public void ShouldReadTheProfileForAllLayers()
+        {
+            using (IMagickImageCollection images = new MagickImageCollection(Files.Coders.LayerStylesSamplePSD))
+            {
+                Assert.AreEqual(4, images.Count);
+
+                foreach (var image in images)
+                {
+                    Assert.IsNotNull(image.Get8BimProfile());
+                }
             }
         }
     }

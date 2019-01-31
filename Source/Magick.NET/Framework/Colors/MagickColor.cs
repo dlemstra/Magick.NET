@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -36,7 +36,7 @@ namespace ImageMagick
         /// <param name="color">The <see cref="MagickColor"/> to convert.</param>
         public static implicit operator Color(MagickColor color)
         {
-            if (ReferenceEquals(color, null))
+            if (color is null)
                 return Color.Empty;
 
             return color.ToColor();

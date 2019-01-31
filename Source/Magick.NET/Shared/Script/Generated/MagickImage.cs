@@ -1,4 +1,4 @@
-// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -59,6 +59,11 @@ namespace ImageMagick
                                         case 'I':
                                         {
                                             ExecuteAnimationIterations(element, image);
+                                            return;
+                                        }
+                                        case 'T':
+                                        {
+                                            ExecuteAnimationTicksPerSecond(element, image);
                                             return;
                                         }
                                     }
@@ -311,6 +316,11 @@ namespace ImageMagick
                                         case 's':
                                         {
                                             ExecuteClassType(element, image);
+                                            return;
+                                        }
+                                        case 'h':
+                                        {
+                                            ExecuteClahe(element, image);
                                             return;
                                         }
                                         case 'm':
@@ -1551,6 +1561,10 @@ namespace ImageMagick
         {
             image.AnimationIterations = GetValue<Int32>(element, "value");
         }
+        private void ExecuteAnimationTicksPerSecond(XmlElement element, IMagickImage image)
+        {
+            image.AnimationTicksPerSecond = GetValue<Int32>(element, "value");
+        }
         private void ExecuteBackgroundColor(XmlElement element, IMagickImage image)
         {
             image.BackgroundColor = GetValue<MagickColor>(element, "value");
@@ -2005,26 +2019,8 @@ namespace ImageMagick
         }
         private void ExecuteChop(XmlElement element, IMagickImage image)
         {
-            Hashtable arguments = new Hashtable();
-            foreach (XmlAttribute attribute in element.Attributes)
-            {
-                if (attribute.Name == "geometry")
-                    arguments["geometry"] = GetValue<MagickGeometry>(attribute);
-                else if (attribute.Name == "height")
-                    arguments["height"] = GetValue<Int32>(attribute);
-                else if (attribute.Name == "width")
-                    arguments["width"] = GetValue<Int32>(attribute);
-                else if (attribute.Name == "xOffset")
-                    arguments["xOffset"] = GetValue<Int32>(attribute);
-                else if (attribute.Name == "yOffset")
-                    arguments["yOffset"] = GetValue<Int32>(attribute);
-            }
-            if (OnlyContains(arguments, "geometry"))
-                image.Chop((MagickGeometry)arguments["geometry"]);
-            else if (OnlyContains(arguments, "xOffset", "width", "yOffset", "height"))
-                image.Chop((Int32)arguments["xOffset"], (Int32)arguments["width"], (Int32)arguments["yOffset"], (Int32)arguments["height"]);
-            else
-                throw new ArgumentException("Invalid argument combination for 'chop', allowed combinations are: [geometry] [xOffset, width, yOffset, height]");
+            MagickGeometry geometry_ = GetValue<MagickGeometry>(element, "geometry");
+            image.Chop(geometry_);
         }
         private void ExecuteChopHorizontal(XmlElement element, IMagickImage image)
         {
@@ -2037,6 +2033,14 @@ namespace ImageMagick
             Int32 offset_ = GetValue<Int32>(element, "offset");
             Int32 height_ = GetValue<Int32>(element, "height");
             image.ChopVertical(offset_, height_);
+        }
+        private void ExecuteClahe(XmlElement element, IMagickImage image)
+        {
+            Int32 xTiles_ = GetValue<Int32>(element, "xTiles");
+            Int32 yTiles_ = GetValue<Int32>(element, "yTiles");
+            Int32 numberBins_ = GetValue<Int32>(element, "numberBins");
+            double clipLimit_ = GetValue<double>(element, "clipLimit");
+            image.Clahe(xTiles_, yTiles_, numberBins_, clipLimit_);
         }
         private void ExecuteClamp(XmlElement element, IMagickImage image)
         {
@@ -2261,10 +2265,6 @@ namespace ImageMagick
                     arguments["height"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "width")
                     arguments["width"] = GetValue<Int32>(attribute);
-                else if (attribute.Name == "x")
-                    arguments["x"] = GetValue<Int32>(attribute);
-                else if (attribute.Name == "y")
-                    arguments["y"] = GetValue<Int32>(attribute);
             }
             if (OnlyContains(arguments, "geometry"))
                 image.Crop((MagickGeometry)arguments["geometry"]);
@@ -2274,10 +2274,8 @@ namespace ImageMagick
                 image.Crop((Int32)arguments["width"], (Int32)arguments["height"]);
             else if (OnlyContains(arguments, "width", "height", "gravity"))
                 image.Crop((Int32)arguments["width"], (Int32)arguments["height"], (Gravity)arguments["gravity"]);
-            else if (OnlyContains(arguments, "x", "y", "width", "height"))
-                image.Crop((Int32)arguments["x"], (Int32)arguments["y"], (Int32)arguments["width"], (Int32)arguments["height"]);
             else
-                throw new ArgumentException("Invalid argument combination for 'crop', allowed combinations are: [geometry] [geometry, gravity] [width, height] [width, height, gravity] [x, y, width, height]");
+                throw new ArgumentException("Invalid argument combination for 'crop', allowed combinations are: [geometry] [geometry, gravity] [width, height] [width, height, gravity]");
         }
         private void ExecuteCycleColormap(XmlElement element, IMagickImage image)
         {
@@ -2560,8 +2558,17 @@ namespace ImageMagick
         }
         private void ExecuteGrayscale(XmlElement element, IMagickImage image)
         {
-            PixelIntensityMethod method_ = GetValue<PixelIntensityMethod>(element, "method");
-            image.Grayscale(method_);
+            Hashtable arguments = new Hashtable();
+            foreach (XmlAttribute attribute in element.Attributes)
+            {
+                arguments[attribute.Name] = GetValue<PixelIntensityMethod>(attribute);
+            }
+            if (arguments.Count == 0)
+                image.Grayscale();
+            else if (OnlyContains(arguments, "method"))
+                image.Grayscale((PixelIntensityMethod)arguments["method"]);
+            else
+                throw new ArgumentException("Invalid argument combination for 'grayscale', allowed combinations are: [] [method]");
         }
         private void ExecuteHaldClut(XmlElement element, IMagickImage image)
         {

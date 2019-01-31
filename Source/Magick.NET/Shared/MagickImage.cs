@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -876,8 +876,8 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
         public static bool operator <(MagickImage left, MagickImage right)
         {
-            if (ReferenceEquals(left, null))
-                return !ReferenceEquals(right, null);
+            if (left is null)
+                return !(right is null);
 
             return left.CompareTo(right) == -1;
         }
@@ -889,8 +889,8 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
         public static bool operator >=(MagickImage left, MagickImage right)
         {
-            if (ReferenceEquals(left, null))
-                return ReferenceEquals(right, null);
+            if (left is null)
+                return right is null;
 
             return left.CompareTo(right) >= 0;
         }
@@ -902,8 +902,8 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
         public static bool operator <=(MagickImage left, MagickImage right)
         {
-            if (ReferenceEquals(left, null))
-                return !ReferenceEquals(right, null);
+            if (left is null)
+                return !(right is null);
 
             return left.CompareTo(right) <= 0;
         }
@@ -1495,20 +1495,6 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Chop image (remove vertical and horizontal subregion of image).
-        /// </summary>
-        /// <param name="xOffset">The X offset from origin.</param>
-        /// <param name="width">The width of the part to chop horizontally.</param>
-        /// <param name="yOffset">The Y offset from origin.</param>
-        /// <param name="height">The height of the part to chop vertically.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Chop(int xOffset, int width, int yOffset, int height)
-        {
-            MagickGeometry geometry = new MagickGeometry(xOffset, yOffset, width, height);
-            Chop(geometry);
-        }
-
-        /// <summary>
         /// Chop image (remove vertical or horizontal subregion of image) using the specified geometry.
         /// </summary>
         /// <param name="geometry">The geometry to use.</param>
@@ -1542,6 +1528,20 @@ namespace ImageMagick
         {
             MagickGeometry geometry = new MagickGeometry(0, offset, 0, height);
             Chop(geometry);
+        }
+
+        /// <summary>
+        /// A variant of adaptive histogram equalization in which the contrast amplification is limited,
+        /// so as to reduce this problem of noise amplification.
+        /// </summary>
+        /// <param name="xTiles">The number of tile divisions to use in horizontal direction.</param>
+        /// <param name="yTiles">The number of tile divisions to use in vertical direction.</param>
+        /// <param name="numberBins">The number of bins for histogram ("dynamic range").</param>
+        /// <param name="clipLimit">The contrast limit for localised changes in contrast. A limit less than 1
+        /// results in standard non-contrast limited AHE.</param>
+        public void Clahe(int xTiles, int yTiles, int numberBins, double clipLimit)
+        {
+            _nativeInstance.Clahe(xTiles, yTiles, numberBins, clipLimit);
         }
 
         /// <summary>
@@ -1880,7 +1880,7 @@ namespace ImageMagick
         /// <returns>A signed number indicating the relative values of this instance and value.</returns>
         public int CompareTo(IMagickImage other)
         {
-            if (ReferenceEquals(other, null))
+            if (other is null)
                 return 1;
 
             int left = Width * Height;
@@ -2278,21 +2278,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Crop(int width, int height)
         {
-            Crop(width, height, Gravity.Center);
-        }
-
-        /// <summary>
-        /// Crop image (subregion of original image) using CropPosition.Center. You should call
-        /// RePage afterwards unless you need the Page information.
-        /// </summary>
-        /// <param name="x">The X offset from origin.</param>
-        /// <param name="y">The Y offset from origin.</param>
-        /// <param name="width">The width of the subregion.</param>
-        /// <param name="height">The height of the subregion.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Crop(int x, int y, int width, int height)
-        {
-            Crop(new MagickGeometry(x, y, width, height));
+            Crop(width, height, Gravity.Undefined);
         }
 
         /// <summary>
@@ -2305,7 +2291,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Crop(int width, int height, Gravity gravity)
         {
-            Crop(0, 0, width, height, gravity);
+            Crop(new MagickGeometry(0, 0, width, height), gravity);
         }
 
         /// <summary>
@@ -2316,12 +2302,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Crop(MagickGeometry geometry)
         {
-            Throw.IfNull(nameof(geometry), geometry);
-
-            if (geometry.AspectRatio)
-                _nativeInstance.CropAspectRatio(geometry.ToString(), Gravity.Undefined);
-            else
-                _nativeInstance.Crop(MagickRectangle.FromGeometry(geometry, this));
+            Crop(geometry, Gravity.Undefined);
         }
 
         /// <summary>
@@ -2335,10 +2316,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(geometry), geometry);
 
-            if (geometry.AspectRatio)
-                _nativeInstance.CropAspectRatio(geometry.ToString(), gravity);
-            else
-                Crop(geometry.X, geometry.Y, geometry.Width, geometry.Height, gravity);
+            _nativeInstance.Crop(geometry.ToString(), gravity);
         }
 
         /// <summary>
@@ -2581,7 +2559,7 @@ namespace ImageMagick
         /// <returns>True when the specified <see cref="IMagickImage"/> is equal to the current <see cref="MagickImage"/>.</returns>
         public bool Equals(IMagickImage other)
         {
-            if (ReferenceEquals(other, null))
+            if (other is null)
                 return false;
 
             if (Width != other.Width || Height != other.Height)
@@ -2728,10 +2706,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Extent(MagickGeometry geometry)
         {
-            Throw.IfNull(nameof(geometry), geometry);
-
-            geometry.IgnoreAspectRatio = true;
-            _nativeInstance.Extent(MagickGeometry.ToString(geometry));
+            Extent(geometry, Gravity.Undefined);
         }
 
         /// <summary>
@@ -2758,8 +2733,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(geometry), geometry);
 
-            geometry.IgnoreAspectRatio = true;
-            _nativeInstance.ExtentGravity(MagickGeometry.ToString(geometry), gravity);
+            _nativeInstance.Extent(MagickGeometry.ToString(geometry), gravity);
         }
 
         /// <summary>
@@ -6663,58 +6637,6 @@ namespace ImageMagick
             newReadSettings.ForceSingleFrame();
 
             return newReadSettings;
-        }
-
-        private void Crop(int x, int y, int width, int height, Gravity gravity)
-        {
-            int imageWidth = Width;
-            int imageHeight = Height;
-
-            int newWidth = width > imageWidth ? imageWidth : width;
-            int newHeight = height > imageHeight ? imageHeight : height;
-
-            if (newWidth == imageWidth && newHeight == imageHeight)
-                return;
-
-            MagickGeometry geometry = new MagickGeometry(newWidth, newHeight);
-            switch (gravity)
-            {
-                case Gravity.North:
-                    geometry.X = (imageWidth - newWidth) / 2;
-                    break;
-                case Gravity.Northeast:
-                    geometry.X = imageWidth - newWidth;
-                    break;
-                case Gravity.East:
-                    geometry.X = imageWidth - newWidth;
-                    geometry.Y = (imageHeight - newHeight) / 2;
-                    break;
-                case Gravity.Southeast:
-                    geometry.X = imageWidth - newWidth;
-                    geometry.Y = imageHeight - newHeight;
-                    break;
-                case Gravity.South:
-                    geometry.X = (imageWidth - newWidth) / 2;
-                    geometry.Y = imageHeight - newHeight;
-                    break;
-                case Gravity.Southwest:
-                    geometry.Y = imageHeight - newHeight;
-                    break;
-                case Gravity.West:
-                    geometry.Y = (imageHeight - newHeight) / 2;
-                    break;
-                case Gravity.Northwest:
-                    break;
-                case Gravity.Center:
-                    geometry.X = (imageWidth - newWidth) / 2;
-                    geometry.Y = (imageHeight - newHeight) / 2;
-                    break;
-            }
-
-            geometry.X += x;
-            geometry.Y += y;
-
-            Crop(geometry);
         }
 
         private void Dispose(bool disposing)

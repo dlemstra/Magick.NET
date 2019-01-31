@@ -1,8 +1,8 @@
 /*
-  Copyright 1999-2018 ImageMagick Studio LLC, a non-profit organization
+  Copyright 1999-2019 ImageMagick Studio LLC, a non-profit organization
   dedicated to making software imaging solutions freely available.
 
-  You may not use this file except in compliance with the License.
+  You may not use this file except in compliance with the License.  You may
   obtain a copy of the License at
 
     https://imagemagick.org/script/license.php
@@ -463,6 +463,8 @@ static inline MagickBooleanType IsPixelAtDepth(const Quantum pixel,
   Quantum
     quantum;
 
+  if (range == 0)
+    return(MagickTrue);
 #if !defined(MAGICKCORE_HDRI_SUPPORT)
   quantum=(Quantum) (((MagickRealType) QuantumRange*((QuantumAny)
     (((MagickRealType) range*pixel)/QuantumRange+0.5)))/range+0.5);
@@ -637,7 +639,7 @@ static inline void SetPixelb(const Image *magick_restrict image,
 static inline void SetPixelBackgoundColor(const Image *magick_restrict image,
   Quantum *magick_restrict pixel)
 {
-  register ssize_t
+  ssize_t
     i;
 
   for (i=0; i < (ssize_t) GetPixelChannels(image); i++)

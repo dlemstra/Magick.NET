@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -726,16 +726,6 @@ namespace ImageMagick
         void Charcoal(double radius, double sigma);
 
         /// <summary>
-        /// Chop image (remove vertical and horizontal subregion of image).
-        /// </summary>
-        /// <param name="xOffset">The X offset from origin.</param>
-        /// <param name="width">The width of the part to chop horizontally.</param>
-        /// <param name="yOffset">The Y offset from origin.</param>
-        /// <param name="height">The height of the part to chop vertically.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Chop(int xOffset, int width, int yOffset, int height);
-
-        /// <summary>
         /// Chop image (remove vertical or horizontal subregion of image) using the specified geometry.
         /// </summary>
         /// <param name="geometry">The geometry to use.</param>
@@ -757,6 +747,17 @@ namespace ImageMagick
         /// <param name="height">The height of the part to chop vertically.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void ChopVertical(int offset, int height);
+
+        /// <summary>
+        /// A variant of adaptive histogram equalization in which the contrast amplification is limited,
+        /// so as to reduce this problem of noise amplification.
+        /// </summary>
+        /// <param name="xTiles">The number of tile divisions to use in horizontal direction.</param>
+        /// <param name="yTiles">The number of tile divisions to use in vertical direction.</param>
+        /// <param name="numberBins">The number of bins for histogram ("dynamic range").</param>
+        /// <param name="clipLimit">The contrast limit for localised changes in contrast. A limit less than 1
+        /// results in standard non-contrast limited AHE.</param>
+        void Clahe(int xTiles, int yTiles, int numberBins, double clipLimit);
 
         /// <summary>
         /// Set each pixel whose value is below zero to zero and any the pixel whose value is above
@@ -1217,17 +1218,6 @@ namespace ImageMagick
         /// <param name="height">The height of the subregion.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Crop(int width, int height);
-
-        /// <summary>
-        /// Crop image (subregion of original image) using CropPosition.Center. You should call
-        /// RePage afterwards unless you need the Page information.
-        /// </summary>
-        /// <param name="x">The X offset from origin.</param>
-        /// <param name="y">The Y offset from origin.</param>
-        /// <param name="width">The width of the subregion.</param>
-        /// <param name="height">The height of the subregion.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Crop(int x, int y, int width, int height);
 
         /// <summary>
         /// Crop image (subregion of original image). You should call RePage afterwards unless you

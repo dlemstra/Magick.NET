@@ -1,4 +1,4 @@
-// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -176,6 +176,7 @@ namespace ImageMagick
             result.FastMipmaps = GetValue<Nullable<Boolean>>(element, "fastMipmaps");
             result.Mipmaps = GetValue<Nullable<Int32>>(element, "mipmaps");
             result.MipmapsFromCollection = GetValue<Nullable<Boolean>>(element, "mipmapsFromCollection");
+            result.Raw = GetValue<Nullable<Boolean>>(element, "raw");
             result.WeightByAlpha = GetValue<Nullable<Boolean>>(element, "weightByAlpha");
             return result;
         }
@@ -217,6 +218,7 @@ namespace ImageMagick
             if (element == null)
                 return null;
             JpegWriteDefines result = new JpegWriteDefines();
+            result.ArithmeticCoding = GetValue<Nullable<Boolean>>(element, "arithmeticCoding");
             result.DctMethod = GetValue<Nullable<ImageMagick.Defines.DctMethod>>(element, "dctMethod");
             result.Extent = GetValue<Nullable<Int32>>(element, "extent");
             result.OptimizeCoding = GetValue<Nullable<Boolean>>(element, "optimizeCoding");

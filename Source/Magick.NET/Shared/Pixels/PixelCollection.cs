@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -73,15 +73,9 @@ namespace ImageMagick
             return GetArea(geometry.X, geometry.Y, geometry.Width, geometry.Height);
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public IEnumerator<Pixel> GetEnumerator()
-        {
-            return new PixelCollectionEnumerator(this, Image.Width, Image.Height);
-        }
+        public IEnumerator<Pixel> GetEnumerator() => new PixelCollectionEnumerator(this, Image.Width, Image.Height);
 
         public int GetIndex(PixelChannel channel)
         {

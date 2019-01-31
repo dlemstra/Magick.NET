@@ -1,8 +1,8 @@
 /*
-  Copyright 1999-2018 ImageMagick Studio LLC, a non-profit organization
+  Copyright 1999-2019 ImageMagick Studio LLC, a non-profit organization
   dedicated to making software imaging solutions freely available.
 
-  You may not use this file except in compliance with the License.
+  You may not use this file except in compliance with the License.  You may
   obtain a copy of the License at
 
     https://imagemagick.org/script/license.php
@@ -110,6 +110,8 @@ typedef MagickDoubleType Quantum;
 #define MagickEpsilon  (1.0e-12)
 #define MagickMaximumValue  1.79769313486231570E+308
 #define MagickMinimumValue   2.22507385850720140E-308
+#define MagickStringify(macro_or_string)  MagickStringifyArg(macro_or_string)
+#define MagickStringifyArg(contents)  #contents
 #define QuantumScale  ((double) 1.0/(double) QuantumRange)
 
 /*

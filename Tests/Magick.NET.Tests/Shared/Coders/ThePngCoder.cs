@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -97,7 +97,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldSetTheAnimationProperties()
         {
-            using (IMagickImageCollection images = new MagickImageCollection(Files.Coders.TestMng))
+            using (IMagickImageCollection images = new MagickImageCollection(Files.Coders.TestMNG))
             {
                 Assert.AreEqual(8, images.Count);
 
@@ -105,6 +105,43 @@ namespace Magick.NET.Tests
                 {
                     Assert.AreEqual(20, image.AnimationDelay);
                     Assert.AreEqual(100, image.AnimationTicksPerSecond);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ShouldWritePng00Correctly()
+        {
+            using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+            {
+                using (var stream = new MemoryStream())
+                {
+                    image.Write(stream, MagickFormat.Png);
+
+                    stream.Position = 0;
+
+                    image.Read(stream);
+
+                    var setting = new QuantizeSettings
+                    {
+                        ColorSpace = ColorSpace.Gray,
+                        DitherMethod = DitherMethod.Riemersma,
+                        Colors = 2,
+                    };
+
+                    image.Quantize(setting);
+
+                    image.Warning += HandleWarning;
+
+                    image.Write(stream, MagickFormat.Png00);
+
+                    stream.Position = 0;
+
+                    image.Read(stream);
+
+                    Assert.AreEqual(ColorType.Palette, image.ColorType);
+                    ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
+                    ColorAssert.AreEqual(MagickColors.Black, image, 305, 248);
                 }
             }
         }

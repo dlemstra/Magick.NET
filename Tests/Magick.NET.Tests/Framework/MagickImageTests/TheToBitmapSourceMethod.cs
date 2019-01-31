@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -31,11 +31,13 @@ namespace Magick.NET.Tests
 
                 using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
                 {
-                    BitmapSource bitmapSource = image.ToBitmapSource();
+                    var bitmapSource = image.ToBitmapSource();
 
                     Assert.AreEqual(PixelFormats.Rgb24, bitmapSource.Format);
                     Assert.AreEqual(5, bitmapSource.Width);
                     Assert.AreEqual(10, bitmapSource.Height);
+                    Assert.AreEqual(96, bitmapSource.DpiX);
+                    Assert.AreEqual(96, bitmapSource.DpiY);
 
                     bitmapSource.CopyPixels(pixels, 15, 0);
 
@@ -59,6 +61,8 @@ namespace Magick.NET.Tests
                     Assert.AreEqual(PixelFormats.Cmyk32, bitmapSource.Format);
                     Assert.AreEqual(10, bitmapSource.Width);
                     Assert.AreEqual(5, bitmapSource.Height);
+                    Assert.AreEqual(96, bitmapSource.DpiX);
+                    Assert.AreEqual(96, bitmapSource.DpiY);
 
                     bitmapSource.CopyPixels(pixels, 40, 0);
 
@@ -83,6 +87,8 @@ namespace Magick.NET.Tests
                     Assert.AreEqual(PixelFormats.Bgra32, bitmapSource.Format);
                     Assert.AreEqual(5, bitmapSource.Width);
                     Assert.AreEqual(10, bitmapSource.Height);
+                    Assert.AreEqual(96, bitmapSource.DpiX);
+                    Assert.AreEqual(96, bitmapSource.DpiY);
 
                     bitmapSource.CopyPixels(pixels, 20, 0);
 
@@ -107,12 +113,62 @@ namespace Magick.NET.Tests
                     Assert.AreEqual(PixelFormats.Rgb24, bitmapSource.Format);
                     Assert.AreEqual(5, bitmapSource.Width);
                     Assert.AreEqual(10, bitmapSource.Height);
+                    Assert.AreEqual(96, bitmapSource.DpiX);
+                    Assert.AreEqual(96, bitmapSource.DpiY);
 
                     bitmapSource.CopyPixels(pixels, 15, 0);
 
                     Assert.AreEqual(255, pixels[0]);
                     Assert.AreEqual(0, pixels[1]);
                     Assert.AreEqual(0, pixels[2]);
+                }
+            }
+
+            [TestMethod]
+            public void ShouldNotConvertTheDpiWhenDensityIsUndefinedAndNotZero()
+            {
+                byte[] pixels = new byte[150];
+
+                using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+                {
+                    image.Density = new Density(1, 2, DensityUnit.Undefined);
+
+                    var bitmapSource = image.ToBitmapSource();
+
+                    Assert.AreEqual(1, bitmapSource.DpiX);
+                    Assert.AreEqual(2, bitmapSource.DpiY);
+                }
+            }
+
+            [TestMethod]
+            public void ShouldNotConvertTheDpiWhenDensityIsPixelsPerInch()
+            {
+                byte[] pixels = new byte[150];
+
+                using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+                {
+                    image.Density = new Density(1, 2, DensityUnit.PixelsPerInch);
+
+                    var bitmapSource = image.ToBitmapSource();
+
+                    Assert.AreEqual(1, bitmapSource.DpiX);
+                    Assert.AreEqual(2, bitmapSource.DpiY);
+                }
+            }
+
+            [TestMethod]
+            public void ShouldConvertTheDpiWhenDensityIsPixelsPerCentimeter()
+            {
+                byte[] pixels = new byte[150];
+
+                using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+                {
+                    image.Density = new Density(1, 2, DensityUnit.PixelsPerCentimeter);
+
+                    var bitmapSource = image.ToBitmapSource();
+
+                    Assert.AreEqual(2.54, bitmapSource.DpiX, 0.01);
+                    Assert.AreEqual(5.08, bitmapSource.DpiY, 0.01);
                 }
             }
         }

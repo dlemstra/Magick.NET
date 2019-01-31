@@ -1,4 +1,4 @@
-// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -113,9 +113,6 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="Percentage"/> to compare.</param>
         public static bool operator >(Percentage left, Percentage right)
         {
-            if (ReferenceEquals(left, null))
-                return ReferenceEquals(right, null);
-
             return left.CompareTo(right) == 1;
         }
 
@@ -126,9 +123,6 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="Percentage"/> to compare.</param>
         public static bool operator <(Percentage left, Percentage right)
         {
-            if (ReferenceEquals(left, null))
-                return !ReferenceEquals(right, null);
-
             return left.CompareTo(right) == -1;
         }
 
@@ -139,9 +133,6 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="Percentage"/> to compare.</param>
         public static bool operator >=(Percentage left, Percentage right)
         {
-            if (ReferenceEquals(left, null))
-                return ReferenceEquals(right, null);
-
             return left.CompareTo(right) >= 0;
         }
 
@@ -152,9 +143,6 @@ namespace ImageMagick
         /// <param name="right"> The second <see cref="Percentage"/> to compare.</param>
         public static bool operator <=(Percentage left, Percentage right)
         {
-            if (ReferenceEquals(left, null))
-                return !ReferenceEquals(right, null);
-
             return left.CompareTo(right) <= 0;
         }
 

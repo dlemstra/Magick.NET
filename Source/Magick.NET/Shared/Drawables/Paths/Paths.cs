@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -57,18 +57,12 @@ namespace ImageMagick
         /// Returns an enumerator that iterates through the collection.
         /// </summary>
         /// <returns>An enumerator that iterates through the collection.</returns>
-        public IEnumerator<IPath> GetEnumerator()
-        {
-            return _paths.GetEnumerator();
-        }
+        public IEnumerator<IPath> GetEnumerator() => _paths.GetEnumerator();
 
         /// <summary>
         /// Returns an enumerator that iterates through the collection.
         /// </summary>
         /// <returns>An enumerator that iterates through the collection.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => _paths.GetEnumerator();
     }
 }

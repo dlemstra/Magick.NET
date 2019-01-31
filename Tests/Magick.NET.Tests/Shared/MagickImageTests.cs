@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -514,7 +514,7 @@ namespace Magick.NET.Tests
                 image.CannyEdge();
                 ColorAssert.AreEqual(MagickColors.Black, image, 150, 365);
 
-                image.Crop(260, 180, 215, 200);
+                image.Crop(new MagickGeometry(260, 180, 215, 200));
 
                 image.Settings.FillColor = MagickColors.Red;
                 image.Settings.StrokeColor = MagickColors.Red;
@@ -1581,7 +1581,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual("a48a7f2fdc26e9ccf75b0c85a254c958f004cc182d0ca8c3060c1df734645367", image.FormatExpression("%#"));
             }
 
-            using (IMagickImage image = new MagickImage(Files.InvitationTif))
+            using (IMagickImage image = new MagickImage(Files.InvitationTIF))
             {
                 Assert.AreEqual("sRGB IEC61966-2.1", image.FormatExpression("%[profile:icc]"));
             }
@@ -1680,10 +1680,10 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_GammaCorrect()
         {
-            IMagickImage first = new MagickImage(Files.InvitationTif);
+            IMagickImage first = new MagickImage(Files.InvitationTIF);
             first.GammaCorrect(2.0);
 
-            IMagickImage second = new MagickImage(Files.InvitationTif);
+            IMagickImage second = new MagickImage(Files.InvitationTIF);
             second.GammaCorrect(2.0, Channels.Red);
 
             Assert.AreNotEqual(first, second);
@@ -1720,7 +1720,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_GetClippingPath()
         {
-            using (IMagickImage image = new MagickImage(Files.InvitationTif))
+            using (IMagickImage image = new MagickImage(Files.InvitationTIF))
             {
                 string clippingPath = image.GetClippingPath();
                 Assert.IsNotNull(clippingPath);
@@ -1755,7 +1755,7 @@ namespace Magick.NET.Tests
                     image.HaldClut(clut);
 
                     ColorAssert.AreEqual(new MagickColor("#052467fc2bb4"), image, 228, 276);
-                    ColorAssert.AreEqual(new MagickColor("#144f623a2801"), image, 295, 270);
+                    ColorAssert.AreEqual(new MagickColor("#15f862442644"), image, 295, 270);
                 }
             }
         }
@@ -1768,7 +1768,7 @@ namespace Magick.NET.Tests
                 Assert.IsFalse(noPath.HasClippingPath);
             }
 
-            using (IMagickImage hasPath = new MagickImage(Files.InvitationTif))
+            using (IMagickImage hasPath = new MagickImage(Files.InvitationTIF))
             {
                 Assert.IsTrue(hasPath.HasClippingPath);
             }
@@ -2030,13 +2030,13 @@ namespace Magick.NET.Tests
                     using (IMagickImage histogram = new MagickImage(memStream))
                     {
 #if Q8
-                        ColorAssert.AreEqual(MagickColors.Red, histogram, 65, 12);
-                        ColorAssert.AreEqual(MagickColors.Lime, histogram, 95, 122);
-                        ColorAssert.AreEqual(MagickColors.Blue, histogram, 205, 81);
+                        ColorAssert.AreEqual(MagickColors.Red, histogram, 67, 14);
+                        ColorAssert.AreEqual(MagickColors.Lime, histogram, 97, 127);
+                        ColorAssert.AreEqual(MagickColors.Blue, histogram, 202, 61);
 #elif Q16 || Q16HDRI
-                        ColorAssert.AreEqual(MagickColors.Red, histogram, 34, 182);
-                        ColorAssert.AreEqual(MagickColors.Lime, histogram, 122, 193);
-                        ColorAssert.AreEqual(MagickColors.Blue, histogram, 210, 194);
+                        ColorAssert.AreEqual(MagickColors.Red, histogram, 35, 183);
+                        ColorAssert.AreEqual(MagickColors.Lime, histogram, 127, 194);
+                        ColorAssert.AreEqual(MagickColors.Blue, histogram, 211, 194);
 #else
 #error Not implemented!
 #endif
@@ -2053,17 +2053,17 @@ namespace Magick.NET.Tests
                     using (IMagickImage histogram = new MagickImage(memStream))
                     {
 #if Q8
-                        ColorAssert.AreEqual(MagickColors.Red, histogram, 102, 183);
-                        ColorAssert.AreEqual(MagickColors.Lime, histogram, 147, 188);
+                        ColorAssert.AreEqual(MagickColors.Red, histogram, 98, 171);
+                        ColorAssert.AreEqual(MagickColors.Lime, histogram, 148, 189);
                         ColorAssert.AreEqual(MagickColors.Blue, histogram, 195, 190);
 #elif Q16
-                        ColorAssert.AreEqual(MagickColors.Red, histogram, 221, 182);
-                        ColorAssert.AreEqual(MagickColors.Lime, histogram, 11, 184);
-                        ColorAssert.AreEqual(MagickColors.Blue, histogram, 45, 194);
+                        ColorAssert.AreEqual(MagickColors.Red, histogram, 220, 182);
+                        ColorAssert.AreEqual(MagickColors.Lime, histogram, 10, 184);
+                        ColorAssert.AreEqual(MagickColors.Blue, histogram, 44, 194);
 #elif Q16HDRI
-                        ColorAssert.AreEqual(MagickColors.Red, histogram, 221, 182);
-                        ColorAssert.AreEqual(MagickColors.Lime, histogram, 12, 184);
-                        ColorAssert.AreEqual(MagickColors.Blue, histogram, 45, 194);
+                        ColorAssert.AreEqual(MagickColors.Red, histogram, 220, 182);
+                        ColorAssert.AreEqual(MagickColors.Lime, histogram, 10, 184);
+                        ColorAssert.AreEqual(MagickColors.Blue, histogram, 44, 194);
 #else
 #error Not implemented!
 #endif
@@ -2295,7 +2295,7 @@ namespace Magick.NET.Tests
             using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
                 image.OilPaint(2, 5);
-                ColorAssert.AreEqual(new MagickColor("#6a7e85"), image, 180, 98);
+                ColorAssert.AreEqual(new MagickColor("#6a7f84"), image, 180, 98);
             }
         }
 
@@ -2490,10 +2490,7 @@ namespace Magick.NET.Tests
             {
                 IEnumerable<string> names = image.ProfileNames;
                 Assert.IsNotNull(names);
-                Assert.AreEqual(5, names.Count());
-                Assert.AreEqual("8bim,exif,icc,iptc,xmp", string.Join(",", (from name in names
-                                                                            orderby name
-                                                                            select name).ToArray()));
+                Assert.AreEqual("8bim,exif,icc,iptc,xmp", string.Join(",", names));
             }
 
             using (IMagickImage image = new MagickImage(Files.RedPNG))
@@ -2560,9 +2557,9 @@ namespace Magick.NET.Tests
             {
                 MagickErrorInfo errorInfo = image.Quantize(settings);
 #if Q8
-                Assert.AreEqual(6.975, errorInfo.MeanErrorPerPixel, 0.001);
+                Assert.AreEqual(7.063, errorInfo.MeanErrorPerPixel, 0.001);
 #elif Q16 || Q16HDRI
-                Assert.AreEqual(1803.2, errorInfo.MeanErrorPerPixel, 0.1);
+                Assert.AreEqual(1815.8, errorInfo.MeanErrorPerPixel, 0.1);
 #else
 #error Not implemented!
 #endif
@@ -2593,16 +2590,16 @@ namespace Magick.NET.Tests
             {
                 image.Raise(30);
 
-                ColorAssert.AreEqual(new MagickColor("#6ee29508b532"), image, 29, 30);
-                ColorAssert.AreEqual(new MagickColor("#2f2054867aac"), image, 570, 265);
+                ColorAssert.AreEqual(new MagickColor("#6e229448b472"), image, 29, 30);
+                ColorAssert.AreEqual(new MagickColor("#2f205486792d"), image, 570, 265);
             }
 
             using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
                 image.Lower(30);
 
-                ColorAssert.AreEqual(new MagickColor("#2da153c773f1"), image, 29, 30);
-                ColorAssert.AreEqual(new MagickColor("#706195c7bbed"), image, 570, 265);
+                ColorAssert.AreEqual(new MagickColor("#2ce153077331"), image, 29, 30);
+                ColorAssert.AreEqual(new MagickColor("#706195c7ba6e"), image, 570, 265);
             }
         }
 
@@ -2913,7 +2910,7 @@ namespace Magick.NET.Tests
             {
                 Assert.IsFalse(image.HasClippingPath);
 
-                using (IMagickImage path = new MagickImage(Files.InvitationTif))
+                using (IMagickImage path = new MagickImage(Files.InvitationTIF))
                 {
                     string clippingPath = path.GetClippingPath();
 

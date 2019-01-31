@@ -1,4 +1,4 @@
-// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -268,6 +268,8 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Chop(IntPtr Instance, IntPtr geometry, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickImage_Clahe(IntPtr Instance, UIntPtr xTiles, UIntPtr yTiles, UIntPtr numberBins, double clipLimit, out IntPtr exception);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_Clamp(IntPtr Instance, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_ClampChannel(IntPtr Instance, UIntPtr channels, out IntPtr exception);
@@ -306,9 +308,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_CopyPixels(IntPtr Instance, IntPtr image, IntPtr geometry, IntPtr offset, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Crop(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_CropAspectRatio(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
+                public static extern IntPtr MagickImage_Crop(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_CropToTiles(IntPtr Instance, IntPtr geometry, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -343,9 +343,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_EvaluateOperator(IntPtr Instance, UIntPtr channels, UIntPtr evaluateOperator, double value, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Extent(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ExtentGravity(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
+                public static extern IntPtr MagickImage_Extent(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Flip(IntPtr Instance, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -819,6 +817,8 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Chop(IntPtr Instance, IntPtr geometry, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickImage_Clahe(IntPtr Instance, UIntPtr xTiles, UIntPtr yTiles, UIntPtr numberBins, double clipLimit, out IntPtr exception);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_Clamp(IntPtr Instance, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_ClampChannel(IntPtr Instance, UIntPtr channels, out IntPtr exception);
@@ -857,9 +857,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_CopyPixels(IntPtr Instance, IntPtr image, IntPtr geometry, IntPtr offset, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Crop(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_CropAspectRatio(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
+                public static extern IntPtr MagickImage_Crop(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_CropToTiles(IntPtr Instance, IntPtr geometry, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -894,9 +892,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_EvaluateOperator(IntPtr Instance, UIntPtr channels, UIntPtr evaluateOperator, double value, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Extent(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ExtentGravity(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
+                public static extern IntPtr MagickImage_Extent(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Flip(IntPtr Instance, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -3180,6 +3176,23 @@ namespace ImageMagick
                     Instance = result;
                 }
             }
+            public void Clahe(int xTiles, int yTiles, int numberBins, double clipLimit)
+            {
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_Clahe(Instance, (UIntPtr)xTiles, (UIntPtr)yTiles, (UIntPtr)numberBins, clipLimit, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_Clahe(Instance, (UIntPtr)xTiles, (UIntPtr)yTiles, (UIntPtr)numberBins, clipLimit, out exception);
+                #endif
+                CheckException(exception);
+            }
             public void Clamp()
             {
                 IntPtr exception = IntPtr.Zero;
@@ -3543,29 +3556,7 @@ namespace ImageMagick
                     }
                 }
             }
-            public void Crop(MagickRectangle geometry)
-            {
-                using (INativeInstance geometryNative = MagickRectangle.CreateInstance(geometry))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_Crop(Instance, geometryNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_Crop(Instance, geometryNative.Instance, out exception);
-                    #endif
-                    CheckException(exception, result);
-                    Instance = result;
-                }
-            }
-            public void CropAspectRatio(string geometry, Gravity gravity)
+            public void Crop(string geometry, Gravity gravity)
             {
                 using (INativeInstance geometryNative = UTF8Marshaler.CreateInstance(geometry))
                 {
@@ -3575,13 +3566,13 @@ namespace ImageMagick
                     if (NativeLibrary.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_CropAspectRatio(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
+                    result = NativeMethods.X64.MagickImage_Crop(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_CropAspectRatio(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
+                    result = NativeMethods.X86.MagickImage_Crop(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
                     #endif
                     CheckException(exception, result);
                     Instance = result;
@@ -3889,7 +3880,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void Extent(string geometry)
+            public void Extent(string geometry, Gravity gravity)
             {
                 using (INativeInstance geometryNative = UTF8Marshaler.CreateInstance(geometry))
                 {
@@ -3899,35 +3890,13 @@ namespace ImageMagick
                     if (NativeLibrary.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_Extent(Instance, geometryNative.Instance, out exception);
+                    result = NativeMethods.X64.MagickImage_Extent(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_Extent(Instance, geometryNative.Instance, out exception);
-                    #endif
-                    CheckException(exception, result);
-                    Instance = result;
-                }
-            }
-            public void ExtentGravity(string geometry, Gravity gravity)
-            {
-                using (INativeInstance geometryNative = UTF8Marshaler.CreateInstance(geometry))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_ExtentGravity(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_ExtentGravity(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
+                    result = NativeMethods.X86.MagickImage_Extent(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
                     #endif
                     CheckException(exception, result);
                     Instance = result;
@@ -4012,8 +3981,10 @@ namespace ImageMagick
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     result = NativeMethods.X86.MagickImage_FontTypeMetrics(Instance, settingsNative.Instance, ignoreNewlines, out exception);
                     #endif
-                    MagickException magickException = MagickExceptionHelper.Create(exception);
-                    if (MagickExceptionHelper.IsError(magickException))
+                    var magickException = MagickExceptionHelper.Create(exception);
+                    if (magickException == null)
+                        return result;
+                    if (magickException is MagickErrorException)
                     {
                         if (result != IntPtr.Zero)
                             ImageMagick.TypeMetric.Dispose(result);
@@ -4403,8 +4374,10 @@ namespace ImageMagick
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickImage_Histogram(Instance, out length, out exception);
                 #endif
-                MagickException magickException = MagickExceptionHelper.Create(exception);
-                if (MagickExceptionHelper.IsError(magickException))
+                var magickException = MagickExceptionHelper.Create(exception);
+                if (magickException == null)
+                    return result;
+                if (magickException is MagickErrorException)
                 {
                     if (result != IntPtr.Zero)
                         ImageMagick.MagickColorCollection.DisposeList(result);
@@ -4676,8 +4649,10 @@ namespace ImageMagick
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickImage_Moments(Instance, out exception);
                 #endif
-                MagickException magickException = MagickExceptionHelper.Create(exception);
-                if (MagickExceptionHelper.IsError(magickException))
+                var magickException = MagickExceptionHelper.Create(exception);
+                if (magickException == null)
+                    return result;
+                if (magickException is MagickErrorException)
                 {
                     if (result != IntPtr.Zero)
                         ImageMagick.Moments.DisposeList(result);
@@ -4876,8 +4851,10 @@ namespace ImageMagick
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickImage_PerceptualHash(Instance, out exception);
                 #endif
-                MagickException magickException = MagickExceptionHelper.Create(exception);
-                if (MagickExceptionHelper.IsError(magickException))
+                var magickException = MagickExceptionHelper.Create(exception);
+                if (magickException == null)
+                    return result;
+                if (magickException is MagickErrorException)
                 {
                     if (result != IntPtr.Zero)
                         ImageMagick.PerceptualHash.DisposeList(result);
@@ -5827,8 +5804,10 @@ namespace ImageMagick
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickImage_Statistics(Instance, out exception);
                 #endif
-                MagickException magickException = MagickExceptionHelper.Create(exception);
-                if (MagickExceptionHelper.IsError(magickException))
+                var magickException = MagickExceptionHelper.Create(exception);
+                if (magickException == null)
+                    return result;
+                if (magickException is MagickErrorException)
                 {
                     if (result != IntPtr.Zero)
                         ImageMagick.Statistics.DisposeList(result);

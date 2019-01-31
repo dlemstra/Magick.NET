@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -21,8 +21,10 @@ namespace ImageMagick
         public static MagickException Check(IntPtr exception)
         {
             MagickException magickException = Create(exception);
+            if (magickException == null)
+                return null;
 
-            if (IsError(magickException))
+            if (magickException is MagickErrorException)
                 throw magickException;
 
             return magickException;
@@ -55,14 +57,6 @@ namespace ImageMagick
             result.SetRelatedException(innerExceptions);
 
             return result;
-        }
-
-        public static bool IsError(MagickException exception)
-        {
-            if (exception == null)
-                return false;
-
-            return exception is MagickErrorException;
         }
 
         private static List<MagickException> CreateRelatedExceptions(IntPtr exception)

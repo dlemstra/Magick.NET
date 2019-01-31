@@ -138,19 +138,6 @@
       ]
     },
     {
-      "name": "Flatten",
-      "type": "Instance",
-      "instance": true,
-      "throws": true,
-      "static": true,
-      "arguments": [
-        {
-          "name": "image",
-          "type": "IMagickImage"
-        }
-      ]
-    },
-    {
       "name": "Map",
       "throws": true,
       "static": true,

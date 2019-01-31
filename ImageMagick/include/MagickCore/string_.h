@@ -1,8 +1,8 @@
 /*
-  Copyright 1999-2018 ImageMagick Studio LLC, a non-profit organization
+  Copyright 1999-2019 ImageMagick Studio LLC, a non-profit organization
   dedicated to making software imaging solutions freely available.
   
-  You may not use this file except in compliance with the License.
+  You may not use this file except in compliance with the License.  You may
   obtain a copy of the License at
   
     https://imagemagick.org/script/license.php
@@ -70,8 +70,8 @@ extern MagickExport int
 
 extern MagickExport MagickBooleanType
   ConcatenateString(char **,const char *),
-  IsStringTrue(const char *),
-  IsStringFalse(const char *),
+  IsStringTrue(const char *) magick_attribute((__pure__)),
+  IsStringFalse(const char *) magick_attribute((__pure__)),
   SubstituteString(char **,const char *,const char *);
 
 extern MagickExport size_t

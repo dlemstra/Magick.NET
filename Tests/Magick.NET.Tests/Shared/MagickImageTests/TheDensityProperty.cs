@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -43,7 +43,7 @@ namespace Magick.NET.Tests
                     {
                         var profile = image.GetExifProfile();
                         var value = profile.GetValue(ExifTag.XResolution);
-                        Assert.AreEqual(value.ToString(), "300");
+                        Assert.AreEqual("300", value.ToString());
 
                         image.Density = new Density(72);
 
@@ -56,7 +56,7 @@ namespace Magick.NET.Tests
                         var profile = image.GetExifProfile();
                         var value = profile.GetValue(ExifTag.XResolution);
 
-                        Assert.AreEqual(value.ToString(), "72");
+                        Assert.AreEqual("72", value.ToString());
                     }
                 }
             }

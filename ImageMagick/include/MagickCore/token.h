@@ -1,8 +1,8 @@
 /*
-  Copyright 1999-2018 ImageMagick Studio LLC, a non-profit organization
+  Copyright 1999-2019 ImageMagick Studio LLC, a non-profit organization
   dedicated to making software imaging solutions freely available.
   
-  You may not use this file except in compliance with the License.
+  You may not use this file except in compliance with the License.  You may
   obtain a copy of the License at
   
     https://imagemagick.org/script/license.php
@@ -33,7 +33,8 @@ extern MagickExport int
     const char *,const char *,const char *,const char,char *,int *,char *);
 
 extern MagickExport MagickBooleanType
-  GlobExpression(const char *,const char *,const MagickBooleanType);
+  GlobExpression(const char *,const char *,const MagickBooleanType)
+    magick_attribute((__pure__));
 
 extern MagickExport TokenInfo
   *AcquireTokenInfo(void),
