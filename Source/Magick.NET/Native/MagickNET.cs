@@ -1,4 +1,4 @@
-// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -49,11 +49,13 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickNET_Features_Get();
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickNET_GetFontFamilies(out UIntPtr length, out IntPtr exception);
+                public static extern IntPtr MagickNET_GetFonts(out UIntPtr length, out IntPtr exception);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickNET_GetFontName(IntPtr instance, UIntPtr index);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickNET_GetFontFamily(IntPtr instance, UIntPtr index);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickNET_DisposeFontFamilies(IntPtr instance);
+                public static extern void MagickNET_DisposeFonts(IntPtr instance);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickNET_SetLogDelegate(LogDelegate method);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -74,11 +76,13 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickNET_Features_Get();
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickNET_GetFontFamilies(out UIntPtr length, out IntPtr exception);
+                public static extern IntPtr MagickNET_GetFonts(out UIntPtr length, out IntPtr exception);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickNET_GetFontName(IntPtr instance, UIntPtr index);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickNET_GetFontFamily(IntPtr instance, UIntPtr index);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickNET_DisposeFontFamilies(IntPtr instance);
+                public static extern void MagickNET_DisposeFonts(IntPtr instance);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickNET_SetLogDelegate(LogDelegate method);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -131,7 +135,7 @@ namespace ImageMagick
                     return UTF8Marshaler.NativeToManaged(result);
                 }
             }
-            public static IntPtr GetFontFamilies(out UIntPtr length)
+            public static IntPtr GetFonts(out UIntPtr length)
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -139,22 +143,39 @@ namespace ImageMagick
                 if (NativeLibrary.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickNET_GetFontFamilies(out length, out exception);
+                result = NativeMethods.X64.MagickNET_GetFonts(out length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickNET_GetFontFamilies(out length, out exception);
+                result = NativeMethods.X86.MagickNET_GetFonts(out length, out exception);
                 #endif
-                MagickException magickException = MagickExceptionHelper.Create(exception);
-                if (MagickExceptionHelper.IsError(magickException))
+                var magickException = MagickExceptionHelper.Create(exception);
+                if (magickException == null)
+                    return result;
+                if (magickException is MagickErrorException)
                 {
                     if (result != IntPtr.Zero)
-                        DisposeFontFamilies(result);
+                        DisposeFonts(result);
                     throw magickException;
                 }
                 return result;
+            }
+            public static string GetFontName(IntPtr instance, int index)
+            {
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                return UTF8Marshaler.NativeToManaged(NativeMethods.X64.MagickNET_GetFontName(instance, (UIntPtr)index));
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                return UTF8Marshaler.NativeToManaged(NativeMethods.X86.MagickNET_GetFontName(instance, (UIntPtr)index));
+                #endif
             }
             public static string GetFontFamily(IntPtr instance, int index)
             {
@@ -171,19 +192,19 @@ namespace ImageMagick
                 return UTF8Marshaler.NativeToManaged(NativeMethods.X86.MagickNET_GetFontFamily(instance, (UIntPtr)index));
                 #endif
             }
-            public static void DisposeFontFamilies(IntPtr instance)
+            public static void DisposeFonts(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU
                 if (NativeLibrary.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickNET_DisposeFontFamilies(instance);
+                NativeMethods.X64.MagickNET_DisposeFonts(instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickNET_DisposeFontFamilies(instance);
+                NativeMethods.X86.MagickNET_DisposeFonts(instance);
                 #endif
             }
             public static void SetLogDelegate(LogDelegate method)

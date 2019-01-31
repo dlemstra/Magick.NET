@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -173,6 +173,11 @@ namespace ImageMagick
         Crw,
 
         /// <summary>
+        /// Cube color lookup table image
+        /// </summary>
+        Cube,
+
+        /// <summary>
         /// Microsoft icon
         /// </summary>
         Cur,
@@ -181,6 +186,11 @@ namespace ImageMagick
         /// DR Halo
         /// </summary>
         Cut,
+
+        /// <summary>
+        /// Base64-encoded inline images
+        /// </summary>
+        Data,
 
         /// <summary>
         /// Digital Imaging and Communications in Medicine image

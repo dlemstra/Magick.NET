@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -77,7 +77,7 @@ namespace Magick.NET.Tests
                 var first = new MagickGeometry(10, 5);
                 var second = new MagickGeometry(5, 10);
 
-                Assert.IsFalse(first.Equals(second));
+                Assert.IsFalse(first.Equals((object)second));
             }
         }
     }

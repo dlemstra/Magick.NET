@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -29,6 +29,20 @@ namespace Magick.NET.Tests
 
                     Assert.AreEqual(40, image.Width);
                     Assert.AreEqual(50, image.Height);
+                }
+            }
+
+            [TestMethod]
+            public void ShouldUseUndefinedGravityAsTheDefault()
+            {
+                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                {
+                    image.Crop(150, 40);
+
+                    Assert.AreEqual(150, image.Width);
+                    Assert.AreEqual(40, image.Height);
+
+                    ColorAssert.AreEqual(new MagickColor("#fecd08ff"), image, 146, 25);
                 }
             }
 
@@ -95,6 +109,20 @@ namespace Magick.NET.Tests
                     Assert.AreEqual(100, image.Width);
                     Assert.AreEqual(100, image.Height);
                     ColorAssert.AreEqual(MagickColors.White, image, 99, 99);
+                }
+            }
+
+            [TestMethod]
+            public void ShouldUseUndefinedGravityAsTheDefaultForMagickGeometry()
+            {
+                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                {
+                    image.Crop(new MagickGeometry("150x40"));
+
+                    Assert.AreEqual(150, image.Width);
+                    Assert.AreEqual(40, image.Height);
+
+                    ColorAssert.AreEqual(new MagickColor("#fecd08ff"), image, 146, 25);
                 }
             }
         }

@@ -1,12 +1,12 @@
 /*
-  Copyright 1999-2018 ImageMagick Studio LLC, a non-profit organization
+  Copyright 1999-2019 ImageMagick Studio LLC, a non-profit organization
   dedicated to making software imaging solutions freely available.
-  
-  You may not use this file except in compliance with the License.
+
+  You may not use this file except in compliance with the License.  You may
   obtain a copy of the License at
-  
+
     https://imagemagick.org/script/license.php
-  
+
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -260,6 +260,12 @@ extern "C" {
 #if !defined(tempnam)
 #  define tempnam  _tempnam_s
 #endif
+#if !defined(tolower_l)
+#define tolower_l  _tolower_l
+#endif
+#if !defined(toupper_l)
+#define toupper_l  _toupper_l
+#endif
 #if !defined(umask)
 #  define umask  _umask
 #endif
@@ -274,7 +280,7 @@ extern "C" {
 #endif
 #if !defined(vsnprintf)
 #if !defined(_MSC_VER) || (defined(_MSC_VER) && _MSC_VER < 1500)
-#define vsnprintf _vsnprintf 
+#define vsnprintf _vsnprintf
 #endif
 #endif
 #if !defined(vsnprintf_l)

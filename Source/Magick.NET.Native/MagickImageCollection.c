@@ -1,4 +1,4 @@
-// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -102,17 +102,6 @@ MAGICK_NET_EXPORT Image *MagickImageCollection_Evaluate(const Image *images, con
   result = EvaluateImages(images, (MagickEvaluateOperator)evaluateOperator, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return result;
-}
-
-MAGICK_NET_EXPORT Image *MagickImageCollection_Flatten(Image *images, ExceptionInfo **exception)
-{
-  Image
-    *image;
-
-  MAGICK_NET_GET_EXCEPTION;
-  image = MergeImageLayers(images, FlattenLayer, exceptionInfo);
-  MAGICK_NET_SET_EXCEPTION;
-  return image;
 }
 
 MAGICK_NET_EXPORT void MagickImageCollection_Map(Image *images, const QuantizeInfo *settings, const Image *remapImage, ExceptionInfo **exception)

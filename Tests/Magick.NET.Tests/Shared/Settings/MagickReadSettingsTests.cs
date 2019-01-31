@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -76,7 +76,7 @@ namespace Magick.NET.Tests
                 ExtractArea = new MagickGeometry(10, 10, 20, 30),
             };
 
-            using (IMagickImage image = new MagickImage(Files.Coders.GrimJp2, readSettings))
+            using (IMagickImage image = new MagickImage(Files.Coders.GrimJP2, readSettings))
             {
                 Assert.AreEqual(20, image.Width);
                 Assert.AreEqual(30, image.Height);

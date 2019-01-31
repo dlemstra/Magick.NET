@@ -1,8 +1,8 @@
 /*
-  Copyright 1999-2018 ImageMagick Studio LLC, a non-profit organization
+  Copyright 1999-2019 ImageMagick Studio LLC, a non-profit organization
   dedicated to making software imaging solutions freely available.
   
-  You may not use this file except in compliance with the License.
+  You may not use this file except in compliance with the License.  You may
   obtain a copy of the License at
   
     https://imagemagick.org/script/license.php
@@ -23,28 +23,7 @@ extern "C" {
 #endif
 
 typedef struct _MagicInfo
-{
-  char
-    *path,
-    *name,
-    *target;
-
-  unsigned char
-    *magic;
-
-  size_t
-    length;
-
-  MagickOffsetType
-    offset;
-
-  MagickBooleanType
-    exempt,
-    stealth;
-
-  size_t
-    signature;
-} MagicInfo;
+  MagicInfo;
 
 extern MagickExport char
   **GetMagicList(const char *,size_t *,ExceptionInfo *);

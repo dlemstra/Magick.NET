@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -21,19 +21,19 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldReadTheImageWithCorrectDimensions()
         {
-            using (IMagickImage image = new MagickImage(Files.Coders.GrimJp2))
+            using (IMagickImage image = new MagickImage(Files.Coders.GrimJP2))
             {
                 Assert.AreEqual(2155, image.Width);
                 Assert.AreEqual(2687, image.Height);
             }
 
-            using (IMagickImage image = new MagickImage(Files.Coders.GrimJp2 + "[0]"))
+            using (IMagickImage image = new MagickImage(Files.Coders.GrimJP2 + "[0]"))
             {
                 Assert.AreEqual(2155, image.Width);
                 Assert.AreEqual(2687, image.Height);
             }
 
-            using (IMagickImage image = new MagickImage(Files.Coders.GrimJp2 + "[1]"))
+            using (IMagickImage image = new MagickImage(Files.Coders.GrimJP2 + "[1]"))
             {
                 Assert.AreEqual(256, image.Width);
                 Assert.AreEqual(256, image.Height);

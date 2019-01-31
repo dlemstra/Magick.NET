@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -25,10 +25,7 @@ namespace ImageMagick
         /// Initializes a new instance of the <see cref="MagickGeometry"/> class.
         /// </summary>
         /// <param name="rectangle">The rectangle to use.</param>
-        public MagickGeometry(Rectangle rectangle)
-        {
-            Initialize(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height, false);
-        }
+        public MagickGeometry(Rectangle rectangle) => Initialize(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
 
         /// <summary>
         /// Converts the specified rectangle to an instance of this type.

@@ -647,6 +647,28 @@
       ]
     },
     {
+      "name": "Clahe",
+      "throws": true,
+      "arguments": [
+        {
+          "name": "xTiles",
+          "type": "size_t"
+        },
+        {
+          "name": "yTiles",
+          "type": "size_t"
+        },
+        {
+          "name": "numberBins",
+          "type": "size_t"
+        },
+        {
+          "name": "clipLimit",
+          "type": "double"
+        }
+      ]
+    },
+    {
       "name": "Clamp",
       "throws": true
     },
@@ -922,17 +944,6 @@
       "arguments": [
         {
           "name": "geometry",
-          "type": "MagickRectangle"
-        }
-      ]
-    },
-    {
-      "name": "CropAspectRatio",
-      "instance": true,
-      "throws": true,
-      "arguments": [
-        {
-          "name": "geometry",
           "type": "string"
         },
         {
@@ -1136,17 +1147,6 @@
     },
     {
       "name": "Extent",
-      "instance": true,
-      "throws": true,
-      "arguments": [
-        {
-          "name": "geometry",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "ExtentGravity",
       "instance": true,
       "throws": true,
       "arguments": [

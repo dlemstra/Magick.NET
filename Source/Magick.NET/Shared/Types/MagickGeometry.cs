@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -22,29 +22,20 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickGeometry"/> class.
         /// </summary>
-        public MagickGeometry()
-        {
-            Initialize(0, 0, 0, 0, false);
-        }
+        public MagickGeometry() => Initialize(0, 0, 0, 0);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified width and height.
         /// </summary>
         /// <param name="widthAndHeight">The width and height.</param>
-        public MagickGeometry(int widthAndHeight)
-        {
-            Initialize(0, 0, widthAndHeight, widthAndHeight, false);
-        }
+        public MagickGeometry(int widthAndHeight) => Initialize(0, 0, widthAndHeight, widthAndHeight);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified width and height.
         /// </summary>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        public MagickGeometry(int width, int height)
-        {
-            Initialize(0, 0, width, height, false);
-        }
+        public MagickGeometry(int width, int height) => Initialize(0, 0, width, height);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified offsets, width and height.
@@ -53,10 +44,7 @@ namespace ImageMagick
         /// <param name="y">The Y offset from origin.</param>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        public MagickGeometry(int x, int y, int width, int height)
-        {
-            Initialize(x, y, width, height, false);
-        }
+        public MagickGeometry(int x, int y, int width, int height) => Initialize(x, y, width, height);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified width and height.
@@ -68,7 +56,7 @@ namespace ImageMagick
             Throw.IfNegative(nameof(percentageWidth), percentageWidth);
             Throw.IfNegative(nameof(percentageHeight), percentageHeight);
 
-            Initialize(0, 0, (int)percentageWidth, (int)percentageHeight, true);
+            InitializeFromPercentage(0, 0, (int)percentageWidth, (int)percentageHeight);
         }
 
         /// <summary>
@@ -83,7 +71,7 @@ namespace ImageMagick
             Throw.IfNegative(nameof(percentageWidth), percentageWidth);
             Throw.IfNegative(nameof(percentageHeight), percentageHeight);
 
-            Initialize(x, y, (int)percentageWidth, (int)percentageHeight, true);
+            InitializeFromPercentage(x, y, (int)percentageWidth, (int)percentageHeight);
         }
 
         /// <summary>
@@ -100,22 +88,13 @@ namespace ImageMagick
                 var flags = instance.Initialize(value);
 
                 if (!EnumHelper.HasFlag(flags, GeometryFlags.AspectRatio))
-                {
                     Initialize(instance, flags);
-                    return;
-                }
-
-                AspectRatio = true;
-                var ratio = value.Split(':');
-                Width = int.Parse(ratio[0], CultureInfo.InvariantCulture);
-                Height = int.Parse(ratio[1], CultureInfo.InvariantCulture);
+                else
+                    InitializeFromAspectRation(instance, value);
             }
         }
 
-        private MagickGeometry(NativeMagickGeometry instance)
-        {
-            Initialize(instance);
-        }
+        private MagickGeometry(NativeMagickGeometry instance) => Initialize(instance);
 
         /// <summary>
         /// Gets or sets a value indicating whether the image is resized based on the smallest fitting dimension (^).
@@ -473,6 +452,19 @@ namespace ImageMagick
             return value?.ToString();
         }
 
+        private static int ParseInt(string value)
+        {
+            int index = 0;
+            while (index < value.Length && !char.IsNumber(value[index]))
+                index++;
+
+            int start = index;
+            while (index < value.Length && char.IsNumber(value[index]))
+                index++;
+
+            return int.Parse(value.Substring(start, index), CultureInfo.InvariantCulture);
+        }
+
         private NativeMagickGeometry CreateNativeInstance()
         {
             NativeMagickGeometry instance = new NativeMagickGeometry();
@@ -481,13 +473,18 @@ namespace ImageMagick
             return instance;
         }
 
-        private void Initialize(int x, int y, int width, int height, bool isPercentage)
+        private void Initialize(int x, int y, int width, int height)
         {
             X = x;
             Y = y;
             Width = width;
             Height = height;
-            IsPercentage = isPercentage;
+        }
+
+        private void InitializeFromPercentage(int x, int y, int width, int height)
+        {
+            Initialize(x, y, width, height);
+            IsPercentage = true;
         }
 
         private void Initialize(NativeMagickGeometry instance)
@@ -510,6 +507,18 @@ namespace ImageMagick
             Greater = EnumHelper.HasFlag(flags, GeometryFlags.Greater);
             Less = EnumHelper.HasFlag(flags, GeometryFlags.Less);
             LimitPixels = EnumHelper.HasFlag(flags, GeometryFlags.LimitPixels);
+        }
+
+        private void InitializeFromAspectRation(NativeMagickGeometry instance, string value)
+        {
+            AspectRatio = true;
+
+            var ratio = value.Split(':');
+            Width = ParseInt(ratio[0]);
+            Height = ParseInt(ratio[1]);
+
+            X = (int)instance.X;
+            Y = (int)instance.Y;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -40,8 +40,14 @@ namespace ImageMagick
         {
             IfNull(paramName, value);
 
-            if (value.CanSeek && value.Position == value.Length)
-                throw new ArgumentException("Value cannot be empty.", paramName);
+            if (value.CanSeek)
+            {
+                if (value.Length == 0)
+                    throw new ArgumentException("Value cannot be empty.", paramName);
+
+                if (value.Position == value.Length)
+                    throw new ArgumentException("Stream position is at the end of the stream. Make sure to reset the stream position to 0.", paramName);
+            }
         }
 
         public static void IfNullOrEmpty(string paramName, [ValidatedNotNull] string value)

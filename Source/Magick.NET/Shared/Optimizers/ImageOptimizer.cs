@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -23,6 +23,15 @@ namespace ImageMagick
     public sealed class ImageOptimizer
     {
         private readonly Collection<IImageOptimizer> _optimizers = CreateImageOptimizers();
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to skip unsupported files instead of throwing an exception.
+        /// </summary>
+        public bool IgnoreUnsupportedFormats
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// Gets or sets a value indicating whether various compression types will be used to find
@@ -252,6 +261,9 @@ namespace ImageMagick
                     return optimizer;
             }
 
+            if (IgnoreUnsupportedFormats)
+                return null;
+
             throw new MagickCorruptImageErrorException("Invalid format, supported formats are: " + SupportedFormats);
         }
 
@@ -268,6 +280,9 @@ namespace ImageMagick
                 if (optimizer.Format.Module == info.Module)
                     return optimizer;
             }
+
+            if (IgnoreUnsupportedFormats)
+                return null;
 
             throw new MagickCorruptImageErrorException("Invalid format, supported formats are: " + SupportedFormats);
         }

@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -74,48 +74,45 @@ namespace ImageMagick
         /// <summary>
         /// Gets the units.
         /// </summary>
-        public DensityUnit Units
-        {
-            get;
-            private set;
-        }
+        public DensityUnit Units { get; private set; }
 
         /// <summary>
         /// Gets the x resolution.
         /// </summary>
-        public double X
-        {
-            get;
-            private set;
-        }
+        public double X { get; private set; }
 
         /// <summary>
         /// Gets the y resolution.
         /// </summary>
-        public double Y
-        {
-            get;
-            private set;
-        }
+        public double Y { get; private set; }
 
         /// <summary>
         /// Determines whether the specified <see cref="Density"/> instances are considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="Density"/> to compare.</param>
         /// <param name="right"> The second <see cref="Density"/> to compare.</param>
-        public static bool operator ==(Density left, Density right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(Density left, Density right) => Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified <see cref="Density"/> instances are not considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="Density"/> to compare.</param>
         /// <param name="right"> The second <see cref="Density"/> to compare.</param>
-        public static bool operator !=(Density left, Density right)
+        public static bool operator !=(Density left, Density right) => !Equals(left, right);
+
+        /// <summary>
+        /// Changes the density of the instance to the specified units.
+        /// </summary>
+        /// <param name="units">The units to use.</param>
+        /// <returns>A new <see cref="Density"/> with the specified units.</returns>
+        public Density ChangeUnits(DensityUnit units)
         {
-            return !Equals(left, right);
+            if (Units == units || Units == DensityUnit.Undefined || units == DensityUnit.Undefined)
+                return new Density(X, Y, units);
+            else if (Units == DensityUnit.PixelsPerCentimeter && units == DensityUnit.PixelsPerInch)
+                return new Density(X * 2.54, Y * 2.54, units);
+            else
+                return new Density(X / 2.54, Y / 2.54, units);
         }
 
         /// <summary>
@@ -141,7 +138,7 @@ namespace ImageMagick
         /// <returns>True when the specified <see cref="Density"/> is equal to the current <see cref="Density"/>.</returns>
         public bool Equals(Density other)
         {
-            if (ReferenceEquals(other, null))
+            if (other is null)
                 return false;
 
             if (ReferenceEquals(this, other))
@@ -195,17 +192,12 @@ namespace ImageMagick
         /// <returns>A string that represents the current <see cref="Density"/>.</returns>
         public string ToString(DensityUnit units)
         {
-            string result = string.Format(CultureInfo.InvariantCulture, "{0}x{1}", X, Y);
-
-            switch (units)
-            {
-                case DensityUnit.PixelsPerCentimeter:
-                    return result + " cm";
-                case DensityUnit.PixelsPerInch:
-                    return result + " inch";
-                default:
-                    return result;
-            }
+            if (Units == units || units == DensityUnit.Undefined)
+                return ToString(X, Y, units);
+            else if (Units == DensityUnit.PixelsPerCentimeter && units == DensityUnit.PixelsPerInch)
+                return ToString(X * 2.54, Y * 2.54, units);
+            else
+                return ToString(X / 2.54, Y / 2.54, units);
         }
 
         internal static Density Create(string value)
@@ -222,6 +214,21 @@ namespace ImageMagick
                 return null;
 
             return new Density(value.X, value.Y, value.Units);
+        }
+
+        private static string ToString(double x, double y, DensityUnit units)
+        {
+            string result = string.Format(CultureInfo.InvariantCulture, "{0}x{1}", x, y);
+
+            switch (units)
+            {
+                case DensityUnit.PixelsPerCentimeter:
+                    return result + " cm";
+                case DensityUnit.PixelsPerInch:
+                    return result + " inch";
+                default:
+                    return result;
+            }
         }
 
         private void Initialize(string value)

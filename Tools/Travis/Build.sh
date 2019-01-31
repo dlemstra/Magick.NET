@@ -6,6 +6,7 @@ if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
   sudo apt-get install ttf-mscorefonts-installer
   sudo fc-cache
 else
+  export HOMEBREW_NO_AUTO_UPDATE=1
   brew install fontconfig
 fi
 

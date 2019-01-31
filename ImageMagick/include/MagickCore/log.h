@@ -1,8 +1,8 @@
 /*
-  Copyright 1999-2018 ImageMagick Studio LLC, a non-profit organization
+  Copyright 1999-2019 ImageMagick Studio LLC, a non-profit organization
   dedicated to making software imaging solutions freely available.
   
-  You may not use this file except in compliance with the License.
+  You may not use this file except in compliance with the License.  You may
   obtain a copy of the License at
   
     https://imagemagick.org/script/license.php
@@ -78,7 +78,7 @@ extern MagickExport LogEventType
   SetLogEventMask(const char *);
 
 extern MagickExport MagickBooleanType
-  IsEventLogging(void),
+  IsEventLogging(void) magick_attribute((__pure__)),
   ListLogInfo(FILE *,ExceptionInfo *),
   LogMagickEvent(const LogEventType,const char *,const char *,const size_t,
     const char *,...) magick_attribute((__format__ (__printf__,5,6))),

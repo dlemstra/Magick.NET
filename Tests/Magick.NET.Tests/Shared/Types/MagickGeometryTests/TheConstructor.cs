@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -18,7 +18,7 @@ namespace Magick.NET.Tests
     public partial class MagickGeometryTests
     {
         [TestClass]
-        public class TheConstructoro
+        public partial class TheConstructor
         {
             [TestMethod]
             public void ShouldThrowExceptionWhenValueIsNull()
@@ -115,6 +115,53 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(3, geometry.Width);
                 Assert.AreEqual(2, geometry.Height);
                 Assert.AreEqual(true, geometry.AspectRatio);
+            }
+
+            [TestMethod]
+            public void ShouldSetAspectRatioWithOnlyXOffset()
+            {
+                var geometry = new MagickGeometry("4:3+2");
+
+                Assert.AreEqual(2, geometry.X);
+                Assert.AreEqual(0, geometry.Y);
+                Assert.AreEqual(4, geometry.Width);
+                Assert.AreEqual(3, geometry.Height);
+                Assert.AreEqual(true, geometry.AspectRatio);
+            }
+
+            [TestMethod]
+            public void ShouldSetAspectRatioWithOffset()
+            {
+                var geometry = new MagickGeometry("4:3+2+1");
+
+                Assert.AreEqual(2, geometry.X);
+                Assert.AreEqual(1, geometry.Y);
+                Assert.AreEqual(4, geometry.Width);
+                Assert.AreEqual(3, geometry.Height);
+                Assert.AreEqual(true, geometry.AspectRatio);
+            }
+
+            [TestMethod]
+            public void ShouldSetAspectRatioWithNegativeOffset()
+            {
+                var geometry = new MagickGeometry("4:3-2+1");
+
+                Assert.AreEqual(-2, geometry.X);
+                Assert.AreEqual(1, geometry.Y);
+                Assert.AreEqual(4, geometry.Width);
+                Assert.AreEqual(3, geometry.Height);
+                Assert.AreEqual(true, geometry.AspectRatio);
+            }
+
+            [TestMethod]
+            public void ShouldSetWidthAndHeightWhenSizeIsSupplied()
+            {
+                var geometry = new MagickGeometry(5);
+
+                Assert.AreEqual(0, geometry.X);
+                Assert.AreEqual(0, geometry.Y);
+                Assert.AreEqual(5, geometry.Width);
+                Assert.AreEqual(5, geometry.Height);
             }
 
             [TestMethod]

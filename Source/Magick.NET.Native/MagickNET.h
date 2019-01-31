@@ -1,4 +1,4 @@
-// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -15,11 +15,13 @@ MAGICK_NET_EXPORT const char *MagickNET_Delegates_Get(void);
 
 MAGICK_NET_EXPORT const char *MagickNET_Features_Get(void);
 
-MAGICK_NET_EXPORT const TypeInfo **MagickNET_GetFontFamilies(size_t *, ExceptionInfo **);
+MAGICK_NET_EXPORT const TypeInfo **MagickNET_GetFonts(size_t *, ExceptionInfo **);
 
 MAGICK_NET_EXPORT const char *MagickNET_GetFontFamily(const TypeInfo **, const size_t);
 
-MAGICK_NET_EXPORT void MagickNET_DisposeFontFamilies(TypeInfo **);
+MAGICK_NET_EXPORT const char *MagickNET_GetFontName(const TypeInfo **, const size_t);
+
+MAGICK_NET_EXPORT void MagickNET_DisposeFonts(TypeInfo **);
 
 MAGICK_NET_EXPORT void MagickNET_SetLogDelegate(const MagickLogMethod);
 

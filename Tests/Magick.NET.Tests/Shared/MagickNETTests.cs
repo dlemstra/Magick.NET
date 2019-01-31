@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -11,7 +11,6 @@
 // and limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ImageMagick;
@@ -46,6 +45,21 @@ namespace Magick.NET.Tests
             var fontFamilies = MagickNET.FontFamilies.ToArray();
             var fontFamily = fontFamilies.FirstOrDefault(f => f == "Arial");
             Assert.IsNotNull(fontFamily, $"Unable to find Arial in font families: {string.Join(",", fontFamilies)}");
+        }
+
+        [TestMethod]
+        public void FontFamilies_ContainsNoDuplicates()
+        {
+            var fontFamilies = MagickNET.FontFamilies.ToArray();
+            Assert.AreEqual(fontFamilies.Count(), fontFamilies.Distinct().Count());
+        }
+
+        [TestMethod]
+        public void FontNames_ContainsArial()
+        {
+            var fontNames = MagickNET.FontNames.ToArray();
+            var fontName = fontNames.FirstOrDefault(f => f == "Arial");
+            Assert.IsNotNull(fontName, $"Unable to find Arial in font families: {string.Join(",", fontNames)}");
         }
 
         [TestMethod]
@@ -280,14 +294,12 @@ namespace Magick.NET.Tests
 
         private static void AssertFiles(string path)
         {
-            Assert.IsTrue(File.Exists(Path.Combine(path, "coder.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(path, "colors.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(path, "configure.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(path, "delegates.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(path, "english.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(path, "locale.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(path, "log.xml")));
-            Assert.IsTrue(File.Exists(Path.Combine(path, "magic.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(path, "policy.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(path, "thresholds.xml")));
             Assert.IsTrue(File.Exists(Path.Combine(path, "type.xml")));

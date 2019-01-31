@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2018 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+﻿// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -10,25 +10,27 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if WINDOWS_BUILD
-
-using ImageMagick;
+using ImageMagick.ImageOptimizers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Shared.Optimizers
 {
-    public partial class MagickNETTests
+    public partial class PngOptimizerTests
     {
         [TestClass]
-        public class TheDelegatesProperty
+        public class TheCompressMethod
         {
             [TestMethod]
-            public void ShouldReturnAllDelegates()
+            public void ShouldNotOptimizeAnimatedPNG()
             {
-                Assert.AreEqual("cairo flif freetype gslib heic jng jp2 jpeg lcms lqr openexr pangocairo png ps raw rsvg tiff webp xml zlib", MagickNET.Delegates);
+                PngOptimizer optimizer = new PngOptimizer();
+
+                using (TemporaryFile tempFile = new TemporaryFile(Files.Coders.AnimatedPNGexampleBouncingBeachBallPNG))
+                {
+                    var result = optimizer.Compress(tempFile);
+                    Assert.IsFalse(result);
+                }
             }
         }
     }
 }
-
-#endif

@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2017 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+// Copyright 2013-2019 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("Magick.NET")]
 [assembly: AssemblyDescription("FileGenerator.Xsd")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyCopyright("Copyright © 2013-2016 Dirk Lemstra")]
+[assembly: AssemblyCopyright("Copyright © 2013-2019 Dirk Lemstra")]
 [assembly: AssemblyTrademark("")]
 
 [assembly: AssemblyConfiguration("Release")]
