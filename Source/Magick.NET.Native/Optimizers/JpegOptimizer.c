@@ -24,6 +24,7 @@
 #include <setjmp.h>
 
 #define MaxBufferExtent 16384
+#define MaxMarkers 15
 
 typedef struct _Marker
 {
@@ -61,7 +62,7 @@ typedef struct _ClientData
     *coefficients;
 
   Marker
-    *markers[15];
+    *markers[MaxMarkers];
 
   size_t
     height,
@@ -406,7 +407,7 @@ static boolean ReadMarker(j_decompress_ptr jpeg_info)
   length -= 2;
 
   client_data = (ClientData *)jpeg_info->client_data;
-  if (client_data->markers_count == sizeof(client_data->markers))
+  if (client_data->markers_count == MaxMarkers)
     return FALSE;
 
   marker = malloc(sizeof(*marker));
