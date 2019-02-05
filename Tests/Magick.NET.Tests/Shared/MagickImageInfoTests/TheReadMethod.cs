@@ -92,24 +92,6 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldDetectIcoFormatFromByteArray()
-            {
-                var data = new byte[] { 0, 0, 1, 0, 0, 0 };
-
-                IMagickImageInfo imageInfo = new MagickImageInfo(data);
-                Assert.AreEqual(MagickFormat.Ico, imageInfo.Format);
-            }
-
-            [TestMethod]
-            public void ShouldDetectCurFormatFromByteArray()
-            {
-                var data = new byte[] { 0, 0, 2, 0, 0, 0 };
-
-                IMagickImageInfo imageInfo = new MagickImageInfo(data);
-                Assert.AreEqual(MagickFormat.Cur, imageInfo.Format);
-            }
-
-            [TestMethod]
             public void ShouldReturnTheCorrectInformation()
             {
                 IMagickImageInfo imageInfo = new MagickImageInfo();
