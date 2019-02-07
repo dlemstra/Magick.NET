@@ -44,6 +44,9 @@ typedef struct _ClientData
     lossless,
     progressive;
 
+  char
+    *error_message;
+
   const char
     *inputFileName,
     *outputFileName;
@@ -110,7 +113,13 @@ static void JpegErrorHandler(j_common_ptr jpeg_info)
 
   client_data = (ClientData *) jpeg_info->client_data;
 
-  //TODO: Report errors
+  if (client_data->error_message == (char *) NULL)
+  {
+    client_data->error_message = malloc(JMSG_LENGTH_MAX * sizeof(*client_data->error_message));
+    if (client_data->error_message != (char *) NULL)
+      (jpeg_info->err->format_message)(jpeg_info, client_data->error_message);
+  }
+
   longjmp(client_data->error_recovery, 1);
 }
 
@@ -119,7 +128,7 @@ static void JpegWarningHandler(j_common_ptr jpeg_info, int level)
   (void) jpeg_info;
   (void) level;
 
-  //TODO: Report warnings
+  // Warnings will be ignored.
 }
 
 static void InitializeSource(j_decompress_ptr decompress_info)
@@ -699,8 +708,6 @@ static boolean WriteJpeg(j_decompress_ptr decompress_info, ClientData *client_da
   struct jpeg_error_mgr
     jpeg_error;
 
-  (void) memset(&compress_info, 0, sizeof(compress_info));
-
   destination = (DestinationManager *) NULL;
   if (setjmp(client_data->error_recovery) != 0)
   {
@@ -710,6 +717,12 @@ static boolean WriteJpeg(j_decompress_ptr decompress_info, ClientData *client_da
     return FALSE;
   }
 
+  (void) memset(&compress_info, 0, sizeof(compress_info));
+  compress_info.err = jpeg_std_error(&jpeg_error);
+  compress_info.err->emit_message = (void(*)(j_common_ptr, int)) JpegWarningHandler;
+  compress_info.err->error_exit = (void(*)(j_common_ptr)) JpegErrorHandler;
+  compress_info.client_data = (void *) client_data;
+
   jpeg_create_compress(&compress_info);
   destination = CreateDestinationManager(&compress_info);
   if (destination == (DestinationManager *) NULL)
@@ -717,11 +730,6 @@ static boolean WriteJpeg(j_decompress_ptr decompress_info, ClientData *client_da
     jpeg_destroy_compress(&compress_info);
     return FALSE;
   }
-
-  compress_info.err = jpeg_std_error(&jpeg_error);
-  compress_info.err->emit_message = (void(*)(j_common_ptr, int)) JpegWarningHandler;
-  compress_info.err->error_exit = (void(*)(j_common_ptr)) JpegErrorHandler;
-  compress_info.client_data = (void *) client_data;
 
   if (client_data->height != 0)
     CompressJpeg(decompress_info, &compress_info, client_data);
@@ -748,6 +756,9 @@ static void TerminateClientData(ClientData *client_data)
     free(client_data->markers[i]);
   }
 
+  if (client_data->error_message != (char *) NULL)
+    free(client_data->error_message);
+
   if (client_data->height == 0)
     return;
 
@@ -759,7 +770,15 @@ static void TerminateClientData(ClientData *client_data)
   client_data->height = 0;
 }
 
-static size_t JpegOptimizer_Compress(ClientData *client_data, const MagickBooleanType progressive, const MagickBooleanType lessless, const MagickBooleanType quality)
+static void JpegThrowException(ClientData *client_data, ExceptionInfo *exception, const char *message)
+{
+  if (client_data->error_message != (char *) NULL)
+    (void) ThrowException(exception, CorruptImageError, client_data->error_message, (const char *) NULL);
+  else
+    (void) ThrowException(exception, CorruptImageError, message, (const char *) NULL);
+}
+
+static void JpegOptimizer_Compress(ClientData *client_data, const MagickBooleanType progressive, const MagickBooleanType lessless, const MagickBooleanType quality, ExceptionInfo *exception)
 {
   struct jpeg_decompress_struct
     decompress_info;
@@ -780,25 +799,25 @@ static size_t JpegOptimizer_Compress(ClientData *client_data, const MagickBoolea
   if (ReadJpeg(&decompress_info, client_data) == FALSE)
   {
     jpeg_destroy_decompress(&decompress_info);
+    JpegThrowException(client_data, exception, "Unable to read the jpeg image.");
     TerminateClientData(client_data);
-    return 1;
+    return;
   }
 
   if (WriteJpeg(&decompress_info, client_data) == FALSE)
   {
     jpeg_destroy_decompress(&decompress_info);
+    JpegThrowException(client_data, exception, "Unable to write the jpeg image.");
     TerminateClientData(client_data);
-    return 2;
+    return;
   }
 
   jpeg_finish_decompress(&decompress_info);
   jpeg_destroy_decompress(&decompress_info);
   TerminateClientData(client_data);
-
-  return 0;
 }
 
-MAGICK_NET_EXPORT size_t JpegOptimizer_CompressFile(const char *input, const char *output, const MagickBooleanType progressive, const MagickBooleanType lessless, const MagickBooleanType quality)
+MAGICK_NET_EXPORT void JpegOptimizer_CompressFile(const char *input, const char *output, const MagickBooleanType progressive, const MagickBooleanType lessless, const MagickBooleanType quality, ExceptionInfo **exception)
 {
   ClientData
     client_data;
@@ -808,10 +827,12 @@ MAGICK_NET_EXPORT size_t JpegOptimizer_CompressFile(const char *input, const cha
   client_data.inputFileName = input;
   client_data.outputFileName = output;
 
-  return(JpegOptimizer_Compress(&client_data, progressive, lessless, quality));
+  MAGICK_NET_GET_EXCEPTION;
+  JpegOptimizer_Compress(&client_data, progressive, lessless, quality, exceptionInfo);
+  MAGICK_NET_SET_EXCEPTION;
 }
 
-MAGICK_NET_EXPORT size_t JpegOptimizer_CompressStream(const CustomStreamHandler reader, const CustomStreamHandler writer, const MagickBooleanType progressive, const MagickBooleanType lessless, const MagickBooleanType quality)
+MAGICK_NET_EXPORT void JpegOptimizer_CompressStream(const CustomStreamHandler reader, const CustomStreamHandler writer, const MagickBooleanType progressive, const MagickBooleanType lessless, const MagickBooleanType quality, ExceptionInfo **exception)
 {
   ClientData
     client_data;
@@ -821,5 +842,7 @@ MAGICK_NET_EXPORT size_t JpegOptimizer_CompressStream(const CustomStreamHandler 
   client_data.reader = reader;
   client_data.writer = writer;
 
-  return(JpegOptimizer_Compress(&client_data, progressive, lessless, quality));
+  MAGICK_NET_GET_EXCEPTION;
+  JpegOptimizer_Compress(&client_data, progressive, lessless, quality, exceptionInfo);
+  MAGICK_NET_SET_EXCEPTION;
 }

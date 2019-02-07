@@ -59,7 +59,7 @@ namespace Magick.NET.Tests
             ExceptionAssert.Throws<MagickCorruptImageErrorException>(() =>
             {
                 Optimizer.Compress(Files.Missing);
-            }, "Unable to decompress the jpeg file.");
+            }, "Input file read error");
         }
 
         [TestMethod]
@@ -249,7 +249,7 @@ namespace Magick.NET.Tests
             ExceptionAssert.Throws<MagickCorruptImageErrorException>(() =>
             {
                 Optimizer.LosslessCompress(Files.Missing);
-            }, "Unable to decompress the jpeg file.");
+            }, "Input file read error");
         }
 
         [TestMethod]

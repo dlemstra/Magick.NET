@@ -11,6 +11,6 @@
 // and limitations under the License.
 #pragma once
 
-MAGICK_NET_EXPORT size_t JpegOptimizer_CompressFile(const char *, const char *, const MagickBooleanType, const MagickBooleanType, const MagickBooleanType);
+MAGICK_NET_EXPORT void JpegOptimizer_CompressFile(const char *, const char *, const MagickBooleanType, const MagickBooleanType, const MagickBooleanType, ExceptionInfo **exception);
 
-MAGICK_NET_EXPORT size_t JpegOptimizer_CompressStream(const CustomStreamHandler, const CustomStreamHandler, const MagickBooleanType, const MagickBooleanType, const MagickBooleanType);
+MAGICK_NET_EXPORT void JpegOptimizer_CompressStream(const CustomStreamHandler, const CustomStreamHandler, const MagickBooleanType, const MagickBooleanType, const MagickBooleanType, ExceptionInfo **exception);

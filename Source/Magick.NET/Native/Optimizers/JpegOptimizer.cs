@@ -45,9 +45,9 @@ namespace ImageMagick.ImageOptimizers
                 static X64() { NativeLibraryLoader.Load(); }
                 #endif
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr JpegOptimizer_CompressFile(IntPtr input, IntPtr output, [MarshalAs(UnmanagedType.Bool)] bool progressive, [MarshalAs(UnmanagedType.Bool)] bool lossless, UIntPtr quality);
+                public static extern void JpegOptimizer_CompressFile(IntPtr input, IntPtr output, [MarshalAs(UnmanagedType.Bool)] bool progressive, [MarshalAs(UnmanagedType.Bool)] bool lossless, UIntPtr quality, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr JpegOptimizer_CompressStream(ReadWriteStreamDelegate reader, ReadWriteStreamDelegate writer, [MarshalAs(UnmanagedType.Bool)] bool progressive, [MarshalAs(UnmanagedType.Bool)] bool lossless, UIntPtr quality);
+                public static extern void JpegOptimizer_CompressStream(ReadWriteStreamDelegate reader, ReadWriteStreamDelegate writer, [MarshalAs(UnmanagedType.Bool)] bool progressive, [MarshalAs(UnmanagedType.Bool)] bool lossless, UIntPtr quality, out IntPtr exception);
             }
             #endif
             #if PLATFORM_x86 || PLATFORM_AnyCPU
@@ -58,50 +58,54 @@ namespace ImageMagick.ImageOptimizers
                 static X86() { NativeLibraryLoader.Load(); }
                 #endif
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr JpegOptimizer_CompressFile(IntPtr input, IntPtr output, [MarshalAs(UnmanagedType.Bool)] bool progressive, [MarshalAs(UnmanagedType.Bool)] bool lossless, UIntPtr quality);
+                public static extern void JpegOptimizer_CompressFile(IntPtr input, IntPtr output, [MarshalAs(UnmanagedType.Bool)] bool progressive, [MarshalAs(UnmanagedType.Bool)] bool lossless, UIntPtr quality, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr JpegOptimizer_CompressStream(ReadWriteStreamDelegate reader, ReadWriteStreamDelegate writer, [MarshalAs(UnmanagedType.Bool)] bool progressive, [MarshalAs(UnmanagedType.Bool)] bool lossless, UIntPtr quality);
+                public static extern void JpegOptimizer_CompressStream(ReadWriteStreamDelegate reader, ReadWriteStreamDelegate writer, [MarshalAs(UnmanagedType.Bool)] bool progressive, [MarshalAs(UnmanagedType.Bool)] bool lossless, UIntPtr quality, out IntPtr exception);
             }
             #endif
         }
-        private static class NativeJpegOptimizer
+        private sealed class NativeJpegOptimizer : NativeHelper
         {
             static NativeJpegOptimizer() { Environment.Initialize(); }
-            public static int CompressFile(string input, string output, bool progressive, bool lossless, int quality)
+            public void CompressFile(string input, string output, bool progressive, bool lossless, int quality)
             {
                 using (INativeInstance inputNative = UTF8Marshaler.CreateInstance(input))
                 {
                     using (INativeInstance outputNative = UTF8Marshaler.CreateInstance(output))
                     {
+                        IntPtr exception = IntPtr.Zero;
                         #if PLATFORM_AnyCPU
                         if (NativeLibrary.Is64Bit)
                         #endif
                         #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        return (int)NativeMethods.X64.JpegOptimizer_CompressFile(inputNative.Instance, outputNative.Instance, progressive, lossless, (UIntPtr)quality);
+                        NativeMethods.X64.JpegOptimizer_CompressFile(inputNative.Instance, outputNative.Instance, progressive, lossless, (UIntPtr)quality, out exception);
                         #endif
                         #if PLATFORM_AnyCPU
                         else
                         #endif
                         #if PLATFORM_x86 || PLATFORM_AnyCPU
-                        return (int)NativeMethods.X86.JpegOptimizer_CompressFile(inputNative.Instance, outputNative.Instance, progressive, lossless, (UIntPtr)quality);
+                        NativeMethods.X86.JpegOptimizer_CompressFile(inputNative.Instance, outputNative.Instance, progressive, lossless, (UIntPtr)quality, out exception);
                         #endif
+                        CheckException(exception);
                     }
                 }
             }
-            public static int CompressStream(ReadWriteStreamDelegate reader, ReadWriteStreamDelegate writer, bool progressive, bool lossless, int quality)
+            public void CompressStream(ReadWriteStreamDelegate reader, ReadWriteStreamDelegate writer, bool progressive, bool lossless, int quality)
             {
+                IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
                 if (NativeLibrary.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return (int)NativeMethods.X64.JpegOptimizer_CompressStream(reader, writer, progressive, lossless, (UIntPtr)quality);
+                NativeMethods.X64.JpegOptimizer_CompressStream(reader, writer, progressive, lossless, (UIntPtr)quality, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return (int)NativeMethods.X86.JpegOptimizer_CompressStream(reader, writer, progressive, lossless, (UIntPtr)quality);
+                NativeMethods.X86.JpegOptimizer_CompressStream(reader, writer, progressive, lossless, (UIntPtr)quality, out exception);
                 #endif
+                CheckException(exception);
             }
         }
     }

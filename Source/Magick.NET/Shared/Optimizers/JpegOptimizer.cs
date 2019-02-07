@@ -10,7 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
 using System.IO;
 using System.Threading;
 
@@ -180,9 +179,8 @@ namespace ImageMagick.ImageOptimizers
 
         private static void DoNativeCompress(FileInfo file, FileInfo output, bool progressive, bool lossless, int quality)
         {
-            int result = NativeJpegOptimizer.CompressFile(file.FullName, output.FullName, progressive, lossless, quality);
-
-            CheckCompressResult(result);
+            var nativeJpegOptimizer = new NativeJpegOptimizer();
+            nativeJpegOptimizer.CompressFile(file.FullName, output.FullName, progressive, lossless, quality);
 
             output.Refresh();
         }
@@ -196,23 +194,10 @@ namespace ImageMagick.ImageOptimizers
                     ReadWriteStreamDelegate reader = new ReadWriteStreamDelegate(readWrapper.Read);
                     ReadWriteStreamDelegate writer = new ReadWriteStreamDelegate(writeWrapper.Write);
 
-                    int result = NativeJpegOptimizer.CompressStream(reader, writer, progressive, lossless, quality);
-
-                    CheckCompressResult(result);
+                    var nativeJpegOptimizer = new NativeJpegOptimizer();
+                    nativeJpegOptimizer.CompressStream(reader, writer, progressive, lossless, quality);
                 }
             }
-        }
-
-        private static void CheckCompressResult(int result)
-        {
-            if (result == 1)
-                throw new MagickCorruptImageErrorException("Unable to decompress the jpeg file.");
-
-            if (result == 2)
-                throw new MagickCorruptImageErrorException("Unable to compress the jpeg file.");
-
-            if (result != 0)
-                throw new InvalidOperationException("Unknown status code.");
         }
 
         private bool DoCompress(FileInfo file, bool lossless, int quality)
