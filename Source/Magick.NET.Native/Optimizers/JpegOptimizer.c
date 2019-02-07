@@ -375,7 +375,7 @@ static boolean DecompressJpeg(j_decompress_ptr decompress_info, ClientData *clie
   return TRUE;
 }
 
-static int GetCharacter(j_decompress_ptr jpeg_info)
+static inline int GetCharacter(j_decompress_ptr jpeg_info)
 {
   if (jpeg_info->src->bytes_in_buffer == 0)
     (void) (*jpeg_info->src->fill_input_buffer)(jpeg_info);
@@ -383,10 +383,47 @@ static int GetCharacter(j_decompress_ptr jpeg_info)
   return (int) GETJOCTET(*jpeg_info->src->next_input_byte++);
 }
 
+static inline Marker* FindMarker(ClientData *client_data, int code)
+{
+  register ssize_t
+    i;
+
+  for (i = 0; i < (ssize_t) client_data->markers_count; i++)
+  {
+    if (client_data->markers[i]->code == code)
+      return client_data->markers[i];
+  }
+
+  return (Marker*) NULL;
+}
+
+static inline Marker* CreateMarker(ClientData *client_data, int code)
+{
+  Marker
+    *marker;
+
+  if (client_data->markers_count == MaxMarkers)
+    return (Marker*) NULL;
+
+  marker = malloc(sizeof(*marker));
+  if (marker == (Marker *) NULL)
+    return (Marker*) NULL;
+
+  (void) memset(marker, 0, sizeof(*marker));
+  marker->code = code;
+
+  client_data->markers[client_data->markers_count++] = marker;
+
+  return marker;
+}
+
 static boolean ReadMarker(j_decompress_ptr jpeg_info)
 {
   ClientData
     *client_data;
+
+  JOCTET
+    *new_buffer;
 
   Marker
     *marker;
@@ -407,24 +444,33 @@ static boolean ReadMarker(j_decompress_ptr jpeg_info)
   length -= 2;
 
   client_data = (ClientData *) jpeg_info->client_data;
-  if (client_data->markers_count == MaxMarkers)
-    return FALSE;
 
-  marker = malloc(sizeof(*marker));
-  if (marker == (Marker *) NULL)
-    return FALSE;
+  marker = FindMarker(client_data, jpeg_info->unread_marker);
+  if (marker != (Marker *) NULL)
+  {
+    new_buffer = realloc(marker->buffer, marker->length + length);
+    if (new_buffer == (JOCTET *) NULL)
+      return FALSE;
 
-  client_data->markers[client_data->markers_count++] = marker;
+    marker->buffer = new_buffer;
+    p = marker->buffer + marker->length;
+    marker->length += length;
+  }
+  else
+  {
+    marker = CreateMarker(client_data, jpeg_info->unread_marker);
 
-  (void) memset(marker, 0, sizeof(*marker));
+    if (marker == (Marker *) NULL)
+      return FALSE;
 
-  marker->code = jpeg_info->unread_marker;
-  marker->length = length;
-  marker->buffer = malloc(length * sizeof(*marker->buffer));
-  if (marker->buffer == (JOCTET *) NULL)
-    return FALSE;
+    marker->length = length;
+    marker->buffer = malloc(length * sizeof(*marker->buffer));
+    if (marker->buffer == (JOCTET *) NULL)
+      return FALSE;
 
-  p = marker->buffer;
+    p = marker->buffer;
+  }
+
   for (i = 0; i < (ssize_t) length; i++)
     *p++ = (JOCTET) GetCharacter(jpeg_info);
 
@@ -623,7 +669,22 @@ static void WriteMarkers(j_compress_ptr compress_info, ClientData *client_data)
 
   for (i = 0; i < (ssize_t) client_data->markers_count; i++)
   {
-    jpeg_write_marker(compress_info, client_data->markers[i]->code, (const JOCTET *) client_data->markers[i]->buffer, (unsigned int) client_data->markers[i]->length);
+    unsigned int
+      length;
+
+    const JOCTET
+      *buffer;
+
+    buffer = (const JOCTET *) client_data->markers[i]->buffer;
+    length = (unsigned int) client_data->markers[i]->length;
+    while (length > 65533)
+    {
+      jpeg_write_marker(compress_info, client_data->markers[i]->code, buffer, 65533);
+      length -= 65533;
+      buffer += 65533;
+    }
+
+    jpeg_write_marker(compress_info, client_data->markers[i]->code, buffer, length);
   }
 }
 
