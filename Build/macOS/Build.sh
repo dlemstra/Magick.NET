@@ -138,7 +138,7 @@ autoreconf -fiv
 chmod +x ./configure
 export CFLAGS="-O3 -fPIC"
 export CXXFLAGS="-O3 -fPIC"
-./configure --disable-shared --disable-examples --prefix=/usr/local
+./configure --disable-shared --disable-examples --disable-openmp --prefix=/usr/local
 make install
 
 cd ../../../../
