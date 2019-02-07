@@ -13,7 +13,7 @@
 namespace ImageMagick.Defines
 {
     /// <summary>
-    /// Base class that can create write defines.
+    /// Base class that can create read defines.
     /// </summary>
     public abstract class ReadDefinesCreator : DefinesCreator, IReadDefines
     {
