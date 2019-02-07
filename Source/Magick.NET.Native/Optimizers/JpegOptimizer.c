@@ -704,9 +704,9 @@ static boolean WriteJpeg(j_decompress_ptr decompress_info, ClientData *client_da
   destination = (DestinationManager *) NULL;
   if (setjmp(client_data->error_recovery) != 0)
   {
-    jpeg_destroy_compress(&compress_info);
     if (destination != (DestinationManager *) NULL && destination->outputFile != (FILE *) NULL)
       fclose(destination->outputFile);
+    jpeg_destroy_compress(&compress_info);
     return FALSE;
   }
 
