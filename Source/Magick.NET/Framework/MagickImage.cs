@@ -79,6 +79,16 @@ namespace ImageMagick
         /// <returns>A <see cref="Bitmap"/> that has the format <see cref="ImageFormat.Bmp"/>.</returns>
         public Bitmap ToBitmap()
         {
+            return ToBitmap(BitmapDensity.Ignore);
+        }
+
+        /// <summary>
+        /// Converts this instance to a <see cref="Bitmap"/> using <see cref="ImageFormat.Bmp"/>.
+        /// </summary>
+        /// <param name="bitmapDensity">The bitmap density.</param>
+        /// <returns>A <see cref="Bitmap"/> that has the format <see cref="ImageFormat.Bmp"/>.</returns>
+        public Bitmap ToBitmap(BitmapDensity bitmapDensity)
+        {
             IMagickImage image = this;
 
             string mapping = "BGR";
@@ -112,6 +122,8 @@ namespace ImageMagick
                     }
 
                     bitmap.UnlockBits(data);
+
+                    SetBitmapDensity(bitmap, bitmapDensity);
                     return bitmap;
                 }
             }
@@ -130,13 +142,30 @@ namespace ImageMagick
         /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/></returns>
         public Bitmap ToBitmap(ImageFormat imageFormat)
         {
+            return ToBitmap(imageFormat, BitmapDensity.Ignore);
+        }
+
+        /// <summary>
+        /// Converts this instance to a <see cref="Bitmap"/> using the specified <see cref="ImageFormat"/>.
+        /// Supported formats are: Bmp, Gif, Icon, Jpeg, Png, Tiff.
+        /// </summary>
+        /// <param name="imageFormat">The image format.</param>
+        /// <param name="bitmapDensity">The bitmap density.</param>
+        /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/></returns>
+        public Bitmap ToBitmap(ImageFormat imageFormat, BitmapDensity bitmapDensity)
+        {
             Format = MagickFormatInfo.GetFormat(imageFormat);
 
             MemoryStream memStream = new MemoryStream();
             Write(memStream);
             memStream.Position = 0;
+
             /* Do not dispose the memStream, the bitmap owns it. */
-            return new Bitmap(memStream);
+            var bitmap = new Bitmap(memStream);
+
+            SetBitmapDensity(bitmap, bitmapDensity);
+
+            return bitmap;
         }
 
 #if !NET20
@@ -145,6 +174,16 @@ namespace ImageMagick
         /// </summary>
         /// <returns>A <see cref="BitmapSource"/>.</returns>
         public BitmapSource ToBitmapSource()
+        {
+            return ToBitmapSource(BitmapDensity.Ignore);
+        }
+
+        /// <summary>
+        /// Converts this instance to a <see cref="BitmapSource"/>.
+        /// </summary>
+        /// <param name="bitmapDensity">The bitmap density.</param>
+        /// <returns>A <see cref="BitmapSource"/>.</returns>
+        public BitmapSource ToBitmapSource(BitmapDensity bitmapDensity)
         {
             IMagickImage image = this;
 
@@ -179,7 +218,7 @@ namespace ImageMagick
                 using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
                     var bytes = pixels.ToByteArray(mapping);
-                    var dpi = GetDpi();
+                    var dpi = GetDpi(bitmapDensity);
                     return BitmapSource.Create(Width, Height, dpi.X, dpi.Y, format, null, bytes, stride);
                 }
             }
@@ -202,15 +241,22 @@ namespace ImageMagick
               format.Guid.Equals(ImageFormat.Tiff.Guid);
         }
 
-#if !NET20
-        private Density GetDpi()
+        private void SetBitmapDensity(Bitmap bitmap, BitmapDensity bitmapDensity)
         {
-            if (Density.Units == DensityUnit.Undefined && Density.X == 0 && Density.Y == 0)
+            if (bitmapDensity == BitmapDensity.Use)
+            {
+                var dpi = GetDpi(bitmapDensity);
+                bitmap.SetResolution((float)dpi.X, (float)dpi.Y);
+            }
+        }
+
+        private Density GetDpi(BitmapDensity bitmapDensity)
+        {
+            if (bitmapDensity == BitmapDensity.Ignore || (Density.Units == DensityUnit.Undefined && Density.X == 0 && Density.Y == 0))
                 return new Density(96);
 
             return Density.ChangeUnits(DensityUnit.PixelsPerInch);
         }
-#endif
     }
 }
 

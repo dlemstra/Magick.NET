@@ -95,6 +95,36 @@ namespace Magick.NET.Tests
                 }
             }
 
+            [TestMethod]
+            public void ShouldSetTheDensityOfTheBitmapWhenBitmapDensityIsSetToUse()
+            {
+                using (IMagickImage image = new MagickImage(Color.Red, 1, 1))
+                {
+                    image.Density = new Density(300, 200);
+
+                    using (Bitmap bitmap = image.ToBitmap(BitmapDensity.Use))
+                    {
+                        Assert.AreEqual(300, (int)bitmap.HorizontalResolution);
+                        Assert.AreEqual(200, (int)bitmap.VerticalResolution);
+                    }
+                }
+            }
+
+            [TestMethod]
+            public void ShouldSetTheDensityOfTheBitmapWhenBitmapDensityIsSetToUseAndFormatIsSet()
+            {
+                using (IMagickImage image = new MagickImage(Color.Red, 1, 1))
+                {
+                    image.Density = new Density(300, 200);
+
+                    using (Bitmap bitmap = image.ToBitmap(ImageFormat.Jpeg, BitmapDensity.Use))
+                    {
+                        Assert.AreEqual(300, (int)bitmap.HorizontalResolution);
+                        Assert.AreEqual(200, (int)bitmap.VerticalResolution);
+                    }
+                }
+            }
+
             private void AssertUnsupportedImageFormat(ImageFormat imageFormat)
             {
                 using (IMagickImage image = new MagickImage(MagickColors.Red, 10, 10))

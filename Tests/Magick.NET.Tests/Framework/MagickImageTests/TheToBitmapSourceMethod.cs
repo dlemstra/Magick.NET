@@ -133,7 +133,7 @@ namespace Magick.NET.Tests
                 {
                     image.Density = new Density(1, 2, DensityUnit.Undefined);
 
-                    var bitmapSource = image.ToBitmapSource();
+                    var bitmapSource = image.ToBitmapSource(BitmapDensity.Use);
 
                     Assert.AreEqual(1, bitmapSource.DpiX);
                     Assert.AreEqual(2, bitmapSource.DpiY);
@@ -149,7 +149,7 @@ namespace Magick.NET.Tests
                 {
                     image.Density = new Density(1, 2, DensityUnit.PixelsPerInch);
 
-                    var bitmapSource = image.ToBitmapSource();
+                    var bitmapSource = image.ToBitmapSource(BitmapDensity.Use);
 
                     Assert.AreEqual(1, bitmapSource.DpiX);
                     Assert.AreEqual(2, bitmapSource.DpiY);
@@ -165,10 +165,38 @@ namespace Magick.NET.Tests
                 {
                     image.Density = new Density(1, 2, DensityUnit.PixelsPerCentimeter);
 
-                    var bitmapSource = image.ToBitmapSource();
+                    var bitmapSource = image.ToBitmapSource(BitmapDensity.Use);
 
                     Assert.AreEqual(2.54, bitmapSource.DpiX, 0.01);
                     Assert.AreEqual(5.08, bitmapSource.DpiY, 0.01);
+                }
+            }
+
+            [TestMethod]
+            public void ShouldIgnoreTheDensityOfTheImage()
+            {
+                using (IMagickImage image = new MagickImage(MagickColors.Red, 200, 100))
+                {
+                    image.Density = new Density(300);
+
+                    var bitmapSource = image.ToBitmapSource();
+
+                    Assert.AreEqual(200, (int)bitmapSource.Width);
+                    Assert.AreEqual(100, (int)bitmapSource.Height);
+                }
+            }
+
+            [TestMethod]
+            public void ShouldUseTheDensityOfTheImageWhenBitmapDensityIsSetToUse()
+            {
+                using (IMagickImage image = new MagickImage(MagickColors.Red, 200, 100))
+                {
+                    image.Density = new Density(300, 200);
+
+                    var bitmapSource = image.ToBitmapSource(BitmapDensity.Use);
+
+                    Assert.AreEqual(64, (int)bitmapSource.Width);
+                    Assert.AreEqual(48, (int)bitmapSource.Height);
                 }
             }
         }

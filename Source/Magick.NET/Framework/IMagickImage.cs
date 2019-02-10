@@ -50,6 +50,13 @@ namespace ImageMagick
         Bitmap ToBitmap();
 
         /// <summary>
+        /// Converts this instance to a <see cref="Bitmap"/> using <see cref="ImageFormat.Bmp"/>.
+        /// </summary>
+        /// <param name="bitmapDensity">The bitmap density.</param>
+        /// <returns>A <see cref="Bitmap"/> that has the format <see cref="ImageFormat.Bmp"/>.</returns>
+        Bitmap ToBitmap(BitmapDensity bitmapDensity);
+
+        /// <summary>
         /// Converts this instance to a <see cref="Bitmap"/> using the specified <see cref="ImageFormat"/>.
         /// Supported formats are: Bmp, Gif, Icon, Jpeg, Png, Tiff.
         /// </summary>
@@ -57,12 +64,28 @@ namespace ImageMagick
         /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/></returns>
         Bitmap ToBitmap(ImageFormat imageFormat);
 
+        /// <summary>
+        /// Converts this instance to a <see cref="Bitmap"/> using the specified <see cref="ImageFormat"/>.
+        /// Supported formats are: Bmp, Gif, Icon, Jpeg, Png, Tiff.
+        /// </summary>
+        /// <param name="imageFormat">The image format.</param>
+        /// <param name="bitmapDensity">The bitmap density.</param>
+        /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/></returns>
+        Bitmap ToBitmap(ImageFormat imageFormat, BitmapDensity bitmapDensity);
+
 #if !NET20
         /// <summary>
         /// Converts this instance to a <see cref="BitmapSource"/>.
         /// </summary>
         /// <returns>A <see cref="BitmapSource"/>.</returns>
         BitmapSource ToBitmapSource();
+
+        /// <summary>
+        /// Converts this instance to a <see cref="BitmapSource"/>.
+        /// </summary>
+        /// <param name="bitmapDensity">The bitmap density.</param>
+        /// <returns>A <see cref="BitmapSource"/>.</returns>
+        BitmapSource ToBitmapSource(BitmapDensity bitmapDensity);
 #endif
     }
 }
