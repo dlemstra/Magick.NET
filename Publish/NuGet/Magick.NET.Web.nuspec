@@ -6,7 +6,7 @@
     <title/>
     <authors>Dirk Lemstra</authors>
     <owners>Dirk Lemstra</owners>
-    <licenseUrl>https://github.com/dlemstra/Magick.NET/blob/master/License.txt</licenseUrl>
+    <license>Apache-2.0</license>
     <projectUrl>https://github.com/dlemstra/Magick.NET</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/dlemstra/Magick.NET/master/Tests/Magick.NET.Tests/Images/Magick.NET.icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
