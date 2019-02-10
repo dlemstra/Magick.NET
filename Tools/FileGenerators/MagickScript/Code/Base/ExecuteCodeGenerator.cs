@@ -90,12 +90,17 @@ namespace FileGenerator.MagickScript
 
         private void WriteExecute(MethodBase[] methods)
         {
+            var name = GetName(methods[0]);
+
+            if (name == "Composite")
+                WriteLine("[SuppressMessage(\"Microsoft.Maintainability\", \"CA1502:AvoidExcessiveComplexity\")]");
+
             Write("private ");
             if (IsStatic(methods))
                 Write("static ");
             Write(ReturnType);
             Write(" Execute");
-            Write(GetName(methods[0]));
+            Write(name);
             Write("(");
             if (!HasParameters(methods))
                 Write("XmlElement element, ");

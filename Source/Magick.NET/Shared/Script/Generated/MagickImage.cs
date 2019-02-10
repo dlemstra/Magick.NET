@@ -2129,6 +2129,7 @@ namespace ImageMagick
             else
                 throw new ArgumentException("Invalid argument combination for 'colorize', allowed combinations are: [color, alpha] [color, alphaRed, alphaGreen, alphaBlue]");
         }
+        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
         private void ExecuteComposite(XmlElement element, IMagickImage image)
         {
             Hashtable arguments = new Hashtable();

@@ -30,6 +30,7 @@ namespace ImageMagick
     /// <summary>
     /// Interface that represents an ImageMagick image.
     /// </summary>
+    [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Cannot avoid it here.")]
     public partial interface IMagickImage : IEquatable<IMagickImage>, IComparable<IMagickImage>, IDisposable
     {
         /// <summary>
