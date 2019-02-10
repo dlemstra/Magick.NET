@@ -2332,6 +2332,7 @@
               <xs:element name="image" type="image" />
             </xs:sequence>
             <xs:attribute name="args" type="xs:string" />
+            <xs:attribute name="channels" type="Channels" />
             <xs:attribute name="compose" type="CompositeOperator" />
             <xs:attribute name="gravity" type="Gravity" />
             <xs:attribute name="offset" type="pointd" />
