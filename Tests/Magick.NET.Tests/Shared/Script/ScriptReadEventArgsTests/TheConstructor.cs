@@ -24,13 +24,13 @@ namespace Magick.NET.Tests
             public void ShouldSetTheProperties()
             {
                 var readSettings = new MagickReadSettings();
-                var pixelStorageSettings = new PixelStorageSettings();
+                var pixelReadSettings = new PixelReadSettings();
 
-                var eventArgs = new ScriptReadEventArgs("test", readSettings, pixelStorageSettings);
+                var eventArgs = new ScriptReadEventArgs("test", readSettings, pixelReadSettings);
 
                 Assert.AreEqual("test", eventArgs.Id);
                 Assert.AreEqual(readSettings, eventArgs.ReadSettings);
-                Assert.AreEqual(pixelStorageSettings, eventArgs.PixelStorageSettings);
+                Assert.AreEqual(pixelReadSettings, eventArgs.PixelReadSettings);
             }
         }
     }

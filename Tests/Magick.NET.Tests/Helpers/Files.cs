@@ -142,7 +142,7 @@ namespace Magick.NET.Tests
 
             public static string Invalid => Root + @"Framework/Script/Invalid.msl";
 
-            public static string PixelStorage => Root + @"Shared/Script/PixelStorage.msl";
+            public static string PixelReadSettings => Root + @"Shared/Script/PixelReadSettings.msl";
 
             public static string Resize => Root + @"Shared/Script/Resize.msl";
 

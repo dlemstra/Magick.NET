@@ -75,12 +75,12 @@ namespace ImageMagick
         /// Initializes a new instance of the <see cref="MagickImage"/> class.
         /// </summary>
         /// <param name="data">The byte array to read the image data from.</param>
-        /// <param name="pixelStorageSettings">The pixel storage settings to use when reading the image.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickImage(byte[] data, PixelStorageSettings pixelStorageSettings)
+        public MagickImage(byte[] data, PixelReadSettings settings)
           : this()
         {
-            ReadPixels(data, pixelStorageSettings);
+            ReadPixels(data, settings);
         }
 
         /// <summary>
@@ -110,12 +110,12 @@ namespace ImageMagick
         /// Initializes a new instance of the <see cref="MagickImage"/> class.
         /// </summary>
         /// <param name="file">The file to read the image from.</param>
-        /// <param name="pixelStorageSettings">The pixel storage settings to use when reading the image.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickImage(FileInfo file, PixelStorageSettings pixelStorageSettings)
+        public MagickImage(FileInfo file, PixelReadSettings settings)
           : this()
         {
-            ReadPixels(file, pixelStorageSettings);
+            ReadPixels(file, settings);
         }
 
         /// <summary>
@@ -174,12 +174,12 @@ namespace ImageMagick
         /// Initializes a new instance of the <see cref="MagickImage"/> class.
         /// </summary>
         /// <param name="stream">The stream to read the image data from.</param>
-        /// <param name="pixelStorageSettings">The pixel storage settings to use when reading the image.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickImage(Stream stream, PixelStorageSettings pixelStorageSettings)
+        public MagickImage(Stream stream, PixelReadSettings settings)
           : this()
         {
-            ReadPixels(stream, pixelStorageSettings);
+            ReadPixels(stream, settings);
         }
 
         /// <summary>
@@ -222,12 +222,12 @@ namespace ImageMagick
         /// Initializes a new instance of the <see cref="MagickImage"/> class.
         /// </summary>
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-        /// <param name="pixelStorageSettings">The pixel storage settings to use when reading the image.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickImage(string fileName, PixelStorageSettings pixelStorageSettings)
+        public MagickImage(string fileName, PixelReadSettings settings)
           : this()
         {
-            ReadPixels(fileName, pixelStorageSettings);
+            ReadPixels(fileName, settings);
         }
 
         private MagickImage(NativeMagickImage instance, MagickSettings settings)
@@ -4786,9 +4786,9 @@ namespace ImageMagick
         /// Read single image frame.
         /// </summary>
         /// <param name="data">The byte array to read the image data from.</param>
-        /// <param name="settings">The pixel storage settings to use when reading the image.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void ReadPixels(byte[] data, PixelStorageSettings settings)
+        public void ReadPixels(byte[] data, PixelReadSettings settings)
         {
             Throw.IfNullOrEmpty(nameof(data), data);
 
@@ -4799,9 +4799,9 @@ namespace ImageMagick
         /// Read single image frame.
         /// </summary>
         /// <param name="file">The file to read the image from.</param>
-        /// <param name="settings">The pixel storage settings to use when reading the image.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void ReadPixels(FileInfo file, PixelStorageSettings settings)
+        public void ReadPixels(FileInfo file, PixelReadSettings settings)
         {
             Throw.IfNull(nameof(file), file);
 
@@ -4812,9 +4812,9 @@ namespace ImageMagick
         /// Read single image frame.
         /// </summary>
         /// <param name="stream">The stream to read the image data from.</param>
-        /// <param name="settings">The pixel storage settings to use when reading the image.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void ReadPixels(Stream stream, PixelStorageSettings settings)
+        public void ReadPixels(Stream stream, PixelReadSettings settings)
         {
             Throw.IfNullOrEmpty(nameof(stream), stream);
 
@@ -4826,9 +4826,9 @@ namespace ImageMagick
         /// Read single image frame.
         /// </summary>
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-        /// <param name="settings">The pixel storage settings to use when reading the image.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void ReadPixels(string fileName, PixelStorageSettings settings)
+        public void ReadPixels(string fileName, PixelReadSettings settings)
         {
             string filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
@@ -6577,13 +6577,13 @@ namespace ImageMagick
         }
 
         [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "ReadSettings", Justification = "This is the correct spelling.")]
-        private static int GetExpectedLength(PixelStorageSettings pixelStorageSettings)
+        private static int GetExpectedLength(PixelReadSettings settings)
         {
-            Throw.IfTrue(nameof(pixelStorageSettings), pixelStorageSettings.ReadSettings.Width == null, "ReadSettings.Width should be defined");
-            Throw.IfTrue(nameof(pixelStorageSettings), pixelStorageSettings.ReadSettings.Height == null, "ReadSettings.Height should be defined when pixel storage is set.");
+            Throw.IfTrue(nameof(settings), settings.ReadSettings.Width == null, "ReadSettings.Width should be defined");
+            Throw.IfTrue(nameof(settings), settings.ReadSettings.Height == null, "ReadSettings.Height should be defined when pixel storage is set.");
 
-            int length = pixelStorageSettings.ReadSettings.Width.Value * pixelStorageSettings.ReadSettings.Height.Value * pixelStorageSettings.Mapping.Length;
-            switch (pixelStorageSettings.StorageType)
+            int length = settings.ReadSettings.Width.Value * settings.ReadSettings.Height.Value * settings.Mapping.Length;
+            switch (settings.StorageType)
             {
                 case StorageType.Char:
                     return length;
@@ -6854,19 +6854,19 @@ namespace ImageMagick
             ResetSettings();
         }
 
-        private void ReadPixels(byte[] data, int length, PixelStorageSettings pixelStorageSettings)
+        private void ReadPixels(byte[] data, int length, PixelReadSettings settings)
         {
-            Throw.IfNull(nameof(pixelStorageSettings), pixelStorageSettings);
-            Throw.IfTrue(nameof(pixelStorageSettings), pixelStorageSettings.StorageType == StorageType.Undefined, "Storage type should not be undefined.");
-            Throw.IfTrue(nameof(pixelStorageSettings), string.IsNullOrEmpty(pixelStorageSettings.Mapping), "Pixel storage mapping should be defined.");
+            Throw.IfNull(nameof(settings), settings);
+            Throw.IfTrue(nameof(settings), settings.StorageType == StorageType.Undefined, "Storage type should not be undefined.");
+            Throw.IfTrue(nameof(settings), string.IsNullOrEmpty(settings.Mapping), "Pixel storage mapping should be defined.");
 
-            MagickReadSettings newReadSettings = CreateReadSettings(pixelStorageSettings.ReadSettings);
+            MagickReadSettings newReadSettings = CreateReadSettings(settings.ReadSettings);
             SetSettings(newReadSettings);
 
-            int expectedLength = GetExpectedLength(pixelStorageSettings);
+            int expectedLength = GetExpectedLength(settings);
             Throw.IfTrue(nameof(data), length < expectedLength, "The array length is " + length + " but should be at least " + expectedLength + ".");
 
-            _nativeInstance.ReadPixels(pixelStorageSettings.ReadSettings.Width.Value, pixelStorageSettings.ReadSettings.Height.Value, pixelStorageSettings.Mapping, pixelStorageSettings.StorageType, data);
+            _nativeInstance.ReadPixels(settings.ReadSettings.Width.Value, settings.ReadSettings.Height.Value, settings.Mapping, settings.StorageType, data);
         }
 
         private void ResetSettings()

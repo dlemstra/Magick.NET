@@ -15,7 +15,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public partial class PixelStorageSettingsTests
+    public partial class PixelReadSettingsTests
     {
         [TestClass]
         public class TheConstructor
@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetTheReadSettings()
             {
-                var settings = new PixelStorageSettings();
+                var settings = new PixelReadSettings();
 
                 Assert.IsNotNull(settings.ReadSettings);
             }
@@ -31,7 +31,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetTheMappingCorrectly()
             {
-                var settings = new PixelStorageSettings(1, 2, StorageType.Int64, PixelMapping.CMYK);
+                var settings = new PixelReadSettings(1, 2, StorageType.Int64, PixelMapping.CMYK);
 
                 Assert.IsNotNull(settings.ReadSettings);
                 Assert.AreEqual(1, settings.ReadSettings.Width);
@@ -43,7 +43,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetTheProperties()
             {
-                var settings = new PixelStorageSettings(3, 4, StorageType.Quantum, "CMY");
+                var settings = new PixelReadSettings(3, 4, StorageType.Quantum, "CMY");
 
                 Assert.IsNotNull(settings.ReadSettings);
                 Assert.AreEqual(3, settings.ReadSettings.Width);

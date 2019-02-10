@@ -320,8 +320,8 @@ namespace FileGenerator.MagickScript
                 case "PathArc":
                     Write("CreateArc");
                     break;
-                case "PixelStorageSettings":
-                    Write("CreatePixelStorageSettings");
+                case "PixelReadSettings":
+                    Write("CreatePixelReadSettings");
                     break;
                 case "PrimaryInfo":
                     Write("CreatePrimaryInfo");
@@ -434,7 +434,7 @@ namespace FileGenerator.MagickScript
                 case "MagickReadSettings":
                 case "MagickSettings":
                 case "MontageSettings":
-                case "PixelStorageSettings":
+                case "PixelReadSettings":
                 case "QuantizeSettings":
                     Write("element[\"");
                     Write(elementName);

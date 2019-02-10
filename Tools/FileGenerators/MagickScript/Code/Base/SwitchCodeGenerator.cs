@@ -107,7 +107,7 @@ namespace FileGenerator.MagickScript
                 case "MagickGeometry":
                 case "MontageSettings":
                 case "MorphologySettings":
-                case "PixelStorageSettings":
+                case "PixelReadSettings":
                 case "QuantizeSettings":
                     return false;
                 case "ColorProfile":

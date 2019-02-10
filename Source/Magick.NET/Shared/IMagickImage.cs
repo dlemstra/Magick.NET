@@ -2877,33 +2877,33 @@ namespace ImageMagick
         /// Read single image frame.
         /// </summary>
         /// <param name="data">The byte array to read the image data from.</param>
-        /// <param name="settings">The pixel storage settings to use when reading the image.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void ReadPixels(byte[] data, PixelStorageSettings settings);
+        void ReadPixels(byte[] data, PixelReadSettings settings);
 
         /// <summary>
         /// Read single image frame.
         /// </summary>
         /// <param name="file">The file to read the image from.</param>
-        /// <param name="settings">The pixel storage settings to use when reading the image.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void ReadPixels(FileInfo file, PixelStorageSettings settings);
+        void ReadPixels(FileInfo file, PixelReadSettings settings);
 
         /// <summary>
         /// Read single image frame.
         /// </summary>
         /// <param name="stream">The stream to read the image data from.</param>
-        /// <param name="settings">The pixel storage settings to use when reading the image.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void ReadPixels(Stream stream, PixelStorageSettings settings);
+        void ReadPixels(Stream stream, PixelReadSettings settings);
 
         /// <summary>
         /// Read single image frame.
         /// </summary>
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-        /// <param name="settings">The pixel storage settings to use when reading the image.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void ReadPixels(string fileName, PixelStorageSettings settings);
+        void ReadPixels(string fileName, PixelReadSettings settings);
 
         /// <summary>
         /// Reduce noise in image using a noise peak elimination filter.

@@ -153,15 +153,15 @@ namespace ImageMagick
             MagickImage image = null;
 
             var readSettings = CreateReadSettings((XmlElement)element.SelectSingleNode("readSettings"));
-            var pixelStorageSettings = CreatePixelStorageSettings((XmlElement)element.SelectSingleNode("pixelStorageSettings"));
+            var pixelReadSettings = CreatePixelReadSettings((XmlElement)element.SelectSingleNode("pixelReadSettings"));
 
             string fileName = element.GetAttribute("fileName");
             if (!string.IsNullOrEmpty(fileName))
             {
                 if (readSettings != null)
                     image = new MagickImage(fileName, readSettings);
-                else if (pixelStorageSettings != null)
-                    image = new MagickImage(fileName, pixelStorageSettings);
+                else if (pixelReadSettings != null)
+                    image = new MagickImage(fileName, pixelReadSettings);
                 else
                     image = new MagickImage(fileName);
             }
@@ -172,7 +172,7 @@ namespace ImageMagick
 
                 string id = element.GetAttribute("id");
 
-                ScriptReadEventArgs eventArgs = new ScriptReadEventArgs(id, readSettings, pixelStorageSettings);
+                ScriptReadEventArgs eventArgs = new ScriptReadEventArgs(id, readSettings, pixelReadSettings);
 
                 Read(this, eventArgs);
 
@@ -227,7 +227,7 @@ namespace ImageMagick
 
         private void Execute(XmlElement element, IMagickImage image)
         {
-            foreach (XmlElement elem in element.SelectNodes("*[name() != 'readSettings' and name() != 'pixelStorageSettings']"))
+            foreach (XmlElement elem in element.SelectNodes("*[name() != 'readSettings' and name() != 'pixelReadSettings']"))
             {
                 ExecuteImage(elem, image);
             }

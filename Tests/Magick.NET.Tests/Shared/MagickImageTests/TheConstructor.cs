@@ -23,113 +23,113 @@ namespace Magick.NET.Tests
         public partial class TheConstructor
         {
             [TestMethod]
-            public void ShouldThrowExceptionWhenByteArrayIsNullAndPixelStorageSettingsIsSpecified()
+            public void ShouldThrowExceptionWhenByteArrayIsNullAndPixelReadSettingsIsSpecified()
             {
                 ExceptionAssert.ThrowsArgumentNullException("data", () =>
                 {
-                    var pixelStorageSettings = new PixelStorageSettings();
+                    var settings = new PixelReadSettings();
 
-                    new MagickImage((byte[])null, pixelStorageSettings);
+                    new MagickImage((byte[])null, settings);
                 });
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenByteArrayIsEmptyAndPixelStorageSettingsIsSpecified()
+            public void ShouldThrowExceptionWhenByteArrayIsEmptyAndPixelReadSettingsIsSpecified()
             {
                 ExceptionAssert.ThrowsArgumentException("data", () =>
                 {
-                    var pixelStorageSettings = new PixelStorageSettings();
+                    var settings = new PixelReadSettings();
 
-                    new MagickImage(new byte[] { }, pixelStorageSettings);
+                    new MagickImage(new byte[] { }, settings);
                 });
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenPixelStorageSettingsIsNullAndByteArrayIsSpecified()
+            public void ShouldThrowExceptionWhenPixelReadSettingsIsNullAndByteArrayIsSpecified()
             {
-                ExceptionAssert.ThrowsArgumentNullException("pixelStorageSettings", () =>
+                ExceptionAssert.ThrowsArgumentNullException("settings", () =>
                 {
-                    new MagickImage(new byte[] { 215 }, (PixelStorageSettings)null);
+                    new MagickImage(new byte[] { 215 }, (PixelReadSettings)null);
                 });
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenFileInfoIsNullAndPixelStorageSettingsIsSpecified()
+            public void ShouldThrowExceptionWhenFileInfoIsNullAndPixelReadSettingsIsSpecified()
             {
                 ExceptionAssert.ThrowsArgumentNullException("file", () =>
                 {
-                    var pixelStorageSettings = new PixelStorageSettings();
+                    var settings = new PixelReadSettings();
 
-                    new MagickImage((FileInfo)null, pixelStorageSettings);
+                    new MagickImage((FileInfo)null, settings);
                 });
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenPixelStorageSettingsIsNullAndFileInfoIsSpecified()
+            public void ShouldThrowExceptionWhenPixelReadSettingsIsNullAndFileInfoIsSpecified()
             {
-                ExceptionAssert.ThrowsArgumentNullException("pixelStorageSettings", () =>
+                ExceptionAssert.ThrowsArgumentNullException("settings", () =>
                 {
-                    new MagickImage(new FileInfo(Files.CirclePNG), (PixelStorageSettings)null);
+                    new MagickImage(new FileInfo(Files.CirclePNG), (PixelReadSettings)null);
                 });
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenStreamIsNullAndPixelStorageSettingsIsSpecified()
+            public void ShouldThrowExceptionWhenStreamIsNullAndPixelReadSettingsIsSpecified()
             {
                 ExceptionAssert.ThrowsArgumentNullException("stream", () =>
                 {
-                    var pixelStorageSettings = new PixelStorageSettings();
+                    var settings = new PixelReadSettings();
 
-                    new MagickImage((Stream)null, pixelStorageSettings);
+                    new MagickImage((Stream)null, settings);
                 });
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenStreamIsEmptyAndPixelStorageSettingsIsSpecified()
+            public void ShouldThrowExceptionWhenStreamIsEmptyAndPixelReadSettingsIsSpecified()
             {
                 ExceptionAssert.ThrowsArgumentException("stream", () =>
                 {
-                    var pixelStorageSettings = new PixelStorageSettings();
+                    var settings = new PixelReadSettings();
 
-                    new MagickImage(new MemoryStream(), pixelStorageSettings);
+                    new MagickImage(new MemoryStream(), settings);
                 });
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenPixelStorageSettingsIsNullAndStreamIsSpecified()
+            public void ShouldThrowExceptionWhenPixelReadSettingsIsNullAndStreamIsSpecified()
             {
-                ExceptionAssert.ThrowsArgumentNullException("pixelStorageSettings", () =>
+                ExceptionAssert.ThrowsArgumentNullException("settings", () =>
                 {
-                    new MagickImage(new MemoryStream(new byte[] { 215 }), (PixelStorageSettings)null);
+                    new MagickImage(new MemoryStream(new byte[] { 215 }), (PixelReadSettings)null);
                 });
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenFileNameIsNullAndPixelStorageSettingsIsSpecified()
+            public void ShouldThrowExceptionWhenFileNameIsNullAndPixelReadSettingsIsSpecified()
             {
                 ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
                 {
-                    var pixelStorageSettings = new PixelStorageSettings();
+                    var settings = new PixelReadSettings();
 
-                    new MagickImage((string)null, pixelStorageSettings);
+                    new MagickImage((string)null, settings);
                 });
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenPixelStorageSettingsIsNullAndFileNameIsSpecified()
+            public void ShouldThrowExceptionWhenPixelReadSettingsIsNullAndFileNameIsSpecified()
             {
-                ExceptionAssert.ThrowsArgumentNullException("pixelStorageSettings", () =>
+                ExceptionAssert.ThrowsArgumentNullException("settings", () =>
                 {
-                    new MagickImage(Files.CirclePNG, (PixelStorageSettings)null);
+                    new MagickImage(Files.CirclePNG, (PixelReadSettings)null);
                 });
             }
 
             [TestMethod]
             public void ShouldThrowExceptionWhenMappingIsNull()
             {
-                ExceptionAssert.ThrowsArgumentException("pixelStorageSettings", () =>
+                ExceptionAssert.ThrowsArgumentException("settings", () =>
                 {
-                    var settings = new PixelStorageSettings(1, 1, StorageType.Char, null);
+                    var settings = new PixelReadSettings(1, 1, StorageType.Char, null);
 
                     new MagickImage(Files.CirclePNG, settings);
                 }, "mapping");
@@ -138,9 +138,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenMappingIsEmpty()
             {
-                ExceptionAssert.ThrowsArgumentException("pixelStorageSettings", () =>
+                ExceptionAssert.ThrowsArgumentException("settings", () =>
                 {
-                    var settings = new PixelStorageSettings(1, 1, StorageType.Char, string.Empty);
+                    var settings = new PixelReadSettings(1, 1, StorageType.Char, string.Empty);
 
                     new MagickImage(Files.CirclePNG, settings);
                 }, "mapping");
@@ -149,9 +149,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenWidthIsNull()
             {
-                ExceptionAssert.ThrowsArgumentException("pixelStorageSettings", () =>
+                ExceptionAssert.ThrowsArgumentException("settings", () =>
                 {
-                    var settings = new PixelStorageSettings(1, 1, StorageType.Char, "RGBA");
+                    var settings = new PixelReadSettings(1, 1, StorageType.Char, "RGBA");
                     settings.ReadSettings.Width = null;
 
                     new MagickImage(Files.CirclePNG, settings);
@@ -161,9 +161,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenHeightIsNull()
             {
-                ExceptionAssert.ThrowsArgumentException("pixelStorageSettings", () =>
+                ExceptionAssert.ThrowsArgumentException("settings", () =>
                 {
-                    var settings = new PixelStorageSettings(1, 1, StorageType.Char, "RGBA");
+                    var settings = new PixelReadSettings(1, 1, StorageType.Char, "RGBA");
                     settings.ReadSettings.Height = null;
 
                     new MagickImage(Files.CirclePNG, settings);
@@ -171,7 +171,7 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldReadByteArrayWithPixelStorageSettings()
+            public void ShouldReadByteArrayWithPixelReadSettings()
             {
                 byte[] data = new byte[]
                 {
@@ -185,9 +185,9 @@ namespace Magick.NET.Tests
                     0, 0, 0, 0, 0, 0, 0, 0,
                 };
 
-                var pixelStorageSettings = new PixelStorageSettings(2, 1, StorageType.Double, PixelMapping.RGBA);
+                var settings = new PixelReadSettings(2, 1, StorageType.Double, PixelMapping.RGBA);
 
-                using (IMagickImage image = new MagickImage(data, pixelStorageSettings))
+                using (IMagickImage image = new MagickImage(data, settings))
                 {
                     Assert.AreEqual(2, image.Width);
                     Assert.AreEqual(1, image.Height);
@@ -212,16 +212,16 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldReadFileInfoWithPixelStorageSettings()
+            public void ShouldReadFileInfoWithPixelReadSettings()
             {
-                var pixelStorageSettings = new PixelStorageSettings(1, 1, StorageType.Quantum, "R");
+                var settings = new PixelReadSettings(1, 1, StorageType.Quantum, "R");
 
                 var bytes = BitConverter.GetBytes(Quantum.Max);
 
                 using (var temporyFile = new TemporaryFile(bytes))
                 {
                     FileInfo file = temporyFile;
-                    using (IMagickImage image = new MagickImage(file, pixelStorageSettings))
+                    using (IMagickImage image = new MagickImage(file, settings))
                     {
                         Assert.AreEqual(1, image.Width);
                         Assert.AreEqual(1, image.Height);
@@ -231,15 +231,15 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldReadStreamWithPixelStorageSettings()
+            public void ShouldReadStreamWithPixelReadSettings()
             {
-                var pixelStorageSettings = new PixelStorageSettings(1, 1, StorageType.Double, "R");
+                var settings = new PixelReadSettings(1, 1, StorageType.Double, "R");
 
                 var bytes = BitConverter.GetBytes(1.0);
 
                 using (var memoryStream = new MemoryStream(bytes))
                 {
-                    using (IMagickImage image = new MagickImage(memoryStream, pixelStorageSettings))
+                    using (IMagickImage image = new MagickImage(memoryStream, settings))
                     {
                         Assert.AreEqual(1, image.Width);
                         Assert.AreEqual(1, image.Height);
@@ -249,16 +249,16 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldReadFileNameWithPixelStorageSettings()
+            public void ShouldReadFileNameWithPixelReadSettings()
             {
-                var pixelStorageSettings = new PixelStorageSettings(1, 1, StorageType.Int32, "R");
+                var settings = new PixelReadSettings(1, 1, StorageType.Int32, "R");
 
                 var bytes = BitConverter.GetBytes(4294967295U);
 
                 using (var temporyFile = new TemporaryFile(bytes))
                 {
                     var fileName = temporyFile.FullName;
-                    using (IMagickImage image = new MagickImage(fileName, pixelStorageSettings))
+                    using (IMagickImage image = new MagickImage(fileName, settings))
                     {
                         Assert.AreEqual(1, image.Width);
                         Assert.AreEqual(1, image.Height);

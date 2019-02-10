@@ -13,30 +13,30 @@
 namespace ImageMagick
 {
     /// <summary>
-    /// Class that contains setting for pixel storage.
+    /// Class that contains setting for when pixels are read.
     /// </summary>
-    public sealed class PixelStorageSettings
+    public sealed class PixelReadSettings
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PixelStorageSettings"/> class.
+        /// Initializes a new instance of the <see cref="PixelReadSettings"/> class.
         /// </summary>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         /// <param name="storageType">The pixel storage type</param>
         /// <param name="mapping">The mapping of the pixels.</param>
-        public PixelStorageSettings(int width, int height, StorageType storageType, PixelMapping mapping)
+        public PixelReadSettings(int width, int height, StorageType storageType, PixelMapping mapping)
             : this(width, height, storageType, mapping.ToString())
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PixelStorageSettings"/> class.
+        /// Initializes a new instance of the <see cref="PixelReadSettings"/> class.
         /// </summary>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         /// <param name="storageType">The pixel storage type</param>
         /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
-        public PixelStorageSettings(int width, int height, StorageType storageType, string mapping)
+        public PixelReadSettings(int width, int height, StorageType storageType, string mapping)
         {
             ReadSettings = new MagickReadSettings()
             {
@@ -47,7 +47,7 @@ namespace ImageMagick
             Mapping = mapping;
         }
 
-        internal PixelStorageSettings()
+        internal PixelReadSettings()
         {
             ReadSettings = new MagickReadSettings();
         }

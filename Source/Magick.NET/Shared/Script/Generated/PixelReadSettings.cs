@@ -33,11 +33,11 @@ namespace ImageMagick
 {
     public sealed partial class MagickScript
     {
-        private PixelStorageSettings CreatePixelStorageSettings(XmlElement element)
+        private PixelReadSettings CreatePixelReadSettings(XmlElement element)
         {
             if (element == null)
                 return null;
-            PixelStorageSettings result = new PixelStorageSettings();
+            PixelReadSettings result = new PixelReadSettings();
             result.Mapping = GetValue<String>(element, "mapping");
             result.ReadSettings = CreateReadSettings(element["readSettings"]);
             result.StorageType = GetValue<StorageType>(element, "storageType");

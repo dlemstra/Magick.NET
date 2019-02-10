@@ -12,13 +12,13 @@
 
 namespace FileGenerator.MagickScript
 {
-    internal sealed class PixelStorageSettingsGenerator : CreateObjectCodeGenerator
+    internal sealed class PixelReadSettingsGenerator : CreateObjectCodeGenerator
     {
         public override string ClassName
         {
             get
             {
-                return "PixelStorageSettings";
+                return "PixelReadSettings";
             }
         }
     }

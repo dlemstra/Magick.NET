@@ -23,123 +23,123 @@ namespace Magick.NET.Tests
         public partial class TheCreateImageMethod
         {
             [TestMethod]
-            public void ShouldThrowExceptionWhenByteArrayIsNullAndPixelStorageSettingsIsSpecified()
+            public void ShouldThrowExceptionWhenByteArrayIsNullAndPixelReadSettingsIsSpecified()
             {
                 ExceptionAssert.ThrowsArgumentNullException("data", () =>
                 {
-                    var pixelStorageSettings = new PixelStorageSettings();
+                    var settings = new PixelReadSettings();
 
                     MagickFactory factory = new MagickFactory();
-                    factory.CreateImage((byte[])null, pixelStorageSettings);
+                    factory.CreateImage((byte[])null, settings);
                 });
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenByteArrayIsEmptyAndPixelStorageSettingsIsSpecified()
+            public void ShouldThrowExceptionWhenByteArrayIsEmptyAndPixelReadSettingsIsSpecified()
             {
                 ExceptionAssert.ThrowsArgumentException("data", () =>
                 {
-                    var pixelStorageSettings = new PixelStorageSettings();
+                    var settings = new PixelReadSettings();
 
                     MagickFactory factory = new MagickFactory();
-                    factory.CreateImage(new byte[] { }, pixelStorageSettings);
+                    factory.CreateImage(new byte[] { }, settings);
                 });
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenPixelStorageSettingsIsNullAndByteArrayIsSpecified()
+            public void ShouldThrowExceptionWhenPixelReadSettingsIsNullAndByteArrayIsSpecified()
             {
-                ExceptionAssert.ThrowsArgumentNullException("pixelStorageSettings", () =>
+                ExceptionAssert.ThrowsArgumentNullException("settings", () =>
                 {
                     MagickFactory factory = new MagickFactory();
-                    factory.CreateImage(new byte[] { 215 }, (PixelStorageSettings)null);
+                    factory.CreateImage(new byte[] { 215 }, (PixelReadSettings)null);
                 });
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenFileInfoIsNullAndPixelStorageSettingsIsSpecified()
+            public void ShouldThrowExceptionWhenFileInfoIsNullAndPixelReadSettingsIsSpecified()
             {
                 ExceptionAssert.ThrowsArgumentNullException("file", () =>
                 {
-                    var pixelStorageSettings = new PixelStorageSettings();
+                    var settings = new PixelReadSettings();
 
                     MagickFactory factory = new MagickFactory();
-                    factory.CreateImage((FileInfo)null, pixelStorageSettings);
+                    factory.CreateImage((FileInfo)null, settings);
                 });
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenPixelStorageSettingsIsNullAndFileInfoIsSpecified()
+            public void ShouldThrowExceptionWhenPixelReadSettingsIsNullAndFileInfoIsSpecified()
             {
-                ExceptionAssert.ThrowsArgumentNullException("pixelStorageSettings", () =>
+                ExceptionAssert.ThrowsArgumentNullException("settings", () =>
                 {
                     MagickFactory factory = new MagickFactory();
-                    factory.CreateImage(new FileInfo(Files.CirclePNG), (PixelStorageSettings)null);
+                    factory.CreateImage(new FileInfo(Files.CirclePNG), (PixelReadSettings)null);
                 });
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenStreamIsNullAndPixelStorageSettingsIsSpecified()
+            public void ShouldThrowExceptionWhenStreamIsNullAndPixelReadSettingsIsSpecified()
             {
                 ExceptionAssert.ThrowsArgumentNullException("stream", () =>
                 {
-                    var pixelStorageSettings = new PixelStorageSettings();
+                    var settings = new PixelReadSettings();
 
                     MagickFactory factory = new MagickFactory();
-                    factory.CreateImage((Stream)null, pixelStorageSettings);
+                    factory.CreateImage((Stream)null, settings);
                 });
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenStreamIsEmptyAndPixelStorageSettingsIsSpecified()
+            public void ShouldThrowExceptionWhenStreamIsEmptyAndPixelReadSettingsIsSpecified()
             {
                 ExceptionAssert.ThrowsArgumentException("stream", () =>
                 {
-                    var pixelStorageSettings = new PixelStorageSettings();
+                    var settings = new PixelReadSettings();
 
                     MagickFactory factory = new MagickFactory();
-                    factory.CreateImage(new MemoryStream(), pixelStorageSettings);
+                    factory.CreateImage(new MemoryStream(), settings);
                 });
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenPixelStorageSettingsIsNullAndStreamIsSpecified()
+            public void ShouldThrowExceptionWhenPixelReadSettingsIsNullAndStreamIsSpecified()
             {
-                ExceptionAssert.ThrowsArgumentNullException("pixelStorageSettings", () =>
+                ExceptionAssert.ThrowsArgumentNullException("settings", () =>
                 {
                     MagickFactory factory = new MagickFactory();
-                    factory.CreateImage(new MemoryStream(new byte[] { 215 }), (PixelStorageSettings)null);
+                    factory.CreateImage(new MemoryStream(new byte[] { 215 }), (PixelReadSettings)null);
                 });
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenFileNameIsNullAndPixelStorageSettingsIsSpecified()
+            public void ShouldThrowExceptionWhenFileNameIsNullAndPixelReadSettingsIsSpecified()
             {
                 ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
                 {
-                    var pixelStorageSettings = new PixelStorageSettings();
+                    var settings = new PixelReadSettings();
 
                     MagickFactory factory = new MagickFactory();
-                    factory.CreateImage((string)null, pixelStorageSettings);
+                    factory.CreateImage((string)null, settings);
                 });
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenPixelStorageSettingsIsNullAndFileNameIsSpecified()
+            public void ShouldThrowExceptionWhenPixelReadSettingsIsNullAndFileNameIsSpecified()
             {
-                ExceptionAssert.ThrowsArgumentNullException("pixelStorageSettings", () =>
+                ExceptionAssert.ThrowsArgumentNullException("settings", () =>
                 {
                     MagickFactory factory = new MagickFactory();
-                    factory.CreateImage(Files.CirclePNG, (PixelStorageSettings)null);
+                    factory.CreateImage(Files.CirclePNG, (PixelReadSettings)null);
                 });
             }
 
             [TestMethod]
             public void ShouldThrowExceptionWhenMappingIsNull()
             {
-                ExceptionAssert.ThrowsArgumentException("pixelStorageSettings", () =>
+                ExceptionAssert.ThrowsArgumentException("settings", () =>
                 {
-                    var settings = new PixelStorageSettings(1, 1, StorageType.Char, null);
+                    var settings = new PixelReadSettings(1, 1, StorageType.Char, null);
 
                     MagickFactory factory = new MagickFactory();
                     factory.CreateImage(Files.CirclePNG, settings);
@@ -149,9 +149,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenMappingIsEmpty()
             {
-                ExceptionAssert.ThrowsArgumentException("pixelStorageSettings", () =>
+                ExceptionAssert.ThrowsArgumentException("settings", () =>
                 {
-                    var settings = new PixelStorageSettings(1, 1, StorageType.Char, string.Empty);
+                    var settings = new PixelReadSettings(1, 1, StorageType.Char, string.Empty);
 
                     MagickFactory factory = new MagickFactory();
                     factory.CreateImage(Files.CirclePNG, settings);
@@ -161,9 +161,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenWidthIsNull()
             {
-                ExceptionAssert.ThrowsArgumentException("pixelStorageSettings", () =>
+                ExceptionAssert.ThrowsArgumentException("settings", () =>
                 {
-                    var settings = new PixelStorageSettings(1, 1, StorageType.Char, "RGBA");
+                    var settings = new PixelReadSettings(1, 1, StorageType.Char, "RGBA");
                     settings.ReadSettings.Width = null;
 
                     MagickFactory factory = new MagickFactory();
@@ -174,9 +174,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenHeightIsNull()
             {
-                ExceptionAssert.ThrowsArgumentException("pixelStorageSettings", () =>
+                ExceptionAssert.ThrowsArgumentException("settings", () =>
                 {
-                    var settings = new PixelStorageSettings(1, 1, StorageType.Char, "RGBA");
+                    var settings = new PixelReadSettings(1, 1, StorageType.Char, "RGBA");
                     settings.ReadSettings.Height = null;
 
                     MagickFactory factory = new MagickFactory();
@@ -185,7 +185,7 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldReadByteArrayWithPixelStorageSettings()
+            public void ShouldReadByteArrayWithPixelReadSettings()
             {
                 byte[] data = new byte[]
                 {
@@ -199,10 +199,10 @@ namespace Magick.NET.Tests
                     0, 0, 0, 0, 0, 0, 0, 0,
                 };
 
-                var pixelStorageSettings = new PixelStorageSettings(2, 1, StorageType.Double, PixelMapping.RGBA);
+                var settings = new PixelReadSettings(2, 1, StorageType.Double, PixelMapping.RGBA);
 
                 MagickFactory factory = new MagickFactory();
-                using (IMagickImage image = factory.CreateImage(data, pixelStorageSettings))
+                using (IMagickImage image = factory.CreateImage(data, settings))
                 {
                     Assert.AreEqual(2, image.Width);
                     Assert.AreEqual(1, image.Height);
@@ -227,9 +227,9 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldReadFileInfoWithPixelStorageSettings()
+            public void ShouldReadFileInfoWithPixelReadSettings()
             {
-                var pixelStorageSettings = new PixelStorageSettings(1, 1, StorageType.Quantum, "R");
+                var settings = new PixelReadSettings(1, 1, StorageType.Quantum, "R");
 
                 var bytes = BitConverter.GetBytes(Quantum.Max);
 
@@ -237,7 +237,7 @@ namespace Magick.NET.Tests
                 {
                     FileInfo file = temporyFile;
                     MagickFactory factory = new MagickFactory();
-                    using (IMagickImage image = factory.CreateImage(file, pixelStorageSettings))
+                    using (IMagickImage image = factory.CreateImage(file, settings))
                     {
                         Assert.AreEqual(1, image.Width);
                         Assert.AreEqual(1, image.Height);
@@ -247,16 +247,16 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldReadStreamWithPixelStorageSettings()
+            public void ShouldReadStreamWithPixelReadSettings()
             {
-                var pixelStorageSettings = new PixelStorageSettings(1, 1, StorageType.Double, "R");
+                var settings = new PixelReadSettings(1, 1, StorageType.Double, "R");
 
                 var bytes = BitConverter.GetBytes(1.0);
 
                 using (var memoryStream = new MemoryStream(bytes))
                 {
                     MagickFactory factory = new MagickFactory();
-                    using (IMagickImage image = factory.CreateImage(memoryStream, pixelStorageSettings))
+                    using (IMagickImage image = factory.CreateImage(memoryStream, settings))
                     {
                         Assert.AreEqual(1, image.Width);
                         Assert.AreEqual(1, image.Height);
@@ -266,9 +266,9 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldReadFileNameWithPixelStorageSettings()
+            public void ShouldReadFileNameWithPixelReadSettings()
             {
-                var pixelStorageSettings = new PixelStorageSettings(1, 1, StorageType.Int32, "R");
+                var settings = new PixelReadSettings(1, 1, StorageType.Int32, "R");
 
                 var bytes = BitConverter.GetBytes(uint.MaxValue);
 
@@ -276,7 +276,7 @@ namespace Magick.NET.Tests
                 {
                     var fileName = temporyFile.FullName;
                     MagickFactory factory = new MagickFactory();
-                    using (IMagickImage image = factory.CreateImage(fileName, pixelStorageSettings))
+                    using (IMagickImage image = factory.CreateImage(fileName, settings))
                     {
                         Assert.AreEqual(1, image.Width);
                         Assert.AreEqual(1, image.Height);

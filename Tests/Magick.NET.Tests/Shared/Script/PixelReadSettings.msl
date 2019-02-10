@@ -1,10 +1,10 @@
 ﻿<msl xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\..\..\Source\Magick.NET\Resources\ReleaseQ16\MagickScript.xsd">
   <read id="pixels:">
-    <pixelStorageSettings mapping="R" storageType="Char">
+    <pixelReadSettings mapping="R" storageType="Char">
       <readSettings>
         <width value="1"/>
         <height value="2"/>
       </readSettings>
-    </pixelStorageSettings>
+    </pixelReadSettings>
   </read>
 </msl>

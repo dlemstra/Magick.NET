@@ -199,10 +199,10 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldExecutePixelStorageScript()
+            public void ShouldExecutePixelReadSettingsScript()
             {
-                MagickScript script = new MagickScript(Files.Scripts.PixelStorage);
-                script.Read += PixelStorageScriptRead;
+                MagickScript script = new MagickScript(Files.Scripts.PixelReadSettings);
+                script.Read += PixelReadSettingsRead;
 
                 using (IMagickImage image = script.Execute())
                 {
@@ -293,10 +293,10 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(DensityUnit.PixelsPerCentimeter, arguments.Image.Density.Units);
             }
 
-            private static void PixelStorageScriptRead(object sender, ScriptReadEventArgs arguments)
+            private static void PixelReadSettingsRead(object sender, ScriptReadEventArgs arguments)
             {
                 var bytes = new byte[] { 255, 0 };
-                arguments.Image = new MagickImage(bytes, arguments.PixelStorageSettings);
+                arguments.Image = new MagickImage(bytes, arguments.PixelReadSettings);
             }
 
             private static void TestResizeResult(IMagickImage result)

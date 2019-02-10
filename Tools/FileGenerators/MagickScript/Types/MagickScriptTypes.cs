@@ -154,7 +154,7 @@ namespace FileGenerator.MagickScript
                 case "MorphologySettings":
                 case "PathArc":
                 case "PrimaryInfo":
-                case "PixelStorageSettings":
+                case "PixelReadSettings":
                 case "QuantizeSettings":
                     return null;
                 default:
@@ -311,7 +311,7 @@ namespace FileGenerator.MagickScript
                 case "MorphologySettings":
                 case "PathArc":
                 case "Percentage":
-                case "PixelStorageSettings":
+                case "PixelReadSettings":
                 case "PointD":
                 case "PrimaryInfo":
                 case "QuantizeSettings":

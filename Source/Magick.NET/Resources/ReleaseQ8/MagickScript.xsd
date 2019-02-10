@@ -1444,7 +1444,7 @@
     <xs:sequence>
       <xs:choice minOccurs="0">
         <xs:element name="readSettings" minOccurs="0" type="magickReadSettings" />
-        <xs:element name="pixelStorageSettings" minOccurs="0">
+        <xs:element name="pixelReadSettings" minOccurs="0">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="readSettings" minOccurs="0" type="magickReadSettings" />
