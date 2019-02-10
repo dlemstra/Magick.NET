@@ -220,9 +220,9 @@ MAGICK_NET_EXPORT Image *MagickImage_Compare(Image *, Image *, const size_t, con
 
 MAGICK_NET_EXPORT double MagickImage_CompareDistortion(Image *, Image *, const size_t, const size_t, ExceptionInfo **);
 
-MAGICK_NET_EXPORT void MagickImage_Composite(Image *, const Image *, const ssize_t, const ssize_t, const size_t, ExceptionInfo **);
+MAGICK_NET_EXPORT void MagickImage_Composite(Image *, const Image *, const ssize_t, const ssize_t, const size_t, const size_t, ExceptionInfo **);
 
-MAGICK_NET_EXPORT void MagickImage_CompositeGraviy(Image *, const Image *, const size_t, const size_t, ExceptionInfo **);
+MAGICK_NET_EXPORT void MagickImage_CompositeGraviy(Image *, const Image *, const size_t, const size_t, const size_t, ExceptionInfo **);
 
 MAGICK_NET_EXPORT Image *MagickImage_ConnectedComponents(const Image *, const size_t, CCObjectInfo **, ExceptionInfo **);
 

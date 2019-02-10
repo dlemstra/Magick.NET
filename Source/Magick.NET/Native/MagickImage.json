@@ -867,6 +867,10 @@
         {
           "name": "compose",
           "type": "CompositeOperator"
+        },
+        {
+          "name": "channels",
+          "type": "Channels"
         }
       ]
     },
@@ -885,6 +889,10 @@
         {
           "name": "compose",
           "type": "CompositeOperator"
+        },
+        {
+          "name": "channels",
+          "type": "Channels"
         }
       ]
     },

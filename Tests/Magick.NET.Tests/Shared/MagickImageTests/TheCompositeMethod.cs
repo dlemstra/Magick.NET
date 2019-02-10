@@ -39,6 +39,20 @@ namespace Magick.NET.Tests.Shared
                         }
                     }
                 }
+
+                [TestMethod]
+                public void ShouldOnlyModifyTheSpecifiedChannel()
+                {
+                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    {
+                        using (IMagickImage red = new MagickImage(MagickColors.Red, image.Width, image.Height))
+                        {
+                            image.Composite(red, CompositeOperator.Multiply, Channels.Blue);
+
+                            ColorAssert.AreEqual(MagickColors.Yellow, image, 0, 0);
+                        }
+                    }
+                }
             }
         }
     }

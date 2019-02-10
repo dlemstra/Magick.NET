@@ -1041,21 +1041,23 @@ MAGICK_NET_EXPORT double MagickImage_CompareDistortion(Image *instance, Image *r
   return result;
 }
 
-MAGICK_NET_EXPORT void MagickImage_Composite(Image *instance, const Image *reference, const ssize_t x, const ssize_t y, const size_t compose, ExceptionInfo **exception)
+MAGICK_NET_EXPORT void MagickImage_Composite(Image *instance, const Image *reference, const ssize_t x, const ssize_t y, const size_t compose, const size_t channels, ExceptionInfo **exception)
 {
   MAGICK_NET_GET_EXCEPTION;
+  SetChannelMask(instance, channels);
   CompositeImage(instance, reference, (const CompositeOperator) compose, MagickTrue, x, y, exceptionInfo);
+  RestoreChannelMask(instance);
   MAGICK_NET_SET_EXCEPTION;
 }
 
-MAGICK_NET_EXPORT void MagickImage_CompositeGravity(Image *instance, const Image *reference, const size_t gravity, const size_t compose, ExceptionInfo **exception)
+MAGICK_NET_EXPORT void MagickImage_CompositeGravity(Image *instance, const Image *reference, const size_t gravity, const size_t compose, const size_t channels, ExceptionInfo **exception)
 {
   RectangleInfo
     geometry;
 
   SetGeometry(reference, &geometry);
   GravityAdjustGeometry(instance->columns, instance->rows, gravity, &geometry);
-  MagickImage_Composite(instance, reference, geometry.x, geometry.y, compose, exception);
+  MagickImage_Composite(instance, reference, geometry.x, geometry.y, compose, channels, exception);
 }
 
 MAGICK_NET_EXPORT Image *MagickImage_ConnectedComponents(const Image *instance, const size_t connectivity, CCObjectInfo **objects, ExceptionInfo **exception)
