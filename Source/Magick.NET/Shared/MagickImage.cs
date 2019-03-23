@@ -6844,17 +6844,17 @@ namespace ImageMagick
             Throw.IfNull(nameof(color), color);
             Throw.IfNull(nameof(target), target);
 
-            DrawingSettings settings = Settings.Drawing;
+            var settings = Settings.Drawing;
 
             using (IMagickImage fillPattern = settings.FillPattern)
             {
-                MagickColor filLColor = settings.FillColor;
+                MagickColor fillColor = settings.FillColor;
                 settings.FillColor = color;
                 settings.FillPattern = null;
 
                 _nativeInstance.FloodFill(settings, x, y, target, invert);
 
-                settings.FillColor = filLColor;
+                settings.FillColor = fillColor;
                 settings.FillPattern = fillPattern;
             }
         }
@@ -6877,17 +6877,17 @@ namespace ImageMagick
             Throw.IfNull(nameof(image), image);
             Throw.IfNull(nameof(target), target);
 
-            DrawingSettings settings = Settings.Drawing;
+            var settings = Settings.Drawing;
 
             using (IMagickImage fillPattern = settings.FillPattern)
             {
-                MagickColor filLColor = settings.FillColor;
+                var fillColor = settings.FillColor;
                 settings.FillColor = null;
                 settings.FillPattern = image;
 
                 _nativeInstance.FloodFill(settings, x, y, target, invert);
 
-                settings.FillColor = filLColor;
+                settings.FillColor = fillColor;
                 settings.FillPattern = fillPattern;
             }
         }
@@ -6915,7 +6915,7 @@ namespace ImageMagick
 
         private ColorProfile GetColorProfile(string name)
         {
-            StringInfo info = _nativeInstance.GetProfile(name);
+            var info = _nativeInstance.GetProfile(name);
             if (info == null || info.Datum == null)
                 return null;
 
@@ -6935,8 +6935,8 @@ namespace ImageMagick
             if (_progress == null)
                 return true;
 
-            string managedOrigin = UTF8Marshaler.NativeToManaged(origin);
-            ProgressEventArgs eventArgs = new ProgressEventArgs(managedOrigin, (int)offset, (int)extent);
+            var managedOrigin = UTF8Marshaler.NativeToManaged(origin);
+            var eventArgs = new ProgressEventArgs(managedOrigin, (int)offset, (int)extent);
             _progress(this, eventArgs);
             return eventArgs.Cancel ? false : true;
         }
@@ -6948,7 +6948,7 @@ namespace ImageMagick
 
         private void Read(byte[] data, int length, MagickReadSettings readSettings, bool ping)
         {
-            MagickReadSettings newReadSettings = CreateReadSettings(readSettings);
+            var newReadSettings = CreateReadSettings(readSettings);
             SetSettings(newReadSettings);
 
             Settings.Ping = ping;
@@ -6962,14 +6962,14 @@ namespace ImageMagick
         {
             Throw.IfNullOrEmpty(nameof(stream), stream);
 
-            Bytes bytes = Bytes.FromStreamBuffer(stream);
+            var bytes = Bytes.FromStreamBuffer(stream);
             if (bytes != null)
             {
                 Read(bytes.Data, bytes.Length, readSettings, ping);
                 return;
             }
 
-            MagickReadSettings newReadSettings = CreateReadSettings(readSettings);
+            var newReadSettings = CreateReadSettings(readSettings);
             SetSettings(newReadSettings);
 
             Settings.Ping = ping;
@@ -6977,7 +6977,7 @@ namespace ImageMagick
 
             using (StreamWrapper wrapper = StreamWrapper.CreateForReading(stream))
             {
-                ReadWriteStreamDelegate reader = new ReadWriteStreamDelegate(wrapper.Read);
+                var reader = new ReadWriteStreamDelegate(wrapper.Read);
                 SeekStreamDelegate seeker = null;
                 TellStreamDelegate teller = null;
 
@@ -6998,7 +6998,7 @@ namespace ImageMagick
             string filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
-            MagickReadSettings newReadSettings = CreateReadSettings(readSettings);
+            var newReadSettings = CreateReadSettings(readSettings);
             SetSettings(newReadSettings);
 
             Settings.Ping = ping;
@@ -7015,7 +7015,7 @@ namespace ImageMagick
             Throw.IfTrue(nameof(settings), settings.StorageType == StorageType.Undefined, "Storage type should not be undefined.");
             Throw.IfTrue(nameof(settings), string.IsNullOrEmpty(settings.Mapping), "Pixel storage mapping should be defined.");
 
-            MagickReadSettings newReadSettings = CreateReadSettings(settings.ReadSettings);
+            var newReadSettings = CreateReadSettings(settings.ReadSettings);
             SetSettings(newReadSettings);
 
             int expectedLength = GetExpectedLength(settings);
