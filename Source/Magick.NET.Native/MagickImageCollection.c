@@ -99,7 +99,7 @@ MAGICK_NET_EXPORT Image *MagickImageCollection_Evaluate(const Image *images, con
     *result;
 
   MAGICK_NET_GET_EXCEPTION;
-  result = EvaluateImages(images, (MagickEvaluateOperator)evaluateOperator, exceptionInfo);
+  result = EvaluateImages(images, (MagickEvaluateOperator) evaluateOperator, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return result;
 }
@@ -117,7 +117,7 @@ MAGICK_NET_EXPORT Image *MagickImageCollection_Merge(Image *images, const size_t
     *image;
 
   MAGICK_NET_GET_EXCEPTION;
-  image = MergeImageLayers(images, (LayerMethod)method, exceptionInfo);
+  image = MergeImageLayers(images, (LayerMethod) method, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
@@ -198,7 +198,7 @@ MAGICK_NET_EXPORT Image *MagickImageCollection_ReadBlob(const ImageInfo *setting
     *images;
 
   MAGICK_NET_GET_EXCEPTION;
-  images = BlobToImage(settings, (const void *)data, length, exceptionInfo);
+  images = BlobToImage(settings, (const void *) data, length, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return images;
 }
@@ -229,7 +229,7 @@ MAGICK_NET_EXPORT Image *MagickImageCollection_ReadStream(ImageInfo *settings, c
   SetCustomStreamTeller(info, teller);
   SetImageInfoCustomStream(settings, info);
   images = CustomStreamToImage(settings, exceptionInfo);
-  SetImageInfoCustomStream(settings, (CustomStreamInfo *)NULL);
+  SetImageInfoCustomStream(settings, (CustomStreamInfo *) NULL);
   info = DestroyCustomStreamInfo(info);
   MAGICK_NET_SET_EXCEPTION;
   return images;
@@ -253,7 +253,7 @@ MAGICK_NET_EXPORT void MagickImageCollection_WriteFile(Image *image, const Image
   MAGICK_NET_SET_EXCEPTION;
 }
 
-MAGICK_NET_EXPORT void MagickImageCollection_WriteStream(Image *image, ImageInfo *settings, const CustomStreamHandler writer, const CustomStreamSeeker seeker, const CustomStreamTeller teller, const CustomStreamHandler reader,ExceptionInfo **exception)
+MAGICK_NET_EXPORT void MagickImageCollection_WriteStream(Image *image, ImageInfo *settings, const CustomStreamHandler writer, const CustomStreamSeeker seeker, const CustomStreamTeller teller, const CustomStreamHandler reader, ExceptionInfo **exception)
 {
   CustomStreamInfo
     *info;
@@ -266,7 +266,7 @@ MAGICK_NET_EXPORT void MagickImageCollection_WriteStream(Image *image, ImageInfo
   SetCustomStreamReader(info, reader);
   SetImageInfoCustomStream(settings, info);
   ImagesToCustomStream(settings, image, exceptionInfo);
-  SetImageInfoCustomStream(settings, (CustomStreamInfo *)NULL);
+  SetImageInfoCustomStream(settings, (CustomStreamInfo *) NULL);
   info = DestroyCustomStreamInfo(info);
   MAGICK_NET_SET_EXCEPTION;
 }
