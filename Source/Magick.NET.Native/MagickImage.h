@@ -382,7 +382,7 @@ MAGICK_NET_EXPORT void MagickImage_RaiseOrLower(Image *, const size_t, const Mag
 
 MAGICK_NET_EXPORT void MagickImage_RandomThreshold(Image *, const double, const double, ExceptionInfo **);
 
-MAGICK_NET_EXPORT Image *MagickImage_ReadBlob(const ImageInfo *, const unsigned char *, const size_t, ExceptionInfo **);
+MAGICK_NET_EXPORT Image *MagickImage_ReadBlob(const ImageInfo *, const unsigned char *, const size_t, const size_t, ExceptionInfo **);
 
 MAGICK_NET_EXPORT Image *MagickImage_ReadFile(const ImageInfo *, ExceptionInfo **);
 

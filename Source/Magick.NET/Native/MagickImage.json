@@ -1883,6 +1883,10 @@
           "type": "byte[]"
         },
         {
+          "name": "offset",
+          "type": "size_t"
+        },
+        {
           "name": "length",
           "type": "size_t"
         }

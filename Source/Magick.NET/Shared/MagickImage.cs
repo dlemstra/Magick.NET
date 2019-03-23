@@ -6953,7 +6953,7 @@ namespace ImageMagick
 
             Settings.Ping = ping;
 
-            _nativeInstance.ReadBlob(Settings, data, length);
+            _nativeInstance.ReadBlob(Settings, data, 0, length);
 
             ResetSettings();
         }

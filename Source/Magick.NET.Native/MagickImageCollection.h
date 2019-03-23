@@ -43,7 +43,7 @@ MAGICK_NET_EXPORT Image *MagickImageCollection_Polynomial(Image *, const double 
 
 MAGICK_NET_EXPORT void MagickImageCollection_Quantize(Image *, const QuantizeInfo *, ExceptionInfo **);
 
-MAGICK_NET_EXPORT Image *MagickImageCollection_ReadBlob(const ImageInfo *, const unsigned char *, const size_t, ExceptionInfo **);
+MAGICK_NET_EXPORT Image *MagickImageCollection_ReadBlob(const ImageInfo *, const unsigned char *, const size_t, const size_t, ExceptionInfo **);
 
 MAGICK_NET_EXPORT Image *MagickImageCollection_ReadFile(ImageInfo *, ExceptionInfo **);
 

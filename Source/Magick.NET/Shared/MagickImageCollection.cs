@@ -1387,7 +1387,7 @@ namespace ImageMagick
             MagickSettings settings = CreateSettings(readSettings);
             settings.Ping = ping;
 
-            IntPtr result = _nativeInstance.ReadBlob(settings, data, length);
+            IntPtr result = _nativeInstance.ReadBlob(settings, data, 0, length);
             AddImages(result, settings);
         }
 

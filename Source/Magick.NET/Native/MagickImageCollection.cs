@@ -79,7 +79,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImageCollection_Quantize(IntPtr image, IntPtr settings, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImageCollection_ReadBlob(IntPtr settings, byte[] data, UIntPtr length, out IntPtr exception);
+                public static extern IntPtr MagickImageCollection_ReadBlob(IntPtr settings, byte[] data, UIntPtr offset, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImageCollection_ReadFile(IntPtr settings, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -130,7 +130,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImageCollection_Quantize(IntPtr image, IntPtr settings, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImageCollection_ReadBlob(IntPtr settings, byte[] data, UIntPtr length, out IntPtr exception);
+                public static extern IntPtr MagickImageCollection_ReadBlob(IntPtr settings, byte[] data, UIntPtr offset, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImageCollection_ReadFile(IntPtr settings, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -530,7 +530,7 @@ namespace ImageMagick
                     CheckException(exception);
                 }
             }
-            public IntPtr ReadBlob(MagickSettings settings, byte[] data, int length)
+            public IntPtr ReadBlob(MagickSettings settings, byte[] data, int offset, int length)
             {
                 using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
                 {
@@ -540,13 +540,13 @@ namespace ImageMagick
                     if (NativeLibrary.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImageCollection_ReadBlob(settingsNative.Instance, data, (UIntPtr)length, out exception);
+                    result = NativeMethods.X64.MagickImageCollection_ReadBlob(settingsNative.Instance, data, (UIntPtr)offset, (UIntPtr)length, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImageCollection_ReadBlob(settingsNative.Instance, data, (UIntPtr)length, out exception);
+                    result = NativeMethods.X86.MagickImageCollection_ReadBlob(settingsNative.Instance, data, (UIntPtr)offset, (UIntPtr)length, out exception);
                     #endif
                     var magickException = MagickExceptionHelper.Create(exception);
                     if (magickException == null)

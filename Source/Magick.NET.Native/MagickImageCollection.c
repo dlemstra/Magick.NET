@@ -192,13 +192,13 @@ MAGICK_NET_EXPORT void MagickImageCollection_Quantize(Image *images, const Quant
   MAGICK_NET_SET_EXCEPTION;
 }
 
-MAGICK_NET_EXPORT Image *MagickImageCollection_ReadBlob(const ImageInfo *settings, const unsigned char *data, const size_t length, ExceptionInfo **exception)
+MAGICK_NET_EXPORT Image *MagickImageCollection_ReadBlob(const ImageInfo *settings, const unsigned char *data, const size_t offset, const size_t length, ExceptionInfo **exception)
 {
   Image
     *images;
 
   MAGICK_NET_GET_EXCEPTION;
-  images = BlobToImage(settings, (const void *) data, length, exceptionInfo);
+  images = BlobToImage(settings, (const void *) (data + offset), length, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return images;
 }

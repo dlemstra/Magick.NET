@@ -1851,13 +1851,13 @@ MAGICK_NET_EXPORT void MagickImage_RandomThreshold(Image *instance, const double
   MAGICK_NET_SET_EXCEPTION;
 }
 
-MAGICK_NET_EXPORT Image *MagickImage_ReadBlob(const ImageInfo *settings, const unsigned char *data, const size_t length, ExceptionInfo **exception)
+MAGICK_NET_EXPORT Image *MagickImage_ReadBlob(const ImageInfo *settings, const unsigned char *data, const size_t offset, const size_t length, ExceptionInfo **exception)
 {
   Image
     *image;
 
   MAGICK_NET_GET_EXCEPTION;
-  image = BlobToImage(settings, (const void *) data, length, exceptionInfo);
+  image = BlobToImage(settings, (const void *) (data + offset), length, exceptionInfo);
   RemoveFrames(image);
   MAGICK_NET_SET_EXCEPTION;
   return image;
