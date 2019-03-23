@@ -318,6 +318,11 @@ namespace ImageMagick
         Fits,
 
         /// <summary>
+        /// Flash Video Stream
+        /// </summary>
+        Flv,
+
+        /// <summary>
         /// Plasma fractal image
         /// </summary>
         Fractal,
