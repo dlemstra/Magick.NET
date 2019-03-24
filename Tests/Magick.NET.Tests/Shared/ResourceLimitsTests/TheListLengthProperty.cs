@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldHaveTheCorrectValue()
             {
-                Assert.AreEqual(ulong.MaxValue, ResourceLimits.ListLength);
+                Assert.AreEqual((ulong)long.MaxValue, ResourceLimits.ListLength);
             }
 
             [TestMethod]
