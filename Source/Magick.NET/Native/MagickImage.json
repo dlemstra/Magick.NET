@@ -1929,6 +1929,10 @@
         {
           "name": "data",
           "type": "byte[]"
+        },
+        {
+          "name": "offset",
+          "type": "size_t"
         }
       ]
     },

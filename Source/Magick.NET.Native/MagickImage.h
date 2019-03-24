@@ -386,7 +386,7 @@ MAGICK_NET_EXPORT Image *MagickImage_ReadBlob(const ImageInfo *, const unsigned 
 
 MAGICK_NET_EXPORT Image *MagickImage_ReadFile(const ImageInfo *, ExceptionInfo **);
 
-MAGICK_NET_EXPORT Image *MagickImage_ReadPixels(const size_t, const size_t, const char *, const size_t, const unsigned char *, ExceptionInfo **);
+MAGICK_NET_EXPORT Image *MagickImage_ReadPixels(const size_t, const size_t, const char *, const size_t, const unsigned char *, const size_t, ExceptionInfo **);
 
 MAGICK_NET_EXPORT Image *MagickImage_ReadStream(ImageInfo *, const CustomStreamHandler, const CustomStreamSeeker, const CustomStreamTeller, ExceptionInfo **);
 

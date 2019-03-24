@@ -1875,13 +1875,13 @@ MAGICK_NET_EXPORT Image *MagickImage_ReadFile(const ImageInfo *settings, Excepti
   return image;
 }
 
-MAGICK_NET_EXPORT Image *MagickImage_ReadPixels(const size_t width, const size_t height, const char *map, const size_t storageType, const unsigned char *data, ExceptionInfo **exception)
+MAGICK_NET_EXPORT Image *MagickImage_ReadPixels(const size_t width, const size_t height, const char *map, const size_t storageType, const unsigned char *data, const size_t offset, ExceptionInfo **exception)
 {
   Image
     *image;
 
   MAGICK_NET_GET_EXCEPTION;
-  image = ConstituteImage(width, height, map, (const StorageType) storageType, (const void *) data, exceptionInfo);
+  image = ConstituteImage(width, height, map, (const StorageType) storageType, (const void *) (data + offset), exceptionInfo);
   RemoveFrames(image);
   MAGICK_NET_SET_EXCEPTION;
   return image;
