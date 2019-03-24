@@ -208,10 +208,10 @@ namespace Magick.NET.Tests
                 {
                     ExceptionAssert.ThrowsArgumentException("count", () =>
                     {
+                        var settings = new MagickReadSettings();
+
                         using (IMagickImageCollection images = new MagickImageCollection())
                         {
-                            var settings = new MagickReadSettings();
-
                             images.Read(new byte[] { 215 }, 0, -1, settings);
                         }
                     });
@@ -238,7 +238,7 @@ namespace Magick.NET.Tests
                 {
                     var bytes = File.ReadAllBytes(Files.CirclePNG);
 
-                    using (IMagickImage image = new MagickImage())
+                    using (IMagickImageCollection image = new MagickImageCollection())
                     {
                         image.Read(bytes, 0, bytes.Length, null);
                     }
