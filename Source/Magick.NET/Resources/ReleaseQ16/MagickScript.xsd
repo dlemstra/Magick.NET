@@ -796,6 +796,7 @@
           <xs:enumeration value="File" />
           <xs:enumeration value="Fits" />
           <xs:enumeration value="Flif" />
+          <xs:enumeration value="Flv" />
           <xs:enumeration value="Fractal" />
           <xs:enumeration value="Ftp" />
           <xs:enumeration value="Fts" />
