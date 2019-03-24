@@ -269,7 +269,7 @@ namespace ImageMagick
         {
             Throw.IfNullOrEmpty(nameof(data), data);
 
-            AddImages(data, data.Length, readSettings, false);
+            AddImages(data, 0, data.Length, readSettings, false);
         }
 
         /// <summary>
@@ -844,7 +844,7 @@ namespace ImageMagick
             Throw.IfNullOrEmpty(nameof(data), data);
 
             Clear();
-            AddImages(data, data.Length, readSettings, true);
+            AddImages(data, 0, data.Length, readSettings, true);
         }
 
         /// <summary>
@@ -991,6 +991,38 @@ namespace ImageMagick
         /// Read all image frames.
         /// </summary>
         /// <param name="data">The byte array to read the image data from.</param>
+        /// <param name="offset">The offset at which to begin reading data.</param>
+        /// <param name="count">The maximum number of bytes to read.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Read(byte[] data, int offset, int count)
+        {
+            Read(data, offset, count, null);
+        }
+
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
+        /// <param name="data">The byte array to read the image data from.</param>
+        /// <param name="offset">The offset at which to begin reading data.</param>
+        /// <param name="count">The maximum number of bytes to read.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Read(byte[] data, int offset, int count, MagickReadSettings readSettings)
+        {
+            Throw.IfNullOrEmpty(nameof(data), data);
+            Throw.IfTrue(nameof(offset), offset < 0, "The offset should be positive.");
+            Throw.IfTrue(nameof(count), count < 1, "The number of bytes should be at least 1.");
+            Throw.IfTrue(nameof(offset), offset >= data.Length, "The offset should not exceed the length of the array.");
+            Throw.IfTrue(nameof(count), offset + count > data.Length, "The number of bytes should not exceed the length of the array.");
+
+            Clear();
+            AddImages(data, offset, count, readSettings, false);
+        }
+
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
+        /// <param name="data">The byte array to read the image data from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Read(byte[] data, MagickReadSettings readSettings)
@@ -998,7 +1030,7 @@ namespace ImageMagick
             Throw.IfNullOrEmpty(nameof(data), data);
 
             Clear();
-            AddImages(data, data.Length, readSettings, false);
+            AddImages(data, 0, data.Length, readSettings, false);
         }
 
         /// <summary>
@@ -1382,12 +1414,12 @@ namespace ImageMagick
             return new MagickReadSettings(readSettings);
         }
 
-        private void AddImages(byte[] data, int length, MagickReadSettings readSettings, bool ping)
+        private void AddImages(byte[] data, int offset, int count, MagickReadSettings readSettings, bool ping)
         {
             MagickSettings settings = CreateSettings(readSettings);
             settings.Ping = ping;
 
-            IntPtr result = _nativeInstance.ReadBlob(settings, data, 0, length);
+            IntPtr result = _nativeInstance.ReadBlob(settings, data, offset, count);
             AddImages(result, settings);
         }
 
@@ -1411,7 +1443,7 @@ namespace ImageMagick
             Bytes bytes = Bytes.FromStreamBuffer(stream);
             if (bytes != null)
             {
-                AddImages(bytes.Data, bytes.Length, readSettings, ping);
+                AddImages(bytes.Data, 0, bytes.Length, readSettings, ping);
                 return;
             }
 

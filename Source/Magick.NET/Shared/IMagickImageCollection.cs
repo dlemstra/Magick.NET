@@ -326,6 +326,40 @@ namespace ImageMagick
         /// <summary>
         /// Read all image frames.
         /// </summary>
+        /// <param name="data">The byte array to read the image data from.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Read(byte[] data);
+
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
+        /// <param name="data">The byte array to read the image data from.</param>
+        /// <param name="offset">The offset at which to begin reading data.</param>
+        /// <param name="count">The maximum number of bytes to read.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Read(byte[] data, int offset, int count);
+
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
+        /// <param name="data">The byte array to read the image data from.</param>
+        /// <param name="offset">The offset at which to begin reading data.</param>
+        /// <param name="count">The maximum number of bytes to read.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Read(byte[] data, int offset, int count, MagickReadSettings readSettings);
+
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
+        /// <param name="data">The byte array to read the image data from.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Read(byte[] data, MagickReadSettings readSettings);
+
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
         /// <param name="file">The file to read the frames from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Read(FileInfo file);
@@ -337,21 +371,6 @@ namespace ImageMagick
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Read(FileInfo file, MagickReadSettings readSettings);
-
-        /// <summary>
-        /// Read all image frames.
-        /// </summary>
-        /// <param name="data">The byte array to read the image data from.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Read(byte[] data);
-
-        /// <summary>
-        /// Read all image frames.
-        /// </summary>
-        /// <param name="data">The byte array to read the image data from.</param>
-        /// <param name="readSettings">The settings to use when reading the image.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Read(byte[] data, MagickReadSettings readSettings);
 
         /// <summary>
         /// Read all image frames.
