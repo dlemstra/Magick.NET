@@ -69,7 +69,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
-                        ExceptionAssert.Throws<InvalidOperationException>(() =>
+                        ExceptionAssert.Throws<MagickCacheErrorException>(() =>
                         {
                             pixels.GetArea(0, 0, 0, 1);
                         });
@@ -103,13 +103,13 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldNotThrowExceptionWhenHeightZero()
+            public void ShouldThrowExceptionWhenHeightZero()
             {
                 using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
-                        ExceptionAssert.Throws<InvalidOperationException>(() =>
+                        ExceptionAssert.Throws<MagickCacheErrorException>(() =>
                         {
                             pixels.GetArea(0, 0, 1, 0);
                         });
