@@ -57,7 +57,14 @@ namespace ImageMagick
         /// <returns>A <see cref="Color"/> instance.</returns>
         public Color ToColor()
         {
-            return Color.FromArgb(Quantum.ScaleToByte(A), Quantum.ScaleToByte(R), Quantum.ScaleToByte(G), Quantum.ScaleToByte(B));
+            if (!_isCmyk)
+                return Color.FromArgb(Quantum.ScaleToByte(A), Quantum.ScaleToByte(R), Quantum.ScaleToByte(G), Quantum.ScaleToByte(B));
+
+            var r = Quantum.ScaleToQuantum(Quantum.Max - ((Quantum.ScaleToDouble(R) * (Quantum.Max - K)) + K));
+            var g = Quantum.ScaleToQuantum(Quantum.Max - ((Quantum.ScaleToDouble(G) * (Quantum.Max - K)) + K));
+            var b = Quantum.ScaleToQuantum(Quantum.Max - ((Quantum.ScaleToDouble(B) * (Quantum.Max - K)) + K));
+
+            return Color.FromArgb(Quantum.ScaleToByte(A), Quantum.ScaleToByte(r), Quantum.ScaleToByte(g), Quantum.ScaleToByte(b));
         }
     }
 }
