@@ -86,7 +86,7 @@ namespace Magick.NET.Tests
                     {
                         if (Is64Bit)
                         {
-                            ExceptionAssert.Throws<MagickResourceLimitErrorException>(() =>
+                            ExceptionAssert.Throws<MagickImageErrorException>(() =>
                             {
                                 pixels.GetArea(0, 0, 1, -1);
                             });
