@@ -166,6 +166,7 @@
   Define to use the WebP library
 */
 #define MAGICKCORE_WEBP_DELEGATE
+#define MAGICKCORE_WEBPMUX_DELEGATE
 
 /*
   Define to use the zlib ZIP compression library
