@@ -36,13 +36,13 @@ namespace Magick.NET.Tests
                     collection.Quantize(settings);
 
 #if Q8
-                    ColorAssert.AreEqual(new MagickColor("#2a424e"), collection[0], 64, 79);
-                    ColorAssert.AreEqual(new MagickColor("#7a929d"), collection[0], 76, 153);
-                    ColorAssert.AreEqual(new MagickColor("#43729e"), collection[0], 188, 135);
+                    ColorAssert.AreEqual(new MagickColor("#2b414f"), collection[0], 120, 140);
+                    ColorAssert.AreEqual(new MagickColor("#7b929f"), collection[0], 95, 140);
+                    ColorAssert.AreEqual(new MagickColor("#44739f"), collection[0], 300, 150);
 #elif Q16 || Q16HDRI
-                    ColorAssert.AreEqual(new MagickColor("#2a1c41e44e3a"), collection[0], 188, 135);
-                    ColorAssert.AreEqual(new MagickColor("#7a1e92c39df8"), collection[0], 76, 158);
-                    ColorAssert.AreEqual(new MagickColor("#43ab72f09e6b"), collection[0], 66, 115);
+                    ColorAssert.AreEqual(new MagickColor("#2af841624f09"), collection[0], 120, 140);
+                    ColorAssert.AreEqual(new MagickColor("#7b3c92b69f5a"), collection[0], 95, 140);
+                    ColorAssert.AreEqual(new MagickColor("#44bc73059f70"), collection[0], 300, 150);
 #else
 #error Not implemented!
 #endif
@@ -66,16 +66,14 @@ namespace Magick.NET.Tests
                     Assert.IsNotNull(errorInfo);
 
 #if Q8
-                    Assert.AreEqual(13.47, errorInfo.MeanErrorPerPixel, 0.01);
-                    Assert.AreEqual(0.47, errorInfo.NormalizedMaximumError, 0.01);
-                    Assert.AreEqual(0.006, errorInfo.NormalizedMeanError, 0.001);
+                    Assert.AreEqual(13.62, errorInfo.MeanErrorPerPixel, 0.01);
 #elif Q16 || Q16HDRI
-                    Assert.AreEqual(3505, errorInfo.MeanErrorPerPixel, 1);
-                    Assert.AreEqual(0.47, errorInfo.NormalizedMaximumError, 0.01);
-                    Assert.AreEqual(0.006, errorInfo.NormalizedMeanError, 0.001);
+                    Assert.AreEqual(3526, errorInfo.MeanErrorPerPixel, 1);
 #else
 #error Not implemented!
 #endif
+                    Assert.AreEqual(0.47, errorInfo.NormalizedMaximumError, 0.01);
+                    Assert.AreEqual(0.006, errorInfo.NormalizedMeanError, 0.001);
                 }
             }
         }
