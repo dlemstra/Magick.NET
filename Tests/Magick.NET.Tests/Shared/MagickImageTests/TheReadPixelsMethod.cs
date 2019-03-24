@@ -19,204 +19,56 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheReadPixelsMethod
         {
-            [TestMethod]
-            public void ShouldThrowExceptionWhenByteArrayIsNullAndPixelReadSettingsIsSpecified()
+            [TestClass]
+            public class WithByteArray
             {
-                ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    var settings = new PixelReadSettings();
-
-                    using (IMagickImage image = new MagickImage())
+                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
                     {
-                        image.ReadPixels((byte[])null, settings);
-                    }
-                });
-            }
+                        var settings = new PixelReadSettings();
 
-            [TestMethod]
-            public void ShouldThrowExceptionWhenByteArrayIsEmptyAndPixelReadSettingsIsSpecified()
-            {
-                ExceptionAssert.ThrowsArgumentException("data", () =>
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.ReadPixels((byte[])null, settings);
+                        }
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    var settings = new PixelReadSettings();
-
-                    using (IMagickImage image = new MagickImage())
+                    ExceptionAssert.ThrowsArgumentException("data", () =>
                     {
-                        image.ReadPixels(new byte[] { }, settings);
-                    }
-                });
-            }
+                        var settings = new PixelReadSettings();
 
-            [TestMethod]
-            public void ShouldThrowExceptionWhenPixelReadSettingsIsNullAndByteArrayIsSpecified()
-            {
-                ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.ReadPixels(new byte[] { }, settings);
+                        }
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    using (IMagickImage image = new MagickImage())
+                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
                     {
-                        image.ReadPixels(new byte[] { 215 }, null);
-                    }
-                });
-            }
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.ReadPixels(new byte[] { 215 }, null);
+                        }
+                    });
+                }
 
-            [TestMethod]
-            public void ShouldThrowExceptionWhenFileInfoIsNullAndPixelReadSettingsIsSpecified()
-            {
-                ExceptionAssert.ThrowsArgumentNullException("file", () =>
+                [TestMethod]
+                public void ShouldReadByteArray()
                 {
-                    var settings = new PixelReadSettings();
-
-                    using (IMagickImage image = new MagickImage())
+                    byte[] data = new byte[]
                     {
-                        image.ReadPixels((FileInfo)null, settings);
-                    }
-                });
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenPixelReadSettingsIsNullAndFileInfoIsSpecified()
-            {
-                ExceptionAssert.ThrowsArgumentNullException("settings", () =>
-                {
-                    using (IMagickImage image = new MagickImage())
-                    {
-                        image.ReadPixels(new FileInfo(Files.CirclePNG), null);
-                    }
-                });
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenStreamIsNullAndPixelReadSettingsIsSpecified()
-            {
-                ExceptionAssert.ThrowsArgumentNullException("stream", () =>
-                {
-                    var settings = new PixelReadSettings();
-
-                    using (IMagickImage image = new MagickImage())
-                    {
-                        image.ReadPixels((Stream)null, settings);
-                    }
-                });
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenStreamIsEmptyAndPixelReadSettingsIsSpecified()
-            {
-                ExceptionAssert.ThrowsArgumentException("stream", () =>
-                {
-                    var settings = new PixelReadSettings();
-
-                    using (IMagickImage image = new MagickImage())
-                    {
-                        image.ReadPixels(new MemoryStream(), settings);
-                    }
-                });
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenPixelReadSettingsIsNullAndStreamIsSpecified()
-            {
-                ExceptionAssert.ThrowsArgumentNullException("settings", () =>
-                {
-                    using (IMagickImage image = new MagickImage())
-                    {
-                        image.ReadPixels(new MemoryStream(new byte[] { 215 }), null);
-                    }
-                });
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenFileNameIsNullAndPixelReadSettingsIsSpecified()
-            {
-                ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
-                {
-                    var settings = new PixelReadSettings();
-
-                    using (IMagickImage image = new MagickImage())
-                    {
-                        image.ReadPixels((string)null, settings);
-                    }
-                });
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenPixelReadSettingsIsNullAndFileNameIsSpecified()
-            {
-                ExceptionAssert.ThrowsArgumentNullException("settings", () =>
-                {
-                    using (IMagickImage image = new MagickImage())
-                    {
-                        image.ReadPixels(Files.CirclePNG, null);
-                    }
-                });
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenMappingIsNull()
-            {
-                ExceptionAssert.ThrowsArgumentException("settings", () =>
-                {
-                    var settings = new PixelReadSettings(1, 1, StorageType.Char, null);
-
-                    using (IMagickImage image = new MagickImage())
-                    {
-                        image.ReadPixels(Files.CirclePNG, settings);
-                    }
-                }, "mapping");
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenMappingIsEmpty()
-            {
-                ExceptionAssert.ThrowsArgumentException("settings", () =>
-                {
-                    var settings = new PixelReadSettings(1, 1, StorageType.Char, string.Empty);
-
-                    using (IMagickImage image = new MagickImage())
-                    {
-                        image.ReadPixels(Files.CirclePNG, settings);
-                    }
-                }, "mapping");
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenWidthIsNull()
-            {
-                ExceptionAssert.ThrowsArgumentException("settings", () =>
-                {
-                    var settings = new PixelReadSettings(1, 1, StorageType.Char, "RGBA");
-                    settings.ReadSettings.Width = null;
-
-                    using (IMagickImage image = new MagickImage())
-                    {
-                        image.ReadPixels(Files.CirclePNG, settings);
-                    }
-                }, "Width");
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenHeightIsNull()
-            {
-                ExceptionAssert.ThrowsArgumentException("settings", () =>
-                {
-                    var settings = new PixelReadSettings(1, 1, StorageType.Char, "RGBA");
-                    settings.ReadSettings.Height = null;
-
-                    using (IMagickImage image = new MagickImage())
-                    {
-                        image.ReadPixels(Files.CirclePNG, settings);
-                    }
-                }, "Height");
-            }
-
-            [TestMethod]
-            public void ShouldReadByteArrayWithPixelReadSettings()
-            {
-                byte[] data = new byte[]
-                {
                     0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0,
@@ -225,94 +77,271 @@ namespace Magick.NET.Tests
                     0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
                     0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0,
-                };
+                    };
 
-                var settings = new PixelReadSettings(2, 1, StorageType.Double, PixelMapping.RGBA);
+                    var settings = new PixelReadSettings(2, 1, StorageType.Double, PixelMapping.RGBA);
 
-                using (IMagickImage image = new MagickImage())
-                {
-                    image.ReadPixels(data, settings);
-
-                    Assert.AreEqual(2, image.Width);
-                    Assert.AreEqual(1, image.Height);
-
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (IMagickImage image = new MagickImage())
                     {
-                        Pixel pixel = pixels.GetPixel(0, 0);
-                        Assert.AreEqual(4, pixel.Channels);
-                        Assert.AreEqual(0, pixel.GetChannel(0));
-                        Assert.AreEqual(0, pixel.GetChannel(1));
-                        Assert.AreEqual(0, pixel.GetChannel(2));
-                        Assert.AreEqual(Quantum.Max, pixel.GetChannel(3));
+                        image.ReadPixels(data, settings);
 
-                        pixel = pixels.GetPixel(1, 0);
-                        Assert.AreEqual(4, pixel.Channels);
-                        Assert.AreEqual(0, pixel.GetChannel(0));
-                        Assert.AreEqual(Quantum.Max, pixel.GetChannel(1));
-                        Assert.AreEqual(0, pixel.GetChannel(2));
-                        Assert.AreEqual(0, pixel.GetChannel(3));
+                        Assert.AreEqual(2, image.Width);
+                        Assert.AreEqual(1, image.Height);
+
+                        using (IPixelCollection pixels = image.GetPixels())
+                        {
+                            Pixel pixel = pixels.GetPixel(0, 0);
+                            Assert.AreEqual(4, pixel.Channels);
+                            Assert.AreEqual(0, pixel.GetChannel(0));
+                            Assert.AreEqual(0, pixel.GetChannel(1));
+                            Assert.AreEqual(0, pixel.GetChannel(2));
+                            Assert.AreEqual(Quantum.Max, pixel.GetChannel(3));
+
+                            pixel = pixels.GetPixel(1, 0);
+                            Assert.AreEqual(4, pixel.Channels);
+                            Assert.AreEqual(0, pixel.GetChannel(0));
+                            Assert.AreEqual(Quantum.Max, pixel.GetChannel(1));
+                            Assert.AreEqual(0, pixel.GetChannel(2));
+                            Assert.AreEqual(0, pixel.GetChannel(3));
+                        }
                     }
                 }
             }
 
-            [TestMethod]
-            public void ShouldReadFileInfoWithPixelReadSettings()
+            [TestClass]
+            public class WithFileInfo
             {
-                var settings = new PixelReadSettings(1, 1, StorageType.Float, "R");
-
-                var bytes = BitConverter.GetBytes(1.0F);
-
-                using (var temporyFile = new TemporaryFile(bytes))
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileInfoIsNull()
                 {
-                    FileInfo file = temporyFile;
-                    using (IMagickImage image = new MagickImage())
+                    ExceptionAssert.ThrowsArgumentNullException("file", () =>
                     {
-                        image.ReadPixels(file, settings);
+                        var settings = new PixelReadSettings();
 
-                        Assert.AreEqual(1, image.Width);
-                        Assert.AreEqual(1, image.Height);
-                        ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.ReadPixels((FileInfo)null, settings);
+                        }
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenSettingsIsNull()
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    {
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.ReadPixels(new FileInfo(Files.CirclePNG), null);
+                        }
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldReadFileInfo()
+                {
+                    var settings = new PixelReadSettings(1, 1, StorageType.Float, "R");
+
+                    var bytes = BitConverter.GetBytes(1.0F);
+
+                    using (var temporyFile = new TemporaryFile(bytes))
+                    {
+                        FileInfo file = temporyFile;
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.ReadPixels(file, settings);
+
+                            Assert.AreEqual(1, image.Width);
+                            Assert.AreEqual(1, image.Height);
+                            ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
+                        }
                     }
                 }
             }
 
-            [TestMethod]
-            public void ShouldReadStreamWithPixelReadSettings()
+            [TestClass]
+            public class WithFileName
             {
-                var settings = new PixelReadSettings(1, 1, StorageType.Int64, "R");
-
-                var bytes = BitConverter.GetBytes(ulong.MaxValue);
-
-                using (var memoryStream = new MemoryStream(bytes))
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileNameIsNull()
                 {
-                    using (IMagickImage image = new MagickImage())
+                    ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
                     {
-                        image.ReadPixels(memoryStream, settings);
+                        var settings = new PixelReadSettings();
 
-                        Assert.AreEqual(1, image.Width);
-                        Assert.AreEqual(1, image.Height);
-                        ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.ReadPixels((string)null, settings);
+                        }
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileNameIsEmpty()
+                {
+                    ExceptionAssert.ThrowsArgumentException("fileName", () =>
+                    {
+                        var settings = new PixelReadSettings();
+
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.ReadPixels(string.Empty, settings);
+                        }
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenSettingsIsNull()
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    {
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.ReadPixels(Files.CirclePNG, null);
+                        }
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenMappingIsNull()
+                {
+                    ExceptionAssert.ThrowsArgumentException("settings", () =>
+                    {
+                        var settings = new PixelReadSettings(1, 1, StorageType.Char, null);
+
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.ReadPixels(Files.CirclePNG, settings);
+                        }
+                    }, "mapping");
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenMappingIsEmpty()
+                {
+                    ExceptionAssert.ThrowsArgumentException("settings", () =>
+                    {
+                        var settings = new PixelReadSettings(1, 1, StorageType.Char, string.Empty);
+
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.ReadPixels(Files.CirclePNG, settings);
+                        }
+                    }, "mapping");
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenWidthIsNull()
+                {
+                    ExceptionAssert.ThrowsArgumentException("settings", () =>
+                    {
+                        var settings = new PixelReadSettings(1, 1, StorageType.Char, "RGBA");
+                        settings.ReadSettings.Width = null;
+
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.ReadPixels(Files.CirclePNG, settings);
+                        }
+                    }, "Width");
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenHeightIsNull()
+                {
+                    ExceptionAssert.ThrowsArgumentException("settings", () =>
+                    {
+                        var settings = new PixelReadSettings(1, 1, StorageType.Char, "RGBA");
+                        settings.ReadSettings.Height = null;
+
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.ReadPixels(Files.CirclePNG, settings);
+                        }
+                    }, "Height");
+                }
+
+                [TestMethod]
+                public void ShouldReadFileName()
+                {
+                    var settings = new PixelReadSettings(1, 1, StorageType.Short, "R");
+
+                    var bytes = BitConverter.GetBytes(ushort.MaxValue);
+
+                    using (var temporyFile = new TemporaryFile(bytes))
+                    {
+                        var fileName = temporyFile.FullName;
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.ReadPixels(fileName, settings);
+
+                            Assert.AreEqual(1, image.Width);
+                            Assert.AreEqual(1, image.Height);
+                            ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
+                        }
                     }
                 }
             }
 
-            [TestMethod]
-            public void ShouldReadFileNameWithPixelReadSettings()
+            [TestClass]
+            public class WitStream
             {
-                var settings = new PixelReadSettings(1, 1, StorageType.Short, "R");
-
-                var bytes = BitConverter.GetBytes(ushort.MaxValue);
-
-                using (var temporyFile = new TemporaryFile(bytes))
+                [TestMethod]
+                public void ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    var fileName = temporyFile.FullName;
-                    using (IMagickImage image = new MagickImage())
+                    ExceptionAssert.ThrowsArgumentNullException("stream", () =>
                     {
-                        image.ReadPixels(fileName, settings);
+                        var settings = new PixelReadSettings();
 
-                        Assert.AreEqual(1, image.Width);
-                        Assert.AreEqual(1, image.Height);
-                        ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.ReadPixels((Stream)null, settings);
+                        }
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenStreamIsEmpty()
+                {
+                    ExceptionAssert.ThrowsArgumentException("stream", () =>
+                    {
+                        var settings = new PixelReadSettings();
+
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.ReadPixels(new MemoryStream(), settings);
+                        }
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenSettingsIsNull()
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    {
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.ReadPixels(new MemoryStream(new byte[] { 215 }), null);
+                        }
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldReadStream()
+                {
+                    var settings = new PixelReadSettings(1, 1, StorageType.Int64, "R");
+
+                    var bytes = BitConverter.GetBytes(ulong.MaxValue);
+
+                    using (var memoryStream = new MemoryStream(bytes))
+                    {
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.ReadPixels(memoryStream, settings);
+
+                            Assert.AreEqual(1, image.Width);
+                            Assert.AreEqual(1, image.Height);
+                            ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
+                        }
                     }
                 }
             }

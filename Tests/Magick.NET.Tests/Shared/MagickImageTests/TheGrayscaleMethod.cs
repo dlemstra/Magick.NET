@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotRoundWhenHdriEnabled()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Black, 0, 0))
+                using (IMagickImage image = new MagickImage(MagickColors.Black, 1, 1))
                 {
                     image.Grayscale(PixelIntensityMethod.Average);
 

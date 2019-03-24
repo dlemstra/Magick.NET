@@ -22,80 +22,87 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        public partial class TheReadMethod
+        [TestClass]
+        public class WithBitmap
         {
-            [TestMethod]
-            public void ShouldThrowExceptionWhenBitmapIsNull()
+            public partial class TheReadMethod
             {
-                using (IMagickImage image = new MagickImage())
-                {
-                    ExceptionAssert.ThrowsArgumentNullException("bitmap", () =>
-                    {
-                        image.Read((Bitmap)null);
-                    });
-                }
-            }
-
-            [TestMethod]
-            public void ShouldUsePngFormatWhenBitmapIsPng()
-            {
-                using (Bitmap bitmap = new Bitmap(Files.SnakewarePNG))
+                [TestMethod]
+                public void ShouldThrowExceptionWhenBitmapIsNull()
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        image.Read(bitmap);
+                        ExceptionAssert.ThrowsArgumentNullException("bitmap", () =>
+                        {
+                            image.Read((Bitmap)null);
+                        });
+                    }
+                }
 
-                        Assert.AreEqual(286, image.Width);
-                        Assert.AreEqual(67, image.Height);
-                        Assert.AreEqual(MagickFormat.Png, image.Format);
+                [TestMethod]
+                public void ShouldUsePngFormatWhenBitmapIsPng()
+                {
+                    using (Bitmap bitmap = new Bitmap(Files.SnakewarePNG))
+                    {
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.Read(bitmap);
+
+                            Assert.AreEqual(286, image.Width);
+                            Assert.AreEqual(67, image.Height);
+                            Assert.AreEqual(MagickFormat.Png, image.Format);
+                        }
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseBmpFormatWhenBitmapIsMemoryBmp()
+                {
+                    using (Bitmap bitmap = new Bitmap(100, 50, PixelFormat.Format24bppRgb))
+                    {
+                        Assert.AreEqual(bitmap.RawFormat, ImageFormat.MemoryBmp);
+
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.Read(bitmap);
+
+                            Assert.AreEqual(100, image.Width);
+                            Assert.AreEqual(50, image.Height);
+                            Assert.AreEqual(MagickFormat.Bmp3, image.Format);
+                        }
                     }
                 }
             }
 
-            [TestMethod]
-            public void ShouldUseBmpFormatWhenBitmapIsMemoryBmp()
+            public partial class WithFileName
             {
-                using (Bitmap bitmap = new Bitmap(100, 50, PixelFormat.Format24bppRgb))
+                [TestMethod]
+                public void ShouldUseBaseDirectoryOfCurrentAppDomainWhenFileNameStartsWithTilde()
                 {
-                    Assert.AreEqual(bitmap.RawFormat, ImageFormat.MemoryBmp);
-
                     using (IMagickImage image = new MagickImage())
                     {
-                        image.Read(bitmap);
+                        var exception = ExceptionAssert.Throws<MagickBlobErrorException>(() =>
+                        {
+                            image.Read("~/test.gif");
+                        }, "error/blob.c/OpenBlob");
 
-                        Assert.AreEqual(100, image.Width);
-                        Assert.AreEqual(50, image.Height);
-                        Assert.AreEqual(MagickFormat.Bmp3, image.Format);
+                        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                        Assert.IsTrue(exception.Message.Contains(baseDirectory));
                     }
                 }
-            }
 
-            [TestMethod]
-            public void ShouldUseBaseDirectoryOfCurrentAppDomainWhenFileNameStartsWithTilde()
-            {
-                using (IMagickImage image = new MagickImage())
+                [TestMethod]
+                public void ShouldNotUseBaseDirectoryOfCurrentAppDomainWhenFileNameIsTilde()
                 {
-                    Exception exception = ExceptionAssert.Throws<MagickBlobErrorException>(() =>
+                    using (IMagickImage image = new MagickImage())
                     {
-                        image.Read("~/test.gif");
-                    }, "error/blob.c/OpenBlob");
+                        var exception = ExceptionAssert.Throws<MagickBlobErrorException>(() =>
+                        {
+                            image.Read("~");
+                        }, "error/blob.c/OpenBlob");
 
-                    string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                    Assert.IsTrue(exception.Message.Contains(baseDirectory));
-                }
-            }
-
-            [TestMethod]
-            public void ShouldNotUseBaseDirectoryOfCurrentAppDomainWhenFileNameIsTilde()
-            {
-                using (IMagickImage image = new MagickImage())
-                {
-                    Exception exception = ExceptionAssert.Throws<MagickBlobErrorException>(() =>
-                    {
-                        image.Read("~");
-                    }, "error/blob.c/OpenBlob");
-
-                    Assert.IsTrue(exception.Message.Contains("~"));
+                        Assert.IsTrue(exception.Message.Contains("~"));
+                    }
                 }
             }
         }

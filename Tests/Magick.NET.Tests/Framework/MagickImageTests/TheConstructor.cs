@@ -12,6 +12,7 @@
 
 #if !NETCORE
 
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -24,75 +25,105 @@ namespace Magick.NET.Tests
     {
         public partial class TheConstructor
         {
-            [TestMethod]
-            public void ShouldThrowExceptionWhenBitmapIsNull()
+            [TestClass]
+            public class WithBitmap
             {
-                ExceptionAssert.ThrowsArgumentNullException("bitmap", () =>
+                [TestMethod]
+                public void ShouldThrowExceptionWhenBitmapIsNull()
                 {
-                    new MagickImage((Bitmap)null);
-                });
-            }
-
-            [TestMethod]
-            public void ShouldUsePngFormatWhenBitmapIsPng()
-            {
-                using (Bitmap bitmap = new Bitmap(Files.SnakewarePNG))
-                {
-                    using (IMagickImage image = new MagickImage(bitmap))
+                    ExceptionAssert.ThrowsArgumentNullException("bitmap", () =>
                     {
-                        Assert.AreEqual(286, image.Width);
-                        Assert.AreEqual(67, image.Height);
-                        Assert.AreEqual(MagickFormat.Png, image.Format);
+                        new MagickImage((Bitmap)null);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldUsePngFormatWhenBitmapIsPng()
+                {
+                    using (Bitmap bitmap = new Bitmap(Files.SnakewarePNG))
+                    {
+                        using (IMagickImage image = new MagickImage(bitmap))
+                        {
+                            Assert.AreEqual(286, image.Width);
+                            Assert.AreEqual(67, image.Height);
+                            Assert.AreEqual(MagickFormat.Png, image.Format);
+                        }
                     }
                 }
-            }
 
-            [TestMethod]
-            public void ShouldUseBmpFormatWhenBitmapIsMemoryBmp()
-            {
-                using (Bitmap bitmap = new Bitmap(50, 100, PixelFormat.Format24bppRgb))
+                [TestMethod]
+                public void ShouldUseBmpFormatWhenBitmapIsMemoryBmp()
                 {
-                    Assert.AreEqual(bitmap.RawFormat, ImageFormat.MemoryBmp);
-
-                    using (IMagickImage image = new MagickImage(bitmap))
+                    using (Bitmap bitmap = new Bitmap(50, 100, PixelFormat.Format24bppRgb))
                     {
-                        Assert.AreEqual(50, image.Width);
-                        Assert.AreEqual(100, image.Height);
-                        Assert.AreEqual(MagickFormat.Bmp3, image.Format);
+                        Assert.AreEqual(bitmap.RawFormat, ImageFormat.MemoryBmp);
+
+                        using (IMagickImage image = new MagickImage(bitmap))
+                        {
+                            Assert.AreEqual(50, image.Width);
+                            Assert.AreEqual(100, image.Height);
+                            Assert.AreEqual(MagickFormat.Bmp3, image.Format);
+                        }
                     }
                 }
-            }
 
-            [TestMethod]
-            public void ShouldCreateCorrectImageWithByteArrayFromSystemDrawing()
-            {
-                using (Image img = Image.FromFile(Files.Coders.PageTIF))
+                [TestMethod]
+                public void ShouldCreateCorrectImageWithByteArrayFromSystemDrawing()
                 {
-                    byte[] bytes = null;
-                    using (MemoryStream memStream = new MemoryStream())
+                    using (Image img = Image.FromFile(Files.Coders.PageTIF))
                     {
-                        img.Save(memStream, ImageFormat.Tiff);
-                        bytes = memStream.GetBuffer();
-                    }
-
-                    using (IMagickImage image = new MagickImage(bytes))
-                    {
-                        image.Settings.Compression = CompressionMethod.Group4;
-
+                        byte[] bytes = null;
                         using (MemoryStream memStream = new MemoryStream())
                         {
-                            image.Write(memStream);
-                            memStream.Position = 0;
+                            img.Save(memStream, ImageFormat.Tiff);
+                            bytes = memStream.GetBuffer();
+                        }
 
-                            using (IMagickImage before = new MagickImage(Files.Coders.PageTIF))
+                        using (IMagickImage image = new MagickImage(bytes))
+                        {
+                            image.Settings.Compression = CompressionMethod.Group4;
+
+                            using (MemoryStream memStream = new MemoryStream())
                             {
-                                using (IMagickImage after = new MagickImage(memStream))
+                                image.Write(memStream);
+                                memStream.Position = 0;
+
+                                using (IMagickImage before = new MagickImage(Files.Coders.PageTIF))
                                 {
-                                    Assert.AreEqual(0.0, before.Compare(after, ErrorMetric.RootMeanSquared));
+                                    using (IMagickImage after = new MagickImage(memStream))
+                                    {
+                                        Assert.AreEqual(0.0, before.Compare(after, ErrorMetric.RootMeanSquared));
+                                    }
                                 }
                             }
                         }
                     }
+                }
+            }
+
+            public partial class WithFileName
+            {
+                [TestMethod]
+                public void ShouldUseBaseDirectoryOfCurrentAppDomainWhenFileNameStartsWithTilde()
+                {
+                    var exception = ExceptionAssert.Throws<MagickBlobErrorException>(() =>
+                    {
+                        new MagickImage("~/test.gif");
+                    }, "error/blob.c/OpenBlob");
+
+                    string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                    Assert.IsTrue(exception.Message.Contains(baseDirectory));
+                }
+
+                [TestMethod]
+                public void ShouldNotUseBaseDirectoryOfCurrentAppDomainWhenFileNameIsTilde()
+                {
+                    var exception = ExceptionAssert.Throws<MagickBlobErrorException>(() =>
+                    {
+                        new MagickImage("~");
+                    }, "error/blob.c/OpenBlob");
+
+                    Assert.IsTrue(exception.Message.Contains("~"));
                 }
             }
         }
