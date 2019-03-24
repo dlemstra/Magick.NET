@@ -61,6 +61,8 @@ namespace Magick.NET.Tests
 
         public static string VicelandPNG => Root + "Images/viceland.png";
 
+        public static string WhiteJPG => Root + @"Images/white.jpg";
+
         public static string WireframeTIF => Root + @"Images/wireframe.tif";
 
         public static string TestPNG => Root + @"Images/Test.png";
