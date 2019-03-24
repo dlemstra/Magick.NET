@@ -61,6 +61,187 @@ namespace Magick.NET.Tests
             }
 
             [TestClass]
+            public class WithByteArrayAndOffset
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsNull()
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    {
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.Read((byte[])null, 0, 0);
+                        }
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsEmpty()
+                {
+                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    {
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.Read(new byte[] { }, 0, 0);
+                        }
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenOffsetIsNegative()
+                {
+                    ExceptionAssert.ThrowsArgumentException("offset", () =>
+                    {
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.Read(new byte[] { 215 }, -1, 0);
+                        }
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenCountIsZero()
+                {
+                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    {
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.Read(new byte[] { 215 }, 0, 0);
+                        }
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenCountIsNegative()
+                {
+                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    {
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.Read(new byte[] { 215 }, 0, -1);
+                        }
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldReadImage()
+                {
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        var fileBytes = File.ReadAllBytes(Files.SnakewarePNG);
+                        var bytes = new byte[fileBytes.Length + 10];
+                        fileBytes.CopyTo(bytes, 10);
+
+                        image.Read(bytes, 10, bytes.Length - 10);
+                        Assert.AreEqual(286, image.Width);
+                        Assert.AreEqual(67, image.Height);
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithByteArrayAndOffsetAndMagickReadSettings
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsNull()
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    {
+                        var settings = new MagickReadSettings();
+
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.Read(null, 0, 0, settings);
+                        }
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsEmpty()
+                {
+                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    {
+                        var settings = new MagickReadSettings();
+
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.Read(new byte[] { }, 0, 0, settings);
+                        }
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenOffsetIsNegative()
+                {
+                    ExceptionAssert.ThrowsArgumentException("offset", () =>
+                    {
+                        var settings = new MagickReadSettings();
+
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.Read(new byte[] { 215 }, -1, 0, settings);
+                        }
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenCountIsZero()
+                {
+                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    {
+                        var settings = new MagickReadSettings();
+
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.Read(new byte[] { 215 }, 0, 0, settings);
+                        }
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenCountIsNegative()
+                {
+                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    {
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            var settings = new MagickReadSettings();
+
+                            image.Read(new byte[] { 215 }, 0, -1, settings);
+                        }
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldReadImage()
+                {
+                    var settings = new MagickReadSettings();
+
+                    var fileBytes = File.ReadAllBytes(Files.SnakewarePNG);
+                    var bytes = new byte[fileBytes.Length + 10];
+                    fileBytes.CopyTo(bytes, 10);
+
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        image.Read(bytes, 10, bytes.Length - 10, settings);
+                        Assert.AreEqual(286, image.Width);
+                        Assert.AreEqual(67, image.Height);
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldNotThrowExceptionWhenSettingsIsNull()
+                {
+                    var bytes = File.ReadAllBytes(Files.CirclePNG);
+
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        image.Read(bytes, 0, bytes.Length, null);
+                    }
+                }
+            }
+
+            [TestClass]
             public class WithByteArrayAndMagickReadSettings
             {
                 [TestMethod]
@@ -96,7 +277,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        image.Read(File.ReadAllBytes(Files.CirclePNG), (MagickReadSettings)null);
+                        image.Read(File.ReadAllBytes(Files.CirclePNG), null);
                     }
                 }
 

@@ -2918,6 +2918,25 @@ namespace ImageMagick
         /// Read single image frame.
         /// </summary>
         /// <param name="data">The byte array to read the image data from.</param>
+        /// <param name="offset">The offset at which to begin reading data.</param>
+        /// <param name="count">The maximum number of bytes to read.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Read(byte[] data, int offset, int count);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="data">The byte array to read the image data from.</param>
+        /// <param name="offset">The offset at which to begin reading data.</param>
+        /// <param name="count">The maximum number of bytes to read.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Read(byte[] data, int offset, int count, MagickReadSettings readSettings);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="data">The byte array to read the image data from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Read(byte[] data, MagickReadSettings readSettings);
@@ -3003,7 +3022,17 @@ namespace ImageMagick
         void ReadPixels(byte[] data, PixelReadSettings settings);
 
         /// <summary>
-        /// Read single image frame.
+        /// Read single image frame from pixel data.
+        /// </summary>
+        /// <param name="data">The byte array to read the image data from.</param>
+        /// <param name="offset">The offset at which to begin reading data.</param>
+        /// <param name="count">The maximum number of bytes to read.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void ReadPixels(byte[] data, int offset, int count, PixelReadSettings settings);
+
+        /// <summary>
+        /// Read single image frame from pixel data.
         /// </summary>
         /// <param name="file">The file to read the image from.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
@@ -3011,7 +3040,7 @@ namespace ImageMagick
         void ReadPixels(FileInfo file, PixelReadSettings settings);
 
         /// <summary>
-        /// Read single image frame.
+        /// Read single image frame from pixel data.
         /// </summary>
         /// <param name="stream">The stream to read the image data from.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
@@ -3019,7 +3048,7 @@ namespace ImageMagick
         void ReadPixels(Stream stream, PixelReadSettings settings);
 
         /// <summary>
-        /// Read single image frame.
+        /// Read single image frame from pixel data.
         /// </summary>
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>

@@ -44,6 +44,190 @@ namespace Magick.NET.Tests
             }
 
             [TestClass]
+            public class WithByteArrayAndOffset
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsNull()
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    {
+                        new MagickImage((byte[])null, 0, 0);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsEmpty()
+                {
+                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    {
+                        new MagickImage(new byte[] { }, 0, 0);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenOffsetIsNegative()
+                {
+                    ExceptionAssert.ThrowsArgumentException("offset", () =>
+                    {
+                        new MagickImage(new byte[] { 215 }, -1, 0);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenCountIsZero()
+                {
+                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    {
+                        new MagickImage(new byte[] { 215 }, 0, 0);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenCountIsNegative()
+                {
+                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    {
+                        new MagickImage(new byte[] { 215 }, 0, -1);
+                    });
+                }
+            }
+
+            [TestClass]
+            public class WithByteArrayAndOffsetAndMagickReadSettings
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsNull()
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    {
+                        var settings = new MagickReadSettings();
+
+                        new MagickImage(null, 0, 0, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsEmpty()
+                {
+                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    {
+                        var settings = new MagickReadSettings();
+
+                        new MagickImage(new byte[] { }, 0, 0, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenOffsetIsNegative()
+                {
+                    ExceptionAssert.ThrowsArgumentException("offset", () =>
+                    {
+                        var settings = new MagickReadSettings();
+
+                        new MagickImage(new byte[] { 215 }, -1, 0, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenCountIsZero()
+                {
+                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    {
+                        var settings = new MagickReadSettings();
+
+                        new MagickImage(new byte[] { 215 }, 0, 0, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenCountIsNegative()
+                {
+                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    {
+                        var settings = new MagickReadSettings();
+
+                        new MagickImage(new byte[] { 215 }, 0, -1, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldNotThrowExceptionWhenSettingsIsNull()
+                {
+                    var bytes = File.ReadAllBytes(Files.CirclePNG);
+
+                    new MagickImage(bytes, 0, bytes.Length, (MagickReadSettings)null);
+                }
+            }
+
+            [TestClass]
+            public class WithByteArrayAndOffsetAndPixelReadSettings
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsNull()
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    {
+                        var settings = new PixelReadSettings();
+
+                        new MagickImage(null, 0, 0, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsEmpty()
+                {
+                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    {
+                        var settings = new PixelReadSettings();
+
+                        new MagickImage(new byte[] { }, 0, 0, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenOffsetIsNegative()
+                {
+                    ExceptionAssert.ThrowsArgumentException("offset", () =>
+                    {
+                        var settings = new PixelReadSettings();
+
+                        new MagickImage(new byte[] { 215 }, -1, 0, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenCountIsZero()
+                {
+                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    {
+                        var settings = new PixelReadSettings();
+
+                        new MagickImage(new byte[] { 215 }, 0, 0, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenCountIsNegative()
+                {
+                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    {
+                        var settings = new PixelReadSettings();
+
+                        new MagickImage(new byte[] { 215 }, 0, -1, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenSettingsIsNull()
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    {
+                        new MagickImage(new byte[] { 215 }, 0, 1, (PixelReadSettings)null);
+                    });
+                }
+            }
+
+            [TestClass]
             public class WithByteArrayAndMagickReadSettings
             {
                 [TestMethod]

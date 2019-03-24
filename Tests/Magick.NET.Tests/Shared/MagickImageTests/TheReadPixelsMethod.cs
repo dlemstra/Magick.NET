@@ -109,6 +109,92 @@ namespace Magick.NET.Tests
             }
 
             [TestClass]
+            public class WithByteArrayAndOffset
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsNull()
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    {
+                        var settings = new PixelReadSettings();
+
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.ReadPixels(null, 0, 0, settings);
+                        }
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsEmpty()
+                {
+                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    {
+                        var settings = new PixelReadSettings();
+
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.ReadPixels(new byte[] { }, 0, 0, settings);
+                        }
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenOffsetIsNegative()
+                {
+                    ExceptionAssert.ThrowsArgumentException("offset", () =>
+                    {
+                        var settings = new PixelReadSettings();
+
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.ReadPixels(new byte[] { 215 }, -1, 0, settings);
+                        }
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenCountIsZero()
+                {
+                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    {
+                        var settings = new PixelReadSettings();
+
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.ReadPixels(new byte[] { 215 }, 0, 0, settings);
+                        }
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenCountIsNegative()
+                {
+                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    {
+                        var settings = new PixelReadSettings();
+
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.ReadPixels(new byte[] { 215 }, 0, -1, settings);
+                        }
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenSettingsIsNull()
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    {
+                        using (IMagickImage image = new MagickImage())
+                        {
+                            image.ReadPixels(new byte[] { 215 }, 0, 1, (PixelReadSettings)null);
+                        }
+                    });
+                }
+            }
+
+            [TestClass]
             public class WithFileInfo
             {
                 [TestMethod]
@@ -283,7 +369,7 @@ namespace Magick.NET.Tests
             }
 
             [TestClass]
-            public class WitStream
+            public class WithStream
             {
                 [TestMethod]
                 public void ShouldThrowExceptionWhenStreamIsNull()
