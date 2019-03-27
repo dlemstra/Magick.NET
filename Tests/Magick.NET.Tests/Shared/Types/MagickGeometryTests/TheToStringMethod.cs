@@ -47,8 +47,10 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnCorrectValueForIgnoreAspectRatio()
             {
-                var geometry = new MagickGeometry(5, 10);
-                geometry.IgnoreAspectRatio = true;
+                var geometry = new MagickGeometry(5, 10)
+                {
+                    IgnoreAspectRatio = true,
+                };
 
                 Assert.AreEqual("5x10!", geometry.ToString());
             }
@@ -56,8 +58,10 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetLess()
             {
-                var geometry = new MagickGeometry(2, 1, 10, 5);
-                geometry.Less = true;
+                var geometry = new MagickGeometry(2, 1, 10, 5)
+                {
+                    Less = true,
+                };
 
                 Assert.AreEqual("10x5+2+1<", geometry.ToString());
             }
@@ -65,8 +69,10 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetGreater()
             {
-                var geometry = new MagickGeometry(5, 10);
-                geometry.Greater = true;
+                var geometry = new MagickGeometry(5, 10)
+                {
+                    Greater = true,
+                };
 
                 Assert.AreEqual("5x10>", geometry.ToString());
             }
@@ -74,8 +80,10 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetFillArea()
             {
-                var geometry = new MagickGeometry(10, 15);
-                geometry.FillArea = true;
+                var geometry = new MagickGeometry(10, 15)
+                {
+                    FillArea = true,
+                };
 
                 Assert.AreEqual("10x15^", geometry.ToString());
             }
@@ -83,8 +91,10 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetLimitPixels()
             {
-                var geometry = new MagickGeometry(10, 0);
-                geometry.LimitPixels = true;
+                var geometry = new MagickGeometry(10, 0)
+                {
+                    LimitPixels = true,
+                };
 
                 Assert.AreEqual("10@", geometry.ToString());
             }
@@ -92,8 +102,10 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnCorrectValueForAspectRation()
             {
-                var geometry = new MagickGeometry(3, 2);
-                geometry.AspectRatio = true;
+                var geometry = new MagickGeometry(3, 2)
+                {
+                    AspectRatio = true,
+                };
 
                 Assert.AreEqual("3:2", geometry.ToString());
             }
@@ -101,8 +113,10 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetGreaterAndIsPercentage()
             {
-                var geometry = new MagickGeometry(new Percentage(50), new Percentage(0));
-                geometry.Greater = true;
+                var geometry = new MagickGeometry(new Percentage(50), new Percentage(0))
+                {
+                    Greater = true,
+                };
 
                 Assert.AreEqual("50%>", geometry.ToString());
             }
