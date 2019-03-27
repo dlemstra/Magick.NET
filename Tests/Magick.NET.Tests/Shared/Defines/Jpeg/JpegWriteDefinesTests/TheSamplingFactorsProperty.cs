@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -37,6 +38,36 @@ namespace Magick.NET.Tests.Shared.Defines.Jpeg.JpegWriteDefinesTests
                     image.Settings.SetDefines(defines);
 
                     Assert.AreEqual("5x10,15x20", image.Settings.GetDefine(MagickFormat.Jpeg, "sampling-factor"));
+                }
+            }
+
+            [TestMethod]
+            public void ShouldWriteJpegWithTheCorrectSamplingFactor()
+            {
+                var defines = new JpegWriteDefines()
+                {
+                    SamplingFactors = new MagickGeometry[]
+                    {
+                        new MagickGeometry(2, 2),
+                        new MagickGeometry(1, 1),
+                        new MagickGeometry(1, 1),
+                    },
+                };
+
+                using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        input.Write(memoryStream, defines);
+
+                        memoryStream.Position = 0;
+                        using (IMagickImage output = new MagickImage(memoryStream))
+                        {
+                            output.Read(memoryStream);
+
+                            Assert.AreEqual("2x2,1x1,1x1", output.GetAttribute("jpeg:sampling-factor"));
+                        }
+                    }
                 }
             }
         }
