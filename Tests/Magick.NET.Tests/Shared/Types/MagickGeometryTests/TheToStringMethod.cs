@@ -69,12 +69,12 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetGreater()
             {
-                var geometry = new MagickGeometry(5, 10)
+                var geometry = new MagickGeometry(0, 10)
                 {
                     Greater = true,
                 };
 
-                Assert.AreEqual("5x10>", geometry.ToString());
+                Assert.AreEqual("x10>", geometry.ToString());
             }
 
             [TestMethod]
@@ -96,7 +96,7 @@ namespace Magick.NET.Tests
                     LimitPixels = true,
                 };
 
-                Assert.AreEqual("10@", geometry.ToString());
+                Assert.AreEqual("10x@", geometry.ToString());
             }
 
             [TestMethod]

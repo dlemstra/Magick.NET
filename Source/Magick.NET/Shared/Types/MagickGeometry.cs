@@ -378,6 +378,8 @@ namespace ImageMagick
 
             if (Height > 0)
                 result += "x" + Height;
+            else if (!IsPercentage)
+                result += "x";
 
             if (X != 0 || Y != 0)
             {
