@@ -45,8 +45,9 @@ add_library(Magick.NET-${QUANTUM}-x64.Native.dll SHARED ${ALL_FILES})
 
 target_link_libraries(
     Magick.NET-${QUANTUM}-x64.Native.dll
-    ${MAGICKCORE}
+
     ${MAGICKWAND}
+    ${MAGICKCORE}
 
     ${LIBZ}
     ${LIBXML}
