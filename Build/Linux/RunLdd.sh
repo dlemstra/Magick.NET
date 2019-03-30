@@ -7,4 +7,10 @@ do
   else
     echo "Verified ldd status for $f"
   fi
+  if ld $f 2>&1 | grep "undefined reference"
+  then
+    exit 1
+  else
+    echo "Verified ld status for $f"
+  fi
 done
