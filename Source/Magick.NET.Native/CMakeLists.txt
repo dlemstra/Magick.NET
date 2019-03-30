@@ -36,6 +36,9 @@ if (APPLE)
 
     set(STDCPLUSPLUS stdc++)
 else()
+    find_package(Threads REQUIRED)
+    set(THREADLIB Threads::Threads)
+
     list(APPEND ALL_FILES foo.cxx)
 
     set(STDCPLUSPLUS -static-libstdc++ -static-libgcc)
@@ -64,6 +67,8 @@ target_link_libraries(
     ${LIBLHEIF}
     ${LIBLDE265}
     ${LIBRAW}
+
+    ${THREADLIB}
 
     ${LIBICONV}
 
