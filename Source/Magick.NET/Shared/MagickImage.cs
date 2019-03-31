@@ -4625,6 +4625,8 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Ping(byte[] data, MagickReadSettings readSettings)
         {
+            Throw.IfNullOrEmpty(nameof(data), data);
+
             Ping(data, 0, data.Length, readSettings);
         }
 
