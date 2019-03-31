@@ -499,58 +499,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_Read()
-        {
-            IMagickImageCollection collection = new MagickImageCollection();
-
-            ExceptionAssert.ThrowsArgumentException("data", () =>
-            {
-                collection.Read(new byte[0]);
-            });
-
-            ExceptionAssert.ThrowsArgumentNullException("data", () =>
-            {
-                collection.Read((byte[])null);
-            });
-
-            ExceptionAssert.ThrowsArgumentNullException("file", () =>
-            {
-                collection.Read((FileInfo)null);
-            });
-
-            ExceptionAssert.ThrowsArgumentNullException("stream", () =>
-            {
-                collection.Read((Stream)null);
-            });
-
-            ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
-            {
-                collection.Read((string)null);
-            });
-
-            ExceptionAssert.Throws<MagickBlobErrorException>(() =>
-            {
-                collection.Read(Files.Missing);
-            }, "error/blob.c/OpenBlob");
-
-            collection.Read(File.ReadAllBytes(Files.RoseSparkleGIF));
-            Assert.AreEqual(3, collection.Count);
-
-            using (FileStream fs = File.OpenRead(Files.RoseSparkleGIF))
-            {
-                collection.Read(fs);
-                Assert.AreEqual(3, collection.Count);
-            }
-
-            collection.Read(Files.RoseSparkleGIF);
-            Test_Read(collection);
-
-            collection.Read(new FileInfo(Files.RoseSparkleGIF));
-
-            collection.Dispose();
-        }
-
-        [TestMethod]
         public void Test_ReadSettings()
         {
             MagickReadSettings settings = new MagickReadSettings();
