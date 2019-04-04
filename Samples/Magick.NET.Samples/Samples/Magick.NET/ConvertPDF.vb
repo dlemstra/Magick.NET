@@ -60,7 +60,7 @@ Namespace RootNamespace.Samples.MagickNET
                     horizontal.Write(SampleFiles.OutputDirectory + "Snakeware.horizontal.png")
                 End Using
 
-                ' Create new image that appends all the pages horizontally
+                ' Create new image that appends all the pages vertically
                 Using vertical As IMagickImage = images.AppendVertically()
                     ' Save result as a png
                     vertical.Write(SampleFiles.OutputDirectory + "Snakeware.vertical.png")
