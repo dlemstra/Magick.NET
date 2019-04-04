@@ -65,7 +65,7 @@ namespace RootNamespace.Samples.MagickNET
                     horizontal.Write(SampleFiles.OutputDirectory + "Snakeware.horizontal.png");
                 }
 
-                // Create new image that appends all the pages horizontally
+                // Create new image that appends all the pages vertically
                 using (IMagickImage vertical = images.AppendVertically())
                 {
                     // Save result as a png
