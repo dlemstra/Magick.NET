@@ -222,7 +222,6 @@ namespace ImageMagick
             result.DctMethod = GetValue<Nullable<ImageMagick.Defines.DctMethod>>(element, "dctMethod");
             result.Extent = GetValue<Nullable<Int32>>(element, "extent");
             result.OptimizeCoding = GetValue<Nullable<Boolean>>(element, "optimizeCoding");
-            result.Quality = GetValue<MagickGeometry>(element, "quality");
             result.QuantizationTables = GetValue<String>(element, "quantizationTables");
             result.SamplingFactors = CreateMagickGeometryCollection(element);
             return result;

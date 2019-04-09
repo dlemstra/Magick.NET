@@ -65,15 +65,6 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Gets or sets the quality scaling for luminance and chrominance separately (jpeg:quality).
-        /// </summary>
-        public MagickGeometry Quality
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// Gets or sets the file name that contains custom quantization tables (jpeg:q-table).
         /// </summary>
         public string QuantizationTables
@@ -109,9 +100,6 @@ namespace ImageMagick
 
                 if (OptimizeCoding.HasValue)
                     yield return CreateDefine("optimize-coding", OptimizeCoding.Value);
-
-                if (Quality != null)
-                    yield return CreateDefine("quality", Quality);
 
                 if (!string.IsNullOrEmpty(QuantizationTables))
                     yield return CreateDefine("q-table", QuantizationTables);
