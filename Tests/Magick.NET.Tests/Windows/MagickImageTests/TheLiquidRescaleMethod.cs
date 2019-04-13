@@ -72,6 +72,42 @@ namespace Magick.NET.Tests
             public class WithPercentage
             {
                 [TestMethod]
+                public void ShouldThrowExceptionWhenPercentageIsNegative()
+                {
+                    using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+                    {
+                        ExceptionAssert.ThrowsArgumentException("percentage", () =>
+                        {
+                            image.LiquidRescale(new Percentage(-1));
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenPercentageWidthIsNegative()
+                {
+                    using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+                    {
+                        ExceptionAssert.ThrowsArgumentException("percentageWidth", () =>
+                        {
+                            image.LiquidRescale(new Percentage(-1), new Percentage(1));
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenPercentageHeightIsNegative()
+                {
+                    using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+                    {
+                        ExceptionAssert.ThrowsArgumentException("percentageHeight", () =>
+                        {
+                            image.LiquidRescale(new Percentage(1), new Percentage(-1));
+                        });
+                    }
+                }
+
+                [TestMethod]
                 public void ShouldResizeTheImage()
                 {
                     using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))

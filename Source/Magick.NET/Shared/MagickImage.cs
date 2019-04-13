@@ -3992,7 +3992,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void LiquidRescale(int width, int height)
         {
-            MagickGeometry geometry = new MagickGeometry(width, height);
+            var geometry = new MagickGeometry(width, height);
             LiquidRescale(geometry);
         }
 
@@ -4015,7 +4015,10 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void LiquidRescale(Percentage percentage)
         {
-            LiquidRescale(percentage, percentage);
+            Throw.IfNegative(nameof(percentage), percentage);
+
+            var geometry = new MagickGeometry(percentage, percentage);
+            LiquidRescale(percentage);
         }
 
         /// <summary>
@@ -4029,7 +4032,7 @@ namespace ImageMagick
             Throw.IfNegative(nameof(percentageWidth), percentageWidth);
             Throw.IfNegative(nameof(percentageHeight), percentageHeight);
 
-            MagickGeometry geometry = new MagickGeometry(percentageWidth, percentageHeight);
+            var geometry = new MagickGeometry(percentageWidth, percentageHeight);
             LiquidRescale(geometry);
         }
 
