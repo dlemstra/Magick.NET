@@ -438,67 +438,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_Ping()
-        {
-            IMagickImageCollection collection = new MagickImageCollection();
-
-            ExceptionAssert.ThrowsArgumentException("data", () =>
-            {
-                collection.Ping(new byte[0]);
-            });
-
-            ExceptionAssert.ThrowsArgumentNullException("data", () =>
-            {
-                collection.Ping((byte[])null);
-            });
-
-            ExceptionAssert.ThrowsArgumentNullException("file", () =>
-            {
-                collection.Ping((FileInfo)null);
-            });
-
-            ExceptionAssert.ThrowsArgumentNullException("stream", () =>
-            {
-                collection.Ping((Stream)null);
-            });
-
-            ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
-            {
-                collection.Ping((string)null);
-            });
-
-            ExceptionAssert.Throws<MagickBlobErrorException>(() =>
-            {
-                collection.Ping(Files.Missing);
-            }, "error/blob.c/OpenBlob");
-
-            collection.Ping(Files.FujiFilmFinePixS1ProJPG);
-            Test_Ping(collection);
-            Assert.AreEqual(600, collection[0].Width);
-            Assert.AreEqual(400, collection[0].Height);
-
-            collection.Ping(new FileInfo(Files.FujiFilmFinePixS1ProJPG));
-            Test_Ping(collection);
-            Assert.AreEqual(600, collection[0].Width);
-            Assert.AreEqual(400, collection[0].Height);
-
-            collection.Ping(File.ReadAllBytes(Files.FujiFilmFinePixS1ProJPG));
-            Test_Ping(collection);
-            Assert.AreEqual(600, collection[0].Width);
-            Assert.AreEqual(400, collection[0].Height);
-
-            collection.Read(Files.SnakewarePNG);
-            Assert.AreEqual(286, collection[0].Width);
-            Assert.AreEqual(67, collection[0].Height);
-            using (IPixelCollection pixels = collection[0].GetPixels())
-            {
-                Assert.AreEqual(38324, pixels.ToArray().Length);
-            }
-
-            collection.Dispose();
-        }
-
-        [TestMethod]
         public void Test_ReadSettings()
         {
             MagickReadSettings settings = new MagickReadSettings();
