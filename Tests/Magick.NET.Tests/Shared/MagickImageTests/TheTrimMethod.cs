@@ -43,6 +43,20 @@ namespace Magick.NET.Tests
                     ColorAssert.AreEqual(MagickColors.Fuchsia, image, 49, 49);
                 }
             }
+
+            [TestMethod]
+            public void ShouldTrimTheBackgroundWithThePercentage()
+            {
+                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
+                {
+                    image.BackgroundColor = MagickColors.Black;
+                    image.Rotate(10);
+
+                    image.Trim(new Percentage(5));
+                    Assert.AreEqual(558, image.Width);
+                    Assert.AreEqual(318, image.Height);
+                }
+            }
         }
     }
 }

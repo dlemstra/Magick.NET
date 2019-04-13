@@ -6498,6 +6498,18 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Trim edges that are the background color from the image.
+        /// </summary>
+        /// <param name="percentBackground">The percentage of background pixels permitted in the outer rows and columns.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Trim(Percentage percentBackground)
+        {
+            SetArtifact("trim:percent-background", percentBackground.ToInt32().ToString());
+            Trim();
+            RemoveArtifact("trim:percent-background");
+        }
+
+        /// <summary>
         /// Returns the unique colors of an image.
         /// </summary>
         /// <returns>The unique colors of an image.</returns>

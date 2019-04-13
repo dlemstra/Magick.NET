@@ -3942,6 +3942,13 @@ namespace ImageMagick
         void Trim();
 
         /// <summary>
+        /// Trim edges that are the background color from the image.
+        /// </summary>
+        /// <param name="percentBackground">The percentage of background pixels permitted in the outer rows and columns.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Trim(Percentage percentBackground);
+
+        /// <summary>
         /// Returns the unique colors of an image.
         /// </summary>
         /// <returns>The unique colors of an image.</returns>
