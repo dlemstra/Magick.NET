@@ -1572,6 +1572,14 @@
         {
           "name": "geometry",
           "type": "string"
+        },
+        {
+          "name": "deltaX",
+          "type": "double"
+        },
+        {
+          "name": "rigidity",
+          "type": "double"
         }
       ]
     },

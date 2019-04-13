@@ -411,7 +411,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_LinearStretch(IntPtr Instance, double blackPoint, double whitePoint, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_LiquidRescale(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+                public static extern IntPtr MagickImage_LiquidRescale(IntPtr Instance, IntPtr geometry, double deltaX, double rigidity, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_LocalContrast(IntPtr Instance, double radius, double strength, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -960,7 +960,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_LinearStretch(IntPtr Instance, double blackPoint, double whitePoint, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_LiquidRescale(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+                public static extern IntPtr MagickImage_LiquidRescale(IntPtr Instance, IntPtr geometry, double deltaX, double rigidity, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_LocalContrast(IntPtr Instance, double radius, double strength, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -4513,7 +4513,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void LiquidRescale(string geometry)
+            public void LiquidRescale(string geometry, double deltaX, double rigidity)
             {
                 using (INativeInstance geometryNative = UTF8Marshaler.CreateInstance(geometry))
                 {
@@ -4523,13 +4523,13 @@ namespace ImageMagick
                     if (NativeLibrary.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_LiquidRescale(Instance, geometryNative.Instance, out exception);
+                    result = NativeMethods.X64.MagickImage_LiquidRescale(Instance, geometryNative.Instance, deltaX, rigidity, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_LiquidRescale(Instance, geometryNative.Instance, out exception);
+                    result = NativeMethods.X86.MagickImage_LiquidRescale(Instance, geometryNative.Instance, deltaX, rigidity, out exception);
                     #endif
                     CheckException(exception, result);
                     Instance = result;

@@ -1617,7 +1617,7 @@ MAGICK_NET_EXPORT void MagickImage_LinearStretch(Image *instance, const double b
   MAGICK_NET_SET_EXCEPTION;
 }
 
-MAGICK_NET_EXPORT Image *MagickImage_LiquidRescale(const Image *instance, const char *geometry, ExceptionInfo **exception)
+MAGICK_NET_EXPORT Image *MagickImage_LiquidRescale(const Image *instance, const char *geometry, const double deltaX, const double rigidity, ExceptionInfo **exception)
 {
   Image
     *image;
@@ -1629,7 +1629,7 @@ MAGICK_NET_EXPORT Image *MagickImage_LiquidRescale(const Image *instance, const 
   ParseMetaGeometry(geometry, &rectangle.x, &rectangle.y, &rectangle.width, &rectangle.height);
 
   MAGICK_NET_GET_EXCEPTION;
-  image = LiquidRescaleImage(instance, rectangle.width, rectangle.height, (double) rectangle.x, (double) rectangle.y, exceptionInfo);
+  image = LiquidRescaleImage(instance, rectangle.width, rectangle.height, deltaX, rigidity, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
@@ -1957,7 +1957,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Resample(const Image *instance, const doubl
   return image;
 }
 
-MAGICK_NET_EXPORT Image *MagickImage_Resize(const Image *instance, const char *geometry, ExceptionInfo **exception)
+MAGICK_NET_EXPORT Image *MagickImage_Resize(const Image *instance, const char *geometry,  ExceptionInfo **exception)
 {
   Image
     *image;

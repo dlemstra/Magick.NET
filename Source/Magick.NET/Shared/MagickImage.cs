@@ -4005,7 +4005,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(geometry), geometry);
 
-            _nativeInstance.LiquidRescale(MagickGeometry.ToString(geometry));
+            _nativeInstance.LiquidRescale(MagickGeometry.ToString(geometry), geometry.X, geometry.Y);
         }
 
         /// <summary>

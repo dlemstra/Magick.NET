@@ -338,7 +338,7 @@ MAGICK_NET_EXPORT void MagickImage_Levelize(Image *, const double, const double,
 
 MAGICK_NET_EXPORT void MagickImage_LinearStretch(Image *, const double, const double, ExceptionInfo **);
 
-MAGICK_NET_EXPORT Image *MagickImage_LiquidRescale(const Image *, const char *, ExceptionInfo **);
+MAGICK_NET_EXPORT Image *MagickImage_LiquidRescale(const Image *, const char *, const double, const double, ExceptionInfo **);
 
 MAGICK_NET_EXPORT Image *MagickImage_LocalContrast(Image *, const double, const double, const size_t, ExceptionInfo **);
 
