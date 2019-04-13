@@ -6544,7 +6544,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Trim(Percentage percentBackground)
         {
-            SetArtifact("trim:percent-background", percentBackground.ToInt32().ToString());
+            SetArtifact("trim:percent-background", percentBackground.ToInt32().ToString(CultureInfo.InvariantCulture));
             Trim();
             RemoveArtifact("trim:percent-background");
         }
