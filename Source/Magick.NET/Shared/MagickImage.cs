@@ -4018,7 +4018,7 @@ namespace ImageMagick
             Throw.IfNegative(nameof(percentage), percentage);
 
             var geometry = new MagickGeometry(percentage, percentage);
-            LiquidRescale(percentage);
+            LiquidRescale(geometry);
         }
 
         /// <summary>
