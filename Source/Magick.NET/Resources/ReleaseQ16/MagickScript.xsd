@@ -1166,6 +1166,23 @@
       </xs:simpleType>
     </xs:union>
   </xs:simpleType>
+  <xs:simpleType name="SamplingFactor">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="Ratio410" />
+          <xs:enumeration value="Ratio411" />
+          <xs:enumeration value="Ratio420" />
+          <xs:enumeration value="Ratio422" />
+          <xs:enumeration value="Ratio440" />
+          <xs:enumeration value="Ratio444" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="var" />
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
   <xs:simpleType name="SparseColorMethod">
     <xs:union>
       <xs:simpleType>
@@ -1357,15 +1374,12 @@
     <xs:attribute name="skipProfiles" type="ProfileTypes" />
   </xs:complexType>
   <xs:complexType name="jpegWriteDefines">
-    <xs:sequence>
-      <xs:element name="samplingFactors" minOccurs="0" type="geometries" />
-    </xs:sequence>
     <xs:attribute name="arithmeticCoding" type="bool" />
     <xs:attribute name="dctMethod" type="DctMethod" />
     <xs:attribute name="extent" type="int" />
     <xs:attribute name="optimizeCoding" type="bool" />
-    <xs:attribute name="quality" type="geometry" />
     <xs:attribute name="quantizationTables" type="xs:string" />
+    <xs:attribute name="samplingFactor" type="SamplingFactor" />
   </xs:complexType>
   <xs:complexType name="pdfReadDefines">
     <xs:attribute name="fitPage" type="geometry" />
@@ -2576,11 +2590,13 @@
         </xs:element>
         <xs:element name="liquidRescale">
           <xs:complexType>
+            <xs:attribute name="deltaX" type="double" />
             <xs:attribute name="geometry" type="geometry" />
             <xs:attribute name="height" type="int" />
             <xs:attribute name="percentage" type="double" />
             <xs:attribute name="percentageHeight" type="double" />
             <xs:attribute name="percentageWidth" type="double" />
+            <xs:attribute name="rigidity" type="double" />
             <xs:attribute name="width" type="int" />
           </xs:complexType>
         </xs:element>
@@ -3023,7 +3039,11 @@
         </xs:element>
         <xs:element name="transpose" type="empty" />
         <xs:element name="transverse" type="empty" />
-        <xs:element name="trim" type="empty" />
+        <xs:element name="trim">
+          <xs:complexType>
+            <xs:attribute name="percentBackground" type="double" />
+          </xs:complexType>
+        </xs:element>
         <xs:element name="unsharpMask">
           <xs:complexType>
             <xs:attribute name="amount" type="double" />

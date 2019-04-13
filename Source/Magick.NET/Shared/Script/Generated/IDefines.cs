@@ -223,6 +223,7 @@ namespace ImageMagick
             result.Extent = GetValue<Nullable<Int32>>(element, "extent");
             result.OptimizeCoding = GetValue<Nullable<Boolean>>(element, "optimizeCoding");
             result.QuantizationTables = GetValue<String>(element, "quantizationTables");
+            result.SamplingFactor = GetValue<Nullable<ImageMagick.Defines.SamplingFactor>>(element, "samplingFactor");
             return result;
         }
         private IDefines CreatePdfReadDefines(XmlElement element)

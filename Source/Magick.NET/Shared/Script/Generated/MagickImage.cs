@@ -1505,7 +1505,7 @@ namespace ImageMagick
                                 }
                                 case 'i':
                                 {
-                                    ExecuteTrim(image);
+                                    ExecuteTrim(element, image);
                                     return;
                                 }
                             }
@@ -2819,7 +2819,9 @@ namespace ImageMagick
             Hashtable arguments = new Hashtable();
             foreach (XmlAttribute attribute in element.Attributes)
             {
-                if (attribute.Name == "geometry")
+                if (attribute.Name == "deltaX")
+                    arguments["deltaX"] = GetValue<double>(attribute);
+                else if (attribute.Name == "geometry")
                     arguments["geometry"] = GetValue<MagickGeometry>(attribute);
                 else if (attribute.Name == "height")
                     arguments["height"] = GetValue<Int32>(attribute);
@@ -2829,6 +2831,8 @@ namespace ImageMagick
                     arguments["percentageHeight"] = GetValue<Percentage>(attribute);
                 else if (attribute.Name == "percentageWidth")
                     arguments["percentageWidth"] = GetValue<Percentage>(attribute);
+                else if (attribute.Name == "rigidity")
+                    arguments["rigidity"] = GetValue<double>(attribute);
                 else if (attribute.Name == "width")
                     arguments["width"] = GetValue<Int32>(attribute);
             }
@@ -2838,10 +2842,14 @@ namespace ImageMagick
                 image.LiquidRescale((Percentage)arguments["percentage"]);
             else if (OnlyContains(arguments, "percentageWidth", "percentageHeight"))
                 image.LiquidRescale((Percentage)arguments["percentageWidth"], (Percentage)arguments["percentageHeight"]);
+            else if (OnlyContains(arguments, "percentageWidth", "percentageHeight", "deltaX", "rigidity"))
+                image.LiquidRescale((Percentage)arguments["percentageWidth"], (Percentage)arguments["percentageHeight"], (double)arguments["deltaX"], (double)arguments["rigidity"]);
             else if (OnlyContains(arguments, "width", "height"))
                 image.LiquidRescale((Int32)arguments["width"], (Int32)arguments["height"]);
+            else if (OnlyContains(arguments, "width", "height", "deltaX", "rigidity"))
+                image.LiquidRescale((Int32)arguments["width"], (Int32)arguments["height"], (double)arguments["deltaX"], (double)arguments["rigidity"]);
             else
-                throw new ArgumentException("Invalid argument combination for 'liquidRescale', allowed combinations are: [geometry] [percentage] [percentageWidth, percentageHeight] [width, height]");
+                throw new ArgumentException("Invalid argument combination for 'liquidRescale', allowed combinations are: [geometry] [percentage] [percentageWidth, percentageHeight] [percentageWidth, percentageHeight, deltaX, rigidity] [width, height] [width, height, deltaX, rigidity]");
         }
         private void ExecuteLocalContrast(XmlElement element, IMagickImage image)
         {
@@ -3794,9 +3802,19 @@ namespace ImageMagick
         {
             image.Transverse();
         }
-        private static void ExecuteTrim(IMagickImage image)
+        private void ExecuteTrim(XmlElement element, IMagickImage image)
         {
-            image.Trim();
+            Hashtable arguments = new Hashtable();
+            foreach (XmlAttribute attribute in element.Attributes)
+            {
+                arguments[attribute.Name] = GetValue<Percentage>(attribute);
+            }
+            if (arguments.Count == 0)
+                image.Trim();
+            else if (OnlyContains(arguments, "percentBackground"))
+                image.Trim((Percentage)arguments["percentBackground"]);
+            else
+                throw new ArgumentException("Invalid argument combination for 'trim', allowed combinations are: [] [percentBackground]");
         }
         private void ExecuteUnsharpMask(XmlElement element, IMagickImage image)
         {
