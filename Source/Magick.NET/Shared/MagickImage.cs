@@ -4620,19 +4620,6 @@ namespace ImageMagick
         /// <summary>
         /// Reads only metadata and not the pixel data.
         /// </summary>
-        /// <param name="data">The byte array to read the information from.</param>
-        /// <param name="readSettings">The settings to use when reading the image.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Ping(byte[] data, MagickReadSettings readSettings)
-        {
-            Throw.IfNullOrEmpty(nameof(data), data);
-
-            Ping(data, 0, data.Length, readSettings);
-        }
-
-        /// <summary>
-        /// Reads only metadata and not the pixel data.
-        /// </summary>
         /// <param name="data">The byte array to read the image data from.</param>
         /// <param name="offset">The offset at which to begin reading data.</param>
         /// <param name="count">The maximum number of bytes to read.</param>
@@ -4655,6 +4642,19 @@ namespace ImageMagick
             Throw.IfNullOrEmpty(nameof(data), data);
 
             Read(data, offset, count, readSettings, ping: true);
+        }
+
+        /// <summary>
+        /// Reads only metadata and not the pixel data.
+        /// </summary>
+        /// <param name="data">The byte array to read the information from.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Ping(byte[] data, MagickReadSettings readSettings)
+        {
+            Throw.IfNullOrEmpty(nameof(data), data);
+
+            Ping(data, 0, data.Length, readSettings);
         }
 
         /// <summary>
