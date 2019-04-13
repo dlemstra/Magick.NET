@@ -4640,8 +4640,12 @@ namespace ImageMagick
         public void Ping(byte[] data, int offset, int count, MagickReadSettings readSettings)
         {
             Throw.IfNullOrEmpty(nameof(data), data);
+            Throw.IfTrue(nameof(offset), offset < 0, "The offset should be positive.");
+            Throw.IfTrue(nameof(count), count < 1, "The number of bytes should be at least 1.");
+            Throw.IfTrue(nameof(offset), offset >= data.Length, "The offset should not exceed the length of the array.");
+            Throw.IfTrue(nameof(count), offset + count > data.Length, "The number of bytes should not exceed the length of the array.");
 
-            Read(data, offset, count, readSettings, ping: true);
+            Read(data, offset, count, readSettings, true);
         }
 
         /// <summary>
