@@ -861,6 +861,38 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Reads only metadata and not the pixel data from all image frames.
+        /// </summary>
+        /// <param name="data">The byte array to read the image data from.</param>
+        /// <param name="offset">The offset at which to begin reading data.</param>
+        /// <param name="count">The maximum number of bytes to read.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Ping(byte[] data, int offset, int count)
+        {
+            Ping(data, offset, count, null);
+        }
+
+        /// <summary>
+        /// Reads only metadata and not the pixel data from all image frames.
+        /// </summary>
+        /// <param name="data">The byte array to read the image data from.</param>
+        /// <param name="offset">The offset at which to begin reading data.</param>
+        /// <param name="count">The maximum number of bytes to read.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Ping(byte[] data, int offset, int count, MagickReadSettings readSettings)
+        {
+            Throw.IfNullOrEmpty(nameof(data), data);
+            Throw.IfTrue(nameof(offset), offset < 0, "The offset should be positive.");
+            Throw.IfTrue(nameof(count), count < 1, "The number of bytes should be at least 1.");
+            Throw.IfTrue(nameof(offset), offset >= data.Length, "The offset should not exceed the length of the array.");
+            Throw.IfTrue(nameof(count), offset + count > data.Length, "The number of bytes should not exceed the length of the array.");
+
+            Clear();
+            AddImages(data, offset, count, readSettings, true);
+        }
+
+        /// <summary>
         /// Read only metadata and not the pixel data from all image frames.
         /// </summary>
         /// <param name="data">The byte array to read the image data from.</param>
