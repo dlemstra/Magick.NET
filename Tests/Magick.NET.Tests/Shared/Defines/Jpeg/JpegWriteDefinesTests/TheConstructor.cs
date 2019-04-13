@@ -47,11 +47,9 @@ namespace Magick.NET.Tests
                     image.Settings.SetDefines(new JpegWriteDefines()
                     {
                         QuantizationTables = string.Empty,
-                        SamplingFactors = new MagickGeometry[] { },
                     });
 
                     Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "q-table"));
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "sampling-factor"));
                 }
             }
         }

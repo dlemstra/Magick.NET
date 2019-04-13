@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.Collections.Generic;
 using ImageMagick.Defines;
 
@@ -76,7 +77,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets jpeg sampling factor (jpeg:sampling-factor).
         /// </summary>
-        public IEnumerable<MagickGeometry> SamplingFactors
+        public SamplingFactor? SamplingFactor
         {
             get;
             set;
@@ -104,20 +105,29 @@ namespace ImageMagick
                 if (!string.IsNullOrEmpty(QuantizationTables))
                     yield return CreateDefine("q-table", QuantizationTables);
 
-                if (SamplingFactors != null)
-                {
-                    string value = string.Empty;
-                    foreach (MagickGeometry samplingFactor in SamplingFactors)
-                    {
-                        if (value.Length != 0)
-                            value += ",";
+                if (SamplingFactor.HasValue)
+                    yield return CreateDefine("sampling-factor", CreateSamplingFactors());
+            }
+        }
 
-                        value += samplingFactor.ToString();
-                    }
-
-                    if (!string.IsNullOrEmpty(value))
-                        yield return CreateDefine("sampling-factor", value);
-                }
+        private string CreateSamplingFactors()
+        {
+            switch (SamplingFactor.Value)
+            {
+                case ImageMagick.Defines.SamplingFactor.Ratio410:
+                    return "4x2,1x1,1x1";
+                case ImageMagick.Defines.SamplingFactor.Ratio411:
+                    return "4x1,1x1,1x1";
+                case ImageMagick.Defines.SamplingFactor.Ratio420:
+                    return "2x2,1x1,1x1";
+                case ImageMagick.Defines.SamplingFactor.Ratio422:
+                    return "2x1,1x1,1x1";
+                case ImageMagick.Defines.SamplingFactor.Ratio440:
+                    return "1x2,1x1,1x1";
+                case ImageMagick.Defines.SamplingFactor.Ratio444:
+                    return "1x1,1x1,1x1";
+                default:
+                    throw new InvalidOperationException();
             }
         }
     }

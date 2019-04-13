@@ -12,6 +12,7 @@
 
 using System.IO;
 using ImageMagick;
+using ImageMagick.Defines;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests.Shared.Defines.Jpeg.JpegWriteDefinesTests
@@ -19,26 +20,17 @@ namespace Magick.NET.Tests.Shared.Defines.Jpeg.JpegWriteDefinesTests
     public partial class JpegWriteDefinesTests
     {
         [TestClass]
-        public class TheSamplingFactorsProperty
+        public class TheSamplingFactorProperty
         {
             [TestMethod]
             public void ShouldSetTheDefine()
             {
-                var defines = new JpegWriteDefines()
-                {
-                    SamplingFactors = new MagickGeometry[]
-                    {
-                        new MagickGeometry(5, 10),
-                        new MagickGeometry(15, 20),
-                    },
-                };
-
-                using (IMagickImage image = new MagickImage())
-                {
-                    image.Settings.SetDefines(defines);
-
-                    Assert.AreEqual("5x10,15x20", image.Settings.GetDefine(MagickFormat.Jpeg, "sampling-factor"));
-                }
+                AssertSetDefine("4x2,1x1,1x1", SamplingFactor.Ratio410);
+                AssertSetDefine("4x1,1x1,1x1", SamplingFactor.Ratio411);
+                AssertSetDefine("2x2,1x1,1x1", SamplingFactor.Ratio420);
+                AssertSetDefine("2x1,1x1,1x1", SamplingFactor.Ratio422);
+                AssertSetDefine("1x2,1x1,1x1", SamplingFactor.Ratio440);
+                AssertSetDefine("1x1,1x1,1x1", SamplingFactor.Ratio444);
             }
 
             [TestMethod]
@@ -46,12 +38,7 @@ namespace Magick.NET.Tests.Shared.Defines.Jpeg.JpegWriteDefinesTests
             {
                 var defines = new JpegWriteDefines()
                 {
-                    SamplingFactors = new MagickGeometry[]
-                    {
-                        new MagickGeometry(2, 2),
-                        new MagickGeometry(1, 1),
-                        new MagickGeometry(1, 1),
-                    },
+                    SamplingFactor = SamplingFactor.Ratio420,
                 };
 
                 using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
@@ -68,6 +55,21 @@ namespace Magick.NET.Tests.Shared.Defines.Jpeg.JpegWriteDefinesTests
                             Assert.AreEqual("2x2,1x1,1x1", output.GetAttribute("jpeg:sampling-factor"));
                         }
                     }
+                }
+            }
+
+            private static void AssertSetDefine(string expected, SamplingFactor samplingFactor)
+            {
+                var defines = new JpegWriteDefines()
+                {
+                    SamplingFactor = samplingFactor,
+                };
+
+                using (IMagickImage image = new MagickImage())
+                {
+                    image.Settings.SetDefines(defines);
+
+                    Assert.AreEqual(expected, image.Settings.GetDefine(MagickFormat.Jpeg, "sampling-factor"));
                 }
             }
         }
