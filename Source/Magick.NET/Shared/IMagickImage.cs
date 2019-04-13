@@ -2358,6 +2358,16 @@ namespace ImageMagick
         /// <summary>
         /// Rescales image with seam carving.
         /// </summary>
+        /// <param name="width">The new width.</param>
+        /// <param name="height">The new height.</param>
+        /// <param name="deltaX">Maximum seam transversal step (0 means straight seams).</param>
+        /// <param name="rigidity">Introduce a bias for non-straight seams (typically 0).</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void LiquidRescale(int width, int height, double deltaX, double rigidity);
+
+        /// <summary>
+        /// Rescales image with seam carving.
+        /// </summary>
         /// <param name="geometry">The geometry to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void LiquidRescale(MagickGeometry geometry);
@@ -2376,6 +2386,16 @@ namespace ImageMagick
         /// <param name="percentageHeight">The percentage of the height.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void LiquidRescale(Percentage percentageWidth, Percentage percentageHeight);
+
+        /// <summary>
+        /// Rescales image with seam carving.
+        /// </summary>
+        /// <param name="percentageWidth">The percentage of the width.</param>
+        /// <param name="percentageHeight">The percentage of the height.</param>
+        /// <param name="deltaX">Maximum seam transversal step (0 means straight seams).</param>
+        /// <param name="rigidity">Introduce a bias for non-straight seams (typically 0).</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void LiquidRescale(Percentage percentageWidth, Percentage percentageHeight, double deltaX, double rigidity);
 
         /// <summary>
         /// Local contrast enhancement.

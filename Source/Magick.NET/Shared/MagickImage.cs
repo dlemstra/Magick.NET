@@ -3999,6 +3999,21 @@ namespace ImageMagick
         /// <summary>
         /// Rescales image with seam carving.
         /// </summary>
+        /// <param name="width">The new width.</param>
+        /// <param name="height">The new height.</param>
+        /// <param name="deltaX">Maximum seam transversal step (0 means straight seams).</param>
+        /// <param name="rigidity">Introduce a bias for non-straight seams (typically 0).</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void LiquidRescale(int width, int height, double deltaX, double rigidity)
+        {
+            var geometry = new MagickGeometry(width, height);
+
+            _nativeInstance.LiquidRescale(MagickGeometry.ToString(geometry), deltaX, rigidity);
+        }
+
+        /// <summary>
+        /// Rescales image with seam carving.
+        /// </summary>
         /// <param name="geometry">The geometry to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void LiquidRescale(MagickGeometry geometry)
@@ -4034,6 +4049,24 @@ namespace ImageMagick
 
             var geometry = new MagickGeometry(percentageWidth, percentageHeight);
             LiquidRescale(geometry);
+        }
+
+        /// <summary>
+        /// Rescales image with seam carving.
+        /// </summary>
+        /// <param name="percentageWidth">The percentage of the width.</param>
+        /// <param name="percentageHeight">The percentage of the height.</param>
+        /// <param name="deltaX">Maximum seam transversal step (0 means straight seams).</param>
+        /// <param name="rigidity">Introduce a bias for non-straight seams (typically 0).</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void LiquidRescale(Percentage percentageWidth, Percentage percentageHeight, double deltaX, double rigidity)
+        {
+            Throw.IfNegative(nameof(percentageWidth), percentageWidth);
+            Throw.IfNegative(nameof(percentageHeight), percentageHeight);
+
+            var geometry = new MagickGeometry(percentageWidth, percentageHeight);
+
+            _nativeInstance.LiquidRescale(MagickGeometry.ToString(geometry), deltaX, rigidity);
         }
 
         /// <summary>
