@@ -3510,30 +3510,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_Trim()
-        {
-            using (IMagickImage image = new MagickImage("xc:fuchsia", 50, 50))
-            {
-                ColorAssert.AreEqual(MagickColors.Fuchsia, image, 0, 0);
-                ColorAssert.AreEqual(MagickColors.Fuchsia, image, 49, 49);
-
-                image.Extent(100, 60, Gravity.Center, MagickColors.Gold);
-
-                Assert.AreEqual(100, image.Width);
-                Assert.AreEqual(60, image.Height);
-                ColorAssert.AreEqual(MagickColors.Gold, image, 0, 0);
-                ColorAssert.AreEqual(MagickColors.Fuchsia, image, 50, 30);
-
-                image.Trim();
-
-                Assert.AreEqual(50, image.Width);
-                Assert.AreEqual(50, image.Height);
-                ColorAssert.AreEqual(MagickColors.Fuchsia, image, 0, 0);
-                ColorAssert.AreEqual(MagickColors.Fuchsia, image, 49, 49);
-            }
-        }
-
-        [TestMethod]
         public void Test_UniqueColors()
         {
             using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
