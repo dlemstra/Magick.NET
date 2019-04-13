@@ -80,8 +80,8 @@ namespace Magick.NET.Tests
                         Assert.AreEqual(32, image.Width);
                         Assert.AreEqual(32, image.Height);
                     }
-
                 }
+
                 [TestMethod]
                 public void ShouldIgnoreTheAspectRatio()
                 {
