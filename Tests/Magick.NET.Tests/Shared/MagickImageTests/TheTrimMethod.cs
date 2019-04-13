@@ -53,8 +53,13 @@ namespace Magick.NET.Tests
                     image.Rotate(10);
 
                     image.Trim(new Percentage(5));
+#if Q16HDRI
+                    Assert.AreEqual(560, image.Width);
+                    Assert.AreEqual(320, image.Height);
+#else
                     Assert.AreEqual(558, image.Width);
                     Assert.AreEqual(318, image.Height);
+#endif
                 }
             }
         }
