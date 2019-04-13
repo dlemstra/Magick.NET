@@ -19,20 +19,78 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheLiquidRescaleMethod
         {
-            [TestMethod]
-            public void ShouldResizeTheImage()
+            [TestClass]
+            public class WithWidthAndHeight
             {
-                using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+                [TestMethod]
+                public void ShouldResizeTheImage()
                 {
-                    MagickGeometry geometry = new MagickGeometry(128, 64);
-                    geometry.IgnoreAspectRatio = true;
+                    using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+                    {
+                        image.LiquidRescale(128, 64);
+                        Assert.AreEqual(64, image.Width);
+                        Assert.AreEqual(64, image.Height);
+                    }
+                }
+            }
 
-                    image.LiquidRescale(geometry);
-                    Assert.AreEqual(128, image.Width);
-                    Assert.AreEqual(64, image.Height);
+            [TestClass]
+            public class WithGeometry
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenGeometryIsNull()
+                {
+                    using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+                    {
+                        ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
+                        {
+                            image.LiquidRescale(null);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldResizeTheImage()
+                {
+                    using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+                    {
+                        var geometry = new MagickGeometry(128, 64)
+                        {
+                            IgnoreAspectRatio = true,
+                        };
+
+                        image.LiquidRescale(geometry);
+                        Assert.AreEqual(128, image.Width);
+                        Assert.AreEqual(64, image.Height);
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithPercentage
+            {
+                [TestMethod]
+                public void ShouldResizeTheImage()
+                {
+                    using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+                    {
+                        image.LiquidRescale(new Percentage(25));
+                        Assert.AreEqual(32, image.Width);
+                        Assert.AreEqual(32, image.Height);
+                    }
+
+                }
+                [TestMethod]
+                public void ShouldIgnoreTheAspectRatio()
+                {
+                    using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+                    {
+                        image.LiquidRescale(new Percentage(25), new Percentage(10));
+                        Assert.AreEqual(32, image.Width);
+                        Assert.AreEqual(13, image.Height);
+                    }
                 }
             }
         }
