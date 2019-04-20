@@ -24,10 +24,7 @@ namespace ImageMagick
         /// Initializes a new instance that implements <see cref="IMagickImageCollection"/>.
         /// </summary>
         /// <returns>A new <see cref="IMagickImageCollection"/> instance.</returns>
-        public IMagickImageCollection CreateCollection()
-        {
-            return new MagickImageCollection();
-        }
+        public IMagickImageCollection CreateCollection() => new MagickImageCollection();
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImageCollection"/>.
@@ -35,10 +32,7 @@ namespace ImageMagick
         /// <param name="data">The byte array to read the image data from.</param>
         /// <returns>A new <see cref="IMagickImageCollection"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImageCollection CreateCollection(byte[] data)
-        {
-            return new MagickImageCollection(data);
-        }
+        public IMagickImageCollection CreateCollection(byte[] data) => new MagickImageCollection(data);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImageCollection"/>.
@@ -47,10 +41,7 @@ namespace ImageMagick
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <returns>A new <see cref="IMagickImageCollection"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImageCollection CreateCollection(byte[] data, MagickReadSettings readSettings)
-        {
-            return new MagickImageCollection(data, readSettings);
-        }
+        public IMagickImageCollection CreateCollection(byte[] data, MagickReadSettings readSettings) => new MagickImageCollection(data, readSettings);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImageCollection"/>.
@@ -58,10 +49,7 @@ namespace ImageMagick
         /// <param name="file">The file to read the image from.</param>
         /// <returns>A new <see cref="IMagickImageCollection"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImageCollection CreateCollection(FileInfo file)
-        {
-            return new MagickImageCollection(file);
-        }
+        public IMagickImageCollection CreateCollection(FileInfo file) => new MagickImageCollection(file);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImageCollection"/>.
@@ -70,10 +58,7 @@ namespace ImageMagick
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <returns>A new <see cref="IMagickImageCollection"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImageCollection CreateCollection(FileInfo file, MagickReadSettings readSettings)
-        {
-            return new MagickImageCollection(file, readSettings);
-        }
+        public IMagickImageCollection CreateCollection(FileInfo file, MagickReadSettings readSettings) => new MagickImageCollection(file, readSettings);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImageCollection"/>.
@@ -81,10 +66,7 @@ namespace ImageMagick
         /// <param name="images">The images to add to the collection.</param>
         /// <returns>A new <see cref="IMagickImageCollection"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImageCollection CreateCollection(IEnumerable<IMagickImage> images)
-        {
-            return new MagickImageCollection(images);
-        }
+        public IMagickImageCollection CreateCollection(IEnumerable<IMagickImage> images) => new MagickImageCollection(images);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImageCollection"/>.
@@ -92,10 +74,7 @@ namespace ImageMagick
         /// <param name="stream">The stream to read the image data from.</param>
         /// <returns>A new <see cref="IMagickImageCollection"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImageCollection CreateCollection(Stream stream)
-        {
-            return new MagickImageCollection(stream);
-        }
+        public IMagickImageCollection CreateCollection(Stream stream) => new MagickImageCollection(stream);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImageCollection"/>.
@@ -104,10 +83,7 @@ namespace ImageMagick
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <returns>A new <see cref="IMagickImageCollection"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImageCollection CreateCollection(Stream stream, MagickReadSettings readSettings)
-        {
-            return new MagickImageCollection(stream, readSettings);
-        }
+        public IMagickImageCollection CreateCollection(Stream stream, MagickReadSettings readSettings) => new MagickImageCollection(stream, readSettings);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImageCollection"/>.
@@ -115,10 +91,7 @@ namespace ImageMagick
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
         /// <returns>A new <see cref="IMagickImageCollection"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImageCollection CreateCollection(string fileName)
-        {
-            return new MagickImageCollection(fileName);
-        }
+        public IMagickImageCollection CreateCollection(string fileName) => new MagickImageCollection(fileName);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImageCollection"/>.
@@ -127,20 +100,14 @@ namespace ImageMagick
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <returns>A new <see cref="IMagickImageCollection"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImageCollection CreateCollection(string fileName, MagickReadSettings readSettings)
-        {
-            return new MagickImageCollection(fileName, readSettings);
-        }
+        public IMagickImageCollection CreateCollection(string fileName, MagickReadSettings readSettings) => new MagickImageCollection(fileName, readSettings);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImage"/>.
         /// </summary>
         /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImage CreateImage()
-        {
-            return new MagickImage();
-        }
+        public IMagickImage CreateImage() => new MagickImage();
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImage"/>.
@@ -148,10 +115,7 @@ namespace ImageMagick
         /// <param name="data">The byte array to read the image data from.</param>
         /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImage CreateImage(byte[] data)
-        {
-            return new MagickImage(data);
-        }
+        public IMagickImage CreateImage(byte[] data) => new MagickImage(data);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IMagickImage"/> class.
@@ -160,10 +124,7 @@ namespace ImageMagick
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImage CreateImage(byte[] data, MagickReadSettings readSettings)
-        {
-            return new MagickImage(data, readSettings);
-        }
+        public IMagickImage CreateImage(byte[] data, MagickReadSettings readSettings) => new MagickImage(data, readSettings);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImage"/>.
@@ -172,10 +133,7 @@ namespace ImageMagick
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImage CreateImage(byte[] data, PixelReadSettings settings)
-        {
-            return new MagickImage(data, settings);
-        }
+        public IMagickImage CreateImage(byte[] data, PixelReadSettings settings) => new MagickImage(data, settings);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImage"/>.
@@ -183,10 +141,7 @@ namespace ImageMagick
         /// <param name="file">The file to read the image from.</param>
         /// <returns>A new <see cref="MagickImage"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImage CreateImage(FileInfo file)
-        {
-            return new MagickImage(file);
-        }
+        public IMagickImage CreateImage(FileInfo file) => new MagickImage(file);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImage"/>.
@@ -195,10 +150,7 @@ namespace ImageMagick
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImage CreateImage(FileInfo file, MagickReadSettings readSettings)
-        {
-            return new MagickImage(file, readSettings);
-        }
+        public IMagickImage CreateImage(FileInfo file, MagickReadSettings readSettings) => new MagickImage(file, readSettings);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImage"/>.
@@ -207,10 +159,7 @@ namespace ImageMagick
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImage CreateImage(FileInfo file, PixelReadSettings settings)
-        {
-            return new MagickImage(file, settings);
-        }
+        public IMagickImage CreateImage(FileInfo file, PixelReadSettings settings) => new MagickImage(file, settings);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImage"/>.
@@ -219,10 +168,7 @@ namespace ImageMagick
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
-        public IMagickImage CreateImage(MagickColor color, int width, int height)
-        {
-            return new MagickImage(color, width, height);
-        }
+        public IMagickImage CreateImage(MagickColor color, int width, int height) => new MagickImage(color, width, height);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImage"/>.
@@ -230,10 +176,7 @@ namespace ImageMagick
         /// <param name="stream">The stream to read the image data from.</param>
         /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImage CreateImage(Stream stream)
-        {
-            return new MagickImage(stream);
-        }
+        public IMagickImage CreateImage(Stream stream) => new MagickImage(stream);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImage"/>.
@@ -242,10 +185,7 @@ namespace ImageMagick
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImage CreateImage(Stream stream, MagickReadSettings readSettings)
-        {
-            return new MagickImage(stream, readSettings);
-        }
+        public IMagickImage CreateImage(Stream stream, MagickReadSettings readSettings) => new MagickImage(stream, readSettings);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImage"/>.
@@ -254,10 +194,7 @@ namespace ImageMagick
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImage CreateImage(Stream stream, PixelReadSettings settings)
-        {
-            return new MagickImage(stream, settings);
-        }
+        public IMagickImage CreateImage(Stream stream, PixelReadSettings settings) => new MagickImage(stream, settings);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImage"/>.
@@ -265,10 +202,7 @@ namespace ImageMagick
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
         /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImage CreateImage(string fileName)
-        {
-            return new MagickImage(fileName);
-        }
+        public IMagickImage CreateImage(string fileName) => new MagickImage(fileName);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImage"/>.
@@ -278,10 +212,7 @@ namespace ImageMagick
         /// <param name="height">The height.</param>
         /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImage CreateImage(string fileName, int width, int height)
-        {
-            return new MagickImage(fileName, width, height);
-        }
+        public IMagickImage CreateImage(string fileName, int width, int height) => new MagickImage(fileName, width, height);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImage"/>.
@@ -290,10 +221,7 @@ namespace ImageMagick
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImage CreateImage(string fileName, MagickReadSettings readSettings)
-        {
-            return new MagickImage(fileName, readSettings);
-        }
+        public IMagickImage CreateImage(string fileName, MagickReadSettings readSettings) => new MagickImage(fileName, readSettings);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImage"/>.
@@ -302,19 +230,13 @@ namespace ImageMagick
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImage CreateImage(string fileName, PixelReadSettings settings)
-        {
-            return new MagickImage(fileName, settings);
-        }
+        public IMagickImage CreateImage(string fileName, PixelReadSettings settings) => new MagickImage(fileName, settings);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImageInfo"/>.
         /// </summary>
         /// <returns>A new <see cref="IMagickImageInfo"/> instance.</returns>
-        public IMagickImageInfo CreateImageInfo()
-        {
-            return new MagickImageInfo();
-        }
+        public IMagickImageInfo CreateImageInfo() => new MagickImageInfo();
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImageInfo"/>.
@@ -322,10 +244,7 @@ namespace ImageMagick
         /// <param name="data">The byte array to read the information from.</param>
         /// <returns>A new <see cref="IMagickImageInfo"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImageInfo CreateImageInfo(byte[] data)
-        {
-            return new MagickImageInfo(data);
-        }
+        public IMagickImageInfo CreateImageInfo(byte[] data) => new MagickImageInfo(data);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImageInfo"/>.
@@ -333,10 +252,7 @@ namespace ImageMagick
         /// <param name="file">The file to read the image from.</param>
         /// <returns>A new <see cref="IMagickImageInfo"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImageInfo CreateImageInfo(FileInfo file)
-        {
-            return new MagickImageInfo(file);
-        }
+        public IMagickImageInfo CreateImageInfo(FileInfo file) => new MagickImageInfo(file);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImageInfo"/>.
@@ -344,10 +260,7 @@ namespace ImageMagick
         /// <param name="stream">The stream to read the image data from.</param>
         /// <returns>A new <see cref="IMagickImageInfo"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImageInfo CreateImageInfo(Stream stream)
-        {
-            return new MagickImageInfo(stream);
-        }
+        public IMagickImageInfo CreateImageInfo(Stream stream) => new MagickImageInfo(stream);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImageInfo"/>.
@@ -355,9 +268,6 @@ namespace ImageMagick
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
         /// <returns>A new <see cref="IMagickImageInfo"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImageInfo CreateImageInfo(string fileName)
-        {
-            return new MagickImageInfo(fileName);
-        }
+        public IMagickImageInfo CreateImageInfo(string fileName) => new MagickImageInfo(fileName);
     }
 }
