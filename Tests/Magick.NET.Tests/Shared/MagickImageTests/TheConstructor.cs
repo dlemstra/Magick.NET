@@ -298,16 +298,16 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldReadByteArray()
                 {
-                    byte[] data = new byte[]
+                    var data = new byte[]
                     {
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0, 0,
                     };
 
                     var settings = new PixelReadSettings(2, 1, StorageType.Double, PixelMapping.RGBA);
@@ -388,13 +388,13 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldReadImage()
                 {
-                    MagickColor red = new MagickColor("red");
+                    var color = new MagickColor("red");
 
-                    using (IMagickImage image = new MagickImage(red, 20, 30))
+                    using (IMagickImage image = new MagickImage(color, 20, 30))
                     {
                         Assert.AreEqual(20, image.Width);
                         Assert.AreEqual(30, image.Height);
-                        ColorAssert.AreEqual(red, image, 10, 10);
+                        ColorAssert.AreEqual(color, image, 10, 10);
                     }
                 }
             }
@@ -630,6 +630,66 @@ namespace Magick.NET.Tests
                             Assert.AreEqual(1, image.Height);
                             ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
                         }
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithFileNameAndSize
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenColorIsNull()
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+                    {
+                        new MagickImage((string)null, 1, 1);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenWidthIsZero()
+                {
+                    ExceptionAssert.ThrowsArgumentException("width", () =>
+                    {
+                        new MagickImage("xc:red", 0, 1);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenHeightIsZero()
+                {
+                    ExceptionAssert.ThrowsArgumentException("height", () =>
+                    {
+                        new MagickImage("xc:red", 1, 0);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenWidthIsNegative()
+                {
+                    ExceptionAssert.ThrowsArgumentException("width", () =>
+                    {
+                        new MagickImage("xc:red", -1, 1);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenHeightIsNegative()
+                {
+                    ExceptionAssert.ThrowsArgumentException("height", () =>
+                    {
+                        new MagickImage("xc:red", 1, -1);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldReadImage()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 20, 30))
+                    {
+                        Assert.AreEqual(20, image.Width);
+                        Assert.AreEqual(30, image.Height);
+                        ColorAssert.AreEqual(MagickColors.Red, image, 10, 10);
                     }
                 }
             }

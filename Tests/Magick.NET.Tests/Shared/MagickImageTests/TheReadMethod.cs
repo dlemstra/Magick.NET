@@ -626,6 +626,83 @@ namespace Magick.NET.Tests
             }
 
             [TestClass]
+            public class WithFileNameAndSize
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenColorIsNull()
+                {
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+                        {
+                            image.Read((string)null, 1, 1);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenWidthIsZero()
+                {
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.ThrowsArgumentException("width", () =>
+                        {
+                            image.Read("xc:red", 0, 1);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenHeightIsZero()
+                {
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.ThrowsArgumentException("height", () =>
+                        {
+                            image.Read("xc:red", 1, 0);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenWidthIsNegative()
+                {
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.ThrowsArgumentException("width", () =>
+                        {
+                            image.Read("xc:red", -1, 1);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenHeightIsNegative()
+                {
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.ThrowsArgumentException("height", () =>
+                        {
+                            image.Read("xc:red", 1, -1);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldReadImage()
+                {
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        image.Read("xc:red", 20, 30);
+
+                        Assert.AreEqual(20, image.Width);
+                        Assert.AreEqual(30, image.Height);
+                        ColorAssert.AreEqual(MagickColors.Red, image, 10, 10);
+                    }
+                }
+            }
+
+            [TestClass]
             public class WithStream
             {
                 [TestMethod]
