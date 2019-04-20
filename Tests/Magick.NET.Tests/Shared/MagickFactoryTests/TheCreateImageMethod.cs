@@ -72,6 +72,272 @@ namespace Magick.NET.Tests
             }
 
             [TestClass]
+            public class WithByteArrayAndOffset
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsNull()
+                {
+                    IMagickFactory factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    {
+                        factory.CreateImage((byte[])null, 0, 0);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsEmpty()
+                {
+                    IMagickFactory factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    {
+                        factory.CreateImage(new byte[] { }, 0, 0);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenOffsetIsNegative()
+                {
+                    IMagickFactory factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentException("offset", () =>
+                    {
+                        factory.CreateImage(new byte[] { 215 }, -1, 0);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenCountIsZero()
+                {
+                    IMagickFactory factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    {
+                        factory.CreateImage(new byte[] { 215 }, 0, 0);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenCountIsNegative()
+                {
+                    IMagickFactory factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    {
+                        factory.CreateImage(new byte[] { 215 }, 0, -1);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldCreateMagickImage()
+                {
+                    IMagickFactory factory = new MagickFactory();
+                    var data = File.ReadAllBytes(Files.ImageMagickJPG);
+
+                    using (IMagickImage image = factory.CreateImage(data, 0, data.Length))
+                    {
+                        Assert.IsInstanceOfType(image, typeof(MagickImage));
+                        Assert.AreEqual(123, image.Width);
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithByteArrayAndOffsetAndMagickReadSettings
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsNull()
+                {
+                    IMagickFactory factory = new MagickFactory();
+                    var settings = new MagickReadSettings();
+
+                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    {
+                        factory.CreateImage(null, 0, 0, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsEmpty()
+                {
+                    IMagickFactory factory = new MagickFactory();
+                    var settings = new MagickReadSettings();
+
+                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    {
+                        factory.CreateImage(new byte[] { }, 0, 0, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenOffsetIsNegative()
+                {
+                    IMagickFactory factory = new MagickFactory();
+                    var settings = new MagickReadSettings();
+
+                    ExceptionAssert.ThrowsArgumentException("offset", () =>
+                    {
+                        factory.CreateImage(new byte[] { 215 }, -1, 0, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenCountIsZero()
+                {
+                    IMagickFactory factory = new MagickFactory();
+                    var settings = new MagickReadSettings();
+
+                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    {
+                        factory.CreateImage(new byte[] { 215 }, 0, 0, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenCountIsNegative()
+                {
+                    IMagickFactory factory = new MagickFactory();
+                    var settings = new MagickReadSettings();
+
+                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    {
+                        new MagickImage(new byte[] { 215 }, 0, -1, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldNotThrowExceptionWhenSettingsIsNull()
+                {
+                    IMagickFactory factory = new MagickFactory();
+                    var bytes = File.ReadAllBytes(Files.CirclePNG);
+
+                    using (var image = factory.CreateImage(bytes, 0, bytes.Length, (MagickReadSettings)null))
+                    {
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldCreateMagickImage()
+                {
+                    IMagickFactory factory = new MagickFactory();
+                    var settings = new MagickReadSettings()
+                    {
+                        BackgroundColor = MagickColors.Purple,
+                    };
+                    var data = File.ReadAllBytes(Files.ImageMagickJPG);
+
+                    using (IMagickImage image = factory.CreateImage(data, 0, data.Length, settings))
+                    {
+                        Assert.IsInstanceOfType(image, typeof(MagickImage));
+                        Assert.AreEqual(123, image.Width);
+                        Assert.AreEqual(MagickColors.Purple, image.BackgroundColor);
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithByteArrayAndOffsetAndPixelReadSettings
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsNull()
+                {
+                    IMagickFactory factory = new MagickFactory();
+                    var settings = new PixelReadSettings();
+
+                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    {
+                        factory.CreateImage(null, 0, 0, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsEmpty()
+                {
+                    IMagickFactory factory = new MagickFactory();
+                    var settings = new PixelReadSettings();
+
+                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    {
+                        factory.CreateImage(new byte[] { }, 0, 0, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenOffsetIsNegative()
+                {
+                    IMagickFactory factory = new MagickFactory();
+                    var settings = new PixelReadSettings();
+
+                    ExceptionAssert.ThrowsArgumentException("offset", () =>
+                    {
+                        factory.CreateImage(new byte[] { 215 }, -1, 0, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenCountIsZero()
+                {
+                    IMagickFactory factory = new MagickFactory();
+                    var settings = new PixelReadSettings();
+
+                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    {
+                        factory.CreateImage(new byte[] { 215 }, 0, 0, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenCountIsNegative()
+                {
+                    IMagickFactory factory = new MagickFactory();
+                    var settings = new PixelReadSettings();
+
+                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    {
+                        factory.CreateImage(new byte[] { 215 }, 0, -1, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenSettingsIsNull()
+                {
+                    IMagickFactory factory = new MagickFactory();
+                    var bytes = File.ReadAllBytes(Files.CirclePNG);
+
+                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    {
+                        factory.CreateImage(bytes, 0, bytes.Length, (PixelReadSettings)null);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldCreateMagickImage()
+                {
+                    IMagickFactory factory = new MagickFactory();
+                    var data = new byte[]
+                    {
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                    };
+
+                    var settings = new PixelReadSettings(2, 1, StorageType.Double, PixelMapping.RGBA);
+
+                    using (IMagickImage image = factory.CreateImage(data, 0, data.Length, settings))
+                    {
+                        Assert.IsInstanceOfType(image, typeof(MagickImage));
+                        Assert.AreEqual(2, image.Width);
+                    }
+                }
+            }
+
+            [TestClass]
             public class WithByteArrayAndMagickReadSettings
             {
                 [TestMethod]

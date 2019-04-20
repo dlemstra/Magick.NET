@@ -118,6 +118,38 @@ namespace ImageMagick
         public IMagickImage CreateImage(byte[] data) => new MagickImage(data);
 
         /// <summary>
+        /// Initializes a new instance that implements <see cref="IMagickImage"/>.
+        /// </summary>
+        /// <param name="data">The byte array to read the image data from.</param>
+        /// <param name="offset">The offset at which to begin reading data.</param>
+        /// <param name="count">The maximum number of bytes to read.</param>
+        /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public IMagickImage CreateImage(byte[] data, int offset, int count) => new MagickImage(data, offset, count);
+
+        /// <summary>
+        /// Initializes a new instance that implements <see cref="IMagickImage"/>.
+        /// </summary>
+        /// <param name="data">The byte array to read the image data from.</param>
+        /// <param name="offset">The offset at which to begin reading data.</param>
+        /// <param name="count">The maximum number of bytes to read.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public IMagickImage CreateImage(byte[] data, int offset, int count, MagickReadSettings readSettings) => new MagickImage(data, offset, count, readSettings);
+
+        /// <summary>
+        /// Initializes a new instance that implements <see cref="IMagickImage"/>.
+        /// </summary>
+        /// <param name="data">The byte array to read the image data from.</param>
+        /// <param name="offset">The offset at which to begin reading data.</param>
+        /// <param name="count">The maximum number of bytes to read.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public IMagickImage CreateImage(byte[] data, int offset, int count, PixelReadSettings settings) => new MagickImage(data, offset, count, settings);
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="IMagickImage"/> class.
         /// </summary>
         /// <param name="data">The byte array to read the image data from.</param>
