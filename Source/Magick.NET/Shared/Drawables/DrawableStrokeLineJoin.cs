@@ -30,11 +30,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the line join.
         /// </summary>
-        public LineJoin LineJoin
-        {
-            get;
-            set;
-        }
+        public LineJoin LineJoin { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

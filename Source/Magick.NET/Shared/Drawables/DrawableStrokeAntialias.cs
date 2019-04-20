@@ -31,11 +31,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets a value indicating whether stroke antialiasing is enabled or disabled.
         /// </summary>
-        public bool IsEnabled
-        {
-            get;
-            set;
-        }
+        public bool IsEnabled { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

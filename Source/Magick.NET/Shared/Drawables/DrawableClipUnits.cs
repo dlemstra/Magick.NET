@@ -29,11 +29,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the clip path units.
         /// </summary>
-        public ClipPathUnit Units
-        {
-            get;
-            set;
-        }
+        public ClipPathUnit Units { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

@@ -29,11 +29,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the text decoration
         /// </summary>
-        public TextDecoration Decoration
-        {
-            get;
-            set;
-        }
+        public TextDecoration Decoration { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

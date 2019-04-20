@@ -29,11 +29,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the width.
         /// </summary>
-        public double Width
-        {
-            get;
-            set;
-        }
+        public double Width { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

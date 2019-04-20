@@ -35,38 +35,22 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the ending X coordinate.
         /// </summary>
-        public double EndX
-        {
-            get;
-            set;
-        }
+        public double EndX { get; set; }
 
         /// <summary>
         /// Gets or sets the ending Y coordinate.
         /// </summary>
-        public double EndY
-        {
-            get;
-            set;
-        }
+        public double EndY { get; set; }
 
         /// <summary>
         /// Gets or sets the starting X coordinate.
         /// </summary>
-        public double StartX
-        {
-            get;
-            set;
-        }
+        public double StartX { get; set; }
 
         /// <summary>
         /// Gets or sets the starting Y coordinate.
         /// </summary>
-        public double StartY
-        {
-            get;
-            set;
-        }
+        public double StartY { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

@@ -50,56 +50,32 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the X coordinate scaling element.
         /// </summary>
-        public double ScaleX
-        {
-            get;
-            set;
-        }
+        public double ScaleX { get; set; }
 
         /// <summary>
         /// Gets or sets the Y coordinate scaling element.
         /// </summary>
-        public double ScaleY
-        {
-            get;
-            set;
-        }
+        public double ScaleY { get; set; }
 
         /// <summary>
         /// Gets or sets the X coordinate shearing element.
         /// </summary>
-        public double ShearX
-        {
-            get;
-            set;
-        }
+        public double ShearX { get; set; }
 
         /// <summary>
         /// Gets or sets the Y coordinate shearing element.
         /// </summary>
-        public double ShearY
-        {
-            get;
-            set;
-        }
+        public double ShearY { get; set; }
 
         /// <summary>
         /// Gets or sets the X coordinate of the translation element.
         /// </summary>
-        public double TranslateX
-        {
-            get;
-            set;
-        }
+        public double TranslateX { get; set; }
 
         /// <summary>
         /// Gets or sets the Y coordinate of the translation element.
         /// </summary>
-        public double TranslateY
-        {
-            get;
-            set;
-        }
+        public double TranslateY { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.
@@ -196,10 +172,7 @@ namespace ImageMagick
             Transform(affine);
         }
 
-        private static double DegreesToRadians(double x)
-        {
-            return Math.PI * x / 180.0;
-        }
+        private static double DegreesToRadians(double x) => Math.PI * x / 180.0;
 
         private void Transform(DrawableAffine affine)
         {

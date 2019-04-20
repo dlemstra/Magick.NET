@@ -40,56 +40,32 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the corner height.
         /// </summary>
-        public double CornerHeight
-        {
-            get;
-            set;
-        }
+        public double CornerHeight { get; set; }
 
         /// <summary>
         /// Gets or sets the corner width.
         /// </summary>
-        public double CornerWidth
-        {
-            get;
-            set;
-        }
+        public double CornerWidth { get; set; }
 
         /// <summary>
         /// Gets or sets the lower right X coordinate.
         /// </summary>
-        public double LowerRightX
-        {
-            get;
-            set;
-        }
+        public double LowerRightX { get; set; }
 
         /// <summary>
         /// Gets or sets the lower right Y coordinate.
         /// </summary>
-        public double LowerRightY
-        {
-            get;
-            set;
-        }
+        public double LowerRightY { get; set; }
 
         /// <summary>
         /// Gets or sets the upper left X coordinate.
         /// </summary>
-        public double UpperLeftX
-        {
-            get;
-            set;
-        }
+        public double UpperLeftX { get; set; }
 
         /// <summary>
         /// Gets or sets the upper left Y coordinate.
         /// </summary>
-        public double UpperLeftY
-        {
-            get;
-            set;
-        }
+        public double UpperLeftY { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

@@ -97,47 +97,27 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the height to scale the image to.
         /// </summary>
-        public CompositeOperator Compose
-        {
-            get;
-            set;
-        }
+        public CompositeOperator Compose { get; set; }
 
         /// <summary>
         /// Gets or sets the height to scale the image to.
         /// </summary>
-        public double Height
-        {
-            get;
-            set;
-        }
+        public double Height { get; set; }
 
         /// <summary>
         /// Gets or sets the width to scale the image to.
         /// </summary>
-        public double Width
-        {
-            get;
-            set;
-        }
+        public double Width { get; set; }
 
         /// <summary>
         /// Gets or sets the X coordinate.
         /// </summary>
-        public double X
-        {
-            get;
-            set;
-        }
+        public double X { get; set; }
 
         /// <summary>
         /// Gets or sets the Y coordinate.
         /// </summary>
-        public double Y
-        {
-            get;
-            set;
-        }
+        public double Y { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

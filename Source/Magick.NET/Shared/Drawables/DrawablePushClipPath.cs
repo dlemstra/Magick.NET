@@ -30,11 +30,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the ID of the clip path.
         /// </summary>
-        public string ClipPath
-        {
-            get;
-            set;
-        }
+        public string ClipPath { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

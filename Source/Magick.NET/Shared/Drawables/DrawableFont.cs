@@ -50,38 +50,22 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the font family or the full path to the font file.
         /// </summary>
-        public string Family
-        {
-            get;
-            set;
-        }
+        public string Family { get; set; }
 
         /// <summary>
         /// Gets or sets the style of the font,
         /// </summary>
-        public FontStyleType Style
-        {
-            get;
-            set;
-        }
+        public FontStyleType Style { get; set; }
 
         /// <summary>
         /// Gets or sets the weight of the font,
         /// </summary>
-        public FontWeight Weight
-        {
-            get;
-            set;
-        }
+        public FontWeight Weight { get; set; }
 
         /// <summary>
         /// Gets or sets the font stretching.
         /// </summary>
-        public FontStretch Stretch
-        {
-            get;
-            set;
-        }
+        public FontStretch Stretch { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

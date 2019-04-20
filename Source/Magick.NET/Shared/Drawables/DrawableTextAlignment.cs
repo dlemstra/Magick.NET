@@ -29,11 +29,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets text alignment.
         /// </summary>
-        public TextAlignment Alignment
-        {
-            get;
-            set;
-        }
+        public TextAlignment Alignment { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

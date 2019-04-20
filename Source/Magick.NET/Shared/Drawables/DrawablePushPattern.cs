@@ -40,47 +40,27 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the ID of the pattern.
         /// </summary>
-        public string ID
-        {
-            get;
-            set;
-        }
+        public string ID { get; set; }
 
         /// <summary>
         /// Gets or sets the height
         /// </summary>
-        public double Height
-        {
-            get;
-            set;
-        }
+        public double Height { get; set; }
 
         /// <summary>
         /// Gets or sets the width
         /// </summary>
-        public double Width
-        {
-            get;
-            set;
-        }
+        public double Width { get; set; }
 
         /// <summary>
         /// Gets or sets the X coordinate.
         /// </summary>
-        public double X
-        {
-            get;
-            set;
-        }
+        public double X { get; set; }
 
         /// <summary>
         /// Gets or sets the Y coordinate.
         /// </summary>
-        public double Y
-        {
-            get;
-            set;
-        }
+        public double Y { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

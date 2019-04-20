@@ -29,11 +29,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the rule to use when filling drawn objects.
         /// </summary>
-        public FillRule FillRule
-        {
-            get;
-            set;
-        }
+        public FillRule FillRule { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

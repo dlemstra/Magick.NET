@@ -38,11 +38,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the vertical and horizontal resolution.
         /// </summary>
-        public PointD Density
-        {
-            get;
-            set;
-        }
+        public PointD Density { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

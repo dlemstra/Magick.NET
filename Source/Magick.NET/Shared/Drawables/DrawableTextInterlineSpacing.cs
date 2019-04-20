@@ -29,11 +29,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the spacing to use.
         /// </summary>
-        public double Spacing
-        {
-            get;
-            set;
-        }
+        public double Spacing { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

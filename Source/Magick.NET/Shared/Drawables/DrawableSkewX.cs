@@ -29,11 +29,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the angle.
         /// </summary>
-        public double Angle
-        {
-            get;
-            set;
-        }
+        public double Angle { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

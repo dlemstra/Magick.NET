@@ -29,11 +29,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the gravity.
         /// </summary>
-        public Gravity Gravity
-        {
-            get;
-            set;
-        }
+        public Gravity Gravity { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

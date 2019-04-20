@@ -33,11 +33,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the encoding of the text.
         /// </summary>
-        public Encoding Encoding
-        {
-            get;
-            set;
-        }
+        public Encoding Encoding { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

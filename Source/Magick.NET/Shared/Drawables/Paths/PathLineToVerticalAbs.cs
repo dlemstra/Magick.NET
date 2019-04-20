@@ -30,11 +30,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the Y coordinate.
         /// </summary>
-        public double Y
-        {
-            get;
-            set;
-        }
+        public double Y { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

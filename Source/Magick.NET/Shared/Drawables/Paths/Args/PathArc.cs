@@ -55,64 +55,36 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the X radius.
         /// </summary>
-        public double RadiusX
-        {
-            get;
-            set;
-        }
+        public double RadiusX { get; set; }
 
         /// <summary>
         /// Gets or sets the Y radius.
         /// </summary>
-        public double RadiusY
-        {
-            get;
-            set;
-        }
+        public double RadiusY { get; set; }
 
         /// <summary>
         /// Gets or sets how the ellipse as a whole is rotated relative to the current coordinate system.
         /// </summary>
-        public double RotationX
-        {
-            get;
-            set;
-        }
+        public double RotationX { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whetherthe larger of the available arcs should be drawn.
         /// </summary>
-        public bool UseLargeArc
-        {
-            get;
-            set;
-        }
+        public bool UseLargeArc { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the arc should be drawn matching a clock-wise rotation.
         /// </summary>
-        public bool UseSweep
-        {
-            get;
-            set;
-        }
+        public bool UseSweep { get; set; }
 
         /// <summary>
         /// Gets or sets the X offset from origin.
         /// </summary>
-        public double X
-        {
-            get;
-            set;
-        }
+        public double X { get; set; }
 
         /// <summary>
         /// Gets or sets the Y offset from origin.
         /// </summary>
-        public double Y
-        {
-            get;
-            set;
-        }
+        public double Y { get; set; }
     }
 }

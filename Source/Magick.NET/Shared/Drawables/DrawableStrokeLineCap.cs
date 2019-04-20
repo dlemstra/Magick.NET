@@ -29,11 +29,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the line cap.
         /// </summary>
-        public LineCap LineCap
-        {
-            get;
-            set;
-        }
+        public LineCap LineCap { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

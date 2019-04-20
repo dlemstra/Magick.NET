@@ -31,11 +31,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the color to use.
         /// </summary>
-        public MagickColor Color
-        {
-            get;
-            set;
-        }
+        public MagickColor Color { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

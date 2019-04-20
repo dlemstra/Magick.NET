@@ -24,16 +24,9 @@ namespace ImageMagick
             CheckCoordinates(new List<TCoordinateType>(coordinates), minCount);
         }
 
-        protected List<TCoordinateType> Coordinates
-        {
-            get;
-            private set;
-        }
+        protected List<TCoordinateType> Coordinates { get; private set; }
 
-        public IList<TCoordinateType> ToList()
-        {
-            return Coordinates;
-        }
+        public IList<TCoordinateType> ToList() => Coordinates;
 
         private void CheckCoordinates(List<TCoordinateType> coordinates, int minCount)
         {

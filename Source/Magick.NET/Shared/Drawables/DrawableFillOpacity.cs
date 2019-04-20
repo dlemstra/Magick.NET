@@ -29,11 +29,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the alpha.
         /// </summary>
-        public Percentage Opacity
-        {
-            get;
-            set;
-        }
+        public Percentage Opacity { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

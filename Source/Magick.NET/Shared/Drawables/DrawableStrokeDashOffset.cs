@@ -29,11 +29,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the dash offset.
         /// </summary>
-        public double Offset
-        {
-            get;
-            set;
-        }
+        public double Offset { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

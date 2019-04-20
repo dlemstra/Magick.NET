@@ -35,29 +35,17 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the text to draw.
         /// </summary>
-        public string Value
-        {
-            get;
-            set;
-        }
+        public string Value { get; set; }
 
         /// <summary>
         /// Gets or sets the X coordinate.
         /// </summary>
-        public double X
-        {
-            get;
-            set;
-        }
+        public double X { get; set; }
 
         /// <summary>
         /// Gets or sets the Y coordinate.
         /// </summary>
-        public double Y
-        {
-            get;
-            set;
-        }
+        public double Y { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

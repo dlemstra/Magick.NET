@@ -39,56 +39,32 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the ending degrees of rotation.
         /// </summary>
-        public double EndDegrees
-        {
-            get;
-            set;
-        }
+        public double EndDegrees { get; set; }
 
         /// <summary>
         /// Gets or sets the origin X coordinate.
         /// </summary>
-        public double OriginX
-        {
-            get;
-            set;
-        }
+        public double OriginX { get; set; }
 
         /// <summary>
         /// Gets or sets the origin X coordinate.
         /// </summary>
-        public double OriginY
-        {
-            get;
-            set;
-        }
+        public double OriginY { get; set; }
 
         /// <summary>
         /// Gets or sets the X radius.
         /// </summary>
-        public double RadiusX
-        {
-            get;
-            set;
-        }
+        public double RadiusX { get; set; }
 
         /// <summary>
         /// Gets or sets the Y radius.
         /// </summary>
-        public double RadiusY
-        {
-            get;
-            set;
-        }
+        public double RadiusY { get; set; }
 
         /// <summary>
         /// Gets or sets the starting degrees of rotation.
         /// </summary>
-        public double StartDegrees
-        {
-            get;
-            set;
-        }
+        public double StartDegrees { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

@@ -35,38 +35,22 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the origin X coordinate.
         /// </summary>
-        public double OriginX
-        {
-            get;
-            set;
-        }
+        public double OriginX { get; set; }
 
         /// <summary>
         /// Gets or sets the origin X coordinate.
         /// </summary>
-        public double OriginY
-        {
-            get;
-            set;
-        }
+        public double OriginY { get; set; }
 
         /// <summary>
         /// Gets or sets the perimeter X coordinate.
         /// </summary>
-        public double PerimeterX
-        {
-            get;
-            set;
-        }
+        public double PerimeterX { get; set; }
 
         /// <summary>
         /// Gets or sets the perimeter X coordinate.
         /// </summary>
-        public double PerimeterY
-        {
-            get;
-            set;
-        }
+        public double PerimeterY { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.
