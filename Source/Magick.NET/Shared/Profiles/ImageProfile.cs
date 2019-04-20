@@ -174,7 +174,9 @@ namespace ImageMagick
         /// <summary>
         /// Updates the data of the profile.
         /// </summary>
-        protected virtual void UpdateData() { }
+        protected virtual void UpdateData()
+        {
+        }
 
         private static byte[] Copy(byte[] data)
         {
