@@ -16,8 +16,8 @@ Magick.NET uses the ImageMagick 7 library and that needs to be build first. The 
 [DropBox](https://www.dropbox.com/sh/5m3zllq81n4eyhm/AACQFGl4PKi9xnd15EbU5S1Ia?dl=0) and copy them to the folder `ImageMagick\lib`.
 Another option is building ImageMagick yourself. Below are the steps for that.
 
-1. This step is optional but you can decide to use the latest GIT revision. To do this you need to edit the file `ImageMagick\Source\Checkout.sh`
-   and change the commit id in the call to `clone_commit`.
+1. This step is optional but you can decide to use the latest GIT revision. To do this you need to edit the file `ImageMagick\Source\ImageMagick.commit`
+   and change the commit id.
 2. Then you need to run `ImageMagick\Source\Checkout.cmd` that will clone the master branch of the GIT repository of ImageMagick.
 3. Now run `ImageMagick\Source\BuildAll.cmd` or one of the files in `ImageMagick\Source\Development` to target a specific platform and Quantum. If you see
    errors related to stdafx.h, check that "MFC and ATL support (x86 and x64)" is installed as part of Visual Studio 2017. If you see errors related to 
