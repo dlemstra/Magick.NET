@@ -26,7 +26,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenDataIsNull()
                 {
-                    var imageInfo = new MagickImageInfo();
+                    IMagickImageInfo imageInfo = new MagickImageInfo();
 
                     ExceptionAssert.ThrowsArgumentNullException("data", () => imageInfo.Read((byte[])null));
                 }
@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenDataIsEmpty()
                 {
-                    var imageInfo = new MagickImageInfo();
+                    IMagickImageInfo imageInfo = new MagickImageInfo();
 
                     ExceptionAssert.ThrowsArgumentException("data", () => imageInfo.Read(new byte[0]));
                 }
@@ -46,7 +46,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    var imageInfo = new MagickImageInfo();
+                    IMagickImageInfo imageInfo = new MagickImageInfo();
 
                     ExceptionAssert.ThrowsArgumentNullException("data", () => imageInfo.Read((byte[])null, 0, 0));
                 }
@@ -54,7 +54,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    var imageInfo = new MagickImageInfo();
+                    IMagickImageInfo imageInfo = new MagickImageInfo();
 
                     ExceptionAssert.ThrowsArgumentException("data", () => imageInfo.Read(new byte[] { }, 0, 0));
                 }
@@ -62,7 +62,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenOffsetIsNegative()
                 {
-                    var imageInfo = new MagickImageInfo();
+                    IMagickImageInfo imageInfo = new MagickImageInfo();
 
                     ExceptionAssert.ThrowsArgumentException("offset", () => imageInfo.Read(new byte[] { 215 }, -1, 0));
                 }
@@ -70,7 +70,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsZero()
                 {
-                    var imageInfo = new MagickImageInfo();
+                    IMagickImageInfo imageInfo = new MagickImageInfo();
 
                     ExceptionAssert.ThrowsArgumentException("count", () => imageInfo.Read(new byte[] { 215 }, 0, 0));
                 }
@@ -78,7 +78,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsNegative()
                 {
-                    var imageInfo = new MagickImageInfo();
+                    IMagickImageInfo imageInfo = new MagickImageInfo();
 
                     ExceptionAssert.ThrowsArgumentException("count", () => imageInfo.Read(new byte[] { 215 }, 0, -1));
                 }
@@ -90,7 +90,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileIsNull()
                 {
-                    var imageInfo = new MagickImageInfo();
+                    IMagickImageInfo imageInfo = new MagickImageInfo();
 
                     ExceptionAssert.ThrowsArgumentNullException("file", () => imageInfo.Read((FileInfo)null));
                 }
@@ -102,7 +102,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsNull()
                 {
-                    var imageInfo = new MagickImageInfo();
+                    IMagickImageInfo imageInfo = new MagickImageInfo();
 
                     ExceptionAssert.ThrowsArgumentNullException("fileName", () => imageInfo.Read((string)null));
                 }
@@ -110,7 +110,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsEmpty()
                 {
-                    var imageInfo = new MagickImageInfo();
+                    IMagickImageInfo imageInfo = new MagickImageInfo();
 
                     ExceptionAssert.ThrowsArgumentException("fileName", () => imageInfo.Read(string.Empty));
                 }
@@ -118,7 +118,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsInvalid()
                 {
-                    var imageInfo = new MagickImageInfo();
+                    IMagickImageInfo imageInfo = new MagickImageInfo();
 
                     ExceptionAssert.Throws<MagickBlobErrorException>(() =>
                     {
@@ -152,7 +152,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    var imageInfo = new MagickImageInfo();
+                    IMagickImageInfo imageInfo = new MagickImageInfo();
 
                     ExceptionAssert.ThrowsArgumentNullException("stream", () => imageInfo.Read((Stream)null));
                 }
