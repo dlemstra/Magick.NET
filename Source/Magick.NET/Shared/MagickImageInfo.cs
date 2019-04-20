@@ -228,7 +228,7 @@ namespace ImageMagick
         /// Read basic information about an image with multiple frames/pages.
         /// </summary>
         /// <param name="data">The byte array to read the information from.</param>
-        /// <returns>A <see cref="MagickImageInfo"/> iteration.</returns>
+        /// <returns>A <see cref="IMagickImageInfo"/> iteration.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public static IEnumerable<IMagickImageInfo> ReadCollection(byte[] data)
         {
@@ -248,7 +248,7 @@ namespace ImageMagick
         /// Read basic information about an image with multiple frames/pages.
         /// </summary>
         /// <param name="file">The file to read the frames from.</param>
-        /// <returns>A <see cref="MagickImageInfo"/> iteration.</returns>
+        /// <returns>A <see cref="IMagickImageInfo"/> iteration.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public static IEnumerable<IMagickImageInfo> ReadCollection(FileInfo file)
         {
@@ -261,7 +261,7 @@ namespace ImageMagick
         /// Read basic information about an image with multiple frames/pages.
         /// </summary>
         /// <param name="stream">The stream to read the image data from.</param>
-        /// <returns>A <see cref="MagickImageInfo"/> iteration.</returns>
+        /// <returns>A <see cref="IMagickImageInfo"/> iteration.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public static IEnumerable<IMagickImageInfo> ReadCollection(Stream stream)
         {
@@ -281,7 +281,7 @@ namespace ImageMagick
         /// Read basic information about an image with multiple frames/pages.
         /// </summary>
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-        /// <returns>A <see cref="MagickImageInfo"/> iteration.</returns>
+        /// <returns>A <see cref="IMagickImageInfo"/> iteration.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public static IEnumerable<IMagickImageInfo> ReadCollection(string fileName)
         {
