@@ -60,35 +60,17 @@ namespace ImageMagick
         /// <summary>
         /// Gets the ImageMagick delegate libraries.
         /// </summary>
-        public static string Delegates
-        {
-            get
-            {
-                return NativeMagickNET.Delegates;
-            }
-        }
+        public static string Delegates => NativeMagickNET.Delegates;
 
         /// <summary>
         /// Gets the ImageMagick features.
         /// </summary>
-        public static string Features
-        {
-            get
-            {
-                return NativeMagickNET.Features;
-            }
-        }
+        public static string Features => NativeMagickNET.Features;
 
         /// <summary>
         /// Gets the information about the supported formats.
         /// </summary>
-        public static IEnumerable<MagickFormatInfo> SupportedFormats
-        {
-            get
-            {
-                return MagickFormatInfo.All;
-            }
-        }
+        public static IEnumerable<MagickFormatInfo> SupportedFormats => MagickFormatInfo.All;
 
         /// <summary>
         /// Gets the font families that are known by ImageMagick.
@@ -97,10 +79,10 @@ namespace ImageMagick
         {
             get
             {
-                List<string> result = new List<string>();
+                var result = new List<string>();
 
-                IntPtr list = IntPtr.Zero;
-                UIntPtr length = (UIntPtr)0;
+                var list = IntPtr.Zero;
+                var length = (UIntPtr)0;
 
                 try
                 {
@@ -130,10 +112,10 @@ namespace ImageMagick
         {
             get
             {
-                List<string> result = new List<string>();
+                var result = new List<string>();
 
-                IntPtr list = IntPtr.Zero;
-                UIntPtr length = (UIntPtr)0;
+                var list = IntPtr.Zero;
+                var length = (UIntPtr)0;
 
                 try
                 {
@@ -174,20 +156,14 @@ namespace ImageMagick
         /// </summary>
         /// <param name="file">The file to get the format for.</param>
         /// <returns>The format information.</returns>
-        public static MagickFormatInfo GetFormatInformation(FileInfo file)
-        {
-            return MagickFormatInfo.Create(file);
-        }
+        public static MagickFormatInfo GetFormatInformation(FileInfo file) => MagickFormatInfo.Create(file);
 
         /// <summary>
         /// Returns the format information of the specified format.
         /// </summary>
         /// <param name="format">The image format.</param>
         /// <returns>The format information.</returns>
-        public static MagickFormatInfo GetFormatInformation(MagickFormat format)
-        {
-            return MagickFormatInfo.Create(format);
-        }
+        public static MagickFormatInfo GetFormatInformation(MagickFormat format) => MagickFormatInfo.Create(format);
 
         /// <summary>
         /// Returns the format information of the specified format based on the extension of the
@@ -195,18 +171,12 @@ namespace ImageMagick
         /// </summary>
         /// <param name="fileName">The name of the file to get the format for.</param>
         /// <returns>The format information.</returns>
-        public static MagickFormatInfo GetFormatInformation(string fileName)
-        {
-            return MagickFormatInfo.Create(fileName);
-        }
+        public static MagickFormatInfo GetFormatInformation(string fileName) => MagickFormatInfo.Create(fileName);
 
         /// <summary>
         /// Initializes ImageMagick.
         /// </summary>
-        public static void Initialize()
-        {
-            Environment.Initialize();
-        }
+        public static void Initialize() => Environment.Initialize();
 
         /// <summary>
         /// Initializes ImageMagick with the xml files that are located in the specified path.
@@ -256,10 +226,7 @@ namespace ImageMagick
         /// <summary>
         /// Resets the pseudo-random number generator secret key.
         /// </summary>
-        public static void ResetRandomSeed()
-        {
-            NativeMagickNET.SetRandomSeed(-1);
-        }
+        public static void ResetRandomSeed() => NativeMagickNET.SetRandomSeed(-1);
 
         /// <summary>
         /// Set the events that will be written to the log. The log will be written to the Log event
@@ -279,38 +246,26 @@ namespace ImageMagick
         /// Sets the directory that contains the Ghostscript file gsdll32.dll / gsdll64.dll.
         /// </summary>
         /// <param name="path">The path of the Ghostscript directory.</param>
-        public static void SetGhostscriptDirectory(string path)
-        {
-            Environment.SetEnv("MAGICK_GHOSTSCRIPT_PATH", FileHelper.GetFullPath(path));
-        }
+        public static void SetGhostscriptDirectory(string path) => Environment.SetEnv("MAGICK_GHOSTSCRIPT_PATH", FileHelper.GetFullPath(path));
 
         /// <summary>
         /// Sets the directory that contains the Ghostscript font files.
         /// </summary>
         /// <param name="path">The path of the Ghostscript font directory.</param>
-        public static void SetGhostscriptFontDirectory(string path)
-        {
-            Environment.SetEnv("MAGICK_GHOSTSCRIPT_FONT_PATH", FileHelper.GetFullPath(path));
-        }
+        public static void SetGhostscriptFontDirectory(string path) => Environment.SetEnv("MAGICK_GHOSTSCRIPT_FONT_PATH", FileHelper.GetFullPath(path));
 
         /// <summary>
         /// Sets the directory that will be used when ImageMagick does not have enough memory for the
         /// pixel cache.
         /// </summary>
         /// <param name="path">The path where temp files will be written.</param>
-        public static void SetTempDirectory(string path)
-        {
-            Environment.SetEnv("MAGICK_TEMPORARY_PATH", FileHelper.GetFullPath(path));
-        }
+        public static void SetTempDirectory(string path) => Environment.SetEnv("MAGICK_TEMPORARY_PATH", FileHelper.GetFullPath(path));
 
         /// <summary>
         /// Sets the pseudo-random number generator secret key.
         /// </summary>
         /// <param name="seed">The secret key.</param>
-        public static void SetRandomSeed(int seed)
-        {
-            NativeMagickNET.SetRandomSeed(seed);
-        }
+        public static void SetRandomSeed(int seed) => NativeMagickNET.SetRandomSeed(seed);
 
         private static void CheckImageMagickFiles(string path)
         {
