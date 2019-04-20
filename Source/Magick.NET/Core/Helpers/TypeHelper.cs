@@ -29,7 +29,7 @@ namespace ImageMagick
         public static T[] GetCustomAttributes<T>(Enum value)
           where T : Attribute
         {
-            FieldInfo field = value.GetType().GetTypeInfo().GetDeclaredField(value.ToString());
+            var field = value.GetType().GetTypeInfo().GetDeclaredField(value.ToString());
             if (field == null)
                 return null;
 
@@ -38,34 +38,19 @@ namespace ImageMagick
 
         public static Stream GetManifestResourceStream(Type type, string resourcePath, string resourceName)
         {
-            Assembly assembly = type.GetTypeInfo().Assembly;
+            var assembly = type.GetTypeInfo().Assembly;
             return assembly.GetManifestResourceStream(resourcePath + "." + resourceName);
         }
 
-        public static bool IsEnum(Type type)
-        {
-            return type.GetTypeInfo().IsEnum;
-        }
+        public static bool IsEnum(Type type) => type.GetTypeInfo().IsEnum;
 
-        public static Type[] GetGenericArguments(Type type)
-        {
-            return type.GetTypeInfo().GenericTypeArguments;
-        }
+        public static Type[] GetGenericArguments(Type type) => type.GetTypeInfo().GenericTypeArguments;
 
-        public static bool IsGeneric(Type type)
-        {
-            return type.GetTypeInfo().IsGenericType;
-        }
+        public static bool IsGeneric(Type type) => type.GetTypeInfo().IsGenericType;
 
-        public static bool IsNullable(Type type)
-        {
-            return type.GetTypeInfo().GetGenericTypeDefinition() == typeof(Nullable<>);
-        }
+        public static bool IsNullable(Type type) => type.GetTypeInfo().GetGenericTypeDefinition() == typeof(Nullable<>);
 
-        public static bool IsValueType(Type type)
-        {
-            return type.GetTypeInfo().IsValueType;
-        }
+        public static bool IsValueType(Type type) => type.GetTypeInfo().IsValueType;
     }
 }
 

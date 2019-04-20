@@ -23,7 +23,7 @@ namespace ImageMagick
     {
         private static XmlReaderSettings CreateXmlReaderSettings()
         {
-            XmlReaderSettings settings = new XmlReaderSettings();
+            var settings = new XmlReaderSettings();
             settings.IgnoreComments = true;
             settings.IgnoreWhitespace = true;
 
