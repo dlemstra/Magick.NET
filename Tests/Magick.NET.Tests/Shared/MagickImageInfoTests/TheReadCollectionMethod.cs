@@ -19,78 +19,93 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageInfoTests
     {
-        [TestClass]
         public class TheReadCollectionMethod
         {
-            [TestMethod]
-            public void ShouldThrowExceptionWhenDataIsNull()
+            [TestClass]
+            public class WithByteArray
             {
-                ExceptionAssert.ThrowsArgumentNullException("data", () => MagickImageInfo.ReadCollection((byte[])null).ToArray());
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenDataIsEmpty()
-            {
-                ExceptionAssert.ThrowsArgumentException("data", () => MagickImageInfo.ReadCollection(new byte[0]).ToArray());
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenFileIsNull()
-            {
-                ExceptionAssert.ThrowsArgumentNullException("file", () => MagickImageInfo.ReadCollection((FileInfo)null).ToArray());
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenStreamIsNull()
-            {
-                ExceptionAssert.ThrowsArgumentNullException("stream", () => MagickImageInfo.ReadCollection((Stream)null).ToArray());
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenFileNameIsNull()
-            {
-                ExceptionAssert.ThrowsArgumentNullException("fileName", () => MagickImageInfo.ReadCollection((string)null).ToArray());
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenFileNameIsEmpty()
-            {
-                ExceptionAssert.ThrowsArgumentException("fileName", () => MagickImageInfo.ReadCollection(string.Empty).ToArray());
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenFileNameIsInvalid()
-            {
-                ExceptionAssert.Throws<MagickBlobErrorException>(() =>
+                [TestMethod]
+                public void ShouldThrowExceptionWhenDataIsNull()
                 {
-                    MagickImageInfo.ReadCollection(Files.Missing).ToArray();
-                }, "error/blob.c/OpenBlob");
+                    ExceptionAssert.ThrowsArgumentNullException("data", () => MagickImageInfo.ReadCollection((byte[])null).ToArray());
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenDataIsEmpty()
+                {
+                    ExceptionAssert.ThrowsArgumentException("data", () => MagickImageInfo.ReadCollection(new byte[0]).ToArray());
+                }
             }
 
-            [TestMethod]
-            public void ShouldReturnEnumerableWithCorrectCount()
+            [TestClass]
+            public class WithFileInfo
             {
-                var info = MagickImageInfo.ReadCollection(Files.RoseSparkleGIF);
-                Assert.AreEqual(3, info.Count());
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileIsNull()
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("file", () => MagickImageInfo.ReadCollection((FileInfo)null).ToArray());
+                }
             }
 
-            [TestMethod]
-            public void ShouldReturnTheCorrectInformation()
+            [TestClass]
+            public class WithFileName
             {
-                var info = MagickImageInfo.ReadCollection(Files.InvitationTIF);
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileNameIsNull()
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("fileName", () => MagickImageInfo.ReadCollection((string)null).ToArray());
+                }
 
-                IMagickImageInfo first = info.First();
-                Assert.AreEqual(ColorSpace.sRGB, first.ColorSpace);
-                Assert.AreEqual(CompressionMethod.Zip, first.Compression);
-                Assert.IsTrue(first.FileName.EndsWith("Invitation.tif"));
-                Assert.AreEqual(MagickFormat.Tiff, first.Format);
-                Assert.AreEqual(700, first.Height);
-                Assert.AreEqual(350, first.Density.X);
-                Assert.AreEqual(350, first.Density.Y);
-                Assert.AreEqual(DensityUnit.PixelsPerInch, first.Density.Units);
-                Assert.AreEqual(Interlace.NoInterlace, first.Interlace);
-                Assert.AreEqual(827, first.Width);
-                Assert.AreEqual(0, first.Quality);
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileNameIsEmpty()
+                {
+                    ExceptionAssert.ThrowsArgumentException("fileName", () => MagickImageInfo.ReadCollection(string.Empty).ToArray());
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileNameIsInvalid()
+                {
+                    ExceptionAssert.Throws<MagickBlobErrorException>(() =>
+                    {
+                        MagickImageInfo.ReadCollection(Files.Missing).ToArray();
+                    }, "error/blob.c/OpenBlob");
+                }
+
+                [TestMethod]
+                public void ShouldReturnEnumerableWithCorrectCount()
+                {
+                    var info = MagickImageInfo.ReadCollection(Files.RoseSparkleGIF);
+                    Assert.AreEqual(3, info.Count());
+                }
+
+                [TestMethod]
+                public void ShouldReturnTheCorrectInformation()
+                {
+                    var info = MagickImageInfo.ReadCollection(Files.InvitationTIF);
+
+                    IMagickImageInfo first = info.First();
+                    Assert.AreEqual(ColorSpace.sRGB, first.ColorSpace);
+                    Assert.AreEqual(CompressionMethod.Zip, first.Compression);
+                    Assert.IsTrue(first.FileName.EndsWith("Invitation.tif"));
+                    Assert.AreEqual(MagickFormat.Tiff, first.Format);
+                    Assert.AreEqual(700, first.Height);
+                    Assert.AreEqual(350, first.Density.X);
+                    Assert.AreEqual(350, first.Density.Y);
+                    Assert.AreEqual(DensityUnit.PixelsPerInch, first.Density.Units);
+                    Assert.AreEqual(Interlace.NoInterlace, first.Interlace);
+                    Assert.AreEqual(827, first.Width);
+                    Assert.AreEqual(0, first.Quality);
+                }
+            }
+
+            [TestClass]
+            public class WithStream
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenStreamIsNull()
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("stream", () => MagickImageInfo.ReadCollection((Stream)null).ToArray());
+                }
             }
         }
     }
