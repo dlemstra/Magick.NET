@@ -22,21 +22,14 @@ namespace ImageMagick.ImageOptimizers
         /// <summary>
         /// Gets the format that the optimizer supports.
         /// </summary>
-        MagickFormatInfo Format
-        {
-            get;
-        }
+        MagickFormatInfo Format { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether various compression types will be used to find
         /// the smallest file. This process will take extra time because the file has to be written
         /// multiple times.
         /// </summary>
-        bool OptimalCompression
-        {
-            get;
-            set;
-        }
+        bool OptimalCompression { get; set; }
 
         /// <summary>
         /// Performs compression on the specified file. With some formats the image will be decoded

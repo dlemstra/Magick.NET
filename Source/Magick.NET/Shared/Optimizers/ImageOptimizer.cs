@@ -27,22 +27,14 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets a value indicating whether to skip unsupported files instead of throwing an exception.
         /// </summary>
-        public bool IgnoreUnsupportedFormats
-        {
-            get;
-            set;
-        }
+        public bool IgnoreUnsupportedFormats { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether various compression types will be used to find
         /// the smallest file. This process will take extra time because the file has to be written
         /// multiple times.
         /// </summary>
-        public bool OptimalCompression
-        {
-            get;
-            set;
-        }
+        public bool OptimalCompression { get; set; }
 
         private string SupportedFormats
         {
@@ -113,10 +105,7 @@ namespace ImageMagick
         /// <param name="file">The file to check.</param>
         /// <returns>True when the supplied file name is supported based on the extension of the file.</returns>
         /// <returns>True when the image could be compressed otherwise false.</returns>
-        public bool IsSupported(FileInfo file)
-        {
-            return IsSupported(MagickFormatInfo.Create(file));
-        }
+        public bool IsSupported(FileInfo file) => IsSupported(MagickFormatInfo.Create(file));
 
         /// <summary>
         /// Returns true when the supplied formation information is supported.
@@ -142,10 +131,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="fileName">The name of the file to check.</param>
         /// <returns>True when the supplied file name is supported based on the extension of the file.</returns>
-        public bool IsSupported(string fileName)
-        {
-            return IsSupported(MagickFormatInfo.Create(fileName));
-        }
+        public bool IsSupported(string fileName) => IsSupported(MagickFormatInfo.Create(fileName));
 
         /// <summary>
         /// Returns true when the supplied stream is supported.

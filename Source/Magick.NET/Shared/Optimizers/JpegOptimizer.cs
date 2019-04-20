@@ -31,33 +31,19 @@ namespace ImageMagick.ImageOptimizers
         /// <summary>
         /// Gets the format that the optimizer supports.
         /// </summary>
-        public MagickFormatInfo Format
-        {
-            get
-            {
-                return MagickNET.GetFormatInformation(MagickFormat.Jpeg);
-            }
-        }
+        public MagickFormatInfo Format => MagickNET.GetFormatInformation(MagickFormat.Jpeg);
 
         /// <summary>
         /// Gets or sets a value indicating whether various compression types will be used to find
         /// the smallest file. This process will take extra time because the file has to be written
         /// multiple times.
         /// </summary>
-        public bool OptimalCompression
-        {
-            get;
-            set;
-        }
+        public bool OptimalCompression { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether a progressive jpeg file will be created.
         /// </summary>
-        public bool Progressive
-        {
-            get;
-            set;
-        }
+        public bool Progressive { get; set; }
 
         /// <summary>
         /// Performs compression on the specified file. With some formats the image will be decoded
@@ -93,10 +79,7 @@ namespace ImageMagick.ImageOptimizers
         /// </summary>
         /// <param name="fileName">The file name of the jpeg image to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
-        public bool Compress(string fileName)
-        {
-            return Compress(fileName, 0);
-        }
+        public bool Compress(string fileName) => Compress(fileName, 0);
 
         /// <summary>
         /// Performs compression on the specified file. With some formats the image will be decoded
@@ -121,10 +104,7 @@ namespace ImageMagick.ImageOptimizers
         /// </summary>
         /// <param name="stream">The stream of the jpeg image to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
-        public bool Compress(Stream stream)
-        {
-            return Compress(stream, 0);
-        }
+        public bool Compress(Stream stream) => Compress(stream, 0);
 
         /// <summary>
         /// Performs compression on the specified file. With some formats the image will be decoded
@@ -134,10 +114,7 @@ namespace ImageMagick.ImageOptimizers
         /// <param name="stream">The stream of the jpeg image to compress.</param>
         /// <param name="quality">The jpeg quality.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
-        public bool Compress(Stream stream, int quality)
-        {
-            return DoCompress(stream, false, quality);
-        }
+        public bool Compress(Stream stream, int quality) => DoCompress(stream, false, quality);
 
         /// <summary>
         /// Performs lossless compression on the specified file. If the new file size is not smaller
@@ -172,10 +149,7 @@ namespace ImageMagick.ImageOptimizers
         /// </summary>
         /// <param name="stream">The stream of the jpeg image to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
-        public bool LosslessCompress(Stream stream)
-        {
-            return DoCompress(stream, true, 0);
-        }
+        public bool LosslessCompress(Stream stream) => DoCompress(stream, true, 0);
 
         private static void DoNativeCompress(FileInfo file, FileInfo output, bool progressive, bool lossless, int quality)
         {

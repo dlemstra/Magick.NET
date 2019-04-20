@@ -29,26 +29,16 @@ namespace ImageMagick.ImageOptimizers
         }
 
         /// <summary>
+        /// Gets the format that the optimizer supports.
+        /// </summary>
+        public MagickFormatInfo Format => MagickNET.GetFormatInformation(MagickFormat.Png);
+
+        /// <summary>
         /// Gets or sets a value indicating whether various compression types will be used to find
         /// the smallest file. This process will take extra time because the file has to be written
         /// multiple times.
         /// </summary>
-        public bool OptimalCompression
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets the format that the optimizer supports.
-        /// </summary>
-        public MagickFormatInfo Format
-        {
-            get
-            {
-                return MagickNET.GetFormatInformation(MagickFormat.Png);
-            }
-        }
+        public bool OptimalCompression { get; set; }
 
         /// <summary>
         /// Performs compression on the specified file. With some formats the image will be decoded
@@ -122,10 +112,7 @@ namespace ImageMagick.ImageOptimizers
         /// </summary>
         /// <param name="stream">The stream of the png image to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
-        public bool LosslessCompress(Stream stream)
-        {
-            return DoCompress(stream, true);
-        }
+        public bool LosslessCompress(Stream stream) => DoCompress(stream, true);
 
         private static void CheckTransparency(MagickImage image)
         {
