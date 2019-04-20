@@ -220,18 +220,18 @@ namespace ImageMagick
 
         private static Dictionary<MagickFormat, MagickFormatInfo> LoadFormats()
         {
-            Dictionary<MagickFormat, MagickFormatInfo> result = new Dictionary<MagickFormat, MagickFormatInfo>();
+            var result = new Dictionary<MagickFormat, MagickFormatInfo>();
 
-            IntPtr list = IntPtr.Zero;
-            UIntPtr length = (UIntPtr)0;
-            MagickFormatInfo formatInfo;
-            NativeMagickFormatInfo instance = new NativeMagickFormatInfo();
+            var list = IntPtr.Zero;
+            var length = (UIntPtr)0;
+            var instance = new NativeMagickFormatInfo();
 
             try
             {
                 list = instance.CreateList(out length);
 
-                IntPtr ptr = list;
+                var ptr = list;
+                MagickFormatInfo formatInfo;
                 for (int i = 0; i < (int)length; i++)
                 {
                     instance.GetInfo(list, i);
