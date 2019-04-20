@@ -22,9 +22,6 @@ namespace ImageMagick
         /// <summary>
         /// Gets a pointer to the native instance.
         /// </summary>
-        IntPtr Instance
-        {
-            get;
-        }
+        IntPtr Instance { get; }
     }
 }

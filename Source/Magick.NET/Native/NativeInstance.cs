@@ -34,16 +34,14 @@ namespace ImageMagick
             {
                 if (_instance != IntPtr.Zero)
                     Dispose(_instance);
+
                 _instance = value;
             }
         }
 
         public bool IsDisposed => _instance == IntPtr.Zero;
 
-        protected abstract string TypeName
-        {
-            get;
-        }
+        protected abstract string TypeName { get; }
 
         public void Dispose()
         {

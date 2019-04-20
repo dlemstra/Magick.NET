@@ -28,17 +28,11 @@ namespace ImageMagick
                 return _instance;
             }
 
-            set
-            {
-                _instance = value;
-            }
+            set => _instance = value;
         }
 
         public bool HasInstance => _instance != IntPtr.Zero;
 
-        protected abstract string TypeName
-        {
-            get;
-        }
+        protected abstract string TypeName { get; }
     }
 }
