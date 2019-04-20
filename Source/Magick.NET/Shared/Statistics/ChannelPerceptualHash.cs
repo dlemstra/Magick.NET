@@ -64,11 +64,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the channel.
         /// </summary>
-        public PixelChannel Channel
-        {
-            get;
-            private set;
-        }
+        public PixelChannel Channel { get; private set; }
 
         /// <summary>
         /// SRGB hu perceptual hash.
@@ -118,10 +114,7 @@ namespace ImageMagick
         /// Returns a string representation of this hash.
         /// </summary>
         /// <returns>A string representation of this hash.</returns>
-        public override string ToString()
-        {
-            return _hash;
-        }
+        public override string ToString() => _hash;
 
         private void ParseHash(string hash)
         {

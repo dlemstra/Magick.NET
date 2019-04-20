@@ -42,148 +42,86 @@ namespace ImageMagick
         /// <summary>
         /// Gets the channel.
         /// </summary>
-        public PixelChannel Channel
-        {
-            get;
-            private set;
-        }
+        public PixelChannel Channel { get; }
 
         /// <summary>
         /// Gets the depth of the channel.
         /// </summary>
-        public int Depth
-        {
-            get;
-            private set;
-        }
+        public int Depth { get; }
 
         /// <summary>
         /// Gets the entropy.
         /// </summary>
-        public double Entropy
-        {
-            get;
-            private set;
-        }
+        public double Entropy { get; }
 
         /// <summary>
         /// Gets the kurtosis.
         /// </summary>
-        public double Kurtosis
-        {
-            get;
-            private set;
-        }
+        public double Kurtosis { get; }
 
         /// <summary>
         /// Gets the maximum value observed.
         /// </summary>
-        public double Maximum
-        {
-            get;
-            private set;
-        }
+        public double Maximum { get; }
 
         /// <summary>
         /// Gets the average (mean) value observed.
         /// </summary>
-        public double Mean
-        {
-            get;
-            private set;
-        }
+        public double Mean { get; }
 
         /// <summary>
         /// Gets the minimum value observed.
         /// </summary>
-        public double Minimum
-        {
-            get;
-            private set;
-        }
+        public double Minimum { get; }
 
         /// <summary>
         /// Gets the skewness.
         /// </summary>
-        public double Skewness
-        {
-            get;
-            private set;
-        }
+        public double Skewness { get; }
 
         /// <summary>
         /// Gets the standard deviation, sqrt(variance).
         /// </summary>
-        public double StandardDeviation
-        {
-            get;
-            private set;
-        }
+        public double StandardDeviation { get; }
 
         /// <summary>
         /// Gets the sum.
         /// </summary>
-        public double Sum
-        {
-            get;
-            private set;
-        }
+        public double Sum { get; }
 
         /// <summary>
         /// Gets the sum cubed.
         /// </summary>
-        public double SumCubed
-        {
-            get;
-            private set;
-        }
+        public double SumCubed { get; }
 
         /// <summary>
         /// Gets the sum fourth power.
         /// </summary>
-        public double SumFourthPower
-        {
-            get;
-            private set;
-        }
+        public double SumFourthPower { get; }
 
         /// <summary>
         /// Gets the sum squared.
         /// </summary>
-        public double SumSquared
-        {
-            get;
-            private set;
-        }
+        public double SumSquared { get; }
 
         /// <summary>
         /// Gets the variance.
         /// </summary>
-        public double Variance
-        {
-            get;
-            private set;
-        }
+        public double Variance { get; }
 
         /// <summary>
         /// Determines whether the specified <see cref="ChannelStatistics"/> instances are considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="ChannelStatistics"/> to compare.</param>
         /// <param name="right"> The second <see cref="ChannelStatistics"/> to compare.</param>
-        public static bool operator ==(ChannelStatistics left, ChannelStatistics right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(ChannelStatistics left, ChannelStatistics right) => Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified <see cref="ChannelStatistics"/> instances are not considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="ChannelStatistics"/> to compare.</param>
         /// <param name="right"> The second <see cref="ChannelStatistics"/> to compare.</param>
-        public static bool operator !=(ChannelStatistics left, ChannelStatistics right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator !=(ChannelStatistics left, ChannelStatistics right) => !Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified object is equal to the current <see cref="ChannelStatistics"/>.

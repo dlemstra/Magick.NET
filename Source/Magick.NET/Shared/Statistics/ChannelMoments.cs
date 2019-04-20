@@ -37,56 +37,32 @@ namespace ImageMagick
         /// <summary>
         /// Gets the centroid.
         /// </summary>
-        public PointD Centroid
-        {
-            get;
-            private set;
-        }
+        public PointD Centroid { get; }
 
         /// <summary>
         /// Gets the channel of this moment.
         /// </summary>
-        public PixelChannel Channel
-        {
-            get;
-            private set;
-        }
+        public PixelChannel Channel { get; }
 
         /// <summary>
         /// Gets the ellipse axis.
         /// </summary>
-        public PointD EllipseAxis
-        {
-            get;
-            private set;
-        }
+        public PointD EllipseAxis { get; }
 
         /// <summary>
         /// Gets the ellipse angle.
         /// </summary>
-        public double EllipseAngle
-        {
-            get;
-            private set;
-        }
+        public double EllipseAngle { get; }
 
         /// <summary>
         /// Gets the ellipse eccentricity.
         /// </summary>
-        public double EllipseEccentricity
-        {
-            get;
-            private set;
-        }
+        public double EllipseEccentricity { get; }
 
         /// <summary>
         /// Gets the ellipse intensity.
         /// </summary>
-        public double EllipseIntensity
-        {
-            get;
-            private set;
-        }
+        public double EllipseIntensity { get; }
 
         /// <summary>
         /// Returns the Hu invariants.
