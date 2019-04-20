@@ -27,146 +27,82 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the color of the background that thumbnails are composed on.
         /// </summary>
-        public MagickColor BackgroundColor
-        {
-            get;
-            set;
-        }
+        public MagickColor BackgroundColor { get; set; }
 
         /// <summary>
         /// Gets or sets the frame border color.
         /// </summary>
-        public MagickColor BorderColor
-        {
-            get;
-            set;
-        }
+        public MagickColor BorderColor { get; set; }
 
         /// <summary>
         /// Gets or sets the pixels between thumbnail and surrounding frame.
         /// </summary>
-        public int BorderWidth
-        {
-            get;
-            set;
-        }
+        public int BorderWidth { get; set; }
 
         /// <summary>
         /// Gets or sets the fill color.
         /// </summary>
-        public MagickColor FillColor
-        {
-            get;
-            set;
-        }
+        public MagickColor FillColor { get; set; }
 
         /// <summary>
         /// Gets or sets the label font.
         /// </summary>
-        public string Font
-        {
-            get;
-            set;
-        }
+        public string Font { get; set; }
 
         /// <summary>
         /// Gets or sets the font point size.
         /// </summary>
-        public int FontPointsize
-        {
-            get;
-            set;
-        }
+        public int FontPointsize { get; set; }
 
         /// <summary>
         /// Gets or sets the frame geometry (width &amp; height frame thickness).
         /// </summary>
-        public MagickGeometry FrameGeometry
-        {
-            get;
-            set;
-        }
+        public MagickGeometry FrameGeometry { get; set; }
 
         /// <summary>
         /// Gets or sets the thumbnail width &amp; height plus border width &amp; height.
         /// </summary>
-        public MagickGeometry Geometry
-        {
-            get;
-            set;
-        }
+        public MagickGeometry Geometry { get; set; }
 
         /// <summary>
         /// Gets or sets the thumbnail position (e.g. SouthWestGravity).
         /// </summary>
-        public Gravity Gravity
-        {
-            get;
-            set;
-        }
+        public Gravity Gravity { get; set; }
 
         /// <summary>
         /// Gets or sets the thumbnail label (applied to image prior to montage).
         /// </summary>
-        public string Label
-        {
-            get;
-            set;
-        }
+        public string Label { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether drop-shadows on thumbnails are enabled or disabled.
         /// </summary>
-        public bool Shadow
-        {
-            get;
-            set;
-        }
+        public bool Shadow { get; set; }
 
         /// <summary>
         /// Gets or sets the outline color.
         /// </summary>
-        public MagickColor StrokeColor
-        {
-            get;
-            set;
-        }
+        public MagickColor StrokeColor { get; set; }
 
         /// <summary>
         /// Gets or sets the background texture image.
         /// </summary>
-        public string TextureFileName
-        {
-            get;
-            set;
-        }
+        public string TextureFileName { get; set; }
 
         /// <summary>
         /// Gets or sets the frame geometry (width &amp; height frame thickness).
         /// </summary>
-        public MagickGeometry TileGeometry
-        {
-            get;
-            set;
-        }
+        public MagickGeometry TileGeometry { get; set; }
 
         /// <summary>
         /// Gets or sets the montage title.
         /// </summary>
-        public string Title
-        {
-            get;
-            set;
-        }
+        public string Title { get; set; }
 
         /// <summary>
         /// Gets or sets the transparent color.
         /// </summary>
-        public MagickColor TransparentColor
-        {
-            get;
-            set;
-        }
+        public MagickColor TransparentColor { get; set; }
 
         private static string Convert(MagickGeometry geometry)
         {

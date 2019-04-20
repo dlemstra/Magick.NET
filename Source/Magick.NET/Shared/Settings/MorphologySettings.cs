@@ -30,73 +30,41 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the channels to apply the kernel to.
         /// </summary>
-        public Channels Channels
-        {
-            get;
-            set;
-        }
+        public Channels Channels { get; set; }
 
         /// <summary>
         /// Gets or sets the bias to use when the method is Convolve.
         /// </summary>
-        public Percentage? ConvolveBias
-        {
-            get;
-            set;
-        }
+        public Percentage? ConvolveBias { get; set; }
 
         /// <summary>
         /// Gets or sets the scale to use when the method is Convolve.
         /// </summary>
-        public MagickGeometry ConvolveScale
-        {
-            get;
-            set;
-        }
+        public MagickGeometry ConvolveScale { get; set; }
 
         /// <summary>
         /// Gets or sets the number of iterations.
         /// </summary>
-        public int Iterations
-        {
-            get;
-            set;
-        }
+        public int Iterations { get; set; }
 
         /// <summary>
         /// Gets or sets built-in kernel.
         /// </summary>
-        public Kernel Kernel
-        {
-            get;
-            set;
-        }
+        public Kernel Kernel { get; set; }
 
         /// <summary>
         /// Gets or sets kernel arguments.
         /// </summary>
-        public string KernelArguments
-        {
-            get;
-            set;
-        }
+        public string KernelArguments { get; set; }
 
         /// <summary>
         /// Gets or sets the morphology method.
         /// </summary>
-        public MorphologyMethod Method
-        {
-            get;
-            set;
-        }
+        public MorphologyMethod Method { get; set; }
 
         /// <summary>
         /// Gets or sets user suplied kernel.
         /// </summary>
-        public string UserKernel
-        {
-            get;
-            set;
-        }
+        public string UserKernel { get; set; }
     }
 }

@@ -52,47 +52,31 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the defines that should be set before the image is read.
         /// </summary>
-        public IReadDefines Defines
-        {
-            get;
-            set;
-        }
+        public IReadDefines Defines { get; set; }
 
         /// <summary>
         /// Gets or sets the specified area to extract from the image.
         /// </summary>
         public MagickGeometry ExtractArea
         {
-            get { return Extract; }
-            set { Extract = value; }
+            get => Extract;
+            set => Extract = value;
         }
 
         /// <summary>
         /// Gets or sets the index of the image to read from a multi layer/frame image.
         /// </summary>
-        public int? FrameIndex
-        {
-            get;
-            set;
-        }
+        public int? FrameIndex { get; set; }
 
         /// <summary>
         /// Gets or sets the number of images to read from a multi layer/frame image.
         /// </summary>
-        public int? FrameCount
-        {
-            get;
-            set;
-        }
+        public int? FrameCount { get; set; }
 
         /// <summary>
         /// Gets or sets the height.
         /// </summary>
-        public int? Height
-        {
-            get;
-            set;
-        }
+        public int? Height { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the monochrome reader shoul be used. This is
@@ -100,18 +84,14 @@ namespace ImageMagick
         /// </summary>
         public bool UseMonochrome
         {
-            get { return Monochrome; }
-            set { Monochrome = value; }
+            get => Monochrome;
+            set => Monochrome = value;
         }
 
         /// <summary>
         /// Gets or sets the width.
         /// </summary>
-        public int? Width
-        {
-            get;
-            set;
-        }
+        public int? Width { get; set; }
 
         internal void ForceSingleFrame()
         {

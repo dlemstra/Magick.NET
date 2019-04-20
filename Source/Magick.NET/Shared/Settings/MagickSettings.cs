@@ -58,93 +58,61 @@ namespace ImageMagick
         /// </summary>
         public DrawableAffine Affine
         {
-            get { return Drawing.Affine; }
-            set { Drawing.Affine = value; }
+            get => Drawing.Affine;
+            set => Drawing.Affine = value;
         }
 
         /// <summary>
         /// Gets or sets the background color.
         /// </summary>
-        public MagickColor BackgroundColor
-        {
-            get;
-            set;
-        }
+        public MagickColor BackgroundColor { get; set; }
 
         /// <summary>
         /// Gets or sets the border color.
         /// </summary>
         public MagickColor BorderColor
         {
-            get { return Drawing.BorderColor; }
-            set { Drawing.BorderColor = value; }
+            get => Drawing.BorderColor;
+            set => Drawing.BorderColor = value;
         }
 
         /// <summary>
         /// Gets or sets the color space.
         /// </summary>
-        public ColorSpace ColorSpace
-        {
-            get;
-            set;
-        }
+        public ColorSpace ColorSpace { get; set; }
 
         /// <summary>
         /// Gets or sets the color type of the image.
         /// </summary>
-        public ColorType ColorType
-        {
-            get;
-            set;
-        }
+        public ColorType ColorType { get; set; }
 
         /// <summary>
         /// Gets or sets the compression method to use.
         /// </summary>
-        public CompressionMethod Compression
-        {
-            get;
-            set;
-        }
+        public CompressionMethod Compression { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether printing of debug messages from ImageMagick is enabled when a debugger is attached.
         /// </summary>
-        public bool Debug
-        {
-            get;
-            set;
-        }
+        public bool Debug { get; set; }
 
         /// <summary>
         /// Gets or sets the vertical and horizontal resolution in pixels.
         /// </summary>
-        public Density Density
-        {
-            get;
-            set;
-        }
+        public Density Density { get; set; }
 
         /// <summary>
         /// Gets or sets the endianness (little like Intel or big like SPARC) for image formats which support
         /// endian-specific options.
         /// </summary>
-        public Endian Endian
-        {
-            get;
-            set;
-        }
+        public Endian Endian { get; set; }
 
         /// <summary>
         /// Gets or sets the fill color.
         /// </summary>
         public MagickColor FillColor
         {
-            get
-            {
-                return Drawing.FillColor;
-            }
-
+            get => Drawing.FillColor;
             set
             {
                 SetOptionAndArtifact("fill", MagickColor.ToString(value));
@@ -157,8 +125,8 @@ namespace ImageMagick
         /// </summary>
         public IMagickImage FillPattern
         {
-            get { return Drawing.FillPattern; }
-            set { Drawing.FillPattern = value; }
+            get => Drawing.FillPattern;
+            set => Drawing.FillPattern = value;
         }
 
         /// <summary>
@@ -166,8 +134,8 @@ namespace ImageMagick
         /// </summary>
         public FillRule FillRule
         {
-            get { return Drawing.FillRule; }
-            set { Drawing.FillRule = value; }
+            get => Drawing.FillRule;
+            set => Drawing.FillRule = value;
         }
 
         /// <summary>
@@ -175,11 +143,7 @@ namespace ImageMagick
         /// </summary>
         public string Font
         {
-            get
-            {
-                return _font;
-            }
-
+            get => _font;
             set
             {
                 _font = value;
@@ -192,11 +156,7 @@ namespace ImageMagick
         /// </summary>
         public string FontFamily
         {
-            get
-            {
-                return GetOption("family");
-            }
-
+            get => GetOption("family");
             set
             {
                 SetOptionAndArtifact("family", value);
@@ -209,11 +169,7 @@ namespace ImageMagick
         /// </summary>
         public double FontPointsize
         {
-            get
-            {
-                return _fontPointsize;
-            }
-
+            get => _fontPointsize;
             set
             {
                 _fontPointsize = value;
@@ -226,11 +182,7 @@ namespace ImageMagick
         /// </summary>
         public FontStyleType FontStyle
         {
-            get
-            {
-                return EnumHelper.Parse(GetOption("style"), FontStyleType.Undefined);
-            }
-
+            get => EnumHelper.Parse(GetOption("style"), FontStyleType.Undefined);
             set
             {
                 SetOptionAndArtifact("style", EnumHelper.GetName(value));
@@ -265,28 +217,20 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the the format of the image.
         /// </summary>
-        public MagickFormat Format
-        {
-            get;
-            set;
-        }
+        public MagickFormat Format { get; set; }
 
         /// <summary>
         /// Gets or sets the preferred size and location of an image canvas.
         /// </summary>
-        public MagickGeometry Page
-        {
-            get;
-            set;
-        }
+        public MagickGeometry Page { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether  stroke anti-aliasing is enabled or disabled.
         /// </summary>
         public bool StrokeAntiAlias
         {
-            get { return Drawing.StrokeAntiAlias; }
-            set { Drawing.StrokeAntiAlias = value; }
+            get => Drawing.StrokeAntiAlias;
+            set => Drawing.StrokeAntiAlias = value;
         }
 
         /// <summary>
@@ -294,11 +238,7 @@ namespace ImageMagick
         /// </summary>
         public MagickColor StrokeColor
         {
-            get
-            {
-                return Drawing.StrokeColor;
-            }
-
+            get => Drawing.StrokeColor;
             set
             {
                 SetOptionAndArtifact("stroke", MagickColor.ToString(value));
@@ -314,8 +254,8 @@ namespace ImageMagick
         /// </summary>
         public IEnumerable<double> StrokeDashArray
         {
-            get { return Drawing.StrokeDashArray; }
-            set { Drawing.StrokeDashArray = value; }
+            get => Drawing.StrokeDashArray;
+            set => Drawing.StrokeDashArray = value;
         }
 
         /// <summary>
@@ -324,8 +264,8 @@ namespace ImageMagick
         /// </summary>
         public double StrokeDashOffset
         {
-            get { return Drawing.StrokeDashOffset; }
-            set { Drawing.StrokeDashOffset = value; }
+            get => Drawing.StrokeDashOffset;
+            set => Drawing.StrokeDashOffset = value;
         }
 
         /// <summary>
@@ -333,8 +273,8 @@ namespace ImageMagick
         /// </summary>
         public LineCap StrokeLineCap
         {
-            get { return Drawing.StrokeLineCap; }
-            set { Drawing.StrokeLineCap = value; }
+            get => Drawing.StrokeLineCap;
+            set => Drawing.StrokeLineCap = value;
         }
 
         /// <summary>
@@ -343,8 +283,8 @@ namespace ImageMagick
         /// </summary>
         public LineJoin StrokeLineJoin
         {
-            get { return Drawing.StrokeLineJoin; }
-            set { Drawing.StrokeLineJoin = value; }
+            get => Drawing.StrokeLineJoin;
+            set => Drawing.StrokeLineJoin = value;
         }
 
         /// <summary>
@@ -355,8 +295,8 @@ namespace ImageMagick
         /// </summary>
         public int StrokeMiterLimit
         {
-            get { return Drawing.StrokeMiterLimit; }
-            set { Drawing.StrokeMiterLimit = value; }
+            get => Drawing.StrokeMiterLimit;
+            set => Drawing.StrokeMiterLimit = value;
         }
 
         /// <summary>
@@ -364,8 +304,8 @@ namespace ImageMagick
         /// </summary>
         public IMagickImage StrokePattern
         {
-            get { return Drawing.StrokePattern; }
-            set { Drawing.StrokePattern = value; }
+            get => Drawing.StrokePattern;
+            set => Drawing.StrokePattern = value;
         }
 
         /// <summary>
@@ -373,11 +313,7 @@ namespace ImageMagick
         /// </summary>
         public double StrokeWidth
         {
-            get
-            {
-                return Drawing.StrokeWidth;
-            }
-
+            get => Drawing.StrokeWidth;
             set
             {
                 SetOptionAndArtifact("strokewidth", value);
@@ -390,8 +326,8 @@ namespace ImageMagick
         /// </summary>
         public bool TextAntiAlias
         {
-            get { return Drawing.TextAntiAlias; }
-            set { Drawing.TextAntiAlias = value; }
+            get => Drawing.TextAntiAlias;
+            set => Drawing.TextAntiAlias = value;
         }
 
         /// <summary>
@@ -399,8 +335,8 @@ namespace ImageMagick
         /// </summary>
         public TextDirection TextDirection
         {
-            get { return Drawing.TextDirection; }
-            set { Drawing.TextDirection = value; }
+            get => Drawing.TextDirection;
+            set => Drawing.TextDirection = value;
         }
 
         /// <summary>
@@ -408,8 +344,8 @@ namespace ImageMagick
         /// </summary>
         public Encoding TextEncoding
         {
-            get { return Drawing.TextEncoding; }
-            set { Drawing.TextEncoding = value; }
+            get => Drawing.TextEncoding;
+            set => Drawing.TextEncoding = value;
         }
 
         /// <summary>
@@ -417,11 +353,7 @@ namespace ImageMagick
         /// </summary>
         public Gravity TextGravity
         {
-            get
-            {
-                return Drawing.TextGravity;
-            }
-
+            get => Drawing.TextGravity;
             set
             {
                 SetOptionAndArtifact("gravity", EnumHelper.GetName(value));
@@ -434,11 +366,7 @@ namespace ImageMagick
         /// </summary>
         public double TextInterlineSpacing
         {
-            get
-            {
-                return Drawing.TextInterlineSpacing;
-            }
-
+            get => Drawing.TextInterlineSpacing;
             set
             {
                 SetOptionAndArtifact("interline-spacing", value);
@@ -451,11 +379,7 @@ namespace ImageMagick
         /// </summary>
         public double TextInterwordSpacing
         {
-            get
-            {
-                return Drawing.TextInterwordSpacing;
-            }
-
+            get => Drawing.TextInterwordSpacing;
             set
             {
                 SetOptionAndArtifact("interword-spacing", value);
@@ -468,11 +392,7 @@ namespace ImageMagick
         /// </summary>
         public double TextKerning
         {
-            get
-            {
-                return Drawing.TextKerning;
-            }
-
+            get => Drawing.TextKerning;
             set
             {
                 SetOptionAndArtifact("kerning", value);
@@ -485,11 +405,7 @@ namespace ImageMagick
         /// </summary>
         public MagickColor TextUnderColor
         {
-            get
-            {
-                return Drawing.TextUnderColor;
-            }
-
+            get => Drawing.TextUnderColor;
             set
             {
                 SetOptionAndArtifact("undercolor", MagickColor.ToString(value));
@@ -500,101 +416,49 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets a value indicating whether verbose output os turned on or off.
         /// </summary>
-        public bool Verbose
-        {
-            get;
-            set;
-        }
+        public bool Verbose { get; set; }
 
-        internal DrawingSettings Drawing
-        {
-            get;
-            private set;
-        }
+        internal DrawingSettings Drawing { get; private set; }
 
-        internal double ColorFuzz
-        {
-            get;
-            set;
-        }
+        internal double ColorFuzz { get; set; }
 
-        internal string FileName
-        {
-            get;
-            set;
-        }
+        internal string FileName { get; set; }
 
-        internal Interlace Interlace
-        {
-            get;
-            set;
-        }
+        internal Interlace Interlace { get; set; }
 
-        internal bool Ping
-        {
-            get;
-            set;
-        }
+        internal bool Ping { get; set; }
 
-        internal int Quality
-        {
-            get;
-            set;
-        }
+        internal int Quality { get; set; }
 
         /// <summary>
         /// Gets or sets the specified area to extract from the image.
         /// </summary>
-        protected MagickGeometry Extract
-        {
-            get;
-            set;
-        }
+        protected MagickGeometry Extract { get; set; }
 
         /// <summary>
         /// Gets or sets the number of scenes.
         /// </summary>
-        protected int NumberScenes
-        {
-            get;
-            set;
-        }
+        protected int NumberScenes { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether a monochrome reader should be used.
         /// </summary>
-        protected bool Monochrome
-        {
-            get;
-            set;
-        }
+        protected bool Monochrome { get; set; }
 
         /// <summary>
         /// Gets or sets the size of the image.
         /// </summary>
-        protected string Size
-        {
-            get;
-            set;
-        }
+        protected string Size { get; set; }
 
         /// <summary>
         /// Gets or sets the active scene.
         /// </summary>
-        protected int Scene
-        {
-            get;
-            set;
-        }
+        protected int Scene { get; set; }
 
         /// <summary>
         /// Gets or sets scenes of the image.
         /// </summary>
-        protected string Scenes
-        {
-            get;
-            set;
-        }
+        protected string Scenes { get; set; }
 
         /// <summary>
         /// Returns the value of a format-specific option.
@@ -719,10 +583,7 @@ namespace ImageMagick
             return null;
         }
 
-        internal void SetOption(string key, string value)
-        {
-            _options[key] = value;
-        }
+        internal void SetOption(string key, string value) => _options[key] = value;
 
         /// <summary>
         /// Creates a define string for the specified format and name.
@@ -841,10 +702,7 @@ namespace ImageMagick
             }
         }
 
-        private void SetOptionAndArtifact(string key, double value)
-        {
-            SetOptionAndArtifact(key, value.ToString(CultureInfo.InvariantCulture));
-        }
+        private void SetOptionAndArtifact(string key, double value) => SetOptionAndArtifact(key, value.ToString(CultureInfo.InvariantCulture));
 
         private void SetOptionAndArtifact(string key, string value)
         {

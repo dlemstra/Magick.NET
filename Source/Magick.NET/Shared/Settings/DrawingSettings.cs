@@ -50,85 +50,33 @@ namespace ImageMagick
             }
         }
 
-        public DrawableAffine Affine
-        {
-            get;
-            set;
-        }
+        public DrawableAffine Affine { get; set; }
 
-        public MagickColor BorderColor
-        {
-            get;
-            set;
-        }
+        public MagickColor BorderColor { get; set; }
 
-        public MagickColor FillColor
-        {
-            get;
-            set;
-        }
+        public MagickColor FillColor { get; set; }
 
-        public IMagickImage FillPattern
-        {
-            get;
-            set;
-        }
+        public IMagickImage FillPattern { get; set; }
 
-        public FillRule FillRule
-        {
-            get;
-            set;
-        }
+        public FillRule FillRule { get; set; }
 
-        public string Font
-        {
-            get;
-            set;
-        }
+        public string Font { get; set; }
 
-        public string FontFamily
-        {
-            get;
-            set;
-        }
+        public string FontFamily { get; set; }
 
-        public double FontPointsize
-        {
-            get;
-            set;
-        }
+        public double FontPointsize { get; set; }
 
-        public FontStyleType FontStyle
-        {
-            get;
-            set;
-        }
+        public FontStyleType FontStyle { get; set; }
 
-        public FontWeight FontWeight
-        {
-            get;
-            set;
-        }
+        public FontWeight FontWeight { get; set; }
 
-        public bool StrokeAntiAlias
-        {
-            get;
-            set;
-        }
+        public bool StrokeAntiAlias { get; set; }
 
-        public MagickColor StrokeColor
-        {
-            get;
-            set;
-        }
+        public MagickColor StrokeColor { get; set; }
 
         public IEnumerable<double> StrokeDashArray
         {
-            get
-            {
-                return _strokeDashArray;
-            }
-
+            get => _strokeDashArray;
             set
             {
                 if (value != null)
@@ -136,130 +84,70 @@ namespace ImageMagick
             }
         }
 
-        public double StrokeDashOffset
-        {
-            get;
-            set;
-        }
+        public double StrokeDashOffset { get; set; }
 
-        public LineCap StrokeLineCap
-        {
-            get;
-            set;
-        }
+        public LineCap StrokeLineCap { get; set; }
 
-        public LineJoin StrokeLineJoin
-        {
-            get;
-            set;
-        }
+        public LineJoin StrokeLineJoin { get; set; }
 
-        public int StrokeMiterLimit
-        {
-            get;
-            set;
-        }
+        public int StrokeMiterLimit { get; set; }
 
-        public IMagickImage StrokePattern
-        {
-            get;
-            set;
-        }
+        public IMagickImage StrokePattern { get; set; }
 
-        public double StrokeWidth
-        {
-            get;
-            set;
-        }
+        public double StrokeWidth { get; set; }
 
-        public string Text
-        {
-            get;
-            set;
-        }
+        public string Text { get; set; }
 
-        public bool TextAntiAlias
-        {
-            get;
-            set;
-        }
+        public bool TextAntiAlias { get; set; }
 
-        public TextDirection TextDirection
-        {
-            get;
-            set;
-        }
+        public TextDirection TextDirection { get; set; }
 
-        public Encoding TextEncoding
-        {
-            get;
-            set;
-        }
+        public Encoding TextEncoding { get; set; }
 
-        public Gravity TextGravity
-        {
-            get;
-            set;
-        }
+        public Gravity TextGravity { get; set; }
 
-        public double TextInterlineSpacing
-        {
-            get;
-            set;
-        }
+        public double TextInterlineSpacing { get; set; }
 
-        public double TextInterwordSpacing
-        {
-            get;
-            set;
-        }
+        public double TextInterwordSpacing { get; set; }
 
-        public double TextKerning
-        {
-            get;
-            set;
-        }
+        public double TextKerning { get; set; }
 
-        public MagickColor TextUnderColor
-        {
-            get;
-            set;
-        }
+        public MagickColor TextUnderColor { get; set; }
 
         internal DrawingSettings Clone()
         {
-            DrawingSettings clone = new DrawingSettings();
-            clone.BorderColor = MagickColor.Clone(BorderColor);
-            clone.FillColor = MagickColor.Clone(FillColor);
-            clone.FillRule = FillRule;
-            clone.Font = Font;
-            clone.FontFamily = FontFamily;
-            clone.FontPointsize = FontPointsize;
-            clone.FontStyle = FontStyle;
-            clone.FontWeight = FontWeight;
-            clone.StrokeAntiAlias = StrokeAntiAlias;
-            clone.StrokeColor = MagickColor.Clone(StrokeColor);
-            clone.StrokeDashOffset = StrokeDashOffset;
-            clone.StrokeLineCap = StrokeLineCap;
-            clone.StrokeLineJoin = StrokeLineJoin;
-            clone.StrokeMiterLimit = StrokeMiterLimit;
-            clone.StrokeWidth = StrokeWidth;
-            clone.TextAntiAlias = TextAntiAlias;
-            clone.TextDirection = TextDirection;
-            clone.TextEncoding = TextEncoding;
-            clone.TextGravity = TextGravity;
-            clone.TextInterlineSpacing = TextInterlineSpacing;
-            clone.TextInterwordSpacing = TextInterwordSpacing;
-            clone.TextKerning = TextKerning;
-            clone.TextUnderColor = MagickColor.Clone(TextUnderColor);
+            return new DrawingSettings
+            {
+                BorderColor = MagickColor.Clone(BorderColor),
+                FillColor = MagickColor.Clone(FillColor),
+                FillRule = FillRule,
+                Font = Font,
+                FontFamily = FontFamily,
+                FontPointsize = FontPointsize,
+                FontStyle = FontStyle,
+                FontWeight = FontWeight,
+                StrokeAntiAlias = StrokeAntiAlias,
+                StrokeColor = MagickColor.Clone(StrokeColor),
+                StrokeDashOffset = StrokeDashOffset,
+                StrokeLineCap = StrokeLineCap,
+                StrokeLineJoin = StrokeLineJoin,
+                StrokeMiterLimit = StrokeMiterLimit,
+                StrokeWidth = StrokeWidth,
+                TextAntiAlias = TextAntiAlias,
+                TextDirection = TextDirection,
+                TextEncoding = TextEncoding,
+                TextGravity = TextGravity,
+                TextInterlineSpacing = TextInterlineSpacing,
+                TextInterwordSpacing = TextInterwordSpacing,
+                TextKerning = TextKerning,
+                TextUnderColor = MagickColor.Clone(TextUnderColor),
 
-            clone.Affine = Affine;
-            clone.FillPattern = MagickImage.Clone(FillPattern);
-            clone._strokeDashArray = _strokeDashArray != null ? (double[])_strokeDashArray.Clone() : null;
-            clone.StrokePattern = MagickImage.Clone(StrokePattern);
-            clone.Text = Text;
-
-            return clone;
+                Affine = Affine,
+                FillPattern = MagickImage.Clone(FillPattern),
+                _strokeDashArray = _strokeDashArray != null ? (double[])_strokeDashArray.Clone() : null,
+                StrokePattern = MagickImage.Clone(StrokePattern),
+                Text = Text,
+            };
         }
 
         private static Encoding GetTextEncoding(NativeDrawingSettings instance)

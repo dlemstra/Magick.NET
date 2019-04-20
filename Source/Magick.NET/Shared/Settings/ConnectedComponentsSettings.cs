@@ -20,28 +20,16 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the threshold that eliminate small objects by merging them with their larger neighbors.
         /// </summary>
-        public double? AreaThreshold
-        {
-            get;
-            set;
-        }
+        public double? AreaThreshold { get; set; }
 
         /// <summary>
         /// Gets or sets how many neighbors to visit, choose from 4 or 8.
         /// </summary>
-        public int Connectivity
-        {
-            get;
-            set;
-        }
+        public int Connectivity { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the object color in the labeled image will be replaced with the mean-color from the source image.
         /// </summary>
-        public bool MeanColor
-        {
-            get;
-            set;
-        }
+        public bool MeanColor { get; set; }
     }
 }

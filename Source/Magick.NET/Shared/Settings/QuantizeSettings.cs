@@ -29,47 +29,27 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the maximum number of colors to quantize to.
         /// </summary>
-        public int Colors
-        {
-            get;
-            set;
-        }
+        public int Colors { get; set; }
 
         /// <summary>
         /// Gets or sets the colorspace to quantize in.
         /// </summary>
-        public ColorSpace ColorSpace
-        {
-            get;
-            set;
-        }
+        public ColorSpace ColorSpace { get; set; }
 
         /// <summary>
         /// Gets or sets the dither method to use.
         /// </summary>
-        public DitherMethod? DitherMethod
-        {
-            get;
-            set;
-        }
+        public DitherMethod? DitherMethod { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether errors should be measured.
         /// </summary>
-        public bool MeasureErrors
-        {
-            get;
-            set;
-        }
+        public bool MeasureErrors { get; set; }
 
         /// <summary>
         /// Gets or sets the quantization tree-depth.
         /// </summary>
-        public int TreeDepth
-        {
-            get;
-            set;
-        }
+        public int TreeDepth { get; set; }
 
         private INativeInstance CreateNativeInstance()
         {
