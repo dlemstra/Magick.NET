@@ -31,39 +31,23 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the number of resolutions to encode (jp2:number-resolutions).
         /// </summary>
-        public int? NumberResolutions
-        {
-            get;
-            set;
-        }
+        public int? NumberResolutions { get; set; }
 
         /// <summary>
         /// Gets or sets the progression order (jp2:progression-order).
         /// </summary>
-        public Jp2ProgressionOrder? ProgressionOrder
-        {
-            get;
-            set;
-        }
+        public Jp2ProgressionOrder? ProgressionOrder { get; set; }
 
         /// <summary>
         /// Gets or sets the quality layer PSNR, given in dB. The order is from left to right in ascending order (jp2:quality).
         /// </summary>
-        public IEnumerable<float> Quality
-        {
-            get;
-            set;
-        }
+        public IEnumerable<float> Quality { get; set; }
 
         /// <summary>
         /// Gets or sets the compression ratio values. Each value is a factor of compression, thus 20 means 20 times compressed.
         /// The order is from left to right in descending order. A final lossless quality layer is signified by the value 1 (jp2:rate).
         /// </summary>
-        public IEnumerable<float> Rate
-        {
-            get;
-            set;
-        }
+        public IEnumerable<float> Rate { get; set; }
 
         /// <summary>
         /// Gets the defines that should be set as a define on an image.

@@ -20,25 +20,16 @@ namespace ImageMagick
         /// <summary>
         /// Gets the format to set the define for.
         /// </summary>
-        MagickFormat Format
-        {
-            get;
-        }
+        MagickFormat Format { get; }
 
         /// <summary>
         /// Gets the name of the define.
         /// </summary>
-        string Name
-        {
-            get;
-        }
+        string Name { get; }
 
         /// <summary>
         /// Gets the value of the define.
         /// </summary>
-        string Value
-        {
-            get;
-        }
+        string Value { get; }
     }
 }

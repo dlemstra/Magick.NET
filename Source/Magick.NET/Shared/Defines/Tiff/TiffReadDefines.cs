@@ -31,20 +31,12 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets a value indicating whether the exif profile should be ignored (tiff:exif-properties).
         /// </summary>
-        public bool? IgnoreExifPoperties
-        {
-            get;
-            set;
-        }
+        public bool? IgnoreExifPoperties { get; set; }
 
         /// <summary>
         /// Gets or sets the tiff tags that should be ignored (tiff:ignore-tags).
         /// </summary>
-        public IEnumerable<string> IgnoreTags
-        {
-            get;
-            set;
-        }
+        public IEnumerable<string> IgnoreTags { get; set; }
 
         /// <summary>
         /// Gets the defines that should be set as a define on an image.

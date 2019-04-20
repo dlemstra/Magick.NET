@@ -22,9 +22,6 @@ namespace ImageMagick
         /// <summary>
         /// Gets the defines that should be set as a define on an image.
         /// </summary>
-        IEnumerable<IDefine> Defines
-        {
-            get;
-        }
+        IEnumerable<IDefine> Defines { get; }
     }
 }

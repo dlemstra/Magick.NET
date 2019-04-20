@@ -31,38 +31,22 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the size where the image should be scaled to (pdf:fit-page).
         /// </summary>
-        public MagickGeometry FitPage
-        {
-            get;
-            set;
-        }
+        public MagickGeometry FitPage { get; set; }
 
         /// <summary>
         /// Gets or sets the password that should be used to open the pdf (authenticate).
         /// </summary>
-        public string Password
-        {
-            get;
-            set;
-        }
+        public string Password { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether use of the cropbox should be forced (pdf:use-trimbox).
         /// </summary>
-        public bool? UseCropBox
-        {
-            get;
-            set;
-        }
+        public bool? UseCropBox { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether use of the trimbox should be forced (pdf:use-trimbox).
         /// </summary>
-        public bool? UseTrimBox
-        {
-            get;
-            set;
-        }
+        public bool? UseTrimBox { get; set; }
 
         /// <summary>
         /// Gets the defines that should be set as a define on an image.

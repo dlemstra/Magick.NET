@@ -32,56 +32,32 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets a value indicating whether arithmetic coding is enabled or disabled (jpeg:arithmetic-coding).
         /// </summary>
-        public bool? ArithmeticCoding
-        {
-            get;
-            set;
-        }
+        public bool? ArithmeticCoding { get; set; }
 
         /// <summary>
         /// Gets or sets the dtc method that will be used (jpeg:dct-method).
         /// </summary>
-        public DctMethod? DctMethod
-        {
-            get;
-            set;
-        }
+        public DctMethod? DctMethod { get; set; }
 
         /// <summary>
         /// Gets or sets the compression quality that does not exceed the specified extent in kilobytes (jpeg:extent).
         /// </summary>
-        public int? Extent
-        {
-            get;
-            set;
-        }
+        public int? Extent { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether optimize coding is enabled or disabled (jpeg:optimize-coding).
         /// </summary>
-        public bool? OptimizeCoding
-        {
-            get;
-            set;
-        }
+        public bool? OptimizeCoding { get; set; }
 
         /// <summary>
         /// Gets or sets the file name that contains custom quantization tables (jpeg:q-table).
         /// </summary>
-        public string QuantizationTables
-        {
-            get;
-            set;
-        }
+        public string QuantizationTables { get; set; }
 
         /// <summary>
         /// Gets or sets jpeg sampling factor (jpeg:sampling-factor).
         /// </summary>
-        public SamplingFactor? SamplingFactor
-        {
-            get;
-            set;
-        }
+        public SamplingFactor? SamplingFactor { get; set; }
 
         /// <summary>
         /// Gets the defines that should be set as a define on an image.

@@ -31,11 +31,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the subtype that will be used (bmp:subtype).
         /// </summary>
-        public BmpSubtype? Subtype
-        {
-            get;
-            set;
-        }
+        public BmpSubtype? Subtype { get; set; }
 
         /// <summary>
         /// Gets the defines that should be set as a define on an image.

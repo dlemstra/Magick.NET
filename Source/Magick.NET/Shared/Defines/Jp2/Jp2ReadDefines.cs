@@ -31,20 +31,12 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the maximum number of quality layers to decode (jp2:quality-layers).
         /// </summary>
-        public int? QualityLayers
-        {
-            get;
-            set;
-        }
+        public int? QualityLayers { get; set; }
 
         /// <summary>
         /// Gets or sets the number of highest resolution levels to be discarded (jp2:reduce-factor).
         /// </summary>
-        public int? ReduceFactor
-        {
-            get;
-            set;
-        }
+        public int? ReduceFactor { get; set; }
 
         /// <summary>
         /// Gets the defines that should be set as a define on an image.

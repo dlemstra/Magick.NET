@@ -31,57 +31,33 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets a value indicating whether block smoothing is enabled or disabled (jpeg:block-smoothing).
         /// </summary>
-        public bool? BlockSmoothing
-        {
-            get;
-            set;
-        }
+        public bool? BlockSmoothing { get; set; }
 
         /// <summary>
         /// Gets or sets the desired number of colors (jpeg:colors).
         /// </summary>
-        public int? Colors
-        {
-            get;
-            set;
-        }
+        public int? Colors { get; set; }
 
         /// <summary>
         /// Gets or sets the dtc method that will be used (jpeg:dct-method).
         /// </summary>
-        public DctMethod? DctMethod
-        {
-            get;
-            set;
-        }
+        public DctMethod? DctMethod { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether fancy upsampling is enabled or disabled (jpeg:fancy-upsampling).
         /// </summary>
-        public bool? FancyUpsampling
-        {
-            get;
-            set;
-        }
+        public bool? FancyUpsampling { get; set; }
 
         /// <summary>
         /// Gets or sets the size the scale the image to (jpeg:size). The output image won't be exactly
         /// the specified size. More information can be found here: http://jpegclub.org/djpeg/.
         /// </summary>
-        public MagickGeometry Size
-        {
-            get;
-            set;
-        }
+        public MagickGeometry Size { get; set; }
 
         /// <summary>
         /// Gets or sets the profile(s) that should be skipped when the image is read (profile:skip).
         /// </summary>
-        public ProfileTypes? SkipProfiles
-        {
-            get;
-            set;
-        }
+        public ProfileTypes? SkipProfiles { get; set; }
 
         /// <summary>
         /// Gets the defines that should be set as a define on an image.

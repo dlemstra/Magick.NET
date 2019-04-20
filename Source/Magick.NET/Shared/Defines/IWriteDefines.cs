@@ -20,9 +20,6 @@ namespace ImageMagick
         /// <summary>
         /// Gets the format where the defines are for.
         /// </summary>
-        MagickFormat Format
-        {
-            get;
-        }
+        MagickFormat Format { get; }
     }
 }

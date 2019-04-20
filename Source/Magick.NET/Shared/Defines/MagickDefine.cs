@@ -45,28 +45,16 @@ namespace ImageMagick
         /// <summary>
         /// Gets the format to set the define for.
         /// </summary>
-        public MagickFormat Format
-        {
-            get;
-            private set;
-        }
+        public MagickFormat Format { get; }
 
         /// <summary>
         /// Gets the name of the define.
         /// </summary>
-        public string Name
-        {
-            get;
-            private set;
-        }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the value of the define.
         /// </summary>
-        public string Value
-        {
-            get;
-            private set;
-        }
+        public string Value { get; }
     }
 }

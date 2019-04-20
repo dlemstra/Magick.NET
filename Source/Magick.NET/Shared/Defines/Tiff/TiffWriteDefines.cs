@@ -31,47 +31,27 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the tiff alpha (tiff:alpha).
         /// </summary>
-        public TiffAlpha? Alpha
-        {
-            get;
-            set;
-        }
+        public TiffAlpha? Alpha { get; set; }
 
         /// <summary>
         /// Gets or sets the endianness of the tiff file (tiff:endian).
         /// </summary>
-        public Endian? Endian
-        {
-            get;
-            set;
-        }
+        public Endian? Endian { get; set; }
 
         /// <summary>
         /// Gets or sets the endianness of the tiff file (tiff:fill-order).
         /// </summary>
-        public Endian? FillOrder
-        {
-            get;
-            set;
-        }
+        public Endian? FillOrder { get; set; }
 
         /// <summary>
         /// Gets or sets the rows per strip (tiff:rows-per-strip).
         /// </summary>
-        public int? RowsPerStrip
-        {
-            get;
-            set;
-        }
+        public int? RowsPerStrip { get; set; }
 
         /// <summary>
         /// Gets or sets the tile geometry (tiff:tile-geometry).
         /// </summary>
-        public MagickGeometry TileGeometry
-        {
-            get;
-            set;
-        }
+        public MagickGeometry TileGeometry { get; set; }
 
         /// <summary>
         /// Gets the defines that should be set as a define on an image.
