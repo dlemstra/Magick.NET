@@ -41,6 +41,19 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImageInfo"/> class.
         /// </summary>
+        /// <param name="data">The byte array to read the information from.</param>
+        /// <param name="offset">The offset at which to begin reading data.</param>
+        /// <param name="count">The maximum number of bytes to read.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public MagickImageInfo(byte[] data, int offset, int count)
+          : this()
+        {
+            Read(data, offset, count);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickImageInfo"/> class.
+        /// </summary>
         /// <param name="file">The file to read the image from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageInfo(FileInfo file)
