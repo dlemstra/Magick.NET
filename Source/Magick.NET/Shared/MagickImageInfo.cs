@@ -263,7 +263,7 @@ namespace ImageMagick
         /// <param name="stream">The stream to read the image data from.</param>
         /// <returns>A <see cref="MagickImageInfo"/> iteration.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public static IEnumerable<MagickImageInfo> ReadCollection(Stream stream)
+        public static IEnumerable<IMagickImageInfo> ReadCollection(Stream stream)
         {
             using (IMagickImageCollection images = new MagickImageCollection())
             {
