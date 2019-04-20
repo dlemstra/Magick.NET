@@ -38,6 +38,50 @@ namespace Magick.NET.Tests
             }
 
             [TestClass]
+            public class WithByteArrayAndOffset
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsNull()
+                {
+                    var imageInfo = new MagickImageInfo();
+
+                    ExceptionAssert.ThrowsArgumentNullException("data", () => MagickImageInfo.ReadCollection((byte[])null, 0, 0));
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsEmpty()
+                {
+                    var imageInfo = new MagickImageInfo();
+
+                    ExceptionAssert.ThrowsArgumentException("data", () => MagickImageInfo.ReadCollection(new byte[] { }, 0, 0));
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenOffsetIsNegative()
+                {
+                    var imageInfo = new MagickImageInfo();
+
+                    ExceptionAssert.ThrowsArgumentException("offset", () => MagickImageInfo.ReadCollection(new byte[] { 215 }, -1, 0));
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenCountIsZero()
+                {
+                    var imageInfo = new MagickImageInfo();
+
+                    ExceptionAssert.ThrowsArgumentException("count", () => MagickImageInfo.ReadCollection(new byte[] { 215 }, 0, 0));
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenCountIsNegative()
+                {
+                    var imageInfo = new MagickImageInfo();
+
+                    ExceptionAssert.ThrowsArgumentException("count", () => MagickImageInfo.ReadCollection(new byte[] { 215 }, 0, -1));
+                }
+            }
+
+            [TestClass]
             public class WithFileInfo
             {
                 [TestMethod]

@@ -205,6 +205,28 @@ namespace ImageMagick
         /// <summary>
         /// Read basic information about an image with multiple frames/pages.
         /// </summary>
+        /// <param name="data">The byte array to read the information from.</param>
+        /// <param name="offset">The offset at which to begin reading data.</param>
+        /// <param name="count">The maximum number of bytes to read.</param>
+        /// <returns>A <see cref="IMagickImageInfo"/> iteration.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public static IEnumerable<IMagickImageInfo> ReadCollection(byte[] data, int offset, int count)
+        {
+            using (IMagickImageCollection images = new MagickImageCollection())
+            {
+                images.Ping(data, offset, count);
+                foreach (MagickImage image in images)
+                {
+                    MagickImageInfo info = new MagickImageInfo();
+                    info.Initialize(image);
+                    yield return info;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Read basic information about an image with multiple frames/pages.
+        /// </summary>
         /// <param name="file">The file to read the frames from.</param>
         /// <returns>A <see cref="IMagickImageInfo"/> iteration.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
