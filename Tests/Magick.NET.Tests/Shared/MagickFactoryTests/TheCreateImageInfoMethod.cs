@@ -69,6 +69,65 @@ namespace Magick.NET.Tests
             }
 
             [TestClass]
+            public class WithByteArrayAndOffset
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsNull()
+                {
+                    IMagickFactory factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    {
+                        factory.CreateImageInfo(null, 0, 0);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsEmpty()
+                {
+                    IMagickFactory factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    {
+                        factory.CreateImageInfo(new byte[] { }, 0, 0);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenOffsetIsNegative()
+                {
+                    IMagickFactory factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentException("offset", () =>
+                    {
+                        factory.CreateImageInfo(new byte[] { 215 }, -1, 0);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenCountIsZero()
+                {
+                    IMagickFactory factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    {
+                        factory.CreateImageInfo(new byte[] { 215 }, 0, 0);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenCountIsNegative()
+                {
+                    IMagickFactory factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    {
+                        factory.CreateImageInfo(new byte[] { 215 }, 0, -1);
+                    });
+                }
+            }
+
+            [TestClass]
             public class WithFileInfo
             {
                 [TestMethod]
