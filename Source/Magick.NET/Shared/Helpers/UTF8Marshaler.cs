@@ -23,11 +23,7 @@ namespace ImageMagick
             Instance = ManagedToNative(value);
         }
 
-        public IntPtr Instance
-        {
-            get;
-            private set;
-        }
+        public IntPtr Instance { get; private set; }
 
         public void Dispose()
         {
