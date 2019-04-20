@@ -1992,8 +1992,10 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public IEnumerable<ConnectedComponent> ConnectedComponents(int connectivity)
         {
-            ConnectedComponentsSettings settings = new ConnectedComponentsSettings();
-            settings.Connectivity = connectivity;
+            var settings = new ConnectedComponentsSettings
+            {
+                Connectivity = connectivity,
+            };
             return ConnectedComponents(settings);
         }
 
