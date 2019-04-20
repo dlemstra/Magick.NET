@@ -16,11 +16,7 @@ namespace ImageMagick
 {
     internal partial class StringInfo
     {
-        public byte[] Datum
-        {
-            get;
-            private set;
-        }
+        public byte[] Datum { get; private set; }
 
         public static StringInfo CreateInstance(IntPtr instance)
         {
@@ -29,10 +25,10 @@ namespace ImageMagick
 
             NativeStringInfo native = new NativeStringInfo(instance);
 
-            StringInfo result = new StringInfo();
-            result.Datum = ByteConverter.ToArray(native.Datum, native.Length);
-
-            return result;
+            return new StringInfo
+            {
+                Datum = ByteConverter.ToArray(native.Datum, native.Length),
+            };
         }
     }
 }

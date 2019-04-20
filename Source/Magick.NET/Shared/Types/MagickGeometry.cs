@@ -99,128 +99,75 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets a value indicating whether the image is resized based on the smallest fitting dimension (^).
         /// </summary>
-        public bool FillArea
-        {
-            get;
-            set;
-        }
+        public bool FillArea { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the image is resized if image is greater than size (&gt;)
         /// </summary>
-        public bool Greater
-        {
-            get;
-            set;
-        }
+        public bool Greater { get; set; }
 
         /// <summary>
         /// Gets or sets the height of the geometry.
         /// </summary>
-        public int Height
-        {
-            get;
-            set;
-        }
+        public int Height { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the image is resized without preserving aspect ratio (!)
         /// </summary>
-        public bool IgnoreAspectRatio
-        {
-            get;
-            set;
-        }
+        public bool IgnoreAspectRatio { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the width and height are expressed as percentages.
         /// </summary>
-        public bool IsPercentage
-        {
-            get;
-            set;
-        }
+        public bool IsPercentage { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the image is resized if the image is less than size (&lt;)
         /// </summary>
-        public bool Less
-        {
-            get;
-            set;
-        }
+        public bool Less { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the image is resized using a pixel area count limit (@).
         /// </summary>
-        public bool LimitPixels
-        {
-            get;
-            set;
-        }
+        public bool LimitPixels { get; set; }
 
         /// <summary>
         /// Gets or sets the width of the geometry.
         /// </summary>
-        public int Width
-        {
-            get;
-            set;
-        }
+        public int Width { get; set; }
 
         /// <summary>
         /// Gets or sets the X offset from origin.
         /// </summary>
-        public int X
-        {
-            get;
-            set;
-        }
+        public int X { get; set; }
 
         /// <summary>
         /// Gets or sets the Y offset from origin.
         /// </summary>
-        public int Y
-        {
-            get;
-            set;
-        }
+        public int Y { get; set; }
 
-        internal bool AspectRatio
-        {
-            get;
-            set;
-        }
+        internal bool AspectRatio { get; set; }
 
         /// <summary>
         /// Converts the specified string to an instance of this type.
         /// </summary>
         /// <param name="value">Geometry specifications in the form: &lt;width&gt;x&lt;height&gt;
         /// {+-}&lt;xoffset&gt;{+-}&lt;yoffset&gt; (where width, height, xoffset, and yoffset are numbers)</param>
-        public static explicit operator MagickGeometry(string value)
-        {
-            return new MagickGeometry(value);
-        }
+        public static explicit operator MagickGeometry(string value) => new MagickGeometry(value);
 
         /// <summary>
         /// Determines whether the specified <see cref="MagickGeometry"/> instances are considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
         /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
-        public static bool operator ==(MagickGeometry left, MagickGeometry right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(MagickGeometry left, MagickGeometry right) => Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified <see cref="MagickGeometry"/> instances are not considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
         /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
-        public static bool operator !=(MagickGeometry left, MagickGeometry right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator !=(MagickGeometry left, MagickGeometry right) => !Equals(left, right);
 
         /// <summary>
         /// Determines whether the first <see cref="MagickGeometry"/>  is more than the second <see cref="MagickGeometry"/>.
@@ -357,10 +304,7 @@ namespace ImageMagick
         /// Returns a <see cref="PointD"/> that represents the position of the current <see cref="MagickGeometry"/>.
         /// </summary>
         /// <returns>A <see cref="PointD"/> that represents the position of the current <see cref="MagickGeometry"/>.</returns>
-        public PointD ToPoint()
-        {
-            return new PointD(X, Y);
-        }
+        public PointD ToPoint() => new PointD(X, Y);
 
         /// <summary>
         /// Returns a string that represents the current <see cref="MagickGeometry"/>.
@@ -444,15 +388,9 @@ namespace ImageMagick
             return new MagickGeometry(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
         }
 
-        internal static MagickGeometry FromString(string value)
-        {
-            return value == null ? null : new MagickGeometry(value);
-        }
+        internal static MagickGeometry FromString(string value) => value == null ? null : new MagickGeometry(value);
 
-        internal static string ToString(MagickGeometry value)
-        {
-            return value?.ToString();
-        }
+        internal static string ToString(MagickGeometry value) => value?.ToString();
 
         private static int ParseInt(string value)
         {

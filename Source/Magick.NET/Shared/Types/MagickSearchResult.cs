@@ -29,30 +29,18 @@ namespace ImageMagick
         /// <summary>
         /// Gets the offset for the best match.
         /// </summary>
-        public MagickGeometry BestMatch
-        {
-            get;
-            private set;
-        }
+        public MagickGeometry BestMatch { get; }
 
         /// <summary>
         /// Gets the a similarity image such that an exact match location is completely white and if none of
         /// the pixels match, black, otherwise some gray level in-between.
         /// </summary>
-        public IMagickImage SimilarityImage
-        {
-            get;
-            private set;
-        }
+        public IMagickImage SimilarityImage { get; private set; }
 
         /// <summary>
-        /// Gets or sets the similarity metric.
+        /// Gets the similarity metric.
         /// </summary>
-        public double SimilarityMetric
-        {
-            get;
-            set;
-        }
+        public double SimilarityMetric { get; }
 
         /// <summary>
         /// Disposes the <see cref="MagickSearchResult"/> instance.

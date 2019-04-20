@@ -31,21 +31,13 @@ namespace ImageMagick
         {
         }
 
-        public byte[] Data
-        {
-            get;
-            private set;
-        }
+        public byte[] Data { get; private set; }
 
-        public int Length
-        {
-            get;
-            private set;
-        }
+        public int Length { get; private set; }
 
         public static Bytes FromStreamBuffer(Stream stream)
         {
-            MemoryStream memStream = stream as MemoryStream;
+            var memStream = stream as MemoryStream;
 
             if (memStream == null || memStream.Position != 0)
                 return null;
@@ -62,10 +54,7 @@ namespace ImageMagick
             Throw.IfFalse(nameof(length), IsSupportedLength(length), "Streams with a length larger than 2147483591 are not supported, read from file instead.");
         }
 
-        private static bool IsSupportedLength(long length)
-        {
-            return length <= int.MaxValue;
-        }
+        private static bool IsSupportedLength(long length) => length <= int.MaxValue;
 
         private void SetData(Stream stream)
         {

@@ -32,28 +32,16 @@ namespace ImageMagick
         /// <summary>
         /// Gets the mean error per pixel computed when an image is color reduced.
         /// </summary>
-        public double MeanErrorPerPixel
-        {
-            get;
-            private set;
-        }
+        public double MeanErrorPerPixel { get; }
 
         /// <summary>
         /// Gets the normalized maximum error per pixel computed when an image is color reduced.
         /// </summary>
-        public double NormalizedMaximumError
-        {
-            get;
-            private set;
-        }
+        public double NormalizedMaximumError { get; }
 
         /// <summary>
         /// Gets the normalized mean error per pixel computed when an image is color reduced.
         /// </summary>
-        public double NormalizedMeanError
-        {
-            get;
-            private set;
-        }
+        public double NormalizedMeanError { get; }
     }
 }

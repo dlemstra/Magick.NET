@@ -42,29 +42,17 @@ namespace ImageMagick
         /// <summary>
         /// Gets the X value.
         /// </summary>
-        public double X
-        {
-            get;
-            private set;
-        }
+        public double X { get; }
 
         /// <summary>
         /// Gets the Y value.
         /// </summary>
-        public double Y
-        {
-            get;
-            private set;
-        }
+        public double Y { get; }
 
         /// <summary>
         /// Gets the Z value.
         /// </summary>
-        public double Z
-        {
-            get;
-            private set;
-        }
+        public double Z { get; }
 
         /// <summary>
         /// Determines whether the specified <see cref="PrimaryInfo"/> is equal to the current <see cref="PrimaryInfo"/>.
@@ -99,11 +87,12 @@ namespace ImageMagick
 
         private INativeInstance CreateNativeInstance()
         {
-            NativePrimaryInfo instance = new NativePrimaryInfo();
-            instance.X = X;
-            instance.Y = Y;
-            instance.Z = Z;
-            return instance;
+            return new NativePrimaryInfo
+            {
+                X = X,
+                Y = Y,
+                Z = Z,
+            };
         }
     }
 }

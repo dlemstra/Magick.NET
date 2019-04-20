@@ -32,29 +32,13 @@ namespace ImageMagick
             Height = instance.Height;
         }
 
-        public int Height
-        {
-            get;
-            set;
-        }
+        public int Height { get; set; }
 
-        public int Width
-        {
-            get;
-            set;
-        }
+        public int Width { get; set; }
 
-        public int X
-        {
-            get;
-            set;
-        }
+        public int X { get; set; }
 
-        public int Y
-        {
-            get;
-            set;
-        }
+        public int Y { get; set; }
 
         public static MagickRectangle FromGeometry(MagickGeometry geometry, MagickImage image)
         {
@@ -73,10 +57,7 @@ namespace ImageMagick
             return new MagickRectangle(geometry.X, geometry.Y, width, height);
         }
 
-        internal static INativeInstance CreateInstance()
-        {
-            return new NativeMagickRectangle();
-        }
+        internal static INativeInstance CreateInstance() => new NativeMagickRectangle();
 
         internal static MagickRectangle CreateInstance(INativeInstance nativeInstance)
         {

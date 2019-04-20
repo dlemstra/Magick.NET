@@ -39,7 +39,7 @@ namespace ImageMagick
         /// <param name="bestPrecision">Specifies if the instance should be created with the best precision possible.</param>
         public Rational(double value, bool bestPrecision)
         {
-            BigRational rational = new BigRational(Math.Abs(value), bestPrecision);
+            var rational = new BigRational(Math.Abs(value), bestPrecision);
 
             Numerator = (uint)rational.Numerator;
             Denominator = (uint)rational.Denominator;
@@ -72,7 +72,7 @@ namespace ImageMagick
         /// <param name="simplify">Specified if the rational should be simplified.</param>
         public Rational(uint numerator, uint denominator, bool simplify)
         {
-            BigRational rational = new BigRational(numerator, denominator, simplify);
+            var rational = new BigRational(numerator, denominator, simplify);
 
             Numerator = (uint)rational.Numerator;
             Denominator = (uint)rational.Denominator;
@@ -81,50 +81,33 @@ namespace ImageMagick
         /// <summary>
         /// Gets the numerator of a number.
         /// </summary>
-        public uint Numerator
-        {
-            get;
-            private set;
-        }
+        public uint Numerator { get; private set; }
 
         /// <summary>
         /// Gets the denominator of a number.
         /// </summary>
-        public uint Denominator
-        {
-            get;
-            private set;
-        }
+        public uint Denominator { get; private set; }
 
         /// <summary>
         /// Determines whether the specified <see cref="Rational"/> instances are considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="Rational"/>  to compare.</param>
         /// <param name="right"> The second <see cref="Rational"/>  to compare.</param>
-        public static bool operator ==(Rational left, Rational right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(Rational left, Rational right) => Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified <see cref="Rational"/> instances are not considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="Rational"/> to compare.</param>
         /// <param name="right"> The second <see cref="Rational"/> to compare.</param>
-        public static bool operator !=(Rational left, Rational right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator !=(Rational left, Rational right) => !Equals(left, right);
 
         /// <summary>
         /// Converts the specified <see cref="double"/> to an instance of this type.
         /// </summary>
         /// <param name="value">The <see cref="double"/> to convert to an instance of this type.</param>
         /// <returns>The <see cref="Rational"/>.</returns>
-        public static Rational FromDouble(double value)
-        {
-            return new Rational(value, false);
-        }
+        public static Rational FromDouble(double value) => new Rational(value, false);
 
         /// <summary>
         /// Converts the specified <see cref="double"/> to an instance of this type.
@@ -132,10 +115,7 @@ namespace ImageMagick
         /// <param name="value">The <see cref="double"/> to convert to an instance of this type.</param>
         /// <param name="bestPrecision">Specifies if the instance should be created with the best precision possible.</param>
         /// <returns>The <see cref="Rational"/>.</returns>
-        public static Rational FromDouble(double value, bool bestPrecision)
-        {
-            return new Rational(value, bestPrecision);
-        }
+        public static Rational FromDouble(double value, bool bestPrecision) => new Rational(value, bestPrecision);
 
         /// <summary>
         /// Determines whether the specified <see cref="object"/> is equal to this <see cref="Rational"/>.
@@ -157,8 +137,8 @@ namespace ImageMagick
         /// <returns>True when the specified <see cref="Rational"/> is equal to this <see cref="Rational"/>.</returns>
         public bool Equals(Rational other)
         {
-            BigRational left = new BigRational(Numerator, Denominator);
-            BigRational right = new BigRational(other.Numerator, other.Denominator);
+            var left = new BigRational(Numerator, Denominator);
+            var right = new BigRational(other.Numerator, other.Denominator);
 
             return left.Equals(right);
         }
@@ -169,7 +149,7 @@ namespace ImageMagick
         /// <returns>A hash code for the current instance.</returns>
         public override int GetHashCode()
         {
-            BigRational self = new BigRational(Numerator, Denominator);
+            var self = new BigRational(Numerator, Denominator);
             return self.GetHashCode();
         }
 
@@ -179,19 +159,13 @@ namespace ImageMagick
         /// <returns>
         /// The <see cref="double"/>.
         /// </returns>
-        public double ToDouble()
-        {
-            return Numerator / (double)Denominator;
-        }
+        public double ToDouble() => Numerator / (double)Denominator;
 
         /// <summary>
         /// Converts the numeric value of this instance to its equivalent string representation.
         /// </summary>
         /// <returns>A string representation of this value.</returns>
-        public override string ToString()
-        {
-            return ToString(CultureInfo.InvariantCulture);
-        }
+        public override string ToString() => ToString(CultureInfo.InvariantCulture);
 
         /// <summary>
         /// Converts the numeric value of this instance to its equivalent string representation using
@@ -203,7 +177,7 @@ namespace ImageMagick
         /// <returns>A string representation of this value.</returns>
         public string ToString(IFormatProvider provider)
         {
-            BigRational rational = new BigRational(Numerator, Denominator);
+            var rational = new BigRational(Numerator, Denominator);
             return rational.ToString(provider);
         }
     }

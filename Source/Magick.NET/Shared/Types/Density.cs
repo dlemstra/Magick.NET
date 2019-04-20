@@ -180,10 +180,7 @@ namespace ImageMagick
         /// Returns a string that represents the current <see cref="Density"/>.
         /// </summary>
         /// <returns>A string that represents the current <see cref="Density"/>.</returns>
-        public override string ToString()
-        {
-            return ToString(Units);
-        }
+        public override string ToString() => ToString(Units);
 
         /// <summary>
         /// Returns a string that represents the current <see cref="Density"/>.

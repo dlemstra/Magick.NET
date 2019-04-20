@@ -35,74 +35,43 @@ namespace ImageMagick
         /// <summary>
         /// Gets the centroid of the area.
         /// </summary>
-        public PointD Centroid
-        {
-            get;
-            private set;
-        }
+        public PointD Centroid { get; }
 
         /// <summary>
         /// Gets the color of the area.
         /// </summary>
-        public MagickColor Color
-        {
-            get;
-            private set;
-        }
+        public MagickColor Color { get; }
 
         /// <summary>
         /// Gets the height of the area.
         /// </summary>
-        public int Height
-        {
-            get;
-            private set;
-        }
+        public int Height { get; }
 
         /// <summary>
         /// Gets the id of the area.
         /// </summary>
-        public int Id
-        {
-            get;
-            private set;
-        }
+        public int Id { get; }
 
         /// <summary>
         /// Gets the width of the area.
         /// </summary>
-        public int Width
-        {
-            get;
-            private set;
-        }
+        public int Width { get; }
 
         /// <summary>
         /// Gets the X offset from origin.
         /// </summary>
-        public int X
-        {
-            get;
-            private set;
-        }
+        public int X { get; }
 
         /// <summary>
         /// Gets the Y offset from origin.
         /// </summary>
-        public int Y
-        {
-            get;
-            private set;
-        }
+        public int Y { get; }
 
         /// <summary>
         /// Returns the geometry of the area of this connected component.
         /// </summary>
         /// <returns>The geometry of the area of this connected component.</returns>
-        public MagickGeometry ToGeometry()
-        {
-            return new MagickGeometry(X, Y, Width, Height);
-        }
+        public MagickGeometry ToGeometry() => new MagickGeometry(X, Y, Width, Height);
 
         /// <summary>
         /// Returns the geometry of the area of this connected component.

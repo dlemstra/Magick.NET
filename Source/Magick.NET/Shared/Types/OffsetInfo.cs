@@ -20,21 +20,13 @@ namespace ImageMagick
             Y = y;
         }
 
-        public int X
-        {
-            get;
-            private set;
-        }
+        public int X { get; }
 
-        public int Y
-        {
-            get;
-            private set;
-        }
+        public int Y { get; }
 
         public INativeInstance CreateNativeInstance()
         {
-            NativeOffsetInfo offsetInfo = new NativeOffsetInfo();
+            var offsetInfo = new NativeOffsetInfo();
             offsetInfo.SetX(X);
             offsetInfo.SetY(Y);
             return offsetInfo;

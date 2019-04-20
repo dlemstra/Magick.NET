@@ -35,28 +35,16 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the X position.
         /// </summary>
-        public double X
-        {
-            get;
-            set;
-        }
+        public double X { get; set; }
 
         /// <summary>
         /// Gets or sets the Y position.
         /// </summary>
-        public double Y
-        {
-            get;
-            set;
-        }
+        public double Y { get; set; }
 
         /// <summary>
         /// Gets or sets the color.
         /// </summary>
-        public MagickColor Color
-        {
-            get;
-            set;
-        }
+        public MagickColor Color { get; set; }
     }
 }

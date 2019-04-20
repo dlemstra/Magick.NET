@@ -79,17 +79,9 @@ namespace ImageMagick
             Simplify();
         }
 
-        public long Denominator
-        {
-            get;
-            private set;
-        }
+        public long Denominator { get; private set; }
 
-        public long Numerator
-        {
-            get;
-            private set;
-        }
+        public long Numerator { get; private set; }
 
         private bool IsIndeterminate
         {
@@ -151,10 +143,7 @@ namespace ImageMagick
             return (Numerator * other.Denominator) == (Denominator * other.Numerator);
         }
 
-        public override int GetHashCode()
-        {
-            return ((Numerator * 397) ^ Denominator).GetHashCode();
-        }
+        public override int GetHashCode() => ((Numerator * 397) ^ Denominator).GetHashCode();
 
         public string ToString(IFormatProvider provider)
         {
@@ -181,10 +170,7 @@ namespace ImageMagick
             return sb.ToString();
         }
 
-        private static long GreatestCommonDivisor(long a, long b)
-        {
-            return b == 0 ? a : GreatestCommonDivisor(b, a % b);
-        }
+        private static long GreatestCommonDivisor(long a, long b) => b == 0 ? a : GreatestCommonDivisor(b, a % b);
 
         private void Simplify()
         {

@@ -23,21 +23,10 @@ namespace ImageMagick
             Y = nativeInstance.Y;
         }
 
-        public double X
-        {
-            get;
-            private set;
-        }
+        public double X { get; }
 
-        public double Y
-        {
-            get;
-            private set;
-        }
+        public double Y { get; }
 
-        public static PointInfo CreateInstance(IntPtr instance)
-        {
-            return new PointInfo(instance);
-        }
+        public static PointInfo CreateInstance(IntPtr instance) => new PointInfo(instance);
     }
 }
