@@ -10,18 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
-
-#if Q8
-using QuantumType = System.Byte;
-#elif Q16
-using QuantumType = System.UInt16;
-#elif Q16HDRI
-using QuantumType = System.Single;
-#else
-#error Not implemented!
-#endif
-
 namespace ImageMagick
 {
     /// <summary>
@@ -54,39 +42,24 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the U component value of this color. (value beteeen -0.5 and 0.5)
         /// </summary>
-        public double U
-        {
-            get;
-            set;
-        }
+        public double U { get; set; }
 
         /// <summary>
         /// Gets or sets the V component value of this color. (value beteeen -0.5 and 0.5)
         /// </summary>
-        public double V
-        {
-            get;
-            set;
-        }
+        public double V { get; set; }
 
         /// <summary>
         /// Gets or sets the Y component value of this color. (value beteeen 0.0 and 1.0)
         /// </summary>
-        public double Y
-        {
-            get;
-            set;
-        }
+        public double Y { get; set; }
 
         /// <summary>
         /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>A <see cref="ColorYUV"/> instance.</returns>
-        public static implicit operator ColorYUV(MagickColor color)
-        {
-            return FromMagickColor(color);
-        }
+        public static implicit operator ColorYUV(MagickColor color) => FromMagickColor(color);
 
         /// <summary>
         /// Converts the specified <see cref="MagickColor"/> to an instance of this type.

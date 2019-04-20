@@ -53,21 +53,14 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets a value indicating whether the color is black or white.
         /// </summary>
-        public bool IsBlack
-        {
-            get;
-            set;
-        }
+        public bool IsBlack { get; set; }
 
         /// <summary>
         /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>A <see cref="ColorMono"/> instance.</returns>
-        public static implicit operator ColorMono(MagickColor color)
-        {
-            return FromMagickColor(color);
-        }
+        public static implicit operator ColorMono(MagickColor color) => FromMagickColor(color);
 
         /// <summary>
         /// Converts the specified <see cref="MagickColor"/> to an instance of this type.

@@ -162,81 +162,48 @@ namespace ImageMagick
             }
         }
 
-        private MagickColor(NativeMagickColor instance)
-        {
-            Initialize(instance);
-        }
+        private MagickColor(NativeMagickColor instance) => Initialize(instance);
 
         /// <summary>
         /// Gets or sets the alpha component value of this color.
         /// </summary>
-        public QuantumType A
-        {
-            get;
-            set;
-        }
+        public QuantumType A { get; set; }
 
         /// <summary>
         /// Gets or sets the blue component value of this color.
         /// </summary>
-        public QuantumType B
-        {
-            get;
-            set;
-        }
+        public QuantumType B { get; set; }
 
         /// <summary>
         /// Gets or sets the green component value of this color.
         /// </summary>
-        public QuantumType G
-        {
-            get;
-            set;
-        }
+        public QuantumType G { get; set; }
 
         /// <summary>
         /// Gets or sets the key (black) component value of this color.
         /// </summary>
-        public QuantumType K
-        {
-            get;
-            set;
-        }
+        public QuantumType K { get; set; }
 
         /// <summary>
         /// Gets or sets the red component value of this color.
         /// </summary>
-        public QuantumType R
-        {
-            get;
-            set;
-        }
+        public QuantumType R { get; set; }
 
-        internal int Count
-        {
-            get;
-            private set;
-        }
+        internal int Count { get; set; }
 
         /// <summary>
         /// Determines whether the specified <see cref="MagickColor"/> instances are considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="MagickColor"/> to compare.</param>
         /// <param name="right"> The second <see cref="MagickColor"/> to compare.</param>
-        public static bool operator ==(MagickColor left, MagickColor right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(MagickColor left, MagickColor right) => Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified <see cref="MagickColor"/> instances are not considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="MagickColor"/> to compare.</param>
         /// <param name="right"> The second <see cref="MagickColor"/> to compare.</param>
-        public static bool operator !=(MagickColor left, MagickColor right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator !=(MagickColor left, MagickColor right) => !Equals(left, right);
 
         /// <summary>
         /// Determines whether the first <see cref="MagickColor"/> is more than the second <see cref="MagickColor"/>.
@@ -325,10 +292,7 @@ namespace ImageMagick
         /// Creates a clone of the current color.
         /// </summary>
         /// <returns>A clone of the current color.</returns>
-        public MagickColor Clone()
-        {
-            return new MagickColor(this);
-        }
+        public MagickColor Clone() => new MagickColor(this);
 
         /// <summary>
         /// Compares the current instance with another object of the same type.
@@ -477,10 +441,7 @@ namespace ImageMagick
             return clone;
         }
 
-        internal static string ToString(MagickColor value)
-        {
-            return value?.ToString();
-        }
+        internal static string ToString(MagickColor value) => value?.ToString();
 
         internal string ToShortString()
         {

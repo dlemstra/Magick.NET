@@ -12,16 +12,6 @@
 
 using System;
 
-#if Q8
-using QuantumType = System.Byte;
-#elif Q16
-using QuantumType = System.UInt16;
-#elif Q16HDRI
-using QuantumType = System.Single;
-#else
-#error Not implemented!
-#endif
-
 namespace ImageMagick
 {
     /// <summary>
@@ -52,39 +42,24 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the hue component value of this color.
         /// </summary>
-        public double Hue
-        {
-            get;
-            set;
-        }
+        public double Hue { get; set; }
 
         /// <summary>
         /// Gets or sets the saturation component value of this color.
         /// </summary>
-        public double Saturation
-        {
-            get;
-            set;
-        }
+        public double Saturation { get; set; }
 
         /// <summary>
         /// Gets or sets the value component value of this color.
         /// </summary>
-        public double Value
-        {
-            get;
-            set;
-        }
+        public double Value { get; set; }
 
         /// <summary>
         /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>A <see cref="ColorHSV"/> instance.</returns>
-        public static implicit operator ColorHSV(MagickColor color)
-        {
-            return FromMagickColor(color);
-        }
+        public static implicit operator ColorHSV(MagickColor color) => FromMagickColor(color);
 
         /// <summary>
         /// Converts the specified <see cref="MagickColor"/> to an instance of this type.

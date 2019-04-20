@@ -31,11 +31,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the actual color of this instance.
         /// </summary>
-        protected MagickColor Color
-        {
-            get;
-            private set;
-        }
+        protected MagickColor Color { get; }
 
         /// <summary>
         /// Converts the specified color to a <see cref="MagickColor"/> instance.
@@ -54,20 +50,14 @@ namespace ImageMagick
         /// </summary>
         /// <param name="left">The first <see cref="ColorBase"/> to compare.</param>
         /// <param name="right"> The second <see cref="ColorBase"/> to compare.</param>
-        public static bool operator ==(ColorBase left, ColorBase right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(ColorBase left, ColorBase right) => Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified <see cref="ColorBase"/> instances are not considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="ColorBase"/> to compare.</param>
         /// <param name="right"> The second <see cref="ColorBase"/> to compare.</param>
-        public static bool operator !=(ColorBase left, ColorBase right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator !=(ColorBase left, ColorBase right) => !Equals(left, right);
 
         /// <summary>
         /// Determines whether the first <see cref="ColorBase"/> is more than the second <see cref="ColorBase"/>
@@ -142,10 +132,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="obj">The object to compare this color with.</param>
         /// <returns>True when the specified object is equal to the current instance.</returns>
-        public override bool Equals(object obj)
-        {
-            return Equals(obj as ColorBase);
-        }
+        public override bool Equals(object obj) => Equals(obj as ColorBase);
 
         /// <summary>
         /// Determines whether the specified color is equal to the current color.
@@ -212,10 +199,7 @@ namespace ImageMagick
         /// Converts the value of this instance to a hexadecimal string.
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
-        public override string ToString()
-        {
-            return ToMagickColor().ToString();
-        }
+        public override string ToString() => ToMagickColor().ToString();
 
         /// <summary>
         /// Updates the color value from an inherited class.
