@@ -24,69 +24,58 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenDataIsNull()
             {
-                ExceptionAssert.ThrowsArgumentNullException("data", () =>
-                {
-                    var imageInfo = new MagickImageInfo();
-                    imageInfo.Read((byte[])null);
-                });
+                var imageInfo = new MagickImageInfo();
+
+                ExceptionAssert.ThrowsArgumentNullException("data", () => imageInfo.Read((byte[])null));
             }
 
             [TestMethod]
             public void ShouldThrowExceptionWhenDataIsEmpty()
             {
-                ExceptionAssert.ThrowsArgumentException("data", () =>
-                {
-                    var imageInfo = new MagickImageInfo();
-                    imageInfo.Read(new byte[0]);
-                });
+                var imageInfo = new MagickImageInfo();
+
+                ExceptionAssert.ThrowsArgumentException("data", () => imageInfo.Read(new byte[0]));
             }
 
             [TestMethod]
             public void ShouldThrowExceptionWhenFileIsNull()
             {
-                ExceptionAssert.ThrowsArgumentNullException("file", () =>
-                {
-                    var imageInfo = new MagickImageInfo();
-                    imageInfo.Read((FileInfo)null);
-                });
+                var imageInfo = new MagickImageInfo();
+
+                ExceptionAssert.ThrowsArgumentNullException("file", () => imageInfo.Read((FileInfo)null));
             }
 
             [TestMethod]
             public void ShouldThrowExceptionWhenStreamIsNull()
             {
-                ExceptionAssert.ThrowsArgumentNullException("stream", () =>
-                {
-                    var imageInfo = new MagickImageInfo();
-                    imageInfo.Read((Stream)null);
-                });
+                var imageInfo = new MagickImageInfo();
+
+                ExceptionAssert.ThrowsArgumentNullException("stream", () => imageInfo.Read((Stream)null));
             }
 
             [TestMethod]
             public void ShouldThrowExceptionWhenFileNameIsNull()
             {
-                ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
-                {
-                    var imageInfo = new MagickImageInfo();
-                    imageInfo.Read((string)null);
-                });
+                var imageInfo = new MagickImageInfo();
+
+                ExceptionAssert.ThrowsArgumentNullException("fileName", () => imageInfo.Read((string)null));
             }
 
             [TestMethod]
             public void ShouldThrowExceptionWhenFileNameIsEmpty()
             {
-                ExceptionAssert.ThrowsArgumentException("fileName", () =>
-                {
-                    var imageInfo = new MagickImageInfo();
-                    imageInfo.Read(string.Empty);
-                });
+                var imageInfo = new MagickImageInfo();
+
+                ExceptionAssert.ThrowsArgumentException("fileName", () => imageInfo.Read(string.Empty));
             }
 
             [TestMethod]
             public void ShouldThrowExceptionWhenFileNameIsInvalid()
             {
+                var imageInfo = new MagickImageInfo();
+
                 ExceptionAssert.Throws<MagickBlobErrorException>(() =>
                 {
-                    var imageInfo = new MagickImageInfo();
                     imageInfo.Read(Files.Missing);
                 }, "error/blob.c/OpenBlob");
             }
