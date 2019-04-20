@@ -31,10 +31,7 @@ namespace ImageMagick
         /// Converts the specified rectangle to an instance of this type.
         /// </summary>
         /// <param name="rectangle">The rectangle to use.</param>
-        public static explicit operator MagickGeometry(Rectangle rectangle)
-        {
-            return new MagickGeometry(rectangle);
-        }
+        public static explicit operator MagickGeometry(Rectangle rectangle) => new MagickGeometry(rectangle);
     }
 }
 

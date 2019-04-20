@@ -27,10 +27,7 @@ namespace ImageMagick
         /// <param name="bitmap">The bitmap to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
-        public IMagickImage CreateImage(Bitmap bitmap)
-        {
-            return new MagickImage(bitmap);
-        }
+        public IMagickImage CreateImage(Bitmap bitmap) => new MagickImage(bitmap);
     }
 }
 

@@ -37,20 +37,14 @@ namespace ImageMagick
         /// Converts the specified <see cref="Rectangle"/> to an instance of this type.
         /// </summary>
         /// <param name="rectangle">The <see cref="Rectangle"/> to use.</param>
-        public static explicit operator DrawableViewbox(Rectangle rectangle)
-        {
-            return FromRectangle(rectangle);
-        }
+        public static explicit operator DrawableViewbox(Rectangle rectangle) => FromRectangle(rectangle);
 
         /// <summary>
         /// Converts the specified <see cref="Rectangle"/> to an instance of this type.
         /// </summary>
         /// <param name="rectangle">The <see cref="Rectangle"/> to use.</param>
         /// <returns>A <see cref="DrawableViewbox"/> instance.</returns>
-        public static DrawableViewbox FromRectangle(Rectangle rectangle)
-        {
-            return new DrawableViewbox(rectangle);
-        }
+        public static DrawableViewbox FromRectangle(Rectangle rectangle) => new DrawableViewbox(rectangle);
     }
 }
 

@@ -46,10 +46,7 @@ namespace ImageMagick
         /// Converts the specified <see cref="Color"/> to a <see cref="MagickColor"/> instance.
         /// </summary>
         /// <param name="color">The <see cref="Color"/> to convert.</param>
-        public static implicit operator MagickColor(Color color)
-        {
-            return new MagickColor(color);
-        }
+        public static implicit operator MagickColor(Color color) => new MagickColor(color);
 
         /// <summary>
         /// Converts the value of this instance to an equivalent Color.

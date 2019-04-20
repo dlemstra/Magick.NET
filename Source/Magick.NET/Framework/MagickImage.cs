@@ -77,10 +77,7 @@ namespace ImageMagick
         /// Converts this instance to a <see cref="Bitmap"/> using <see cref="ImageFormat.Bmp"/>.
         /// </summary>
         /// <returns>A <see cref="Bitmap"/> that has the format <see cref="ImageFormat.Bmp"/>.</returns>
-        public Bitmap ToBitmap()
-        {
-            return ToBitmap(BitmapDensity.Ignore);
-        }
+        public Bitmap ToBitmap() => ToBitmap(BitmapDensity.Ignore);
 
         /// <summary>
         /// Converts this instance to a <see cref="Bitmap"/> using <see cref="ImageFormat.Bmp"/>.
@@ -92,7 +89,7 @@ namespace ImageMagick
             IMagickImage image = this;
 
             string mapping = "BGR";
-            PixelFormat format = PixelFormat.Format24bppRgb;
+            var format = PixelFormat.Format24bppRgb;
 
             try
             {
@@ -110,9 +107,9 @@ namespace ImageMagick
 
                 using (IPixelCollection pixels = image.GetPixelsUnsafe())
                 {
-                    Bitmap bitmap = new Bitmap(image.Width, image.Height, format);
-                    BitmapData data = bitmap.LockBits(new Rectangle(0, 0, image.Width, image.Height), ImageLockMode.ReadWrite, format);
-                    IntPtr destination = data.Scan0;
+                    var bitmap = new Bitmap(image.Width, image.Height, format);
+                    var data = bitmap.LockBits(new Rectangle(0, 0, image.Width, image.Height), ImageLockMode.ReadWrite, format);
+                    var destination = data.Scan0;
                     for (int y = 0; y < Height; y++)
                     {
                         byte[] bytes = pixels.ToByteArray(0, y, Width, 1, mapping);
@@ -140,10 +137,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="imageFormat">The image format.</param>
         /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/></returns>
-        public Bitmap ToBitmap(ImageFormat imageFormat)
-        {
-            return ToBitmap(imageFormat, BitmapDensity.Ignore);
-        }
+        public Bitmap ToBitmap(ImageFormat imageFormat) => ToBitmap(imageFormat, BitmapDensity.Ignore);
 
         /// <summary>
         /// Converts this instance to a <see cref="Bitmap"/> using the specified <see cref="ImageFormat"/>.

@@ -36,35 +36,17 @@ namespace ImageMagick
             return (T[])field.GetCustomAttributes(typeof(T), false);
         }
 
-        public static Type[] GetGenericArguments(Type type)
-        {
-            return type.GetGenericArguments();
-        }
+        public static Type[] GetGenericArguments(Type type) => type.GetGenericArguments();
 
-        public static Stream GetManifestResourceStream(Type type, string resourcePath, string resourceName)
-        {
-            return type.Assembly.GetManifestResourceStream(resourcePath + "." + resourceName);
-        }
+        public static Stream GetManifestResourceStream(Type type, string resourcePath, string resourceName) => type.Assembly.GetManifestResourceStream(resourcePath + "." + resourceName);
 
-        public static bool IsEnum(Type type)
-        {
-            return type.IsEnum;
-        }
+        public static bool IsEnum(Type type) => type.IsEnum;
 
-        public static bool IsGeneric(Type type)
-        {
-            return type.IsGenericType;
-        }
+        public static bool IsGeneric(Type type) => type.IsGenericType;
 
-        public static bool IsNullable(Type type)
-        {
-            return type.GetGenericTypeDefinition() == typeof(Nullable<>);
-        }
+        public static bool IsNullable(Type type) => type.GetGenericTypeDefinition() == typeof(Nullable<>);
 
-        public static bool IsValueType(Type type)
-        {
-            return type.IsValueType;
-        }
+        public static bool IsValueType(Type type) => type.IsValueType;
     }
 }
 

@@ -42,17 +42,14 @@ namespace ImageMagick
         {
             SetFormat(imageFormat);
 
-            MemoryStream memStream = new MemoryStream();
+            var memStream = new MemoryStream();
             Write(memStream);
             memStream.Position = 0;
             /* Do not dispose the memStream, the bitmap owns it. */
             return new Bitmap(memStream);
         }
 
-        private void SetFormat(ImageFormat format)
-        {
-            SetFormat(MagickFormatInfo.GetFormat(format));
-        }
+        private void SetFormat(ImageFormat format) => SetFormat(MagickFormatInfo.GetFormat(format));
     }
 }
 
