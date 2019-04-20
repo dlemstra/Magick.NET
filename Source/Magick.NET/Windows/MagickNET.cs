@@ -26,10 +26,7 @@ namespace ImageMagick
         /// Sets the directory that contains the Native library.
         /// </summary>
         /// <param name="path">The path of the directory that contains the native library.</param>
-        public static void SetNativeLibraryDirectory(string path)
-        {
-            NativeWindowsMethods.SetDllDirectory(FileHelper.GetFullPath(path));
-        }
+        public static void SetNativeLibraryDirectory(string path) => NativeWindowsMethods.SetDllDirectory(FileHelper.GetFullPath(path));
 
         private static class NativeWindowsMethods
         {
