@@ -10,7 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
 using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -19,268 +18,726 @@ namespace Magick.NET.Tests
 {
     public partial class MagickFactoryTests
     {
-        [TestClass]
         public partial class TheCreateImageMethod
         {
             [TestMethod]
-            public void ShouldThrowExceptionWhenByteArrayIsNullAndPixelReadSettingsIsSpecified()
+            public void ShouldCreateMagickImage()
             {
-                ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                var factory = new MagickFactory();
+                using (IMagickImage image = factory.CreateImage())
                 {
-                    var settings = new PixelReadSettings();
-
-                    MagickFactory factory = new MagickFactory();
-                    factory.CreateImage((byte[])null, settings);
-                });
+                    Assert.IsInstanceOfType(image, typeof(MagickImage));
+                    Assert.AreEqual(0, image.Width);
+                }
             }
 
-            [TestMethod]
-            public void ShouldThrowExceptionWhenByteArrayIsEmptyAndPixelReadSettingsIsSpecified()
+            [TestClass]
+            public class WithByteArray
             {
-                ExceptionAssert.ThrowsArgumentException("data", () =>
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    var settings = new PixelReadSettings();
+                    var factory = new MagickFactory();
 
-                    MagickFactory factory = new MagickFactory();
-                    factory.CreateImage(new byte[] { }, settings);
-                });
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenPixelReadSettingsIsNullAndByteArrayIsSpecified()
-            {
-                ExceptionAssert.ThrowsArgumentNullException("settings", () =>
-                {
-                    MagickFactory factory = new MagickFactory();
-                    factory.CreateImage(new byte[] { 215 }, (PixelReadSettings)null);
-                });
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenFileInfoIsNullAndPixelReadSettingsIsSpecified()
-            {
-                ExceptionAssert.ThrowsArgumentNullException("file", () =>
-                {
-                    var settings = new PixelReadSettings();
-
-                    MagickFactory factory = new MagickFactory();
-                    factory.CreateImage((FileInfo)null, settings);
-                });
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenPixelReadSettingsIsNullAndFileInfoIsSpecified()
-            {
-                ExceptionAssert.ThrowsArgumentNullException("settings", () =>
-                {
-                    MagickFactory factory = new MagickFactory();
-                    factory.CreateImage(new FileInfo(Files.CirclePNG), (PixelReadSettings)null);
-                });
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenStreamIsNullAndPixelReadSettingsIsSpecified()
-            {
-                ExceptionAssert.ThrowsArgumentNullException("stream", () =>
-                {
-                    var settings = new PixelReadSettings();
-
-                    MagickFactory factory = new MagickFactory();
-                    factory.CreateImage((Stream)null, settings);
-                });
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenStreamIsEmptyAndPixelReadSettingsIsSpecified()
-            {
-                ExceptionAssert.ThrowsArgumentException("stream", () =>
-                {
-                    var settings = new PixelReadSettings();
-
-                    MagickFactory factory = new MagickFactory();
-                    factory.CreateImage(new MemoryStream(), settings);
-                });
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenPixelReadSettingsIsNullAndStreamIsSpecified()
-            {
-                ExceptionAssert.ThrowsArgumentNullException("settings", () =>
-                {
-                    MagickFactory factory = new MagickFactory();
-                    factory.CreateImage(new MemoryStream(new byte[] { 215 }), (PixelReadSettings)null);
-                });
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenFileNameIsNullAndPixelReadSettingsIsSpecified()
-            {
-                ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
-                {
-                    var settings = new PixelReadSettings();
-
-                    MagickFactory factory = new MagickFactory();
-                    factory.CreateImage((string)null, settings);
-                });
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenPixelReadSettingsIsNullAndFileNameIsSpecified()
-            {
-                ExceptionAssert.ThrowsArgumentNullException("settings", () =>
-                {
-                    MagickFactory factory = new MagickFactory();
-                    factory.CreateImage(Files.CirclePNG, (PixelReadSettings)null);
-                });
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenMappingIsNull()
-            {
-                ExceptionAssert.ThrowsArgumentException("settings", () =>
-                {
-                    var settings = new PixelReadSettings(1, 1, StorageType.Char, null);
-
-                    MagickFactory factory = new MagickFactory();
-                    factory.CreateImage(Files.CirclePNG, settings);
-                }, "mapping");
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenMappingIsEmpty()
-            {
-                ExceptionAssert.ThrowsArgumentException("settings", () =>
-                {
-                    var settings = new PixelReadSettings(1, 1, StorageType.Char, string.Empty);
-
-                    MagickFactory factory = new MagickFactory();
-                    factory.CreateImage(Files.CirclePNG, settings);
-                }, "mapping");
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenWidthIsNull()
-            {
-                ExceptionAssert.ThrowsArgumentException("settings", () =>
-                {
-                    var settings = new PixelReadSettings(1, 1, StorageType.Char, "RGBA");
-                    settings.ReadSettings.Width = null;
-
-                    MagickFactory factory = new MagickFactory();
-                    factory.CreateImage(Files.CirclePNG, settings);
-                }, "Width");
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenHeightIsNull()
-            {
-                ExceptionAssert.ThrowsArgumentException("settings", () =>
-                {
-                    var settings = new PixelReadSettings(1, 1, StorageType.Char, "RGBA");
-                    settings.ReadSettings.Height = null;
-
-                    MagickFactory factory = new MagickFactory();
-                    factory.CreateImage(Files.CirclePNG, settings);
-                }, "Height");
-            }
-
-            [TestMethod]
-            public void ShouldReadByteArrayWithPixelReadSettings()
-            {
-                byte[] data = new byte[]
-                {
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                };
-
-                var settings = new PixelReadSettings(2, 1, StorageType.Double, PixelMapping.RGBA);
-
-                MagickFactory factory = new MagickFactory();
-                using (IMagickImage image = factory.CreateImage(data, settings))
-                {
-                    Assert.AreEqual(2, image.Width);
-                    Assert.AreEqual(1, image.Height);
-
-                    using (IPixelCollection pixels = image.GetPixels())
+                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
                     {
-                        Pixel pixel = pixels.GetPixel(0, 0);
-                        Assert.AreEqual(4, pixel.Channels);
-                        Assert.AreEqual(0, pixel.GetChannel(0));
-                        Assert.AreEqual(0, pixel.GetChannel(1));
-                        Assert.AreEqual(0, pixel.GetChannel(2));
-                        Assert.AreEqual(Quantum.Max, pixel.GetChannel(3));
+                        factory.CreateImage((byte[])null);
+                    });
+                }
 
-                        pixel = pixels.GetPixel(1, 0);
-                        Assert.AreEqual(4, pixel.Channels);
-                        Assert.AreEqual(0, pixel.GetChannel(0));
-                        Assert.AreEqual(Quantum.Max, pixel.GetChannel(1));
-                        Assert.AreEqual(0, pixel.GetChannel(2));
-                        Assert.AreEqual(0, pixel.GetChannel(3));
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsEmpty()
+                {
+                    var factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    {
+                        factory.CreateImage(new byte[] { });
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldCreateMagickImage()
+                {
+                    var factory = new MagickFactory();
+                    var data = File.ReadAllBytes(Files.ImageMagickJPG);
+
+                    using (IMagickImage image = factory.CreateImage(data))
+                    {
+                        Assert.IsInstanceOfType(image, typeof(MagickImage));
+                        Assert.AreEqual(123, image.Width);
                     }
                 }
             }
 
-            [TestMethod]
-            public void ShouldReadFileInfoWithPixelReadSettings()
+            [TestClass]
+            public class WithByteArrayAndMagickReadSettings
             {
-                var settings = new PixelReadSettings(1, 1, StorageType.Quantum, "R");
-
-                var bytes = BitConverter.GetBytes(Quantum.Max);
-
-                using (var temporyFile = new TemporaryFile(bytes))
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    FileInfo file = temporyFile;
-                    MagickFactory factory = new MagickFactory();
-                    using (IMagickImage image = factory.CreateImage(file, settings))
+                    var settings = new MagickReadSettings();
+                    var factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
                     {
-                        Assert.AreEqual(1, image.Width);
-                        Assert.AreEqual(1, image.Height);
-                        ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
+                        factory.CreateImage((byte[])null, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsEmpty()
+                {
+                    var settings = new MagickReadSettings();
+                    var factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    {
+                        factory.CreateImage(new byte[] { }, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldNotThrowExceptionWhenSettingsIsNull()
+                {
+                    var factory = new MagickFactory();
+
+                    using (var image = factory.CreateImage(File.ReadAllBytes(Files.CirclePNG), (MagickReadSettings)null))
+                    {
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldCreateMagickImage()
+                {
+                    var factory = new MagickFactory();
+                    var data = File.ReadAllBytes(Files.ImageMagickJPG);
+                    var readSettings = new MagickReadSettings
+                    {
+                        BackgroundColor = MagickColors.Goldenrod,
+                    };
+
+                    using (IMagickImage image = factory.CreateImage(data, readSettings))
+                    {
+                        Assert.IsInstanceOfType(image, typeof(MagickImage));
+                        Assert.AreEqual(123, image.Width);
+                        Assert.AreEqual(MagickColors.Goldenrod, image.Settings.BackgroundColor);
                     }
                 }
             }
 
-            [TestMethod]
-            public void ShouldReadStreamWithPixelReadSettings()
+            [TestClass]
+            public class WithByteArrayAndPixelReadSettings
             {
-                var settings = new PixelReadSettings(1, 1, StorageType.Double, "R");
-
-                var bytes = BitConverter.GetBytes(1.0);
-
-                using (var memoryStream = new MemoryStream(bytes))
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    MagickFactory factory = new MagickFactory();
-                    using (IMagickImage image = factory.CreateImage(memoryStream, settings))
+                    var settings = new PixelReadSettings();
+                    var factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
                     {
-                        Assert.AreEqual(1, image.Width);
-                        Assert.AreEqual(1, image.Height);
-                        ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
+                        factory.CreateImage((byte[])null, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsEmpty()
+                {
+                    var settings = new PixelReadSettings();
+                    var factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    {
+                        factory.CreateImage(new byte[] { }, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenSettingsIsNull()
+                {
+                    var factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    {
+                        factory.CreateImage(File.ReadAllBytes(Files.CirclePNG), (PixelReadSettings)null);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldCreateMagickImage()
+                {
+                    var factory = new MagickFactory();
+                    var data = new byte[]
+                    {
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                    };
+
+                    var settings = new PixelReadSettings(2, 1, StorageType.Double, PixelMapping.RGBA);
+
+                    using (IMagickImage image = factory.CreateImage(data, settings))
+                    {
+                        Assert.IsInstanceOfType(image, typeof(MagickImage));
+                        Assert.AreEqual(2, image.Width);
                     }
                 }
             }
 
-            [TestMethod]
-            public void ShouldReadFileNameWithPixelReadSettings()
+            [TestClass]
+            public class WithColor
             {
-                var settings = new PixelReadSettings(1, 1, StorageType.Int32, "R");
-
-                var bytes = BitConverter.GetBytes(uint.MaxValue);
-
-                using (var temporyFile = new TemporaryFile(bytes))
+                [TestMethod]
+                public void ShouldThrowExceptionWhenColorIsNull()
                 {
-                    var fileName = temporyFile.FullName;
-                    MagickFactory factory = new MagickFactory();
-                    using (IMagickImage image = factory.CreateImage(fileName, settings))
+                    var factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentNullException("color", () =>
                     {
-                        Assert.AreEqual(1, image.Width);
-                        Assert.AreEqual(1, image.Height);
-                        ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
+                        factory.CreateImage((MagickColor)null, 1, 1);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenWidthIsZero()
+                {
+                    var factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentException("width", () =>
+                    {
+                        factory.CreateImage(MagickColors.Red, 0, 1);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenHeightIsZero()
+                {
+                    var factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentException("height", () =>
+                    {
+                        factory.CreateImage(MagickColors.Red, 1, 0);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenWidthIsNegative()
+                {
+                    var factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentException("width", () =>
+                    {
+                        factory.CreateImage(MagickColors.Red, -1, 1);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenHeightIsNegative()
+                {
+                    var factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentException("height", () =>
+                    {
+                        factory.CreateImage(MagickColors.Red, 1, -1);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldCreateMagickImage()
+                {
+                    var factory = new MagickFactory();
+                    var color = MagickColors.Goldenrod;
+
+                    using (IMagickImage image = factory.CreateImage(color, 10, 5))
+                    {
+                        Assert.IsInstanceOfType(image, typeof(MagickImage));
+                        Assert.AreEqual(10, image.Width);
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithFileInfo
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileInfoIsNull()
+                {
+                    var factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentNullException("file", () =>
+                    {
+                        factory.CreateImage((FileInfo)null);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldCreateMagickImage()
+                {
+                    var factory = new MagickFactory();
+                    var file = new FileInfo(Files.ImageMagickJPG);
+
+                    using (IMagickImage image = factory.CreateImage(file))
+                    {
+                        Assert.IsInstanceOfType(image, typeof(MagickImage));
+                        Assert.AreEqual(123, image.Width);
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithFileInfoAndMagickReadSettings
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileInfoIsNull()
+                {
+                    var factory = new MagickFactory();
+                    var settings = new MagickReadSettings();
+
+                    ExceptionAssert.ThrowsArgumentNullException("file", () =>
+                    {
+                        factory.CreateImage((FileInfo)null, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldNotThrowExceptionWhenSettingsIsNull()
+                {
+                    var factory = new MagickFactory();
+
+                    using (IMagickImage image = factory.CreateImage(new FileInfo(Files.CirclePNG), (MagickReadSettings)null))
+                    {
+                        Assert.IsInstanceOfType(image, typeof(MagickImage));
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithFileInfoAndPixelReadSettings
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileInfoIsNull()
+                {
+                    var factory = new MagickFactory();
+                    var settings = new PixelReadSettings();
+
+                    ExceptionAssert.ThrowsArgumentNullException("file", () =>
+                    {
+                        factory.CreateImage((FileInfo)null, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenSettingsIsNull()
+                {
+                    var factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    {
+                        factory.CreateImage(new FileInfo(Files.CirclePNG), (PixelReadSettings)null);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldCreateMagickImage()
+                {
+                    var factory = new MagickFactory();
+                    var data = new byte[]
+                    {
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                    };
+
+                    var settings = new PixelReadSettings(2, 1, StorageType.Double, PixelMapping.RGBA);
+
+                    using (var temporaryFile = new TemporaryFile(data))
+                    {
+                        using (IMagickImage image = factory.CreateImage(temporaryFile, settings))
+                        {
+                            Assert.IsInstanceOfType(image, typeof(MagickImage));
+                            Assert.AreEqual(2, image.Width);
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithFileNameAndSize
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenColorIsNull()
+                {
+                    var factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+                    {
+                        factory.CreateImage((string)null, 1, 1);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenWidthIsZero()
+                {
+                    var factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentException("width", () =>
+                    {
+                        factory.CreateImage("xc:red", 0, 1);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenHeightIsZero()
+                {
+                    var factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentException("height", () =>
+                    {
+                        factory.CreateImage("xc:red", 1, 0);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenWidthIsNegative()
+                {
+                    var factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentException("width", () =>
+                    {
+                        factory.CreateImage("xc:red", -1, 1);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenHeightIsNegative()
+                {
+                    var factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentException("height", () =>
+                    {
+                        factory.CreateImage("xc:red", 1, -1);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldReadImage()
+                {
+                    var factory = new MagickFactory();
+
+                    using (IMagickImage image = factory.CreateImage("xc:red", 20, 30))
+                    {
+                        Assert.AreEqual(20, image.Width);
+                        Assert.AreEqual(30, image.Height);
+                        ColorAssert.AreEqual(MagickColors.Red, image, 10, 10);
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithFileName
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileInfoIsNull()
+                {
+                    var factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+                    {
+                        factory.CreateImage((string)null);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileNameIsEmpty()
+                {
+                    var factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentException("fileName", () =>
+                    {
+                        factory.CreateImage(string.Empty);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldCreateMagickImage()
+                {
+                    var factory = new MagickFactory();
+
+                    using (IMagickImage image = factory.CreateImage(Files.ImageMagickJPG))
+                    {
+                        Assert.IsInstanceOfType(image, typeof(MagickImage));
+                        Assert.AreEqual(123, image.Width);
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithFileNameAndMagickReadSettings
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileNameIsNull()
+                {
+                    var factory = new MagickFactory();
+                    var settings = new MagickReadSettings();
+
+                    ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+                    {
+                        factory.CreateImage((string)null, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileNameIsEmpty()
+                {
+                    var factory = new MagickFactory();
+                    var settings = new MagickReadSettings();
+
+                    ExceptionAssert.ThrowsArgumentException("fileName", () =>
+                    {
+                        factory.CreateImage(string.Empty, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldNotThrowExceptionWhenSettingsIsNull()
+                {
+                    var factory = new MagickFactory();
+
+                    using (IMagickImage image = factory.CreateImage(Files.CirclePNG, (MagickReadSettings)null))
+                    {
+                        Assert.IsInstanceOfType(image, typeof(MagickImage));
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithFileNameAndPixelReadSettings
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileNameIsNull()
+                {
+                    var factory = new MagickFactory();
+                    var settings = new PixelReadSettings();
+
+                    ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+                    {
+                        factory.CreateImage((string)null, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileNameIsEmpty()
+                {
+                    var factory = new MagickFactory();
+                    var settings = new PixelReadSettings();
+
+                    ExceptionAssert.ThrowsArgumentException("fileName", () =>
+                    {
+                        factory.CreateImage(string.Empty, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenSettingsIsNull()
+                {
+                    var factory = new MagickFactory();
+                    var settings = new PixelReadSettings();
+
+                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    {
+                        factory.CreateImage(Files.CirclePNG, (PixelReadSettings)null);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldCreateMagickImage()
+                {
+                    var factory = new MagickFactory();
+                    var data = new byte[]
+                    {
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                    };
+
+                    var settings = new PixelReadSettings(2, 1, StorageType.Double, PixelMapping.RGBA);
+
+                    using (var temporaryFile = new TemporaryFile(data))
+                    {
+                        using (IMagickImage image = factory.CreateImage(temporaryFile.FullName, settings))
+                        {
+                            Assert.IsInstanceOfType(image, typeof(MagickImage));
+                            Assert.AreEqual(2, image.Width);
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithStream
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenStreamIsNull()
+                {
+                    var factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+                    {
+                        factory.CreateImage((Stream)null);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenStreamIsEmpty()
+                {
+                    var factory = new MagickFactory();
+
+                    ExceptionAssert.ThrowsArgumentException("stream", () =>
+                    {
+                        factory.CreateImage(new MemoryStream());
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldCreateMagickImage()
+                {
+                    var factory = new MagickFactory();
+
+                    using (var stream = File.OpenRead(Files.ImageMagickJPG))
+                    {
+                        using (IMagickImage image = factory.CreateImage(stream))
+                        {
+                            Assert.IsInstanceOfType(image, typeof(MagickImage));
+                            Assert.AreEqual(123, image.Width);
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithStreamAndMagickReadSettings
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenStreamIsNull()
+                {
+                    var factory = new MagickFactory();
+                    var settings = new MagickReadSettings();
+
+                    ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+                    {
+                        factory.CreateImage((Stream)null, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenStreamIsEmpty()
+                {
+                    var factory = new MagickFactory();
+                    var settings = new MagickReadSettings();
+
+                    ExceptionAssert.ThrowsArgumentException("stream", () =>
+                    {
+                        factory.CreateImage(new MemoryStream(), settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldNotThrowExceptionWhenSettingsIsNull()
+                {
+                    var factory = new MagickFactory();
+
+                    using (var fileStream = File.OpenRead(Files.CirclePNG))
+                    {
+                        using (IMagickImage image = factory.CreateImage(fileStream, (MagickReadSettings)null))
+                        {
+                            Assert.IsInstanceOfType(image, typeof(MagickImage));
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithStreamAndPixelReadSettings
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenStreamIsNull()
+                {
+                    var factory = new MagickFactory();
+                    var settings = new PixelReadSettings();
+
+                    ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+                    {
+                        factory.CreateImage((Stream)null, settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenStreamIsEmpty()
+                {
+                    var factory = new MagickFactory();
+                    var settings = new PixelReadSettings();
+
+                    ExceptionAssert.ThrowsArgumentException("stream", () =>
+                    {
+                        factory.CreateImage(new MemoryStream(), settings);
+                    });
+                }
+
+                [TestMethod]
+                public void ShouldNotThrowExceptionWhenSettingsIsNull()
+                {
+                    var factory = new MagickFactory();
+
+                    using (var fileStream = File.OpenRead(Files.CirclePNG))
+                    {
+                        ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                        {
+                            factory.CreateImage(fileStream, (PixelReadSettings)null);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldCreateMagickImage()
+                {
+                    var factory = new MagickFactory();
+                    var data = new byte[]
+                    {
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                    };
+
+                    var settings = new PixelReadSettings(2, 1, StorageType.Double, PixelMapping.RGBA);
+
+                    using (var stream = new MemoryStream(data))
+                    {
+                        using (IMagickImage image = factory.CreateImage(stream, settings))
+                        {
+                            Assert.IsInstanceOfType(image, typeof(MagickImage));
+                            Assert.AreEqual(2, image.Width);
+                        }
                     }
                 }
             }
