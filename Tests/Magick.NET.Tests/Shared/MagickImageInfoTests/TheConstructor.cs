@@ -21,49 +21,65 @@ namespace Magick.NET.Tests
         [TestClass]
         public class TheConstructor
         {
-            [TestMethod]
-            public void ShouldThrowExceptionWhenDataIsNull()
+            [TestClass]
+            public class WithByteArray
             {
-                ExceptionAssert.ThrowsArgumentNullException("data", () => new MagickImageInfo((byte[])null));
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenDataIsEmpty()
-            {
-                ExceptionAssert.ThrowsArgumentException("data", () => new MagickImageInfo(new byte[0]));
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenFileIsNull()
-            {
-                ExceptionAssert.ThrowsArgumentNullException("file", () => new MagickImageInfo((FileInfo)null));
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenStreamIsNull()
-            {
-                ExceptionAssert.ThrowsArgumentNullException("stream", () => new MagickImageInfo((Stream)null));
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenFileNameIsNull()
-            {
-                ExceptionAssert.ThrowsArgumentNullException("fileName", () => new MagickImageInfo((string)null));
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenFileNameIsEmpty()
-            {
-                ExceptionAssert.ThrowsArgumentException("fileName", () => new MagickImageInfo(string.Empty));
-            }
-
-            [TestMethod]
-            public void ShouldThrowExceptionWhenFileNameIsInvalid()
-            {
-                ExceptionAssert.Throws<MagickBlobErrorException>(() =>
+                [TestMethod]
+                public void ShouldThrowExceptionWhenDataIsNull()
                 {
-                    new MagickImageInfo(Files.Missing);
-                }, "error/blob.c/OpenBlob");
+                    ExceptionAssert.ThrowsArgumentNullException("data", () => new MagickImageInfo((byte[])null));
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenDataIsEmpty()
+                {
+                    ExceptionAssert.ThrowsArgumentException("data", () => new MagickImageInfo(new byte[0]));
+                }
+            }
+
+            [TestClass]
+            public class WithFileInfo
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileIsNull()
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("file", () => new MagickImageInfo((FileInfo)null));
+                }
+            }
+
+            [TestClass]
+            public class WithFileName
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileNameIsNull()
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("fileName", () => new MagickImageInfo((string)null));
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileNameIsEmpty()
+                {
+                    ExceptionAssert.ThrowsArgumentException("fileName", () => new MagickImageInfo(string.Empty));
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileNameIsInvalid()
+                {
+                    ExceptionAssert.Throws<MagickBlobErrorException>(() =>
+                    {
+                        new MagickImageInfo(Files.Missing);
+                    }, "error/blob.c/OpenBlob");
+                }
+            }
+
+            [TestClass]
+            public class WithStream
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenStreamIsNull()
+                {
+                    ExceptionAssert.ThrowsArgumentNullException("stream", () => new MagickImageInfo((Stream)null));
+                }
             }
         }
     }

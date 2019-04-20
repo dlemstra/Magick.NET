@@ -48,7 +48,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickImageInfo imageInfo = new MagickImageInfo();
 
-                    ExceptionAssert.ThrowsArgumentNullException("data", () => imageInfo.Read((byte[])null, 0, 0));
+                    ExceptionAssert.ThrowsArgumentNullException("data", () => imageInfo.Read(null, 0, 0));
                 }
 
                 [TestMethod]
