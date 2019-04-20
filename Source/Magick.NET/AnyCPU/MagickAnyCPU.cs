@@ -28,11 +28,7 @@ namespace ImageMagick
         /// </summary>
         public static string CacheDirectory
         {
-            get
-            {
-                return _cacheDirectory;
-            }
-
+            get => _cacheDirectory;
             set
             {
                 if (!Directory.Exists(value))
@@ -46,18 +42,11 @@ namespace ImageMagick
         /// should be changed when it is written to disk. Only set this to true when multiple
         /// application pools with different idententies need to execute the same library.
         /// </summary>
-        public static bool HasSharedCacheDirectory
-        {
-            get;
-            set;
-        }
+        public static bool HasSharedCacheDirectory { get; set; }
 
         internal static bool UsesDefaultCacheDirectory
         {
-            get
-            {
-                return _cacheDirectory == Path.GetTempPath();
-            }
+            get => _cacheDirectory == Path.GetTempPath();
         }
     }
 }
