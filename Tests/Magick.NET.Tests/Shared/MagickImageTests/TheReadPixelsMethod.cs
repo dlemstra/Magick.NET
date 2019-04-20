@@ -27,56 +27,56 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
-                    {
-                        var settings = new PixelReadSettings();
+                    var settings = new PixelReadSettings();
 
-                        using (IMagickImage image = new MagickImage())
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.ThrowsArgumentNullException("data", () =>
                         {
                             image.ReadPixels((byte[])null, settings);
-                        }
-                    });
+                        });
+                    }
                 }
 
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    ExceptionAssert.ThrowsArgumentException("data", () =>
-                    {
-                        var settings = new PixelReadSettings();
+                    var settings = new PixelReadSettings();
 
-                        using (IMagickImage image = new MagickImage())
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.ThrowsArgumentException("data", () =>
                         {
                             image.ReadPixels(new byte[] { }, settings);
-                        }
-                    });
+                        });
+                    }
                 }
 
                 [TestMethod]
                 public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    using (IMagickImage image = new MagickImage())
                     {
-                        using (IMagickImage image = new MagickImage())
+                        ExceptionAssert.ThrowsArgumentNullException("settings", () =>
                         {
                             image.ReadPixels(new byte[] { 215 }, null);
-                        }
-                    });
+                        });
+                    }
                 }
 
                 [TestMethod]
                 public void ShouldReadByteArray()
                 {
-                    byte[] data = new byte[]
+                    var data = new byte[]
                     {
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
+                        0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0, 0,
                     };
 
                     var settings = new PixelReadSettings(2, 1, StorageType.Double, PixelMapping.RGBA);
@@ -114,83 +114,83 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
-                    {
-                        var settings = new PixelReadSettings();
+                    var settings = new PixelReadSettings();
 
-                        using (IMagickImage image = new MagickImage())
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.ThrowsArgumentNullException("data", () =>
                         {
                             image.ReadPixels(null, 0, 0, settings);
-                        }
-                    });
+                        });
+                    }
                 }
 
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    ExceptionAssert.ThrowsArgumentException("data", () =>
-                    {
-                        var settings = new PixelReadSettings();
+                    var settings = new PixelReadSettings();
 
-                        using (IMagickImage image = new MagickImage())
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.ThrowsArgumentException("data", () =>
                         {
                             image.ReadPixels(new byte[] { }, 0, 0, settings);
-                        }
-                    });
+                        });
+                    }
                 }
 
                 [TestMethod]
                 public void ShouldThrowExceptionWhenOffsetIsNegative()
                 {
-                    ExceptionAssert.ThrowsArgumentException("offset", () =>
-                    {
-                        var settings = new PixelReadSettings();
+                    var settings = new PixelReadSettings();
 
-                        using (IMagickImage image = new MagickImage())
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.ThrowsArgumentException("offset", () =>
                         {
                             image.ReadPixels(new byte[] { 215 }, -1, 0, settings);
-                        }
-                    });
+                        });
+                    }
                 }
 
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsZero()
                 {
-                    ExceptionAssert.ThrowsArgumentException("count", () =>
-                    {
-                        var settings = new PixelReadSettings();
+                    var settings = new PixelReadSettings();
 
-                        using (IMagickImage image = new MagickImage())
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.ThrowsArgumentException("count", () =>
                         {
                             image.ReadPixels(new byte[] { 215 }, 0, 0, settings);
-                        }
-                    });
+                        });
+                    }
                 }
 
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsNegative()
                 {
-                    ExceptionAssert.ThrowsArgumentException("count", () =>
-                    {
-                        var settings = new PixelReadSettings();
+                    var settings = new PixelReadSettings();
 
-                        using (IMagickImage image = new MagickImage())
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.ThrowsArgumentException("count", () =>
                         {
                             image.ReadPixels(new byte[] { 215 }, 0, -1, settings);
-                        }
-                    });
+                        });
+                    }
                 }
 
                 [TestMethod]
                 public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    using (IMagickImage image = new MagickImage())
                     {
-                        using (IMagickImage image = new MagickImage())
+                        ExceptionAssert.ThrowsArgumentNullException("settings", () =>
                         {
                             image.ReadPixels(new byte[] { 215 }, 0, 1, (PixelReadSettings)null);
-                        }
-                    });
+                        });
+                    }
                 }
             }
 
@@ -200,27 +200,27 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileInfoIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("file", () =>
-                    {
-                        var settings = new PixelReadSettings();
+                    var settings = new PixelReadSettings();
 
-                        using (IMagickImage image = new MagickImage())
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.ThrowsArgumentNullException("file", () =>
                         {
                             image.ReadPixels((FileInfo)null, settings);
-                        }
-                    });
+                        });
+                    }
                 }
 
                 [TestMethod]
                 public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    using (IMagickImage image = new MagickImage())
                     {
-                        using (IMagickImage image = new MagickImage())
+                        ExceptionAssert.ThrowsArgumentNullException("settings", () =>
                         {
                             image.ReadPixels(new FileInfo(Files.CirclePNG), null);
-                        }
-                    });
+                        });
+                    }
                 }
 
                 [TestMethod]
@@ -251,99 +251,99 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
-                    {
-                        var settings = new PixelReadSettings();
+                    var settings = new PixelReadSettings();
 
-                        using (IMagickImage image = new MagickImage())
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
                         {
                             image.ReadPixels((string)null, settings);
-                        }
-                    });
+                        });
+                    }
                 }
 
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsEmpty()
                 {
-                    ExceptionAssert.ThrowsArgumentException("fileName", () =>
-                    {
-                        var settings = new PixelReadSettings();
+                    var settings = new PixelReadSettings();
 
-                        using (IMagickImage image = new MagickImage())
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.ThrowsArgumentException("fileName", () =>
                         {
                             image.ReadPixels(string.Empty, settings);
-                        }
-                    });
+                        });
+                    }
                 }
 
                 [TestMethod]
                 public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    using (IMagickImage image = new MagickImage())
                     {
-                        using (IMagickImage image = new MagickImage())
+                        ExceptionAssert.ThrowsArgumentNullException("settings", () =>
                         {
                             image.ReadPixels(Files.CirclePNG, null);
-                        }
-                    });
+                        });
+                    }
                 }
 
                 [TestMethod]
                 public void ShouldThrowExceptionWhenMappingIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentException("settings", () =>
-                    {
-                        var settings = new PixelReadSettings(1, 1, StorageType.Char, null);
+                    var settings = new PixelReadSettings(1, 1, StorageType.Char, null);
 
-                        using (IMagickImage image = new MagickImage())
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.ThrowsArgumentException("settings", () =>
                         {
                             image.ReadPixels(Files.CirclePNG, settings);
-                        }
-                    }, "mapping");
+                        }, "mapping");
+                    }
                 }
 
                 [TestMethod]
                 public void ShouldThrowExceptionWhenMappingIsEmpty()
                 {
-                    ExceptionAssert.ThrowsArgumentException("settings", () =>
-                    {
-                        var settings = new PixelReadSettings(1, 1, StorageType.Char, string.Empty);
+                    var settings = new PixelReadSettings(1, 1, StorageType.Char, string.Empty);
 
-                        using (IMagickImage image = new MagickImage())
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.ThrowsArgumentException("settings", () =>
                         {
                             image.ReadPixels(Files.CirclePNG, settings);
-                        }
-                    }, "mapping");
+                        }, "mapping");
+                    }
                 }
 
                 [TestMethod]
                 public void ShouldThrowExceptionWhenWidthIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentException("settings", () =>
-                    {
-                        var settings = new PixelReadSettings(1, 1, StorageType.Char, "RGBA");
-                        settings.ReadSettings.Width = null;
+                    var settings = new PixelReadSettings(1, 1, StorageType.Char, "RGBA");
+                    settings.ReadSettings.Width = null;
 
-                        using (IMagickImage image = new MagickImage())
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.ThrowsArgumentException("settings", () =>
                         {
                             image.ReadPixels(Files.CirclePNG, settings);
-                        }
-                    }, "Width");
+                        }, "Width");
+                    }
                 }
 
                 [TestMethod]
                 public void ShouldThrowExceptionWhenHeightIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentException("settings", () =>
-                    {
-                        var settings = new PixelReadSettings(1, 1, StorageType.Char, "RGBA");
-                        settings.ReadSettings.Height = null;
+                    var settings = new PixelReadSettings(1, 1, StorageType.Char, "RGBA");
+                    settings.ReadSettings.Height = null;
 
-                        using (IMagickImage image = new MagickImage())
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.ThrowsArgumentException("settings", () =>
                         {
                             image.ReadPixels(Files.CirclePNG, settings);
-                        }
-                    }, "Height");
+                        }, "Height");
+                    }
                 }
 
                 [TestMethod]
@@ -374,41 +374,41 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("stream", () =>
-                    {
-                        var settings = new PixelReadSettings();
+                    var settings = new PixelReadSettings();
 
-                        using (IMagickImage image = new MagickImage())
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.ThrowsArgumentNullException("stream", () =>
                         {
                             image.ReadPixels((Stream)null, settings);
-                        }
-                    });
+                        });
+                    }
                 }
 
                 [TestMethod]
                 public void ShouldThrowExceptionWhenStreamIsEmpty()
                 {
-                    ExceptionAssert.ThrowsArgumentException("stream", () =>
-                    {
-                        var settings = new PixelReadSettings();
+                    var settings = new PixelReadSettings();
 
-                        using (IMagickImage image = new MagickImage())
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.ThrowsArgumentException("stream", () =>
                         {
                             image.ReadPixels(new MemoryStream(), settings);
-                        }
-                    });
+                        });
+                    }
                 }
 
                 [TestMethod]
                 public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    using (IMagickImage image = new MagickImage())
                     {
-                        using (IMagickImage image = new MagickImage())
+                        ExceptionAssert.ThrowsArgumentNullException("settings", () =>
                         {
                             image.ReadPixels(new MemoryStream(new byte[] { 215 }), null);
-                        }
-                    });
+                        });
+                    }
                 }
 
                 [TestMethod]
