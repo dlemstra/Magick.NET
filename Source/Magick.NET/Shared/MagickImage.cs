@@ -860,17 +860,6 @@ namespace ImageMagick
         public int Width => _nativeInstance.Width;
 
         /// <summary>
-        /// Converts the specified instance to a byte array.
-        /// </summary>
-        /// <param name="image">The <see cref="MagickImage"/> to convert.</param>
-        public static explicit operator byte[](MagickImage image)
-        {
-            Throw.IfNull(nameof(image), image);
-
-            return image.ToByteArray();
-        }
-
-        /// <summary>
         /// Determines whether the specified <see cref="MagickImage"/> instances are considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
