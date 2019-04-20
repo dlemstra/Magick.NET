@@ -9,11 +9,11 @@ branches:
 matrix:
   include:
     - os: linux
-      dotnet: 2.0.0
+      dotnet: 2.2
       mono: none
       dist: trusty
     - os: osx
-      dotnet: 2.0.0
+      dotnet: 2.2
       mono: none
       osx_image: xcode8.3
 
