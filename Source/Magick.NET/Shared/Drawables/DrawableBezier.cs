@@ -42,13 +42,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the coordinates.
         /// </summary>
-        public IEnumerable<PointD> Coordinates
-        {
-            get
-            {
-                return _coordinates.ToList();
-            }
-        }
+        public IEnumerable<PointD> Coordinates => _coordinates.ToList();
 
         /// <summary>
         /// Draws this instance with the drawing wand.
