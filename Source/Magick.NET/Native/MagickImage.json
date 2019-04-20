@@ -887,6 +887,14 @@
           "type": "Gravity"
         },
         {
+          "name": "x",
+          "type": "ssize_t"
+        },
+        {
+          "name": "y",
+          "type": "ssize_t"
+        },
+        {
           "name": "compose",
           "type": "CompositeOperator"
         },

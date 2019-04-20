@@ -1050,12 +1050,14 @@ MAGICK_NET_EXPORT void MagickImage_Composite(Image *instance, const Image *refer
   MAGICK_NET_SET_EXCEPTION;
 }
 
-MAGICK_NET_EXPORT void MagickImage_CompositeGravity(Image *instance, const Image *reference, const size_t gravity, const size_t compose, const size_t channels, ExceptionInfo **exception)
+MAGICK_NET_EXPORT void MagickImage_CompositeGravity(Image *instance, const Image *reference, const size_t gravity, const size_t x, const size_t y, const size_t compose, const size_t channels, ExceptionInfo **exception)
 {
   RectangleInfo
     geometry;
 
   SetGeometry(reference, &geometry);
+  geometry.x = x;
+  geometry.y = y;
   GravityAdjustGeometry(instance->columns, instance->rows, gravity, &geometry);
   MagickImage_Composite(instance, reference, geometry.x, geometry.y, compose, channels, exception);
 }
@@ -1957,7 +1959,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Resample(const Image *instance, const doubl
   return image;
 }
 
-MAGICK_NET_EXPORT Image *MagickImage_Resize(const Image *instance, const char *geometry,  ExceptionInfo **exception)
+MAGICK_NET_EXPORT Image *MagickImage_Resize(const Image *instance, const char *geometry, ExceptionInfo **exception)
 {
   Image
     *image;

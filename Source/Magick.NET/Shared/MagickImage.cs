@@ -1981,7 +1981,7 @@ namespace ImageMagick
             Throw.IfNull(nameof(image), image);
 
             _nativeInstance.SetArtifact("compose:args", args);
-            _nativeInstance.CompositeGravity(image, gravity, compose, channels);
+            _nativeInstance.CompositeGravity(image, gravity, 0, 0, compose, channels);
         }
 
         /// <summary>
