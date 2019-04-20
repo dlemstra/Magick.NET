@@ -44,10 +44,7 @@ namespace ImageMagick
         /// </summary>
         public static bool HasSharedCacheDirectory { get; set; }
 
-        internal static bool UsesDefaultCacheDirectory
-        {
-            get => _cacheDirectory == Path.GetTempPath();
-        }
+        internal static bool UsesDefaultCacheDirectory => _cacheDirectory == Path.GetTempPath();
     }
 }
 #endif
