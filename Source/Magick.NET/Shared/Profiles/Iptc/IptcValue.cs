@@ -44,11 +44,7 @@ namespace ImageMagick
         /// </summary>
         public Encoding Encoding
         {
-            get
-            {
-                return _encoding;
-            }
-
+            get => _encoding;
             set
             {
                 if (value != null)
@@ -59,22 +55,14 @@ namespace ImageMagick
         /// <summary>
         /// Gets the tag of the iptc value.
         /// </summary>
-        public IptcTag Tag
-        {
-            get;
-            private set;
-        }
+        public IptcTag Tag { get; }
 
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
         public string Value
         {
-            get
-            {
-                return _encoding.GetString(_data);
-            }
-
+            get => _encoding.GetString(_data);
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -84,33 +72,21 @@ namespace ImageMagick
             }
         }
 
-        internal int Length
-        {
-            get
-            {
-                return _data.Length;
-            }
-        }
+        internal int Length => _data.Length;
 
         /// <summary>
         /// Determines whether the specified <see cref="IptcValue"/> instances are considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="IptcValue"/> to compare.</param>
         /// <param name="right"> The second <see cref="IptcValue"/> to compare.</param>
-        public static bool operator ==(IptcValue left, IptcValue right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(IptcValue left, IptcValue right) => Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified <see cref="IptcValue"/> instances are not considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="IptcValue"/> to compare.</param>
         /// <param name="right"> The second <see cref="IptcValue"/> to compare.</param>
-        public static bool operator !=(IptcValue left, IptcValue right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator !=(IptcValue left, IptcValue right) => !Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified object is equal to the current <see cref="IptcValue"/>.
@@ -185,10 +161,7 @@ namespace ImageMagick
         /// Returns a string that represents the current value.
         /// </summary>
         /// <returns>A string that represents the current value.</returns>
-        public override string ToString()
-        {
-            return Value;
-        }
+        public override string ToString() => Value;
 
         /// <summary>
         /// Returns a string that represents the current value with the specified encoding.

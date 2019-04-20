@@ -28,19 +28,11 @@ namespace ImageMagick
         /// <summary>
         /// Gets the name of the clipping path.
         /// </summary>
-        public string Name
-        {
-            get;
-            private set;
-        }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the path of the clipping path.
         /// </summary>
-        public IXPathNavigable Path
-        {
-            get;
-            private set;
-        }
+        public IXPathNavigable Path { get; }
     }
 }

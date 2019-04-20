@@ -70,11 +70,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets which parts will be written when the profile is added to an image.
         /// </summary>
-        public ExifParts Parts
-        {
-            get;
-            set;
-        }
+        public ExifParts Parts { get; set; }
 
         /// <summary>
         /// Gets the tags that where found but contained an invalid value.

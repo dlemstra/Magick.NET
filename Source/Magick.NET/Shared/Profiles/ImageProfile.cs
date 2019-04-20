@@ -79,41 +79,27 @@ namespace ImageMagick
         /// <summary>
         /// Gets the name of the profile.
         /// </summary>
-        public string Name
-        {
-            get;
-            private set;
-        }
+        public string Name { get; }
 
         /// <summary>
         /// Gets or sets the data of this profile.
         /// </summary>
         [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays", Justification = "Subclasses need access to this array.")]
-        protected byte[] Data
-        {
-            get;
-            set;
-        }
+        protected byte[] Data { get; set; }
 
         /// <summary>
         /// Determines whether the specified <see cref="ImageProfile"/> instances are considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="ImageProfile"/> to compare.</param>
         /// <param name="right"> The second <see cref="ImageProfile"/> to compare.</param>
-        public static bool operator ==(ImageProfile left, ImageProfile right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(ImageProfile left, ImageProfile right) => Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified <see cref="ImageProfile"/> instances are not considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="ImageProfile"/> to compare.</param>
         /// <param name="right"> The second <see cref="ImageProfile"/> to compare.</param>
-        public static bool operator !=(ImageProfile left, ImageProfile right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator !=(ImageProfile left, ImageProfile right) => !Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified object is equal to the current <see cref="ImageProfile"/>.
@@ -188,9 +174,7 @@ namespace ImageMagick
         /// <summary>
         /// Updates the data of the profile.
         /// </summary>
-        protected virtual void UpdateData()
-        {
-        }
+        protected virtual void UpdateData() { }
 
         private static byte[] Copy(byte[] data)
         {

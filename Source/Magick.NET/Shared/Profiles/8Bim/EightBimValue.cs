@@ -31,31 +31,21 @@ namespace ImageMagick
         /// <summary>
         /// Gets the ID of the 8bim value
         /// </summary>
-        public short ID
-        {
-            get;
-            private set;
-        }
+        public short ID { get; }
 
         /// <summary>
         /// Determines whether the specified <see cref="EightBimValue"/> instances are considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="EightBimValue"/> to compare.</param>
         /// <param name="right"> The second <see cref="EightBimValue"/> to compare.</param>
-        public static bool operator ==(EightBimValue left, EightBimValue right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(EightBimValue left, EightBimValue right) => Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified <see cref="EightBimValue"/> instances are not considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="EightBimValue"/> to compare.</param>
         /// <param name="right"> The second <see cref="EightBimValue"/> to compare.</param>
-        public static bool operator !=(EightBimValue left, EightBimValue right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator !=(EightBimValue left, EightBimValue right) => !Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified object is equal to the current <see cref="EightBimValue"/>.
@@ -130,10 +120,7 @@ namespace ImageMagick
         /// Returns a string that represents the current value.
         /// </summary>
         /// <returns>A string that represents the current value.</returns>
-        public override string ToString()
-        {
-            return ToString(Encoding.UTF8);
-        }
+        public override string ToString() => ToString(Encoding.UTF8);
 
         /// <summary>
         /// Returns a string that represents the current value with the specified encoding.

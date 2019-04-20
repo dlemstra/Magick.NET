@@ -43,40 +43,24 @@ namespace ImageMagick
         /// <summary>
         /// Gets the data type of the exif value.
         /// </summary>
-        public ExifDataType DataType
-        {
-            get;
-            private set;
-        }
+        public ExifDataType DataType { get; }
 
         /// <summary>
         /// Gets a value indicating whether the value is an array.
         /// </summary>
-        public bool IsArray
-        {
-            get;
-            private set;
-        }
+        public bool IsArray { get; }
 
         /// <summary>
         /// Gets the tag of the exif value.
         /// </summary>
-        public ExifTag Tag
-        {
-            get;
-            private set;
-        }
+        public ExifTag Tag { get; }
 
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
         public object Value
         {
-            get
-            {
-                return _value;
-            }
-
+            get => _value;
             set
             {
                 CheckValue(value);
@@ -130,20 +114,14 @@ namespace ImageMagick
         /// </summary>
         /// <param name="left">The first <see cref="ExifValue"/> to compare.</param>
         /// <param name="right"> The second <see cref="ExifValue"/>to compare.</param>
-        public static bool operator ==(ExifValue left, ExifValue right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(ExifValue left, ExifValue right) => Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified <see cref="ExifValue"/> instances are not considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="ExifValue"/> to compare.</param>
         /// <param name="right"> The second <see cref="ExifValue"/> to compare.</param>
-        public static bool operator !=(ExifValue left, ExifValue right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator !=(ExifValue left, ExifValue right) => !Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified object is equal to the current <see cref="ExifValue"/>.
