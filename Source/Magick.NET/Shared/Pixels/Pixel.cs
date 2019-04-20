@@ -66,37 +66,19 @@ namespace ImageMagick
         /// <summary>
         /// Gets the number of channels that the pixel contains.
         /// </summary>
-        public int Channels
-        {
-            get
-            {
-                return Value.Length;
-            }
-        }
+        public int Channels => Value.Length;
 
         /// <summary>
         /// Gets the X coordinate of the pixel.
         /// </summary>
-        public int X
-        {
-            get;
-            private set;
-        }
+        public int X { get; private set; }
 
         /// <summary>
         /// Gets the Y coordinate of the pixel.
         /// </summary>
-        public int Y
-        {
-            get;
-            private set;
-        }
+        public int Y { get; private set; }
 
-        internal QuantumType[] Value
-        {
-            get;
-            private set;
-        }
+        internal QuantumType[] Value { get; private set; }
 
         /// <summary>
         /// Returns the value of the specified channel.
@@ -104,8 +86,8 @@ namespace ImageMagick
         /// <param name="channel">The channel to get the value for.</param>
         public QuantumType this[int channel]
         {
-            get { return GetChannel(channel); }
-            set { SetChannel(channel, value); }
+            get => GetChannel(channel);
+            set => SetChannel(channel, value);
         }
 
         /// <summary>
@@ -113,20 +95,14 @@ namespace ImageMagick
         /// </summary>
         /// <param name="left">The first <see cref="Pixel"/> to compare.</param>
         /// <param name="right"> The second <see cref="Pixel"/> to compare.</param>
-        public static bool operator ==(Pixel left, Pixel right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(Pixel left, Pixel right) => Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified <see cref="Pixel"/> instances are not considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="Pixel"/> to compare.</param>
         /// <param name="right"> The second <see cref="Pixel"/> to compare.</param>
-        public static bool operator !=(Pixel left, Pixel right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator !=(Pixel left, Pixel right) => !Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified object is equal to the current pixel.
@@ -183,10 +159,7 @@ namespace ImageMagick
         /// Serves as a hash of this type.
         /// </summary>
         /// <returns>A hash code for the current instance.</returns>
-        public override int GetHashCode()
-        {
-            return Value.GetHashCode();
-        }
+        public override int GetHashCode() => Value.GetHashCode();
 
         /// <summary>
         /// Sets the values of this pixel.
