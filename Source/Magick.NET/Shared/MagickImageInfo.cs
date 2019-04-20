@@ -345,6 +345,22 @@ namespace ImageMagick
         /// <summary>
         /// Read basic information about an image.
         /// </summary>
+        /// <param name="data">The byte array to read the information from.</param>
+        /// <param name="offset">The offset at which to begin reading data.</param>
+        /// <param name="count">The maximum number of bytes to read.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Read(byte[] data, int offset, int count)
+        {
+            using (MagickImage image = new MagickImage())
+            {
+                image.Ping(data, offset, count);
+                Initialize(image);
+            }
+        }
+
+        /// <summary>
+        /// Read basic information about an image.
+        /// </summary>
         /// <param name="file">The file to read the image from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Read(FileInfo file)
