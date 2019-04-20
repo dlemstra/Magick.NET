@@ -32,24 +32,12 @@ namespace ImageMagick
         /// <summary>
         /// Gets the Quantum depth.
         /// </summary>
-        public static int Depth
-        {
-            get
-            {
-                return NativeQuantum.Depth;
-            }
-        }
+        public static int Depth => NativeQuantum.Depth;
 
         /// <summary>
         /// Gets the maximum value of the quantum.
         /// </summary>
-        public static QuantumType Max
-        {
-            get
-            {
-                return NativeQuantum.Max;
-            }
-        }
+        public static QuantumType Max => NativeQuantum.Max;
 
         internal static QuantumType Convert(byte value)
         {
@@ -91,19 +79,10 @@ namespace ImageMagick
         }
 #endif
 
-        internal static QuantumType ScaleToQuantum(double value)
-        {
-            return (QuantumType)Math.Min(Math.Max(0, value * Max), Max);
-        }
+        internal static QuantumType ScaleToQuantum(double value) => (QuantumType)Math.Min(Math.Max(0, value * Max), Max);
 
-        internal static byte ScaleToByte(QuantumType value)
-        {
-            return NativeQuantum.ScaleToByte(value);
-        }
+        internal static byte ScaleToByte(QuantumType value) => NativeQuantum.ScaleToByte(value);
 
-        internal static double ScaleToDouble(QuantumType value)
-        {
-            return (1.0 / Max) * value;
-        }
+        internal static double ScaleToDouble(QuantumType value) => (1.0 / Max) * value;
     }
 }
