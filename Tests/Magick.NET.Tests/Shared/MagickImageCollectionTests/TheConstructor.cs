@@ -68,7 +68,7 @@ namespace Magick.NET.Tests
                 {
                     ExceptionAssert.ThrowsArgumentNullException("data", () =>
                     {
-                        new MagickImageCollection((byte[])null, 0, 0);
+                        new MagickImageCollection(null, 0, 0);
                     });
                 }
 
@@ -128,10 +128,10 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
+                    var settings = new MagickReadSettings();
+
                     ExceptionAssert.ThrowsArgumentNullException("data", () =>
                     {
-                        var settings = new MagickReadSettings();
-
                         new MagickImageCollection(null, 0, 0, settings);
                     });
                 }
@@ -139,10 +139,10 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
+                    var settings = new MagickReadSettings();
+
                     ExceptionAssert.ThrowsArgumentException("data", () =>
                     {
-                        var settings = new MagickReadSettings();
-
                         new MagickImageCollection(new byte[] { }, 0, 0, settings);
                     });
                 }
@@ -150,10 +150,10 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenOffsetIsNegative()
                 {
+                    var settings = new MagickReadSettings();
+
                     ExceptionAssert.ThrowsArgumentException("offset", () =>
                     {
-                        var settings = new MagickReadSettings();
-
                         new MagickImageCollection(new byte[] { 215 }, -1, 0, settings);
                     });
                 }
@@ -161,10 +161,10 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsZero()
                 {
+                    var settings = new MagickReadSettings();
+
                     ExceptionAssert.ThrowsArgumentException("count", () =>
                     {
-                        var settings = new MagickReadSettings();
-
                         new MagickImageCollection(new byte[] { 215 }, 0, 0, settings);
                     });
                 }
@@ -172,10 +172,10 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsNegative()
                 {
+                    var settings = new MagickReadSettings();
+
                     ExceptionAssert.ThrowsArgumentException("count", () =>
                     {
-                        var settings = new MagickReadSettings();
-
                         using (IMagickImageCollection images = new MagickImageCollection(new byte[] { 215 }, 0, -1, settings))
                         {
                         }
@@ -202,9 +202,8 @@ namespace Magick.NET.Tests
                 {
                     var bytes = File.ReadAllBytes(Files.CirclePNG);
 
-                    using (IMagickImageCollection image = new MagickImageCollection())
+                    using (IMagickImageCollection image = new MagickImageCollection(bytes, 0, bytes.Length, null))
                     {
-                        image.Read(bytes, 0, bytes.Length, null);
                     }
                 }
             }
