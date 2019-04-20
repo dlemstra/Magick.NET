@@ -23,74 +23,47 @@ namespace ImageMagick
         /// <summary>
         /// Gets the color space of the image.
         /// </summary>
-        ColorSpace ColorSpace
-        {
-            get;
-        }
+        ColorSpace ColorSpace { get; }
 
         /// <summary>
         /// Gets the compression method of the image.
         /// </summary>
-        CompressionMethod Compression
-        {
-            get;
-        }
+        CompressionMethod Compression { get; }
 
         /// <summary>
         /// Gets the density of the image.
         /// </summary>
-        Density Density
-        {
-            get;
-        }
+        Density Density { get; }
 
         /// <summary>
         /// Gets the original file name of the image (only available if read from disk).
         /// </summary>
-        string FileName
-        {
-            get;
-        }
+        string FileName { get; }
 
         /// <summary>
         /// Gets the format of the image.
         /// </summary>
-        MagickFormat Format
-        {
-            get;
-        }
+        MagickFormat Format { get; }
 
         /// <summary>
         /// Gets the height of the image.
         /// </summary>
-        int Height
-        {
-            get;
-        }
+        int Height { get; }
 
         /// <summary>
         /// Gets the type of interlacing.
         /// </summary>
-        Interlace Interlace
-        {
-            get;
-        }
+        Interlace Interlace { get; }
 
         /// <summary>
         /// Gets the JPEG/MIFF/PNG compression level.
         /// </summary>
-        int Quality
-        {
-            get;
-        }
+        int Quality { get; }
 
         /// <summary>
         /// Gets the width of the image.
         /// </summary>
-        int Width
-        {
-            get;
-        }
+        int Width { get; }
 
         /// <summary>
         /// Read basic information about an image.

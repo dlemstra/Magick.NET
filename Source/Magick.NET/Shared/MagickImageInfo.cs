@@ -74,103 +74,61 @@ namespace ImageMagick
         /// <summary>
         /// Gets the color space of the image.
         /// </summary>
-        public ColorSpace ColorSpace
-        {
-            get;
-            private set;
-        }
+        public ColorSpace ColorSpace { get; private set; }
 
         /// <summary>
         /// Gets the compression method of the image.
         /// </summary>
-        public CompressionMethod Compression
-        {
-            get;
-            private set;
-        }
+        public CompressionMethod Compression { get; private set; }
 
         /// <summary>
         /// Gets the density of the image.
         /// </summary>
-        public Density Density
-        {
-            get;
-            private set;
-        }
+        public Density Density { get; private set; }
 
         /// <summary>
         /// Gets the original file name of the image (only available if read from disk).
         /// </summary>
-        public string FileName
-        {
-            get;
-            private set;
-        }
+        public string FileName { get; private set; }
 
         /// <summary>
         /// Gets the format of the image.
         /// </summary>
-        public MagickFormat Format
-        {
-            get;
-            private set;
-        }
+        public MagickFormat Format { get; private set; }
 
         /// <summary>
         /// Gets the height of the image.
         /// </summary>
-        public int Height
-        {
-            get;
-            private set;
-        }
+        public int Height { get; private set; }
 
         /// <summary>
         /// Gets the type of interlacing.
         /// </summary>
-        public Interlace Interlace
-        {
-            get;
-            private set;
-        }
+        public Interlace Interlace { get; private set; }
 
         /// <summary>
         /// Gets the JPEG/MIFF/PNG compression level.
         /// </summary>
-        public int Quality
-        {
-            get;
-            private set;
-        }
+        public int Quality { get; private set; }
 
         /// <summary>
         /// Gets the width of the image.
         /// </summary>
-        public int Width
-        {
-            get;
-            private set;
-        }
+        public int Width { get; private set; }
 
         /// <summary>
         /// Determines whether the specified <see cref="MagickImageInfo"/> instances are considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="MagickImageInfo"/> to compare.</param>
         /// <param name="right"> The second <see cref="MagickImageInfo"/> to compare.</param>
-        public static bool operator ==(MagickImageInfo left, MagickImageInfo right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(MagickImageInfo left, MagickImageInfo right) => Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified <see cref="MagickImageInfo"/> instances are not considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="MagickImageInfo"/> to compare.</param>
         /// <param name="right"> The second <see cref="MagickImageInfo"/> to compare.</param>
-        public static bool operator !=(MagickImageInfo left, MagickImageInfo right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator !=(MagickImageInfo left, MagickImageInfo right) => !Equals(left, right);
 
         /// <summary>
         /// Determines whether the first <see cref="MagickImageInfo"/> is more than the second <see cref="MagickImageInfo"/>.
