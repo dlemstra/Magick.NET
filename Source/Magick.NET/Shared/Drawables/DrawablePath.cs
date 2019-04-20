@@ -42,13 +42,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the paths to use.
         /// </summary>
-        public IEnumerable<IPath> Paths
-        {
-            get
-            {
-                return _paths;
-            }
-        }
+        public IEnumerable<IPath> Paths => _paths;
 
         /// <summary>
         /// Draws this instance with the drawing wand.

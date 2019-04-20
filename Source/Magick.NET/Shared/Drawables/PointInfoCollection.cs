@@ -12,7 +12,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace ImageMagick
 {
@@ -36,13 +35,7 @@ namespace ImageMagick
 
         public int Count { get; private set; }
 
-        IntPtr INativeInstance.Instance
-        {
-            get
-            {
-                return _nativeInstance.Instance;
-            }
-        }
+        IntPtr INativeInstance.Instance => _nativeInstance.Instance;
 
         public void Dispose()
         {

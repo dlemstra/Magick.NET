@@ -81,11 +81,7 @@ namespace ImageMagick
         /// Draws this instance with the drawing wand.
         /// </summary>
         /// <param name="wand">The want to draw on.</param>
-        void IDrawingWand.Draw(DrawingWand wand)
-        {
-            if (wand != null)
-                wand.Affine(ScaleX, ScaleY, ShearX, ShearY, TranslateX, TranslateY);
-        }
+        void IDrawingWand.Draw(DrawingWand wand) => wand?.Affine(ScaleX, ScaleY, ShearX, ShearY, TranslateX, TranslateY);
 
         /// <summary>
         /// Reset to default

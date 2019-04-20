@@ -43,10 +43,6 @@ namespace ImageMagick
         /// Draws this instance with the drawing wand.
         /// </summary>
         /// <param name="wand">The want to draw on.</param>
-        void IDrawingWand.Draw(DrawingWand wand)
-        {
-            if (wand != null)
-                wand.PathMoveToAbs(_coordinate.X, _coordinate.Y);
-        }
+        void IDrawingWand.Draw(DrawingWand wand) => wand?.PathMoveToAbs(_coordinate.X, _coordinate.Y);
     }
 }

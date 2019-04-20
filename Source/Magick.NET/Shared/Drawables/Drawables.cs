@@ -56,10 +56,7 @@ namespace ImageMagick
         /// <param name="text">The text to get the font metrics for.</param>
         /// <returns>The font metrics for text.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public TypeMetric FontTypeMetrics(string text)
-        {
-            return FontTypeMetrics(text, false);
-        }
+        public TypeMetric FontTypeMetrics(string text) => FontTypeMetrics(text, false);
 
         /// <summary>
         /// Obtain font metrics for text string given current font, pointsize, and density settings.
@@ -85,10 +82,7 @@ namespace ImageMagick
         /// Creates a new <see cref="Paths"/> instance.
         /// </summary>
         /// <returns>A new <see cref="Paths"/> instance.</returns>
-        public Paths Paths()
-        {
-            return new Paths(this);
-        }
+        public Paths Paths() => new Paths(this);
 
         /// <summary>
         /// Returns an enumerator that iterates through the collection.

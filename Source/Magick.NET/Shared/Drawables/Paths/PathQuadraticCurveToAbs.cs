@@ -49,10 +49,6 @@ namespace ImageMagick
         /// Draws this instance with the drawing wand.
         /// </summary>
         /// <param name="wand">The want to draw on.</param>
-        void IDrawingWand.Draw(DrawingWand wand)
-        {
-            if (wand != null)
-                wand.PathQuadraticCurveToAbs(_controlPoint, _end);
-        }
+        void IDrawingWand.Draw(DrawingWand wand) => wand?.PathQuadraticCurveToAbs(_controlPoint, _end);
     }
 }
