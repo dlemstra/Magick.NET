@@ -45,47 +45,27 @@ namespace ImageMagick
         /// <summary>
         /// Gets the number of times that this kernel was executed.
         /// </summary>
-        public long Count
-        {
-            get;
-            private set;
-        }
+        public long Count { get; }
 
         /// <summary>
         /// Gets the maximum duration of a single execution in microseconds.
         /// </summary>
-        public long MaximumDuration
-        {
-            get;
-            private set;
-        }
+        public long MaximumDuration { get; }
 
         /// <summary>
         /// Gets the minimum duration of a single execution in microseconds.
         /// </summary>
-        public long MinimumDuration
-        {
-            get;
-            private set;
-        }
+        public long MinimumDuration { get; }
 
         /// <summary>
         /// Gets the name of the device.
         /// </summary>
-        public string Name
-        {
-            get;
-            private set;
-        }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the total duration of all executions in microseconds.
         /// </summary>
-        public long TotalDuration
-        {
-            get;
-            private set;
-        }
+        public long TotalDuration { get; }
 
         internal static OpenCLKernelProfileRecord CreateInstance(IntPtr instance)
         {
