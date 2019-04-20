@@ -95,11 +95,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the variables of this script.
         /// </summary>
-        public ScriptVariables Variables
-        {
-            get;
-            private set;
-        }
+        public ScriptVariables Variables { get; private set; }
 
         /// <summary>
         /// Executes the script and returns the resulting image.

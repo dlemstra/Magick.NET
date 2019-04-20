@@ -28,17 +28,11 @@ namespace ImageMagick
         /// <summary>
         /// Gets the ID of the image.
         /// </summary>
-        public string Id
-        {
-            get;
-        }
+        public string Id { get; }
 
         /// <summary>
         /// Gets the image that needs to be written.
         /// </summary>
-        public IMagickImage Image
-        {
-            get;
-        }
+        public IMagickImage Image { get; }
     }
 }

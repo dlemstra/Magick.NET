@@ -29,34 +29,21 @@ namespace ImageMagick
         /// <summary>
         /// Gets the ID of the image.
         /// </summary>
-        public string Id
-        {
-            get;
-        }
+        public string Id { get; }
 
         /// <summary>
         /// Gets or sets the image that was read.
         /// </summary>
-        public MagickImage Image
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets the read settings for the image.
-        /// </summary>
-        public MagickReadSettings ReadSettings
-        {
-            get;
-        }
+        public MagickImage Image { get; set; }
 
         /// <summary>
         /// Gets the storage settings for the image.
         /// </summary>
-        public PixelReadSettings PixelReadSettings
-        {
-            get;
-        }
+        public PixelReadSettings PixelReadSettings { get; }
+
+        /// <summary>
+        /// Gets the read settings for the image.
+        /// </summary>
+        public MagickReadSettings ReadSettings { get; }
     }
 }
