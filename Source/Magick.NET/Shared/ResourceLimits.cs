@@ -10,8 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
-
 namespace ImageMagick
 {
     /// <summary>
@@ -24,8 +22,8 @@ namespace ImageMagick
         /// </summary>
         public static ulong Disk
         {
-            get { return NativeResourceLimits.Disk; }
-            set { NativeResourceLimits.Disk = value; }
+            get => NativeResourceLimits.Disk;
+            set => NativeResourceLimits.Disk = value;
         }
 
         /// <summary>
@@ -33,8 +31,8 @@ namespace ImageMagick
         /// </summary>
         public static ulong Height
         {
-            get { return NativeResourceLimits.Height; }
-            set { NativeResourceLimits.Height = value; }
+            get => NativeResourceLimits.Height;
+            set => NativeResourceLimits.Height = value;
         }
 
         /// <summary>
@@ -42,8 +40,8 @@ namespace ImageMagick
         /// </summary>
         public static ulong ListLength
         {
-            get { return NativeResourceLimits.ListLength; }
-            set { NativeResourceLimits.ListLength = value; }
+            get => NativeResourceLimits.ListLength;
+            set => NativeResourceLimits.ListLength = value;
         }
 
         /// <summary>
@@ -52,8 +50,8 @@ namespace ImageMagick
         /// </summary>
         public static ulong Memory
         {
-            get { return NativeResourceLimits.Memory; }
-            set { NativeResourceLimits.Memory = value; }
+            get => NativeResourceLimits.Memory;
+            set => NativeResourceLimits.Memory = value;
         }
 
         /// <summary>
@@ -61,8 +59,8 @@ namespace ImageMagick
         /// </summary>
         public static ulong Thread
         {
-            get { return NativeResourceLimits.Thread; }
-            set { NativeResourceLimits.Thread = value; }
+            get => NativeResourceLimits.Thread;
+            set => NativeResourceLimits.Thread = value;
         }
 
         /// <summary>
@@ -70,8 +68,8 @@ namespace ImageMagick
         /// </summary>
         public static ulong Throttle
         {
-            get { return NativeResourceLimits.Throttle; }
-            set { NativeResourceLimits.Throttle = value; }
+            get => NativeResourceLimits.Throttle;
+            set => NativeResourceLimits.Throttle = value;
         }
 
         /// <summary>
@@ -79,8 +77,8 @@ namespace ImageMagick
         /// </summary>
         public static ulong Width
         {
-            get { return NativeResourceLimits.Width; }
-            set { NativeResourceLimits.Width = value; }
+            get => NativeResourceLimits.Width;
+            set => NativeResourceLimits.Width = value;
         }
     }
 }
