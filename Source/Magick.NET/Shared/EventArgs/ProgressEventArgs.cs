@@ -28,28 +28,16 @@ namespace ImageMagick
         /// <summary>
         /// Gets the originator of this event.
         /// </summary>
-        public string Origin
-        {
-            get;
-            private set;
-        }
+        public string Origin { get; }
 
         /// <summary>
         /// Gets the rogress percentage.
         /// </summary>
-        public Percentage Progress
-        {
-            get;
-            private set;
-        }
+        public Percentage Progress { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the current operation will be canceled.
         /// </summary>
-        public bool Cancel
-        {
-            get;
-            set;
-        }
+        public bool Cancel { get; set; }
     }
 }

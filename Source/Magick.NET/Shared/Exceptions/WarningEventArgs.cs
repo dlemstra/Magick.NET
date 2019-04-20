@@ -31,21 +31,11 @@ namespace ImageMagick
         /// <summary>
         /// Gets the message of the exception
         /// </summary>
-        public string Message
-        {
-            get
-            {
-                return Exception.Message;
-            }
-        }
+        public string Message => Exception.Message;
 
         /// <summary>
         /// Gets the MagickWarningException that was thrown
         /// </summary>
-        public MagickWarningException Exception
-        {
-            get;
-            private set;
-        }
+        public MagickWarningException Exception { get; }
     }
 }

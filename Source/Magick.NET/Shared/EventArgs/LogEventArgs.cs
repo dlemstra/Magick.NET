@@ -28,19 +28,11 @@ namespace ImageMagick
         /// <summary>
         /// Gets the type of the log message.
         /// </summary>
-        public LogEvents EventType
-        {
-            get;
-            private set;
-        }
+        public LogEvents EventType { get; }
 
         /// <summary>
         /// Gets the type of the log message.
         /// </summary>
-        public string Message
-        {
-            get;
-            private set;
-        }
+        public string Message { get; }
     }
 }
