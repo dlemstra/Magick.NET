@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -20,8 +21,742 @@ namespace Magick.NET.Tests.Shared
         public partial class TheCompositeMethod
         {
             [TestClass]
-            public class WithGravityAndOperator
+            public class WithImage
             {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenImageIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                        {
+                            image.Composite(null);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldCompositeTheImage()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        using (IMagickImage other = new MagickImage("xc:purple", 1, 1))
+                        {
+                            image.Composite(other);
+
+                            ColorAssert.AreEqual(MagickColors.Purple, image, 0, 0);
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithImageAndChannels
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenImageIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                        {
+                            image.Composite(null, Channels.Red);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldOnlyCompositeTheSpecifiedChannel()
+                {
+                    using (IMagickImage image = new MagickImage("xc:black", 1, 1))
+                    {
+                        using (IMagickImage other = new MagickImage("xc:white", 1, 1))
+                        {
+                            image.Composite(other, Channels.Green);
+
+                            ColorAssert.AreEqual(MagickColors.Lime, image, 0, 0);
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public partial class WithImageAndCompositeOperator
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenImageIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                        {
+                            image.Composite(null, CompositeOperator.CopyCyan);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldAddTransparencyWithCopyAlpha()
+                {
+                    using (IMagickImage image = new MagickImage(MagickColors.Red, 2, 1))
+                    {
+                        using (IMagickImage alpha = new MagickImage(MagickColors.Black, 1, 1))
+                        {
+                            alpha.BackgroundColor = MagickColors.White;
+                            alpha.Extent(2, 1, Gravity.East);
+
+                            image.Composite(alpha, CompositeOperator.CopyAlpha);
+
+                            ColorAssert.AreEqual(MagickColors.Red, image, 0, 0);
+                            ColorAssert.AreEqual(new MagickColor("#f000"), image, 1, 0);
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public partial class WithImageAndCompositeOperatorAndChannels
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenImageIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                        {
+                            image.Composite(null, CompositeOperator.CopyCyan, Channels.Red);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldOnlyCompositeTheSpecifiedChannel()
+                {
+                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    {
+                        using (IMagickImage red = new MagickImage(MagickColors.Red, image.Width, image.Height))
+                        {
+                            image.Composite(red, CompositeOperator.Multiply, Channels.Blue);
+
+                            ColorAssert.AreEqual(MagickColors.Yellow, image, 0, 0);
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public partial class WithImageAndCompositeOperatorAndArguments
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenImageIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                        {
+                            image.Composite(null, CompositeOperator.CopyCyan, "3");
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldNotThrowExceptionWhenArgumentIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        using (IMagickImage red = new MagickImage(MagickColors.Red, image.Width, image.Height))
+                        {
+                            image.Composite(red, CompositeOperator.CopyCyan, null);
+                        }
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheArguments()
+                {
+                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    {
+                        using (IMagickImage blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
+                        {
+                            image.Warning += (object sender, WarningEventArgs arguments) => Assert.Fail(arguments.Message);
+                            image.Composite(blur, CompositeOperator.Blur, "3");
+                        }
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldRemoveTheArtifact()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        using (IMagickImage blur = new MagickImage("xc:white", 1, 1))
+                        {
+                            image.Composite(blur, CompositeOperator.Blur, "3");
+
+                            Assert.IsNull(image.GetArtifact("compose:args"));
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public partial class WithImageAndCompositeOperatorAndArgumentsAndChannels
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenImageIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                        {
+                            image.Composite(null, CompositeOperator.CopyCyan, "3", Channels.Red);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldNotThrowExceptionWhenArgumentIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        using (IMagickImage red = new MagickImage(MagickColors.Red, image.Width, image.Height))
+                        {
+                            image.Composite(red, CompositeOperator.CopyCyan, null, Channels.Red);
+                        }
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheArguments()
+                {
+                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    {
+                        using (IMagickImage blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
+                        {
+                            image.Warning += (object sender, WarningEventArgs arguments) => Assert.Fail(arguments.Message);
+                            image.Composite(blur, CompositeOperator.Blur, "3", Channels.Red);
+                        }
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldRemoveTheArtifact()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        using (IMagickImage blur = new MagickImage("xc:white", 1, 1))
+                        {
+                            image.Composite(blur, CompositeOperator.Blur, "3", Channels.Red);
+
+                            Assert.IsNull(image.GetArtifact("compose:args"));
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithImageAndXY
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenImageIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                        {
+                            image.Composite(null, 0, 0);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheOffset()
+                {
+                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    {
+                        using (IMagickImage yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
+                        {
+                            image.Composite(yellow, 100, 100);
+
+                            ColorAssert.AreEqual(MagickColors.Yellow, image, 150, 150);
+                            ColorAssert.AreEqual(MagickColors.Yellow, image, 199, 109);
+                            ColorAssert.AreEqual(MagickColors.White, image, 200, 200);
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithImageAndXYAndChannels
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenImageIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                        {
+                            image.Composite(null, 0, 0, Channels.Red);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheOffset()
+                {
+                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    {
+                        using (IMagickImage yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
+                        {
+                            image.Composite(yellow, 100, 100, Channels.Red);
+
+                            ColorAssert.AreEqual(MagickColors.White, image, 150, 150);
+                            ColorAssert.AreEqual(MagickColors.White, image, 199, 109);
+                            ColorAssert.AreEqual(MagickColors.White, image, 200, 200);
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithImageAndXYAndCompositeOperator
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenImageIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                        {
+                            image.Composite(null, 0, 0, CompositeOperator.CopyAlpha);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheOffset()
+                {
+                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    {
+                        using (IMagickImage yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
+                        {
+                            image.Composite(yellow, 100, 100, CompositeOperator.Copy);
+
+                            ColorAssert.AreEqual(MagickColors.Yellow, image, 150, 150);
+                            ColorAssert.AreEqual(MagickColors.Yellow, image, 199, 109);
+                            ColorAssert.AreEqual(MagickColors.White, image, 200, 200);
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithImageAndXYAndCompositeOperatorAndChannels
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenImageIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                        {
+                            image.Composite(null, 0, 0, CompositeOperator.CopyAlpha, Channels.Red);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheOffset()
+                {
+                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    {
+                        using (IMagickImage yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
+                        {
+                            image.Composite(yellow, 100, 100, CompositeOperator.Clear, Channels.Red);
+
+                            ColorAssert.AreEqual(MagickColors.Aqua, image, 150, 150);
+                            ColorAssert.AreEqual(MagickColors.Aqua, image, 199, 109);
+                            ColorAssert.AreEqual(MagickColors.White, image, 200, 200);
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithImageAndXYAndCompositeOperatorAndArguments
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenImageIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                        {
+                            image.Composite(null, 0, 0, CompositeOperator.CopyAlpha, "3");
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheArguments()
+                {
+                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    {
+                        using (IMagickImage blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
+                        {
+                            image.Warning += (object sender, WarningEventArgs arguments) => Assert.Fail(arguments.Message);
+                            image.Composite(blur, 0, 0, CompositeOperator.Blur, "3");
+                        }
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldRemoveTheArtifact()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        using (IMagickImage blur = new MagickImage("xc:white", 1, 1))
+                        {
+                            image.Composite(blur, 0, 0, CompositeOperator.Blur, "3");
+
+                            Assert.IsNull(image.GetArtifact("compose:args"));
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithImageAndXYAndCompositeOperatorAndArgumentsAndChannels
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenImageIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                        {
+                            image.Composite(null, 0, 0, CompositeOperator.CopyAlpha, "3", Channels.Red);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheArguments()
+                {
+                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    {
+                        using (IMagickImage blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
+                        {
+                            image.Warning += (object sender, WarningEventArgs arguments) => Assert.Fail(arguments.Message);
+                            image.Composite(blur, 0, 0, CompositeOperator.Blur, "3", Channels.Red);
+                        }
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldRemoveTheArtifact()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        using (IMagickImage blur = new MagickImage("xc:white", 1, 1))
+                        {
+                            image.Composite(blur, 0, 0, CompositeOperator.Blur, "3", Channels.Red);
+
+                            Assert.IsNull(image.GetArtifact("compose:args"));
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithImageAndPoint
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenImageIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                        {
+                            image.Composite(null, new PointD(0, 0));
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheOffset()
+                {
+                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    {
+                        using (IMagickImage yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
+                        {
+                            image.Composite(yellow, new PointD(100, 100));
+
+                            ColorAssert.AreEqual(MagickColors.Yellow, image, 150, 150);
+                            ColorAssert.AreEqual(MagickColors.Yellow, image, 199, 109);
+                            ColorAssert.AreEqual(MagickColors.White, image, 200, 200);
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithImageAndPointAndChannels
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenImageIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                        {
+                            image.Composite(null, new PointD(0, 0), Channels.Red);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheOffset()
+                {
+                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    {
+                        using (IMagickImage yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
+                        {
+                            image.Composite(yellow, new PointD(100, 100), Channels.Red);
+
+                            ColorAssert.AreEqual(MagickColors.White, image, 150, 150);
+                            ColorAssert.AreEqual(MagickColors.White, image, 199, 109);
+                            ColorAssert.AreEqual(MagickColors.White, image, 200, 200);
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithImageAndPointAndCompositeOperator
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenImageIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                        {
+                            image.Composite(null, new PointD(0, 0), CompositeOperator.CopyAlpha);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheOffset()
+                {
+                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    {
+                        using (IMagickImage yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
+                        {
+                            image.Composite(yellow, new PointD(100, 100), CompositeOperator.Copy);
+
+                            ColorAssert.AreEqual(MagickColors.Yellow, image, 150, 150);
+                            ColorAssert.AreEqual(MagickColors.Yellow, image, 199, 109);
+                            ColorAssert.AreEqual(MagickColors.White, image, 200, 200);
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithImageAndPointAndCompositeOperatorAndChannels
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenImageIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                        {
+                            image.Composite(null, new PointD(0, 0), CompositeOperator.CopyAlpha, Channels.Red);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheOffset()
+                {
+                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    {
+                        using (IMagickImage yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
+                        {
+                            image.Composite(yellow, new PointD(100, 100), CompositeOperator.Clear, Channels.Red);
+
+                            ColorAssert.AreEqual(MagickColors.Aqua, image, 150, 150);
+                            ColorAssert.AreEqual(MagickColors.Aqua, image, 199, 109);
+                            ColorAssert.AreEqual(MagickColors.White, image, 200, 200);
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithImageAndPointAndCompositeOperatorAndArguments
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenImageIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                        {
+                            image.Composite(null, new PointD(0, 0), CompositeOperator.CopyAlpha, "3");
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheArguments()
+                {
+                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    {
+                        using (IMagickImage blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
+                        {
+                            image.Warning += (object sender, WarningEventArgs arguments) => Assert.Fail(arguments.Message);
+                            image.Composite(blur, new PointD(0, 0), CompositeOperator.Blur, "3");
+                        }
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldRemoveTheArtifact()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        using (IMagickImage blur = new MagickImage("xc:white", 1, 1))
+                        {
+                            image.Composite(blur, new PointD(0, 0), CompositeOperator.Blur, "3");
+
+                            Assert.IsNull(image.GetArtifact("compose:args"));
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithImageAndPointAndCompositeOperatorAndArgumentsAndChannels
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenImageIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                        {
+                            image.Composite(null, new PointD(0, 0), CompositeOperator.CopyAlpha, "3", Channels.Red);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheArguments()
+                {
+                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    {
+                        using (IMagickImage blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
+                        {
+                            image.Warning += (object sender, WarningEventArgs arguments) => Assert.Fail(arguments.Message);
+                            image.Composite(blur, new PointD(0, 0), CompositeOperator.Blur, "3", Channels.Red);
+                        }
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldRemoveTheArtifact()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        using (IMagickImage blur = new MagickImage("xc:white", 1, 1))
+                        {
+                            image.Composite(blur, new PointD(0, 0), CompositeOperator.Blur, "3", Channels.Red);
+
+                            Assert.IsNull(image.GetArtifact("compose:args"));
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithImageAndGravity
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenImageIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                        {
+                            image.Composite(null, Gravity.East);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheGravity()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 3, 3))
+                    {
+                        using (IMagickImage other = new MagickImage("xc:white", 1, 1))
+                        {
+                            image.Composite(other, Gravity.East);
+
+                            ColorAssert.AreEqual(MagickColors.White, image, 2, 1);
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithImageAndGravityAndChannels
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenImageIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                        {
+                            image.Composite(null, Gravity.East);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheGravity()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 3, 3))
+                    {
+                        using (IMagickImage other = new MagickImage("xc:white", 1, 1))
+                        {
+                            image.Composite(other, Gravity.West, Channels.Green);
+
+                            ColorAssert.AreEqual(MagickColors.Yellow, image, 0, 1);
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithImageAndGravityAndCompositeOperator
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenImageIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                        {
+                            image.Composite(null, Gravity.East, CompositeOperator.Blend);
+                        });
+                    }
+                }
+
                 [TestMethod]
                 public void ShouldSetMaskWithChangeMask()
                 {
@@ -114,8 +849,50 @@ namespace Magick.NET.Tests.Shared
             }
 
             [TestClass]
-            public partial class WithGravityAndOperatorAndArguments
+            public class WithImageAndGravityAndCompositeOperatorAndChannels
             {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenImageIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                        {
+                            image.Composite(null, Gravity.East, CompositeOperator.Blend, Channels.Red);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheGravity()
+                {
+                    using (IMagickImage image = new MagickImage("xc:white", 3, 3))
+                    {
+                        using (IMagickImage other = new MagickImage("xc:black", 1, 1))
+                        {
+                            image.Composite(other, Gravity.South, CompositeOperator.Clear, Channels.Green);
+
+                            ColorAssert.AreEqual(MagickColors.Magenta, image, 1, 2);
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithImageAndGravityAndCompositeOperatorAndArguments
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenImageIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                        {
+                            image.Composite(null, Gravity.East, CompositeOperator.Blend, "3");
+                        });
+                    }
+                }
+
                 [TestMethod]
                 public void ShouldUseTheArguments()
                 {
@@ -128,84 +905,60 @@ namespace Magick.NET.Tests.Shared
                         }
                     }
                 }
-            }
 
-            [TestClass]
-            public class WithOffsetAndOperator
-            {
                 [TestMethod]
-                public void ShouldUseTheOffset()
+                public void ShouldRemoveTheArtifact()
                 {
-                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
+                        using (IMagickImage blur = new MagickImage("xc:white", 1, 1))
                         {
-                            image.Composite(yellow, new PointD(50, 50), CompositeOperator.Copy);
+                            image.Composite(blur, Gravity.Center, CompositeOperator.Blur, "3");
 
-                            ColorAssert.AreEqual(MagickColors.White, image, 49, 49);
-                            ColorAssert.AreEqual(MagickColors.Yellow, image, 50, 50);
-                            ColorAssert.AreEqual(MagickColors.Yellow, image, 149, 149);
-                            ColorAssert.AreEqual(MagickColors.White, image, 150, 150);
+                            Assert.IsNull(image.GetArtifact("compose:args"));
                         }
                     }
                 }
             }
 
             [TestClass]
-            public partial class WithOperator
+            public class WithImageAndGravityAndCompositeOperatorAndArgumentsAndChannels
             {
                 [TestMethod]
-                public void ShouldAddTransparencyWithCopyAlpha()
+                public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage(MagickColors.Red, 2, 1))
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage alpha = new MagickImage(MagickColors.Black, 1, 1))
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
-                            alpha.BackgroundColor = MagickColors.White;
-                            alpha.Extent(2, 1, Gravity.East);
-
-                            image.Composite(alpha, CompositeOperator.CopyAlpha);
-
-                            ColorAssert.AreEqual(MagickColors.Red, image, 0, 0);
-                            ColorAssert.AreEqual(new MagickColor("#f000"), image, 1, 0);
-                        }
+                            image.Composite(null, Gravity.East, CompositeOperator.Blend, "3", Channels.Red);
+                        });
                     }
                 }
-            }
 
-            [TestClass]
-            public class WithOperatorAndChannel
-            {
                 [TestMethod]
-                public void ShouldOnlyModifyTheSpecifiedChannel()
+                public void ShouldUseTheArguments()
                 {
                     using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage red = new MagickImage(MagickColors.Red, image.Width, image.Height))
+                        using (IMagickImage blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
                         {
-                            image.Composite(red, CompositeOperator.Multiply, Channels.Blue);
-
-                            ColorAssert.AreEqual(MagickColors.Yellow, image, 0, 0);
+                            image.Warning += (object sender, WarningEventArgs arguments) => Assert.Fail(arguments.Message);
+                            image.Composite(blur, Gravity.Center, CompositeOperator.Blur, "3", Channels.Red);
                         }
                     }
                 }
-            }
 
-            [TestClass]
-            public class WithXYAndOperator
-            {
                 [TestMethod]
-                public void ShouldUseTheOffset()
+                public void ShouldRemoveTheArtifact()
                 {
-                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
+                        using (IMagickImage blur = new MagickImage("xc:white", 1, 1))
                         {
-                            image.Composite(yellow, 100, 100, CompositeOperator.Copy);
+                            image.Composite(blur, Gravity.Center, CompositeOperator.Blur, "3", Channels.Red);
 
-                            ColorAssert.AreEqual(MagickColors.Yellow, image, 150, 150);
-                            ColorAssert.AreEqual(MagickColors.Yellow, image, 199, 109);
-                            ColorAssert.AreEqual(MagickColors.White, image, 200, 200);
+                            Assert.IsNull(image.GetArtifact("compose:args"));
                         }
                     }
                 }

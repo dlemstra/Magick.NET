@@ -1860,8 +1860,18 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(image), image);
 
-            _nativeInstance.SetArtifact("compose:args", args);
-            _nativeInstance.Composite(image, x, y, compose, channels);
+            if (args != null)
+                _nativeInstance.SetArtifact("compose:args", args);
+
+            try
+            {
+                _nativeInstance.Composite(image, x, y, compose, channels);
+            }
+            finally
+            {
+                if (args != null)
+                    _nativeInstance.RemoveArtifact("compose:args");
+            }
         }
 
         /// <summary>
@@ -1879,7 +1889,7 @@ namespace ImageMagick
         /// <param name="offset">The offset from origin.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, PointD offset, Channels channels) => Composite(image, offset, CompositeOperator.In);
+        public void Composite(IMagickImage image, PointD offset, Channels channels) => Composite(image, offset, CompositeOperator.In, channels);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1898,7 +1908,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, PointD offset, CompositeOperator compose, Channels channels) => Composite(image, offset, compose, null);
+        public void Composite(IMagickImage image, PointD offset, CompositeOperator compose, Channels channels) => Composite(image, offset, compose, null, channels);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1980,8 +1990,18 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(image), image);
 
-            _nativeInstance.SetArtifact("compose:args", args);
-            _nativeInstance.CompositeGravity(image, gravity, 0, 0, compose, channels);
+            if (args != null)
+                _nativeInstance.SetArtifact("compose:args", args);
+
+            try
+            {
+                _nativeInstance.CompositeGravity(image, gravity, 0, 0, compose, channels);
+            }
+            finally
+            {
+                if (args != null)
+                    _nativeInstance.RemoveArtifact("compose:args");
+            }
         }
 
         /// <summary>
