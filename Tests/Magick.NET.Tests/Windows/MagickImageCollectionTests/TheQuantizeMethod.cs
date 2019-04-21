@@ -10,7 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if WINDOWS_BUILD // Cannot detect difference between macOS and Linux build at the moment
+#if WINDOWS_BUILD
 
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
