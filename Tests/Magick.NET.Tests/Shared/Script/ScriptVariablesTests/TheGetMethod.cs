@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.Xml;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -39,7 +40,7 @@ namespace Magick.NET.Tests
                 var document = new XmlDocument();
                 var scriptVariables = new ScriptVariables(document);
 
-                ExceptionAssert.ThrowsArgumentException("name", () =>
+                ExceptionAssert.Throws<ArgumentException>("name", () =>
                 {
                     scriptVariables.Get("invalid");
                 }, "Invalid variable name: invalid");

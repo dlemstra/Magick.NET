@@ -56,6 +56,15 @@ namespace Magick.NET.Tests
             return exception;
         }
 
+        public static TException Throws<TException>(string paramName, Action action, string messagePart)
+           where TException : ArgumentException
+        {
+            var exception = Throws<TException>(paramName, action);
+            AssertMessagePart(exception, messagePart);
+
+            return exception;
+        }
+
         public static void ThrowsArgumentNullException(string paramName, Action action)
         {
             ArgumentException exception = Throws<ArgumentNullException>(action);
@@ -66,13 +75,6 @@ namespace Magick.NET.Tests
         {
             ArgumentException exception = Throws<ArgumentException>(action);
             Assert.AreEqual(paramName, exception.ParamName);
-        }
-
-        public static void ThrowsArgumentException(string paramName, Action action, string messagePart)
-        {
-            ArgumentException exception = Throws<ArgumentException>(action);
-            Assert.AreEqual(paramName, exception.ParamName);
-            AssertMessagePart(exception, messagePart);
         }
 
         private static void Fail(string message, params object[] arguments)

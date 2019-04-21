@@ -295,7 +295,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("settings", () =>
+                        ExceptionAssert.Throws<ArgumentException>("settings", () =>
                         {
                             image.ReadPixels(Files.CirclePNG, settings);
                         }, "mapping");
@@ -309,7 +309,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("settings", () =>
+                        ExceptionAssert.Throws<ArgumentException>("settings", () =>
                         {
                             image.ReadPixels(Files.CirclePNG, settings);
                         }, "mapping");
@@ -324,7 +324,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("settings", () =>
+                        ExceptionAssert.Throws<ArgumentException>("settings", () =>
                         {
                             image.ReadPixels(Files.CirclePNG, settings);
                         }, "Width");
@@ -339,7 +339,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("settings", () =>
+                        ExceptionAssert.Throws<ArgumentException>("settings", () =>
                         {
                             image.ReadPixels(Files.CirclePNG, settings);
                         }, "Height");

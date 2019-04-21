@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -110,7 +111,7 @@ namespace Magick.NET.Tests
             mono = ColorMono.FromMagickColor(MagickColors.White);
             Assert.IsFalse(mono.IsBlack);
 
-            ExceptionAssert.ThrowsArgumentException("color", () =>
+            ExceptionAssert.Throws<ArgumentException>("color", () =>
             {
                 ColorMono.FromMagickColor(MagickColors.Gray);
             }, "Invalid");

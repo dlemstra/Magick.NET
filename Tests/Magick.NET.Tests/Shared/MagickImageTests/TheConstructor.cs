@@ -571,7 +571,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenMappingIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentException("settings", () =>
+                    ExceptionAssert.Throws<ArgumentException>("settings", () =>
                     {
                         var settings = new PixelReadSettings(1, 1, StorageType.Char, null);
 
@@ -582,7 +582,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenMappingIsEmpty()
                 {
-                    ExceptionAssert.ThrowsArgumentException("settings", () =>
+                    ExceptionAssert.Throws<ArgumentException>("settings", () =>
                     {
                         var settings = new PixelReadSettings(1, 1, StorageType.Char, string.Empty);
 
@@ -593,7 +593,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenWidthIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentException("settings", () =>
+                    ExceptionAssert.Throws<ArgumentException>("settings", () =>
                     {
                         var settings = new PixelReadSettings(1, 1, StorageType.Char, "RGBA");
                         settings.ReadSettings.Width = null;
@@ -605,7 +605,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenHeightIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentException("settings", () =>
+                    ExceptionAssert.Throws<ArgumentException>("settings", () =>
                     {
                         var settings = new PixelReadSettings(1, 1, StorageType.Char, "RGBA");
                         settings.ReadSettings.Height = null;

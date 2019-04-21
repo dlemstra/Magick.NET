@@ -94,7 +94,7 @@ namespace Magick.NET.Tests
 
                 try
                 {
-                    ExceptionAssert.ThrowsArgumentException("path", () =>
+                    ExceptionAssert.Throws<ArgumentException>("path", () =>
                     {
                         MagickNET.Initialize(path);
                     }, "Unable to find file: " + Path.GetFullPath(fileName));
@@ -173,7 +173,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Initialize_WithPathAndPathIsInvalid_ThrowsException()
         {
-            ExceptionAssert.ThrowsArgumentException("path", () =>
+            ExceptionAssert.Throws<ArgumentException>("path", () =>
             {
                 MagickNET.Initialize(ConfigurationFiles.Default, "invalid");
             }, "Unable to find directory");
