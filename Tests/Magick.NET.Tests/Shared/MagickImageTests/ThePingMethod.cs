@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.IO;
 using System.Text;
 using ImageMagick;
@@ -41,7 +42,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("data", () =>
+                        ExceptionAssert.Throws<ArgumentException>("data", () =>
                         {
                             image.Ping(new byte[] { });
                         });
@@ -80,7 +81,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("data", () =>
+                        ExceptionAssert.Throws<ArgumentException>("data", () =>
                         {
                             image.Ping(new byte[] { }, 0, 0);
                         });
@@ -92,7 +93,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("offset", () =>
+                        ExceptionAssert.Throws<ArgumentException>("offset", () =>
                         {
                             image.Ping(new byte[] { 215 }, -1, 0);
                         });
@@ -104,7 +105,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("count", () =>
+                        ExceptionAssert.Throws<ArgumentException>("count", () =>
                         {
                             image.Ping(new byte[] { 215 }, 0, 0);
                         });
@@ -116,7 +117,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("count", () =>
+                        ExceptionAssert.Throws<ArgumentException>("count", () =>
                         {
                             image.Ping(new byte[] { 215 }, 0, -1);
                         });
@@ -163,7 +164,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("data", () =>
+                        ExceptionAssert.Throws<ArgumentException>("data", () =>
                         {
                             image.Ping(new byte[] { }, 0, 0, settings);
                         });
@@ -177,7 +178,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("offset", () =>
+                        ExceptionAssert.Throws<ArgumentException>("offset", () =>
                         {
                             image.Ping(new byte[] { 215 }, -1, 0, settings);
                         });
@@ -191,7 +192,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("count", () =>
+                        ExceptionAssert.Throws<ArgumentException>("count", () =>
                         {
                             image.Ping(new byte[] { 215 }, 0, 0, settings);
                         });
@@ -205,7 +206,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("count", () =>
+                        ExceptionAssert.Throws<ArgumentException>("count", () =>
                         {
                             image.Ping(new byte[] { 215 }, 0, -1, settings);
                         });
@@ -265,7 +266,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("data", () =>
+                        ExceptionAssert.Throws<ArgumentException>("data", () =>
                         {
                             image.Ping(new byte[] { }, settings);
                         });
@@ -381,7 +382,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("fileName", () =>
+                        ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                         {
                             image.Ping(string.Empty);
                         });
@@ -497,7 +498,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("fileName", () =>
+                        ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                         {
                             image.Ping(string.Empty, settings);
                         });
@@ -552,7 +553,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("stream", () =>
+                        ExceptionAssert.Throws<ArgumentException>("stream", () =>
                         {
                             image.Ping(new MemoryStream());
                         });
@@ -566,7 +567,7 @@ namespace Magick.NET.Tests
                     {
                         using (IMagickImage image = new MagickImage())
                         {
-                            ExceptionAssert.ThrowsArgumentException("stream", () =>
+                            ExceptionAssert.Throws<ArgumentException>("stream", () =>
                             {
                                 image.Ping(testStream);
                             });
@@ -666,7 +667,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("stream", () =>
+                        ExceptionAssert.Throws<ArgumentException>("stream", () =>
                         {
                             image.Ping(new MemoryStream(), settings);
                         });

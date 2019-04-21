@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Constructor_OrderIsTooLow_ThrowsException()
         {
-            ExceptionAssert.ThrowsArgumentException("order", () =>
+            ExceptionAssert.Throws<ArgumentException>("order", () =>
             {
                 new MagickColorMatrix(0);
             });
@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Constructor_OrderIsTooHigh_ThrowsException()
         {
-            ExceptionAssert.ThrowsArgumentException("order", () =>
+            ExceptionAssert.Throws<ArgumentException>("order", () =>
             {
                 new MagickColorMatrix(7);
             });
@@ -41,7 +41,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Constructor_NotEnoughValues_ThrowsException()
         {
-            ExceptionAssert.ThrowsArgumentException("values", () =>
+            ExceptionAssert.Throws<ArgumentException>("values", () =>
             {
                 new MagickColorMatrix(2, 1.0);
             });
@@ -62,7 +62,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ConstructorWithValues_OrderIsTooLow_ThrowsException()
         {
-            ExceptionAssert.ThrowsArgumentException("order", () =>
+            ExceptionAssert.Throws<ArgumentException>("order", () =>
             {
                 new MagickColorMatrix(0, 1);
             });
@@ -71,7 +71,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ConstructorWithValues_OrderIsTooHigh_ThrowsException()
         {
-            ExceptionAssert.ThrowsArgumentException("order", () =>
+            ExceptionAssert.Throws<ArgumentException>("order", () =>
             {
                 double[] values = Enumerable.Repeat(1.0, 7 * 7).ToArray();
 
@@ -171,7 +171,7 @@ namespace Magick.NET.Tests
         {
             MagickColorMatrix matrix = new MagickColorMatrix(2);
 
-            ExceptionAssert.ThrowsArgumentException("values", () =>
+            ExceptionAssert.Throws<ArgumentException>("values", () =>
             {
                 matrix.SetColumn(0, 1, 2, 3);
             });
@@ -217,7 +217,7 @@ namespace Magick.NET.Tests
         {
             MagickColorMatrix matrix = new MagickColorMatrix(2);
 
-            ExceptionAssert.ThrowsArgumentException("values", () =>
+            ExceptionAssert.Throws<ArgumentException>("values", () =>
             {
                 matrix.SetRow(0, 1, 2, 3);
             });

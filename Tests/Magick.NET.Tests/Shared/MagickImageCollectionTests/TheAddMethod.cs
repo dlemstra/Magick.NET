@@ -48,7 +48,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenFileNameIsEmpty()
             {
-                ExceptionAssert.ThrowsArgumentException("fileName", () =>
+                ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                 {
                     using (IMagickImageCollection images = new MagickImageCollection())
                     {

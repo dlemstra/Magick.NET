@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -35,7 +36,7 @@ namespace Magick.NET.Tests
             {
                 memStream.Position = 10;
 
-                ExceptionAssert.ThrowsArgumentException("stream", () =>
+                ExceptionAssert.Throws<ArgumentException>("stream", () =>
                 {
                     new Bytes(memStream);
                 });
@@ -73,7 +74,7 @@ namespace Magick.NET.Tests
         {
             using (TestStream stream = new TestStream(false, true, true))
             {
-                ExceptionAssert.ThrowsArgumentException("stream", () =>
+                ExceptionAssert.Throws<ArgumentException>("stream", () =>
                 {
                     new Bytes(stream);
                 });
@@ -87,7 +88,7 @@ namespace Magick.NET.Tests
             {
                 stream.SetLength(long.MaxValue);
 
-                ExceptionAssert.ThrowsArgumentException("length", () =>
+                ExceptionAssert.Throws<ArgumentException>("length", () =>
                 {
                     new Bytes(stream);
                 });

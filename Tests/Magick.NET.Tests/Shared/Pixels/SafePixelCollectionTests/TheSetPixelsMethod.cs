@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -52,7 +53,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentException("values", () =>
+                        ExceptionAssert.Throws<ArgumentException>("values", () =>
                         {
                             pixels.SetPixels(new byte[] { 0, 0, 0, 0 });
                         });
@@ -67,7 +68,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentException("values", () =>
+                        ExceptionAssert.Throws<ArgumentException>("values", () =>
                         {
                             var values = new byte[(image.Width * image.Height * image.ChannelCount) + 1];
                             pixels.SetPixels(values);
@@ -113,7 +114,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentException("values", () =>
+                        ExceptionAssert.Throws<ArgumentException>("values", () =>
                         {
                             pixels.SetPixels(new double[] { 0, 0, 0, 0 });
                         });
@@ -128,7 +129,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentException("values", () =>
+                        ExceptionAssert.Throws<ArgumentException>("values", () =>
                         {
                             var values = new double[(image.Width * image.Height * image.ChannelCount) + 1];
                             pixels.SetPixels(values);
@@ -174,7 +175,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentException("values", () =>
+                        ExceptionAssert.Throws<ArgumentException>("values", () =>
                         {
                             pixels.SetPixels(new int[] { 0, 0, 0, 0 });
                         });
@@ -189,7 +190,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentException("values", () =>
+                        ExceptionAssert.Throws<ArgumentException>("values", () =>
                         {
                             var values = new int[(image.Width * image.Height * image.ChannelCount) + 1];
                             pixels.SetPixels(values);
@@ -235,7 +236,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentException("values", () =>
+                        ExceptionAssert.Throws<ArgumentException>("values", () =>
                         {
                             pixels.SetPixels(new QuantumType[] { 0, 0, 0, 0 });
                         });
@@ -250,7 +251,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentException("values", () =>
+                        ExceptionAssert.Throws<ArgumentException>("values", () =>
                         {
                             var values = new QuantumType[(image.Width * image.Height * image.ChannelCount) + 1];
                             pixels.SetPixels(values);

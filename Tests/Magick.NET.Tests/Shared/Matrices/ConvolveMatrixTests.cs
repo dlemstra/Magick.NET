@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Constructor_OrderIsTooLow_ThrowsException()
         {
-            ExceptionAssert.ThrowsArgumentException("order", () =>
+            ExceptionAssert.Throws<ArgumentException>("order", () =>
             {
                 new ConvolveMatrix(0);
             });
@@ -31,7 +31,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Constructor_OrderIsNotAnOddNumber_ThrowsException()
         {
-            ExceptionAssert.ThrowsArgumentException("order", () =>
+            ExceptionAssert.Throws<ArgumentException>("order", () =>
             {
                 new ConvolveMatrix(2);
             });
@@ -40,7 +40,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Constructor_NotEnoughValues_ThrowsException()
         {
-            ExceptionAssert.ThrowsArgumentException("values", () =>
+            ExceptionAssert.Throws<ArgumentException>("values", () =>
             {
                 new ConvolveMatrix(3, 1.0);
             });
@@ -66,7 +66,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ConstructorWithValues_OrderIsTooLow_ThrowsException()
         {
-            ExceptionAssert.ThrowsArgumentException("order", () =>
+            ExceptionAssert.Throws<ArgumentException>("order", () =>
             {
                 new ConvolveMatrix(0, 1);
             });
@@ -75,7 +75,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ConstructorWithValues_OrderIsNotAnOddNumber_ThrowsException()
         {
-            ExceptionAssert.ThrowsArgumentException("order", () =>
+            ExceptionAssert.Throws<ArgumentException>("order", () =>
             {
                 new ConvolveMatrix(2, 1, 2, 3, 4);
             });
@@ -173,7 +173,7 @@ namespace Magick.NET.Tests
         {
             ConvolveMatrix matrix = new ConvolveMatrix(1);
 
-            ExceptionAssert.ThrowsArgumentException("values", () =>
+            ExceptionAssert.Throws<ArgumentException>("values", () =>
             {
                 matrix.SetColumn(0, 1, 2, 3);
             });
@@ -224,7 +224,7 @@ namespace Magick.NET.Tests
         {
             ConvolveMatrix matrix = new ConvolveMatrix(1);
 
-            ExceptionAssert.ThrowsArgumentException("values", () =>
+            ExceptionAssert.Throws<ArgumentException>("values", () =>
             {
                 matrix.SetRow(0, 1, 2, 3);
             });

@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.IO;
 using System.Text;
 using ImageMagick;
@@ -41,7 +42,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("data", () =>
+                        ExceptionAssert.Throws<ArgumentException>("data", () =>
                         {
                             image.Read(new byte[] { });
                         });
@@ -80,7 +81,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("data", () =>
+                        ExceptionAssert.Throws<ArgumentException>("data", () =>
                         {
                             image.Read(new byte[] { }, 0, 0);
                         });
@@ -92,7 +93,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("offset", () =>
+                        ExceptionAssert.Throws<ArgumentException>("offset", () =>
                         {
                             image.Read(new byte[] { 215 }, -1, 0);
                         });
@@ -104,7 +105,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("count", () =>
+                        ExceptionAssert.Throws<ArgumentException>("count", () =>
                         {
                             image.Read(new byte[] { 215 }, 0, 0);
                         });
@@ -116,7 +117,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("count", () =>
+                        ExceptionAssert.Throws<ArgumentException>("count", () =>
                         {
                             image.Read(new byte[] { 215 }, 0, -1);
                         });
@@ -163,7 +164,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("data", () =>
+                        ExceptionAssert.Throws<ArgumentException>("data", () =>
                         {
                             image.Read(new byte[] { }, 0, 0, settings);
                         });
@@ -177,7 +178,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("offset", () =>
+                        ExceptionAssert.Throws<ArgumentException>("offset", () =>
                         {
                             image.Read(new byte[] { 215 }, -1, 0, settings);
                         });
@@ -191,7 +192,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("count", () =>
+                        ExceptionAssert.Throws<ArgumentException>("count", () =>
                         {
                             image.Read(new byte[] { 215 }, 0, 0, settings);
                         });
@@ -205,7 +206,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("count", () =>
+                        ExceptionAssert.Throws<ArgumentException>("count", () =>
                         {
                             image.Read(new byte[] { 215 }, 0, -1, settings);
                         });
@@ -265,7 +266,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("data", () =>
+                        ExceptionAssert.Throws<ArgumentException>("data", () =>
                         {
                             image.Read(new byte[] { }, settings);
                         });
@@ -338,7 +339,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("width", () =>
+                        ExceptionAssert.Throws<ArgumentException>("width", () =>
                         {
                             image.Read(MagickColors.Red, 0, 1);
                         });
@@ -350,7 +351,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("height", () =>
+                        ExceptionAssert.Throws<ArgumentException>("height", () =>
                         {
                             image.Read(MagickColors.Red, 1, 0);
                         });
@@ -362,7 +363,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("width", () =>
+                        ExceptionAssert.Throws<ArgumentException>("width", () =>
                         {
                             image.Read(MagickColors.Red, -1, 1);
                         });
@@ -374,7 +375,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("height", () =>
+                        ExceptionAssert.Throws<ArgumentException>("height", () =>
                         {
                             image.Read(MagickColors.Red, 1, -1);
                         });
@@ -475,7 +476,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("fileName", () =>
+                        ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                         {
                             image.Read(string.Empty);
                         });
@@ -592,7 +593,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("fileName", () =>
+                        ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                         {
                             image.Read(string.Empty, settings);
                         });
@@ -645,7 +646,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("width", () =>
+                        ExceptionAssert.Throws<ArgumentException>("width", () =>
                         {
                             image.Read("xc:red", 0, 1);
                         });
@@ -657,7 +658,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("height", () =>
+                        ExceptionAssert.Throws<ArgumentException>("height", () =>
                         {
                             image.Read("xc:red", 1, 0);
                         });
@@ -669,7 +670,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("width", () =>
+                        ExceptionAssert.Throws<ArgumentException>("width", () =>
                         {
                             image.Read("xc:red", -1, 1);
                         });
@@ -681,7 +682,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("height", () =>
+                        ExceptionAssert.Throws<ArgumentException>("height", () =>
                         {
                             image.Read("xc:red", 1, -1);
                         });
@@ -724,7 +725,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("stream", () =>
+                        ExceptionAssert.Throws<ArgumentException>("stream", () =>
                         {
                             image.Read(new MemoryStream());
                         });
@@ -738,7 +739,7 @@ namespace Magick.NET.Tests
                     {
                         using (IMagickImage image = new MagickImage())
                         {
-                            ExceptionAssert.ThrowsArgumentException("stream", () =>
+                            ExceptionAssert.Throws<ArgumentException>("stream", () =>
                             {
                                 image.Read(testStream);
                             });
@@ -838,7 +839,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("stream", () =>
+                        ExceptionAssert.Throws<ArgumentException>("stream", () =>
                         {
                             image.Read(new MemoryStream(), settings);
                         });

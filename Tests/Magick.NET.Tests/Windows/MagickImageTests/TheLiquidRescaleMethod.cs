@@ -12,6 +12,7 @@
 
 #if WINDOWS_BUILD
 
+using System;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -103,7 +104,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
                     {
-                        ExceptionAssert.ThrowsArgumentException("percentage", () =>
+                        ExceptionAssert.Throws<ArgumentException>("percentage", () =>
                         {
                             image.LiquidRescale(new Percentage(-1));
                         });
@@ -115,7 +116,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
                     {
-                        ExceptionAssert.ThrowsArgumentException("percentageWidth", () =>
+                        ExceptionAssert.Throws<ArgumentException>("percentageWidth", () =>
                         {
                             image.LiquidRescale(new Percentage(-1), new Percentage(1));
                         });
@@ -127,7 +128,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
                     {
-                        ExceptionAssert.ThrowsArgumentException("percentageHeight", () =>
+                        ExceptionAssert.Throws<ArgumentException>("percentageHeight", () =>
                         {
                             image.LiquidRescale(new Percentage(1), new Percentage(-1));
                         });
@@ -165,7 +166,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
                     {
-                        ExceptionAssert.ThrowsArgumentException("percentageWidth", () =>
+                        ExceptionAssert.Throws<ArgumentException>("percentageWidth", () =>
                         {
                             image.LiquidRescale(new Percentage(-1), new Percentage(1), 0.0, 0.0);
                         });
@@ -177,7 +178,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
                     {
-                        ExceptionAssert.ThrowsArgumentException("percentageHeight", () =>
+                        ExceptionAssert.Throws<ArgumentException>("percentageHeight", () =>
                         {
                             image.LiquidRescale(new Percentage(1), new Percentage(-1), 0.0, 0.0);
                         });

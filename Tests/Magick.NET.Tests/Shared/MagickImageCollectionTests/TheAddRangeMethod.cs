@@ -38,7 +38,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenByteArrayIsEmpty()
             {
-                ExceptionAssert.ThrowsArgumentException("data", () =>
+                ExceptionAssert.Throws<ArgumentException>("data", () =>
                 {
                     using (IMagickImageCollection images = new MagickImageCollection())
                     {
@@ -88,7 +88,7 @@ namespace Magick.NET.Tests
             {
                 using (var images = new MagickImageCollection(Files.SnakewarePNG))
                 {
-                    ExceptionAssert.ThrowsArgumentException("images", () =>
+                    ExceptionAssert.Throws<ArgumentException>("images", () =>
                     {
                         images.AddRange(images);
                     });
@@ -121,7 +121,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenFileNameIsEmpty()
             {
-                ExceptionAssert.ThrowsArgumentException("fileName", () =>
+                ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                 {
                     using (IMagickImageCollection images = new MagickImageCollection())
                     {

@@ -217,7 +217,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
             {
-                ExceptionAssert.ThrowsArgumentException("name", () =>
+                ExceptionAssert.Throws<ArgumentException>("name", () =>
                 {
                     image.GetArtifact(string.Empty);
                 });
@@ -227,7 +227,7 @@ namespace Magick.NET.Tests
                     image.GetArtifact(null);
                 });
 
-                ExceptionAssert.ThrowsArgumentException("name", () =>
+                ExceptionAssert.Throws<ArgumentException>("name", () =>
                 {
                     image.SetArtifact(string.Empty, "test");
                 });
@@ -265,7 +265,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
             {
-                ExceptionAssert.ThrowsArgumentException("name", () =>
+                ExceptionAssert.Throws<ArgumentException>("name", () =>
                 {
                     image.GetAttribute(string.Empty);
                 });
@@ -275,7 +275,7 @@ namespace Magick.NET.Tests
                     image.GetAttribute(null);
                 });
 
-                ExceptionAssert.ThrowsArgumentException("name", () =>
+                ExceptionAssert.Throws<ArgumentException>("name", () =>
                 {
                     image.SetAttribute(string.Empty, "test");
                 });
@@ -936,7 +936,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Constructor()
         {
-            ExceptionAssert.ThrowsArgumentException("data", () =>
+            ExceptionAssert.Throws<ArgumentException>("data", () =>
             {
                 new MagickImage(new byte[0]);
             });
@@ -1525,7 +1525,7 @@ namespace Magick.NET.Tests
                     image.Fx(null);
                 });
 
-                ExceptionAssert.ThrowsArgumentException("expression", () =>
+                ExceptionAssert.Throws<ArgumentException>("expression", () =>
                 {
                     image.Fx(string.Empty);
                 });
@@ -2502,7 +2502,7 @@ namespace Magick.NET.Tests
                 Assert.IsTrue((image.Width * image.Height) < 4096);
 
                 Percentage percentage = new Percentage(-0.5);
-                ExceptionAssert.ThrowsArgumentException("percentage", () =>
+                ExceptionAssert.Throws<ArgumentException>("percentage", () =>
                 {
                     image.Resize(percentage);
                 });
@@ -2888,7 +2888,7 @@ namespace Magick.NET.Tests
 
                 List<SparseColorArg> args = new List<SparseColorArg>();
 
-                ExceptionAssert.ThrowsArgumentException("args", () =>
+                ExceptionAssert.Throws<ArgumentException>("args", () =>
                 {
                     image.SparseColor(Channels.Blue, SparseColorMethod.Barycentric, args);
                 });
@@ -2914,7 +2914,7 @@ namespace Magick.NET.Tests
                     ColorAssert.AreNotEqual(pixels.GetPixel(0, 0).ToColor(), pixels.GetPixel(599, 59).ToColor());
                 }
 
-                ExceptionAssert.ThrowsArgumentException("channels", () =>
+                ExceptionAssert.Throws<ArgumentException>("channels", () =>
                 {
                     image.SparseColor(Channels.Black, SparseColorMethod.Barycentric, args);
                 });
@@ -3487,7 +3487,7 @@ namespace Magick.NET.Tests
                 }
             });
 
-            ExceptionAssert.ThrowsArgumentException("fileName", () =>
+            ExceptionAssert.Throws<ArgumentException>("fileName", () =>
             {
                 using (IMagickImage image = new MagickImage())
                 {

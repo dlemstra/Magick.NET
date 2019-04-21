@@ -133,17 +133,17 @@ namespace Magick.NET.Tests
                 new PerceptualHash(null);
             });
 
-            ExceptionAssert.ThrowsArgumentException("hash", () =>
+            ExceptionAssert.Throws<ArgumentException>("hash", () =>
             {
                 new PerceptualHash(string.Empty);
             });
 
-            ExceptionAssert.ThrowsArgumentException("hash", () =>
+            ExceptionAssert.Throws<ArgumentException>("hash", () =>
             {
                 new PerceptualHash("a0df");
             });
 
-            ExceptionAssert.ThrowsArgumentException("hash", () =>
+            ExceptionAssert.Throws<ArgumentException>("hash", () =>
             {
                 new PerceptualHash("H00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
             });

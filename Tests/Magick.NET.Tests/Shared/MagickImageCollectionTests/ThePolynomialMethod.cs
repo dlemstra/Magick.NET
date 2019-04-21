@@ -51,7 +51,7 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImageCollection images = new MagickImageCollection(Files.Builtin.Logo))
                 {
-                    ExceptionAssert.ThrowsArgumentException("terms", () =>
+                    ExceptionAssert.Throws<ArgumentException>("terms", () =>
                     {
                         images.Polynomial(new double[] { });
                     });

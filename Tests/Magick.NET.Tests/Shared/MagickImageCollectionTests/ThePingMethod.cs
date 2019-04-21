@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -38,7 +39,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    ExceptionAssert.Throws<ArgumentException>("data", () =>
                     {
                         using (IMagickImageCollection images = new MagickImageCollection())
                         {
@@ -84,7 +85,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    ExceptionAssert.Throws<ArgumentException>("data", () =>
                     {
                         using (IMagickImageCollection images = new MagickImageCollection())
                         {
@@ -96,7 +97,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenOffsetIsNegative()
                 {
-                    ExceptionAssert.ThrowsArgumentException("offset", () =>
+                    ExceptionAssert.Throws<ArgumentException>("offset", () =>
                     {
                         using (IMagickImageCollection images = new MagickImageCollection())
                         {
@@ -108,7 +109,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsZero()
                 {
-                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
                         using (IMagickImageCollection images = new MagickImageCollection())
                         {
@@ -120,7 +121,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsNegative()
                 {
-                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
                         using (IMagickImageCollection images = new MagickImageCollection())
                         {
@@ -164,7 +165,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    ExceptionAssert.Throws<ArgumentException>("data", () =>
                     {
                         var settings = new MagickReadSettings();
 
@@ -178,7 +179,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenOffsetIsNegative()
                 {
-                    ExceptionAssert.ThrowsArgumentException("offset", () =>
+                    ExceptionAssert.Throws<ArgumentException>("offset", () =>
                     {
                         var settings = new MagickReadSettings();
 
@@ -192,7 +193,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsZero()
                 {
-                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
                         var settings = new MagickReadSettings();
 
@@ -206,7 +207,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsNegative()
                 {
-                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
                         var settings = new MagickReadSettings();
 
@@ -313,7 +314,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsEmpty()
                 {
-                    ExceptionAssert.ThrowsArgumentException("fileName", () =>
+                    ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                     {
                         using (IMagickImageCollection images = new MagickImageCollection())
                         {

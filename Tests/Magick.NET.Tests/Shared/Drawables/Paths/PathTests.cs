@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ImageMagick;
@@ -85,7 +86,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Path_Exceptions()
         {
-            ExceptionAssert.ThrowsArgumentException("coordinates", () =>
+            ExceptionAssert.Throws<ArgumentException>("coordinates", () =>
             {
                 new PathArcAbs();
             });
@@ -95,7 +96,7 @@ namespace Magick.NET.Tests
                 new PathArcAbs(null);
             });
 
-            ExceptionAssert.ThrowsArgumentException("coordinates", () =>
+            ExceptionAssert.Throws<ArgumentException>("coordinates", () =>
             {
                 new PathArcAbs(new PathArc[] { });
             });
@@ -105,7 +106,7 @@ namespace Magick.NET.Tests
                 new PathArcAbs(new PathArc[] { null });
             });
 
-            ExceptionAssert.ThrowsArgumentException("coordinates", () =>
+            ExceptionAssert.Throws<ArgumentException>("coordinates", () =>
             {
                 new PathArcRel();
             });
@@ -115,7 +116,7 @@ namespace Magick.NET.Tests
                 new PathArcRel(null);
             });
 
-            ExceptionAssert.ThrowsArgumentException("coordinates", () =>
+            ExceptionAssert.Throws<ArgumentException>("coordinates", () =>
             {
                 new PathArcRel(new PathArc[] { });
             });
@@ -125,7 +126,7 @@ namespace Magick.NET.Tests
                 new PathArcRel(new PathArc[] { null });
             });
 
-            ExceptionAssert.ThrowsArgumentException("coordinates", () =>
+            ExceptionAssert.Throws<ArgumentException>("coordinates", () =>
             {
                 new PathLineToAbs();
             });
@@ -135,12 +136,12 @@ namespace Magick.NET.Tests
                 new PathLineToAbs(null);
             });
 
-            ExceptionAssert.ThrowsArgumentException("coordinates", () =>
+            ExceptionAssert.Throws<ArgumentException>("coordinates", () =>
             {
                 new PathLineToAbs(new PointD[] { });
             });
 
-            ExceptionAssert.ThrowsArgumentException("coordinates", () =>
+            ExceptionAssert.Throws<ArgumentException>("coordinates", () =>
             {
                 new PathLineToRel();
             });
@@ -150,7 +151,7 @@ namespace Magick.NET.Tests
                 new PathLineToRel(null);
             });
 
-            ExceptionAssert.ThrowsArgumentException("coordinates", () =>
+            ExceptionAssert.Throws<ArgumentException>("coordinates", () =>
             {
                 new PathLineToRel(new PointD[] { });
             });

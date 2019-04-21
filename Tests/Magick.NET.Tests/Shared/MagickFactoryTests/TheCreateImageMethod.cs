@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -51,7 +52,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    ExceptionAssert.Throws<ArgumentException>("data", () =>
                     {
                         factory.CreateImage(new byte[] { });
                     });
@@ -90,7 +91,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    ExceptionAssert.Throws<ArgumentException>("data", () =>
                     {
                         factory.CreateImage(new byte[] { }, 0, 0);
                     });
@@ -101,7 +102,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("offset", () =>
+                    ExceptionAssert.Throws<ArgumentException>("offset", () =>
                     {
                         factory.CreateImage(new byte[] { 215 }, -1, 0);
                     });
@@ -112,7 +113,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
                         factory.CreateImage(new byte[] { 215 }, 0, 0);
                     });
@@ -123,7 +124,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
                         factory.CreateImage(new byte[] { 215 }, 0, -1);
                     });
@@ -164,7 +165,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    ExceptionAssert.Throws<ArgumentException>("data", () =>
                     {
                         factory.CreateImage(new byte[] { }, 0, 0, settings);
                     });
@@ -176,7 +177,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentException("offset", () =>
+                    ExceptionAssert.Throws<ArgumentException>("offset", () =>
                     {
                         factory.CreateImage(new byte[] { 215 }, -1, 0, settings);
                     });
@@ -188,7 +189,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
                         factory.CreateImage(new byte[] { 215 }, 0, 0, settings);
                     });
@@ -200,7 +201,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
                         new MagickImage(new byte[] { 215 }, 0, -1, settings);
                     });
@@ -257,7 +258,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    ExceptionAssert.Throws<ArgumentException>("data", () =>
                     {
                         factory.CreateImage(new byte[] { }, 0, 0, settings);
                     });
@@ -269,7 +270,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentException("offset", () =>
+                    ExceptionAssert.Throws<ArgumentException>("offset", () =>
                     {
                         factory.CreateImage(new byte[] { 215 }, -1, 0, settings);
                     });
@@ -281,7 +282,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
                         factory.CreateImage(new byte[] { 215 }, 0, 0, settings);
                     });
@@ -293,7 +294,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
                         factory.CreateImage(new byte[] { 215 }, 0, -1, settings);
                     });
@@ -358,7 +359,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    ExceptionAssert.Throws<ArgumentException>("data", () =>
                     {
                         factory.CreateImage(new byte[] { }, settings);
                     });
@@ -414,7 +415,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    ExceptionAssert.Throws<ArgumentException>("data", () =>
                     {
                         factory.CreateImage(new byte[] { }, settings);
                     });
@@ -476,7 +477,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("width", () =>
+                    ExceptionAssert.Throws<ArgumentException>("width", () =>
                     {
                         factory.CreateImage(MagickColors.Red, 0, 1);
                     });
@@ -487,7 +488,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("height", () =>
+                    ExceptionAssert.Throws<ArgumentException>("height", () =>
                     {
                         factory.CreateImage(MagickColors.Red, 1, 0);
                     });
@@ -498,7 +499,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("width", () =>
+                    ExceptionAssert.Throws<ArgumentException>("width", () =>
                     {
                         factory.CreateImage(MagickColors.Red, -1, 1);
                     });
@@ -509,7 +510,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("height", () =>
+                    ExceptionAssert.Throws<ArgumentException>("height", () =>
                     {
                         factory.CreateImage(MagickColors.Red, 1, -1);
                     });
@@ -658,7 +659,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("width", () =>
+                    ExceptionAssert.Throws<ArgumentException>("width", () =>
                     {
                         factory.CreateImage("xc:red", 0, 1);
                     });
@@ -669,7 +670,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("height", () =>
+                    ExceptionAssert.Throws<ArgumentException>("height", () =>
                     {
                         factory.CreateImage("xc:red", 1, 0);
                     });
@@ -680,7 +681,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("width", () =>
+                    ExceptionAssert.Throws<ArgumentException>("width", () =>
                     {
                         factory.CreateImage("xc:red", -1, 1);
                     });
@@ -691,7 +692,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("height", () =>
+                    ExceptionAssert.Throws<ArgumentException>("height", () =>
                     {
                         factory.CreateImage("xc:red", 1, -1);
                     });
@@ -730,7 +731,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("fileName", () =>
+                    ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                     {
                         factory.CreateImage(string.Empty);
                     });
@@ -770,7 +771,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentException("fileName", () =>
+                    ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                     {
                         factory.CreateImage(string.Empty, settings);
                     });
@@ -809,7 +810,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentException("fileName", () =>
+                    ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                     {
                         factory.CreateImage(string.Empty, settings);
                     });
@@ -875,7 +876,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("stream", () =>
+                    ExceptionAssert.Throws<ArgumentException>("stream", () =>
                     {
                         factory.CreateImage(new MemoryStream());
                     });
@@ -918,7 +919,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentException("stream", () =>
+                    ExceptionAssert.Throws<ArgumentException>("stream", () =>
                     {
                         factory.CreateImage(new MemoryStream(), settings);
                     });
@@ -960,7 +961,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentException("stream", () =>
+                    ExceptionAssert.Throws<ArgumentException>("stream", () =>
                     {
                         factory.CreateImage(new MemoryStream(), settings);
                     });

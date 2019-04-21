@@ -193,7 +193,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentException("value", () =>
+                        ExceptionAssert.Throws<ArgumentException>("value", () =>
                         {
                             pixels.SetPixel(0, 0, new QuantumType[] { });
                         });

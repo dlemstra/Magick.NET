@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -29,7 +30,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenValueIsEmpty()
             {
-                ExceptionAssert.ThrowsArgumentException("value", () => new MagickGeometry(string.Empty));
+                ExceptionAssert.Throws<ArgumentException>("value", () => new MagickGeometry(string.Empty));
             }
 
             [TestMethod]

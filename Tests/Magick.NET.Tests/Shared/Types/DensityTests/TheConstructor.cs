@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -29,21 +30,21 @@ namespace Magick.NET.Tests.Shared.Types
             [TestMethod]
             public void ShouldThrowExceptionWhenValueIsEmpty()
             {
-                ExceptionAssert.ThrowsArgumentException("value", () => { new Density(string.Empty); });
+                ExceptionAssert.Throws<ArgumentException>("value", () => { new Density(string.Empty); });
             }
 
             [TestMethod]
             public void ShouldThrowExceptionWhenValueIsInvalid()
             {
-                ExceptionAssert.ThrowsArgumentException("value", () => { new Density("1.0x"); });
+                ExceptionAssert.Throws<ArgumentException>("value", () => { new Density("1.0x"); });
 
-                ExceptionAssert.ThrowsArgumentException("value", () => { new Density("x1.0"); });
+                ExceptionAssert.Throws<ArgumentException>("value", () => { new Density("x1.0"); });
 
-                ExceptionAssert.ThrowsArgumentException("value", () => { new Density("ax1.0"); });
+                ExceptionAssert.Throws<ArgumentException>("value", () => { new Density("ax1.0"); });
 
-                ExceptionAssert.ThrowsArgumentException("value", () => { new Density("1.0xb"); });
+                ExceptionAssert.Throws<ArgumentException>("value", () => { new Density("1.0xb"); });
 
-                ExceptionAssert.ThrowsArgumentException("value", () => { new Density("1.0x6 magick"); });
+                ExceptionAssert.Throws<ArgumentException>("value", () => { new Density("1.0x6 magick"); });
             }
 
             [TestMethod]

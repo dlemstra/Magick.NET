@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -84,7 +85,7 @@ namespace Magick.NET.Tests.Shared.Optimizers.ImageOptimizerTests
                 public void ShouldThrowExceptionWhenFileNameIsEmpty()
                 {
                     var optimizer = new ImageOptimizer();
-                    ExceptionAssert.ThrowsArgumentException("fileName", () =>
+                    ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                     {
                         optimizer.Compress(string.Empty);
                     });
@@ -158,7 +159,7 @@ namespace Magick.NET.Tests.Shared.Optimizers.ImageOptimizerTests
                     var optimizer = new ImageOptimizer();
                     using (TestStream stream = new TestStream(false, true, true))
                     {
-                        ExceptionAssert.ThrowsArgumentException("stream", () =>
+                        ExceptionAssert.Throws<ArgumentException>("stream", () =>
                         {
                             optimizer.Compress(stream);
                         });
@@ -171,7 +172,7 @@ namespace Magick.NET.Tests.Shared.Optimizers.ImageOptimizerTests
                     var optimizer = new ImageOptimizer();
                     using (TestStream stream = new TestStream(true, false, true))
                     {
-                        ExceptionAssert.ThrowsArgumentException("stream", () =>
+                        ExceptionAssert.Throws<ArgumentException>("stream", () =>
                         {
                             optimizer.Compress(stream);
                         });
@@ -184,7 +185,7 @@ namespace Magick.NET.Tests.Shared.Optimizers.ImageOptimizerTests
                     var optimizer = new ImageOptimizer();
                     using (TestStream stream = new TestStream(true, true, false))
                     {
-                        ExceptionAssert.ThrowsArgumentException("stream", () =>
+                        ExceptionAssert.Throws<ArgumentException>("stream", () =>
                         {
                             optimizer.Compress(stream);
                         });

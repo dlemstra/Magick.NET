@@ -97,27 +97,27 @@ namespace Magick.NET.Tests
                 new MagickColor((string)null);
             });
 
-            ExceptionAssert.ThrowsArgumentException("color", () =>
+            ExceptionAssert.Throws<ArgumentException>("color", () =>
             {
                 new MagickColor("FFFFFF");
             });
 
-            ExceptionAssert.ThrowsArgumentException("color", () =>
+            ExceptionAssert.Throws<ArgumentException>("color", () =>
             {
                 new MagickColor("#FFFFF");
             });
 
-            ExceptionAssert.ThrowsArgumentException("color", () =>
+            ExceptionAssert.Throws<ArgumentException>("color", () =>
             {
                 new MagickColor("#GGFFF");
             });
 
-            ExceptionAssert.ThrowsArgumentException("color", () =>
+            ExceptionAssert.Throws<ArgumentException>("color", () =>
             {
                 new MagickColor("#FGF");
             });
 
-            ExceptionAssert.ThrowsArgumentException("color", () =>
+            ExceptionAssert.Throws<ArgumentException>("color", () =>
             {
                 new MagickColor("#FFFG000000000000");
             });

@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.Collections.Generic;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -53,7 +54,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentException("values", () =>
+                        ExceptionAssert.Throws<ArgumentException>("values", () =>
                         {
                             pixels.SetArea(10, 10, 1000, 1000, new byte[] { 0, 0, 0, 0 });
                         });
@@ -68,7 +69,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentException("values", () =>
+                        ExceptionAssert.Throws<ArgumentException>("values", () =>
                         {
                             var values = new byte[(113 * 108 * image.ChannelCount) + image.ChannelCount];
                             pixels.SetArea(10, 10, 113, 108, values);
@@ -144,7 +145,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentException("values", () =>
+                        ExceptionAssert.Throws<ArgumentException>("values", () =>
                         {
                             pixels.SetArea(10, 10, 1000, 1000, new double[] { 0, 0, 0, 0 });
                         });
@@ -159,7 +160,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentException("values", () =>
+                        ExceptionAssert.Throws<ArgumentException>("values", () =>
                         {
                             var values = new double[(113 * 108 * image.ChannelCount) + image.ChannelCount];
                             pixels.SetArea(10, 10, 113, 108, values);
@@ -235,7 +236,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentException("values", () =>
+                        ExceptionAssert.Throws<ArgumentException>("values", () =>
                         {
                             pixels.SetArea(10, 10, 1000, 1000, new int[] { 0, 0, 0, 0 });
                         });
@@ -250,7 +251,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentException("values", () =>
+                        ExceptionAssert.Throws<ArgumentException>("values", () =>
                         {
                             var values = new int[(113 * 108 * image.ChannelCount) + image.ChannelCount];
                             pixels.SetArea(10, 10, 113, 108, values);
@@ -326,7 +327,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentException("values", () =>
+                        ExceptionAssert.Throws<ArgumentException>("values", () =>
                         {
                             pixels.SetArea(10, 10, 1000, 1000, new QuantumType[] { 0, 0, 0, 0 });
                         });
@@ -341,7 +342,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentException("values", () =>
+                        ExceptionAssert.Throws<ArgumentException>("values", () =>
                         {
                             var values = new QuantumType[(113 * 108 * image.ChannelCount) + image.ChannelCount];
                             pixels.SetArea(10, 10, 113, 108, values);

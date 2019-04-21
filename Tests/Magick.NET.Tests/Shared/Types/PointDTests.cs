@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -38,27 +39,27 @@ namespace Magick.NET.Tests
                 new PointD(null);
             });
 
-            ExceptionAssert.ThrowsArgumentException("value", () =>
+            ExceptionAssert.Throws<ArgumentException>("value", () =>
             {
                 new PointD(string.Empty);
             });
 
-            ExceptionAssert.ThrowsArgumentException("value", () =>
+            ExceptionAssert.Throws<ArgumentException>("value", () =>
             {
                 new PointD("1.0x");
             });
 
-            ExceptionAssert.ThrowsArgumentException("value", () =>
+            ExceptionAssert.Throws<ArgumentException>("value", () =>
             {
                 new PointD("x1.0");
             });
 
-            ExceptionAssert.ThrowsArgumentException("value", () =>
+            ExceptionAssert.Throws<ArgumentException>("value", () =>
             {
                 new PointD("ax1.0");
             });
 
-            ExceptionAssert.ThrowsArgumentException("value", () =>
+            ExceptionAssert.Throws<ArgumentException>("value", () =>
             {
                 new PointD("1.0xb");
             });

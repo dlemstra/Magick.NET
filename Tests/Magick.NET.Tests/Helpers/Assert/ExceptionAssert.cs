@@ -71,12 +71,6 @@ namespace Magick.NET.Tests
             Assert.AreEqual(paramName, exception.ParamName);
         }
 
-        public static void ThrowsArgumentException(string paramName, Action action)
-        {
-            ArgumentException exception = Throws<ArgumentException>(action);
-            Assert.AreEqual(paramName, exception.ParamName);
-        }
-
         private static void Fail(string message, params object[] arguments)
         {
             if (arguments != null && arguments.Length > 0)

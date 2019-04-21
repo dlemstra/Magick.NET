@@ -45,7 +45,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("data", () =>
+                        ExceptionAssert.Throws<ArgumentException>("data", () =>
                         {
                             image.ReadPixels(new byte[] { }, settings);
                         });
@@ -132,7 +132,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("data", () =>
+                        ExceptionAssert.Throws<ArgumentException>("data", () =>
                         {
                             image.ReadPixels(new byte[] { }, 0, 0, settings);
                         });
@@ -146,7 +146,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("offset", () =>
+                        ExceptionAssert.Throws<ArgumentException>("offset", () =>
                         {
                             image.ReadPixels(new byte[] { 215 }, -1, 0, settings);
                         });
@@ -160,7 +160,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("count", () =>
+                        ExceptionAssert.Throws<ArgumentException>("count", () =>
                         {
                             image.ReadPixels(new byte[] { 215 }, 0, 0, settings);
                         });
@@ -174,7 +174,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("count", () =>
+                        ExceptionAssert.Throws<ArgumentException>("count", () =>
                         {
                             image.ReadPixels(new byte[] { 215 }, 0, -1, settings);
                         });
@@ -269,7 +269,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("fileName", () =>
+                        ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                         {
                             image.ReadPixels(string.Empty, settings);
                         });
@@ -392,7 +392,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentException("stream", () =>
+                        ExceptionAssert.Throws<ArgumentException>("stream", () =>
                         {
                             image.ReadPixels(new MemoryStream(), settings);
                         });

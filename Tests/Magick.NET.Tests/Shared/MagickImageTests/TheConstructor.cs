@@ -36,7 +36,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    ExceptionAssert.Throws<ArgumentException>("data", () =>
                     {
                         new MagickImage(new byte[] { });
                     });
@@ -58,7 +58,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    ExceptionAssert.Throws<ArgumentException>("data", () =>
                     {
                         new MagickImage(new byte[] { }, 0, 0);
                     });
@@ -67,7 +67,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenOffsetIsNegative()
                 {
-                    ExceptionAssert.ThrowsArgumentException("offset", () =>
+                    ExceptionAssert.Throws<ArgumentException>("offset", () =>
                     {
                         new MagickImage(new byte[] { 215 }, -1, 0);
                     });
@@ -76,7 +76,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsZero()
                 {
-                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
                         new MagickImage(new byte[] { 215 }, 0, 0);
                     });
@@ -85,7 +85,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsNegative()
                 {
-                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
                         new MagickImage(new byte[] { 215 }, 0, -1);
                     });
@@ -109,7 +109,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    ExceptionAssert.Throws<ArgumentException>("data", () =>
                     {
                         var settings = new MagickReadSettings();
 
@@ -120,7 +120,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenOffsetIsNegative()
                 {
-                    ExceptionAssert.ThrowsArgumentException("offset", () =>
+                    ExceptionAssert.Throws<ArgumentException>("offset", () =>
                     {
                         var settings = new MagickReadSettings();
 
@@ -131,7 +131,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsZero()
                 {
-                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
                         var settings = new MagickReadSettings();
 
@@ -142,7 +142,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsNegative()
                 {
-                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
                         var settings = new MagickReadSettings();
 
@@ -176,7 +176,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    ExceptionAssert.Throws<ArgumentException>("data", () =>
                     {
                         var settings = new PixelReadSettings();
 
@@ -187,7 +187,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenOffsetIsNegative()
                 {
-                    ExceptionAssert.ThrowsArgumentException("offset", () =>
+                    ExceptionAssert.Throws<ArgumentException>("offset", () =>
                     {
                         var settings = new PixelReadSettings();
 
@@ -198,7 +198,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsZero()
                 {
-                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
                         var settings = new PixelReadSettings();
 
@@ -209,7 +209,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsNegative()
                 {
-                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
                         var settings = new PixelReadSettings();
 
@@ -244,7 +244,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    ExceptionAssert.Throws<ArgumentException>("data", () =>
                     {
                         var settings = new MagickReadSettings();
 
@@ -278,7 +278,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    ExceptionAssert.Throws<ArgumentException>("data", () =>
                     {
                         var settings = new PixelReadSettings();
 
@@ -352,7 +352,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenWidthIsZero()
                 {
-                    ExceptionAssert.ThrowsArgumentException("width", () =>
+                    ExceptionAssert.Throws<ArgumentException>("width", () =>
                     {
                         new MagickImage(MagickColors.Red, 0, 1);
                     });
@@ -361,7 +361,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenHeightIsZero()
                 {
-                    ExceptionAssert.ThrowsArgumentException("height", () =>
+                    ExceptionAssert.Throws<ArgumentException>("height", () =>
                     {
                         new MagickImage(MagickColors.Red, 1, 0);
                     });
@@ -370,7 +370,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenWidthIsNegative()
                 {
-                    ExceptionAssert.ThrowsArgumentException("width", () =>
+                    ExceptionAssert.Throws<ArgumentException>("width", () =>
                     {
                         new MagickImage(MagickColors.Red, -1, 1);
                     });
@@ -379,7 +379,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenHeightIsNegative()
                 {
-                    ExceptionAssert.ThrowsArgumentException("height", () =>
+                    ExceptionAssert.Throws<ArgumentException>("height", () =>
                     {
                         new MagickImage(MagickColors.Red, 1, -1);
                     });
@@ -493,7 +493,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsEmpty()
                 {
-                    ExceptionAssert.ThrowsArgumentException("fileName", () =>
+                    ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                     {
                         new MagickImage(string.Empty);
                     });
@@ -517,7 +517,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsEmpty()
                 {
-                    ExceptionAssert.ThrowsArgumentException("fileName", () =>
+                    ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                     {
                         var settings = new MagickReadSettings();
 
@@ -551,7 +551,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsEmpty()
                 {
-                    ExceptionAssert.ThrowsArgumentException("fileName", () =>
+                    ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                     {
                         var settings = new PixelReadSettings();
 
@@ -649,7 +649,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenWidthIsZero()
                 {
-                    ExceptionAssert.ThrowsArgumentException("width", () =>
+                    ExceptionAssert.Throws<ArgumentException>("width", () =>
                     {
                         new MagickImage("xc:red", 0, 1);
                     });
@@ -658,7 +658,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenHeightIsZero()
                 {
-                    ExceptionAssert.ThrowsArgumentException("height", () =>
+                    ExceptionAssert.Throws<ArgumentException>("height", () =>
                     {
                         new MagickImage("xc:red", 1, 0);
                     });
@@ -667,7 +667,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenWidthIsNegative()
                 {
-                    ExceptionAssert.ThrowsArgumentException("width", () =>
+                    ExceptionAssert.Throws<ArgumentException>("width", () =>
                     {
                         new MagickImage("xc:red", -1, 1);
                     });
@@ -676,7 +676,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenHeightIsNegative()
                 {
-                    ExceptionAssert.ThrowsArgumentException("height", () =>
+                    ExceptionAssert.Throws<ArgumentException>("height", () =>
                     {
                         new MagickImage("xc:red", 1, -1);
                     });
@@ -709,7 +709,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenStreamIsEmpty()
                 {
-                    ExceptionAssert.ThrowsArgumentException("stream", () =>
+                    ExceptionAssert.Throws<ArgumentException>("stream", () =>
                     {
                         var settings = new MagickReadSettings();
 
@@ -735,7 +735,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenStreamIsEmpty()
                 {
-                    ExceptionAssert.ThrowsArgumentException("stream", () =>
+                    ExceptionAssert.Throws<ArgumentException>("stream", () =>
                     {
                         var settings = new MagickReadSettings();
 
@@ -772,7 +772,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenStreamIsEmpty()
                 {
-                    ExceptionAssert.ThrowsArgumentException("stream", () =>
+                    ExceptionAssert.Throws<ArgumentException>("stream", () =>
                     {
                         var settings = new PixelReadSettings();
 

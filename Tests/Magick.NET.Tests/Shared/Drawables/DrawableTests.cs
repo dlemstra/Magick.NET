@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.Linq;
 using System.Text;
 using ImageMagick;
@@ -182,7 +183,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Drawables_Exceptions()
         {
-            ExceptionAssert.ThrowsArgumentException("coordinates", () =>
+            ExceptionAssert.Throws<ArgumentException>("coordinates", () =>
             {
                 new DrawableBezier();
             });
@@ -192,7 +193,7 @@ namespace Magick.NET.Tests
                 new DrawableBezier(null);
             });
 
-            ExceptionAssert.ThrowsArgumentException("coordinates", () =>
+            ExceptionAssert.Throws<ArgumentException>("coordinates", () =>
             {
                 new DrawableBezier(new PointD[] { });
             });
@@ -202,7 +203,7 @@ namespace Magick.NET.Tests
                 new DrawableClipPath(null);
             });
 
-            ExceptionAssert.ThrowsArgumentException("clipPath", () =>
+            ExceptionAssert.Throws<ArgumentException>("clipPath", () =>
             {
                 new DrawableClipPath(string.Empty);
             });
@@ -227,7 +228,7 @@ namespace Magick.NET.Tests
                 new DrawableFont(null);
             });
 
-            ExceptionAssert.ThrowsArgumentException("family", () =>
+            ExceptionAssert.Throws<ArgumentException>("family", () =>
             {
                 new DrawableFont(string.Empty);
             });
@@ -240,12 +241,12 @@ namespace Magick.NET.Tests
                 }
             });
 
-            ExceptionAssert.ThrowsArgumentException("coordinates", () =>
+            ExceptionAssert.Throws<ArgumentException>("coordinates", () =>
             {
                 new DrawablePolygon(new PointD[] { new PointD(0, 0) });
             });
 
-            ExceptionAssert.ThrowsArgumentException("coordinates", () =>
+            ExceptionAssert.Throws<ArgumentException>("coordinates", () =>
             {
                 new DrawablePolyline(new PointD[] { new PointD(0, 0), new PointD(0, 0) });
             });
@@ -260,7 +261,7 @@ namespace Magick.NET.Tests
                 new DrawableText(0, 0, null);
             });
 
-            ExceptionAssert.ThrowsArgumentException("value", () =>
+            ExceptionAssert.Throws<ArgumentException>("value", () =>
             {
                 new DrawableText(0, 0, string.Empty);
             });

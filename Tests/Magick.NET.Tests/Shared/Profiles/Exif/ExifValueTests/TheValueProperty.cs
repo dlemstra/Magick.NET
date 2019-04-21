@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -28,7 +29,7 @@ namespace Magick.NET.Tests
 
                 var value = profile.GetValue(ExifTag.Software);
 
-                ExceptionAssert.ThrowsArgumentException("value", () =>
+                ExceptionAssert.Throws<ArgumentException>("value", () =>
                 {
                     value.Value = 15;
                 });
@@ -42,7 +43,7 @@ namespace Magick.NET.Tests
 
                 var value = profile.GetValue(ExifTag.ShutterSpeedValue);
 
-                ExceptionAssert.ThrowsArgumentException("value", () =>
+                ExceptionAssert.Throws<ArgumentException>("value", () =>
                 {
                     value.Value = 75;
                 });
@@ -57,7 +58,7 @@ namespace Magick.NET.Tests
                 var value = profile.GetValue(ExifTag.XResolution);
                 TestRationalValue(value, "150");
 
-                ExceptionAssert.ThrowsArgumentException("value", () =>
+                ExceptionAssert.Throws<ArgumentException>("value", () =>
                 {
                     value.Value = "Magick.NET";
                 });

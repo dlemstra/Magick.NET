@@ -74,7 +74,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Initialize_PathIsInvalid_ThrowsException()
         {
-            ExceptionAssert.ThrowsArgumentException("path", () =>
+            ExceptionAssert.Throws<ArgumentException>("path", () =>
             {
                 MagickNET.Initialize("Invalid");
             });
@@ -280,7 +280,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void SetTempDirectory_PathIsInvalid_ThrowsException()
         {
-            ExceptionAssert.ThrowsArgumentException("path", () =>
+            ExceptionAssert.Throws<ArgumentException>("path", () =>
             {
                 MagickNET.SetTempDirectory("Invalid");
             });

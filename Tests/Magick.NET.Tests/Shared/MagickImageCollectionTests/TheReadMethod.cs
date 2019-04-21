@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -40,7 +41,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImageCollection images = new MagickImageCollection())
                     {
-                        ExceptionAssert.ThrowsArgumentException("data", () =>
+                        ExceptionAssert.Throws<ArgumentException>("data", () =>
                         {
                             images.Read(new byte[0]);
                         });
@@ -86,7 +87,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImageCollection images = new MagickImageCollection())
                     {
-                        ExceptionAssert.ThrowsArgumentException("data", () =>
+                        ExceptionAssert.Throws<ArgumentException>("data", () =>
                         {
                             images.Read(new byte[] { }, 0, 0);
                         });
@@ -98,7 +99,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImageCollection images = new MagickImageCollection())
                     {
-                        ExceptionAssert.ThrowsArgumentException("offset", () =>
+                        ExceptionAssert.Throws<ArgumentException>("offset", () =>
                         {
                             images.Read(new byte[] { 215 }, -1, 0);
                         });
@@ -110,7 +111,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImageCollection images = new MagickImageCollection())
                     {
-                        ExceptionAssert.ThrowsArgumentException("count", () =>
+                        ExceptionAssert.Throws<ArgumentException>("count", () =>
                         {
                             images.Read(new byte[] { 215 }, 0, 0);
                         });
@@ -122,7 +123,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImageCollection images = new MagickImageCollection())
                     {
-                        ExceptionAssert.ThrowsArgumentException("count", () =>
+                        ExceptionAssert.Throws<ArgumentException>("count", () =>
                         {
                             images.Read(new byte[] { 215 }, 0, -1);
                         });
@@ -168,7 +169,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImageCollection images = new MagickImageCollection())
                     {
-                        ExceptionAssert.ThrowsArgumentException("data", () =>
+                        ExceptionAssert.Throws<ArgumentException>("data", () =>
                         {
                             images.Read(new byte[] { }, 0, 0, settings);
                         });
@@ -182,7 +183,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImageCollection images = new MagickImageCollection())
                     {
-                        ExceptionAssert.ThrowsArgumentException("offset", () =>
+                        ExceptionAssert.Throws<ArgumentException>("offset", () =>
                         {
                             images.Read(new byte[] { 215 }, -1, 0, settings);
                         });
@@ -196,7 +197,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImageCollection images = new MagickImageCollection())
                     {
-                        ExceptionAssert.ThrowsArgumentException("count", () =>
+                        ExceptionAssert.Throws<ArgumentException>("count", () =>
                         {
                             images.Read(new byte[] { 215 }, 0, 0, settings);
                         });
@@ -210,7 +211,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImageCollection images = new MagickImageCollection())
                     {
-                        ExceptionAssert.ThrowsArgumentException("count", () =>
+                        ExceptionAssert.Throws<ArgumentException>("count", () =>
                         {
                             images.Read(new byte[] { 215 }, 0, -1, settings);
                         });
@@ -315,7 +316,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImageCollection images = new MagickImageCollection())
                     {
-                        ExceptionAssert.ThrowsArgumentException("fileName", () =>
+                        ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                         {
                             images.Read(string.Empty);
                         });

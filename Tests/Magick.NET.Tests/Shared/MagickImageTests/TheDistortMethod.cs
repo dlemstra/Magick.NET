@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -49,7 +50,7 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImage image = new MagickImage())
                 {
-                    ExceptionAssert.ThrowsArgumentException("arguments", () =>
+                    ExceptionAssert.Throws<ArgumentException>("arguments", () =>
                     {
                         image.Distort(DistortMethod.Perspective, new double[] { });
                     });
@@ -61,7 +62,7 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImage image = new MagickImage())
                 {
-                    ExceptionAssert.ThrowsArgumentException("arguments", () =>
+                    ExceptionAssert.Throws<ArgumentException>("arguments", () =>
                     {
                         image.Distort(DistortMethod.Perspective, new DistortSettings(), new double[] { });
                     });

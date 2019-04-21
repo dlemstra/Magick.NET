@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -50,7 +51,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    ExceptionAssert.Throws<ArgumentException>("data", () =>
                     {
                         factory.CreateCollection(new byte[] { });
                     });
@@ -88,7 +89,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    ExceptionAssert.Throws<ArgumentException>("data", () =>
                     {
                         factory.CreateCollection(new byte[] { }, 0, 0);
                     });
@@ -99,7 +100,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("offset", () =>
+                    ExceptionAssert.Throws<ArgumentException>("offset", () =>
                     {
                         factory.CreateCollection(new byte[] { 215 }, -1, 0);
                     });
@@ -110,7 +111,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
                         factory.CreateCollection(new byte[] { 215 }, 0, 0);
                     });
@@ -121,7 +122,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
                         factory.CreateCollection(new byte[] { 215 }, 0, -1);
                     });
@@ -163,7 +164,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    ExceptionAssert.Throws<ArgumentException>("data", () =>
                     {
                         factory.CreateCollection(new byte[] { }, 0, 0, settings);
                     });
@@ -175,7 +176,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentException("offset", () =>
+                    ExceptionAssert.Throws<ArgumentException>("offset", () =>
                     {
                         factory.CreateCollection(new byte[] { 215 }, -1, 0, settings);
                     });
@@ -187,7 +188,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
                         factory.CreateCollection(new byte[] { 215 }, 0, 0, settings);
                     });
@@ -199,7 +200,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
                         using (IMagickImageCollection images = factory.CreateCollection(new byte[] { 215 }, 0, -1, settings))
                         {
@@ -256,7 +257,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    ExceptionAssert.Throws<ArgumentException>("data", () =>
                     {
                         factory.CreateCollection(new byte[] { }, settings);
                     });
@@ -362,7 +363,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("fileName", () =>
+                    ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                     {
                         factory.CreateCollection(string.Empty);
                     });
@@ -401,7 +402,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentException("fileName", () =>
+                    ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                     {
                         factory.CreateCollection(string.Empty, settings);
                     });
@@ -438,7 +439,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("stream", () =>
+                    ExceptionAssert.Throws<ArgumentException>("stream", () =>
                     {
                         factory.CreateCollection(new MemoryStream());
                     });
@@ -480,7 +481,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentException("stream", () =>
+                    ExceptionAssert.Throws<ArgumentException>("stream", () =>
                     {
                         factory.CreateCollection(new MemoryStream(), settings);
                     });

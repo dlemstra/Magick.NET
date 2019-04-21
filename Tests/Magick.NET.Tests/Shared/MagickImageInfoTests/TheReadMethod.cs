@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -36,7 +37,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickImageInfo imageInfo = new MagickImageInfo();
 
-                    ExceptionAssert.ThrowsArgumentException("data", () => imageInfo.Read(new byte[0]));
+                    ExceptionAssert.Throws<ArgumentException>("data", () => imageInfo.Read(new byte[0]));
                 }
             }
 
@@ -56,7 +57,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickImageInfo imageInfo = new MagickImageInfo();
 
-                    ExceptionAssert.ThrowsArgumentException("data", () => imageInfo.Read(new byte[] { }, 0, 0));
+                    ExceptionAssert.Throws<ArgumentException>("data", () => imageInfo.Read(new byte[] { }, 0, 0));
                 }
 
                 [TestMethod]
@@ -64,7 +65,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickImageInfo imageInfo = new MagickImageInfo();
 
-                    ExceptionAssert.ThrowsArgumentException("offset", () => imageInfo.Read(new byte[] { 215 }, -1, 0));
+                    ExceptionAssert.Throws<ArgumentException>("offset", () => imageInfo.Read(new byte[] { 215 }, -1, 0));
                 }
 
                 [TestMethod]
@@ -72,7 +73,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickImageInfo imageInfo = new MagickImageInfo();
 
-                    ExceptionAssert.ThrowsArgumentException("count", () => imageInfo.Read(new byte[] { 215 }, 0, 0));
+                    ExceptionAssert.Throws<ArgumentException>("count", () => imageInfo.Read(new byte[] { 215 }, 0, 0));
                 }
 
                 [TestMethod]
@@ -80,7 +81,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickImageInfo imageInfo = new MagickImageInfo();
 
-                    ExceptionAssert.ThrowsArgumentException("count", () => imageInfo.Read(new byte[] { 215 }, 0, -1));
+                    ExceptionAssert.Throws<ArgumentException>("count", () => imageInfo.Read(new byte[] { 215 }, 0, -1));
                 }
             }
 
@@ -112,7 +113,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickImageInfo imageInfo = new MagickImageInfo();
 
-                    ExceptionAssert.ThrowsArgumentException("fileName", () => imageInfo.Read(string.Empty));
+                    ExceptionAssert.Throws<ArgumentException>("fileName", () => imageInfo.Read(string.Empty));
                 }
 
                 [TestMethod]

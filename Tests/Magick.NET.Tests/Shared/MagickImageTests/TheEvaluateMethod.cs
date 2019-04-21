@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -47,7 +48,7 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImage image = new MagickImage())
                 {
-                    ExceptionAssert.ThrowsArgumentException("arguments", () =>
+                    ExceptionAssert.Throws<ArgumentException>("arguments", () =>
                     {
                         image.Evaluate(Channels.Red, EvaluateFunction.Arcsin, new double[] { });
                     });
@@ -71,7 +72,7 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImage image = new MagickImage())
                 {
-                    ExceptionAssert.ThrowsArgumentException("geometry", () =>
+                    ExceptionAssert.Throws<ArgumentException>("geometry", () =>
                     {
                         var geometry = new MagickGeometry(new Percentage(100), new Percentage(100));
 

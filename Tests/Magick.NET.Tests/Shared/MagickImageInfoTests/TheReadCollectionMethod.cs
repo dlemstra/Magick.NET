@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.IO;
 using System.Linq;
 using ImageMagick;
@@ -33,7 +34,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenDataIsEmpty()
                 {
-                    ExceptionAssert.ThrowsArgumentException("data", () => MagickImageInfo.ReadCollection(new byte[0]).ToArray());
+                    ExceptionAssert.Throws<ArgumentException>("data", () => MagickImageInfo.ReadCollection(new byte[0]).ToArray());
                 }
             }
 
@@ -49,25 +50,25 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    ExceptionAssert.ThrowsArgumentException("data", () => MagickImageInfo.ReadCollection(new byte[] { }, 0, 0).ToArray());
+                    ExceptionAssert.Throws<ArgumentException>("data", () => MagickImageInfo.ReadCollection(new byte[] { }, 0, 0).ToArray());
                 }
 
                 [TestMethod]
                 public void ShouldThrowExceptionWhenOffsetIsNegative()
                 {
-                    ExceptionAssert.ThrowsArgumentException("offset", () => MagickImageInfo.ReadCollection(new byte[] { 215 }, -1, 0).ToArray());
+                    ExceptionAssert.Throws<ArgumentException>("offset", () => MagickImageInfo.ReadCollection(new byte[] { 215 }, -1, 0).ToArray());
                 }
 
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsZero()
                 {
-                    ExceptionAssert.ThrowsArgumentException("count", () => MagickImageInfo.ReadCollection(new byte[] { 215 }, 0, 0).ToArray());
+                    ExceptionAssert.Throws<ArgumentException>("count", () => MagickImageInfo.ReadCollection(new byte[] { 215 }, 0, 0).ToArray());
                 }
 
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsNegative()
                 {
-                    ExceptionAssert.ThrowsArgumentException("count", () => MagickImageInfo.ReadCollection(new byte[] { 215 }, 0, -1).ToArray());
+                    ExceptionAssert.Throws<ArgumentException>("count", () => MagickImageInfo.ReadCollection(new byte[] { 215 }, 0, -1).ToArray());
                 }
             }
 
@@ -93,7 +94,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsEmpty()
                 {
-                    ExceptionAssert.ThrowsArgumentException("fileName", () => MagickImageInfo.ReadCollection(string.Empty).ToArray());
+                    ExceptionAssert.Throws<ArgumentException>("fileName", () => MagickImageInfo.ReadCollection(string.Empty).ToArray());
                 }
 
                 [TestMethod]

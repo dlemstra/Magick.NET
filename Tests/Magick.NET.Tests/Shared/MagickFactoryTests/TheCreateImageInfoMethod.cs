@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -49,7 +50,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    ExceptionAssert.Throws<ArgumentException>("data", () =>
                     {
                         factory.CreateImageInfo(new byte[] { });
                     });
@@ -87,7 +88,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("data", () =>
+                    ExceptionAssert.Throws<ArgumentException>("data", () =>
                     {
                         factory.CreateImageInfo(new byte[] { }, 0, 0);
                     });
@@ -98,7 +99,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("offset", () =>
+                    ExceptionAssert.Throws<ArgumentException>("offset", () =>
                     {
                         factory.CreateImageInfo(new byte[] { 215 }, -1, 0);
                     });
@@ -109,7 +110,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
                         factory.CreateImageInfo(new byte[] { 215 }, 0, 0);
                     });
@@ -120,7 +121,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("count", () =>
+                    ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
                         factory.CreateImageInfo(new byte[] { 215 }, 0, -1);
                     });
@@ -173,7 +174,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("fileName", () =>
+                    ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                     {
                         factory.CreateImageInfo(string.Empty);
                     });
@@ -210,7 +211,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentException("stream", () =>
+                    ExceptionAssert.Throws<ArgumentException>("stream", () =>
                     {
                         factory.CreateImageInfo(new MemoryStream());
                     });

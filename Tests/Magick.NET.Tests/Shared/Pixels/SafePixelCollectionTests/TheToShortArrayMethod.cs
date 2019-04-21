@@ -118,7 +118,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentException("mapping", () =>
+                        ExceptionAssert.Throws<ArgumentException>("mapping", () =>
                         {
                             pixels.ToShortArray(new MagickGeometry(1, 2, 3, 4), string.Empty);
                         });
@@ -178,7 +178,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentException("mapping", () =>
+                        ExceptionAssert.Throws<ArgumentException>("mapping", () =>
                         {
                             pixels.ToShortArray(string.Empty);
                         });

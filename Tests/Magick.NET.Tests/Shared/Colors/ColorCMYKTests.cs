@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -170,27 +171,27 @@ namespace Magick.NET.Tests
             Assert.AreEqual(Quantum.Max, first.K);
             Assert.AreEqual(Quantum.Max, first.A);
 
-            ExceptionAssert.ThrowsArgumentException("color", () =>
+            ExceptionAssert.Throws<ArgumentException>("color", () =>
             {
                 new ColorCMYK("white");
             });
 
-            ExceptionAssert.ThrowsArgumentException("color", () =>
+            ExceptionAssert.Throws<ArgumentException>("color", () =>
             {
                 new ColorCMYK("#ff00ff");
             });
 
-            ExceptionAssert.ThrowsArgumentException("color", () =>
+            ExceptionAssert.Throws<ArgumentException>("color", () =>
             {
                 new ColorCMYK("#ffff0000fffff");
             });
 
-            ExceptionAssert.ThrowsArgumentException("color", () =>
+            ExceptionAssert.Throws<ArgumentException>("color", () =>
             {
                 new ColorCMYK("#ffff0000fffff0000fffff");
             });
 
-            ExceptionAssert.ThrowsArgumentException("color", () =>
+            ExceptionAssert.Throws<ArgumentException>("color", () =>
             {
                 new ColorCMYK("#fff");
             });

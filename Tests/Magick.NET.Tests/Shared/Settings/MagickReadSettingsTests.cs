@@ -86,7 +86,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Image_Exceptions()
         {
-            ExceptionAssert.ThrowsArgumentException("readSettings", () =>
+            ExceptionAssert.Throws<ArgumentException>("readSettings", () =>
             {
                 MagickReadSettings settings = new MagickReadSettings
                 {
