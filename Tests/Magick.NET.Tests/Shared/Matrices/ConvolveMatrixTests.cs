@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -300,7 +301,7 @@ namespace Magick.NET.Tests
         {
             ConvolveMatrix matrix = new ConvolveMatrix(1);
 
-            ExceptionAssert.ThrowsArgumentOutOfRangeException(paramName, () =>
+            ExceptionAssert.Throws<ArgumentOutOfRangeException>(paramName, () =>
             {
                 double foo = matrix[x, y];
             });
@@ -310,7 +311,7 @@ namespace Magick.NET.Tests
         {
             ConvolveMatrix matrix = new ConvolveMatrix(1);
 
-            ExceptionAssert.ThrowsArgumentOutOfRangeException(paramName, () =>
+            ExceptionAssert.Throws<ArgumentOutOfRangeException>(paramName, () =>
             {
                 matrix.GetValue(x, y);
             });
@@ -320,7 +321,7 @@ namespace Magick.NET.Tests
         {
             ConvolveMatrix matrix = new ConvolveMatrix(1);
 
-            ExceptionAssert.ThrowsArgumentOutOfRangeException("x", () =>
+            ExceptionAssert.Throws<ArgumentOutOfRangeException>("x", () =>
             {
                 matrix.SetColumn(x, 1.0, 2.0);
             });
@@ -330,7 +331,7 @@ namespace Magick.NET.Tests
         {
             ConvolveMatrix matrix = new ConvolveMatrix(1);
 
-            ExceptionAssert.ThrowsArgumentOutOfRangeException("y", () =>
+            ExceptionAssert.Throws<ArgumentOutOfRangeException>("y", () =>
             {
                 matrix.SetRow(y, 1.0, 2.0);
             });
@@ -340,7 +341,7 @@ namespace Magick.NET.Tests
         {
             ConvolveMatrix matrix = new ConvolveMatrix(1);
 
-            ExceptionAssert.ThrowsArgumentOutOfRangeException(paramName, () =>
+            ExceptionAssert.Throws<ArgumentOutOfRangeException>(paramName, () =>
             {
                 matrix.SetValue(x, y, 1);
             });

@@ -41,8 +41,17 @@ namespace Magick.NET.Tests
         public static TException Throws<TException>(Action action, string messagePart)
            where TException : Exception
         {
-            TException exception = Throws<TException>(action);
+            var exception = Throws<TException>(action);
             AssertMessagePart(exception, messagePart);
+
+            return exception;
+        }
+
+        public static TException Throws<TException>(string paramName, Action action)
+           where TException : ArgumentException
+        {
+            var exception = Throws<TException>(action);
+            Assert.AreEqual(paramName, exception.ParamName);
 
             return exception;
         }
@@ -56,12 +65,6 @@ namespace Magick.NET.Tests
         public static void ThrowsArgumentException(string paramName, Action action)
         {
             ArgumentException exception = Throws<ArgumentException>(action);
-            Assert.AreEqual(paramName, exception.ParamName);
-        }
-
-        public static void ThrowsArgumentOutOfRangeException(string paramName, Action action)
-        {
-            ArgumentException exception = Throws<ArgumentOutOfRangeException>(action);
             Assert.AreEqual(paramName, exception.ParamName);
         }
 
@@ -83,7 +86,7 @@ namespace Magick.NET.Tests
         private static void AssertMessagePart<TException>(TException exception, string messagePart)
            where TException : Exception
         {
-            bool containsMessage = exception.Message.Contains(messagePart);
+            var containsMessage = exception.Message.Contains(messagePart);
             Assert.IsTrue(containsMessage, "Message does not contain: " + messagePart + "." + Environment.NewLine + Environment.NewLine + exception.Message);
         }
     }

@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.Collections.Generic;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -53,7 +54,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentOutOfRangeException("x", () =>
+                        ExceptionAssert.Throws<ArgumentOutOfRangeException>("x", () =>
                         {
                             pixels.SetPixel(new Pixel(image.Width + 1, 0, 3));
                         });
@@ -68,7 +69,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentOutOfRangeException("y", () =>
+                        ExceptionAssert.Throws<ArgumentOutOfRangeException>("y", () =>
                         {
                             pixels.SetPixel(new Pixel(0, image.Height + 1, 3));
                         });
@@ -207,7 +208,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentOutOfRangeException("x", () =>
+                        ExceptionAssert.Throws<ArgumentOutOfRangeException>("x", () =>
                         {
                             pixels.SetPixel(image.Width + 1, 0, new QuantumType[] { 0 });
                         });
@@ -222,7 +223,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentOutOfRangeException("y", () =>
+                        ExceptionAssert.Throws<ArgumentOutOfRangeException>("y", () =>
                         {
                             pixels.SetPixel(0, image.Height + 1, new QuantumType[] { 0 });
                         });

@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -27,7 +28,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentOutOfRangeException("x", () =>
+                        ExceptionAssert.Throws<ArgumentOutOfRangeException>("x", () =>
                         {
                             Pixel pixel = pixels[image.Width + 1, 0];
                         });
@@ -42,7 +43,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentOutOfRangeException("y", () =>
+                        ExceptionAssert.Throws<ArgumentOutOfRangeException>("y", () =>
                         {
                             Pixel pixel = pixels[0, image.Height + 1];
                         });
