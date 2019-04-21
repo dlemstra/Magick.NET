@@ -398,6 +398,18 @@ namespace Magick.NET.Tests.Shared
                 }
 
                 [TestMethod]
+                public void ShouldNotThrowExceptionWhenArgumentIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        using (IMagickImage red = new MagickImage("xc:white", 1, 1))
+                        {
+                            image.Composite(red, 0, 0, CompositeOperator.CopyAlpha, null);
+                        }
+                    }
+                }
+
+                [TestMethod]
                 public void ShouldUseTheArguments()
                 {
                     using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -437,6 +449,18 @@ namespace Magick.NET.Tests.Shared
                         {
                             image.Composite(null, 0, 0, CompositeOperator.CopyAlpha, "3", Channels.Red);
                         });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldNotThrowExceptionWhenArgumentIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        using (IMagickImage red = new MagickImage("xc:white", 1, 1))
+                        {
+                            image.Composite(red, 0, 0, CompositeOperator.CopyAlpha, null, Channels.Red);
+                        }
                     }
                 }
 
@@ -612,6 +636,18 @@ namespace Magick.NET.Tests.Shared
                 }
 
                 [TestMethod]
+                public void ShouldNotThrowExceptionWhenArgumentIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        using (IMagickImage red = new MagickImage("xc:white", 1, 1))
+                        {
+                            image.Composite(red, new PointD(0, 0), CompositeOperator.CopyAlpha, null);
+                        }
+                    }
+                }
+
+                [TestMethod]
                 public void ShouldUseTheArguments()
                 {
                     using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -651,6 +687,18 @@ namespace Magick.NET.Tests.Shared
                         {
                             image.Composite(null, new PointD(0, 0), CompositeOperator.CopyAlpha, "3", Channels.Red);
                         });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldNotThrowExceptionWhenArgumentIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        using (IMagickImage red = new MagickImage("xc:white", 1, 1))
+                        {
+                            image.Composite(red, new PointD(0, 0), CompositeOperator.CopyAlpha, null, Channels.Red);
+                        }
                     }
                 }
 
@@ -894,6 +942,18 @@ namespace Magick.NET.Tests.Shared
                 }
 
                 [TestMethod]
+                public void ShouldNotThrowExceptionWhenArgumentIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        using (IMagickImage red = new MagickImage("xc:white", 1, 1))
+                        {
+                            image.Composite(red, Gravity.East, CompositeOperator.Blend, null);
+                        }
+                    }
+                }
+
+                [TestMethod]
                 public void ShouldUseTheArguments()
                 {
                     using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -933,6 +993,18 @@ namespace Magick.NET.Tests.Shared
                         {
                             image.Composite(null, Gravity.East, CompositeOperator.Blend, "3", Channels.Red);
                         });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldNotThrowExceptionWhenArgumentIsNull()
+                {
+                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    {
+                        using (IMagickImage red = new MagickImage("xc:white", 1, 1))
+                        {
+                            image.Composite(red, Gravity.East, CompositeOperator.Blend, null, Channels.Red);
+                        }
                     }
                 }
 
