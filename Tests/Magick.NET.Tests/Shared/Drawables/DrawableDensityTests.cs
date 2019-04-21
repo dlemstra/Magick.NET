@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Constructor()
         {
-            DrawableDensity density = new DrawableDensity(new PointD(4, 2));
+            var density = new DrawableDensity(new PointD(4, 2));
             Assert.AreEqual(4, density.Density.X);
             Assert.AreEqual(2, density.Density.Y);
         }
@@ -45,8 +45,8 @@ namespace Magick.NET.Tests
         private IMagickImage CreateImage(int? density)
         {
             IMagickImage image = new MagickImage(MagickColors.Purple, 500, 500);
-            DrawableFontPointSize pointSize = new DrawableFontPointSize(20);
-            DrawableText text = new DrawableText(250, 250, "Magick.NET");
+            var pointSize = new DrawableFontPointSize(20);
+            var text = new DrawableText(250, 250, "Magick.NET");
 
             if (!density.HasValue)
                 image.Draw(pointSize, text);
