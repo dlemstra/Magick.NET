@@ -21,10 +21,10 @@ namespace Magick.NET.Tests.Shared
     {
         public partial class TheCompositeMethod
         {
-            public partial class WithCopyAlphaOperator
+            public partial class WithOperator
             {
                 [TestMethod]
-                public void ShouldCopyTheAlphaChannel()
+                public void ShouldCopyTheAlphaChannelWithCopyAlpha()
                 {
                     var readSettings = new MagickReadSettings()
                     {
