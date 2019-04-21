@@ -98,7 +98,7 @@ namespace Magick.NET.Tests
                 images = new MagickImage[1];
                 collection.CopyTo(images, 0);
 
-                ExceptionAssert.ThrowsArgumentNullException("array", () =>
+                ExceptionAssert.Throws<ArgumentNullException>("array", () =>
                 {
                     collection.CopyTo(null, -1);
                 });

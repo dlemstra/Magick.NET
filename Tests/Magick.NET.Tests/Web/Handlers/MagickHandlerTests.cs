@@ -181,7 +181,7 @@ namespace Magick.NET.Tests
                     handler.ProcessRequest(context);
 
                     handler.FileName = "missing";
-                    ExceptionAssert.ThrowsArgumentNullException("path", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("path", () =>
                     {
                         handler.ProcessRequest(context);
                     });

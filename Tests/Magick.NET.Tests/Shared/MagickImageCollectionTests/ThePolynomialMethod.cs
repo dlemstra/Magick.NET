@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImageCollection images = new MagickImageCollection(Files.Builtin.Logo))
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("terms", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("terms", () =>
                     {
                         images.Polynomial(null);
                     });

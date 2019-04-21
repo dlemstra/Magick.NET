@@ -91,7 +91,7 @@ namespace Magick.NET.Tests
                 new PathArcAbs();
             });
 
-            ExceptionAssert.ThrowsArgumentNullException("coordinates", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("coordinates", () =>
             {
                 new PathArcAbs(null);
             });
@@ -101,7 +101,7 @@ namespace Magick.NET.Tests
                 new PathArcAbs(new PathArc[] { });
             });
 
-            ExceptionAssert.ThrowsArgumentNullException("coordinates", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("coordinates", () =>
             {
                 new PathArcAbs(new PathArc[] { null });
             });
@@ -111,7 +111,7 @@ namespace Magick.NET.Tests
                 new PathArcRel();
             });
 
-            ExceptionAssert.ThrowsArgumentNullException("coordinates", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("coordinates", () =>
             {
                 new PathArcRel(null);
             });
@@ -121,7 +121,7 @@ namespace Magick.NET.Tests
                 new PathArcRel(new PathArc[] { });
             });
 
-            ExceptionAssert.ThrowsArgumentNullException("coordinates", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("coordinates", () =>
             {
                 new PathArcRel(new PathArc[] { null });
             });
@@ -131,7 +131,7 @@ namespace Magick.NET.Tests
                 new PathLineToAbs();
             });
 
-            ExceptionAssert.ThrowsArgumentNullException("coordinates", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("coordinates", () =>
             {
                 new PathLineToAbs(null);
             });
@@ -146,7 +146,7 @@ namespace Magick.NET.Tests
                 new PathLineToRel();
             });
 
-            ExceptionAssert.ThrowsArgumentNullException("coordinates", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("coordinates", () =>
             {
                 new PathLineToRel(null);
             });

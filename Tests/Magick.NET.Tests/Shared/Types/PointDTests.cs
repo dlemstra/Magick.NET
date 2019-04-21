@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
             Assert.AreEqual(5.0, point.X);
             Assert.AreEqual(10.0, point.Y);
 
-            ExceptionAssert.ThrowsArgumentNullException("value", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("value", () =>
             {
                 new PointD(null);
             });

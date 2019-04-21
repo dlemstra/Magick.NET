@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Compress_FileIsNull_ThrowsException()
         {
-            ExceptionAssert.ThrowsArgumentNullException("file", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("file", () =>
             {
                 Optimizer.Compress((FileInfo)null);
             });
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Compress_FileNameIsNull_ThrowsException()
         {
-            ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
             {
                 Optimizer.Compress((string)null);
             });
@@ -75,7 +75,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Compress_StreamIsNull_ThrowsException()
         {
-            ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
             {
                 Optimizer.Compress((Stream)null);
             });
@@ -138,7 +138,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void LosslessCompress_FileIsNull_ThrowsException()
         {
-            ExceptionAssert.ThrowsArgumentNullException("file", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("file", () =>
             {
                 Optimizer.LosslessCompress((FileInfo)null);
             });
@@ -147,7 +147,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void LosslessCompress_FileNameIsNull_ThrowsException()
         {
-            ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
             {
                 Optimizer.LosslessCompress((string)null);
             });
@@ -183,7 +183,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void LosslessCompress_StreamIsNull_ThrowsException()
         {
-            ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
             {
                 Optimizer.LosslessCompress((Stream)null);
             });

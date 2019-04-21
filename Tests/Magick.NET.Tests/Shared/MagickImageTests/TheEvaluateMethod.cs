@@ -36,7 +36,7 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImage image = new MagickImage())
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("arguments", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("arguments", () =>
                     {
                         image.Evaluate(Channels.Red, EvaluateFunction.Arcsin, null);
                     });
@@ -60,7 +60,7 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImage image = new MagickImage())
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("geometry", () =>
                     {
                         image.Evaluate(Channels.Red, null, EvaluateOperator.Set, 0.0);
                     });

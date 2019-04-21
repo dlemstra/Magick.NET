@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                         {
                             image.Ping((byte[])null);
                         });
@@ -69,7 +69,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                         {
                             image.Ping((byte[])null, 0, 0);
                         });
@@ -150,7 +150,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                         {
                             image.Ping(null, 0, 0, settings);
                         });
@@ -252,7 +252,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                         {
                             image.Ping((byte[])null, settings);
                         });
@@ -327,7 +327,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("file", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("file", () =>
                         {
                             image.Ping((FileInfo)null);
                         });
@@ -345,7 +345,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("file", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("file", () =>
                         {
                             image.Ping((FileInfo)null, settings);
                         });
@@ -370,7 +370,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                         {
                             image.Ping((string)null);
                         });
@@ -484,7 +484,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                         {
                             image.Ping((string)null, settings);
                         });
@@ -539,7 +539,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
                         {
                             image.Ping((Stream)null);
                         });
@@ -653,7 +653,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
                         {
                             image.Ping((Stream)null, settings);
                         });

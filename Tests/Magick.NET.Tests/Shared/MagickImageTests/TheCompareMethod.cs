@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImage image = new MagickImage())
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("image", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                     {
                         image.Compare(null);
                     });
@@ -41,7 +41,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage diff = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("image", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
                             image.Compare(null, ErrorMetric.RootMeanSquared);
                         });
@@ -56,7 +56,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage diff = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("image", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
                             image.Compare(null, new CompareSettings(), diff);
                         });
@@ -71,7 +71,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage diff = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
                         {
                             image.Compare(image, null, diff);
                         });
@@ -84,7 +84,7 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImage image = new MagickImage())
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("difference", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("difference", () =>
                     {
                         image.Compare(image, new CompareSettings(), null);
                     });

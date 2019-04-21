@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenValueIsNull()
             {
-                ExceptionAssert.ThrowsArgumentNullException("value", () => new MagickGeometry(null));
+                ExceptionAssert.Throws<ArgumentNullException>("value", () => new MagickGeometry(null));
             }
 
             [TestMethod]

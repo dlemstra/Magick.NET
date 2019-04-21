@@ -31,7 +31,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenBitmapIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("bitmap", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("bitmap", () =>
                     {
                         new MagickImage((Bitmap)null);
                     });

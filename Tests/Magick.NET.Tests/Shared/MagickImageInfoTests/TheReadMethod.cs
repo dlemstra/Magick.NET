@@ -29,7 +29,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickImageInfo imageInfo = new MagickImageInfo();
 
-                    ExceptionAssert.ThrowsArgumentNullException("data", () => imageInfo.Read((byte[])null));
+                    ExceptionAssert.Throws<ArgumentNullException>("data", () => imageInfo.Read((byte[])null));
                 }
 
                 [TestMethod]
@@ -49,7 +49,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickImageInfo imageInfo = new MagickImageInfo();
 
-                    ExceptionAssert.ThrowsArgumentNullException("data", () => imageInfo.Read(null, 0, 0));
+                    ExceptionAssert.Throws<ArgumentNullException>("data", () => imageInfo.Read(null, 0, 0));
                 }
 
                 [TestMethod]
@@ -93,7 +93,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickImageInfo imageInfo = new MagickImageInfo();
 
-                    ExceptionAssert.ThrowsArgumentNullException("file", () => imageInfo.Read((FileInfo)null));
+                    ExceptionAssert.Throws<ArgumentNullException>("file", () => imageInfo.Read((FileInfo)null));
                 }
             }
 
@@ -105,7 +105,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickImageInfo imageInfo = new MagickImageInfo();
 
-                    ExceptionAssert.ThrowsArgumentNullException("fileName", () => imageInfo.Read((string)null));
+                    ExceptionAssert.Throws<ArgumentNullException>("fileName", () => imageInfo.Read((string)null));
                 }
 
                 [TestMethod]
@@ -155,7 +155,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickImageInfo imageInfo = new MagickImageInfo();
 
-                    ExceptionAssert.ThrowsArgumentNullException("stream", () => imageInfo.Read((Stream)null));
+                    ExceptionAssert.Throws<ArgumentNullException>("stream", () => imageInfo.Read((Stream)null));
                 }
             }
         }

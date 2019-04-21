@@ -41,7 +41,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                     {
                         factory.CreateImage((byte[])null);
                     });
@@ -80,7 +80,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                     {
                         factory.CreateImage((byte[])null, 0, 0);
                     });
@@ -153,7 +153,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                     {
                         factory.CreateImage(null, 0, 0, settings);
                     });
@@ -246,7 +246,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                     {
                         factory.CreateImage(null, 0, 0, settings);
                     });
@@ -306,7 +306,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var bytes = File.ReadAllBytes(Files.CirclePNG);
 
-                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
                     {
                         factory.CreateImage(bytes, 0, bytes.Length, (PixelReadSettings)null);
                     });
@@ -347,7 +347,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                     {
                         factory.CreateImage((byte[])null, settings);
                     });
@@ -403,7 +403,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                     {
                         factory.CreateImage((byte[])null, settings);
                     });
@@ -426,7 +426,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
                     {
                         factory.CreateImage(File.ReadAllBytes(Files.CirclePNG), (PixelReadSettings)null);
                     });
@@ -466,7 +466,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentNullException("color", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("color", () =>
                     {
                         factory.CreateImage((MagickColor)null, 1, 1);
                     });
@@ -538,7 +538,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentNullException("file", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("file", () =>
                     {
                         factory.CreateImage((FileInfo)null);
                     });
@@ -567,7 +567,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentNullException("file", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("file", () =>
                     {
                         factory.CreateImage((FileInfo)null, settings);
                     });
@@ -594,7 +594,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentNullException("file", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("file", () =>
                     {
                         factory.CreateImage((FileInfo)null, settings);
                     });
@@ -605,7 +605,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
                     {
                         factory.CreateImage(new FileInfo(Files.CirclePNG), (PixelReadSettings)null);
                     });
@@ -648,7 +648,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                     {
                         factory.CreateImage((string)null, 1, 1);
                     });
@@ -720,7 +720,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                     {
                         factory.CreateImage((string)null);
                     });
@@ -759,7 +759,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                     {
                         factory.CreateImage((string)null, settings);
                     });
@@ -798,7 +798,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                     {
                         factory.CreateImage((string)null, settings);
                     });
@@ -822,7 +822,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
                     {
                         factory.CreateImage(Files.CirclePNG, (PixelReadSettings)null);
                     });
@@ -865,7 +865,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
                     {
                         factory.CreateImage((Stream)null);
                     });
@@ -907,7 +907,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
                     {
                         factory.CreateImage((Stream)null, settings);
                     });
@@ -949,7 +949,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
                     {
                         factory.CreateImage((Stream)null, settings);
                     });
@@ -974,7 +974,7 @@ namespace Magick.NET.Tests
 
                     using (var fileStream = File.OpenRead(Files.CirclePNG))
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
                         {
                             factory.CreateImage(fileStream, (PixelReadSettings)null);
                         });

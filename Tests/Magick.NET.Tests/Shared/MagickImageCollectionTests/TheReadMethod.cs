@@ -29,7 +29,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImageCollection images = new MagickImageCollection())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                         {
                             images.Read((byte[])null);
                         });
@@ -75,7 +75,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImageCollection images = new MagickImageCollection())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                         {
                             images.Read((byte[])null, 0, 0);
                         });
@@ -155,7 +155,7 @@ namespace Magick.NET.Tests
 
                     using (IMagickImageCollection images = new MagickImageCollection())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                         {
                             images.Read(null, 0, 0, settings);
                         });
@@ -271,7 +271,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImageCollection images = new MagickImageCollection())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("file", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("file", () =>
                         {
                             images.Read((FileInfo)null);
                         });
@@ -304,7 +304,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImageCollection images = new MagickImageCollection())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                         {
                             images.Read((string)null);
                         });
@@ -375,7 +375,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImageCollection images = new MagickImageCollection())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
                         {
                             images.Read((Stream)null);
                         });

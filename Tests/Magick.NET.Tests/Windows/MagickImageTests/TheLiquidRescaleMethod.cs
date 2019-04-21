@@ -72,7 +72,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("geometry", () =>
                         {
                             image.LiquidRescale(null);
                         });

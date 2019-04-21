@@ -162,7 +162,7 @@ namespace Magick.NET.Tests
         {
             ConvolveMatrix matrix = new ConvolveMatrix(1);
 
-            ExceptionAssert.ThrowsArgumentNullException("values", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("values", () =>
             {
                 matrix.SetColumn(0, null);
             });
@@ -213,7 +213,7 @@ namespace Magick.NET.Tests
         {
             ConvolveMatrix matrix = new ConvolveMatrix(1);
 
-            ExceptionAssert.ThrowsArgumentNullException("values", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("values", () =>
             {
                 matrix.SetRow(0, null);
             });

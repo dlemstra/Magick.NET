@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -24,7 +25,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenStreamNull()
             {
-                ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+                ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
                 {
                     new ExifProfile((Stream)null);
                 });
@@ -33,7 +34,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenFileNameNull()
             {
-                ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+                ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                 {
                     new ExifProfile((string)null);
                 });
@@ -42,7 +43,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenDataNull()
             {
-                ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                 {
                     new ExifProfile((byte[])null);
                 });

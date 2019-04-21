@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImage image = new MagickImage())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("bitmap", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("bitmap", () =>
                         {
                             image.Read((Bitmap)null);
                         });

@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                     {
                         using (IMagickImageCollection images = new MagickImageCollection())
                         {
@@ -73,7 +73,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                     {
                         using (IMagickImageCollection images = new MagickImageCollection())
                         {
@@ -151,7 +151,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                     {
                         var settings = new MagickReadSettings();
 
@@ -269,7 +269,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileInfoIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("file", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("file", () =>
                     {
                         using (IMagickImageCollection images = new MagickImageCollection())
                         {
@@ -302,7 +302,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                     {
                         using (IMagickImageCollection images = new MagickImageCollection())
                         {
@@ -373,7 +373,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
                     {
                         using (IMagickImageCollection images = new MagickImageCollection())
                         {

@@ -73,7 +73,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("geometry", () =>
                         {
                             pixels.ToShortArray(null, "RGB");
                         });
@@ -88,7 +88,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("geometry", () =>
                         {
                             pixels.ToShortArray(null, PixelMapping.RGB);
                         });
@@ -103,7 +103,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("mapping", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("mapping", () =>
                         {
                             pixels.ToShortArray(new MagickGeometry(1, 2, 3, 4), null);
                         });
@@ -163,7 +163,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("mapping", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("mapping", () =>
                         {
                             pixels.ToShortArray(null);
                         });

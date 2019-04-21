@@ -65,7 +65,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Initialize_PathIsNull_ThrowsException()
         {
-            ExceptionAssert.ThrowsArgumentNullException("path", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("path", () =>
             {
                 MagickNET.Initialize((string)null);
             });
@@ -109,7 +109,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Initialize_ConfigurationFilesIsNull_ThrowsException()
         {
-            ExceptionAssert.ThrowsArgumentNullException("configFiles", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("configFiles", () =>
             {
                 MagickNET.Initialize((ConfigurationFiles)null);
             });
@@ -155,7 +155,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Initialize_WithPathAndConfigurationFilesIsNull_ThrowsException()
         {
-            ExceptionAssert.ThrowsArgumentNullException("configFiles", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("configFiles", () =>
             {
                 MagickNET.Initialize(null, Path.GetTempPath());
             });
@@ -164,7 +164,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Initialize_WithPathAndPathIsNull_ThrowsException()
         {
-            ExceptionAssert.ThrowsArgumentNullException("path", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("path", () =>
             {
                 MagickNET.Initialize(ConfigurationFiles.Default, null);
             });
@@ -271,7 +271,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void SetTempDirectory_PathIsNull_ThrowsException()
         {
-            ExceptionAssert.ThrowsArgumentNullException("path", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("path", () =>
             {
                 MagickNET.SetTempDirectory(null);
             });

@@ -40,7 +40,7 @@ namespace Magick.NET.Tests
                 {
                     images.Add(Files.FujiFilmFinePixS1ProJPG);
 
-                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
                     {
                         images.Quantize(null);
                     });

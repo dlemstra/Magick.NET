@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.Collections;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -24,7 +25,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenImageIsNull()
             {
-                ExceptionAssert.ThrowsArgumentNullException("image", () =>
+                ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                 {
                     new Drawables().Draw(null);
                 });

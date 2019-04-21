@@ -12,6 +12,7 @@
 
 #if !NETCORE
 
+using System;
 using System.Drawing.Drawing2D;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -23,7 +24,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldThrowExceptionWhenMatrixIsNull()
         {
-            ExceptionAssert.ThrowsArgumentNullException("matrix", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("matrix", () =>
             {
                 new DrawableAffine(null);
             });

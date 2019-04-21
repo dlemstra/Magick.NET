@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                     {
                         new MagickImage((byte[])null);
                     });
@@ -49,7 +49,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                     {
                         new MagickImage((byte[])null, 0, 0);
                     });
@@ -98,7 +98,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                     {
                         var settings = new MagickReadSettings();
 
@@ -165,7 +165,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                     {
                         var settings = new PixelReadSettings();
 
@@ -220,7 +220,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
                     {
                         new MagickImage(new byte[] { 215 }, 0, 1, (PixelReadSettings)null);
                     });
@@ -233,7 +233,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                     {
                         var settings = new MagickReadSettings();
 
@@ -267,7 +267,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                     {
                         var settings = new PixelReadSettings();
 
@@ -289,7 +289,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
                     {
                         new MagickImage(new byte[] { 215 }, (PixelReadSettings)null);
                     });
@@ -343,7 +343,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenColorIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("color", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("color", () =>
                     {
                         new MagickImage((MagickColor)null, 1, 1);
                     });
@@ -405,7 +405,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileInfoIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("file", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("file", () =>
                     {
                         new MagickImage((FileInfo)null);
                     });
@@ -418,7 +418,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileInfoIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("file", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("file", () =>
                     {
                         var settings = new MagickReadSettings();
 
@@ -441,7 +441,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileInfoIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("file", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("file", () =>
                     {
                         var settings = new PixelReadSettings();
 
@@ -452,7 +452,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
                     {
                         new MagickImage(new FileInfo(Files.CirclePNG), (PixelReadSettings)null);
                     });
@@ -484,7 +484,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                     {
                         new MagickImage((string)null);
                     });
@@ -506,7 +506,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                     {
                         var settings = new MagickReadSettings();
 
@@ -540,7 +540,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                     {
                         var settings = new PixelReadSettings();
 
@@ -562,7 +562,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
                     {
                         new MagickImage(Files.CirclePNG, (PixelReadSettings)null);
                     });
@@ -640,7 +640,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenColorIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                     {
                         new MagickImage((string)null, 1, 1);
                     });
@@ -700,7 +700,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
                     {
                         new MagickImage((Stream)null);
                     });
@@ -724,7 +724,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
                     {
                         var settings = new MagickReadSettings();
 
@@ -761,7 +761,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
                     {
                         var settings = new PixelReadSettings();
 
@@ -783,7 +783,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
                     {
                         new MagickImage(new MemoryStream(new byte[] { 215 }), (PixelReadSettings)null);
                     });

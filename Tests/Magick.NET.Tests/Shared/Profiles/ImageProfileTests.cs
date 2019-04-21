@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Constructor()
         {
-            ExceptionAssert.ThrowsArgumentNullException("name", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("name", () =>
             {
                 new ImageProfile(null, Files.SnakewarePNG);
             });
@@ -33,17 +33,17 @@ namespace Magick.NET.Tests
                 new ImageProfile(string.Empty, Files.SnakewarePNG);
             });
 
-            ExceptionAssert.ThrowsArgumentNullException("data", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("data", () =>
             {
                 new ImageProfile("name", (byte[])null);
             });
 
-            ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
             {
                 new ImageProfile("name", (Stream)null);
             });
 
-            ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
             {
                 new ImageProfile("name", (string)null);
             });

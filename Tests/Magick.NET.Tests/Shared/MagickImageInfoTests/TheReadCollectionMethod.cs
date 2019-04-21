@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenDataIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("data", () => MagickImageInfo.ReadCollection((byte[])null).ToArray());
+                    ExceptionAssert.Throws<ArgumentNullException>("data", () => MagickImageInfo.ReadCollection((byte[])null).ToArray());
                 }
 
                 [TestMethod]
@@ -44,7 +44,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("data", () => MagickImageInfo.ReadCollection(null, 0, 0).ToArray());
+                    ExceptionAssert.Throws<ArgumentNullException>("data", () => MagickImageInfo.ReadCollection(null, 0, 0).ToArray());
                 }
 
                 [TestMethod]
@@ -78,7 +78,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("file", () => MagickImageInfo.ReadCollection((FileInfo)null).ToArray());
+                    ExceptionAssert.Throws<ArgumentNullException>("file", () => MagickImageInfo.ReadCollection((FileInfo)null).ToArray());
                 }
             }
 
@@ -88,7 +88,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("fileName", () => MagickImageInfo.ReadCollection((string)null).ToArray());
+                    ExceptionAssert.Throws<ArgumentNullException>("fileName", () => MagickImageInfo.ReadCollection((string)null).ToArray());
                 }
 
                 [TestMethod]
@@ -139,7 +139,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("stream", () => MagickImageInfo.ReadCollection((Stream)null).ToArray());
+                    ExceptionAssert.Throws<ArgumentNullException>("stream", () => MagickImageInfo.ReadCollection((Stream)null).ToArray());
                 }
             }
         }

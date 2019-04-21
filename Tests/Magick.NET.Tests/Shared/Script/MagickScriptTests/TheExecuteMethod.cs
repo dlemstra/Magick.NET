@@ -92,7 +92,7 @@ namespace Magick.NET.Tests
 
                 using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("attribute", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("attribute", () =>
                     {
                         script.Execute(image);
                     });

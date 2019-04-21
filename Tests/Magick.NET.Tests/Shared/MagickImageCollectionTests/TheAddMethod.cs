@@ -26,7 +26,7 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImageCollection images = new MagickImageCollection())
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("item", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("item", () =>
                     {
                         images.Add((IMagickImage)null);
                     });
@@ -36,7 +36,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenFileNameIsNull()
             {
-                ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+                ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                 {
                     using (IMagickImageCollection images = new MagickImageCollection())
                     {

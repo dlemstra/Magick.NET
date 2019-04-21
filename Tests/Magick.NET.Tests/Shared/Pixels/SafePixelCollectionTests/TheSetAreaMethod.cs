@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("values", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("values", () =>
                         {
                             pixels.SetArea(10, 10, 1000, 1000, (byte[])null);
                         });
@@ -100,7 +100,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("geometry", () =>
                         {
                             pixels.SetArea(null, new byte[] { 0 });
                         });
@@ -130,7 +130,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("values", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("values", () =>
                         {
                             pixels.SetArea(10, 10, 1000, 1000, (double[])null);
                         });
@@ -191,7 +191,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("geometry", () =>
                         {
                             pixels.SetArea(null, new double[] { 0 });
                         });
@@ -221,7 +221,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("values", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("values", () =>
                         {
                             pixels.SetArea(10, 10, 1000, 1000, (int[])null);
                         });
@@ -282,7 +282,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("geometry", () =>
                         {
                             pixels.SetArea(null, new int[] { 0 });
                         });
@@ -312,7 +312,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("values", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("values", () =>
                         {
                             pixels.SetArea(10, 10, 1000, 1000, (QuantumType[])null);
                         });
@@ -373,7 +373,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("geometry", () =>
                         {
                             pixels.SetArea(null, new QuantumType[] { 0 });
                         });

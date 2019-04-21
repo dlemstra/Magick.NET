@@ -188,7 +188,7 @@ namespace Magick.NET.Tests
                 new DrawableBezier();
             });
 
-            ExceptionAssert.ThrowsArgumentNullException("coordinates", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("coordinates", () =>
             {
                 new DrawableBezier(null);
             });
@@ -198,7 +198,7 @@ namespace Magick.NET.Tests
                 new DrawableBezier(new PointD[] { });
             });
 
-            ExceptionAssert.ThrowsArgumentNullException("clipPath", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("clipPath", () =>
             {
                 new DrawableClipPath(null);
             });
@@ -208,22 +208,22 @@ namespace Magick.NET.Tests
                 new DrawableClipPath(string.Empty);
             });
 
-            ExceptionAssert.ThrowsArgumentNullException("offset", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("offset", () =>
             {
                 new DrawableComposite(null, new MagickImage(Files.Builtin.Logo));
             });
 
-            ExceptionAssert.ThrowsArgumentNullException("image", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("image", () =>
             {
                 new DrawableComposite(new MagickGeometry(), null);
             });
 
-            ExceptionAssert.ThrowsArgumentNullException("color", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("color", () =>
             {
                 new DrawableFillColor(null);
             });
 
-            ExceptionAssert.ThrowsArgumentNullException("family", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("family", () =>
             {
                 new DrawableFont(null);
             });
@@ -251,12 +251,12 @@ namespace Magick.NET.Tests
                 new DrawablePolyline(new PointD[] { new PointD(0, 0), new PointD(0, 0) });
             });
 
-            ExceptionAssert.ThrowsArgumentNullException("color", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("color", () =>
             {
                 new DrawableStrokeColor(null);
             });
 
-            ExceptionAssert.ThrowsArgumentNullException("value", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("value", () =>
             {
                 new DrawableText(0, 0, null);
             });
@@ -266,7 +266,7 @@ namespace Magick.NET.Tests
                 new DrawableText(0, 0, string.Empty);
             });
 
-            ExceptionAssert.ThrowsArgumentNullException("encoding", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("encoding", () =>
             {
                 new DrawableTextEncoding(null);
             });

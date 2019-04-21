@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("pixel", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("pixel", () =>
                         {
                             pixels.SetPixel((Pixel)null);
                         });
@@ -129,7 +129,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("pixels", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("pixels", () =>
                         {
                             pixels.SetPixel((IEnumerable<Pixel>)null);
                         });
@@ -178,7 +178,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("value", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("value", () =>
                         {
                             pixels.SetPixel(0, 0, null);
                         });

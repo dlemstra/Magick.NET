@@ -40,7 +40,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                     {
                         factory.CreateCollection((byte[])null);
                     });
@@ -78,7 +78,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                     {
                         factory.CreateCollection(null, 0, 0);
                     });
@@ -152,7 +152,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                     {
                         factory.CreateCollection(null, 0, 0, settings);
                     });
@@ -245,7 +245,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentNullException("data", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                     {
                         factory.CreateCollection((byte[])null, settings);
                     });
@@ -298,7 +298,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentNullException("file", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("file", () =>
                     {
                         factory.CreateCollection((FileInfo)null);
                     });
@@ -326,7 +326,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentNullException("file", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("file", () =>
                     {
                         factory.CreateCollection((FileInfo)null, settings);
                     });
@@ -352,7 +352,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                     {
                         factory.CreateCollection((string)null);
                     });
@@ -390,7 +390,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                     {
                         factory.CreateCollection((string)null, settings);
                     });
@@ -428,7 +428,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickFactory factory = new MagickFactory();
 
-                    ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
                     {
                         factory.CreateCollection((Stream)null);
                     });
@@ -469,7 +469,7 @@ namespace Magick.NET.Tests
                     IMagickFactory factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
-                    ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
                     {
                         factory.CreateCollection((Stream)null, settings);
                     });

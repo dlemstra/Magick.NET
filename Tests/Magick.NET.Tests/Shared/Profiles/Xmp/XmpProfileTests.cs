@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
@@ -49,7 +50,7 @@ namespace Magick.NET.Tests
 
                 IXPathNavigable doc = profile.ToIXPathNavigable();
 
-                ExceptionAssert.ThrowsArgumentNullException("document", () =>
+                ExceptionAssert.Throws<ArgumentNullException>("document", () =>
                 {
                     XmpProfile.FromIXPathNavigable(null);
                 });
@@ -80,7 +81,7 @@ namespace Magick.NET.Tests
 
                 XDocument doc = profile.ToXDocument();
 
-                ExceptionAssert.ThrowsArgumentNullException("document", () =>
+                ExceptionAssert.Throws<ArgumentNullException>("document", () =>
                 {
                     XmpProfile.FromXDocument(null);
                 });

@@ -160,7 +160,7 @@ namespace Magick.NET.Tests
         {
             MagickColorMatrix matrix = new MagickColorMatrix(2);
 
-            ExceptionAssert.ThrowsArgumentNullException("values", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("values", () =>
             {
                 matrix.SetColumn(0, null);
             });
@@ -206,7 +206,7 @@ namespace Magick.NET.Tests
         {
             MagickColorMatrix matrix = new MagickColorMatrix(2);
 
-            ExceptionAssert.ThrowsArgumentNullException("values", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("values", () =>
             {
                 matrix.SetRow(0, null);
             });

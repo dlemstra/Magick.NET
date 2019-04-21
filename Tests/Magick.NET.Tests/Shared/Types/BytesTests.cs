@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Constructor_StreamIsNull_ThrowsException()
         {
-            ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
             {
                 new Bytes(null);
             });

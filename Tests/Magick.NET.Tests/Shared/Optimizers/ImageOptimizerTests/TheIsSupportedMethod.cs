@@ -28,7 +28,7 @@ namespace Magick.NET.Tests.Shared.Optimizers.ImageOptimizerTests
                 public void ShouldThrowExceptionWhenFileIsNull()
                 {
                     var optimizer = new ImageOptimizer();
-                    ExceptionAssert.ThrowsArgumentNullException("file", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("file", () =>
                     {
                         optimizer.IsSupported((FileInfo)null);
                     });
@@ -77,7 +77,7 @@ namespace Magick.NET.Tests.Shared.Optimizers.ImageOptimizerTests
                 public void ShouldThrowExceptionWhenFileNameIsNull()
                 {
                     var optimizer = new ImageOptimizer();
-                    ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                     {
                         optimizer.IsSupported((string)null);
                     });
@@ -143,7 +143,7 @@ namespace Magick.NET.Tests.Shared.Optimizers.ImageOptimizerTests
                 public void ShouldThrowExceptionWhenStreamIsNull()
                 {
                     var optimizer = new ImageOptimizer();
-                    ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
                     {
                         optimizer.IsSupported((Stream)null);
                     });

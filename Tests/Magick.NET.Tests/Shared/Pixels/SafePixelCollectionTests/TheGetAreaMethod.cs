@@ -105,7 +105,7 @@ namespace Magick.NET.Tests
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
-                        ExceptionAssert.ThrowsArgumentNullException("geometry", () =>
+                        ExceptionAssert.Throws<ArgumentNullException>("geometry", () =>
                         {
                             pixels.GetArea(null);
                         });

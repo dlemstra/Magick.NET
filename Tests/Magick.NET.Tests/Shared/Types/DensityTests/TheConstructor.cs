@@ -24,7 +24,7 @@ namespace Magick.NET.Tests.Shared.Types
             [TestMethod]
             public void ShouldThrowExceptionWhenValueIsNull()
             {
-                ExceptionAssert.ThrowsArgumentNullException("value", () => { new Density(null); });
+                ExceptionAssert.Throws<ArgumentNullException>("value", () => { new Density(null); });
             }
 
             [TestMethod]

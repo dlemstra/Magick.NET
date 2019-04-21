@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Constructor()
         {
-            ExceptionAssert.ThrowsArgumentNullException("defines", () =>
+            ExceptionAssert.Throws<ArgumentNullException>("defines", () =>
             {
                 MagickReadSettings settings = new MagickReadSettings((IReadDefines)null);
             });

@@ -65,12 +65,6 @@ namespace Magick.NET.Tests
             return exception;
         }
 
-        public static void ThrowsArgumentNullException(string paramName, Action action)
-        {
-            ArgumentException exception = Throws<ArgumentNullException>(action);
-            Assert.AreEqual(paramName, exception.ParamName);
-        }
-
         private static void Fail(string message, params object[] arguments)
         {
             if (arguments != null && arguments.Length > 0)

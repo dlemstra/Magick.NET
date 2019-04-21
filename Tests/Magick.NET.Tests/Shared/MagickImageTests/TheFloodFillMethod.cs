@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -23,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenColorIsNull()
             {
-                ExceptionAssert.ThrowsArgumentNullException("color", () =>
+                ExceptionAssert.Throws<ArgumentNullException>("color", () =>
                 {
                     using (IMagickImage image = new MagickImage(MagickColors.White, 2, 2))
                     {
@@ -35,7 +36,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenPointDColorIsNull()
             {
-                ExceptionAssert.ThrowsArgumentNullException("color", () =>
+                ExceptionAssert.Throws<ArgumentNullException>("color", () =>
                 {
                     using (IMagickImage image = new MagickImage(MagickColors.White, 2, 2))
                     {
@@ -47,7 +48,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenTargetColorIsNull()
             {
-                ExceptionAssert.ThrowsArgumentNullException("target", () =>
+                ExceptionAssert.Throws<ArgumentNullException>("target", () =>
                 {
                     using (IMagickImage image = new MagickImage(MagickColors.White, 2, 2))
                     {
@@ -59,7 +60,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenPointDTargetColorIsNull()
             {
-                ExceptionAssert.ThrowsArgumentNullException("target", () =>
+                ExceptionAssert.Throws<ArgumentNullException>("target", () =>
                 {
                     using (IMagickImage image = new MagickImage(MagickColors.White, 2, 2))
                     {

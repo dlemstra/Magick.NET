@@ -26,7 +26,7 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImage image = new MagickImage())
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("arguments", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("arguments", () =>
                     {
                         image.Distort(DistortMethod.Perspective, (double[])null);
                     });
@@ -38,7 +38,7 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImage image = new MagickImage())
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("arguments", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("arguments", () =>
                     {
                         image.Distort(DistortMethod.Perspective, new DistortSettings(), null);
                     });
@@ -74,7 +74,7 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImage image = new MagickImage())
                 {
-                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
                     {
                         image.Distort(DistortMethod.Perspective, null, new double[] { 0 });
                     });

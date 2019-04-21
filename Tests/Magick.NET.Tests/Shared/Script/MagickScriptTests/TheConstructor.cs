@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.IO;
 using System.Linq;
 using ImageMagick;
@@ -25,7 +26,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenFileNameIsNull()
             {
-                ExceptionAssert.ThrowsArgumentNullException("fileName", () =>
+                ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                 {
                     new MagickScript((string)null);
                 });
@@ -34,7 +35,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenStreamIsNull()
             {
-                ExceptionAssert.ThrowsArgumentNullException("stream", () =>
+                ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
                 {
                     new MagickScript((Stream)null);
                 });

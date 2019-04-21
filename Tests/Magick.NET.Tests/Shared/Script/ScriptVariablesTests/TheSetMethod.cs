@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
                 var document = new XmlDocument();
                 var scriptVariables = new ScriptVariables(document);
 
-                ExceptionAssert.ThrowsArgumentNullException("name", () =>
+                ExceptionAssert.Throws<ArgumentNullException>("name", () =>
                 {
                     scriptVariables.Set(null, "42");
                 });

@@ -61,7 +61,7 @@ namespace Magick.NET.Tests
                 {
                     images.Read(Files.RoseSparkleGIF);
 
-                    ExceptionAssert.ThrowsArgumentNullException("image", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                     {
                         images.Map(null);
                     });
@@ -75,7 +75,7 @@ namespace Magick.NET.Tests
                 {
                     images.Read(Files.RoseSparkleGIF);
 
-                    ExceptionAssert.ThrowsArgumentNullException("settings", () =>
+                    ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
                     {
                         images.Map(images[0], null);
                     });
