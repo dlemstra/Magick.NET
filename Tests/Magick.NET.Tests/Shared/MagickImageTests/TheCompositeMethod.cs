@@ -115,7 +115,7 @@ namespace Magick.NET.Tests.Shared
             }
 
             [TestClass]
-            public partial class WithImageAndCompositeOperatorAndChannels
+            public class WithImageAndCompositeOperatorAndChannels
             {
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
@@ -145,7 +145,7 @@ namespace Magick.NET.Tests.Shared
             }
 
             [TestClass]
-            public partial class WithImageAndCompositeOperatorAndArguments
+            public class WithImageAndCompositeOperatorAndArguments
             {
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
@@ -200,7 +200,7 @@ namespace Magick.NET.Tests.Shared
             }
 
             [TestClass]
-            public partial class WithImageAndCompositeOperatorAndArgumentsAndChannels
+            public class WithImageAndCompositeOperatorAndArgumentsAndChannels
             {
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()

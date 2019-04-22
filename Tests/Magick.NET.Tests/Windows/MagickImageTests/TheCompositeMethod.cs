@@ -21,7 +21,7 @@ namespace Magick.NET.Tests.Shared
     {
         public partial class TheCompositeMethod
         {
-            public partial class WithOperator
+            public partial class WithImageAndCompositeOperator
             {
                 [TestMethod]
                 public void ShouldCopyTheAlphaChannelWithCopyAlpha()
