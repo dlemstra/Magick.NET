@@ -1986,7 +1986,76 @@ namespace ImageMagick
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, Gravity gravity, CompositeOperator compose, string args, Channels channels)
+        public void Composite(IMagickImage image, Gravity gravity, CompositeOperator compose, string args, Channels channels) => Composite(image, gravity, 0, 0, compose, args, channels);
+
+        /// <summary>
+        /// Compose an image onto another at specified offset using the 'In' operator.
+        /// </summary>
+        /// <param name="image">The image to composite with this image.</param>
+        /// <param name="gravity">The placement gravity.</param>
+        /// <param name="x">The X offset from origin.</param>
+        /// <param name="y">The Y offset from origin.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Composite(IMagickImage image, Gravity gravity, int x, int y) => Composite(image, gravity, x, y, CompositeOperator.In);
+
+        /// <summary>
+        /// Compose an image onto another at specified offset using the 'In' operator.
+        /// </summary>
+        /// <param name="image">The image to composite with this image.</param>
+        /// <param name="gravity">The placement gravity.</param>
+        /// <param name="x">The X offset from origin.</param>
+        /// <param name="y">The Y offset from origin.</param>
+        /// <param name="channels">The channel(s) to composite.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Composite(IMagickImage image, Gravity gravity, int x, int y, Channels channels) => Composite(image, gravity, x, y, CompositeOperator.In, channels);
+
+        /// <summary>
+        /// Compose an image onto another at specified offset using the 'In' operator.
+        /// </summary>
+        /// <param name="image">The image to composite with this image.</param>
+        /// <param name="gravity">The placement gravity.</param>
+        /// <param name="x">The X offset from origin.</param>
+        /// <param name="y">The Y offset from origin.</param>
+        /// <param name="compose">The algorithm to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Composite(IMagickImage image, Gravity gravity, int x, int y, CompositeOperator compose) => Composite(image, gravity, x, y, compose, null);
+
+        /// <summary>
+        /// Compose an image onto another at specified offset using the 'In' operator.
+        /// </summary>
+        /// <param name="image">The image to composite with this image.</param>
+        /// <param name="gravity">The placement gravity.</param>
+        /// <param name="x">The X offset from origin.</param>
+        /// <param name="y">The Y offset from origin.</param>
+        /// <param name="compose">The algorithm to use.</param>
+        /// <param name="channels">The channel(s) to composite.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Composite(IMagickImage image, Gravity gravity, int x, int y, CompositeOperator compose, Channels channels) => Composite(image, gravity, x, y, compose, null, channels);
+
+        /// <summary>
+        /// Compose an image onto another at specified offset using the specified algorithm.
+        /// </summary>
+        /// <param name="image">The image to composite with this image.</param>
+        /// <param name="gravity">The placement gravity.</param>
+        /// <param name="x">The X offset from origin.</param>
+        /// <param name="y">The Y offset from origin.</param>
+        /// <param name="compose">The algorithm to use.</param>
+        /// <param name="args">The arguments for the algorithm (compose:args).</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Composite(IMagickImage image, Gravity gravity, int x, int y, CompositeOperator compose, string args) => Composite(image, gravity, x, y, compose, args, ImageMagick.Channels.Default);
+
+        /// <summary>
+        /// Compose an image onto another at specified offset using the specified algorithm.
+        /// </summary>
+        /// <param name="image">The image to composite with this image.</param>
+        /// <param name="gravity">The placement gravity.</param>
+        /// <param name="x">The X offset from origin.</param>
+        /// <param name="y">The Y offset from origin.</param>
+        /// <param name="compose">The algorithm to use.</param>
+        /// <param name="args">The arguments for the algorithm (compose:args).</param>
+        /// <param name="channels">The channel(s) to composite.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Composite(IMagickImage image, Gravity gravity, int x, int y, CompositeOperator compose, string args, Channels channels)
         {
             Throw.IfNull(nameof(image), image);
 
@@ -1995,7 +2064,7 @@ namespace ImageMagick
 
             try
             {
-                _nativeInstance.CompositeGravity(image, gravity, 0, 0, compose, channels);
+                _nativeInstance.CompositeGravity(image, gravity, x, y, compose, channels);
             }
             finally
             {
@@ -2003,6 +2072,69 @@ namespace ImageMagick
                     _nativeInstance.RemoveArtifact("compose:args");
             }
         }
+
+        /// <summary>
+        /// Compose an image onto another at specified offset using the 'In' operator.
+        /// </summary>
+        /// <param name="image">The image to composite with this image.</param>
+        /// <param name="gravity">The placement gravity.</param>
+        /// <param name="offset">The offset from origin.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Composite(IMagickImage image, Gravity gravity, PointD offset) => Composite(image, gravity, offset, CompositeOperator.In);
+
+        /// <summary>
+        /// Compose an image onto another at specified offset using the 'In' operator.
+        /// </summary>
+        /// <param name="image">The image to composite with this image.</param>
+        /// <param name="gravity">The placement gravity.</param>
+        /// <param name="offset">The offset from origin.</param>
+        /// <param name="channels">The channel(s) to composite.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Composite(IMagickImage image, Gravity gravity, PointD offset, Channels channels) => Composite(image, gravity, offset, CompositeOperator.In, channels);
+
+        /// <summary>
+        /// Compose an image onto another at specified offset using the 'In' operator.
+        /// </summary>
+        /// <param name="image">The image to composite with this image.</param>
+        /// <param name="gravity">The placement gravity.</param>
+        /// <param name="offset">The offset from origin.</param>
+        /// <param name="compose">The algorithm to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Composite(IMagickImage image, Gravity gravity, PointD offset, CompositeOperator compose) => Composite(image, gravity, offset, compose, null);
+
+        /// <summary>
+        /// Compose an image onto another at specified offset using the 'In' operator.
+        /// </summary>
+        /// <param name="image">The image to composite with this image.</param>
+        /// <param name="gravity">The placement gravity.</param>
+        /// <param name="offset">The offset from origin.</param>
+        /// <param name="compose">The algorithm to use.</param>
+        /// <param name="channels">The channel(s) to composite.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Composite(IMagickImage image, Gravity gravity, PointD offset, CompositeOperator compose, Channels channels) => Composite(image, gravity, offset, compose, null, channels);
+
+        /// <summary>
+        /// Compose an image onto another at specified offset using the specified algorithm.
+        /// </summary>
+        /// <param name="image">The image to composite with this image.</param>
+        /// <param name="gravity">The placement gravity.</param>
+        /// <param name="offset">The offset from origin.</param>
+        /// <param name="compose">The algorithm to use.</param>
+        /// <param name="args">The arguments for the algorithm (compose:args).</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Composite(IMagickImage image, Gravity gravity, PointD offset, CompositeOperator compose, string args) => Composite(image, gravity, offset, compose, args, ImageMagick.Channels.Default);
+
+        /// <summary>
+        /// Compose an image onto another at specified offset using the specified algorithm.
+        /// </summary>
+        /// <param name="image">The image to composite with this image.</param>
+        /// <param name="gravity">The placement gravity.</param>
+        /// <param name="offset">The offset from origin.</param>
+        /// <param name="compose">The algorithm to use.</param>
+        /// <param name="args">The arguments for the algorithm (compose:args).</param>
+        /// <param name="channels">The channel(s) to composite.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Composite(IMagickImage image, Gravity gravity, PointD offset, CompositeOperator compose, string args, Channels channels) => Composite(image, gravity, (int)offset.X, (int)offset.Y, compose, args, channels);
 
         /// <summary>
         /// Determines the connected-components of the image.
