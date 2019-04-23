@@ -1058,7 +1058,7 @@ namespace Magick.NET.Tests.Shared
                     {
                         using (IMagickImage other = new MagickImage("xc:white", 1, 1))
                         {
-                            image.Composite(other, Gravity.Northeast, -1, 1);
+                            image.Composite(other, Gravity.Northeast, 1, 1);
 
                             ColorAssert.AreEqual(MagickColors.White, image, 1, 1);
                         }
@@ -1088,7 +1088,7 @@ namespace Magick.NET.Tests.Shared
                     {
                         using (IMagickImage other = new MagickImage("xc:white", 1, 1))
                         {
-                            image.Composite(other, Gravity.Southwest, 1, -1);
+                            image.Composite(other, Gravity.Southwest, 1, 1);
 
                             ColorAssert.AreEqual(MagickColors.White, image, 1, 1);
                         }
@@ -1148,7 +1148,7 @@ namespace Magick.NET.Tests.Shared
                     {
                         using (IMagickImage other = new MagickImage("xc:black", 1, 1))
                         {
-                            image.Composite(other, Gravity.Southeast, -1, -1, CompositeOperator.Clear, Channels.Green);
+                            image.Composite(other, Gravity.Southeast, 1, 1, CompositeOperator.Clear, Channels.Green);
 
                             ColorAssert.AreEqual(MagickColors.Magenta, image, 1, 1);
                         }
@@ -1288,7 +1288,7 @@ namespace Magick.NET.Tests.Shared
                     {
                         using (IMagickImage other = new MagickImage("xc:white", 1, 1))
                         {
-                            image.Composite(other, Gravity.East, new PointD(-1, 0));
+                            image.Composite(other, Gravity.East, new PointD(1, 0));
 
                             ColorAssert.AreEqual(MagickColors.White, image, 1, 1);
                         }
@@ -1378,7 +1378,7 @@ namespace Magick.NET.Tests.Shared
                     {
                         using (IMagickImage other = new MagickImage("xc:black", 1, 1))
                         {
-                            image.Composite(other, Gravity.South, new PointD(0, -1), CompositeOperator.Clear, Channels.Green);
+                            image.Composite(other, Gravity.South, new PointD(0, 1), CompositeOperator.Clear, Channels.Green);
 
                             ColorAssert.AreEqual(MagickColors.Magenta, image, 1, 1);
                         }
