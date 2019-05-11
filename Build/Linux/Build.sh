@@ -124,7 +124,7 @@ cd ../libheif
 autoreconf -fiv
 export CFLAGS="-O3 -fPIC"
 export CXXFLAGS="-O3 -fPIC"
-./configure --disable-shared --prefix=/usr/local
+./configure --disable-shared --disable-go --prefix=/usr/local
 make install
 
 # Build libraw
