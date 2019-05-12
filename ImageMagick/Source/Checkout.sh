@@ -63,6 +63,7 @@ declare -r commitDate=`git log -1 --format=%ci`
 echo "Set latest commit date as $commitDate" 
 cd ..
 
+clone_date 'freetype' "$commitDate"
 clone_date 'jpeg-turbo' "$commitDate" 'jpeg'
 clone_date 'lcms' "$commitDate"
 clone_date 'libde265' "$commitDate"
@@ -76,16 +77,6 @@ clone_date 'webp' "$commitDate"
 clone_date 'zlib' "$commitDate"
 
 if [ "$1" == "macOS" ] || [ "$1" == "Linux" ]; then
-  # Clone freetype
-  if [ ! -d freetype ]; then
-    git clone https://git.savannah.gnu.org/git/freetype/freetype2.git freetype
-  fi
-  cd freetype
-  git reset --hard
-  git fetch
-  git checkout VER-2-9
-  cd ../
-
   # Clone fontconfig
   if [ ! -d fontconfig ]; then
     git clone https://gitlab.freedesktop.org/fontconfig/fontconfig fontconfig
@@ -110,7 +101,6 @@ clone_date 'librsvg' "$commitDate"
 clone_date 'lqr' "$commitDate"
 clone_date 'pango' "$commitDate"
 clone_date 'pixman' "$commitDate"
-clone_date 'ttf' "$commitDate"
 clone_date 'VisualMagick' "$commitDate"
 
 rm -rf VisualMagick/bzlib
