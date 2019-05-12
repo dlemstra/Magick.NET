@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+export FLAGS="-O3 -fPIC"
+
 # Uninstall already installed development libraries
 apt-get update
 
@@ -24,29 +26,25 @@ cd ImageMagick
 # Build zlib
 cd zlib
 chmod +x ./configure
-export CFLAGS="-O3 -fPIC"
-./configure --static
-make install
+./configure
+make install CFLAGS="$FLAGS"
 
 # Build libxml
 cd ../libxml
 autoreconf -fiv
-export CFLAGS="-O3 -fPIC"
-./configure --with-python=no
+./configure --with-python=no --enable-static --disable-shared CFLAGS="$FLAGS"
 make install
 
 # Build libpng
 cd ../png
 autoreconf -fiv
-export CFLAGS="-O3 -fPIC"
-./configure --enable-mips-msa=off --enable-arm-neon=off --enable-powerpc-vsx=off
+./configure --enable-mips-msa=off --enable-arm-neon=off --enable-powerpc-vsx=off --disable-shared CFLAGS="$FLAGS"
 make install
 
 # Build freetype
 cd ../freetype
 ./autogen.sh
-export CFLAGS="-O3 -fPIC"
-./configure --disable-shared
+./configure --disable-shared CFLAGS="$FLAGS"
 make install
 
 # Build fontconfig
@@ -54,57 +52,48 @@ cd ../fontconfig
 autoreconf -fiv
 pip install lxml
 pip install six
-export CFLAGS="-O3 -fPIC"
-./configure --enable-libxml2 --enable-static=yes
-export LD_LIBRARY_PATH="/usr/local/lib"
+./configure --enable-libxml2 --enable-static=yes CFLAGS="$FLAGS"
 make install
 
 # Build libjpeg-turbo
 cd ../jpeg
-cmake . -DCMAKE_INSTALL_PREFIX=/usr/local -DENABLE_SHARED=off -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-O3 -fPIC"
+cmake . -DCMAKE_INSTALL_PREFIX=/usr/local -DENABLE_SHARED=off -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="$FLAGS"
 make install
 
 # Build libtiff
 cd ../tiff
 autoreconf -fiv
-export CFLAGS="-O3 -fPIC"
-./configure
+./configure CFLAGS="$FLAGS"
 make install
 
-# Build libwebpmux/demux
+# Build libwebp
 cd ../webp
 autoreconf -fiv
-export CFLAGS="-O3 -fPIC"
-./configure --enable-libwebpmux --enable-libwebpdemux
+./configure --enable-libwebpmux --enable-libwebpdemux CFLAGS="$FLAGS"
 make install
 
 # Build openjpeg
 cd ../openjpeg
-cmake . -DCMAKE_INSTALL_PREFIX=/usr/local -DBUILD_SHARED_LIBS=off -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-O3 -fPIC"
+cmake . -DCMAKE_INSTALL_PREFIX=/usr/local -DBUILD_SHARED_LIBS=off -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="$FLAGS"
 make install
 cp bin/libopenjp2.a /usr/local/lib
 
 # Build lcms
 cd ../lcms
 autoreconf -fiv
-export CFLAGS="-O3 -fPIC"
-./configure --disable-shared --prefix=/usr/local
+./configure --disable-shared --prefix=/usr/local CFLAGS="$FLAGS"
 make install
 
 # Build libde265
 cd ../libde265
 autoreconf -fiv
-export CFLAGS="-O3 -fPIC"
-export CXXFLAGS="-O3 -fPIC"
-./configure --disable-shared --prefix=/usr/local
+./configure --disable-shared --prefix=/usr/local CFLAGS="$FLAGS" CXXFLAGS="$FLAGS"
 make install
 
 # Build libheif
 cd ../libheif
 autoreconf -fiv
-export CFLAGS="-O3 -fPIC"
-export CXXFLAGS="-O3 -fPIC"
-./configure --disable-shared --disable-go --prefix=/usr/local
+./configure --disable-shared --disable-go --prefix=/usr/local CFLAGS="$FLAGS" CXXFLAGS="$FLAGS"
 make install
 
 # Build libraw
@@ -112,9 +101,7 @@ cd ../libraw
 chmod +x ./version.sh
 chmod +x ./shlib-version.sh
 autoreconf -fiv
-export CFLAGS="-O3 -fPIC"
-export CXXFLAGS="-O3 -fPIC"
-./configure --disable-shared --disable-examples --disable-openmp --disable-jpeg --disable-jasper --prefix=/usr/local
+./configure --disable-shared --disable-examples --disable-openmp --disable-jpeg --disable-jasper --prefix=/usr/local CFLAGS="$FLAGS" CXXFLAGS="$FLAGS"
 make install
 
 cd ../../../../
@@ -139,7 +126,7 @@ buildMagickNET() {
 
     # Build ImageMagick
     cd ImageMagick/Source/ImageMagick/ImageMagick
-    ./configure CFLAGS="-fPIC -Wall -O3" CXXFLAGS="-fPIC -Wall -O3" --disable-shared --disable-openmp --enable-static --enable-delegate-build --with-magick-plus-plus=no --with-utilities=no --disable-docs --with-bzlib=no --with-lzma=no --with-x=no --with-quantum-depth=$depth --enable-hdri=$hdri
+    ./configure CFLAGS="$FLAGS -Wall" CXXFLAGS="$FLAGS -Wall" --disable-shared --disable-openmp --enable-static --enable-delegate-build --with-magick-plus-plus=no --with-utilities=no --disable-docs --with-bzlib=no --with-lzma=no --with-x=no --with-quantum-depth=$depth --enable-hdri=$hdri
     make install
 
     # Build Magick.NET

@@ -2,6 +2,8 @@
 set -e
 
 export HOMEBREW_NO_AUTO_UPDATE=1
+export FLAGS="-O3 -fPIC"
+
 brew install nasm
 brew install pkg-config
 brew install autoconf
@@ -23,29 +25,25 @@ cd ImageMagick
 # Build zlib
 cd zlib
 chmod +x ./configure
-export CFLAGS="-O3 -fPIC"
 ./configure
-make install
+make install CFLAGS="$FLAGS"
 
 # Build libxml
 cd ../libxml
 autoreconf -fiv
-export CFLAGS="-O3 -fPIC"
-./configure --with-python=no --with-iconv=/usr/local/opt/libiconv
+./configure --with-python=no --enable-static --disable-shared --with-iconv=/usr/local/opt/libiconv CFLAGS="$FLAGS"
 make install
 
 # Build libpng
 cd ../png
 autoreconf -fiv
-export CFLAGS="-O3 -fPIC"
-./configure --enable-mips-msa=off --enable-arm-neon=off --enable-powerpc-vsx=off
+./configure --enable-mips-msa=off --enable-arm-neon=off --enable-powerpc-vsx=off --disable-shared CFLAGS="$FLAGS"
 make install
 
 # Build freetype
 cd ../freetype
 ./autogen.sh
-export CFLAGS="-O3 -fPIC"
-./configure --without-bzip2 --disable-shared
+./configure --without-bzip2 --disable-shared CFLAGS="$FLAGS"
 make install
 
 # Build fontconfig
@@ -55,59 +53,51 @@ autoreconf -fiv
 sudo easy_install pip
 sudo python -m pip install lxml
 sudo python -m pip install six
-export CFLAGS="-O3 -fPIC"
-./configure --enable-libxml2 --enable-static=yes --with-add-fonts=/System/Library/Fonts,/Library/Fonts,~/Library/Fonts
+./configure --enable-libxml2 --enable-static=yes --with-add-fonts=/System/Library/Fonts,/Library/Fonts,~/Library/Fonts CFLAGS="$FLAGS"
 make install
 
 # Build libjpeg-turbo
 cd ../jpeg
-cmake . -DCMAKE_INSTALL_PREFIX=/usr/local -DENABLE_SHARED=off -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-O3 -fPIC"
+cmake . -DCMAKE_INSTALL_PREFIX=/usr/local -DENABLE_SHARED=off -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="$FLAGS"
 make install
 
 # Build libtiff
 cd ../tiff
 autoreconf -fiv
-export CFLAGS="-O3 -fPIC"
-./configure
+./configure CFLAGS="$FLAGS"
 make install
 
 # Build libwebp
 cd ../webp
 autoreconf -fiv
 chmod +x ./configure
-export CFLAGS="-O3 -fPIC"
-./configure --enable-libwebpmux --enable-libwebpdemux
+./configure --enable-libwebpmux --enable-libwebpdemux CFLAGS="$FLAGS"
 make install
 
 # Build openjpeg
 cd ../openjpeg
-cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DBUILD_SHARED_LIBS=off -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-O3 -fPIC" .
+cmake . -DCMAKE_INSTALL_PREFIX=/usr/local -DBUILD_SHARED_LIBS=off -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="$FLAGS"
 make install
 cp bin/libopenjp2.a /usr/local/lib
 
 # Build lcms
 cd ../lcms
 autoreconf -fiv
-export CFLAGS="-O3 -fPIC"
-./configure --disable-shared --prefix=/usr/local
+./configure --disable-shared --prefix=/usr/local CFLAGS="$FLAGS"
 make install
 
 # Build libde265
 cd ../libde265
 autoreconf -fiv
 chmod +x ./configure
-export CFLAGS="-O3 -fPIC"
-export CXXFLAGS="-O3 -fPIC"
-./configure --disable-shared --prefix=/usr/local
+./configure --disable-shared --prefix=/usr/local CFLAGS="$FLAGS" CXXFLAGS="$FLAGS"
 make install
 
 # Build libheif
 cd ../libheif
 autoreconf -fiv
 chmod +x ./configure
-export CFLAGS="-O3 -fPIC"
-export CXXFLAGS="-O3 -fPIC"
-./configure --disable-shared --disable-go --prefix=/usr/local
+./configure --disable-shared --disable-go --prefix=/usr/local CFLAGS="$FLAGS" CXXFLAGS="$FLAGS"
 make install
 
 # Build libraw
@@ -116,9 +106,7 @@ chmod +x ./version.sh
 chmod +x ./shlib-version.sh
 autoreconf -fiv
 chmod +x ./configure
-export CFLAGS="-O3 -fPIC"
-export CXXFLAGS="-O3 -fPIC"
-./configure --disable-shared --disable-examples --disable-openmp  --disable-jpeg --disable-jasper --prefix=/usr/local
+./configure --disable-shared --disable-examples --disable-openmp  --disable-jpeg --disable-jasper --prefix=/usr/local CFLAGS="$FLAGS" CXXFLAGS="$FLAGS"
 make install
 
 cd ../../../../
