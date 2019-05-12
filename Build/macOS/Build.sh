@@ -45,7 +45,7 @@ make install
 cd ../freetype
 ./autogen.sh
 export CFLAGS="-O3 -fPIC"
-./configure --without-bzip2
+./configure --without-bzip2 --disable-shared
 make install
 
 # Build fontconfig
