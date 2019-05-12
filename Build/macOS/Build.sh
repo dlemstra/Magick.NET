@@ -114,7 +114,7 @@ mkdir Output
 
 cd ImageMagick/Source/ImageMagick/ImageMagick
 autoreconf -fiv
-cd ../../../
+cd ../../../../
 
 buildMagickNET() {
     local quantum=$1
