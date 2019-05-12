@@ -38,7 +38,7 @@ make install
 # Build libpng
 cd ../png
 autoreconf -fiv
-./configure --enable-mips-msa=off --enable-arm-neon=off --enable-powerpc-vsx=off --disable-shared CFLAGS="$FLAGS"
+./configure --enable-mips-msa=off --enable-arm-neon=off --enable-powerpc-vsx=off CFLAGS="$FLAGS"
 make install
 
 # Build freetype
