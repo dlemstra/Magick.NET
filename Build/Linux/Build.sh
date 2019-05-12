@@ -44,7 +44,7 @@ make install
 # Build freetype
 cd ../freetype
 ./autogen.sh
-./configure --disable-shared CFLAGS="$FLAGS"
+./configure CFLAGS="$FLAGS"
 make install
 
 # Build fontconfig
