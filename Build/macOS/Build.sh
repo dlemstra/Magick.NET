@@ -20,26 +20,6 @@ cd ../../ImageMagick/Source
 
 cd ImageMagick
 
-# Clone freetype
-if [ ! -d freetype ]; then
-  git clone git://git.sv.nongnu.org/freetype/freetype2.git freetype
-fi
-cd freetype
-git reset --hard
-git fetch
-git checkout VER-2-9
-cd ../
-
-# Clone fontconfig
-if [ ! -d fontconfig ]; then
-  git clone git://anongit.freedesktop.org/fontconfig fontconfig
-fi
-cd fontconfig
-git reset --hard
-git fetch
-git checkout 2.13.0
-cd ../
-
 # Build zlib
 cd zlib
 chmod +x ./configure
