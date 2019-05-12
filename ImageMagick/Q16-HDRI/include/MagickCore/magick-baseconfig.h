@@ -97,6 +97,11 @@
 #define MAGICKCORE_FLIF_DELEGATE
 
 /*
+  Define to use the FreeType (TrueType & Postscript font support) library
+*/
+#define MAGICKCORE_FREETYPE_DELEGATE
+
+/*
   Define to use the Jasper JPEG v2 library
 */
 #define MAGICKCORE_JP2_DELEGATE
@@ -156,11 +161,6 @@
   Define to use the TIFF library
 */
 #define MAGICKCORE_TIFF_DELEGATE
-
-/*
-  Define to use the FreeType (TrueType & Postscript font support) library
-*/
-#define MAGICKCORE_FREETYPE_DELEGATE
 
 /*
   Define to use the WebP library
