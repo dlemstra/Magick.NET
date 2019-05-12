@@ -107,6 +107,10 @@ make install
 cd ../../../../
 mkdir Output
 
+cd ImageMagick/Source/ImageMagick/ImageMagick
+autoreconf -fiv
+cd ../../../
+
 buildMagickNET() {
     local quantum=$1
 
