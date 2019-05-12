@@ -1459,7 +1459,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual("OO", image.FormatExpression("%EOO"));
                 image.Warning -= ShouldRaiseWarning;
 
-                Assert.AreEqual("a48a7f2fdc26e9ccf75b0c85a254c958f004cc182d0ca8c3060c1df734645367", image.FormatExpression("%#"));
+                Assert.AreEqual("92f59c51ad61b99b3c9ebd51f1c77b9c80c0478e2fdb7db47831376b1e4a00db", image.FormatExpression("%#"));
             }
 
             using (IMagickImage image = new MagickImage(Files.InvitationTIF))
