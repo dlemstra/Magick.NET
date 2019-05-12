@@ -75,11 +75,27 @@ clone_date 'tiff' "$commitDate"
 clone_date 'webp' "$commitDate"
 clone_date 'zlib' "$commitDate"
 
-if [ "$1" == "macOS" ]; then
-  exit
-fi
+if [ "$1" == "macOS" ] || [ "$1" == "Linux" ]; then
+  # Clone freetype
+  if [ ! -d freetype ]; then
+    git clone https://git.savannah.gnu.org/git/freetype/freetype2.git freetype
+  fi
+  cd freetype
+  git reset --hard
+  git fetch
+  git checkout VER-2-9
+  cd ../
 
-if [ "$1" == "Linux" ]; then
+  # Clone fontconfig
+  if [ ! -d fontconfig ]; then
+    git clone https://gitlab.freedesktop.org/fontconfig/fontconfig fontconfig
+  fi
+  cd fontconfig
+  git reset --hard
+  git fetch
+  git checkout 2.12.6
+  cd ../
+
   exit
 fi
 
