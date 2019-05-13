@@ -53,7 +53,7 @@ cd ../fontconfig
 autoreconf -fiv
 pip install lxml
 pip install six
-./configure --enable-libxml2 --enable-static=yes CFLAGS="$FLAGS"
+./configure --enable-libxml2 --enable-static=yes --disable-shared CFLAGS="$FLAGS"
 make install
 
 # Build libjpeg-turbo
