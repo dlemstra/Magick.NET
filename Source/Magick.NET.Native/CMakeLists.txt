@@ -36,8 +36,8 @@ target_link_libraries(
 
     ${LIB_DIR}/libz.a
     ${LIB_DIR}/libxml2.a
-    ${LIB_DIR}/libfreetype.a
     ${LIB_DIR}/libfontconfig.a
+    ${LIB_DIR}/libfreetype.a
     ${LIB_DIR}/libpng.a
     ${LIB_DIR}/libturbojpeg.a
     ${LIB_DIR}/libtiff.a
