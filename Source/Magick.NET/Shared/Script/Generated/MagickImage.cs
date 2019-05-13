@@ -2178,6 +2178,30 @@ namespace ImageMagick
                 image.Composite((IMagickImage)arguments["image"], (Gravity)arguments["gravity"], (CompositeOperator)arguments["compose"], (String)arguments["args"], (Channels)arguments["channels"]);
             else if (OnlyContains(arguments, "image", "gravity", "compose", "channels"))
                 image.Composite((IMagickImage)arguments["image"], (Gravity)arguments["gravity"], (CompositeOperator)arguments["compose"], (Channels)arguments["channels"]);
+            else if (OnlyContains(arguments, "image", "gravity", "offset"))
+                image.Composite((IMagickImage)arguments["image"], (Gravity)arguments["gravity"], (PointD)arguments["offset"]);
+            else if (OnlyContains(arguments, "image", "gravity", "offset", "channels"))
+                image.Composite((IMagickImage)arguments["image"], (Gravity)arguments["gravity"], (PointD)arguments["offset"], (Channels)arguments["channels"]);
+            else if (OnlyContains(arguments, "image", "gravity", "offset", "compose"))
+                image.Composite((IMagickImage)arguments["image"], (Gravity)arguments["gravity"], (PointD)arguments["offset"], (CompositeOperator)arguments["compose"]);
+            else if (OnlyContains(arguments, "image", "gravity", "offset", "compose", "args"))
+                image.Composite((IMagickImage)arguments["image"], (Gravity)arguments["gravity"], (PointD)arguments["offset"], (CompositeOperator)arguments["compose"], (String)arguments["args"]);
+            else if (OnlyContains(arguments, "image", "gravity", "offset", "compose", "args", "channels"))
+                image.Composite((IMagickImage)arguments["image"], (Gravity)arguments["gravity"], (PointD)arguments["offset"], (CompositeOperator)arguments["compose"], (String)arguments["args"], (Channels)arguments["channels"]);
+            else if (OnlyContains(arguments, "image", "gravity", "offset", "compose", "channels"))
+                image.Composite((IMagickImage)arguments["image"], (Gravity)arguments["gravity"], (PointD)arguments["offset"], (CompositeOperator)arguments["compose"], (Channels)arguments["channels"]);
+            else if (OnlyContains(arguments, "image", "gravity", "x", "y"))
+                image.Composite((IMagickImage)arguments["image"], (Gravity)arguments["gravity"], (Int32)arguments["x"], (Int32)arguments["y"]);
+            else if (OnlyContains(arguments, "image", "gravity", "x", "y", "channels"))
+                image.Composite((IMagickImage)arguments["image"], (Gravity)arguments["gravity"], (Int32)arguments["x"], (Int32)arguments["y"], (Channels)arguments["channels"]);
+            else if (OnlyContains(arguments, "image", "gravity", "x", "y", "compose"))
+                image.Composite((IMagickImage)arguments["image"], (Gravity)arguments["gravity"], (Int32)arguments["x"], (Int32)arguments["y"], (CompositeOperator)arguments["compose"]);
+            else if (OnlyContains(arguments, "image", "gravity", "x", "y", "compose", "args"))
+                image.Composite((IMagickImage)arguments["image"], (Gravity)arguments["gravity"], (Int32)arguments["x"], (Int32)arguments["y"], (CompositeOperator)arguments["compose"], (String)arguments["args"]);
+            else if (OnlyContains(arguments, "image", "gravity", "x", "y", "compose", "args", "channels"))
+                image.Composite((IMagickImage)arguments["image"], (Gravity)arguments["gravity"], (Int32)arguments["x"], (Int32)arguments["y"], (CompositeOperator)arguments["compose"], (String)arguments["args"], (Channels)arguments["channels"]);
+            else if (OnlyContains(arguments, "image", "gravity", "x", "y", "compose", "channels"))
+                image.Composite((IMagickImage)arguments["image"], (Gravity)arguments["gravity"], (Int32)arguments["x"], (Int32)arguments["y"], (CompositeOperator)arguments["compose"], (Channels)arguments["channels"]);
             else if (OnlyContains(arguments, "image", "offset"))
                 image.Composite((IMagickImage)arguments["image"], (PointD)arguments["offset"]);
             else if (OnlyContains(arguments, "image", "offset", "channels"))
@@ -2203,7 +2227,7 @@ namespace ImageMagick
             else if (OnlyContains(arguments, "image", "x", "y", "compose", "channels"))
                 image.Composite((IMagickImage)arguments["image"], (Int32)arguments["x"], (Int32)arguments["y"], (CompositeOperator)arguments["compose"], (Channels)arguments["channels"]);
             else
-                throw new ArgumentException("Invalid argument combination for 'composite', allowed combinations are: [image] [image, channels] [image, compose] [image, compose, args] [image, compose, args, channels] [image, compose, channels] [image, gravity] [image, gravity, channels] [image, gravity, compose] [image, gravity, compose, args] [image, gravity, compose, args, channels] [image, gravity, compose, channels] [image, offset] [image, offset, channels] [image, offset, compose] [image, offset, compose, args] [image, offset, compose, args, channels] [image, offset, compose, channels] [image, x, y] [image, x, y, channels] [image, x, y, compose] [image, x, y, compose, args] [image, x, y, compose, args, channels] [image, x, y, compose, channels]");
+                throw new ArgumentException("Invalid argument combination for 'composite', allowed combinations are: [image] [image, channels] [image, compose] [image, compose, args] [image, compose, args, channels] [image, compose, channels] [image, gravity] [image, gravity, channels] [image, gravity, compose] [image, gravity, compose, args] [image, gravity, compose, args, channels] [image, gravity, compose, channels] [image, gravity, offset] [image, gravity, offset, channels] [image, gravity, offset, compose] [image, gravity, offset, compose, args] [image, gravity, offset, compose, args, channels] [image, gravity, offset, compose, channels] [image, gravity, x, y] [image, gravity, x, y, channels] [image, gravity, x, y, compose] [image, gravity, x, y, compose, args] [image, gravity, x, y, compose, args, channels] [image, gravity, x, y, compose, channels] [image, offset] [image, offset, channels] [image, offset, compose] [image, offset, compose, args] [image, offset, compose, args, channels] [image, offset, compose, channels] [image, x, y] [image, x, y, channels] [image, x, y, compose] [image, x, y, compose, args] [image, x, y, compose, args, channels] [image, x, y, compose, channels]");
         }
         private void ExecuteContrast(XmlElement element, IMagickImage image)
         {
