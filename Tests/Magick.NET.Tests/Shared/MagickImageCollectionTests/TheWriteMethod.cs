@@ -10,6 +10,8 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
+using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -17,26 +19,95 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageCollectionTests
     {
-        [TestClass]
         public class TheWriteMethod
         {
-            [TestMethod]
-            public void ShouldUseTheFileExtension()
+            [TestClass]
+            public class WithFile
             {
-                var readSettings = new MagickReadSettings()
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileIsNull()
                 {
-                    Format = MagickFormat.Png,
-                };
-
-                using (IMagickImageCollection input = new MagickImageCollection(Files.CirclePNG, readSettings))
-                {
-                    using (var tempFile = new TemporaryFile(".jpg"))
+                    using (IMagickImageCollection images = new MagickImageCollection())
                     {
-                        input.Write(tempFile);
-
-                        using (IMagickImageCollection output = new MagickImageCollection(tempFile))
+                        ExceptionAssert.Throws<ArgumentNullException>("file", () =>
                         {
-                            Assert.AreEqual(MagickFormat.Jpeg, output[0].Format);
+                            images.Write((FileInfo)null);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheFileExtension()
+                {
+                    var readSettings = new MagickReadSettings()
+                    {
+                        Format = MagickFormat.Png,
+                    };
+
+                    using (IMagickImageCollection input = new MagickImageCollection(Files.CirclePNG, readSettings))
+                    {
+                        using (var tempFile = new TemporaryFile(".jpg"))
+                        {
+                            input.Write(tempFile);
+
+                            using (IMagickImageCollection output = new MagickImageCollection(tempFile))
+                            {
+                                Assert.AreEqual(MagickFormat.Jpeg, output[0].Format);
+                            }
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithStream
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileIsNull()
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
+                        {
+                            images.Write((Stream)null);
+                        });
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithStreamAndFormat
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenStreamIsNull()
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
+                        {
+                            images.Write(null, MagickFormat.Bmp);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheSpecifiedFormat()
+                {
+                    using (IMagickImageCollection input = new MagickImageCollection(Files.CirclePNG))
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            using (var stream = new NonSeekableStream(memoryStream))
+                            {
+                                input.Write(stream, MagickFormat.Tiff);
+
+                                memoryStream.Position = 0;
+                                using (IMagickImageCollection output = new MagickImageCollection(stream))
+                                {
+                                    Assert.AreEqual(1, output.Count);
+                                    Assert.AreEqual(MagickFormat.Tiff, output[0].Format);
+                                }
+                            }
                         }
                     }
                 }
