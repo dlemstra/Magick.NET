@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -18,48 +19,127 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheWriteMethod
         {
-            [TestMethod]
-            public void ShouldUseTheFileExtension()
+            [TestClass]
+            public class WithFile
             {
-                var readSettings = new MagickReadSettings()
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileIsNull()
                 {
-                    Format = MagickFormat.Png,
-                };
-
-                using (IMagickImage input = new MagickImage(Files.CirclePNG, readSettings))
-                {
-                    using (var tempFile = new TemporaryFile(".jpg"))
+                    using (IMagickImage image = new MagickImage())
                     {
-                        input.Write(tempFile);
-
-                        using (IMagickImage output = new MagickImage(tempFile))
+                        ExceptionAssert.Throws<ArgumentNullException>("file", () =>
                         {
-                            Assert.AreEqual(MagickFormat.Jpeg, output.Format);
+                            image.Write((FileInfo)null);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheFileExtension()
+                {
+                    var readSettings = new MagickReadSettings()
+                    {
+                        Format = MagickFormat.Png,
+                    };
+
+                    using (IMagickImage input = new MagickImage(Files.CirclePNG, readSettings))
+                    {
+                        using (var tempFile = new TemporaryFile(".jpg"))
+                        {
+                            input.Write(tempFile);
+
+                            using (IMagickImage output = new MagickImage(tempFile))
+                            {
+                                Assert.AreEqual(MagickFormat.Jpeg, output.Format);
+                            }
                         }
                     }
                 }
             }
 
-            [TestMethod]
-            public void ShouldUseTheSpecifiedFormat()
+            [TestClass]
+            public class WithStream
             {
-                using (IMagickImage input = new MagickImage(Files.CirclePNG))
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileIsNull()
                 {
-                    using (var memoryStream = new MemoryStream())
+                    using (IMagickImage image = new MagickImage())
                     {
-                        using (var stream = new NonSeekableStream(memoryStream))
+                        ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
                         {
-                            input.Write(stream, MagickFormat.Tiff);
+                            image.Write((Stream)null);
+                        });
+                    }
+                }
+            }
 
-                            memoryStream.Position = 0;
-                            using (IMagickImage output = new MagickImage(stream))
+            [TestClass]
+            public class WithStreamAndFormat
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenStreamIsNull()
+                {
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
+                        {
+                            image.Write((Stream)null, MagickFormat.Bmp);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheSpecifiedFormat()
+                {
+                    using (IMagickImage input = new MagickImage(Files.CirclePNG))
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            using (var stream = new NonSeekableStream(memoryStream))
                             {
-                                Assert.AreEqual(MagickFormat.Tiff, output.Format);
+                                input.Write(stream, MagickFormat.Tiff);
+
+                                memoryStream.Position = 0;
+                                using (IMagickImage output = new MagickImage(stream))
+                                {
+                                    Assert.AreEqual(MagickFormat.Tiff, output.Format);
+                                }
                             }
                         }
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithFileName
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileIsNull()
+                {
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
+                        {
+                            image.Write((string)null);
+                        });
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithFileNameAndFormat
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileIsNull()
+                {
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
+                        {
+                            image.Write((string)null, MagickFormat.Bmp);
+                        });
                     }
                 }
             }
