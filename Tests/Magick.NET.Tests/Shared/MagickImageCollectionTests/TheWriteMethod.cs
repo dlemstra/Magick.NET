@@ -112,6 +112,22 @@ namespace Magick.NET.Tests
                     }
                 }
             }
+
+            [TestClass]
+            public class WithFileName
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileIsNull()
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
+                        {
+                            images.Write((string)null);
+                        });
+                    }
+                }
+            }
         }
     }
 }

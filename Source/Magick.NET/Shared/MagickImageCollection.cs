@@ -1317,6 +1317,8 @@ namespace ImageMagick
         {
             string filePath = FileHelper.CheckForBaseDirectory(fileName);
 
+            Throw.IfNullOrEmpty(nameof(fileName), filePath);
+
             if (_images.Count == 0)
                 return;
 
