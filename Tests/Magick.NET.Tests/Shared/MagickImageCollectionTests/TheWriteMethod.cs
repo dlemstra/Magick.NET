@@ -111,6 +111,21 @@ namespace Magick.NET.Tests
                         }
                     }
                 }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFormatIsNotWritable()
+                {
+                    using (IMagickImageCollection input = new MagickImageCollection(Files.CirclePNG))
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            Assert.ThrowsException<MagickMissingDelegateErrorException>(() =>
+                            {
+                                input.Write(memoryStream, MagickFormat.Xc);
+                            });
+                        }
+                    }
+                }
             }
 
             [TestClass]

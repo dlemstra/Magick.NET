@@ -89,7 +89,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImageCollection_WriteFile(IntPtr image, IntPtr settings, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImageCollection_WriteStream(IntPtr image, IntPtr settings, ReadWriteStreamDelegate writer, SeekStreamDelegate seeker, TellStreamDelegate teller, ReadWriteStreamDelegate reader, out IntPtr exception);
+                public static extern void MagickImageCollection_WriteStream(IntPtr image, IntPtr settings, ReadWriteStreamDelegate writer, SeekStreamDelegate seeker, TellStreamDelegate teller, ReadWriteStreamDelegate reader, out IntPtr exception);
             }
             #endif
             #if PLATFORM_x86 || PLATFORM_AnyCPU
@@ -140,7 +140,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImageCollection_WriteFile(IntPtr image, IntPtr settings, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImageCollection_WriteStream(IntPtr image, IntPtr settings, ReadWriteStreamDelegate writer, SeekStreamDelegate seeker, TellStreamDelegate teller, ReadWriteStreamDelegate reader, out IntPtr exception);
+                public static extern void MagickImageCollection_WriteStream(IntPtr image, IntPtr settings, ReadWriteStreamDelegate writer, SeekStreamDelegate seeker, TellStreamDelegate teller, ReadWriteStreamDelegate reader, out IntPtr exception);
             }
             #endif
         }
@@ -671,35 +671,24 @@ namespace ImageMagick
                     CheckException(exception);
                 }
             }
-            public IntPtr WriteStream(IMagickImage image, MagickSettings settings, ReadWriteStreamDelegate writer, SeekStreamDelegate seeker, TellStreamDelegate teller, ReadWriteStreamDelegate reader)
+            public void WriteStream(IMagickImage image, MagickSettings settings, ReadWriteStreamDelegate writer, SeekStreamDelegate seeker, TellStreamDelegate teller, ReadWriteStreamDelegate reader)
             {
                 using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
                 {
                     IntPtr exception = IntPtr.Zero;
-                    IntPtr result;
                     #if PLATFORM_AnyCPU
                     if (NativeLibrary.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImageCollection_WriteStream(image.GetInstance(), settingsNative.Instance, writer, seeker, teller, reader, out exception);
+                    NativeMethods.X64.MagickImageCollection_WriteStream(image.GetInstance(), settingsNative.Instance, writer, seeker, teller, reader, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImageCollection_WriteStream(image.GetInstance(), settingsNative.Instance, writer, seeker, teller, reader, out exception);
+                    NativeMethods.X86.MagickImageCollection_WriteStream(image.GetInstance(), settingsNative.Instance, writer, seeker, teller, reader, out exception);
                     #endif
-                    var magickException = MagickExceptionHelper.Create(exception);
-                    if (magickException == null)
-                        return result;
-                    if (magickException is MagickErrorException)
-                    {
-                        if (result != IntPtr.Zero)
-                            Dispose(result);
-                        throw magickException;
-                    }
-                    RaiseWarning(magickException);
-                    return result;
+                    CheckException(exception);
                 }
             }
         }

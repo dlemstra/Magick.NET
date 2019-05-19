@@ -381,7 +381,6 @@
     },
     {
       "name": "WriteStream",
-      "type": "Instance",
       "static": true,
       "throws": true,
       "arguments": [
