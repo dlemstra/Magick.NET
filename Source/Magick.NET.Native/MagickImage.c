@@ -1853,6 +1853,13 @@ MAGICK_NET_EXPORT void MagickImage_RandomThreshold(Image *instance, const double
   MAGICK_NET_SET_EXCEPTION;
 }
 
+MAGICK_NET_EXPORT void MagickImage_RangeThreshold(Image *instance, const double low_black, const double low_white, const double high_white, const double high_black, ExceptionInfo **exception)
+{
+  MAGICK_NET_GET_EXCEPTION;
+  RangeThresholdImage(instance, low_black, low_white, high_white, high_black, exceptionInfo);
+  MAGICK_NET_SET_EXCEPTION;
+}
+
 MAGICK_NET_EXPORT Image *MagickImage_ReadBlob(const ImageInfo *settings, const unsigned char *data, const size_t offset, const size_t length, ExceptionInfo **exception)
 {
   Image
