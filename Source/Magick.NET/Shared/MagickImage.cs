@@ -4379,6 +4379,34 @@ namespace ImageMagick
         public void RandomThreshold(QuantumType low, QuantumType high, Channels channels) => _nativeInstance.RandomThreshold(low, high, channels);
 
         /// <summary>
+        /// Applies soft and hard thresholding.
+        /// </summary>
+        /// <param name="percentageLowBlack">Defines the minimum black threshold value.</param>
+        /// <param name="percentageLowWhite">Defines the minimum white threshold value.</param>
+        /// <param name="percentageHighWhite">Defines the maximum white threshold value.</param>
+        /// <param name="percentageHighBlack">Defines the maximum black threshold value.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void RangeThreshold(Percentage percentageLowBlack, Percentage percentageLowWhite, Percentage percentageHighWhite, Percentage percentageHighBlack)
+        {
+            Throw.IfNegative(nameof(percentageLowBlack), percentageLowBlack);
+            Throw.IfNegative(nameof(percentageLowWhite), percentageLowWhite);
+            Throw.IfNegative(nameof(percentageHighWhite), percentageHighWhite);
+            Throw.IfNegative(nameof(percentageHighBlack), percentageHighBlack);
+
+            RangeThreshold(percentageLowBlack.ToQuantumType(), percentageLowWhite.ToQuantumType(), percentageHighWhite.ToQuantumType(), percentageHighBlack.ToQuantumType());
+        }
+
+        /// <summary>
+        /// Applies soft and hard thresholding.
+        /// </summary>
+        /// <param name="lowBlack">Defines the minimum black threshold value.</param>
+        /// <param name="lowWhite">Defines the minimum white threshold value.</param>
+        /// <param name="highWhite">Defines the maximum white threshold value.</param>
+        /// <param name="highBlack">Defines the maximum black threshold value.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void RangeThreshold(QuantumType lowBlack, QuantumType lowWhite, QuantumType highWhite, QuantumType highBlack) => _nativeInstance.RangeThreshold(lowBlack, lowWhite, highWhite, highBlack);
+
+        /// <summary>
         /// Read single image frame.
         /// </summary>
         /// <param name="data">The byte array to read the image data from.</param>

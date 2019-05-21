@@ -1885,6 +1885,27 @@
       ]
     },
     {
+      "name": "RangeThreshold",
+      "arguments": [
+        {
+          "name": "low_black",
+          "type": "double"
+        },
+        {
+          "name": "low_white",
+          "type": "double"
+        },
+        {
+          "name": "high_white",
+          "type": "double"
+        },
+        {
+          "name": "high_black",
+          "type": "double"
+        }
+      ]
+    },
+    {
       "name": "ReadBlob",
       "instance": true,
       "throws": true,

@@ -456,6 +456,8 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_RandomThreshold(IntPtr Instance, double low, double high, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickImage_RangeThreshold(IntPtr Instance, double low_black, double low_white, double high_white, double high_black);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_ReadBlob(IntPtr settings, byte[] data, UIntPtr offset, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_ReadFile(IntPtr settings, out IntPtr exception);
@@ -1004,6 +1006,8 @@ namespace ImageMagick
                 public static extern void MagickImage_RaiseOrLower(IntPtr Instance, UIntPtr size, [MarshalAs(UnmanagedType.Bool)] bool raise, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_RandomThreshold(IntPtr Instance, double low, double high, UIntPtr channels, out IntPtr exception);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickImage_RangeThreshold(IntPtr Instance, double low_black, double low_white, double high_white, double high_black);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_ReadBlob(IntPtr settings, byte[] data, UIntPtr offset, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -4958,6 +4962,21 @@ namespace ImageMagick
                 NativeMethods.X86.MagickImage_RandomThreshold(Instance, low, high, (UIntPtr)channels, out exception);
                 #endif
                 CheckException(exception);
+            }
+            public void RangeThreshold(double low_black, double low_white, double high_white, double high_black)
+            {
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_RangeThreshold(Instance, low_black, low_white, high_white, high_black);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_RangeThreshold(Instance, low_black, low_white, high_white, high_black);
+                #endif
             }
             public void ReadBlob(MagickSettings settings, byte[] data, int offset, int length)
             {
