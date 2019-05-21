@@ -26,7 +26,7 @@ namespace ImageMagick
         /// <param name="y">The Y coordinate.</param>
         /// <param name="image">The image to draw.</param>
         public DrawableComposite(double x, double y, IMagickImage image)
-          : this(x, y, CompositeOperator.CopyAlpha, image)
+          : this(x, y, CompositeOperator.In, image)
         {
         }
 
@@ -53,7 +53,7 @@ namespace ImageMagick
         /// <param name="offset">The offset from origin.</param>
         /// <param name="image">The image to draw.</param>
         public DrawableComposite(MagickGeometry offset, IMagickImage image)
-          : this(offset, CompositeOperator.CopyAlpha, image)
+          : this(offset, CompositeOperator.In, image)
         {
         }
 
