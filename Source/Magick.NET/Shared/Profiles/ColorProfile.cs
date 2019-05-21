@@ -30,7 +30,7 @@ namespace ImageMagick
         /// Initializes a new instance of the <see cref="ColorProfile"/> class.
         /// </summary>
         /// <param name="data">A byte array containing the profile.</param>
-        public ColorProfile(Byte[] data)
+        public ColorProfile(byte[] data)
           : base("icc", data)
         {
             Initialize();
