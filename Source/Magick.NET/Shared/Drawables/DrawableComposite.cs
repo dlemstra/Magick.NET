@@ -26,13 +26,8 @@ namespace ImageMagick
         /// <param name="y">The Y coordinate.</param>
         /// <param name="image">The image to draw.</param>
         public DrawableComposite(double x, double y, IMagickImage image)
-          : this(image)
+          : this(x, y, CompositeOperator.CopyAlpha, image)
         {
-            X = x;
-            Y = y;
-            Width = _image.Width;
-            Height = _image.Height;
-            Compose = CompositeOperator.CopyAlpha;
         }
 
         /// <summary>
@@ -58,15 +53,8 @@ namespace ImageMagick
         /// <param name="offset">The offset from origin.</param>
         /// <param name="image">The image to draw.</param>
         public DrawableComposite(MagickGeometry offset, IMagickImage image)
-          : this(image)
+          : this(offset, CompositeOperator.CopyAlpha, image)
         {
-            Throw.IfNull(nameof(offset), offset);
-
-            X = offset.X;
-            Y = offset.Y;
-            Width = offset.Width;
-            Height = offset.Height;
-            Compose = CompositeOperator.CopyAlpha;
         }
 
         /// <summary>
@@ -78,7 +66,7 @@ namespace ImageMagick
         public DrawableComposite(MagickGeometry offset, CompositeOperator compose, IMagickImage image)
           : this(image)
         {
-            Throw.IfNull("offset", offset);
+            Throw.IfNull(nameof(offset), offset);
 
             X = offset.X;
             Y = offset.Y;
@@ -95,7 +83,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Gets or sets the height to scale the image to.
+        /// Gets or sets the composition operator.
         /// </summary>
         public CompositeOperator Compose { get; set; }
 
