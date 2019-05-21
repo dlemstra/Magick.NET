@@ -103,7 +103,6 @@ namespace Magick.NET.Tests
             [TestClass]
             public class WithXYAndImage
             {
-
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
