@@ -1107,8 +1107,20 @@ namespace ImageMagick
                                 }
                                 case 'n':
                                 {
-                                    ExecuteRandomThreshold(element, image);
-                                    return;
+                                    switch(element.Name[3])
+                                    {
+                                        case 'd':
+                                        {
+                                            ExecuteRandomThreshold(element, image);
+                                            return;
+                                        }
+                                        case 'g':
+                                        {
+                                            ExecuteRangeThreshold(element, image);
+                                            return;
+                                        }
+                                    }
+                                    break;
                                 }
                             }
                             break;
@@ -3192,6 +3204,35 @@ namespace ImageMagick
                 image.RandomThreshold((Percentage)arguments["percentageLow"], (Percentage)arguments["percentageHigh"], (Channels)arguments["channels"]);
             else
                 throw new ArgumentException("Invalid argument combination for 'randomThreshold', allowed combinations are: [low, high] [low, high, channels] [percentageLow, percentageHigh] [percentageLow, percentageHigh, channels]");
+        }
+        private void ExecuteRangeThreshold(XmlElement element, IMagickImage image)
+        {
+            Hashtable arguments = new Hashtable();
+            foreach (XmlAttribute attribute in element.Attributes)
+            {
+                if (attribute.Name == "highBlack")
+                    arguments["highBlack"] = GetValue<QuantumType>(attribute);
+                else if (attribute.Name == "highWhite")
+                    arguments["highWhite"] = GetValue<QuantumType>(attribute);
+                else if (attribute.Name == "lowBlack")
+                    arguments["lowBlack"] = GetValue<QuantumType>(attribute);
+                else if (attribute.Name == "lowWhite")
+                    arguments["lowWhite"] = GetValue<QuantumType>(attribute);
+                else if (attribute.Name == "percentageHighBlack")
+                    arguments["percentageHighBlack"] = GetValue<Percentage>(attribute);
+                else if (attribute.Name == "percentageHighWhite")
+                    arguments["percentageHighWhite"] = GetValue<Percentage>(attribute);
+                else if (attribute.Name == "percentageLowBlack")
+                    arguments["percentageLowBlack"] = GetValue<Percentage>(attribute);
+                else if (attribute.Name == "percentageLowWhite")
+                    arguments["percentageLowWhite"] = GetValue<Percentage>(attribute);
+            }
+            if (OnlyContains(arguments, "lowBlack", "lowWhite", "highWhite", "highBlack"))
+                image.RangeThreshold((QuantumType)arguments["lowBlack"], (QuantumType)arguments["lowWhite"], (QuantumType)arguments["highWhite"], (QuantumType)arguments["highBlack"]);
+            else if (OnlyContains(arguments, "percentageLowBlack", "percentageLowWhite", "percentageHighWhite", "percentageHighBlack"))
+                image.RangeThreshold((Percentage)arguments["percentageLowBlack"], (Percentage)arguments["percentageLowWhite"], (Percentage)arguments["percentageHighWhite"], (Percentage)arguments["percentageHighBlack"]);
+            else
+                throw new ArgumentException("Invalid argument combination for 'rangeThreshold', allowed combinations are: [lowBlack, lowWhite, highWhite, highBlack] [percentageLowBlack, percentageLowWhite, percentageHighWhite, percentageHighBlack]");
         }
         private void ExecuteReduceNoise(XmlElement element, IMagickImage image)
         {

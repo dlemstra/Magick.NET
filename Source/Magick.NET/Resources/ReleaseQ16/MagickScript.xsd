@@ -2729,6 +2729,18 @@
             <xs:attribute name="percentageLow" type="double" />
           </xs:complexType>
         </xs:element>
+        <xs:element name="rangeThreshold">
+          <xs:complexType>
+            <xs:attribute name="highBlack" type="short" />
+            <xs:attribute name="highWhite" type="short" />
+            <xs:attribute name="lowBlack" type="short" />
+            <xs:attribute name="lowWhite" type="short" />
+            <xs:attribute name="percentageHighBlack" type="double" />
+            <xs:attribute name="percentageHighWhite" type="double" />
+            <xs:attribute name="percentageLowBlack" type="double" />
+            <xs:attribute name="percentageLowWhite" type="double" />
+          </xs:complexType>
+        </xs:element>
         <xs:element name="reduceNoise">
           <xs:complexType>
             <xs:attribute name="order" type="int" />
