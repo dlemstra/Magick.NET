@@ -40,6 +40,24 @@ namespace Magick.NET.Tests
                         new Drawables().Composite(new MagickGeometry(), null);
                     });
                 }
+
+                [TestMethod]
+                public void ShouldCopyPixelsOfTheImage()
+                {
+                    using (var image = new MagickImage(MagickColors.Green, 3, 1))
+                    {
+                        using (var inner = new MagickImage(MagickColors.Purple, 2, 2))
+                        {
+                            new Drawables()
+                                .Composite(new MagickGeometry(1, 0, 1, 1), inner)
+                                .Draw(image);
+                        }
+
+                        ColorAssert.AreEqual(MagickColors.Green, image, 0, 0);
+                        ColorAssert.AreEqual(MagickColors.Purple, image, 1, 0);
+                        ColorAssert.AreEqual(MagickColors.Green, image, 2, 0);
+                    }
+                }
             }
 
             [TestClass]
@@ -62,6 +80,24 @@ namespace Magick.NET.Tests
                         new Drawables().Composite(new MagickGeometry(), CompositeOperator.Over, null);
                     });
                 }
+
+                [TestMethod]
+                public void ShouldUseTheCompositeOperator()
+                {
+                    using (var image = new MagickImage(MagickColors.Green, 3, 1))
+                    {
+                        using (var inner = new MagickImage(MagickColors.Purple, 2, 2))
+                        {
+                            new Drawables()
+                                .Composite(new MagickGeometry(1, 0, 1, 1), CompositeOperator.Plus, inner)
+                                .Draw(image);
+                        }
+
+                        ColorAssert.AreEqual(MagickColors.Green, image, 0, 0);
+                        ColorAssert.AreEqual(MagickColors.Gray, image, 1, 0);
+                        ColorAssert.AreEqual(MagickColors.Green, image, 2, 0);
+                    }
+                }
             }
 
             [TestClass]
@@ -76,6 +112,24 @@ namespace Magick.NET.Tests
                         new Drawables().Composite(0, 0, null);
                     });
                 }
+
+                [TestMethod]
+                public void ShouldCopyPixelsOfTheImage()
+                {
+                    using (var image = new MagickImage(MagickColors.Green, 3, 1))
+                    {
+                        using (var inner = new MagickImage(MagickColors.Purple, 2, 2))
+                        {
+                            new Drawables()
+                                .Composite(1, 0, inner)
+                                .Draw(image);
+                        }
+
+                        ColorAssert.AreEqual(MagickColors.Green, image, 0, 0);
+                        ColorAssert.AreEqual(MagickColors.Purple, image, 1, 0);
+                        ColorAssert.AreEqual(MagickColors.Purple, image, 2, 0);
+                    }
+                }
             }
 
             [TestClass]
@@ -88,6 +142,24 @@ namespace Magick.NET.Tests
                     {
                         new Drawables().Composite(0, 0, CompositeOperator.Over, null);
                     });
+                }
+
+                [TestMethod]
+                public void ShouldUseTheCompositeOperator()
+                {
+                    using (var image = new MagickImage(MagickColors.Green, 3, 1))
+                    {
+                        using (var inner = new MagickImage(MagickColors.Purple, 2, 2))
+                        {
+                            new Drawables()
+                                .Composite(1, 0, CompositeOperator.Plus, inner)
+                                .Draw(image);
+                        }
+
+                        ColorAssert.AreEqual(MagickColors.Green, image, 0, 0);
+                        ColorAssert.AreEqual(MagickColors.Gray, image, 1, 0);
+                        ColorAssert.AreEqual(MagickColors.Gray, image, 2, 0);
+                    }
                 }
             }
         }
