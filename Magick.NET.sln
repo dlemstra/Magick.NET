@@ -173,6 +173,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "macOS", "macOS", "{A7D84182
 		Build\macOS\Build.yml = Build\macOS\Build.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{4D648A8A-59E2-45A4-BEFD-44602709E044}"
+	ProjectSection(SolutionItems) = preProject
+		.github\CONTRIBUTING.md = .github\CONTRIBUTING.md
+		.github\PULL_REQUEST_TEMPLATE.md = .github\PULL_REQUEST_TEMPLATE.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ISSUE_TEMPLATE", "ISSUE_TEMPLATE", "{E9C7E93D-93C8-43FF-9D16-9B562F9310EA}"
+	ProjectSection(SolutionItems) = preProject
+		.github\ISSUE_TEMPLATE\ask-question.md = .github\ISSUE_TEMPLATE\ask-question.md
+		.github\ISSUE_TEMPLATE\bug-report.md = .github\ISSUE_TEMPLATE\bug-report.md
+		.github\ISSUE_TEMPLATE\feature-request.md = .github\ISSUE_TEMPLATE\feature-request.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		DebugQ16|Any CPU = DebugQ16|Any CPU
@@ -511,6 +524,7 @@ Global
 		{CE53D0C8-1D5B-4093-9200-53DB1FE76335} = {642B2576-373D-4B84-A3C0-F6F9AC2A23D5}
 		{DCB4B8B6-AFCC-4D01-877D-F44ACFCDCE1A} = {B83A96D1-8221-416D-B02B-C4D8112142CF}
 		{A7D84182-F969-437D-B002-5502629A628A} = {B83A96D1-8221-416D-B02B-C4D8112142CF}
+		{E9C7E93D-93C8-43FF-9D16-9B562F9310EA} = {4D648A8A-59E2-45A4-BEFD-44602709E044}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F6887AA-E540-48B3-BDC0-068B342ABEBE}
