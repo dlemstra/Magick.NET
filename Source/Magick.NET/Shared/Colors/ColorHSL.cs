@@ -129,7 +129,7 @@ namespace ImageMagick
         {
             double quantumScale = 1.0 / Quantum.Max;
             double max = Math.Max(red, Math.Max(green, blue)) * quantumScale;
-            double min = Math.Min(red, Math.Max(green, blue)) * quantumScale;
+            double min = Math.Min(red, Math.Min(green, blue)) * quantumScale;
             double c = max - min;
 
             Lightness = (max + min) / 2.0;
