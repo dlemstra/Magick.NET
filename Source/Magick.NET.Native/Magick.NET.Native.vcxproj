@@ -629,7 +629,7 @@
     <ClCompile Include="MagickFormatInfo.c" />
     <ClCompile Include="MagickImage.c" />
     <ClCompile Include="MagickImageCollection.c" />
-    <ClCompile Include="MagickNET.c" />
+    <ClCompile Include="Magick.c" />
     <ClCompile Include="Pixels\PixelCollection.c" />
     <ClCompile Include="Settings\MagickSettings.c" />
     <ClCompile Include="Quantum.c" />
@@ -677,7 +677,7 @@
     <ClInclude Include="Exceptions\MagickExceptionHelper.h" />
     <ClInclude Include="MagickImage.h" />
     <ClInclude Include="MagickImageCollection.h" />
-    <ClInclude Include="MagickNET.h" />
+    <ClInclude Include="Magick.h" />
     <ClInclude Include="Pixels\PixelCollection.h" />
     <ClInclude Include="Settings\MagickSettings.h" />
     <ClInclude Include="Quantum.h" />

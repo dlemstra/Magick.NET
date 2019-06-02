@@ -50,9 +50,6 @@
     <ClCompile Include="MagickFormatInfo.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MagickNET.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Pixels\PixelCollection.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -134,6 +131,9 @@
     <ClCompile Include="OpenCL\OpenCLKernelProfileRecord.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Magick.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stdafx.h">
@@ -161,9 +161,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Helpers\MagickMemory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MagickNET.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Pixels\PixelCollection.h">
@@ -248,6 +245,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="OpenCL\OpenCLKernelProfileRecord.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Magick.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

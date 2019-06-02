@@ -1,5 +1,6 @@
 ﻿{
   "static": true,
+  "className": "MagickNET",
   "delegates": [
     {
       "name": "Log",

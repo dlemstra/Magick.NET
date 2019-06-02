@@ -61,6 +61,13 @@ namespace FileGenerator.Native
             set;
         }
 
+        [DataMember(Name = "className")]
+        public string ClassName
+        {
+            get;
+            set;
+        }
+
         public MagickConstructor Constructor
         {
             get

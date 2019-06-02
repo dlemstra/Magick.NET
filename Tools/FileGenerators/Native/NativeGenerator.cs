@@ -30,6 +30,10 @@ namespace FileGenerator.Native
                 MagickClass magickClass = (MagickClass)_Serializer.ReadObject(stream);
                 magickClass.Name = file.Name.Replace(".json", "");
                 magickClass.FileName = file.Directory.FullName + "\\" + magickClass.Name + ".cs";
+                if (string.IsNullOrEmpty(magickClass.ClassName))
+                {
+                    magickClass.ClassName = magickClass.Name;
+                }
 
                 return magickClass;
             }

@@ -363,7 +363,7 @@ namespace FileGenerator.Native
             if (Class.Name == "Environment")
                 return;
 
-            WriteLine("static Native" + Class.Name + "() { Environment.Initialize(); }");
+            WriteLine("static Native" + Class.ClassName + "() { Environment.Initialize(); }");
         }
 
         private void WriteThrow(MagickMethod method)
@@ -414,7 +414,7 @@ namespace FileGenerator.Native
         {
             if (Class.IsStatic)
             {
-                WriteLine("private static class Native" + Class.Name);
+                WriteLine("private static class Native" + Class.ClassName);
                 WriteStartColon();
 
                 WriteStaticConstructor();
@@ -422,7 +422,7 @@ namespace FileGenerator.Native
             else
             {
                 if (!IsDynamic(Class.Name))
-                    WriteLine("private Native" + Class.Name + " _nativeInstance;");
+                    WriteLine("private Native" + Class.ClassName + " _nativeInstance;");
 
                 string baseClass = "";
                 if (IsNativeStatic)
@@ -434,7 +434,7 @@ namespace FileGenerator.Native
                 else
                     baseClass = " : NativeInstance";
 
-                WriteLine("private " + (IsNativeStatic ? "static" : "sealed") + " class Native" + Class.Name + baseClass);
+                WriteLine("private " + (IsNativeStatic ? "static" : "sealed") + " class Native" + Class.ClassName + baseClass);
                 WriteStartColon();
 
                 WriteStaticConstructor();
