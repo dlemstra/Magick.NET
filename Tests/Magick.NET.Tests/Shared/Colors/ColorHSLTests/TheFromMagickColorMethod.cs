@@ -13,6 +13,16 @@
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace Magick.NET.Tests.Shared.Colors.ColorHSLTests
 {
     public partial class ColorHSLTests : ColorBaseTests<ColorHSL>
