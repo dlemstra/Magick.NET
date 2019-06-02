@@ -16,18 +16,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Magick.NET.Tests
 {
     [TestClass]
-    public class ColorHSLTests : ColorBaseTests<ColorHSL>
+    public partial class ColorHSLTests : ColorBaseTests<ColorHSL>
     {
-        [TestMethod]
-        public void Test_GetHashCode()
-        {
-            ColorHSL first = new ColorHSL(0.0, 0.0, 0.0);
-            int hashCode = first.GetHashCode();
-
-            first.Hue = first.Saturation = first.Lightness = 1.0;
-            Assert.AreNotEqual(hashCode, first.GetHashCode());
-        }
-
         [TestMethod]
         public void Test_IComparable()
         {
