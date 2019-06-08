@@ -10,7 +10,7 @@ echo Unable to find ApiKey.txt
 goto done
 
 :push
-for /r %%i in (*.nupkg) do ..\..\Tools\Programs\nuget.exe push %%i %ApiKey% -Source nuget.org
+for /r %%i in (*.nupkg) do ..\..\tools\programs\nuget.exe push %%i %ApiKey% -Source nuget.org
 
 :done
 pause
