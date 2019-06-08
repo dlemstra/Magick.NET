@@ -60,6 +60,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ISSUE_TEMPLATE", "ISSUE_TEM
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "files", "files", "{D6C3708D-A8A1-4E8C-8E9A-73B12C322033}"
 	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
 		Building.md = Building.md
 		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
 		Copyright.txt = Copyright.txt
