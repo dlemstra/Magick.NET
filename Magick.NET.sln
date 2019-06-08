@@ -87,8 +87,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Magick.Native", "Magick.Nat
 	ProjectSection(SolutionItems) = preProject
 		src\Magick.Native\install.cmd = src\Magick.Native\install.cmd
 		src\Magick.Native\install.ps1 = src\Magick.Native\install.ps1
+		src\Magick.Native\Magick.Native.version = src\Magick.Native\Magick.Native.version
 		src\Magick.Native\nuget.config = src\Magick.Native\nuget.config
-		src\Magick.Native\version = src\Magick.Native\version
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magick.NET.Web", "src\Magick.NET.Web\Magick.NET.Web.csproj", "{E66F54A2-6BE7-44A3-A716-CC047CC36C35}"

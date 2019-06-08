@@ -89,7 +89,7 @@ function createCompressedLibraries($folder) {
     createCompressedLibrary $folder "Q16-HDRI" "x64"
 }
 
-$version = [IO.File]::ReadAllText("$PSScriptRoot\version").Trim()
+$version = [IO.File]::ReadAllText("$PSScriptRoot\Magick.Native.version").Trim()
 $folder = "$PSScriptRoot\temp"
 $libraries = "$PSScriptRoot\libraries"
 $resources = "$PSScriptRoot\resources"
