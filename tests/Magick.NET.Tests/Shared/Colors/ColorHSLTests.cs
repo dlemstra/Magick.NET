@@ -101,10 +101,10 @@ namespace Magick.NET.Tests
             ColorAssert.AreEqual(new MagickColor("#aabbcc"), color);
 
             color = new MagickColor("#e0d8d9");
-            ColorAssert.AreEqual(new MagickColor("#e0d9da"), color);
+            ColorAssert.AreEqual(new MagickColor("#e0d8d9"), color);
 
             color = new MagickColor("#e0d9d8");
-            ColorAssert.AreEqual(new MagickColor("#e0dad9"), color);
+            ColorAssert.AreEqual(new MagickColor("#e0d9d8"), color);
 
             color = new MagickColor("#bbccbb");
 #if Q8
@@ -116,13 +116,7 @@ namespace Magick.NET.Tests
 #endif
 
             color = new MagickColor("#bbaacc");
-#if Q8
-            ColorAssert.AreEqual(new MagickColor("#cbbacb"), color);
-#elif Q16 || Q16HDRI
-            ColorAssert.AreEqual(new MagickColor("#cccbbbbacccb"), color);
-#else
-#error Not implemented!
-#endif
+            ColorAssert.AreEqual(new MagickColor("#bbaacc"), color);
         }
     }
 }
