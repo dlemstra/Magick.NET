@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
     <TargetFrameworks>net20;net40;netstandard13;netstandard20</TargetFrameworks>
     <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
@@ -11,7 +11,7 @@
     <RunCodeAnalysis Condition="'$(Configuration)|$(TargetFramework)' == 'ReleaseQ16|net40'">true</RunCodeAnalysis>
     <CodeAnalysisCulture>en-US</CodeAnalysisCulture>
     <Platforms>x86;x64;AnyCPU</Platforms>
-    <Configurations>DebugQ8;DebugQ16;DebugQ16-HDRI;ReleaseQ8;ReleaseQ16;ReleaseQ16-HDRI;TestQ8;TestQ16;TestQ16-HDRI</Configurations>
+    <Configurations>DebugQ8;DebugQ16;DebugQ16-HDRI;ReleaseQ8;ReleaseQ8-OpenMP;ReleaseQ16;ReleaseQ16-OpenMP;ReleaseQ16-HDRI;ReleaseQ16-HDRI-OpenMP;TestQ8;TestQ16;TestQ16-HDRI</Configurations>
     <RootNamespace>ImageMagick</RootNamespace>
   </PropertyGroup>
 
@@ -20,13 +20,28 @@
     <QuantumType>Q8</QuantumType>
   </PropertyGroup>
 
+  <PropertyGroup Condition="$(Configuration.EndsWith('Q8-OpenMP'))">
+    <DefineConstants>Q8;OPENMP;PLATFORM_$(Platform)</DefineConstants>
+    <QuantumType>Q8</QuantumType>
+  </PropertyGroup>
+
   <PropertyGroup Condition="$(Configuration.EndsWith('Q16'))">
     <DefineConstants>Q16;PLATFORM_$(Platform)</DefineConstants>
     <QuantumType>Q16</QuantumType>
   </PropertyGroup>
 
+  <PropertyGroup Condition="$(Configuration.EndsWith('Q16-OpenMP'))">
+    <DefineConstants>Q16;OPENMP;PLATFORM_$(Platform)</DefineConstants>
+    <QuantumType>Q16</QuantumType>
+  </PropertyGroup>
+
   <PropertyGroup Condition="$(Configuration.EndsWith('Q16-HDRI'))">
     <DefineConstants>Q16HDRI;PLATFORM_$(Platform)</DefineConstants>
+    <QuantumType>Q16-HDRI</QuantumType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(Configuration.EndsWith('Q16-HDRI-OpenMP'))">
+    <DefineConstants>Q16HDRI;OPENMP;PLATFORM_$(Platform)</DefineConstants>
     <QuantumType>Q16-HDRI</QuantumType>
   </PropertyGroup>
 
