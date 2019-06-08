@@ -38,9 +38,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{6D1DE15B-E
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{61345F8D-8813-4CA8-B037-2DE221FFB5D2}"
-	ProjectSection(SolutionItems) = preProject
-		src\Magick.NET.Web\Magick.NET.Web.csproj = src\Magick.NET.Web\Magick.NET.Web.csproj
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CADB374F-AC1D-4456-940E-2317DF1372C2}"
 EndProject
