@@ -13,3 +13,4 @@ runtimes
 /samples/Magick.NET.Samples/Samples/Magick.NET/*.pp
 /samples/Magick.NET.Samples/Samples/Magick.NET/Files/*.pp
 /samples/Magick.NET.Samples/Samples/Magick.NET/Scripts/*.pp
+/tools/nuget.exe

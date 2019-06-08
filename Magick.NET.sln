@@ -78,6 +78,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magick.NET", "src\Magick.NE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magick.NET.Tests", "tests\Magick.NET.Tests\Magick.NET.Tests.csproj", "{02F57383-DC5B-4746-8ED9-BB53B9ADA830}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{F6E20621-E266-4314-ADE0-A899270F2312}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{C72A1B5F-E300-4C03-8673-0FC024B508B7}"
+	ProjectSection(SolutionItems) = preProject
+		build\windows\install.dependencies.cmd = build\windows\install.dependencies.cmd
+		build\windows\install.dependencies.ps1 = build\windows\install.dependencies.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		DebugQ16|Any CPU = DebugQ16|Any CPU
@@ -342,6 +350,7 @@ Global
 		{F5A76C84-4735-4741-8534-8D38EBD3B844} = {E1CFAF8C-261F-4536-ABE9-D8613FA4929F}
 		{8F7AD186-BC6A-4FDD-99E5-9E06787695DF} = {61345F8D-8813-4CA8-B037-2DE221FFB5D2}
 		{02F57383-DC5B-4746-8ED9-BB53B9ADA830} = {CADB374F-AC1D-4456-940E-2317DF1372C2}
+		{C72A1B5F-E300-4C03-8673-0FC024B508B7} = {F6E20621-E266-4314-ADE0-A899270F2312}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F6887AA-E540-48B3-BDC0-068B342ABEBE}
