@@ -86,6 +86,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{C72A
 		build\windows\install.dependencies.ps1 = build\windows\install.dependencies.ps1
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Magick.Native", "Magick.Native", "{7BDF1AD0-F12F-4149-9C3C-79223B8C1721}"
+	ProjectSection(SolutionItems) = preProject
+		src\Magick.Native\install.cmd = src\Magick.Native\install.cmd
+		src\Magick.Native\install.ps1 = src\Magick.Native\install.ps1
+		src\Magick.Native\nuget.config = src\Magick.Native\nuget.config
+		src\Magick.Native\version = src\Magick.Native\version
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		DebugQ16|Any CPU = DebugQ16|Any CPU
@@ -351,6 +359,7 @@ Global
 		{8F7AD186-BC6A-4FDD-99E5-9E06787695DF} = {61345F8D-8813-4CA8-B037-2DE221FFB5D2}
 		{02F57383-DC5B-4746-8ED9-BB53B9ADA830} = {CADB374F-AC1D-4456-940E-2317DF1372C2}
 		{C72A1B5F-E300-4C03-8673-0FC024B508B7} = {F6E20621-E266-4314-ADE0-A899270F2312}
+		{7BDF1AD0-F12F-4149-9C3C-79223B8C1721} = {61345F8D-8813-4CA8-B037-2DE221FFB5D2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F6887AA-E540-48B3-BDC0-068B342ABEBE}

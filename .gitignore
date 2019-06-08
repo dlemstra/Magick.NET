@@ -9,6 +9,7 @@ runtimes
 /publish/NuGet/ApiKey.txt
 /publish/pdb/*
 /publish/zip/*
+/src/Magick.Native/libraries
 /src/Magick.NET/Resources
 /samples/Magick.NET.Samples/Samples/Magick.NET/*.pp
 /samples/Magick.NET.Samples/Samples/Magick.NET/Files/*.pp
