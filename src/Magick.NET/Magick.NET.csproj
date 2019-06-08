@@ -118,11 +118,11 @@
   </PropertyGroup>
 
   <ItemGroup Condition="'$(Platform)' == 'AnyCPU' and !$(TargetFramework.StartsWith('netstandard'))">
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\Resources\Release$(QuantumType)\Magick.NET-$(QuantumType)-x86.Native.gz">
-      <LogicalName>ImageMagick.Resources.Library.Magick.NET.Native_x86.gz</LogicalName>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\libraries\Magick.Native-$(QuantumType)-x86.gz">
+      <LogicalName>ImageMagick.Resources.Library.Magick.Native_x86.gz</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\Resources\Release$(QuantumType)\Magick.NET-$(QuantumType)-x64.Native.gz">
-      <LogicalName>ImageMagick.Resources.Library.Magick.NET.Native_x64.gz</LogicalName>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\libraries\Magick.Native-$(QuantumType)-x64.gz">
+      <LogicalName>ImageMagick.Resources.Library.Magick.Native_x64.gz</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
 
