@@ -948,6 +948,11 @@ namespace ImageMagick
         Rgb,
 
         /// <summary>
+        /// Raw red, green, blue samples in 565 format
+        /// </summary>
+        Rgb565,
+
+        /// <summary>
         /// Raw red, green, blue, and alpha samples
         /// </summary>
         Rgba,
