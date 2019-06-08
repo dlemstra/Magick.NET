@@ -136,7 +136,7 @@ namespace ImageMagick
         /// Supported formats are: Bmp, Gif, Icon, Jpeg, Png, Tiff.
         /// </summary>
         /// <param name="imageFormat">The image format.</param>
-        /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/></returns>
+        /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/>.</returns>
         public Bitmap ToBitmap(ImageFormat imageFormat) => ToBitmap(imageFormat, BitmapDensity.Ignore);
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="imageFormat">The image format.</param>
         /// <param name="bitmapDensity">The bitmap density.</param>
-        /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/></returns>
+        /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/>.</returns>
         public Bitmap ToBitmap(ImageFormat imageFormat, BitmapDensity bitmapDensity)
         {
             Format = MagickFormatInfo.GetFormat(imageFormat);

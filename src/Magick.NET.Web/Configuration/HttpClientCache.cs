@@ -33,7 +33,7 @@ namespace ImageMagick.Web
         }
 
         /// <summary>
-        /// Gets the HTTP 1.1 cache control maximum age value
+        /// Gets the HTTP 1.1 cache control maximum age value.
         /// </summary>
         [ConfigurationProperty("cacheControlMaxAge", DefaultValue = "1.00:00:00")]
         public TimeSpan CacheControlMaxAge

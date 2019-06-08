@@ -40,17 +40,17 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Gets or sets the U component value of this color. (value beteeen -0.5 and 0.5)
+        /// Gets or sets the U component value of this color. (value beteeen -0.5 and 0.5).
         /// </summary>
         public double U { get; set; }
 
         /// <summary>
-        /// Gets or sets the V component value of this color. (value beteeen -0.5 and 0.5)
+        /// Gets or sets the V component value of this color. (value beteeen -0.5 and 0.5).
         /// </summary>
         public double V { get; set; }
 
         /// <summary>
-        /// Gets or sets the Y component value of this color. (value beteeen 0.0 and 1.0)
+        /// Gets or sets the Y component value of this color. (value beteeen 0.0 and 1.0).
         /// </summary>
         public double Y { get; set; }
 

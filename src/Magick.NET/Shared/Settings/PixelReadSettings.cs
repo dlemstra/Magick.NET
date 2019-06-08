@@ -22,7 +22,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        /// <param name="storageType">The pixel storage type</param>
+        /// <param name="storageType">The pixel storage type.</param>
         /// <param name="mapping">The mapping of the pixels.</param>
         public PixelReadSettings(int width, int height, StorageType storageType, PixelMapping mapping)
             : this(width, height, storageType, mapping.ToString())
@@ -34,7 +34,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        /// <param name="storageType">The pixel storage type</param>
+        /// <param name="storageType">The pixel storage type.</param>
         /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
         public PixelReadSettings(int width, int height, StorageType storageType, string mapping)
         {

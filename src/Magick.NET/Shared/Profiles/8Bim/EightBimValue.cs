@@ -29,7 +29,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Gets the ID of the 8bim value
+        /// Gets the ID of the 8bim value.
         /// </summary>
         public short ID { get; }
 

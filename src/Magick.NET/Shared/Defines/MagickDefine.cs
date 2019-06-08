@@ -13,7 +13,7 @@
 namespace ImageMagick
 {
     /// <summary>
-    /// Class that implements IDefine
+    /// Class that implements <see cref="IDefine"/>.
     /// </summary>
     public sealed class MagickDefine : IDefine
     {

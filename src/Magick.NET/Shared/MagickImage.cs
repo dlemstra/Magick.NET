@@ -1023,7 +1023,7 @@ namespace ImageMagick
 
         /// <summary>
         /// Local adaptive threshold image.
-        /// http://www.dai.ed.ac.uk/HIPR2/adpthrsh.htm
+        /// http://www.dai.ed.ac.uk/HIPR2/adpthrsh.htm.
         /// </summary>
         /// <param name="width">The width of the pixel neighborhood.</param>
         /// <param name="height">The height of the pixel neighborhood.</param>
@@ -1032,7 +1032,7 @@ namespace ImageMagick
 
         /// <summary>
         /// Local adaptive threshold image.
-        /// http://www.dai.ed.ac.uk/HIPR2/adpthrsh.htm
+        /// http://www.dai.ed.ac.uk/HIPR2/adpthrsh.htm.
         /// </summary>
         /// <param name="width">The width of the pixel neighborhood.</param>
         /// <param name="height">The height of the pixel neighborhood.</param>
@@ -1042,7 +1042,7 @@ namespace ImageMagick
 
         /// <summary>
         /// Local adaptive threshold image.
-        /// http://www.dai.ed.ac.uk/HIPR2/adpthrsh.htm
+        /// http://www.dai.ed.ac.uk/HIPR2/adpthrsh.htm.
         /// </summary>
         /// <param name="width">The width of the pixel neighborhood.</param>
         /// <param name="height">The height of the pixel neighborhood.</param>
@@ -1461,7 +1461,7 @@ namespace ImageMagick
         /// <param name="pathName">Name of clipping path resource. If name is preceded by #, use
         /// clipping path numbered by name.</param>
         /// <param name="inside">Specifies if operations take effect inside or outside the clipping
-        /// path</param>
+        /// path.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Clip(string pathName, bool inside)
         {
@@ -1497,8 +1497,8 @@ namespace ImageMagick
         /// <summary>
         /// Creates a clone of the current image.
         /// </summary>
-        /// <param name="width">The width of the area to clone</param>
-        /// <param name="height">The height of the area to clone</param>
+        /// <param name="width">The width of the area to clone.</param>
+        /// <param name="height">The height of the area to clone.</param>
         /// <returns>A clone of the current image.</returns>
         public IMagickImage Clone(int width, int height) => Clone(new MagickGeometry(width, height));
 
@@ -1507,8 +1507,8 @@ namespace ImageMagick
         /// </summary>
         /// <param name="x">The X offset from origin.</param>
         /// <param name="y">The Y offset from origin.</param>
-        /// <param name="width">The width of the area to clone</param>
-        /// <param name="height">The height of the area to clone</param>
+        /// <param name="width">The width of the area to clone.</param>
+        /// <param name="height">The height of the area to clone.</param>
         /// <returns>A clone of the current image.</returns>
         public IMagickImage Clone(int x, int y, int width, int height) => Clone(new MagickGeometry(x, y, width, height));
 
@@ -1588,7 +1588,7 @@ namespace ImageMagick
 
         /// <summary>
         /// Colorize image with the specified color, using specified percent alpha for red, green,
-        /// and blue quantums
+        /// and blue quantums.
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <param name="alphaRed">The alpha percentage for red.</param>
@@ -2181,13 +2181,13 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Contrast image (enhance intensity differences in image)
+        /// Contrast image (enhance intensity differences in image).
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Contrast() => Contrast(true);
 
         /// <summary>
-        /// Contrast image (enhance intensity differences in image)
+        /// Contrast image (enhance intensity differences in image).
         /// </summary>
         /// <param name="enhance">Use true to enhance the contrast and false to reduce the contrast.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -3380,7 +3380,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
         /// <param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
-        /// <param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
+        /// <param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void InverseLevel(QuantumType blackPoint, QuantumType whitePoint, double midpoint) => _nativeInstance.Levelize(blackPoint, whitePoint, midpoint, ImageMagick.Channels.Composite);
 
@@ -3391,7 +3391,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="blackPointPercentage">The darkest color in the image. Colors darker are set to zero.</param>
         /// <param name="whitePointPercentage">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
-        /// <param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
+        /// <param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void InverseLevel(Percentage blackPointPercentage, Percentage whitePointPercentage, double midpoint) => InverseLevel(blackPointPercentage.ToQuantumType(), whitePointPercentage.ToQuantumType(), midpoint);
 
@@ -3402,7 +3402,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
         /// <param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
-        /// <param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
+        /// <param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
         /// <param name="channels">The channel(s) to level.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void InverseLevel(QuantumType blackPoint, QuantumType whitePoint, double midpoint, Channels channels) => _nativeInstance.Levelize(blackPoint, whitePoint, midpoint, channels);
@@ -3414,7 +3414,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="blackPointPercentage">The darkest color in the image. Colors darker are set to zero.</param>
         /// <param name="whitePointPercentage">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
-        /// <param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
+        /// <param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
         /// <param name="channels">The channel(s) to level.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void InverseLevel(Percentage blackPointPercentage, Percentage whitePointPercentage, double midpoint, Channels channels) => InverseLevel(blackPointPercentage.ToQuantumType(), whitePointPercentage.ToQuantumType(), midpoint, channels);
@@ -3424,8 +3424,8 @@ namespace ImageMagick
         /// level values on a channel by channel bases, as per level(). The given colors allows you to
         /// specify different level ranges for each of the color channels separately.
         /// </summary>
-        /// <param name="blackColor">The color to map black to/from</param>
-        /// <param name="whiteColor">The color to map white to/from</param>
+        /// <param name="blackColor">The color to map black to/from.</param>
+        /// <param name="whiteColor">The color to map white to/from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void InverseLevelColors(MagickColor blackColor, MagickColor whiteColor) => LevelColors(blackColor, whiteColor, true);
 
@@ -3434,8 +3434,8 @@ namespace ImageMagick
         /// level values on a channel by channel bases, as per level(). The given colors allows you to
         /// specify different level ranges for each of the color channels separately.
         /// </summary>
-        /// <param name="blackColor">The color to map black to/from</param>
-        /// <param name="whiteColor">The color to map white to/from</param>
+        /// <param name="blackColor">The color to map black to/from.</param>
+        /// <param name="whiteColor">The color to map white to/from.</param>
         /// <param name="channels">The channel(s) to level.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void InverseLevelColors(MagickColor blackColor, MagickColor whiteColor, Channels channels) => LevelColors(blackColor, whiteColor, channels, true);
@@ -3533,7 +3533,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
         /// <param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
-        /// <param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
+        /// <param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Level(QuantumType blackPoint, QuantumType whitePoint, double gamma) => Level(blackPoint, whitePoint, gamma, ImageMagick.Channels.Composite);
 
@@ -3543,7 +3543,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="blackPointPercentage">The darkest color in the image. Colors darker are set to zero.</param>
         /// <param name="whitePointPercentage">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
-        /// <param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
+        /// <param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Level(Percentage blackPointPercentage, Percentage whitePointPercentage, double gamma) => Level(blackPointPercentage.ToQuantumType(), whitePointPercentage.ToQuantumType(), gamma);
 
@@ -3553,7 +3553,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
         /// <param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
-        /// <param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
+        /// <param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
         /// <param name="channels">The channel(s) to level.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Level(QuantumType blackPoint, QuantumType whitePoint, double gamma, Channels channels) => _nativeInstance.Level(blackPoint, whitePoint, gamma, channels);
@@ -3564,7 +3564,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="blackPointPercentage">The darkest color in the image. Colors darker are set to zero.</param>
         /// <param name="whitePointPercentage">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
-        /// <param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
+        /// <param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
         /// <param name="channels">The channel(s) to level.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Level(Percentage blackPointPercentage, Percentage whitePointPercentage, double gamma, Channels channels) => Level(blackPointPercentage.ToQuantumType(), whitePointPercentage.ToQuantumType(), gamma, channels);
@@ -3574,8 +3574,8 @@ namespace ImageMagick
         /// level values on a channel by channel bases, as per level(). The given colors allows you to
         /// specify different level ranges for each of the color channels separately.
         /// </summary>
-        /// <param name="blackColor">The color to map black to/from</param>
-        /// <param name="whiteColor">The color to map white to/from</param>
+        /// <param name="blackColor">The color to map black to/from.</param>
+        /// <param name="whiteColor">The color to map white to/from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void LevelColors(MagickColor blackColor, MagickColor whiteColor) => LevelColors(blackColor, whiteColor, false);
 
@@ -3584,8 +3584,8 @@ namespace ImageMagick
         /// level values on a channel by channel bases, as per level(). The given colors allows you to
         /// specify different level ranges for each of the color channels separately.
         /// </summary>
-        /// <param name="blackColor">The color to map black to/from</param>
-        /// <param name="whiteColor">The color to map white to/from</param>
+        /// <param name="blackColor">The color to map black to/from.</param>
+        /// <param name="whiteColor">The color to map white to/from.</param>
         /// <param name="channels">The channel(s) to level.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void LevelColors(MagickColor blackColor, MagickColor whiteColor, Channels channels) => LevelColors(blackColor, whiteColor, channels, false);
@@ -3795,7 +3795,7 @@ namespace ImageMagick
         /// Delineate arbitrarily shaped clusters in the image.
         /// </summary>
         /// <param name="size">The width and height of the pixels neighborhood.</param>
-        /// <param name="colorDistance">The color distance</param>
+        /// <param name="colorDistance">The color distance.</param>
         public void MeanShift(int size, Percentage colorDistance) => MeanShift(size, size, colorDistance);
 
         /// <summary>
@@ -3810,7 +3810,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="width">The width of the pixels neighborhood.</param>
         /// <param name="height">The height of the pixels neighborhood.</param>
-        /// <param name="colorDistance">The color distance</param>
+        /// <param name="colorDistance">The color distance.</param>
         public void MeanShift(int width, int height, Percentage colorDistance) => _nativeInstance.MeanShift(width, height, colorDistance.ToQuantum());
 
         /// <summary>
@@ -4060,18 +4060,18 @@ namespace ImageMagick
 
         /// <summary>
         /// Normalize image (increase contrast by normalizing the pixel values to span the full range
-        /// of color values)
+        /// of color values).
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Normalize() => _nativeInstance.Normalize();
 
         /// <summary>
-        /// Oilpaint image (image looks like oil painting)
+        /// Oilpaint image (image looks like oil painting).
         /// </summary>
         public void OilPaint() => OilPaint(3.0, 1.0);
 
         /// <summary>
-        /// Oilpaint image (image looks like oil painting)
+        /// Oilpaint image (image looks like oil painting).
         /// </summary>
         /// <param name="radius">The radius of the circular neighborhood.</param>
         /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
@@ -4920,12 +4920,12 @@ namespace ImageMagick
         /// components and identifying units that are homogeneous with the fuzzy c-means technique.
         /// Also uses QuantizeColorSpace and Verbose image attributes.
         /// </summary>
-        /// <param name="quantizeColorSpace">Quantize colorspace</param>
+        /// <param name="quantizeColorSpace">Quantize colorspace.</param>
         /// <param name="clusterThreshold">This represents the minimum number of pixels contained in
         /// a hexahedra before it can be considered valid (expressed as a percentage).</param>
         /// <param name="smoothingThreshold">The smoothing threshold eliminates noise in the second
         /// derivative of the histogram. As the value is increased, you can expect a smoother second
-        /// derivative</param>
+        /// derivative.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Segment(ColorSpace quantizeColorSpace, double clusterThreshold, double smoothingThreshold) => _nativeInstance.Segment(quantizeColorSpace, clusterThreshold, smoothingThreshold);
 
@@ -5214,22 +5214,22 @@ namespace ImageMagick
         public void Shear(double xAngle, double yAngle) => _nativeInstance.Shear(xAngle, yAngle);
 
         /// <summary>
-        /// adjust the image contrast with a non-linear sigmoidal contrast algorithm
+        /// adjust the image contrast with a non-linear sigmoidal contrast algorithm.
         /// </summary>
-        /// <param name="contrast">The contrast</param>
+        /// <param name="contrast">The contrast.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void SigmoidalContrast(double contrast) => SigmoidalContrast(true, contrast);
 
         /// <summary>
-        /// adjust the image contrast with a non-linear sigmoidal contrast algorithm
+        /// adjust the image contrast with a non-linear sigmoidal contrast algorithm.
         /// </summary>
         /// <param name="sharpen">Specifies if sharpening should be used.</param>
-        /// <param name="contrast">The contrast</param>
+        /// <param name="contrast">The contrast.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void SigmoidalContrast(bool sharpen, double contrast) => SigmoidalContrast(sharpen, contrast, Quantum.Max * 0.5);
 
         /// <summary>
-        /// adjust the image contrast with a non-linear sigmoidal contrast algorithm
+        /// adjust the image contrast with a non-linear sigmoidal contrast algorithm.
         /// </summary>
         /// <param name="contrast">The contrast to use.</param>
         /// <param name="midpoint">The midpoint to use.</param>
@@ -5237,7 +5237,7 @@ namespace ImageMagick
         public void SigmoidalContrast(double contrast, double midpoint) => SigmoidalContrast(true, contrast, midpoint);
 
         /// <summary>
-        /// adjust the image contrast with a non-linear sigmoidal contrast algorithm
+        /// adjust the image contrast with a non-linear sigmoidal contrast algorithm.
         /// </summary>
         /// <param name="sharpen">Specifies if sharpening should be used.</param>
         /// <param name="contrast">The contrast to use.</param>
@@ -5246,7 +5246,7 @@ namespace ImageMagick
         public void SigmoidalContrast(bool sharpen, double contrast, double midpoint) => _nativeInstance.SigmoidalContrast(sharpen, contrast, midpoint);
 
         /// <summary>
-        /// adjust the image contrast with a non-linear sigmoidal contrast algorithm
+        /// adjust the image contrast with a non-linear sigmoidal contrast algorithm.
         /// </summary>
         /// <param name="contrast">The contrast to use.</param>
         /// <param name="midpointPercentage">The midpoint to use.</param>
@@ -5254,7 +5254,7 @@ namespace ImageMagick
         public void SigmoidalContrast(double contrast, Percentage midpointPercentage) => SigmoidalContrast(true, contrast, midpointPercentage);
 
         /// <summary>
-        /// adjust the image contrast with a non-linear sigmoidal contrast algorithm
+        /// adjust the image contrast with a non-linear sigmoidal contrast algorithm.
         /// </summary>
         /// <param name="sharpen">Specifies if sharpening should be used.</param>
         /// <param name="contrast">The contrast to use.</param>
@@ -5349,14 +5349,14 @@ namespace ImageMagick
 
         /// <summary>
         /// Solarize image (similar to effect seen when exposing a photographic film to light during
-        /// the development process)
+        /// the development process).
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Solarize() => Solarize(new Percentage(50.0));
 
         /// <summary>
         /// Solarize image (similar to effect seen when exposing a photographic film to light during
-        /// the development process)
+        /// the development process).
         /// </summary>
         /// <param name="factor">The factor to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -5364,7 +5364,7 @@ namespace ImageMagick
 
         /// <summary>
         /// Solarize image (similar to effect seen when exposing a photographic film to light during
-        /// the development process)
+        /// the development process).
         /// </summary>
         /// <param name="factorPercentage">The factor to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -5432,7 +5432,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Add a digital watermark to the image (based on second image)
+        /// Add a digital watermark to the image (based on second image).
         /// </summary>
         /// <param name="watermark">The image to use as a watermark.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -5445,7 +5445,7 @@ namespace ImageMagick
 
         /// <summary>
         /// Create an image which appears in stereo when viewed with red-blue glasses (Red image on
-        /// left, blue on right)
+        /// left, blue on right).
         /// </summary>
         /// <param name="rightImage">The image to use as the right part of the resulting image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -5615,7 +5615,7 @@ namespace ImageMagick
         /// <summary>
         /// Applies a color vector to each pixel in the image. The length of the vector is 0 for black
         /// and white and at its maximum for the midtones. The vector weighting function is
-        /// f(x)=(1-(4.0*((x-0.5)*(x-0.5))))
+        /// f(x)=(1-(4.0*((x-0.5)*(x-0.5)))).
         /// </summary>
         /// <param name="opacity">A color value used for tinting.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -5624,7 +5624,7 @@ namespace ImageMagick
         /// <summary>
         /// Applies a color vector to each pixel in the image. The length of the vector is 0 for black
         /// and white and at its maximum for the midtones. The vector weighting function is
-        /// f(x)=(1-(4.0*((x-0.5)*(x-0.5))))
+        /// f(x)=(1-(4.0*((x-0.5)*(x-0.5)))).
         /// </summary>
         /// <param name="opacity">An opacity value used for tinting.</param>
         /// <param name="color">A color value used for tinting.</param>
@@ -5705,7 +5705,7 @@ namespace ImageMagick
         /// Transforms the image from the colorspace of the source profile to the target profile. This
         /// requires the image to have a color profile. Nothing will happen if the image has no color profile.
         /// </summary>
-        /// <param name="target">The target color profile</param>
+        /// <param name="target">The target color profile.</param>
         /// <returns>True when the colorspace was transformed otherwise false.</returns>
         public bool TransformColorSpace(ColorProfile target)
         {
@@ -5725,7 +5725,7 @@ namespace ImageMagick
         /// will happen if the source profile has a different colorspace then that of the image.
         /// </summary>
         /// <param name="source">The source color profile.</param>
-        /// <param name="target">The target color profile</param>
+        /// <param name="target">The target color profile.</param>
         /// <returns>True when the colorspace was transformed otherwise false.</returns>
         public bool TransformColorSpace(ColorProfile source, ColorProfile target)
         {
@@ -5881,26 +5881,26 @@ namespace ImageMagick
         /// <summary>
         /// Removes noise from the image using a wavelet transform.
         /// </summary>
-        /// <param name="threshold">The threshold for smoothing</param>
+        /// <param name="threshold">The threshold for smoothing.</param>
         public void WaveletDenoise(QuantumType threshold) => WaveletDenoise(threshold, 0.0);
 
         /// <summary>
         /// Removes noise from the image using a wavelet transform.
         /// </summary>
-        /// <param name="threshold">The threshold for smoothing</param>
+        /// <param name="threshold">The threshold for smoothing.</param>
         /// <param name="softness">Attenuate the smoothing threshold.</param>
         public void WaveletDenoise(QuantumType threshold, double softness) => _nativeInstance.WaveletDenoise(threshold, softness);
 
         /// <summary>
         /// Removes noise from the image using a wavelet transform.
         /// </summary>
-        /// <param name="thresholdPercentage">The threshold for smoothing</param>
+        /// <param name="thresholdPercentage">The threshold for smoothing.</param>
         public void WaveletDenoise(Percentage thresholdPercentage) => WaveletDenoise(thresholdPercentage.ToQuantumType(), 0.0);
 
         /// <summary>
         /// Removes noise from the image using a wavelet transform.
         /// </summary>
-        /// <param name="thresholdPercentage">The threshold for smoothing</param>
+        /// <param name="thresholdPercentage">The threshold for smoothing.</param>
         /// <param name="softness">Attenuate the smoothing threshold.</param>
         public void WaveletDenoise(Percentage thresholdPercentage, double softness) => WaveletDenoise(thresholdPercentage.ToQuantumType(), softness);
 

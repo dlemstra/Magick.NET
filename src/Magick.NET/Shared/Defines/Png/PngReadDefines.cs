@@ -45,7 +45,7 @@ namespace ImageMagick
         /// that is present. By default, the PNG decoder and encoder examine any ICC profile that is present,
         /// either from an iCCP chunk in the PNG input or supplied via an option, and if the profile is
         /// recognized to be the sRGB profile, converts it to the sRGB chunk. You can use this option
-        /// to prevent this from happening; in such cases the iCCP chunk will be read. (png:preserve-iCCP)
+        /// to prevent this from happening; in such cases the iCCP chunk will be read. (png:preserve-iCCP).
         /// </summary>
         public bool PreserveiCCP { get; set; }
 
@@ -58,7 +58,7 @@ namespace ImageMagick
         /// Gets or sets a value indicating whether the bytes should be swapped. The PNG specification
         /// requires that any multi-byte integers be stored in network byte order (MSB-LSB endian).
         /// This option allows you to fix any invalid PNG files that have 16-bit samples stored
-        /// incorrectly in little-endian order (LSB-MSB). (png:swap-bytes)
+        /// incorrectly in little-endian order (LSB-MSB). (png:swap-bytes).
         /// </summary>
         public bool SwapBytes { get; set; }
 

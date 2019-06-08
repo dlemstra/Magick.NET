@@ -27,7 +27,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Gets or sets the text decoration
+        /// Gets or sets the text decoration.
         /// </summary>
         public TextDecoration Decoration { get; set; }
 

@@ -13,7 +13,7 @@
 namespace ImageMagick.Defines
 {
     /// <summary>
-    /// Specifies dds compression methods
+    /// Specifies dds compression methods.
     /// </summary>
     public enum DdsCompression
     {

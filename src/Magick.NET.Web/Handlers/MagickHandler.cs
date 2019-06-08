@@ -130,7 +130,7 @@ namespace ImageMagick.Web.Handlers
         /// IUrlResolver.
         /// </summary>
         /// <param name="cacheFileName">The file name of the cache file.</param>
-        /// <returns>True if the cache file is newer</returns>
+        /// <returns>True if the cache file is newer.</returns>
         protected bool CanUseCache(string cacheFileName)
         {
             _Lock.EnterReadLock();

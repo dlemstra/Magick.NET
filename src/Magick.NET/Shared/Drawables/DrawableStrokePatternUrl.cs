@@ -32,7 +32,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Gets or sets the url specifying pattern ID (e.g. "#pattern_id")
+        /// Gets or sets the url specifying pattern ID (e.g. "#pattern_id").
         /// </summary>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Url won't work in all situations.")]
         public string Url { get; set; }

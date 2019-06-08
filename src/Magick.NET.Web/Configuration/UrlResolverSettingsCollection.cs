@@ -35,7 +35,7 @@ namespace ImageMagick.Web
         /// Gets the element key for a specified <see cref="UrlResolverSettings"/> element.
         /// </summary>
         /// <param name="element">The <see cref="UrlResolverSettings"/>  to return the key for.</param>
-        /// <returns>The element key for a specified <see cref="UrlResolverSettings"/> element</returns>
+        /// <returns>The element key for a specified <see cref="UrlResolverSettings"/> element.</returns>
         protected override object GetElementKey(ConfigurationElement element)
         {
             return ((UrlResolverSettings)element).TypeName;

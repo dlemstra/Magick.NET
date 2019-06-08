@@ -43,12 +43,12 @@ namespace ImageMagick
         public string ID { get; set; }
 
         /// <summary>
-        /// Gets or sets the height
+        /// Gets or sets the height.
         /// </summary>
         public double Height { get; set; }
 
         /// <summary>
-        /// Gets or sets the width
+        /// Gets or sets the width.
         /// </summary>
         public double Width { get; set; }
 

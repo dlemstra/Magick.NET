@@ -25,10 +25,10 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="PathQuadraticCurveToAbs"/> class.
         /// </summary>
-        /// <param name="x1">X coordinate of control point</param>
-        /// <param name="y1">Y coordinate of control point</param>
-        /// <param name="x">X coordinate of final point</param>
-        /// <param name="y">Y coordinate of final point</param>
+        /// <param name="x1">X coordinate of control point.</param>
+        /// <param name="y1">Y coordinate of control point.</param>
+        /// <param name="x">X coordinate of final point.</param>
+        /// <param name="y">Y coordinate of final point.</param>
         public PathQuadraticCurveToAbs(double x1, double y1, double x, double y)
           : this(new PointD(x1, y1), new PointD(x, y))
         {
@@ -37,8 +37,8 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="PathQuadraticCurveToAbs"/> class.
         /// </summary>
-        /// <param name="controlPoint">Coordinate of control point</param>
-        /// <param name="end">Coordinate of final point</param>
+        /// <param name="controlPoint">Coordinate of control point.</param>
+        /// <param name="end">Coordinate of final point.</param>
         public PathQuadraticCurveToAbs(PointD controlPoint, PointD end)
         {
             _controlPoint = controlPoint;

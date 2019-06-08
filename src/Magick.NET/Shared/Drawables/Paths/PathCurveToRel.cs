@@ -27,12 +27,12 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="PathCurveToRel"/> class.
         /// </summary>
-        /// <param name="x1">X coordinate of control point for curve beginning</param>
-        /// <param name="y1">Y coordinate of control point for curve beginning</param>
-        /// <param name="x2">X coordinate of control point for curve ending</param>
-        /// <param name="y2">Y coordinate of control point for curve ending</param>
-        /// <param name="x">X coordinate of the end of the curve</param>
-        /// <param name="y">Y coordinate of the end of the curve</param>
+        /// <param name="x1">X coordinate of control point for curve beginning.</param>
+        /// <param name="y1">Y coordinate of control point for curve beginning.</param>
+        /// <param name="x2">X coordinate of control point for curve ending.</param>
+        /// <param name="y2">Y coordinate of control point for curve ending.</param>
+        /// <param name="x">X coordinate of the end of the curve.</param>
+        /// <param name="y">Y coordinate of the end of the curve.</param>
         public PathCurveToRel(double x1, double y1, double x2, double y2, double x, double y)
           : this(new PointD(x1, y1), new PointD(x2, y2), new PointD(x, y))
         {
@@ -41,9 +41,9 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="PathCurveToRel"/> class.
         /// </summary>
-        /// <param name="controlPointStart">Coordinate of control point for curve beginning</param>
-        /// <param name="controlPointEnd">Coordinate of control point for curve ending</param>
-        /// <param name="end">Coordinate of the end of the curve</param>
+        /// <param name="controlPointStart">Coordinate of control point for curve beginning.</param>
+        /// <param name="controlPointEnd">Coordinate of control point for curve ending.</param>
+        /// <param name="end">Coordinate of the end of the curve.</param>
         public PathCurveToRel(PointD controlPointStart, PointD controlPointEnd, PointD end)
         {
             _controlPointStart = controlPointStart;

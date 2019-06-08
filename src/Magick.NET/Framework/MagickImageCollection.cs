@@ -37,7 +37,7 @@ namespace ImageMagick
         /// Supported formats are: Gif, Icon, Tiff.
         /// </summary>
         /// <param name="imageFormat">The image format.</param>
-        /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/></returns>
+        /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/>.</returns>
         public Bitmap ToBitmap(ImageFormat imageFormat)
         {
             SetFormat(imageFormat);

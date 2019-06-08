@@ -47,7 +47,7 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="PointD"/> struct.
         /// </summary>
-        /// <param name="value">PointD specifications in the form: &lt;x&gt;x&lt;y&gt; (where x, y are numbers)</param>
+        /// <param name="value">PointD specifications in the form: &lt;x&gt;x&lt;y&gt; (where x, y are numbers).</param>
         public PointD(string value)
           : this()
         {

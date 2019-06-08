@@ -15,7 +15,7 @@ using System;
 namespace ImageMagick
 {
     /// <summary>
-    /// Base class for colors
+    /// Base class for colors.
     /// </summary>
     public abstract class ColorBase : IEquatable<ColorBase>, IComparable<ColorBase>
     {
@@ -60,7 +60,7 @@ namespace ImageMagick
         public static bool operator !=(ColorBase left, ColorBase right) => !Equals(left, right);
 
         /// <summary>
-        /// Determines whether the first <see cref="ColorBase"/> is more than the second <see cref="ColorBase"/>
+        /// Determines whether the first <see cref="ColorBase"/> is more than the second <see cref="ColorBase"/>.
         /// </summary>
         /// <param name="left">The first <see cref="ColorBase"/> to compare.</param>
         /// <param name="right"> The second <see cref="ColorBase"/> to compare.</param>

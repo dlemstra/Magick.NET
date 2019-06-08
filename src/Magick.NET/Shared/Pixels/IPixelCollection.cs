@@ -53,7 +53,7 @@ namespace ImageMagick
         QuantumType[] GetArea(int x, int y, int width, int height);
 
         /// <summary>
-        /// Returns the pixel of the specified area
+        /// Returns the pixel of the specified area.
         /// </summary>
         /// <param name="geometry">The geometry of the area.</param>
         /// <returns>A <see cref="QuantumType"/> array.</returns>

@@ -15,7 +15,7 @@ using System;
 namespace ImageMagick.Defines
 {
     /// <summary>
-    /// Specifies profile types
+    /// Specifies profile types.
     /// </summary>
     [Flags]
     public enum ProfileTypes

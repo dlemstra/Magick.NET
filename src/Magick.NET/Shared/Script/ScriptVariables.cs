@@ -19,7 +19,7 @@ using System.Xml;
 namespace ImageMagick
 {
     /// <summary>
-    /// Class that contains variables for a script
+    /// Class that contains variables for a script.
     /// </summary>
     public sealed class ScriptVariables
     {
@@ -57,7 +57,7 @@ namespace ImageMagick
         /// <summary>
         /// Returns the value of the variable with the specified name.
         /// </summary>
-        /// <param name="name">The name of the variable</param>
+        /// <param name="name">The name of the variable.</param>
         /// <returns>Am <see cref="object"/>.</returns>
         public object Get(string name)
         {
@@ -70,8 +70,8 @@ namespace ImageMagick
         /// <summary>
         /// Set the value of the variable with the specified name.
         /// </summary>
-        /// <param name="name">The name of the variable</param>
-        /// <param name="value">The value of the variable</param>
+        /// <param name="name">The name of the variable.</param>
+        /// <param name="value">The value of the variable.</param>
         public void Set(string name, object value)
         {
             Throw.IfNullOrEmpty(nameof(name), name);

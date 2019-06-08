@@ -349,7 +349,7 @@ namespace ImageMagick
 
         /// <summary>
         /// Merge a sequence of images. This is useful for GIF animation sequences that have page
-        /// offsets and disposal methods
+        /// offsets and disposal methods.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Coalesce()

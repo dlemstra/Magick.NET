@@ -35,7 +35,7 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="Percentage"/> struct.
         /// </summary>
-        /// <param name="value">The value (0% = 0.0, 100% = 100.0)</param>
+        /// <param name="value">The value (0% = 0.0, 100% = 100.0).</param>
         public Percentage(double value)
         {
             _value = value;
@@ -44,7 +44,7 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="Percentage"/> struct.
         /// </summary>
-        /// <param name="value">The value (0% = 0, 100% = 100)</param>
+        /// <param name="value">The value (0% = 0, 100% = 100).</param>
         public Percentage(int value)
         {
             _value = value;
@@ -53,7 +53,7 @@ namespace ImageMagick
         /// <summary>
         /// Converts the specified double to an instance of this type.
         /// </summary>
-        /// <param name="value">The value (0% = 0, 100% = 100)</param>
+        /// <param name="value">The value (0% = 0, 100% = 100).</param>
         public static explicit operator Percentage(double value)
         {
             return new Percentage(value);
@@ -62,7 +62,7 @@ namespace ImageMagick
         /// <summary>
         /// Converts the specified int to an instance of this type.
         /// </summary>
-        /// <param name="value">The value (0% = 0, 100% = 100)</param>
+        /// <param name="value">The value (0% = 0, 100% = 100).</param>
         public static explicit operator Percentage(int value)
         {
             return new Percentage(value);
@@ -71,7 +71,7 @@ namespace ImageMagick
         /// <summary>
         /// Converts the specified <see cref="Percentage"/> to a double.
         /// </summary>
-        /// <param name="percentage">The <see cref="Percentage"/> to convert</param>
+        /// <param name="percentage">The <see cref="Percentage"/> to convert.</param>
         public static explicit operator double(Percentage percentage)
         {
             return percentage.ToDouble();
@@ -80,7 +80,7 @@ namespace ImageMagick
         /// <summary>
         /// Converts the <see cref="Percentage"/> to a quantum type.
         /// </summary>
-        /// <param name="percentage">The <see cref="Percentage"/> to convert</param>
+        /// <param name="percentage">The <see cref="Percentage"/> to convert.</param>
         public static explicit operator int(Percentage percentage)
         {
             return percentage.ToInt32();

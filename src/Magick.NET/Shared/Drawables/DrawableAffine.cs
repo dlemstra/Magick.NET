@@ -84,7 +84,7 @@ namespace ImageMagick
         void IDrawingWand.Draw(DrawingWand wand) => wand?.Affine(ScaleX, ScaleY, ShearX, ShearY, TranslateX, TranslateY);
 
         /// <summary>
-        /// Reset to default
+        /// Reset to default.
         /// </summary>
         public void Reset()
         {
@@ -143,7 +143,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Skew to use in X axis
+        /// Skew to use in X axis.
         /// </summary>
         /// <param name="skewX">The X skewing element.</param>
         public void TransformSkewX(double skewX)
@@ -156,7 +156,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Skew to use in Y axis
+        /// Skew to use in Y axis.
         /// </summary>
         /// <param name="skewY">The Y skewing element.</param>
         public void TransformSkewY(double skewY)

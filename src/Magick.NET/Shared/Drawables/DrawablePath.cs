@@ -15,7 +15,7 @@ using System.Collections.Generic;
 namespace ImageMagick
 {
     /// <summary>
-    /// Draws a set of paths
+    /// Draws a set of paths.
     /// </summary>
     public sealed class DrawablePath : IDrawable, IDrawingWand
     {

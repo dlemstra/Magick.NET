@@ -27,7 +27,7 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="ChannelPerceptualHash"/> class.
         /// </summary>
-        /// <param name="channel">The channel.></param>
+        /// <param name="channel">The channel.</param>
         /// <param name="srgbHuPhash">SRGB hu perceptual hash.</param>
         /// <param name="hclpHuPhash">Hclp hu perceptual hash.</param>
         /// <param name="hash">A string representation of this hash.</param>

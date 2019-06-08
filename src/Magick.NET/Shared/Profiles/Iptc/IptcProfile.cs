@@ -111,7 +111,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Changes the encoding for all the values,
+        /// Changes the encoding for all the values.
         /// </summary>
         /// <param name="encoding">The encoding to use when storing the bytes.</param>
         public void SetEncoding(Encoding encoding)

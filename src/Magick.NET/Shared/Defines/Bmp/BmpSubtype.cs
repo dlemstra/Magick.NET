@@ -13,7 +13,7 @@
 namespace ImageMagick.Defines
 {
     /// <summary>
-    /// Specifies bmp subtypes
+    /// Specifies bmp subtypes.
     /// </summary>
     public enum BmpSubtype
     {

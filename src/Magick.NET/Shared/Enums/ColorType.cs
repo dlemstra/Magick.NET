@@ -13,7 +13,7 @@
 namespace ImageMagick
 {
     /// <summary>
-    /// Specifies the color type of the image
+    /// Specifies the color type of the image.
     /// </summary>
     public enum ColorType
     {

@@ -29,12 +29,12 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Gets the message of the exception
+        /// Gets the message of the exception.
         /// </summary>
         public string Message => Exception.Message;
 
         /// <summary>
-        /// Gets the MagickWarningException that was thrown
+        /// Gets the MagickWarningException that was thrown.
         /// </summary>
         public MagickWarningException Exception { get; }
     }

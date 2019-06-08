@@ -53,12 +53,12 @@ namespace ImageMagick
         public string Family { get; set; }
 
         /// <summary>
-        /// Gets or sets the style of the font,
+        /// Gets or sets the style of the font.
         /// </summary>
         public FontStyleType Style { get; set; }
 
         /// <summary>
-        /// Gets or sets the weight of the font,
+        /// Gets or sets the weight of the font.
         /// </summary>
         public FontWeight Weight { get; set; }
 

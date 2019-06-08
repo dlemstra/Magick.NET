@@ -30,10 +30,10 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="PathSmoothCurveToRel"/> class.
         /// </summary>
-        /// <param name="x2">X coordinate of second point</param>
-        /// <param name="y2">Y coordinate of second point</param>
-        /// <param name="x">X coordinate of final point</param>
-        /// <param name="y">Y coordinate of final point</param>
+        /// <param name="x2">X coordinate of second point.</param>
+        /// <param name="y2">Y coordinate of second point.</param>
+        /// <param name="x">X coordinate of final point.</param>
+        /// <param name="y">Y coordinate of final point.</param>
         public PathSmoothCurveToRel(double x2, double y2, double x, double y)
           : this(new PointD(x2, y2), new PointD(x, y))
         {
@@ -42,8 +42,8 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="PathSmoothCurveToRel"/> class.
         /// </summary>
-        /// <param name="controlPoint">Coordinate of second point</param>
-        /// <param name="end">Coordinate of final point</param>
+        /// <param name="controlPoint">Coordinate of second point.</param>
+        /// <param name="end">Coordinate of final point.</param>
         public PathSmoothCurveToRel(PointD controlPoint, PointD end)
         {
             _controlPoint = controlPoint;

@@ -25,7 +25,7 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="PerceptualHash"/> class.
         /// </summary>
-        /// <param name="hash">The</param>
+        /// <param name="hash">The hash.</param>
         public PerceptualHash(string hash)
           : this()
         {

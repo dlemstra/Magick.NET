@@ -35,7 +35,7 @@ namespace ImageMagick.Web
         /// Initializes the module and prepares it to handle requests.
         /// </summary>
         /// <param name="context">An HttpApplication that provides access to the methods, properties,
-        /// and events common to all application objects within an ASP.NET application</param>
+        /// and events common to all application objects within an ASP.NET application.</param>
         public void Init(HttpApplication context)
         {
             if (context == null)

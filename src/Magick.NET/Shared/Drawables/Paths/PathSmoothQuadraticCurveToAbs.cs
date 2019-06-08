@@ -28,8 +28,8 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="PathSmoothQuadraticCurveToAbs"/> class.
         /// </summary>
-        /// <param name="x">X coordinate of final point</param>
-        /// <param name="y">Y coordinate of final point</param>
+        /// <param name="x">X coordinate of final point.</param>
+        /// <param name="y">Y coordinate of final point.</param>
         public PathSmoothQuadraticCurveToAbs(double x, double y)
           : this(new PointD(x, y))
         {
@@ -38,7 +38,7 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="PathSmoothQuadraticCurveToAbs"/> class.
         /// </summary>
-        /// <param name="end">Coordinate of final point</param>
+        /// <param name="end">Coordinate of final point.</param>
         public PathSmoothQuadraticCurveToAbs(PointD end)
         {
             _end = end;

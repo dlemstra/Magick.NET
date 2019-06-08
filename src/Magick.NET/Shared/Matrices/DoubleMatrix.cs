@@ -48,8 +48,8 @@ namespace ImageMagick
         /// <summary>
         /// Get or set the value at the specified x/y position.
         /// </summary>
-        /// <param name="x">The x position</param>
-        /// <param name="y">The y position</param>
+        /// <param name="x">The x position.</param>
+        /// <param name="y">The y position.</param>
         public double this[int x, int y]
         {
             get => GetValue(x, y);
@@ -59,8 +59,8 @@ namespace ImageMagick
         /// <summary>
         /// Gets the value at the specified x/y position.
         /// </summary>
-        /// <param name="x">The x position</param>
-        /// <param name="y">The y position</param>
+        /// <param name="x">The x position.</param>
+        /// <param name="y">The y position.</param>
         /// <returns>The value at the specified x/y position.</returns>
         public double GetValue(int x, int y)
         {
@@ -70,8 +70,8 @@ namespace ImageMagick
         /// <summary>
         /// Set the column at the specified x position.
         /// </summary>
-        /// <param name="x">The x position</param>
-        /// <param name="values">The values</param>
+        /// <param name="x">The x position.</param>
+        /// <param name="values">The values.</param>
         public void SetColumn(int x, params double[] values)
         {
             Throw.IfOutOfRange(nameof(x), x, Order);
@@ -87,8 +87,8 @@ namespace ImageMagick
         /// <summary>
         /// Set the row at the specified y position.
         /// </summary>
-        /// <param name="y">The y position</param>
-        /// <param name="values">The values</param>
+        /// <param name="y">The y position.</param>
+        /// <param name="values">The values.</param>
         public void SetRow(int y, params double[] values)
         {
             Throw.IfOutOfRange(nameof(y), y, Order);
@@ -104,9 +104,9 @@ namespace ImageMagick
         /// <summary>
         /// Set the value at the specified x/y position.
         /// </summary>
-        /// <param name="x">The x position</param>
-        /// <param name="y">The y position</param>
-        /// <param name="value">The value</param>
+        /// <param name="x">The x position.</param>
+        /// <param name="y">The y position.</param>
+        /// <param name="value">The value.</param>
         public void SetValue(int x, int y, double value)
         {
             _values[GetIndex(x, y)] = value;

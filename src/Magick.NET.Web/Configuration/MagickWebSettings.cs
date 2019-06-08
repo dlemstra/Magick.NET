@@ -91,7 +91,7 @@ namespace ImageMagick.Web
         }
 
         /// <summary>
-        /// Gets the settings for the resource limits
+        /// Gets the settings for the resource limits.
         /// </summary>
         [ConfigurationProperty("resourceLimits")]
         public ResourceLimitsSettings ResourceLimits

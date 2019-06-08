@@ -78,7 +78,7 @@ namespace ImageMagick
         /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified geometry.
         /// </summary>
         /// <param name="value">Geometry specifications in the form: &lt;width&gt;x&lt;height&gt;
-        /// {+-}&lt;xoffset&gt;{+-}&lt;yoffset&gt; (where width, height, xoffset, and yoffset are numbers)</param>
+        /// {+-}&lt;xoffset&gt;{+-}&lt;yoffset&gt; (where width, height, xoffset, and yoffset are numbers).</param>
         public MagickGeometry(string value)
         {
             Throw.IfNullOrEmpty(nameof(value), value);
@@ -102,7 +102,7 @@ namespace ImageMagick
         public bool FillArea { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the image is resized if image is greater than size (&gt;)
+        /// Gets or sets a value indicating whether the image is resized if image is greater than size (&gt;).
         /// </summary>
         public bool Greater { get; set; }
 
@@ -112,7 +112,7 @@ namespace ImageMagick
         public int Height { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the image is resized without preserving aspect ratio (!)
+        /// Gets or sets a value indicating whether the image is resized without preserving aspect ratio (!).
         /// </summary>
         public bool IgnoreAspectRatio { get; set; }
 
@@ -122,7 +122,7 @@ namespace ImageMagick
         public bool IsPercentage { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the image is resized if the image is less than size (&lt;)
+        /// Gets or sets a value indicating whether the image is resized if the image is less than size (&lt;).
         /// </summary>
         public bool Less { get; set; }
 
@@ -152,7 +152,7 @@ namespace ImageMagick
         /// Converts the specified string to an instance of this type.
         /// </summary>
         /// <param name="value">Geometry specifications in the form: &lt;width&gt;x&lt;height&gt;
-        /// {+-}&lt;xoffset&gt;{+-}&lt;yoffset&gt; (where width, height, xoffset, and yoffset are numbers)</param>
+        /// {+-}&lt;xoffset&gt;{+-}&lt;yoffset&gt; (where width, height, xoffset, and yoffset are numbers).</param>
         public static explicit operator MagickGeometry(string value) => new MagickGeometry(value);
 
         /// <summary>

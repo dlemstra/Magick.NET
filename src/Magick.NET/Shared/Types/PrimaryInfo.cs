@@ -15,7 +15,7 @@ using System;
 namespace ImageMagick
 {
     /// <summary>
-    /// PrimaryInfo information
+    /// PrimaryInfo information.
     /// </summary>
     public partial class PrimaryInfo : IEquatable<PrimaryInfo>
     {

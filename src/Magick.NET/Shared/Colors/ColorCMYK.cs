@@ -85,13 +85,13 @@ namespace ImageMagick
         /// Initializes a new instance of the <see cref="ColorCMYK"/> class.
         /// </summary>
         /// <param name="color">The CMYK hex string or name of the color (http://www.imagemagick.org/script/color.php).
-        /// For example: #F000, #FF000000</param>
+        /// For example: #F000, #FF000000.</param>
 #elif Q16 || Q16HDRI
         /// <summary>
         /// Initializes a new instance of the <see cref="ColorCMYK"/> class.
         /// </summary>
         /// <param name="color">The CMYK hex string or name of the color (http://www.imagemagick.org/script/color.php).
-        /// For example: #F000, #FF000000, #FFFF000000000000</param>
+        /// For example: #F000, #FF000000, #FFFF000000000000.</param>
 #else
 #error Not implemented!
 #endif

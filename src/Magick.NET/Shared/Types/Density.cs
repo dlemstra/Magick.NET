@@ -65,7 +65,7 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="Density"/> class.
         /// </summary>
-        /// <param name="value">Density specifications in the form: &lt;x&gt;x&lt;y&gt;[inch/cm] (where x, y are numbers)</param>
+        /// <param name="value">Density specifications in the form: &lt;x&gt;x&lt;y&gt;[inch/cm] (where x, y are numbers).</param>
         public Density(string value)
         {
             Initialize(value);
