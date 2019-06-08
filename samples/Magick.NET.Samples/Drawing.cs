@@ -12,7 +12,7 @@
 
 using ImageMagick;
 
-namespace RootNamespace.Samples.MagickNET
+namespace Magick.NET.Samples
 {
     public static class DrawSamples
     {

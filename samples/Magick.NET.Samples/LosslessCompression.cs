@@ -14,7 +14,7 @@ using System;
 using System.IO;
 using ImageMagick;
 
-namespace RootNamespace.Samples.MagickNET
+namespace Magick.NET.Samples
 {
     public static class LosslessCompressionSamples
     {

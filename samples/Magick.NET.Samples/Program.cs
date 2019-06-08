@@ -14,7 +14,7 @@
 
 using System;
 
-namespace RootNamespace.Samples.MagickNET
+namespace Magick.NET.Samples
 {
     class Program
     {

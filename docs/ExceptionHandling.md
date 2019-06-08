@@ -2,7 +2,6 @@
 
 ## Exception handling
 
-#### C#
 ```C#
 try
 {
@@ -33,32 +32,8 @@ catch (MagickCorruptImageErrorException exception)
 }
 ```
 
-#### VB.NET
-```VB.NET
-Try
-    ' Read invalid jpg file
-    Using image As New MagickImage("InvalidFile.jpg")
-    End Using
-' Catch any MagickException
-Catch exception As MagickException
-    ' Write excepion raised when reading the invalid jpg to the console
-    Console.WriteLine(exception.Message)
-End Try
-
-Try
-    ' Read corrupt jpg file
-    Using image As New MagickImage("CorruptImage.jpg")
-    End Using
-' Catch only MagickCorruptImageErrorException
-Catch exception As MagickCorruptImageErrorException
-    ' Write excepion raised when reading the corrupt jpg to the console
-    Console.WriteLine(exception.Message)
-End Try
-```
-
 ## Obtain warning that occurred during reading
 
-#### C#
 ```C#
 using (MagickImage image = new MagickImage())
 {
@@ -67,14 +42,4 @@ using (MagickImage image = new MagickImage())
     // Read file that will raise a warning.
     image.Read("FileWithWarning.jpg");
 }
-```
-
-#### VB.NET
-```VB.NET
-Using image As New MagickImage()
-    ' Attach event handler to warning event
-    AddHandler image.Warning, AddressOf MagickImage_Warning
-    ' Read file that will raise a warning.
-    image.Read("FileWithWarning.jpg")
-End Using
 ```

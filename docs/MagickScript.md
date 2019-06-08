@@ -17,18 +17,10 @@ an example script that resizes an image to half its size.
 </msl>
 ```
 
-#### C#
 ```C#
 // Load resize script and execute it
 MagickScript script = new MagickScript("Resize.msl");
 script.Execute();
-```
-
-#### VB.NET
-```VB.NET
-' Load resize script and execute it
-Dim script As New MagickScript("Resize.msl");
-script.Execute()
 ```
 
 ## Reuse the same script
@@ -47,7 +39,6 @@ file every time you should not specify the write element. Below is an example.
 </msl>
 ```
 
-#### C#
 ```C#
 // Load wave script
 MagickScript script = new MagickScript("Wave.msl");
@@ -65,22 +56,6 @@ foreach (string fileName in Directory.GetFiles("*.jpg"))
 }
 ```
 
-#### VB.NET
-```VB.NET
-' Load wave script
-Dim script As New MagickScript("Wave.msl")
-
-' Execute script multiple times
-For Each fileName As String In Directory.GetFiles("*.jpg")
-    ' Read image from file
-    Using image As New MagickImage(fileName)
-        ' Execute script with the image and write it to a jpg file
-        script.Execute(image)
-        image.Write(fileName & ".wave.jpg")
-    End Using
-Next
-```
-
 ## Read/Write events
 
 When you want to assign your input image dynamically you should attach to the `Read` event. You can also do the same for writing
@@ -96,7 +71,6 @@ with the `Write` event. Below is an example of how this work.
 </msl>
 ```
 
-#### C#
 ```C#
 void OnScriptRead(object sender, ScriptReadEventArgs arguments)
 {
@@ -121,28 +95,6 @@ void ExecuteCropScript()
 }
 ```
 
-#### VB.NET
-```VB.NET
-Private Sub OnScriptRead(sender As Object, arguments As ScriptReadEventArgs)
-    arguments.Image = New MagickImage("Snakeware.jpg")
-End Sub
-
-Private Sub OnScriptWrite(sender As Object, arguments As ScriptWriteEventArgs)
-    arguments.Image.Write("Snakeware.png")
-End Sub
-
-Private Sub ExecuteCropScript()
-    ' Load crop script
-    Dim script As New MagickScript("Crop.msl")
-    ' Event that will be raised when the script wants to read a file
-    AddHandler script.Read, AddressOf OnScriptRead
-    ' Event that will be raised when the script wants to write a file
-    AddHandler script.Write, AddressOf OnScriptWrite
-    ' Execute the script
-    script.Execute()
-End Sub
-```
-
 ## Write multiple output files
 
 With the `clone` element you can create a clone of an image while you are executing a script. Below is an example
@@ -163,16 +115,8 @@ that reads one input file and writes two output files.
 </msl>
 ```
 
-#### C#
 ```C#
 // Load clone script and execute it
 MagickScript script = new MagickScript("Clone.msl");
 script.Execute();
-```
-
-#### VB.NET
-```VB.NET
-' Load clone script and execute it
-Dim script As New MagickScript("Clone.msl")
-script.Execute()
 ```

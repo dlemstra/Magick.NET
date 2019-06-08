@@ -8,17 +8,9 @@ To force the use of dcraw the `Format` in the `MagickReadSettings` should be set
 
 ## Convert CR2 to JPG
 
-#### C#
 ```C#
 using (MagickImage image = new MagickImage("StillLife.CR2"))
 {
     image.Write("StillLife.jpg");
 }
-```
-
-#### VB.NET
-```VB.NET
-Using image As New MagickImage("StillLife.CR2")
-    image.Write("StillLife.jpg")
-End Using
 ```
