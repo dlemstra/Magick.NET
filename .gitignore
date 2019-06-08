@@ -10,7 +10,7 @@ runtimes
 /publish/pdb/*
 /publish/zip/*
 /src/Magick.Native/libraries
-/src/Magick.NET/Resources
+/src/Magick.Native/resources
 /samples/Magick.NET.Samples/Samples/Magick.NET/*.pp
 /samples/Magick.NET.Samples/Samples/Magick.NET/Files/*.pp
 /samples/Magick.NET.Samples/Samples/Magick.NET/Scripts/*.pp
