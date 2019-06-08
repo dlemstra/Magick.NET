@@ -40,7 +40,7 @@ function copyToTestProjects($source, $target) {
     copyToTestProject $source $target "Q16-HDRI-OpenMP" "x64"
 }
 
-function copyMetadata($source, $targetm) {
+function copyMetadata($source, $target) {
     Copy-Item "$source\*.md" -Force "$target"
 }
 
@@ -53,11 +53,18 @@ function copyLibraries($source, $target) {
     Copy-Item "$source\**\content\**\**\*.dylib" -Force "$target"
 }
 
+function copyResource($source, $target, $quantum) {
+    [void](New-Item -ItemType directory -Path "$target\Release$quantum")
+    Copy-Item "$source\**\content\Release$quantum\x64\*.xml" -Force "$target\Release$quantum"
+}
+
 function copyResources($source, $target) {
     Remove-Item $target -Recurse -ErrorAction Ignore
     [void](New-Item -ItemType directory -Path $target)
 
-    Get-ChildItem "$source\**\content\*" | Copy -Destination $target -Force -Recurse -Filter *.xml
+    copyResource $source $target "Q8"
+    copyResource $source $target "Q16"
+    copyResource $source $target "Q16-HDRI"
 }
 
 function createCompressedLibrary($folder, $quantum, $platform) {
@@ -88,7 +95,7 @@ $libraries = "$PSScriptRoot\libraries"
 $resources = "$PSScriptRoot\resources"
 $testFolder = "$PSScriptRoot\..\..\tests\Magick.NET.Tests\bin"
 
-installPackage $version $tempFolder
+installPackage $version $folder
 copyMetadata $folder $PSScriptRoot
 copyLibraries $folder $libraries
 copyResources $folder $resources

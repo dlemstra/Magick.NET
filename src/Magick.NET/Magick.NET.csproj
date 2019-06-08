@@ -18,37 +18,31 @@
   <PropertyGroup Condition="$(Configuration.EndsWith('Q8'))">
     <DefineConstants>Q8;PLATFORM_$(Platform)</DefineConstants>
     <QuantumType>Q8</QuantumType>
-    <QuantumName>Q8</QuantumName>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration.EndsWith('Q8-OpenMP'))">
     <DefineConstants>Q8;OPENMP;PLATFORM_$(Platform)</DefineConstants>
     <QuantumType>Q8</QuantumType>
-    <QuantumName>Q8-OpenMP</QuantumName>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration.EndsWith('Q16'))">
     <DefineConstants>Q16;PLATFORM_$(Platform)</DefineConstants>
     <QuantumType>Q16</QuantumType>
-    <QuantumName>Q16</QuantumName>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration.EndsWith('Q16-OpenMP'))">
     <DefineConstants>Q16;OPENMP;PLATFORM_$(Platform)</DefineConstants>
     <QuantumType>Q16</QuantumType>
-    <QuantumName>Q16-OpenMP</QuantumName>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration.EndsWith('Q16-HDRI'))">
     <DefineConstants>Q16HDRI;PLATFORM_$(Platform)</DefineConstants>
     <QuantumType>Q16-HDRI</QuantumType>
-    <QuantumName>Q16-HDRI</QuantumName>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration.EndsWith('Q16-HDRI-OpenMP'))">
     <DefineConstants>Q16HDRI;OPENMP;PLATFORM_$(Platform)</DefineConstants>
     <QuantumType>Q16-HDRI</QuantumType>
-    <QuantumName>Q16-HDRI-OpenMP</QuantumName>
   </PropertyGroup>
 
   <PropertyGroup Condition="!$(Configuration.Contains('Release'))">
@@ -152,34 +146,34 @@
     <EmbeddedResource Include="Resources\Release$(QuantumType)\MagickScript.xsd">
       <LogicalName>ImageMagick.Resources.MagickScript.xsd</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumName)\$(Platform)\colors.xml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumType)\colors.xml">
       <LogicalName>ImageMagick.Resources.Xml.colors.xml</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumName)\$(Platform)\configure.xml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumType)\configure.xml">
       <LogicalName>ImageMagick.Resources.Xml.configure.xml</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumName)\$(Platform)\delegates.xml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumType)\delegates.xml">
       <LogicalName>ImageMagick.Resources.Xml.delegates.xml</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumName)\$(Platform)\english.xml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumType)\english.xml">
       <LogicalName>ImageMagick.Resources.Xml.english.xml</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumName)\$(Platform)\locale.xml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumType)\locale.xml">
       <LogicalName>ImageMagick.Resources.Xml.locale.xml</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumName)\$(Platform)\log.xml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumType)\log.xml">
       <LogicalName>ImageMagick.Resources.Xml.log.xml</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumName)\$(Platform)\policy.xml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumType)\policy.xml">
       <LogicalName>ImageMagick.Resources.Xml.policy.xml</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumName)\$(Platform)\thresholds.xml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumType)\thresholds.xml">
       <LogicalName>ImageMagick.Resources.Xml.thresholds.xml</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumName)\$(Platform)\type.xml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumType)\type.xml">
       <LogicalName>ImageMagick.Resources.Xml.type.xml</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumName)\$(Platform)\type-ghostscript.xml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumType)\type-ghostscript.xml">
       <LogicalName>ImageMagick.Resources.Xml.type-ghostscript.xml</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
