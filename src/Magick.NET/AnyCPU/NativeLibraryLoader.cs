@@ -79,17 +79,9 @@ namespace ImageMagick
 
         private static void ExtractLibrary()
         {
-#if Q8
-            string name = "Magick.NET-Q8-" + (NativeLibrary.Is64Bit ? "x64" : "x86");
-#elif Q16
-            string name = "Magick.NET-Q16-" + (NativeLibrary.Is64Bit ? "x64" : "x86");
-#elif Q16HDRI
-            string name = "Magick.NET-Q16-HDRI-" + (NativeLibrary.Is64Bit ? "x64" : "x86");
-#else
-#error Not implemented!
-#endif
+            string name = NativeLibrary.Name + "-" + NativeLibrary.QuantumName + "-" + NativeLibrary.PlatformName;
             string cacheDirectory = CreateCacheDirectory();
-            string tempFile = Path.Combine(cacheDirectory, name + ".Native.dll");
+            string tempFile = Path.Combine(cacheDirectory, name + ".dll");
 
             WriteAssembly(tempFile);
 
@@ -116,7 +108,7 @@ namespace ImageMagick
             if (File.Exists(tempFile))
                 return;
 
-            string resourceName = "ImageMagick.Resources.Library.Magick.NET.Native_" + (NativeLibrary.Is64Bit ? "x64" : "x86") + ".gz";
+            string resourceName = "ImageMagick.Resources.Library.Magick.Native_" + NativeLibrary.PlatformName + ".gz";
 
             using (Stream stream = Assembly.GetManifestResourceStream(resourceName))
             {
