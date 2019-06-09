@@ -14,7 +14,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 
 namespace ImageMagick
 {
@@ -22,14 +21,13 @@ namespace ImageMagick
     {
         private readonly Collection<ExifTag> _invalidTags = new Collection<ExifTag>();
 
-        private byte[] _data;
-        private uint _index;
+        private EndianReader _reader;
         private bool _isLittleEndian;
         private uint _exifOffset;
         private uint _gpsOffset;
-        private uint _startIndex;
+        private uint _startIndex = 0;
 
-        private delegate TDataType ConverterMethod<TDataType>(byte[] data);
+        private delegate TDataType ReadMethod<TDataType>();
 
         public uint ThumbnailLength
         {
@@ -51,45 +49,33 @@ namespace ImageMagick
             }
         }
 
-        private int RemainingLength
-        {
-            get
-            {
-                if (_index >= _data.Length)
-                    return 0;
-
-                return _data.Length - (int)_index;
-            }
-        }
-
         public Collection<ExifValue> Read(byte[] data)
         {
-            Collection<ExifValue> result = new Collection<ExifValue>();
+            var result = new Collection<ExifValue>();
 
-            _data = data;
+            if (data == null || data.Length == 0)
+                return result;
 
-            if (GetString(4) == "Exif")
+            _reader = new EndianReader(data);
+
+            if (_reader.ReadString(4) == "Exif")
             {
-                if (GetShort() != 0)
+                if (_reader.ReadShortMSB() != 0)
                     return result;
 
                 _startIndex = 6;
             }
-            else
-            {
-                _index = 0;
-            }
 
-            _isLittleEndian = GetString(2) == "II";
+            _isLittleEndian = _reader.ReadString(2) == "II";
 
-            if (GetShort() != 0x002A)
+            if (ReadShort() != 0x002A)
                 return result;
 
-            uint ifdOffset = GetLong();
+            uint ifdOffset = ReadLong();
             AddValues(result, ifdOffset);
 
-            uint thumbnailOffset = GetLong();
-            GetThumbnail(thumbnailOffset);
+            uint thumbnailOffset = ReadLong();
+            ReadThumbnail(thumbnailOffset);
 
             if (_exifOffset != 0)
                 AddValues(result, _exifOffset);
@@ -100,47 +86,29 @@ namespace ImageMagick
             return result;
         }
 
-        private static TDataType[] ToArray<TDataType>(ExifDataType dataType, Byte[] data, ConverterMethod<TDataType> converter)
+        private static TDataType[] ToArray<TDataType>(ExifDataType dataType, uint length, ReadMethod<TDataType> read)
         {
             int dataTypeSize = (int)ExifValue.GetSize(dataType);
-            int length = data.Length / dataTypeSize;
+            int arrayLength = (int)length / dataTypeSize;
 
-            TDataType[] result = new TDataType[length];
-            byte[] buffer = new byte[dataTypeSize];
+            TDataType[] result = new TDataType[arrayLength];
 
-            for (int i = 0; i < length; i++)
+            for (int i = 0; i < arrayLength; i++)
             {
-                Array.Copy(data, i * dataTypeSize, buffer, 0, dataTypeSize);
-
-                result.SetValue(converter(buffer), i);
+                result.SetValue(read(), i);
             }
-
-            return result;
-        }
-
-        private static byte ToByte(byte[] data)
-        {
-            return data[0];
-        }
-
-        private static string ToString(byte[] data)
-        {
-            string result = Encoding.UTF8.GetString(data, 0, data.Length);
-            int nullCharIndex = result.IndexOf('\0');
-            if (nullCharIndex != -1)
-                result = result.Substring(0, nullCharIndex);
 
             return result;
         }
 
         private void AddValues(Collection<ExifValue> values, uint index)
         {
-            _index = _startIndex + index;
-            ushort count = GetShort();
+            _reader.Seek(_startIndex + index);
+            ushort count = ReadShort();
 
             for (ushort i = 0; i < count; i++)
             {
-                ExifValue value = CreateValue();
+                var value = CreateValue();
                 if (value == null)
                     continue;
 
@@ -173,9 +141,9 @@ namespace ImageMagick
         }
 
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Cannot avoid it here.")]
-        private object ConvertValue(ExifDataType dataType, byte[] data, uint numberOfComponents)
+        private object ConvertValue(ExifDataType dataType, uint length, uint numberOfComponents)
         {
-            if (data == null || data.Length == 0)
+            if (length == 0)
                 return null;
 
             switch (dataType)
@@ -183,62 +151,58 @@ namespace ImageMagick
                 case ExifDataType.Unknown:
                     return null;
                 case ExifDataType.Ascii:
-                    return ToString(data);
+                    return ReadString(length);
+                case ExifDataType.Undefined:
                 case ExifDataType.Byte:
                     if (numberOfComponents == 1)
-                        return ToByte(data);
+                        return ReadByte();
                     else
-                        return data;
+                        return ToArray(dataType, length, ReadByte);
                 case ExifDataType.DoubleFloat:
                     if (numberOfComponents == 1)
-                        return ToDouble(data);
+                        return ReadDouble();
                     else
-                        return ToArray(dataType, data, ToDouble);
+                        return ToArray(dataType, length, ReadDouble);
                 case ExifDataType.Long:
                     if (numberOfComponents == 1)
-                        return ToLong(data);
+                        return ReadLong();
                     else
-                        return ToArray(dataType, data, ToLong);
+                        return ToArray(dataType, length, ReadLong);
                 case ExifDataType.Rational:
                     if (numberOfComponents == 1)
-                        return ToRational(data);
+                        return ReadRational();
                     else
-                        return ToArray(dataType, data, ToRational);
+                        return ToArray(dataType, length, ReadRational);
                 case ExifDataType.Short:
                     if (numberOfComponents == 1)
-                        return ToShort(data);
+                        return ReadShort();
                     else
-                        return ToArray(dataType, data, ToShort);
+                        return ToArray(dataType, length, ReadShort);
                 case ExifDataType.SignedByte:
                     if (numberOfComponents == 1)
-                        return ToSignedByte(data);
+                        return ReadSignedByte();
                     else
-                        return ToArray(dataType, data, ToSignedByte);
+                        return ToArray(dataType, length, ReadSignedByte);
                 case ExifDataType.SignedLong:
                     if (numberOfComponents == 1)
-                        return ToSignedLong(data);
+                        return ReadSignedLong();
                     else
-                        return ToArray(dataType, data, ToSignedLong);
+                        return ToArray(dataType, length, ReadSignedLong);
                 case ExifDataType.SignedRational:
                     if (numberOfComponents == 1)
-                        return ToSignedRational(data);
+                        return ReadSignedRational();
                     else
-                        return ToArray(dataType, data, ToSignedRational);
+                        return ToArray(dataType, length, ReadSignedRational);
                 case ExifDataType.SignedShort:
                     if (numberOfComponents == 1)
-                        return ToSignedShort(data);
+                        return ReadSignedShort();
                     else
-                        return ToArray(dataType, data, ToSignedShort);
+                        return ToArray(dataType, length, ReadSignedShort);
                 case ExifDataType.SingleFloat:
                     if (numberOfComponents == 1)
-                        return ToSingle(data);
+                        return ReadSingle();
                     else
-                        return ToArray(dataType, data, ToSingle);
-                case ExifDataType.Undefined:
-                    if (numberOfComponents == 1)
-                        return ToByte(data);
-                    else
-                        return data;
+                        return ToArray(dataType, length, ReadSingle);
                 default:
                     throw new NotSupportedException();
             }
@@ -246,80 +210,114 @@ namespace ImageMagick
 
         private ExifValue CreateValue()
         {
-            if (RemainingLength < 12)
+            if (!_reader.CanRead(12))
                 return null;
 
-            ExifTag tag = (ExifTag)GetShort();
-            ExifDataType dataType = EnumHelper.Parse(GetShort(), ExifDataType.Unknown);
+            ExifTag tag = (ExifTag)ReadShort();
+            ExifDataType dataType = EnumHelper.Parse(ReadShort(), ExifDataType.Unknown);
             object value = null;
 
             if (dataType == ExifDataType.Unknown)
                 return new ExifValue(tag, dataType, value, false);
 
-            uint numberOfComponents = GetLong();
+            uint numberOfComponents = ReadLong();
 
             if (dataType == ExifDataType.Undefined && numberOfComponents == 0)
                 numberOfComponents = 4;
 
-            uint size = numberOfComponents * ExifValue.GetSize(dataType);
-            byte[] data = GetBytes(4);
+            uint oldIndex = _reader.Index;
+            uint length = numberOfComponents * ExifValue.GetSize(dataType);
 
-            if (size > 4)
+            if (length <= 4)
             {
-                uint oldIndex = _index;
-                _index = ToLong(data) + _startIndex;
-
-                if (RemainingLength < size)
-                {
-                    _invalidTags.Add(tag);
-                    _index = oldIndex;
-                    return null;
-                }
-
-                value = ConvertValue(dataType, GetBytes(size), numberOfComponents);
-                _index = oldIndex;
+                value = ConvertValue(dataType, length, numberOfComponents);
             }
             else
             {
-                value = ConvertValue(dataType, data, numberOfComponents);
+                uint newIndex = _startIndex + ReadLong();
+
+                if (_reader.Seek(newIndex))
+                {
+                    if (_reader.CanRead(length))
+                    {
+                        value = ConvertValue(dataType, length, numberOfComponents);
+                    }
+                }
+
+                if (value == null)
+                {
+                    _invalidTags.Add(tag);
+                    _reader.Seek(oldIndex + 4);
+                    return null;
+                }
             }
+
+            _reader.Seek(oldIndex + 4);
 
             bool isArray = value != null && numberOfComponents != 1;
             return new ExifValue(tag, dataType, value, isArray);
         }
 
-        private byte[] GetBytes(uint length)
+        private byte ReadByte() => _reader.ReadByte() ?? 0;
+
+        private double ReadDouble() => (_isLittleEndian ? _reader.ReadDoubleLSB() : _reader.ReadDoubleMSB()) ?? 0;
+
+        private uint ReadLong() => (_isLittleEndian ? _reader.ReadLongLSB() : _reader.ReadLongMSB()) ?? 0;
+
+        private ushort ReadShort() => (_isLittleEndian ? _reader.ReadShortLSB() : _reader.ReadShortMSB()) ?? 0;
+
+        private float ReadSingle() => (_isLittleEndian ? _reader.ReadSingleLSB() : _reader.ReadSingleMSB()) ?? 0;
+
+        private string ReadString(uint length) => _isLittleEndian ? _reader.ReadString(length) : _reader.ReadString(length);
+
+        private Rational ReadRational()
         {
-            if (_index + length > (uint)_data.Length)
-                return null;
+            uint? numerator = _isLittleEndian ? _reader.ReadLongLSB() : _reader.ReadLongMSB();
+            if (numerator == null)
+                return default(Rational);
 
-            byte[] data = new byte[length];
-            Array.Copy(_data, (int)_index, data, 0, (int)length);
-            _index += length;
+            uint? denominator = _isLittleEndian ? _reader.ReadLongLSB() : _reader.ReadLongMSB();
+            if (denominator == null)
+                return default(Rational);
 
-            return data;
+            return new Rational(numerator.Value, denominator.Value, false);
         }
 
-        private uint GetLong()
+        private unsafe SignedRational ReadSignedRational()
         {
-            return ToLong(GetBytes(4));
+            uint? numerator = _isLittleEndian ? _reader.ReadLongLSB() : _reader.ReadLongMSB();
+            if (numerator == null)
+                return default(SignedRational);
+
+            uint? denominator = _isLittleEndian ? _reader.ReadLongLSB() : _reader.ReadLongMSB();
+            if (denominator == null)
+                return default(SignedRational);
+
+            uint num = numerator.Value;
+            uint dem = denominator.Value;
+
+            return new SignedRational(*(int*)&num, *(int*)&dem, false);
         }
 
-        private ushort GetShort()
+        private unsafe sbyte ReadSignedByte()
         {
-            return ToShort(GetBytes(2));
+            byte result = ReadByte();
+            return *(sbyte*)&result;
         }
 
-        private string GetString(uint length)
+        private unsafe int ReadSignedLong()
         {
-            byte[] data = GetBytes(length);
-            if (data == null || data.Length == 0)
-                return null;
-
-            return ToString(data);
+            uint result = ReadLong();
+            return *(int*)&result;
         }
 
-        private void GetThumbnail(uint offset)
+        private unsafe short ReadSignedShort()
+        {
+            ushort result = ReadShort();
+            return *(short*)&result;
+        }
+
+        private void ReadThumbnail(uint offset)
         {
             Collection<ExifValue> values = new Collection<ExifValue>();
             AddValues(values, offset);
@@ -331,102 +329,6 @@ namespace ImageMagick
                 else if (value.Tag == ExifTag.JPEGInterchangeFormatLength && value.DataType == ExifDataType.Long)
                     ThumbnailLength = (uint)value.Value;
             }
-        }
-
-        private double ToDouble(byte[] data)
-        {
-            if (!ValidateArray(data, 8))
-                return default(double);
-
-            return BitConverter.ToDouble(data, 0);
-        }
-
-        private uint ToLong(byte[] data)
-        {
-            if (!ValidateArray(data, 4))
-                return default(uint);
-
-            return BitConverter.ToUInt32(data, 0);
-        }
-
-        private ushort ToShort(byte[] data)
-        {
-            if (!ValidateArray(data, 2))
-                return default(ushort);
-
-            return BitConverter.ToUInt16(data, 0);
-        }
-
-        private float ToSingle(byte[] data)
-        {
-            if (!ValidateArray(data, 4))
-                return default(float);
-
-            return BitConverter.ToSingle(data, 0);
-        }
-
-        private Rational ToRational(byte[] data)
-        {
-            if (!ValidateArray(data, 8, 4))
-                return default(Rational);
-
-            uint numerator = BitConverter.ToUInt32(data, 0);
-            uint denominator = BitConverter.ToUInt32(data, 4);
-
-            return new Rational(numerator, denominator, false);
-        }
-
-        private sbyte ToSignedByte(byte[] data)
-        {
-            return unchecked((sbyte)data[0]);
-        }
-
-        private int ToSignedLong(byte[] data)
-        {
-            if (!ValidateArray(data, 4))
-                return default(int);
-
-            return BitConverter.ToInt32(data, 0);
-        }
-
-        private SignedRational ToSignedRational(byte[] data)
-        {
-            if (!ValidateArray(data, 8, 4))
-                return default(SignedRational);
-
-            int numerator = BitConverter.ToInt32(data, 0);
-            int denominator = BitConverter.ToInt32(data, 4);
-
-            return new SignedRational(numerator, denominator, false);
-        }
-
-        private short ToSignedShort(byte[] data)
-        {
-            if (!ValidateArray(data, 2))
-                return default(short);
-
-            return BitConverter.ToInt16(data, 0);
-        }
-
-        private bool ValidateArray(byte[] data, int size)
-        {
-            return ValidateArray(data, size, size);
-        }
-
-        private bool ValidateArray(byte[] data, int size, int stepSize)
-        {
-            if (data == null || data.Length < size)
-                return false;
-
-            if (_isLittleEndian == BitConverter.IsLittleEndian)
-                return true;
-
-            for (int i = 0; i < data.Length; i += stepSize)
-            {
-                Array.Reverse(data, i, stepSize);
-            }
-
-            return true;
         }
     }
 }
