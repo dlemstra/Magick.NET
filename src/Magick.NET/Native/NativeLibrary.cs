@@ -16,59 +16,30 @@ namespace ImageMagick
 {
     internal static class NativeLibrary
     {
+        public const string QuantumName = Quantum + OpenMP;
+
+        public const string X86Name = "Magick.Native-" + QuantumName + "-x86.dll";
+
+        public const string X64Name = "Magick.Native-" + QuantumName + "-x64.dll";
+
 #if Q8
-
-#if PLATFORM_x86 || PLATFORM_AnyCPU
-        public const string X86Name = "Magick.Native-Q8-x86.dll";
-#endif
-
-#if PLATFORM_x64 || PLATFORM_AnyCPU
-
-#if OPENMP
-        public const string X64Name = "Magick.Native-Q8-OpenMP-x64.dll";
-#else
-        public const string X64Name = "Magick.Native-Q8-x64.dll";
-#endif
-
-#endif
-
+        private const string Quantum = "Q8";
 #elif Q16
-
-#if PLATFORM_x86 || PLATFORM_AnyCPU
-        public const string X86Name = "Magick.Native-Q16-x86.dll";
-#endif
-
-#if PLATFORM_x64 || PLATFORM_AnyCPU
-
-#if OPENMP
-        public const string X64Name = "Magick.Native-Q16-OpenMP-x64.dll";
-#else
-        public const string X64Name = "Magick.Native-Q16-x64.dll";
-#endif
-
-#endif
-
+        private const string Quantum = "Q16";
 #elif Q16HDRI
-
-#if PLATFORM_x86 || PLATFORM_AnyCPU
-        public const string X86Name = "Magick.Native-Q16-HDRI-x86.dll";
-#endif
-
-#if PLATFORM_x64 || PLATFORM_AnyCPU
-
-#if OPENMP
-        public const string X64Name = "Magick.Native-Q16-HDRI-OpenMP-x64.dll";
-#else
-        public const string X64Name = "Magick.Native-Q16-HDRI-x64.dll";
-#endif
-
-#endif
-
+        private const string Quantum = "Q16-HDRI";
 #else
 #error Not implemented!
 #endif
 
+#if OPENMP
+        private const string OpenMP = "-OpenMP";
+#else
+        private const string OpenMP = "";
+#endif
+
 #if PLATFORM_AnyCPU
+
         public static bool Is64Bit
         {
             get
