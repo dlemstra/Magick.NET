@@ -17,7 +17,22 @@ function installPackage($version, $target) {
     $temp = "$PSScriptRoot\temp"
     Remove-Item $temp -Recurse -ErrorAction Ignore
     [void](New-Item -ItemType directory -Path $temp)
-    ..\..\tools\nuget.exe install Magick.Native -Version $version -OutputDirectory $temp
+    ..\..\tools\windows\nuget.exe install Magick.Native -Version $version -OutputDirectory $temp
+}
+
+function copyToSamplesProject($source, $target, $quantum, $platform) {
+    $fileName = "Magick.Native-$quantum-$platform.dll"
+    [void](New-Item -ItemType directory -Force -Path "$target\Test$quantum\$platform\net40")
+    Copy-Item "$source\$fileName" "$target\Test$quantum\$platform\net40\$fileName"
+}
+
+function copyToSamplesProjects($source, $target) {
+    copyToTestProject $source $target "Q8" "x86"
+    copyToTestProject $source $target "Q8" "x64"
+    copyToTestProject $source $target "Q16" "x86"
+    copyToTestProject $source $target "Q16" "x64"
+    copyToTestProject $source $target "Q16-HDRI" "x86"
+    copyToTestProject $source $target "Q16-HDRI" "x64"
 }
 
 function copyToTestProject($source, $target, $quantum, $platform) {
@@ -94,11 +109,13 @@ $folder = "$PSScriptRoot\temp"
 $libraries = "$PSScriptRoot\libraries"
 $resources = "$PSScriptRoot\resources"
 $testFolder = "$PSScriptRoot\..\..\tests\Magick.NET.Tests\bin"
+$samplesFolder = "$PSScriptRoot\..\..\samples\Magick.NET.Samples\bin"
 
 installPackage $version $folder
 copyMetadata $folder $PSScriptRoot
 copyLibraries $folder $libraries
 copyResources $folder $resources
 copyToTestProjects $libraries $testFolder
+copyToSamplesProjects $libraries $samplesFolder
 createCompressedLibraries $libraries
 Remove-Item $folder -Recurse -ErrorAction Ignore
