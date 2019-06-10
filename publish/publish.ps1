@@ -57,8 +57,8 @@ function addNativeLibrary($quantumName, $platform, $runtime, $extension, $destin
       return
     }
 
-    $source = fullPath "src\Magick.Native\libraries\Magick.Native-$quantumName-$platformName$extension"
-    $target = "runtimes\$runtime-$platform\native\Magick.Native-$quantumName-$platformName$extension"
+    $source = fullPath "src\Magick.Native\libraries\Magick.Native-$quantumName-$platform$extension"
+    $target = "runtimes\$runtime-$platform\native\Magick.Native-$quantumName-$platform$extension"
     addFile $xml $source $target
 }
 
@@ -69,14 +69,14 @@ function addNativeLibraries($xml, $quantumName, $platform) {
 
     addNativeLibrary $quantumName $platform "win" ".dll" $destination
 
-    if ($platformName -eq "x64") {
+    if ($platform -eq "x64") {
         addNativeLibrary $quantumName $platform "linux" ".dll.so" $destination
         addNativeLibrary $quantumName $platform "osx" ".dll.dylib" $destination
     }
 }
 
-function createMagickNetNuGetPackage($quantumName, $platformName, $version) {
-    $name = "Magick.NET-$quantumName-$platformName"
+function createMagickNetNuGetPackage($quantumName, $platform, $version) {
+    $name = "Magick.NET-$quantumName-$platform"
     $path = FullPath "publish\Magick.NET.nuspec"
     $xml = [xml](Get-Content $path)
     $xml.package.metadata.id = $name
@@ -92,9 +92,9 @@ function createMagickNetNuGetPackage($quantumName, $platformName, $version) {
     addMagickNetLibraries $xml $quantumName $platform
     addNativeLibraries $xml $quantumName $platform
 
-    if ($platform -ne "AnyCPU") {
-      addFile $xml "Magick.NET.targets" "build\net20\$name.targets"
-      addFile $xml "Magick.NET.targets" "build\net40\$name.targets"
+    if (($platform -ne "AnyCPU") -and (!$quantumName.EndsWith("-OpenMP"))) {
+        addFile $xml "Magick.NET.targets" "build\net20\$name.targets"
+        addFile $xml "Magick.NET.targets" "build\net40\$name.targets"
     }
 
     $nuspecFile = FullPath "publish\$name.nuspec"
@@ -104,19 +104,13 @@ function createMagickNetNuGetPackage($quantumName, $platformName, $version) {
     & $nuget pack $nuspecFile -NoPackageAnalysis
 }
 
-function createMagickNetWebNuGetPackage($quantumName, $platformName, $version) {
-    $name = "Magick.NET.Web-$quantumName-$platformName"
+function createMagickNetWebNuGetPackage($quantumName, $platform, $version) {
+    $name = "Magick.NET.Web-$quantumName-$platform"
     $path = FullPath "publish\Magick.NET.Web.nuspec"
     $xml = [xml](Get-Content $path)
     $xml.package.metadata.id = $name
     $xml.package.metadata.title = $name
     $xml.package.metadata.version = $version
-
-    $platform = $platformName
-
-    if ($platform -eq "Any CPU") {
-        $platform = "AnyCPU"
-    }
 
     addLibrary $xml Magick.NET.Web $quantumName $platform "net40"
 
@@ -127,10 +121,16 @@ function createMagickNetWebNuGetPackage($quantumName, $platformName, $version) {
     & $nuget pack $nuspecFile -NoPackageAnalysis
 }
 
-createMagickNetNuGetPackage $quantumName $platformName $version
+$platform = $platformName
+
+if ($platform -eq "Any CPU") {
+    $platform = "AnyCPU"
+}
+
+createMagickNetNuGetPackage $quantumName $platform $version
 
 if (!$quantumName.EndsWith("-OpenMP")) {
-    createMagickNetWebNuGetPackage $quantumName $platformName $version
+    createMagickNetWebNuGetPackage $quantumName $platform $version
 }
 
 Copy-Item "*.nupkg" $destination
