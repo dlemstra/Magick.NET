@@ -36,7 +36,7 @@ function buildSolution($solution, $properties)
     $location = $(Get-Location)
     Set-Location $directory
 
-    msbuild $filename /t:Rebuild ("/p:$($properties)")
+    msbuild $filename /t:Rebuild /m ("/p:$($properties)")
     checkExitCode "Failed to build: $($path)"
 
     Set-Location $location
