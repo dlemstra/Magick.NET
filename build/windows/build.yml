@@ -29,3 +29,10 @@ steps:
     filePath: build/windows/sign.Magick.NET.ps1
     arguments: -pfxPassword "$(PfxPassword)"
   displayName: Sign Magick.NET
+
+- task: PowerShell@2
+  inputs:
+    targetType: filePath
+    filePath: build/windows/copy.Magick.NET.ps1
+    arguments: -destination "$(Build.ArtifactStagingDirectory)"
+  displayName: Copy Magick.NET
