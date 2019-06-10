@@ -1,5 +1,10 @@
 name: $(Date:yyyy.MM.dd.HHmm)
 
+resources:
+  containers:
+  - container: dotnet_latest
+    image: microsoft/dotnet:latest
+
 jobs:
 - job: dotnet_windows
   displayName: Windows
@@ -45,3 +50,11 @@ jobs:
         PlatformName: Any CPU
   steps:
     - template: build/windows/build.yml
+
+- job: dotnet_linux
+  displayName: Linux
+  pool:
+    vmImage: Ubuntu 16.04
+  container: dotnet_latest
+  steps:
+    - template: build/linux/build.yml

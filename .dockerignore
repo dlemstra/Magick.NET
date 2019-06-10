@@ -1,0 +1,10 @@
+.vs
+samples
+src/Magick.NET/bin
+src/Magick.NET/obj
+src/Magick.NET.Web/bin
+src/Magick.NET.Web/obj
+TestResults
+tests/Magick.NET.Tests/bin
+tests/Magick.NET.Tests/obj
+tools

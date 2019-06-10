@@ -58,6 +58,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ISSUE_TEMPLATE", "ISSUE_TEM
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "files", "files", "{D6C3708D-A8A1-4E8C-8E9A-73B12C322033}"
 	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		azure-pipelines.yml = azure-pipelines.yml
@@ -96,6 +97,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Magick.Native", "Magick.Nat
 	ProjectSection(SolutionItems) = preProject
 		src\Magick.Native\install.cmd = src\Magick.Native\install.cmd
 		src\Magick.Native\install.ps1 = src\Magick.Native\install.ps1
+		src\Magick.Native\install.sh = src\Magick.Native\install.sh
 		src\Magick.Native\Magick.Native.version = src\Magick.Native\Magick.Native.version
 		src\Magick.Native\nuget.config = src\Magick.Native\nuget.config
 	EndProjectSection
@@ -108,6 +110,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{BE60
 	ProjectSection(SolutionItems) = preProject
 		tools\windows\init.visualstudio.cmd = tools\windows\init.visualstudio.cmd
 		tools\windows\utils.ps1 = tools\windows\utils.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux", "linux", "{C4C8ACAC-0081-49E7-A20B-06DB39A98EB3}"
+	ProjectSection(SolutionItems) = preProject
+		build\linux\build.cmd = build\linux\build.cmd
+		build\linux\build.yml = build\linux\build.yml
+		build\linux\Dockerfile = build\linux\Dockerfile
+		build\linux\install.dependencies.sh = build\linux\install.dependencies.sh
+		build\linux\run.cmd = build\linux\run.cmd
+		build\linux\test.Magick.NET.sh = build\linux\test.Magick.NET.sh
 	EndProjectSection
 EndProject
 Global
@@ -463,6 +475,7 @@ Global
 		{7BDF1AD0-F12F-4149-9C3C-79223B8C1721} = {61345F8D-8813-4CA8-B037-2DE221FFB5D2}
 		{E66F54A2-6BE7-44A3-A716-CC047CC36C35} = {61345F8D-8813-4CA8-B037-2DE221FFB5D2}
 		{BE60093C-A01F-454E-A0FC-2812D290CD6A} = {7935EDEC-32B2-4BA2-93DC-FC990B26D51E}
+		{C4C8ACAC-0081-49E7-A20B-06DB39A98EB3} = {F6E20621-E266-4314-ADE0-A899270F2312}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F6887AA-E540-48B3-BDC0-068B342ABEBE}

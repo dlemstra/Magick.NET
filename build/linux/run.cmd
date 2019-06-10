@@ -1,0 +1,1 @@
+docker run -it magick-net-linux /bin/bash
