@@ -69,7 +69,7 @@ function addNativeLibraries($xml, $quantumName, $platform) {
 
     addNativeLibrary $quantumName $platform "win" ".dll" $destination
 
-    if ($platform -eq "x64") {
+    if (($platform -eq "x64") -and (!$quantumName.EndsWith("-OpenMP")) {
         addNativeLibrary $quantumName $platform "linux" ".dll.so" $destination
         addNativeLibrary $quantumName $platform "osx" ".dll.dylib" $destination
     }
@@ -92,7 +92,7 @@ function createMagickNetNuGetPackage($quantumName, $platform, $version) {
     addMagickNetLibraries $xml $quantumName $platform
     addNativeLibraries $xml $quantumName $platform
 
-    if (($platform -ne "AnyCPU") -and (!$quantumName.EndsWith("-OpenMP"))) {
+    if ($platform -ne "AnyCPU") {
         addFile $xml "Magick.NET.targets" "build\net20\$name.targets"
         addFile $xml "Magick.NET.targets" "build\net40\$name.targets"
     }
