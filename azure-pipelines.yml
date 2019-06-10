@@ -4,6 +4,7 @@ resources:
   containers:
   - container: dotnet_latest
     image: microsoft/dotnet:latest
+    options: '--name dotnet_latest -v /usr/bin/docker:/tmp/docker:ro'
 
 jobs:
 - job: dotnet_windows
@@ -57,4 +58,6 @@ jobs:
     vmImage: Ubuntu 16.04
   container: dotnet_latest
   steps:
+    - script: /tmp/docker exec -t -u 0 dotnet_latest $(Build.SourcesDirectory)/build/linux/install.sudo.sh
+      displayName: Install sudo
     - template: build/linux/build.yml

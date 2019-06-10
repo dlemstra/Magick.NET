@@ -1,6 +1,6 @@
 steps:
 
-- script: ./install.dependencies.sh
+- script: sudo ./install.dependencies.sh
   workingDirectory: $(Build.SourcesDirectory)/build/linux
   displayName: Install dependencies
 
