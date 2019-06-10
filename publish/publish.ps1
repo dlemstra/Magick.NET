@@ -13,6 +13,7 @@
 param (
     [string]$quantumName = $env:QuantumName,
     [string]$platformName = $env:PlatformName,
+    [string]$pfxPassword = '',
     [parameter(mandatory=$true)][string]$version,
     [parameter(mandatory=$true)][string]$destination
 )
@@ -75,9 +76,24 @@ function addNativeLibraries($xml, $quantumName, $platform) {
     }
 }
 
-function createMagickNetNuGetPackage($quantumName, $platform, $version) {
+function createAndSignNuGetPackage($name, $version, $pfxPassword) {
+    $nuspecFile = fullPath "publish\$name.nuspec"
+
+    $nuget = fullPath "tools\windows\nuget.exe"
+    & $nuget pack $nuspecFile -NoPackageAnalysis
+    checkExitCode "Failed to sign NuGet package"
+
+    if ($pfxPassword.Length -gt 0) {
+        $nugetVersion = $version -replace "\.0$",""
+        $nupkgFile = fullPath "publish\$name.$nugetVersion.nupkg"
+        & $nuget sign $nupkgFile -CertificatePath "$PSScriptRoot\ImageMagick.pfx" -CertificatePassword "$pfxPassword" -Timestamper http://sha256timestamp.ws.symantec.com/sha256/timestamp
+        checkExitCode "Failed to sign NuGet package"
+    }
+}
+
+function createMagickNetNuGetPackage($quantumName, $platform, $version, $pfxPassword) {
     $name = "Magick.NET-$quantumName-$platform"
-    $path = FullPath "publish\Magick.NET.nuspec"
+    $path = fullPath "publish\Magick.NET.nuspec"
     $xml = [xml](Get-Content $path)
     $xml.package.metadata.id = $name
     $xml.package.metadata.title = $name
@@ -100,13 +116,12 @@ function createMagickNetNuGetPackage($quantumName, $platform, $version) {
     $nuspecFile = FullPath "publish\$name.nuspec"
     $xml.Save($nuspecFile)
 
-    $nuget = FullPath "tools\windows\nuget.exe"
-    & $nuget pack $nuspecFile -NoPackageAnalysis
+    createAndSignNuGetPackage $name $version $pfxPassword
 }
 
-function createMagickNetWebNuGetPackage($quantumName, $platform, $version) {
+function createMagickNetWebNuGetPackage($quantumName, $platform, $version, $pfxPassword) {
     $name = "Magick.NET.Web-$quantumName-$platform"
-    $path = FullPath "publish\Magick.NET.Web.nuspec"
+    $path = fullPath "publish\Magick.NET.Web.nuspec"
     $xml = [xml](Get-Content $path)
     $xml.package.metadata.id = $name
     $xml.package.metadata.title = $name
@@ -117,8 +132,7 @@ function createMagickNetWebNuGetPackage($quantumName, $platform, $version) {
     $nuspecFile = FullPath "publish\$name.nuspec"
     $xml.Save($nuspecFile)
 
-    $nuget = FullPath "tools\windows\nuget.exe"
-    & $nuget pack $nuspecFile -NoPackageAnalysis
+    createAndSignNuGetPackage $name $version $pfxPassword
 }
 
 $platform = $platformName
@@ -127,10 +141,10 @@ if ($platform -eq "Any CPU") {
     $platform = "AnyCPU"
 }
 
-createMagickNetNuGetPackage $quantumName $platform $version
+createMagickNetNuGetPackage $quantumName $platform $version $pfxPassword
 
 if (!$quantumName.EndsWith("-OpenMP")) {
-    createMagickNetWebNuGetPackage $quantumName $platform $version
+    createMagickNetWebNuGetPackage $quantumName $platform $version $pfxPassword
 }
 
 Copy-Item "*.nupkg" $destination

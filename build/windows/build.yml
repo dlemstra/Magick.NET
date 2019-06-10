@@ -40,7 +40,7 @@ steps:
   inputs:
     targetType: filePath
     filePath: publish/publish.ps1
-    arguments: -version $(Build.BuildNumber) -destination "$(Build.StagingDirectory)"
+    arguments: -version $(Build.BuildNumber) -destination "$(Build.StagingDirectory)" -pfxPassword "$(PfxPassword)"
   displayName: Publish Magick.NET
 
 - task: PublishBuildArtifacts@1
