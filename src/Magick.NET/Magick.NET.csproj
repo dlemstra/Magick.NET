@@ -18,31 +18,37 @@
   <PropertyGroup Condition="$(Configuration.EndsWith('Q8'))">
     <DefineConstants>Q8;PLATFORM_$(Platform)</DefineConstants>
     <QuantumType>Q8</QuantumType>
+    <QuantumName>Q8</QuantumName>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration.EndsWith('Q8-OpenMP'))">
     <DefineConstants>Q8;OPENMP;PLATFORM_$(Platform)</DefineConstants>
     <QuantumType>Q8</QuantumType>
+    <QuantumName>Q8-OpenMP</QuantumName>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration.EndsWith('Q16'))">
     <DefineConstants>Q16;PLATFORM_$(Platform)</DefineConstants>
     <QuantumType>Q16</QuantumType>
+    <QuantumName>Q16</QuantumName>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration.EndsWith('Q16-OpenMP'))">
     <DefineConstants>Q16;OPENMP;PLATFORM_$(Platform)</DefineConstants>
     <QuantumType>Q16</QuantumType>
+    <QuantumName>Q16-OpenMP</QuantumName>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration.EndsWith('Q16-HDRI'))">
     <DefineConstants>Q16HDRI;PLATFORM_$(Platform)</DefineConstants>
     <QuantumType>Q16-HDRI</QuantumType>
+    <QuantumName>Q16-HDRI</QuantumName>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration.EndsWith('Q16-HDRI-OpenMP'))">
     <DefineConstants>Q16HDRI;OPENMP;PLATFORM_$(Platform)</DefineConstants>
     <QuantumType>Q16-HDRI</QuantumType>
+    <QuantumName>Q16-HDRI-OpenMP</QuantumName>
   </PropertyGroup>
 
   <PropertyGroup Condition="!$(Configuration.Contains('Release'))">
@@ -106,16 +112,16 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <AssemblyName>Magick.NET-$(QuantumType)-$(Platform)</AssemblyName>
-    <AssemblyTitle>Magick.NET $(QuantumType) $(Platform) $(TargetFrameWork)</AssemblyTitle>
-    <DocumentationFile>bin\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET-$(QuantumType)-$(Platform).xml</DocumentationFile>
+    <AssemblyName>Magick.NET-$(QuantumName)-$(Platform)</AssemblyName>
+    <AssemblyTitle>Magick.NET $(QuantumName) $(Platform) $(TargetFrameWork)</AssemblyTitle>
+    <DocumentationFile>bin\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET-$(QuantumName)-$(Platform).xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(Platform)' == 'AnyCPU' and !$(TargetFramework.StartsWith('netstandard'))">
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\libraries\Magick.Native-$(QuantumType)-x86.gz">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\libraries\Magick.Native-$(QuantumName)-x86.gz">
       <LogicalName>ImageMagick.Resources.Library.Magick.Native_x86.gz</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\libraries\Magick.Native-$(QuantumType)-x64.gz">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\libraries\Magick.Native-$(QuantumName)-x64.gz">
       <LogicalName>ImageMagick.Resources.Library.Magick.Native_x64.gz</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
