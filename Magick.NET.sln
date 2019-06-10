@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "publish", "publish", "{6604
 		publish\Magick.NET.Web.nuspec = publish\Magick.NET.Web.nuspec
 		publish\publish.ps1 = publish\publish.ps1
 		publish\publish.yml = publish\publish.yml
+		publish\update.version.cmd = publish\update.version.cmd
+		publish\update.version.ps1 = publish\update.version.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{6D1DE15B-EE1E-44DF-81CC-BEA1195B5BCE}"
@@ -103,6 +105,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{7935EDEC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{BE60093C-A01F-454E-A0FC-2812D290CD6A}"
 	ProjectSection(SolutionItems) = preProject
+		tools\windows\init.visualstudio.cmd = tools\windows\init.visualstudio.cmd
 		tools\windows\utils.ps1 = tools\windows\utils.ps1
 	EndProjectSection
 EndProject
