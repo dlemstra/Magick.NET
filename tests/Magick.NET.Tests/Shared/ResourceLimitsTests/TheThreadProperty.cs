@@ -30,9 +30,15 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
+#if OPENMP
+                Assert.AreNotEqual(1U, ResourceLimits.Thread);
+                ResourceLimits.Thread = 1U;
+                Assert.AreEqual(1U, ResourceLimits.Thread);
+#else
                 Assert.AreEqual(1U, ResourceLimits.Thread);
                 ResourceLimits.Thread = 2U;
                 Assert.AreEqual(1U, ResourceLimits.Thread);
+#endif
             }
         }
     }
