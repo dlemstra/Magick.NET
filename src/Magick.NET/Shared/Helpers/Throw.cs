@@ -58,14 +58,6 @@ namespace ImageMagick
                 throw new ArgumentException("Value cannot be empty.", paramName);
         }
 
-        public static void IfNullOrEmpty(string paramName, string value, string message, params object[] args)
-        {
-            IfNull(paramName, value, message, args);
-
-            if (value.Length == 0)
-                throw new ArgumentException(FormatMessage(message, args), paramName);
-        }
-
         public static void IfNullOrEmpty(string paramName, [ValidatedNotNull] Array value)
         {
             IfNull(paramName, value);
