@@ -17,3 +17,5 @@ $tag = [IO.File]::ReadAllText("tag.txt").Trim()
 if ($tag.Length -gt 0) {
     Write-Host "##vso[build.updatebuildnumber]$tag"
 }
+
+Exit 0
