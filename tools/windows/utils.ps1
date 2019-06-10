@@ -32,6 +32,7 @@ function buildSolution($solution, $properties)
     $nuget = fullPath "tools\windows\nuget.exe"
 
     & $nuget restore $path
+    & $nuget restore $path
 
     $location = $(Get-Location)
     Set-Location $directory
