@@ -24,7 +24,7 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-    internal sealed class HexColor
+    internal static class HexColor
     {
         public static bool TryParse(string value, out List<QuantumType> channels)
         {
