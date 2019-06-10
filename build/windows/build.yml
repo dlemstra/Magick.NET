@@ -35,7 +35,7 @@ steps:
     targetType: filePath
     filePath: publish/publish.ps1
     arguments: -version $(Build.BuildNumber) -destination "$(Build.StagingDirectory)"
-  displayName: Copy Magick.NET
+  displayName: Publish Magick.NET
 
 - task: PublishBuildArtifacts@1
   inputs:
