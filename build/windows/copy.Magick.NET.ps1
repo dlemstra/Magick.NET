@@ -44,7 +44,7 @@ function copyLibraries($quantumName, $platformName, $destination) {
 }
 
 function copyNativeLibrary($quantumName, $platformName, $extension, $destination) {
-    if ($platform -eq "Any CPU") {
+    if ($platformName -eq "Any CPU") {
       return
     }
 
@@ -56,7 +56,7 @@ function copyNativeLibrary($quantumName, $platformName, $extension, $destination
 function copyNativeLibraries($quantumName, $platformName, $destination) {
     copyNativeLibrary $quantumName $platformName ".dll" $destination
 
-    if ($platform -eq "x64") {
+    if ($platformName -eq "x64") {
         copyNativeLibrary $quantumName $platformName ".dll.so" $destination
         copyNativeLibrary $quantumName $platformName ".dll.dylib" $destination
     }
