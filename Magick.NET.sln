@@ -4,13 +4,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "publish", "publish", "{660486E5-ECAD-49B3-AEBB-A34953E48A72}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{9CFDAF8C-504E-4816-9EAD-89E48FD99E16}"
 	ProjectSection(SolutionItems) = preProject
-		publish\NuGet\Magick.NET.nuspec = publish\NuGet\Magick.NET.nuspec
-		publish\NuGet\Magick.NET.targets = publish\NuGet\Magick.NET.targets
-		publish\NuGet\Magick.NET.Web.nuspec = publish\NuGet\Magick.NET.Web.nuspec
-		publish\NuGet\Sample.Install.ps1 = publish\NuGet\Sample.Install.ps1
+		publish\Magick.NET.nuspec = publish\Magick.NET.nuspec
+		publish\Magick.NET.targets = publish\Magick.NET.targets
+		publish\Magick.NET.Web.nuspec = publish\Magick.NET.Web.nuspec
+		publish\publish.ps1 = publish\publish.ps1
+		publish\publish.yml = publish\publish.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{6D1DE15B-EE1E-44DF-81CC-BEA1195B5BCE}"
@@ -83,7 +82,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{C72A
 		build\windows\build.Magick.NET.cmd = build\windows\build.Magick.NET.cmd
 		build\windows\build.Magick.NET.ps1 = build\windows\build.Magick.NET.ps1
 		build\windows\build.yml = build\windows\build.yml
-		build\windows\copy.Magick.NET.ps1 = build\windows\copy.Magick.NET.ps1
 		build\windows\install.dependencies.cmd = build\windows\install.dependencies.cmd
 		build\windows\install.dependencies.ps1 = build\windows\install.dependencies.ps1
 		build\windows\sign.Magick.NET.ps1 = build\windows\sign.Magick.NET.ps1
@@ -453,7 +451,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{9CFDAF8C-504E-4816-9EAD-89E48FD99E16} = {660486E5-ECAD-49B3-AEBB-A34953E48A72}
 		{E9C7E93D-93C8-43FF-9D16-9B562F9310EA} = {4D648A8A-59E2-45A4-BEFD-44602709E044}
 		{F5A76C84-4735-4741-8534-8D38EBD3B844} = {E1CFAF8C-261F-4536-ABE9-D8613FA4929F}
 		{8F7AD186-BC6A-4FDD-99E5-9E06787695DF} = {61345F8D-8813-4CA8-B037-2DE221FFB5D2}

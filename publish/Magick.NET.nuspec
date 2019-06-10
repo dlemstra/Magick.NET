@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata minClientVersion="2.5">
+    <id/>
+    <version/>
+    <title/>
+    <authors>Dirk Lemstra</authors>
+    <owners>Dirk Lemstra</owners>
+    <license type="expression">Apache-2.0</license>
+    <projectUrl>https://github.com/dlemstra/Magick.NET</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/dlemstra/Magick.NET/master/logo/Magick.NET.icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>ImageMagick is a powerful image manipulation library that supports over 100 major file formats (not including sub-formats). With Magick.NET you can use ImageMagick without having to install ImageMagick on your server or desktop. Visit https://github.com/dlemstra/Magick.NET/tree/master/Documentation before installing to help you decide the best version.</description>
+    <summary>A .NET API to the ImageMagick image-processing library for Desktop and Web.</summary>
+    <releaseNotes/>
+    <copyright>Copyright 2013-2019 Dirk Lemstra</copyright>
+    <tags>ImageMagick Magick.NET Image Convert Resize Draw Effects</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework2.0"/>
+      <group targetFramework=".NETFramework4.0"/>
+      <group targetFramework=".NETStandard1.3">
+        <dependency id="System.Collections.NonGeneric" version="4.3.0" />
+        <dependency id="System.Xml.XDocument" version="4.3.0" />
+        <dependency id="System.Xml.XmlDocument" version="4.3.0" />
+        <dependency id="System.Xml.XPath.XDocument" version="4.3.0" />
+        <dependency id="System.Xml.XPath.XmlDocument" version="4.3.0" />
+      </group>
+      <group targetFramework=".NETStandard2.0"/>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Drawing"/>
+    </frameworkAssemblies>
+  </metadata>
+  <files>
+    <file src="..\Copyright.txt" target="Copyright.txt" />
+  </files>
+</package>

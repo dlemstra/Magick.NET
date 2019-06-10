@@ -1,0 +1,45 @@
+steps:
+
+- task: PowerShell@2
+  inputs:
+    targetType: filePath
+    filePath: build/dotnet/windows/install.dependencies.ps1
+  displayName: Install dependencies
+
+- task: DownloadBuildArtifacts@0
+  inputs:
+    artifactName: windows
+    downloadPath: $(Build.SourcesDirectory)/publish/dotnet/files
+  displayName: Download windows library
+
+- task: DownloadBuildArtifacts@0
+  inputs:
+    artifactName: linux
+    downloadPath: $(Build.SourcesDirectory)/publish/dotnet/files
+  displayName: Download linux library
+
+- task: DownloadBuildArtifacts@0
+  inputs:
+    artifactName: macos
+    downloadPath: $(Build.SourcesDirectory)/publish/dotnet/files
+  displayName: Download macos library
+
+- task: DownloadBuildArtifacts@0
+  inputs:
+    artifactName: metadata
+    downloadPath: $(Build.SourcesDirectory)/publish/dotnet/files
+  displayName: Download metadata
+
+- task: PowerShell@2
+  inputs:
+    targetType: filePath
+    filePath: publish/dotnet/publish.ps1
+    arguments: -destination $(Build.StagingDirectory)
+    workingDirectory: $(Build.SourcesDirectory)/publish/dotnet
+  displayName: Create NuGet package
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: $(Build.StagingDirectory)
+    artifactName: package
+  displayName: 'Publish NuGet package'
