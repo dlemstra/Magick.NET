@@ -1,0 +1,23 @@
+steps:
+
+- task: PowerShell@2
+  inputs:
+    targetType: filePath
+    filePath: build/windows/install.dependencies.ps1
+  displayName: Install dependencies
+
+- script: install.cmd
+  workingDirectory: $(Build.SourcesDirectory)/src/Magick.Native
+  displayName: Install Magick.Native
+
+- script: build.Magick.NET.cmd Test
+  workingDirectory: build/windows
+  displayName: Build Magick.NET (Test)
+
+- script: test.Magick.NET.cmd
+  workingDirectory: build/windows
+  displayName: Test Magick.NET
+
+- script: build.Magick.NET.cmd Release
+  workingDirectory: build/windows
+  displayName: Build Magick.NET (Release)

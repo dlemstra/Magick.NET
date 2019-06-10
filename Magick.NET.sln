@@ -59,6 +59,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "files", "files", "{D6C3708D
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
+		azure-pipelines.yml = azure-pipelines.yml
 		Building.md = Building.md
 		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
 		Copyright.txt = Copyright.txt
@@ -79,8 +80,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{F6E20621
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{C72A1B5F-E300-4C03-8673-0FC024B508B7}"
 	ProjectSection(SolutionItems) = preProject
+		build\windows\build.Magick.NET.cmd = build\windows\build.Magick.NET.cmd
+		build\windows\build.Magick.NET.ps1 = build\windows\build.Magick.NET.ps1
+		build\windows\build.yml = build\windows\build.yml
 		build\windows\install.dependencies.cmd = build\windows\install.dependencies.cmd
 		build\windows\install.dependencies.ps1 = build\windows\install.dependencies.ps1
+		build\windows\test.Magick.NET.cmd = build\windows\test.Magick.NET.cmd
+		build\windows\test.Magick.NET.ps1 = build\windows\test.Magick.NET.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Magick.Native", "Magick.Native", "{7BDF1AD0-F12F-4149-9C3C-79223B8C1721}"
@@ -92,6 +98,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Magick.Native", "Magick.Nat
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magick.NET.Web", "src\Magick.NET.Web\Magick.NET.Web.csproj", "{E66F54A2-6BE7-44A3-A716-CC047CC36C35}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{7935EDEC-32B2-4BA2-93DC-FC990B26D51E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{BE60093C-A01F-454E-A0FC-2812D290CD6A}"
+	ProjectSection(SolutionItems) = preProject
+		tools\windows\utils.ps1 = tools\windows\utils.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -446,6 +459,7 @@ Global
 		{C72A1B5F-E300-4C03-8673-0FC024B508B7} = {F6E20621-E266-4314-ADE0-A899270F2312}
 		{7BDF1AD0-F12F-4149-9C3C-79223B8C1721} = {61345F8D-8813-4CA8-B037-2DE221FFB5D2}
 		{E66F54A2-6BE7-44A3-A716-CC047CC36C35} = {61345F8D-8813-4CA8-B037-2DE221FFB5D2}
+		{BE60093C-A01F-454E-A0FC-2812D290CD6A} = {7935EDEC-32B2-4BA2-93DC-FC990B26D51E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F6887AA-E540-48B3-BDC0-068B342ABEBE}

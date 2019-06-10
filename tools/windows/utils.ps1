@@ -10,14 +10,34 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 
-[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12'
+function checkExitCode($msg)
+{
+  if ($LastExitCode -ne 0)
+  {
+    Write-Error $msg
+    Exit 1
+  }
+}
 
-$sourceNugetExe = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
-$targetNugetExe = "$PSScriptRoot\..\..\tools\windows\nuget.exe"
-Invoke-WebRequest $sourceNugetExe -OutFile $targetNugetExe
+function fullPath($path)
+{
+  return "$PSScriptRoot\..\..\$path"
+}
 
-$sourceGhostscriptExe = "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs926/gs926aw32.exe"
-$targetGhostscriptExe = "$PSScriptRoot\..\..\tools\windows\gs926aw32.exe"
-Invoke-WebRequest $sourceGhostscriptExe -OutFile $targetGhostscriptExe
+function buildSolution($solution, $properties)
+{
+    $path = fullPath $solution
+    $directory = Split-Path -parent $path
+    $filename = Split-Path -leaf $path
+    $nuget = fullPath "tools\windows\nuget.exe"
 
-& $targetGhostscriptExe /S
+    & $nuget restore $path
+
+    $location = $(Get-Location)
+    Set-Location $directory
+
+    msbuild $filename /t:Rebuild ("/p:$($properties)")
+    checkExitCode "Failed to build: $($path)"
+
+    Set-Location $location
+}

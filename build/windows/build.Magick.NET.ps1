@@ -10,14 +10,16 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 
-[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12'
+param (
+    [string]$config = "Release",
+    [string]$quantumName = $env:QuantumName,
+    [string]$platformName = $env:PlatformName
+)
 
-$sourceNugetExe = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
-$targetNugetExe = "$PSScriptRoot\..\..\tools\windows\nuget.exe"
-Invoke-WebRequest $sourceNugetExe -OutFile $targetNugetExe
+. $PSScriptRoot\..\..\tools\windows\utils.ps1
 
-$sourceGhostscriptExe = "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs926/gs926aw32.exe"
-$targetGhostscriptExe = "$PSScriptRoot\..\..\tools\windows\gs926aw32.exe"
-Invoke-WebRequest $sourceGhostscriptExe -OutFile $targetGhostscriptExe
+function buildMagickNET($config, $quantumName, $platformName) {
+    buildSolution "Magick.NET.sln" "Configuration=$config$quantumName,Platform=$platformName"
+}
 
-& $targetGhostscriptExe /S
+buildMagickNET $config $quantumName $platformName
