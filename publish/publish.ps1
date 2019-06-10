@@ -98,6 +98,7 @@ function createMagickNetNuGetPackage($quantumName, $platform, $version, $pfxPass
     $xml.package.metadata.id = $name
     $xml.package.metadata.title = $name
     $xml.package.metadata.version = $version
+    $xml.package.metadata.releaseNotes = "https://github.com/dlemstra/Magick.NET/releases/tag/$version"
 
     $platform = $platformName
 
