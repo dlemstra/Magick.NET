@@ -17,7 +17,13 @@ function installPackage($version, $target) {
     $temp = "$PSScriptRoot\temp"
     Remove-Item $temp -Recurse -ErrorAction Ignore
     [void](New-Item -ItemType directory -Path $temp)
-    ..\..\tools\windows\nuget.exe install Magick.Native -Version $version -OutputDirectory $temp
+
+    # Temporary download from DropBox
+    $url = "https://dl.dropboxusercontent.com/s/5w2fge387ktj57f/Magick.Native.2019.6.8.1448.nupkg"
+    Invoke-WebRequest $url -Outfile "$temp\Magick.Native.2019.6.8.1448.nupkg"
+    ..\..\tools\windows\nuget.exe install Magick.Native -Version $version -OutputDirectory "$temp\..\temp" -Source $temp
+
+    #..\..\tools\windows\nuget.exe install Magick.Native -Version $version -OutputDirectory $temp
 }
 
 function copyToSamplesProject($source, $target, $quantum, $platform) {
