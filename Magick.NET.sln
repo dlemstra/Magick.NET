@@ -85,6 +85,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{C72A
 		build\windows\build.yml = build\windows\build.yml
 		build\windows\install.dependencies.cmd = build\windows\install.dependencies.cmd
 		build\windows\install.dependencies.ps1 = build\windows\install.dependencies.ps1
+		build\windows\sign.Magick.NET.ps1 = build\windows\sign.Magick.NET.ps1
 		build\windows\test.Magick.NET.cmd = build\windows\test.Magick.NET.cmd
 		build\windows\test.Magick.NET.ps1 = build\windows\test.Magick.NET.ps1
 	EndProjectSection
