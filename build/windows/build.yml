@@ -33,6 +33,12 @@ steps:
 - task: PowerShell@2
   inputs:
     targetType: filePath
+    filePath: build/windows/check.tag.ps1
+  displayName: Check for tag
+
+- task: PowerShell@2
+  inputs:
+    targetType: filePath
     filePath: publish/publish.ps1
     arguments: -version $(Build.BuildNumber) -destination "$(Build.StagingDirectory)"
   displayName: Publish Magick.NET
