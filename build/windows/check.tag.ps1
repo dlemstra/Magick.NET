@@ -10,7 +10,9 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 
-$tag = ((git describe --exact-match --tags HEAD 2> $null) | Out-String).Trim()
+& cmd /c 'git describe --exact-match --tags HEAD > tag.txt 2> nul'
+
+$tag = [IO.File]::ReadAllText("tag.txt").Trim()
 
 if ($tag.Length -gt 0) {
     Write-Host "##vso[build.updatebuildnumber]$tag"
