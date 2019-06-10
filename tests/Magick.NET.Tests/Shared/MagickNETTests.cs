@@ -32,6 +32,9 @@ namespace Magick.NET.Tests
 #if WINDOWS_BUILD
             expected += "OpenCL ";
 #endif
+#if OPENMP
+            expected += "OpenMP(2.0) ";
+#endif
 #if DEBUG_TEST
             expected = "Debug " + expected;
 #endif
