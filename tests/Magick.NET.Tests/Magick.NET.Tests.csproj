@@ -14,12 +14,27 @@
     <QuantumType>Q8</QuantumType>
   </PropertyGroup>
 
+  <PropertyGroup Condition="$(Configuration.EndsWith('Q8-OpenMP'))">
+    <DefineConstants>Q8;PLATFORM_$(Platform)</DefineConstants>
+    <QuantumType>Q8</QuantumType>
+  </PropertyGroup>
+
   <PropertyGroup Condition="$(Configuration.EndsWith('Q16'))">
     <DefineConstants>Q16;PLATFORM_$(Platform)</DefineConstants>
     <QuantumType>Q16</QuantumType>
   </PropertyGroup>
 
+  <PropertyGroup Condition="$(Configuration.EndsWith('Q16-OpenMP'))">
+    <DefineConstants>Q16;PLATFORM_$(Platform)</DefineConstants>
+    <QuantumType>Q16</QuantumType>
+  </PropertyGroup>
+
   <PropertyGroup Condition="$(Configuration.EndsWith('Q16-HDRI'))">
+    <DefineConstants>Q16HDRI;PLATFORM_$(Platform)</DefineConstants>
+    <QuantumType>Q16-HDRI</QuantumType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(Configuration.EndsWith('Q16-HDRI-OpenMP'))">
     <DefineConstants>Q16HDRI;PLATFORM_$(Platform)</DefineConstants>
     <QuantumType>Q16-HDRI</QuantumType>
   </PropertyGroup>
