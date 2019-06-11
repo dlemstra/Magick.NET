@@ -53,7 +53,7 @@ jobs:
     - template: build/windows/build.yml
 
 - job: dotnet_linux
-  displayName: Linux
+  displayName: Linux Q8/Q16/Q16-HDRI
   pool:
     vmImage: Ubuntu 16.04
   container: dotnet_latest
