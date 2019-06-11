@@ -4,7 +4,7 @@ steps:
   inputs:
     targetType: filePath
     filePath: build/windows/install.dependencies.ps1
-    arguments: -pfxUri "$(PfxUri)"
+    arguments: -pfxUri '$(PfxUri)'
   displayName: Install dependencies
 
 - script: install.cmd
@@ -27,7 +27,7 @@ steps:
   inputs:
     targetType: filePath
     filePath: build/windows/sign.Magick.NET.ps1
-    arguments: -pfxPassword "$(PfxPassword)"
+    arguments: -pfxPassword '$(PfxPassword)'
   displayName: Sign Magick.NET
 
 - task: PowerShell@2
@@ -40,7 +40,7 @@ steps:
   inputs:
     targetType: filePath
     filePath: publish/publish.ps1
-    arguments: -version $(Build.BuildNumber) -destination "$(Build.StagingDirectory)" -pfxPassword "$(PfxPassword)"
+    arguments: -version $(Build.BuildNumber) -destination "$(Build.StagingDirectory)" -pfxPassword '$(PfxPassword)'
   displayName: Publish Magick.NET
 
 - task: PublishBuildArtifacts@1
