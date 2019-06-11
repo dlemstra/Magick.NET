@@ -63,7 +63,7 @@ jobs:
     - template: build/linux/build.yml
 
 - job: macos
-  displayName: '.NET (MacOS)'
+  displayName: MacOS Q8/Q16/Q16-HDRI
   pool:
     vmImage: macOS 10.13
   steps:
