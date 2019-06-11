@@ -24,6 +24,10 @@ copyToTestProject() {
 
     cp temp/Magick.Native.$version/content/Release$quantum/x64/Magick.Native-$quantum-x64.dll.so $folder
     cp temp/Magick.Native.$version/content/Release$quantum/x64/Magick.Native-$quantum-x64.dll.dylib $folder
+
+    folder=resources/Release$quantum
+    mkdir -p $folder
+    cp temp/Magick.Native.$version/content/Release$quantum/x64/*.xml $folder
 }
 
 copyToTestProjects() {
