@@ -7,7 +7,7 @@ resources:
     options: '--name dotnet_latest -v /usr/bin/docker:/tmp/docker:ro'
 
 jobs:
-- job: dotnet_windows
+- job: windows
   displayName: Windows
   pool:
     vmImage: vs2017-win2016
@@ -52,7 +52,7 @@ jobs:
   steps:
     - template: build/windows/build.yml
 
-- job: dotnet_linux
+- job: linux
   displayName: Linux Q8/Q16/Q16-HDRI
   pool:
     vmImage: Ubuntu 16.04
@@ -61,3 +61,10 @@ jobs:
     - script: /tmp/docker exec -t -u 0 dotnet_latest $(Build.SourcesDirectory)/build/linux/install.sudo.sh
       displayName: Install sudo
     - template: build/linux/build.yml
+
+- job: macos
+  displayName: '.NET (MacOS)'
+  pool:
+    vmImage: macOS 10.13
+  steps:
+    - template: build/macos/build.yml
