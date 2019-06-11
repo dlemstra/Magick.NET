@@ -13,11 +13,11 @@ With Magick.NET you can use ImageMagick in your C#/VB.NET/.NET Core application 
 ## Supported Platforms
 
 - .NET Framework (2.0 and higher)
-- .NET Core (.NETStandard 1.3 and higher on Windows, [Linux](Documentation/CrossPlatform.md) and [macOS](Documentation/CrossPlatform.md))
+- .NET Core (.NETStandard 1.3 and higher on Windows, [Linux](docs/CrossPlatform.md) and [macOS](docs/CrossPlatform.md))
 
 ## Documentation
 
-For examples on how to install and use Magick.NET visit the [documentation](Documentation/Readme.md) page.
+For examples on how to install and use Magick.NET visit the [documentation](docs/Readme.md) page.
 For more information about ImageMagick go to: [http://www.imagemagick.org/](http://www.imagemagick.org/).
 
 ## Download
@@ -51,7 +51,7 @@ this build in a production environment.
 
 ## Versioning
 
-Magick.NET uses the following: [versioning strategy](Documentation/Versioning.md).
+Magick.NET uses the following: [versioning strategy](docs/Versioning.md).
 
 ## Donate
 
@@ -61,5 +61,3 @@ If you prefer to use PayPal then [click here](https://www.paypal.me/DirkLemstra)
 
 ----
 _A special thanks goes out to [Snakeware](https://www.snakeware.nl) who let me spend company time on this project._
-
-
