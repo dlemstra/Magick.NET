@@ -8,8 +8,13 @@ buildAndTest() {
     dotnet test tests/Magick.NET.Tests/Magick.NET.Tests.csproj -f netcoreapp2.0 -c Test$quantum
 }
 
-cd src/Magick.Native
+./imagick_type_gen.pl > type.xml
+cwd=$(pwd)
+export MAGICK_FONT_PATH=$cwd
+
+cd ../../src/Magick.Native
 ./install.sh
+
 cd ../../
 buildAndTest "Q8"
 buildAndTest "Q16"

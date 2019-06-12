@@ -1,5 +1,5 @@
 steps:
 
 - script: $(Build.SourcesDirectory)/build/macos/test.Magick.NET.sh
-  workingDirectory: $(Build.SourcesDirectory)
+  workingDirectory: $(Build.SourcesDirectory)/build/macos
   displayName: Build and Test
