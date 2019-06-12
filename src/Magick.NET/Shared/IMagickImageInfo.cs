@@ -10,7 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
 using System.IO;
 
 namespace ImageMagick
@@ -18,7 +17,7 @@ namespace ImageMagick
     /// <summary>
     /// Interface that contains basic information about an image.
     /// </summary>
-    public interface IMagickImageInfo : IEquatable<IMagickImageInfo>, IComparable<IMagickImageInfo>
+    public interface IMagickImageInfo
     {
         /// <summary>
         /// Gets the color space of the image.
