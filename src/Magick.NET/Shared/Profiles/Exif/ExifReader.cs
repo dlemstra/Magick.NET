@@ -71,10 +71,10 @@ namespace ImageMagick
             if (ReadShort() != 0x002A)
                 return result;
 
-            uint ifdOffset = ReadLong();
+            var ifdOffset = ReadLong();
             AddValues(result, ifdOffset);
 
-            uint thumbnailOffset = ReadLong();
+            var thumbnailOffset = ReadLong();
             ReadThumbnail(thumbnailOffset);
 
             if (_exifOffset != 0)
@@ -88,10 +88,10 @@ namespace ImageMagick
 
         private static TDataType[] ToArray<TDataType>(ExifDataType dataType, uint length, ReadMethod<TDataType> read)
         {
-            int dataTypeSize = (int)ExifValue.GetSize(dataType);
-            int arrayLength = (int)length / dataTypeSize;
+            var dataTypeSize = (int)ExifValue.GetSize(dataType);
+            var arrayLength = (int)length / dataTypeSize;
 
-            TDataType[] result = new TDataType[arrayLength];
+            var result = new TDataType[arrayLength];
 
             for (int i = 0; i < arrayLength; i++)
             {
@@ -104,7 +104,7 @@ namespace ImageMagick
         private void AddValues(Collection<ExifValue> values, uint index)
         {
             _reader.Seek(_startIndex + index);
-            ushort count = ReadShort();
+            var count = ReadShort();
 
             for (ushort i = 0; i < count; i++)
             {
@@ -112,7 +112,7 @@ namespace ImageMagick
                 if (value == null)
                     continue;
 
-                bool duplicate = false;
+                var duplicate = false;
                 foreach (ExifValue val in values)
                 {
                     if (val.Tag == value.Tag)
@@ -213,20 +213,20 @@ namespace ImageMagick
             if (!_reader.CanRead(12))
                 return null;
 
-            ExifTag tag = (ExifTag)ReadShort();
-            ExifDataType dataType = EnumHelper.Parse(ReadShort(), ExifDataType.Unknown);
+            var tag = (ExifTag)ReadShort();
+            var dataType = EnumHelper.Parse(ReadShort(), ExifDataType.Unknown);
             object value = null;
 
             if (dataType == ExifDataType.Unknown)
                 return new ExifValue(tag, dataType, value, false);
 
-            uint numberOfComponents = ReadLong();
+            var numberOfComponents = ReadLong();
 
             if (dataType == ExifDataType.Undefined && numberOfComponents == 0)
                 numberOfComponents = 4;
 
-            uint oldIndex = _reader.Index;
-            uint length = numberOfComponents * ExifValue.GetSize(dataType);
+            var oldIndex = _reader.Index;
+            var length = numberOfComponents * ExifValue.GetSize(dataType);
 
             if (length <= 4)
             {
@@ -234,7 +234,7 @@ namespace ImageMagick
             }
             else
             {
-                uint newIndex = _startIndex + ReadLong();
+                var newIndex = _startIndex + ReadLong();
 
                 if (_reader.Seek(newIndex))
                 {
@@ -254,7 +254,7 @@ namespace ImageMagick
 
             _reader.Seek(oldIndex + 4);
 
-            bool isArray = value != null && numberOfComponents != 1;
+            var isArray = value != null && numberOfComponents != 1;
             return new ExifValue(tag, dataType, value, isArray);
         }
 
@@ -272,11 +272,11 @@ namespace ImageMagick
 
         private Rational ReadRational()
         {
-            uint? numerator = _isLittleEndian ? _reader.ReadLongLSB() : _reader.ReadLongMSB();
+            var numerator = _isLittleEndian ? _reader.ReadLongLSB() : _reader.ReadLongMSB();
             if (numerator == null)
                 return default(Rational);
 
-            uint? denominator = _isLittleEndian ? _reader.ReadLongLSB() : _reader.ReadLongMSB();
+            var denominator = _isLittleEndian ? _reader.ReadLongLSB() : _reader.ReadLongMSB();
             if (denominator == null)
                 return default(Rational);
 
@@ -285,41 +285,41 @@ namespace ImageMagick
 
         private unsafe SignedRational ReadSignedRational()
         {
-            uint? numerator = _isLittleEndian ? _reader.ReadLongLSB() : _reader.ReadLongMSB();
+            var numerator = _isLittleEndian ? _reader.ReadLongLSB() : _reader.ReadLongMSB();
             if (numerator == null)
                 return default(SignedRational);
 
-            uint? denominator = _isLittleEndian ? _reader.ReadLongLSB() : _reader.ReadLongMSB();
+            var denominator = _isLittleEndian ? _reader.ReadLongLSB() : _reader.ReadLongMSB();
             if (denominator == null)
                 return default(SignedRational);
 
-            uint num = numerator.Value;
-            uint dem = denominator.Value;
+            var num = numerator.Value;
+            var dem = denominator.Value;
 
             return new SignedRational(*(int*)&num, *(int*)&dem, false);
         }
 
         private unsafe sbyte ReadSignedByte()
         {
-            byte result = ReadByte();
+            var result = ReadByte();
             return *(sbyte*)&result;
         }
 
         private unsafe int ReadSignedLong()
         {
-            uint result = ReadLong();
+            var result = ReadLong();
             return *(int*)&result;
         }
 
         private unsafe short ReadSignedShort()
         {
-            ushort result = ReadShort();
+            var result = ReadShort();
             return *(short*)&result;
         }
 
         private void ReadThumbnail(uint offset)
         {
-            Collection<ExifValue> values = new Collection<ExifValue>();
+            var values = new Collection<ExifValue>();
             AddValues(values, offset);
 
             foreach (ExifValue value in values)
