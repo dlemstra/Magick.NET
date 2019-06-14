@@ -10,11 +10,8 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Text;
 
 namespace ImageMagick
 {
@@ -96,6 +93,26 @@ namespace ImageMagick
         /// </summary>
         public ColorSpace ColorSpace { get; private set; }
 
+        /// <summary>
+        /// Gets the copyright of the profile.
+        /// </summary>
+        public string Copyright { get; private set; }
+
+        /// <summary>
+        /// Gets the description of the profile.
+        /// </summary>
+        public string Description { get; private set; }
+
+        /// <summary>
+        /// Gets the manufacturer of the profile.
+        /// </summary>
+        public string Manufacturer { get; private set; }
+
+        /// <summary>
+        /// Gets the model of the profile.
+        /// </summary>
+        public string Model { get; private set; }
+
         private static ColorProfile Load(string resourcePath, string resourceName)
         {
             lock (_SyncRoot)
@@ -112,46 +129,16 @@ namespace ImageMagick
             return _profiles[resourceName];
         }
 
-        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Cannot avoid it here.")]
-        private static ColorSpace DetermineColorSpace(string colorSpace)
-        {
-            switch (colorSpace)
-            {
-                case "CMY":
-                    return ColorSpace.CMY;
-                case "CMYK":
-                    return ColorSpace.CMYK;
-                case "GRAY":
-                    return ColorSpace.Gray;
-                case "HLS":
-                    return ColorSpace.HSL;
-                case "HSV":
-                    return ColorSpace.HSV;
-                case "Lab":
-                    return ColorSpace.Lab;
-                case "Luv":
-                    return ColorSpace.YUV;
-                case "RGB":
-                    return ColorSpace.sRGB;
-                case "XYZ":
-                    return ColorSpace.XYZ;
-                case "YCbr":
-                    return ColorSpace.YCbCr;
-                case "Yxy":
-                    return ColorSpace.XyY;
-                default:
-                    throw new NotSupportedException(colorSpace);
-            }
-        }
-
         private void Initialize()
         {
-            ColorSpace = ColorSpace.Undefined;
-            if (Data.Length < 20)
-                return;
+            var reader = new ColorProfileReader();
+            reader.Read(Data);
 
-            string colorSpace = Encoding.ASCII.GetString(Data, 16, 4).TrimEnd();
-            ColorSpace = DetermineColorSpace(colorSpace);
+            ColorSpace = reader.ColorSpace;
+            Copyright = reader.Copyright;
+            Description = reader.Description;
+            Manufacturer = reader.Manufacturer;
+            Model = reader.Model;
         }
     }
 }

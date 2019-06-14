@@ -40,6 +40,16 @@ namespace ImageMagick
             return true;
         }
 
+        public bool Skip(uint value)
+        {
+            if (Index + value >= _data.Length)
+                return false;
+
+            Index += value;
+
+            return true;
+        }
+
         public byte? ReadByte()
         {
             if (Index >= _data.Length)
