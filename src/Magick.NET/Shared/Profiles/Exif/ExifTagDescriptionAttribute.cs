@@ -36,12 +36,12 @@ namespace ImageMagick
 
         public static string GetDescription(ExifTag tag, object value)
         {
-            ExifTagDescriptionAttribute[] attributes = TypeHelper.GetCustomAttributes<ExifTagDescriptionAttribute>(tag);
+            var attributes = TypeHelper.GetCustomAttributes<ExifTagDescriptionAttribute>(tag);
 
             if (attributes == null || attributes.Length == 0)
                 return null;
 
-            foreach (ExifTagDescriptionAttribute attribute in attributes)
+            foreach (var attribute in attributes)
             {
                 if (Equals(attribute._value, value))
                     return attribute._description;
