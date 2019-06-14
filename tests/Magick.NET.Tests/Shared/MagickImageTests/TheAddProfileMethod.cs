@@ -33,6 +33,38 @@ namespace Magick.NET.Tests
                     Assert.AreEqual("Copyright (c) 1998 Hewlett-Packard Company", image.GetAttribute("icc:copyright"));
                 }
             }
+
+            [TestMethod]
+            public void ShouldUseIccAsTheDefaultProfileName()
+            {
+                using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+                {
+                    var profile = image.GetColorProfile();
+                    Assert.IsNull(profile);
+
+                    image.AddProfile(ColorProfile.SRGB);
+
+                    Assert.IsNull(image.GetProfile("icm"));
+                }
+            }
+
+            [TestMethod]
+            public void ShouldUseTheCorrectProfileName()
+            {
+                using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+                {
+                    var profile = image.GetColorProfile();
+                    Assert.IsNull(profile);
+
+                    image.AddProfile(new ImageProfile("icm", ColorProfile.SRGB.ToByteArray()));
+
+                    profile = image.GetColorProfile();
+
+                    Assert.IsNotNull(profile);
+                    Assert.AreEqual("icm", profile.Name);
+                    Assert.AreEqual(3144, profile.ToByteArray().Length);
+                }
+            }
         }
     }
 }
