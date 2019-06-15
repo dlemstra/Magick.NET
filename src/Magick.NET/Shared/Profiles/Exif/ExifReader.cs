@@ -86,7 +86,7 @@ namespace ImageMagick
             return result;
         }
 
-        private static TDataType[] ToArray<TDataType>(ExifDataType dataType, uint length, ReadMethod<TDataType> read)
+        private static TDataType[] ReadArray<TDataType>(ExifDataType dataType, uint length, ReadMethod<TDataType> read)
         {
             var dataTypeSize = (int)ExifDataTypes.GetSize(dataType);
             var arrayLength = (int)length / dataTypeSize;
@@ -157,52 +157,52 @@ namespace ImageMagick
                     if (numberOfComponents == 1)
                         return ReadByte();
                     else
-                        return ToArray(dataType, length, ReadByte);
+                        return ReadArray(dataType, length, ReadByte);
                 case ExifDataType.Double:
                     if (numberOfComponents == 1)
                         return ReadDouble();
                     else
-                        return ToArray(dataType, length, ReadDouble);
+                        return ReadArray(dataType, length, ReadDouble);
                 case ExifDataType.Long:
                     if (numberOfComponents == 1)
                         return ReadLong();
                     else
-                        return ToArray(dataType, length, ReadLong);
+                        return ReadArray(dataType, length, ReadLong);
                 case ExifDataType.Rational:
                     if (numberOfComponents == 1)
                         return ReadRational();
                     else
-                        return ToArray(dataType, length, ReadRational);
+                        return ReadArray(dataType, length, ReadRational);
                 case ExifDataType.Short:
                     if (numberOfComponents == 1)
                         return ReadShort();
                     else
-                        return ToArray(dataType, length, ReadShort);
+                        return ReadArray(dataType, length, ReadShort);
                 case ExifDataType.SignedByte:
                     if (numberOfComponents == 1)
                         return ReadSignedByte();
                     else
-                        return ToArray(dataType, length, ReadSignedByte);
+                        return ReadArray(dataType, length, ReadSignedByte);
                 case ExifDataType.SignedLong:
                     if (numberOfComponents == 1)
                         return ReadSignedLong();
                     else
-                        return ToArray(dataType, length, ReadSignedLong);
+                        return ReadArray(dataType, length, ReadSignedLong);
                 case ExifDataType.SignedRational:
                     if (numberOfComponents == 1)
                         return ReadSignedRational();
                     else
-                        return ToArray(dataType, length, ReadSignedRational);
+                        return ReadArray(dataType, length, ReadSignedRational);
                 case ExifDataType.SignedShort:
                     if (numberOfComponents == 1)
                         return ReadSignedShort();
                     else
-                        return ToArray(dataType, length, ReadSignedShort);
+                        return ReadArray(dataType, length, ReadSignedShort);
                 case ExifDataType.Float:
                     if (numberOfComponents == 1)
                         return ReadFloat();
                     else
-                        return ToArray(dataType, length, ReadFloat);
+                        return ReadArray(dataType, length, ReadFloat);
                 default:
                     throw new NotSupportedException();
             }
