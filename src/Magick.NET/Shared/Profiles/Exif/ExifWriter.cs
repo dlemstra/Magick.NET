@@ -46,14 +46,14 @@ namespace ImageMagick
             int gpsIndex = -1;
 
             if (_exifIndexes.Count > 0)
-                exifIndex = (int)GetIndex(_ifdIndexes, ExifTag.SubIFDOffset);
+                exifIndex = GetIndex(_ifdIndexes, ExifTag.SubIFDOffset);
 
             if (_gPSIndexes.Count > 0)
-                gpsIndex = (int)GetIndex(_ifdIndexes, ExifTag.GPSIFDOffset);
+                gpsIndex = GetIndex(_ifdIndexes, ExifTag.GPSIFDOffset);
 
-            uint ifdLength = 2 + GetLength(_ifdIndexes) + 4;
-            uint exifLength = GetLength(_exifIndexes);
-            uint gpsLength = GetLength(_gPSIndexes);
+            var ifdLength = 2 + GetLength(_ifdIndexes) + 4;
+            var exifLength = GetLength(_exifIndexes);
+            var gpsLength = GetLength(_gPSIndexes);
 
             if (exifLength > 0)
                 exifLength += 2;
@@ -68,21 +68,31 @@ namespace ImageMagick
 
             length += 10 + 4 + 2;
 
-            byte[] result = new byte[length];
+            var result = new byte[length];
             result[0] = (byte)'E';
             result[1] = (byte)'x';
             result[2] = (byte)'i';
             result[3] = (byte)'f';
             result[4] = 0x00;
             result[5] = 0x00;
-            result[6] = (byte)'I';
-            result[7] = (byte)'I';
+
+            if (BitConverter.IsLittleEndian)
+            {
+                result[6] = (byte)'I';
+                result[7] = (byte)'I';
+            }
+            else
+            {
+                result[6] = (byte)'M';
+                result[7] = (byte)'M';
+            }
+
             result[8] = 0x2A;
             result[9] = 0x00;
 
-            int i = 10;
-            uint ifdOffset = ((uint)i - _StartIndex) + 4;
-            uint thumbnailOffset = ifdOffset + ifdLength + exifLength + gpsLength;
+            var i = 10;
+            var ifdOffset = ((uint)i - _StartIndex) + 4;
+            var thumbnailOffset = ifdOffset + ifdLength + exifLength + gpsLength;
 
             if (exifLength > 0)
                 _values[exifIndex].Value = ifdOffset + ifdLength;
@@ -194,9 +204,9 @@ namespace ImageMagick
             if (_dataOffsets.Count == 0)
                 return offset;
 
-            int newOffset = offset;
+            var newOffset = offset;
 
-            int i = 0;
+            var i = 0;
             foreach (int index in indexes)
             {
                 ExifValue value = _values[index];
@@ -229,10 +239,10 @@ namespace ImageMagick
             if (!EnumHelper.HasFlag(_allowedParts, part))
                 return new Collection<int>();
 
-            Collection<int> result = new Collection<int>();
+            var result = new Collection<int>();
             for (int i = 0; i < _values.Count; i++)
             {
-                ExifValue value = _values[i];
+                var value = _values[i];
 
                 if (!value.HasValue)
                     continue;
@@ -251,7 +261,7 @@ namespace ImageMagick
 
             foreach (int index in indexes)
             {
-                uint valueLength = (uint)_values[index].Length;
+                var valueLength = (uint)_values[index].Length;
 
                 if (valueLength > 4)
                     length += 12 + valueLength;
@@ -266,14 +276,14 @@ namespace ImageMagick
         {
             _dataOffsets = new Collection<int>();
 
-            int newOffset = Write(BitConverter.GetBytes((ushort)indexes.Count), destination, offset);
+            var newOffset = Write(BitConverter.GetBytes((ushort)indexes.Count), destination, offset);
 
             if (indexes.Count == 0)
                 return newOffset;
 
             foreach (int index in indexes)
             {
-                ExifValue value = _values[index];
+                var value = _values[index];
                 newOffset = Write(BitConverter.GetBytes((ushort)value.Tag), destination, newOffset);
                 newOffset = Write(BitConverter.GetBytes((ushort)value.DataType), destination, newOffset);
                 newOffset = Write(BitConverter.GetBytes((uint)value.NumberOfComponents), destination, newOffset);
