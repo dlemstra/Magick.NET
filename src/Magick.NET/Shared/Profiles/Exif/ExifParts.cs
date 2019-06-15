@@ -36,13 +36,13 @@ namespace ImageMagick
         ExifTags = 4,
 
         /// <summary>
-        /// GPSTags
+        /// GpsTags
         /// </summary>
-        GPSTags = 8,
+        GpsTags = 8,
 
         /// <summary>
         /// All
         /// </summary>
-        All = IfdTags | ExifTags | GPSTags,
+        All = IfdTags | ExifTags | GpsTags,
     }
 }
