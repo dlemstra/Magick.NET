@@ -80,6 +80,56 @@ namespace ImageMagick
                 case ExifTag.ImageNumber:
                     return new ExifLong(tag);
 
+                case ExifTag.WhitePoint:
+                case ExifTag.PrimaryChromaticities:
+                case ExifTag.YCbCrCoefficients:
+                case ExifTag.ReferenceBlackWhite:
+                case ExifTag.PixelScale:
+                case ExifTag.IntergraphMatrix:
+                case ExifTag.ModelTiePoint:
+                case ExifTag.ModelTransform:
+                case ExifTag.GPSLatitude:
+                case ExifTag.GPSLongitude:
+                case ExifTag.GPSTimestamp:
+                case ExifTag.GPSDestLatitude:
+                case ExifTag.GPSDestLongitude:
+                    return new ExifRationalArray(tag);
+
+                case ExifTag.XPosition:
+                case ExifTag.YPosition:
+                case ExifTag.XResolution:
+                case ExifTag.YResolution:
+                case ExifTag.BatteryLevel:
+                case ExifTag.ExposureTime:
+                case ExifTag.FNumber:
+                case ExifTag.MDScalePixel:
+                case ExifTag.CompressedBitsPerPixel:
+                case ExifTag.ApertureValue:
+                case ExifTag.MaxApertureValue:
+                case ExifTag.SubjectDistance:
+                case ExifTag.FocalLength:
+                case ExifTag.FlashEnergy2:
+                case ExifTag.FocalPlaneXResolution2:
+                case ExifTag.FocalPlaneYResolution2:
+                case ExifTag.ExposureIndex2:
+                case ExifTag.Humidity:
+                case ExifTag.Pressure:
+                case ExifTag.Acceleration:
+                case ExifTag.FlashEnergy:
+                case ExifTag.FocalPlaneXResolution:
+                case ExifTag.FocalPlaneYResolution:
+                case ExifTag.ExposureIndex:
+                case ExifTag.DigitalZoomRatio:
+                case ExifTag.LensInfo:
+                case ExifTag.GPSAltitude:
+                case ExifTag.GPSDOP:
+                case ExifTag.GPSSpeed:
+                case ExifTag.GPSTrack:
+                case ExifTag.GPSImgDirection:
+                case ExifTag.GPSDestBearing:
+                case ExifTag.GPSDestDistance:
+                    return new ExifRational(tag);
+
                 case ExifTag.JPEGTables:
                 case ExifTag.OECF:
                 case ExifTag.ExifVersion:
