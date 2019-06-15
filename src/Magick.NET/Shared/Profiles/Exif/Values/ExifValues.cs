@@ -201,6 +201,17 @@ namespace ImageMagick
                 case ExifTag.GPSDifferential:
                     return new ExifShort(tag);
 
+                case ExifTag.Decode:
+                    return new ExifSignedRationalArray(tag);
+
+                case ExifTag.ShutterSpeedValue:
+                case ExifTag.BrightnessValue:
+                case ExifTag.ExposureBiasValue:
+                case ExifTag.AmbientTemperature:
+                case ExifTag.WaterDepth:
+                case ExifTag.CameraElevationAngle:
+                    return new ExifSignedRational(tag);
+
                 case ExifTag.JPEGTables:
                 case ExifTag.OECF:
                 case ExifTag.ExifVersion:
