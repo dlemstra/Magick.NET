@@ -43,6 +43,43 @@ namespace ImageMagick
                 case ExifTag.GPSAltitudeRef:
                     return new ExifByte(tag, ExifDataType.Byte);
 
+                case ExifTag.FreeOffsets:
+                case ExifTag.FreeByteCounts:
+                case ExifTag.ColorResponseUnit:
+                case ExifTag.TileOffsets:
+                case ExifTag.SMinSampleValue:
+                case ExifTag.SMaxSampleValue:
+                case ExifTag.JPEGQTables:
+                case ExifTag.JPEGDCTables:
+                case ExifTag.JPEGACTables:
+                case ExifTag.StripRowCounts:
+                case ExifTag.IntergraphRegisters:
+                case ExifTag.TimeZoneOffset:
+                    return new ExifLongArray(tag);
+
+                case ExifTag.SubfileType:
+                case ExifTag.SubIFDOffset:
+                case ExifTag.GPSIFDOffset:
+                case ExifTag.T4Options:
+                case ExifTag.T6Options:
+                case ExifTag.XClipPathUnits:
+                case ExifTag.YClipPathUnits:
+                case ExifTag.ProfileType:
+                case ExifTag.CodingMethods:
+                case ExifTag.T82ptions:
+                case ExifTag.JPEGInterchangeFormat:
+                case ExifTag.JPEGInterchangeFormatLength:
+                case ExifTag.MDFileTag:
+                case ExifTag.StandardOutputSensitivity:
+                case ExifTag.RecommendedExposureIndex:
+                case ExifTag.ISOSpeed:
+                case ExifTag.ISOSpeedLatitudeyyy:
+                case ExifTag.ISOSpeedLatitudezzz:
+                case ExifTag.FaxRecvParams:
+                case ExifTag.FaxRecvTime:
+                case ExifTag.ImageNumber:
+                    return new ExifLong(tag);
+
                 case ExifTag.JPEGTables:
                 case ExifTag.OECF:
                 case ExifTag.ExifVersion:
