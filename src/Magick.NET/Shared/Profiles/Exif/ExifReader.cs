@@ -274,11 +274,11 @@ namespace ImageMagick
         {
             var numerator = _isLittleEndian ? _reader.ReadLongLSB() : _reader.ReadLongMSB();
             if (numerator == null)
-                return default(Rational);
+                return default;
 
             var denominator = _isLittleEndian ? _reader.ReadLongLSB() : _reader.ReadLongMSB();
             if (denominator == null)
-                return default(Rational);
+                return default;
 
             return new Rational(numerator.Value, denominator.Value, false);
         }
@@ -287,11 +287,11 @@ namespace ImageMagick
         {
             var numerator = _isLittleEndian ? _reader.ReadLongLSB() : _reader.ReadLongMSB();
             if (numerator == null)
-                return default(SignedRational);
+                return default;
 
             var denominator = _isLittleEndian ? _reader.ReadLongLSB() : _reader.ReadLongMSB();
             if (denominator == null)
-                return default(SignedRational);
+                return default;
 
             var num = numerator.Value;
             var dem = denominator.Value;
