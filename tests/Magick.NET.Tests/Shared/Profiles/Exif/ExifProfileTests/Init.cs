@@ -17,7 +17,7 @@ namespace Magick.NET.Tests
 {
     public partial class ExifProfileTests
     {
-        private static void TestValue(ExifValue value, string expected)
+        private static void TestValue(IExifValue value, string expected)
         {
             Assert.IsNotNull(value);
             Assert.AreEqual(expected, value.Value);

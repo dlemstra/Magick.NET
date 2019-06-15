@@ -87,12 +87,16 @@ namespace ImageMagick
         /// <summary>
         /// Gets the values of this exif profile.
         /// </summary>
-        public IEnumerable<ExifValue> Values
+        public IEnumerable<IExifValue> Values
         {
             get
             {
                 InitializeValues();
-                return _values;
+
+                foreach (var value in _values)
+                {
+                    yield return value;
+                }
             }
         }
 
@@ -120,9 +124,9 @@ namespace ImageMagick
         /// </summary>
         /// <param name="tag">The tag of the exif value.</param>
         /// <returns>The value with the specified tag.</returns>
-        public ExifValue GetValue(ExifTag tag)
+        public IExifValue GetValue(ExifTag tag)
         {
-            foreach (ExifValue exifValue in Values)
+            foreach (var exifValue in Values)
             {
                 if (exifValue.Tag == tag)
                     return exifValue;
@@ -159,7 +163,7 @@ namespace ImageMagick
         /// <param name="value">The value.</param>
         public void SetValue(ExifTag tag, object value)
         {
-            foreach (ExifValue exifValue in Values)
+            foreach (var exifValue in Values)
             {
                 if (exifValue.Tag == tag)
                 {
@@ -168,7 +172,7 @@ namespace ImageMagick
                 }
             }
 
-            ExifValue newExifValue = ExifValue.Create(tag, value);
+            var newExifValue = ExifValue.Create(tag, value);
             _values.Add(newExifValue);
         }
 
@@ -188,7 +192,7 @@ namespace ImageMagick
                 return;
             }
 
-            ExifWriter writer = new ExifWriter(_values, Parts);
+            var writer = new ExifWriter(_values, Parts);
             Data = writer.GetData();
         }
 
@@ -209,7 +213,7 @@ namespace ImageMagick
                 return;
             }
 
-            ExifReader reader = new ExifReader();
+            var reader = new ExifReader();
             _values = reader.Read(Data);
             _invalidTags = new List<ExifTag>(reader.InvalidTags);
             _thumbnailOffset = (int)reader.ThumbnailOffset;

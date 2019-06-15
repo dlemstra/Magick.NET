@@ -64,7 +64,7 @@ namespace Magick.NET.Tests
                 });
             }
 
-            private static void TestRationalValue(ExifValue value, string expected)
+            private static void TestRationalValue(IExifValue value, string expected)
             {
                 Assert.IsNotNull(value);
                 Assert.AreEqual(expected, value.ToString());

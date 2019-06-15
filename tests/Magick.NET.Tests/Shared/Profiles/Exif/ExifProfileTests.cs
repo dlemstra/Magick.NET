@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
 
                 using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
-                    ExifProfile profile = image.GetExifProfile();
+                    var profile = image.GetExifProfile();
 
                     profile.SetValue(ExifTag.ExposureTime, new Rational(exposureTime));
                     image.AddProfile(profile);
@@ -41,11 +41,11 @@ namespace Magick.NET.Tests
                 memStream.Position = 0;
                 using (IMagickImage image = new MagickImage(memStream))
                 {
-                    ExifProfile profile = image.GetExifProfile();
+                    var profile = image.GetExifProfile();
 
                     Assert.IsNotNull(profile);
 
-                    ExifValue value = profile.GetValue(ExifTag.ExposureTime);
+                    var value = profile.GetValue(ExifTag.ExposureTime);
                     Assert.IsNotNull(value);
                     Assert.AreNotEqual(exposureTime, ((Rational)value.Value).ToDouble());
                 }
@@ -53,7 +53,7 @@ namespace Magick.NET.Tests
                 memStream.Position = 0;
                 using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
-                    ExifProfile profile = image.GetExifProfile();
+                    var profile = image.GetExifProfile();
 
                     profile.SetValue(ExifTag.ExposureTime, new Rational(exposureTime, true));
                     image.AddProfile(profile);
@@ -64,11 +64,11 @@ namespace Magick.NET.Tests
                 memStream.Position = 0;
                 using (IMagickImage image = new MagickImage(memStream))
                 {
-                    ExifProfile profile = image.GetExifProfile();
+                    var profile = image.GetExifProfile();
 
                     Assert.IsNotNull(profile);
 
-                    ExifValue value = profile.GetValue(ExifTag.ExposureTime);
+                    var value = profile.GetValue(ExifTag.ExposureTime);
                     Assert.AreEqual(exposureTime, ((Rational)value.Value).ToDouble());
                 }
             }
@@ -79,12 +79,12 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
-                ExifProfile profile = image.GetExifProfile();
+                var profile = image.GetExifProfile();
                 profile.SetValue(ExifTag.ExposureBiasValue, new SignedRational(double.PositiveInfinity));
                 image.AddProfile(profile);
 
                 profile = image.GetExifProfile();
-                ExifValue value = profile.GetValue(ExifTag.ExposureBiasValue);
+                var value = profile.GetValue(ExifTag.ExposureBiasValue);
                 Assert.IsNotNull(value);
                 Assert.AreEqual(double.PositiveInfinity, ((SignedRational)value.Value).ToDouble());
 
@@ -111,7 +111,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
-                ExifProfile profile = image.GetExifProfile();
+                var profile = image.GetExifProfile();
                 TestProfile(profile);
 
                 using (IMagickImage emptyImage = new MagickImage(Files.ImageMagickJPG))
@@ -130,7 +130,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.ExifUndefTypeJPG))
             {
-                ExifProfile profile = image.GetExifProfile();
+                var profile = image.GetExifProfile();
                 Assert.IsNotNull(profile);
 
                 foreach (ExifValue value in profile.Values)
@@ -147,7 +147,7 @@ namespace Magick.NET.Tests
 
             Assert.AreEqual(44, profile.Values.Count());
 
-            foreach (ExifValue value in profile.Values)
+            foreach (var value in profile.Values)
             {
                 Assert.IsNotNull(value.Value);
 

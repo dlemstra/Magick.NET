@@ -20,7 +20,7 @@ namespace ImageMagick
     /// <summary>
     /// A value of the exif profile.
     /// </summary>
-    public sealed class ExifValue
+    public sealed class ExifValue : IExifValue
     {
         private object _value;
 
@@ -132,6 +132,16 @@ namespace ImageMagick
             }
 
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// Tries to set the value and returns a value indicating whether the value could be set.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>A value indicating whether the value could be set.</returns>
+        public bool TrySetValue(object value)
+        {
+            return false;
         }
 
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Cannot avoid it here.")]
