@@ -130,6 +130,77 @@ namespace ImageMagick
                 case ExifTag.GPSDestDistance:
                     return new ExifRational(tag);
 
+                case ExifTag.BitsPerSample:
+                case ExifTag.MinSampleValue:
+                case ExifTag.MaxSampleValue:
+                case ExifTag.GrayResponseCurve:
+                case ExifTag.ColorMap:
+                case ExifTag.ExtraSamples:
+                case ExifTag.PageNumber:
+                case ExifTag.TransferFunction:
+                case ExifTag.Predictor:
+                case ExifTag.HalftoneHints:
+                case ExifTag.SampleFormat:
+                case ExifTag.TransferRange:
+                case ExifTag.DefaultImageColor:
+                case ExifTag.JPEGLosslessPredictors:
+                case ExifTag.JPEGPointTransforms:
+                case ExifTag.YCbCrSubsampling:
+                case ExifTag.CFARepeatPatternDim:
+                case ExifTag.IntergraphPacketData:
+                case ExifTag.ISOSpeedRatings:
+                case ExifTag.SubjectArea:
+                case ExifTag.SubjectLocation:
+                    return new ExifShortArray(tag);
+
+                case ExifTag.OldSubfileType:
+                case ExifTag.Compression:
+                case ExifTag.PhotometricInterpretation:
+                case ExifTag.Thresholding:
+                case ExifTag.CellWidth:
+                case ExifTag.CellLength:
+                case ExifTag.FillOrder:
+                case ExifTag.Orientation:
+                case ExifTag.SamplesPerPixel:
+                case ExifTag.PlanarConfiguration:
+                case ExifTag.GrayResponseUnit:
+                case ExifTag.ResolutionUnit:
+                case ExifTag.CleanFaxData:
+                case ExifTag.InkSet:
+                case ExifTag.NumberOfInks:
+                case ExifTag.DotRange:
+                case ExifTag.Indexed:
+                case ExifTag.OPIProxy:
+                case ExifTag.JPEGProc:
+                case ExifTag.JPEGRestartInterval:
+                case ExifTag.YCbCrPositioning:
+                case ExifTag.Rating:
+                case ExifTag.RatingPercent:
+                case ExifTag.ExposureProgram:
+                case ExifTag.Interlace:
+                case ExifTag.SelfTimerMode:
+                case ExifTag.SensitivityType:
+                case ExifTag.MeteringMode:
+                case ExifTag.LightSource:
+                case ExifTag.FocalPlaneResolutionUnit2:
+                case ExifTag.SensingMethod2:
+                case ExifTag.Flash:
+                case ExifTag.ColorSpace:
+                case ExifTag.FocalPlaneResolutionUnit:
+                case ExifTag.SensingMethod:
+                case ExifTag.CustomRendered:
+                case ExifTag.ExposureMode:
+                case ExifTag.WhiteBalance:
+                case ExifTag.FocalLengthIn35mmFilm:
+                case ExifTag.SceneCaptureType:
+                case ExifTag.GainControl:
+                case ExifTag.Contrast:
+                case ExifTag.Saturation:
+                case ExifTag.Sharpness:
+                case ExifTag.SubjectDistanceRange:
+                case ExifTag.GPSDifferential:
+                    return new ExifShort(tag);
+
                 case ExifTag.JPEGTables:
                 case ExifTag.OECF:
                 case ExifTag.ExifVersion:
