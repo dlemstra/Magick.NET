@@ -198,7 +198,7 @@ namespace ImageMagick
                         return ReadSignedShort();
                     else
                         return ToArray(dataType, length, ReadSignedShort);
-                case ExifDataType.SingleFloat:
+                case ExifDataType.Float:
                     if (numberOfComponents == 1)
                         return ReadSingle();
                     else

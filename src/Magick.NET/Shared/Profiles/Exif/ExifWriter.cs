@@ -436,7 +436,7 @@ namespace ImageMagick
                     return Write(BitConverter.GetBytes((short)value), destination, offset);
                 case ExifDataType.SignedRational:
                     return WriteSignedRational((SignedRational)value, destination, offset);
-                case ExifDataType.SingleFloat:
+                case ExifDataType.Float:
                     return Write(BitConverter.GetBytes((float)value), destination, offset);
                 default:
                     throw new NotSupportedException();

@@ -73,9 +73,9 @@ namespace ImageMagick
         SignedRational,
 
         /// <summary>
-        /// SingleFloat
+        /// Float
         /// </summary>
-        SingleFloat,
+        Float,
 
         /// <summary>
         /// DoubleFloat
