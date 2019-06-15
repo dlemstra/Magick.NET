@@ -132,6 +132,18 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Removes the thumbnail in the exif profile.
+        /// </summary>
+        public void RemoveThumbnail()
+        {
+            // The values need to be initialized to make sure the thumbnail is not written.
+            InitializeValues();
+
+            _thumbnailLength = 0;
+            _thumbnailOffset = 0;
+        }
+
+        /// <summary>
         /// Removes the value with the specified tag.
         /// </summary>
         /// <param name="tag">The tag of the exif value.</param>
