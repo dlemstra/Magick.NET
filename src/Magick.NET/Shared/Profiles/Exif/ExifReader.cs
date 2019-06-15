@@ -88,7 +88,7 @@ namespace ImageMagick
 
         private static TDataType[] ToArray<TDataType>(ExifDataType dataType, uint length, ReadMethod<TDataType> read)
         {
-            var dataTypeSize = (int)ExifValue.GetSize(dataType);
+            var dataTypeSize = (int)ExifDataTypes.GetSize(dataType);
             var arrayLength = (int)length / dataTypeSize;
 
             var result = new TDataType[arrayLength];
@@ -226,7 +226,7 @@ namespace ImageMagick
                 numberOfComponents = 4;
 
             var oldIndex = _reader.Index;
-            var length = numberOfComponents * ExifValue.GetSize(dataType);
+            var length = numberOfComponents * ExifDataTypes.GetSize(dataType);
 
             if (length <= 4)
             {
