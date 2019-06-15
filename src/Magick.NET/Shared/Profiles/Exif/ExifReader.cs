@@ -150,7 +150,7 @@ namespace ImageMagick
             {
                 case ExifDataType.Unknown:
                     return null;
-                case ExifDataType.Ascii:
+                case ExifDataType.String:
                     return ReadString(length);
                 case ExifDataType.Undefined:
                 case ExifDataType.Byte:

@@ -28,9 +28,9 @@ namespace ImageMagick
         Byte,
 
         /// <summary>
-        /// Ascii
+        /// String
         /// </summary>
-        Ascii,
+        String,
 
         /// <summary>
         /// Short

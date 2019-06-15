@@ -30,7 +30,7 @@ namespace ImageMagick
             DataType = dataType;
             IsArray = isArray;
 
-            if (dataType == ExifDataType.Ascii)
+            if (dataType == ExifDataType.String)
                 IsArray = false;
         }
 
@@ -75,7 +75,7 @@ namespace ImageMagick
                 if (_value == null)
                     return false;
 
-                if (DataType == ExifDataType.Ascii)
+                if (DataType == ExifDataType.String)
                     return ((string)_value).Length > 0;
 
                 return true;
@@ -99,7 +99,7 @@ namespace ImageMagick
         {
             get
             {
-                if (DataType == ExifDataType.Ascii)
+                if (DataType == ExifDataType.String)
                     return Encoding.UTF8.GetBytes((string)_value).Length;
 
                 if (IsArray)
@@ -118,7 +118,7 @@ namespace ImageMagick
             if (_value == null)
                 return null;
 
-            if (DataType == ExifDataType.Ascii)
+            if (DataType == ExifDataType.String)
                 return (string)_value;
 
             if (!IsArray)
@@ -210,7 +210,7 @@ namespace ImageMagick
                 case ExifTag.GPSDestBearingRef:
                 case ExifTag.GPSDestDistanceRef:
                 case ExifTag.GPSDateStamp:
-                    exifValue = new ExifValue(tag, ExifDataType.Ascii, true);
+                    exifValue = new ExifValue(tag, ExifDataType.String, true);
                     break;
 
                 case ExifTag.ClipPath:
@@ -471,7 +471,7 @@ namespace ImageMagick
 
             Type type = value.GetType();
 
-            if (DataType == ExifDataType.Ascii)
+            if (DataType == ExifDataType.String)
             {
                 Throw.IfFalse(nameof(value), type == typeof(string), "Value should be a string.");
                 return;
@@ -535,7 +535,7 @@ namespace ImageMagick
 
             switch (DataType)
             {
-                case ExifDataType.Ascii:
+                case ExifDataType.String:
                     return (string)value;
                 case ExifDataType.Byte:
                     return ((byte)value).ToString("X2", CultureInfo.InvariantCulture);

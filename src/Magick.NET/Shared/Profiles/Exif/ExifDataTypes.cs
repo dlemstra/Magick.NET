@@ -20,7 +20,7 @@ namespace ImageMagick
         {
             switch (dataType)
             {
-                case ExifDataType.Ascii:
+                case ExifDataType.String:
                 case ExifDataType.Byte:
                 case ExifDataType.SignedByte:
                 case ExifDataType.Undefined:

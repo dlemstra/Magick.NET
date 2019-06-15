@@ -383,8 +383,8 @@ namespace ImageMagick
 
         private static int WriteArray(ExifValue value, byte[] destination, int offset)
         {
-            if (value.DataType == ExifDataType.Ascii)
-                return WriteValue(ExifDataType.Ascii, value.Value, destination, offset);
+            if (value.DataType == ExifDataType.String)
+                return WriteValue(ExifDataType.String, value.Value, destination, offset);
 
             int newOffset = offset;
             foreach (object obj in (Array)value.Value)
@@ -413,7 +413,7 @@ namespace ImageMagick
         {
             switch (dataType)
             {
-                case ExifDataType.Ascii:
+                case ExifDataType.String:
                     return Write(Encoding.UTF8.GetBytes((string)value), destination, offset);
                 case ExifDataType.Byte:
                 case ExifDataType.Undefined:
@@ -445,7 +445,7 @@ namespace ImageMagick
 
         private static int WriteValue(ExifValue value, byte[] destination, int offset)
         {
-            if (value.IsArray && value.DataType != ExifDataType.Ascii)
+            if (value.IsArray && value.DataType != ExifDataType.String)
                 return WriteArray(value, destination, offset);
             else
                 return WriteValue(value.DataType, value.Value, destination, offset);

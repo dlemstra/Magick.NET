@@ -23,9 +23,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetTheProperties()
             {
-                var value = new ExifValue(ExifTag.ImageDescription, ExifDataType.Ascii, "Communications", false);
+                var value = new ExifValue(ExifTag.ImageDescription, ExifDataType.String, "Communications", false);
 
-                Assert.AreEqual(ExifDataType.Ascii, value.DataType);
+                Assert.AreEqual(ExifDataType.String, value.DataType);
                 Assert.AreEqual(ExifTag.ImageDescription, value.Tag);
                 Assert.AreEqual(false, value.IsArray);
                 Assert.AreEqual("Communications", value.ToString());
