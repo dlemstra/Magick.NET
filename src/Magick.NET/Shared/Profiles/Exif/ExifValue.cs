@@ -20,7 +20,7 @@ namespace ImageMagick
     /// <summary>
     /// A value of the exif profile.
     /// </summary>
-    public sealed class ExifValue : IEquatable<ExifValue>
+    public sealed class ExifValue
     {
         private object _value;
 
@@ -107,62 +107,6 @@ namespace ImageMagick
 
                 return 1;
             }
-        }
-
-        /// <summary>
-        /// Determines whether the specified <see cref="ExifValue"/> instances are considered equal.
-        /// </summary>
-        /// <param name="left">The first <see cref="ExifValue"/> to compare.</param>
-        /// <param name="right"> The second <see cref="ExifValue"/>to compare.</param>
-        public static bool operator ==(ExifValue left, ExifValue right) => Equals(left, right);
-
-        /// <summary>
-        /// Determines whether the specified <see cref="ExifValue"/> instances are not considered equal.
-        /// </summary>
-        /// <param name="left">The first <see cref="ExifValue"/> to compare.</param>
-        /// <param name="right"> The second <see cref="ExifValue"/> to compare.</param>
-        public static bool operator !=(ExifValue left, ExifValue right) => !Equals(left, right);
-
-        /// <summary>
-        /// Determines whether the specified object is equal to the current <see cref="ExifValue"/>.
-        /// </summary>
-        /// <param name="obj">The object to compare this <see cref="ExifValue"/> with.</param>
-        /// <returns>True when the specified object is equal to the current <see cref="ExifValue"/>.</returns>
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(this, obj))
-                return true;
-
-            return Equals(obj as ExifValue);
-        }
-
-        /// <summary>
-        /// Determines whether the specified exif value is equal to the current <see cref="ExifValue"/>.
-        /// </summary>
-        /// <param name="other">The exif value to compare this <see cref="ExifValue"/> with.</param>
-        /// <returns>True when the specified exif value is equal to the current <see cref="ExifValue"/>.</returns>
-        public bool Equals(ExifValue other)
-        {
-            if (other is null)
-                return false;
-
-            if (ReferenceEquals(this, other))
-                return true;
-
-            return
-              Tag == other.Tag &&
-              DataType == other.DataType &&
-              Equals(_value, other._value);
-        }
-
-        /// <summary>
-        /// Serves as a hash of this type.
-        /// </summary>
-        /// <returns>A hash code for the current instance.</returns>
-        public override int GetHashCode()
-        {
-            int hashCode = Tag.GetHashCode() ^ DataType.GetHashCode();
-            return _value != null ? hashCode ^ _value.GetHashCode() : hashCode;
         }
 
         /// <summary>
