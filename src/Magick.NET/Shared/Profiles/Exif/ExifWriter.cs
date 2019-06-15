@@ -419,7 +419,7 @@ namespace ImageMagick
                 case ExifDataType.Undefined:
                     destination[offset] = (byte)value;
                     return offset + 1;
-                case ExifDataType.DoubleFloat:
+                case ExifDataType.Double:
                     return Write(BitConverter.GetBytes((double)value), destination, offset);
                 case ExifDataType.Short:
                     return Write(BitConverter.GetBytes((ushort)value), destination, offset);

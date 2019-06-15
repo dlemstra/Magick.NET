@@ -78,8 +78,8 @@ namespace ImageMagick
         Float,
 
         /// <summary>
-        /// DoubleFloat
+        /// Double
         /// </summary>
-        DoubleFloat,
+        Double,
     }
 }

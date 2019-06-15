@@ -467,7 +467,7 @@ namespace ImageMagick
                 case ExifDataType.SignedLong:
                 case ExifDataType.Float:
                     return 4;
-                case ExifDataType.DoubleFloat:
+                case ExifDataType.Double:
                 case ExifDataType.Rational:
                 case ExifDataType.SignedRational:
                     return 8;
@@ -517,7 +517,7 @@ namespace ImageMagick
                 case ExifDataType.Byte:
                     Throw.IfFalse(nameof(value), type == typeof(byte), "Value should be a byte{0}", IsArray ? " array." : ".");
                     break;
-                case ExifDataType.DoubleFloat:
+                case ExifDataType.Double:
                     Throw.IfFalse(nameof(value), type == typeof(double), "Value should be a double{0}", IsArray ? " array." : ".");
                     break;
                 case ExifDataType.Long:
@@ -564,7 +564,7 @@ namespace ImageMagick
                     return (string)value;
                 case ExifDataType.Byte:
                     return ((byte)value).ToString("X2", CultureInfo.InvariantCulture);
-                case ExifDataType.DoubleFloat:
+                case ExifDataType.Double:
                     return ((double)value).ToString(CultureInfo.InvariantCulture);
                 case ExifDataType.Long:
                     return ((uint)value).ToString(CultureInfo.InvariantCulture);

@@ -158,7 +158,7 @@ namespace ImageMagick
                         return ReadByte();
                     else
                         return ToArray(dataType, length, ReadByte);
-                case ExifDataType.DoubleFloat:
+                case ExifDataType.Double:
                     if (numberOfComponents == 1)
                         return ReadDouble();
                     else
