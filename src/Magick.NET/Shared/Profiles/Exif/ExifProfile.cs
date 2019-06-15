@@ -23,7 +23,7 @@ namespace ImageMagick
     public sealed class ExifProfile : ImageProfile
     {
         private Collection<ExifValue> _values;
-        private List<ExifTag> _invalidTags;
+        private List<ExifTag> _invalidTags = new List<ExifTag>();
         private int _thumbnailOffset;
         private int _thumbnailLength;
 
@@ -33,7 +33,6 @@ namespace ImageMagick
         public ExifProfile()
           : base("exif")
         {
-            Initialize();
         }
 
         /// <summary>
@@ -43,7 +42,6 @@ namespace ImageMagick
         public ExifProfile(byte[] data)
           : base("exif", data)
         {
-            Initialize();
         }
 
         /// <summary>
@@ -54,7 +52,6 @@ namespace ImageMagick
         public ExifProfile(string fileName)
           : base("exif", fileName)
         {
-            Initialize();
         }
 
         /// <summary>
@@ -64,13 +61,12 @@ namespace ImageMagick
         public ExifProfile(Stream stream)
           : base("exif", stream)
         {
-            Initialize();
         }
 
         /// <summary>
         /// Gets or sets which parts will be written when the profile is added to an image.
         /// </summary>
-        public ExifParts Parts { get; set; }
+        public ExifParts Parts { get; set; } = ExifParts.All;
 
         /// <summary>
         /// Gets the tags that where found but contained an invalid value.
@@ -194,12 +190,6 @@ namespace ImageMagick
 
             var writer = new ExifWriter(_values, Parts);
             Data = writer.GetData();
-        }
-
-        private void Initialize()
-        {
-            Parts = ExifParts.All;
-            _invalidTags = new List<ExifTag>();
         }
 
         private void InitializeValues()
