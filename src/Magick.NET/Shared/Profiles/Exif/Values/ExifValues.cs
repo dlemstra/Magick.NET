@@ -43,6 +43,27 @@ namespace ImageMagick
                 case ExifTag.GPSAltitudeRef:
                     return new ExifByte(tag, ExifDataType.Byte);
 
+                case ExifTag.JPEGTables:
+                case ExifTag.OECF:
+                case ExifTag.ExifVersion:
+                case ExifTag.ComponentsConfiguration:
+                case ExifTag.MakerNote:
+                case ExifTag.UserComment:
+                case ExifTag.FlashpixVersion:
+                case ExifTag.SpatialFrequencyResponse:
+                case ExifTag.SpatialFrequencyResponse2:
+                case ExifTag.Noise:
+                case ExifTag.CFAPattern:
+                case ExifTag.DeviceSettingDescription:
+                case ExifTag.ImageSourceData:
+                case ExifTag.GPSProcessingMethod:
+                case ExifTag.GPSAreaInformation:
+                    return new ExifByteArray(tag, ExifDataType.Undefined);
+
+                case ExifTag.FileSource:
+                case ExifTag.SceneType:
+                    return new ExifByte(tag, ExifDataType.Undefined);
+
                 default:
                     throw new NotSupportedException();
             }
