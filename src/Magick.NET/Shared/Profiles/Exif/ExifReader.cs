@@ -200,9 +200,9 @@ namespace ImageMagick
                         return ToArray(dataType, length, ReadSignedShort);
                 case ExifDataType.Float:
                     if (numberOfComponents == 1)
-                        return ReadSingle();
+                        return ReadFloat();
                     else
-                        return ToArray(dataType, length, ReadSingle);
+                        return ToArray(dataType, length, ReadFloat);
                 default:
                     throw new NotSupportedException();
             }
@@ -262,11 +262,11 @@ namespace ImageMagick
 
         private double ReadDouble() => (_isLittleEndian ? _reader.ReadDoubleLSB() : _reader.ReadDoubleMSB()) ?? 0;
 
+        private float ReadFloat() => (_isLittleEndian ? _reader.ReadFloatLSB() : _reader.ReadFloatMSB()) ?? 0;
+
         private uint ReadLong() => (_isLittleEndian ? _reader.ReadLongLSB() : _reader.ReadLongMSB()) ?? 0;
 
         private ushort ReadShort() => (_isLittleEndian ? _reader.ReadShortLSB() : _reader.ReadShortMSB()) ?? 0;
-
-        private float ReadSingle() => (_isLittleEndian ? _reader.ReadSingleLSB() : _reader.ReadSingleMSB()) ?? 0;
 
         private string ReadString(uint length) => _isLittleEndian ? _reader.ReadString(length) : _reader.ReadString(length);
 

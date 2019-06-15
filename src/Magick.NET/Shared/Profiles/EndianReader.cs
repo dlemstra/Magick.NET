@@ -156,7 +156,7 @@ namespace ImageMagick
             return result;
         }
 
-        public unsafe float? ReadSingleLSB()
+        public unsafe float? ReadFloatLSB()
         {
             uint? result = ReadLongLSB();
             if (result == null)
@@ -167,7 +167,7 @@ namespace ImageMagick
             return *(float*)&value;
         }
 
-        public unsafe float? ReadSingleMSB()
+        public unsafe float? ReadFloatMSB()
         {
             uint? result = ReadLongMSB();
             if (result == null)
