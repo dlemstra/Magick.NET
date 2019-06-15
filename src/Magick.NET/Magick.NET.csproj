@@ -10,6 +10,7 @@
     <Copyright>Copyright 2013-2019 Dirk Lemstra</Copyright>
     <RunCodeAnalysis Condition="'$(Configuration)|$(TargetFramework)' == 'ReleaseQ16|net40'">true</RunCodeAnalysis>
     <CodeAnalysisCulture>en-US</CodeAnalysisCulture>
+    <LangVersion>latest</LangVersion>
     <Platforms>x86;x64;AnyCPU</Platforms>
     <Configurations>DebugQ8;DebugQ16;DebugQ16-HDRI;TestQ8;TestQ16;TestQ16-HDRI;TestQ8-OpenMP;TestQ16-OpenMP;TestQ16-HDRI-OpenMP;ReleaseQ8;ReleaseQ8-OpenMP;ReleaseQ16;ReleaseQ16-OpenMP;ReleaseQ16-HDRI;ReleaseQ16-HDRI-OpenMP</Configurations>
     <RootNamespace>ImageMagick</RootNamespace>
