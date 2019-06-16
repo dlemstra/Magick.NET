@@ -10,6 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "publish", "publish", "{6604
 		publish\Magick.NET.targets = publish\Magick.NET.targets
 		publish\Magick.NET.Web.nuspec = publish\Magick.NET.Web.nuspec
 		publish\publish.ps1 = publish\publish.ps1
+		publish\push.cmd = publish\push.cmd
 		publish\update.version.cmd = publish\update.version.cmd
 		publish\update.version.ps1 = publish\update.version.ps1
 	EndProjectSection
