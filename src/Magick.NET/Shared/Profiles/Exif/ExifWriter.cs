@@ -142,20 +142,6 @@ namespace ImageMagick
             return null;
         }
 
-        private static IExifValue GetOrAddValue(Collection<IExifValue> values, ExifTag tag)
-        {
-            foreach (var value in values)
-            {
-                if (value.Tag == tag)
-                    return value;
-            }
-
-            var result = ExifValues.Create(tag);
-            values.Add(result);
-
-            return result;
-        }
-
         private static uint GetLength(Collection<IExifValue> values)
         {
             if (values.Count == 0)
