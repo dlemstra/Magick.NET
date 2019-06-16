@@ -922,6 +922,7 @@
           <xs:enumeration value="Ras" />
           <xs:enumeration value="Raw" />
           <xs:enumeration value="Rgb" />
+          <xs:enumeration value="Rgb565" />
           <xs:enumeration value="Rgba" />
           <xs:enumeration value="Rgbo" />
           <xs:enumeration value="Rgf" />
