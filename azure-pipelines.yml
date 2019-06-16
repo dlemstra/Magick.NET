@@ -7,6 +7,13 @@ resources:
     options: '--name dotnet_latest -v /usr/bin/docker:/tmp/docker:ro'
 
 jobs:
+- job: check_tag
+  displayName: Check tag
+  pool:
+    vmImage: vs2017-win2016
+  steps:
+    - template: publish/check.tag.yml
+
 - job: windows
   displayName: Windows
   pool:
@@ -51,6 +58,8 @@ jobs:
         PlatformName: Any CPU
   steps:
     - template: build/windows/build.yml
+  dependsOn:
+  - check_tag
 
 - job: linux
   displayName: Linux Q8/Q16/Q16-HDRI
@@ -61,6 +70,8 @@ jobs:
     - script: /tmp/docker exec -t -u 0 dotnet_latest $(Build.SourcesDirectory)/build/linux/install.sudo.sh
       displayName: Install sudo
     - template: build/linux/build.yml
+  dependsOn:
+  - check_tag
 
 - job: macos
   displayName: MacOS Q8/Q16/Q16-HDRI
@@ -68,3 +79,5 @@ jobs:
     vmImage: macOS 10.13
   steps:
     - template: build/macos/build.yml
+  dependsOn:
+  - check_tag
