@@ -6,7 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "publish", "publish", "{660486E5-ECAD-49B3-AEBB-A34953E48A72}"
 	ProjectSection(SolutionItems) = preProject
 		publish\check.tag.ps1 = publish\check.tag.ps1
-		publish\check.tag.yml = publish\check.tag.yml
 		publish\Magick.NET.nuspec = publish\Magick.NET.nuspec
 		publish\Magick.NET.targets = publish\Magick.NET.targets
 		publish\Magick.NET.Web.nuspec = publish\Magick.NET.Web.nuspec
