@@ -10,10 +10,13 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace ImageMagick
 {
     internal static class ExifTags
     {
+        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Cannot avoid it here.")]
         public static ExifParts GetPart(ExifTag tag)
         {
             switch (tag)
