@@ -22,10 +22,10 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Read_DataIsEmpty_ReturnsEmptyCollection()
         {
-            ExifReader reader = new ExifReader();
-            byte[] data = new byte[] { };
+            var reader = new ExifReader();
+            var data = new byte[] { };
 
-            Collection<ExifValue> result = reader.Read(data);
+            var result = reader.Read(data);
 
             Assert.AreEqual(0, result.Count);
         }
@@ -33,10 +33,10 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Read_DataIsMinimal_ReturnsEmptyCollection()
         {
-            ExifReader reader = new ExifReader();
-            byte[] data = new byte[] { 69, 120, 105, 102, 0, 0 };
+            var reader = new ExifReader();
+            var data = new byte[] { 69, 120, 105, 102, 0, 0 };
 
-            Collection<ExifValue> result = reader.Read(data);
+            var result = reader.Read(data);
 
             Assert.AreEqual(0, result.Count);
         }

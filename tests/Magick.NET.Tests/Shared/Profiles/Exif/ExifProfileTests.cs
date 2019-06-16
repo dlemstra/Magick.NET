@@ -133,10 +133,12 @@ namespace Magick.NET.Tests
                 var profile = image.GetExifProfile();
                 Assert.IsNotNull(profile);
 
-                foreach (ExifValue value in profile.Values)
+                foreach (var value in profile.Values)
                 {
                     if (value.DataType == ExifDataType.Undefined)
-                        Assert.AreEqual(4, value.NumberOfComponents);
+                    {
+                        Assert.AreEqual(4, ((ExifByteArray)value).Value.Length);
+                    }
                 }
             }
         }

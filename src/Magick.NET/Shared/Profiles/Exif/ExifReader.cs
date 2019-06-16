@@ -13,7 +13,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick
 {
@@ -35,9 +34,9 @@ namespace ImageMagick
 
         public IEnumerable<ExifTag> InvalidTags => _invalidTags;
 
-        public Collection<ExifValue> Read(byte[] data)
+        public Collection<IExifValue> Read(byte[] data)
         {
-            var result = new Collection<ExifValue>();
+            var result = new Collection<IExifValue>();
 
             if (data == null || data.Length == 0)
                 return result;
@@ -72,14 +71,11 @@ namespace ImageMagick
             return result;
         }
 
-        private static TDataType[] ReadArray<TDataType>(ExifDataType dataType, uint length, ReadMethod<TDataType> read)
+        private static TDataType[] ReadArray<TDataType>(ExifDataType dataType, uint numberOfComponents, ReadMethod<TDataType> read)
         {
-            var dataTypeSize = (int)ExifDataTypes.GetSize(dataType);
-            var arrayLength = (int)length / dataTypeSize;
+            var result = new TDataType[numberOfComponents];
 
-            var result = new TDataType[arrayLength];
-
-            for (int i = 0; i < arrayLength; i++)
+            for (int i = 0; i < numberOfComponents; i++)
             {
                 result.SetValue(read(), i);
             }
@@ -87,7 +83,7 @@ namespace ImageMagick
             return result;
         }
 
-        private void AddValues(Collection<ExifValue> values, uint index)
+        private void AddValues(Collection<IExifValue> values, uint index)
         {
             _reader.Seek(_startIndex + index);
             var count = ReadShort();
@@ -99,7 +95,7 @@ namespace ImageMagick
                     continue;
 
                 var duplicate = false;
-                foreach (ExifValue val in values)
+                foreach (var val in values)
                 {
                     if (val.Tag == value.Tag)
                     {
@@ -126,85 +122,17 @@ namespace ImageMagick
             }
         }
 
-        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Cannot avoid it here.")]
-        private object ConvertValue(ExifDataType dataType, uint length, uint numberOfComponents)
-        {
-            if (length == 0)
-                return null;
-
-            switch (dataType)
-            {
-                case ExifDataType.Unknown:
-                    return null;
-                case ExifDataType.String:
-                    return ReadString(length);
-                case ExifDataType.Undefined:
-                case ExifDataType.Byte:
-                    if (numberOfComponents == 1)
-                        return ReadByte();
-                    else
-                        return ReadArray(dataType, length, ReadByte);
-                case ExifDataType.Double:
-                    if (numberOfComponents == 1)
-                        return ReadDouble();
-                    else
-                        return ReadArray(dataType, length, ReadDouble);
-                case ExifDataType.Long:
-                    if (numberOfComponents == 1)
-                        return ReadLong();
-                    else
-                        return ReadArray(dataType, length, ReadLong);
-                case ExifDataType.Rational:
-                    if (numberOfComponents == 1)
-                        return ReadRational();
-                    else
-                        return ReadArray(dataType, length, ReadRational);
-                case ExifDataType.Short:
-                    if (numberOfComponents == 1)
-                        return ReadShort();
-                    else
-                        return ReadArray(dataType, length, ReadShort);
-                case ExifDataType.SignedByte:
-                    if (numberOfComponents == 1)
-                        return ReadSignedByte();
-                    else
-                        return ReadArray(dataType, length, ReadSignedByte);
-                case ExifDataType.SignedLong:
-                    if (numberOfComponents == 1)
-                        return ReadSignedLong();
-                    else
-                        return ReadArray(dataType, length, ReadSignedLong);
-                case ExifDataType.SignedRational:
-                    if (numberOfComponents == 1)
-                        return ReadSignedRational();
-                    else
-                        return ReadArray(dataType, length, ReadSignedRational);
-                case ExifDataType.SignedShort:
-                    if (numberOfComponents == 1)
-                        return ReadSignedShort();
-                    else
-                        return ReadArray(dataType, length, ReadSignedShort);
-                case ExifDataType.Float:
-                    if (numberOfComponents == 1)
-                        return ReadFloat();
-                    else
-                        return ReadArray(dataType, length, ReadFloat);
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
-        private ExifValue CreateValue()
+        private IExifValue CreateValue()
         {
             if (!_reader.CanRead(12))
                 return null;
 
             var tag = (ExifTag)ReadShort();
             var dataType = EnumHelper.Parse(ReadShort(), ExifDataType.Unknown);
-            object value = null;
+            IExifValue value = null;
 
             if (dataType == ExifDataType.Unknown)
-                return new ExifValue(tag, dataType, value, false);
+                return null;
 
             var numberOfComponents = ReadLong();
 
@@ -216,7 +144,7 @@ namespace ImageMagick
 
             if (length <= 4)
             {
-                value = ConvertValue(dataType, length, numberOfComponents);
+                value = CreateValue(tag, dataType, numberOfComponents);
             }
             else
             {
@@ -226,22 +154,93 @@ namespace ImageMagick
                 {
                     if (_reader.CanRead(length))
                     {
-                        value = ConvertValue(dataType, length, numberOfComponents);
+                        value = CreateValue(tag, dataType, numberOfComponents);
                     }
                 }
 
                 if (value == null)
                 {
                     _invalidTags.Add(tag);
-                    _reader.Seek(oldIndex + 4);
-                    return null;
                 }
             }
 
             _reader.Seek(oldIndex + 4);
 
-            var isArray = value != null && numberOfComponents != 1;
-            return new ExifValue(tag, dataType, value, isArray);
+            return value;
+        }
+
+        private IExifValue CreateValue(ExifTag tag, ExifDataType dataType, uint numberOfComponents)
+        {
+            switch (dataType)
+            {
+                case ExifDataType.Byte:
+                case ExifDataType.Undefined:
+                    if (numberOfComponents == 1)
+                        return ExifByte.Create(tag, dataType, ReadByte());
+                    else
+                        return ExifByteArray.Create(tag, dataType, ReadArray(ExifDataType.Byte, numberOfComponents, ReadByte));
+
+                case ExifDataType.Double:
+                    if (numberOfComponents == 1)
+                        return ExifDouble.Create(tag, ReadDouble());
+                    else
+                        return ExifDoubleArray.Create(tag, ReadArray(ExifDataType.Double, numberOfComponents, ReadDouble));
+
+                case ExifDataType.Float:
+
+                    if (numberOfComponents == 1)
+                        return ExifFloat.Create(tag, ReadFloat());
+                    else
+                        return ExifFloatArray.Create(tag, ReadArray(ExifDataType.Float, numberOfComponents, ReadFloat));
+
+                case ExifDataType.Long:
+                    if (numberOfComponents == 1)
+                        return ExifLong.Create(tag, ReadLong());
+                    else
+                        return ExifLongArray.Create(tag, ReadArray(ExifDataType.Long, numberOfComponents, ReadLong));
+
+                case ExifDataType.Rational:
+                    if (numberOfComponents == 1)
+                        return ExifRational.Create(tag, ReadRational());
+                    else
+                        return ExifRationalArray.Create(tag, ReadArray(ExifDataType.Rational, numberOfComponents, ReadRational));
+
+                case ExifDataType.Short:
+                    if (numberOfComponents == 1)
+                        return ExifShort.Create(tag, ReadShort());
+                    else
+                        return ExifShortArray.Create(tag, ReadArray(ExifDataType.Short, numberOfComponents, ReadShort));
+
+                case ExifDataType.SignedByte:
+                    if (numberOfComponents == 1)
+                        return ExifSignedByte.Create(tag, ReadSignedByte());
+                    else
+                        return ExifSignedByteArray.Create(tag, ReadArray(ExifDataType.SignedByte, numberOfComponents, ReadSignedByte));
+
+                case ExifDataType.SignedLong:
+                    if (numberOfComponents == 1)
+                        return ExifSignedLong.Create(tag, ReadSignedLong());
+                    else
+                        return ExifSignedLongArray.Create(tag, ReadArray(ExifDataType.SignedLong, numberOfComponents, ReadSignedLong));
+
+                case ExifDataType.SignedRational:
+                    if (numberOfComponents == 1)
+                        return ExifSignedRational.Create(tag, ReadSignedRational());
+                    else
+                        return ExifSignedRationalArray.Create(tag, ReadArray(ExifDataType.SignedRational, numberOfComponents, ReadSignedRational));
+
+                case ExifDataType.SignedShort:
+                    if (numberOfComponents == 1)
+                        return ExifSignedShort.Create(tag, ReadSignedShort());
+                    else
+                        return ExifSignedShortArray.Create(tag, ReadArray(ExifDataType.SignedShort, numberOfComponents, ReadSignedShort));
+
+                case ExifDataType.String:
+                    return ExifString.Create(tag, ReadString(numberOfComponents));
+
+                default:
+                    throw new NotSupportedException();
+            }
         }
 
         private byte ReadByte() => _reader.ReadByte() ?? 0;
@@ -305,10 +304,10 @@ namespace ImageMagick
 
         private void ReadThumbnail(uint offset)
         {
-            var values = new Collection<ExifValue>();
+            var values = new Collection<IExifValue>();
             AddValues(values, offset);
 
-            foreach (ExifValue value in values)
+            foreach (var value in values)
             {
                 if (value.Tag == ExifTag.JPEGInterchangeFormat && (value.DataType == ExifDataType.Long))
                     ThumbnailOffset = (uint)value.Value + _startIndex;
