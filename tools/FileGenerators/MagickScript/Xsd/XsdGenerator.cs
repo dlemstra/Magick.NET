@@ -589,7 +589,7 @@ namespace FileGenerator.MagickScript
         private void Write()
         {
             string folder = MagickScriptTypes.GetFolderName(_Depth);
-            string outputFile = PathHelper.GetFullPath(@"Source\Magick.NET\Resources\" + folder + @"\MagickScript.xsd");
+            string outputFile = PathHelper.GetFullPath(@"src\Magick.NET\Resources\" + folder + @"\MagickScript.xsd");
             Console.WriteLine("Creating: " + outputFile);
 
             XmlWriterSettings settings = new XmlWriterSettings();
