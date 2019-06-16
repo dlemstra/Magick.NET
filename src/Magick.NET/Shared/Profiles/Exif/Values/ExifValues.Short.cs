@@ -246,5 +246,26 @@ namespace ImageMagick
         /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.GPSDifferential"/> tag.
         /// </summary>
         public static ExifShort GPSDifferential => new ExifShort(ExifTag.GPSDifferential);
+
+        /// <summary>
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.StripOffsets"/> tag.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>A new <see cref="ExifShort"/> instance.</returns>
+        public static ExifShort StripOffsets(ushort value) => ExifShort.Create(ExifTag.StripOffsets, value);
+
+        /// <summary>
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.TileByteCounts"/> tag.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>A new <see cref="ExifShort"/> instance.</returns>
+        public static ExifShort TileByteCounts(ushort value) => ExifShort.Create(ExifTag.TileByteCounts, value);
+
+        /// <summary>
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.ImageLayer"/> tag.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>A new <see cref="ExifShort"/> instance.</returns>
+        public static ExifShort ImageLayer(ushort value) => ExifShort.Create(ExifTag.ImageLayer, value);
     }
 }

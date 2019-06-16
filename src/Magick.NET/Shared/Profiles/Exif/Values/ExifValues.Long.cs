@@ -121,5 +121,26 @@ namespace ImageMagick
         /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.ImageNumber"/> tag.
         /// </summary>
         public static ExifLong ImageNumber => new ExifLong(ExifTag.ImageNumber);
+
+        /// <summary>
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.StripOffsets"/> tag.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>A new <see cref="ExifLong"/> instance.</returns>
+        public static ExifLong StripOffsets(uint value) => ExifLong.Create(ExifTag.StripOffsets, value);
+
+        /// <summary>
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.TileByteCounts"/> tag.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>A new <see cref="ExifLong"/> instance.</returns>
+        public static ExifLong TileByteCounts(uint value) => ExifLong.Create(ExifTag.TileByteCounts, value);
+
+        /// <summary>
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.ImageLayer"/> tag.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>A new <see cref="ExifLong"/> instance.</returns>
+        public static ExifLong ImageLayer(uint value) => ExifLong.Create(ExifTag.ImageLayer, value);
     }
 }
