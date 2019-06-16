@@ -71,7 +71,7 @@ namespace ImageMagick
             return result;
         }
 
-        private static TDataType[] ReadArray<TDataType>(ExifDataType dataType, uint numberOfComponents, ReadMethod<TDataType> read)
+        private static TDataType[] ReadArray<TDataType>(uint numberOfComponents, ReadMethod<TDataType> read)
         {
             var result = new TDataType[numberOfComponents];
 
@@ -178,62 +178,62 @@ namespace ImageMagick
                     if (numberOfComponents == 1)
                         return ExifByte.Create(tag, dataType, ReadByte());
                     else
-                        return ExifByteArray.Create(tag, dataType, ReadArray(ExifDataType.Byte, numberOfComponents, ReadByte));
+                        return ExifByteArray.Create(tag, dataType, ReadArray(numberOfComponents, ReadByte));
 
                 case ExifDataType.Double:
                     if (numberOfComponents == 1)
                         return ExifDouble.Create(tag, ReadDouble());
                     else
-                        return ExifDoubleArray.Create(tag, ReadArray(ExifDataType.Double, numberOfComponents, ReadDouble));
+                        return ExifDoubleArray.Create(tag, ReadArray(numberOfComponents, ReadDouble));
 
                 case ExifDataType.Float:
 
                     if (numberOfComponents == 1)
                         return ExifFloat.Create(tag, ReadFloat());
                     else
-                        return ExifFloatArray.Create(tag, ReadArray(ExifDataType.Float, numberOfComponents, ReadFloat));
+                        return ExifFloatArray.Create(tag, ReadArray(numberOfComponents, ReadFloat));
 
                 case ExifDataType.Long:
                     if (numberOfComponents == 1)
                         return ExifLong.Create(tag, ReadLong());
                     else
-                        return ExifLongArray.Create(tag, ReadArray(ExifDataType.Long, numberOfComponents, ReadLong));
+                        return ExifLongArray.Create(tag, ReadArray(numberOfComponents, ReadLong));
 
                 case ExifDataType.Rational:
                     if (numberOfComponents == 1)
                         return ExifRational.Create(tag, ReadRational());
                     else
-                        return ExifRationalArray.Create(tag, ReadArray(ExifDataType.Rational, numberOfComponents, ReadRational));
+                        return ExifRationalArray.Create(tag, ReadArray(numberOfComponents, ReadRational));
 
                 case ExifDataType.Short:
                     if (numberOfComponents == 1)
                         return ExifShort.Create(tag, ReadShort());
                     else
-                        return ExifShortArray.Create(tag, ReadArray(ExifDataType.Short, numberOfComponents, ReadShort));
+                        return ExifShortArray.Create(tag, ReadArray(numberOfComponents, ReadShort));
 
                 case ExifDataType.SignedByte:
                     if (numberOfComponents == 1)
                         return ExifSignedByte.Create(tag, ReadSignedByte());
                     else
-                        return ExifSignedByteArray.Create(tag, ReadArray(ExifDataType.SignedByte, numberOfComponents, ReadSignedByte));
+                        return ExifSignedByteArray.Create(tag, ReadArray(numberOfComponents, ReadSignedByte));
 
                 case ExifDataType.SignedLong:
                     if (numberOfComponents == 1)
                         return ExifSignedLong.Create(tag, ReadSignedLong());
                     else
-                        return ExifSignedLongArray.Create(tag, ReadArray(ExifDataType.SignedLong, numberOfComponents, ReadSignedLong));
+                        return ExifSignedLongArray.Create(tag, ReadArray(numberOfComponents, ReadSignedLong));
 
                 case ExifDataType.SignedRational:
                     if (numberOfComponents == 1)
                         return ExifSignedRational.Create(tag, ReadSignedRational());
                     else
-                        return ExifSignedRationalArray.Create(tag, ReadArray(ExifDataType.SignedRational, numberOfComponents, ReadSignedRational));
+                        return ExifSignedRationalArray.Create(tag, ReadArray(numberOfComponents, ReadSignedRational));
 
                 case ExifDataType.SignedShort:
                     if (numberOfComponents == 1)
                         return ExifSignedShort.Create(tag, ReadSignedShort());
                     else
-                        return ExifSignedShortArray.Create(tag, ReadArray(ExifDataType.SignedShort, numberOfComponents, ReadSignedShort));
+                        return ExifSignedShortArray.Create(tag, ReadArray(numberOfComponents, ReadSignedShort));
 
                 case ExifDataType.String:
                     return ExifString.Create(tag, ReadString(numberOfComponents));
