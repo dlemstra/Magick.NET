@@ -11,7 +11,8 @@
 # and limitations under the License.
 
 param (
-    [string]$name
+    [string]$name,
+    [string]$buildMagickNET = $true
 )
 
 . $PSScriptRoot\..\windows\utils.ps1
@@ -36,5 +37,9 @@ function buildMagickNET()
   buildSolution "Magick.NET.sln" "Configuration=ReleaseQ16-HDRI,RunCodeAnalysis=false,TargetFramework=net40,Platform=x86"
 }
 
-buildMagickNET
+if ($buildMagickNET -eq $true)
+{
+  buildMagickNET
+}
+
 generateFiles $name

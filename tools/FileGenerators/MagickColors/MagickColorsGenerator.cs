@@ -80,7 +80,7 @@ namespace FileGenerator.MagickColors
         public static void Generate()
         {
             MagickColorsGenerator generator = new MagickColorsGenerator();
-            generator.CreateWriter(PathHelper.GetFullPath(@"Source\Magick.NET\Shared\Colors\MagickColors.cs"));
+            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET\Shared\Colors\MagickColors.cs"));
             generator.WriteStart("ImageMagick");
             generator.WriteColors();
             generator.WriteEnd();

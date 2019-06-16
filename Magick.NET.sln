@@ -107,6 +107,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{7935EDEC-32B2-4BA2-93DC-FC990B26D51E}"
 	ProjectSection(SolutionItems) = preProject
 		tools\Generate.Drawables.cmd = tools\Generate.Drawables.cmd
+		tools\Generate.MagickColors.cmd = tools\Generate.MagickColors.cmd
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{BE60093C-A01F-454E-A0FC-2812D290CD6A}"
