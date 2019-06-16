@@ -271,7 +271,7 @@ namespace ImageMagick
                 case ExifTag.GPSAreaInformation:
                 case ExifTag.GPSDateStamp:
                 case ExifTag.GPSDifferential:
-                    return ExifParts.ExifTags;
+                    return ExifParts.GpsTags;
 
                 default:
                     return ExifParts.None;
