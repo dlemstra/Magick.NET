@@ -29,10 +29,12 @@ namespace Magick.NET.Tests
 
                 var value = profile.GetValue(ExifTag.Software);
 
-                ExceptionAssert.Throws<ArgumentException>("value", () =>
+                var exception = ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
                     value.Value = 15;
                 });
+
+                Assert.AreEqual("The type of the value should be String.", exception.Message);
             }
 
             [TestMethod]
@@ -43,10 +45,12 @@ namespace Magick.NET.Tests
 
                 var value = profile.GetValue(ExifTag.ShutterSpeedValue);
 
-                ExceptionAssert.Throws<ArgumentException>("value", () =>
+                var exception = ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
                     value.Value = 75;
                 });
+
+                Assert.AreEqual("The type of the value should be SignedRational.", exception.Message);
             }
 
             [TestMethod]
@@ -56,18 +60,15 @@ namespace Magick.NET.Tests
                 profile.SetValue(ExifTag.XResolution, new Rational(150.0));
 
                 var value = profile.GetValue(ExifTag.XResolution);
-                TestRationalValue(value, "150");
+                Assert.IsNotNull(value);
+                Assert.AreEqual("150", value.ToString());
 
-                ExceptionAssert.Throws<ArgumentException>("value", () =>
+                var exception = ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
                     value.Value = "Magick.NET";
                 });
-            }
 
-            private static void TestRationalValue(IExifValue value, string expected)
-            {
-                Assert.IsNotNull(value);
-                Assert.AreEqual(expected, value.ToString());
+                Assert.AreEqual("The type of the value should be Rational.", exception.Message);
             }
         }
     }

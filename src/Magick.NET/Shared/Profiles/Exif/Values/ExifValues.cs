@@ -19,6 +19,19 @@ namespace ImageMagick
     /// </summary>
     public static partial class ExifValues
     {
+        internal static IExifValue Create(ExifTag tag, object value)
+        {
+            var result = CreateNumberValue(tag, value);
+
+            if (result == null)
+            {
+                result = Create(tag);
+                result.Value = value;
+            }
+
+            return result;
+        }
+
         internal static IExifValue Create(ExifTag tag)
         {
             Throw.IfTrue(nameof(tag), tag == ExifTag.Unknown, "Invalid Tag");
@@ -291,6 +304,54 @@ namespace ImageMagick
 
                 default:
                     throw new NotSupportedException();
+            }
+        }
+
+        private static IExifValue CreateNumberValue(ExifTag tag, object value)
+        {
+            switch (tag)
+            {
+                case ExifTag.StripOffsets:
+                case ExifTag.TileByteCounts:
+                case ExifTag.ImageLayer:
+                    switch (value)
+                    {
+                        case null:
+                            return new ExifShortArray(tag);
+                        case ushort[] ushortValue:
+                            return ExifShortArray.Create(tag, ushortValue);
+                        case uint[] ulongValue:
+                            return ExifLongArray.Create(tag, ulongValue);
+                        default:
+                            throw new NotSupportedException();
+                    }
+
+                case ExifTag.ImageWidth:
+                case ExifTag.ImageLength:
+                case ExifTag.TileWidth:
+                case ExifTag.TileLength:
+                case ExifTag.BadFaxLines:
+                case ExifTag.ConsecutiveBadFaxLines:
+                case ExifTag.PixelXDimension:
+                case ExifTag.PixelYDimension:
+                    switch (value)
+                    {
+                        case null:
+                            return new ExifShort(tag);
+                        case ushort ushortValue:
+                            return ExifShort.Create(tag, ushortValue);
+                        case short shortValue:
+                            return ExifShort.Create(tag, (ushort)shortValue);
+                        case uint ulongValue:
+                            return ExifLong.Create(tag, ulongValue);
+                        case int longValue:
+                            return ExifLong.Create(tag, (uint)longValue);
+                        default:
+                            throw new NotSupportedException();
+                    }
+
+                default:
+                    return null;
             }
         }
     }

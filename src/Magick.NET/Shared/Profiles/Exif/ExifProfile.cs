@@ -177,7 +177,7 @@ namespace ImageMagick
                 }
             }
 
-            var newExifValue = ExifValue.Create(tag, value);
+            var newExifValue = ExifValues.Create(tag, value);
             _values.Add(newExifValue);
         }
 

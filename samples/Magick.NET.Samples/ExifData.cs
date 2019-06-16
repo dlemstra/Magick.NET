@@ -31,7 +31,7 @@ namespace Magick.NET.Samples
                 else
                 {
                     // Write all values to the console
-                    foreach (ExifValue value in profile.Values)
+                    foreach (IExifValue value in profile.Values)
                     {
                         Console.WriteLine("{0}({1}): {2}", value.Tag, value.DataType, value.ToString());
                     }

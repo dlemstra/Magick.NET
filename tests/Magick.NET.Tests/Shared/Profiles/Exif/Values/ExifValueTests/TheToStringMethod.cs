@@ -23,7 +23,8 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTheValueAsString()
             {
-                var value = new ExifValue(ExifTag.ImageWidth, ExifDataType.SignedShort, (short)42, false);
+                var value = ExifValues.GPSDifferential;
+                value.Value = 42;
 
                 Assert.AreEqual("42", value.ToString());
             }
