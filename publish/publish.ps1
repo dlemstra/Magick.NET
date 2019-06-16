@@ -84,9 +84,7 @@ function createAndSignNuGetPackage($name, $version, $pfxPassword) {
     checkExitCode "Failed to sign NuGet package"
 
     if ($pfxPassword.Length -gt 0) {
-        $nugetVersion = $version -replace "\.0","."
-        $nugetVersion = $nugetVersion -replace "\.$",""
-        $nupkgFile = fullPath "$name.$nugetVersion.nupkg"
+        $nupkgFile = fullPath "$name*.nupkg"
         $certificate = fullPath "build\windows\ImageMagick.pfx"
         & $nuget sign $nupkgFile -CertificatePath "$certificate" -CertificatePassword "$pfxPassword" -Timestamper http://sha256timestamp.ws.symantec.com/sha256/timestamp
         checkExitCode "Failed to sign NuGet package"
