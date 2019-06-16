@@ -1,7 +1,0 @@
-steps:
-
-- task: PowerShell@2
-  inputs:
-    targetType: filePath
-    filePath: publish/check.tag.ps1
-  displayName: Check for tag
