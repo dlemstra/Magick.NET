@@ -10,6 +10,8 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System.Globalization;
+
 namespace ImageMagick
 {
     /// <summary>
@@ -39,7 +41,7 @@ namespace ImageMagick
             switch (value)
             {
                 case int intValue:
-                    Value = intValue.ToString();
+                    Value = intValue.ToString(CultureInfo.InvariantCulture);
                     return true;
                 default:
                     return false;
