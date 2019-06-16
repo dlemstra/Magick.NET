@@ -19,7 +19,7 @@ function installPackage($version, $target) {
     [void](New-Item -ItemType directory -Path $temp)
 
     # Temporary download from DropBox
-    $url = "https://dl.dropboxusercontent.com/s/y6sjynu2m1brjqj/Magick.Native.$version.nupkg"
+    $url = "https://dl.dropboxusercontent.com/s/aeoswqx1km8s861/Magick.Native.$version.nupkg"
     Invoke-WebRequest $url -Outfile "$temp\Magick.Native.$version.nupkg"
     ..\..\tools\windows\nuget.exe install Magick.Native -Version $version -OutputDirectory "$temp\..\temp" -Source $temp
 
