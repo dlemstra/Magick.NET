@@ -29,25 +29,11 @@ namespace ImageMagick
 
         private delegate TDataType ReadMethod<TDataType>();
 
-        public uint ThumbnailLength
-        {
-            get;
-            private set;
-        }
+        public uint ThumbnailLength { get; private set; }
 
-        public uint ThumbnailOffset
-        {
-            get;
-            private set;
-        }
+        public uint ThumbnailOffset { get; private set; }
 
-        public IEnumerable<ExifTag> InvalidTags
-        {
-            get
-            {
-                return _invalidTags;
-            }
-        }
+        public IEnumerable<ExifTag> InvalidTags => _invalidTags;
 
         public Collection<ExifValue> Read(byte[] data)
         {
