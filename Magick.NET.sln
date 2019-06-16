@@ -105,6 +105,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magick.NET.Web", "src\Magick.NET.Web\Magick.NET.Web.csproj", "{E66F54A2-6BE7-44A3-A716-CC047CC36C35}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{7935EDEC-32B2-4BA2-93DC-FC990B26D51E}"
+	ProjectSection(SolutionItems) = preProject
+		tools\Generate.Drawables.cmd = tools\Generate.Drawables.cmd
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{BE60093C-A01F-454E-A0FC-2812D290CD6A}"
 	ProjectSection(SolutionItems) = preProject
@@ -120,6 +123,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux", "linux", "{C4C8ACAC
 		build\linux\install.dependencies.sh = build\linux\install.dependencies.sh
 		build\linux\run.cmd = build\linux\run.cmd
 		build\linux\test.Magick.NET.sh = build\linux\test.Magick.NET.sh
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileGenerators", "FileGenerators", "{1B3D9B95-355B-47B2-889D-30BF67F28FB0}"
+	ProjectSection(SolutionItems) = preProject
+		tools\FileGenerators\FileGenerator.ps1 = tools\FileGenerators\FileGenerator.ps1
 	EndProjectSection
 EndProject
 Global
@@ -476,6 +484,7 @@ Global
 		{E66F54A2-6BE7-44A3-A716-CC047CC36C35} = {61345F8D-8813-4CA8-B037-2DE221FFB5D2}
 		{BE60093C-A01F-454E-A0FC-2812D290CD6A} = {7935EDEC-32B2-4BA2-93DC-FC990B26D51E}
 		{C4C8ACAC-0081-49E7-A20B-06DB39A98EB3} = {F6E20621-E266-4314-ADE0-A899270F2312}
+		{1B3D9B95-355B-47B2-889D-30BF67F28FB0} = {7935EDEC-32B2-4BA2-93DC-FC990B26D51E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F6887AA-E540-48B3-BDC0-068B342ABEBE}
