@@ -20,8 +20,6 @@ namespace ImageMagick
     /// <typeparam name="TValueType">The type of the value.</typeparam>
     public abstract class ExifValue<TValueType> : IExifValue
     {
-        private TValueType _value;
-
         internal ExifValue(ExifTag tag, ExifDataType dataType)
         {
             Tag = tag;
@@ -32,11 +30,6 @@ namespace ImageMagick
         /// Gets the data type of the exif value.
         /// </summary>
         public ExifDataType DataType { get; }
-
-        /// <summary>
-        /// Gets or sets the value.
-        /// </summary>
-        public TValueType Value { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether the value is an array.
@@ -51,9 +44,14 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
+        public TValueType Value { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value.
+        /// </summary>
         object IExifValue.Value
         {
-            get => _value;
+            get => Value;
 
             set
             {
@@ -75,10 +73,10 @@ namespace ImageMagick
         /// <returns>A string that represents the current value.</returns>
         public override string ToString()
         {
-            if (_value == null)
+            if (Value == null)
                 return null;
 
-            var description = ExifTagDescriptionAttribute.GetDescription(Tag, _value);
+            var description = ExifTagDescriptionAttribute.GetDescription(Tag, Value);
             if (description != null)
                 return description;
 
@@ -111,13 +109,13 @@ namespace ImageMagick
         {
             if (value == null)
             {
-                _value = default;
+                Value = default;
                 return true;
             }
 
             if (value is TValueType typeValue)
             {
-                _value = typeValue;
+                Value = typeValue;
                 return true;
             }
 
