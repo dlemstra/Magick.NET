@@ -57,7 +57,7 @@ namespace ImageMagick
             {
                 if (!SetValue(value))
                 {
-                    throw new InvalidOperationException($"Value should be {typeof(TValueType).Name}.");
+                    throw new InvalidOperationException($"The type of the value should be {typeof(TValueType).Name}.");
                 }
             }
         }
