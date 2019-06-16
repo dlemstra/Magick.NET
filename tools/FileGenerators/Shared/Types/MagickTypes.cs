@@ -84,7 +84,7 @@ namespace FileGenerator
         {
             string folderName = GetFolderName(depth);
             string quantumName = GetQuantumName(depth);
-            AssemblyFile = PathHelper.GetFullPath(@"Source\Magick.NET\bin\" + folderName + @"\x86\net40\Magick.NET-" + quantumName + @"-x86.dll");
+            AssemblyFile = PathHelper.GetFullPath(@"src\Magick.NET\bin\" + folderName + @"\x86\net40\Magick.NET-" + quantumName + @"-x86.dll");
             MagickNET = LoadAssembly();
             Depth = depth;
         }

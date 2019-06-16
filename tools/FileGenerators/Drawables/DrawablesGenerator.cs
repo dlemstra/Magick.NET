@@ -70,7 +70,7 @@ namespace FileGenerator.Drawables
             WriteParameterDeclaration(parameters);
             WriteLine(")");
             WriteStartColon();
-            Write("_Drawables.Add(new " + constructor.DeclaringType.Name + "(");
+            Write("_drawables.Add(new " + constructor.DeclaringType.Name + "(");
             WriteParameters(parameters);
             WriteLine("));");
             WriteLine("return this;");
@@ -106,7 +106,7 @@ namespace FileGenerator.Drawables
         {
             if (!_ForCore)
             {
-                WriteLine("#if !NETSTANDARD1_3");
+                WriteLine("#if !NETSTANDARD");
                 WriteLine();
                 WriteLine("using System.Drawing;");
                 WriteLine("using System.Drawing.Drawing2D;");
@@ -124,7 +124,7 @@ namespace FileGenerator.Drawables
         {
             DrawablesGenerator generator = new DrawablesGenerator();
             generator._ForCore = false;
-            generator.CreateWriter(PathHelper.GetFullPath(@"Source\Magick.NET\Framework\Drawables\Generated\Drawables.cs"));
+            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET\Framework\Drawables\Generated\Drawables.cs"));
             Generate(generator);
         }
 
@@ -132,7 +132,7 @@ namespace FileGenerator.Drawables
         {
             DrawablesGenerator generator = new DrawablesGenerator();
             generator._ForCore = true;
-            generator.CreateWriter(PathHelper.GetFullPath(@"Source\Magick.NET\Shared\Drawables\Generated\Drawables.cs"));
+            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET\Shared\Drawables\Generated\Drawables.cs"));
             Generate(generator);
         }
     }
