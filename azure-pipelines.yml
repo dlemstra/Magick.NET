@@ -6,6 +6,7 @@ resources:
     image: microsoft/dotnet:latest
     options: '--name dotnet_latest -v /usr/bin/docker:/tmp/docker:ro'
 
+jobs:
 - job: windows
   displayName: Windows
   pool:
