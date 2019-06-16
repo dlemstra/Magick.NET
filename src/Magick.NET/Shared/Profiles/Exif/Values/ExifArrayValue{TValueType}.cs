@@ -71,8 +71,20 @@ namespace ImageMagick
         /// <returns>A value indicating whether the value could be set.</returns>
         bool IExifValue.TrySetValue(object value)
         {
-            return SetValue(value);
+            if (SetValue(value))
+            {
+                return true;
+            }
+
+            return TrySetValue(value);
         }
+
+        /// <summary>
+        /// Tries to set the value and returns a value indicating whether the value could be set.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>A value indicating whether the value could be set.</returns>
+        protected virtual bool TrySetValue(object value) => false;
 
         private bool SetValue(object value)
         {
