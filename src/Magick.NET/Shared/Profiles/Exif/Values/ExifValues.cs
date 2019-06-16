@@ -212,6 +212,62 @@ namespace ImageMagick
                 case ExifTag.CameraElevationAngle:
                     return new ExifSignedRational(tag);
 
+                case ExifTag.ImageDescription:
+                case ExifTag.Make:
+                case ExifTag.Model:
+                case ExifTag.Software:
+                case ExifTag.DateTime:
+                case ExifTag.Artist:
+                case ExifTag.HostComputer:
+                case ExifTag.Copyright:
+                case ExifTag.DocumentName:
+                case ExifTag.PageName:
+                case ExifTag.InkNames:
+                case ExifTag.TargetPrinter:
+                case ExifTag.ImageID:
+                case ExifTag.MDLabName:
+                case ExifTag.MDSampleInfo:
+                case ExifTag.MDPrepDate:
+                case ExifTag.MDPrepTime:
+                case ExifTag.MDFileUnits:
+                case ExifTag.SEMInfo:
+                case ExifTag.SpectralSensitivity:
+                case ExifTag.DateTimeOriginal:
+                case ExifTag.DateTimeDigitized:
+                case ExifTag.SubsecTime:
+                case ExifTag.SubsecTimeOriginal:
+                case ExifTag.SubsecTimeDigitized:
+                case ExifTag.RelatedSoundFile:
+                case ExifTag.FaxSubaddress:
+                case ExifTag.OffsetTime:
+                case ExifTag.OffsetTimeOriginal:
+                case ExifTag.OffsetTimeDigitized:
+                case ExifTag.SecurityClassification:
+                case ExifTag.ImageHistory:
+                case ExifTag.ImageUniqueID:
+                case ExifTag.OwnerName:
+                case ExifTag.SerialNumber:
+                case ExifTag.LensMake:
+                case ExifTag.LensModel:
+                case ExifTag.LensSerialNumber:
+                case ExifTag.GDALMetadata:
+                case ExifTag.GDALNoData:
+                case ExifTag.GPSLatitudeRef:
+                case ExifTag.GPSLongitudeRef:
+                case ExifTag.GPSSatellites:
+                case ExifTag.GPSStatus:
+                case ExifTag.GPSMeasureMode:
+                case ExifTag.GPSSpeedRef:
+                case ExifTag.GPSTrackRef:
+                case ExifTag.GPSImgDirectionRef:
+                case ExifTag.GPSMapDatum:
+                case ExifTag.GPSDestLatitudeRef:
+                case ExifTag.GPSDestLongitudeRef:
+                case ExifTag.GPSDestBearingRef:
+                case ExifTag.GPSDestDistanceRef:
+                case ExifTag.GPSDateStamp:
+                    return new ExifString(tag);
+
                 case ExifTag.JPEGTables:
                 case ExifTag.OECF:
                 case ExifTag.ExifVersion:
