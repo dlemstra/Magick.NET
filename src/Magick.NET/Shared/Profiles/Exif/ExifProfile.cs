@@ -200,8 +200,14 @@ namespace ImageMagick
                 return;
             }
 
-            var writer = new ExifWriter(_values, Parts);
-            Data = writer.GetData();
+            var values = new Collection<IExifValue>();
+            foreach (var value in _values)
+            {
+                values.Add(value);
+            }
+
+            var writer = new ExifWriter(Parts);
+            Data = writer.Write(values);
         }
 
         private void InitializeValues()
