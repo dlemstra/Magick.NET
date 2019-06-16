@@ -22,7 +22,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifProfile : ImageProfile
     {
-        private Collection<ExifValue> _values;
+        private Collection<IExifValue> _values;
         private List<ExifTag> _invalidTags = new List<ExifTag>();
         private int _thumbnailOffset;
         private int _thumbnailLength;
@@ -89,10 +89,7 @@ namespace ImageMagick
             {
                 InitializeValues();
 
-                foreach (var value in _values)
-                {
-                    yield return value;
-                }
+                return _values;
             }
         }
 
@@ -110,7 +107,7 @@ namespace ImageMagick
             if (Data.Length < (_thumbnailOffset + _thumbnailLength))
                 return null;
 
-            byte[] data = new byte[_thumbnailLength];
+            var data = new byte[_thumbnailLength];
             Array.Copy(Data, _thumbnailOffset, data, 0, _thumbnailLength);
             return new MagickImage(data);
         }
@@ -200,14 +197,8 @@ namespace ImageMagick
                 return;
             }
 
-            var values = new Collection<IExifValue>();
-            foreach (var value in _values)
-            {
-                values.Add(value);
-            }
-
             var writer = new ExifWriter(Parts);
-            Data = writer.Write(values);
+            Data = writer.Write(_values);
         }
 
         private void InitializeValues()
@@ -217,12 +208,19 @@ namespace ImageMagick
 
             if (Data == null)
             {
-                _values = new Collection<ExifValue>();
+                _values = new Collection<IExifValue>();
                 return;
             }
 
             var reader = new ExifReader();
-            _values = reader.Read(Data);
+            var values = reader.Read(Data);
+
+            _values = new Collection<IExifValue>();
+            foreach (var value in values)
+            {
+                _values.Add(value);
+            }
+
             _invalidTags = new List<ExifTag>(reader.InvalidTags);
             _thumbnailOffset = (int)reader.ThumbnailOffset;
             _thumbnailLength = (int)reader.ThumbnailLength;
