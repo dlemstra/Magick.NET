@@ -62,8 +62,8 @@ function addNativeLibrary($quantumName, $platform, $runtime, $extension, $destin
 function addNativeLibraries($xml, $quantumName, $platform) {
     if ($platform -eq "AnyCPU")
     {
-        addNativeLibraries $xml, $quantumName "x86"
-        addNativeLibraries $xml, $quantumName "x64"
+        addNativeLibraries $xml $quantumName "x86"
+        addNativeLibraries $xml $quantumName "x64"
         return
     }
 
