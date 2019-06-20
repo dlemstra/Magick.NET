@@ -54,17 +54,16 @@ function addMagickNetLibraries($xml, $quantumName, $platform) {
 }
 
 function addNativeLibrary($quantumName, $platform, $runtime, $extension, $destination) {
-    if ($platform -eq "Any CPU") {
-      return
-    }
-
     $source = fullPath "src\Magick.Native\libraries\Magick.Native-$quantumName-$platform$extension"
     $target = "runtimes\$runtime-$platform\native\Magick.Native-$quantumName-$platform$extension"
     addFile $xml $source $target
 }
 
 function addNativeLibraries($xml, $quantumName, $platform) {
-    if ($platform -eq "AnyCPU") {
+    if ($platform -eq "Any CPU")
+    {
+        addNativeLibraries $xml, $quantumName "x86"
+        addNativeLibraries $xml, $quantumName "x64"
         return
     }
 
