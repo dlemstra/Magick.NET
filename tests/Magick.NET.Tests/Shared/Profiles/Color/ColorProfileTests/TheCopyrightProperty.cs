@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -29,6 +30,42 @@ namespace Magick.NET.Tests
                 Assert.AreEqual("Copyright 2000 Adobe Systems Incorporated", ColorProfile.ColorMatchRGB.Copyright);
                 Assert.AreEqual("Copyright (c) 1998 Hewlett-Packard Company", ColorProfile.SRGB.Copyright);
                 Assert.AreEqual("Copyright 2000 Adobe Systems, Inc.", ColorProfile.USWebCoatedSWOP.Copyright);
+            }
+
+            [TestMethod]
+            public void ShouldIgnoreIncorrectTagValueType()
+            {
+                var data = new byte[148];
+                Array.Clear(data, 0, data.Length);
+
+                // Colorspace
+                data[16] = (byte)'R';
+                data[17] = (byte)'G';
+                data[18] = (byte)'B';
+
+                // Tag table count
+                data[131] = 1;
+
+                // Copyright tag
+                data[132] = 99;
+                data[133] = 112;
+                data[134] = 114;
+                data[135] = 116;
+
+                // Offset
+                data[139] = 144;
+
+                // Length
+                data[143] = 1;
+
+                // Tag value type
+                data[144] = (byte)'m';
+                data[145] = (byte)'l';
+                data[146] = (byte)'u';
+                data[147] = (byte)'c';
+
+                var colorProfile = new ColorProfile(data);
+                Assert.IsNull(colorProfile.Copyright);
             }
         }
     }
