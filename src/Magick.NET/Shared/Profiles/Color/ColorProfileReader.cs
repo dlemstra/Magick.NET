@@ -140,7 +140,7 @@ namespace ImageMagick
                 case "text":
                     return ReadTextTypeValue(length);
                 default:
-                    throw new NotSupportedException(type);
+                    return null;
             }
         }
 
