@@ -60,7 +60,7 @@ function addNativeLibrary($quantumName, $platform, $runtime, $extension, $destin
 }
 
 function addNativeLibraries($xml, $quantumName, $platform) {
-    if ($platform -eq "Any CPU")
+    if ($platform -eq "AnyCPU")
     {
         addNativeLibraries $xml, $quantumName "x86"
         addNativeLibraries $xml, $quantumName "x64"
@@ -80,7 +80,7 @@ function createAndSignNuGetPackage($name, $version, $pfxPassword) {
 
     $nuget = fullPath "tools\windows\nuget.exe"
     & $nuget pack $nuspecFile -NoPackageAnalysis
-    checkExitCode "Failed to sign NuGet package"
+    checkExitCode "Failed to create NuGet package"
 
     if ($pfxPassword.Length -gt 0) {
         $nupkgFile = fullPath "$name*.nupkg"
