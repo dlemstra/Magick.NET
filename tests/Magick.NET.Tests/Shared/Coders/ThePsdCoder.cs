@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -39,6 +40,60 @@ namespace Magick.NET.Tests
                 foreach (var image in images)
                 {
                     Assert.IsNotNull(image.Get8BimProfile());
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ShouldCorrectlyWriteGrayscaleImage()
+        {
+            using (IMagickImage input = new MagickImage(Files.Builtin.Wizard))
+            {
+                input.Quantize(new QuantizeSettings
+                {
+                    Colors = 10,
+                    ColorSpace = ColorSpace.Gray,
+                });
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    input.Write(memoryStream, MagickFormat.Psd);
+
+                    memoryStream.Position = 0;
+                    using (IMagickImage output = new MagickImage(memoryStream))
+                    {
+                        var distortion = output.Compare(input, ErrorMetric.RootMeanSquared);
+
+                        Assert.AreEqual(0, distortion);
+                    }
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ShouldCorrectlyWriteGrayscaleAlphaImage()
+        {
+            using (IMagickImage input = new MagickImage(Files.Builtin.Wizard))
+            {
+                input.Quantize(new QuantizeSettings
+                {
+                    Colors = 10,
+                    ColorSpace = ColorSpace.Gray,
+                });
+
+                input.Alpha(AlphaOption.Opaque);
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    input.Write(memoryStream, MagickFormat.Psd);
+
+                    memoryStream.Position = 0;
+                    using (IMagickImage output = new MagickImage(memoryStream))
+                    {
+                        var distortion = output.Compare(input, ErrorMetric.RootMeanSquared);
+
+                        Assert.AreEqual(0, distortion);
+                    }
                 }
             }
         }
