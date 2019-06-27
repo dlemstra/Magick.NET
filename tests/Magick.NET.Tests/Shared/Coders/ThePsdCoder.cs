@@ -64,7 +64,7 @@ namespace Magick.NET.Tests
                     {
                         var distortion = output.Compare(input, ErrorMetric.RootMeanSquared);
 
-                        Assert.AreEqual(0, distortion);
+                        Assert.AreEqual(0, distortion, 0.002);
                     }
                 }
             }
@@ -92,7 +92,7 @@ namespace Magick.NET.Tests
                     {
                         var distortion = output.Compare(input, ErrorMetric.RootMeanSquared);
 
-                        Assert.AreEqual(0, distortion);
+                        Assert.AreEqual(0, distortion, 0.002);
                     }
                 }
             }
