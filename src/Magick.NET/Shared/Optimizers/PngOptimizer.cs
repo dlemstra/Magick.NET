@@ -61,7 +61,7 @@ namespace ImageMagick.ImageOptimizers
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool Compress(string fileName)
         {
-            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            var filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             return DoCompress(new FileInfo(filePath), false);
@@ -100,7 +100,7 @@ namespace ImageMagick.ImageOptimizers
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool LosslessCompress(string fileName)
         {
-            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            var filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             return DoCompress(new FileInfo(filePath), true);
@@ -141,7 +141,7 @@ namespace ImageMagick.ImageOptimizers
         {
             bool isCompressed = false;
 
-            using (MagickImage image = new MagickImage(file))
+            using (var image = new MagickImage(file))
             {
                 if (image.GetAttribute("png:acTL") != null)
                 {
@@ -150,15 +150,15 @@ namespace ImageMagick.ImageOptimizers
 
                 StartCompression(image, lossless);
 
-                Collection<TemporaryFile> tempFiles = new Collection<TemporaryFile>();
+                var tempFiles = new Collection<TemporaryFile>();
 
                 try
                 {
                     TemporaryFile bestFile = null;
 
-                    foreach (int quality in GetQualityList())
+                    foreach (var quality in GetQualityList())
                     {
-                        TemporaryFile tempFile = new TemporaryFile();
+                        var tempFile = new TemporaryFile();
                         tempFiles.Add(tempFile);
 
                         image.Quality = quality;
@@ -191,10 +191,10 @@ namespace ImageMagick.ImageOptimizers
         {
             ImageOptimizerHelper.CheckStream(stream);
 
-            bool isCompressed = false;
-            long startPosition = stream.Position;
+            var isCompressed = false;
+            var startPosition = stream.Position;
 
-            using (MagickImage image = new MagickImage(stream))
+            using (var image = new MagickImage(stream))
             {
                 StartCompression(image, lossless);
 
@@ -202,9 +202,9 @@ namespace ImageMagick.ImageOptimizers
 
                 try
                 {
-                    foreach (int quality in GetQualityList())
+                    foreach (var quality in GetQualityList())
                     {
-                        MemoryStream memStream = new MemoryStream();
+                        var memStream = new MemoryStream();
 
                         try
                         {
