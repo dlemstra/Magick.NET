@@ -1427,8 +1427,8 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(30, typeMetric.MaxHorizontalAdvance);
                 Assert.AreEqual(18, typeMetric.TextHeight);
                 Assert.AreEqual(82, typeMetric.TextWidth);
-                Assert.AreEqual(-4.5625, typeMetric.UnderlinePosition);
-                Assert.AreEqual(2.34375, typeMetric.UnderlineThickness);
+                Assert.AreEqual(-2.138671875, typeMetric.UnderlinePosition);
+                Assert.AreEqual(1.0986328125, typeMetric.UnderlineThickness);
 
                 image.Settings.FontPointsize = 150;
                 typeMetric = image.FontTypeMetrics("Magick.NET");
@@ -1438,8 +1438,8 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(300, typeMetric.MaxHorizontalAdvance);
                 Assert.AreEqual(168, typeMetric.TextHeight);
                 Assert.AreEqual(816, typeMetric.TextWidth);
-                Assert.AreEqual(-4.5625, typeMetric.UnderlinePosition);
-                Assert.AreEqual(2.34375, typeMetric.UnderlineThickness);
+                Assert.AreEqual(-21.38671875, typeMetric.UnderlinePosition);
+                Assert.AreEqual(10.986328125, typeMetric.UnderlineThickness);
             }
         }
 
