@@ -25,9 +25,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Features_ContainsExpectedFeatures()
         {
-            var expected = "Cipher ";
-#if WINDOWS_BUILD
-            expected += "DPC ";
+            var expected = "Cipher DPC ";
 #endif
 #if Q16HDRI
             expected += "HDRI ";
