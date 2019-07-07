@@ -81,7 +81,7 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
                 {
-                    image.Fx("random()");
+                    image.Fx("rand()");
                 }
             }
         }
