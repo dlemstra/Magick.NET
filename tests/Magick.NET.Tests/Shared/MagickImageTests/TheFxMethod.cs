@@ -35,7 +35,7 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("expression", () => image.Fx(string.Empty));
+                    ExceptionAssert.Throws<ArgumentException>("expression", () => image.Fx(string.Empty));
                 }
             }
 
