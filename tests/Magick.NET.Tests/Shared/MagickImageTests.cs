@@ -1522,49 +1522,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_Fx()
-        {
-            using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
-            {
-                ExceptionAssert.Throws<ArgumentNullException>("expression", () =>
-                {
-                    image.Fx(null);
-                });
-
-                ExceptionAssert.Throws<ArgumentException>("expression", () =>
-                {
-                    image.Fx(string.Empty);
-                });
-
-                ExceptionAssert.Throws<MagickOptionErrorException>(() =>
-                {
-                    image.Fx("foobar");
-                });
-
-                image.Fx("b");
-
-                ColorAssert.AreEqual(MagickColors.Black, image, 183, 83);
-                ColorAssert.AreEqual(MagickColors.White, image, 140, 400);
-
-                image.Fx("1/2", Channels.Green);
-
-                ColorAssert.AreEqual(new MagickColor("#000080000000"), image, 183, 83);
-                ColorAssert.AreEqual(new MagickColor("#ffff8000ffff"), image, 140, 400);
-
-                image.Fx("1/4", Channels.Alpha);
-
-                ColorAssert.AreEqual(new MagickColor("#000080000000"), image, 183, 83);
-                ColorAssert.AreEqual(new MagickColor("#ffff8000ffff"), image, 140, 400);
-
-                image.HasAlpha = true;
-                image.Fx("1/4", Channels.Alpha);
-
-                ColorAssert.AreEqual(new MagickColor("#0000800000004000"), image, 183, 83);
-                ColorAssert.AreEqual(new MagickColor("#ffff8000ffff4000"), image, 140, 400);
-            }
-        }
-
-        [TestMethod]
         public void Test_GammaCorrect()
         {
             IMagickImage first = new MagickImage(Files.InvitationTIF);
