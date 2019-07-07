@@ -75,6 +75,15 @@ namespace Magick.NET.Tests
                     ColorAssert.AreEqual(new MagickColor("#ffff8000ffff4000"), image, 140, 400);
                 }
             }
+
+            [TestMethod]
+            public void ShouldEvaluateExpressionMethod()
+            {
+                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                {
+                    image.Fx("random()");
+                }
+            }
         }
     }
 }
