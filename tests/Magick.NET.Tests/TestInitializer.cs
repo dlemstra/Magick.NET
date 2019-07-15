@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
         public static void InitializeWithCustomPolicy(TestContext context)
         {
 #if !NETCORE
-            MagickNET.SetGhostscriptDirectory(@"C:\Program Files (x86)\gs\gs9.26\bin");
+            MagickNET.SetGhostscriptDirectory(@"C:\Program Files (x86)\gs\gs9.27\bin");
 #endif
 
             ConfigurationFiles configFiles = ConfigurationFiles.Default;
