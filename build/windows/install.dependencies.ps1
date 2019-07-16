@@ -22,8 +22,8 @@ $targetNugetExe = "$PSScriptRoot\..\..\tools\windows\nuget.exe"
 Invoke-WebRequest $sourceNugetExe -OutFile $targetNugetExe
 
 Write-Host "Installing Ghostscript 9.27"
-$sourceGhostscriptExe = "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs927/gs927aw32.exe"
-$targetGhostscriptExe = "$PSScriptRoot\..\..\tools\windows\gs927aw32.exe"
+$sourceGhostscriptExe = "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs927/gs927w32.exe"
+$targetGhostscriptExe = "$PSScriptRoot\..\..\tools\windows\gs927w32.exe"
 Invoke-WebRequest $sourceGhostscriptExe -OutFile $targetGhostscriptExe
 & $targetGhostscriptExe /S
 
