@@ -20,7 +20,7 @@ param (
 
 function signLibrary($library, $quantumName, $platformName, $pfxPassword, $targetFramework) {
     $pfxFile = fullPath "build\windows\ImageMagick.pfx"
-    $signtool = "C:\Program Files (x86)\Windows Kits\10\10.0.17763.0\bin\x64\signtool.exe"
+    $signtool = "C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x64\signtool.exe"
 
     $platform = $platformName
 
