@@ -1103,6 +1103,11 @@ namespace ImageMagick
         Tim,
 
         /// <summary>
+        /// PS2 TIM2
+        /// </summary>
+        Tm2,
+
+        /// <summary>
         /// TrueType font collection
         /// </summary>
         Ttc,
