@@ -85,6 +85,7 @@ namespace Magick.NET.Tests
 
                 using (var memoryStream = new MemoryStream())
                 {
+                    input.Settings.Compression = CompressionMethod.RLE;
                     input.Write(memoryStream, MagickFormat.Psd);
 
                     memoryStream.Position = 0;
