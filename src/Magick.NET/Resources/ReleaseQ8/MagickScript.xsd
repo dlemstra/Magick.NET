@@ -955,6 +955,7 @@
           <xs:enumeration value="Tiff64" />
           <xs:enumeration value="Tile" />
           <xs:enumeration value="Tim" />
+          <xs:enumeration value="Tm2" />
           <xs:enumeration value="Ttc" />
           <xs:enumeration value="Ttf" />
           <xs:enumeration value="Txt" />
