@@ -47,10 +47,7 @@ namespace ImageMagick.ImageOptimizers
         /// </summary>
         /// <param name="file">The png file to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
-        public bool Compress(FileInfo file)
-        {
-            return DoCompress(file, false);
-        }
+        public bool Compress(FileInfo file) => DoCompress(file, false);
 
         /// <summary>
         /// Performs compression on the specified file. With some formats the image will be decoded
@@ -74,10 +71,7 @@ namespace ImageMagick.ImageOptimizers
         /// </summary>
         /// <param name="stream">The stream of the png image to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
-        public bool Compress(Stream stream)
-        {
-            return DoCompress(stream, false);
-        }
+        public bool Compress(Stream stream) => DoCompress(stream, false);
 
         /// <summary>
         /// Performs lossless compression on the specified file. If the new file size is not smaller
