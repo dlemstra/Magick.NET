@@ -57,12 +57,6 @@ namespace Magick.NET.Tests
                 }
 
                 [TestMethod]
-                public void ShouldThrowExceptionWhenFileIsInvalid()
-                {
-                    ExceptionAssert.Throws<MagickCorruptImageErrorException>(() => Optimizer.Compress(Files.InvitationTIF));
-                }
-
-                [TestMethod]
                 public void ShouldResultInSmallerFileWHenQualityIsSetTo40()
                 {
                     using (TemporaryFile tempFile = new TemporaryFile(Files.ImageMagickJPG))

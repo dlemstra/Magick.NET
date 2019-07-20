@@ -54,12 +54,6 @@ namespace Magick.NET.Tests
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("file", () => Optimizer.LosslessCompress((FileInfo)null));
                 }
-
-                [TestMethod]
-                public void ShouldThrowExceptionWhenFileIsInvalid()
-                {
-                    ExceptionAssert.Throws<MagickCorruptImageErrorException>(() => Optimizer.LosslessCompress(Files.InvitationTIF));
-                }
             }
 
             [TestClass]

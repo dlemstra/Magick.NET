@@ -56,12 +56,6 @@ namespace Magick.NET.Tests
                 }
 
                 [TestMethod]
-                public void ShouldThrowExceptionWhenFileIsInvalid()
-                {
-                    ExceptionAssert.Throws<MagickCorruptImageErrorException>(() => Optimizer.LosslessCompress(Files.InvitationTIF));
-                }
-
-                [TestMethod]
                 public void ShouldPreserveTheColorProfile()
                 {
                     using (MagickImage image = new MagickImage())
