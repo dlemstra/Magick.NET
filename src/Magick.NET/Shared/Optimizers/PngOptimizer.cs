@@ -22,13 +22,6 @@ namespace ImageMagick.ImageOptimizers
     public sealed class PngOptimizer : IImageOptimizer
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PngOptimizer"/> class.
-        /// </summary>
-        public PngOptimizer()
-        {
-        }
-
-        /// <summary>
         /// Gets the format that the optimizer supports.
         /// </summary>
         public MagickFormatInfo Format => MagickNET.GetFormatInformation(MagickFormat.Png);

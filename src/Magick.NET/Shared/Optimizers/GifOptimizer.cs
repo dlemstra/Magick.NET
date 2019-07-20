@@ -20,13 +20,6 @@ namespace ImageMagick.ImageOptimizers
     public sealed class GifOptimizer : IImageOptimizer
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="GifOptimizer"/> class.
-        /// </summary>
-        public GifOptimizer()
-        {
-        }
-
-        /// <summary>
         /// Gets the format that the optimizer supports.
         /// </summary>
         public MagickFormatInfo Format

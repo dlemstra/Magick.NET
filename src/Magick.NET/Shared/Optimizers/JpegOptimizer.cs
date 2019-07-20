@@ -21,14 +21,6 @@ namespace ImageMagick.ImageOptimizers
     public sealed partial class JpegOptimizer : IImageOptimizer
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="JpegOptimizer"/> class.
-        /// </summary>
-        public JpegOptimizer()
-        {
-            Progressive = true;
-        }
-
-        /// <summary>
         /// Gets the format that the optimizer supports.
         /// </summary>
         public MagickFormatInfo Format => MagickNET.GetFormatInformation(MagickFormat.Jpeg);
@@ -43,7 +35,7 @@ namespace ImageMagick.ImageOptimizers
         /// <summary>
         /// Gets or sets a value indicating whether a progressive jpeg file will be created.
         /// </summary>
-        public bool Progressive { get; set; }
+        public bool Progressive { get; set; } = true;
 
         /// <summary>
         /// Performs compression on the specified file. With some formats the image will be decoded
