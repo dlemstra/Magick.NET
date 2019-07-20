@@ -26,7 +26,8 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldCompress()
             {
-                AssertCompressSmaller(Files.ImageMagickJPG);
+                var result = AssertCompressSmaller(Files.ImageMagickJPG);
+                Assert.AreEqual(5146, result);
             }
 
             [TestMethod]
