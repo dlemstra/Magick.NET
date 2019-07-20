@@ -48,7 +48,7 @@ namespace Magick.NET.Tests
             }
 
             [TestClass]
-            public class WithFile : TheCompressMethod
+            public class WithFile : TheLosslessCompressMethod
             {
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileIsNull()
@@ -108,7 +108,7 @@ namespace Magick.NET.Tests
             }
 
             [TestClass]
-            public class WithFileName : TheCompressMethod
+            public class WithFileName : TheLosslessCompressMethod
             {
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsNull()
@@ -133,7 +133,7 @@ namespace Magick.NET.Tests
             }
 
             [TestClass]
-            public class WithStreamName : TheCompressMethod
+            public class WithStreamName : TheLosslessCompressMethod
             {
                 [TestMethod]
                 public void ShouldThrowExceptionWhenStreamIsNull()
