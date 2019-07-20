@@ -1391,18 +1391,18 @@ namespace ImageMagick
         {
             Throw.IfNullOrEmpty(nameof(stream), stream);
 
-            Bytes bytes = Bytes.FromStreamBuffer(stream);
+            var bytes = Bytes.FromStreamBuffer(stream);
             if (bytes != null)
             {
                 AddImages(bytes.Data, 0, bytes.Length, readSettings, ping);
                 return;
             }
 
-            MagickSettings settings = CreateSettings(readSettings);
+            var settings = CreateSettings(readSettings);
             settings.Ping = ping;
             settings.FileName = null;
 
-            using (StreamWrapper wrapper = StreamWrapper.CreateForReading(stream))
+            using (var wrapper = StreamWrapper.CreateForReading(stream))
             {
                 ReadWriteStreamDelegate reader = new ReadWriteStreamDelegate(wrapper.Read);
                 SeekStreamDelegate seeker = null;
@@ -1414,7 +1414,7 @@ namespace ImageMagick
                     teller = new TellStreamDelegate(wrapper.Tell);
                 }
 
-                IntPtr result = _nativeInstance.ReadStream(settings, reader, seeker, teller);
+                var result = _nativeInstance.ReadStream(settings, reader, seeker, teller);
                 AddImages(result, settings);
             }
         }
