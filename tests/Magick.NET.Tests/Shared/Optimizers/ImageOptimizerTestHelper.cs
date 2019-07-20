@@ -12,6 +12,7 @@
 
 using System;
 using System.IO;
+using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
@@ -86,6 +87,39 @@ namespace Magick.NET.Tests
                         Assert.AreEqual(before, after);
 
                     return after - 42;
+                }
+            }
+        }
+
+        protected void AssertInvalidFileFormat(string fileName, Action<FileInfo> action)
+        {
+            using (TemporaryFile tempFile = new TemporaryFile(fileName))
+            {
+                ExceptionAssert.Throws<MagickCorruptImageErrorException>(() => action(tempFile));
+            }
+        }
+
+        protected void AssertInvalidFileFormat(string fileName, Action<string> action)
+        {
+            using (TemporaryFile tempFile = new TemporaryFile(fileName))
+            {
+                ExceptionAssert.Throws<MagickCorruptImageErrorException>(() => action(tempFile.FullName));
+            }
+        }
+
+        protected void AssertInvalidFileFormat(string fileName, Action<Stream> action)
+        {
+            using (TemporaryFile tempFile = new TemporaryFile(fileName))
+            {
+                using (FileStream fileStream = File.Open(fileName, FileMode.Open, FileAccess.ReadWrite))
+                {
+                    using (MemoryStream memoryStream = new MemoryStream())
+                    {
+                        fileStream.CopyTo(memoryStream);
+                        memoryStream.Position = 0;
+
+                        ExceptionAssert.Throws<MagickCorruptImageErrorException>(() => action(memoryStream));
+                    }
                 }
             }
         }

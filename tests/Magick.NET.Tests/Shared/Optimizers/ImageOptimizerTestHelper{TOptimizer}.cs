@@ -82,6 +82,15 @@ namespace Magick.NET.Tests
             }
         }
 
+        protected void AssertCompressInvalidFileFormat(string fileName)
+        {
+            AssertInvalidFileFormat(fileName, (FileInfo file) => Optimizer.Compress(file));
+
+            AssertInvalidFileFormat(fileName, (string file) => Optimizer.Compress(file));
+
+            AssertInvalidFileFormat(fileName, (Stream stream) => Optimizer.Compress(stream));
+        }
+
         protected long AssertLosslessCompressSmaller(string fileName)
         {
             long lengthA = AssertCompress(fileName, true, (FileInfo file) =>
@@ -141,6 +150,15 @@ namespace Magick.NET.Tests
                 Assert.IsTrue(compressed1);
                 Assert.IsFalse(compressed2);
             }
+        }
+
+        protected void AssertLosslessCompressInvalidFileFormat(string fileName)
+        {
+            AssertInvalidFileFormat(fileName, (FileInfo file) => Optimizer.LosslessCompress(file));
+
+            AssertInvalidFileFormat(fileName, (string file) => Optimizer.LosslessCompress(file));
+
+            AssertInvalidFileFormat(fileName, (Stream stream) => Optimizer.LosslessCompress(stream));
         }
     }
 }

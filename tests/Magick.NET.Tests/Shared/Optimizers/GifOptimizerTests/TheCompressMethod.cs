@@ -40,6 +40,12 @@ namespace Magick.NET.Tests
                 AssertCompressTwice(Files.FujiFilmFinePixS1ProGIF);
             }
 
+            [TestMethod]
+            public void ShouldThrowExceptionWhenFileFormatIsInvalid()
+            {
+                AssertCompressInvalidFileFormat(Files.ImageMagickJPG);
+            }
+
             [TestClass]
             public class WithFile : TheCompressMethod
             {
