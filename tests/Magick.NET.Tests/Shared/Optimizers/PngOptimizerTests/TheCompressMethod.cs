@@ -58,12 +58,6 @@ namespace Magick.NET.Tests
                 }
 
                 [TestMethod]
-                public void ShouldThrowExceptionWhenFileIsInvalid()
-                {
-                    ExceptionAssert.Throws<MagickCorruptImageErrorException>(() => Optimizer.Compress(Files.InvitationTIF));
-                }
-
-                [TestMethod]
                 public void ShouldNotOptimizeAnimatedPNG()
                 {
                     PngOptimizer optimizer = new PngOptimizer();
