@@ -27,6 +27,7 @@ namespace ImageMagick
         private readonly GCHandle _handle;
         private Stream _stream;
 
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Not sure which exception will be thrown.")]
         private StreamWrapper(Stream stream)
         {
             _stream = stream;

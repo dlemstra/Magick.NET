@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace ImageMagick
@@ -31,6 +32,7 @@ namespace ImageMagick
             Throw.IfFalse(nameof(stream), stream.CanSeek, "The stream should be seekable.");
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Not sure which exception will be thrown.")]
         public static MagickFormatInfo GetFormatInformation(FileInfo file)
         {
             var info = MagickNET.GetFormatInformation(file);
@@ -58,6 +60,7 @@ namespace ImageMagick
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Not sure which exception will be thrown.")]
         public static MagickFormatInfo GetFormatInformation(string fileName)
         {
             var info = MagickNET.GetFormatInformation(fileName);
@@ -85,6 +88,7 @@ namespace ImageMagick
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Not sure which exception will be thrown.")]
         public static MagickFormatInfo GetFormatInformation(Stream stream)
         {
             var startPosition = stream.Position;
