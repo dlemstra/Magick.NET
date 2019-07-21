@@ -3,9 +3,9 @@
     <TargetFrameworks>net20;net40;netstandard13;netstandard20</TargetFrameworks>
     <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <AssemblyVersion>7.14.0.0</AssemblyVersion>
-    <FileVersion>7.14.0.3</FileVersion>
-    <Version>7.14.0.3</Version>
+    <AssemblyVersion>7.14.1.0</AssemblyVersion>
+    <FileVersion>7.14.1.0</FileVersion>
+    <Version>7.14.1.0</Version>
     <Authors>Dirk Lemstra</Authors>
     <Copyright>Copyright 2013-2019 Dirk Lemstra</Copyright>
     <RunCodeAnalysis Condition="'$(Configuration)|$(TargetFramework)' == 'ReleaseQ16|net40'">true</RunCodeAnalysis>
