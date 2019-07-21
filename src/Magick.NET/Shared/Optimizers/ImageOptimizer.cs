@@ -40,9 +40,9 @@ namespace ImageMagick
         {
             get
             {
-                List<string> formats = new List<string>();
+                var formats = new List<string>();
 
-                foreach (IImageOptimizer optimizer in _optimizers)
+                foreach (var optimizer in _optimizers)
                 {
                     formats.Add(optimizer.Format.Module.ToString());
                 }
@@ -74,7 +74,7 @@ namespace ImageMagick
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool Compress(string fileName)
         {
-            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            var filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             return DoCompress(new FileInfo(filePath));
@@ -91,7 +91,7 @@ namespace ImageMagick
         {
             ImageOptimizerHelper.CheckStream(stream);
 
-            IImageOptimizer optimizer = GetOptimizer(stream);
+            var optimizer = GetOptimizer(stream);
             if (optimizer == null)
                 return false;
 
@@ -117,7 +117,7 @@ namespace ImageMagick
             if (formatInfo == null)
                 return false;
 
-            foreach (IImageOptimizer optimizer in _optimizers)
+            foreach (var optimizer in _optimizers)
             {
                 if (optimizer.Format.Format == formatInfo.Module)
                     return true;
@@ -145,8 +145,8 @@ namespace ImageMagick
             if (!stream.CanRead || !stream.CanWrite || !stream.CanSeek)
                 return false;
 
-            long startPosition = stream.Position;
-            IMagickImageInfo info = new MagickImageInfo(stream);
+            var startPosition = stream.Position;
+            var info = new MagickImageInfo(stream);
             stream.Position = startPosition;
             return IsSupported(MagickFormatInfo.Create(info.Format));
         }
@@ -172,7 +172,7 @@ namespace ImageMagick
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool LosslessCompress(string fileName)
         {
-            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            var filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             return DoLosslessCompress(new FileInfo(filePath));
@@ -188,7 +188,7 @@ namespace ImageMagick
         {
             ImageOptimizerHelper.CheckStream(stream);
 
-            IImageOptimizer optimizer = GetOptimizer(stream);
+            var optimizer = GetOptimizer(stream);
             if (optimizer == null)
                 return false;
 
@@ -208,17 +208,17 @@ namespace ImageMagick
 
         private static MagickFormatInfo GetFormatInformation(FileInfo file)
         {
-            MagickFormatInfo info = MagickNET.GetFormatInformation(file);
+            var info = MagickNET.GetFormatInformation(file);
             if (info != null)
                 return info;
 
-            MagickImageInfo imageInfo = new MagickImageInfo(file);
+            var imageInfo = new MagickImageInfo(file);
             return MagickNET.GetFormatInformation(imageInfo.Format);
         }
 
         private bool DoLosslessCompress(FileInfo file)
         {
-            IImageOptimizer optimizer = GetOptimizer(file);
+            var optimizer = GetOptimizer(file);
             if (optimizer == null)
                 return false;
 
@@ -228,7 +228,7 @@ namespace ImageMagick
 
         private bool DoCompress(FileInfo file)
         {
-            IImageOptimizer optimizer = GetOptimizer(file);
+            var optimizer = GetOptimizer(file);
             if (optimizer == null)
                 return false;
 
@@ -238,10 +238,10 @@ namespace ImageMagick
 
         private IImageOptimizer GetOptimizer(FileInfo file)
         {
-            MagickFormatInfo info = GetFormatInformation(file);
+            var info = GetFormatInformation(file);
             DebugThrow.IfNull(nameof(info), info);
 
-            foreach (IImageOptimizer optimizer in _optimizers)
+            foreach (var optimizer in _optimizers)
             {
                 if (optimizer.Format.Module == info.Module)
                     return optimizer;
@@ -255,13 +255,13 @@ namespace ImageMagick
 
         private IImageOptimizer GetOptimizer(Stream stream)
         {
-            long position = stream.Position;
-            MagickImageInfo imageInfo = new MagickImageInfo(stream);
+            var position = stream.Position;
+            var imageInfo = new MagickImageInfo(stream);
             stream.Position = position;
 
-            MagickFormatInfo info = MagickNET.GetFormatInformation(imageInfo.Format);
+            var info = MagickNET.GetFormatInformation(imageInfo.Format);
 
-            foreach (IImageOptimizer optimizer in _optimizers)
+            foreach (var optimizer in _optimizers)
             {
                 if (optimizer.Format.Module == info.Module)
                     return optimizer;

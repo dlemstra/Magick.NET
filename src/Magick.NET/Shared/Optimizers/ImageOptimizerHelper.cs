@@ -18,7 +18,7 @@ namespace ImageMagick
     {
         public static void CheckFormat(IMagickImage image, MagickFormat expectedFormat)
         {
-            MagickFormat format = image.FormatInfo.Module;
+            var format = image.FormatInfo.Module;
             if (format != expectedFormat)
                 throw new MagickCorruptImageErrorException("Invalid image format: " + format.ToString());
         }
