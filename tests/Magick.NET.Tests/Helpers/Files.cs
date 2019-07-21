@@ -41,6 +41,8 @@ namespace Magick.NET.Tests
 
         public static string ImageMagickTXT => Root + @"Images/ImageMagick.txt";
 
+        public static string ImageMagickICO => Root + @"Images/ImageMagick.ico";
+
         public static string LetterJPG => Root + @"Images/Letter.jpg";
 
         public static string MagickNETIconPNG => Root + @"Images/Magick.NET.icon.png";
@@ -60,6 +62,8 @@ namespace Magick.NET.Tests
         public static string SnakewarePNG => Root + @"Images/Snakeware.png";
 
         public static string VicelandPNG => Root + "Images/viceland.png";
+
+        public static string WandICO => Root + @"Images/wand.ico";
 
         public static string WhiteJPG => Root + @"Images/white.jpg";
 
