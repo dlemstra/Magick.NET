@@ -10,8 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if WINDOWS_BUILD
-
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
@@ -23,10 +21,18 @@ namespace ImageMagick
     public static partial class MagickNET
     {
         /// <summary>
-        /// Sets the directory that contains the Native library.
+        /// Sets the directory that contains the Native library. This currently only works on Windows.
         /// </summary>
         /// <param name="path">The path of the directory that contains the native library.</param>
-        public static void SetNativeLibraryDirectory(string path) => NativeWindowsMethods.SetDllDirectory(FileHelper.GetFullPath(path));
+        public static void SetNativeLibraryDirectory(string path)
+        {
+#if NETSTANDARD
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+               NativeWindowsMethods.SetDllDirectory(FileHelper.GetFullPath(path));
+#else
+            NativeWindowsMethods.SetDllDirectory(FileHelper.GetFullPath(path));
+#endif
+        }
 
         private static class NativeWindowsMethods
         {
@@ -37,5 +43,3 @@ namespace ImageMagick
         }
     }
 }
-
-#endif
