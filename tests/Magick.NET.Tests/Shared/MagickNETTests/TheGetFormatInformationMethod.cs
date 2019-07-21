@@ -25,20 +25,38 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnFormatInfoForAllFormats()
             {
-                List<string> missingFormats = new List<string>();
+                var missingFormats = new List<string>();
 
                 foreach (MagickFormat format in Enum.GetValues(typeof(MagickFormat)))
                 {
                     if (format == MagickFormat.Unknown)
                         continue;
 
-                    MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(format);
+                    var formatInfo = MagickNET.GetFormatInformation(format);
                     if (formatInfo == null)
-                        missingFormats.Add(format.ToString());
+                    {
+                        if (ShouldReport(format))
+                            missingFormats.Add(format.ToString());
+                    }
                 }
 
                 if (missingFormats.Count > 0)
                     Assert.Fail("Cannot find MagickFormatInfo for: " + string.Join(", ", missingFormats.ToArray()));
+            }
+
+            private static bool ShouldReport(MagickFormat format)
+            {
+#if !WINDOWS_BUILD
+                if (format == MagickFormat.Clipboard || format == MagickFormat.Emf || format == MagickFormat.Wmf)
+                    return false;
+
+                if (format == MagickFormat.Exr)
+                    return false;
+
+                if (format == MagickFormat.Flif)
+                    return false;
+#endif
+                return true;
             }
         }
     }
