@@ -23,7 +23,7 @@ namespace ImageMagick
                 throw new MagickCorruptImageErrorException("Invalid image format: " + format.ToString());
         }
 
-        internal static void CheckStream([ValidatedNotNull] Stream stream)
+        public static void CheckStream([ValidatedNotNull] Stream stream)
         {
             Throw.IfNullOrEmpty(nameof(stream), stream);
             Throw.IfFalse(nameof(stream), stream.CanRead, "The stream should be readable.");
