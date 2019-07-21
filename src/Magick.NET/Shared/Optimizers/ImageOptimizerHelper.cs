@@ -30,5 +30,91 @@ namespace ImageMagick
             Throw.IfFalse(nameof(stream), stream.CanWrite, "The stream should be writeable.");
             Throw.IfFalse(nameof(stream), stream.CanSeek, "The stream should be seekable.");
         }
+
+        public static MagickFormatInfo GetFormatInformation(FileInfo file)
+        {
+            var info = MagickNET.GetFormatInformation(file);
+            if (info != null)
+                return info;
+
+            try
+            {
+                var imageInfo = new MagickImageInfo(file);
+                return MagickNET.GetFormatInformation(imageInfo.Format);
+            }
+            catch
+            {
+                try
+                {
+                    using (var stream = file.OpenRead())
+                    {
+                        return GetFormatInformationFromHeader(stream);
+                    }
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
+
+        public static MagickFormatInfo GetFormatInformation(string fileName)
+        {
+            var info = MagickNET.GetFormatInformation(fileName);
+            if (info != null)
+                return info;
+
+            try
+            {
+                var imageInfo = new MagickImageInfo(fileName);
+                return MagickNET.GetFormatInformation(imageInfo.Format);
+            }
+            catch
+            {
+                try
+                {
+                    using (var stream = File.OpenRead(fileName))
+                    {
+                        return GetFormatInformationFromHeader(stream);
+                    }
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
+
+        public static MagickFormatInfo GetFormatInformation(Stream stream)
+        {
+            var startPosition = stream.Position;
+
+            try
+            {
+                var info = new MagickImageInfo(stream);
+                return MagickNET.GetFormatInformation(info.Format);
+            }
+            catch
+            {
+                stream.Position = startPosition;
+
+                return GetFormatInformationFromHeader(stream);
+            }
+            finally
+            {
+                stream.Position = startPosition;
+            }
+        }
+
+        private static MagickFormatInfo GetFormatInformationFromHeader(Stream stream)
+        {
+            var buffer = new byte[4];
+            stream.Read(buffer, 0, buffer.Length);
+
+            if (buffer[0] == 0 && buffer[1] == 0 && buffer[2] == 1 && buffer[3] == 0)
+                return MagickNET.GetFormatInformation(MagickFormat.Ico);
+
+            return null;
+        }
     }
 }

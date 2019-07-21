@@ -42,13 +42,6 @@ namespace Magick.NET.Tests.Shared.Optimizers.ImageOptimizerTests
                 }
 
                 [TestMethod]
-                public void ShouldReturnTrueWhenFileIsFileIsGifFile()
-                {
-                    var optimizer = new ImageOptimizer();
-                    Assert.IsTrue(optimizer.IsSupported(new FileInfo(Files.FujiFilmFinePixS1ProGIF)));
-                }
-
-                [TestMethod]
                 public void ShouldReturnTrueWhenFileIsFileIsJpgFile()
                 {
                     var optimizer = new ImageOptimizer();
@@ -60,6 +53,20 @@ namespace Magick.NET.Tests.Shared.Optimizers.ImageOptimizerTests
                 {
                     var optimizer = new ImageOptimizer();
                     Assert.IsTrue(optimizer.IsSupported(new FileInfo(Files.SnakewarePNG)));
+                }
+
+                [TestMethod]
+                public void ShouldReturnTrueWhenFileIsFileIsIcoFile()
+                {
+                    var optimizer = new ImageOptimizer();
+                    Assert.IsTrue(optimizer.IsSupported(new FileInfo(Files.WandICO)));
+                }
+
+                [TestMethod]
+                public void ShouldReturnTrueWhenFileIsFileIsGifFile()
+                {
+                    var optimizer = new ImageOptimizer();
+                    Assert.IsTrue(optimizer.IsSupported(new FileInfo(Files.FujiFilmFinePixS1ProGIF)));
                 }
 
                 [TestMethod]
@@ -108,13 +115,6 @@ namespace Magick.NET.Tests.Shared.Optimizers.ImageOptimizerTests
                 }
 
                 [TestMethod]
-                public void ShouldReturnTrueWhenFileNameIsGifFile()
-                {
-                    var optimizer = new ImageOptimizer();
-                    Assert.IsTrue(optimizer.IsSupported(Files.FujiFilmFinePixS1ProGIF));
-                }
-
-                [TestMethod]
                 public void ShouldReturnTrueWhenFileNameIsJpgFile()
                 {
                     var optimizer = new ImageOptimizer();
@@ -126,6 +126,20 @@ namespace Magick.NET.Tests.Shared.Optimizers.ImageOptimizerTests
                 {
                     var optimizer = new ImageOptimizer();
                     Assert.IsTrue(optimizer.IsSupported(Files.SnakewarePNG));
+                }
+
+                [TestMethod]
+                public void ShouldReturnTrueWhenFileNameIsIcoFile()
+                {
+                    var optimizer = new ImageOptimizer();
+                    Assert.IsTrue(optimizer.IsSupported(Files.WandICO));
+                }
+
+                [TestMethod]
+                public void ShouldReturnTrueWhenFileNameIsGifFile()
+                {
+                    var optimizer = new ImageOptimizer();
+                    Assert.IsTrue(optimizer.IsSupported(Files.FujiFilmFinePixS1ProGIF));
                 }
 
                 [TestMethod]
@@ -180,21 +194,10 @@ namespace Magick.NET.Tests.Shared.Optimizers.ImageOptimizerTests
                 }
 
                 [TestMethod]
-                public void ShouldReturnTrueWhenStreamIsGifFile()
-                {
-                    var optimizer = new ImageOptimizer();
-                    using (FileStream fileStream = OpenFile(Files.FujiFilmFinePixS1ProGIF))
-                    {
-                        Assert.IsTrue(optimizer.IsSupported(fileStream));
-                        Assert.AreEqual(0, fileStream.Position);
-                    }
-                }
-
-                [TestMethod]
                 public void ShouldReturnTrueWhenStreamIsJpgFile()
                 {
                     var optimizer = new ImageOptimizer();
-                    using (FileStream fileStream = OpenFile(Files.ImageMagickJPG))
+                    using (FileStream fileStream = OpenStream(Files.ImageMagickJPG))
                     {
                         Assert.IsTrue(optimizer.IsSupported(fileStream));
                         Assert.AreEqual(0, fileStream.Position);
@@ -205,7 +208,29 @@ namespace Magick.NET.Tests.Shared.Optimizers.ImageOptimizerTests
                 public void ShouldReturnTrueWhenStreamIsPngFile()
                 {
                     var optimizer = new ImageOptimizer();
-                    using (FileStream fileStream = OpenFile(Files.SnakewarePNG))
+                    using (FileStream fileStream = OpenStream(Files.SnakewarePNG))
+                    {
+                        Assert.IsTrue(optimizer.IsSupported(fileStream));
+                        Assert.AreEqual(0, fileStream.Position);
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldReturnTrueWhenStreamIsIcoFile()
+                {
+                    var optimizer = new ImageOptimizer();
+                    using (FileStream fileStream = OpenStream(Files.WandICO))
+                    {
+                        Assert.IsTrue(optimizer.IsSupported(fileStream));
+                        Assert.AreEqual(0, fileStream.Position);
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldReturnTrueWhenStreamIsGifFile()
+                {
+                    var optimizer = new ImageOptimizer();
+                    using (FileStream fileStream = OpenStream(Files.FujiFilmFinePixS1ProGIF))
                     {
                         Assert.IsTrue(optimizer.IsSupported(fileStream));
                         Assert.AreEqual(0, fileStream.Position);
@@ -216,7 +241,7 @@ namespace Magick.NET.Tests.Shared.Optimizers.ImageOptimizerTests
                 public void ShouldReturnFalseWhenStreamIsTifFile()
                 {
                     var optimizer = new ImageOptimizer();
-                    using (FileStream fileStream = OpenFile(Files.InvitationTIF))
+                    using (FileStream fileStream = OpenStream(Files.InvitationTIF))
                     {
                         Assert.IsFalse(optimizer.IsSupported(fileStream));
                         Assert.AreEqual(0, fileStream.Position);

@@ -16,7 +16,7 @@ namespace Magick.NET.Tests.Shared.Optimizers.ImageOptimizerTests
 {
     public partial class ImageOptimizerTests
     {
-        private static FileStream OpenFile(string path)
+        private static FileStream OpenStream(string path)
         {
             return File.Open(path, FileMode.Open, FileAccess.ReadWrite);
         }

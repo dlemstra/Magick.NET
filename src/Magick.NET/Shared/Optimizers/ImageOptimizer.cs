@@ -105,7 +105,7 @@ namespace ImageMagick
         /// <param name="file">The file to check.</param>
         /// <returns>True when the supplied file name is supported based on the extension of the file.</returns>
         /// <returns>True when the image could be compressed otherwise false.</returns>
-        public bool IsSupported(FileInfo file) => IsSupported(MagickFormatInfo.Create(file));
+        public bool IsSupported(FileInfo file) => IsSupported(ImageOptimizerHelper.GetFormatInformation(file));
 
         /// <summary>
         /// Returns true when the supplied formation information is supported.
@@ -131,7 +131,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="fileName">The name of the file to check.</param>
         /// <returns>True when the supplied file name is supported based on the extension of the file.</returns>
-        public bool IsSupported(string fileName) => IsSupported(MagickFormatInfo.Create(fileName));
+        public bool IsSupported(string fileName) => IsSupported(ImageOptimizerHelper.GetFormatInformation(fileName));
 
         /// <summary>
         /// Returns true when the supplied stream is supported.
@@ -145,10 +145,7 @@ namespace ImageMagick
             if (!stream.CanRead || !stream.CanWrite || !stream.CanSeek)
                 return false;
 
-            var startPosition = stream.Position;
-            var info = new MagickImageInfo(stream);
-            stream.Position = startPosition;
-            return IsSupported(MagickFormatInfo.Create(info.Format));
+            return IsSupported(ImageOptimizerHelper.GetFormatInformation(stream));
         }
 
         /// <summary>
@@ -202,18 +199,9 @@ namespace ImageMagick
             {
                 new JpegOptimizer(),
                 new PngOptimizer(),
+                new IcoOptimizer(),
                 new GifOptimizer(),
             };
-        }
-
-        private static MagickFormatInfo GetFormatInformation(FileInfo file)
-        {
-            var info = MagickNET.GetFormatInformation(file);
-            if (info != null)
-                return info;
-
-            var imageInfo = new MagickImageInfo(file);
-            return MagickNET.GetFormatInformation(imageInfo.Format);
         }
 
         private bool DoLosslessCompress(FileInfo file)
@@ -238,28 +226,20 @@ namespace ImageMagick
 
         private IImageOptimizer GetOptimizer(FileInfo file)
         {
-            var info = GetFormatInformation(file);
-            DebugThrow.IfNull(nameof(info), info);
-
-            foreach (var optimizer in _optimizers)
-            {
-                if (optimizer.Format.Module == info.Module)
-                    return optimizer;
-            }
-
-            if (IgnoreUnsupportedFormats)
-                return null;
-
-            throw new MagickCorruptImageErrorException("Invalid format, supported formats are: " + SupportedFormats);
+            var info = ImageOptimizerHelper.GetFormatInformation(file);
+            return GetOptimizer(info);
         }
 
         private IImageOptimizer GetOptimizer(Stream stream)
         {
-            var position = stream.Position;
-            var imageInfo = new MagickImageInfo(stream);
-            stream.Position = position;
+            var info = ImageOptimizerHelper.GetFormatInformation(stream);
+            return GetOptimizer(info);
+        }
 
-            var info = MagickNET.GetFormatInformation(imageInfo.Format);
+        private IImageOptimizer GetOptimizer(MagickFormatInfo info)
+        {
+            if (info == null)
+                return null;
 
             foreach (var optimizer in _optimizers)
             {
