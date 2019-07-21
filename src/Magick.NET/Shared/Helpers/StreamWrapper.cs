@@ -23,6 +23,7 @@ namespace ImageMagick
 
         private readonly byte[] _buffer;
         private readonly byte* _bufferStart;
+        private readonly long _streamStart;
         private readonly GCHandle _handle;
         private Stream _stream;
 
@@ -32,6 +33,15 @@ namespace ImageMagick
             _buffer = new byte[BufferSize];
             _handle = GCHandle.Alloc(_buffer, GCHandleType.Pinned);
             _bufferStart = (byte*)_handle.AddrOfPinnedObject().ToPointer();
+
+            try
+            {
+                _streamStart = _stream.Position;
+            }
+            catch
+            {
+                _streamStart = 0;
+            }
         }
 
         public static StreamWrapper CreateForReading(Stream stream)
@@ -101,7 +111,17 @@ namespace ImageMagick
         {
             try
             {
-                return _stream.Seek(offset, (SeekOrigin)whence);
+                switch ((SeekOrigin)whence)
+                {
+                    case SeekOrigin.Begin:
+                        return _stream.Seek(_streamStart + offset, SeekOrigin.Begin) - _streamStart;
+                    case SeekOrigin.Current:
+                        return _stream.Seek(offset, SeekOrigin.Current) - _streamStart;
+                    case SeekOrigin.End:
+                        return _stream.Seek(offset, SeekOrigin.End) - _streamStart;
+                    default:
+                        return -1;
+                }
             }
             catch
             {
@@ -114,7 +134,7 @@ namespace ImageMagick
         {
             try
             {
-                return _stream.Position;
+                return _stream.Position - _streamStart;
             }
             catch
             {

@@ -41,6 +41,73 @@ namespace Magick.NET.Tests
                     }
                 }
             }
+
+            [TestMethod]
+            public unsafe void ShouldUseStartPositionOfStreamAsBegin()
+            {
+                using (var memStream = new MemoryStream())
+                {
+                    memStream.Position = 42;
+
+                    using (var streamWrapper = StreamWrapper.CreateForReading(memStream))
+                    {
+                        memStream.Position = 0;
+
+                        var result = streamWrapper.Seek(0, (IntPtr)SeekOrigin.Begin, IntPtr.Zero);
+
+                        Assert.AreEqual(0, result);
+                        Assert.AreEqual(42, memStream.Position);
+                    }
+                }
+            }
+
+            [TestMethod]
+            public unsafe void ShouldUseStartPositionAsOffset()
+            {
+                using (var memStream = new MemoryStream())
+                {
+                    memStream.Position = 42;
+
+                    using (var streamWrapper = StreamWrapper.CreateForReading(memStream))
+                    {
+                        var result = streamWrapper.Seek(10, (IntPtr)SeekOrigin.Current, IntPtr.Zero);
+
+                        Assert.AreEqual(10, result);
+                        Assert.AreEqual(52, memStream.Position);
+                    }
+                }
+            }
+
+            [TestMethod]
+            public unsafe void ShouldRemoveStartPositionFromEndOffset()
+            {
+                using (var memStream = new MemoryStream(new byte[64]))
+                {
+                    memStream.Position = 42;
+
+                    using (var streamWrapper = StreamWrapper.CreateForReading(memStream))
+                    {
+                        var result = streamWrapper.Seek(0, (IntPtr)SeekOrigin.End, IntPtr.Zero);
+
+                        Assert.AreEqual(22, result);
+                        Assert.AreEqual(64, memStream.Position);
+                    }
+                }
+            }
+
+            [TestMethod]
+            public unsafe void ShouldReturnMinusOneForInvalidWhence()
+            {
+                using (var memStream = new MemoryStream())
+                {
+                    using (var streamWrapper = StreamWrapper.CreateForReading(memStream))
+                    {
+                        var result = streamWrapper.Seek(0, (IntPtr)3, IntPtr.Zero);
+
+                        Assert.AreEqual(-1, result);
+                    }
+                }
+            }
         }
     }
 }
