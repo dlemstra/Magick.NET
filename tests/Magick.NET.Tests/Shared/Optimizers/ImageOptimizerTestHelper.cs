@@ -64,7 +64,7 @@ namespace Magick.NET.Tests
 
         protected long AssertCompress(string fileName, bool resultIsSmaller, Func<Stream, bool> action)
         {
-            using (FileStream fileStream = File.Open(fileName, FileMode.Open, FileAccess.ReadWrite))
+            using (FileStream fileStream = File.Open(fileName, FileMode.Open, FileAccess.Read))
             {
                 using (MemoryStream memoryStream = new MemoryStream())
                 {
