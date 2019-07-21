@@ -101,15 +101,6 @@ namespace ImageMagick.ImageOptimizers
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool LosslessCompress(Stream stream) => DoCompress(stream, true);
 
-        private static void CheckTransparency(MagickImage image)
-        {
-            if (!image.HasAlpha)
-                return;
-
-            if (image.IsOpaque)
-                image.HasAlpha = false;
-        }
-
         private static void StartCompression(MagickImage image, bool lossless)
         {
             ImageOptimizerHelper.CheckFormat(image, MagickFormat.Png);
@@ -120,8 +111,6 @@ namespace ImageMagick.ImageOptimizers
                 image.Settings.SetDefine(MagickFormat.Png, "exclude-chunks", "all");
                 image.Settings.SetDefine(MagickFormat.Png, "include-chunks", "tRNS,gAMA");
             }
-
-            CheckTransparency(image);
         }
 
         private bool DoCompress(FileInfo file, bool lossless)
@@ -137,25 +126,14 @@ namespace ImageMagick.ImageOptimizers
 
                 StartCompression(image, lossless);
 
-                var tempFiles = new Collection<TemporaryFile>();
+                TemporaryFile bestFile = null;
 
                 try
                 {
-                    TemporaryFile bestFile = null;
+                    var pngHelper = new PngHelper(this);
+                    bestFile = pngHelper.FindBestFileQuality(image, out _);
 
-                    foreach (var quality in GetQualityList())
-                    {
-                        var tempFile = new TemporaryFile();
-                        tempFiles.Add(tempFile);
-
-                        image.Quality = quality;
-                        image.Write(tempFile);
-
-                        if (bestFile == null || bestFile.Length > tempFile.Length)
-                            bestFile = tempFile;
-                    }
-
-                    if (bestFile.Length < file.Length)
+                    if (bestFile != null && bestFile.Length < file.Length)
                     {
                         isCompressed = true;
                         bestFile.CopyTo(file);
@@ -164,10 +142,8 @@ namespace ImageMagick.ImageOptimizers
                 }
                 finally
                 {
-                    foreach (TemporaryFile tempFile in tempFiles)
-                    {
-                        tempFile.Dispose();
-                    }
+                    if (bestFile != null)
+                        bestFile.Dispose();
                 }
             }
 
@@ -189,32 +165,10 @@ namespace ImageMagick.ImageOptimizers
 
                 try
                 {
-                    foreach (var quality in GetQualityList())
-                    {
-                        var memStream = new MemoryStream();
+                    var pngHelper = new PngHelper(this);
+                    bestStream = pngHelper.FindBestStreamQuality(image, out _);
 
-                        try
-                        {
-                            image.Quality = quality;
-                            image.Write(memStream);
-
-                            if (bestStream == null || memStream.Length < bestStream.Length)
-                            {
-                                if (bestStream != null)
-                                    bestStream.Dispose();
-
-                                bestStream = memStream;
-                                memStream = null;
-                            }
-                        }
-                        finally
-                        {
-                            if (memStream != null)
-                                memStream.Dispose();
-                        }
-                    }
-
-                    if (bestStream.Length < (stream.Length - startPosition))
+                    if (bestStream != null && bestStream.Length < (stream.Length - startPosition))
                     {
                         isCompressed = true;
                         stream.Position = startPosition;
@@ -233,14 +187,6 @@ namespace ImageMagick.ImageOptimizers
             }
 
             return isCompressed;
-        }
-
-        private IEnumerable<int> GetQualityList()
-        {
-            if (OptimalCompression)
-                return new int[] { 91, 94, 95, 97 };
-            else
-                return new int[] { 90 };
         }
     }
 }
