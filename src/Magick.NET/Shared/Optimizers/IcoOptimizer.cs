@@ -160,7 +160,7 @@ namespace ImageMagick.ImageOptimizers
                 {
                     var row = pixels.GetArea(0, y, image.Width, 1);
 
-                    for (int i = alphaIndex; i < (image.Width * channels); i += channels)
+                    for (int i = alphaIndex; i < row.Length; i += channels)
                     {
                         if (row[i] <= min)
                             row[i] = 0;
