@@ -62,7 +62,7 @@ function copyToTestProjects($source, $target) {
 }
 
 function copyMetadata($source, $target) {
-    Copy-Item "$source\*.md" -Force "$target"
+    Copy-Item "$source\**\content\*.md" -Force "$target"
 }
 
 function copyLibraries($source, $target) {
