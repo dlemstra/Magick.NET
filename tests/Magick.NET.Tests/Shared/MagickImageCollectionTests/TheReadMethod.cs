@@ -669,6 +669,51 @@ namespace Magick.NET.Tests
             }
 
             [TestClass]
+            public class WithStreamAndMagickFormat
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenStreamIsNull()
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
+                        {
+                            images.Read((Stream)null, MagickFormat.Png);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenStreamIsEmpty()
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        ExceptionAssert.Throws<ArgumentException>("stream", () =>
+                        {
+                            images.Read(new MemoryStream(), MagickFormat.Png);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheCorrectReaderWhenFormatIsSet()
+                {
+                    var bytes = Encoding.ASCII.GetBytes("%PDF-");
+
+                    using (MemoryStream stream = new MemoryStream(bytes))
+                    {
+                        using (IMagickImageCollection images = new MagickImageCollection())
+                        {
+                            ExceptionAssert.Throws<MagickCorruptImageErrorException>(() =>
+                            {
+                                images.Read(stream, MagickFormat.Png);
+                            }, "ReadPNGImage");
+                        }
+                    }
+                }
+            }
+
+            [TestClass]
             public class WithStreamAndMagickReadSettings
             {
                 [TestMethod]

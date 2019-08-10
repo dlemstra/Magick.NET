@@ -428,6 +428,14 @@ namespace ImageMagick
         /// Read all image frames.
         /// </summary>
         /// <param name="stream">The stream to read the image data from.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Read(Stream stream, MagickFormat format);
+
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
+        /// <param name="stream">The stream to read the image data from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Read(Stream stream, MagickReadSettings readSettings);
