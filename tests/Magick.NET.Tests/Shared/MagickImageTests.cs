@@ -446,7 +446,7 @@ namespace Magick.NET.Tests
 
                 image.Read(new MagickColor("Purple"), 1, 1);
 
-                ColorAssert.AreEqual(red, image.BackgroundColor);
+                ColorAssert.AreEqual(MagickColors.Purple, image.BackgroundColor);
             }
         }
 
