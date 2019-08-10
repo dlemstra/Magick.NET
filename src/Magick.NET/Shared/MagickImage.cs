@@ -4428,6 +4428,16 @@ namespace ImageMagick
         /// <param name="data">The byte array to read the image data from.</param>
         /// <param name="offset">The offset at which to begin reading data.</param>
         /// <param name="count">The maximum number of bytes to read.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Read(byte[] data, int offset, int count, MagickFormat format) => Read(data, offset, count, new MagickReadSettings { Format = format });
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="data">The byte array to read the image data from.</param>
+        /// <param name="offset">The offset at which to begin reading data.</param>
+        /// <param name="count">The maximum number of bytes to read.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Read(byte[] data, int offset, int count, MagickReadSettings readSettings)
@@ -4439,6 +4449,19 @@ namespace ImageMagick
             Throw.IfTrue(nameof(count), offset + count > data.Length, "The number of bytes should not exceed the length of the array.");
 
             Read(data, offset, count, readSettings, false);
+        }
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="data">The byte array to read the image data from.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Read(byte[] data, MagickFormat format)
+        {
+            Throw.IfNullOrEmpty(nameof(data), data);
+
+            Read(data, 0, data.Length, new MagickReadSettings { Format = format }, false);
         }
 
         /// <summary>
@@ -4479,6 +4502,19 @@ namespace ImageMagick
         /// Read single image frame.
         /// </summary>
         /// <param name="file">The file to read the image from.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Read(FileInfo file, MagickFormat format)
+        {
+            Throw.IfNull(nameof(file), file);
+
+            Read(file.FullName, new MagickReadSettings { Format = format });
+        }
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="file">The file to read the image from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Read(FileInfo file, MagickReadSettings readSettings)
@@ -4508,6 +4544,14 @@ namespace ImageMagick
         /// <param name="stream">The stream to read the image data from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Read(Stream stream) => Read(stream, null);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="stream">The stream to read the image data from.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Read(Stream stream, MagickFormat format) => Read(stream, new MagickReadSettings { Format = format });
 
         /// <summary>
         /// Read single image frame.
@@ -4547,6 +4591,14 @@ namespace ImageMagick
 
             Read(fileName, readSettings);
         }
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Read(string fileName, MagickFormat format) => Read(fileName, new MagickReadSettings { Format = format });
 
         /// <summary>
         /// Read single image frame.
