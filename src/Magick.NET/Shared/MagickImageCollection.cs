@@ -43,10 +43,7 @@ namespace ImageMagick
         /// <param name="data">The byte array to read the image data from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageCollection(byte[] data)
-            : this()
-        {
-            Read(data);
-        }
+            : this() => Read(data);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImageCollection"/> class.
@@ -56,10 +53,7 @@ namespace ImageMagick
         /// <param name="count">The maximum number of bytes to read.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageCollection(byte[] data, int offset, int count)
-            : this()
-        {
-            Read(data, offset, count);
-        }
+            : this() => Read(data, offset, count);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImageCollection"/> class.
@@ -70,10 +64,7 @@ namespace ImageMagick
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageCollection(byte[] data, int offset, int count, MagickReadSettings readSettings)
-            : this()
-        {
-            Read(data, offset, count, readSettings);
-        }
+            : this() => Read(data, offset, count, readSettings);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImageCollection"/> class.
@@ -82,10 +73,7 @@ namespace ImageMagick
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageCollection(byte[] data, MagickReadSettings readSettings)
-            : this()
-        {
-            Read(data, readSettings);
-        }
+            : this() => Read(data, readSettings);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImageCollection"/> class.
@@ -93,10 +81,7 @@ namespace ImageMagick
         /// <param name="file">The file to read the image from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageCollection(FileInfo file)
-            : this()
-        {
-            Read(file);
-        }
+            : this() => Read(file);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImageCollection"/> class.
@@ -105,10 +90,7 @@ namespace ImageMagick
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageCollection(FileInfo file, MagickReadSettings readSettings)
-            : this()
-        {
-            Read(file, readSettings);
-        }
+            : this() => Read(file, readSettings);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImageCollection"/> class.
@@ -116,10 +98,7 @@ namespace ImageMagick
         /// <param name="images">The images to add to the collection.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageCollection(IEnumerable<IMagickImage> images)
-            : this()
-        {
-            AddRange(images);
-        }
+            : this() => AddRange(images);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImageCollection"/> class.
@@ -127,10 +106,7 @@ namespace ImageMagick
         /// <param name="stream">The stream to read the image data from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageCollection(Stream stream)
-            : this()
-        {
-            Read(stream);
-        }
+            : this() => Read(stream);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImageCollection"/> class.
@@ -139,10 +115,7 @@ namespace ImageMagick
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageCollection(Stream stream, MagickReadSettings readSettings)
-            : this()
-        {
-            Read(stream, readSettings);
-        }
+            : this() => Read(stream, readSettings);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImageCollection"/> class.
@@ -150,10 +123,7 @@ namespace ImageMagick
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageCollection(string fileName)
-            : this()
-        {
-            Read(fileName);
-        }
+            : this() => Read(fileName);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImageCollection"/> class.
@@ -162,10 +132,7 @@ namespace ImageMagick
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageCollection(string fileName, MagickReadSettings readSettings)
-            : this()
-        {
-            Read(fileName, readSettings);
-        }
+            : this() => Read(fileName, readSettings);
 
         /// <summary>
         /// Finalizes an instance of the <see cref="MagickImageCollection"/> class.
