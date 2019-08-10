@@ -1493,7 +1493,7 @@ namespace ImageMagick
         {
             foreach (IMagickImage image in _images)
             {
-                image.Format = format;
+                image.Settings.Format = format;
             }
         }
 
