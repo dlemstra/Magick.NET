@@ -60,7 +60,7 @@ namespace Magick.NET.Tests
             }
 
             [TestClass]
-            public class WithFileAndFormat
+            public class WithFileAndMagickFormat
             {
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileIsNull()
@@ -110,7 +110,7 @@ namespace Magick.NET.Tests
             }
 
             [TestClass]
-            public class WithStreamAndFormat
+            public class WithStreamAndMagickFormat
             {
                 [TestMethod]
                 public void ShouldThrowExceptionWhenStreamIsNull()
@@ -164,7 +164,7 @@ namespace Magick.NET.Tests
             }
 
             [TestClass]
-            public class WithFileNameAndFormat
+            public class WithFileNameAndMagickFormat
             {
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileIsNull()
