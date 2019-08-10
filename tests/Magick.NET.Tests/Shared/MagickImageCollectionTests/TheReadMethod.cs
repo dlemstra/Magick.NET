@@ -12,6 +12,7 @@
 
 using System;
 using System.IO;
+using System.Text;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -146,6 +147,84 @@ namespace Magick.NET.Tests
             }
 
             [TestClass]
+            public class WithByteArrayAndOffsetAndMagickFormat
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsNull()
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("data", () =>
+                        {
+                            images.Read(null, 0, 0, MagickFormat.Png);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsEmpty()
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        ExceptionAssert.Throws<ArgumentException>("data", () =>
+                        {
+                            images.Read(new byte[] { }, 0, 0, MagickFormat.Png);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenOffsetIsNegative()
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        ExceptionAssert.Throws<ArgumentException>("offset", () =>
+                        {
+                            images.Read(new byte[] { 215 }, -1, 0, MagickFormat.Png);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenCountIsZero()
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        ExceptionAssert.Throws<ArgumentException>("count", () =>
+                        {
+                            images.Read(new byte[] { 215 }, 0, 0, MagickFormat.Png);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenCountIsNegative()
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        ExceptionAssert.Throws<ArgumentException>("count", () =>
+                        {
+                            images.Read(new byte[] { 215 }, 0, -1, MagickFormat.Png);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldReadImage()
+                {
+                    var fileBytes = File.ReadAllBytes(Files.SnakewarePNG);
+                    var bytes = new byte[fileBytes.Length + 10];
+                    fileBytes.CopyTo(bytes, 10);
+
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        images.Read(bytes, 10, bytes.Length - 10, MagickFormat.Png);
+                        Assert.AreEqual(1, images.Count);
+                    }
+                }
+            }
+
+            [TestClass]
             public class WithByteArrayAndOffsetAndMagickReadSettings
             {
                 [TestMethod]
@@ -247,8 +326,96 @@ namespace Magick.NET.Tests
             }
 
             [TestClass]
+            public class WithByteArrayAndMagickFormat
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsNull()
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("data", () =>
+                        {
+                            images.Read((byte[])null, MagickFormat.Png);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsEmpty()
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        ExceptionAssert.Throws<ArgumentException>("data", () =>
+                        {
+                            images.Read(new byte[] { }, MagickFormat.Png);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheCorrectReaderWhenFormatIsSet()
+                {
+                    var bytes = Encoding.ASCII.GetBytes("%PDF-");
+
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        ExceptionAssert.Throws<MagickCorruptImageErrorException>(() =>
+                        {
+                            images.Read(bytes, MagickFormat.Png);
+                        }, "ReadPNGImage");
+                    }
+                }
+            }
+
+            [TestClass]
             public class WithByteArrayAndMagickReadSettings
             {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsNull()
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        var settings = new MagickReadSettings();
+
+                        ExceptionAssert.Throws<ArgumentNullException>("data", () =>
+                        {
+                            images.Read((byte[])null, settings);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenArrayIsEmpty()
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        var settings = new MagickReadSettings();
+
+                        ExceptionAssert.Throws<ArgumentException>("data", () =>
+                        {
+                            images.Read(new byte[] { }, settings);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheCorrectReaderWhenFormatIsSet()
+                {
+                    var bytes = Encoding.ASCII.GetBytes("%PDF-");
+                    var settings = new MagickReadSettings()
+                    {
+                        Format = MagickFormat.Png,
+                    };
+
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        ExceptionAssert.Throws<MagickCorruptImageErrorException>(() =>
+                        {
+                            images.Read(bytes, settings);
+                        }, "ReadPNGImage");
+                    }
+                }
+
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
@@ -277,11 +444,54 @@ namespace Magick.NET.Tests
                         });
                     }
                 }
+
+                [TestClass]
+                public class WithFileInfoAndMagickFormat
+                {
+                    [TestMethod]
+                    public void ShouldThrowExceptionWhenFileInfoIsNull()
+                    {
+                        using (IMagickImageCollection images = new MagickImageCollection())
+                        {
+                            ExceptionAssert.Throws<ArgumentNullException>("file", () =>
+                            {
+                                images.Read((FileInfo)null, MagickFormat.Png);
+                            });
+                        }
+                    }
+
+                    [TestMethod]
+                    public void ShouldNotThrowExceptionWhenSettingsIsNull()
+                    {
+                        var file = new FileInfo(Files.SnakewarePNG);
+
+                        using (IMagickImageCollection images = new MagickImageCollection())
+                        {
+                            images.Read(file, null);
+
+                            Assert.AreEqual(1, images.Count);
+                        }
+                    }
+                }
             }
 
             [TestClass]
             public class WithFileInfoAndMagickReadSettings
             {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileInfoIsNull()
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        var settings = new MagickReadSettings();
+
+                        ExceptionAssert.Throws<ArgumentNullException>("file", () =>
+                        {
+                            images.Read((FileInfo)null, settings);
+                        });
+                    }
+                }
+
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
@@ -353,14 +563,70 @@ namespace Magick.NET.Tests
             }
 
             [TestClass]
-            public class WithFileNameAndMagickReadSettings
+            public class WithFileNameAndMagickFormat
             {
                 [TestMethod]
-                public void ShouldNotThrowExceptionWhenFileNameSettingsIsNull()
+                public void ShouldThrowExceptionWhenFileNameIsNull()
                 {
                     using (IMagickImageCollection images = new MagickImageCollection())
                     {
-                        images.Read(Files.SnakewarePNG, null);
+                        ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
+                        {
+                            images.Read((string)null, MagickFormat.Png);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileNameIsEmpty()
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        ExceptionAssert.Throws<ArgumentException>("fileName", () =>
+                        {
+                            images.Read(string.Empty, MagickFormat.Png);
+                        });
+                    }
+                }
+            }
+
+            [TestClass]
+            public class WithFileNameAndMagickReadSettings
+            {
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileNameIsNull()
+                {
+                    var settings = new MagickReadSettings();
+
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
+                        {
+                            images.Read((string)null, settings);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenFileNameIsEmpty()
+                {
+                    var settings = new MagickReadSettings();
+
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        ExceptionAssert.Throws<ArgumentException>("fileName", () =>
+                        {
+                            images.Read(string.Empty, settings);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldNotThrowExceptionWhenSettingsIsNull()
+                {
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        images.Read(Files.CirclePNG, null);
 
                         Assert.AreEqual(1, images.Count);
                     }
@@ -406,15 +672,64 @@ namespace Magick.NET.Tests
             public class WithStreamAndMagickReadSettings
             {
                 [TestMethod]
-                public void ShouldNotThrowExceptionWhenStreamSettingsIsNull()
+                public void ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    using (var stream = File.OpenRead(Files.SnakewarePNG))
+                    var settings = new MagickReadSettings();
+
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
+                        {
+                            images.Read((Stream)null, settings);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldThrowExceptionWhenStreamIsEmpty()
+                {
+                    var settings = new MagickReadSettings();
+
+                    using (IMagickImageCollection images = new MagickImageCollection())
+                    {
+                        ExceptionAssert.Throws<ArgumentException>("stream", () =>
+                        {
+                            images.Read(new MemoryStream(), settings);
+                        });
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldNotThrowExceptionWhenSettingsIsNull()
+                {
+                    using (var fileStream = File.OpenRead(Files.CirclePNG))
                     {
                         using (IMagickImageCollection images = new MagickImageCollection())
                         {
-                            images.Read(stream, null);
+                            images.Read(fileStream, null);
 
                             Assert.AreEqual(1, images.Count);
+                        }
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheCorrectReaderWhenFormatIsSet()
+                {
+                    var bytes = Encoding.ASCII.GetBytes("%PDF-");
+                    var settings = new MagickReadSettings()
+                    {
+                        Format = MagickFormat.Png,
+                    };
+
+                    using (MemoryStream stream = new MemoryStream(bytes))
+                    {
+                        using (IMagickImageCollection images = new MagickImageCollection())
+                        {
+                            ExceptionAssert.Throws<MagickCorruptImageErrorException>(() =>
+                            {
+                                images.Read(stream, settings);
+                            }, "ReadPNGImage");
                         }
                     }
                 }
