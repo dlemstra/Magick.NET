@@ -137,10 +137,7 @@ namespace ImageMagick
         /// <summary>
         /// Finalizes an instance of the <see cref="MagickImageCollection"/> class.
         /// </summary>
-        ~MagickImageCollection()
-        {
-            Dispose(false);
-        }
+        ~MagickImageCollection() => Dispose(false);
 
         /// <summary>
         /// Event that will we raised when a warning is thrown by ImageMagick.
