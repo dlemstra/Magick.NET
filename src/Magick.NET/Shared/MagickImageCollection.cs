@@ -1237,6 +1237,19 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Writes the images to the specified file. If the output image's file format does not
+        /// allow multi-image files multiple files will be written.
+        /// </summary>
+        /// <param name="file">The file to write the image to.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Write(FileInfo file, MagickFormat format)
+        {
+            SetFormat(format);
+            Write(file);
+        }
+
+        /// <summary>
         /// Writes the imagse to the specified stream. If the output image's file format does not
         /// allow multi-image files multiple files will be written.
         /// </summary>
@@ -1346,6 +1359,19 @@ namespace ImageMagick
         public void Write(string fileName, IWriteDefines defines)
         {
             SetDefines(defines);
+            Write(fileName);
+        }
+
+        /// <summary>
+        /// Writes the images to the specified file name. If the output image's file format does not
+        /// allow multi-image files multiple files will be written.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Write(string fileName, MagickFormat format)
+        {
+            SetFormat(format);
             Write(fileName);
         }
 
