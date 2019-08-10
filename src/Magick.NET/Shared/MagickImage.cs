@@ -5959,7 +5959,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Write(FileInfo file, MagickFormat format)
         {
-            Format = format;
+            Settings.Format = format;
             Write(file);
         }
 
@@ -6003,7 +6003,7 @@ namespace ImageMagick
         public void Write(Stream stream, IWriteDefines defines)
         {
             Settings.SetDefines(defines);
-            Format = defines.Format;
+            Settings.Format = defines.Format;
             Write(stream);
         }
 
@@ -6015,8 +6015,10 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Write(Stream stream, MagickFormat format)
         {
-            Format = format;
+            var currentFormat = Format;
+            Settings.Format = format;
             Write(stream);
+            Format = currentFormat;
         }
 
         /// <summary>
@@ -6054,7 +6056,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Write(string fileName, MagickFormat format)
         {
-            Format = format;
+            Settings.Format = format;
             Write(fileName);
         }
 
