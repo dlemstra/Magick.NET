@@ -4492,7 +4492,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="stream">The stream to read the image data from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Read(Stream stream) => Read(stream, null);
+        public void Read(Stream stream) => Read(stream, MagickFormat.Unknown);
 
         /// <summary>
         /// Read single image frame.
