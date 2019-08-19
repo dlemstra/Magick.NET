@@ -28,7 +28,13 @@ namespace ImageMagick
 
         public uint Index { get; private set; }
 
-        public bool CanRead(uint length) => Index + length <= _data.Length;
+        public bool CanRead(uint length)
+        {
+            if (length > _data.Length)
+                return false;
+
+            return Index + length <= _data.Length;
+        }
 
         public bool Seek(uint index)
         {
