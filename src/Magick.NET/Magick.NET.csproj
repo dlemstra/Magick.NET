@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
     <TargetFrameworks>net20;net40;netstandard13;netstandard20</TargetFrameworks>
     <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
@@ -133,6 +133,10 @@
 
   <ItemGroup Condition="$(Configuration.Contains('Release'))">
     <Compile Remove="Properties\InternalsVisibleTo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Magick.Native\TrademarkAttribute.cs" Link="TrademarkAttribute.cs" />
   </ItemGroup>
 
   <ItemGroup>
