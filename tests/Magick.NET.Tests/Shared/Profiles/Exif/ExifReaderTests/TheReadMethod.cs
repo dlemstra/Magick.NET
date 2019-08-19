@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -40,6 +41,18 @@ namespace Magick.NET.Tests.Shared.Profiles.Exif
                 var result = reader.Read(data);
 
                 Assert.AreEqual(0, result.Count);
+            }
+
+            [TestMethod]
+            public void ShouldCheckArraySize()
+            {
+                var reader = new ExifReader();
+                var data = new byte[] { 69, 120, 105, 102, 0, 0, 73, 73, 42, 0, 8, 0, 0, 0, 1, 0, 148, 1, 1, 0, 255, 255, 255, 255, 26, 0, 0, 0, 31, 0, 0, 0, 42 };
+
+                var result = reader.Read(data);
+
+                Assert.AreEqual(0, result.Count);
+                Assert.AreEqual(1, reader.InvalidTags.Count());
             }
         }
     }
