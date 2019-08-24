@@ -25,14 +25,12 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImage image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new PdfReadDefines()
-                    {
-                    });
+                    image.Settings.SetDefines(new PdfReadDefines());
 
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Pdf, "fit-page"));
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Pdf, "use-trimbox"));
-                    Assert.AreEqual(null, image.Settings.GetDefine("authenticate"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Pdf, "fit-page"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Pdf, "use-trimbox"));
+                    Assert.IsNull(image.Settings.GetDefine("authenticate"));
                 }
             }
         }

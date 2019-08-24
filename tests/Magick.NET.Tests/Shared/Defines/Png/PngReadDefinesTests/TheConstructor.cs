@@ -25,15 +25,13 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImage image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new PngReadDefines()
-                    {
-                    });
+                    image.Settings.SetDefines(new PngReadDefines());
 
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "preserve-iCCP"));
-                    Assert.AreEqual(null, image.Settings.GetDefine("profile:skip"));
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "chunk-cache-max"));
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "chunk-malloc-max"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Png, "preserve-iCCP"));
+                    Assert.IsNull(image.Settings.GetDefine("profile:skip"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Png, "chunk-cache-max"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Png, "chunk-malloc-max"));
                 }
             }
         }
