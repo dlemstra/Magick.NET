@@ -25,17 +25,15 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImage image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new JpegWriteDefines()
-                    {
-                    });
+                    image.Settings.SetDefines(new JpegWriteDefines());
 
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "arithmetic-coding"));
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "extent"));
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "quality"));
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "q-table"));
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "sampling-factor"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Jpeg, "arithmetic-coding"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Jpeg, "extent"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Jpeg, "quality"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Jpeg, "q-table"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Jpeg, "sampling-factor"));
                 }
             }
 
