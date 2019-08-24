@@ -16,7 +16,7 @@ using ImageMagick.Defines;
 namespace ImageMagick
 {
     /// <summary>
-    /// Class for defines that are used when a tiff image is written.
+    /// Class for defines that are used when a <see cref="MagickFormat.Tiff"/> image is written.
     /// </summary>
     public sealed class TiffWriteDefines : WriteDefinesCreator
     {

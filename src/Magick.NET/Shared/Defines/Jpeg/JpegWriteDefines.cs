@@ -17,7 +17,7 @@ using ImageMagick.Defines;
 namespace ImageMagick
 {
     /// <summary>
-    /// Class for defines that are used when a jpeg image is written.
+    /// Class for defines that are used when a <see cref="MagickFormat.Jpeg"/> image is written.
     /// </summary>
     public sealed class JpegWriteDefines : WriteDefinesCreator
     {

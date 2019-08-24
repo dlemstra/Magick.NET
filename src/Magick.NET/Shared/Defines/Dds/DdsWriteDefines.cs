@@ -16,7 +16,7 @@ using ImageMagick.Defines;
 namespace ImageMagick
 {
     /// <summary>
-    /// Class for defines that are used when a dds image is written.
+    /// Class for defines that are used when a <see cref="MagickFormat.Dds"/> image is written.
     /// </summary>
     public sealed class DdsWriteDefines : WriteDefinesCreator
     {

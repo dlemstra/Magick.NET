@@ -16,7 +16,7 @@ using ImageMagick.Defines;
 namespace ImageMagick
 {
     /// <summary>
-    /// Class for defines that are used when a jp2 image is read.
+    /// Class for defines that are used when a <see cref="MagickFormat.Jp2"/> image is read.
     /// </summary>
     public sealed class Jp2ReadDefines : ReadDefinesCreator
     {

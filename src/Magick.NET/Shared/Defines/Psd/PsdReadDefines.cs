@@ -16,7 +16,7 @@ using ImageMagick.Defines;
 namespace ImageMagick
 {
     /// <summary>
-    /// Class for defines that are used when a psd image is read.
+    /// Class for defines that are used when a <see cref="MagickFormat.Psd"/> image is read.
     /// </summary>
     public sealed class PsdReadDefines : ReadDefinesCreator
     {
