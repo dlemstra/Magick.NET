@@ -46,10 +46,7 @@ namespace ImageMagick.Defines
         /// <param name="name">The name of the define.</param>
         /// <param name="value">The value of the define.</param>
         /// <returns>A <see cref="MagickDefine"/> instance.</returns>
-        protected MagickDefine CreateDefine(string name, bool value)
-        {
-            return new MagickDefine(Format, name, value.ToString());
-        }
+        protected MagickDefine CreateDefine(string name, bool value) => new MagickDefine(Format, name, value.ToString());
 
         /// <summary>
         /// Create a define with the specified name and value.
@@ -57,10 +54,7 @@ namespace ImageMagick.Defines
         /// <param name="name">The name of the define.</param>
         /// <param name="value">The value of the define.</param>
         /// <returns>A <see cref="MagickDefine"/> instance.</returns>
-        protected MagickDefine CreateDefine(string name, int value)
-        {
-            return new MagickDefine(Format, name, value.ToString(CultureInfo.InvariantCulture));
-        }
+        protected MagickDefine CreateDefine(string name, int value) => new MagickDefine(Format, name, value.ToString(CultureInfo.InvariantCulture));
 
         /// <summary>
         /// Create a define with the specified name and value.
@@ -68,10 +62,7 @@ namespace ImageMagick.Defines
         /// <param name="name">The name of the define.</param>
         /// <param name="value">The value of the define.</param>
         /// <returns>A <see cref="MagickDefine"/> instance.</returns>
-        protected MagickDefine CreateDefine(string name, long value)
-        {
-            return new MagickDefine(Format, name, value.ToString(CultureInfo.InvariantCulture));
-        }
+        protected MagickDefine CreateDefine(string name, long value) => new MagickDefine(Format, name, value.ToString(CultureInfo.InvariantCulture));
 
         /// <summary>
         /// Create a define with the specified name and value.
@@ -93,10 +84,7 @@ namespace ImageMagick.Defines
         /// <param name="name">The name of the define.</param>
         /// <param name="value">The value of the define.</param>
         /// <returns>A <see cref="MagickDefine"/> instance.</returns>
-        protected MagickDefine CreateDefine(string name, string value)
-        {
-            return new MagickDefine(Format, name, value);
-        }
+        protected MagickDefine CreateDefine(string name, string value) => new MagickDefine(Format, name, value);
 
         /// <summary>
         /// Create a define with the specified name and value.
