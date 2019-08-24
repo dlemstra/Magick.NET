@@ -18,7 +18,7 @@ namespace Magick.NET.Tests
     public partial class TiffWriteDefinesTests
     {
         [TestClass]
-        public class TheEndianProperty
+        public class TheEndianProperty : TiffWriteDefinesTests
         {
             [TestMethod]
             public void ShouldSetTheDefine()

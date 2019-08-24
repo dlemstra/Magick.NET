@@ -18,7 +18,7 @@ namespace Magick.NET.Tests
     public partial class TiffWriteDefinesTests
     {
         [TestClass]
-        public class TheRowsPerStripProperty
+        public class TheRowsPerStripProperty : TiffWriteDefinesTests
         {
             [TestMethod]
             public void ShouldSetTheDefine()

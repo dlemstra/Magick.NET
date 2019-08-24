@@ -18,7 +18,7 @@ namespace Magick.NET.Tests
     public partial class TiffWriteDefinesTests
     {
         [TestClass]
-        public class TheFillOrderProperty
+        public class TheFillOrderProperty : TiffWriteDefinesTests
         {
             [TestMethod]
             public void ShouldSetTheDefine()
@@ -30,10 +30,7 @@ namespace Magick.NET.Tests
                         FillOrder = Endian.LSB,
                     });
 
-                    using (IMagickImage output = WriteTiff(input))
-                    {
-                        Assert.AreEqual("msb", output.GetAttribute("tiff:endian"));
-                    }
+                    Assert.AreEqual("LSB", input.Settings.GetDefine(MagickFormat.Tiff, "fill-order"));
                 }
             }
 

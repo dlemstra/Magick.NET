@@ -20,7 +20,7 @@ namespace Magick.NET.Tests
     public partial class TiffWriteDefinesTests
     {
         [TestClass]
-        public class TheAlphaProperty
+        public class TheAlphaProperty : TiffWriteDefinesTests
         {
             [TestMethod]
             public void ShouldSetTheDefine()
@@ -38,17 +38,6 @@ namespace Magick.NET.Tests
                     {
                         Assert.AreEqual("associated", output.GetAttribute("tiff:alpha"));
                     }
-                }
-            }
-
-            private static IMagickImage WriteTiff(IMagickImage image)
-            {
-                using (var memStream = new MemoryStream())
-                {
-                    image.Format = MagickFormat.Tiff;
-                    image.Write(memStream);
-                    memStream.Position = 0;
-                    return new MagickImage(memStream);
                 }
             }
         }

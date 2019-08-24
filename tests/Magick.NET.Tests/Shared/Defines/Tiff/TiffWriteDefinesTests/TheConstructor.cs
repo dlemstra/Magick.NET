@@ -18,7 +18,7 @@ namespace Magick.NET.Tests
     public partial class TiffWriteDefinesTests
     {
         [TestClass]
-        public class TheConstructor
+        public class TheConstructor : TiffWriteDefinesTests
         {
             [TestMethod]
             public void ShouldNotSetAnyDefine()

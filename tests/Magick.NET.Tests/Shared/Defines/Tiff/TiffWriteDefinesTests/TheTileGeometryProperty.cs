@@ -18,7 +18,7 @@ namespace Magick.NET.Tests
     public partial class TiffWriteDefinesTests
     {
         [TestClass]
-        public class TheTileGeometryProperty
+        public class TheTileGeometryProperty : TiffWriteDefinesTests
         {
             [TestMethod]
             public void ShouldSetTheDefine()
