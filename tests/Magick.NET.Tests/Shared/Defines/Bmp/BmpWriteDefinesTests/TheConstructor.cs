@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(new BmpWriteDefines());
 
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Bmp, "subtype"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Bmp, "subtype"));
                 }
             }
         }

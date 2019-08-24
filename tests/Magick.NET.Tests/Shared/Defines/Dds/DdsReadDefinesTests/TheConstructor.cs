@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(new DdsReadDefines());
 
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "skip-mipmaps"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Dds, "skip-mipmaps"));
                 }
             }
         }

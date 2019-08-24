@@ -27,12 +27,12 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(new DdsWriteDefines());
 
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "cluster-fit"));
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "compression"));
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "fast-mipmaps"));
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "mipmaps"));
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "raw"));
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Dds, "cluster-fit"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Dds, "compression"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Dds, "fast-mipmaps"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Dds, "mipmaps"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Dds, "raw"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
                 }
             }
         }
