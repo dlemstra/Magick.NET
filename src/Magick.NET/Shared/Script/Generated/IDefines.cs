@@ -50,6 +50,10 @@ namespace ImageMagick
                 {
                     return CreateBmpWriteDefines(element);
                 }
+                case 'c':
+                {
+                    return CreateCaptionReadDefines(element);
+                }
                 case 'd':
                 {
                     switch(element.Name[3])
@@ -156,6 +160,14 @@ namespace ImageMagick
                 return null;
             BmpWriteDefines result = new BmpWriteDefines();
             result.Subtype = GetValue<Nullable<ImageMagick.Defines.BmpSubtype>>(element, "subtype");
+            return result;
+        }
+        private IDefines CreateCaptionReadDefines(XmlElement element)
+        {
+            if (element == null)
+                return null;
+            CaptionReadDefines result = new CaptionReadDefines();
+            result.MaxFontPointsize = GetValue<Nullable<Double>>(element, "maxFontPointsize");
             return result;
         }
         private IDefines CreateDdsReadDefines(XmlElement element)
