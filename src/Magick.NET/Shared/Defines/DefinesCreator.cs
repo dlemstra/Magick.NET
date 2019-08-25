@@ -54,6 +54,14 @@ namespace ImageMagick.Defines
         /// <param name="name">The name of the define.</param>
         /// <param name="value">The value of the define.</param>
         /// <returns>A <see cref="MagickDefine"/> instance.</returns>
+        protected MagickDefine CreateDefine(string name, double value) => new MagickDefine(Format, name, value.ToString(CultureInfo.InvariantCulture));
+
+        /// <summary>
+        /// Create a define with the specified name and value.
+        /// </summary>
+        /// <param name="name">The name of the define.</param>
+        /// <param name="value">The value of the define.</param>
+        /// <returns>A <see cref="MagickDefine"/> instance.</returns>
         protected MagickDefine CreateDefine(string name, int value) => new MagickDefine(Format, name, value.ToString(CultureInfo.InvariantCulture));
 
         /// <summary>
