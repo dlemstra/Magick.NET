@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
             MagickNET.SetGhostscriptDirectory(@"C:\Program Files (x86)\gs\gs9.27\bin");
 #endif
 
-            ConfigurationFiles configFiles = ConfigurationFiles.Default;
+            var configFiles = ConfigurationFiles.Default;
             configFiles.Policy.Data = ModifyPolicy(configFiles.Policy.Data);
 
             _path = MagickNET.Initialize(configFiles);
@@ -44,12 +44,12 @@ namespace Magick.NET.Tests
 
         private static string ModifyPolicy(string data)
         {
-            XmlReaderSettings settings = new XmlReaderSettings()
+            var settings = new XmlReaderSettings()
             {
                 DtdProcessing = DtdProcessing.Ignore,
             };
 
-            XmlDocument doc = new XmlDocument();
+            var doc = new XmlDocument();
             using (StringReader sr = new StringReader(data))
             {
                 using (XmlReader reader = XmlReader.Create(sr, settings))
@@ -58,7 +58,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            XmlElement policy = doc.CreateElement("policy");
+            var policy = doc.CreateElement("policy");
             SetAttribute(policy, "domain", "coder");
             SetAttribute(policy, "rights", "none");
             SetAttribute(policy, "pattern", "{PALM}");
@@ -70,7 +70,7 @@ namespace Magick.NET.Tests
 
         private static void SetAttribute(XmlElement element, string name, string value)
         {
-            XmlAttribute attribute = element.OwnerDocument.CreateAttribute(name);
+            var attribute = element.OwnerDocument.CreateAttribute(name);
             attribute.Value = value;
 
             element.Attributes.Append(attribute);
