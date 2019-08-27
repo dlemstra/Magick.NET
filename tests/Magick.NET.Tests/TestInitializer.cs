@@ -42,6 +42,11 @@ namespace Magick.NET.Tests
             Cleanup.DeleteDirectory(_path);
         }
 
+        /// <summary>
+        /// Used by <see cref="MagickNETTests.InitializedWithCustomPolicy_ReadPalmFile_ThrowsException"/>.
+        /// </summary>
+        /// <param name="data">The current policy.</param>
+        /// <returns>The new policy.</returns>
         private static string ModifyPolicy(string data)
         {
             var settings = new XmlReaderSettings()
