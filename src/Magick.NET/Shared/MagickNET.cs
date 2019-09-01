@@ -294,7 +294,7 @@ namespace ImageMagick
 
         private static void SetLogEvents()
         {
-            string eventFlags = null;
+            string eventFlags;
 
             if (EnumHelper.HasFlag(_logEvents, LogEvents.Detailed))
                 eventFlags = "All";
