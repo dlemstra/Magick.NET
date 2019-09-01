@@ -37,6 +37,9 @@ namespace Magick.NET.Samples
 
             using (MagickImage image = new MagickImage())
             {
+                // Trace logging checks if this is set to true.
+                image.Settings.Debug = true;
+
                 // Reading the image will send all log events to the log handler
                 image.Read(SampleFiles.SnakewarePng);
             }
