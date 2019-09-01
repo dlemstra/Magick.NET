@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2036
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "publish", "publish", "{660486E5-ECAD-49B3-AEBB-A34953E48A72}"
 	ProjectSection(SolutionItems) = preProject
@@ -135,8 +135,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileGenerators", "FileGener
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{EE5A8EB5-C872-4837-89B0-11BCAE512DB2}"
 	ProjectSection(SolutionItems) = preProject
+		src\Magick.Native\build\Build.cmd = src\Magick.Native\build\Build.cmd
+		src\Magick.Native\build\Debug-Q16-HDRI-x64.cmd = src\Magick.Native\build\Debug-Q16-HDRI-x64.cmd
 		src\Magick.Native\build\Debug-Q16-HDRI-x86.cmd = src\Magick.Native\build\Debug-Q16-HDRI-x86.cmd
+		src\Magick.Native\build\Debug-Q16-x64.cmd = src\Magick.Native\build\Debug-Q16-x64.cmd
 		src\Magick.Native\build\Debug-Q16-x86.cmd = src\Magick.Native\build\Debug-Q16-x86.cmd
+		src\Magick.Native\build\Debug-Q8-x64.cmd = src\Magick.Native\build\Debug-Q8-x64.cmd
 		src\Magick.Native\build\Debug-Q8-x86.cmd = src\Magick.Native\build\Debug-Q8-x86.cmd
 	EndProjectSection
 EndProject
