@@ -10,6 +10,8 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System.Globalization;
+
 namespace ImageMagick
 {
     /// <summary>
@@ -31,5 +33,14 @@ namespace ImageMagick
         /// Gets or sets a value indicating whether the object color in the labeled image will be replaced with the mean-color from the source image.
         /// </summary>
         public bool MeanColor { get; set; }
+
+        internal void SetImageArtifacts(IMagickImage image)
+        {
+            if (AreaThreshold != null)
+                image.SetArtifact("connected-components:area-threshold", AreaThreshold.Value.ToString(CultureInfo.InvariantCulture));
+
+            if (MeanColor)
+                image.SetArtifact("connected-components:mean-color", "true");
+        }
     }
 }
