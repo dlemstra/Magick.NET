@@ -85,6 +85,17 @@ namespace Magick.NET.Tests.Shared
                     Assert.AreEqual(577, image.Height);
                 }
             }
+
+            [TestMethod]
+            public void ShouldReturnTheAngle()
+            {
+                using (IMagickImage image = new MagickImage(Files.LetterJPG))
+                {
+                    var angle = image.Deskew(new Percentage(10));
+
+                    Assert.AreEqual(7.01, angle, 0.01);
+                }
+            }
         }
     }
 }

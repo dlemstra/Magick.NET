@@ -1536,7 +1536,8 @@ namespace ImageMagick
         /// </summary>
         /// <param name="threshold">The threshold.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Deskew(Percentage threshold);
+        /// <returns>The angle that was used.</returns>
+        double Deskew(Percentage threshold);
 
         /// <summary>
         /// Removes skew from the image. Skew is an artifact that occurs in scanned images because of
@@ -1546,7 +1547,8 @@ namespace ImageMagick
         /// </summary>
         /// <param name="settings">The deskew settings.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Deskew(DeskewSettings settings);
+        /// <returns>The angle that was used.</returns>
+        double Deskew(DeskewSettings settings);
 
         /// <summary>
         /// Despeckle image (reduce speckle noise).

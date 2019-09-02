@@ -2407,7 +2407,8 @@ namespace ImageMagick
         /// </summary>
         /// <param name="threshold">The threshold.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Deskew(Percentage threshold) => Deskew(new DeskewSettings() { Threshold = threshold });
+        /// <returns>The angle that was used.</returns>
+        public double Deskew(Percentage threshold) => Deskew(new DeskewSettings() { Threshold = threshold });
 
         /// <summary>
         /// Removes skew from the image. Skew is an artifact that occurs in scanned images because of
@@ -2417,7 +2418,8 @@ namespace ImageMagick
         /// </summary>
         /// <param name="settings">The deskew settings.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Deskew(DeskewSettings settings)
+        /// <returns>The angle that was used.</returns>
+        public double Deskew(DeskewSettings settings)
         {
             Throw.IfNull(nameof(settings), settings);
             Throw.IfNegative(nameof(settings), settings.Threshold);
@@ -2425,6 +2427,12 @@ namespace ImageMagick
             settings.SetImageArtifacts(this);
 
             _nativeInstance.Deskew(settings.Threshold.ToQuantum());
+
+            var artifact = GetArtifact("deskew:angle");
+            if (!double.TryParse(artifact, NumberStyles.Any, CultureInfo.InvariantCulture, out var result))
+                return 0.0;
+
+            return result;
         }
 
         /// <summary>
