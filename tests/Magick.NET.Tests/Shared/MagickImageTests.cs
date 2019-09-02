@@ -1204,21 +1204,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_Deskew()
-        {
-            using (IMagickImage image = new MagickImage(Files.LetterJPG))
-            {
-                image.ColorType = ColorType.Bilevel;
-
-                ColorAssert.AreEqual(MagickColors.White, image, 471, 92);
-
-                image.Deskew(new Percentage(10));
-
-                ColorAssert.AreEqual(new MagickColor("#007400740074"), image, 471, 92);
-            }
-        }
-
-        [TestMethod]
         public void Test_Despeckle()
         {
             using (IMagickImage image = new MagickImage(Files.NoisePNG))
