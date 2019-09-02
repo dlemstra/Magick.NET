@@ -10,6 +10,8 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System.Globalization;
+
 namespace ImageMagick
 {
     /// <summary>
@@ -33,5 +35,14 @@ namespace ImageMagick
         /// resulting image, rather than use the original images canvas, or a calculated 'bestfit' canvas.
         /// </summary>
         public MagickGeometry Viewport { get; set; }
+
+        internal void SetImageArtifacts(IMagickImage image)
+        {
+            if (Scale != null)
+                image.SetArtifact("distort:scale", Scale.Value.ToString(CultureInfo.InvariantCulture));
+
+            if (Viewport != null)
+                image.SetArtifact("distort:viewport", Viewport.ToString());
+        }
     }
 }
