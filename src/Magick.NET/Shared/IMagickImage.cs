@@ -1539,6 +1539,16 @@ namespace ImageMagick
         void Deskew(Percentage threshold);
 
         /// <summary>
+        /// Removes skew from the image. Skew is an artifact that occurs in scanned images because of
+        /// the camera being misaligned, imperfections in the scanning or surface, or simply because
+        /// the paper was not placed completely flat when scanned. The value of threshold ranges
+        /// from 0 to QuantumRange.
+        /// </summary>
+        /// <param name="settings">The deskew settings.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Deskew(DeskewSettings settings);
+
+        /// <summary>
         /// Despeckle image (reduce speckle noise).
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>

@@ -2407,11 +2407,24 @@ namespace ImageMagick
         /// </summary>
         /// <param name="threshold">The threshold.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Deskew(Percentage threshold)
-        {
-            Throw.IfNegative(nameof(threshold), threshold);
+        public void Deskew(Percentage threshold) => Deskew(new DeskewSettings() { Threshold = threshold });
 
-            _nativeInstance.Deskew(threshold.ToQuantum());
+        /// <summary>
+        /// Removes skew from the image. Skew is an artifact that occurs in scanned images because of
+        /// the camera being misaligned, imperfections in the scanning or surface, or simply because
+        /// the paper was not placed completely flat when scanned. The value of threshold ranges
+        /// from 0 to QuantumRange.
+        /// </summary>
+        /// <param name="settings">The deskew settings.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Deskew(DeskewSettings settings)
+        {
+            Throw.IfNull(nameof(settings), settings);
+            Throw.IfNegative(nameof(settings), settings.Threshold);
+
+            settings.SetImageArtifacts(this);
+
+            _nativeInstance.Deskew(settings.Threshold.ToQuantum());
         }
 
         /// <summary>

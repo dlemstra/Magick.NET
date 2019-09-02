@@ -22,11 +22,34 @@ namespace Magick.NET.Tests.Shared
         public class TheDeskewMethod
         {
             [TestMethod]
+            public void ShouldThrowExceptionWhenSettingsIsNull()
+            {
+                using (IMagickImage image = new MagickImage())
+                {
+                    ExceptionAssert.Throws<ArgumentNullException>("settings", () => image.Deskew(null));
+                }
+            }
+
+            [TestMethod]
+            public void ShouldThrowExceptionWhenSettingsThresholdIsNegative()
+            {
+                using (IMagickImage image = new MagickImage())
+                {
+                    var settings = new DeskewSettings()
+                    {
+                        Threshold = new Percentage(-1),
+                    };
+
+                    ExceptionAssert.Throws<ArgumentException>("settings", () => image.Deskew(settings));
+                }
+            }
+
+            [TestMethod]
             public void ShouldThrowExceptionWhenThresholdIsNegative()
             {
                 using (IMagickImage image = new MagickImage())
                 {
-                    ExceptionAssert.Throws<ArgumentException>("threshold", () => image.Deskew(new Percentage(-1)));
+                    ExceptionAssert.Throws<ArgumentException>("settings", () => image.Deskew(new Percentage(-1)));
                 }
             }
 
@@ -42,6 +65,24 @@ namespace Magick.NET.Tests.Shared
                     image.Deskew(new Percentage(10));
 
                     ColorAssert.AreEqual(new MagickColor("#007400740074"), image, 471, 92);
+                }
+            }
+
+            [TestMethod]
+            public void ShouldUseAutoCrop()
+            {
+                using (IMagickImage image = new MagickImage(Files.LetterJPG))
+                {
+                    var settings = new DeskewSettings()
+                    {
+                        AutoCrop = true,
+                        Threshold = new Percentage(10),
+                    };
+
+                    image.Deskew(settings);
+
+                    Assert.AreEqual(480, image.Width);
+                    Assert.AreEqual(577, image.Height);
                 }
             }
         }
