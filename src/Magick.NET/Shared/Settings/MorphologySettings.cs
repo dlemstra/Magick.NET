@@ -66,5 +66,14 @@ namespace ImageMagick
         /// Gets or sets user suplied kernel.
         /// </summary>
         public string UserKernel { get; set; }
+
+        internal void SetImageArtifacts(IMagickImage image)
+        {
+            if (ConvolveBias != null)
+                image.SetArtifact("convolve:bias", ConvolveBias.ToString());
+
+            if (ConvolveScale != null)
+                image.SetArtifact("convolve:scale", ConvolveScale.ToString());
+        }
     }
 }

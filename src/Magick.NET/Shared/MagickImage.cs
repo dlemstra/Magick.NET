@@ -3971,11 +3971,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(settings), settings);
 
-            if (settings.ConvolveBias != null)
-                SetArtifact("convolve:bias", settings.ConvolveBias.ToString());
-
-            if (settings.ConvolveScale != null)
-                SetArtifact("convolve:scale", settings.ConvolveScale.ToString());
+            settings.SetImageArtifacts(this);
 
             if (!string.IsNullOrEmpty(settings.UserKernel))
                 Morphology(settings.Method, settings.UserKernel, settings.Channels, settings.Iterations);
