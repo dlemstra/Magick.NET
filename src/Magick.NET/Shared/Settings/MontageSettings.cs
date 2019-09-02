@@ -18,13 +18,6 @@ namespace ImageMagick
     public sealed partial class MontageSettings
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MontageSettings"/> class.
-        /// </summary>
-        public MontageSettings()
-        {
-        }
-
-        /// <summary>
         /// Gets or sets the color of the background that thumbnails are composed on.
         /// </summary>
         public MagickColor BackgroundColor { get; set; }
