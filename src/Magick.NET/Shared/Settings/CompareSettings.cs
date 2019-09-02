@@ -10,6 +10,8 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
+
 namespace ImageMagick
 {
     /// <summary>
@@ -36,5 +38,17 @@ namespace ImageMagick
         /// Gets or sets the color of pixels that are inside the read mask.
         /// </summary>
         public MagickColor MasklightColor { get; set; }
+
+        internal void SetImageArtifacts(IMagickImage image)
+        {
+            if (HighlightColor != null)
+                image.SetArtifact("compare:highlight-color", HighlightColor.ToString());
+
+            if (LowlightColor != null)
+                image.SetArtifact("compare:lowlight-color", LowlightColor.ToString());
+
+            if (MasklightColor != null)
+                image.SetArtifact("compare:masklight-color", MasklightColor.ToString());
+        }
     }
 }

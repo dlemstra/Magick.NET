@@ -1700,20 +1700,13 @@ namespace ImageMagick
             Throw.IfNull(nameof(settings), settings);
             Throw.IfNull(nameof(difference), difference);
 
-            MagickImage differenceImage = difference as MagickImage;
+            var differenceImage = difference as MagickImage;
             if (differenceImage == null)
                 throw new NotSupportedException();
 
-            if (settings.HighlightColor != null)
-                SetArtifact("compare:highlight-color", settings.HighlightColor.ToString());
+            settings.SetImageArtifacts(this);
 
-            if (settings.LowlightColor != null)
-                SetArtifact("compare:lowlight-color", settings.LowlightColor.ToString());
-
-            if (settings.MasklightColor != null)
-                SetArtifact("compare:masklight-color", settings.MasklightColor.ToString());
-
-            IntPtr result = _nativeInstance.Compare(image, settings.Metric, channels, out double distortion);
+            var result = _nativeInstance.Compare(image, settings.Metric, channels, out double distortion);
             if (result != IntPtr.Zero)
                 differenceImage._nativeInstance.Instance = result;
 
