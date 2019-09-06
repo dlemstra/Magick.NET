@@ -30,7 +30,7 @@ namespace ImageMagick
         /// Initializes a new instance of the <see cref="XmpProfile"/> class.
         /// </summary>
         /// <param name="data">A byte array containing the profile.</param>
-        public XmpProfile(Byte[] data)
+        public XmpProfile(byte[] data)
           : base("xmp", CheckTrailingNULL(data))
         {
         }
@@ -44,8 +44,8 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(document), document);
 
-            MemoryStream memStream = new MemoryStream();
-            using (XmlWriter writer = XmlWriter.Create(memStream))
+            var memStream = new MemoryStream();
+            using (var writer = XmlWriter.Create(memStream))
             {
                 document.CreateNavigator().WriteSubtree(writer);
                 writer.Flush();
@@ -63,8 +63,8 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(document), document);
 
-            MemoryStream memStream = new MemoryStream();
-            using (XmlWriter writer = XmlWriter.Create(memStream))
+            var memStream = new MemoryStream();
+            using (var writer = XmlWriter.Create(memStream))
             {
                 document.WriteTo(writer);
                 writer.Flush();
@@ -119,9 +119,11 @@ namespace ImageMagick
         /// <returns>A <see cref="XmlReader"/>.</returns>
         public XmlReader CreateReader()
         {
-            MemoryStream memStream = new MemoryStream(Data, 0, Data.Length);
-            XmlReaderSettings settings = new XmlReaderSettings();
-            settings.CloseInput = true;
+            var memStream = new MemoryStream(Data, 0, Data.Length);
+            var settings = new XmlReaderSettings
+            {
+                CloseInput = true,
+            };
             return XmlReader.Create(memStream, settings);
         }
 
@@ -131,9 +133,9 @@ namespace ImageMagick
         /// <returns>A <see cref="IXPathNavigable"/>.</returns>
         public IXPathNavigable ToIXPathNavigable()
         {
-            using (XmlReader reader = CreateReader())
+            using (var reader = CreateReader())
             {
-                XmlDocument result = new XmlDocument();
+                var result = new XmlDocument();
 #if !NETSTANDARD1_3
                 result.XmlResolver = null;
 #endif
@@ -149,7 +151,7 @@ namespace ImageMagick
         /// <returns>A <see cref="XDocument"/>.</returns>
         public XDocument ToXDocument()
         {
-            using (XmlReader reader = CreateReader())
+            using (var reader = CreateReader())
             {
                 return XDocument.Load(reader);
             }
@@ -160,7 +162,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(data), data);
 
-            int length = data.Length;
+            var length = data.Length;
 
             while (length > 2)
             {
@@ -173,7 +175,7 @@ namespace ImageMagick
             if (length == data.Length)
                 return data;
 
-            byte[] result = new byte[length];
+            var result = new byte[length];
             Buffer.BlockCopy(data, 0, result, 0, length);
             return result;
         }
