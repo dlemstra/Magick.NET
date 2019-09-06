@@ -44,12 +44,14 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(document), document);
 
-            var memStream = new MemoryStream();
-            using (var writer = XmlWriter.Create(memStream))
+            using (var memStream = new MemoryStream())
             {
-                document.CreateNavigator().WriteSubtree(writer);
-                writer.Flush();
-                Data = memStream.ToArray();
+                using (var writer = XmlWriter.Create(memStream))
+                {
+                    document.CreateNavigator().WriteSubtree(writer);
+                    writer.Flush();
+                    Data = memStream.ToArray();
+                }
             }
         }
 
@@ -63,12 +65,14 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(document), document);
 
-            var memStream = new MemoryStream();
-            using (var writer = XmlWriter.Create(memStream))
+            using (var memStream = new MemoryStream())
             {
-                document.WriteTo(writer);
-                writer.Flush();
-                Data = memStream.ToArray();
+                using (var writer = XmlWriter.Create(memStream))
+                {
+                    document.WriteTo(writer);
+                    writer.Flush();
+                    Data = memStream.ToArray();
+                }
             }
         }
 #endif
