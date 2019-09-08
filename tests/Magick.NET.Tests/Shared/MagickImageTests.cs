@@ -2580,52 +2580,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_Separate()
-        {
-            using (IMagickImage rose = new MagickImage(Files.Builtin.Rose))
-            {
-                int i = 0;
-                foreach (MagickImage image in rose.Separate())
-                {
-                    i++;
-                    image.Dispose();
-                }
-
-                Assert.AreEqual(3, i);
-
-                i = 0;
-                foreach (MagickImage image in rose.Separate(Channels.Red | Channels.Green))
-                {
-                    i++;
-                    image.Dispose();
-                }
-
-                Assert.AreEqual(2, i);
-            }
-        }
-
-        [TestMethod]
-        public void Test_Separate_Composite()
-        {
-            using (IMagickImage logo = new MagickImage(Files.Builtin.Logo))
-            {
-                using (IMagickImage blue = logo.Separate(Channels.Blue).First())
-                {
-                    Test_Separate_Composite(blue, ColorSpace.Gray, 146);
-
-                    using (IMagickImage green = logo.Separate(Channels.Green).First())
-                    {
-                        Test_Separate_Composite(green, ColorSpace.Gray, 62);
-
-                        blue.Composite(green, CompositeOperator.Modulate);
-
-                        Test_Separate_Composite(blue, ColorSpace.sRGB, 15);
-                    }
-                }
-            }
-        }
-
-        [TestMethod]
         public void Test_SepiaTone()
         {
             using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -3584,17 +3538,6 @@ namespace Magick.NET.Tests
 
             ImageProfile profile = image.Get8BimProfile();
             Assert.IsNotNull(profile);
-        }
-
-        private static void Test_Separate_Composite(IMagickImage image, ColorSpace colorSpace, byte value)
-        {
-            Assert.AreEqual(colorSpace, image.ColorSpace);
-
-            using (IPixelCollection pixels = image.GetPixels())
-            {
-                Pixel pixel = pixels.GetPixel(340, 260);
-                ColorAssert.AreEqual(MagickColor.FromRgb(value, value, value), pixel.ToColor());
-            }
         }
 
         private IMagickImage CreatePallete()
