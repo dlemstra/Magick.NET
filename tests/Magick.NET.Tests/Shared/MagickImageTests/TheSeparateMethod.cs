@@ -58,34 +58,14 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void Test_Separate_Composite()
+            public void ShouldReturnImageWithGrayColorspace()
             {
                 using (IMagickImage logo = new MagickImage(Files.Builtin.Logo))
                 {
                     using (IMagickImage blue = logo.Separate(Channels.Blue).First())
                     {
-                        AssertSeparate(blue, ColorSpace.Gray, 146);
-
-                        using (IMagickImage green = logo.Separate(Channels.Green).First())
-                        {
-                            AssertSeparate(green, ColorSpace.Gray, 62);
-
-                            blue.Composite(green, CompositeOperator.Modulate);
-
-                            AssertSeparate(blue, ColorSpace.sRGB, 15);
-                        }
+                        Assert.AreEqual(ColorSpace.Gray, blue.ColorSpace);
                     }
-                }
-            }
-
-            private static void AssertSeparate(IMagickImage image, ColorSpace colorSpace, byte value)
-            {
-                Assert.AreEqual(colorSpace, image.ColorSpace);
-
-                using (IPixelCollection pixels = image.GetPixels())
-                {
-                    Pixel pixel = pixels.GetPixel(340, 260);
-                    ColorAssert.AreEqual(MagickColor.FromRgb(value, value, value), pixel.ToColor());
                 }
             }
         }

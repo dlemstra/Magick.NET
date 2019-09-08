@@ -11,6 +11,7 @@
 // and limitations under the License.
 
 using System;
+using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -45,6 +46,23 @@ namespace Magick.NET.Tests.Shared
                             image.Composite(other);
 
                             ColorAssert.AreEqual(MagickColors.Purple, image, 0, 0);
+                        }
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldPreserveGrayColorSpace()
+                {
+                    using (IMagickImage logo = new MagickImage(Files.Builtin.Logo))
+                    {
+                        using (IMagickImage blue = logo.Separate(Channels.Blue).First())
+                        {
+                            using (IMagickImage green = logo.Separate(Channels.Green).First())
+                            {
+                                blue.Composite(green, CompositeOperator.Modulate);
+
+                                Assert.AreEqual(ColorSpace.Gray, blue.ColorSpace);
+                            }
                         }
                     }
                 }
