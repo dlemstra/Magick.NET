@@ -23,6 +23,7 @@ namespace ImageMagick
     {
         private ConnectedComponent(IntPtr instance)
         {
+            Area = (int)NativeConnectedComponent.GetArea(instance);
             Centroid = PointD.FromPointInfo(NativeConnectedComponent.GetCentroid(instance));
             Color = NativeConnectedComponent.GetColor(instance);
             Height = NativeConnectedComponent.GetHeight(instance);
@@ -31,6 +32,11 @@ namespace ImageMagick
             X = NativeConnectedComponent.GetX(instance);
             Y = NativeConnectedComponent.GetY(instance);
         }
+
+        /// <summary>
+        /// Gets the pixel count of the area.
+        /// </summary>
+        public int Area { get; }
 
         /// <summary>
         /// Gets the centroid of the area.
