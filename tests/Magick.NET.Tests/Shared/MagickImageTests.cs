@@ -874,66 +874,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_ConnectedComponents()
-        {
-            using (IMagickImage image = new MagickImage(Files.ConnectedComponentsPNG))
-            {
-                using (IMagickImage temp = image.Clone())
-                {
-                    temp.Blur(0, 10);
-                    temp.Threshold((Percentage)50);
-
-                    ConnectedComponent[] components = temp.ConnectedComponents(4).OrderBy(c => c.X).ToArray();
-                    Assert.AreEqual(7, components.Length);
-                    Assert.IsNull(temp.GetArtifact("connected-components:area-threshold"));
-                    Assert.IsNull(temp.GetArtifact("connected-components:mean-color"));
-
-                    MagickColor color = MagickColors.Black;
-
-                    Test_Component(image, components[1], 2, 94, 297, 128, 151, color, 157, 371);
-                    Test_Component(image, components[2], 5, 99, 554, 128, 150, color, 162, 628);
-                    Test_Component(image, components[3], 4, 267, 432, 89, 139, color, 310, 501);
-                    Test_Component(image, components[4], 1, 301, 202, 148, 143, color, 374, 272);
-                    Test_Component(image, components[5], 6, 341, 622, 136, 150, color, 408, 696);
-                    Test_Component(image, components[6], 3, 434, 411, 88, 139, color, 477, 480);
-                }
-
-#if !Q8
-                using (IMagickImage temp = image.Clone())
-                {
-                    ConnectedComponentsSettings settings = new ConnectedComponentsSettings()
-                    {
-                        Connectivity = 4,
-                        MeanColor = true,
-                        AreaThreshold = 400,
-                    };
-
-                    ConnectedComponent[] components = temp.ConnectedComponents(settings).OrderBy(c => c.X).ToArray();
-                    Assert.AreEqual(13, components.Length);
-                    Assert.IsNotNull(temp.GetArtifact("connected-components:area-threshold"));
-                    Assert.IsNotNull(temp.GetArtifact("connected-components:mean-color"));
-
-                    MagickColor color1 = new MagickColor("#010101010101");
-                    MagickColor color2 = MagickColors.Black;
-
-                    Test_Component(image, components[1], 597, 90, 293, 139, 162, color1, 157, 372);
-                    Test_Component(image, components[2], 3439, 96, 550, 138, 162, color1, 162, 628);
-                    Test_Component(image, components[3], 4367, 213, 633, 1, 2, color2, 213, 633);
-                    Test_Component(image, components[4], 4412, 215, 637, 3, 1, color2, 215, 637);
-                    Test_Component(image, components[5], 4453, 217, 641, 3, 1, color2, 217, 641);
-                    Test_Component(image, components[6], 4495, 219, 645, 3, 1, color2, 219, 645);
-                    Test_Component(image, components[7], 4538, 221, 647, 3, 1, color2, 221, 649);
-                    Test_Component(image, components[8], 2105, 268, 433, 89, 139, color1, 311, 502);
-                    Test_Component(image, components[9], 17, 298, 198, 155, 151, color1, 375, 273);
-                    Test_Component(image, components[10], 4202, 337, 618, 148, 158, color1, 409, 696);
-                    Test_Component(image, components[11], 314, 410, 247, 2, 1, color2, 410, 247);
-                    Test_Component(image, components[12], 1703, 434, 411, 88, 140, color1, 477, 480);
-                }
-#endif
-            }
-        }
-
-        [TestMethod]
         public void Test_Constructor()
         {
             ExceptionAssert.Throws<ArgumentException>("data", () =>
@@ -3549,27 +3489,6 @@ namespace Magick.NET.Tests
                 images.Add(new MagickImage(MagickColors.Green, 1, 1));
 
                 return images.AppendHorizontally();
-            }
-        }
-
-        private void Test_Component(IMagickImage image, ConnectedComponent component, int id, int x, int y, int width, int height, MagickColor color, int centroidX, int centroidY)
-        {
-            int delta = 2;
-
-            Assert.AreEqual(id, component.Id);
-            Assert.AreEqual(x, component.X, delta);
-            Assert.AreEqual(y, component.Y, delta);
-            Assert.AreEqual(width, component.Width, delta);
-            Assert.AreEqual(height, component.Height, delta);
-            ColorAssert.AreEqual(color, component.Color);
-            Assert.AreEqual(centroidX, component.Centroid.X, delta);
-            Assert.AreEqual(centroidY, component.Centroid.Y, delta);
-
-            using (IMagickImage area = image.Clone())
-            {
-                area.Crop(component.ToGeometry(10));
-                Assert.AreEqual(width + 20, area.Width, delta);
-                Assert.AreEqual(height + 20, area.Height, delta);
             }
         }
     }
