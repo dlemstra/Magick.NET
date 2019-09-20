@@ -30,8 +30,19 @@ function signLibrary($library, $quantumName, $platformName, $pfxPassword, $targe
 
     $fileName = fullPath "src\$library\bin\Release$quantumName\$platform\$targetFramework\$library-$quantumName-$platform.dll"
 
-    & $signtool sign /f "$pfxFile" /p "$pfxPassword" /tr http://sha256timestamp.ws.symantec.com/sha256/timestamp /td sha256 /fd sha256 $fileName
-    CheckExitCode "Failed to sign files."
+    for ($i=0; $i -le 10; $i++)
+    {
+      Start-Sleep -s $i
+      & $signtool sign /f "$pfxFile" /p "$pfxPassword" /tr http://sha256timestamp.ws.symantec.com/sha256/timestamp /td sha256 /fd sha256 $fileName
+      if ($LastExitCode -eq 0)
+      {
+        break
+      }
+    }
+    if ($LastExitCode -ne 0)
+    {
+      throw "Failed to sign files."
+    }
 }
 
 function signLibraries($quantumName, $platformName, $pfxPassword) {
