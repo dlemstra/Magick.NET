@@ -45,7 +45,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void ConnectedComponent_DisposeList(IntPtr list);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double ConnectedComponent_GetArea(IntPtr instance);
+                public static extern UIntPtr ConnectedComponent_GetArea(IntPtr instance);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr ConnectedComponent_GetCentroid(IntPtr instance);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -74,7 +74,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void ConnectedComponent_DisposeList(IntPtr list);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double ConnectedComponent_GetArea(IntPtr instance);
+                public static extern UIntPtr ConnectedComponent_GetArea(IntPtr instance);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr ConnectedComponent_GetCentroid(IntPtr instance);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -112,19 +112,19 @@ namespace ImageMagick
                 NativeMethods.X86.ConnectedComponent_DisposeList(list);
                 #endif
             }
-            public static double GetArea(IntPtr instance)
+            public static int GetArea(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU
                 if (NativeLibrary.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return NativeMethods.X64.ConnectedComponent_GetArea(instance);
+                return (int)NativeMethods.X64.ConnectedComponent_GetArea(instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return NativeMethods.X86.ConnectedComponent_GetArea(instance);
+                return (int)NativeMethods.X86.ConnectedComponent_GetArea(instance);
                 #endif
             }
             public static PointInfo GetCentroid(IntPtr instance)

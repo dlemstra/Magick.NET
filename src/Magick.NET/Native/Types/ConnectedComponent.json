@@ -14,7 +14,7 @@
     },
     {
       "name": "GetArea",
-      "type": "double",
+      "type": "size_t",
       "static": true,
       "arguments": [
         {

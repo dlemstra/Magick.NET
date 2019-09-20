@@ -23,7 +23,7 @@ namespace ImageMagick
     {
         private ConnectedComponent(IntPtr instance)
         {
-            Area = (int)NativeConnectedComponent.GetArea(instance);
+            Area = NativeConnectedComponent.GetArea(instance);
             Centroid = PointD.FromPointInfo(NativeConnectedComponent.GetCentroid(instance));
             Color = NativeConnectedComponent.GetColor(instance);
             Height = NativeConnectedComponent.GetHeight(instance);
