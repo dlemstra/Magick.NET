@@ -39,10 +39,8 @@ function signLibrary($library, $quantumName, $platformName, $pfxPassword, $targe
         break
       }
     }
-    if ($LastExitCode -ne 0)
-    {
-      throw "Failed to sign files."
-    }
+
+    CheckExitCode "Failed to sign file."
 }
 
 function signLibraries($quantumName, $platformName, $pfxPassword) {
