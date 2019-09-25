@@ -28,6 +28,8 @@ namespace Magick.NET.Tests
 
                 ShouldCallLogDelegateWhenLogEventsAreSet();
 
+                ShouldLogTraceEventsWhenLogEventsIsSetToAll();
+
                 ShouldStopCallingLogDelegateWhenLogDelegateIsRemoved();
             }
 
@@ -81,6 +83,28 @@ namespace Magick.NET.Tests
                     image.Flip();
                     Assert.AreEqual(0, count);
                 }
+            }
+
+            private void ShouldLogTraceEventsWhenLogEventsIsSetToAll()
+            {
+                int traceEvents = 0;
+                EventHandler<LogEventArgs> logDelegate = (sender, arguments) =>
+                {
+                    if (arguments.EventType == LogEvents.Trace)
+                        traceEvents++;
+                };
+
+                MagickNET.SetLogEvents(LogEvents.All);
+
+                MagickNET.Log += logDelegate;
+
+                using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+                {
+                }
+
+                MagickNET.Log -= logDelegate;
+
+                Assert.AreNotEqual(0, traceEvents);
             }
 
             private void ShouldStopCallingLogDelegateWhenLogDelegateIsRemoved()
