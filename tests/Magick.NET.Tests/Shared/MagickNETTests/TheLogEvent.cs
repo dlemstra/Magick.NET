@@ -44,9 +44,10 @@ namespace Magick.NET.Tests
                     MagickNET.Log += logDelegate;
 
                     image.Flip();
-                    Assert.AreEqual(0, count);
 
                     MagickNET.Log -= logDelegate;
+
+                    Assert.AreEqual(0, count);
                 }
             }
 
@@ -71,9 +72,10 @@ namespace Magick.NET.Tests
                     MagickNET.SetLogEvents(LogEvents.Detailed);
 
                     image.Flip();
-                    Assert.AreNotEqual(0, count);
 
                     MagickNET.Log -= logDelegate;
+
+                    Assert.AreNotEqual(0, count);
                     count = 0;
 
                     image.Flip();
