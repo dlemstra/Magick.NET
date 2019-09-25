@@ -10,8 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if !NETCORE
-
+using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -19,27 +18,16 @@ namespace Magick.NET.Tests
 {
     public partial class MagickNETTests
     {
-        public partial class TheVersionProperty
+        [TestClass]
+        public class TheFontNamesProperty
         {
             [TestMethod]
-            public void ShouldContainTheCorrectPlatform()
+            public void ContainsArial()
             {
-#if PLATFORM_AnyCPU
-                StringAssert.Contains(MagickNET.Version, "AnyCPU");
-#elif PLATFORM_x64
-                StringAssert.Contains(MagickNET.Version, "x64");
-#else
-                StringAssert.Contains(MagickNET.Version, "x86");
-#endif
-            }
-
-            [TestMethod]
-            public void ShouldContainNet40()
-            {
-                StringAssert.Contains(MagickNET.Version, "net40");
+                var fontNames = MagickNET.FontNames.ToArray();
+                var fontName = fontNames.FirstOrDefault(f => f == "Arial");
+                Assert.IsNotNull(fontName, $"Unable to find Arial in font families: {string.Join(",", fontNames)}");
             }
         }
     }
 }
-
-#endif

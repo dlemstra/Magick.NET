@@ -10,8 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if !NETCORE
-
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -19,27 +17,17 @@ namespace Magick.NET.Tests
 {
     public partial class MagickNETTests
     {
-        public partial class TheVersionProperty
+        [TestClass]
+        public class TheSupportedFormatsProperty
         {
             [TestMethod]
-            public void ShouldContainTheCorrectPlatform()
+            public void ShouldContainsNoFormatInformationWithMagickFormatSetToUnknown()
             {
-#if PLATFORM_AnyCPU
-                StringAssert.Contains(MagickNET.Version, "AnyCPU");
-#elif PLATFORM_x64
-                StringAssert.Contains(MagickNET.Version, "x64");
-#else
-                StringAssert.Contains(MagickNET.Version, "x86");
-#endif
-            }
-
-            [TestMethod]
-            public void ShouldContainNet40()
-            {
-                StringAssert.Contains(MagickNET.Version, "net40");
+                foreach (MagickFormatInfo formatInfo in MagickNET.SupportedFormats)
+                {
+                    Assert.AreNotEqual(MagickFormat.Unknown, formatInfo.Format, "Unknown format: " + formatInfo.Description + " (" + formatInfo.Module + ")");
+                }
             }
         }
     }
 }
-
-#endif

@@ -10,8 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if !NETCORE
-
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -19,27 +17,22 @@ namespace Magick.NET.Tests
 {
     public partial class MagickNETTests
     {
+        [TestClass]
         public partial class TheVersionProperty
         {
             [TestMethod]
-            public void ShouldContainTheCorrectPlatform()
+            public void ShouldContainCorrectQuantum()
             {
-#if PLATFORM_AnyCPU
-                StringAssert.Contains(MagickNET.Version, "AnyCPU");
-#elif PLATFORM_x64
-                StringAssert.Contains(MagickNET.Version, "x64");
+#if Q8
+                StringAssert.Contains(MagickNET.Version, "Q8");
+#elif Q16
+            StringAssert.Contains(MagickNET.Version, "Q16");
+#elif Q16HDRI
+            StringAssert.Contains(MagickNET.Version, "Q16-HDRI");
 #else
-                StringAssert.Contains(MagickNET.Version, "x86");
+#error Not implemented!
 #endif
-            }
-
-            [TestMethod]
-            public void ShouldContainNet40()
-            {
-                StringAssert.Contains(MagickNET.Version, "net40");
             }
         }
     }
 }
-
-#endif

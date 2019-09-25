@@ -10,8 +10,8 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if !NETCORE
-
+using System;
+using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -19,27 +19,32 @@ namespace Magick.NET.Tests
 {
     public partial class MagickNETTests
     {
-        public partial class TheVersionProperty
+        [TestClass]
+        public class TheSetTempDirectoryMethod
         {
             [TestMethod]
-            public void ShouldContainTheCorrectPlatform()
+            public void ShouldThrowExceptionWhenPathIsNull()
             {
-#if PLATFORM_AnyCPU
-                StringAssert.Contains(MagickNET.Version, "AnyCPU");
-#elif PLATFORM_x64
-                StringAssert.Contains(MagickNET.Version, "x64");
-#else
-                StringAssert.Contains(MagickNET.Version, "x86");
-#endif
+                ExceptionAssert.Throws<ArgumentNullException>("path", () =>
+                {
+                    MagickNET.SetTempDirectory(null);
+                });
             }
 
             [TestMethod]
-            public void ShouldContainNet40()
+            public void ShouldThrowExceptionWhenPathIsInvalid()
             {
-                StringAssert.Contains(MagickNET.Version, "net40");
+                ExceptionAssert.Throws<ArgumentException>("path", () =>
+                {
+                    MagickNET.SetTempDirectory("Invalid");
+                });
+            }
+
+            [TestMethod]
+            public void ShouldNotThrowExceptionWhenPathIsCorrect()
+            {
+                MagickNET.SetTempDirectory(Path.GetTempPath());
             }
         }
     }
 }
-
-#endif
