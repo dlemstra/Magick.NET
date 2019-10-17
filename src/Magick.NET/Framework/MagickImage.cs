@@ -13,6 +13,7 @@
 #if !NETSTANDARD
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -84,6 +85,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="bitmapDensity">The bitmap density.</param>
         /// <returns>A <see cref="Bitmap"/> that has the format <see cref="ImageFormat.Bmp"/>.</returns>
+        [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "False positive.")]
         public Bitmap ToBitmap(BitmapDensity bitmapDensity)
         {
             IMagickImage image = this;
