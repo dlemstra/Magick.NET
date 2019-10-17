@@ -111,6 +111,15 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
+            public void ShouldThrowExceptionWhenImageFormatIsNull()
+            {
+                using (IMagickImage image = new MagickImage(Color.Red, 1, 1))
+                {
+                    ExceptionAssert.Throws<ArgumentNullException>("imageFormat", () => image.ToBitmap(null, BitmapDensity.Use));
+                }
+            }
+
+            [TestMethod]
             public void ShouldSetTheDensityOfTheBitmapWhenBitmapDensityIsSetToUseAndFormatIsSet()
             {
                 using (IMagickImage image = new MagickImage(Color.Red, 1, 1))

@@ -148,6 +148,8 @@ namespace ImageMagick
         /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/>.</returns>
         public Bitmap ToBitmap(ImageFormat imageFormat, BitmapDensity bitmapDensity)
         {
+            Throw.IfNull(nameof(imageFormat), imageFormat);
+
             Format = MagickFormatInfo.GetFormat(imageFormat);
 
             MemoryStream memStream = new MemoryStream();
