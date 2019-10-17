@@ -5,8 +5,7 @@ contains the data of all the configuration files.
 
 ### Initialize with xml files
 
-The example below show how you can initialize ImageMagick with a directory that contains all the xml configuration files. This directory will need to contain all the xml files
-from the [xml folder](https://github.com/dlemstra/Magick.NET/tree/master/Source/Magick.NET.Native/Resources/xml).
+The example below show how you can initialize ImageMagick with a directory that contains all the xml configuration files. This directory will need to contain all the xml files. Those files can be found in the [bin folder](https://github.com/ImageMagick/VisualMagick/tree/master/bin) of [VisualMagick](https://github.com/ImageMagick/VisualMagick) combined with the files from the [xml folder](https://github.com/dlemstra/Magick.Native/tree/master/src/Magick.Native/Resources/xml) of [Magick.Native](https://github.com/dlemstra/Magick.Native/tree/master/src/Magick.Native/Resources/xml).
 
 ```C#
 using System;
