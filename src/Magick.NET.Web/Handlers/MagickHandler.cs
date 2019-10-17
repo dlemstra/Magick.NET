@@ -11,6 +11,7 @@
 // and limitations under the License.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
@@ -185,6 +186,7 @@ namespace ImageMagick.Web.Handlers
             return ImageData.FormatInfo.MimeType;
         }
 
+        [SuppressMessage("Security", "CA5351:Do Not Use Broken Cryptographic Algorithms", Justification = "Not used for encryption.")]
         private static string CalculateMD5(string value)
         {
             using (MD5 md5 = MD5.Create())
