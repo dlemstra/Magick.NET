@@ -50,9 +50,9 @@ namespace Magick.NET.Tests
 #if Q8
                     path += "Q8";
 #elif Q16
-            path += "Q16";
+                    path += "Q16";
 #elif Q16HDRI
-            path += "Q16-HDRI";
+                    path += "Q16-HDRI";
 #else
 #error Not implemented!
 #endif
