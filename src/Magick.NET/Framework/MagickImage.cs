@@ -181,6 +181,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="bitmapDensity">The bitmap density.</param>
         /// <returns>A <see cref="BitmapSource"/>.</returns>
+        [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "False positive.")]
         public BitmapSource ToBitmapSource(BitmapDensity bitmapDensity)
         {
             IMagickImage image = this;

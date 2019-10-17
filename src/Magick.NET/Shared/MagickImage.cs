@@ -4299,6 +4299,7 @@ namespace ImageMagick
         /// Sets an internal option to preserve the color type.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        [SuppressMessage("Usage", "CA2245:Do not assign a property to itself.", Justification = "False positive.")]
         public void PreserveColorType()
         {
             ColorType = ColorType;
