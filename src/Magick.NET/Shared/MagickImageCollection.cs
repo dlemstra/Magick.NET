@@ -598,6 +598,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="index">The index to insert the image.</param>
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The collection takes ownership of the image.")]
         public void Insert(int index, string fileName) => _images.Insert(index, new MagickImage(fileName));
 
         /// <summary>
