@@ -129,6 +129,14 @@ namespace ImageMagick
             }
         }
 
+        public override bool Equals(object obj)
+        {
+            if (!(obj is BigRational))
+                return false;
+
+            return Equals((BigRational)obj);
+        }
+
         public bool Equals(BigRational other)
         {
             if (Denominator == other.Denominator)
