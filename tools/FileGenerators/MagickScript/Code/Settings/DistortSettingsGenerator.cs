@@ -14,12 +14,6 @@ namespace FileGenerator.MagickScript
 {
     internal sealed class DistortSettingsGenerator : CreateObjectCodeGenerator
     {
-        public override string ClassName
-        {
-            get
-            {
-                return "DistortSettings";
-            }
-        }
+        public override string ClassName => "DistortSettings";
     }
 }

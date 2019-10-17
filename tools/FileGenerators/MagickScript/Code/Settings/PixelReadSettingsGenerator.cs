@@ -14,12 +14,6 @@ namespace FileGenerator.MagickScript
 {
     internal sealed class PixelReadSettingsGenerator : CreateObjectCodeGenerator
     {
-        public override string ClassName
-        {
-            get
-            {
-                return "PixelReadSettings";
-            }
-        }
+        public override string ClassName => "PixelReadSettings";
     }
 }

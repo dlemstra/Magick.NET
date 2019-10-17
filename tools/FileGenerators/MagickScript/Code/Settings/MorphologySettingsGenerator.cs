@@ -14,12 +14,6 @@ namespace FileGenerator.MagickScript
 {
     internal sealed class MorphologySettingsGenerator : CreateObjectCodeGenerator
     {
-        public override string ClassName
-        {
-            get
-            {
-                return "MorphologySettings";
-            }
-        }
+        public override string ClassName => "MorphologySettings";
     }
 }

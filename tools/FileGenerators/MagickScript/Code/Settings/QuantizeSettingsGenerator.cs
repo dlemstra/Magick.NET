@@ -14,12 +14,6 @@ namespace FileGenerator.MagickScript
 {
     internal sealed class QuantizeSettingsGenerator : CreateObjectCodeGenerator
     {
-        public override string ClassName
-        {
-            get
-            {
-                return "QuantizeSettings";
-            }
-        }
+        public override string ClassName => "QuantizeSettings";
     }
 }
