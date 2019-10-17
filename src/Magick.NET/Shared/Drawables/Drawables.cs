@@ -13,12 +13,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick
 {
     /// <summary>
     /// Class that can be used to chain draw actions.
     /// </summary>
+    [SuppressMessage("Naming", "CA1710", Justification = "No need to use Collection suffix.")]
     public sealed partial class Drawables : IEnumerable<IDrawable>
     {
         private readonly Collection<IDrawable> _drawables;
