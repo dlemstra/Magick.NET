@@ -136,5 +136,15 @@ namespace ImageMagick
         /// WebP
         /// </summary>
         WebP,
+
+        /// <summary>
+        /// DWAA
+        /// </summary>
+        DWAA,
+
+        /// <summary>
+        /// DWAB
+        /// </summary>
+        DWAB,
     }
 }
