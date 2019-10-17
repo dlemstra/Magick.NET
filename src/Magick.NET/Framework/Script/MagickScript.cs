@@ -25,13 +25,11 @@ namespace ImageMagick
     {
         private static XmlReaderSettings CreateXmlReaderSettings()
         {
-            XmlReaderSettings settings = new XmlReaderSettings()
-            {
-                ValidationType = ValidationType.Schema,
-                ValidationFlags = XmlSchemaValidationFlags.ReportValidationWarnings,
-                IgnoreComments = true,
-                IgnoreWhitespace = true,
-            };
+            var settings = XmlHelper.CreateReaderSettings();
+            settings.ValidationType = ValidationType.Schema;
+            settings.ValidationFlags = XmlSchemaValidationFlags.ReportValidationWarnings;
+            settings.IgnoreComments = true;
+            settings.IgnoreWhitespace = true;
 
             using (Stream resourceStream = TypeHelper.GetManifestResourceStream(typeof(MagickScript), "ImageMagick.Resources", "MagickScript.xsd"))
             {

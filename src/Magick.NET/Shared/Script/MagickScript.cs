@@ -13,7 +13,6 @@
 using System;
 using System.Collections;
 using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Xml;
@@ -386,7 +385,7 @@ namespace ImageMagick
 
             using (XmlReader xmlReader = XmlReader.Create(stream, _ReaderSettings))
             {
-                _script = new XmlDocument();
+                _script = XmlHelper.CreateDocument();
                 _script.Load(xmlReader);
             }
 

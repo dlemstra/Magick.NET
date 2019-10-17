@@ -16,7 +16,7 @@ using System.Xml;
 
 namespace ImageMagick
 {
-    internal static class XmlHelper
+    internal static partial class XmlHelper
     {
         public static XmlElement CreateElement(XmlNode node, string name)
         {

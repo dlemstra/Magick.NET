@@ -92,20 +92,20 @@ namespace ImageMagick
 
         private ClipPath CreateClipPath(string name, int offset, int length)
         {
-            string d = GetClipPath(offset, length);
+            var d = GetClipPath(offset, length);
             if (string.IsNullOrEmpty(d))
                 return null;
 
-            XmlDocument doc = new XmlDocument();
+            var doc = XmlHelper.CreateDocument();
             doc.CreateXmlDeclaration("1.0", "iso-8859-1", null);
 
-            XmlElement svg = XmlHelper.CreateElement(doc, "svg");
+            var svg = XmlHelper.CreateElement(doc, "svg");
             XmlHelper.SetAttribute(svg, "width", _width);
             XmlHelper.SetAttribute(svg, "height", _height);
 
-            XmlElement g = XmlHelper.CreateElement(svg, "g");
+            var g = XmlHelper.CreateElement(svg, "g");
 
-            XmlElement path = XmlHelper.CreateElement(g, "path");
+            var path = XmlHelper.CreateElement(g, "path");
             XmlHelper.SetAttribute(path, "fill", "#00000000");
             XmlHelper.SetAttribute(path, "stroke", "#00000000");
             XmlHelper.SetAttribute(path, "stroke-width", "0");

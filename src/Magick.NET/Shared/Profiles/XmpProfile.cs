@@ -124,10 +124,9 @@ namespace ImageMagick
         public XmlReader CreateReader()
         {
             var memStream = new MemoryStream(Data, 0, Data.Length);
-            var settings = new XmlReaderSettings
-            {
-                CloseInput = true,
-            };
+            var settings = XmlHelper.CreateReaderSettings();
+            settings.CloseInput = true;
+
             return XmlReader.Create(memStream, settings);
         }
 
@@ -139,10 +138,7 @@ namespace ImageMagick
         {
             using (var reader = CreateReader())
             {
-                var result = new XmlDocument();
-#if !NETSTANDARD1_3
-                result.XmlResolver = null;
-#endif
+                var result = XmlHelper.CreateDocument();
                 result.Load(reader);
                 return result.CreateNavigator();
             }

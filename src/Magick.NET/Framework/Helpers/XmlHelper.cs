@@ -10,21 +10,25 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if NETSTANDARD1_3
+#if !NETSTANDARD
 
 using System.Xml;
 
 namespace ImageMagick
 {
-    /// <content>
-    /// Contains code that is not compatible with .NET Framework.
-    /// </content>
-    public sealed partial class MagickScript
+    internal static partial class XmlHelper
     {
-        private static XmlReaderSettings CreateXmlReaderSettings() => new XmlReaderSettings()
+        public static XmlReaderSettings CreateReaderSettings() => new XmlReaderSettings()
         {
-            IgnoreComments = true,
-            IgnoreWhitespace = true,
+#if !NET20
+            DtdProcessing = DtdProcessing.Ignore,
+#endif
+            XmlResolver = null,
+        };
+
+        public static XmlDocument CreateDocument() => new XmlDocument()
+        {
+            XmlResolver = null,
         };
     }
 }
