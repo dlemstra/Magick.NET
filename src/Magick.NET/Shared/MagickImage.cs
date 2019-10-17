@@ -3738,6 +3738,7 @@ namespace ImageMagick
         /// <param name="settings">Quantize settings.</param>
         /// <returns>The error informaton.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The collection takes ownership of the images.")]
         public MagickErrorInfo Map(IEnumerable<MagickColor> colors, QuantizeSettings settings)
         {
             Throw.IfNull(nameof(colors), colors);

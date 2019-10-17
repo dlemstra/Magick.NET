@@ -13,6 +13,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace ImageMagick
@@ -403,6 +404,7 @@ namespace ImageMagick
         /// Creates a clone of the current image collection.
         /// </summary>
         /// <returns>A clone of the current image collection.</returns>
+        [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The collection takes ownership of the images.")]
         public IMagickImageCollection Clone()
         {
             IMagickImageCollection result = new MagickImageCollection();
