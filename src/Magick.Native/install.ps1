@@ -14,16 +14,18 @@ function installPackage($version, $target) {
     Remove-Item $target -Recurse -ErrorAction Ignore
     [void](New-Item -ItemType directory -Path $target)
 
-    $temp = "$PSScriptRoot\temp"
+    $temp = "$PSScriptRoot\packages"
     Remove-Item $temp -Recurse -ErrorAction Ignore
     [void](New-Item -ItemType directory -Path $temp)
 
     # Temporary download from DropBox
     $url = "https://dl.dropboxusercontent.com/s/vlsjsdwnk7va63t/Magick.Native.$version.nupkg"
     Invoke-WebRequest $url -Outfile "$temp\Magick.Native.$version.nupkg"
-    ..\..\tools\windows\nuget.exe install Magick.Native -Version $version -OutputDirectory "$temp\..\temp" -Source $temp
+    ..\..\tools\windows\nuget.exe install Magick.Native -Version $version -OutputDirectory "$target" -Source $temp
 
     #..\..\tools\windows\nuget.exe install Magick.Native -Version $version -OutputDirectory $temp
+
+    Remove-Item $temp -Recurse -ErrorAction Ignore
 }
 
 function copyToSamplesProject($source, $target, $quantum, $platform) {
