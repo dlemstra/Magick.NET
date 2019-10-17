@@ -13,7 +13,7 @@
 namespace ImageMagick
 {
     /// <summary>
-    /// Exif value that contains a <see cref="T:SignedRational[]"/>.
+    /// Exif value that contains a <see cref="SignedRational"/> array.
     /// </summary>
     public sealed class ExifSignedRationalArray : ExifArrayValue<SignedRational>
     {

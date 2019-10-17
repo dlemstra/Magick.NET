@@ -13,7 +13,7 @@
 namespace ImageMagick
 {
     /// <summary>
-    /// Exif value that contains a <see cref="T:float[]"/>.
+    /// Exif value that contains a <see cref="float"/> array.
     /// </summary>
     public sealed class ExifFloatArray : ExifArrayValue<float>
     {

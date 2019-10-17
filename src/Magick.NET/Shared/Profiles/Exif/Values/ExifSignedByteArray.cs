@@ -13,7 +13,7 @@
 namespace ImageMagick
 {
     /// <summary>
-    /// Exif value that contains a <see cref="T:sbyte[]"/>.
+    /// Exif value that contains a <see cref="sbyte"/> array.
     /// </summary>
     public sealed class ExifSignedByteArray : ExifArrayValue<sbyte>
     {

@@ -13,7 +13,7 @@
 namespace ImageMagick
 {
     /// <summary>
-    /// Exif value that contains a <see cref="T:ushort[]"/>.
+    /// Exif value that contains a <see cref="ushort"/> array.
     /// </summary>
     public sealed class ExifShortArray : ExifArrayValue<ushort>
     {

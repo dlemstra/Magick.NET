@@ -13,7 +13,7 @@
 namespace ImageMagick
 {
     /// <summary>
-    /// Exif value that contains a <see cref="T:uint[]"/>.
+    /// Exif value that contains a <see cref="uint"/> array.
     /// </summary>
     public sealed class ExifLongArray : ExifArrayValue<uint>
     {

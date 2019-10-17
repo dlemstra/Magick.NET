@@ -13,7 +13,7 @@
 namespace ImageMagick
 {
     /// <summary>
-    /// Exif value that contains a <see cref="T:double[]"/>.
+    /// Exif value that contains a <see cref="double"/> array.
     /// </summary>
     public sealed class ExifDoubleArray : ExifArrayValue<double>
     {
