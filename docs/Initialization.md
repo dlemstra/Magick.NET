@@ -54,7 +54,7 @@ namespace MagickExample
 }
 ```
 
-The method will return the temporary directory where the xml files were written to. You can control this location with extra an overload that allows you to specify the location.
+The method will return the temporary directory where the xml files were written to. This location can be controlled with extra an overload that allows you to specify the location.
 
 ```C#
     ConfigurationFiles configFiles = ConfigurationFiles.Default;
