@@ -40,7 +40,7 @@ namespace ImageMagick.ImageOptimizers
         /// </summary>
         /// <param name="file">The png file to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
-        public bool Compress(FileInfo file) => DoCompress(file, false);
+        public bool Compress([ValidatedNotNull] FileInfo file) => DoCompress(file, false);
 
         /// <summary>
         /// Performs compression on the specified file. With some formats the image will be decoded

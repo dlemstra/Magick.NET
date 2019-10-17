@@ -87,7 +87,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="stream">The stream of the image to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
-        public bool Compress(Stream stream)
+        public bool Compress([ValidatedNotNull] Stream stream)
         {
             ImageOptimizerHelper.CheckStream(stream);
 
@@ -181,7 +181,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="stream">The stream of the image to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
-        public bool LosslessCompress(Stream stream)
+        public bool LosslessCompress([ValidatedNotNull] Stream stream)
         {
             ImageOptimizerHelper.CheckStream(stream);
 

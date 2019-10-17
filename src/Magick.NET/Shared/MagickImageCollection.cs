@@ -315,7 +315,7 @@ namespace ImageMagick
         /// <param name="stream">The stream to read the images from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void AddRange(Stream stream, MagickReadSettings readSettings) => AddImages(stream, readSettings, false);
+        public void AddRange([ValidatedNotNull] Stream stream, MagickReadSettings readSettings) => AddImages(stream, readSettings, false);
 
         /// <summary>
         /// Creates a single image, by appending all the images in the collection horizontally (+append).
@@ -874,7 +874,7 @@ namespace ImageMagick
         /// <param name="stream">The stream to read the image data from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Ping(Stream stream, MagickReadSettings readSettings)
+        public void Ping([ValidatedNotNull] Stream stream, MagickReadSettings readSettings)
         {
             Clear();
             AddImages(stream, readSettings, true);
@@ -1076,7 +1076,7 @@ namespace ImageMagick
         /// <param name="stream">The stream to read the image data from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Read(Stream stream, MagickReadSettings readSettings)
+        public void Read([ValidatedNotNull] Stream stream, MagickReadSettings readSettings)
         {
             Clear();
             AddImages(stream, readSettings, false);

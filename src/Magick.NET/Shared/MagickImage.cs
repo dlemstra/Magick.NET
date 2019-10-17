@@ -4232,7 +4232,7 @@ namespace ImageMagick
         /// <param name="stream">The stream to read the image data from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Ping(Stream stream, MagickReadSettings readSettings) => Read(stream, readSettings, true);
+        public void Ping([ValidatedNotNull] Stream stream, MagickReadSettings readSettings) => Read(stream, readSettings, true);
 
         /// <summary>
         /// Reads only metadata and not the pixel data.
@@ -4557,10 +4557,7 @@ namespace ImageMagick
         /// <param name="stream">The stream to read the image data from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Read(Stream stream, MagickReadSettings readSettings)
-        {
-            Read(stream, readSettings, false);
-        }
+        public void Read([ValidatedNotNull] Stream stream, MagickReadSettings readSettings) => Read(stream, readSettings, false);
 
         /// <summary>
         /// Read single image frame.
