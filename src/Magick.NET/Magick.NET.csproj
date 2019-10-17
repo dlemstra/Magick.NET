@@ -59,7 +59,6 @@
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <TreatWarningsAsErrors Condition="'$(OS)' == 'Windows_NT'">true</TreatWarningsAsErrors>
-    <CodeAnalysisTreatWarningsAsErrors Condition="'$(OS)' == 'Windows_NT'">true</CodeAnalysisTreatWarningsAsErrors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
