@@ -20,7 +20,6 @@ namespace ImageMagick
     /// </summary>
     public abstract class MagickException : Exception
     {
-        [NonSerialized]
         private List<MagickException> _relatedExceptions;
 
         /// <summary>
