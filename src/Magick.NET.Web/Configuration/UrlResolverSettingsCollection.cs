@@ -38,6 +38,9 @@ namespace ImageMagick.Web
         /// <returns>The element key for a specified <see cref="UrlResolverSettings"/> element.</returns>
         protected override object GetElementKey(ConfigurationElement element)
         {
+            if (element == null)
+                return null;
+
             return ((UrlResolverSettings)element).TypeName;
         }
     }
