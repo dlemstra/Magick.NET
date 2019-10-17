@@ -84,6 +84,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the data of this profile.
         /// </summary>
+        [SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "The property needs to be an array.")]
         protected byte[] Data { get; set; }
 
         /// <summary>
