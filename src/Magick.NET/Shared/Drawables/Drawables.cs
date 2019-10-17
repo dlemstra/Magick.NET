@@ -38,7 +38,7 @@ namespace ImageMagick
         /// <returns>The current instance.</returns>
         public Drawables Draw(IMagickImage image)
         {
-            Throw.IfNull("image", image);
+            Throw.IfNull(nameof(image), image);
 
             image.Draw(this);
             return this;
