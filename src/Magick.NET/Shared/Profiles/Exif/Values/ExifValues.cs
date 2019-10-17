@@ -33,7 +33,6 @@ namespace ImageMagick
             return result;
         }
 
-        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Cannot avoid it here.")]
         internal static IExifValue Create(ExifTag tag)
         {
             Throw.IfTrue(nameof(tag), tag == ExifTag.Unknown, "Invalid Tag");

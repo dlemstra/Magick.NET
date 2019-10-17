@@ -28,7 +28,6 @@ namespace ImageMagick
     /// <summary>
     /// Class that can be used to execute a Magick Script Language file.
     /// </summary>
-    [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Cannot avoid it here.")]
     public sealed partial class MagickScript
     {
         private static readonly XmlReaderSettings _ReaderSettings = CreateXmlReaderSettings();

@@ -75,8 +75,6 @@ namespace ImageMagick
             return result;
         }
 
-        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Cannot avoid it here.")]
-        [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Cannot avoid it here.")]
         private static MagickException Create(ExceptionSeverity severity, string message)
         {
             switch (severity)

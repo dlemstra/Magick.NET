@@ -25,7 +25,7 @@ namespace ImageMagick
         /// Initializes a new instance of the <see cref="DrawableFillPatternUrl"/> class.
         /// </summary>
         /// <param name="url">Url specifying pattern ID (e.g. "#pattern_id").</param>
-        [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#", Justification = "Url won't work in all situations.")]
+        [SuppressMessage("Design", "CA1054:Uri parameters should not be strings", Justification = "Uri won't work in all situations.")]
         public DrawableFillPatternUrl(string url)
         {
             Url = url;
@@ -34,7 +34,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the url specifying pattern ID (e.g. "#pattern_id").
         /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Url won't work in all situations.")]
+        [SuppressMessage("Design", "CA1056:Uri properties should not be strings", Justification = "Uri won't work in all situations.")]
         public string Url { get; set; }
 
         /// <summary>

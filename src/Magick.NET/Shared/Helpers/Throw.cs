@@ -24,13 +24,13 @@ namespace ImageMagick
                 throw new ArgumentException(FormatMessage(message, args), paramName);
         }
 
-        public static void IfNull(string paramName, object value)
+        public static void IfNull(string paramName, [ValidatedNotNull] object value)
         {
             if (value is null)
                 throw new ArgumentNullException(paramName);
         }
 
-        public static void IfNull(string paramName, object value, string message, params object[] args)
+        public static void IfNull(string paramName, [ValidatedNotNull] object value, string message, params object[] args)
         {
             if (value == null)
                 throw new ArgumentNullException(paramName, FormatMessage(message, args));

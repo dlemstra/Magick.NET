@@ -84,7 +84,6 @@ namespace ImageMagick.Configuration
         /// <summary>
         /// Gets the type configuration.
         /// </summary>
-        [SuppressMessage("Microsoft.Naming", "CA1721:Property names should not match get methods", Justification = "The property should have the same name as the xml file.")]
         public IConfigurationFile Type { get; }
 
         /// <summary>

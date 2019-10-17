@@ -30,7 +30,6 @@ namespace ImageMagick
     /// <summary>
     /// Interface that represents an ImageMagick image.
     /// </summary>
-    [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Cannot avoid it here.")]
     public partial interface IMagickImage : IEquatable<IMagickImage>, IComparable<IMagickImage>, IDisposable
     {
         /// <summary>
@@ -1887,7 +1886,6 @@ namespace ImageMagick
         /// <param name="ignoreNewlines">Specifies if newlines should be ignored.</param>
         /// <returns>The font metrics for text.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "Newlines", Justification = "The casing is correct.")]
         TypeMetric FontTypeMetrics(string text, bool ignoreNewlines);
 
         /// <summary>
@@ -1981,7 +1979,6 @@ namespace ImageMagick
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         /// <returns>The 8bim profile from the image.</returns>
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Should be a method.")]
         EightBimProfile Get8BimProfile();
 
         /// <summary>
@@ -2020,7 +2017,6 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The color profile from the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Should be a method.")]
         ColorProfile GetColorProfile();
 
         /// <summary>
@@ -2035,7 +2031,6 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The exif profile from the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Should be a method.")]
         ExifProfile GetExifProfile();
 
         /// <summary>
@@ -2043,7 +2038,6 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The iptc profile from the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Should be a method.")]
         IptcProfile GetIptcProfile();
 
         /// <summary>
@@ -2051,7 +2045,6 @@ namespace ImageMagick
         /// </summary>
         /// <returns>A pixel collection that can be used to read or modify the pixels of this image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Should be a method.")]
         IPixelCollection GetPixels();
 
         /// <summary>
@@ -2060,7 +2053,6 @@ namespace ImageMagick
         /// </summary>
         /// <returns>A pixel collection that can be used to read or modify the pixels of this image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Should be a method.")]
         IPixelCollection GetPixelsUnsafe();
 
         /// <summary>
@@ -2076,7 +2068,6 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The associated read mask of the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Should be a method.")]
         IMagickImage GetReadMask();
 
         /// <summary>
@@ -2084,7 +2075,6 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The associated write mask of the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Should be a method.")]
         IMagickImage GetWriteMask();
 
         /// <summary>
@@ -2092,7 +2082,6 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The xmp profile from the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Should be a method.")]
         XmpProfile GetXmpProfile();
 
         /// <summary>
@@ -3049,7 +3038,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="size">The size of the edges.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        [SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate", Justification = "This is not an event.")]
+        [SuppressMessage("Design", "CA1030:Use events where appropriate", Justification = "This is not an event.")]
         void Raise(int size);
 
         /// <summary>

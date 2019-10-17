@@ -28,7 +28,6 @@ namespace ImageMagick.Web.Handlers
         }
 
         /// <inheritdoc/>
-        [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "Context will not be null.")]
         protected override string GetFileName(HttpContext context)
         {
             DebugThrow.IfNull(nameof(context), context);

@@ -11,7 +11,6 @@
 // and limitations under the License.
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick
 {
@@ -19,7 +18,6 @@ namespace ImageMagick
     /// Specifies channel types.
     /// </summary>
     [Flags]
-    [SuppressMessage("Microsoft.Naming", "CA1724:TypeNamesShouldNotMatchNamespaces", Justification = "No real collision.")]
     public enum Channels
     {
         /// <summary>

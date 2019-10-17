@@ -124,7 +124,6 @@ namespace ImageMagick
 
         public void PathFinish() => _nativeInstance.PathFinish();
 
-        [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "Using assert instead.")]
         public void PathLineToAbs(IEnumerable<PointD> coordinates)
         {
             DebugThrow.IfNull(nameof(coordinates), coordinates);
@@ -143,7 +142,6 @@ namespace ImageMagick
 
         public void PathLineToVerticalAbs(double y) => _nativeInstance.PathLineToVerticalAbs(y);
 
-        [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "Using assert instead.")]
         public void PathLineToRel(IEnumerable<PointD> coordinates)
         {
             DebugThrow.IfNull(nameof(coordinates), coordinates);

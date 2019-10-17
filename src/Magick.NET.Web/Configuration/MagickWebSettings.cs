@@ -12,7 +12,6 @@
 
 using System;
 using System.Configuration;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Web.Hosting;
 
@@ -163,7 +162,6 @@ namespace ImageMagick.Web
             }
         }
 
-        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "magick", Justification = "This is the correct spelling.")]
         internal static MagickWebSettings CreateInstance(ISectionLoader sectionLoader)
         {
             MagickWebSettings section = sectionLoader.GetSection("magick.net.web");

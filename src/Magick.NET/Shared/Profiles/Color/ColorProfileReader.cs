@@ -40,7 +40,6 @@ namespace ImageMagick
             ReadTagTable();
         }
 
-        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Cannot avoid it here.")]
         private static ColorSpace DetermineColorSpace(string colorSpace)
         {
             switch (colorSpace)

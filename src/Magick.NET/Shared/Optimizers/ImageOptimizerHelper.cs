@@ -32,7 +32,7 @@ namespace ImageMagick
             Throw.IfFalse(nameof(stream), stream.CanSeek, "The stream should be seekable.");
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Not sure which exception will be thrown.")]
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Not sure which exception will be thrown.")]
         public static MagickFormatInfo GetFormatInformation(FileInfo file)
         {
             var info = MagickNET.GetFormatInformation(file);
@@ -60,7 +60,7 @@ namespace ImageMagick
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Not sure which exception will be thrown.")]
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Not sure which exception will be thrown.")]
         public static MagickFormatInfo GetFormatInformation(string fileName)
         {
             var info = MagickNET.GetFormatInformation(fileName);
@@ -88,7 +88,7 @@ namespace ImageMagick
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Not sure which exception will be thrown.")]
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Not sure which exception will be thrown.")]
         public static MagickFormatInfo GetFormatInformation(Stream stream)
         {
             var startPosition = stream.Position;

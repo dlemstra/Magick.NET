@@ -16,7 +16,6 @@ namespace ImageMagick
 {
     internal static class ExifTags
     {
-        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Cannot avoid it here.")]
         public static ExifParts GetPart(ExifTag tag)
         {
             switch (tag)

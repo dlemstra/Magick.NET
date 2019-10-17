@@ -10,14 +10,11 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System.Diagnostics.CodeAnalysis;
-
 namespace ImageMagick
 {
     /// <summary>
     /// Interface for defines that are used when reading an image.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces", Justification = "This is a marker interface.")]
     public interface IReadDefines : IDefines
     {
     }

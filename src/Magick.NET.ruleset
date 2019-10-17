@@ -1,11 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RuleSet Name="Magick.NET" ToolsVersion="14.0">
-  <Include Path="extendedcorrectnessrules.ruleset" Action="Default" />
-  <Include Path="extendeddesignguidelinerules.ruleset" Action="Default" />
-  <Include Path="globalizationrules.ruleset" Action="Default" />
-  <Include Path="minimumrecommendedrules.ruleset" Action="Default" />
-  <Include Path="mixedrecommendedrules.ruleset" Action="Default" />
-  <Include Path="nativerecommendedrules.ruleset" Action="Default" />
   <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
     <Rule Id="CA1011" Action="None" />
     <Rule Id="CA1023" Action="None" />

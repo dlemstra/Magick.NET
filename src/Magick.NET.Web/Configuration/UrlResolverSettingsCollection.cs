@@ -19,7 +19,7 @@ namespace ImageMagick.Web
     /// Class that contains the settings for the url resolvers.
     /// </summary>
     [ConfigurationCollection(typeof(UrlResolverSettings), AddItemName = "urlResolver")]
-    [SuppressMessage("Microsoft.Design", "CA1010:CollectionsShouldImplementGenericInterface", Justification = "The interface will not used.")]
+    [SuppressMessage("Design", "CA1010:Collections should implement generic interface", Justification = "The interface will not used.")]
     public class UrlResolverSettingsCollection : ConfigurationElementCollection
     {
         /// <summary>

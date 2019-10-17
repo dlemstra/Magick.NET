@@ -25,9 +25,10 @@ namespace ImageMagick
         private readonly byte* _bufferStart;
         private readonly long _streamStart;
         private readonly GCHandle _handle;
+        [SuppressMessage("Code Quality", "CA2213:Disposable fields should be disposed", Justification = "Class does not own the stream.")]
         private Stream _stream;
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Not sure which exception will be thrown.")]
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Not sure which exception will be thrown.")]
         private StreamWrapper(Stream stream)
         {
             _stream = stream;
@@ -68,7 +69,7 @@ namespace ImageMagick
             _stream = null;
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Exceptions will result in a memory leak.")]
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Exceptions will result in a memory leak.")]
         public int Read(IntPtr data, UIntPtr count, IntPtr user_data)
         {
             int total = (int)count;
@@ -107,7 +108,7 @@ namespace ImageMagick
             return bytesRead;
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Exceptions will result in a memory leak.")]
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Exceptions will result in a memory leak.")]
         public long Seek(long offset, IntPtr whence, IntPtr user_data)
         {
             try
@@ -130,7 +131,7 @@ namespace ImageMagick
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Exceptions will result in a memory leak.")]
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Exceptions will result in a memory leak.")]
         public long Tell(IntPtr user_data)
         {
             try
@@ -143,7 +144,7 @@ namespace ImageMagick
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Exceptions will result in a memory leak.")]
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Exceptions will result in a memory leak.")]
         public int Write(IntPtr data, UIntPtr count, IntPtr user_data)
         {
             int total = (int)count;

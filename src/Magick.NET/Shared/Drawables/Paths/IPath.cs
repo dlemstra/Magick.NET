@@ -17,7 +17,7 @@ namespace ImageMagick
     /// <summary>
     /// Marker interface for paths.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces", Justification = "This is a marker interface.")]
+    [SuppressMessage("Design", "CA1040:Avoid empty interfaces", Justification = "This is a marker interface.")]
     public interface IPath
     {
     }

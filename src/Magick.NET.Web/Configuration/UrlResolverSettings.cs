@@ -60,8 +60,6 @@ namespace ImageMagick.Web
             _constructor = (IUrlResolverConstructor)Expression.Lambda(typeof(IUrlResolverConstructor), newExp).Compile();
         }
 
-        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "IFileUrlResolver", Justification = "This is the correct spelling.")]
-        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "IStreamUrlResolver", Justification = "This is the correct spelling.")]
         private void CheckType(Type type)
         {
             if (typeof(IFileUrlResolver).IsAssignableFrom(type))

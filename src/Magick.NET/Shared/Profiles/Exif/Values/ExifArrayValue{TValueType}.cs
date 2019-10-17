@@ -45,7 +45,6 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays", Justification = "The property needs to be an array.")]
         public TValueType[] Value { get; set; }
 
         /// <summary>

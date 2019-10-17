@@ -32,7 +32,6 @@ namespace ImageMagick
     /// <summary>
     /// Class that represents an ImageMagick image.
     /// </summary>
-    [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Cannot avoid it here.")]
     public sealed partial class MagickImage : IMagickImage, INativeInstance
     {
         private ProgressDelegate _nativeProgress;
@@ -2989,7 +2988,6 @@ namespace ImageMagick
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         /// <returns>The 8bim profile from the image.</returns>
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Cannot be modified directly.")]
         public EightBimProfile Get8BimProfile()
         {
             StringInfo info = _nativeInstance.GetProfile("8bim");
@@ -6168,7 +6166,6 @@ namespace ImageMagick
 
         internal void SetNext(IMagickImage image) => _nativeInstance.SetNext(image.GetInstance());
 
-        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "ReadSettings", Justification = "This is the correct spelling.")]
         private static int GetExpectedLength(PixelReadSettings settings)
         {
             Throw.IfTrue(nameof(settings), settings.ReadSettings.Width == null, "ReadSettings.Width should be defined");

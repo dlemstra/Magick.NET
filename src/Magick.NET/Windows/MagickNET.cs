@@ -36,7 +36,6 @@ namespace ImageMagick
 
         private static class NativeWindowsMethods
         {
-            [SuppressMessage("Microsoft.Design", "CA1060:MovePInvokesToNativeMethodsClass", Target = "NativeWindowsMethods", Justification = "This method should not be in the same class as the rest of the NativeMethods.")]
             [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
             [return: MarshalAs(UnmanagedType.Bool)]
             public static extern bool SetDllDirectory(string lpPathName);
