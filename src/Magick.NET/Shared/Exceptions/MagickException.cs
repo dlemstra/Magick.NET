@@ -18,7 +18,6 @@ namespace ImageMagick
     /// <summary>
     /// Encapsulation of the ImageMagick exception object.
     /// </summary>
-    [Serializable]
     public abstract class MagickException : Exception
     {
         [NonSerialized]

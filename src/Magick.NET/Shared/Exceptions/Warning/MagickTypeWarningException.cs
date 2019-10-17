@@ -10,14 +10,11 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
-
 namespace ImageMagick
 {
     /// <summary>
     /// Encapsulation of the ImageMagick TypeWarning exception.
     /// </summary>
-    [Serializable]
     public sealed class MagickTypeWarningException : MagickWarningException
     {
         /// <summary>
