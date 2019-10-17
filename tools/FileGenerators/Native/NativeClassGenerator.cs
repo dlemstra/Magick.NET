@@ -115,7 +115,6 @@ namespace FileGenerator.Native
         private void WriteNativeMethodsStaticConstructor()
         {
             WriteLine("#if PLATFORM_AnyCPU");
-            WriteLine(@"[SuppressMessage(""Microsoft.Performance"", ""CA1810: InitializeReferenceTypeStaticFieldsInline"", Scope = ""member"", Target = ""ImageMagick." + Class.ClassName + @"+NativeMethods." + _Platform + @"#.cctor()"")]");
             WriteLine("static " + _Platform + "() { NativeLibraryLoader.Load(); }");
             WriteLine("#endif");
         }

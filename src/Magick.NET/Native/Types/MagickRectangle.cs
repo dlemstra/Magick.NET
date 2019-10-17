@@ -39,7 +39,6 @@ namespace ImageMagick
             public static class X64
             {
                 #if PLATFORM_AnyCPU
-                [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickRectangle+NativeMethods.X64#.cctor()")]
                 static X64() { NativeLibraryLoader.Load(); }
                 #endif
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -68,7 +67,6 @@ namespace ImageMagick
             public static class X86
             {
                 #if PLATFORM_AnyCPU
-                [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickRectangle+NativeMethods.X86#.cctor()")]
                 static X86() { NativeLibraryLoader.Load(); }
                 #endif
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]

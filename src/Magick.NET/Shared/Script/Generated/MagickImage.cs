@@ -15,7 +15,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Xml;
 
@@ -33,8 +32,6 @@ namespace ImageMagick
 {
     public sealed partial class MagickScript
     {
-        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
-        [SuppressMessage("Microsoft.Maintainability", "CA1505:AvoidUnmaintainableCode")]
         private void ExecuteImage(XmlElement element, IMagickImage image)
         {
             switch(element.Name[0])
@@ -2141,7 +2138,6 @@ namespace ImageMagick
             else
                 throw new ArgumentException("Invalid argument combination for 'colorize', allowed combinations are: [color, alpha] [color, alphaRed, alphaGreen, alphaBlue]");
         }
-        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
         private void ExecuteComposite(XmlElement element, IMagickImage image)
         {
             Hashtable arguments = new Hashtable();

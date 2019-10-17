@@ -67,8 +67,6 @@ namespace FileGenerator.MagickScript
 
         private void WriteExecute()
         {
-            WriteLine("[SuppressMessage(\"Microsoft.Maintainability\", \"CA1502:AvoidExcessiveComplexity\")]");
-            WriteLine("[SuppressMessage(\"Microsoft.Maintainability\", \"CA1505:AvoidUnmaintainableCode\")]");
             Write("private ");
             Write(ReturnType);
             Write(" Execute");
@@ -91,9 +89,6 @@ namespace FileGenerator.MagickScript
         private void WriteExecute(MethodBase[] methods)
         {
             var name = GetName(methods[0]);
-
-            if (name == "Composite")
-                WriteLine("[SuppressMessage(\"Microsoft.Maintainability\", \"CA1502:AvoidExcessiveComplexity\")]");
 
             Write("private ");
             if (IsStatic(methods))

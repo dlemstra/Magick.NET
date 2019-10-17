@@ -15,7 +15,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Xml;
 
@@ -33,8 +32,6 @@ namespace ImageMagick
 {
     public sealed partial class MagickScript
     {
-        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
-        [SuppressMessage("Microsoft.Maintainability", "CA1505:AvoidUnmaintainableCode")]
         private void ExecuteMagickSettings(XmlElement element, MagickSettings settings)
         {
             switch(element.Name[0])

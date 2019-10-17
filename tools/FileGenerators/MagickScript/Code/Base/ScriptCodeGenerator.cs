@@ -451,7 +451,6 @@ namespace FileGenerator.MagickScript
             WriteLine("using System.Collections;");
             WriteLine("using System.Collections.Generic;");
             WriteLine("using System.Collections.ObjectModel;");
-            WriteLine("using System.Diagnostics.CodeAnalysis;");
             WriteLine("using System.Text;");
             WriteLine("using System.Xml;");
             WriteQuantumType();
