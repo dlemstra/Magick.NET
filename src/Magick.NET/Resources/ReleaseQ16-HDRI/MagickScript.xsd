@@ -312,6 +312,8 @@
           <xs:enumeration value="B44" />
           <xs:enumeration value="B44A" />
           <xs:enumeration value="BZip" />
+          <xs:enumeration value="DWAA" />
+          <xs:enumeration value="DWAB" />
           <xs:enumeration value="DXT1" />
           <xs:enumeration value="DXT3" />
           <xs:enumeration value="DXT5" />
@@ -2404,7 +2406,10 @@
         </xs:element>
         <xs:element name="deskew">
           <xs:complexType>
-            <xs:attribute name="threshold" use="required" type="double" />
+            <xs:sequence>
+              <xs:element name="settings" minOccurs="0" type="deskewSettings" />
+            </xs:sequence>
+            <xs:attribute name="threshold" type="double" />
           </xs:complexType>
         </xs:element>
         <xs:element name="despeckle" type="empty" />

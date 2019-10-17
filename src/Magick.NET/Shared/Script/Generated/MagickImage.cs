@@ -2348,8 +2348,21 @@ namespace ImageMagick
         }
         private void ExecuteDeskew(XmlElement element, IMagickImage image)
         {
-            Percentage threshold_ = GetValue<Percentage>(element, "threshold");
-            image.Deskew(threshold_);
+            Hashtable arguments = new Hashtable();
+            foreach (XmlAttribute attribute in element.Attributes)
+            {
+                arguments[attribute.Name] = GetValue<Percentage>(attribute);
+            }
+            foreach (XmlElement elem in element.SelectNodes("*"))
+            {
+                arguments[elem.Name] = CreateDeskewSettings(elem);
+            }
+            if (OnlyContains(arguments, "settings"))
+                image.Deskew((DeskewSettings)arguments["settings"]);
+            else if (OnlyContains(arguments, "threshold"))
+                image.Deskew((Percentage)arguments["threshold"]);
+            else
+                throw new ArgumentException("Invalid argument combination for 'deskew', allowed combinations are: [settings] [threshold]");
         }
         private static void ExecuteDespeckle(IMagickImage image)
         {

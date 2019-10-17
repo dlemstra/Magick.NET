@@ -27,7 +27,7 @@ namespace FileGenerator.MagickScript
 
         private static readonly string[] _IgnoredReturnTypes = new string[]
         {
-            "MagickErrorInfo", "Boolean"
+            "MagickErrorInfo", "Boolean", "Double"
         };
 
         private static bool CanIgnoreResult(MethodInfo method)
@@ -131,6 +131,7 @@ namespace FileGenerator.MagickScript
                 case "UInt16":
                     return "short";
                 case "ColorProfile":
+                case "DeskewSettings":
                 case "DistortSettings":
                 case "Double[]":
                 case "Drawable":
@@ -293,6 +294,7 @@ namespace FileGenerator.MagickScript
                 case "Encoding":
                 case "ColorProfile":
                 case "Density":
+                case "DeskewSettings":
                 case "DistortSettings":
                 case "Double":
                 case "Double[]":

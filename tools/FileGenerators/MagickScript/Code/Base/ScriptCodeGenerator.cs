@@ -259,6 +259,9 @@ namespace FileGenerator.MagickScript
                 case "ColorProfile":
                     Write("CreateColorProfile");
                     break;
+                case "DeskewSettings":
+                    Write("CreateDeskewSettings");
+                    break;
                 case "DistortSettings":
                     Write("CreateDistortSettings");
                     break;
