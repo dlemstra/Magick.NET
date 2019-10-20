@@ -177,7 +177,8 @@ namespace ImageMagick.ImageOptimizers
         {
             bool isCompressed = false;
 
-            using (var images = new MagickImageCollection(file, new MagickReadSettings() { Format = MagickFormat.Ico }))
+            var settings = new MagickReadSettings() { Format = MagickFormat.Ico };
+            using (var images = new MagickImageCollection(file, settings))
             {
                 foreach (var image in images)
                 {
