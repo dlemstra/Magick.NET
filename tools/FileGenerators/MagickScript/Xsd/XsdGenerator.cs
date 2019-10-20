@@ -424,6 +424,7 @@ namespace FileGenerator.MagickScript
                     case "magickSettings":
                         ReplaceMagickSettings(annotation);
                         break;
+                    case "deskewSettings":
                     case "distortSettings":
                     case "montageSettings":
                     case "morphologySettings":

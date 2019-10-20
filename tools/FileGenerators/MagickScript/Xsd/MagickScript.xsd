@@ -63,6 +63,10 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:complexType name="deskewSettings">
+    <xs:annotation id="deskewSettings"/>
+  </xs:complexType>
+
   <xs:complexType name="distortSettings">
     <xs:annotation id="distortSettings"/>
   </xs:complexType>
