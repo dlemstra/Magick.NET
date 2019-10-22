@@ -4050,6 +4050,14 @@ namespace ImageMagick
         void Threshold(Percentage percentage);
 
         /// <summary>
+        /// Threshold image.
+        /// </summary>
+        /// <param name="percentage">The threshold percentage.</param>
+        /// <param name="channels">The channel(s) that should be thresholded.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Threshold(Percentage percentage, Channels channels);
+
+        /// <summary>
         /// Resize image to thumbnail size.
         /// <para />
         /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
