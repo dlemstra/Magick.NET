@@ -2142,13 +2142,13 @@ namespace Magick.NET.Tests
                 image.Posterize(5);
 
 #if Q8
-                ColorAssert.AreEqual(new MagickColor("#3f7fbf"), image, 300, 150);
-                ColorAssert.AreEqual(new MagickColor("#3f3f7f"), image, 495, 270);
-                ColorAssert.AreEqual(new MagickColor("#3f3f3f"), image, 445, 255);
+                ColorAssert.AreEqual(new MagickColor("#4080bf"), image, 300, 150);
+                ColorAssert.AreEqual(new MagickColor("#404080"), image, 495, 270);
+                ColorAssert.AreEqual(new MagickColor("#404040"), image, 445, 255);
 #elif Q16 || Q16HDRI
-                ColorAssert.AreEqual(new MagickColor("#3fff7fffbfff"), image, 300, 150);
-                ColorAssert.AreEqual(new MagickColor("#3fff3fff7fff"), image, 495, 270);
-                ColorAssert.AreEqual(new MagickColor("#3fff3fff3fff"), image, 445, 255);
+                ColorAssert.AreEqual(new MagickColor("#40008000bfff"), image, 300, 150);
+                ColorAssert.AreEqual(new MagickColor("#400040008000"), image, 495, 270);
+                ColorAssert.AreEqual(new MagickColor("#400040004000"), image, 445, 255);
 #else
 #error Not implemented!
 #endif

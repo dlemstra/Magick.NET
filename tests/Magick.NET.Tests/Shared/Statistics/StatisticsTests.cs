@@ -55,7 +55,7 @@ namespace Magick.NET.Tests
 
             Assert.IsNotNull(red);
 #if Q8
-            Assert.AreEqual(7, red.Depth);
+            Assert.AreEqual(8, red.Depth);
             Assert.AreEqual(0.98, red.Entropy, 0.01);
             Assert.AreEqual(-1.89, red.Kurtosis, 0.01);
             Assert.AreEqual(2, red.Maximum);
