@@ -25,13 +25,13 @@ namespace Magick.NET.Tests
             {
                 var expected = "Cipher DPC ";
 #if Q16HDRI
-            expected += "HDRI ";
+                expected += "HDRI ";
 #endif
 #if WINDOWS_BUILD
                 expected += "OpenCL ";
 #endif
 #if OPENMP
-            expected += "OpenMP(2.0) ";
+                expected += "OpenMP(2.0) ";
 #endif
 #if DEBUG_TEST
                 expected = "Debug " + expected;
