@@ -1765,6 +1765,8 @@ namespace ImageMagick
                     arguments["bias"] = GetValue<double>(attribute);
                 else if (attribute.Name == "biasPercentage")
                     arguments["biasPercentage"] = GetValue<Percentage>(attribute);
+                else if (attribute.Name == "channels")
+                    arguments["channels"] = GetValue<Channels>(attribute);
                 else if (attribute.Name == "height")
                     arguments["height"] = GetValue<Int32>(attribute);
                 else if (attribute.Name == "width")
@@ -1774,10 +1776,16 @@ namespace ImageMagick
                 image.AdaptiveThreshold((Int32)arguments["width"], (Int32)arguments["height"]);
             else if (OnlyContains(arguments, "width", "height", "bias"))
                 image.AdaptiveThreshold((Int32)arguments["width"], (Int32)arguments["height"], (double)arguments["bias"]);
+            else if (OnlyContains(arguments, "width", "height", "bias", "channels"))
+                image.AdaptiveThreshold((Int32)arguments["width"], (Int32)arguments["height"], (double)arguments["bias"], (Channels)arguments["channels"]);
             else if (OnlyContains(arguments, "width", "height", "biasPercentage"))
                 image.AdaptiveThreshold((Int32)arguments["width"], (Int32)arguments["height"], (Percentage)arguments["biasPercentage"]);
+            else if (OnlyContains(arguments, "width", "height", "biasPercentage", "channels"))
+                image.AdaptiveThreshold((Int32)arguments["width"], (Int32)arguments["height"], (Percentage)arguments["biasPercentage"], (Channels)arguments["channels"]);
+            else if (OnlyContains(arguments, "width", "height", "channels"))
+                image.AdaptiveThreshold((Int32)arguments["width"], (Int32)arguments["height"], (Channels)arguments["channels"]);
             else
-                throw new ArgumentException("Invalid argument combination for 'adaptiveThreshold', allowed combinations are: [width, height] [width, height, bias] [width, height, biasPercentage]");
+                throw new ArgumentException("Invalid argument combination for 'adaptiveThreshold', allowed combinations are: [width, height] [width, height, bias] [width, height, bias, channels] [width, height, biasPercentage] [width, height, biasPercentage, channels] [width, height, channels]");
         }
         private void ExecuteAddNoise(XmlElement element, IMagickImage image)
         {
@@ -3773,8 +3781,20 @@ namespace ImageMagick
         }
         private void ExecuteThreshold(XmlElement element, IMagickImage image)
         {
-            Percentage percentage_ = GetValue<Percentage>(element, "percentage");
-            image.Threshold(percentage_);
+            Hashtable arguments = new Hashtable();
+            foreach (XmlAttribute attribute in element.Attributes)
+            {
+                if (attribute.Name == "channels")
+                    arguments["channels"] = GetValue<Channels>(attribute);
+                else if (attribute.Name == "percentage")
+                    arguments["percentage"] = GetValue<Percentage>(attribute);
+            }
+            if (OnlyContains(arguments, "percentage"))
+                image.Threshold((Percentage)arguments["percentage"]);
+            else if (OnlyContains(arguments, "percentage", "channels"))
+                image.Threshold((Percentage)arguments["percentage"], (Channels)arguments["channels"]);
+            else
+                throw new ArgumentException("Invalid argument combination for 'threshold', allowed combinations are: [percentage] [percentage, channels]");
         }
         private void ExecuteThumbnail(XmlElement element, IMagickImage image)
         {

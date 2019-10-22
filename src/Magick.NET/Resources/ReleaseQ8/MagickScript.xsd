@@ -2177,6 +2177,7 @@
           <xs:complexType>
             <xs:attribute name="bias" type="double" />
             <xs:attribute name="biasPercentage" type="double" />
+            <xs:attribute name="channels" type="Channels" />
             <xs:attribute name="height" use="required" type="int" />
             <xs:attribute name="width" use="required" type="int" />
           </xs:complexType>
@@ -3015,6 +3016,7 @@
         </xs:element>
         <xs:element name="threshold">
           <xs:complexType>
+            <xs:attribute name="channels" type="Channels" />
             <xs:attribute name="percentage" use="required" type="double" />
           </xs:complexType>
         </xs:element>
