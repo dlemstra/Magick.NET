@@ -229,7 +229,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_AdaptiveSharpen(IntPtr Instance, double radius, double sigma, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_AdaptiveThreshold(IntPtr Instance, UIntPtr width, UIntPtr height, double bias, out IntPtr exception);
+                public static extern IntPtr MagickImage_AdaptiveThreshold(IntPtr Instance, UIntPtr width, UIntPtr height, double bias, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_AddNoise(IntPtr Instance, UIntPtr noiseType, double attenuate, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -560,7 +560,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_Texture(IntPtr Instance, IntPtr image, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Threshold(IntPtr Instance, double threshold, out IntPtr exception);
+                public static extern void MagickImage_Threshold(IntPtr Instance, double threshold, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Thumbnail(IntPtr Instance, IntPtr geometry, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -779,7 +779,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_AdaptiveSharpen(IntPtr Instance, double radius, double sigma, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_AdaptiveThreshold(IntPtr Instance, UIntPtr width, UIntPtr height, double bias, out IntPtr exception);
+                public static extern IntPtr MagickImage_AdaptiveThreshold(IntPtr Instance, UIntPtr width, UIntPtr height, double bias, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_AddNoise(IntPtr Instance, UIntPtr noiseType, double attenuate, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1110,7 +1110,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_Texture(IntPtr Instance, IntPtr image, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Threshold(IntPtr Instance, double threshold, out IntPtr exception);
+                public static extern void MagickImage_Threshold(IntPtr Instance, double threshold, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Thumbnail(IntPtr Instance, IntPtr geometry, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -2810,7 +2810,7 @@ namespace ImageMagick
                 CheckException(exception, result);
                 Instance = result;
             }
-            public void AdaptiveThreshold(int width, int height, double bias)
+            public void AdaptiveThreshold(int width, int height, double bias, Channels channels)
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -2818,13 +2818,13 @@ namespace ImageMagick
                 if (NativeLibrary.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_AdaptiveThreshold(Instance, (UIntPtr)width, (UIntPtr)height, bias, out exception);
+                result = NativeMethods.X64.MagickImage_AdaptiveThreshold(Instance, (UIntPtr)width, (UIntPtr)height, bias, (UIntPtr)channels, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_AdaptiveThreshold(Instance, (UIntPtr)width, (UIntPtr)height, bias, out exception);
+                result = NativeMethods.X86.MagickImage_AdaptiveThreshold(Instance, (UIntPtr)width, (UIntPtr)height, bias, (UIntPtr)channels, out exception);
                 #endif
                 CheckException(exception, result);
                 Instance = result;
@@ -5948,20 +5948,20 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void Threshold(double threshold)
+            public void Threshold(double threshold, Channels channels)
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
                 if (NativeLibrary.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Threshold(Instance, threshold, out exception);
+                NativeMethods.X64.MagickImage_Threshold(Instance, threshold, (UIntPtr)channels, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Threshold(Instance, threshold, out exception);
+                NativeMethods.X86.MagickImage_Threshold(Instance, threshold, (UIntPtr)channels, out exception);
                 #endif
                 CheckException(exception);
             }

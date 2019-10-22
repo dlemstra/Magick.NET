@@ -1022,7 +1022,17 @@ namespace ImageMagick
         /// <param name="width">The width of the pixel neighborhood.</param>
         /// <param name="height">The height of the pixel neighborhood.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void AdaptiveThreshold(int width, int height) => AdaptiveThreshold(width, height, 0);
+        public void AdaptiveThreshold(int width, int height) => AdaptiveThreshold(width, height, 0, ImageMagick.Channels.All);
+
+        /// <summary>
+        /// Local adaptive threshold image.
+        /// http://www.dai.ed.ac.uk/HIPR2/adpthrsh.htm.
+        /// </summary>
+        /// <param name="width">The width of the pixel neighborhood.</param>
+        /// <param name="height">The height of the pixel neighborhood.</param>
+        /// <param name="channels">The channel(s) that should be thresholded.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void AdaptiveThreshold(int width, int height, Channels channels) => AdaptiveThreshold(width, height, 0, channels);
 
         /// <summary>
         /// Local adaptive threshold image.
@@ -1032,7 +1042,18 @@ namespace ImageMagick
         /// <param name="height">The height of the pixel neighborhood.</param>
         /// <param name="bias">Constant to subtract from pixel neighborhood mean (+/-)(0-QuantumRange).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void AdaptiveThreshold(int width, int height, double bias) => _nativeInstance.AdaptiveThreshold(width, height, bias);
+        public void AdaptiveThreshold(int width, int height, double bias) => AdaptiveThreshold(width, height, bias, ImageMagick.Channels.All);
+
+        /// <summary>
+        /// Local adaptive threshold image.
+        /// http://www.dai.ed.ac.uk/HIPR2/adpthrsh.htm.
+        /// </summary>
+        /// <param name="width">The width of the pixel neighborhood.</param>
+        /// <param name="height">The height of the pixel neighborhood.</param>
+        /// <param name="bias">Constant to subtract from pixel neighborhood mean (+/-)(0-QuantumRange).</param>
+        /// <param name="channels">The channel(s) that should be thresholded.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void AdaptiveThreshold(int width, int height, double bias, Channels channels) => _nativeInstance.AdaptiveThreshold(width, height, bias, channels);
 
         /// <summary>
         /// Local adaptive threshold image.
@@ -1042,7 +1063,18 @@ namespace ImageMagick
         /// <param name="height">The height of the pixel neighborhood.</param>
         /// <param name="biasPercentage">Constant to subtract from pixel neighborhood mean.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void AdaptiveThreshold(int width, int height, Percentage biasPercentage) => AdaptiveThreshold(width, height, biasPercentage.ToQuantum());
+        public void AdaptiveThreshold(int width, int height, Percentage biasPercentage) => AdaptiveThreshold(width, height, biasPercentage.ToQuantum(), ImageMagick.Channels.All);
+
+        /// <summary>
+        /// Local adaptive threshold image.
+        /// http://www.dai.ed.ac.uk/HIPR2/adpthrsh.htm.
+        /// </summary>
+        /// <param name="width">The width of the pixel neighborhood.</param>
+        /// <param name="height">The height of the pixel neighborhood.</param>
+        /// <param name="biasPercentage">Constant to subtract from pixel neighborhood mean.</param>
+        /// <param name="channels">The channel(s) that should be thresholded.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void AdaptiveThreshold(int width, int height, Percentage biasPercentage, Channels channels) => AdaptiveThreshold(width, height, biasPercentage.ToQuantum(), channels);
 
         /// <summary>
         /// Add noise to image with the specified noise type.
@@ -5580,7 +5612,15 @@ namespace ImageMagick
         /// </summary>
         /// <param name="percentage">The threshold percentage.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Threshold(Percentage percentage) => _nativeInstance.Threshold(percentage.ToQuantum());
+        public void Threshold(Percentage percentage) => Threshold(percentage, ImageMagick.Channels.All);
+
+        /// <summary>
+        /// Threshold image.
+        /// </summary>
+        /// <param name="percentage">The threshold percentage.</param>
+        /// <param name="channels">The channel(s) that should be thresholded.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Threshold(Percentage percentage, Channels channels) => _nativeInstance.Threshold(percentage.ToQuantum(), channels);
 
         /// <summary>
         /// Resize image to thumbnail size.

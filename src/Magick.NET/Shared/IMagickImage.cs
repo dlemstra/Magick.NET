@@ -413,6 +413,16 @@ namespace ImageMagick
         /// </summary>
         /// <param name="width">The width of the pixel neighborhood.</param>
         /// <param name="height">The height of the pixel neighborhood.</param>
+        /// <param name="channels">The channel(s) that should be thresholded.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void AdaptiveThreshold(int width, int height, Channels channels);
+
+        /// <summary>
+        /// Local adaptive threshold image.
+        /// http://www.dai.ed.ac.uk/HIPR2/adpthrsh.htm.
+        /// </summary>
+        /// <param name="width">The width of the pixel neighborhood.</param>
+        /// <param name="height">The height of the pixel neighborhood.</param>
         /// <param name="bias">Constant to subtract from pixel neighborhood mean (+/-)(0-QuantumRange).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void AdaptiveThreshold(int width, int height, double bias);
@@ -423,9 +433,31 @@ namespace ImageMagick
         /// </summary>
         /// <param name="width">The width of the pixel neighborhood.</param>
         /// <param name="height">The height of the pixel neighborhood.</param>
+        /// <param name="bias">Constant to subtract from pixel neighborhood mean (+/-)(0-QuantumRange).</param>
+        /// <param name="channels">The channel(s) that should be thresholded.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void AdaptiveThreshold(int width, int height, double bias, Channels channels);
+
+        /// <summary>
+        /// Local adaptive threshold image.
+        /// http://www.dai.ed.ac.uk/HIPR2/adpthrsh.htm.
+        /// </summary>
+        /// <param name="width">The width of the pixel neighborhood.</param>
+        /// <param name="height">The height of the pixel neighborhood.</param>
         /// <param name="biasPercentage">Constant to subtract from pixel neighborhood mean.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void AdaptiveThreshold(int width, int height, Percentage biasPercentage);
+
+        /// <summary>
+        /// Local adaptive threshold image.
+        /// http://www.dai.ed.ac.uk/HIPR2/adpthrsh.htm.
+        /// </summary>
+        /// <param name="width">The width of the pixel neighborhood.</param>
+        /// <param name="height">The height of the pixel neighborhood.</param>
+        /// <param name="biasPercentage">Constant to subtract from pixel neighborhood mean.</param>
+        /// <param name="channels">The channel(s) that should be thresholded.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void AdaptiveThreshold(int width, int height, Percentage biasPercentage, Channels channels);
 
         /// <summary>
         /// Add noise to image with the specified noise type.

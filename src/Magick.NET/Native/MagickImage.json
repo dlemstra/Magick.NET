@@ -364,6 +364,10 @@
         {
           "name": "bias",
           "type": "double"
+        },
+        {
+          "name": "channels",
+          "type": "Channels"
         }
       ]
     },
@@ -2615,6 +2619,10 @@
         {
           "name": "threshold",
           "type": "double"
+        },
+        {
+          "name": "channels",
+          "type": "Channels"
         }
       ]
     },
