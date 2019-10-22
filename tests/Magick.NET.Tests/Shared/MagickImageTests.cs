@@ -1251,8 +1251,8 @@ namespace Magick.NET.Tests
                 ColorAssert.AreEqual(new MagickColor("#ffff597e4397"), image, 325, 175);
                 ColorAssert.AreEqual(new MagickColor("#431f43f0ffff"), image, 99, 270);
 #elif Q16HDRI
-                ColorAssert.AreEqual(new MagickColor("#ffff59624391"), image, 325, 175);
-                ColorAssert.AreEqual(new MagickColor("#431843e8ffff"), image, 99, 270);
+                ColorAssert.AreEqual(new MagickColor("#ffff59664396"), image, 325, 175);
+                ColorAssert.AreEqual(new MagickColor("#431c43edffff"), image, 99, 270);
 #else
 #error Not implemented!
 #endif
@@ -3185,7 +3185,7 @@ namespace Magick.NET.Tests
 #if Q8 || Q16
                     Assert.AreEqual(0.06476, original.Compare(image, ErrorMetric.RootMeanSquared), 0.00002);
 #elif Q16HDRI
-                    Assert.AreEqual(0.10234, original.Compare(image, ErrorMetric.RootMeanSquared), 0.00001);
+                    Assert.AreEqual(0.08438, original.Compare(image, ErrorMetric.RootMeanSquared), 0.00001);
 #else
 #error Not implemented!
 #endif
