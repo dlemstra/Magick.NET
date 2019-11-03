@@ -4821,11 +4821,7 @@ namespace ImageMagick
         /// <param name="width">The new width.</param>
         /// <param name="height">The new height.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Resize(int width, int height)
-        {
-            MagickGeometry geometry = new MagickGeometry(width, height);
-            Resize(geometry);
-        }
+        public void Resize(int width, int height) => Resize(new MagickGeometry(width, height));
 
         /// <summary>
         /// Resize image to specified geometry.
