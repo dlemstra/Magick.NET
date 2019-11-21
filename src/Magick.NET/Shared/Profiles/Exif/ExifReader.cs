@@ -83,6 +83,8 @@ namespace ImageMagick
             return result;
         }
 
+        private static bool IsLong(IExifValue value) => value.DataType == ExifDataType.Long && !value.IsArray;
+
         private void AddValues(Collection<IExifValue> values, uint index)
         {
             _reader.Seek(_startIndex + index);
@@ -109,12 +111,12 @@ namespace ImageMagick
 
                 if (value.Tag == ExifTag.SubIFDOffset)
                 {
-                    if (value.DataType == ExifDataType.Long)
+                    if (IsLong(value))
                         _exifOffset = (uint)value.Value;
                 }
                 else if (value.Tag == ExifTag.GPSIFDOffset)
                 {
-                    if (value.DataType == ExifDataType.Long)
+                    if (IsLong(value))
                         _gpsOffset = (uint)value.Value;
                 }
                 else
@@ -309,9 +311,9 @@ namespace ImageMagick
 
             foreach (var value in values)
             {
-                if (value.Tag == ExifTag.JPEGInterchangeFormat && (value.DataType == ExifDataType.Long))
+                if (value.Tag == ExifTag.JPEGInterchangeFormat && IsLong(value))
                     ThumbnailOffset = (uint)value.Value + _startIndex;
-                else if (value.Tag == ExifTag.JPEGInterchangeFormatLength && value.DataType == ExifDataType.Long)
+                else if (value.Tag == ExifTag.JPEGInterchangeFormatLength && IsLong(value))
                     ThumbnailLength = (uint)value.Value;
             }
         }
