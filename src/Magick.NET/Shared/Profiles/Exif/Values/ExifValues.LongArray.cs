@@ -78,59 +78,24 @@ namespace ImageMagick
         public static ExifLongArray TimeZoneOffset => new ExifLongArray(ExifTag.TimeZoneOffset);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.ImageWidth"/> tag.
+        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.StripOffsets"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifLongArray"/> instance.</returns>
-        public static ExifLongArray ImageWidth(uint[] value) => ExifLongArray.Create(ExifTag.ImageWidth, value);
+        public static ExifLongArray StripOffsets(uint[] value) => ExifLongArray.Create(ExifTag.StripOffsets, value);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.ImageLength"/> tag.
+        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.TileByteCounts"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifLongArray"/> instance.</returns>
-        public static ExifLongArray ImageLength(uint[] value) => ExifLongArray.Create(ExifTag.ImageLength, value);
+        public static ExifLongArray TileByteCounts(uint[] value) => ExifLongArray.Create(ExifTag.TileByteCounts, value);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.TileWidth"/> tag.
+        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.ImageLayer"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifLongArray"/> instance.</returns>
-        public static ExifLongArray TileWidth(uint[] value) => ExifLongArray.Create(ExifTag.TileWidth, value);
-
-        /// <summary>
-        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.TileLength"/> tag.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>A new <see cref="ExifLongArray"/> instance.</returns>
-        public static ExifLongArray TileLength(uint[] value) => ExifLongArray.Create(ExifTag.TileLength, value);
-
-        /// <summary>
-        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.BadFaxLines"/> tag.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>A new <see cref="ExifLongArray"/> instance.</returns>
-        public static ExifLongArray BadFaxLines(uint[] value) => ExifLongArray.Create(ExifTag.BadFaxLines, value);
-
-        /// <summary>
-        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.ConsecutiveBadFaxLines"/> tag.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>A new <see cref="ExifLongArray"/> instance.</returns>
-        public static ExifLongArray ConsecutiveBadFaxLines(uint[] value) => ExifLongArray.Create(ExifTag.ConsecutiveBadFaxLines, value);
-
-        /// <summary>
-        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.PixelXDimension"/> tag.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>A new <see cref="ExifLongArray"/> instance.</returns>
-        public static ExifLongArray PixelXDimension(uint[] value) => ExifLongArray.Create(ExifTag.PixelXDimension, value);
-
-        /// <summary>
-        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.PixelYDimension"/> tag.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>A new <see cref="ExifLongArray"/> instance.</returns>
-        public static ExifLongArray PixelYDimension(uint[] value) => ExifLongArray.Create(ExifTag.PixelYDimension, value);
+        public static ExifLongArray ImageLayer(uint[] value) => ExifLongArray.Create(ExifTag.ImageLayer, value);
     }
 }

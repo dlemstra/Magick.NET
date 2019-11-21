@@ -248,24 +248,59 @@ namespace ImageMagick
         public static ExifShort GPSDifferential => new ExifShort(ExifTag.GPSDifferential);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.StripOffsets"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.ImageWidth"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifShort"/> instance.</returns>
-        public static ExifShort StripOffsets(ushort value) => ExifShort.Create(ExifTag.StripOffsets, value);
+        public static ExifShort ImageWidth(ushort value) => ExifShort.Create(ExifTag.ImageWidth, value);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.TileByteCounts"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.ImageLength"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifShort"/> instance.</returns>
-        public static ExifShort TileByteCounts(ushort value) => ExifShort.Create(ExifTag.TileByteCounts, value);
+        public static ExifShort ImageLength(ushort value) => ExifShort.Create(ExifTag.ImageLength, value);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.ImageLayer"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.TileWidth"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifShort"/> instance.</returns>
-        public static ExifShort ImageLayer(ushort value) => ExifShort.Create(ExifTag.ImageLayer, value);
+        public static ExifShort TileWidth(ushort value) => ExifShort.Create(ExifTag.TileWidth, value);
+
+        /// <summary>
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.TileLength"/> tag.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>A new <see cref="ExifShort"/> instance.</returns>
+        public static ExifShort TileLength(ushort value) => ExifShort.Create(ExifTag.TileLength, value);
+
+        /// <summary>
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.BadFaxLines"/> tag.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>A new <see cref="ExifShort"/> instance.</returns>
+        public static ExifShort BadFaxLines(ushort value) => ExifShort.Create(ExifTag.BadFaxLines, value);
+
+        /// <summary>
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.ConsecutiveBadFaxLines"/> tag.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>A new <see cref="ExifShort"/> instance.</returns>
+        public static ExifShort ConsecutiveBadFaxLines(ushort value) => ExifShort.Create(ExifTag.ConsecutiveBadFaxLines, value);
+
+        /// <summary>
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.PixelXDimension"/> tag.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>A new <see cref="ExifShort"/> instance.</returns>
+        public static ExifShort PixelXDimension(ushort value) => ExifShort.Create(ExifTag.PixelXDimension, value);
+
+        /// <summary>
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.PixelYDimension"/> tag.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>A new <see cref="ExifShort"/> instance.</returns>
+        public static ExifShort PixelYDimension(ushort value) => ExifShort.Create(ExifTag.PixelYDimension, value);
     }
 }

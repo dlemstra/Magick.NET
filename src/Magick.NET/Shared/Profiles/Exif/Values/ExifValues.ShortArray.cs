@@ -123,59 +123,24 @@ namespace ImageMagick
         public static ExifShortArray SubjectLocation => new ExifShortArray(ExifTag.SubjectLocation);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShortArray"/> instance for the <see cref="ExifTag.ImageWidth"/> tag.
+        /// Gets a new <see cref="ExifShortArray"/> instance for the <see cref="ExifTag.StripOffsets"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifShortArray"/> instance.</returns>
-        public static ExifShortArray ImageWidth(ushort[] value) => ExifShortArray.Create(ExifTag.ImageWidth, value);
+        public static ExifShortArray StripOffsets(ushort[] value) => ExifShortArray.Create(ExifTag.StripOffsets, value);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShortArray"/> instance for the <see cref="ExifTag.ImageLength"/> tag.
+        /// Gets a new <see cref="ExifShortArray"/> instance for the <see cref="ExifTag.TileByteCounts"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifShortArray"/> instance.</returns>
-        public static ExifShortArray ImageLength(ushort[] value) => ExifShortArray.Create(ExifTag.ImageLength, value);
+        public static ExifShortArray TileByteCounts(ushort[] value) => ExifShortArray.Create(ExifTag.TileByteCounts, value);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShortArray"/> instance for the <see cref="ExifTag.TileWidth"/> tag.
+        /// Gets a new <see cref="ExifShortArray"/> instance for the <see cref="ExifTag.ImageLayer"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifShortArray"/> instance.</returns>
-        public static ExifShortArray TileWidth(ushort[] value) => ExifShortArray.Create(ExifTag.TileWidth, value);
-
-        /// <summary>
-        /// Gets a new <see cref="ExifShortArray"/> instance for the <see cref="ExifTag.TileLength"/> tag.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>A new <see cref="ExifShortArray"/> instance.</returns>
-        public static ExifShortArray TileLength(ushort[] value) => ExifShortArray.Create(ExifTag.TileLength, value);
-
-        /// <summary>
-        /// Gets a new <see cref="ExifShortArray"/> instance for the <see cref="ExifTag.BadFaxLines"/> tag.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>A new <see cref="ExifShortArray"/> instance.</returns>
-        public static ExifShortArray BadFaxLines(ushort[] value) => ExifShortArray.Create(ExifTag.BadFaxLines, value);
-
-        /// <summary>
-        /// Gets a new <see cref="ExifShortArray"/> instance for the <see cref="ExifTag.ConsecutiveBadFaxLines"/> tag.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>A new <see cref="ExifShortArray"/> instance.</returns>
-        public static ExifShortArray ConsecutiveBadFaxLines(ushort[] value) => ExifShortArray.Create(ExifTag.ConsecutiveBadFaxLines, value);
-
-        /// <summary>
-        /// Gets a new <see cref="ExifShortArray"/> instance for the <see cref="ExifTag.PixelXDimension"/> tag.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>A new <see cref="ExifShortArray"/> instance.</returns>
-        public static ExifShortArray PixelXDimension(ushort[] value) => ExifShortArray.Create(ExifTag.PixelXDimension, value);
-
-        /// <summary>
-        /// Gets a new <see cref="ExifShortArray"/> instance for the <see cref="ExifTag.PixelYDimension"/> tag.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>A new <see cref="ExifShortArray"/> instance.</returns>
-        public static ExifShortArray PixelYDimension(ushort[] value) => ExifShortArray.Create(ExifTag.PixelYDimension, value);
+        public static ExifShortArray ImageLayer(ushort[] value) => ExifShortArray.Create(ExifTag.ImageLayer, value);
     }
 }
