@@ -54,6 +54,40 @@ namespace Magick.NET.Tests.Shared.Profiles.Exif
                 Assert.AreEqual(0, result.Count);
                 Assert.AreEqual(1, reader.InvalidTags.Count());
             }
+
+            [TestMethod]
+            public void ShouldCheckTypeOfJPEGInterchangeFormat()
+            {
+                var profile = new ExifProfile();
+                profile.SetValue(ExifTag.JPEGInterchangeFormat, 0U);
+
+                var data = profile.ToByteArray();
+                data[20] = 0;
+                data[28] = 8;
+
+                var reader = new ExifReader();
+
+                var result = reader.Read(data);
+
+                Assert.AreEqual(1, result.Count);
+            }
+
+            [TestMethod]
+            public void ShouldCheckTypeOfJPEGInterchangeFormatLength()
+            {
+                var profile = new ExifProfile();
+                profile.SetValue(ExifTag.JPEGInterchangeFormatLength, 0U);
+
+                var data = profile.ToByteArray();
+                data[20] = 0;
+                data[28] = 8;
+
+                var reader = new ExifReader();
+
+                var result = reader.Read(data);
+
+                Assert.AreEqual(1, result.Count);
+            }
         }
     }
 }
