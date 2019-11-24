@@ -20,8 +20,8 @@ namespace ImageMagick
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
     internal sealed class ExifTagDescriptionAttribute : Attribute
     {
-        private object _value;
-        private string _description;
+        private readonly object _value;
+        private readonly string _description;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExifTagDescriptionAttribute"/> class.
