@@ -81,12 +81,12 @@ namespace ImageMagick
         /// <summary>
         /// Gets the numerator of a number.
         /// </summary>
-        public int Numerator { get; private set; }
+        public int Numerator { get; }
 
         /// <summary>
         /// Gets the denominator of a number.
         /// </summary>
-        public int Denominator { get; private set; }
+        public int Denominator { get; }
 
         /// <summary>
         /// Determines whether the specified <see cref="SignedRational"/> instances are considered equal.
