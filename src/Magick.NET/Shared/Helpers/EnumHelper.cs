@@ -84,6 +84,18 @@ namespace ImageMagick
             return null;
         }
 
+        public static TEnum Parse<TEnum>(ushort value, TEnum defaultValue)
+          where TEnum : struct, IConvertible
+        {
+            foreach (TEnum enumValue in Enum.GetValues(typeof(TEnum)))
+            {
+                if (value == enumValue.ToUInt16(CultureInfo.InvariantCulture))
+                    return enumValue;
+            }
+
+            return defaultValue;
+        }
+
         public static object Parse(Type enumType, string value)
         {
             foreach (string name in Enum.GetNames(enumType))
