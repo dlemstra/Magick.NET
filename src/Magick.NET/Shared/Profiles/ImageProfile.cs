@@ -46,7 +46,7 @@ namespace ImageMagick
 
             Name = name;
 
-            Bytes bytes = new Bytes(stream);
+            var bytes = new Bytes(stream);
             Data = bytes.Data;
         }
 
@@ -62,7 +62,7 @@ namespace ImageMagick
 
             Name = name;
 
-            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            var filePath = FileHelper.CheckForBaseDirectory(fileName);
             Data = File.ReadAllBytes(filePath);
         }
 
@@ -154,12 +154,7 @@ namespace ImageMagick
         /// Serves as a hash of this type.
         /// </summary>
         /// <returns>A hash code for the current instance.</returns>
-        public override int GetHashCode()
-        {
-            return
-              Data.GetHashCode() ^
-              Name.GetHashCode();
-        }
+        public override int GetHashCode() => Data.GetHashCode() ^ Name.GetHashCode();
 
         /// <summary>
         /// Converts this instance to a byte array.
@@ -183,7 +178,7 @@ namespace ImageMagick
             if (data == null || data.Length == 0)
                 return new byte[0];
 
-            byte[] result = new byte[data.Length];
+            var result = new byte[data.Length];
             data.CopyTo(result, 0);
             return result;
         }
