@@ -214,7 +214,7 @@ namespace ImageMagick
 
             var reader = new ExifReader();
             _values = reader.Read(Data);
-            _invalidTags = new List<ExifTag>(reader.InvalidTags);
+            _invalidTags.AddRange(reader.InvalidTags);
             _thumbnailOffset = (int)reader.ThumbnailOffset;
             _thumbnailLength = (int)reader.ThumbnailLength;
         }
