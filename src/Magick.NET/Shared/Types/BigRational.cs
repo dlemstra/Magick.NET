@@ -170,7 +170,7 @@ namespace ImageMagick
             if (IsInteger)
                 return Numerator.ToString(provider);
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append(Numerator.ToString(provider));
             sb.Append("/");
             sb.Append(Denominator.ToString(provider));
@@ -212,8 +212,8 @@ namespace ImageMagick
             long gcd = GreatestCommonDivisor(Math.Abs(Numerator), Math.Abs(Denominator));
             if (gcd > 1)
             {
-                Numerator = Numerator / gcd;
-                Denominator = Denominator / gcd;
+                Numerator /= gcd;
+                Denominator /= gcd;
             }
         }
     }
