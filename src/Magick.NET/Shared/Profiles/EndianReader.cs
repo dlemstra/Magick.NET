@@ -99,7 +99,7 @@ namespace ImageMagick
             result |= (ulong)_data[Index + 4] << 24;
             result |= (ulong)_data[Index + 5] << 16;
             result |= (ulong)_data[Index + 6] << 8;
-            result |= (ulong)_data[Index + 7];
+            result |= _data[Index + 7];
 
             Index += 8;
 
