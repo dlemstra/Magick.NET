@@ -13,7 +13,7 @@
 namespace ImageMagick
 {
     /// <summary>
-    /// Specified the type of decoration for text.
+    /// Specified the type of text alignment.
     /// </summary>
     public enum TextAlignment
     {
