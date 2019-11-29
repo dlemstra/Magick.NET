@@ -11,6 +11,7 @@
 // and limitations under the License.
 
 using System;
+using System.Text;
 
 namespace ImageMagick
 {
@@ -29,5 +30,12 @@ namespace ImageMagick
         /// </summary>
         /// <returns>A <see cref="byte"/> array.</returns>
         byte[] ToByteArray();
+
+        /// <summary>
+        /// Returns a string that represents the current value with the specified encoding.
+        /// </summary>
+        /// <param name="encoding">The encoding to use.</param>
+        /// <returns>A string that represents the current value with the specified encoding.</returns>
+        string ToString(Encoding encoding);
     }
 }
