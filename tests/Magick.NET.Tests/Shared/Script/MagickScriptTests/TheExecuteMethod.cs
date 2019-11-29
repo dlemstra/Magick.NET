@@ -26,7 +26,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenReadEventNotSet()
             {
-                MagickScript script = new MagickScript(Files.Scripts.Events);
+                var script = new MagickScript(Files.Scripts.Events);
 
                 ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenReadEventDoesNotSetImage()
             {
-                MagickScript script = new MagickScript(Files.Scripts.Events);
+                var script = new MagickScript(Files.Scripts.Events);
                 script.Read += ReadNothing;
 
                 ExceptionAssert.Throws<InvalidOperationException>(() =>
@@ -49,7 +49,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenReadEventIsSetAndUnset()
             {
-                MagickScript script = new MagickScript(Files.Scripts.Events);
+                var script = new MagickScript(Files.Scripts.Events);
                 script.Read += EventsScriptRead;
                 script.Read -= EventsScriptRead;
 
@@ -62,7 +62,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenWriteEventIsNotSet()
             {
-                MagickScript script = new MagickScript(Files.Scripts.Events);
+                var script = new MagickScript(Files.Scripts.Events);
                 script.Read += EventsScriptRead;
 
                 ExceptionAssert.Throws<InvalidOperationException>(() =>
@@ -74,7 +74,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenWriteEventIsSetAndUnset()
             {
-                MagickScript script = new MagickScript(Files.Scripts.Events);
+                var script = new MagickScript(Files.Scripts.Events);
                 script.Read += EventsScriptRead;
                 script.Write += EventsScriptWrite;
                 script.Write -= EventsScriptWrite;
@@ -88,7 +88,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenVariableNotSet()
             {
-                MagickScript script = new MagickScript(Files.Scripts.Variables);
+                var script = new MagickScript(Files.Scripts.Variables);
 
                 using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
                 {
@@ -102,7 +102,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenVariableHasInvalidValue()
             {
-                MagickScript script = new MagickScript(Files.Scripts.Variables);
+                var script = new MagickScript(Files.Scripts.Variables);
                 script.Variables["width"] = "test";
 
                 using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
@@ -117,7 +117,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldExecuteTheCollectionScript()
             {
-                MagickScript script = new MagickScript(Files.Scripts.Collection);
+                var script = new MagickScript(Files.Scripts.Collection);
                 script.Read += CollectionScriptRead;
 
                 IMagickImage image = script.Execute();
@@ -131,7 +131,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldExecuteTheDefinesScript()
             {
-                MagickScript script = new MagickScript(Files.Scripts.Defines);
+                var script = new MagickScript(Files.Scripts.Defines);
                 script.Read += DefinesScriptRead;
 
                 IMagickImage image = script.Execute();
@@ -144,7 +144,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldExecuteTheDistortScript()
             {
-                MagickScript script = new MagickScript(Files.Scripts.Distort);
+                var script = new MagickScript(Files.Scripts.Distort);
                 IMagickImage image = script.Execute();
 
                 Assert.IsNotNull(image);
@@ -161,7 +161,7 @@ namespace Magick.NET.Tests
                     doc.Load(stream);
                 }
 
-                MagickScript script = new MagickScript(doc.CreateNavigator());
+                var script = new MagickScript(doc.CreateNavigator());
 
                 using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
                 {
@@ -172,7 +172,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldExecuteTheEventsScript()
             {
-                MagickScript script = new MagickScript(Files.Scripts.Events);
+                var script = new MagickScript(Files.Scripts.Events);
                 script.Read += EventsScriptRead;
                 script.Write += EventsScriptWrite;
 
@@ -182,11 +182,11 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldExecuteTheImageProfileScript()
             {
-                MagickScript script = new MagickScript(Files.Scripts.ImageProfile);
+                var script = new MagickScript(Files.Scripts.ImageProfile);
 
                 using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
                 {
-                    ColorProfile colorProfile = image.GetColorProfile();
+                    var colorProfile = image.GetColorProfile();
                     Assert.IsNull(colorProfile);
 
                     script.Execute(image);
@@ -201,7 +201,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldExecutePixelReadSettingsScript()
             {
-                MagickScript script = new MagickScript(Files.Scripts.PixelReadSettings);
+                var script = new MagickScript(Files.Scripts.PixelReadSettings);
                 script.Read += PixelReadSettingsRead;
 
                 using (IMagickImage image = script.Execute())
@@ -217,7 +217,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldExecuteTheResizeScript()
             {
-                MagickScript script = new MagickScript(Files.Scripts.Resize);
+                var script = new MagickScript(Files.Scripts.Resize);
 
                 using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
                 {
@@ -235,7 +235,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldExecuteTheVariablesScript()
             {
-                MagickScript script = new MagickScript(Files.Scripts.Variables);
+                var script = new MagickScript(Files.Scripts.Variables);
                 script.Variables.Set("width", 120);
                 script.Variables.Set("height", 150);
                 script.Variables["color"] = MagickColors.Yellow;

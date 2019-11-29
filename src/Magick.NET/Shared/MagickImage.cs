@@ -3070,9 +3070,9 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The color profile from the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public ColorProfile GetColorProfile()
+        public IColorProfile GetColorProfile()
         {
-            ColorProfile profile = GetColorProfile("icc");
+            var profile = GetColorProfile("icc");
 
             if (profile != null)
                 return profile;

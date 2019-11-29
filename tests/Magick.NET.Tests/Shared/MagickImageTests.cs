@@ -101,7 +101,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
             {
-                ColorProfile profile = image.GetColorProfile();
+                var profile = image.GetColorProfile();
                 Assert.IsNull(profile);
 
                 image.AddProfile(ColorProfile.SRGB);

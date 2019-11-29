@@ -2049,7 +2049,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The color profile from the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        ColorProfile GetColorProfile();
+        IColorProfile GetColorProfile();
 
         /// <summary>
         /// Returns the value of the artifact with the specified name.

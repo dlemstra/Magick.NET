@@ -18,7 +18,7 @@ namespace ImageMagick
     /// <summary>
     /// Class that contains an ICM/ICC color profile.
     /// </summary>
-    public sealed class ColorProfile : ImageProfile
+    public sealed class ColorProfile : ImageProfile, IColorProfile
     {
         private static readonly object _SyncRoot = new object();
         private static readonly Dictionary<string, ColorProfile> _profiles = new Dictionary<string, ColorProfile>();
