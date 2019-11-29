@@ -34,20 +34,6 @@ namespace ImageMagick
         public short ID { get; }
 
         /// <summary>
-        /// Determines whether the specified <see cref="EightBimValue"/> instances are considered equal.
-        /// </summary>
-        /// <param name="left">The first <see cref="EightBimValue"/> to compare.</param>
-        /// <param name="right"> The second <see cref="EightBimValue"/> to compare.</param>
-        public static bool operator ==(EightBimValue left, EightBimValue right) => Equals(left, right);
-
-        /// <summary>
-        /// Determines whether the specified <see cref="EightBimValue"/> instances are not considered equal.
-        /// </summary>
-        /// <param name="left">The first <see cref="EightBimValue"/> to compare.</param>
-        /// <param name="right"> The second <see cref="EightBimValue"/> to compare.</param>
-        public static bool operator !=(EightBimValue left, EightBimValue right) => !Equals(left, right);
-
-        /// <summary>
         /// Determines whether the specified object is equal to the current <see cref="EightBimValue"/>.
         /// </summary>
         /// <param name="obj">The object to compare this 8bim value with.</param>

@@ -110,20 +110,6 @@ namespace ImageMagick
         public double Variance { get; }
 
         /// <summary>
-        /// Determines whether the specified <see cref="ChannelStatistics"/> instances are considered equal.
-        /// </summary>
-        /// <param name="left">The first <see cref="ChannelStatistics"/> to compare.</param>
-        /// <param name="right"> The second <see cref="ChannelStatistics"/> to compare.</param>
-        public static bool operator ==(ChannelStatistics left, ChannelStatistics right) => Equals(left, right);
-
-        /// <summary>
-        /// Determines whether the specified <see cref="ChannelStatistics"/> instances are not considered equal.
-        /// </summary>
-        /// <param name="left">The first <see cref="ChannelStatistics"/> to compare.</param>
-        /// <param name="right"> The second <see cref="ChannelStatistics"/> to compare.</param>
-        public static bool operator !=(ChannelStatistics left, ChannelStatistics right) => !Equals(left, right);
-
-        /// <summary>
         /// Determines whether the specified object is equal to the current <see cref="ChannelStatistics"/>.
         /// </summary>
         /// <param name="obj">The object to compare this <see cref="ChannelStatistics"/> with.</param>

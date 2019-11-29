@@ -87,20 +87,6 @@ namespace ImageMagick
         public double Y { get; private set; }
 
         /// <summary>
-        /// Determines whether the specified <see cref="Density"/> instances are considered equal.
-        /// </summary>
-        /// <param name="left">The first <see cref="Density"/> to compare.</param>
-        /// <param name="right"> The second <see cref="Density"/> to compare.</param>
-        public static bool operator ==(Density left, Density right) => Equals(left, right);
-
-        /// <summary>
-        /// Determines whether the specified <see cref="Density"/> instances are not considered equal.
-        /// </summary>
-        /// <param name="left">The first <see cref="Density"/> to compare.</param>
-        /// <param name="right"> The second <see cref="Density"/> to compare.</param>
-        public static bool operator !=(Density left, Density right) => !Equals(left, right);
-
-        /// <summary>
         /// Changes the density of the instance to the specified units.
         /// </summary>
         /// <param name="units">The units to use.</param>

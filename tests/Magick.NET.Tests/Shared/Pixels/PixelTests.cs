@@ -31,28 +31,25 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_IEquatable()
         {
-            Pixel first = new Pixel(0, 0, 3);
+            var first = new Pixel(0, 0, 3);
             first.SetChannel(0, 100);
             first.SetChannel(1, 100);
             first.SetChannel(2, 100);
 
-            Assert.IsFalse(first == null);
             Assert.IsFalse(first.Equals(null));
             Assert.IsTrue(first.Equals(first));
             Assert.IsTrue(first.Equals((object)first));
 
-            Pixel second = new Pixel(10, 10, 3);
+            var second = new Pixel(10, 10, 3);
             second.SetChannel(0, 100);
             second.SetChannel(1, 0);
             second.SetChannel(2, 100);
 
-            Assert.IsTrue(first != second);
             Assert.IsTrue(!first.Equals(second));
             Assert.IsTrue(!first.Equals((object)second));
 
             second.SetChannel(1, 100);
 
-            Assert.IsTrue(first == second);
             Assert.IsTrue(first.Equals(second));
             Assert.IsTrue(first.Equals((object)second));
         }

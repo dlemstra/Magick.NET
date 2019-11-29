@@ -87,20 +87,6 @@ namespace ImageMagick
         protected byte[] Data { get; set; }
 
         /// <summary>
-        /// Determines whether the specified <see cref="ImageProfile"/> instances are considered equal.
-        /// </summary>
-        /// <param name="left">The first <see cref="ImageProfile"/> to compare.</param>
-        /// <param name="right"> The second <see cref="ImageProfile"/> to compare.</param>
-        public static bool operator ==(ImageProfile left, ImageProfile right) => Equals(left, right);
-
-        /// <summary>
-        /// Determines whether the specified <see cref="ImageProfile"/> instances are not considered equal.
-        /// </summary>
-        /// <param name="left">The first <see cref="ImageProfile"/> to compare.</param>
-        /// <param name="right"> The second <see cref="ImageProfile"/> to compare.</param>
-        public static bool operator !=(ImageProfile left, ImageProfile right) => !Equals(left, right);
-
-        /// <summary>
         /// Determines whether the specified object is equal to the current <see cref="ImageProfile"/>.
         /// </summary>
         /// <param name="obj">The object to compare this <see cref="ImageProfile"/> with.</param>

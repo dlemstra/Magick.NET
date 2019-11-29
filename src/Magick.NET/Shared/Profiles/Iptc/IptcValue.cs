@@ -77,20 +77,6 @@ namespace ImageMagick
         public int Length => _data.Length;
 
         /// <summary>
-        /// Determines whether the specified <see cref="IptcValue"/> instances are considered equal.
-        /// </summary>
-        /// <param name="left">The first <see cref="IptcValue"/> to compare.</param>
-        /// <param name="right"> The second <see cref="IptcValue"/> to compare.</param>
-        public static bool operator ==(IptcValue left, IptcValue right) => Equals(left, right);
-
-        /// <summary>
-        /// Determines whether the specified <see cref="IptcValue"/> instances are not considered equal.
-        /// </summary>
-        /// <param name="left">The first <see cref="IptcValue"/> to compare.</param>
-        /// <param name="right"> The second <see cref="IptcValue"/> to compare.</param>
-        public static bool operator !=(IptcValue left, IptcValue right) => !Equals(left, right);
-
-        /// <summary>
         /// Determines whether the specified object is equal to the current <see cref="IptcValue"/>.
         /// </summary>
         /// <param name="obj">The object to compare this <see cref="IptcValue"/> with.</param>

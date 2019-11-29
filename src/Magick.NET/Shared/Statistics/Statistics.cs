@@ -35,33 +35,10 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Determines whether the specified <see cref="Statistics"/> instances are considered equal.
-        /// </summary>
-        /// <param name="left">The first <see cref="Statistics"/> to compare.</param>
-        /// <param name="right"> The second <see cref="Statistics"/> to compare.</param>
-        public static bool operator ==(Statistics left, Statistics right)
-        {
-            return Equals(left, right);
-        }
-
-        /// <summary>
-        /// Determines whether the specified <see cref="Statistics"/> instances are not considered equal.
-        /// </summary>
-        /// <param name="left">The first <see cref="Statistics"/> to compare.</param>
-        /// <param name="right"> The second <see cref="Statistics"/> to compare.</param>
-        public static bool operator !=(Statistics left, Statistics right)
-        {
-            return !Equals(left, right);
-        }
-
-        /// <summary>
         /// Returns the statistics for the all the channels.
         /// </summary>
         /// <returns>The statistics for the all the channels.</returns>
-        public ChannelStatistics Composite()
-        {
-            return GetChannel(PixelChannel.Composite);
-        }
+        public ChannelStatistics Composite() => GetChannel(PixelChannel.Composite);
 
         /// <summary>
         /// Returns the statistics for the specified channel.
@@ -121,11 +98,11 @@ namespace ImageMagick
         /// <returns>A hash code for the current instance.</returns>
         public override int GetHashCode()
         {
-            int hashCode = _channels.GetHashCode();
+            var hashCode = _channels.GetHashCode();
 
             foreach (PixelChannel channel in _channels.Keys)
             {
-                hashCode = hashCode ^ _channels[channel].GetHashCode();
+                hashCode ^= _channels[channel].GetHashCode();
             }
 
             return hashCode;
@@ -139,7 +116,7 @@ namespace ImageMagick
 
         private void AddChannel(IntPtr list, PixelChannel channel)
         {
-            IntPtr instance = NativeStatistics.GetInstance(list, channel);
+            var instance = NativeStatistics.GetInstance(list, channel);
 
             ChannelStatistics result = ChannelStatistics.Create(channel, instance);
             if (result != null)

@@ -91,20 +91,6 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Determines whether the specified <see cref="Pixel"/> instances are considered equal.
-        /// </summary>
-        /// <param name="left">The first <see cref="Pixel"/> to compare.</param>
-        /// <param name="right"> The second <see cref="Pixel"/> to compare.</param>
-        public static bool operator ==(Pixel left, Pixel right) => Equals(left, right);
-
-        /// <summary>
-        /// Determines whether the specified <see cref="Pixel"/> instances are not considered equal.
-        /// </summary>
-        /// <param name="left">The first <see cref="Pixel"/> to compare.</param>
-        /// <param name="right"> The second <see cref="Pixel"/> to compare.</param>
-        public static bool operator !=(Pixel left, Pixel right) => !Equals(left, right);
-
-        /// <summary>
         /// Determines whether the specified object is equal to the current pixel.
         /// </summary>
         /// <param name="obj">The object to compare pixel color with.</param>

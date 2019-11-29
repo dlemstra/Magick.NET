@@ -25,14 +25,12 @@ namespace Magick.NET.Tests
 
             var first = image.Statistics();
 
-            Assert.IsFalse(first == null);
             Assert.IsFalse(first.Equals(null));
             Assert.IsTrue(first.Equals(first));
             Assert.IsTrue(first.Equals((object)first));
 
             var second = image.Statistics();
 
-            Assert.IsTrue(first == second);
             Assert.IsTrue(first.Equals(second));
             Assert.IsTrue(first.Equals((object)second));
 

@@ -76,20 +76,6 @@ namespace ImageMagick
         internal static IEnumerable<MagickFormatInfo> All => _All.Values;
 
         /// <summary>
-        /// Determines whether the specified MagickFormatInfo instances are considered equal.
-        /// </summary>
-        /// <param name="left">The first MagickFormatInfo to compare.</param>
-        /// <param name="right"> The second MagickFormatInfo to compare.</param>
-        public static bool operator ==(MagickFormatInfo left, MagickFormatInfo right) => Equals(left, right);
-
-        /// <summary>
-        /// Determines whether the specified MagickFormatInfo instances are not considered equal.
-        /// </summary>
-        /// <param name="left">The first MagickFormatInfo to compare.</param>
-        /// <param name="right"> The second MagickFormatInfo to compare.</param>
-        public static bool operator !=(MagickFormatInfo left, MagickFormatInfo right) => !Equals(left, right);
-
-        /// <summary>
         /// Returns the format information. The extension of the supplied file is used to determine
         /// the format.
         /// </summary>

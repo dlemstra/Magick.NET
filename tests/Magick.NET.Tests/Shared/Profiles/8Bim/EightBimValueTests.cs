@@ -25,7 +25,6 @@ namespace Magick.NET.Tests
             var first = Get8BimValue();
             var second = Get8BimValue();
 
-            Assert.IsTrue(first == second);
             Assert.IsTrue(first.Equals(second));
             Assert.IsTrue(first.Equals((object)second));
         }
