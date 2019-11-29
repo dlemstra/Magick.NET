@@ -18,7 +18,7 @@ namespace ImageMagick
     /// <summary>
     /// A value of the 8bim profile.
     /// </summary>
-    public sealed class EightBimValue : IEquatable<EightBimValue>
+    public sealed class EightBimValue : IEightBimValue
     {
         private readonly byte[] _data;
 
@@ -57,7 +57,7 @@ namespace ImageMagick
             if (ReferenceEquals(this, obj))
                 return true;
 
-            return Equals(obj as EightBimValue);
+            return Equals(obj as IEightBimValue);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The <see cref="EightBimValue"/> to compare this <see cref="EightBimValue"/> with.</param>
         /// <returns>True when the specified <see cref="EightBimValue"/> is equal to the current <see cref="EightBimValue"/>.</returns>
-        public bool Equals(EightBimValue other)
+        public bool Equals(IEightBimValue other)
         {
             if (other is null)
                 return false;
@@ -76,18 +76,14 @@ namespace ImageMagick
             if (ID != other.ID)
                 return false;
 
-            if (_data is null)
-                return other._data is null;
+            var data = other.ToByteArray();
 
-            if (other._data is null)
-                return false;
-
-            if (_data.Length != other._data.Length)
+            if (_data.Length != data.Length)
                 return false;
 
             for (int i = 0; i < _data.Length; i++)
             {
-                if (_data[i] != other._data[i])
+                if (_data[i] != data[i])
                     return false;
             }
 

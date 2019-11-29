@@ -26,7 +26,7 @@ namespace ImageMagick
     {
         private Collection<IClipPath> _clipPaths;
         private int _height;
-        private Collection<EightBimValue> _values;
+        private Collection<IEightBimValue> _values;
         private int _width;
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the values of this 8bim profile.
         /// </summary>
-        public IEnumerable<EightBimValue> Values
+        public IEnumerable<IEightBimValue> Values
         {
             get
             {
@@ -127,7 +127,7 @@ namespace ImageMagick
                 return;
 
             _clipPaths = new Collection<IClipPath>();
-            _values = new Collection<EightBimValue>();
+            _values = new Collection<IEightBimValue>();
 
             int i = 0;
             while (i < Data.Length)

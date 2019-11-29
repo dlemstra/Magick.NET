@@ -10,23 +10,24 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System.Collections.Generic;
+using System;
 
 namespace ImageMagick
 {
     /// <summary>
-    /// Interface that describes an 8bim profile.
+    /// A value of the 8bim profile.
     /// </summary>
-    public interface IEightBimProfile : IImageProfile
+    public interface IEightBimValue : IEquatable<IEightBimValue>
     {
         /// <summary>
-        /// Gets the clipping paths this image contains.
+        /// Gets the ID of the 8bim value.
         /// </summary>
-        IEnumerable<IClipPath> ClipPaths { get; }
+        short ID { get; }
 
         /// <summary>
-        /// Gets the values of this 8bim profile.
+        /// Converts this instance to a byte array.
         /// </summary>
-        IEnumerable<IEightBimValue> Values { get; }
+        /// <returns>A <see cref="byte"/> array.</returns>
+        byte[] ToByteArray();
     }
 }

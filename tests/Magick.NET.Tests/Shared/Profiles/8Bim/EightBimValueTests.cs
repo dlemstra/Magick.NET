@@ -38,7 +38,7 @@ namespace Magick.NET.Tests
             Assert.AreEqual(273, bytes.Length);
         }
 
-        private static EightBimValue Get8BimValue()
+        private static IEightBimValue Get8BimValue()
         {
             using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
