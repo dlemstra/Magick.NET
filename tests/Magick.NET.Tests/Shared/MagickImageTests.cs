@@ -331,11 +331,11 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(400, image.Height);
                 Assert.AreEqual(OrientationType.TopLeft, image.Orientation);
 
-                ExifProfile profile = image.GetExifProfile();
+                var profile = image.GetExifProfile();
                 profile.SetValue(ExifTag.Orientation, (ushort)6);
                 image.AddProfile(profile);
 
-                using (MemoryStream memStream = new MemoryStream())
+                using (var memStream = new MemoryStream())
                 {
                     image.Write(memStream);
 

@@ -23,7 +23,7 @@ namespace Magick.NET.Samples
             using (MagickImage image = new MagickImage(SampleFiles.FujiFilmFinePixS1ProJpg))
             {
                 // Retrieve the exif information
-                ExifProfile profile = image.GetExifProfile();
+                IExifProfile profile = image.GetExifProfile();
 
                 // Check if image contains an exif profile
                 if (profile == null)
@@ -45,10 +45,10 @@ namespace Magick.NET.Samples
             using (MagickImage image = new MagickImage(SampleFiles.FujiFilmFinePixS1ProJpg))
             {
                 // Retrieve the exif information
-                ExifProfile profile = image.GetExifProfile();
+                IExifProfile profile = image.GetExifProfile();
 
                 // Create thumbnail from exif information
-                using (MagickImage thumbnail = profile.CreateThumbnail())
+                using (IMagickImage thumbnail = profile.CreateThumbnail())
                 {
                     // Check if exif profile contains thumbnail and save it
                     if (thumbnail != null)

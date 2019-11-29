@@ -112,7 +112,7 @@ namespace Magick.NET.Tests
             using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
                 var profile = image.GetExifProfile();
-                TestProfile(profile);
+                TestExifProfile(profile);
 
                 using (IMagickImage emptyImage = new MagickImage(Files.ImageMagickJPG))
                 {
@@ -120,7 +120,7 @@ namespace Magick.NET.Tests
                     emptyImage.AddProfile(profile);
 
                     profile = emptyImage.GetExifProfile();
-                    TestProfile(profile);
+                    TestExifProfile(profile);
                 }
             }
         }
@@ -143,7 +143,7 @@ namespace Magick.NET.Tests
             }
         }
 
-        private static void TestProfile(ExifProfile profile)
+        private static void TestExifProfile(IExifProfile profile)
         {
             Assert.IsNotNull(profile);
 

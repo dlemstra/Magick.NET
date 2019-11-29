@@ -20,7 +20,7 @@ namespace ImageMagick
     /// <summary>
     /// Class that can be used to access an Exif profile.
     /// </summary>
-    public sealed class ExifProfile : ImageProfile
+    public sealed class ExifProfile : ImageProfile, IExifProfile
     {
         private Collection<IExifValue> _values;
         private List<ExifTag> _invalidTags = new List<ExifTag>();
@@ -97,7 +97,7 @@ namespace ImageMagick
         /// Returns the thumbnail in the exif profile when available.
         /// </summary>
         /// <returns>The thumbnail in the exif profile when available.</returns>
-        public MagickImage CreateThumbnail()
+        public IMagickImage CreateThumbnail()
         {
             InitializeValues();
 

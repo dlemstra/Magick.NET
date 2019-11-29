@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
-                    ExifProfile profile = image.GetExifProfile();
+                    var profile = image.GetExifProfile();
 
                     Assert.IsTrue(profile.RemoveValue(ExifTag.FNumber));
                 }
@@ -36,7 +36,7 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
-                    ExifProfile profile = image.GetExifProfile();
+                    var profile = image.GetExifProfile();
 
                     Assert.IsFalse(profile.RemoveValue(ExifTag.Acceleration));
                 }
