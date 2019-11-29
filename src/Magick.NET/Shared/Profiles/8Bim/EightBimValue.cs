@@ -94,12 +94,7 @@ namespace ImageMagick
         /// Serves as a hash of this type.
         /// </summary>
         /// <returns>A hash code for the current instance.</returns>
-        public override int GetHashCode()
-        {
-            return
-              _data.GetHashCode() ^
-              ID.GetHashCode();
-        }
+        public override int GetHashCode() => _data.GetHashCode() ^ ID.GetHashCode();
 
         /// <summary>
         /// Converts this instance to a byte array.
