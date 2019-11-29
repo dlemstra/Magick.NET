@@ -3123,7 +3123,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The iptc profile from the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IptcProfile GetIptcProfile()
+        public IIptcProfile GetIptcProfile()
         {
             StringInfo info = _nativeInstance.GetProfile("iptc");
             if (info == null || info.Datum == null)

@@ -97,7 +97,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
-                IptcProfile profile = image.GetIptcProfile();
+                var profile = image.GetIptcProfile();
                 return profile.Values.ElementAt(1);
             }
         }

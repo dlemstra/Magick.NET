@@ -43,7 +43,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage input = new MagickImage(Files.MagickNETIconPNG))
             {
-                IptcProfile profile = input.GetIptcProfile();
+                var profile = input.GetIptcProfile();
                 Assert.IsNull(profile);
 
                 profile = new IptcProfile();
@@ -120,7 +120,7 @@ namespace Magick.NET.Tests
             }
         }
 
-        private static void TestValue(IptcProfile profile, IptcTag tag, string expectedValue)
+        private static void TestValue(IIptcProfile profile, IptcTag tag, string expectedValue)
         {
             IptcValue value = profile.GetValue(tag);
             Assert.IsNotNull(value);

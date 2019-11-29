@@ -2070,7 +2070,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The iptc profile from the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IptcProfile GetIptcProfile();
+        IIptcProfile GetIptcProfile();
 
         /// <summary>
         /// Returns a pixel collection that can be used to read or modify the pixels of this image.

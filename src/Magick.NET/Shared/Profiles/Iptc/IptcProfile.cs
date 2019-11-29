@@ -21,7 +21,7 @@ namespace ImageMagick
     /// <summary>
     /// Class that can be used to access an Iptc profile.
     /// </summary>
-    public sealed class IptcProfile : ImageProfile
+    public sealed class IptcProfile : ImageProfile, IIptcProfile
     {
         private Collection<IptcValue> _values;
 

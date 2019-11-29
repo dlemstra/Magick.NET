@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
-                IptcProfile profile = image.GetIptcProfile();
+                var profile = image.GetIptcProfile();
                 TestProfileValues(profile);
 
                 ExceptionAssert.Throws<ArgumentNullException>("encoding", () =>
@@ -51,7 +51,7 @@ namespace Magick.NET.Tests
 
                 using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
-                    IptcProfile profile = image.GetIptcProfile();
+                    var profile = image.GetIptcProfile();
                     TestProfileValues(profile);
 
                     IptcValue value = profile.GetValue(IptcTag.Title);
@@ -86,7 +86,7 @@ namespace Magick.NET.Tests
 
                 using (IMagickImage image = new MagickImage(memStream))
                 {
-                    IptcProfile profile = image.GetIptcProfile();
+                    var profile = image.GetIptcProfile();
                     TestProfileValues(profile, 19);
 
                     IptcValue value = profile.GetValue(IptcTag.Title);
@@ -123,7 +123,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
-                IptcProfile profile = image.GetIptcProfile();
+                var profile = image.GetIptcProfile();
                 TestProfileValues(profile);
 
                 using (IMagickImage emptyImage = new MagickImage(Files.ImageMagickJPG))
@@ -137,12 +137,9 @@ namespace Magick.NET.Tests
             }
         }
 
-        private static void TestProfileValues(IptcProfile profile)
-        {
-            TestProfileValues(profile, 18);
-        }
+        private static void TestProfileValues(IIptcProfile profile) => TestProfileValues(profile, 18);
 
-        private static void TestProfileValues(IptcProfile profile, int count)
+        private static void TestProfileValues(IIptcProfile profile, int count)
         {
             Assert.IsNotNull(profile);
 

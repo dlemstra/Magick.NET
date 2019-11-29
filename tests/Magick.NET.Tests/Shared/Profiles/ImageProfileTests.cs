@@ -59,14 +59,14 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
-                ImageProfile first = image.GetIptcProfile();
+                var first = image.GetIptcProfile();
 
                 Assert.IsFalse(first == null);
                 Assert.IsFalse(first.Equals(null));
                 Assert.IsTrue(first.Equals(first));
                 Assert.IsTrue(first.Equals((object)first));
 
-                ImageProfile second = image.GetIptcProfile();
+                var second = image.GetIptcProfile();
                 Assert.IsNotNull(second);
 
                 Assert.IsTrue(first == second);
@@ -85,7 +85,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
-                ImageProfile profile = image.GetIptcProfile();
+                var profile = image.GetIptcProfile();
                 Assert.IsNotNull(profile);
 
                 Assert.AreEqual(273, profile.ToByteArray().Length);

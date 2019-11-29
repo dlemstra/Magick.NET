@@ -2160,7 +2160,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
-                ImageProfile profile = image.GetIptcProfile();
+                var profile = image.GetIptcProfile();
                 Assert.IsNotNull(profile);
                 image.RemoveProfile(profile.Name);
                 profile = image.GetIptcProfile();
