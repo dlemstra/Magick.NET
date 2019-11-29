@@ -31,7 +31,7 @@ namespace Magick.NET.Tests
 
                 var exception = ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
-                    value.Value = 15;
+                    value.Value = 10.5;
                 });
 
                 Assert.AreEqual("The type of the value should be String.", exception.Message);
