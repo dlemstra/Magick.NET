@@ -3469,17 +3469,6 @@ namespace Magick.NET.Tests
             Assert.AreEqual(0.0, area.Compare(part, ErrorMetric.RootMeanSquared));
         }
 
-        private static void Test_Ping(IMagickImage image)
-        {
-            ExceptionAssert.Throws<InvalidOperationException>(() =>
-            {
-                image.GetPixels();
-            });
-
-            ImageProfile profile = image.Get8BimProfile();
-            Assert.IsNotNull(profile);
-        }
-
         private IMagickImage CreatePallete()
         {
             using (IMagickImageCollection images = new MagickImageCollection())

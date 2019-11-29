@@ -440,7 +440,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_ReadSettings()
         {
-            MagickReadSettings settings = new MagickReadSettings();
+            var settings = new MagickReadSettings();
             settings.FontFamily = "Courier New";
             settings.FillColor = MagickColors.Gold;
             settings.FontPointsize = 80;
@@ -607,7 +607,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            FileInfo tempFile = new FileInfo(Path.GetTempFileName() + ".gif");
+            var tempFile = new FileInfo(Path.GetTempFileName() + ".gif");
             try
             {
                 using (IMagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
@@ -632,7 +632,7 @@ namespace Magick.NET.Tests
                 collection[0].GetPixels();
             });
 
-            ImageProfile profile = collection[0].Get8BimProfile();
+            var profile = collection[0].Get8BimProfile();
             Assert.IsNotNull(profile);
         }
 

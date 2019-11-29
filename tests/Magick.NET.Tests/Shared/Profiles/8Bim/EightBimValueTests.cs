@@ -22,8 +22,8 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_IEquatable()
         {
-            EightBimValue first = Get8BimValue();
-            EightBimValue second = Get8BimValue();
+            var first = Get8BimValue();
+            var second = Get8BimValue();
 
             Assert.IsTrue(first == second);
             Assert.IsTrue(first.Equals(second));
@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_ToByteArray()
         {
-            EightBimValue value = Get8BimValue();
+            var value = Get8BimValue();
             byte[] bytes = value.ToByteArray();
             Assert.AreEqual(273, bytes.Length);
         }
@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
-                EightBimProfile profile = image.Get8BimProfile();
+                var profile = image.Get8BimProfile();
                 return profile.Values.First();
             }
         }

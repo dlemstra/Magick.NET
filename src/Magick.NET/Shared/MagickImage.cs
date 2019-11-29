@@ -3020,7 +3020,7 @@ namespace ImageMagick
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         /// <returns>The 8bim profile from the image.</returns>
-        public EightBimProfile Get8BimProfile()
+        public IEightBimProfile Get8BimProfile()
         {
             StringInfo info = _nativeInstance.GetProfile("8bim");
             if (info == null || info.Datum == null)

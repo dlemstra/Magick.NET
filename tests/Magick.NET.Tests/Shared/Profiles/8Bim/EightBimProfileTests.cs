@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.EightBimTIF))
             {
-                EightBimProfile profile = image.Get8BimProfile();
+                var profile = image.Get8BimProfile();
                 TestProfile(profile);
 
                 using (IMagickImage emptyImage = new MagickImage(Files.EightBimTIF))
@@ -47,7 +47,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.EightBimTIF))
             {
-                EightBimProfile profile = image.Get8BimProfile();
+                var profile = image.Get8BimProfile();
                 TestProfileValues(profile);
 
                 using (IMagickImage emptyImage = new MagickImage(Files.ImageMagickJPG))
@@ -64,9 +64,9 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_CorruptProfile()
         {
-            byte[] bytes = ToBytes('8', 'B', 'I', 'M', (short)42, (byte)0, 1);
+            var bytes = ToBytes('8', 'B', 'I', 'M', (short)42, (byte)0, 1);
 
-            EightBimProfile profile = new EightBimProfile(bytes);
+            var profile = new EightBimProfile(bytes);
             Assert.AreEqual(0, profile.Values.Count());
 
             bytes = ToBytes('8', 'B', 'I', 'M', (short)42, (short)0, -1);
@@ -81,25 +81,25 @@ namespace Magick.NET.Tests
             Assert.AreEqual(0, profile.ClipPaths.Count());
         }
 
-        private static void TestProfileValues(EightBimProfile profile)
+        private static void TestProfileValues(IEightBimProfile profile)
         {
             Assert.IsNotNull(profile);
 
             Assert.AreEqual(25, profile.Values.Count());
 
-            EightBimValue firstValue = profile.Values.First();
+            var firstValue = profile.Values.First();
             Assert.AreEqual(1061, firstValue.ID);
 
             byte[] bytes = new byte[16] { 154, 137, 173, 93, 40, 109, 186, 33, 2, 200, 203, 169, 103, 5, 63, 219 };
             CollectionAssert.AreEqual(bytes, firstValue.ToByteArray());
 
-            foreach (EightBimValue value in profile.Values)
+            foreach (var value in profile.Values)
             {
                 Assert.IsNotNull(value.ToByteArray());
             }
         }
 
-        private static void TestProfile(EightBimProfile profile)
+        private static void TestProfile(IEightBimProfile profile)
         {
             Assert.IsNotNull(profile);
 
@@ -120,7 +120,7 @@ namespace Magick.NET.Tests
 
         private static byte[] ToBytes(params object[] objects)
         {
-            List<byte> bytes = new List<byte>();
+            var bytes = new List<byte>();
             foreach (object obj in objects)
             {
                 if (obj is byte)

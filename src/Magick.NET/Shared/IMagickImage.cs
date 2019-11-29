@@ -2011,7 +2011,7 @@ namespace ImageMagick
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         /// <returns>The 8bim profile from the image.</returns>
-        EightBimProfile Get8BimProfile();
+        IEightBimProfile Get8BimProfile();
 
         /// <summary>
         /// Returns the value of a named image attribute.

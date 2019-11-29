@@ -22,7 +22,7 @@ namespace ImageMagick
     /// <summary>
     /// Class that can be used to access an 8bim profile.
     /// </summary>
-    public sealed class EightBimProfile : ImageProfile
+    public sealed class EightBimProfile : ImageProfile, IEightBimProfile
     {
         private Collection<ClipPath> _clipPaths;
         private int _height;
