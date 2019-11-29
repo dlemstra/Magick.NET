@@ -120,7 +120,7 @@ namespace ImageMagick
 
             for (var i = 0; i < ifdValues.Count; i++)
             {
-                if (ifdValues[i].Tag == offsetTag)
+                if (ifdValues[i].TagValue == offsetTag)
                     index = i;
             }
 
@@ -191,7 +191,7 @@ namespace ImageMagick
 
             foreach (var value in values)
             {
-                offset = Write(BitConverter.GetBytes((ushort)value.Tag), destination, offset);
+                offset = Write(BitConverter.GetBytes((ushort)value.TagValue), destination, offset);
                 offset = Write(BitConverter.GetBytes((ushort)value.DataType), destination, offset);
                 offset = Write(BitConverter.GetBytes(GetNumberOfComponents(value)), destination, offset);
 
@@ -317,7 +317,7 @@ namespace ImageMagick
                 if (!HasValue(value))
                     continue;
 
-                if (ExifTags.GetPart(value.Tag) == part)
+                if (ExifTags.GetPart(value.TagValue) == part)
                     result.Add(value);
             }
 

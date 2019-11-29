@@ -22,7 +22,7 @@ namespace ImageMagick
     {
         internal ExifValue(ExifTagValue tag, ExifDataType dataType)
         {
-            Tag = tag;
+            TagValue = tag;
             DataType = dataType;
         }
 
@@ -39,7 +39,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the tag of the exif value.
         /// </summary>
-        public ExifTagValue Tag { get; }
+        public ExifTagValue TagValue { get; }
 
         /// <summary>
         /// Gets or sets the value.
@@ -76,7 +76,7 @@ namespace ImageMagick
             if (Value == null)
                 return null;
 
-            var description = ExifTagDescriptionAttribute.GetDescription(Tag, Value);
+            var description = ExifTagDescriptionAttribute.GetDescription(TagValue, Value);
             if (description != null)
                 return description;
 

@@ -99,7 +99,7 @@ namespace ImageMagick
                 var duplicate = false;
                 foreach (var val in values)
                 {
-                    if (val.Tag == value.Tag)
+                    if (val.TagValue == value.TagValue)
                     {
                         duplicate = true;
                         break;
@@ -109,12 +109,12 @@ namespace ImageMagick
                 if (duplicate)
                     continue;
 
-                if (value.Tag == ExifTagValue.SubIFDOffset)
+                if (value.TagValue == ExifTagValue.SubIFDOffset)
                 {
                     if (IsLong(value))
                         _exifOffset = (uint)value.Value;
                 }
-                else if (value.Tag == ExifTagValue.GPSIFDOffset)
+                else if (value.TagValue == ExifTagValue.GPSIFDOffset)
                 {
                     if (IsLong(value))
                         _gpsOffset = (uint)value.Value;
@@ -311,9 +311,9 @@ namespace ImageMagick
 
             foreach (var value in values)
             {
-                if (value.Tag == ExifTagValue.JPEGInterchangeFormat && IsLong(value))
+                if (value.TagValue == ExifTagValue.JPEGInterchangeFormat && IsLong(value))
                     ThumbnailOffset = (uint)value.Value + _startIndex;
-                else if (value.Tag == ExifTagValue.JPEGInterchangeFormatLength && IsLong(value))
+                else if (value.TagValue == ExifTagValue.JPEGInterchangeFormatLength && IsLong(value))
                     ThumbnailLength = (uint)value.Value;
             }
         }

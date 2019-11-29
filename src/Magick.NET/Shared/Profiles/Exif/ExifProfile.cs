@@ -121,7 +121,7 @@ namespace ImageMagick
         {
             foreach (var exifValue in Values)
             {
-                if (exifValue.Tag == tag)
+                if (exifValue.TagValue == tag)
                     return exifValue;
             }
 
@@ -151,7 +151,7 @@ namespace ImageMagick
 
             for (int i = 0; i < _values.Count; i++)
             {
-                if (_values[i].Tag == tag)
+                if (_values[i].TagValue == tag)
                 {
                     _values.RemoveAt(i);
                     return true;
@@ -170,7 +170,7 @@ namespace ImageMagick
         {
             foreach (var exifValue in Values)
             {
-                if (exifValue.Tag == tag)
+                if (exifValue.TagValue == tag)
                 {
                     exifValue.Value = value;
                     return;
