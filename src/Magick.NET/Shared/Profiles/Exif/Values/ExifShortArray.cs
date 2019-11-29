@@ -18,9 +18,14 @@ namespace ImageMagick
     public sealed class ExifShortArray : ExifArrayValue<ushort>
     {
         internal ExifShortArray(ExifTagValue tag)
-            : base(tag, ExifDataType.Short)
+            : base(tag)
         {
         }
+
+        /// <summary>
+        /// Gets the data type of the exif value.
+        /// </summary>
+        public override ExifDataType DataType => ExifDataType.Short;
 
         internal static ExifShortArray Create(ExifTagValue tag, ushort[] value) => new ExifShortArray(tag) { Value = value };
     }

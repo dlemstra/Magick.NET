@@ -20,9 +20,14 @@ namespace ImageMagick
     public sealed class ExifSignedByte : ExifValue<sbyte>
     {
         private ExifSignedByte(ExifTagValue tag)
-            : base(tag, ExifDataType.SignedByte)
+            : base(tag)
         {
         }
+
+        /// <summary>
+        /// Gets the data type of the exif value.
+        /// </summary>
+        public override ExifDataType DataType => ExifDataType.SignedByte;
 
         /// <summary>
         /// Gets a string that represents the current value.

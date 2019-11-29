@@ -18,9 +18,14 @@ namespace ImageMagick
     public sealed class ExifSignedByteArray : ExifArrayValue<sbyte>
     {
         private ExifSignedByteArray(ExifTagValue tag)
-            : base(tag, ExifDataType.SignedByte)
+            : base(tag)
         {
         }
+
+        /// <summary>
+        /// Gets the data type of the exif value.
+        /// </summary>
+        public override ExifDataType DataType => ExifDataType.SignedByte;
 
         internal static ExifSignedByteArray Create(ExifTagValue tag, sbyte[] value) => new ExifSignedByteArray(tag) { Value = value };
     }

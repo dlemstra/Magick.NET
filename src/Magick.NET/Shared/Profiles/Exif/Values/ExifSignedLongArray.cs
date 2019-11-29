@@ -18,9 +18,14 @@ namespace ImageMagick
     public sealed class ExifSignedLongArray : ExifArrayValue<int>
     {
         private ExifSignedLongArray(ExifTagValue tag)
-            : base(tag, ExifDataType.SignedLong)
+            : base(tag)
         {
         }
+
+        /// <summary>
+        /// Gets the data type of the exif value.
+        /// </summary>
+        public override ExifDataType DataType => ExifDataType.SignedLong;
 
         internal static ExifSignedLongArray Create(ExifTagValue tag, int[] value) => new ExifSignedLongArray(tag) { Value = value };
     }

@@ -20,9 +20,14 @@ namespace ImageMagick
     public sealed class ExifDouble : ExifValue<double>
     {
         internal ExifDouble(ExifTagValue tag)
-            : base(tag, ExifDataType.Double)
+            : base(tag)
         {
         }
+
+        /// <summary>
+        /// Gets the data type of the exif value.
+        /// </summary>
+        public override ExifDataType DataType => ExifDataType.Double;
 
         /// <summary>
         /// Gets a string that represents the current value.

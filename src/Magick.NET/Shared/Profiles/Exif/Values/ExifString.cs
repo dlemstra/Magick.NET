@@ -20,9 +20,14 @@ namespace ImageMagick
     public sealed class ExifString : ExifValue<string>
     {
         internal ExifString(ExifTagValue tag)
-            : base(tag, ExifDataType.String)
+            : base(tag)
         {
         }
+
+        /// <summary>
+        /// Gets the data type of the exif value.
+        /// </summary>
+        public override ExifDataType DataType => ExifDataType.String;
 
         /// <summary>
         /// Gets a string that represents the current value.

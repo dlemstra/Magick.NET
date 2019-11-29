@@ -18,9 +18,15 @@ namespace ImageMagick
     public sealed class ExifByteArray : ExifArrayValue<byte>
     {
         internal ExifByteArray(ExifTagValue tag, ExifDataType dataType)
-            : base(tag, dataType)
+            : base(tag)
         {
+            DataType = dataType;
         }
+
+        /// <summary>
+        /// Gets the data type of the exif value.
+        /// </summary>
+        public override ExifDataType DataType { get; }
 
         internal static ExifByteArray Create(ExifTagValue tag, ExifDataType dataType, byte[] value) => new ExifByteArray(tag, dataType) { Value = value };
     }

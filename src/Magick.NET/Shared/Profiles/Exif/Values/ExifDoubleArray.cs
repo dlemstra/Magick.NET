@@ -18,9 +18,14 @@ namespace ImageMagick
     public sealed class ExifDoubleArray : ExifArrayValue<double>
     {
         internal ExifDoubleArray(ExifTagValue tag)
-            : base(tag, ExifDataType.Double)
+            : base(tag)
         {
         }
+
+        /// <summary>
+        /// Gets the data type of the exif value.
+        /// </summary>
+        public override ExifDataType DataType => ExifDataType.Double;
 
         internal static ExifDoubleArray Create(ExifTagValue tag, double[] value) => new ExifDoubleArray(tag) { Value = value };
     }

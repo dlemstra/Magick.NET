@@ -18,9 +18,14 @@ namespace ImageMagick
     public sealed class ExifFloatArray : ExifArrayValue<float>
     {
         internal ExifFloatArray(ExifTagValue tag)
-            : base(tag, ExifDataType.Float)
+            : base(tag)
         {
         }
+
+        /// <summary>
+        /// Gets the data type of the exif value.
+        /// </summary>
+        public override ExifDataType DataType => ExifDataType.Float;
 
         internal static ExifFloatArray Create(ExifTagValue tag, float[] value) => new ExifFloatArray(tag) { Value = value };
     }

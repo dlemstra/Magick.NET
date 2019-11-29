@@ -20,9 +20,14 @@ namespace ImageMagick
     public sealed class ExifSignedRational : ExifValue<SignedRational>
     {
         internal ExifSignedRational(ExifTagValue tag)
-            : base(tag, ExifDataType.SignedRational)
+            : base(tag)
         {
         }
+
+        /// <summary>
+        /// Gets the data type of the exif value.
+        /// </summary>
+        public override ExifDataType DataType => ExifDataType.SignedRational;
 
         /// <summary>
         /// Gets a string that represents the current value.

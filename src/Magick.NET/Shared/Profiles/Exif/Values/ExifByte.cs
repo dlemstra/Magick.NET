@@ -20,9 +20,15 @@ namespace ImageMagick
     public sealed class ExifByte : ExifValue<byte>
     {
         internal ExifByte(ExifTagValue tag, ExifDataType dataType)
-            : base(tag, dataType)
+            : base(tag)
         {
+            DataType = dataType;
         }
+
+        /// <summary>
+        /// Gets the data type of the exif value.
+        /// </summary>
+        public override ExifDataType DataType { get; }
 
         /// <summary>
         /// Gets a string that represents the current value.

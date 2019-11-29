@@ -20,9 +20,14 @@ namespace ImageMagick
     public sealed class ExifShort : ExifValue<ushort>
     {
         internal ExifShort(ExifTagValue tag)
-            : base(tag, ExifDataType.Short)
+            : base(tag)
         {
         }
+
+        /// <summary>
+        /// Gets the data type of the exif value.
+        /// </summary>
+        public override ExifDataType DataType => ExifDataType.Short;
 
         /// <summary>
         /// Gets a string that represents the current value.

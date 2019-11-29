@@ -20,9 +20,14 @@ namespace ImageMagick
     public sealed class ExifLong : ExifValue<uint>
     {
         internal ExifLong(ExifTagValue tag)
-            : base(tag, ExifDataType.Long)
+            : base(tag)
         {
         }
+
+        /// <summary>
+        /// Gets the data type of the exif value.
+        /// </summary>
+        public override ExifDataType DataType => ExifDataType.Long;
 
         /// <summary>
         /// Gets a string that represents the current value.

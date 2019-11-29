@@ -20,9 +20,14 @@ namespace ImageMagick
     public sealed class ExifSignedLong : ExifValue<int>
     {
         private ExifSignedLong(ExifTagValue tag)
-            : base(tag, ExifDataType.SignedLong)
+            : base(tag)
         {
         }
+
+        /// <summary>
+        /// Gets the data type of the exif value.
+        /// </summary>
+        public override ExifDataType DataType => ExifDataType.SignedLong;
 
         /// <summary>
         /// Gets a string that represents the current value.
