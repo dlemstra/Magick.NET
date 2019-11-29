@@ -1113,7 +1113,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="profile">The profile to add or overwrite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void AddProfile(ImageProfile profile) => AddProfile(profile, true);
+        public void AddProfile(IImageProfile profile) => AddProfile(profile, true);
 
         /// <summary>
         /// Adds the specified profile to the image or overwrites it when overWriteExisting is true.
@@ -1122,7 +1122,7 @@ namespace ImageMagick
         /// <param name="overwriteExisting">When set to false an existing profile with the same name
         /// won't be overwritten.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void AddProfile(ImageProfile profile, bool overwriteExisting)
+        public void AddProfile(IImageProfile profile, bool overwriteExisting)
         {
             Throw.IfNull(nameof(profile), profile);
 
@@ -3165,7 +3165,7 @@ namespace ImageMagick
         /// <param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
         /// <returns>A named profile from the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public ImageProfile GetProfile(string name)
+        public IImageProfile GetProfile(string name)
         {
             Throw.IfNullOrEmpty(nameof(name), name);
 

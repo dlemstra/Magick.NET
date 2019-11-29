@@ -496,7 +496,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="profile">The profile to add or overwrite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void AddProfile(ImageProfile profile);
+        void AddProfile(IImageProfile profile);
 
         /// <summary>
         /// Adds the specified profile to the image or overwrites it when overWriteExisting is true.
@@ -505,7 +505,7 @@ namespace ImageMagick
         /// <param name="overwriteExisting">When set to false an existing profile with the same name
         /// won't be overwritten.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void AddProfile(ImageProfile profile, bool overwriteExisting);
+        void AddProfile(IImageProfile profile, bool overwriteExisting);
 
         /// <summary>
         /// Affine Transform image.
@@ -2093,7 +2093,7 @@ namespace ImageMagick
         /// <param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
         /// <returns>A named profile from the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        ImageProfile GetProfile(string name);
+        IImageProfile GetProfile(string name);
 
         /// <summary>
         /// Gets the associated read mask of the image.

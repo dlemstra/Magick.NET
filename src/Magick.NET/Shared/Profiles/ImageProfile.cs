@@ -10,7 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
@@ -19,7 +18,7 @@ namespace ImageMagick
     /// <summary>
     /// Class that contains an image profile.
     /// </summary>
-    public class ImageProfile : IEquatable<ImageProfile>
+    public class ImageProfile : IImageProfile
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ImageProfile"/> class.
@@ -111,7 +110,7 @@ namespace ImageMagick
             if (ReferenceEquals(this, obj))
                 return true;
 
-            return Equals(obj as ImageProfile);
+            return Equals(obj as IImageProfile);
         }
 
         /// <summary>
@@ -119,7 +118,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The image profile to compare this <see cref="ImageProfile"/> with.</param>
         /// <returns>True when the specified image compare is equal to the current <see cref="ImageProfile"/>.</returns>
-        public bool Equals(ImageProfile other)
+        public bool Equals(IImageProfile other)
         {
             if (other is null)
                 return false;
@@ -132,18 +131,16 @@ namespace ImageMagick
 
             UpdateData();
 
-            if (Data is null)
-                return other.Data is null;
+            var data = other.ToByteArray();
+            if (data.Length == 0)
+                return Data is null || Data.Length == 0;
 
-            if (other.Data is null)
-                return false;
-
-            if (Data.Length != other.Data.Length)
+            if (Data.Length != data.Length)
                 return false;
 
             for (int i = 0; i < Data.Length; i++)
             {
-                if (Data[i] != other.Data[i])
+                if (Data[i] != data[i])
                     return false;
             }
 
