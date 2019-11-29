@@ -36,12 +36,5 @@ namespace ImageMagick
         /// Gets or sets the value.
         /// </summary>
         object Value { get; set; }
-
-        /// <summary>
-        /// Tries to set the value and returns a value indicating whether the value could be set.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>A value indicating whether the value could be set.</returns>
-        bool TrySetValue(object value);
     }
 }

@@ -30,15 +30,5 @@ namespace ImageMagick
         protected override string StringValue => Value.ToString(CultureInfo.InvariantCulture);
 
         internal static ExifSignedLong Create(ExifTag tag, int value) => new ExifSignedLong(tag) { Value = value };
-
-        /// <summary>
-        /// Tries to set the value and returns a value indicating whether the value could be set.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>A value indicating whether the value could be set.</returns>
-        protected override bool TrySetValue(object value)
-        {
-            return false;
-        }
     }
 }
