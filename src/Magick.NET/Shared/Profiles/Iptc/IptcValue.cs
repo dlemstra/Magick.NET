@@ -10,7 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
 using System.Text;
 
 namespace ImageMagick
@@ -18,7 +17,7 @@ namespace ImageMagick
     /// <summary>
     /// A value of the iptc profile.
     /// </summary>
-    public sealed class IptcValue : IEquatable<IptcValue>
+    public sealed class IptcValue : IIptcValue
     {
         private byte[] _data;
         private Encoding _encoding;
@@ -72,7 +71,10 @@ namespace ImageMagick
             }
         }
 
-        internal int Length => _data.Length;
+        /// <summary>
+        /// Gets the length of the value.
+        /// </summary>
+        public int Length => _data.Length;
 
         /// <summary>
         /// Determines whether the specified <see cref="IptcValue"/> instances are considered equal.
@@ -98,7 +100,7 @@ namespace ImageMagick
             if (ReferenceEquals(this, obj))
                 return true;
 
-            return Equals(obj as IptcValue);
+            return Equals(obj as IIptcValue);
         }
 
         /// <summary>
@@ -106,7 +108,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The iptc value to compare this <see cref="IptcValue"/> with.</param>
         /// <returns>True when the specified iptc value is equal to the current <see cref="IptcValue"/>.</returns>
-        public bool Equals(IptcValue other)
+        public bool Equals(IIptcValue other)
         {
             if (other is null)
                 return false;
@@ -117,18 +119,14 @@ namespace ImageMagick
             if (Tag != other.Tag)
                 return false;
 
-            if (_data is null)
-                return other._data is null;
+            var data = other.ToByteArray();
 
-            if (other._data is null)
-                return false;
-
-            if (_data.Length != other._data.Length)
+            if (_data.Length != data.Length)
                 return false;
 
             for (int i = 0; i < _data.Length; i++)
             {
-                if (_data[i] != other._data[i])
+                if (_data[i] != data[i])
                     return false;
             }
 
@@ -139,12 +137,7 @@ namespace ImageMagick
         /// Serves as a hash of this type.
         /// </summary>
         /// <returns>A hash code for the current instance.</returns>
-        public override int GetHashCode()
-        {
-            return
-              _data.GetHashCode() ^
-              Tag.GetHashCode();
-        }
+        public override int GetHashCode() => _data.GetHashCode() ^ Tag.GetHashCode();
 
         /// <summary>
         /// Converts this instance to a byte array.

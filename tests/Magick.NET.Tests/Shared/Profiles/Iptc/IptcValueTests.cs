@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Encoding_SetToNull_NotChanged()
         {
-            IptcValue value = GetIptcValue();
+            var value = GetIptcValue();
 
             value.Encoding = null;
 
@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Encoding()
         {
-            IptcValue value = GetIptcValue();
+            var value = GetIptcValue();
 
             Assert.AreEqual("Communications", value.Value);
 
@@ -51,8 +51,8 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_IEquatable()
         {
-            IptcValue first = GetIptcValue();
-            IptcValue second = GetIptcValue();
+            var first = GetIptcValue();
+            var second = GetIptcValue();
 
             Assert.IsTrue(first == second);
             Assert.IsTrue(first.Equals(second));
@@ -62,7 +62,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Properties()
         {
-            IptcValue value = GetIptcValue();
+            var value = GetIptcValue();
 
             Assert.AreEqual(IptcTag.Caption, value.Tag);
             Assert.AreEqual("Communications", value.ToString());
@@ -73,7 +73,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_ToString()
         {
-            IptcValue value = GetIptcValue();
+            var value = GetIptcValue();
 
             Assert.AreEqual("Communications", value.ToString());
             Assert.AreEqual("Communications", value.ToString(Encoding.UTF8));
@@ -93,7 +93,7 @@ namespace Magick.NET.Tests
             Assert.AreEqual(string.Empty, value.ToString());
         }
 
-        private static IptcValue GetIptcValue()
+        private static IIptcValue GetIptcValue()
         {
             using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {

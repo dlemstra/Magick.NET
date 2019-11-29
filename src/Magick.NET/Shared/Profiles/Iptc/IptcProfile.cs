@@ -23,7 +23,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class IptcProfile : ImageProfile, IIptcProfile
     {
-        private Collection<IptcValue> _values;
+        private Collection<IIptcValue> _values;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IptcProfile"/> class.
@@ -64,7 +64,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the values of this iptc profile.
         /// </summary>
-        public IEnumerable<IptcValue> Values
+        public IEnumerable<IIptcValue> Values
         {
             get
             {
@@ -78,9 +78,9 @@ namespace ImageMagick
         /// </summary>
         /// <param name="tag">The tag of the iptc value.</param>
         /// <returns>The value with the specified tag.</returns>
-        public IptcValue GetValue(IptcTag tag)
+        public IIptcValue GetValue(IptcTag tag)
         {
-            foreach (IptcValue iptcValue in Values)
+            foreach (var iptcValue in Values)
             {
                 if (iptcValue.Tag == tag)
                     return iptcValue;
@@ -152,18 +152,15 @@ namespace ImageMagick
         /// </summary>
         /// <param name="tag">The tag of the iptc value.</param>
         /// <param name="value">The value.</param>
-        public void SetValue(IptcTag tag, string value)
-        {
-            SetValue(tag, Encoding.UTF8, value);
-        }
+        public void SetValue(IptcTag tag, string value) => SetValue(tag, Encoding.UTF8, value);
 
         /// <summary>
         /// Updates the data of the profile.
         /// </summary>
         protected override void UpdateData()
         {
-            int length = 0;
-            foreach (IptcValue value in Values)
+            var length = 0;
+            foreach (var value in Values)
             {
                 length += value.Length + 5;
             }
@@ -171,7 +168,7 @@ namespace ImageMagick
             Data = new byte[length];
 
             int i = 0;
-            foreach (IptcValue value in Values)
+            foreach (var value in Values)
             {
                 Data[i++] = 28;
                 Data[i++] = 2;
@@ -191,7 +188,7 @@ namespace ImageMagick
             if (_values != null)
                 return;
 
-            _values = new Collection<IptcValue>();
+            _values = new Collection<IIptcValue>();
 
             if (Data == null || Data[0] != 0x1c)
                 return;
@@ -204,11 +201,11 @@ namespace ImageMagick
 
                 i++;
 
-                IptcTag tag = (IptcTag)Data[i++];
+                var tag = (IptcTag)Data[i++];
 
-                short count = ByteConverter.ToShort(Data, ref i);
+                var count = ByteConverter.ToShort(Data, ref i);
 
-                byte[] data = new byte[count];
+                var data = new byte[count];
                 if ((count > 0) && (i + count <= Data.Length))
                     Buffer.BlockCopy(Data, i, data, 0, count);
                 _values.Add(new IptcValue(tag, data));

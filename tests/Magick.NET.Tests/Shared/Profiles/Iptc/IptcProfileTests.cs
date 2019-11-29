@@ -43,7 +43,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_SetValue()
         {
-            using (MemoryStream memStream = new MemoryStream())
+            using (var memStream = new MemoryStream())
             {
                 string credit = null;
                 for (int i = 0; i < 255; i++)
@@ -54,7 +54,7 @@ namespace Magick.NET.Tests
                     var profile = image.GetIptcProfile();
                     TestProfileValues(profile);
 
-                    IptcValue value = profile.GetValue(IptcTag.Title);
+                    var value = profile.GetValue(IptcTag.Title);
                     TestValue(value, "Communications");
 
                     profile.SetValue(IptcTag.Title, "Magick.NET Title");
@@ -89,7 +89,7 @@ namespace Magick.NET.Tests
                     var profile = image.GetIptcProfile();
                     TestProfileValues(profile, 19);
 
-                    IptcValue value = profile.GetValue(IptcTag.Title);
+                    var value = profile.GetValue(IptcTag.Title);
                     TestValue(value, "Magick.NET Title");
 
                     value = profile.GetValue(IptcTag.ReferenceNumber);
@@ -151,7 +151,7 @@ namespace Magick.NET.Tests
             }
         }
 
-        private static void TestValue(IptcValue value, string expected)
+        private static void TestValue(IIptcValue value, string expected)
         {
             Assert.IsNotNull(value);
             Assert.AreEqual(expected, value.Value);

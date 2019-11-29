@@ -23,14 +23,14 @@ namespace ImageMagick
         /// <summary>
         /// Gets the values of this iptc profile.
         /// </summary>
-        IEnumerable<IptcValue> Values { get; }
+        IEnumerable<IIptcValue> Values { get; }
 
         /// <summary>
         /// Returns the value with the specified tag.
         /// </summary>
         /// <param name="tag">The tag of the iptc value.</param>
         /// <returns>The value with the specified tag.</returns>
-        IptcValue GetValue(IptcTag tag);
+        IIptcValue GetValue(IptcTag tag);
 
         /// <summary>
         /// Removes the value with the specified tag.

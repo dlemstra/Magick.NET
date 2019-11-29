@@ -122,7 +122,7 @@ namespace Magick.NET.Tests
 
         private static void TestValue(IIptcProfile profile, IptcTag tag, string expectedValue)
         {
-            IptcValue value = profile.GetValue(tag);
+            var value = profile.GetValue(tag);
             Assert.IsNotNull(value);
             Assert.AreEqual(expectedValue, value.Value);
         }
