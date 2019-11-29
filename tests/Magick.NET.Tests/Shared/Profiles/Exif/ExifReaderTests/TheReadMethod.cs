@@ -58,14 +58,8 @@ namespace Magick.NET.Tests.Shared.Profiles.Exif
             [TestMethod]
             public void ShouldCheckTypeOfJPEGInterchangeFormat()
             {
-                var profile = new ExifProfile();
-                profile.SetValue(ExifTag.JPEGInterchangeFormat, 0U);
-
-                var data = profile.ToByteArray();
-                data[20] = 0;
-                data[28] = 8;
-
                 var reader = new ExifReader();
+                var data = new byte[] { 69, 120, 105, 102, 0, 0, 73, 73, 42, 0, 8, 0, 0, 0, 1, 0, 1, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0 };
 
                 var result = reader.Read(data);
 
@@ -75,14 +69,8 @@ namespace Magick.NET.Tests.Shared.Profiles.Exif
             [TestMethod]
             public void ShouldCheckTypeOfJPEGInterchangeFormatLength()
             {
-                var profile = new ExifProfile();
-                profile.SetValue(ExifTag.JPEGInterchangeFormatLength, 0U);
-
-                var data = profile.ToByteArray();
-                data[20] = 0;
-                data[28] = 8;
-
                 var reader = new ExifReader();
+                var data = new byte[] { 69, 120, 105, 102, 0, 0, 73, 73, 42, 0, 8, 0, 0, 0, 1, 0, 2, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0 };
 
                 var result = reader.Read(data);
 
