@@ -24,7 +24,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class EightBimProfile : ImageProfile, IEightBimProfile
     {
-        private Collection<ClipPath> _clipPaths;
+        private Collection<IClipPath> _clipPaths;
         private int _height;
         private Collection<EightBimValue> _values;
         private int _width;
@@ -67,7 +67,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the clipping paths this image contains.
         /// </summary>
-        public IEnumerable<ClipPath> ClipPaths
+        public IEnumerable<IClipPath> ClipPaths
         {
             get
             {
@@ -126,7 +126,7 @@ namespace ImageMagick
             if (_clipPaths != null)
                 return;
 
-            _clipPaths = new Collection<ClipPath>();
+            _clipPaths = new Collection<IClipPath>();
             _values = new Collection<EightBimValue>();
 
             int i = 0;

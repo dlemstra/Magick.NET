@@ -17,14 +17,8 @@ namespace ImageMagick
     /// <summary>
     /// A value of the exif profile.
     /// </summary>
-    public sealed class ClipPath : IClipPath
+    public interface IClipPath
     {
-        internal ClipPath(string name, IXPathNavigable path)
-        {
-            Name = name;
-            Path = path;
-        }
-
         /// <summary>
         /// Gets the name of the clipping path.
         /// </summary>

@@ -22,7 +22,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the clipping paths this image contains.
         /// </summary>
-        IEnumerable<ClipPath> ClipPaths { get; }
+        IEnumerable<IClipPath> ClipPaths { get; }
 
         /// <summary>
         /// Gets the values of this 8bim profile.
