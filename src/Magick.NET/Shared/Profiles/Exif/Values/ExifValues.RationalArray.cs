@@ -18,68 +18,68 @@ namespace ImageMagick
     public static partial class ExifValues
     {
         /// <summary>
-        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTag.WhitePoint"/> tag.
+        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTagValue.WhitePoint"/> tag.
         /// </summary>
-        public static ExifRationalArray WhitePoint => new ExifRationalArray(ExifTag.WhitePoint);
+        public static ExifRationalArray WhitePoint => new ExifRationalArray(ExifTagValue.WhitePoint);
 
         /// <summary>
-        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTag.PrimaryChromaticities"/> tag.
+        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTagValue.PrimaryChromaticities"/> tag.
         /// </summary>
-        public static ExifRationalArray PrimaryChromaticities => new ExifRationalArray(ExifTag.PrimaryChromaticities);
+        public static ExifRationalArray PrimaryChromaticities => new ExifRationalArray(ExifTagValue.PrimaryChromaticities);
 
         /// <summary>
-        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTag.YCbCrCoefficients"/> tag.
+        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTagValue.YCbCrCoefficients"/> tag.
         /// </summary>
-        public static ExifRationalArray YCbCrCoefficients => new ExifRationalArray(ExifTag.YCbCrCoefficients);
+        public static ExifRationalArray YCbCrCoefficients => new ExifRationalArray(ExifTagValue.YCbCrCoefficients);
 
         /// <summary>
-        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTag.ReferenceBlackWhite"/> tag.
+        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTagValue.ReferenceBlackWhite"/> tag.
         /// </summary>
-        public static ExifRationalArray ReferenceBlackWhite => new ExifRationalArray(ExifTag.ReferenceBlackWhite);
+        public static ExifRationalArray ReferenceBlackWhite => new ExifRationalArray(ExifTagValue.ReferenceBlackWhite);
 
         /// <summary>
-        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTag.PixelScale"/> tag.
+        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTagValue.PixelScale"/> tag.
         /// </summary>
-        public static ExifRationalArray PixelScale => new ExifRationalArray(ExifTag.PixelScale);
+        public static ExifRationalArray PixelScale => new ExifRationalArray(ExifTagValue.PixelScale);
 
         /// <summary>
-        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTag.IntergraphMatrix"/> tag.
+        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTagValue.IntergraphMatrix"/> tag.
         /// </summary>
-        public static ExifRationalArray IntergraphMatrix => new ExifRationalArray(ExifTag.IntergraphMatrix);
+        public static ExifRationalArray IntergraphMatrix => new ExifRationalArray(ExifTagValue.IntergraphMatrix);
 
         /// <summary>
-        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTag.ModelTiePoint"/> tag.
+        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTagValue.ModelTiePoint"/> tag.
         /// </summary>
-        public static ExifRationalArray ModelTiePoint => new ExifRationalArray(ExifTag.ModelTiePoint);
+        public static ExifRationalArray ModelTiePoint => new ExifRationalArray(ExifTagValue.ModelTiePoint);
 
         /// <summary>
-        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTag.ModelTransform"/> tag.
+        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTagValue.ModelTransform"/> tag.
         /// </summary>
-        public static ExifRationalArray ModelTransform => new ExifRationalArray(ExifTag.ModelTransform);
+        public static ExifRationalArray ModelTransform => new ExifRationalArray(ExifTagValue.ModelTransform);
 
         /// <summary>
-        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTag.GPSLatitude"/> tag.
+        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTagValue.GPSLatitude"/> tag.
         /// </summary>
-        public static ExifRationalArray GPSLatitude => new ExifRationalArray(ExifTag.GPSLatitude);
+        public static ExifRationalArray GPSLatitude => new ExifRationalArray(ExifTagValue.GPSLatitude);
 
         /// <summary>
-        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTag.GPSLongitude"/> tag.
+        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTagValue.GPSLongitude"/> tag.
         /// </summary>
-        public static ExifRationalArray GPSLongitude => new ExifRationalArray(ExifTag.GPSLongitude);
+        public static ExifRationalArray GPSLongitude => new ExifRationalArray(ExifTagValue.GPSLongitude);
 
         /// <summary>
-        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTag.GPSTimestamp"/> tag.
+        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTagValue.GPSTimestamp"/> tag.
         /// </summary>
-        public static ExifRationalArray GPSTimestamp => new ExifRationalArray(ExifTag.GPSTimestamp);
+        public static ExifRationalArray GPSTimestamp => new ExifRationalArray(ExifTagValue.GPSTimestamp);
 
         /// <summary>
-        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTag.GPSDestLatitude"/> tag.
+        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTagValue.GPSDestLatitude"/> tag.
         /// </summary>
-        public static ExifRationalArray GPSDestLatitude => new ExifRationalArray(ExifTag.GPSDestLatitude);
+        public static ExifRationalArray GPSDestLatitude => new ExifRationalArray(ExifTagValue.GPSDestLatitude);
 
         /// <summary>
-        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTag.GPSDestLongitude"/> tag.
+        /// Gets a new <see cref="ExifRationalArray"/> instance for the <see cref="ExifTagValue.GPSDestLongitude"/> tag.
         /// </summary>
-        public static ExifRationalArray GPSDestLongitude => new ExifRationalArray(ExifTag.GPSDestLongitude);
+        public static ExifRationalArray GPSDestLongitude => new ExifRationalArray(ExifTagValue.GPSDestLongitude);
     }
 }

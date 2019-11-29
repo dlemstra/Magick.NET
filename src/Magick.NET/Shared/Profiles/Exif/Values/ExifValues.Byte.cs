@@ -18,18 +18,18 @@ namespace ImageMagick
     public static partial class ExifValues
     {
         /// <summary>
-        /// Gets a new <see cref="ExifByte"/> instance for the <see cref="ExifTag.FaxProfile"/> tag.
+        /// Gets a new <see cref="ExifByte"/> instance for the <see cref="ExifTagValue.FaxProfile"/> tag.
         /// </summary>
-        public static ExifByte FaxProfile => new ExifByte(ExifTag.FaxProfile, ExifDataType.Byte);
+        public static ExifByte FaxProfile => new ExifByte(ExifTagValue.FaxProfile, ExifDataType.Byte);
 
         /// <summary>
-        /// Gets a new <see cref="ExifByte"/> instance for the <see cref="ExifTag.ModeNumber"/> tag.
+        /// Gets a new <see cref="ExifByte"/> instance for the <see cref="ExifTagValue.ModeNumber"/> tag.
         /// </summary>
-        public static ExifByte ModeNumber => new ExifByte(ExifTag.ModeNumber, ExifDataType.Byte);
+        public static ExifByte ModeNumber => new ExifByte(ExifTagValue.ModeNumber, ExifDataType.Byte);
 
         /// <summary>
-        /// Gets a new <see cref="ExifByte"/> instance for the <see cref="ExifTag.GPSAltitudeRef"/> tag.
+        /// Gets a new <see cref="ExifByte"/> instance for the <see cref="ExifTagValue.GPSAltitudeRef"/> tag.
         /// </summary>
-        public static ExifByte GPSAltitudeRef => new ExifByte(ExifTag.GPSAltitudeRef, ExifDataType.Byte);
+        public static ExifByte GPSAltitudeRef => new ExifByte(ExifTagValue.GPSAltitudeRef, ExifDataType.Byte);
     }
 }

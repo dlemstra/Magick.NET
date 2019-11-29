@@ -19,7 +19,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifFloat : ExifValue<float>
     {
-        internal ExifFloat(ExifTag tag)
+        internal ExifFloat(ExifTagValue tag)
             : base(tag, ExifDataType.Float)
         {
         }
@@ -29,7 +29,7 @@ namespace ImageMagick
         /// </summary>
         protected override string StringValue => Value.ToString(CultureInfo.InvariantCulture);
 
-        internal static ExifFloat Create(ExifTag tag, float value) => new ExifFloat(tag) { Value = value };
+        internal static ExifFloat Create(ExifTagValue tag, float value) => new ExifFloat(tag) { Value = value };
 
         /// <summary>
         /// Tries to set the value and returns a value indicating whether the value could be set.

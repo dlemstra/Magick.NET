@@ -18,273 +18,273 @@ namespace ImageMagick
     public static partial class ExifValues
     {
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.ImageDescription"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.ImageDescription"/> tag.
         /// </summary>
-        public static ExifString ImageDescription => new ExifString(ExifTag.ImageDescription);
+        public static ExifString ImageDescription => new ExifString(ExifTagValue.ImageDescription);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.Make"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.Make"/> tag.
         /// </summary>
-        public static ExifString Make => new ExifString(ExifTag.Make);
+        public static ExifString Make => new ExifString(ExifTagValue.Make);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.Model"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.Model"/> tag.
         /// </summary>
-        public static ExifString Model => new ExifString(ExifTag.Model);
+        public static ExifString Model => new ExifString(ExifTagValue.Model);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.Software"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.Software"/> tag.
         /// </summary>
-        public static ExifString Software => new ExifString(ExifTag.Software);
+        public static ExifString Software => new ExifString(ExifTagValue.Software);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.DateTime"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.DateTime"/> tag.
         /// </summary>
-        public static ExifString DateTime => new ExifString(ExifTag.DateTime);
+        public static ExifString DateTime => new ExifString(ExifTagValue.DateTime);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.Artist"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.Artist"/> tag.
         /// </summary>
-        public static ExifString Artist => new ExifString(ExifTag.Artist);
+        public static ExifString Artist => new ExifString(ExifTagValue.Artist);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.HostComputer"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.HostComputer"/> tag.
         /// </summary>
-        public static ExifString HostComputer => new ExifString(ExifTag.HostComputer);
+        public static ExifString HostComputer => new ExifString(ExifTagValue.HostComputer);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.Copyright"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.Copyright"/> tag.
         /// </summary>
-        public static ExifString Copyright => new ExifString(ExifTag.Copyright);
+        public static ExifString Copyright => new ExifString(ExifTagValue.Copyright);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.DocumentName"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.DocumentName"/> tag.
         /// </summary>
-        public static ExifString DocumentName => new ExifString(ExifTag.DocumentName);
+        public static ExifString DocumentName => new ExifString(ExifTagValue.DocumentName);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.PageName"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.PageName"/> tag.
         /// </summary>
-        public static ExifString PageName => new ExifString(ExifTag.PageName);
+        public static ExifString PageName => new ExifString(ExifTagValue.PageName);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.InkNames"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.InkNames"/> tag.
         /// </summary>
-        public static ExifString InkNames => new ExifString(ExifTag.InkNames);
+        public static ExifString InkNames => new ExifString(ExifTagValue.InkNames);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.TargetPrinter"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.TargetPrinter"/> tag.
         /// </summary>
-        public static ExifString TargetPrinter => new ExifString(ExifTag.TargetPrinter);
+        public static ExifString TargetPrinter => new ExifString(ExifTagValue.TargetPrinter);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.ImageID"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.ImageID"/> tag.
         /// </summary>
-        public static ExifString ImageID => new ExifString(ExifTag.ImageID);
+        public static ExifString ImageID => new ExifString(ExifTagValue.ImageID);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.MDLabName"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.MDLabName"/> tag.
         /// </summary>
-        public static ExifString MDLabName => new ExifString(ExifTag.MDLabName);
+        public static ExifString MDLabName => new ExifString(ExifTagValue.MDLabName);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.MDSampleInfo"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.MDSampleInfo"/> tag.
         /// </summary>
-        public static ExifString MDSampleInfo => new ExifString(ExifTag.MDSampleInfo);
+        public static ExifString MDSampleInfo => new ExifString(ExifTagValue.MDSampleInfo);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.MDPrepDate"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.MDPrepDate"/> tag.
         /// </summary>
-        public static ExifString MDPrepDate => new ExifString(ExifTag.MDPrepDate);
+        public static ExifString MDPrepDate => new ExifString(ExifTagValue.MDPrepDate);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.MDPrepTime"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.MDPrepTime"/> tag.
         /// </summary>
-        public static ExifString MDPrepTime => new ExifString(ExifTag.MDPrepTime);
+        public static ExifString MDPrepTime => new ExifString(ExifTagValue.MDPrepTime);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.MDFileUnits"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.MDFileUnits"/> tag.
         /// </summary>
-        public static ExifString MDFileUnits => new ExifString(ExifTag.MDFileUnits);
+        public static ExifString MDFileUnits => new ExifString(ExifTagValue.MDFileUnits);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.SEMInfo"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.SEMInfo"/> tag.
         /// </summary>
-        public static ExifString SEMInfo => new ExifString(ExifTag.SEMInfo);
+        public static ExifString SEMInfo => new ExifString(ExifTagValue.SEMInfo);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.SpectralSensitivity"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.SpectralSensitivity"/> tag.
         /// </summary>
-        public static ExifString SpectralSensitivity => new ExifString(ExifTag.SpectralSensitivity);
+        public static ExifString SpectralSensitivity => new ExifString(ExifTagValue.SpectralSensitivity);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.DateTimeOriginal"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.DateTimeOriginal"/> tag.
         /// </summary>
-        public static ExifString DateTimeOriginal => new ExifString(ExifTag.DateTimeOriginal);
+        public static ExifString DateTimeOriginal => new ExifString(ExifTagValue.DateTimeOriginal);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.DateTimeDigitized"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.DateTimeDigitized"/> tag.
         /// </summary>
-        public static ExifString DateTimeDigitized => new ExifString(ExifTag.DateTimeDigitized);
+        public static ExifString DateTimeDigitized => new ExifString(ExifTagValue.DateTimeDigitized);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.SubsecTime"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.SubsecTime"/> tag.
         /// </summary>
-        public static ExifString SubsecTime => new ExifString(ExifTag.SubsecTime);
+        public static ExifString SubsecTime => new ExifString(ExifTagValue.SubsecTime);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.SubsecTimeOriginal"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.SubsecTimeOriginal"/> tag.
         /// </summary>
-        public static ExifString SubsecTimeOriginal => new ExifString(ExifTag.SubsecTimeOriginal);
+        public static ExifString SubsecTimeOriginal => new ExifString(ExifTagValue.SubsecTimeOriginal);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.SubsecTimeDigitized"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.SubsecTimeDigitized"/> tag.
         /// </summary>
-        public static ExifString SubsecTimeDigitized => new ExifString(ExifTag.SubsecTimeDigitized);
+        public static ExifString SubsecTimeDigitized => new ExifString(ExifTagValue.SubsecTimeDigitized);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.RelatedSoundFile"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.RelatedSoundFile"/> tag.
         /// </summary>
-        public static ExifString RelatedSoundFile => new ExifString(ExifTag.RelatedSoundFile);
+        public static ExifString RelatedSoundFile => new ExifString(ExifTagValue.RelatedSoundFile);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.FaxSubaddress"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.FaxSubaddress"/> tag.
         /// </summary>
-        public static ExifString FaxSubaddress => new ExifString(ExifTag.FaxSubaddress);
+        public static ExifString FaxSubaddress => new ExifString(ExifTagValue.FaxSubaddress);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.OffsetTime"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.OffsetTime"/> tag.
         /// </summary>
-        public static ExifString OffsetTime => new ExifString(ExifTag.OffsetTime);
+        public static ExifString OffsetTime => new ExifString(ExifTagValue.OffsetTime);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.OffsetTimeOriginal"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.OffsetTimeOriginal"/> tag.
         /// </summary>
-        public static ExifString OffsetTimeOriginal => new ExifString(ExifTag.OffsetTimeOriginal);
+        public static ExifString OffsetTimeOriginal => new ExifString(ExifTagValue.OffsetTimeOriginal);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.OffsetTimeDigitized"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.OffsetTimeDigitized"/> tag.
         /// </summary>
-        public static ExifString OffsetTimeDigitized => new ExifString(ExifTag.OffsetTimeDigitized);
+        public static ExifString OffsetTimeDigitized => new ExifString(ExifTagValue.OffsetTimeDigitized);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.SecurityClassification"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.SecurityClassification"/> tag.
         /// </summary>
-        public static ExifString SecurityClassification => new ExifString(ExifTag.SecurityClassification);
+        public static ExifString SecurityClassification => new ExifString(ExifTagValue.SecurityClassification);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.ImageHistory"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.ImageHistory"/> tag.
         /// </summary>
-        public static ExifString ImageHistory => new ExifString(ExifTag.ImageHistory);
+        public static ExifString ImageHistory => new ExifString(ExifTagValue.ImageHistory);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.ImageUniqueID"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.ImageUniqueID"/> tag.
         /// </summary>
-        public static ExifString ImageUniqueID => new ExifString(ExifTag.ImageUniqueID);
+        public static ExifString ImageUniqueID => new ExifString(ExifTagValue.ImageUniqueID);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.OwnerName"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.OwnerName"/> tag.
         /// </summary>
-        public static ExifString OwnerName => new ExifString(ExifTag.OwnerName);
+        public static ExifString OwnerName => new ExifString(ExifTagValue.OwnerName);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.SerialNumber"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.SerialNumber"/> tag.
         /// </summary>
-        public static ExifString SerialNumber => new ExifString(ExifTag.SerialNumber);
+        public static ExifString SerialNumber => new ExifString(ExifTagValue.SerialNumber);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.LensMake"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.LensMake"/> tag.
         /// </summary>
-        public static ExifString LensMake => new ExifString(ExifTag.LensMake);
+        public static ExifString LensMake => new ExifString(ExifTagValue.LensMake);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.LensModel"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.LensModel"/> tag.
         /// </summary>
-        public static ExifString LensModel => new ExifString(ExifTag.LensModel);
+        public static ExifString LensModel => new ExifString(ExifTagValue.LensModel);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.LensSerialNumber"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.LensSerialNumber"/> tag.
         /// </summary>
-        public static ExifString LensSerialNumber => new ExifString(ExifTag.LensSerialNumber);
+        public static ExifString LensSerialNumber => new ExifString(ExifTagValue.LensSerialNumber);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.GDALMetadata"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.GDALMetadata"/> tag.
         /// </summary>
-        public static ExifString GDALMetadata => new ExifString(ExifTag.GDALMetadata);
+        public static ExifString GDALMetadata => new ExifString(ExifTagValue.GDALMetadata);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.GDALNoData"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.GDALNoData"/> tag.
         /// </summary>
-        public static ExifString GDALNoData => new ExifString(ExifTag.GDALNoData);
+        public static ExifString GDALNoData => new ExifString(ExifTagValue.GDALNoData);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.GPSLatitudeRef"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.GPSLatitudeRef"/> tag.
         /// </summary>
-        public static ExifString GPSLatitudeRef => new ExifString(ExifTag.GPSLatitudeRef);
+        public static ExifString GPSLatitudeRef => new ExifString(ExifTagValue.GPSLatitudeRef);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.GPSLongitudeRef"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.GPSLongitudeRef"/> tag.
         /// </summary>
-        public static ExifString GPSLongitudeRef => new ExifString(ExifTag.GPSLongitudeRef);
+        public static ExifString GPSLongitudeRef => new ExifString(ExifTagValue.GPSLongitudeRef);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.GPSSatellites"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.GPSSatellites"/> tag.
         /// </summary>
-        public static ExifString GPSSatellites => new ExifString(ExifTag.GPSSatellites);
+        public static ExifString GPSSatellites => new ExifString(ExifTagValue.GPSSatellites);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.GPSStatus"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.GPSStatus"/> tag.
         /// </summary>
-        public static ExifString GPSStatus => new ExifString(ExifTag.GPSStatus);
+        public static ExifString GPSStatus => new ExifString(ExifTagValue.GPSStatus);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.GPSMeasureMode"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.GPSMeasureMode"/> tag.
         /// </summary>
-        public static ExifString GPSMeasureMode => new ExifString(ExifTag.GPSMeasureMode);
+        public static ExifString GPSMeasureMode => new ExifString(ExifTagValue.GPSMeasureMode);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.GPSSpeedRef"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.GPSSpeedRef"/> tag.
         /// </summary>
-        public static ExifString GPSSpeedRef => new ExifString(ExifTag.GPSSpeedRef);
+        public static ExifString GPSSpeedRef => new ExifString(ExifTagValue.GPSSpeedRef);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.GPSTrackRef"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.GPSTrackRef"/> tag.
         /// </summary>
-        public static ExifString GPSTrackRef => new ExifString(ExifTag.GPSTrackRef);
+        public static ExifString GPSTrackRef => new ExifString(ExifTagValue.GPSTrackRef);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.GPSImgDirectionRef"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.GPSImgDirectionRef"/> tag.
         /// </summary>
-        public static ExifString GPSImgDirectionRef => new ExifString(ExifTag.GPSImgDirectionRef);
+        public static ExifString GPSImgDirectionRef => new ExifString(ExifTagValue.GPSImgDirectionRef);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.GPSMapDatum"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.GPSMapDatum"/> tag.
         /// </summary>
-        public static ExifString GPSMapDatum => new ExifString(ExifTag.GPSMapDatum);
+        public static ExifString GPSMapDatum => new ExifString(ExifTagValue.GPSMapDatum);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.GPSDestLatitudeRef"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.GPSDestLatitudeRef"/> tag.
         /// </summary>
-        public static ExifString GPSDestLatitudeRef => new ExifString(ExifTag.GPSDestLatitudeRef);
+        public static ExifString GPSDestLatitudeRef => new ExifString(ExifTagValue.GPSDestLatitudeRef);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.GPSDestLongitudeRef"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.GPSDestLongitudeRef"/> tag.
         /// </summary>
-        public static ExifString GPSDestLongitudeRef => new ExifString(ExifTag.GPSDestLongitudeRef);
+        public static ExifString GPSDestLongitudeRef => new ExifString(ExifTagValue.GPSDestLongitudeRef);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.GPSDestBearingRef"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.GPSDestBearingRef"/> tag.
         /// </summary>
-        public static ExifString GPSDestBearingRef => new ExifString(ExifTag.GPSDestBearingRef);
+        public static ExifString GPSDestBearingRef => new ExifString(ExifTagValue.GPSDestBearingRef);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.GPSDestDistanceRef"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.GPSDestDistanceRef"/> tag.
         /// </summary>
-        public static ExifString GPSDestDistanceRef => new ExifString(ExifTag.GPSDestDistanceRef);
+        public static ExifString GPSDestDistanceRef => new ExifString(ExifTagValue.GPSDestDistanceRef);
 
         /// <summary>
-        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTag.GPSDateStamp"/> tag.
+        /// Gets a new <see cref="ExifString"/> instance for the <see cref="ExifTagValue.GPSDateStamp"/> tag.
         /// </summary>
-        public static ExifString GPSDateStamp => new ExifString(ExifTag.GPSDateStamp);
+        public static ExifString GPSDateStamp => new ExifString(ExifTagValue.GPSDateStamp);
     }
 }

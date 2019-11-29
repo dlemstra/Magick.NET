@@ -19,7 +19,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifShort : ExifValue<ushort>
     {
-        internal ExifShort(ExifTag tag)
+        internal ExifShort(ExifTagValue tag)
             : base(tag, ExifDataType.Short)
         {
         }
@@ -29,7 +29,7 @@ namespace ImageMagick
         /// </summary>
         protected override string StringValue => Value.ToString(CultureInfo.InvariantCulture);
 
-        internal static ExifShort Create(ExifTag tag, ushort value) => new ExifShort(tag) { Value = value };
+        internal static ExifShort Create(ExifTagValue tag, ushort value) => new ExifShort(tag) { Value = value };
 
         /// <summary>
         /// Tries to set the value and returns a value indicating whether the value could be set.

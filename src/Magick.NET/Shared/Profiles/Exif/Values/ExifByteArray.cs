@@ -17,11 +17,11 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifByteArray : ExifArrayValue<byte>
     {
-        internal ExifByteArray(ExifTag tag, ExifDataType dataType)
+        internal ExifByteArray(ExifTagValue tag, ExifDataType dataType)
             : base(tag, dataType)
         {
         }
 
-        internal static ExifByteArray Create(ExifTag tag, ExifDataType dataType, byte[] value) => new ExifByteArray(tag, dataType) { Value = value };
+        internal static ExifByteArray Create(ExifTagValue tag, ExifDataType dataType, byte[] value) => new ExifByteArray(tag, dataType) { Value = value };
     }
 }

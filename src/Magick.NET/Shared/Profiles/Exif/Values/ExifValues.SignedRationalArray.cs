@@ -18,8 +18,8 @@ namespace ImageMagick
     public static partial class ExifValues
     {
         /// <summary>
-        /// Gets a new <see cref="ExifSignedRationalArray"/> instance for the <see cref="ExifTag.Decode"/> tag.
+        /// Gets a new <see cref="ExifSignedRationalArray"/> instance for the <see cref="ExifTagValue.Decode"/> tag.
         /// </summary>
-        public static ExifSignedRationalArray Decode => new ExifSignedRationalArray(ExifTag.Decode);
+        public static ExifSignedRationalArray Decode => new ExifSignedRationalArray(ExifTagValue.Decode);
     }
 }

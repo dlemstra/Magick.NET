@@ -18,88 +18,88 @@ namespace ImageMagick
     public static partial class ExifValues
     {
         /// <summary>
-        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTag.JPEGTables"/> tag.
+        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTagValue.JPEGTables"/> tag.
         /// </summary>
-        public static ExifByteArray JPEGTables => new ExifByteArray(ExifTag.JPEGTables, ExifDataType.Undefined);
+        public static ExifByteArray JPEGTables => new ExifByteArray(ExifTagValue.JPEGTables, ExifDataType.Undefined);
 
         /// <summary>
-        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTag.OECF"/> tag.
+        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTagValue.OECF"/> tag.
         /// </summary>
-        public static ExifByteArray JPEGTOECFables => new ExifByteArray(ExifTag.OECF, ExifDataType.Undefined);
+        public static ExifByteArray JPEGTOECFables => new ExifByteArray(ExifTagValue.OECF, ExifDataType.Undefined);
 
         /// <summary>
-        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTag.ExifVersion"/> tag.
+        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTagValue.ExifVersion"/> tag.
         /// </summary>
-        public static ExifByteArray ExifVersion => new ExifByteArray(ExifTag.ExifVersion, ExifDataType.Undefined);
+        public static ExifByteArray ExifVersion => new ExifByteArray(ExifTagValue.ExifVersion, ExifDataType.Undefined);
 
         /// <summary>
-        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTag.ComponentsConfiguration"/> tag.
+        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTagValue.ComponentsConfiguration"/> tag.
         /// </summary>
-        public static ExifByteArray ComponentsConfiguration => new ExifByteArray(ExifTag.ComponentsConfiguration, ExifDataType.Undefined);
+        public static ExifByteArray ComponentsConfiguration => new ExifByteArray(ExifTagValue.ComponentsConfiguration, ExifDataType.Undefined);
 
         /// <summary>
-        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTag.MakerNote"/> tag.
+        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTagValue.MakerNote"/> tag.
         /// </summary>
-        public static ExifByteArray MakerNote => new ExifByteArray(ExifTag.MakerNote, ExifDataType.Undefined);
+        public static ExifByteArray MakerNote => new ExifByteArray(ExifTagValue.MakerNote, ExifDataType.Undefined);
 
         /// <summary>
-        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTag.UserComment"/> tag.
+        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTagValue.UserComment"/> tag.
         /// </summary>
-        public static ExifByteArray UserComment => new ExifByteArray(ExifTag.UserComment, ExifDataType.Undefined);
+        public static ExifByteArray UserComment => new ExifByteArray(ExifTagValue.UserComment, ExifDataType.Undefined);
 
         /// <summary>
-        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTag.FlashpixVersion"/> tag.
+        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTagValue.FlashpixVersion"/> tag.
         /// </summary>
-        public static ExifByteArray FlashpixVersion => new ExifByteArray(ExifTag.FlashpixVersion, ExifDataType.Undefined);
+        public static ExifByteArray FlashpixVersion => new ExifByteArray(ExifTagValue.FlashpixVersion, ExifDataType.Undefined);
 
         /// <summary>
-        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTag.SpatialFrequencyResponse"/> tag.
+        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTagValue.SpatialFrequencyResponse"/> tag.
         /// </summary>
-        public static ExifByteArray SpatialFrequencyResponse => new ExifByteArray(ExifTag.SpatialFrequencyResponse, ExifDataType.Undefined);
+        public static ExifByteArray SpatialFrequencyResponse => new ExifByteArray(ExifTagValue.SpatialFrequencyResponse, ExifDataType.Undefined);
 
         /// <summary>
-        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTag.SpatialFrequencyResponse2"/> tag.
+        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTagValue.SpatialFrequencyResponse2"/> tag.
         /// </summary>
-        public static ExifByteArray SpatialFrequencyResponse2 => new ExifByteArray(ExifTag.SpatialFrequencyResponse2, ExifDataType.Undefined);
+        public static ExifByteArray SpatialFrequencyResponse2 => new ExifByteArray(ExifTagValue.SpatialFrequencyResponse2, ExifDataType.Undefined);
 
         /// <summary>
-        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTag.Noise"/> tag.
+        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTagValue.Noise"/> tag.
         /// </summary>
-        public static ExifByteArray Noise => new ExifByteArray(ExifTag.Noise, ExifDataType.Undefined);
+        public static ExifByteArray Noise => new ExifByteArray(ExifTagValue.Noise, ExifDataType.Undefined);
 
         /// <summary>
-        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTag.CFAPattern"/> tag.
+        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTagValue.CFAPattern"/> tag.
         /// </summary>
-        public static ExifByteArray CFAPattern => new ExifByteArray(ExifTag.CFAPattern, ExifDataType.Undefined);
+        public static ExifByteArray CFAPattern => new ExifByteArray(ExifTagValue.CFAPattern, ExifDataType.Undefined);
 
         /// <summary>
-        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTag.DeviceSettingDescription"/> tag.
+        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTagValue.DeviceSettingDescription"/> tag.
         /// </summary>
-        public static ExifByteArray DeviceSettingDescription => new ExifByteArray(ExifTag.DeviceSettingDescription, ExifDataType.Undefined);
+        public static ExifByteArray DeviceSettingDescription => new ExifByteArray(ExifTagValue.DeviceSettingDescription, ExifDataType.Undefined);
 
         /// <summary>
-        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTag.ImageSourceData"/> tag.
+        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTagValue.ImageSourceData"/> tag.
         /// </summary>
-        public static ExifByteArray ImageSourceData => new ExifByteArray(ExifTag.ImageSourceData, ExifDataType.Undefined);
+        public static ExifByteArray ImageSourceData => new ExifByteArray(ExifTagValue.ImageSourceData, ExifDataType.Undefined);
 
         /// <summary>
-        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTag.GPSProcessingMethod"/> tag.
+        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTagValue.GPSProcessingMethod"/> tag.
         /// </summary>
-        public static ExifByteArray GPSProcessingMethod => new ExifByteArray(ExifTag.GPSProcessingMethod, ExifDataType.Undefined);
+        public static ExifByteArray GPSProcessingMethod => new ExifByteArray(ExifTagValue.GPSProcessingMethod, ExifDataType.Undefined);
 
         /// <summary>
-        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTag.GPSAreaInformation"/> tag.
+        /// Gets a new <see cref="ExifByteArray"/> instance for the <see cref="ExifTagValue.GPSAreaInformation"/> tag.
         /// </summary>
-        public static ExifByteArray GPSAreaInformation => new ExifByteArray(ExifTag.GPSAreaInformation, ExifDataType.Undefined);
+        public static ExifByteArray GPSAreaInformation => new ExifByteArray(ExifTagValue.GPSAreaInformation, ExifDataType.Undefined);
 
         /// <summary>
-        /// Gets a new <see cref="ExifByte"/> instance for the <see cref="ExifTag.FileSource"/> tag.
+        /// Gets a new <see cref="ExifByte"/> instance for the <see cref="ExifTagValue.FileSource"/> tag.
         /// </summary>
-        public static ExifByte FileSource => new ExifByte(ExifTag.FileSource, ExifDataType.Undefined);
+        public static ExifByte FileSource => new ExifByte(ExifTagValue.FileSource, ExifDataType.Undefined);
 
         /// <summary>
-        /// Gets a new <see cref="ExifByte"/> instance for the <see cref="ExifTag.SceneType"/> tag.
+        /// Gets a new <see cref="ExifByte"/> instance for the <see cref="ExifTagValue.SceneType"/> tag.
         /// </summary>
-        public static ExifByte SceneType => new ExifByte(ExifTag.SceneType, ExifDataType.Undefined);
+        public static ExifByte SceneType => new ExifByte(ExifTagValue.SceneType, ExifDataType.Undefined);
     }
 }

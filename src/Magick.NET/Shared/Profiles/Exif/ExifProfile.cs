@@ -23,7 +23,7 @@ namespace ImageMagick
     public sealed class ExifProfile : ImageProfile, IExifProfile
     {
         private Collection<IExifValue> _values;
-        private List<ExifTag> _invalidTags = new List<ExifTag>();
+        private List<ExifTagValue> _invalidTags = new List<ExifTagValue>();
         private int _thumbnailOffset;
         private int _thumbnailLength;
 
@@ -71,7 +71,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the tags that where found but contained an invalid value.
         /// </summary>
-        public IEnumerable<ExifTag> InvalidTags
+        public IEnumerable<ExifTagValue> InvalidTags
         {
             get
             {
@@ -117,7 +117,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="tag">The tag of the exif value.</param>
         /// <returns>The value with the specified tag.</returns>
-        public IExifValue GetValue(ExifTag tag)
+        public IExifValue GetValue(ExifTagValue tag)
         {
             foreach (var exifValue in Values)
             {
@@ -145,7 +145,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="tag">The tag of the exif value.</param>
         /// <returns>True when the value was fount and removed.</returns>
-        public bool RemoveValue(ExifTag tag)
+        public bool RemoveValue(ExifTagValue tag)
         {
             InitializeValues();
 
@@ -166,7 +166,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="tag">The tag of the exif value.</param>
         /// <param name="value">The value.</param>
-        public void SetValue(ExifTag tag, object value)
+        public void SetValue(ExifTagValue tag, object value)
         {
             foreach (var exifValue in Values)
             {

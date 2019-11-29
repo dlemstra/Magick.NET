@@ -18,33 +18,33 @@ namespace ImageMagick
     public static partial class ExifValues
     {
         /// <summary>
-        /// Gets a new <see cref="ExifSignedRational"/> instance for the <see cref="ExifTag.ShutterSpeedValue"/> tag.
+        /// Gets a new <see cref="ExifSignedRational"/> instance for the <see cref="ExifTagValue.ShutterSpeedValue"/> tag.
         /// </summary>
-        public static ExifSignedRational ShutterSpeedValue => new ExifSignedRational(ExifTag.ShutterSpeedValue);
+        public static ExifSignedRational ShutterSpeedValue => new ExifSignedRational(ExifTagValue.ShutterSpeedValue);
 
         /// <summary>
-        /// Gets a new <see cref="ExifSignedRational"/> instance for the <see cref="ExifTag.BrightnessValue"/> tag.
+        /// Gets a new <see cref="ExifSignedRational"/> instance for the <see cref="ExifTagValue.BrightnessValue"/> tag.
         /// </summary>
-        public static ExifSignedRational BrightnessValue => new ExifSignedRational(ExifTag.BrightnessValue);
+        public static ExifSignedRational BrightnessValue => new ExifSignedRational(ExifTagValue.BrightnessValue);
 
         /// <summary>
-        /// Gets a new <see cref="ExifSignedRational"/> instance for the <see cref="ExifTag.ExposureBiasValue"/> tag.
+        /// Gets a new <see cref="ExifSignedRational"/> instance for the <see cref="ExifTagValue.ExposureBiasValue"/> tag.
         /// </summary>
-        public static ExifSignedRational ExposureBiasValue => new ExifSignedRational(ExifTag.ExposureBiasValue);
+        public static ExifSignedRational ExposureBiasValue => new ExifSignedRational(ExifTagValue.ExposureBiasValue);
 
         /// <summary>
-        /// Gets a new <see cref="ExifSignedRational"/> instance for the <see cref="ExifTag.AmbientTemperature"/> tag.
+        /// Gets a new <see cref="ExifSignedRational"/> instance for the <see cref="ExifTagValue.AmbientTemperature"/> tag.
         /// </summary>
-        public static ExifSignedRational AmbientTemperature => new ExifSignedRational(ExifTag.AmbientTemperature);
+        public static ExifSignedRational AmbientTemperature => new ExifSignedRational(ExifTagValue.AmbientTemperature);
 
         /// <summary>
-        /// Gets a new <see cref="ExifSignedRational"/> instance for the <see cref="ExifTag.WaterDepth"/> tag.
+        /// Gets a new <see cref="ExifSignedRational"/> instance for the <see cref="ExifTagValue.WaterDepth"/> tag.
         /// </summary>
-        public static ExifSignedRational WaterDepth => new ExifSignedRational(ExifTag.WaterDepth);
+        public static ExifSignedRational WaterDepth => new ExifSignedRational(ExifTagValue.WaterDepth);
 
         /// <summary>
-        /// Gets a new <see cref="ExifSignedRational"/> instance for the <see cref="ExifTag.CameraElevationAngle"/> tag.
+        /// Gets a new <see cref="ExifSignedRational"/> instance for the <see cref="ExifTagValue.CameraElevationAngle"/> tag.
         /// </summary>
-        public static ExifSignedRational CameraElevationAngle => new ExifSignedRational(ExifTag.CameraElevationAngle);
+        public static ExifSignedRational CameraElevationAngle => new ExifSignedRational(ExifTagValue.CameraElevationAngle);
     }
 }

@@ -18,84 +18,84 @@ namespace ImageMagick
     public static partial class ExifValues
     {
         /// <summary>
-        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.FreeOffsets"/> tag.
+        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTagValue.FreeOffsets"/> tag.
         /// </summary>
-        public static ExifLongArray FreeOffsets => new ExifLongArray(ExifTag.FreeOffsets);
+        public static ExifLongArray FreeOffsets => new ExifLongArray(ExifTagValue.FreeOffsets);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.FreeByteCounts"/> tag.
+        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTagValue.FreeByteCounts"/> tag.
         /// </summary>
-        public static ExifLongArray FreeByteCounts => new ExifLongArray(ExifTag.FreeByteCounts);
+        public static ExifLongArray FreeByteCounts => new ExifLongArray(ExifTagValue.FreeByteCounts);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.ColorResponseUnit"/> tag.
+        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTagValue.ColorResponseUnit"/> tag.
         /// </summary>
-        public static ExifLongArray ColorResponseUnit => new ExifLongArray(ExifTag.ColorResponseUnit);
+        public static ExifLongArray ColorResponseUnit => new ExifLongArray(ExifTagValue.ColorResponseUnit);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.TileOffsets"/> tag.
+        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTagValue.TileOffsets"/> tag.
         /// </summary>
-        public static ExifLongArray TileOffsets => new ExifLongArray(ExifTag.TileOffsets);
+        public static ExifLongArray TileOffsets => new ExifLongArray(ExifTagValue.TileOffsets);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.SMinSampleValue"/> tag.
+        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTagValue.SMinSampleValue"/> tag.
         /// </summary>
-        public static ExifLongArray SMinSampleValue => new ExifLongArray(ExifTag.SMinSampleValue);
+        public static ExifLongArray SMinSampleValue => new ExifLongArray(ExifTagValue.SMinSampleValue);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.SMaxSampleValue"/> tag.
+        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTagValue.SMaxSampleValue"/> tag.
         /// </summary>
-        public static ExifLongArray SMaxSampleValue => new ExifLongArray(ExifTag.SMaxSampleValue);
+        public static ExifLongArray SMaxSampleValue => new ExifLongArray(ExifTagValue.SMaxSampleValue);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.JPEGQTables"/> tag.
+        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTagValue.JPEGQTables"/> tag.
         /// </summary>
-        public static ExifLongArray JPEGQTables => new ExifLongArray(ExifTag.JPEGQTables);
+        public static ExifLongArray JPEGQTables => new ExifLongArray(ExifTagValue.JPEGQTables);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.JPEGDCTables"/> tag.
+        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTagValue.JPEGDCTables"/> tag.
         /// </summary>
-        public static ExifLongArray JPEGDCTables => new ExifLongArray(ExifTag.JPEGDCTables);
+        public static ExifLongArray JPEGDCTables => new ExifLongArray(ExifTagValue.JPEGDCTables);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.JPEGACTables"/> tag.
+        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTagValue.JPEGACTables"/> tag.
         /// </summary>
-        public static ExifLongArray JPEGACTables => new ExifLongArray(ExifTag.JPEGACTables);
+        public static ExifLongArray JPEGACTables => new ExifLongArray(ExifTagValue.JPEGACTables);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.StripRowCounts"/> tag.
+        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTagValue.StripRowCounts"/> tag.
         /// </summary>
-        public static ExifLongArray StripRowCounts => new ExifLongArray(ExifTag.StripRowCounts);
+        public static ExifLongArray StripRowCounts => new ExifLongArray(ExifTagValue.StripRowCounts);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.IntergraphRegisters"/> tag.
+        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTagValue.IntergraphRegisters"/> tag.
         /// </summary>
-        public static ExifLongArray IntergraphRegisters => new ExifLongArray(ExifTag.IntergraphRegisters);
+        public static ExifLongArray IntergraphRegisters => new ExifLongArray(ExifTagValue.IntergraphRegisters);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.TimeZoneOffset"/> tag.
+        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTagValue.TimeZoneOffset"/> tag.
         /// </summary>
-        public static ExifLongArray TimeZoneOffset => new ExifLongArray(ExifTag.TimeZoneOffset);
+        public static ExifLongArray TimeZoneOffset => new ExifLongArray(ExifTagValue.TimeZoneOffset);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.StripOffsets"/> tag.
+        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTagValue.StripOffsets"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifLongArray"/> instance.</returns>
-        public static ExifLongArray StripOffsets(uint[] value) => ExifLongArray.Create(ExifTag.StripOffsets, value);
+        public static ExifLongArray StripOffsets(uint[] value) => ExifLongArray.Create(ExifTagValue.StripOffsets, value);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.TileByteCounts"/> tag.
+        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTagValue.TileByteCounts"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifLongArray"/> instance.</returns>
-        public static ExifLongArray TileByteCounts(uint[] value) => ExifLongArray.Create(ExifTag.TileByteCounts, value);
+        public static ExifLongArray TileByteCounts(uint[] value) => ExifLongArray.Create(ExifTagValue.TileByteCounts, value);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTag.ImageLayer"/> tag.
+        /// Gets a new <see cref="ExifLongArray"/> instance for the <see cref="ExifTagValue.ImageLayer"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifLongArray"/> instance.</returns>
-        public static ExifLongArray ImageLayer(uint[] value) => ExifLongArray.Create(ExifTag.ImageLayer, value);
+        public static ExifLongArray ImageLayer(uint[] value) => ExifLongArray.Create(ExifTagValue.ImageLayer, value);
     }
 }

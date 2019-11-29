@@ -23,24 +23,24 @@ namespace Magick.NET.Tests
         {
             var exifProfile = new ExifProfile();
 
-            exifProfile.SetValue(ExifTag.ResolutionUnit, (ushort)1);
-            var value = exifProfile.GetValue(ExifTag.ResolutionUnit);
+            exifProfile.SetValue(ExifTagValue.ResolutionUnit, (ushort)1);
+            var value = exifProfile.GetValue(ExifTagValue.ResolutionUnit);
             Assert.AreEqual("None", value.ToString());
 
-            exifProfile.SetValue(ExifTag.ResolutionUnit, (ushort)2);
-            value = exifProfile.GetValue(ExifTag.ResolutionUnit);
+            exifProfile.SetValue(ExifTagValue.ResolutionUnit, (ushort)2);
+            value = exifProfile.GetValue(ExifTagValue.ResolutionUnit);
             Assert.AreEqual("Inches", value.ToString());
 
-            exifProfile.SetValue(ExifTag.ResolutionUnit, (ushort)3);
-            value = exifProfile.GetValue(ExifTag.ResolutionUnit);
+            exifProfile.SetValue(ExifTagValue.ResolutionUnit, (ushort)3);
+            value = exifProfile.GetValue(ExifTagValue.ResolutionUnit);
             Assert.AreEqual("Centimeter", value.ToString());
 
-            exifProfile.SetValue(ExifTag.ResolutionUnit, (ushort)4);
-            value = exifProfile.GetValue(ExifTag.ResolutionUnit);
+            exifProfile.SetValue(ExifTagValue.ResolutionUnit, (ushort)4);
+            value = exifProfile.GetValue(ExifTagValue.ResolutionUnit);
             Assert.AreEqual("4", value.ToString());
 
-            exifProfile.SetValue(ExifTag.ImageWidth, 123);
-            value = exifProfile.GetValue(ExifTag.ImageWidth);
+            exifProfile.SetValue(ExifTagValue.ImageWidth, 123);
+            value = exifProfile.GetValue(ExifTagValue.ImageWidth);
             Assert.AreEqual("123", value.ToString());
         }
     }

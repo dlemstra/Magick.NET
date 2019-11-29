@@ -30,7 +30,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the tag of the exif value.
         /// </summary>
-        ExifTag Tag { get; }
+        ExifTagValue Tag { get; }
 
         /// <summary>
         /// Gets or sets the value.

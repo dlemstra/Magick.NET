@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
                 {
                     var profile = image.GetExifProfile();
 
-                    Assert.IsTrue(profile.RemoveValue(ExifTag.FNumber));
+                    Assert.IsTrue(profile.RemoveValue(ExifTagValue.FNumber));
                 }
             }
 
@@ -38,7 +38,7 @@ namespace Magick.NET.Tests
                 {
                     var profile = image.GetExifProfile();
 
-                    Assert.IsFalse(profile.RemoveValue(ExifTag.Acceleration));
+                    Assert.IsFalse(profile.RemoveValue(ExifTagValue.Acceleration));
                 }
             }
         }

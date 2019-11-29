@@ -17,11 +17,11 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifRationalArray : ExifArrayValue<Rational>
     {
-        internal ExifRationalArray(ExifTag tag)
+        internal ExifRationalArray(ExifTagValue tag)
             : base(tag, ExifDataType.Rational)
         {
         }
 
-        internal static ExifRationalArray Create(ExifTag tag, Rational[] value) => new ExifRationalArray(tag) { Value = value };
+        internal static ExifRationalArray Create(ExifTagValue tag, Rational[] value) => new ExifRationalArray(tag) { Value = value };
     }
 }

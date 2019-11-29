@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
                     using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                     {
                         var profile = image.GetExifProfile();
-                        var value = profile.GetValue(ExifTag.XResolution);
+                        var value = profile.GetValue(ExifTagValue.XResolution);
                         Assert.AreEqual("300", value.ToString());
 
                         image.Density = new Density(72);
@@ -54,7 +54,7 @@ namespace Magick.NET.Tests
                     using (IMagickImage image = new MagickImage(memStream))
                     {
                         var profile = image.GetExifProfile();
-                        var value = profile.GetValue(ExifTag.XResolution);
+                        var value = profile.GetValue(ExifTagValue.XResolution);
 
                         Assert.AreEqual("72", value.ToString());
                     }

@@ -34,7 +34,7 @@ namespace ImageMagick
             _description = description;
         }
 
-        public static string GetDescription(ExifTag tag, object value)
+        public static string GetDescription(ExifTagValue tag, object value)
         {
             var attributes = TypeHelper.GetCustomAttributes<ExifTagDescriptionAttribute>(tag);
 

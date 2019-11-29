@@ -25,9 +25,9 @@ namespace Magick.NET.Tests
             public void ShouldThrowExceptionWhenValueIsInvalidDataType1()
             {
                 var profile = new ExifProfile();
-                profile.SetValue(ExifTag.Software, "Magick.NET");
+                profile.SetValue(ExifTagValue.Software, "Magick.NET");
 
-                var value = profile.GetValue(ExifTag.Software);
+                var value = profile.GetValue(ExifTagValue.Software);
 
                 var exception = ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
@@ -41,9 +41,9 @@ namespace Magick.NET.Tests
             public void ShouldThrowExceptionWhenValueIsInvalidDataType2()
             {
                 var profile = new ExifProfile();
-                profile.SetValue(ExifTag.ShutterSpeedValue, new SignedRational(75.55));
+                profile.SetValue(ExifTagValue.ShutterSpeedValue, new SignedRational(75.55));
 
-                var value = profile.GetValue(ExifTag.ShutterSpeedValue);
+                var value = profile.GetValue(ExifTagValue.ShutterSpeedValue);
 
                 var exception = ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
@@ -57,9 +57,9 @@ namespace Magick.NET.Tests
             public void ShouldThrowExceptionWhenValueIsInvalidDataType3()
             {
                 var profile = new ExifProfile();
-                profile.SetValue(ExifTag.XResolution, new Rational(150.0));
+                profile.SetValue(ExifTagValue.XResolution, new Rational(150.0));
 
-                var value = profile.GetValue(ExifTag.XResolution);
+                var value = profile.GetValue(ExifTagValue.XResolution);
                 Assert.IsNotNull(value);
                 Assert.AreEqual("150", value.ToString());
 

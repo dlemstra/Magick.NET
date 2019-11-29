@@ -17,11 +17,11 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifSignedLongArray : ExifArrayValue<int>
     {
-        private ExifSignedLongArray(ExifTag tag)
+        private ExifSignedLongArray(ExifTagValue tag)
             : base(tag, ExifDataType.SignedLong)
         {
         }
 
-        internal static ExifSignedLongArray Create(ExifTag tag, int[] value) => new ExifSignedLongArray(tag) { Value = value };
+        internal static ExifSignedLongArray Create(ExifTagValue tag, int[] value) => new ExifSignedLongArray(tag) { Value = value };
     }
 }

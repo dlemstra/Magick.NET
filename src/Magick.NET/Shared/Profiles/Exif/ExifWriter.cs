@@ -33,8 +33,8 @@ namespace ImageMagick
             var exifValues = GetPartValues(values, ExifParts.ExifTags);
             var gpsValues = GetPartValues(values, ExifParts.GpsTags);
 
-            var exifOffset = GetOffsetValue(ifdValues, exifValues, ExifTag.SubIFDOffset);
-            var gpsOffset = GetOffsetValue(ifdValues, gpsValues, ExifTag.GPSIFDOffset);
+            var exifOffset = GetOffsetValue(ifdValues, exifValues, ExifTagValue.SubIFDOffset);
+            var gpsOffset = GetOffsetValue(ifdValues, gpsValues, ExifTagValue.GPSIFDOffset);
 
             if (ifdValues.Count == 0 && exifValues.Count == 0 && gpsValues.Count == 0)
                 return null;
@@ -114,7 +114,7 @@ namespace ImageMagick
             return true;
         }
 
-        private static IExifValue GetOffsetValue(Collection<IExifValue> ifdValues, Collection<IExifValue> values, ExifTag offsetTag)
+        private static IExifValue GetOffsetValue(Collection<IExifValue> ifdValues, Collection<IExifValue> values, ExifTagValue offsetTag)
         {
             var index = -1;
 

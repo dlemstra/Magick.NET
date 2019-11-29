@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
                 {
                     var profile = image.GetExifProfile();
 
-                    profile.SetValue(ExifTag.ExposureTime, new Rational(exposureTime));
+                    profile.SetValue(ExifTagValue.ExposureTime, new Rational(exposureTime));
                     image.AddProfile(profile);
 
                     image.Write(memStream);
@@ -45,7 +45,7 @@ namespace Magick.NET.Tests
 
                     Assert.IsNotNull(profile);
 
-                    var value = profile.GetValue(ExifTag.ExposureTime);
+                    var value = profile.GetValue(ExifTagValue.ExposureTime);
                     Assert.IsNotNull(value);
                     Assert.AreNotEqual(exposureTime, ((Rational)value.Value).ToDouble());
                 }
@@ -55,7 +55,7 @@ namespace Magick.NET.Tests
                 {
                     var profile = image.GetExifProfile();
 
-                    profile.SetValue(ExifTag.ExposureTime, new Rational(exposureTime, true));
+                    profile.SetValue(ExifTagValue.ExposureTime, new Rational(exposureTime, true));
                     image.AddProfile(profile);
 
                     image.Write(memStream);
@@ -68,7 +68,7 @@ namespace Magick.NET.Tests
 
                     Assert.IsNotNull(profile);
 
-                    var value = profile.GetValue(ExifTag.ExposureTime);
+                    var value = profile.GetValue(ExifTagValue.ExposureTime);
                     Assert.AreEqual(exposureTime, ((Rational)value.Value).ToDouble());
                 }
             }
@@ -80,27 +80,27 @@ namespace Magick.NET.Tests
             using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
                 var profile = image.GetExifProfile();
-                profile.SetValue(ExifTag.ExposureBiasValue, new SignedRational(double.PositiveInfinity));
+                profile.SetValue(ExifTagValue.ExposureBiasValue, new SignedRational(double.PositiveInfinity));
                 image.AddProfile(profile);
 
                 profile = image.GetExifProfile();
-                var value = profile.GetValue(ExifTag.ExposureBiasValue);
+                var value = profile.GetValue(ExifTagValue.ExposureBiasValue);
                 Assert.IsNotNull(value);
                 Assert.AreEqual(double.PositiveInfinity, ((SignedRational)value.Value).ToDouble());
 
-                profile.SetValue(ExifTag.ExposureBiasValue, new SignedRational(double.NegativeInfinity));
+                profile.SetValue(ExifTagValue.ExposureBiasValue, new SignedRational(double.NegativeInfinity));
                 image.AddProfile(profile);
 
                 profile = image.GetExifProfile();
-                value = profile.GetValue(ExifTag.ExposureBiasValue);
+                value = profile.GetValue(ExifTagValue.ExposureBiasValue);
                 Assert.IsNotNull(value);
                 Assert.AreEqual(double.NegativeInfinity, ((SignedRational)value.Value).ToDouble());
 
-                profile.SetValue(ExifTag.FlashEnergy, new Rational(double.NegativeInfinity));
+                profile.SetValue(ExifTagValue.FlashEnergy, new Rational(double.NegativeInfinity));
                 image.AddProfile(profile);
 
                 profile = image.GetExifProfile();
-                value = profile.GetValue(ExifTag.FlashEnergy);
+                value = profile.GetValue(ExifTagValue.FlashEnergy);
                 Assert.IsNotNull(value);
                 Assert.AreEqual(double.PositiveInfinity, ((Rational)value.Value).ToDouble());
             }
@@ -153,13 +153,13 @@ namespace Magick.NET.Tests
             {
                 Assert.IsNotNull(value.Value);
 
-                if (value.Tag == ExifTag.Software)
+                if (value.Tag == ExifTagValue.Software)
                     Assert.AreEqual("Adobe Photoshop 7.0", value.ToString());
 
-                if (value.Tag == ExifTag.XResolution)
+                if (value.Tag == ExifTagValue.XResolution)
                     Assert.AreEqual(new Rational(300, 1), (Rational)value.Value);
 
-                if (value.Tag == ExifTag.GPSLatitude)
+                if (value.Tag == ExifTagValue.GPSLatitude)
                 {
                     Rational[] pos = (Rational[])value.Value;
                     Assert.AreEqual(54, pos[0].ToDouble());
@@ -167,7 +167,7 @@ namespace Magick.NET.Tests
                     Assert.AreEqual(0, pos[2].ToDouble());
                 }
 
-                if (value.Tag == ExifTag.ShutterSpeedValue)
+                if (value.Tag == ExifTagValue.ShutterSpeedValue)
                     Assert.AreEqual(9.5, ((SignedRational)value.Value).ToDouble());
             }
         }

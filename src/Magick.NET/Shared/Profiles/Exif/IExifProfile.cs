@@ -27,7 +27,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the tags that where found but contained an invalid value.
         /// </summary>
-        IEnumerable<ExifTag> InvalidTags { get; }
+        IEnumerable<ExifTagValue> InvalidTags { get; }
 
         /// <summary>
         /// Gets the values of this exif profile.
@@ -45,7 +45,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="tag">The tag of the exif value.</param>
         /// <returns>The value with the specified tag.</returns>
-        IExifValue GetValue(ExifTag tag);
+        IExifValue GetValue(ExifTagValue tag);
 
         /// <summary>
         /// Removes the thumbnail in the exif profile.
@@ -57,13 +57,13 @@ namespace ImageMagick
         /// </summary>
         /// <param name="tag">The tag of the exif value.</param>
         /// <returns>True when the value was fount and removed.</returns>
-        bool RemoveValue(ExifTag tag);
+        bool RemoveValue(ExifTagValue tag);
 
         /// <summary>
         /// Sets the value of the specified tag.
         /// </summary>
         /// <param name="tag">The tag of the exif value.</param>
         /// <param name="value">The value.</param>
-        void SetValue(ExifTag tag, object value);
+        void SetValue(ExifTagValue tag, object value);
     }
 }

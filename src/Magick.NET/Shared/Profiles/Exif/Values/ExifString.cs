@@ -19,7 +19,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifString : ExifValue<string>
     {
-        internal ExifString(ExifTag tag)
+        internal ExifString(ExifTagValue tag)
             : base(tag, ExifDataType.String)
         {
         }
@@ -29,7 +29,7 @@ namespace ImageMagick
         /// </summary>
         protected override string StringValue => Value;
 
-        internal static ExifString Create(ExifTag tag, string value) => new ExifString(tag) { Value = value };
+        internal static ExifString Create(ExifTagValue tag, string value) => new ExifString(tag) { Value = value };
 
         /// <summary>
         /// Tries to set the value and returns a value indicating whether the value could be set.

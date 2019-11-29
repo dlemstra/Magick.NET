@@ -17,11 +17,11 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifFloatArray : ExifArrayValue<float>
     {
-        internal ExifFloatArray(ExifTag tag)
+        internal ExifFloatArray(ExifTagValue tag)
             : base(tag, ExifDataType.Float)
         {
         }
 
-        internal static ExifFloatArray Create(ExifTag tag, float[] value) => new ExifFloatArray(tag) { Value = value };
+        internal static ExifFloatArray Create(ExifTagValue tag, float[] value) => new ExifFloatArray(tag) { Value = value };
     }
 }

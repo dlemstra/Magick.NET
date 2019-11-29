@@ -74,7 +74,7 @@ namespace Magick.NET.Tests
             using (IMagickImage input = new MagickImage(MagickColors.YellowGreen, 1, 1))
             {
                 IExifProfile exifProfile = new ExifProfile();
-                exifProfile.SetValue(ExifTag.ImageUniqueID, "Have a nice day");
+                exifProfile.SetValue(ExifTagValue.ImageUniqueID, "Have a nice day");
 
                 input.AddProfile(exifProfile);
 

@@ -33,14 +33,14 @@ namespace Magick.NET.Tests
             public void ShouldReturnEmptyArrayWhenAllValuesAreInvalid()
             {
                 var profile = new ExifProfile();
-                profile.SetValue(ExifTag.ImageWidth, 42);
+                profile.SetValue(ExifTagValue.ImageWidth, 42);
 
                 var bytes = profile.ToByteArray();
                 bytes[16] = 42;
 
                 profile = new ExifProfile(bytes);
 
-                var unkownTag = (ExifTag)298;
+                var unkownTag = (ExifTagValue)298;
                 var value = profile.GetValue(unkownTag);
                 Assert.AreEqual(42U, value.Value);
                 Assert.AreEqual("42", value.ToString());
@@ -87,7 +87,7 @@ namespace Magick.NET.Tests
             public void ShouldExcludeNullValues()
             {
                 var profile = new ExifProfile();
-                profile.SetValue(ExifTag.ImageDescription, null);
+                profile.SetValue(ExifTagValue.ImageDescription, null);
 
                 var data = profile.ToByteArray();
 
@@ -101,7 +101,7 @@ namespace Magick.NET.Tests
             public void ShouldExcludeEmptyStrings()
             {
                 var profile = new ExifProfile();
-                profile.SetValue(ExifTag.ImageDescription, string.Empty);
+                profile.SetValue(ExifTagValue.ImageDescription, string.Empty);
 
                 var data = profile.ToByteArray();
 

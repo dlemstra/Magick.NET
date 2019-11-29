@@ -19,7 +19,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifByte : ExifValue<byte>
     {
-        internal ExifByte(ExifTag tag, ExifDataType dataType)
+        internal ExifByte(ExifTagValue tag, ExifDataType dataType)
             : base(tag, dataType)
         {
         }
@@ -29,7 +29,7 @@ namespace ImageMagick
         /// </summary>
         protected override string StringValue => Value.ToString("X2", CultureInfo.InvariantCulture);
 
-        internal static ExifByte Create(ExifTag tag, ExifDataType dataType, byte value) => new ExifByte(tag, dataType) { Value = value };
+        internal static ExifByte Create(ExifTagValue tag, ExifDataType dataType, byte value) => new ExifByte(tag, dataType) { Value = value };
 
         /// <summary>
         /// Tries to set the value and returns a value indicating whether the value could be set.

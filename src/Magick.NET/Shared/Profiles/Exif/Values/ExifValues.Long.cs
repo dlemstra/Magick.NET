@@ -18,164 +18,164 @@ namespace ImageMagick
     public static partial class ExifValues
     {
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.SubfileType"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.SubfileType"/> tag.
         /// </summary>
-        public static ExifLong SubfileType => new ExifLong(ExifTag.SubfileType);
+        public static ExifLong SubfileType => new ExifLong(ExifTagValue.SubfileType);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.SubIFDOffset"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.SubIFDOffset"/> tag.
         /// </summary>
-        public static ExifLong SubIFDOffset => new ExifLong(ExifTag.SubIFDOffset);
+        public static ExifLong SubIFDOffset => new ExifLong(ExifTagValue.SubIFDOffset);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.GPSIFDOffset"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.GPSIFDOffset"/> tag.
         /// </summary>
-        public static ExifLong GPSIFDOffset => new ExifLong(ExifTag.GPSIFDOffset);
+        public static ExifLong GPSIFDOffset => new ExifLong(ExifTagValue.GPSIFDOffset);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.T4Options"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.T4Options"/> tag.
         /// </summary>
-        public static ExifLong T4Options => new ExifLong(ExifTag.T4Options);
+        public static ExifLong T4Options => new ExifLong(ExifTagValue.T4Options);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.T6Options"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.T6Options"/> tag.
         /// </summary>
-        public static ExifLong T6Options => new ExifLong(ExifTag.T6Options);
+        public static ExifLong T6Options => new ExifLong(ExifTagValue.T6Options);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.XClipPathUnits"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.XClipPathUnits"/> tag.
         /// </summary>
-        public static ExifLong XClipPathUnits => new ExifLong(ExifTag.XClipPathUnits);
+        public static ExifLong XClipPathUnits => new ExifLong(ExifTagValue.XClipPathUnits);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.YClipPathUnits"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.YClipPathUnits"/> tag.
         /// </summary>
-        public static ExifLong YClipPathUnits => new ExifLong(ExifTag.YClipPathUnits);
+        public static ExifLong YClipPathUnits => new ExifLong(ExifTagValue.YClipPathUnits);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.ProfileType"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.ProfileType"/> tag.
         /// </summary>
-        public static ExifLong ProfileType => new ExifLong(ExifTag.ProfileType);
+        public static ExifLong ProfileType => new ExifLong(ExifTagValue.ProfileType);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.CodingMethods"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.CodingMethods"/> tag.
         /// </summary>
-        public static ExifLong CodingMethods => new ExifLong(ExifTag.CodingMethods);
+        public static ExifLong CodingMethods => new ExifLong(ExifTagValue.CodingMethods);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.T82ptions"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.T82ptions"/> tag.
         /// </summary>
-        public static ExifLong T82ptions => new ExifLong(ExifTag.T82ptions);
+        public static ExifLong T82ptions => new ExifLong(ExifTagValue.T82ptions);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.JPEGInterchangeFormat"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.JPEGInterchangeFormat"/> tag.
         /// </summary>
-        public static ExifLong JPEGInterchangeFormat => new ExifLong(ExifTag.JPEGInterchangeFormat);
+        public static ExifLong JPEGInterchangeFormat => new ExifLong(ExifTagValue.JPEGInterchangeFormat);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.JPEGInterchangeFormatLength"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.JPEGInterchangeFormatLength"/> tag.
         /// </summary>
-        public static ExifLong JPEGInterchangeFormatLength => new ExifLong(ExifTag.JPEGInterchangeFormatLength);
+        public static ExifLong JPEGInterchangeFormatLength => new ExifLong(ExifTagValue.JPEGInterchangeFormatLength);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.MDFileTag"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.MDFileTag"/> tag.
         /// </summary>
-        public static ExifLong MDFileTag => new ExifLong(ExifTag.MDFileTag);
+        public static ExifLong MDFileTag => new ExifLong(ExifTagValue.MDFileTag);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.StandardOutputSensitivity"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.StandardOutputSensitivity"/> tag.
         /// </summary>
-        public static ExifLong StandardOutputSensitivity => new ExifLong(ExifTag.StandardOutputSensitivity);
+        public static ExifLong StandardOutputSensitivity => new ExifLong(ExifTagValue.StandardOutputSensitivity);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.RecommendedExposureIndex"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.RecommendedExposureIndex"/> tag.
         /// </summary>
-        public static ExifLong RecommendedExposureIndex => new ExifLong(ExifTag.RecommendedExposureIndex);
+        public static ExifLong RecommendedExposureIndex => new ExifLong(ExifTagValue.RecommendedExposureIndex);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.ISOSpeed"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.ISOSpeed"/> tag.
         /// </summary>
-        public static ExifLong ISOSpeed => new ExifLong(ExifTag.ISOSpeed);
+        public static ExifLong ISOSpeed => new ExifLong(ExifTagValue.ISOSpeed);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.ISOSpeedLatitudeyyy"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.ISOSpeedLatitudeyyy"/> tag.
         /// </summary>
-        public static ExifLong ISOSpeedLatitudeyyy => new ExifLong(ExifTag.ISOSpeedLatitudeyyy);
+        public static ExifLong ISOSpeedLatitudeyyy => new ExifLong(ExifTagValue.ISOSpeedLatitudeyyy);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.ISOSpeedLatitudezzz"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.ISOSpeedLatitudezzz"/> tag.
         /// </summary>
-        public static ExifLong ISOSpeedLatitudezzz => new ExifLong(ExifTag.ISOSpeedLatitudezzz);
+        public static ExifLong ISOSpeedLatitudezzz => new ExifLong(ExifTagValue.ISOSpeedLatitudezzz);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.FaxRecvParams"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.FaxRecvParams"/> tag.
         /// </summary>
-        public static ExifLong FaxRecvParams => new ExifLong(ExifTag.FaxRecvParams);
+        public static ExifLong FaxRecvParams => new ExifLong(ExifTagValue.FaxRecvParams);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.FaxRecvTime"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.FaxRecvTime"/> tag.
         /// </summary>
-        public static ExifLong FaxRecvTime => new ExifLong(ExifTag.FaxRecvTime);
+        public static ExifLong FaxRecvTime => new ExifLong(ExifTagValue.FaxRecvTime);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.ImageNumber"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.ImageNumber"/> tag.
         /// </summary>
-        public static ExifLong ImageNumber => new ExifLong(ExifTag.ImageNumber);
+        public static ExifLong ImageNumber => new ExifLong(ExifTagValue.ImageNumber);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.ImageWidth"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.ImageWidth"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifLong"/> instance.</returns>
-        public static ExifLong ImageWidth(uint value) => ExifLong.Create(ExifTag.ImageWidth, value);
+        public static ExifLong ImageWidth(uint value) => ExifLong.Create(ExifTagValue.ImageWidth, value);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.ImageLength"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.ImageLength"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifLong"/> instance.</returns>
-        public static ExifLong ImageLength(uint value) => ExifLong.Create(ExifTag.ImageLength, value);
+        public static ExifLong ImageLength(uint value) => ExifLong.Create(ExifTagValue.ImageLength, value);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.TileWidth"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.TileWidth"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifLong"/> instance.</returns>
-        public static ExifLong TileWidth(uint value) => ExifLong.Create(ExifTag.TileWidth, value);
+        public static ExifLong TileWidth(uint value) => ExifLong.Create(ExifTagValue.TileWidth, value);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.TileLength"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.TileLength"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifLong"/> instance.</returns>
-        public static ExifLong TileLength(uint value) => ExifLong.Create(ExifTag.TileLength, value);
+        public static ExifLong TileLength(uint value) => ExifLong.Create(ExifTagValue.TileLength, value);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.BadFaxLines"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.BadFaxLines"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifLong"/> instance.</returns>
-        public static ExifLong BadFaxLines(uint value) => ExifLong.Create(ExifTag.BadFaxLines, value);
+        public static ExifLong BadFaxLines(uint value) => ExifLong.Create(ExifTagValue.BadFaxLines, value);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.ConsecutiveBadFaxLines"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.ConsecutiveBadFaxLines"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifLong"/> instance.</returns>
-        public static ExifLong ConsecutiveBadFaxLines(uint value) => ExifLong.Create(ExifTag.ConsecutiveBadFaxLines, value);
+        public static ExifLong ConsecutiveBadFaxLines(uint value) => ExifLong.Create(ExifTagValue.ConsecutiveBadFaxLines, value);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.PixelXDimension"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.PixelXDimension"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifLong"/> instance.</returns>
-        public static ExifLong PixelXDimension(uint value) => ExifLong.Create(ExifTag.PixelXDimension, value);
+        public static ExifLong PixelXDimension(uint value) => ExifLong.Create(ExifTagValue.PixelXDimension, value);
 
         /// <summary>
-        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTag.PixelYDimension"/> tag.
+        /// Gets a new <see cref="ExifLong"/> instance for the <see cref="ExifTagValue.PixelYDimension"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifLong"/> instance.</returns>
-        public static ExifLong PixelYDimension(uint value) => ExifLong.Create(ExifTag.PixelYDimension, value);
+        public static ExifLong PixelYDimension(uint value) => ExifLong.Create(ExifTagValue.PixelYDimension, value);
     }
 }

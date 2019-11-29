@@ -17,11 +17,11 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifShortArray : ExifArrayValue<ushort>
     {
-        internal ExifShortArray(ExifTag tag)
+        internal ExifShortArray(ExifTagValue tag)
             : base(tag, ExifDataType.Short)
         {
         }
 
-        internal static ExifShortArray Create(ExifTag tag, ushort[] value) => new ExifShortArray(tag) { Value = value };
+        internal static ExifShortArray Create(ExifTagValue tag, ushort[] value) => new ExifShortArray(tag) { Value = value };
     }
 }

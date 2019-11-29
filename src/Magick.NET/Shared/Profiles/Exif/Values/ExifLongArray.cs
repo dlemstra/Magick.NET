@@ -17,11 +17,11 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifLongArray : ExifArrayValue<uint>
     {
-        internal ExifLongArray(ExifTag tag)
+        internal ExifLongArray(ExifTagValue tag)
             : base(tag, ExifDataType.Long)
         {
         }
 
-        internal static ExifLongArray Create(ExifTag tag, uint[] value) => new ExifLongArray(tag) { Value = value };
+        internal static ExifLongArray Create(ExifTagValue tag, uint[] value) => new ExifLongArray(tag) { Value = value };
     }
 }

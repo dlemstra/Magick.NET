@@ -18,289 +18,289 @@ namespace ImageMagick
     public static partial class ExifValues
     {
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.OldSubfileType"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.OldSubfileType"/> tag.
         /// </summary>
-        public static ExifShort OldSubfileType => new ExifShort(ExifTag.OldSubfileType);
+        public static ExifShort OldSubfileType => new ExifShort(ExifTagValue.OldSubfileType);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.Compression"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.Compression"/> tag.
         /// </summary>
-        public static ExifShort Compression => new ExifShort(ExifTag.Compression);
+        public static ExifShort Compression => new ExifShort(ExifTagValue.Compression);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.PhotometricInterpretation"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.PhotometricInterpretation"/> tag.
         /// </summary>
-        public static ExifShort PhotometricInterpretation => new ExifShort(ExifTag.PhotometricInterpretation);
+        public static ExifShort PhotometricInterpretation => new ExifShort(ExifTagValue.PhotometricInterpretation);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.Thresholding"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.Thresholding"/> tag.
         /// </summary>
-        public static ExifShort Thresholding => new ExifShort(ExifTag.Thresholding);
+        public static ExifShort Thresholding => new ExifShort(ExifTagValue.Thresholding);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.CellWidth"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.CellWidth"/> tag.
         /// </summary>
-        public static ExifShort CellWidth => new ExifShort(ExifTag.CellWidth);
+        public static ExifShort CellWidth => new ExifShort(ExifTagValue.CellWidth);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.CellLength"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.CellLength"/> tag.
         /// </summary>
-        public static ExifShort CellLength => new ExifShort(ExifTag.CellLength);
+        public static ExifShort CellLength => new ExifShort(ExifTagValue.CellLength);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.FillOrder"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.FillOrder"/> tag.
         /// </summary>
-        public static ExifShort FillOrder => new ExifShort(ExifTag.FillOrder);
+        public static ExifShort FillOrder => new ExifShort(ExifTagValue.FillOrder);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.Orientation"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.Orientation"/> tag.
         /// </summary>
-        public static ExifShort Orientation => new ExifShort(ExifTag.Orientation);
+        public static ExifShort Orientation => new ExifShort(ExifTagValue.Orientation);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.SamplesPerPixel"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.SamplesPerPixel"/> tag.
         /// </summary>
-        public static ExifShort SamplesPerPixel => new ExifShort(ExifTag.SamplesPerPixel);
+        public static ExifShort SamplesPerPixel => new ExifShort(ExifTagValue.SamplesPerPixel);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.PlanarConfiguration"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.PlanarConfiguration"/> tag.
         /// </summary>
-        public static ExifShort PlanarConfiguration => new ExifShort(ExifTag.PlanarConfiguration);
+        public static ExifShort PlanarConfiguration => new ExifShort(ExifTagValue.PlanarConfiguration);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.GrayResponseUnit"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.GrayResponseUnit"/> tag.
         /// </summary>
-        public static ExifShort GrayResponseUnit => new ExifShort(ExifTag.GrayResponseUnit);
+        public static ExifShort GrayResponseUnit => new ExifShort(ExifTagValue.GrayResponseUnit);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.ResolutionUnit"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.ResolutionUnit"/> tag.
         /// </summary>
-        public static ExifShort ResolutionUnit => new ExifShort(ExifTag.ResolutionUnit);
+        public static ExifShort ResolutionUnit => new ExifShort(ExifTagValue.ResolutionUnit);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.CleanFaxData"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.CleanFaxData"/> tag.
         /// </summary>
-        public static ExifShort CleanFaxData => new ExifShort(ExifTag.CleanFaxData);
+        public static ExifShort CleanFaxData => new ExifShort(ExifTagValue.CleanFaxData);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.InkSet"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.InkSet"/> tag.
         /// </summary>
-        public static ExifShort InkSet => new ExifShort(ExifTag.InkSet);
+        public static ExifShort InkSet => new ExifShort(ExifTagValue.InkSet);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.NumberOfInks"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.NumberOfInks"/> tag.
         /// </summary>
-        public static ExifShort NumberOfInks => new ExifShort(ExifTag.NumberOfInks);
+        public static ExifShort NumberOfInks => new ExifShort(ExifTagValue.NumberOfInks);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.DotRange"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.DotRange"/> tag.
         /// </summary>
-        public static ExifShort DotRange => new ExifShort(ExifTag.DotRange);
+        public static ExifShort DotRange => new ExifShort(ExifTagValue.DotRange);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.Indexed"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.Indexed"/> tag.
         /// </summary>
-        public static ExifShort Indexed => new ExifShort(ExifTag.Indexed);
+        public static ExifShort Indexed => new ExifShort(ExifTagValue.Indexed);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.OPIProxy"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.OPIProxy"/> tag.
         /// </summary>
-        public static ExifShort OPIProxy => new ExifShort(ExifTag.OPIProxy);
+        public static ExifShort OPIProxy => new ExifShort(ExifTagValue.OPIProxy);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.JPEGProc"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.JPEGProc"/> tag.
         /// </summary>
-        public static ExifShort JPEGProc => new ExifShort(ExifTag.JPEGProc);
+        public static ExifShort JPEGProc => new ExifShort(ExifTagValue.JPEGProc);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.JPEGRestartInterval"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.JPEGRestartInterval"/> tag.
         /// </summary>
-        public static ExifShort JPEGRestartInterval => new ExifShort(ExifTag.JPEGRestartInterval);
+        public static ExifShort JPEGRestartInterval => new ExifShort(ExifTagValue.JPEGRestartInterval);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.YCbCrPositioning"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.YCbCrPositioning"/> tag.
         /// </summary>
-        public static ExifShort YCbCrPositioning => new ExifShort(ExifTag.YCbCrPositioning);
+        public static ExifShort YCbCrPositioning => new ExifShort(ExifTagValue.YCbCrPositioning);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.Rating"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.Rating"/> tag.
         /// </summary>
-        public static ExifShort Rating => new ExifShort(ExifTag.Rating);
+        public static ExifShort Rating => new ExifShort(ExifTagValue.Rating);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.RatingPercent"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.RatingPercent"/> tag.
         /// </summary>
-        public static ExifShort RatingPercent => new ExifShort(ExifTag.RatingPercent);
+        public static ExifShort RatingPercent => new ExifShort(ExifTagValue.RatingPercent);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.ExposureProgram"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.ExposureProgram"/> tag.
         /// </summary>
-        public static ExifShort ExposureProgram => new ExifShort(ExifTag.ExposureProgram);
+        public static ExifShort ExposureProgram => new ExifShort(ExifTagValue.ExposureProgram);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.Interlace"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.Interlace"/> tag.
         /// </summary>
-        public static ExifShort Interlace => new ExifShort(ExifTag.Interlace);
+        public static ExifShort Interlace => new ExifShort(ExifTagValue.Interlace);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.SelfTimerMode"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.SelfTimerMode"/> tag.
         /// </summary>
-        public static ExifShort SelfTimerMode => new ExifShort(ExifTag.SelfTimerMode);
+        public static ExifShort SelfTimerMode => new ExifShort(ExifTagValue.SelfTimerMode);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.SensitivityType"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.SensitivityType"/> tag.
         /// </summary>
-        public static ExifShort SensitivityType => new ExifShort(ExifTag.SensitivityType);
+        public static ExifShort SensitivityType => new ExifShort(ExifTagValue.SensitivityType);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.MeteringMode"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.MeteringMode"/> tag.
         /// </summary>
-        public static ExifShort MeteringMode => new ExifShort(ExifTag.MeteringMode);
+        public static ExifShort MeteringMode => new ExifShort(ExifTagValue.MeteringMode);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.LightSource"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.LightSource"/> tag.
         /// </summary>
-        public static ExifShort LightSource => new ExifShort(ExifTag.LightSource);
+        public static ExifShort LightSource => new ExifShort(ExifTagValue.LightSource);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.FocalPlaneResolutionUnit2"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.FocalPlaneResolutionUnit2"/> tag.
         /// </summary>
-        public static ExifShort FocalPlaneResolutionUnit2 => new ExifShort(ExifTag.FocalPlaneResolutionUnit2);
+        public static ExifShort FocalPlaneResolutionUnit2 => new ExifShort(ExifTagValue.FocalPlaneResolutionUnit2);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.SensingMethod2"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.SensingMethod2"/> tag.
         /// </summary>
-        public static ExifShort SensingMethod2 => new ExifShort(ExifTag.SensingMethod2);
+        public static ExifShort SensingMethod2 => new ExifShort(ExifTagValue.SensingMethod2);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.Flash"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.Flash"/> tag.
         /// </summary>
-        public static ExifShort Flash => new ExifShort(ExifTag.Flash);
+        public static ExifShort Flash => new ExifShort(ExifTagValue.Flash);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.ColorSpace"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.ColorSpace"/> tag.
         /// </summary>
-        public static ExifShort ColorSpace => new ExifShort(ExifTag.ColorSpace);
+        public static ExifShort ColorSpace => new ExifShort(ExifTagValue.ColorSpace);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.FocalPlaneResolutionUnit"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.FocalPlaneResolutionUnit"/> tag.
         /// </summary>
-        public static ExifShort FocalPlaneResolutionUnit => new ExifShort(ExifTag.FocalPlaneResolutionUnit);
+        public static ExifShort FocalPlaneResolutionUnit => new ExifShort(ExifTagValue.FocalPlaneResolutionUnit);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.SensingMethod"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.SensingMethod"/> tag.
         /// </summary>
-        public static ExifShort SensingMethod => new ExifShort(ExifTag.SensingMethod);
+        public static ExifShort SensingMethod => new ExifShort(ExifTagValue.SensingMethod);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.CustomRendered"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.CustomRendered"/> tag.
         /// </summary>
-        public static ExifShort CustomRendered => new ExifShort(ExifTag.CustomRendered);
+        public static ExifShort CustomRendered => new ExifShort(ExifTagValue.CustomRendered);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.ExposureMode"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.ExposureMode"/> tag.
         /// </summary>
-        public static ExifShort ExposureMode => new ExifShort(ExifTag.ExposureMode);
+        public static ExifShort ExposureMode => new ExifShort(ExifTagValue.ExposureMode);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.WhiteBalance"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.WhiteBalance"/> tag.
         /// </summary>
-        public static ExifShort WhiteBalance => new ExifShort(ExifTag.WhiteBalance);
+        public static ExifShort WhiteBalance => new ExifShort(ExifTagValue.WhiteBalance);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.FocalLengthIn35mmFilm"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.FocalLengthIn35mmFilm"/> tag.
         /// </summary>
-        public static ExifShort FocalLengthIn35mmFilm => new ExifShort(ExifTag.FocalLengthIn35mmFilm);
+        public static ExifShort FocalLengthIn35mmFilm => new ExifShort(ExifTagValue.FocalLengthIn35mmFilm);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.SceneCaptureType"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.SceneCaptureType"/> tag.
         /// </summary>
-        public static ExifShort SceneCaptureType => new ExifShort(ExifTag.SceneCaptureType);
+        public static ExifShort SceneCaptureType => new ExifShort(ExifTagValue.SceneCaptureType);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.GainControl"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.GainControl"/> tag.
         /// </summary>
-        public static ExifShort GainControl => new ExifShort(ExifTag.GainControl);
+        public static ExifShort GainControl => new ExifShort(ExifTagValue.GainControl);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.Contrast"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.Contrast"/> tag.
         /// </summary>
-        public static ExifShort Contrast => new ExifShort(ExifTag.Contrast);
+        public static ExifShort Contrast => new ExifShort(ExifTagValue.Contrast);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.Saturation"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.Saturation"/> tag.
         /// </summary>
-        public static ExifShort Saturation => new ExifShort(ExifTag.Saturation);
+        public static ExifShort Saturation => new ExifShort(ExifTagValue.Saturation);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.Sharpness"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.Sharpness"/> tag.
         /// </summary>
-        public static ExifShort Sharpness => new ExifShort(ExifTag.Sharpness);
+        public static ExifShort Sharpness => new ExifShort(ExifTagValue.Sharpness);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.SubjectDistanceRange"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.SubjectDistanceRange"/> tag.
         /// </summary>
-        public static ExifShort SubjectDistanceRange => new ExifShort(ExifTag.SubjectDistanceRange);
+        public static ExifShort SubjectDistanceRange => new ExifShort(ExifTagValue.SubjectDistanceRange);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.GPSDifferential"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.GPSDifferential"/> tag.
         /// </summary>
-        public static ExifShort GPSDifferential => new ExifShort(ExifTag.GPSDifferential);
+        public static ExifShort GPSDifferential => new ExifShort(ExifTagValue.GPSDifferential);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.ImageWidth"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.ImageWidth"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifShort"/> instance.</returns>
-        public static ExifShort ImageWidth(ushort value) => ExifShort.Create(ExifTag.ImageWidth, value);
+        public static ExifShort ImageWidth(ushort value) => ExifShort.Create(ExifTagValue.ImageWidth, value);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.ImageLength"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.ImageLength"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifShort"/> instance.</returns>
-        public static ExifShort ImageLength(ushort value) => ExifShort.Create(ExifTag.ImageLength, value);
+        public static ExifShort ImageLength(ushort value) => ExifShort.Create(ExifTagValue.ImageLength, value);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.TileWidth"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.TileWidth"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifShort"/> instance.</returns>
-        public static ExifShort TileWidth(ushort value) => ExifShort.Create(ExifTag.TileWidth, value);
+        public static ExifShort TileWidth(ushort value) => ExifShort.Create(ExifTagValue.TileWidth, value);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.TileLength"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.TileLength"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifShort"/> instance.</returns>
-        public static ExifShort TileLength(ushort value) => ExifShort.Create(ExifTag.TileLength, value);
+        public static ExifShort TileLength(ushort value) => ExifShort.Create(ExifTagValue.TileLength, value);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.BadFaxLines"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.BadFaxLines"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifShort"/> instance.</returns>
-        public static ExifShort BadFaxLines(ushort value) => ExifShort.Create(ExifTag.BadFaxLines, value);
+        public static ExifShort BadFaxLines(ushort value) => ExifShort.Create(ExifTagValue.BadFaxLines, value);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.ConsecutiveBadFaxLines"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.ConsecutiveBadFaxLines"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifShort"/> instance.</returns>
-        public static ExifShort ConsecutiveBadFaxLines(ushort value) => ExifShort.Create(ExifTag.ConsecutiveBadFaxLines, value);
+        public static ExifShort ConsecutiveBadFaxLines(ushort value) => ExifShort.Create(ExifTagValue.ConsecutiveBadFaxLines, value);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.PixelXDimension"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.PixelXDimension"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifShort"/> instance.</returns>
-        public static ExifShort PixelXDimension(ushort value) => ExifShort.Create(ExifTag.PixelXDimension, value);
+        public static ExifShort PixelXDimension(ushort value) => ExifShort.Create(ExifTagValue.PixelXDimension, value);
 
         /// <summary>
-        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTag.PixelYDimension"/> tag.
+        /// Gets a new <see cref="ExifShort"/> instance for the <see cref="ExifTagValue.PixelYDimension"/> tag.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A new <see cref="ExifShort"/> instance.</returns>
-        public static ExifShort PixelYDimension(ushort value) => ExifShort.Create(ExifTag.PixelYDimension, value);
+        public static ExifShort PixelYDimension(ushort value) => ExifShort.Create(ExifTagValue.PixelYDimension, value);
     }
 }

@@ -19,7 +19,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifSignedLong : ExifValue<int>
     {
-        private ExifSignedLong(ExifTag tag)
+        private ExifSignedLong(ExifTagValue tag)
             : base(tag, ExifDataType.SignedLong)
         {
         }
@@ -29,6 +29,6 @@ namespace ImageMagick
         /// </summary>
         protected override string StringValue => Value.ToString(CultureInfo.InvariantCulture);
 
-        internal static ExifSignedLong Create(ExifTag tag, int value) => new ExifSignedLong(tag) { Value = value };
+        internal static ExifSignedLong Create(ExifTagValue tag, int value) => new ExifSignedLong(tag) { Value = value };
     }
 }

@@ -18,7 +18,7 @@ namespace ImageMagick
 {
     internal sealed class ExifReader
     {
-        private readonly Collection<ExifTag> _invalidTags = new Collection<ExifTag>();
+        private readonly Collection<ExifTagValue> _invalidTags = new Collection<ExifTagValue>();
 
         private EndianReader _reader;
         private bool _isLittleEndian;
@@ -32,7 +32,7 @@ namespace ImageMagick
 
         public uint ThumbnailOffset { get; private set; }
 
-        public IEnumerable<ExifTag> InvalidTags => _invalidTags;
+        public IEnumerable<ExifTagValue> InvalidTags => _invalidTags;
 
         public Collection<IExifValue> Read(byte[] data)
         {
@@ -109,12 +109,12 @@ namespace ImageMagick
                 if (duplicate)
                     continue;
 
-                if (value.Tag == ExifTag.SubIFDOffset)
+                if (value.Tag == ExifTagValue.SubIFDOffset)
                 {
                     if (IsLong(value))
                         _exifOffset = (uint)value.Value;
                 }
-                else if (value.Tag == ExifTag.GPSIFDOffset)
+                else if (value.Tag == ExifTagValue.GPSIFDOffset)
                 {
                     if (IsLong(value))
                         _gpsOffset = (uint)value.Value;
@@ -129,7 +129,7 @@ namespace ImageMagick
             if (!_reader.CanRead(12))
                 return null;
 
-            var tag = (ExifTag)ReadShort();
+            var tag = (ExifTagValue)ReadShort();
             var dataType = EnumHelper.Parse(ReadShort(), ExifDataType.Unknown);
             IExifValue value = null;
 
@@ -171,7 +171,7 @@ namespace ImageMagick
             return value;
         }
 
-        private IExifValue CreateValue(ExifTag tag, ExifDataType dataType, uint numberOfComponents)
+        private IExifValue CreateValue(ExifTagValue tag, ExifDataType dataType, uint numberOfComponents)
         {
             switch (dataType)
             {
@@ -311,9 +311,9 @@ namespace ImageMagick
 
             foreach (var value in values)
             {
-                if (value.Tag == ExifTag.JPEGInterchangeFormat && IsLong(value))
+                if (value.Tag == ExifTagValue.JPEGInterchangeFormat && IsLong(value))
                     ThumbnailOffset = (uint)value.Value + _startIndex;
-                else if (value.Tag == ExifTag.JPEGInterchangeFormatLength && IsLong(value))
+                else if (value.Tag == ExifTagValue.JPEGInterchangeFormatLength && IsLong(value))
                     ThumbnailLength = (uint)value.Value;
             }
         }

@@ -19,7 +19,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifRational : ExifValue<Rational>
     {
-        internal ExifRational(ExifTag tag)
+        internal ExifRational(ExifTagValue tag)
             : base(tag, ExifDataType.Rational)
         {
         }
@@ -29,6 +29,6 @@ namespace ImageMagick
         /// </summary>
         protected override string StringValue => Value.ToString(CultureInfo.InvariantCulture);
 
-        internal static ExifRational Create(ExifTag tag, Rational value) => new ExifRational(tag) { Value = value };
+        internal static ExifRational Create(ExifTagValue tag, Rational value) => new ExifRational(tag) { Value = value };
     }
 }

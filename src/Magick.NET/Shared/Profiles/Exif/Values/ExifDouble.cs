@@ -19,7 +19,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifDouble : ExifValue<double>
     {
-        internal ExifDouble(ExifTag tag)
+        internal ExifDouble(ExifTagValue tag)
             : base(tag, ExifDataType.Double)
         {
         }
@@ -29,7 +29,7 @@ namespace ImageMagick
         /// </summary>
         protected override string StringValue => Value.ToString(CultureInfo.InvariantCulture);
 
-        internal static ExifDouble Create(ExifTag tag, double value) => new ExifDouble(tag) { Value = value };
+        internal static ExifDouble Create(ExifTagValue tag, double value) => new ExifDouble(tag) { Value = value };
 
         /// <summary>
         /// Tries to set the value and returns a value indicating whether the value could be set.

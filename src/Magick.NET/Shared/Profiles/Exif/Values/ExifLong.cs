@@ -19,7 +19,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifLong : ExifValue<uint>
     {
-        internal ExifLong(ExifTag tag)
+        internal ExifLong(ExifTagValue tag)
             : base(tag, ExifDataType.Long)
         {
         }
@@ -29,7 +29,7 @@ namespace ImageMagick
         /// </summary>
         protected override string StringValue => Value.ToString(CultureInfo.InvariantCulture);
 
-        internal static ExifLong Create(ExifTag tag, uint value) => new ExifLong(tag) { Value = value };
+        internal static ExifLong Create(ExifTagValue tag, uint value) => new ExifLong(tag) { Value = value };
 
         /// <summary>
         /// Tries to set the value and returns a value indicating whether the value could be set.

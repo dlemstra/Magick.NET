@@ -24,9 +24,9 @@ namespace Magick.NET.Tests
             public void ShouldReturnStringWhenValueIsString()
             {
                 var profile = new ExifProfile();
-                profile.SetValue(ExifTag.Software, "Magick.NET");
+                profile.SetValue(ExifTagValue.Software, "Magick.NET");
 
-                var value = profile.GetValue(ExifTag.Software);
+                var value = profile.GetValue(ExifTagValue.Software);
                 TestValue(value, "Magick.NET");
             }
         }
