@@ -76,6 +76,18 @@ namespace Magick.NET.Tests.Shared.Profiles.Exif
 
                 Assert.AreEqual(1, result.Count);
             }
+
+            [TestMethod]
+            public void ShouldBeAbleToReadEmptyStrings()
+            {
+                var reader = new ExifReader();
+                var data = new byte[] { 69, 120, 105, 102, 0, 0, 73, 73, 42, 0, 8, 0, 0, 0, 1, 0, 14, 1, 2, 0, 0, 0, 0, 0, 32, 0, 0, 0, 26, 0, 0, 0, 0, 0 };
+
+                var result = reader.Read(data);
+
+                Assert.AreEqual(1, result.Count);
+                Assert.AreEqual(string.Empty, result.First().Value);
+            }
         }
     }
 }

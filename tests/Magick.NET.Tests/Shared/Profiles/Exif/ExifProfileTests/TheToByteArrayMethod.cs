@@ -82,6 +82,34 @@ namespace Magick.NET.Tests
                     }
                 }
             }
+
+            [TestMethod]
+            public void ShouldExcludeNullValues()
+            {
+                var profile = new ExifProfile();
+                profile.SetValue(ExifTag.ImageDescription, null);
+
+                var data = profile.ToByteArray();
+
+                var reader = new ExifReader();
+                var result = reader.Read(data);
+
+                Assert.AreEqual(0, result.Count);
+            }
+
+            [TestMethod]
+            public void ShouldExcludeEmptyStrings()
+            {
+                var profile = new ExifProfile();
+                profile.SetValue(ExifTag.ImageDescription, string.Empty);
+
+                var data = profile.ToByteArray();
+
+                var reader = new ExifReader();
+                var result = reader.Read(data);
+
+                Assert.AreEqual(0, result.Count);
+            }
         }
     }
 }

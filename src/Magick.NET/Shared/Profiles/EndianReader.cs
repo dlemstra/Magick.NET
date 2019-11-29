@@ -186,6 +186,9 @@ namespace ImageMagick
 
         public string ReadString(uint length)
         {
+            if (length == 0)
+                return string.Empty;
+
             if (!CanRead(length))
                 return null;
 
