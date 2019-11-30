@@ -14,20 +14,12 @@ using System;
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Class that provides a description for an ExifTag value.
-    /// </summary>
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
     internal sealed class ExifTagDescriptionAttribute : Attribute
     {
         private readonly object _value;
         private readonly string _description;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ExifTagDescriptionAttribute"/> class.
-        /// </summary>
-        /// <param name="value">The value of the exif tag.</param>
-        /// <param name="description">The description for the value of the exif tag.</param>
         public ExifTagDescriptionAttribute(object value, string description)
         {
             _value = value;
