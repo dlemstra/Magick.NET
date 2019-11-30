@@ -19,7 +19,7 @@ namespace ImageMagick
     /// Class that represents an exif tag from the Exif standard 2.31.
     /// </summary>
     [DebuggerDisplay("{(ExifTagValue)_value}")]
-    public abstract class ExifTag : IEquatable<ExifTag>
+    public abstract partial class ExifTag : IEquatable<ExifTag>
     {
         private readonly ushort _value;
 
