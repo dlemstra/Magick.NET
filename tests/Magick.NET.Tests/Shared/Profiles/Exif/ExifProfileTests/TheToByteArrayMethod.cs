@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -32,13 +33,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnEmptyArrayWhenAllValuesAreInvalid()
             {
-                var profile = new ExifProfile();
-                profile.SetValue(ExifTagValue.ImageWidth, 42);
+                var bytes = new byte[] { 69, 120, 105, 102, 0, 0, 73, 73, 42, 0, 8, 0, 0, 0, 1, 0, 42, 1, 4, 0, 1, 0, 0, 0, 42, 0, 0, 0, 26, 0, 0, 0, 0, 0 };
 
-                var bytes = profile.ToByteArray();
-                bytes[16] = 42;
-
-                profile = new ExifProfile(bytes);
+                var profile = new ExifProfile(bytes);
 
                 var unkownTag = (ExifTagValue)298;
                 var value = profile.GetValue(unkownTag);
