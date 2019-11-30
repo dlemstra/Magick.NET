@@ -63,7 +63,8 @@ namespace Magick.NET.Tests.Shared.Profiles.Exif
 
                 var result = reader.Read(data);
 
-                Assert.AreEqual(1, result.Count);
+                Assert.AreEqual(0, result.Count);
+                Assert.AreEqual(2, reader.InvalidTags.Count);
             }
 
             [TestMethod]
@@ -74,7 +75,8 @@ namespace Magick.NET.Tests.Shared.Profiles.Exif
 
                 var result = reader.Read(data);
 
-                Assert.AreEqual(1, result.Count);
+                Assert.AreEqual(0, result.Count);
+                Assert.AreEqual(2, reader.InvalidTags.Count);
             }
 
             [TestMethod]

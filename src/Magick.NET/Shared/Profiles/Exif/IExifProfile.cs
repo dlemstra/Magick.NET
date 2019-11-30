@@ -27,7 +27,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the tags that where found but contained an invalid value.
         /// </summary>
-        IEnumerable<ExifTagValue> InvalidTags { get; }
+        IEnumerable<ExifTag> InvalidTags { get; }
 
         /// <summary>
         /// Gets the values of this exif profile.

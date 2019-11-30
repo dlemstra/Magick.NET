@@ -12,7 +12,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 
 namespace ImageMagick
@@ -22,8 +21,8 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifProfile : ImageProfile, IExifProfile
     {
-        private Collection<IExifValue> _values;
-        private List<ExifTagValue> _invalidTags = new List<ExifTagValue>();
+        private List<IExifValue> _values;
+        private List<ExifTag> _invalidTags = new List<ExifTag>();
         private int _thumbnailOffset;
         private int _thumbnailLength;
 
@@ -71,7 +70,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the tags that where found but contained an invalid value.
         /// </summary>
-        public IEnumerable<ExifTagValue> InvalidTags
+        public IEnumerable<ExifTag> InvalidTags
         {
             get
             {
@@ -208,7 +207,7 @@ namespace ImageMagick
 
             if (Data == null)
             {
-                _values = new Collection<IExifValue>();
+                _values = new List<IExifValue>();
                 return;
             }
 

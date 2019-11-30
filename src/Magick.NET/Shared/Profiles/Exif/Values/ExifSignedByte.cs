@@ -19,7 +19,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifSignedByte : ExifValue<sbyte>
     {
-        private ExifSignedByte(ExifTagValue tag)
+        internal ExifSignedByte(ExifTagValue tag)
             : base(tag)
         {
         }

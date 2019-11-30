@@ -19,7 +19,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifSignedLong : ExifValue<int>
     {
-        private ExifSignedLong(ExifTagValue tag)
+        internal ExifSignedLong(ExifTagValue tag)
             : base(tag)
         {
         }

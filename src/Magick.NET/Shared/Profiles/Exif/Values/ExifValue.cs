@@ -19,9 +19,17 @@ namespace ImageMagick
     /// </summary>
     public abstract class ExifValue : IExifValue, IEquatable<ExifTag>
     {
-        internal ExifValue(ExifTag tag) => Tag = tag;
+        internal ExifValue(ExifTag tag)
+        {
+            Tag = tag;
+            TagValue = (ExifTagValue)(ushort)tag;
+        }
 
-        internal ExifValue(ExifTagValue tag) => TagValue = tag;
+        internal ExifValue(ExifTagValue tag)
+        {
+            Tag = new UnkownExifTag(tag);
+            TagValue = tag;
+        }
 
         /// <summary>
         /// Gets the data type of the exif value.
