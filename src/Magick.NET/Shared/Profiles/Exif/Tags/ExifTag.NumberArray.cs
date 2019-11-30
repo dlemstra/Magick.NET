@@ -18,16 +18,16 @@ namespace ImageMagick
         /// <summary>
         /// Gets the StripOffsets exif tag.
         /// </summary>
-        public static ExifTag<ExifNumber[]> StripOffsets { get; } = new ExifTag<ExifNumber[]>(ExifTagValue.StripOffsets);
+        public static ExifTag<Number[]> StripOffsets { get; } = new ExifTag<Number[]>(ExifTagValue.StripOffsets);
 
         /// <summary>
         /// Gets the TileByteCounts exif tag.
         /// </summary>
-        public static ExifTag<ExifNumber[]> TileByteCounts { get; } = new ExifTag<ExifNumber[]>(ExifTagValue.TileByteCounts);
+        public static ExifTag<Number[]> TileByteCounts { get; } = new ExifTag<Number[]>(ExifTagValue.TileByteCounts);
 
         /// <summary>
         /// Gets the ImageLayer exif tag.
         /// </summary>
-        public static ExifTag<ExifNumber[]> ImageLayer { get; } = new ExifTag<ExifNumber[]>(ExifTagValue.ImageLayer);
+        public static ExifTag<Number[]> ImageLayer { get; } = new ExifTag<Number[]>(ExifTagValue.ImageLayer);
     }
 }
