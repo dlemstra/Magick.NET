@@ -15,7 +15,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public partial class ExifNumberTests
+    public partial class NumberTests
     {
         [TestClass]
         public class TheOperators
@@ -23,8 +23,8 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTheCorrectValueWhenValuesAreEqual()
             {
-                var first = new ExifNumber(10U);
-                var second = new ExifNumber(10);
+                var first = new Number(10U);
+                var second = new Number(10);
 
                 Assert.IsTrue(first == second);
                 Assert.IsFalse(first != second);
@@ -33,8 +33,8 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTheCorrectValueWhenValuesAreNotEqual()
             {
-                var first = new ExifNumber(24);
-                var second = new ExifNumber(42);
+                var first = new Number(24);
+                var second = new Number(42);
 
                 Assert.IsFalse(first == second);
                 Assert.IsTrue(first != second);
@@ -43,7 +43,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldBeAbleToImplicitCastFromInt()
             {
-                ExifNumber number = 10;
+                Number number = 10;
 
                 Assert.AreEqual(10U, (uint)number);
             }
@@ -51,7 +51,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldBeAbleToImplicitCastFromUInt()
             {
-                ExifNumber number = 10U;
+                Number number = 10U;
 
                 Assert.AreEqual(10, (ushort)number);
             }
@@ -59,7 +59,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldBeAbleToImplicitCastFromShort()
             {
-                ExifNumber number = (short)10;
+                Number number = (short)10;
 
                 Assert.AreEqual(10U, (uint)number);
             }
@@ -67,7 +67,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldBeAbleToImplicitCastFromUShort()
             {
-                ExifNumber number = (ushort)10U;
+                Number number = (ushort)10U;
 
                 Assert.AreEqual(10, (ushort)number);
             }

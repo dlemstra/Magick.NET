@@ -15,7 +15,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public partial class ExifNumberTests
+    public partial class NumberTests
     {
         [TestClass]
         public class TheEqualsMethod
@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTrueWhenInstanceIsTheSame()
             {
-                var number = new ExifNumber(10);
+                var number = new Number(10);
 
                 Assert.IsTrue(number.Equals(number));
             }
@@ -31,7 +31,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTrueWhenObjectIsTheSame()
             {
-                var number = new ExifNumber(10);
+                var number = new Number(10);
 
                 Assert.IsTrue(number.Equals((object)number));
             }
@@ -39,8 +39,8 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTrueWhenInstanceIsEqual()
             {
-                var first = new ExifNumber(10);
-                var second = new ExifNumber(10);
+                var first = new Number(10);
+                var second = new Number(10);
 
                 Assert.IsTrue(first.Equals(second));
             }
@@ -48,8 +48,8 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTrueWhenObjectIsEqual()
             {
-                var first = new ExifNumber(10);
-                var second = new ExifNumber(10);
+                var first = new Number(10);
+                var second = new Number(10);
 
                 Assert.IsTrue(first.Equals((object)second));
             }
@@ -57,8 +57,8 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnFalseWhenInstanceIsNotEqual()
             {
-                var first = new ExifNumber(10);
-                var second = new ExifNumber(20);
+                var first = new Number(10);
+                var second = new Number(20);
 
                 Assert.IsFalse(first.Equals(second));
             }
@@ -66,8 +66,8 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnFalseWhenObjectIsNotEqual()
             {
-                var first = new ExifNumber(10);
-                var second = new ExifNumber(20);
+                var first = new Number(10);
+                var second = new Number(20);
 
                 Assert.IsFalse(first.Equals((object)second));
             }
