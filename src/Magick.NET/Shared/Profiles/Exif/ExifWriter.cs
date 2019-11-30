@@ -11,7 +11,7 @@
 // and limitations under the License.
 
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Text;
 
 namespace ImageMagick
@@ -27,7 +27,7 @@ namespace ImageMagick
             _allowedParts = allowedParts;
         }
 
-        public byte[] Write(Collection<IExifValue> values)
+        public byte[] Write(List<IExifValue> values)
         {
             var ifdValues = GetPartValues(values, ExifParts.IfdTags);
             var exifValues = GetPartValues(values, ExifParts.ExifTags);
@@ -114,7 +114,7 @@ namespace ImageMagick
             return true;
         }
 
-        private static IExifValue GetOffsetValue(Collection<IExifValue> ifdValues, Collection<IExifValue> values, ExifTagValue offsetTag)
+        private static IExifValue GetOffsetValue(List<IExifValue> ifdValues, List<IExifValue> values, ExifTagValue offsetTag)
         {
             var index = -1;
 
@@ -129,7 +129,7 @@ namespace ImageMagick
                 if (index != -1)
                     return ifdValues[index];
 
-                var result = ExifValues.Create(offsetTag);
+                var result = ExifValues.CreateFromTagValue(offsetTag);
                 ifdValues.Add(result);
 
                 return result;
@@ -142,7 +142,7 @@ namespace ImageMagick
             return null;
         }
 
-        private static uint GetLength(Collection<IExifValue> values)
+        private static uint GetLength(List<IExifValue> values)
         {
             if (values.Count == 0)
                 return 0;
@@ -178,12 +178,12 @@ namespace ImageMagick
             return 1;
         }
 
-        private static int WriteHeaders(Collection<IExifValue> values, byte[] destination, int offset)
+        private static int WriteHeaders(List<IExifValue> values, byte[] destination, int offset)
         {
             return WriteHeaders(values, destination, offset, 0);
         }
 
-        private static int WriteHeaders(Collection<IExifValue> values, byte[] destination, int offset, uint dataOffset)
+        private static int WriteHeaders(List<IExifValue> values, byte[] destination, int offset, uint dataOffset)
         {
             offset = Write(BitConverter.GetBytes((ushort)values.Count), destination, offset);
 
@@ -213,7 +213,7 @@ namespace ImageMagick
             return offset;
         }
 
-        private static int WriteData(Collection<IExifValue> values, byte[] destination, int offset)
+        private static int WriteData(List<IExifValue> values, byte[] destination, int offset)
         {
             foreach (var value in values)
             {
@@ -268,9 +268,15 @@ namespace ImageMagick
                 case ExifDataType.Double:
                     return Write(BitConverter.GetBytes((double)value), destination, offset);
                 case ExifDataType.Short:
-                    return Write(BitConverter.GetBytes((ushort)value), destination, offset);
+                    if (value is Number shortNumber)
+                        return Write(BitConverter.GetBytes((ushort)shortNumber), destination, offset);
+                    else
+                        return Write(BitConverter.GetBytes((ushort)value), destination, offset);
                 case ExifDataType.Long:
-                    return Write(BitConverter.GetBytes((uint)value), destination, offset);
+                    if (value is Number longNumber)
+                        return Write(BitConverter.GetBytes((uint)longNumber), destination, offset);
+                    else
+                        return Write(BitConverter.GetBytes((uint)value), destination, offset);
                 case ExifDataType.Rational:
                     return WriteRational((Rational)value, destination, offset);
                 case ExifDataType.SignedByte:
@@ -305,9 +311,9 @@ namespace ImageMagick
             return offset + 8;
         }
 
-        private Collection<IExifValue> GetPartValues(Collection<IExifValue> values, ExifParts part)
+        private List<IExifValue> GetPartValues(List<IExifValue> values, ExifParts part)
         {
-            var result = new Collection<IExifValue>();
+            var result = new List<IExifValue>();
 
             if (!EnumHelper.HasFlag(_allowedParts, part))
                 return result;
