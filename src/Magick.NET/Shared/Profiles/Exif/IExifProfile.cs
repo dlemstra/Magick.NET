@@ -58,7 +58,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="tag">The tag of the exif value.</param>
         /// <returns>True when the value was fount and removed.</returns>
-        bool RemoveValue(ExifTagValue tag);
+        bool RemoveValue(ExifTag tag);
 
         /// <summary>
         /// Sets the value of the specified tag.

@@ -145,13 +145,13 @@ namespace ImageMagick
         /// </summary>
         /// <param name="tag">The tag of the exif value.</param>
         /// <returns>True when the value was fount and removed.</returns>
-        public bool RemoveValue(ExifTagValue tag)
+        public bool RemoveValue(ExifTag tag)
         {
             InitializeValues();
 
             for (int i = 0; i < _values.Count; i++)
             {
-                if (_values[i].TagValue == tag)
+                if (_values[i].Tag == tag)
                 {
                     _values.RemoveAt(i);
                     return true;
