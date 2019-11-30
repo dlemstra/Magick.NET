@@ -26,7 +26,7 @@ namespace ImageMagick
             if (result == null)
             {
                 result = Create(tag);
-                result.Value = value;
+                result.SetValue(value);
             }
 
             return result;

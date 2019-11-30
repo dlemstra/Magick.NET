@@ -94,7 +94,7 @@ namespace Magick.NET.Tests
                 value = profile.GetValue(ExifTagValue.GPSLatitude);
 
                 Assert.IsNotNull(value);
-                Rational[] values = (Rational[])value.Value;
+                Rational[] values = (Rational[])value.GetValue();
                 Assert.IsNotNull(values);
                 CollectionAssert.AreEqual(latitude, values);
             }

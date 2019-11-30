@@ -41,14 +41,12 @@ namespace ImageMagick
         /// </summary>
         protected override string StringValue => Value.ToString("X2", CultureInfo.InvariantCulture);
 
-        internal static ExifByte Create(ExifTagValue tag, ExifDataType dataType, byte value) => new ExifByte(tag, dataType) { Value = value };
-
         /// <summary>
         /// Tries to set the value and returns a value indicating whether the value could be set.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A value indicating whether the value could be set.</returns>
-        protected override bool SetValue(object value)
+        public override bool SetValue(object value)
         {
             if (base.SetValue(value))
                 return true;
@@ -62,5 +60,7 @@ namespace ImageMagick
                     return false;
             }
         }
+
+        internal static ExifByte Create(ExifTagValue tag, ExifDataType dataType, byte value) => new ExifByte(tag, dataType) { Value = value };
     }
 }

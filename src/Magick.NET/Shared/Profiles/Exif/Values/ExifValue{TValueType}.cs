@@ -10,7 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick
 {
@@ -18,52 +18,28 @@ namespace ImageMagick
     /// A value of the exif profile.
     /// </summary>
     /// <typeparam name="TValueType">The type of the value.</typeparam>
-    public abstract class ExifValue<TValueType> : IExifValue
+    public abstract class ExifValue<TValueType> : ExifValue
     {
-        internal ExifValue(ExifTag<TValueType> tag) => Tag = tag;
+        internal ExifValue(ExifTag<TValueType> tag)
+            : base(tag)
+        {
+        }
 
-        internal ExifValue(ExifTagValue tag) => TagValue = tag;
-
-        /// <summary>
-        /// Gets the data type of the exif value.
-        /// </summary>
-        public abstract ExifDataType DataType { get; }
+        internal ExifValue(ExifTagValue tag)
+            : base(tag)
+        {
+        }
 
         /// <summary>
         /// Gets a value indicating whether the value is an array.
         /// </summary>
-        public bool IsArray => false;
-
-        /// <summary>
-        /// Gets the tag of the exif value.
-        /// </summary>
-        public ExifTag Tag { get; }
-
-        /// <summary>
-        /// Gets the tag of the exif value.
-        /// </summary>
-        public ExifTagValue TagValue { get; }
+        public override bool IsArray => false;
 
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
+        [SuppressMessage("Naming", "CA1721:Property names should not match get methods", Justification = "This value is typed.")]
         public TValueType Value { get; set; }
-
-        /// <summary>
-        /// Gets or sets the value.
-        /// </summary>
-        object IExifValue.Value
-        {
-            get => Value;
-
-            set
-            {
-                if (!SetValue(value))
-                {
-                    throw new InvalidOperationException($"The type of the value should be {typeof(TValueType).Name}.");
-                }
-            }
-        }
 
         /// <summary>
         /// Gets a string that represents the current value.
@@ -87,11 +63,17 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Gets the value of this exif value.
+        /// </summary>
+        /// <returns>The value of this exif value.</returns>
+        public override object GetValue() => Value;
+
+        /// <summary>
         /// Tries to set the value and returns a value indicating whether the value could be set.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A value indicating whether the value could be set.</returns>
-        protected virtual bool SetValue(object value)
+        public override bool SetValue(object value)
         {
             if (value == null)
             {

@@ -73,10 +73,10 @@ namespace ImageMagick
             var i = 10;
 
             if (exifOffset != null)
-                exifOffset.Value = ifdOffset + ifdLength;
+                exifOffset.SetValue(ifdOffset + ifdLength);
 
             if (gpsOffset != null)
-                gpsOffset.Value = ifdOffset + ifdLength + exifLength;
+                gpsOffset.SetValue(ifdOffset + ifdLength + exifLength);
 
             i = Write(BitConverter.GetBytes(ifdOffset), result, i);
             i = WriteHeaders(ifdValues, result, i, 4);
@@ -104,11 +104,11 @@ namespace ImageMagick
         {
             if (value.DataType == ExifDataType.String)
             {
-                var stringValue = (string)value.Value;
+                var stringValue = (string)value.GetValue();
                 return stringValue != null && stringValue.Length > 0;
             }
 
-            if (value.Value is Array arrayValue)
+            if (value.GetValue() is Array arrayValue)
                 return arrayValue != null && arrayValue.Length > 0;
 
             return true;
@@ -170,9 +170,9 @@ namespace ImageMagick
         private static uint GetNumberOfComponents(IExifValue value)
         {
             if (value.DataType == ExifDataType.String)
-                return (uint)Encoding.UTF8.GetBytes((string)value.Value).Length + 1;
+                return (uint)Encoding.UTF8.GetBytes((string)value.GetValue()).Length + 1;
 
-            if (value.Value is Array arrayValue)
+            if (value.GetValue() is Array arrayValue)
                 return (uint)arrayValue.Length;
 
             return 1;
@@ -238,16 +238,16 @@ namespace ImageMagick
             if (value.IsArray && value.DataType != ExifDataType.String)
                 return WriteArray(value, destination, offset);
             else
-                return WriteValue(value.DataType, value.Value, destination, offset);
+                return WriteValue(value.DataType, value.GetValue(), destination, offset);
         }
 
         private static int WriteArray(IExifValue value, byte[] destination, int offset)
         {
             if (value.DataType == ExifDataType.String)
-                return WriteValue(ExifDataType.String, value.Value, destination, offset);
+                return WriteValue(ExifDataType.String, value.GetValue(), destination, offset);
 
             int newOffset = offset;
-            foreach (object obj in (Array)value.Value)
+            foreach (object obj in (Array)value.GetValue())
                 newOffset = WriteValue(value.DataType, obj, destination, newOffset);
 
             return newOffset;

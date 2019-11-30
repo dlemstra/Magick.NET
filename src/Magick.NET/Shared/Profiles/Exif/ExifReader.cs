@@ -112,12 +112,12 @@ namespace ImageMagick
                 if (value.TagValue == ExifTagValue.SubIFDOffset)
                 {
                     if (IsLong(value))
-                        _exifOffset = (uint)value.Value;
+                        _exifOffset = (uint)value.GetValue();
                 }
                 else if (value.TagValue == ExifTagValue.GPSIFDOffset)
                 {
                     if (IsLong(value))
-                        _gpsOffset = (uint)value.Value;
+                        _gpsOffset = (uint)value.GetValue();
                 }
                 else
                     values.Add(value);
@@ -312,9 +312,9 @@ namespace ImageMagick
             foreach (var value in values)
             {
                 if (value.TagValue == ExifTagValue.JPEGInterchangeFormat && IsLong(value))
-                    ThumbnailOffset = (uint)value.Value + _startIndex;
+                    ThumbnailOffset = (uint)value.GetValue() + _startIndex;
                 else if (value.TagValue == ExifTagValue.JPEGInterchangeFormatLength && IsLong(value))
-                    ThumbnailLength = (uint)value.Value;
+                    ThumbnailLength = (uint)value.GetValue();
             }
         }
     }

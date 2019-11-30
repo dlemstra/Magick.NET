@@ -34,14 +34,12 @@ namespace ImageMagick
         /// </summary>
         protected override string StringValue => Value.ToString(CultureInfo.InvariantCulture);
 
-        internal static ExifSignedShort Create(ExifTagValue tag, short value) => new ExifSignedShort(tag) { Value = value };
-
         /// <summary>
         /// Tries to set the value and returns a value indicating whether the value could be set.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A value indicating whether the value could be set.</returns>
-        protected override bool SetValue(object value)
+        public override bool SetValue(object value)
         {
             if (base.SetValue(value))
                 return true;
@@ -55,5 +53,7 @@ namespace ImageMagick
                     return false;
             }
         }
+
+        internal static ExifSignedShort Create(ExifTagValue tag, short value) => new ExifSignedShort(tag) { Value = value };
     }
 }

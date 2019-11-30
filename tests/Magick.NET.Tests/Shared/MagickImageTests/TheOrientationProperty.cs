@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetExifProfile();
-                    var exifOrientation = profile.GetValue(ExifTagValue.Orientation).Value;
+                    var exifOrientation = profile.GetValue(ExifTagValue.Orientation).GetValue();
                     Assert.AreEqual((ushort)1, exifOrientation);
 
                     Assert.AreEqual(OrientationType.TopLeft, image.Orientation);
@@ -45,7 +45,7 @@ namespace Magick.NET.Tests
                         using (var output = new MagickImage(stream))
                         {
                             profile = output.GetExifProfile();
-                            exifOrientation = profile.GetValue(ExifTagValue.Orientation).Value;
+                            exifOrientation = profile.GetValue(ExifTagValue.Orientation).GetValue();
                             Assert.AreEqual((ushort)8, exifOrientation);
 
                             Assert.AreEqual(OrientationType.LeftBotom, image.Orientation);

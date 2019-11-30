@@ -31,7 +31,7 @@ namespace Magick.NET.Tests
 
                 var exception = ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
-                    value.Value = 10.5;
+                    value.SetValue(10.5);
                 });
 
                 Assert.AreEqual("The type of the value should be String.", exception.Message);
@@ -47,7 +47,7 @@ namespace Magick.NET.Tests
 
                 var exception = ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
-                    value.Value = 75;
+                    value.SetValue(75);
                 });
 
                 Assert.AreEqual("The type of the value should be SignedRational.", exception.Message);
@@ -65,7 +65,7 @@ namespace Magick.NET.Tests
 
                 var exception = ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
-                    value.Value = "Magick.NET";
+                    value.SetValue("Magick.NET");
                 });
 
                 Assert.AreEqual("The type of the value should be Rational.", exception.Message);

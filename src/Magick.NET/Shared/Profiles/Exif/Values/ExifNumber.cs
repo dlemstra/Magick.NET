@@ -48,7 +48,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>A value indicating whether the value could be set.</returns>
-        protected override bool SetValue(object value)
+        public override bool SetValue(object value)
         {
             if (base.SetValue(value))
                 return true;

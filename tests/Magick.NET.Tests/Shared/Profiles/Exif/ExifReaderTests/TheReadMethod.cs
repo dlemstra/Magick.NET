@@ -86,7 +86,7 @@ namespace Magick.NET.Tests.Shared.Profiles.Exif
                 var result = reader.Read(data);
 
                 Assert.AreEqual(1, result.Count);
-                Assert.AreEqual(string.Empty, result.First().Value);
+                Assert.AreEqual(string.Empty, result.First().GetValue());
             }
         }
     }

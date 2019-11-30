@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
 
                 var unkownTag = (ExifTagValue)298;
                 var value = profile.GetValue(unkownTag);
-                Assert.AreEqual(42U, value.Value);
+                Assert.AreEqual(42U, value.GetValue());
                 Assert.AreEqual("42", value.ToString());
 
                 bytes = profile.ToByteArray();

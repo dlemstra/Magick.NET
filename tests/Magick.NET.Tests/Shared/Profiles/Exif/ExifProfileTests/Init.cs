@@ -20,7 +20,7 @@ namespace Magick.NET.Tests
         private static void TestValue(IExifValue value, string expected)
         {
             Assert.IsNotNull(value);
-            Assert.AreEqual(expected, value.Value);
+            Assert.AreEqual(expected, value.GetValue());
         }
     }
 }

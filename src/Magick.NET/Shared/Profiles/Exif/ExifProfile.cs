@@ -172,7 +172,7 @@ namespace ImageMagick
             {
                 if (exifValue.TagValue == tag)
                 {
-                    exifValue.Value = value;
+                    exifValue.SetValue(value);
                     return;
                 }
             }

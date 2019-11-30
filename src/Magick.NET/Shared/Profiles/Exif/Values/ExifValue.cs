@@ -15,34 +15,43 @@ namespace ImageMagick
     /// <summary>
     /// A value of the exif profile.
     /// </summary>
-    public interface IExifValue
+    public abstract class ExifValue : IExifValue
     {
+        internal ExifValue(ExifTag tag) => Tag = tag;
+
+        internal ExifValue(ExifTagValue tag) => TagValue = tag;
+
         /// <summary>
         /// Gets the data type of the exif value.
         /// </summary>
-        ExifDataType DataType { get; }
+        public abstract ExifDataType DataType { get; }
 
         /// <summary>
         /// Gets a value indicating whether the value is an array.
         /// </summary>
-        bool IsArray { get; }
+        public abstract bool IsArray { get; }
 
         /// <summary>
         /// Gets the tag of the exif value.
         /// </summary>
-        ExifTagValue TagValue { get; }
+        public ExifTag Tag { get; }
+
+        /// <summary>
+        /// Gets the tag of the exif value.
+        /// </summary>
+        public ExifTagValue TagValue { get; }
 
         /// <summary>
         /// Gets the value of this exif value.
         /// </summary>
         /// <returns>The value of this exif value.</returns>
-        object GetValue();
+        public abstract object GetValue();
 
         /// <summary>
         /// Sets the value of this exif value.
         /// </summary>
         /// <param name="value">The value of this exif value.</param>
         /// <returns>A value indicating whether the value could be set.</returns>
-        bool SetValue(object value);
+        public abstract bool SetValue(object value);
     }
 }
