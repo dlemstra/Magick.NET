@@ -11,14 +11,12 @@
 // and limitations under the License.
 
 using System;
-using System.Diagnostics;
 
 namespace ImageMagick
 {
     /// <summary>
     /// Class that represents an exif tag from the Exif standard 2.31.
     /// </summary>
-    [DebuggerDisplay("{(ExifTagValue)_value}")]
     public abstract partial class ExifTag : IEquatable<ExifTag>
     {
         private readonly ushort _value;
@@ -79,5 +77,11 @@ namespace ImageMagick
         /// </summary>
         /// <returns>A hash code for the current instance.</returns>
         public override int GetHashCode() => _value.GetHashCode();
+
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns>A string that represents the current object.</returns>
+        public override string ToString() => ((ExifTagValue)_value).ToString();
     }
 }
