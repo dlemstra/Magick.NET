@@ -23,7 +23,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the OECF exif tag.
         /// </summary>
-        public static ExifTag<byte[]> JPEGTOECFables { get; } = new ExifTag<byte[]>(ExifTagValue.OECF);
+        public static ExifTag<byte[]> OECF { get; } = new ExifTag<byte[]>(ExifTagValue.OECF);
 
         /// <summary>
         /// Gets the ExifVersion exif tag.
