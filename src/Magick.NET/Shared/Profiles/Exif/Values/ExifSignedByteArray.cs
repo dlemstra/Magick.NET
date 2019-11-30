@@ -12,21 +12,13 @@
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Exif value that contains a <see cref="sbyte"/> array.
-    /// </summary>
-    public sealed class ExifSignedByteArray : ExifArrayValue<sbyte>
+    internal sealed class ExifSignedByteArray : ExifArrayValue<sbyte>
     {
-        internal ExifSignedByteArray(ExifTagValue tag)
+        public ExifSignedByteArray(ExifTagValue tag)
             : base(tag)
         {
         }
 
-        /// <summary>
-        /// Gets the data type of the exif value.
-        /// </summary>
         public override ExifDataType DataType => ExifDataType.SignedByte;
-
-        internal static ExifSignedByteArray Create(ExifTagValue tag, sbyte[] value) => new ExifSignedByteArray(tag) { Value = value };
     }
 }

@@ -14,45 +14,26 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// An array value of the exif profile.
-    /// </summary>
-    /// <typeparam name="TValueType">The type of the value.</typeparam>
-    public abstract class ExifArrayValue<TValueType> : ExifValue, IExifValue<TValueType[]>
+    internal abstract class ExifArrayValue<TValueType> : ExifValue, IExifValue<TValueType[]>
     {
-        internal ExifArrayValue(ExifTag<TValueType[]> tag)
+        public ExifArrayValue(ExifTag<TValueType[]> tag)
             : base(tag)
         {
         }
 
-        internal ExifArrayValue(ExifTagValue tag)
+        public ExifArrayValue(ExifTagValue tag)
             : base(tag)
         {
         }
 
-        /// <summary>
-        /// Gets a value indicating whether the value is an array.
-        /// </summary>
         public override bool IsArray => true;
 
-        /// <summary>
-        /// Gets or sets the value.
-        /// </summary>
         [SuppressMessage("Naming", "CA1721:Property names should not match get methods", Justification = "This value is typed.")]
         [SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "The property needs to be an array.")]
         public TValueType[] Value { get; set; }
 
-        /// <summary>
-        /// Gets the value of this exif value.
-        /// </summary>
-        /// <returns>The value of this exif value.</returns>
         public override object GetValue() => Value;
 
-        /// <summary>
-        /// Tries to set the value and returns a value indicating whether the value could be set.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>A value indicating whether the value could be set.</returns>
         public override bool SetValue(object value)
         {
             if (value == null)

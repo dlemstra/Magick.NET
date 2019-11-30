@@ -12,21 +12,13 @@
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Exif value that contains a <see cref="int"/> array.
-    /// </summary>
-    public sealed class ExifSignedLongArray : ExifArrayValue<int>
+    internal sealed class ExifSignedLongArray : ExifArrayValue<int>
     {
-        internal ExifSignedLongArray(ExifTagValue tag)
+        public ExifSignedLongArray(ExifTagValue tag)
             : base(tag)
         {
         }
 
-        /// <summary>
-        /// Gets the data type of the exif value.
-        /// </summary>
         public override ExifDataType DataType => ExifDataType.SignedLong;
-
-        internal static ExifSignedLongArray Create(ExifTagValue tag, int[] value) => new ExifSignedLongArray(tag) { Value = value };
     }
 }

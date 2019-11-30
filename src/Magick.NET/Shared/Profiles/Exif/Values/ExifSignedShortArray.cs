@@ -12,21 +12,13 @@
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Exif value that contains a <see cref="short"/> array.
-    /// </summary>
-    public sealed class ExifSignedShortArray : ExifArrayValue<short>
+    internal sealed class ExifSignedShortArray : ExifArrayValue<short>
     {
-        internal ExifSignedShortArray(ExifTagValue tag)
+        public ExifSignedShortArray(ExifTagValue tag)
             : base(tag)
         {
         }
 
-        /// <summary>
-        /// Gets the data type of the exif value.
-        /// </summary>
         public override ExifDataType DataType => ExifDataType.SignedShort;
-
-        internal static ExifSignedShortArray Create(ExifTagValue tag, short[] value) => new ExifSignedShortArray(tag) { Value = value };
     }
 }

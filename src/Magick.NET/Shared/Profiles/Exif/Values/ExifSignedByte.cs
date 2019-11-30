@@ -14,31 +14,17 @@ using System.Globalization;
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Exif value that contains a <see cref="sbyte"/>.
-    /// </summary>
-    public sealed class ExifSignedByte : ExifValue<sbyte>
+    internal sealed class ExifSignedByte : ExifValue<sbyte>
     {
-        internal ExifSignedByte(ExifTagValue tag)
+        public ExifSignedByte(ExifTagValue tag)
             : base(tag)
         {
         }
 
-        /// <summary>
-        /// Gets the data type of the exif value.
-        /// </summary>
         public override ExifDataType DataType => ExifDataType.SignedByte;
 
-        /// <summary>
-        /// Gets a string that represents the current value.
-        /// </summary>
         protected override string StringValue => Value.ToString("X2", CultureInfo.InvariantCulture);
 
-        /// <summary>
-        /// Tries to set the value and returns a value indicating whether the value could be set.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>A value indicating whether the value could be set.</returns>
         public override bool SetValue(object value)
         {
             if (base.SetValue(value))
@@ -53,7 +39,5 @@ namespace ImageMagick
                     return false;
             }
         }
-
-        internal static ExifSignedByte Create(ExifTagValue tag, sbyte value) => new ExifSignedByte(tag) { Value = value };
     }
 }

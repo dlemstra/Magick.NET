@@ -14,36 +14,22 @@ using System.Globalization;
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Exif value that contains a <see cref="string"/>.
-    /// </summary>
-    public sealed class ExifString : ExifValue<string>
+    internal sealed class ExifString : ExifValue<string>
     {
-        internal ExifString(ExifTag<string> tag)
+        public ExifString(ExifTag<string> tag)
             : base(tag)
         {
         }
 
-        internal ExifString(ExifTagValue tag)
+        public ExifString(ExifTagValue tag)
             : base(tag)
         {
         }
 
-        /// <summary>
-        /// Gets the data type of the exif value.
-        /// </summary>
         public override ExifDataType DataType => ExifDataType.String;
 
-        /// <summary>
-        /// Gets a string that represents the current value.
-        /// </summary>
         protected override string StringValue => Value;
 
-        /// <summary>
-        /// Tries to set the value and returns a value indicating whether the value could be set.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>A value indicating whether the value could be set.</returns>
         public override bool SetValue(object value)
         {
             if (base.SetValue(value))
@@ -58,7 +44,5 @@ namespace ImageMagick
                     return false;
             }
         }
-
-        internal static ExifString Create(ExifTagValue tag, string value) => new ExifString(tag) { Value = value };
     }
 }

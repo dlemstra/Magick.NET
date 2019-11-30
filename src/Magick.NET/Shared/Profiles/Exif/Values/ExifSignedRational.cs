@@ -14,10 +14,7 @@ using System.Globalization;
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Exif value that contains a <see cref="SignedRational"/>.
-    /// </summary>
-    public sealed class ExifSignedRational : ExifValue<SignedRational>
+    internal sealed class ExifSignedRational : ExifValue<SignedRational>
     {
         internal ExifSignedRational(ExifTag<SignedRational> tag)
             : base(tag)
@@ -29,16 +26,8 @@ namespace ImageMagick
         {
         }
 
-        /// <summary>
-        /// Gets the data type of the exif value.
-        /// </summary>
         public override ExifDataType DataType => ExifDataType.SignedRational;
 
-        /// <summary>
-        /// Gets a string that represents the current value.
-        /// </summary>
         protected override string StringValue => Value.ToString(CultureInfo.InvariantCulture);
-
-        internal static ExifSignedRational Create(ExifTagValue tag, SignedRational value) => new ExifSignedRational(tag) { Value = value };
     }
 }

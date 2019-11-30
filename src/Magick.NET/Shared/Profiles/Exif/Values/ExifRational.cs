@@ -14,31 +14,20 @@ using System.Globalization;
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Exif value that contains a <see cref="Rational"/>.
-    /// </summary>
-    public sealed class ExifRational : ExifValue<Rational>
+    internal sealed class ExifRational : ExifValue<Rational>
     {
-        internal ExifRational(ExifTag<Rational> tag)
+        public ExifRational(ExifTag<Rational> tag)
             : base(tag)
         {
         }
 
-        internal ExifRational(ExifTagValue tag)
+        public ExifRational(ExifTagValue tag)
             : base(tag)
         {
         }
 
-        /// <summary>
-        /// Gets the data type of the exif value.
-        /// </summary>
         public override ExifDataType DataType => ExifDataType.Rational;
 
-        /// <summary>
-        /// Gets a string that represents the current value.
-        /// </summary>
         protected override string StringValue => Value.ToString(CultureInfo.InvariantCulture);
-
-        internal static ExifRational Create(ExifTagValue tag, Rational value) => new ExifRational(tag) { Value = value };
     }
 }

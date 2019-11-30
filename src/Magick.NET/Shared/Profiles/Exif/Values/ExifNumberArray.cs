@@ -12,19 +12,13 @@
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Exif value that contains a <see cref="Number"/> array.
-    /// </summary>
-    public sealed class ExifNumberArray : ExifArrayValue<Number>
+    internal sealed class ExifNumberArray : ExifArrayValue<Number>
     {
-        internal ExifNumberArray(ExifTag<Number[]> tag)
+        public ExifNumberArray(ExifTag<Number[]> tag)
             : base(tag)
         {
         }
 
-        /// <summary>
-        /// Gets the data type of the exif value.
-        /// </summary>
         public override ExifDataType DataType
         {
             get
@@ -43,7 +37,5 @@ namespace ImageMagick
                 return ExifDataType.Short;
             }
         }
-
-        internal static ExifLongArray Create(ExifTagValue tag, uint[] value) => new ExifLongArray(tag) { Value = value };
     }
 }

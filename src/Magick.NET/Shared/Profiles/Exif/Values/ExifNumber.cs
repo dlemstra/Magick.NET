@@ -14,19 +14,13 @@ using System.Globalization;
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Exif value that contains a <see cref="Number"/>.
-    /// </summary>
-    public sealed class ExifNumber : ExifValue<Number>
+    internal sealed class ExifNumber : ExifValue<Number>
     {
-        internal ExifNumber(ExifTag<Number> tag)
+        public ExifNumber(ExifTag<Number> tag)
             : base(tag)
         {
         }
 
-        /// <summary>
-        /// Gets the data type of the exif value.
-        /// </summary>
         public override ExifDataType DataType
         {
             get
@@ -38,16 +32,8 @@ namespace ImageMagick
             }
         }
 
-        /// <summary>
-        /// Gets a string that represents the current value.
-        /// </summary>
         protected override string StringValue => Value.ToString(CultureInfo.InvariantCulture);
 
-        /// <summary>
-        /// Tries to set the value and returns a value indicating whether the value could be set.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>A value indicating whether the value could be set.</returns>
         public override bool SetValue(object value)
         {
             if (base.SetValue(value))

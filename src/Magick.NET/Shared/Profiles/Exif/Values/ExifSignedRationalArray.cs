@@ -12,26 +12,18 @@
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Exif value that contains a <see cref="SignedRational"/> array.
-    /// </summary>
-    public sealed class ExifSignedRationalArray : ExifArrayValue<SignedRational>
+    internal sealed class ExifSignedRationalArray : ExifArrayValue<SignedRational>
     {
-        internal ExifSignedRationalArray(ExifTag<SignedRational[]> tag)
+        public ExifSignedRationalArray(ExifTag<SignedRational[]> tag)
             : base(tag)
         {
         }
 
-        internal ExifSignedRationalArray(ExifTagValue tag)
+        public ExifSignedRationalArray(ExifTagValue tag)
             : base(tag)
         {
         }
 
-        /// <summary>
-        /// Gets the data type of the exif value.
-        /// </summary>
         public override ExifDataType DataType => ExifDataType.SignedRational;
-
-        internal static ExifSignedRationalArray Create(ExifTagValue tag, SignedRational[] value) => new ExifSignedRationalArray(tag) { Value = value };
     }
 }

@@ -14,26 +14,15 @@ using System.Globalization;
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Exif value that contains a <see cref="int"/>.
-    /// </summary>
-    public sealed class ExifSignedLong : ExifValue<int>
+    internal sealed class ExifSignedLong : ExifValue<int>
     {
-        internal ExifSignedLong(ExifTagValue tag)
+        public ExifSignedLong(ExifTagValue tag)
             : base(tag)
         {
         }
 
-        /// <summary>
-        /// Gets the data type of the exif value.
-        /// </summary>
         public override ExifDataType DataType => ExifDataType.SignedLong;
 
-        /// <summary>
-        /// Gets a string that represents the current value.
-        /// </summary>
         protected override string StringValue => Value.ToString(CultureInfo.InvariantCulture);
-
-        internal static ExifSignedLong Create(ExifTagValue tag, int value) => new ExifSignedLong(tag) { Value = value };
     }
 }

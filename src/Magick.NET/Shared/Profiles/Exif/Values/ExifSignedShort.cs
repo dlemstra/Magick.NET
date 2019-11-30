@@ -14,31 +14,17 @@ using System.Globalization;
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Exif value that contains a <see cref="short"/>.
-    /// </summary>
-    public sealed class ExifSignedShort : ExifValue<short>
+    internal sealed class ExifSignedShort : ExifValue<short>
     {
-        internal ExifSignedShort(ExifTagValue tag)
+        public ExifSignedShort(ExifTagValue tag)
             : base(tag)
         {
         }
 
-        /// <summary>
-        /// Gets the data type of the exif value.
-        /// </summary>
         public override ExifDataType DataType => ExifDataType.SignedShort;
 
-        /// <summary>
-        /// Gets a string that represents the current value.
-        /// </summary>
         protected override string StringValue => Value.ToString(CultureInfo.InvariantCulture);
 
-        /// <summary>
-        /// Tries to set the value and returns a value indicating whether the value could be set.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>A value indicating whether the value could be set.</returns>
         public override bool SetValue(object value)
         {
             if (base.SetValue(value))
@@ -53,7 +39,5 @@ namespace ImageMagick
                     return false;
             }
         }
-
-        internal static ExifSignedShort Create(ExifTagValue tag, short value) => new ExifSignedShort(tag) { Value = value };
     }
 }

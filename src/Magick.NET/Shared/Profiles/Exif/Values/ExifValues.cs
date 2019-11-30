@@ -12,16 +12,13 @@
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Contains the possible exif values.
-    /// </summary>
-    public static partial class ExifValues
+    internal static partial class ExifValues
     {
-        internal static ExifValue Create(ExifTagValue tag) => (ExifValue)CreateValue(tag);
+        public static ExifValue Create(ExifTagValue tag) => (ExifValue)CreateValue(tag);
 
-        internal static ExifValue Create(ExifTag tag) => (ExifValue)CreateValue((ExifTagValue)(ushort)tag);
+        public static ExifValue Create(ExifTag tag) => (ExifValue)CreateValue((ExifTagValue)(ushort)tag);
 
-        internal static ExifValue Create(ExifTagValue tag, ExifDataType dataType, uint numberOfComponents)
+        public static ExifValue Create(ExifTagValue tag, ExifDataType dataType, uint numberOfComponents)
         {
             bool isArray = numberOfComponents != 1;
 

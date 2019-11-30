@@ -12,22 +12,14 @@
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Exif value that contains a <see cref="byte"/> array.
-    /// </summary>
-    public sealed class ExifByteArray : ExifArrayValue<byte>
+    internal sealed class ExifByteArray : ExifArrayValue<byte>
     {
-        internal ExifByteArray(ExifTag<byte[]> tag, ExifDataType dataType)
+        public ExifByteArray(ExifTag<byte[]> tag, ExifDataType dataType)
             : base(tag) => DataType = dataType;
 
-        internal ExifByteArray(ExifTagValue tag, ExifDataType dataType)
+        public ExifByteArray(ExifTagValue tag, ExifDataType dataType)
             : base(tag) => DataType = dataType;
 
-        /// <summary>
-        /// Gets the data type of the exif value.
-        /// </summary>
         public override ExifDataType DataType { get; }
-
-        internal static ExifByteArray Create(ExifTagValue tag, ExifDataType dataType, byte[] value) => new ExifByteArray(tag, dataType) { Value = value };
     }
 }

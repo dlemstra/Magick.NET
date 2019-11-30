@@ -12,26 +12,18 @@
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Exif value that contains a <see cref="Rational"/> array.
-    /// </summary>
-    public sealed class ExifRationalArray : ExifArrayValue<Rational>
+    internal sealed class ExifRationalArray : ExifArrayValue<Rational>
     {
-        internal ExifRationalArray(ExifTag<Rational[]> tag)
+        public ExifRationalArray(ExifTag<Rational[]> tag)
             : base(tag)
         {
         }
 
-        internal ExifRationalArray(ExifTagValue tag)
+        public ExifRationalArray(ExifTagValue tag)
             : base(tag)
         {
         }
 
-        /// <summary>
-        /// Gets the data type of the exif value.
-        /// </summary>
         public override ExifDataType DataType => ExifDataType.Rational;
-
-        internal static ExifRationalArray Create(ExifTagValue tag, Rational[] value) => new ExifRationalArray(tag) { Value = value };
     }
 }

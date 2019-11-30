@@ -12,26 +12,18 @@
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Exif value that contains a <see cref="double"/> array.
-    /// </summary>
-    public sealed class ExifDoubleArray : ExifArrayValue<double>
+    internal sealed class ExifDoubleArray : ExifArrayValue<double>
     {
-        internal ExifDoubleArray(ExifTag<double[]> tag)
+        public ExifDoubleArray(ExifTag<double[]> tag)
             : base(tag)
         {
         }
 
-        internal ExifDoubleArray(ExifTagValue tag)
+        public ExifDoubleArray(ExifTagValue tag)
             : base(tag)
         {
         }
 
-        /// <summary>
-        /// Gets the data type of the exif value.
-        /// </summary>
         public override ExifDataType DataType => ExifDataType.Double;
-
-        internal static ExifDoubleArray Create(ExifTagValue tag, double[] value) => new ExifDoubleArray(tag) { Value = value };
     }
 }

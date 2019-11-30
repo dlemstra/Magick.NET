@@ -14,32 +14,18 @@ using System.Globalization;
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Exif value that contains a <see cref="byte"/>.
-    /// </summary>
-    public sealed class ExifByte : ExifValue<byte>
+    internal sealed class ExifByte : ExifValue<byte>
     {
-        internal ExifByte(ExifTag<byte> tag, ExifDataType dataType)
+        public ExifByte(ExifTag<byte> tag, ExifDataType dataType)
             : base(tag) => DataType = dataType;
 
-        internal ExifByte(ExifTagValue tag, ExifDataType dataType)
+        public ExifByte(ExifTagValue tag, ExifDataType dataType)
             : base(tag) => DataType = dataType;
 
-        /// <summary>
-        /// Gets the data type of the exif value.
-        /// </summary>
         public override ExifDataType DataType { get; }
 
-        /// <summary>
-        /// Gets a string that represents the current value.
-        /// </summary>
         protected override string StringValue => Value.ToString("X2", CultureInfo.InvariantCulture);
 
-        /// <summary>
-        /// Tries to set the value and returns a value indicating whether the value could be set.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>A value indicating whether the value could be set.</returns>
         public override bool SetValue(object value)
         {
             if (base.SetValue(value))
@@ -54,7 +40,5 @@ namespace ImageMagick
                     return false;
             }
         }
-
-        internal static ExifByte Create(ExifTagValue tag, ExifDataType dataType, byte value) => new ExifByte(tag, dataType) { Value = value };
     }
 }

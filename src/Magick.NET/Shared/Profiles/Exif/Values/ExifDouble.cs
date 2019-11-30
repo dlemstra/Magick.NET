@@ -14,36 +14,22 @@ using System.Globalization;
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Exif value that contains a <see cref="double"/>.
-    /// </summary>
-    public sealed class ExifDouble : ExifValue<double>
+    internal sealed class ExifDouble : ExifValue<double>
     {
-        internal ExifDouble(ExifTag<double> tag)
+        public ExifDouble(ExifTag<double> tag)
             : base(tag)
         {
         }
 
-        internal ExifDouble(ExifTagValue tag)
+        public ExifDouble(ExifTagValue tag)
             : base(tag)
         {
         }
 
-        /// <summary>
-        /// Gets the data type of the exif value.
-        /// </summary>
         public override ExifDataType DataType => ExifDataType.Double;
 
-        /// <summary>
-        /// Gets a string that represents the current value.
-        /// </summary>
         protected override string StringValue => Value.ToString(CultureInfo.InvariantCulture);
 
-        /// <summary>
-        /// Tries to set the value and returns a value indicating whether the value could be set.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>A value indicating whether the value could be set.</returns>
         public override bool SetValue(object value)
         {
             if (base.SetValue(value))
@@ -58,7 +44,5 @@ namespace ImageMagick
                     return false;
             }
         }
-
-        internal static ExifDouble Create(ExifTagValue tag, double value) => new ExifDouble(tag) { Value = value };
     }
 }

@@ -12,21 +12,13 @@
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Exif value that contains a <see cref="float"/> array.
-    /// </summary>
-    public sealed class ExifFloatArray : ExifArrayValue<float>
+    internal sealed class ExifFloatArray : ExifArrayValue<float>
     {
-        internal ExifFloatArray(ExifTagValue tag)
+        public ExifFloatArray(ExifTagValue tag)
             : base(tag)
         {
         }
 
-        /// <summary>
-        /// Gets the data type of the exif value.
-        /// </summary>
         public override ExifDataType DataType => ExifDataType.Float;
-
-        internal static ExifFloatArray Create(ExifTagValue tag, float[] value) => new ExifFloatArray(tag) { Value = value };
     }
 }
