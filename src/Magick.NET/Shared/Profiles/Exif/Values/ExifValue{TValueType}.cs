@@ -47,22 +47,6 @@ namespace ImageMagick
         protected abstract string StringValue { get; }
 
         /// <summary>
-        /// Returns a string that represents the current value.
-        /// </summary>
-        /// <returns>A string that represents the current value.</returns>
-        public override string ToString()
-        {
-            if (Value == null)
-                return null;
-
-            var description = ExifTagDescriptionAttribute.GetDescription(TagValue, Value);
-            if (description != null)
-                return description;
-
-            return StringValue;
-        }
-
-        /// <summary>
         /// Gets the value of this exif value.
         /// </summary>
         /// <returns>The value of this exif value.</returns>
@@ -88,6 +72,22 @@ namespace ImageMagick
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Returns a string that represents the current value.
+        /// </summary>
+        /// <returns>A string that represents the current value.</returns>
+        public override string ToString()
+        {
+            if (Value == null)
+                return null;
+
+            var description = ExifTagDescriptionAttribute.GetDescription(TagValue, Value);
+            if (description != null)
+                return description;
+
+            return StringValue;
         }
     }
 }
