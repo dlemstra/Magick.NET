@@ -19,6 +19,11 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifRational : ExifValue<Rational>
     {
+        internal ExifRational(ExifTag<Rational> tag)
+            : base(tag)
+        {
+        }
+
         internal ExifRational(ExifTagValue tag)
             : base(tag)
         {

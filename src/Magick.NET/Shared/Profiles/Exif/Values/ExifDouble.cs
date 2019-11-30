@@ -19,6 +19,11 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifDouble : ExifValue<double>
     {
+        internal ExifDouble(ExifTag<double> tag)
+            : base(tag)
+        {
+        }
+
         internal ExifDouble(ExifTagValue tag)
             : base(tag)
         {

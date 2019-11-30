@@ -17,6 +17,11 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifSignedRationalArray : ExifArrayValue<SignedRational>
     {
+        internal ExifSignedRationalArray(ExifTag<SignedRational[]> tag)
+            : base(tag)
+        {
+        }
+
         internal ExifSignedRationalArray(ExifTagValue tag)
             : base(tag)
         {

@@ -15,16 +15,11 @@ using System.Globalization;
 namespace ImageMagick
 {
     /// <summary>
-    /// Exif value that contains a <see cref="ushort"/>.
+    /// Exif value that contains a <see cref="Number"/>.
     /// </summary>
-    public sealed class ExifShort : ExifValue<ushort>
+    public sealed class ExifNumber : ExifValue<Number>
     {
-        internal ExifShort(ExifTag<ushort> tag)
-            : base(tag)
-        {
-        }
-
-        internal ExifShort(ExifTagValue tag)
+        internal ExifNumber(ExifTag<Number> tag)
             : base(tag)
         {
         }
@@ -32,14 +27,21 @@ namespace ImageMagick
         /// <summary>
         /// Gets the data type of the exif value.
         /// </summary>
-        public override ExifDataType DataType => ExifDataType.Short;
+        public override ExifDataType DataType
+        {
+            get
+            {
+                if (Value > ushort.MaxValue)
+                    return ExifDataType.Long;
+
+                return ExifDataType.Short;
+            }
+        }
 
         /// <summary>
         /// Gets a string that represents the current value.
         /// </summary>
         protected override string StringValue => Value.ToString(CultureInfo.InvariantCulture);
-
-        internal static ExifShort Create(ExifTagValue tag, ushort value) => new ExifShort(tag) { Value = value };
 
         /// <summary>
         /// Tries to set the value and returns a value indicating whether the value could be set.
@@ -54,7 +56,13 @@ namespace ImageMagick
             switch (value)
             {
                 case int intValue:
-                    Value = (ushort)intValue;
+                    Value = intValue;
+                    return true;
+                case short shortValue:
+                    Value = shortValue;
+                    return true;
+                case ushort ushortValue:
+                    Value = ushortValue;
                     return true;
                 default:
                     return false;

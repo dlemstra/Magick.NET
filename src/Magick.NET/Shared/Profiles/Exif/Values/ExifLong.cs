@@ -19,6 +19,11 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifLong : ExifValue<uint>
     {
+        internal ExifLong(ExifTag<uint> tag)
+            : base(tag)
+        {
+        }
+
         internal ExifLong(ExifTagValue tag)
             : base(tag)
         {

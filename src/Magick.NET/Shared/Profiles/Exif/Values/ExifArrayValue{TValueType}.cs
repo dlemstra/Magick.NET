@@ -21,6 +21,8 @@ namespace ImageMagick
     /// <typeparam name="TValueType">The type of the value.</typeparam>
     public abstract class ExifArrayValue<TValueType> : IExifValue
     {
+        internal ExifArrayValue(ExifTag<TValueType[]> tag) => Tag = tag;
+
         internal ExifArrayValue(ExifTagValue tag) => TagValue = tag;
 
         /// <summary>
@@ -32,6 +34,11 @@ namespace ImageMagick
         /// Gets a value indicating whether the value is an array.
         /// </summary>
         public bool IsArray => true;
+
+        /// <summary>
+        /// Gets the tag of the exif value.
+        /// </summary>
+        public ExifTag Tag { get; }
 
         /// <summary>
         /// Gets the tag of the exif value.

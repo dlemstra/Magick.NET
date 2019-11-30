@@ -17,6 +17,11 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifDoubleArray : ExifArrayValue<double>
     {
+        internal ExifDoubleArray(ExifTag<double[]> tag)
+            : base(tag)
+        {
+        }
+
         internal ExifDoubleArray(ExifTagValue tag)
             : base(tag)
         {

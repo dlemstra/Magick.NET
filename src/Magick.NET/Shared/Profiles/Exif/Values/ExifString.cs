@@ -19,6 +19,11 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifString : ExifValue<string>
     {
+        internal ExifString(ExifTag<string> tag)
+            : base(tag)
+        {
+        }
+
         internal ExifString(ExifTagValue tag)
             : base(tag)
         {

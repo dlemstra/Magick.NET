@@ -13,16 +13,11 @@
 namespace ImageMagick
 {
     /// <summary>
-    /// Exif value that contains a <see cref="ushort"/> array.
+    /// Exif value that contains a <see cref="Number"/> array.
     /// </summary>
-    public sealed class ExifShortArray : ExifArrayValue<ushort>
+    public sealed class ExifNumberArray : ExifArrayValue<Number>
     {
-        internal ExifShortArray(ExifTag<ushort[]> tag)
-            : base(tag)
-        {
-        }
-
-        internal ExifShortArray(ExifTagValue tag)
+        internal ExifNumberArray(ExifTag<Number[]> tag)
             : base(tag)
         {
         }
@@ -30,8 +25,25 @@ namespace ImageMagick
         /// <summary>
         /// Gets the data type of the exif value.
         /// </summary>
-        public override ExifDataType DataType => ExifDataType.Short;
+        public override ExifDataType DataType
+        {
+            get
+            {
+                if (Value == null)
+                {
+                    return ExifDataType.Short;
+                }
 
-        internal static ExifShortArray Create(ExifTagValue tag, ushort[] value) => new ExifShortArray(tag) { Value = value };
+                for (int i = 0; i < Value.Length; i++)
+                {
+                    if (Value[i] > ushort.MaxValue)
+                        return ExifDataType.Long;
+                }
+
+                return ExifDataType.Short;
+            }
+        }
+
+        internal static ExifLongArray Create(ExifTagValue tag, uint[] value) => new ExifLongArray(tag) { Value = value };
     }
 }
