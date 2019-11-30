@@ -61,9 +61,15 @@ namespace ImageMagick
                 return true;
             }
 
-            if (value is TValueType[] typeValue)
+            if (value is TValueType[] typeValueArray)
             {
-                Value = typeValue;
+                Value = typeValueArray;
+                return true;
+            }
+
+            if (value is TValueType typeValue)
+            {
+                Value = new TValueType[] { typeValue };
                 return true;
             }
 
