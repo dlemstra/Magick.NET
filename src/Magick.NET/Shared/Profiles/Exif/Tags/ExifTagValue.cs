@@ -17,7 +17,7 @@ namespace ImageMagick
     /// <summary>
     /// All exif tags from the Exif standard 2.31.
     /// </summary>
-    public enum ExifTagValue
+    internal enum ExifTagValue
     {
         /// <summary>
         /// Unknown
