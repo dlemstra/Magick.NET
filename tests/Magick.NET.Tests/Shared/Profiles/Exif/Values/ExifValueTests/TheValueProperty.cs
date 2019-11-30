@@ -22,53 +22,38 @@ namespace Magick.NET.Tests
         public class TheValueProperty
         {
             [TestMethod]
-            public void ShouldThrowExceptionWhenValueIsInvalidDataType1()
+            public void ShouldReturnFalseWhenValueIsInvalidDataType1()
             {
                 var profile = new ExifProfile();
                 profile.SetValue(ExifTagValue.Software, "Magick.NET");
 
-                var value = profile.GetValue(ExifTagValue.Software);
+                IExifValue value = profile.GetValue(ExifTagValue.Software);
 
-                var exception = ExceptionAssert.Throws<InvalidOperationException>(() =>
-                {
-                    value.SetValue(10.5);
-                });
-
-                Assert.AreEqual("The type of the value should be String.", exception.Message);
+                Assert.IsFalse(value.SetValue(10.5));
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenValueIsInvalidDataType2()
+            public void ShouldReturnFalseWhenValueIsInvalidDataType2()
             {
                 var profile = new ExifProfile();
                 profile.SetValue(ExifTagValue.ShutterSpeedValue, new SignedRational(75.55));
 
-                var value = profile.GetValue(ExifTagValue.ShutterSpeedValue);
+                IExifValue value = profile.GetValue(ExifTagValue.ShutterSpeedValue);
 
-                var exception = ExceptionAssert.Throws<InvalidOperationException>(() =>
-                {
-                    value.SetValue(75);
-                });
-
-                Assert.AreEqual("The type of the value should be SignedRational.", exception.Message);
+                Assert.IsFalse(value.SetValue(75));
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenValueIsInvalidDataType3()
+            public void ShouldReturnFalseWhenValueIsInvalidDataType3()
             {
                 var profile = new ExifProfile();
                 profile.SetValue(ExifTagValue.XResolution, new Rational(150.0));
 
-                var value = profile.GetValue(ExifTagValue.XResolution);
+                IExifValue value = profile.GetValue(ExifTagValue.XResolution);
                 Assert.IsNotNull(value);
                 Assert.AreEqual("150", value.ToString());
 
-                var exception = ExceptionAssert.Throws<InvalidOperationException>(() =>
-                {
-                    value.SetValue("Magick.NET");
-                });
-
-                Assert.AreEqual("The type of the value should be Rational.", exception.Message);
+                Assert.IsFalse(value.SetValue("Magick.NET"));
             }
         }
     }
