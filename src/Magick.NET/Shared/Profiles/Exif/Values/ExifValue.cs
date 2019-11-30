@@ -10,12 +10,14 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
+
 namespace ImageMagick
 {
     /// <summary>
     /// A value of the exif profile.
     /// </summary>
-    public abstract class ExifValue : IExifValue
+    public abstract class ExifValue : IExifValue, IEquatable<ExifTag>
     {
         internal ExifValue(ExifTag tag) => Tag = tag;
 
@@ -40,6 +42,64 @@ namespace ImageMagick
         /// Gets the tag of the exif value.
         /// </summary>
         public ExifTagValue TagValue { get; }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="ExifTag"/> and <see cref="ExifTag"/> are considered equal.
+        /// </summary>
+        /// <param name="left">The <see cref="ExifValue"/> to compare.</param>
+        /// <param name="right"> The <see cref="ExifTag"/> to compare.</param>
+        public static bool operator ==(ExifValue left, ExifTag right) => Equals(left, right);
+
+        /// <summary>
+        /// Determines whether the specified <see cref="ExifTag"/> and <see cref="ExifTag"/> are not considered equal.
+        /// </summary>
+        /// <param name="left">The <see cref="ExifValue"/> to compare.</param>
+        /// <param name="right"> The <see cref="ExifTag"/> to compare.</param>
+        public static bool operator !=(ExifValue left, ExifTag right) => !Equals(left, right);
+
+        /// <summary>
+        /// Determines whether the specified object is equal to the current <see cref="ExifValue"/>.
+        /// </summary>
+        /// <param name="obj">The object to compare this <see cref="ExifValue"/> with.</param>
+        /// <returns>True when the specified object is equal to the current <see cref="ExifValue"/>.</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is null)
+                return false;
+
+            if (ReferenceEquals(this, obj))
+                return true;
+
+            if (obj is ExifTag tag)
+                return Equals(tag);
+
+            if (obj is ExifValue value)
+                return Tag.Equals(value.Tag) && Equals(GetValue(), value.GetValue());
+
+            return false;
+        }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="ExifTag"/> is equal to the current <see cref="ExifValue"/>.
+        /// </summary>
+        /// <param name="other">The <see cref="ExifTag"/> to compare this <see cref="ExifValue"/> with.</param>
+        /// <returns>True when the specified <see cref="ExifTag"/> is equal to the current <see cref="ExifValue"/>.</returns>
+        public bool Equals(ExifTag other) => Tag.Equals(other);
+
+        /// <summary>
+        /// Returns the hash code for this instance.
+        /// </summary>
+        /// <returns>A 32-bit signed integer hash code.</returns>
+        public override int GetHashCode()
+        {
+            var hashCode = Tag.GetHashCode();
+
+            var value = GetValue();
+            if (value == null)
+                return hashCode;
+
+            return hashCode ^= value.GetHashCode();
+        }
 
         /// <summary>
         /// Gets the value of this exif value.
