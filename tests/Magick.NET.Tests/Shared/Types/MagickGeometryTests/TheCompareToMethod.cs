@@ -46,7 +46,7 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldReturnZeroWhenInstancesAreNotEqual()
+            public void ShouldReturnOneWhenInstancesAreNotEqual()
             {
                 var first = new MagickGeometry(10, 5);
                 var second = new MagickGeometry(5, 5);
