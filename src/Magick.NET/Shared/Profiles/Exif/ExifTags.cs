@@ -10,8 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System.Diagnostics.CodeAnalysis;
-
 namespace ImageMagick
 {
     internal static class ExifTags
@@ -275,6 +273,9 @@ namespace ImageMagick
                 case ExifTagValue.GPSDifferential:
                     return ExifParts.GpsTags;
 
+                case ExifTagValue.Unknown:
+                case ExifTagValue.SubIFDOffset:
+                case ExifTagValue.GPSIFDOffset:
                 default:
                     return ExifParts.None;
             }
