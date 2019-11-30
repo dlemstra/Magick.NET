@@ -89,9 +89,9 @@ namespace Magick.NET.Tests
                 var data = profile.ToByteArray();
 
                 var reader = new ExifReader();
-                var result = reader.Read(data);
+                reader.Read(data);
 
-                Assert.AreEqual(0, result.Count);
+                Assert.AreEqual(0, reader.Values.Count);
             }
 
             [TestMethod]
@@ -103,9 +103,9 @@ namespace Magick.NET.Tests
                 var data = profile.ToByteArray();
 
                 var reader = new ExifReader();
-                var result = reader.Read(data);
+                reader.Read(data);
 
-                Assert.AreEqual(0, result.Count);
+                Assert.AreEqual(0, reader.Values.Count);
             }
         }
     }

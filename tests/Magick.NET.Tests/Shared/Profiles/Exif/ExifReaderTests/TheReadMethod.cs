@@ -27,9 +27,9 @@ namespace Magick.NET.Tests.Shared.Profiles.Exif
                 var reader = new ExifReader();
                 var data = new byte[] { };
 
-                var result = reader.Read(data);
+                reader.Read(data);
 
-                Assert.AreEqual(0, result.Count);
+                Assert.AreEqual(0, reader.Values.Count);
             }
 
             [TestMethod]
@@ -38,9 +38,9 @@ namespace Magick.NET.Tests.Shared.Profiles.Exif
                 var reader = new ExifReader();
                 var data = new byte[] { 69, 120, 105, 102, 0, 0 };
 
-                var result = reader.Read(data);
+                reader.Read(data);
 
-                Assert.AreEqual(0, result.Count);
+                Assert.AreEqual(0, reader.Values.Count);
             }
 
             [TestMethod]
@@ -49,9 +49,9 @@ namespace Magick.NET.Tests.Shared.Profiles.Exif
                 var reader = new ExifReader();
                 var data = new byte[] { 69, 120, 105, 102, 0, 0, 73, 73, 42, 0, 8, 0, 0, 0, 1, 0, 148, 1, 1, 0, 255, 255, 255, 255, 26, 0, 0, 0, 31, 0, 0, 0, 42 };
 
-                var result = reader.Read(data);
+                reader.Read(data);
 
-                Assert.AreEqual(0, result.Count);
+                Assert.AreEqual(0, reader.Values.Count);
                 Assert.AreEqual(1, reader.InvalidTags.Count());
             }
 
@@ -61,9 +61,9 @@ namespace Magick.NET.Tests.Shared.Profiles.Exif
                 var reader = new ExifReader();
                 var data = new byte[] { 69, 120, 105, 102, 0, 0, 73, 73, 42, 0, 8, 0, 0, 0, 1, 0, 1, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0 };
 
-                var result = reader.Read(data);
+                reader.Read(data);
 
-                Assert.AreEqual(0, result.Count);
+                Assert.AreEqual(0, reader.Values.Count);
                 Assert.AreEqual(2, reader.InvalidTags.Count);
             }
 
@@ -73,9 +73,9 @@ namespace Magick.NET.Tests.Shared.Profiles.Exif
                 var reader = new ExifReader();
                 var data = new byte[] { 69, 120, 105, 102, 0, 0, 73, 73, 42, 0, 8, 0, 0, 0, 1, 0, 2, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0 };
 
-                var result = reader.Read(data);
+                reader.Read(data);
 
-                Assert.AreEqual(0, result.Count);
+                Assert.AreEqual(0, reader.Values.Count);
                 Assert.AreEqual(2, reader.InvalidTags.Count);
             }
 
@@ -85,10 +85,10 @@ namespace Magick.NET.Tests.Shared.Profiles.Exif
                 var reader = new ExifReader();
                 var data = new byte[] { 69, 120, 105, 102, 0, 0, 73, 73, 42, 0, 8, 0, 0, 0, 1, 0, 14, 1, 2, 0, 0, 0, 0, 0, 32, 0, 0, 0, 26, 0, 0, 0, 0, 0 };
 
-                var result = reader.Read(data);
+                reader.Read(data);
 
-                Assert.AreEqual(1, result.Count);
-                Assert.AreEqual(string.Empty, result.First().GetValue());
+                Assert.AreEqual(1, reader.Values.Count);
+                Assert.AreEqual(string.Empty, reader.Values.First().GetValue());
             }
         }
     }

@@ -17,8 +17,6 @@ namespace ImageMagick
 {
     internal sealed class ExifReader
     {
-        private readonly List<ExifTag> _invalidTags = new List<ExifTag>();
-
         private EndianReader _reader;
         private bool _isLittleEndian;
         private uint _exifOffset;
@@ -31,21 +29,24 @@ namespace ImageMagick
 
         public uint ThumbnailOffset { get; private set; }
 
-        public List<ExifTag> InvalidTags => _invalidTags;
+        public List<ExifTag> InvalidTags { get; } = new List<ExifTag>();
 
-        public List<IExifValue> Read(byte[] data)
+        public List<IExifValue> Values { get; } = new List<IExifValue>();
+
+        public void Read(byte[] data)
         {
-            var result = new List<IExifValue>();
+            Values.Clear();
+            InvalidTags.Clear();
 
             if (data == null || data.Length == 0)
-                return result;
+                return;
 
             _reader = new EndianReader(data);
 
             if (_reader.ReadString(4) == "Exif")
             {
                 if (_reader.ReadShortMSB() != 0)
-                    return result;
+                    return;
 
                 _startIndex = 6;
             }
@@ -53,21 +54,19 @@ namespace ImageMagick
             _isLittleEndian = _reader.ReadString(2) == "II";
 
             if (ReadShort() != 0x002A)
-                return result;
+                return;
 
             var ifdOffset = ReadLong();
-            AddValues(result, ifdOffset);
+            AddValues(Values, ifdOffset);
 
             var thumbnailOffset = ReadLong();
             ReadThumbnail(thumbnailOffset);
 
             if (_exifOffset != 0)
-                AddValues(result, _exifOffset);
+                AddValues(Values, _exifOffset);
 
             if (_gpsOffset != 0)
-                AddValues(result, _gpsOffset);
-
-            return result;
+                AddValues(Values, _gpsOffset);
         }
 
         private static TDataType[] ReadArray<TDataType>(uint numberOfComponents, ReadMethod<TDataType> read)
@@ -148,7 +147,7 @@ namespace ImageMagick
             }
 
             if (value == null)
-                _invalidTags.Add(new UnkownExifTag(tag));
+                InvalidTags.Add(new UnkownExifTag(tag));
 
             _reader.Seek(oldIndex + 4);
 
