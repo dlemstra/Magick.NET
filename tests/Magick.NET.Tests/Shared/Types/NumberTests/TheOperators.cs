@@ -28,6 +28,10 @@ namespace Magick.NET.Tests
 
                 Assert.IsTrue(first == second);
                 Assert.IsFalse(first != second);
+                Assert.IsFalse(first < second);
+                Assert.IsTrue(first <= second);
+                Assert.IsFalse(first > second);
+                Assert.IsTrue(first >= second);
             }
 
             [TestMethod]
@@ -38,6 +42,10 @@ namespace Magick.NET.Tests
 
                 Assert.IsFalse(first == second);
                 Assert.IsTrue(first != second);
+                Assert.IsTrue(first < second);
+                Assert.IsTrue(first <= second);
+                Assert.IsFalse(first > second);
+                Assert.IsFalse(first >= second);
             }
 
             [TestMethod]

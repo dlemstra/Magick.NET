@@ -17,7 +17,7 @@ namespace ImageMagick
     /// <summary>
     /// Represents an exif number.
     /// </summary>
-    public struct Number : IEquatable<Number>
+    public struct Number : IEquatable<Number>, IComparable<Number>
     {
         private readonly uint _value;
 
@@ -78,6 +78,41 @@ namespace ImageMagick
         public static bool operator !=(Number left, Number right) => !Equals(left, right);
 
         /// <summary>
+        /// Determines whether the first <see cref="Number"/> is more than the second <see cref="Number"/>.
+        /// </summary>
+        /// <param name="left">The first <see cref="Number"/> to compare.</param>
+        /// <param name="right"> The second <see cref="Number"/> to compare.</param>
+        public static bool operator >(Number left, Number right) => left.CompareTo(right) == 1;
+
+        /// <summary>
+        /// Determines whether the first <see cref="Number"/> is less than the second <see cref="Number"/>.
+        /// </summary>
+        /// <param name="left">The first <see cref="Number"/> to compare.</param>
+        /// <param name="right"> The second <see cref="Number"/> to compare.</param>
+        public static bool operator <(Number left, Number right) => left.CompareTo(right) == -1;
+
+        /// <summary>
+        /// Determines whether the first <see cref="Number"/> is more than or equal to the second <see cref="Number"/>.
+        /// </summary>
+        /// <param name="left">The first <see cref="Number"/> to compare.</param>
+        /// <param name="right"> The second <see cref="Number"/> to compare.</param>
+        public static bool operator >=(Number left, Number right) => left.CompareTo(right) >= 0;
+
+        /// <summary>
+        /// Determines whether the first <see cref="Number"/> is less than or equal to the second <see cref="Number"/>.
+        /// </summary>
+        /// <param name="left">The first <see cref="Number"/> to compare.</param>
+        /// <param name="right"> The second <see cref="Number"/> to compare.</param>
+        public static bool operator <=(Number left, Number right) => left.CompareTo(right) <= 0;
+
+        /// <summary>
+        /// Compares the current instance with another object of the same type.
+        /// </summary>
+        /// <param name="other">The object to compare this color with.</param>
+        /// <returns>A signed number indicating the relative values of this instance and value.</returns>
+        public int CompareTo(Number other) => _value.CompareTo(other._value);
+
+        /// <summary>
         /// Determines whether the specified object is equal to the current <see cref="Number"/>.
         /// </summary>
         /// <param name="obj">The object to compare this <see cref="Number"/> with.</param>
@@ -105,5 +140,12 @@ namespace ImageMagick
         /// </summary>
         /// <returns>A hash code for the current instance.</returns>
         public override int GetHashCode() => _value.GetHashCode();
+
+        /// <summary>
+        /// Converts the numeric value of this instance to its equivalent string representation using the specified culture-specific format information.
+        /// </summary>
+        /// <param name="provider">An object that supplies culture-specific formatting information.</param>
+        /// <returns>The string representation of the value of this instance, which consists of a sequence of digits ranging from 0 to 9, without a sign or leading zeros.</returns>
+        public string ToString(IFormatProvider provider) => _value.ToString(provider);
     }
 }
