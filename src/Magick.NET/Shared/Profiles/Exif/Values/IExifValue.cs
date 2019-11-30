@@ -33,11 +33,6 @@ namespace ImageMagick
         ExifTag Tag { get; }
 
         /// <summary>
-        /// Gets the tag of the exif value.
-        /// </summary>
-        ExifTagValue TagValue { get; }
-
-        /// <summary>
         /// Gets the value of this exif value.
         /// </summary>
         /// <returns>The value of this exif value.</returns>

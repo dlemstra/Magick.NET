@@ -52,7 +52,7 @@ namespace Magick.NET.Tests
                         Assert.IsNotNull(profile);
                         Assert.AreEqual(1, profile.Values.Count());
 
-                        var value = profile.Values.FirstOrDefault(val => val.TagValue == ExifTagValue.Copyright);
+                        var value = profile.Values.FirstOrDefault(val => val.Tag == ExifTag.Copyright);
                         TestValue(value, "Dirk Lemstra");
                     }
                 }

@@ -153,13 +153,13 @@ namespace Magick.NET.Tests
             {
                 Assert.IsNotNull(value.GetValue());
 
-                if (value.TagValue == ExifTagValue.Software)
+                if (value.Tag == ExifTag.Software)
                     Assert.AreEqual("Adobe Photoshop 7.0", value.ToString());
 
-                if (value.TagValue == ExifTagValue.XResolution)
+                if (value.Tag == ExifTag.XResolution)
                     Assert.AreEqual(new Rational(300, 1), (Rational)value.GetValue());
 
-                if (value.TagValue == ExifTagValue.GPSLatitude)
+                if (value.Tag == ExifTag.GPSLatitude)
                 {
                     Rational[] pos = (Rational[])value.GetValue();
                     Assert.AreEqual(54, pos[0].ToDouble());
@@ -167,7 +167,7 @@ namespace Magick.NET.Tests
                     Assert.AreEqual(0, pos[2].ToDouble());
                 }
 
-                if (value.TagValue == ExifTagValue.ShutterSpeedValue)
+                if (value.Tag == ExifTag.ShutterSpeedValue)
                     Assert.AreEqual(9.5, ((SignedRational)value.GetValue()).ToDouble());
             }
         }

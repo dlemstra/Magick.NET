@@ -83,7 +83,7 @@ namespace ImageMagick
             if (Value == null)
                 return null;
 
-            var description = ExifTagDescriptionAttribute.GetDescription(TagValue, Value);
+            var description = ExifTagDescriptionAttribute.GetDescription(Tag, Value);
             if (description != null)
                 return description;
 

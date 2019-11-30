@@ -33,7 +33,7 @@ namespace Magick.NET.Samples
                     // Write all values to the console
                     foreach (IExifValue value in profile.Values)
                     {
-                        Console.WriteLine("{0}({1}): {2}", value.TagValue, value.DataType, value.ToString());
+                        Console.WriteLine("{0}({1}): {2}", value.Tag, value.DataType, value.ToString());
                     }
                 }
             }
