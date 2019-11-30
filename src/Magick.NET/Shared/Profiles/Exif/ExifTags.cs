@@ -14,9 +14,9 @@ namespace ImageMagick
 {
     internal static class ExifTags
     {
-        public static ExifParts GetPart(ExifTagValue tag)
+        public static ExifParts GetPart(ExifTag tag)
         {
-            switch (tag)
+            switch ((ExifTagValue)(ushort)tag)
             {
                 case ExifTagValue.SubfileType:
                 case ExifTagValue.OldSubfileType:

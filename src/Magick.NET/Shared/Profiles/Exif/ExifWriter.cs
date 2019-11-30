@@ -22,10 +22,7 @@ namespace ImageMagick
 
         private readonly ExifParts _allowedParts;
 
-        public ExifWriter(ExifParts allowedParts)
-        {
-            _allowedParts = allowedParts;
-        }
+        public ExifWriter(ExifParts allowedParts) => _allowedParts = allowedParts;
 
         public byte[] Write(List<IExifValue> values)
         {
@@ -33,8 +30,8 @@ namespace ImageMagick
             var exifValues = GetPartValues(values, ExifParts.ExifTags);
             var gpsValues = GetPartValues(values, ExifParts.GpsTags);
 
-            var exifOffset = GetOffsetValue(ifdValues, exifValues, ExifTagValue.SubIFDOffset);
-            var gpsOffset = GetOffsetValue(ifdValues, gpsValues, ExifTagValue.GPSIFDOffset);
+            var exifOffset = GetOffsetValue(ifdValues, exifValues, ExifTag.SubIFDOffset);
+            var gpsOffset = GetOffsetValue(ifdValues, gpsValues, ExifTag.GPSIFDOffset);
 
             if (ifdValues.Count == 0 && exifValues.Count == 0 && gpsValues.Count == 0)
                 return null;
@@ -46,7 +43,7 @@ namespace ImageMagick
             var ifdOffset = 10U + 4U - _OffsetDelta;
             var thumbnailOffset = ifdOffset + ifdLength + exifLength + gpsLength;
 
-            uint length = _OffsetDelta + thumbnailOffset + 2U;
+            var length = _OffsetDelta + thumbnailOffset + 2U;
 
             var result = new byte[length];
             result[0] = (byte)'E';
@@ -100,27 +97,31 @@ namespace ImageMagick
             return result;
         }
 
-        private static bool HasValue(IExifValue value)
+        private static bool HasValue(IExifValue exifValue)
         {
-            if (value.DataType == ExifDataType.String)
+            var value = exifValue.GetValue();
+            if (value is null)
+                return false;
+
+            if (exifValue.DataType == ExifDataType.String)
             {
-                var stringValue = (string)value.GetValue();
-                return stringValue != null && stringValue.Length > 0;
+                var stringValue = (string)value;
+                return stringValue.Length > 0;
             }
 
-            if (value.GetValue() is Array arrayValue)
-                return arrayValue != null && arrayValue.Length > 0;
+            if (value is Array arrayValue)
+                return arrayValue.Length > 0;
 
             return true;
         }
 
-        private static IExifValue GetOffsetValue(List<IExifValue> ifdValues, List<IExifValue> values, ExifTagValue offsetTag)
+        private static IExifValue GetOffsetValue(List<IExifValue> ifdValues, List<IExifValue> values, ExifTag offset)
         {
             var index = -1;
 
             for (var i = 0; i < ifdValues.Count; i++)
             {
-                if (ifdValues[i].TagValue == offsetTag)
+                if (ifdValues[i].Tag == offset)
                     index = i;
             }
 
@@ -129,7 +130,7 @@ namespace ImageMagick
                 if (index != -1)
                     return ifdValues[index];
 
-                var result = ExifValues.CreateFromTagValue(offsetTag);
+                var result = ExifValues.Create(offset);
                 ifdValues.Add(result);
 
                 return result;
@@ -162,26 +163,22 @@ namespace ImageMagick
             return length;
         }
 
-        private static uint GetLength(IExifValue value)
-        {
-            return GetNumberOfComponents(value) * ExifDataTypes.GetSize(value.DataType);
-        }
+        private static uint GetLength(IExifValue value) => GetNumberOfComponents(value) * ExifDataTypes.GetSize(value.DataType);
 
-        private static uint GetNumberOfComponents(IExifValue value)
+        private static uint GetNumberOfComponents(IExifValue exifValue)
         {
-            if (value.DataType == ExifDataType.String)
-                return (uint)Encoding.UTF8.GetBytes((string)value.GetValue()).Length + 1;
+            var value = exifValue.GetValue();
 
-            if (value.GetValue() is Array arrayValue)
+            if (exifValue.DataType == ExifDataType.String)
+                return (uint)Encoding.UTF8.GetBytes((string)value).Length + 1;
+
+            if (value is Array arrayValue)
                 return (uint)arrayValue.Length;
 
             return 1;
         }
 
-        private static int WriteHeaders(List<IExifValue> values, byte[] destination, int offset)
-        {
-            return WriteHeaders(values, destination, offset, 0);
-        }
+        private static int WriteHeaders(List<IExifValue> values, byte[] destination, int offset) => WriteHeaders(values, destination, offset, 0);
 
         private static int WriteHeaders(List<IExifValue> values, byte[] destination, int offset, uint dataOffset)
         {
@@ -191,7 +188,7 @@ namespace ImageMagick
 
             foreach (var value in values)
             {
-                offset = Write(BitConverter.GetBytes((ushort)value.TagValue), destination, offset);
+                offset = Write(BitConverter.GetBytes((ushort)value.Tag), destination, offset);
                 offset = Write(BitConverter.GetBytes((ushort)value.DataType), destination, offset);
                 offset = Write(BitConverter.GetBytes(GetNumberOfComponents(value)), destination, offset);
 
@@ -218,9 +215,7 @@ namespace ImageMagick
             foreach (var value in values)
             {
                 if (GetLength(value) > 4)
-                {
                     offset = WriteValue(value, destination, offset);
-                }
             }
 
             return offset;
@@ -233,22 +228,24 @@ namespace ImageMagick
             return offset + source.Length;
         }
 
-        private static int WriteValue(IExifValue value, byte[] destination, int offset)
+        private static int WriteValue(IExifValue exifValue, byte[] destination, int offset)
         {
-            if (value.IsArray && value.DataType != ExifDataType.String)
-                return WriteArray(value, destination, offset);
+            if (exifValue.IsArray && exifValue.DataType != ExifDataType.String)
+                return WriteArray(exifValue, destination, offset);
             else
-                return WriteValue(value.DataType, value.GetValue(), destination, offset);
+                return WriteValue(exifValue.DataType, exifValue.GetValue(), destination, offset);
         }
 
-        private static int WriteArray(IExifValue value, byte[] destination, int offset)
+        private static int WriteArray(IExifValue exifValue, byte[] destination, int offset)
         {
-            if (value.DataType == ExifDataType.String)
-                return WriteValue(ExifDataType.String, value.GetValue(), destination, offset);
+            var value = exifValue.GetValue();
+
+            if (exifValue.DataType == ExifDataType.String)
+                return WriteValue(ExifDataType.String, value, destination, offset);
 
             int newOffset = offset;
-            foreach (object obj in (Array)value.GetValue())
-                newOffset = WriteValue(value.DataType, obj, destination, newOffset);
+            foreach (object obj in (Array)value)
+                newOffset = WriteValue(exifValue.DataType, obj, destination, newOffset);
 
             return newOffset;
         }
@@ -297,18 +294,18 @@ namespace ImageMagick
 
         private static int WriteRational(Rational value, byte[] destination, int offset)
         {
-            Write(BitConverter.GetBytes(value.Numerator), destination, offset);
-            Write(BitConverter.GetBytes(value.Denominator), destination, offset + 4);
+            offset = Write(BitConverter.GetBytes(value.Numerator), destination, offset);
+            offset = Write(BitConverter.GetBytes(value.Denominator), destination, offset);
 
-            return offset + 8;
+            return offset;
         }
 
         private static int WriteSignedRational(SignedRational value, byte[] destination, int offset)
         {
-            Write(BitConverter.GetBytes(value.Numerator), destination, offset);
-            Write(BitConverter.GetBytes(value.Denominator), destination, offset + 4);
+            offset = Write(BitConverter.GetBytes(value.Numerator), destination, offset);
+            offset = Write(BitConverter.GetBytes(value.Denominator), destination, offset);
 
-            return offset + 8;
+            return offset;
         }
 
         private List<IExifValue> GetPartValues(List<IExifValue> values, ExifParts part)
@@ -323,7 +320,7 @@ namespace ImageMagick
                 if (!HasValue(value))
                     continue;
 
-                if (ExifTags.GetPart(value.TagValue) == part)
+                if (ExifTags.GetPart(value.Tag) == part)
                     result.Add(value);
             }
 

@@ -21,6 +21,8 @@ namespace ImageMagick
     {
         internal static ExifValue Create(ExifTagValue tag) => (ExifValue)CreateValue(tag);
 
+        internal static ExifValue Create(ExifTag tag) => (ExifValue)CreateValue((ExifTagValue)(ushort)tag);
+
         internal static ExifValue Create(ExifTagValue tag, ExifDataType dataType, uint numberOfComponents)
         {
             bool isArray = numberOfComponents != 1;
