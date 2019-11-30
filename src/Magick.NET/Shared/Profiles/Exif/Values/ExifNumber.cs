@@ -58,6 +58,9 @@ namespace ImageMagick
                 case int intValue:
                     Value = intValue;
                     return true;
+                case uint uintValue:
+                    Value = uintValue;
+                    return true;
                 case short shortValue:
                     Value = shortValue;
                     return true;
