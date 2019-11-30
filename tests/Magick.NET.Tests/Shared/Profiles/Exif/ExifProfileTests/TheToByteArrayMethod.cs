@@ -10,7 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -37,8 +36,8 @@ namespace Magick.NET.Tests
 
                 var profile = new ExifProfile(bytes);
 
-                var unkownTag = (ExifTagValue)298;
-                var value = profile.GetValue(unkownTag);
+                var unkownTag = new ExifTag<uint>((ExifTagValue)298);
+                var value = profile.GetValue<uint>(unkownTag);
                 Assert.AreEqual(42U, value.GetValue());
                 Assert.AreEqual("42", value.ToString());
 
@@ -84,7 +83,7 @@ namespace Magick.NET.Tests
             public void ShouldExcludeNullValues()
             {
                 var profile = new ExifProfile();
-                profile.SetValue(ExifTagValue.ImageDescription, null);
+                profile.SetValue(ExifTag.ImageDescription, null);
 
                 var data = profile.ToByteArray();
 
@@ -98,7 +97,7 @@ namespace Magick.NET.Tests
             public void ShouldExcludeEmptyStrings()
             {
                 var profile = new ExifProfile();
-                profile.SetValue(ExifTagValue.ImageDescription, string.Empty);
+                profile.SetValue(ExifTag.ImageDescription, string.Empty);
 
                 var data = profile.ToByteArray();
 

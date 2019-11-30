@@ -116,12 +116,13 @@ namespace ImageMagick
         /// </summary>
         /// <param name="tag">The tag of the exif value.</param>
         /// <returns>The value with the specified tag.</returns>
-        public IExifValue GetValue(ExifTagValue tag)
+        /// <typeparam name="TValueType">The data type of the tag.</typeparam>
+        public IExifValue<TValueType> GetValue<TValueType>(ExifTag<TValueType> tag)
         {
             foreach (var exifValue in Values)
             {
-                if (exifValue.TagValue == tag)
-                    return exifValue;
+                if (exifValue.Tag == tag)
+                    return (IExifValue<TValueType>)exifValue;
             }
 
             return null;
@@ -165,18 +166,23 @@ namespace ImageMagick
         /// </summary>
         /// <param name="tag">The tag of the exif value.</param>
         /// <param name="value">The value.</param>
-        public void SetValue(ExifTagValue tag, object value)
+        /// <typeparam name="TValueType">The data type of the tag.</typeparam>
+        public void SetValue<TValueType>(ExifTag<TValueType> tag, TValueType value)
         {
             foreach (var exifValue in Values)
             {
-                if (exifValue.TagValue == tag)
+                if (exifValue.Tag == tag)
                 {
                     exifValue.SetValue(value);
                     return;
                 }
             }
 
-            var newExifValue = ExifValues.Create(tag, value);
+            var newExifValue = ExifValues.Create(tag);
+            if (newExifValue == null)
+                throw new NotSupportedException();
+
+            newExifValue.SetValue(value);
             _values.Add(newExifValue);
         }
 

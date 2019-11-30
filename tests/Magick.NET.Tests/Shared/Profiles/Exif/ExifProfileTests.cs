@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
                 {
                     var profile = image.GetExifProfile();
 
-                    profile.SetValue(ExifTagValue.ExposureTime, new Rational(exposureTime));
+                    profile.SetValue(ExifTag.ExposureTime, new Rational(exposureTime));
                     image.AddProfile(profile);
 
                     image.Write(memStream);
@@ -45,9 +45,9 @@ namespace Magick.NET.Tests
 
                     Assert.IsNotNull(profile);
 
-                    var value = profile.GetValue(ExifTagValue.ExposureTime);
+                    var value = profile.GetValue(ExifTag.ExposureTime);
                     Assert.IsNotNull(value);
-                    Assert.AreNotEqual(exposureTime, ((Rational)value.GetValue()).ToDouble());
+                    Assert.AreNotEqual(exposureTime, value.Value.ToDouble());
                 }
 
                 memStream.Position = 0;
@@ -55,7 +55,7 @@ namespace Magick.NET.Tests
                 {
                     var profile = image.GetExifProfile();
 
-                    profile.SetValue(ExifTagValue.ExposureTime, new Rational(exposureTime, true));
+                    profile.SetValue(ExifTag.ExposureTime, new Rational(exposureTime, true));
                     image.AddProfile(profile);
 
                     image.Write(memStream);
@@ -68,8 +68,8 @@ namespace Magick.NET.Tests
 
                     Assert.IsNotNull(profile);
 
-                    var value = profile.GetValue(ExifTagValue.ExposureTime);
-                    Assert.AreEqual(exposureTime, ((Rational)value.GetValue()).ToDouble());
+                    var value = profile.GetValue(ExifTag.ExposureTime);
+                    Assert.AreEqual(exposureTime, value.Value.ToDouble());
                 }
             }
         }
@@ -80,29 +80,29 @@ namespace Magick.NET.Tests
             using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
                 var profile = image.GetExifProfile();
-                profile.SetValue(ExifTagValue.ExposureBiasValue, new SignedRational(double.PositiveInfinity));
+                profile.SetValue(ExifTag.ExposureBiasValue, new SignedRational(double.PositiveInfinity));
                 image.AddProfile(profile);
 
                 profile = image.GetExifProfile();
-                var value = profile.GetValue(ExifTagValue.ExposureBiasValue);
+                var value = profile.GetValue(ExifTag.ExposureBiasValue);
                 Assert.IsNotNull(value);
-                Assert.AreEqual(double.PositiveInfinity, ((SignedRational)value.GetValue()).ToDouble());
+                Assert.AreEqual(double.PositiveInfinity, value.Value.ToDouble());
 
-                profile.SetValue(ExifTagValue.ExposureBiasValue, new SignedRational(double.NegativeInfinity));
+                profile.SetValue(ExifTag.ExposureBiasValue, new SignedRational(double.NegativeInfinity));
                 image.AddProfile(profile);
 
                 profile = image.GetExifProfile();
-                value = profile.GetValue(ExifTagValue.ExposureBiasValue);
+                value = profile.GetValue(ExifTag.ExposureBiasValue);
                 Assert.IsNotNull(value);
-                Assert.AreEqual(double.NegativeInfinity, ((SignedRational)value.GetValue()).ToDouble());
+                Assert.AreEqual(double.NegativeInfinity, value.Value.ToDouble());
 
-                profile.SetValue(ExifTagValue.FlashEnergy, new Rational(double.NegativeInfinity));
+                profile.SetValue(ExifTag.FlashEnergy, new Rational(double.NegativeInfinity));
                 image.AddProfile(profile);
 
                 profile = image.GetExifProfile();
-                value = profile.GetValue(ExifTagValue.FlashEnergy);
-                Assert.IsNotNull(value);
-                Assert.AreEqual(double.PositiveInfinity, ((Rational)value.GetValue()).ToDouble());
+                var flashValue = profile.GetValue(ExifTag.FlashEnergy);
+                Assert.IsNotNull(flashValue);
+                Assert.AreEqual(double.PositiveInfinity, flashValue.Value.ToDouble());
             }
         }
 

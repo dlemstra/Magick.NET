@@ -45,7 +45,8 @@ namespace ImageMagick
         /// </summary>
         /// <param name="tag">The tag of the exif value.</param>
         /// <returns>The value with the specified tag.</returns>
-        IExifValue GetValue(ExifTagValue tag);
+        /// <typeparam name="TValueType">The data type of the tag.</typeparam>
+        IExifValue<TValueType> GetValue<TValueType>(ExifTag<TValueType> tag);
 
         /// <summary>
         /// Removes the thumbnail in the exif profile.
@@ -64,6 +65,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="tag">The tag of the exif value.</param>
         /// <param name="value">The value.</param>
-        void SetValue(ExifTagValue tag, object value);
+        /// <typeparam name="TValueType">The data type of the tag.</typeparam>
+        void SetValue<TValueType>(ExifTag<TValueType> tag, TValueType value);
     }
 }

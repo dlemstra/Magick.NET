@@ -10,7 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -25,9 +24,9 @@ namespace Magick.NET.Tests
             public void ShouldReturnFalseWhenValueIsInvalidDataType1()
             {
                 var profile = new ExifProfile();
-                profile.SetValue(ExifTagValue.Software, "Magick.NET");
+                profile.SetValue(ExifTag.Software, "Magick.NET");
 
-                IExifValue value = profile.GetValue(ExifTagValue.Software);
+                IExifValue value = profile.GetValue(ExifTag.Software);
 
                 Assert.IsFalse(value.SetValue(10.5));
             }
@@ -36,9 +35,9 @@ namespace Magick.NET.Tests
             public void ShouldReturnFalseWhenValueIsInvalidDataType2()
             {
                 var profile = new ExifProfile();
-                profile.SetValue(ExifTagValue.ShutterSpeedValue, new SignedRational(75.55));
+                profile.SetValue(ExifTag.ShutterSpeedValue, new SignedRational(75.55));
 
-                IExifValue value = profile.GetValue(ExifTagValue.ShutterSpeedValue);
+                IExifValue value = profile.GetValue(ExifTag.ShutterSpeedValue);
 
                 Assert.IsFalse(value.SetValue(75));
             }
@@ -47,9 +46,9 @@ namespace Magick.NET.Tests
             public void ShouldReturnFalseWhenValueIsInvalidDataType3()
             {
                 var profile = new ExifProfile();
-                profile.SetValue(ExifTagValue.XResolution, new Rational(150.0));
+                profile.SetValue(ExifTag.XResolution, new Rational(150.0));
 
-                IExifValue value = profile.GetValue(ExifTagValue.XResolution);
+                IExifValue value = profile.GetValue(ExifTag.XResolution);
                 Assert.IsNotNull(value);
                 Assert.AreEqual("150", value.ToString());
 

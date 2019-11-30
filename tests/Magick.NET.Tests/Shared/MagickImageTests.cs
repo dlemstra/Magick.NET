@@ -332,7 +332,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(OrientationType.TopLeft, image.Orientation);
 
                 var profile = image.GetExifProfile();
-                profile.SetValue(ExifTagValue.Orientation, (ushort)6);
+                profile.SetValue(ExifTag.Orientation, (ushort)6);
                 image.AddProfile(profile);
 
                 using (var memStream = new MemoryStream())

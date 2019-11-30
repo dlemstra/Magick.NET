@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
                         Assert.IsNull(profile);
 
                         profile = new ExifProfile();
-                        profile.SetValue(ExifTagValue.Copyright, "Dirk Lemstra");
+                        profile.SetValue(ExifTag.Copyright, "Dirk Lemstra");
 
                         image.AddProfile(profile);
 
@@ -59,13 +59,13 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenExifTagIsInvalid()
+            public void ShouldReturnFalseWhenExifTagIsInvalid()
             {
                 var exifProfile = new ExifProfile();
 
                 ExceptionAssert.Throws<NotSupportedException>(() =>
                 {
-                    exifProfile.SetValue((ExifTagValue)42, 42);
+                    exifProfile.SetValue(new ExifTag<int>((ExifTagValue)42), 42);
                 });
             }
 
@@ -73,9 +73,9 @@ namespace Magick.NET.Tests
             public void ShouldCorrectlyHandleFraction()
             {
                 var profile = new ExifProfile();
-                profile.SetValue(ExifTagValue.ShutterSpeedValue, new SignedRational(75.55));
+                profile.SetValue(ExifTag.ShutterSpeedValue, new SignedRational(75.55));
 
-                var value = profile.GetValue(ExifTagValue.ShutterSpeedValue);
+                var value = profile.GetValue(ExifTag.ShutterSpeedValue);
 
                 Assert.IsNotNull(value);
                 Assert.AreEqual("1511/20", value.ToString());
@@ -87,11 +87,9 @@ namespace Magick.NET.Tests
                 Rational[] latitude = new Rational[] { new Rational(12.3), new Rational(4.56), new Rational(789.0) };
 
                 var profile = new ExifProfile();
-                profile.SetValue(ExifTagValue.GPSLatitude, latitude);
+                profile.SetValue(ExifTag.GPSLatitude, latitude);
 
-                var value = profile.GetValue(ExifTagValue.GPSLatitude);
-
-                value = profile.GetValue(ExifTagValue.GPSLatitude);
+                var value = profile.GetValue(ExifTag.GPSLatitude);
 
                 Assert.IsNotNull(value);
                 Rational[] values = (Rational[])value.GetValue();
@@ -103,9 +101,9 @@ namespace Magick.NET.Tests
             public void ShouldAllowNullValues()
             {
                 var profile = new ExifProfile();
-                profile.SetValue(ExifTagValue.ReferenceBlackWhite, null);
+                profile.SetValue(ExifTag.ReferenceBlackWhite, null);
 
-                var value = profile.GetValue(ExifTagValue.ReferenceBlackWhite);
+                var value = profile.GetValue(ExifTag.ReferenceBlackWhite);
                 TestValue(value, null);
             }
         }
