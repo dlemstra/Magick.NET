@@ -18,7 +18,7 @@ namespace ImageMagick
     /// A value of the exif profile.
     /// </summary>
     /// <typeparam name="TValueType">The type of the value.</typeparam>
-    public abstract class ExifValue<TValueType> : ExifValue
+    public abstract class ExifValue<TValueType> : ExifValue, IExifValue<TValueType>
     {
         internal ExifValue(ExifTag<TValueType> tag)
             : base(tag)
