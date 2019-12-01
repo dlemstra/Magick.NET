@@ -40,6 +40,6 @@ namespace ImageMagick
         /// <summary>
         /// Gets the model of the profile.
         /// </summary>
-        public string Model { get; }
+        string Model { get; }
     }
 }

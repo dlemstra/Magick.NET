@@ -21,6 +21,6 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
-        public TValueType Value { get; set; }
+        TValueType Value { get; set; }
     }
 }
