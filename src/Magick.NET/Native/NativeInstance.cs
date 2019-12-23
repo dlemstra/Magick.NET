@@ -65,6 +65,9 @@ namespace ImageMagick
             }
 
             RaiseWarning(magickException);
+
+            if (result == IntPtr.Zero)
+                throw new MagickErrorException("The operation returned null but did not raise an exception.");
         }
 
         private class ZeroInstance : INativeInstance
