@@ -63,6 +63,26 @@ namespace Magick.NET.Tests
                     ColorAssert.AreEqual(MagickColors.Lime, collection[1], 0, 0);
                 }
             }
+
+            [TestMethod]
+            public void ShouldCorrectlyOptimizeDuplicateFrames()
+            {
+                using (IMagickImageCollection images = new MagickImageCollection())
+                {
+                    images.Add(new MagickImage("xc:red", 2, 2));
+                    images.Add(new MagickImage("xc:red", 2, 2));
+                    images.Add(new MagickImage("xc:green", 2, 2));
+
+                    images.Optimize();
+
+                    Assert.AreEqual(3, images.Count);
+                    var secondFrame = images[1];
+
+                    Assert.AreEqual(1, secondFrame.Width);
+                    Assert.AreEqual(1, secondFrame.Height);
+                    ColorAssert.AreEqual(MagickColors.None, secondFrame, 0, 0);
+                }
+            }
         }
     }
 }
