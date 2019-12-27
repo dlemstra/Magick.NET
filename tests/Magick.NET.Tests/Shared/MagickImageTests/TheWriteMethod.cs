@@ -161,6 +161,38 @@ namespace Magick.NET.Tests
                         });
                     }
                 }
+
+                [TestMethod]
+                public void ShouldSyncTheExifProfile()
+                {
+                    using (IMagickImage input = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
+                    {
+                        Assert.AreEqual(OrientationType.TopLeft, input.Orientation);
+
+                        input.Orientation = OrientationType.RightTop;
+
+                        using (var memStream = new MemoryStream())
+                        {
+                            input.Write(memStream);
+
+                            using (IMagickImage output = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
+                            {
+                                memStream.Position = 0;
+                                output.Read(memStream);
+
+                                Assert.AreEqual(OrientationType.RightTop, output.Orientation);
+
+                                var profile = output.GetExifProfile();
+
+                                Assert.IsNotNull(profile);
+                                var exifValue = profile.GetValue(ExifTag.Orientation);
+
+                                Assert.IsNotNull(exifValue);
+                                Assert.AreEqual((ushort)6, exifValue.Value);
+                            }
+                        }
+                    }
+                }
             }
 
             [TestClass]

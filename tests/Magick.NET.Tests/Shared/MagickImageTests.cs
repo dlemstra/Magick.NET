@@ -323,39 +323,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_AutoOrient()
-        {
-            using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
-            {
-                Assert.AreEqual(600, image.Width);
-                Assert.AreEqual(400, image.Height);
-                Assert.AreEqual(OrientationType.TopLeft, image.Orientation);
-
-                var profile = image.GetExifProfile();
-                profile.SetValue(ExifTag.Orientation, (ushort)6);
-                image.AddProfile(profile);
-
-                using (var memStream = new MemoryStream())
-                {
-                    image.Write(memStream);
-
-                    memStream.Position = 0;
-                    image.Read(memStream);
-
-                    Assert.AreEqual(600, image.Width);
-                    Assert.AreEqual(400, image.Height);
-                    Assert.AreEqual(OrientationType.RightTop, image.Orientation);
-
-                    image.AutoOrient();
-
-                    Assert.AreEqual(400, image.Width);
-                    Assert.AreEqual(600, image.Height);
-                    Assert.AreEqual(OrientationType.TopLeft, image.Orientation);
-                }
-            }
-        }
-
-        [TestMethod]
         public void AutoThreshold_MethodOTSU_DetermineColorTypeReturnsBiLevel()
         {
             using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
