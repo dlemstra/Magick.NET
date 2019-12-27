@@ -24,7 +24,7 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace Magick.NET.Tests.Shared
+namespace Magick.NET.Tests
 {
     public partial class MagickImageCollectionTests
     {
@@ -65,7 +65,7 @@ namespace Magick.NET.Tests.Shared
                     Assert.AreEqual(1, collection[1].Height);
                     Assert.AreEqual(-1, collection[1].Page.X);
                     Assert.AreEqual(-1, collection[1].Page.Y);
-                    ColorAssert.AreEqual(MagickColors.Red, collection[1], 0, 0);
+                    ColorAssert.AreEqual(new MagickColor("#FF000000"), collection[1], 0, 0);
 
                     Assert.AreEqual(1, collection[2].Width);
                     Assert.AreEqual(1, collection[2].Height);
