@@ -299,6 +299,25 @@ namespace Magick.NET.Tests
                     }
                 }
             }
+
+            [TestMethod]
+            public void ShouldUseTheColorFuzz()
+            {
+                using (IMagickImage image = new MagickImage(new MagickColor("#f1d3bc"), 1, 1))
+                {
+                    using (IMagickImage other = new MagickImage(new MagickColor("#24292e"), 1, 1))
+                    {
+                        using (IMagickImage diff = new MagickImage())
+                        {
+                            image.ColorFuzz = new Percentage(75);
+                            double result = image.Compare(other, ErrorMetric.Absolute, diff);
+
+                            Assert.AreEqual(0, result);
+                            ColorAssert.AreEqual(new MagickColor("#fd2ff729f28b"), diff, 0, 0);
+                        }
+                    }
+                }
+            }
         }
     }
 }
