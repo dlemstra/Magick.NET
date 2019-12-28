@@ -10,11 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -25,7 +20,6 @@ namespace Magick.NET.Tests.Shared
         [TestClass]
         public class TheAutoOrientMethod
         {
-
             [TestMethod]
             public void ShoulddRotateTheImage()
             {
