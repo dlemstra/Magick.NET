@@ -51,20 +51,3 @@ jobs:
         PlatformName: Any CPU
   steps:
     - template: build/windows/build.yml
-
-- job: linux
-  displayName: Linux Q8/Q16/Q16-HDRI
-  pool:
-    vmImage: Ubuntu 16.04
-  container: dotnet_latest
-  steps:
-    - script: /tmp/docker exec -t -u 0 dotnet_latest $(Build.SourcesDirectory)/build/linux/install.sudo.sh
-      displayName: Install sudo
-    - template: build/linux/build.yml
-
-- job: macos
-  displayName: MacOS Q8/Q16/Q16-HDRI
-  pool:
-    vmImage: macOS 10.13
-  steps:
-    - template: build/macos/build.yml

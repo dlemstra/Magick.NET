@@ -1,9 +1,0 @@
-steps:
-
-- script: sudo ./install.dependencies.sh
-  workingDirectory: $(Build.SourcesDirectory)/build/linux
-  displayName: Install dependencies
-
-- script: $(Build.SourcesDirectory)/build/linux/test.Magick.NET.sh
-  workingDirectory: $(Build.SourcesDirectory)
-  displayName: Build and Test
