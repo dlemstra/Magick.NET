@@ -175,6 +175,11 @@ namespace ImageMagick
         /// <summary>
         /// Canon Digital Camera Raw Image Format
         /// </summary>
+        Cr3,
+
+        /// <summary>
+        /// Canon Digital Camera Raw Image Format
+        /// </summary>
         Crw,
 
         /// <summary>
@@ -896,6 +901,11 @@ namespace ImageMagick
         /// Portable anymap
         /// </summary>
         Pnm,
+
+        /// <summary>
+        /// Pocketmod Personal Organizer (Pdf)
+        /// </summary>
+        Pocketmod,
 
         /// <summary>
         /// Portable pixmap format (color)
