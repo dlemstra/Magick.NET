@@ -7,7 +7,7 @@
     <FileVersion>7.14.5.0</FileVersion>
     <Version>7.14.5.0</Version>
     <Authors>Dirk Lemstra</Authors>
-    <Copyright>Copyright 2013-2019 Dirk Lemstra</Copyright>
+    <Copyright>Copyright 2013-2020 Dirk Lemstra</Copyright>
     <LangVersion>latest</LangVersion>
     <Platforms>x86;x64;AnyCPU</Platforms>
     <Configurations>DebugQ8;DebugQ16;DebugQ16-HDRI;TestQ8;TestQ16;TestQ16-HDRI;TestQ8-OpenMP;TestQ16-OpenMP;TestQ16-HDRI-OpenMP;ReleaseQ8;ReleaseQ8-OpenMP;ReleaseQ16;ReleaseQ16-OpenMP;ReleaseQ16-HDRI;ReleaseQ16-HDRI-OpenMP</Configurations>
