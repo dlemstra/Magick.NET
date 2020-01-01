@@ -10,6 +10,7 @@ buildAndTest() {
 
 cd src/Magick.Native
 ./install.sh
+
 cd ../../
 buildAndTest "Q8"
 buildAndTest "Q16"

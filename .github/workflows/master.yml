@@ -40,5 +40,4 @@ jobs:
         fetch-depth: 1
 
     - name: Build and Test
-      run: ./test.Magick.NET.sh
-      working-directory: build/macos
+      run: build/macos/test.Magick.NET.sh

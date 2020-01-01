@@ -151,7 +151,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "macos", "macos", "{8BAE93F7-10BB-409F-8823-52D0F766E44D}"
 	ProjectSection(SolutionItems) = preProject
 		build\macos\build.yml = build\macos\build.yml
-		build\macos\imagick_type_gen.pl = build\macos\imagick_type_gen.pl
 		build\macos\test.Magick.NET.sh = build\macos\test.Magick.NET.sh
 	EndProjectSection
 EndProject
