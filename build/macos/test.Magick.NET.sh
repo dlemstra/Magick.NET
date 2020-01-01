@@ -9,6 +9,7 @@ buildAndTest() {
 }
 
 ./imagick_type_gen.pl > type.xml
+cat type.xml
 cwd=$(pwd)
 export MAGICK_FONT_PATH=$cwd
 
