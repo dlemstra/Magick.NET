@@ -1822,9 +1822,9 @@ namespace ImageMagick
                 arguments[elem.Name] = CreateProfile(elem);
             }
             if (OnlyContains(arguments, "profile"))
-                image.AddProfile((ImageProfile)arguments["profile"]);
+                image.AddProfile((IImageProfile)arguments["profile"]);
             else if (OnlyContains(arguments, "profile", "overwriteExisting"))
-                image.AddProfile((ImageProfile)arguments["profile"], (Boolean)arguments["overwriteExisting"]);
+                image.AddProfile((IImageProfile)arguments["profile"], (Boolean)arguments["overwriteExisting"]);
             else
                 throw new ArgumentException("Invalid argument combination for 'addProfile', allowed combinations are: [profile] [profile, overwriteExisting]");
         }

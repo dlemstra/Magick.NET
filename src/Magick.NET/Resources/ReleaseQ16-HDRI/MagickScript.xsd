@@ -775,6 +775,7 @@
           <xs:enumeration value="Cmyk" />
           <xs:enumeration value="Cmyka" />
           <xs:enumeration value="Cr2" />
+          <xs:enumeration value="Cr3" />
           <xs:enumeration value="Crw" />
           <xs:enumeration value="Cube" />
           <xs:enumeration value="Cur" />
@@ -920,6 +921,7 @@
           <xs:enumeration value="Png64" />
           <xs:enumeration value="Png8" />
           <xs:enumeration value="Pnm" />
+          <xs:enumeration value="Pocketmod" />
           <xs:enumeration value="Ppm" />
           <xs:enumeration value="Ps" />
           <xs:enumeration value="Ps2" />
