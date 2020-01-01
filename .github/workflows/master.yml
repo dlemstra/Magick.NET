@@ -9,7 +9,7 @@ on:
 name: master
 jobs:
   linux:
-    name: Linux
+    name: 'Linux Q8/Q16/Q16-HDRI'
     container:
       image: microsoft/dotnet:latest
     runs-on: ubuntu-latest
