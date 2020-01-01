@@ -1,0 +1,29 @@
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+    branches:
+    - master
+
+name: master
+jobs:
+  linux:
+    name: Linux
+    container:
+      image: microsoft/dotnet:latest
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+
+    - name: Install dependencies
+      run: ./install.dependencies.sh
+      working-directory: build/linux
+
+    - name: Build and Test
+      run: build/linux/test.Magick.NET.sh

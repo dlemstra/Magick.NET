@@ -80,6 +80,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magick.NET.Tests", "tests\Magick.NET.Tests\Magick.NET.Tests.csproj", "{02F57383-DC5B-4746-8ED9-BB53B9ADA830}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{F6E20621-E266-4314-ADE0-A899270F2312}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\master.yml = .github\workflows\master.yml
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{C72A1B5F-E300-4C03-8673-0FC024B508B7}"
 	ProjectSection(SolutionItems) = preProject
@@ -124,6 +127,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux", "linux", "{C4C8ACAC
 		build\linux\build.yml = build\linux\build.yml
 		build\linux\Dockerfile = build\linux\Dockerfile
 		build\linux\install.dependencies.sh = build\linux\install.dependencies.sh
+		build\linux\install.sudo.sh = build\linux\install.sudo.sh
 		build\linux\run.cmd = build\linux\run.cmd
 		build\linux\test.Magick.NET.sh = build\linux\test.Magick.NET.sh
 	EndProjectSection
@@ -142,6 +146,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{EE5A8EB5
 		src\Magick.Native\build\Debug-Q16-x86.cmd = src\Magick.Native\build\Debug-Q16-x86.cmd
 		src\Magick.Native\build\Debug-Q8-x64.cmd = src\Magick.Native\build\Debug-Q8-x64.cmd
 		src\Magick.Native\build\Debug-Q8-x86.cmd = src\Magick.Native\build\Debug-Q8-x86.cmd
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "macos", "macos", "{8BAE93F7-10BB-409F-8823-52D0F766E44D}"
+	ProjectSection(SolutionItems) = preProject
+		build\macos\build.yml = build\macos\build.yml
+		build\macos\imagick_type_gen.pl = build\macos\imagick_type_gen.pl
+		build\macos\test.Magick.NET.sh = build\macos\test.Magick.NET.sh
 	EndProjectSection
 EndProject
 Global
@@ -500,6 +511,7 @@ Global
 		{C4C8ACAC-0081-49E7-A20B-06DB39A98EB3} = {F6E20621-E266-4314-ADE0-A899270F2312}
 		{1B3D9B95-355B-47B2-889D-30BF67F28FB0} = {7935EDEC-32B2-4BA2-93DC-FC990B26D51E}
 		{EE5A8EB5-C872-4837-89B0-11BCAE512DB2} = {7BDF1AD0-F12F-4149-9C3C-79223B8C1721}
+		{8BAE93F7-10BB-409F-8823-52D0F766E44D} = {F6E20621-E266-4314-ADE0-A899270F2312}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F6887AA-E540-48B3-BDC0-068B342ABEBE}
