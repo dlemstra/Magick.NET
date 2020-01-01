@@ -101,7 +101,7 @@ namespace FileGenerator.MagickScript
                 case "IEnumerable<PathArc>":
                 case "IEnumerable<PointD>":
                 case "IEnumerable<SparseColorArg>":
-                case "ImageProfile":
+                case "IImageProfile":
                 case "IReadDefines":
                 case "IMagickImage":
                 case "MagickGeometry":

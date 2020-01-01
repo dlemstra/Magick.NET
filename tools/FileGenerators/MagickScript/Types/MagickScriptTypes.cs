@@ -146,7 +146,7 @@ namespace FileGenerator.MagickScript
                 case "IEnumerable<Single>":
                 case "IEnumerable<SparseColorArg>":
                 case "IEnumerable<String>":
-                case "ImageProfile":
+                case "IImageProfile":
                 case "IReadDefines":
                 case "IMagickImage":
                 case "MagickReadSettings":
@@ -204,7 +204,7 @@ namespace FileGenerator.MagickScript
                     return "points";
                 case "IEnumerable<SparseColorArg>":
                     return "sparseColorArgs";
-                case "ImageProfile":
+                case "IImageProfile":
                     return "profile";
                 case "IMagickImage":
                     return "image";
@@ -299,7 +299,7 @@ namespace FileGenerator.MagickScript
                 case "Double":
                 case "Double[]":
                 case "IDefines":
-                case "ImageProfile":
+                case "IImageProfile":
                 case "IMagickImage":
                 case "Int32":
                 case "Int64":

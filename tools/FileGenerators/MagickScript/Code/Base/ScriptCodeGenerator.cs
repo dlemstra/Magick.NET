@@ -296,7 +296,7 @@ namespace FileGenerator.MagickScript
                 case "IEnumerable<String>":
                     Write("GetStringArray");
                     break;
-                case "ImageProfile":
+                case "IImageProfile":
                     Write("CreateProfile");
                     break;
                 case "IMagickImage":
@@ -427,7 +427,7 @@ namespace FileGenerator.MagickScript
                 case "IEnumerable<IPath>":
                 case "IEnumerable<PathArc>":
                 case "IEnumerable<PointD>":
-                case "ImageProfile":
+                case "IImageProfile":
                 case "IReadDefines":
                 case "PrimaryInfo":
                     Write("element");
