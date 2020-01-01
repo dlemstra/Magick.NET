@@ -27,3 +27,17 @@ jobs:
 
     - name: Build and Test
       run: build/linux/test.Magick.NET.sh
+
+  macos:
+    name: 'MacOS Q8/Q16/Q16-HDRI'
+    runs-on: macos-latest
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+
+    - name: Build and Test
+      run: build/macos/test.Magick.NET.sh
