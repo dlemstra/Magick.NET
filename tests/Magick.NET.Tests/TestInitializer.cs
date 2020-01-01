@@ -32,6 +32,7 @@ namespace Magick.NET.Tests
 
             var configFiles = ConfigurationFiles.Default;
             configFiles.Policy.Data = ModifyPolicy(configFiles.Policy.Data);
+            configFiles.Type.Data = CreateTypeData();
 
             _path = MagickNET.Initialize(configFiles);
         }
@@ -72,6 +73,14 @@ namespace Magick.NET.Tests
 
             return doc.OuterXml;
         }
+
+        private static string CreateTypeData() => $@"
+<?xml version=""1.0""?>
+<typemap>
+<type format=""ttf"" name=""Arial"" fullname=""Arial"" family=""Arial"" glyphs=""{Files.Fonts.Arial}""/>
+<type format=""ttf"" name=""CourierNew"" fullname=""Courier New"" family=""Courier New"" glyphs=""{Files.Fonts.CourierNew}""/>
+</typemap>
+";
 
         private static void SetAttribute(XmlElement element, string name, string value)
         {

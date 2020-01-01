@@ -82,7 +82,7 @@ namespace Magick.NET.Tests
 
             foreach (string path in paths)
             {
-                string directory = Path.GetFullPath(path);
+                string directory = Path.GetFullPath(path).Replace('\\', '/');
                 if (Directory.Exists(directory + "Images"))
                     return directory;
             }
@@ -120,6 +120,13 @@ namespace Magick.NET.Tests
             public static string TestDDS => Root + @"Images/Coders/Test.dds";
 
             public static string TestMNG => Root + @"Images/Coders/Test.mng";
+        }
+
+        public static class Fonts
+        {
+            public static string Arial => Root + @"Fonts/arial.ttf";
+
+            public static string CourierNew => Root + @"Fonts/cour.ttf";
         }
 
         public static class Logos
