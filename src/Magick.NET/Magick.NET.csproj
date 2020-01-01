@@ -1,11 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
     <TargetFrameworks>net20;net40;netstandard13;netstandard20</TargetFrameworks>
     <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <AssemblyVersion>7.14.5.0</AssemblyVersion>
-    <FileVersion>7.14.5.0</FileVersion>
-    <Version>7.14.5.0</Version>
+    <AssemblyVersion>7.15.0.0</AssemblyVersion>
+    <FileVersion>7.15.0.0</FileVersion>
+    <Version>7.15.0.0</Version>
     <Authors>Dirk Lemstra</Authors>
     <Copyright>Copyright 2013-2020 Dirk Lemstra</Copyright>
     <LangVersion>latest</LangVersion>
