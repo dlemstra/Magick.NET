@@ -8,11 +8,11 @@ Magick.Native is build with the following libraries:
 - flif 0.3.0 (28 April 2017)
 - freetype 2.10.0 (15 March 2019)
 - glib 2.53.6 (19 August 2017)
-- ImageMagick 7.0.9-13
+- ImageMagick 7.0.9-14
 - jp2 2.0.14 (14 September 2017)
 - jpeg 2.0.2 (14 February 2019)
 - lcms 2.9 (6 November 2017)
-- libde265 1.0.3 (19 April 2018)
+- libde265 1.0.4 (19 December 2019)
 - libheif 1.6.1 (19 December 2019)
 - libraw 0.19.2 (24 December 2018)
 - librsvg 2.40.20 (15 December 2017)
