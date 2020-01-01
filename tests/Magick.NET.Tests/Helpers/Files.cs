@@ -124,7 +124,7 @@ namespace Magick.NET.Tests
 
         public static class Logos
         {
-            public static string MagickNETSVG => Root + @"../../Logo/Magick.NET.svg";
+            public static string MagickNETSVG => Root + @"../../logo/Magick.NET.svg";
         }
 
         public static class Patterns
