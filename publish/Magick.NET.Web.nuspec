@@ -8,7 +8,7 @@
     <owners>Dirk Lemstra</owners>
     <license type="expression">Apache-2.0</license>
     <projectUrl>https://github.com/dlemstra/Magick.NET</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/dlemstra/Magick.NET/master/logo/Magick.NET.icon.png</iconUrl>
+    <icon>Magick.NET.icon.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>This package contains a httpmodule that uses various handlers to script/optimize/compress images.</description>
     <releaseNotes/>
@@ -19,6 +19,6 @@
     </dependencies>
   </metadata>
   <files>
-    <!---->
+    <file src="..\logo\Magick.NET.icon.png" target="Magick.NET.icon.png" />
   </files>
 </package>

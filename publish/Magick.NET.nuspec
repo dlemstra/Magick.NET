@@ -8,7 +8,7 @@
     <owners>Dirk Lemstra</owners>
     <license type="expression">Apache-2.0</license>
     <projectUrl>https://github.com/dlemstra/Magick.NET</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/dlemstra/Magick.NET/master/logo/Magick.NET.icon.png</iconUrl>
+    <icon>Magick.NET.icon.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>ImageMagick is a powerful image manipulation library that supports over 100 major file formats (not including sub-formats). With Magick.NET you can use ImageMagick without having to install ImageMagick on your server or desktop. Visit https://github.com/dlemstra/Magick.NET/tree/master/Documentation before installing to help you decide the best version.</description>
     <summary>A .NET API to the ImageMagick image-processing library for Desktop and Web.</summary>
@@ -32,6 +32,7 @@
     </frameworkAssemblies>
   </metadata>
   <files>
+    <file src="..\logo\Magick.NET.icon.png" target="Magick.NET.icon.png" />
     <file src="..\Copyright.txt" target="Copyright.txt" />
   </files>
 </package>
