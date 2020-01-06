@@ -72,7 +72,7 @@ jobs:
         fetch-depth: 1
 
     - name: Install dependencies
-      run: ./install.dependencies.ps1
+      run: ./install.dependencies.cmd
       working-directory: build/windows
 
     - name: Install Magick.Native
