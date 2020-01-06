@@ -21,6 +21,10 @@ jobs:
       with:
         fetch-depth: 1
 
+    - name: Install dependencies
+      run: ./install.dependencies.sh
+      working-directory: build/linux
+
     - name: Build and Test
       run: build/linux/test.Magick.NET.sh
 
