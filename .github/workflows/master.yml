@@ -96,12 +96,14 @@ jobs:
       with:
         certificate: '${{ secrets.IMAGEMAGICK_CERTIFICATE }}'
         folder: src/Magick.NET/bin
+        recursive: true
 
     - name: Sign libraries (Magick.NET.Web)
       uses: dlemstra/code-sign-action@v1
       with:
         certificate: '${{ secrets.IMAGEMAGICK_CERTIFICATE }}'
         folder: src/Magick.NET.Web/bin
+        recursive: true
 
     - name: Set NuGet version
       run: ./check.tag.ps1
