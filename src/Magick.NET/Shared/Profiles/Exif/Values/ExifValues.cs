@@ -88,7 +88,7 @@ namespace ImageMagick
 
                 case ExifTagValue.FreeOffsets: return new ExifLongArray(ExifTag.FreeOffsets);
                 case ExifTagValue.FreeByteCounts: return new ExifLongArray(ExifTag.FreeByteCounts);
-                case ExifTagValue.ColorResponseUnit: return new ExifLongArray(ExifTag.TileOffsets);
+                case ExifTagValue.ColorResponseUnit: return new ExifLongArray(ExifTag.ColorResponseUnit);
                 case ExifTagValue.TileOffsets: return new ExifLongArray(ExifTag.TileOffsets);
                 case ExifTagValue.SMinSampleValue: return new ExifLongArray(ExifTag.SMinSampleValue);
                 case ExifTagValue.SMaxSampleValue: return new ExifLongArray(ExifTag.SMaxSampleValue);
