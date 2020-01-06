@@ -37,3 +37,74 @@ jobs:
 
     - name: Build and Test
       run: build/macos/test.Magick.NET.sh
+
+  windows:
+    name: Windows
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        quantumName: [Q8, Q8-OpenMP, Q16, Q16-OpenMP, Q16-HDRI, Q16-HDRI-OpenMP]
+        platformName: [x86, x64, Any CPU]
+        exclude:
+        - quantumName: Q8-OpenMP
+          platformName: x86
+        - quantumName: Q16-OpenMP
+          platformName: x86
+        - quantumName: Q16-HDRI-OpenMP
+          platformName: x86
+        - quantumName: Q8-OpenMP
+          platformName: Any CPU
+        - quantumName: Q16-OpenMP
+          platformName: Any CPU
+        - quantumName: Q16-HDRI-OpenMP
+          platformName: Any CPU
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+
+    - name: Install Magick.Native
+      run: install.cmd
+      working-directory: src/Magick.Native
+
+    - name: Build Magick.NET (Test)
+      run: build.Magick.NET.cmd Test
+      working-directory: build/windows
+
+    - name: Test Magick.NET
+      run: test.Magick.NET.cmd
+      working-directory: build/windows
+
+    - name: Build Magick.NET (Release)
+      run: build.Magick.NET.cmd Release
+      working-directory: build/windows
+
+    - name: Sign libraries (Magick.NET)
+      uses: dlemstra/code-sign-action@v1
+      with:
+        certificate: '${{ secrets.IMAGEMAGICK_CERTIFICATE }}'
+        folder: 'src/Magick.NET/bin'
+
+    - name: Sign libraries (Magick.NET.Web)
+      uses: dlemstra/code-sign-action@v1
+      with:
+        certificate: '${{ secrets.IMAGEMAGICK_CERTIFICATE }}'
+        folder: 'src/Magick.NET.Web/bin'
+
+    - name: Set NuGet version
+      run: ./check.tag.ps1
+      working-directory: publish
+
+    - name: Create NuGet package
+      working-directory: publish
+      run: ./publish.ps1 -destination output
+
+    - name: Upload libraries
+      uses: actions/upload-artifact@v1
+      with:
+        name: windows
+        path: publish/output

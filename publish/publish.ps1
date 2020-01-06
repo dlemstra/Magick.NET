@@ -14,7 +14,7 @@ param (
     [string]$quantumName = $env:QuantumName,
     [string]$platformName = $env:PlatformName,
     [string]$pfxPassword = '',
-    [parameter(mandatory=$true)][string]$version,
+    [string]$version = $env:NuGetVersion,
     [parameter(mandatory=$true)][string]$destination
 )
 

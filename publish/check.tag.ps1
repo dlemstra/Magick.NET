@@ -16,6 +16,10 @@ $tag = [IO.File]::ReadAllText("tag.txt").Trim()
 
 if ($tag.Length -gt 0) {
     Write-Host "##vso[build.updatebuildnumber]$tag"
+} else {
+    $tag = Get-Date -Format "yyyy.MM.dd.HHmm"
 }
+
+Write-Host "::set-env name=NuGetVersion::$tag"
 
 Exit 0
