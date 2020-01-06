@@ -9,7 +9,7 @@ on:
 name: master
 jobs:
   linux:
-    name: 'Linux Q8/Q16/Q16-HDRI'
+    name: 'Linux (Q8/Q16/Q16-HDRI)'
     container:
       image: microsoft/dotnet:latest
     runs-on: ubuntu-latest
@@ -25,7 +25,7 @@ jobs:
       run: build/linux/test.Magick.NET.sh
 
   macos:
-    name: 'MacOS Q8/Q16/Q16-HDRI'
+    name: 'MacOS (Q8/Q16/Q16-HDRI)'
     runs-on: macos-latest
 
     steps:
@@ -68,40 +68,40 @@ jobs:
         fetch-depth: 1
 
     - name: Install Magick.Native
-      run: install.cmd
+      run: ./install.cmd
       working-directory: src/Magick.Native
 
     - name: Build Magick.NET (Test)
-      run: build.Magick.NET.cmd Test
+      run: ./build.Magick.NET.cmd Test
       working-directory: build/windows
 
     - name: Test Magick.NET
-      run: test.Magick.NET.cmd
+      run: ./test.Magick.NET.cmd
       working-directory: build/windows
 
     - name: Build Magick.NET (Release)
-      run: build.Magick.NET.cmd Release
+      run: ./build.Magick.NET.cmd Release
       working-directory: build/windows
 
     - name: Sign libraries (Magick.NET)
       uses: dlemstra/code-sign-action@v1
       with:
         certificate: '${{ secrets.IMAGEMAGICK_CERTIFICATE }}'
-        folder: 'src/Magick.NET/bin'
+        folder: src/Magick.NET/bin
 
     - name: Sign libraries (Magick.NET.Web)
       uses: dlemstra/code-sign-action@v1
       with:
         certificate: '${{ secrets.IMAGEMAGICK_CERTIFICATE }}'
-        folder: 'src/Magick.NET.Web/bin'
+        folder: src/Magick.NET.Web/bin
 
     - name: Set NuGet version
       run: ./check.tag.ps1
       working-directory: publish
 
     - name: Create NuGet package
-      working-directory: publish
       run: ./publish.ps1 -destination output
+      working-directory: publish
 
     - name: Upload libraries
       uses: actions/upload-artifact@v1
