@@ -110,7 +110,7 @@ jobs:
       working-directory: publish
 
     - name: Create NuGet package
-      run: ./publish.ps1 -destination output
+      run: "./publish.ps1 -destination output -quantumName ${{ matrix.quantumName }} -platformName '${{ matrix.platformName }}'"
       working-directory: publish
 
     - name: Upload libraries
