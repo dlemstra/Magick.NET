@@ -147,4 +147,6 @@ if (!$quantumName.EndsWith("-OpenMP")) {
     createMagickNetWebNuGetPackage $quantumName $platform $version $pfxPassword
 }
 
+Remove-Item $destination -Recurse -ErrorAction Ignore
+[void](New-Item -ItemType directory -Path $destination)
 Copy-Item "*.nupkg" $destination
