@@ -80,15 +80,15 @@ jobs:
       working-directory: src/Magick.Native
 
     - name: Build Magick.NET (Test)
-      run: ./build.Magick.NET.cmd Test
+      run: ./build.Magick.NET.cmd ${{ matrix.quantumName }} ${{ matrix.platformName }} Test
       working-directory: build/windows
 
     - name: Test Magick.NET
-      run: ./test.Magick.NET.cmd
+      run: ./test.Magick.NET.cmd ${{ matrix.quantumName }} ${{ matrix.platformName }}
       working-directory: build/windows
 
     - name: Build Magick.NET (Release)
-      run: ./build.Magick.NET.cmd Release
+      run: ./build.Magick.NET.cmd ${{ matrix.quantumName }} ${{ matrix.platformName }} Release
       working-directory: build/windows
 
     - name: Sign libraries (Magick.NET)
