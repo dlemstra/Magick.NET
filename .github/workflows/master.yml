@@ -106,7 +106,7 @@ jobs:
         recursive: true
 
     - name: Set NuGet version
-      run: ./check.tag.ps1
+      run: ./set.version.ps1
       working-directory: publish
 
     - name: Create NuGet package

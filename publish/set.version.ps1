@@ -14,9 +14,7 @@
 
 $tag = [IO.File]::ReadAllText("tag.txt").Trim()
 
-if ($tag.Length -gt 0) {
-    Write-Host "##vso[build.updatebuildnumber]$tag"
-} else {
+if ($tag.Length -eq 0) {
     $tag = Get-Date -Format "yyyy.MM.dd.HHmm"
 }
 
