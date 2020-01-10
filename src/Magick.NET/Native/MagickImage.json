@@ -1333,6 +1333,7 @@
     {
       "name": "GetBitDepth",
       "type": "size_t",
+      "throws": true,
       "arguments": [
         {
           "name": "channels",
@@ -1500,6 +1501,7 @@
     },
     {
       "name": "Level",
+      "throws": true,
       "arguments": [
         {
           "name": "blackPoint",
@@ -1543,6 +1545,7 @@
     },
     {
       "name": "Levelize",
+      "throws": true,
       "arguments": [
         {
           "name": "blackPoint",
@@ -1890,6 +1893,7 @@
     },
     {
       "name": "RangeThreshold",
+      "throws": true,
       "arguments": [
         {
           "name": "low_black",
@@ -2239,6 +2243,7 @@
     },
     {
       "name": "SetBitDepth",
+      "throws": true,
       "arguments": [
         {
           "name": "channels",

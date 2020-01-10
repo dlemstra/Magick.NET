@@ -366,7 +366,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_GetAttribute(IntPtr Instance, IntPtr name, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_GetBitDepth(IntPtr Instance, UIntPtr channels);
+                public static extern UIntPtr MagickImage_GetBitDepth(IntPtr Instance, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_GetColormap(IntPtr Instance, UIntPtr index);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -402,11 +402,11 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Kuwahara(IntPtr Instance, double radius, double sigma, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Level(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels);
+                public static extern void MagickImage_Level(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_LevelColors(IntPtr Instance, IntPtr blackColor, IntPtr whiteColor, UIntPtr channels, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Levelize(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels);
+                public static extern void MagickImage_Levelize(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_LinearStretch(IntPtr Instance, double blackPoint, double whitePoint, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -455,7 +455,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_RandomThreshold(IntPtr Instance, double low, double high, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RangeThreshold(IntPtr Instance, double low_black, double low_white, double high_white, double high_black);
+                public static extern void MagickImage_RangeThreshold(IntPtr Instance, double low_black, double low_white, double high_white, double high_black, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_ReadBlob(IntPtr settings, byte[] data, UIntPtr offset, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -507,7 +507,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_SetAttribute(IntPtr Instance, IntPtr name, IntPtr value, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetBitDepth(IntPtr Instance, UIntPtr channels, UIntPtr value);
+                public static extern void MagickImage_SetBitDepth(IntPtr Instance, UIntPtr channels, UIntPtr value, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_SetColormap(IntPtr Instance, UIntPtr index, IntPtr color, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -916,7 +916,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_GetAttribute(IntPtr Instance, IntPtr name, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_GetBitDepth(IntPtr Instance, UIntPtr channels);
+                public static extern UIntPtr MagickImage_GetBitDepth(IntPtr Instance, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_GetColormap(IntPtr Instance, UIntPtr index);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -952,11 +952,11 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Kuwahara(IntPtr Instance, double radius, double sigma, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Level(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels);
+                public static extern void MagickImage_Level(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_LevelColors(IntPtr Instance, IntPtr blackColor, IntPtr whiteColor, UIntPtr channels, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Levelize(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels);
+                public static extern void MagickImage_Levelize(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_LinearStretch(IntPtr Instance, double blackPoint, double whitePoint, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1005,7 +1005,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_RandomThreshold(IntPtr Instance, double low, double high, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RangeThreshold(IntPtr Instance, double low_black, double low_white, double high_white, double high_black);
+                public static extern void MagickImage_RangeThreshold(IntPtr Instance, double low_black, double low_white, double high_white, double high_black, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_ReadBlob(IntPtr settings, byte[] data, UIntPtr offset, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1057,7 +1057,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_SetAttribute(IntPtr Instance, IntPtr name, IntPtr value, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetBitDepth(IntPtr Instance, UIntPtr channels, UIntPtr value);
+                public static extern void MagickImage_SetBitDepth(IntPtr Instance, UIntPtr channels, UIntPtr value, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_SetColormap(IntPtr Instance, UIntPtr index, IntPtr color, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -4143,18 +4143,22 @@ namespace ImageMagick
             }
             public int GetBitDepth(Channels channels)
             {
+                IntPtr exception = IntPtr.Zero;
+                UIntPtr result;
                 #if PLATFORM_AnyCPU
                 if (NativeLibrary.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return (int)NativeMethods.X64.MagickImage_GetBitDepth(Instance, (UIntPtr)channels);
+                result = NativeMethods.X64.MagickImage_GetBitDepth(Instance, (UIntPtr)channels, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return (int)NativeMethods.X86.MagickImage_GetBitDepth(Instance, (UIntPtr)channels);
+                result = NativeMethods.X86.MagickImage_GetBitDepth(Instance, (UIntPtr)channels, out exception);
                 #endif
+                CheckException(exception);
+                return (int)result;
             }
             public MagickColor GetColormap(int index)
             {
@@ -4447,18 +4451,20 @@ namespace ImageMagick
             }
             public void Level(double blackPoint, double whitePoint, double gamma, Channels channels)
             {
+                IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
                 if (NativeLibrary.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Level(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels);
+                NativeMethods.X64.MagickImage_Level(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Level(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels);
+                NativeMethods.X86.MagickImage_Level(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels, out exception);
                 #endif
+                CheckException(exception);
             }
             public void LevelColors(MagickColor blackColor, MagickColor whiteColor, Channels channels, bool invert)
             {
@@ -4485,18 +4491,20 @@ namespace ImageMagick
             }
             public void Levelize(double blackPoint, double whitePoint, double gamma, Channels channels)
             {
+                IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
                 if (NativeLibrary.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Levelize(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels);
+                NativeMethods.X64.MagickImage_Levelize(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Levelize(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels);
+                NativeMethods.X86.MagickImage_Levelize(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels, out exception);
                 #endif
+                CheckException(exception);
             }
             public void LinearStretch(double blackPoint, double whitePoint)
             {
@@ -4963,18 +4971,20 @@ namespace ImageMagick
             }
             public void RangeThreshold(double low_black, double low_white, double high_white, double high_black)
             {
+                IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
                 if (NativeLibrary.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_RangeThreshold(Instance, low_black, low_white, high_white, high_black);
+                NativeMethods.X64.MagickImage_RangeThreshold(Instance, low_black, low_white, high_white, high_black, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_RangeThreshold(Instance, low_black, low_white, high_white, high_black);
+                NativeMethods.X86.MagickImage_RangeThreshold(Instance, low_black, low_white, high_white, high_black, out exception);
                 #endif
+                CheckException(exception);
             }
             public void ReadBlob(MagickSettings settings, byte[] data, int offset, int length)
             {
@@ -5462,18 +5472,20 @@ namespace ImageMagick
             }
             public void SetBitDepth(Channels channels, int value)
             {
+                IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
                 if (NativeLibrary.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_SetBitDepth(Instance, (UIntPtr)channels, (UIntPtr)value);
+                NativeMethods.X64.MagickImage_SetBitDepth(Instance, (UIntPtr)channels, (UIntPtr)value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_SetBitDepth(Instance, (UIntPtr)channels, (UIntPtr)value);
+                NativeMethods.X86.MagickImage_SetBitDepth(Instance, (UIntPtr)channels, (UIntPtr)value, out exception);
                 #endif
+                CheckException(exception);
             }
             public void SetColormap(int index, MagickColor color)
             {
