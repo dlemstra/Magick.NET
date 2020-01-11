@@ -66,6 +66,12 @@ namespace ImageMagick
                 throw new ArgumentException("Value cannot be empty.", paramName);
         }
 
+        public static void IfNegative(string paramName, int value)
+        {
+            if (value < 0)
+                throw new ArgumentException("Value should be greater then zero.", paramName);
+        }
+
         public static void IfNegative(string paramName, Percentage value)
         {
             if ((double)value < 0.0)

@@ -400,6 +400,8 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Implode(IntPtr Instance, double amount, UIntPtr method, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickImage_Kmeans(IntPtr Instance, UIntPtr numberColors, UIntPtr maxIterations, double tolerance, out IntPtr exception);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Kuwahara(IntPtr Instance, double radius, double sigma, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_Level(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
@@ -949,6 +951,8 @@ namespace ImageMagick
                 public static extern IntPtr MagickImage_HoughLine(IntPtr Instance, UIntPtr width, UIntPtr height, UIntPtr threshold, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Implode(IntPtr Instance, double amount, UIntPtr method, out IntPtr exception);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickImage_Kmeans(IntPtr Instance, UIntPtr numberColors, UIntPtr maxIterations, double tolerance, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Kuwahara(IntPtr Instance, double radius, double sigma, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -4429,6 +4433,23 @@ namespace ImageMagick
                 #endif
                 CheckException(exception, result);
                 Instance = result;
+            }
+            public void Kmeans(int numberColors, int maxIterations, double tolerance)
+            {
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_Kmeans(Instance, (UIntPtr)numberColors, (UIntPtr)maxIterations, tolerance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_Kmeans(Instance, (UIntPtr)numberColors, (UIntPtr)maxIterations, tolerance, out exception);
+                #endif
+                CheckException(exception);
             }
             public void Kuwahara(double radius, double sigma)
             {

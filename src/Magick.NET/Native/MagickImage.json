@@ -1485,6 +1485,24 @@
       ]
     },
     {
+      "name": "Kmeans",
+      "throws": true,
+      "arguments": [
+        {
+          "name": "numberColors",
+          "type": "size_t"
+        },
+        {
+          "name": "maxIterations",
+          "type": "size_t"
+        },
+        {
+          "name": "tolerance",
+          "type": "double"
+        }
+      ]
+    },
+    {
       "name": "Kuwahara",
       "instance": true,
       "throws": true,

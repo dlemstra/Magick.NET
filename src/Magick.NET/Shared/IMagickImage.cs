@@ -2390,6 +2390,13 @@ namespace ImageMagick
         void InverseTransparentChroma(MagickColor colorLow, MagickColor colorHigh);
 
         /// <summary>
+        /// Applies k-means color reduction to an image. This is a colorspace clustering or segmentation technique.
+        /// </summary>
+        /// <param name="settings">The kmeans settings.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Kmeans(KmeansSettings settings);
+
+        /// <summary>
         /// An edge preserving noise reduction filter.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
