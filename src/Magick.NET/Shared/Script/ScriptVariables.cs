@@ -97,12 +97,6 @@ namespace ImageMagick
 
         internal bool TryGetValue<T>(XmlAttribute attribute, out T value)
         {
-            if (attribute == null)
-            {
-                value = default(T);
-                return true;
-            }
-
             string[] names = GetNames(attribute.Value);
             if (names == null)
             {
