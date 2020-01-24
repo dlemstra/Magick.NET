@@ -137,7 +137,6 @@ namespace ImageMagick
                 case ExifTagValue.FocalPlaneYResolution: return new ExifRational(ExifTag.FocalPlaneYResolution);
                 case ExifTagValue.ExposureIndex: return new ExifRational(ExifTag.ExposureIndex);
                 case ExifTagValue.DigitalZoomRatio: return new ExifRational(ExifTag.DigitalZoomRatio);
-                case ExifTagValue.LensInfo: return new ExifRational(ExifTag.LensInfo);
                 case ExifTagValue.GPSAltitude: return new ExifRational(ExifTag.GPSAltitude);
                 case ExifTagValue.GPSDOP: return new ExifRational(ExifTag.GPSDOP);
                 case ExifTagValue.GPSSpeed: return new ExifRational(ExifTag.GPSSpeed);
@@ -155,6 +154,7 @@ namespace ImageMagick
                 case ExifTagValue.GPSTimestamp: return new ExifRationalArray(ExifTag.GPSTimestamp);
                 case ExifTagValue.GPSDestLatitude: return new ExifRationalArray(ExifTag.GPSDestLatitude);
                 case ExifTagValue.GPSDestLongitude: return new ExifRationalArray(ExifTag.GPSDestLongitude);
+                case ExifTagValue.LensInfo: return new ExifRationalArray(ExifTag.LensInfo);
 
                 case ExifTagValue.OldSubfileType: return new ExifShort(ExifTag.OldSubfileType);
                 case ExifTagValue.Compression: return new ExifShort(ExifTag.Compression);

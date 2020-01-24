@@ -59,5 +59,10 @@ namespace ImageMagick
         /// Gets the GPSDestLongitude exif tag.
         /// </summary>
         public static ExifTag<Rational[]> GPSDestLongitude { get; } = new ExifTag<Rational[]>(ExifTagValue.GPSDestLongitude);
+
+        /// <summary>
+        /// Gets the LensInfo exif tag.
+        /// </summary>
+        public static ExifTag<Rational[]> LensInfo { get; } = new ExifTag<Rational[]>(ExifTagValue.LensInfo);
     }
 }
