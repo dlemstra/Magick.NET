@@ -12,7 +12,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
 
@@ -32,6 +31,7 @@ namespace ImageMagick
         {
             using (NativeMagickSettings instance = new NativeMagickSettings())
             {
+                AntiAlias = instance.AntiAlias;
                 BackgroundColor = instance.BackgroundColor;
                 ColorSpace = instance.ColorSpace;
                 ColorType = instance.ColorType;
@@ -61,6 +61,11 @@ namespace ImageMagick
             get => Drawing.Affine;
             set => Drawing.Affine = value;
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether anti-aliasing should be enabled (default true).
+        /// </summary>
+        public bool AntiAlias { get; set; }
 
         /// <summary>
         /// Gets or sets the background color.
@@ -225,7 +230,7 @@ namespace ImageMagick
         public MagickGeometry Page { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether  stroke anti-aliasing is enabled or disabled.
+        /// Gets or sets a value indicating whether stroke anti-aliasing is enabled or disabled.
         /// </summary>
         public bool StrokeAntiAlias
         {
@@ -607,6 +612,7 @@ namespace ImageMagick
             if (settings == null)
                 return;
 
+            AntiAlias = settings.AntiAlias;
             BackgroundColor = MagickColor.Clone(settings.BackgroundColor);
             ColorSpace = settings.ColorSpace;
             ColorType = settings.ColorType;
@@ -651,6 +657,7 @@ namespace ImageMagick
                 fileName = format + ":" + fileName;
 
             NativeMagickSettings instance = new NativeMagickSettings();
+            instance.AntiAlias = AntiAlias;
             instance.BackgroundColor = BackgroundColor;
             instance.ColorSpace = ColorSpace;
             instance.ColorType = ColorType;

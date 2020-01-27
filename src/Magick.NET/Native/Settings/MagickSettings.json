@@ -2,6 +2,10 @@
   "dynamic": "ManagedToNative",
   "properties": [
     {
+      "name": "AntiAlias",
+      "type": "bool"
+    },
+    {
       "name": "BackgroundColor",
       "type": "MagickColor"
     },
