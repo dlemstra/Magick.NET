@@ -190,5 +190,10 @@ namespace ImageMagick
         /// LinearGray
         /// </summary>
         LinearGray,
+
+        /// <summary>
+        /// Jzazbz
+        /// </summary>
+        Jzazbz,
     }
 }
