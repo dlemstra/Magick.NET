@@ -161,6 +161,7 @@
           <xs:enumeration value="HSL" />
           <xs:enumeration value="HSV" />
           <xs:enumeration value="HWB" />
+          <xs:enumeration value="Jzazbz" />
           <xs:enumeration value="Lab" />
           <xs:enumeration value="LCH" />
           <xs:enumeration value="LCHab" />
