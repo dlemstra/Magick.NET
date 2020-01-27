@@ -104,6 +104,7 @@ namespace FileGenerator.MagickScript
                 case "IImageProfile":
                 case "IReadDefines":
                 case "IMagickImage":
+                case "KmeansSettings":
                 case "MagickGeometry":
                 case "MontageSettings":
                 case "MorphologySettings":

@@ -1398,6 +1398,7 @@
   <xs:complexType name="pngReadDefines">
     <xs:attribute name="chunkCacheMax" type="long" />
     <xs:attribute name="chunkMallocMax" type="long" />
+    <xs:attribute name="ignoreCrc" type="bool" />
     <xs:attribute name="preserveiCCP" type="bool" />
     <xs:attribute name="skipProfiles" type="ProfileTypes" />
     <xs:attribute name="swapBytes" type="bool" />
@@ -1494,9 +1495,20 @@
   <xs:complexType name="iReadDefines">
     <xs:group ref="iReadDefines" />
   </xs:complexType>
+  <xs:complexType name="kmeansSettings">
+    <xs:attribute name="maxIterations" type="int" />
+    <xs:attribute name="numberColors" type="int" />
+    <xs:attribute name="seedColors" type="xs:string" />
+    <xs:attribute name="tolerance" type="double" />
+  </xs:complexType>
   <xs:complexType name="magickReadSettings">
     <xs:sequence>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="antiAlias">
+          <xs:complexType>
+            <xs:attribute name="value" use="required" type="bool" />
+          </xs:complexType>
+        </xs:element>
         <xs:element name="backgroundColor">
           <xs:complexType>
             <xs:attribute name="value" use="required" type="color" />
@@ -1723,6 +1735,11 @@
   <xs:complexType name="magickSettings">
     <xs:sequence>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="antiAlias">
+          <xs:complexType>
+            <xs:attribute name="value" use="required" type="bool" />
+          </xs:complexType>
+        </xs:element>
         <xs:element name="backgroundColor">
           <xs:complexType>
             <xs:attribute name="value" use="required" type="color" />
@@ -2573,6 +2590,13 @@
           <xs:complexType>
             <xs:attribute name="colorHigh" use="required" type="color" />
             <xs:attribute name="colorLow" use="required" type="color" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="kmeans">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="settings" type="kmeansSettings" />
+            </xs:sequence>
           </xs:complexType>
         </xs:element>
         <xs:element name="kuwahara">

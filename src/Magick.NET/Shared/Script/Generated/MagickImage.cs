@@ -1402,8 +1402,20 @@ namespace ImageMagick
                 }
                 case 'k':
                 {
-                    ExecuteKuwahara(element, image);
-                    return;
+                    switch(element.Name[1])
+                    {
+                        case 'm':
+                        {
+                            ExecuteKmeans(element, image);
+                            return;
+                        }
+                        case 'u':
+                        {
+                            ExecuteKuwahara(element, image);
+                            return;
+                        }
+                    }
+                    break;
                 }
                 case 'n':
                 {
@@ -2790,6 +2802,11 @@ namespace ImageMagick
             MagickColor colorLow_ = GetValue<MagickColor>(element, "colorLow");
             MagickColor colorHigh_ = GetValue<MagickColor>(element, "colorHigh");
             image.InverseTransparentChroma(colorLow_, colorHigh_);
+        }
+        private void ExecuteKmeans(XmlElement element, IMagickImage image)
+        {
+            KmeansSettings settings_ = CreateKmeansSettings(element["settings"]);
+            image.Kmeans(settings_);
         }
         private void ExecuteKuwahara(XmlElement element, IMagickImage image)
         {

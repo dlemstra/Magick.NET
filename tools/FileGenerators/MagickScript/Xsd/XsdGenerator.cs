@@ -426,6 +426,7 @@ namespace FileGenerator.MagickScript
                         break;
                     case "deskewSettings":
                     case "distortSettings":
+                    case "kmeansSettings":
                     case "montageSettings":
                     case "morphologySettings":
                     case "pixelReadSettings":

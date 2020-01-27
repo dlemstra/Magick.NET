@@ -36,6 +36,11 @@ namespace ImageMagick
         {
             switch(element.Name[0])
             {
+                case 'a':
+                {
+                    ExecuteAntiAlias(element, settings);
+                    return;
+                }
                 case 'b':
                 {
                     switch(element.Name[1])
@@ -335,6 +340,10 @@ namespace ImageMagick
                 }
             }
             throw new NotSupportedException(element.Name);
+        }
+        private void ExecuteAntiAlias(XmlElement element, MagickSettings settings)
+        {
+            settings.AntiAlias = GetValue<Boolean>(element, "value");
         }
         private void ExecuteBackgroundColor(XmlElement element, MagickSettings settings)
         {

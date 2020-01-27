@@ -84,6 +84,7 @@ namespace FileGenerator.MagickScript
         {
             CreateCodeFile(new DeskewSettings());
             CreateCodeFile(new DistortSettingsGenerator());
+            CreateCodeFile(new KmeansSettingsGenerator());
             CreateCodeFile(new MagickSettingsGenerator());
             CreateCodeFile(new MontageSettingsGenerator());
             CreateCodeFile(new MorphologySettingsGenerator());

@@ -73,6 +73,7 @@
     <Compile Include="Code\Settings\MontageSettingsGenerator.cs" />
     <Compile Include="Code\Settings\PixelReadSettingsGenerator.cs" />
     <Compile Include="Code\Settings\MorphologySettingsGenerator.cs" />
+    <Compile Include="Code\Settings\KmeansSettingsGenerator.cs" />
     <Compile Include="Code\Settings\QuantizeSettingsGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

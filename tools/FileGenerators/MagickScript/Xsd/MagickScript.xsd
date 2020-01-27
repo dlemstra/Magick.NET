@@ -138,6 +138,10 @@
     <xs:group ref="iReadDefines" />
   </xs:complexType>
 
+  <xs:complexType name="kmeansSettings">
+    <xs:annotation id="kmeansSettings"/>
+  </xs:complexType>
+
   <xs:complexType name="magickReadSettings">
     <xs:sequence>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
