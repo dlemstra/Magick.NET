@@ -50,6 +50,12 @@ namespace ImageMagick
         public bool PreserveiCCP { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the PNG decoder should ignore the CRC when reading the
+        /// image. (png:ignore-crc).
+        /// </summary>
+        public bool IgnoreCrc { get; set; }
+
+        /// <summary>
         /// Gets or sets the profile(s) that should be skipped when the image is read (profile:skip).
         /// </summary>
         public ProfileTypes? SkipProfiles { get; set; }
@@ -74,6 +80,9 @@ namespace ImageMagick
 
                 if (ChunkMallocMax.HasValue)
                     yield return CreateDefine("chunk-malloc-max", ChunkMallocMax.Value);
+
+                if (IgnoreCrc)
+                    yield return CreateDefine("ignore-crc", IgnoreCrc);
 
                 if (PreserveiCCP)
                     yield return CreateDefine("preserve-iCCP", PreserveiCCP);
