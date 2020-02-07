@@ -19,19 +19,20 @@ To create a custom build of the native library Magick.NET the `Build.Linux.sh` o
 By default, Magick.NET has support built in for JPEG, TIFF, PNG, and WebP file formats. Lossless compression support includes zlib, lzma, and bzip2. There
 are no external dependencies beyond basic system libraries and glibc6/libm, which should be present by default on most Linux distros. 
 
-Distributions based on musl libc such as Alpine will not have a glibc available, and will not work with Magick.NET out of the box. If you receive a DllNotFoundException similar to the below it is likely due to glibc not being available:
+Distributions based on musl libc such as Alpine will not have a glibc available, and will not work with Magick.NET out of the box. If you receive a
+`DllNotFoundException` similar to the exception below it is likely due to glibc not being available:
 
 ```
-DllNotFoundException: Unable to load shared library 'Magick.Native-Q16-x64.dll' or one of its dependencies. 
+DllNotFoundException: Unable to load shared library 'Magick.Native-Q8-x64.dll' or one of its dependencies.
 In order to help diagnose loading problems, consider setting the LD_DEBUG environment variable: 
-Error loading shared library libMagick.Native-Q16-x64.dll: No such file or directory
+Error loading shared library libMagick.Native-Q8-x64.dll: No such file or directory
 ImageMagick.Environment+NativeMethods+X64.Environment_Initialize()
 ImageMagick.Environment+NativeEnvironment.Initialize()
 ImageMagick.Environment.Initialize()
 ImageMagick.MagickSettings+NativeMagickSettings..cctor()
 ```
 
-Compatibility layers for glibc on musl-libc systems exist, but have not been tested successfully with Magick.NET. YMMV.
+Compatibility layers for glibc on musl-libc systems exist, but have not been tested successfully with Magick.NET.
 
 ### .NET Core
 
