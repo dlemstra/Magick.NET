@@ -1629,24 +1629,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_IsOpaque()
-        {
-            using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                Assert.IsFalse(image.IsOpaque);
-                image.ColorAlpha(MagickColors.Purple);
-                Assert.IsTrue(image.IsOpaque);
-            }
-
-            using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
-            {
-                Assert.IsTrue(image.IsOpaque);
-                image.Opaque(MagickColors.White, MagickColors.Transparent);
-                Assert.IsFalse(image.IsOpaque);
-            }
-        }
-
-        [TestMethod]
         public void Test_Kuwahara()
         {
             using (IMagickImage image = new MagickImage(Files.NoisePNG))
