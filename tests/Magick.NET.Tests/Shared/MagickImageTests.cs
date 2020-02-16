@@ -134,27 +134,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_Alpha()
-        {
-            using (IMagickImage image = new MagickImage(Files.Builtin.Wizard))
-            {
-                Assert.AreEqual(image.HasAlpha, false);
-
-                image.Alpha(AlphaOption.Transparent);
-
-                Assert.AreEqual(image.HasAlpha, true);
-                ColorAssert.AreEqual(MagickColors.Transparent, image, 0, 0);
-
-                image.BackgroundColor = new MagickColor("red");
-                image.Alpha(AlphaOption.Background);
-                image.Alpha(AlphaOption.Off);
-
-                Assert.AreEqual(image.HasAlpha, false);
-                ColorAssert.AreEqual(new MagickColor(Quantum.Max, 0, 0), image, 0, 0);
-            }
-        }
-
-        [TestMethod]
         public void Test_AnimationDelay()
         {
             using (IMagickImage image = new MagickImage())
