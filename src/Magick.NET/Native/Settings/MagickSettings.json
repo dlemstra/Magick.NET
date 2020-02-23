@@ -30,6 +30,10 @@
       "type": "string"
     },
     {
+      "name": "Depth",
+      "type": "size_t"
+    },
+    {
       "name": "Endian",
       "type": "Endian"
     },

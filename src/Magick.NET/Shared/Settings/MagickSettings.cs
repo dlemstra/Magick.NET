@@ -38,6 +38,7 @@ namespace ImageMagick
                 Compression = instance.Compression;
                 Debug = instance.Debug;
                 Density = Density.Create(instance.Density);
+                Depth = instance.Depth;
                 Endian = instance.Endian;
                 Extract = MagickGeometry.FromString(instance.Extract);
                 _font = instance.Font;
@@ -105,6 +106,11 @@ namespace ImageMagick
         /// Gets or sets the vertical and horizontal resolution in pixels.
         /// </summary>
         public Density Density { get; set; }
+
+        /// <summary>
+        /// Gets or sets the depth (bits allocated to red/green/blue components).
+        /// </summary>
+        public int Depth { get; set; }
 
         /// <summary>
         /// Gets or sets the endianness (little like Intel or big like SPARC) for image formats which support
@@ -619,6 +625,7 @@ namespace ImageMagick
             Compression = settings.Compression;
             Debug = settings.Debug;
             Density = Density.Clone(settings.Density);
+            Depth = settings.Depth;
             Endian = settings.Endian;
             Extract = MagickGeometry.Clone(settings.Extract);
             _font = settings._font;
@@ -665,6 +672,7 @@ namespace ImageMagick
                 Compression = Compression,
                 Debug = Debug,
                 Density = Density?.ToString(DensityUnit.Undefined),
+                Depth = Depth,
                 Endian = Endian,
                 Extract = MagickGeometry.ToString(Extract),
                 Font = _font,
