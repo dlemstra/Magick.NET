@@ -49,11 +49,12 @@ Magick.NET is linked with ImageMagick 7. Most examples on the Internet use Image
 The biggest difference between 6 and 7 is that the latter uses Alpha instead of Opacity. You can find some more information about ImageMagick 7
 here: https://www.imagemagick.org/script/porting.php.
 
-## Default resource limits
+## Default memory limit
 
 On Windows ImageMagick uses only 50% of the available memory by default for pixel cache. If the application where Magick.NET is being used is
 the only application that uses memory it would be wise to make that limit higher. This can be done by calling `ResourceLimits.LimitMemory`
-with the percentage of total memory that should be used. The maximum value that should be used would be around 80/90%.
+with the percentage of total memory that should be used. The maximum value that should be used would be around 80/90%. When ImageMagick reaches
+the memory limit, it will not stop functioning. Instead it will use temporary page files to compensate for the memory limit.
 
 ## OpenMP
 
