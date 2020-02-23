@@ -73,6 +73,8 @@ namespace ImageMagick
                 public static extern ulong ResourceLimits_Width_Get();
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void ResourceLimits_Width_Set(ulong value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void ResourceLimits_LimitMemory(double percentage);
             }
             #endif
             #if PLATFORM_x86 || PLATFORM_AnyCPU
@@ -113,6 +115,8 @@ namespace ImageMagick
                 public static extern ulong ResourceLimits_Width_Get();
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void ResourceLimits_Width_Set(ulong value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void ResourceLimits_LimitMemory(double percentage);
             }
             #endif
         }
@@ -398,6 +402,21 @@ namespace ImageMagick
                     NativeMethods.X86.ResourceLimits_Width_Set(value);
                     #endif
                 }
+            }
+            public static void LimitMemory(double percentage)
+            {
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.ResourceLimits_LimitMemory(percentage);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.ResourceLimits_LimitMemory(percentage);
+                #endif
             }
         }
     }
