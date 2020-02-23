@@ -106,23 +106,21 @@ namespace Magick.NET.Tests
                         };
 
                         var components = temp.ConnectedComponents(settings).OrderBy(component => component.X).ToArray();
-                        Assert.AreEqual(13, components.Length);
+                        Assert.AreEqual(12, components.Length);
 
-                        var color1 = new MagickColor("#010101010101");
-                        var color2 = MagickColors.Black;
+                        var color = new MagickColor("#010101010101");
 
-                        AssertComponent(image, components[1], 597, 90, 293, 139, 162, 11902, color1, 157, 372);
-                        AssertComponent(image, components[2], 3439, 96, 550, 138, 162, 11999, color1, 162, 628);
-                        AssertComponent(image, components[3], 4367, 213, 633, 1, 2, 1, color2, 213, 633);
-                        AssertComponent(image, components[4], 4412, 215, 637, 3, 1, 1, color2, 215, 637);
-                        AssertComponent(image, components[5], 4453, 217, 641, 3, 1, 1, color2, 217, 641);
-                        AssertComponent(image, components[6], 4495, 219, 645, 3, 1, 1, color2, 219, 645);
-                        AssertComponent(image, components[7], 4538, 221, 647, 3, 1, 1, color2, 221, 649);
-                        AssertComponent(image, components[8], 2105, 268, 433, 89, 139, 11808, color1, 311, 502);
-                        AssertComponent(image, components[9], 17, 298, 198, 155, 151, 11927, color1, 375, 273);
-                        AssertComponent(image, components[10], 4202, 337, 618, 148, 158, 11974, color1, 409, 696);
-                        AssertComponent(image, components[11], 314, 410, 247, 2, 1, 2, color2, 410, 247);
-                        AssertComponent(image, components[12], 1703, 434, 411, 88, 140, 11763, color1, 477, 480);
+                        AssertComponent(image, components[1], 597, 90, 293, 136, 162, 11624, color, 157, 372);
+                        AssertComponent(image, components[2], 3439, 96, 550, 138, 162, 11739, color, 162, 628);
+                        AssertComponent(image, components[3], 4122, 103, 604, 4, 2, 4, new MagickColor("#0B0B0B0B0B0B"), 104, 606);
+                        AssertComponent(image, components[4], 4157, 107, 612, 3, 1, 4, new MagickColor("#080808080808"), 108, 613);
+                        AssertComponent(image, components[5], 4233, 111, 620, 3, 1, 4, new MagickColor("#020202020202"), 112, 621);
+                        AssertComponent(image, components[6], 5085, 150, 698, 3, 1, 4, new MagickColor("#424242424242"), 150, 698);
+                        AssertComponent(image, components[7], 5132, 152, 702, 3, 1, 4, new MagickColor("#262626262626"), 153, 703);
+                        AssertComponent(image, components[8], 2105, 268, 433, 89, 139, 11645, color, 311, 502);
+                        AssertComponent(image, components[9], 17, 298, 198, 155, 151, 11622, color, 375, 273);
+                        AssertComponent(image, components[10], 4202, 337, 618, 144, 158, 11675, color, 409, 696);
+                        AssertComponent(image, components[11], 1703, 435, 412, 87, 138, 11629, color, 478, 481);
                     }
 #endif
                 }
