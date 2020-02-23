@@ -29,11 +29,14 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
-                var throttle = ResourceLimits.Throttle;
+                ExecuteInsideLock(() =>
+                {
+                    var throttle = ResourceLimits.Throttle;
 
-                ResourceLimits.Throttle = 1U;
-                Assert.AreEqual(1U, ResourceLimits.Throttle);
-                ResourceLimits.Throttle = throttle;
+                    ResourceLimits.Throttle = 1U;
+                    Assert.AreEqual(1U, ResourceLimits.Throttle);
+                    ResourceLimits.Throttle = throttle;
+                });
             }
         }
     }

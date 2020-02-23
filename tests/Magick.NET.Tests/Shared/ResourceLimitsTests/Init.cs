@@ -10,33 +10,19 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Magick.NET.Tests
 {
     public partial class ResourceLimitsTests
     {
-        [TestClass]
-        public class TheWidthProperty
+        private static readonly object _lock = new object();
+
+        private static void ExecuteInsideLock(Action action)
         {
-            [TestMethod]
-            public void ShouldHaveTheCorrectValue()
+            lock (_lock)
             {
-                Assert.AreEqual(10000000U, ResourceLimits.Width);
-            }
-
-            [TestMethod]
-            public void ShouldReturnTheCorrectValueWhenChanged()
-            {
-                ExecuteInsideLock(() =>
-                {
-                    var width = ResourceLimits.Width;
-
-                    ResourceLimits.Width = 200000U;
-                    Assert.AreEqual(200000U, ResourceLimits.Width);
-                    ResourceLimits.Width = width;
-                });
+                action();
             }
         }
     }

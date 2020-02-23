@@ -30,11 +30,14 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
-                var memory = ResourceLimits.Memory;
+                ExecuteInsideLock(() =>
+                {
+                    var memory = ResourceLimits.Memory;
 
-                ResourceLimits.Memory = 10000000U;
-                Assert.AreEqual(10000000U, ResourceLimits.Memory);
-                ResourceLimits.Memory = memory;
+                    ResourceLimits.Memory = 10000000U;
+                    Assert.AreEqual(10000000U, ResourceLimits.Memory);
+                    ResourceLimits.Memory = memory;
+                });
             }
         }
     }

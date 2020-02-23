@@ -29,11 +29,14 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
-                var listLength = ResourceLimits.ListLength;
+                ExecuteInsideLock(() =>
+                {
+                    var listLength = ResourceLimits.ListLength;
 
-                ResourceLimits.ListLength = 32U;
-                Assert.AreEqual(32U, ResourceLimits.ListLength);
-                ResourceLimits.ListLength = listLength;
+                    ResourceLimits.ListLength = 32U;
+                    Assert.AreEqual(32U, ResourceLimits.ListLength);
+                    ResourceLimits.ListLength = listLength;
+                });
             }
         }
     }
