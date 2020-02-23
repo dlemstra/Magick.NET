@@ -691,16 +691,26 @@ namespace ImageMagick
             return instance;
         }
 
-        private string GetFormat() => Format switch
+        private string GetFormat()
         {
-            MagickFormat.Unknown => null,
-            MagickFormat.ThreeFr => "3FR",
-            MagickFormat.ThreeG2 => "3G2",
-            MagickFormat.ThreeGp => "3GP",
-            MagickFormat.RadialGradient => "RADIAL-GRADIENT",
-            MagickFormat.SparseColor => "SPARSE-COLOR",
-            _ => EnumHelper.GetName(Format).ToUpperInvariant(),
-        };
+            switch (Format)
+            {
+                case MagickFormat.Unknown:
+                    return null;
+                case MagickFormat.ThreeFr:
+                    return "3FR";
+                case MagickFormat.ThreeG2:
+                    return "3G2";
+                case MagickFormat.ThreeGp:
+                    return "3GP";
+                case MagickFormat.RadialGradient:
+                    return "RADIAL-GRADIENT";
+                case MagickFormat.SparseColor:
+                    return "SPARSE-COLOR";
+                default:
+                    return EnumHelper.GetName(Format).ToUpperInvariant();
+            }
+        }
 
         private void SetOptionAndArtifact(string key, double value) => SetOptionAndArtifact(key, value.ToString(CultureInfo.InvariantCulture));
 
