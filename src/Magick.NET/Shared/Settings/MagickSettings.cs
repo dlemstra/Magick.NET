@@ -703,6 +703,8 @@ namespace ImageMagick
                     return "3G2";
                 case MagickFormat.ThreeGp:
                     return "3GP";
+                case MagickFormat.RadialGradient:
+                    return "RADIAL-GRADIENT";
                 case MagickFormat.SparseColor:
                     return "SPARSE-COLOR";
                 default:
