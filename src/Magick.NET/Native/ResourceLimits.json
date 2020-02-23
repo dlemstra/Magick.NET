@@ -2,6 +2,10 @@
   "static": true,
   "properties": [
     {
+      "name": "Area",
+      "type": "ulong"
+    },
+    {
       "name": "Disk",
       "type": "ulong"
     },

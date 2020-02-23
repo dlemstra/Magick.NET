@@ -42,6 +42,10 @@ namespace ImageMagick
                 static X64() { NativeLibraryLoader.Load(); }
                 #endif
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern ulong ResourceLimits_Area_Get();
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void ResourceLimits_Area_Set(ulong value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern ulong ResourceLimits_Disk_Get();
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void ResourceLimits_Disk_Set(ulong value);
@@ -78,6 +82,10 @@ namespace ImageMagick
                 static X86() { NativeLibraryLoader.Load(); }
                 #endif
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern ulong ResourceLimits_Area_Get();
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void ResourceLimits_Area_Set(ulong value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern ulong ResourceLimits_Disk_Get();
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void ResourceLimits_Disk_Set(ulong value);
@@ -111,6 +119,41 @@ namespace ImageMagick
         private static class NativeResourceLimits
         {
             static NativeResourceLimits() { Environment.Initialize(); }
+            public static ulong Area
+            {
+                get
+                {
+                    ulong result;
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.ResourceLimits_Area_Get();
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.ResourceLimits_Area_Get();
+                    #endif
+                    return result;
+                }
+                set
+                {
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.ResourceLimits_Area_Set(value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.ResourceLimits_Area_Set(value);
+                    #endif
+                }
+            }
             public static ulong Disk
             {
                 get

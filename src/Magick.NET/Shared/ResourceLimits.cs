@@ -18,6 +18,16 @@ namespace ImageMagick
     public static partial class ResourceLimits
     {
         /// <summary>
+        /// Gets or sets the maximum width * height of an image that can reside in the pixel cache memory.
+        /// Images that exceed the area limit are cached to disk.
+        /// </summary>
+        public static ulong Area
+        {
+            get => NativeResourceLimits.Area;
+            set => NativeResourceLimits.Area = value;
+        }
+
+        /// <summary>
         /// Gets or sets the pixel cache limit in bytes. Requests for memory above this limit will fail.
         /// </summary>
         public static ulong Disk
