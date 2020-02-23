@@ -35,7 +35,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(148.92, first.EllipseAngle, 0.01);
                 Assert.AreEqual(73.53, first.EllipseAxis.X, 0.01);
                 Assert.AreEqual(66.82, first.EllipseAxis.Y, 0.01);
-                Assert.AreEqual(0.30, first.EllipseEccentricity, 0.01);
+                Assert.AreEqual(0.41, first.EllipseEccentricity, 0.01);
                 Assert.AreEqual(0.79, first.EllipseIntensity, 0.01);
 
                 double[] expected = new double[] { 0.2004, 0.0003, 0.0001, 0.0, 0.0, 0.0, 0.0, 0.0 };
