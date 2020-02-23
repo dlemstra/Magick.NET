@@ -656,22 +656,24 @@ namespace ImageMagick
             if (!string.IsNullOrEmpty(fileName) && !string.IsNullOrEmpty(format))
                 fileName = format + ":" + fileName;
 
-            NativeMagickSettings instance = new NativeMagickSettings();
-            instance.AntiAlias = AntiAlias;
-            instance.BackgroundColor = BackgroundColor;
-            instance.ColorSpace = ColorSpace;
-            instance.ColorType = ColorType;
-            instance.Compression = Compression;
-            instance.Debug = Debug;
-            instance.Density = Density?.ToString(DensityUnit.Undefined);
-            instance.Endian = Endian;
-            instance.Extract = MagickGeometry.ToString(Extract);
-            instance.Font = _font;
-            instance.FontPointsize = _fontPointsize;
-            instance.Format = format;
-            instance.Interlace = Interlace;
-            instance.Monochrome = Monochrome;
-            instance.Verbose = Verbose;
+            var instance = new NativeMagickSettings
+            {
+                AntiAlias = AntiAlias,
+                BackgroundColor = BackgroundColor,
+                ColorSpace = ColorSpace,
+                ColorType = ColorType,
+                Compression = Compression,
+                Debug = Debug,
+                Density = Density?.ToString(DensityUnit.Undefined),
+                Endian = Endian,
+                Extract = MagickGeometry.ToString(Extract),
+                Font = _font,
+                FontPointsize = _fontPointsize,
+                Format = format,
+                Interlace = Interlace,
+                Monochrome = Monochrome,
+                Verbose = Verbose,
+            };
 
             instance.SetColorFuzz(ColorFuzz);
             instance.SetFileName(fileName);
