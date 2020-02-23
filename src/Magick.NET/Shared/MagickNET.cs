@@ -272,7 +272,7 @@ namespace ImageMagick
             foreach (IConfigurationFile configurationFile in ConfigurationFiles.Default.Files)
             {
                 string fileName = Path.Combine(path, configurationFile.FileName);
-                Throw.IfFalse(nameof(path), File.Exists(fileName), "Unable to find file: {0}", fileName);
+                Throw.IfFalse(nameof(path), File.Exists(fileName), $"Unable to find file: {fileName}");
             }
         }
 

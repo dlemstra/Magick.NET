@@ -18,10 +18,10 @@ namespace ImageMagick
 {
     internal static class Throw
     {
-        public static void IfFalse(string paramName, bool condition, string message, params object[] args)
+        public static void IfFalse(string paramName, bool condition, string message)
         {
             if (!condition)
-                throw new ArgumentException(FormatMessage(message, args), paramName);
+                throw new ArgumentException(message, paramName);
         }
 
         public static void IfNull(string paramName, [ValidatedNotNull] object value)
@@ -30,10 +30,10 @@ namespace ImageMagick
                 throw new ArgumentNullException(paramName);
         }
 
-        public static void IfNull(string paramName, [ValidatedNotNull] object value, string message, params object[] args)
+        public static void IfNull(string paramName, [ValidatedNotNull] object value, string message)
         {
             if (value == null)
-                throw new ArgumentNullException(paramName, FormatMessage(message, args));
+                throw new ArgumentNullException(paramName, message);
         }
 
         public static void IfNullOrEmpty(string paramName, Stream value)
@@ -84,10 +84,10 @@ namespace ImageMagick
                 throw new ArgumentOutOfRangeException(paramName);
         }
 
-        public static void IfOutOfRange(string paramName, int min, int max, int value, string message, params object[] args)
+        public static void IfOutOfRange(string paramName, int min, int max, int value, string message)
         {
             if (value < min || value > max)
-                throw new ArgumentOutOfRangeException(paramName, FormatMessage(message, args));
+                throw new ArgumentOutOfRangeException(paramName, message);
         }
 
         public static void IfOutOfRange(string paramName, Percentage value)
@@ -101,18 +101,10 @@ namespace ImageMagick
                 throw new ArgumentOutOfRangeException(paramName, "Value should be smaller than 100.");
         }
 
-        public static void IfTrue(string paramName, bool condition, string message, params object[] args)
+        public static void IfTrue(string paramName, bool condition, string message)
         {
             if (condition)
-                throw new ArgumentException(FormatMessage(message, args), paramName);
-        }
-
-        private static string FormatMessage(string message, params object[] args)
-        {
-            if (args.Length == 0)
-                return message;
-
-            return string.Format(CultureInfo.InvariantCulture, message, args);
+                throw new ArgumentException(message, paramName);
         }
     }
 }

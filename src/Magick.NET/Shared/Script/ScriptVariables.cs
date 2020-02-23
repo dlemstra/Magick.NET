@@ -62,7 +62,7 @@ namespace ImageMagick
         public object Get(string name)
         {
             Throw.IfNullOrEmpty(nameof(name), name);
-            Throw.IfFalse(nameof(name), _variables.ContainsKey(name), "Invalid variable name: {0}", name);
+            Throw.IfFalse(nameof(name), _variables.ContainsKey(name), $"Invalid variable name: {name}");
 
             return _variables[name];
         }
@@ -75,7 +75,7 @@ namespace ImageMagick
         public void Set(string name, object value)
         {
             Throw.IfNullOrEmpty(nameof(name), name);
-            Throw.IfFalse(nameof(name), _variables.ContainsKey(name), "Invalid variable name: {0}", name);
+            Throw.IfFalse(nameof(name), _variables.ContainsKey(name), $"Invalid variable name: {name}");
 
             _variables[name] = value;
         }
@@ -120,7 +120,7 @@ namespace ImageMagick
                 string name = names[0];
 
                 if (TypeHelper.IsValueType(typeof(T)))
-                    Throw.IfNull(nameof(attribute), _variables[name], "The variable {0} should be set.", name);
+                    Throw.IfNull(nameof(attribute), _variables[name], $"The variable '{name}' should be set.");
 
                 value = MagickConverter.Convert<T>(_variables[name]);
                 return true;

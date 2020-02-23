@@ -22,7 +22,7 @@ namespace ImageMagick
 
             path = CheckForBaseDirectory(path);
             path = Path.GetFullPath(path);
-            Throw.IfFalse(nameof(path), Directory.Exists(path), "Unable to find directory: {0}", path);
+            Throw.IfFalse(nameof(path), Directory.Exists(path), $"Unable to find directory: {path}");
             return path;
         }
     }
