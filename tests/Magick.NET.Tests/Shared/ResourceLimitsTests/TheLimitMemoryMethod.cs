@@ -62,8 +62,8 @@ namespace Magick.NET.Tests
 
                     ResourceLimits.LimitMemory((Percentage)100);
 
-                    Assert.AreEqual(area * 2, ResourceLimits.Area);
-                    Assert.AreEqual(memory * 2, ResourceLimits.Memory);
+                    Assert.AreEqual(area * 2, ResourceLimits.Area, 8192);
+                    Assert.AreEqual(memory * 2, ResourceLimits.Memory, 8192);
 
                     ResourceLimits.Area = area;
                     ResourceLimits.Memory = memory;
