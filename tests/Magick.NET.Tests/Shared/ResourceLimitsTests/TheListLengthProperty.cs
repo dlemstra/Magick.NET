@@ -29,9 +29,11 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
+                var listLength = ResourceLimits.ListLength;
+
                 ResourceLimits.ListLength = 32U;
                 Assert.AreEqual(32U, ResourceLimits.ListLength);
-                ResourceLimits.ListLength = ulong.MaxValue;
+                ResourceLimits.ListLength = listLength;
             }
         }
     }

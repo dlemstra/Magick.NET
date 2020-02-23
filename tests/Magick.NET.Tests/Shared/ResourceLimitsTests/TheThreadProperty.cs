@@ -31,9 +31,12 @@ namespace Magick.NET.Tests
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
 #if OPENMP
+                var thread = ResourceLimits.Thread;
+
                 Assert.AreNotEqual(1U, ResourceLimits.Thread);
                 ResourceLimits.Thread = 1U;
                 Assert.AreEqual(1U, ResourceLimits.Thread);
+                ResourceLimits.Thread = thread;
 #else
                 Assert.AreEqual(1U, ResourceLimits.Thread);
                 ResourceLimits.Thread = 2U;

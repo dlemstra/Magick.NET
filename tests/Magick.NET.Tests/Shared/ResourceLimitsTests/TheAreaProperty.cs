@@ -30,9 +30,11 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
+                var area = ResourceLimits.Area;
+
                 ResourceLimits.Area = 10000000U;
                 Assert.AreEqual(10000000U, ResourceLimits.Area);
-                ResourceLimits.Area = 8585838592U;
+                ResourceLimits.Area = area;
             }
         }
     }

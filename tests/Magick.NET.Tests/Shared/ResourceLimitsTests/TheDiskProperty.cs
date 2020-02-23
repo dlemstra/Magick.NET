@@ -29,9 +29,11 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
+                var disk = ResourceLimits.Disk;
+
                 ResourceLimits.Disk = 40000U;
                 Assert.AreEqual(40000U, ResourceLimits.Disk);
-                ResourceLimits.Disk = ulong.MaxValue;
+                ResourceLimits.Disk = disk;
             }
         }
     }

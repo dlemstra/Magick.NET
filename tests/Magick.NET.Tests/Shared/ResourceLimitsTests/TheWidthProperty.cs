@@ -29,9 +29,11 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
+                var width = ResourceLimits.Width;
+
                 ResourceLimits.Width = 200000U;
                 Assert.AreEqual(200000U, ResourceLimits.Width);
-                ResourceLimits.Width = 10000000U;
+                ResourceLimits.Width = width;
             }
         }
     }

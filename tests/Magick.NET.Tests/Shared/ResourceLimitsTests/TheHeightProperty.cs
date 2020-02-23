@@ -29,9 +29,11 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
+                var height = ResourceLimits.Height;
+
                 ResourceLimits.Height = 100000U;
                 Assert.AreEqual(100000U, ResourceLimits.Height);
-                ResourceLimits.Height = 10000000U;
+                ResourceLimits.Height = height;
             }
         }
     }
