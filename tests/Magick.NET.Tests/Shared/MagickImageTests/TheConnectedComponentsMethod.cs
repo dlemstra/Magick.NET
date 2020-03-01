@@ -34,6 +34,21 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
+            public void ShouldSetTheAreaThreshold()
+            {
+                using (IMagickImage image = new MagickImage(MagickColors.Red, 1, 1))
+                {
+                    var settings = new ConnectedComponentsSettings()
+                    {
+                        AreaThreshold = 1.5,
+                    };
+                    image.ConnectedComponents(settings).ToArray();
+
+                    Assert.AreEqual("1.5", image.GetArtifact("connected-components:area-threshold"));
+                }
+            }
+
+            [TestMethod]
             public void ShouldSetMeanColor()
             {
                 using (IMagickImage image = new MagickImage(MagickColors.Red, 1, 1))

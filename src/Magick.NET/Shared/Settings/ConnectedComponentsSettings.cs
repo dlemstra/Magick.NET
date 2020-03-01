@@ -10,6 +10,8 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System.Globalization;
+
 namespace ImageMagick
 {
     /// <summary>
@@ -17,6 +19,11 @@ namespace ImageMagick
     /// </summary>
     public sealed class ConnectedComponentsSettings
     {
+        /// <summary>
+        /// Gets or sets the threshold that eliminate small objects by merging them with their larger neighbors.
+        /// </summary>
+        public double? AreaThreshold { get; set; }
+
         /// <summary>
         /// Gets or sets how many neighbors to visit, choose from 4 or 8.
         /// </summary>
@@ -29,6 +36,9 @@ namespace ImageMagick
 
         internal void SetImageArtifacts(IMagickImage image)
         {
+            if (AreaThreshold != null)
+                image.SetArtifact("connected-components:area-threshold", AreaThreshold.Value.ToString(CultureInfo.InvariantCulture));
+
             if (MeanColor)
                 image.SetArtifact("connected-components:mean-color", "true");
         }
