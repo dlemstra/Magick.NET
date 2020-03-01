@@ -101,6 +101,11 @@ namespace ImageMagick
                             ExecuteDensity(element, settings);
                             return;
                         }
+                        case 'p':
+                        {
+                            ExecuteDepth(element, settings);
+                            return;
+                        }
                     }
                     break;
                 }
@@ -372,6 +377,10 @@ namespace ImageMagick
         private void ExecuteDensity(XmlElement element, MagickSettings settings)
         {
             settings.Density = GetValue<Density>(element, "value");
+        }
+        private void ExecuteDepth(XmlElement element, MagickSettings settings)
+        {
+            settings.Depth = GetValue<Int32>(element, "value");
         }
         private void ExecuteEndian(XmlElement element, MagickSettings settings)
         {

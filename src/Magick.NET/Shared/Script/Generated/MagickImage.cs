@@ -371,8 +371,20 @@ namespace ImageMagick
                                         }
                                         case 'T':
                                         {
-                                            ExecuteColorType(element, image);
-                                            return;
+                                            switch(element.Name[6])
+                                            {
+                                                case 'y':
+                                                {
+                                                    ExecuteColorType(element, image);
+                                                    return;
+                                                }
+                                                case 'h':
+                                                {
+                                                    ExecuteColorThreshold(element, image);
+                                                    return;
+                                                }
+                                            }
+                                            break;
                                         }
                                         case 'A':
                                         {
@@ -2157,6 +2169,12 @@ namespace ImageMagick
                 image.Colorize((MagickColor)arguments["color"], (Percentage)arguments["alphaRed"], (Percentage)arguments["alphaGreen"], (Percentage)arguments["alphaBlue"]);
             else
                 throw new ArgumentException("Invalid argument combination for 'colorize', allowed combinations are: [color, alpha] [color, alphaRed, alphaGreen, alphaBlue]");
+        }
+        private void ExecuteColorThreshold(XmlElement element, IMagickImage image)
+        {
+            MagickColor startColor_ = GetValue<MagickColor>(element, "startColor");
+            MagickColor stopColor_ = GetValue<MagickColor>(element, "stopColor");
+            image.ColorThreshold(startColor_, stopColor_);
         }
         private void ExecuteComposite(XmlElement element, IMagickImage image)
         {

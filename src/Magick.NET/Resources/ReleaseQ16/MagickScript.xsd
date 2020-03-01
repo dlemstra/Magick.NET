@@ -1547,6 +1547,11 @@
             <xs:attribute name="value" use="required" type="density" />
           </xs:complexType>
         </xs:element>
+        <xs:element name="depth">
+          <xs:complexType>
+            <xs:attribute name="value" use="required" type="int" />
+          </xs:complexType>
+        </xs:element>
         <xs:element name="endian">
           <xs:complexType>
             <xs:attribute name="value" use="required" type="Endian" />
@@ -1775,6 +1780,11 @@
         <xs:element name="density">
           <xs:complexType>
             <xs:attribute name="value" use="required" type="density" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="depth">
+          <xs:complexType>
+            <xs:attribute name="value" use="required" type="int" />
           </xs:complexType>
         </xs:element>
         <xs:element name="endian">
@@ -2361,6 +2371,12 @@
             <xs:attribute name="alphaGreen" type="double" />
             <xs:attribute name="alphaRed" type="double" />
             <xs:attribute name="color" use="required" type="color" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="colorThreshold">
+          <xs:complexType>
+            <xs:attribute name="startColor" use="required" type="color" />
+            <xs:attribute name="stopColor" use="required" type="color" />
           </xs:complexType>
         </xs:element>
         <xs:element name="composite">
