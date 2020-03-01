@@ -120,6 +120,15 @@ namespace Magick.NET.Tests
             }
         }
 
+        [TestMethod]
+        public void ShouldBeAbleToReadImageWithInfiniteRowsPerStrip()
+        {
+            using (IMagickImage image = new MagickImage(Files.Coders.RowsPerStripTIF))
+            {
+                Assert.AreEqual(image.Format, MagickFormat.Tiff);
+            }
+        }
+
         private static void TestValue(IIptcProfile profile, IptcTag tag, string expectedValue)
         {
             var value = profile.GetValue(tag);

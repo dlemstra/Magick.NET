@@ -117,6 +117,8 @@ namespace Magick.NET.Tests
 
             public static string PlayerPSD => Root + @"Images/Coders/Player.psd";
 
+            public static string RowsPerStripTIF => Root + @"Images/Coders/RowsPerStrip.tif";
+
             public static string TestDDS => Root + @"Images/Coders/Test.dds";
 
             public static string TestMNG => Root + @"Images/Coders/Test.mng";
