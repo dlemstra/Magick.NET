@@ -770,6 +770,31 @@
       ]
     },
     {
+      "name": "ColorMatrix",
+      "instance": true,
+      "throws": true,
+      "arguments": [
+        {
+          "name": "matrix",
+          "type": "DoubleMatrix"
+        }
+      ]
+    },
+    {
+      "name": "ColorThreshold",
+      "throws": true,
+      "arguments": [
+        {
+          "name": "startColor",
+          "type": "MagickColor"
+        },
+        {
+          "name": "stopColor",
+          "type": "MagickColor"
+        }
+      ]
+    },
+    {
       "name": "Compare",
       "type": "Instance",
       "instance": true,
@@ -819,17 +844,6 @@
         {
           "name": "channels",
           "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "ColorMatrix",
-      "instance": true,
-      "throws": true,
-      "arguments": [
-        {
-          "name": "matrix",
-          "type": "DoubleMatrix"
         }
       ]
     },

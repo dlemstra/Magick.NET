@@ -1646,6 +1646,19 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Forces all pixels in the color range to white otherwise black.
+        /// </summary>
+        /// <param name="startColor">The start color of the color range.</param>
+        /// <param name="stopColor">The stop color of the color range.</param>
+        public void ColorThreshold(MagickColor startColor, MagickColor stopColor)
+        {
+            Throw.IfNull(nameof(startColor), startColor);
+            Throw.IfNull(nameof(stopColor), stopColor);
+
+            _nativeInstance.ColorThreshold(startColor, stopColor);
+        }
+
+        /// <summary>
         /// Compare current image with another image and returns error information.
         /// </summary>
         /// <param name="image">The other image to compare with this image.</param>

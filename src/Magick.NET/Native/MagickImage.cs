@@ -287,13 +287,15 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Colorize(IntPtr Instance, IntPtr color, IntPtr blend, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickImage_ColorMatrix(IntPtr Instance, IntPtr matrix, out IntPtr exception);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickImage_ColorThreshold(IntPtr Instance, IntPtr startColor, IntPtr stopColor, out IntPtr exception);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Compare(IntPtr Instance, IntPtr image, UIntPtr metric, UIntPtr channels, out double distortion, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_Contrast(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool enhance, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_ContrastStretch(IntPtr Instance, double blackPoint, double whitePoint, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ColorMatrix(IntPtr Instance, IntPtr matrix, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern double MagickImage_CompareDistortion(IntPtr Instance, IntPtr image, UIntPtr metric, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -839,13 +841,15 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Colorize(IntPtr Instance, IntPtr color, IntPtr blend, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickImage_ColorMatrix(IntPtr Instance, IntPtr matrix, out IntPtr exception);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickImage_ColorThreshold(IntPtr Instance, IntPtr startColor, IntPtr stopColor, out IntPtr exception);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Compare(IntPtr Instance, IntPtr image, UIntPtr metric, UIntPtr channels, out double distortion, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_Contrast(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool enhance, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_ContrastStretch(IntPtr Instance, double blackPoint, double whitePoint, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ColorMatrix(IntPtr Instance, IntPtr matrix, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern double MagickImage_CompareDistortion(IntPtr Instance, IntPtr image, UIntPtr metric, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -3370,6 +3374,51 @@ namespace ImageMagick
                     }
                 }
             }
+            public void ColorMatrix(DoubleMatrix matrix)
+            {
+                using (INativeInstance matrixNative = DoubleMatrix.CreateInstance(matrix))
+                {
+                    IntPtr exception = IntPtr.Zero;
+                    IntPtr result;
+                    #if PLATFORM_AnyCPU
+                    if (NativeLibrary.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.MagickImage_ColorMatrix(Instance, matrixNative.Instance, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.MagickImage_ColorMatrix(Instance, matrixNative.Instance, out exception);
+                    #endif
+                    CheckException(exception, result);
+                    Instance = result;
+                }
+            }
+            public void ColorThreshold(MagickColor startColor, MagickColor stopColor)
+            {
+                using (INativeInstance startColorNative = MagickColor.CreateInstance(startColor))
+                {
+                    using (INativeInstance stopColorNative = MagickColor.CreateInstance(stopColor))
+                    {
+                        IntPtr exception = IntPtr.Zero;
+                        #if PLATFORM_AnyCPU
+                        if (NativeLibrary.Is64Bit)
+                        #endif
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
+                        NativeMethods.X64.MagickImage_ColorThreshold(Instance, startColorNative.Instance, stopColorNative.Instance, out exception);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else
+                        #endif
+                        #if PLATFORM_x86 || PLATFORM_AnyCPU
+                        NativeMethods.X86.MagickImage_ColorThreshold(Instance, startColorNative.Instance, stopColorNative.Instance, out exception);
+                        #endif
+                        CheckException(exception);
+                    }
+                }
+            }
             public IntPtr Compare(IMagickImage image, ErrorMetric metric, Channels channels, out double distortion)
             {
                 IntPtr exception = IntPtr.Zero;
@@ -3422,28 +3471,6 @@ namespace ImageMagick
                 NativeMethods.X86.MagickImage_ContrastStretch(Instance, blackPoint, whitePoint, (UIntPtr)channels, out exception);
                 #endif
                 CheckException(exception);
-            }
-            public void ColorMatrix(DoubleMatrix matrix)
-            {
-                using (INativeInstance matrixNative = DoubleMatrix.CreateInstance(matrix))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_ColorMatrix(Instance, matrixNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_ColorMatrix(Instance, matrixNative.Instance, out exception);
-                    #endif
-                    CheckException(exception, result);
-                    Instance = result;
-                }
             }
             public double CompareDistortion(IMagickImage image, ErrorMetric metric, Channels channels)
             {

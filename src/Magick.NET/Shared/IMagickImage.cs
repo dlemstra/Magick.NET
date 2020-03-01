@@ -921,6 +921,13 @@ namespace ImageMagick
         void ColorMatrix(MagickColorMatrix matrix);
 
         /// <summary>
+        /// Forces all pixels in the color range to white otherwise black.
+        /// </summary>
+        /// <param name="startColor">The start color of the color range.</param>
+        /// <param name="stopColor">The stop color of the color range.</param>
+        void ColorThreshold(MagickColor startColor, MagickColor stopColor);
+
+        /// <summary>
         /// Compare current image with another image and returns error information.
         /// </summary>
         /// <param name="image">The other image to compare with this image.</param>
