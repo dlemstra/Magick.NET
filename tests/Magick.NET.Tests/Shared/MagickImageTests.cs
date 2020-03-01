@@ -1303,37 +1303,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_FormatExpression()
-        {
-            using (IMagickImage image = new MagickImage(Files.RedPNG))
-            {
-                ExceptionAssert.Throws<ArgumentNullException>("expression", () =>
-                {
-                    image.FormatExpression(null);
-                });
-
-                Assert.AreEqual("FOO", image.FormatExpression("FOO"));
-                Assert.AreEqual("OO", image.FormatExpression("%EOO"));
-                image.Warning += ShouldRaiseWarning;
-                Assert.AreEqual("OO", image.FormatExpression("%EOO"));
-                image.Warning -= ShouldRaiseWarning;
-
-#if Q8
-                Assert.AreEqual("92f59c51ad61b99b3c9ebd51f1c77b9c80c0478e2fdb7db47831376b1e4a00db", image.FormatExpression("%#"));
-#elif Q16 || Q16HDRI
-                Assert.AreEqual("b7d5aabb76bdeced30f5a4c7f1d54cae21c1683c112ea714ab36de5d9d2c42bb", image.FormatExpression("%#"));
-#else
-#error Not implemented!
-#endif
-            }
-
-            using (IMagickImage image = new MagickImage(Files.InvitationTIF))
-            {
-                Assert.AreEqual("sRGB IEC61966-2.1", image.FormatExpression("%[profile:icc]"));
-            }
-        }
-
-        [TestMethod]
         public void Test_FormatInfo()
         {
             using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
@@ -3353,11 +3322,6 @@ namespace Magick.NET.Tests
             {
                 Cleanup.DeleteFile(fileName);
             }
-        }
-
-        private static void ShouldRaiseWarning(object sender, WarningEventArgs arguments)
-        {
-            Assert.IsNotNull(arguments.Message);
         }
 
         private static void Test_Chromaticity(double expectedX, double expectedY, double expectedZ, PrimaryInfo info)
