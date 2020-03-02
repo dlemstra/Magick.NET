@@ -21,7 +21,7 @@ namespace Magick.NET.Tests.Shared
         public class TheAutoOrientMethod
         {
             [TestMethod]
-            public void ShoulddRotateTheImage()
+            public void ShouldRotateTheImage()
             {
                 using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
                 {
