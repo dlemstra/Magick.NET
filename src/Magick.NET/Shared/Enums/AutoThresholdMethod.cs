@@ -22,21 +22,19 @@ namespace ImageMagick
         /// </summary>
         Undefined,
 
-        /*
         /// <summary>
         /// Kapur
         /// </summary>
         Kapur,
-        */
 
         /// <summary>
         /// OTSU
         /// </summary>
-        OTSU = 2,
+        OTSU,
 
         /// <summary>
         /// Triangle
         /// </summary>
-        Triangle = 3,
+        Triangle,
     }
 }

@@ -22,6 +22,21 @@ namespace Magick.NET.Tests
         public class TheAutoThresholdMethod
         {
             [TestMethod]
+            public void ShouldThresholdImageWithKapurMethod()
+            {
+                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
+                {
+                    image.AutoThreshold(AutoThresholdMethod.Kapur);
+
+                    Dictionary<MagickColor, int> colors = image.Histogram();
+
+                    Assert.AreEqual(ColorType.Bilevel, image.DetermineColorType());
+                    Assert.AreEqual(236359, colors[MagickColors.Black]);
+                    Assert.AreEqual(3641, colors[MagickColors.White]);
+                }
+            }
+
+            [TestMethod]
             public void ShouldThresholdImageWithOTSUMethod()
             {
                 using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
