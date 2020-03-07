@@ -54,6 +54,8 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImageCollection_Combine(IntPtr image, UIntPtr colorSpace, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickImageCollection_Complex(IntPtr image, UIntPtr complexOperator, out IntPtr exception);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImageCollection_Deconstruct(IntPtr image, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImageCollection_Dispose(IntPtr value);
@@ -103,6 +105,8 @@ namespace ImageMagick
                 public static extern IntPtr MagickImageCollection_Coalesce(IntPtr image, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImageCollection_Combine(IntPtr image, UIntPtr colorSpace, out IntPtr exception);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickImageCollection_Complex(IntPtr image, UIntPtr complexOperator, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImageCollection_Deconstruct(IntPtr image, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -216,6 +220,34 @@ namespace ImageMagick
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickImageCollection_Combine(image.GetInstance(), (UIntPtr)colorSpace, out exception);
+                #endif
+                var magickException = MagickExceptionHelper.Create(exception);
+                if (magickException == null)
+                    return result;
+                if (magickException is MagickErrorException)
+                {
+                    if (result != IntPtr.Zero)
+                        Dispose(result);
+                    throw magickException;
+                }
+                RaiseWarning(magickException);
+                return result;
+            }
+            public IntPtr Complex(IMagickImage image, ComplexOperator complexOperator)
+            {
+                IntPtr exception = IntPtr.Zero;
+                IntPtr result;
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImageCollection_Complex(image.GetInstance(), (UIntPtr)complexOperator, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImageCollection_Complex(image.GetInstance(), (UIntPtr)complexOperator, out exception);
                 #endif
                 var magickException = MagickExceptionHelper.Create(exception);
                 if (magickException == null)

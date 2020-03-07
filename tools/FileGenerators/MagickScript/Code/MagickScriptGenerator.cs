@@ -82,7 +82,8 @@ namespace FileGenerator.MagickScript
 
         private void WriteSettings()
         {
-            CreateCodeFile(new DeskewSettings());
+            CreateCodeFile(new ComplexSettingsGenerator());
+            CreateCodeFile(new DeskewSettingsGenerator());
             CreateCodeFile(new DistortSettingsGenerator());
             CreateCodeFile(new KmeansSettingsGenerator());
             CreateCodeFile(new MagickSettingsGenerator());

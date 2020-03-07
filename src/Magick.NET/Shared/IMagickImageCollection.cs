@@ -131,6 +131,13 @@ namespace ImageMagick
         IMagickImage Combine(ColorSpace colorSpace);
 
         /// <summary>
+        /// Perform complex mathematics on an image sequence.
+        /// </summary>
+        /// <param name="complexSettings">The complex settings.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Complex(ComplexSettings complexSettings);
+
+        /// <summary>
         /// Break down an image sequence into constituent parts. This is useful for creating GIF or
         /// MNG animation sequences.
         /// </summary>

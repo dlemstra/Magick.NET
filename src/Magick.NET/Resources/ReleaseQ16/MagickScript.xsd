@@ -65,6 +65,7 @@
     <xs:union>
       <xs:simpleType>
         <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="Kapur" />
           <xs:enumeration value="OTSU" />
           <xs:enumeration value="Triangle" />
         </xs:restriction>
@@ -207,6 +208,24 @@
           <xs:enumeration value="PaletteBilevelAlpha" />
           <xs:enumeration value="TrueColor" />
           <xs:enumeration value="TrueColorAlpha" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="var" />
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="ComplexOperator">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="Add" />
+          <xs:enumeration value="Conjugate" />
+          <xs:enumeration value="Divide" />
+          <xs:enumeration value="MagnitudePhase" />
+          <xs:enumeration value="Multiply" />
+          <xs:enumeration value="RealImaginary" />
+          <xs:enumeration value="Subtract" />
         </xs:restriction>
       </xs:simpleType>
       <xs:simpleType>
@@ -1426,6 +1445,10 @@
       <xs:pattern value="((\d+x?\d*)|(\d*x\d+))( cm| inch)*" />
     </xs:restriction>
   </xs:simpleType>
+  <xs:complexType name="complexSettings">
+    <xs:attribute name="operator" type="ComplexOperator" />
+    <xs:attribute name="signalToNoiseRatio" type="double" />
+  </xs:complexType>
   <xs:complexType name="deskewSettings">
     <xs:attribute name="autoCrop" type="bool" />
     <xs:attribute name="threshold" type="double" />
@@ -3174,6 +3197,13 @@
             <xs:group ref="read" minOccurs="2" maxOccurs="unbounded" />
             <xs:choice minOccurs="0" maxOccurs="unbounded">
               <xs:element name="coalesce" type="empty" />
+              <xs:element name="complex">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="complexSettings" type="complexSettings" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
               <xs:element name="deconstruct" type="empty" />
               <xs:element name="map">
                 <xs:complexType>

@@ -98,6 +98,23 @@
       ]
     },
     {
+      "name": "Complex",
+      "type": "Instance",
+      "instance": true,
+      "throws": true,
+      "static": true,
+      "arguments": [
+        {
+          "name": "image",
+          "type": "IMagickImage"
+        },
+        {
+          "name": "complexOperator",
+          "type": "ComplexOperator"
+        }
+      ]
+    },
+    {
       "name": "Deconstruct",
       "type": "Instance",
       "instance": true,

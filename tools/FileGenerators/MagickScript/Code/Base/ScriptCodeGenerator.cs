@@ -259,6 +259,9 @@ namespace FileGenerator.MagickScript
                 case "ColorProfile":
                     Write("CreateColorProfile");
                     break;
+                case "ComplexSettings":
+                    Write("CreateComplexSettings");
+                    break;
                 case "DeskewSettings":
                     Write("CreateDeskewSettings");
                     break;
@@ -436,6 +439,7 @@ namespace FileGenerator.MagickScript
                     Write("element");
                     break;
                 case "ColorProfile":
+                case "ComplexSettings":
                 case "IDefines":
                 case "KmeansSettings":
                 case "MagickReadSettings":

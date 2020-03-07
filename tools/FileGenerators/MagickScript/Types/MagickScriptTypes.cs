@@ -131,6 +131,7 @@ namespace FileGenerator.MagickScript
                 case "UInt16":
                     return "short";
                 case "ColorProfile":
+                case "ComplexSettings":
                 case "DeskewSettings":
                 case "DistortSettings":
                 case "Double[]":
@@ -294,6 +295,7 @@ namespace FileGenerator.MagickScript
                 case "Boolean":
                 case "Encoding":
                 case "ColorProfile":
+                case "ComplexSettings":
                 case "Density":
                 case "DeskewSettings":
                 case "DistortSettings":

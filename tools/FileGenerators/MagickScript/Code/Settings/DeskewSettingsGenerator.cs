@@ -12,7 +12,7 @@
 
 namespace FileGenerator.MagickScript
 {
-    internal sealed class DeskewSettings : CreateObjectCodeGenerator
+    internal sealed class DeskewSettingsGenerator : CreateObjectCodeGenerator
     {
         public override string ClassName => "DeskewSettings";
     }

@@ -46,7 +46,18 @@ namespace ImageMagick
                         }
                         case 'm':
                         {
-                            return ExecuteCombine(element, collection);
+                            switch(element.Name[3])
+                            {
+                                case 'p':
+                                {
+                                    return ExecuteComplex(element, collection);
+                                }
+                                case 'b':
+                                {
+                                    return ExecuteCombine(element, collection);
+                                }
+                            }
+                            break;
                         }
                     }
                     break;
@@ -179,6 +190,12 @@ namespace ImageMagick
         private static IMagickImage ExecuteCoalesce(IMagickImageCollection collection)
         {
             collection.Coalesce();
+            return null;
+        }
+        private IMagickImage ExecuteComplex(XmlElement element, IMagickImageCollection collection)
+        {
+            ComplexSettings complexSettings_ = CreateComplexSettings(element["complexSettings"]);
+            collection.Complex(complexSettings_);
             return null;
         }
         private static IMagickImage ExecuteDeconstruct(IMagickImageCollection collection)

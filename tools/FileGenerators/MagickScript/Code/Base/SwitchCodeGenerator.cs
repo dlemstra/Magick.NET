@@ -91,6 +91,7 @@ namespace FileGenerator.MagickScript
         {
             switch (typeName)
             {
+                case "ComplexSettings":
                 case "Double[]":
                 case "PathArc":
                 case "IDefines":

@@ -447,6 +447,35 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Perform complex mathematics on an image sequence.
+        /// </summary>
+        /// <param name="complexSettings">The complex settings.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Complex(ComplexSettings complexSettings)
+        {
+            Throw.IfNull(nameof(complexSettings), complexSettings);
+            ThrowIfEmpty();
+
+            MagickSettings settings = _images[0].Settings.Clone();
+
+            IntPtr images;
+            try
+            {
+                AttachImages();
+                complexSettings.SetImageArtifacts(_images[0]);
+                images = _nativeInstance.Complex(_images[0], complexSettings.Operator);
+            }
+            finally
+            {
+                DetachImages();
+            }
+
+            Clear();
+            foreach (IMagickImage image in MagickImage.CreateList(images, settings))
+                Add(image);
+        }
+
+        /// <summary>
         /// Determines whether the collection contains the specified image.
         /// </summary>
         /// <param name="item">The image to check.</param>
