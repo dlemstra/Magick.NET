@@ -3,7 +3,7 @@
 ## Draw text
 
 ```C#
-using (MagickImage image = new MagickImage(new MagickColor("#ff00ff"), 512, 128))
+using (var image = new MagickImage(new MagickColor("#ff00ff"), 512, 128))
 {
     new Drawables()
       // Draw text on the image

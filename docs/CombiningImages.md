@@ -3,18 +3,18 @@
 ## Merge multiple images
 
 ```C#
-using (MagickImageCollection images = new MagickImageCollection())
+using (var images = new MagickImageCollection())
 {
     // Add the first image
-    MagickImage first = new MagickImage("Snakeware.png");
+    var first = new MagickImage("Snakeware.png");
     images.Add(first);
 
     // Add the second image
-    MagickImage second = new MagickImage("Snakeware.png");
+    var second = new MagickImage("Snakeware.png");
     images.Add(second);
 
     // Create a mosaic from both images
-    using(IMagickImage result = images.Mosaic())
+    using(var result = images.Mosaic())
     {
       // Save the result
       result.Write("Mosaic.png");
@@ -37,7 +37,7 @@ using (MagickImageCollection collection = new MagickImageCollection())
     collection[1].Flip();
 
     // Optionally reduce colors
-    QuantizeSettings settings = new QuantizeSettings();
+    var settings = new QuantizeSettings();
     settings.Colors = 256;
     collection.Quantize(settings);
 

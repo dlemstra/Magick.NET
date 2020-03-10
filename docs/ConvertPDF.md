@@ -12,17 +12,17 @@ you will get a better performance if you keep the platforms the same.
 ## Convert PDF to multiple images
 
 ```C#
-MagickReadSettings settings = new MagickReadSettings();
+var settings = new MagickReadSettings();
 // Settings the density to 300 dpi will create an image with a better quality
 settings.Density = new Density(300, 300);
 
-using (MagickImageCollection images = new MagickImageCollection())
+using (var images = new MagickImageCollection())
 {
     // Add all the pages of the pdf file to the collection
     images.Read("Snakeware.pdf", settings);
 
-    int page = 1;
-    foreach (MagickImage image in images)
+    var page = 1;
+    foreach (var image in images)
     {
         // Write page to file that contains the page number
         image.Write("Snakeware.Page" + page + ".png");
@@ -37,24 +37,24 @@ using (MagickImageCollection images = new MagickImageCollection())
 ## Convert PDF to one image
 
 ```C#
-MagickReadSettings settings = new MagickReadSettings();
+var settings = new MagickReadSettings();
 // Settings the density to 300 dpi will create an image with a better quality
 settings.Density = new Density(300);
 
-using (MagickImageCollection images = new MagickImageCollection())
+using (var images = new MagickImageCollection())
 {
     // Add all the pages of the pdf file to the collection
     images.Read("Snakeware.pdf", settings);
 
     // Create new image that appends all the pages horizontally
-    using (IMagickImage horizontal = images.AppendHorizontally())
+    using (var horizontal = images.AppendHorizontally())
     {
         // Save result as a png
         horizontal.Write("Snakeware.horizontal.png");
     }
 
     // Create new image that appends all the pages vertically
-    using (IMagickImage vertical = images.AppendVertically())
+    using (var vertical = images.AppendVertically())
     {
         // Save result as a png
         vertical.Write("Snakeware.vertical.png");
@@ -65,7 +65,7 @@ using (MagickImageCollection images = new MagickImageCollection())
 ## Create a PDF from two images
 
 ```C#
-using (MagickImageCollection collection = new MagickImageCollection())
+using (var collection = new MagickImageCollection())
 {
     // Add first page
     collection.Add(new MagickImage("SnakewarePage1.jpg"));
@@ -81,7 +81,7 @@ using (MagickImageCollection collection = new MagickImageCollection())
 
 ```C#
 // Read image from file
-using (MagickImage image = new MagickImage("Snakeware.jpg"))
+using (var image = new MagickImage("Snakeware.jpg"))
 {
     // Create pdf file with a single page
     image.Write("Snakeware.pdf");
@@ -91,9 +91,9 @@ using (MagickImage image = new MagickImage("Snakeware.jpg"))
 ## Read a single page from a PDF
 
 ```C#
-using (MagickImageCollection collection = new MagickImageCollection())
+using (var collection = new MagickImageCollection())
 {
-    MagickReadSettings settings = new MagickReadSettings();
+    var settings = new MagickReadSettings();
     settings.FrameIndex = 0; // First page
     settings.FrameCount = 1; // Number of pages
 

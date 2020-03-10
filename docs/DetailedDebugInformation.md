@@ -16,7 +16,7 @@ public void ReadImage()
     // Set the log handler (all threads use the same handler)
     MagickNET.Log += MagickNET_Log;
 
-    using (MagickImage image = new MagickImage())
+    using (var image = new MagickImage())
     {
         // Reading the image will send all log events to the log handler
         image.Read("Snakeware.png");

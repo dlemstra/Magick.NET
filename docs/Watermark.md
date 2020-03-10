@@ -2,10 +2,10 @@
 
 ```C#
 // Read image that needs a watermark
-using (MagickImage image = new MagickImage("Snakeware.jpg"))
+using (var image = new MagickImage("Snakeware.jpg"))
 {
     // Read the watermark that will be put on top of the image
-    using (MagickImage watermark = new MagickImage("Magick.NET.png"))
+    using (var watermark = new MagickImage("Magick.NET.png"))
     {
         // Draw the watermark in the bottom right corner
         image.Composite(watermark, Gravity.Southeast, CompositeOperator.Over);

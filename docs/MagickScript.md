@@ -41,13 +41,13 @@ file every time you should not specify the write element. Below is an example.
 
 ```C#
 // Load wave script
-MagickScript script = new MagickScript("Wave.msl");
+var script = new MagickScript("Wave.msl");
 
 // Execute script multiple times
-foreach (string fileName in Directory.GetFiles("*.jpg"))
+foreach (var fileName in Directory.GetFiles("*.jpg"))
 {
     // Read image from file
-    using (MagickImage image = new MagickImage(fileName))
+    using (var image = new MagickImage(fileName))
     {
         // Execute script with the image and write it to a jpg file
         script.Execute(image);
@@ -85,7 +85,7 @@ void OnScriptWrite(object sender, ScriptWriteEventArgs arguments)
 void ExecuteCropScript()
 {
     // Load crop script
-    MagickScript script = new MagickScript("Crop.msl");
+    var script = new MagickScript("Crop.msl");
     // Event that will be raised when the script wants to read a file
     script.Read += OnScriptRead;
     // Event that will be raised when the script wants to write a file
@@ -117,6 +117,6 @@ that reads one input file and writes two output files.
 
 ```C#
 // Load clone script and execute it
-MagickScript script = new MagickScript("Clone.msl");
+var script = new MagickScript("Clone.msl");
 script.Execute();
 ```

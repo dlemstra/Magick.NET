@@ -4,12 +4,12 @@
 
 ```C#
 // Read from file.
-using (MagickImage image = new MagickImage("Snakeware.jpg"))
+using (var image = new MagickImage("Snakeware.jpg"))
 {
 }
 
 // Read from stream.
-using (MemoryStream memStream = LoadMemoryStreamImage())
+using (var memStream = LoadMemoryStreamImage())
 {
     using (MagickImage image = new MagickImage(memStream))
     {
@@ -17,26 +17,26 @@ using (MemoryStream memStream = LoadMemoryStreamImage())
 }
 
 // Read from byte array.
-byte[] data = LoadImageBytes();
+var data = LoadImageBytes();
 using (MagickImage image = new MagickImage(data))
 {
 }
 
 // Read image that has no predefined dimensions.
-MagickReadSettings settings = new MagickReadSettings();
+var settings = new MagickReadSettings();
 settings.Width = 800;
 settings.Height = 600;
-using (MagickImage image = new MagickImage("xc:yellow", settings))
+using (var image = new MagickImage("xc:yellow", settings))
 {
 }
 
-using (MagickImage image = new MagickImage())
+using (var image = new MagickImage())
 {
     image.Read("Snakeware.jpg");
     image.Read(memStream);
     image.Read("xc:yellow", settings);
 
-    using (MemoryStream memStream = LoadMemoryStreamImage())
+    using (var memStream = LoadMemoryStreamImage())
     {
         image.Read(memStream);
     }
@@ -47,21 +47,21 @@ using (MagickImage image = new MagickImage())
 
 ```C#
 // Read from file
-MagickImageInfo info = new MagickImageInfo("Snakeware.jpg");
+var info = new MagickImageInfo("Snakeware.jpg");
 
 // Read from stream
-using (MemoryStream memStream = LoadMemoryStreamImage())
+using (var memStream = LoadMemoryStreamImage())
 {
     info = new MagickImageInfo(memStream);
 }
 
 // Read from byte array
-byte[] data = LoadImageBytes();
+var data = LoadImageBytes();
 info = new MagickImageInfo(data);
 
 info = new MagickImageInfo();
 info.Read("Snakeware.jpg");
-using (MemoryStream memStream = LoadMemoryStreamImage())
+using (var memStream = LoadMemoryStreamImage())
 {
     info.Read(memStream);
 }
@@ -80,36 +80,36 @@ Console.WriteLine(info.Density.Units);
 
 ```C#
 // Read from file
-using (MagickImageCollection collection = new MagickImageCollection("Snakeware.gif"))
+using (var collection = new MagickImageCollection("Snakeware.gif"))
 {
 }
 
 // Read from stream
-using (MemoryStream memStream = LoadMemoryStreamImage())
+using (var memStream = LoadMemoryStreamImage())
 {
-    using (MagickImageCollection collection = new MagickImageCollection(memStream))
+    using (var collection = new MagickImageCollection(memStream))
     {
     }
 }
 
 // Read from byte array
-byte[] data = LoadImageBytes();
-using (MagickImageCollection collection = new MagickImageCollection(data))
+var data = LoadImageBytes();
+using (var collection = new MagickImageCollection(data))
 {
 }
 
 // Read pdf with custom density.
-MagickReadSettings settings = new MagickReadSettings();
+var settings = new MagickReadSettings();
 settings.Density = new Density(144);
 
-using (MagickImageCollection collection = new MagickImageCollection("Snakeware.pdf", settings))
+using (var collection = new MagickImageCollection("Snakeware.pdf", settings))
 {
 }
 
-using (MagickImageCollection collection = new MagickImageCollection())
+using (var collection = new MagickImageCollection())
 {
     collection.Read("Snakeware.jpg");
-    using (MemoryStream memStream = LoadMemoryStreamImage())
+    using (var memStream = LoadMemoryStreamImage())
     {
         collection.Read(memStream);
     }

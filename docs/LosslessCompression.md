@@ -3,11 +3,11 @@
 ## Lossless compress JPEG logo
 
 ```C#
-FileInfo snakewareLogo = new FileInfo("Snakeware.jpg");
+var snakewareLogo = new FileInfo("Snakeware.jpg");
 
 Console.WriteLine("Bytes before: " + snakewareLogo.Length);
 
-ImageOptimizer optimizer = new ImageOptimizer();
+var optimizer = new ImageOptimizer();
 optimizer.LosslessCompress(snakewareLogo);
 
 snakewareLogo.Refresh();

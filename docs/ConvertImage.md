@@ -4,22 +4,22 @@
 
 ```C#
 // Read first frame of gif image
-using (MagickImage image = new MagickImage("Snakeware.gif"))
+using (var image = new MagickImage("Snakeware.gif"))
 {
     // Save frame as jpg
     image.Write("Snakeware.jpg");
 }
 
 // Write to stream
-MagickReadSettings settings = new MagickReadSettings();
+var settings = new MagickReadSettings();
 // Tells the xc: reader the image to create should be 800x600
 settings.Width = 800;
 settings.Height = 600;
 
-using (MemoryStream memStream = new MemoryStream())
+using (var memStream = new MemoryStream())
 {
     // Create image that is completely purple and 800x600
-    using (MagickImage image = new MagickImage("xc:purple", settings))
+    using (var image = new MagickImage("xc:purple", settings))
     {
         // Sets the output format to png
         image.Format = MagickFormat.Png;
@@ -29,7 +29,7 @@ using (MemoryStream memStream = new MemoryStream())
 }
 
 // Read image from file
-using (MagickImage image = new MagickImage("Snakeware.png"))
+using (var image = new MagickImage("Snakeware.png"))
 {
     // Sets the output format to jpeg
     image.Format = MagickFormat.Jpeg;
@@ -42,11 +42,11 @@ using (MagickImage image = new MagickImage("Snakeware.png"))
 
 ```C#
 // Uses sRGB.icm, eps/pdf produce better result when you set this before loading.
-MagickReadSettings settings = new MagickReadSettings();
+var settings = new MagickReadSettings();
 settings.ColorSpace = ColorSpace.sRGB;
 
 // Create empty image 
-using (MagickImage image = new MagickImage())
+using (var image = new MagickImage())
 {
     // Reads the eps image, the specified settings tell Ghostscript to create an sRGB image
     image.Read("Snakeware.eps", settings);
@@ -55,11 +55,10 @@ using (MagickImage image = new MagickImage())
 }
 
 // Read image from file
-using (MagickImage image = new MagickImage("Snakeware.jpg"))
+using (var image = new MagickImage("Snakeware.jpg"))
 {
     // Add a CMYK profile if your image does not contain a color profile.
     image.AddProfile(ColorProfile.USWebCoatedSWOP);
-
     // Adding the second profile will transform the colorspace from CMYK to RGB
     image.AddProfile(ColorProfile.SRGB);
     // Save image as png
@@ -67,11 +66,10 @@ using (MagickImage image = new MagickImage("Snakeware.jpg"))
 }
 
 // Use custom color profile
-using (MagickImage image = new MagickImage("Snakeware.jpg"))
+using (var image = new MagickImage("Snakeware.jpg"))
 {
     // First add a CMYK profile if your image does not contain a color profile.
     image.AddProfile(ColorProfile.USWebCoatedSWOP);
-
     // Adding the second profile will transform the colorspace from your custom icc profile
     image.AddProfile(new ColorProfile("YourProfile.icc"));
     // Save image as tiff
