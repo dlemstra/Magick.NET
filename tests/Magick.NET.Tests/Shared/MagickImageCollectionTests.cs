@@ -32,49 +32,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageCollectionTests
     {
         [TestMethod]
-        public void Test_Combine_sRGB()
-        {
-            using (IMagickImage rose = new MagickImage(Files.Builtin.Rose))
-            {
-                using (IMagickImageCollection collection = new MagickImageCollection())
-                {
-                    ExceptionAssert.Throws<InvalidOperationException>(() =>
-                    {
-                        collection.Combine();
-                    });
-
-                    collection.AddRange(rose.Separate(Channels.RGB));
-
-                    Assert.AreEqual(3, collection.Count);
-
-                    IMagickImage image = collection.Merge();
-                    Assert.AreNotEqual(rose.TotalColors, image.TotalColors);
-                    image.Dispose();
-
-                    image = collection.Combine();
-                    Assert.AreEqual(rose.TotalColors, image.TotalColors);
-                }
-            }
-        }
-
-        [TestMethod]
-        public void Test_Combine_CMYK()
-        {
-            using (IMagickImage cmyk = new MagickImage(Files.CMYKJPG))
-            {
-                using (IMagickImageCollection collection = new MagickImageCollection())
-                {
-                    collection.AddRange(cmyk.Separate(Channels.CMYK));
-
-                    Assert.AreEqual(4, collection.Count);
-
-                    IMagickImage image = collection.Combine(ColorSpace.CMYK);
-                    Assert.AreEqual(0.0, cmyk.Compare(image, ErrorMetric.RootMeanSquared));
-                }
-            }
-        }
-
-        [TestMethod]
         public void Test_CopyTo()
         {
             using (IMagickImageCollection collection = new MagickImageCollection())
