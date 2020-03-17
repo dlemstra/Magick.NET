@@ -10,7 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if !NETSTANDARD
+#if !NETSTANDARD1_3
 
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -19,7 +19,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
 
-#if !NET20
+#if !NET20 && !NETSTANDARD2_0
 using System.Windows.Media.Imaging;
 using MediaPixelFormat = System.Windows.Media.PixelFormat;
 using MediaPixelFormats = System.Windows.Media.PixelFormats;
@@ -166,7 +166,7 @@ namespace ImageMagick
             return bitmap;
         }
 
-#if !NET20
+#if !NET20 && !NETSTANDARD2_0
         /// <summary>
         /// Converts this instance to a <see cref="BitmapSource"/>.
         /// </summary>

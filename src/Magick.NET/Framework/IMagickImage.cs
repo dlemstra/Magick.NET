@@ -10,12 +10,12 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if !NETSTANDARD
+#if !NETSTANDARD1_3
 
 using System.Drawing;
 using System.Drawing.Imaging;
 
-#if !NET20
+#if !NET20 && !NETSTANDARD2_0
 using System.Windows.Media.Imaging;
 #endif
 
@@ -73,7 +73,7 @@ namespace ImageMagick
         /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/>.</returns>
         Bitmap ToBitmap(ImageFormat imageFormat, BitmapDensity bitmapDensity);
 
-#if !NET20
+#if !NET20 && !NETSTANDARD2_0
         /// <summary>
         /// Converts this instance to a <see cref="BitmapSource"/>.
         /// </summary>
