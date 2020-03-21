@@ -417,25 +417,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_TextGravity()
-        {
-            using (IMagickImage image = new MagickImage("xc:red", 300, 300))
-            {
-                Assert.AreEqual(Gravity.Undefined, image.Settings.TextGravity);
-
-                image.Settings.BackgroundColor = MagickColors.Yellow;
-                image.Settings.StrokeColor = MagickColors.Fuchsia;
-                image.Settings.FillColor = MagickColors.Fuchsia;
-                image.Settings.TextGravity = Gravity.Center;
-
-                image.Read("label:Test");
-
-                ColorAssert.AreEqual(MagickColors.Yellow, image, 50, 80);
-                ColorAssert.AreEqual(MagickColors.Fuchsia, image, 50, 160);
-            }
-        }
-
-        [TestMethod]
         public void Test_TextInterlineSpacing()
         {
             using (IMagickImage image = new MagickImage())
