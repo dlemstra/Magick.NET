@@ -129,6 +129,8 @@ namespace Magick.NET.Tests
             public static string Arial => Root + @"Fonts/arial.ttf";
 
             public static string CourierNew => Root + @"Fonts/cour.ttf";
+
+            public static string KaushanScript => Root + @"Fonts/KaushanScript-Regular.ttf";
         }
 
         public static class Logos
