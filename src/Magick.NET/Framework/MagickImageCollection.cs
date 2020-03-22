@@ -29,6 +29,9 @@ namespace ImageMagick
         /// <returns>A <see cref="Bitmap"/> that has the format <see cref="ImageFormat.Tiff"/>.</returns>
         public Bitmap ToBitmap()
         {
+            if (Count == 1)
+                return this[0].ToBitmap();
+
             return ToBitmap(ImageFormat.Tiff);
         }
 

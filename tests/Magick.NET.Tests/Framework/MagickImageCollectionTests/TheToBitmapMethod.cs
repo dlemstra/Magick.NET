@@ -27,14 +27,31 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnBitmap()
             {
-                using (IMagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
+                using (IMagickImageCollection images = new MagickImageCollection(Files.RoseSparkleGIF))
                 {
-                    Assert.AreEqual(3, collection.Count);
+                    Assert.AreEqual(3, images.Count);
 
-                    using (Bitmap bitmap = collection.ToBitmap())
+                    using (Bitmap bitmap = images.ToBitmap())
                     {
                         Assert.IsNotNull(bitmap);
                         Assert.AreEqual(3, bitmap.GetFrameCount(FrameDimension.Page));
+                    }
+                }
+            }
+
+            [TestMethod]
+            public void ShouldUseOptimizationForSingleImage()
+            {
+                using (IMagickImageCollection images = new MagickImageCollection(Files.RoseSparkleGIF))
+                {
+                    images.RemoveAt(0);
+                    images.RemoveAt(0);
+
+                    Assert.AreEqual(1, images.Count);
+
+                    using (Bitmap bitmap = images.ToBitmap())
+                    {
+                        Assert.IsNotNull(bitmap);
                     }
                 }
             }
