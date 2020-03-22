@@ -38,7 +38,7 @@ namespace Magick.NET.Tests
                     image.Settings.FontWeight = FontWeight.ExtraBold;
                     image.Read("label:Test");
 
-                    Assert.AreEqual(97, image.Width);
+                    Assert.AreEqual(98, image.Width);
                     Assert.AreEqual(48, image.Height);
                     ColorAssert.AreEqual(MagickColors.Black, image, 16, 16);
                 }

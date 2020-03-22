@@ -29,7 +29,7 @@ namespace Magick.NET.Tests.Shared.Coders
 
             using (IMagickImage image = new MagickImage("label:asf", settings))
             {
-                ColorAssert.AreEqual(MagickColors.Black, image, 296, 67);
+                ColorAssert.AreEqual(MagickColors.Black, image, 293, 68);
                 ColorAssert.AreEqual(MagickColors.Black, image, 17, 200);
             }
         }

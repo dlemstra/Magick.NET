@@ -57,8 +57,8 @@ namespace Magick.NET.Tests
                 ColorAssert.AreEqual(MagickColors.Green, image, 170, 67);
                 ColorAssert.AreEqual(MagickColors.Red, image, 444, 26);
                 ColorAssert.AreEqual(MagickColors.Red, image, 395, 55);
-                ColorAssert.AreEqual(MagickColors.Red, image, 230, 116);
-                ColorAssert.AreEqual(new MagickColor("#0000"), image, 170, 94);
+                ColorAssert.AreEqual(MagickColors.Red, image, 231, 116);
+                ColorAssert.AreEqual(new MagickColor("#0000"), image, 171, 93);
             }
         }
 
@@ -75,10 +75,10 @@ namespace Magick.NET.Tests
 
             using (IMagickImage image = new MagickImage(caption, readSettings))
             {
-                ColorAssert.AreEqual(MagickColors.Black, image, 439, 23);
-                ColorAssert.AreEqual(MagickColors.Black, image, 265, 42);
-                ColorAssert.AreEqual(MagickColors.Black, image, 229, 68);
-                ColorAssert.AreEqual(MagickColors.White, image, 151, 77);
+                ColorAssert.AreEqual(MagickColors.Black, image, 419, 27);
+                ColorAssert.AreEqual(MagickColors.Black, image, 426, 58);
+                ColorAssert.AreEqual(MagickColors.Black, image, 450, 90);
+                ColorAssert.AreEqual(MagickColors.White, image, 153, 60);
             }
         }
 

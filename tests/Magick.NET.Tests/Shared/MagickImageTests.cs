@@ -1266,7 +1266,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(-32, typeMetric.Descent);
                 Assert.AreEqual(300, typeMetric.MaxHorizontalAdvance);
                 Assert.AreEqual(168, typeMetric.TextHeight);
-                Assert.AreEqual(816, typeMetric.TextWidth);
+                Assert.AreEqual(813, typeMetric.TextWidth);
                 Assert.AreEqual(-21.38671875, typeMetric.UnderlinePosition);
                 Assert.AreEqual(10.986328125, typeMetric.UnderlineThickness);
             }
