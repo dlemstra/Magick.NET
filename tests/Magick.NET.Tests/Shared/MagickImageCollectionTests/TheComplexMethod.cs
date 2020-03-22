@@ -40,26 +40,27 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldMergeTheImages()
+            public void ShouldApplyTheOperatorToTheImages()
             {
                 using (IMagickImageCollection collection = new MagickImageCollection())
                 {
                     collection.Read(Files.RoseSparkleGIF);
 
-                    collection.Complex(new ComplexSettings()
+                    collection.Complex(new ComplexSettings
                     {
                         Operator = ComplexOperator.Conjugate,
-                        SignalToNoiseRatio = 5.5,
                     });
 
                     Assert.AreEqual(2, collection.Count);
 
-                    collection[1].Clamp();
 #if Q8
-                    ColorAssert.AreEqual(new MagickColor("#db638b"), collection[1], 10, 10);
+                    ColorAssert.AreEqual(new MagickColor("#abb4ba01"), collection[1], 10, 10);
 
-#elif Q16 || Q16HDRI
-                    ColorAssert.AreEqual(new MagickColor("#2c2c2b2b2b2b"), collection[1], 10, 10);
+#elif Q16
+                    ColorAssert.AreEqual(new MagickColor("#aaabb3b4b9ba0001"), collection[1], 10, 10);
+#elif Q16HDRI
+                    collection[1].Clamp();
+                    ColorAssert.AreEqual(new MagickColor("#0000000000000000"), collection[1], 10, 10);
 #else
 #error Not implemented!
 #endif
