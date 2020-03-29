@@ -75,14 +75,6 @@ namespace Magick.NET.Tests.Shared
                 {
                     image.SetArtifact("test", "123");
                     Assert.AreEqual("123", image.GetArtifact("test"));
-
-                    image.SetAttribute("foo", "bar");
-
-                    var names = image.ArtifactNames;
-                    Assert.AreEqual(1, names.Count());
-                    Assert.AreEqual("test", string.Join(",", (from name in names
-                                                              orderby name
-                                                              select name).ToArray()));
                 }
             }
         }
