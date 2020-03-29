@@ -11,7 +11,6 @@
 // and limitations under the License.
 
 using System;
-using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -22,67 +21,103 @@ namespace Magick.NET.Tests.Shared
         [TestClass]
         public class TheSetAttributeMethod
         {
-            [TestMethod]
-            public void ShouldThrowExceptionWhenNameIsNull()
+            [TestClass]
+            public class WithBoolean
             {
-                using (IMagickImage image = new MagickImage())
+                [TestMethod]
+                public void ShouldThrowExceptionWhenNameIsNull()
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("name", () =>
+                    using (IMagickImage image = new MagickImage())
                     {
-                        image.SetAttribute(null, "foo");
-                    });
+                        ExceptionAssert.Throws<ArgumentNullException>("name", () =>
+                        {
+                            image.SetAttribute(null, true);
+                        });
+                    }
                 }
-            }
 
-            [TestMethod]
-            public void ShouldThrowExceptionWhenNameIsEmpty()
-            {
-                using (IMagickImage image = new MagickImage())
+                [TestMethod]
+                public void ShouldThrowExceptionWhenNameIsEmpty()
                 {
-                    ExceptionAssert.Throws<ArgumentException>("name", () =>
+                    using (IMagickImage image = new MagickImage())
                     {
-                        image.SetAttribute(string.Empty, "foo");
-                    });
+                        ExceptionAssert.Throws<ArgumentException>("name", () =>
+                        {
+                            image.SetAttribute(string.Empty, true);
+                        });
+                    }
                 }
-            }
 
-            [TestMethod]
-            public void ShouldThrowExceptionWhenValueIsNull()
-            {
-                using (IMagickImage image = new MagickImage())
+                [TestMethod]
+                public void ShouldSetValue()
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("value", () =>
+                    using (IMagickImage image = new MagickImage())
                     {
-                        image.SetAttribute("foo", null);
-                    });
+                        image.SetAttribute("test", true);
+                        Assert.AreEqual("true", image.GetAttribute("test"));
+                    }
                 }
             }
 
-            [TestMethod]
-            public void ShouldSetEmptyValue()
+            [TestClass]
+            public class WithString
             {
-                using (IMagickImage image = new MagickImage())
+                [TestMethod]
+                public void ShouldThrowExceptionWhenNameIsNull()
                 {
-                    image.SetAttribute("test", string.Empty);
-                    Assert.AreEqual(string.Empty, image.GetAttribute("test"));
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("name", () =>
+                        {
+                            image.SetAttribute(null, "foo");
+                        });
+                    }
                 }
-            }
 
-            [TestMethod]
-            public void ShouldSetValue()
-            {
-                using (IMagickImage image = new MagickImage())
+                [TestMethod]
+                public void ShouldThrowExceptionWhenNameIsEmpty()
                 {
-                    image.SetAttribute("test", "123");
-                    Assert.AreEqual("123", image.GetAttribute("test"));
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.Throws<ArgumentException>("name", () =>
+                        {
+                            image.SetAttribute(string.Empty, "foo");
+                        });
+                    }
+                }
 
-                    image.SetArtifact("foo", "bar");
+                [TestMethod]
+                public void ShouldThrowExceptionWhenValueIsNull()
+                {
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("value", () =>
+                        {
+                            image.SetAttribute("foo", null);
+                        });
+                    }
+                }
 
-                    var names = image.AttributeNames;
-                    Assert.AreEqual(1, names.Count());
-                    Assert.AreEqual("test", string.Join(",", (from name in names
-                                                              orderby name
-                                                              select name).ToArray()));
+                [TestMethod]
+                public void ShouldSetEmptyValue()
+                {
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        image.SetAttribute("test", string.Empty);
+                        Assert.AreEqual(string.Empty, image.GetAttribute("test"));
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldSetValue()
+                {
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        image.SetAttribute("test", "123");
+                        Assert.AreEqual("123", image.GetAttribute("test"));
+
+                        image.SetArtifact("foo", "bar");
+                    }
                 }
             }
         }
