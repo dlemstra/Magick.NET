@@ -192,54 +192,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_Artifact()
-        {
-            using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
-            {
-                ExceptionAssert.Throws<ArgumentException>("name", () =>
-                {
-                    image.GetArtifact(string.Empty);
-                });
-
-                ExceptionAssert.Throws<ArgumentNullException>("name", () =>
-                {
-                    image.GetArtifact(null);
-                });
-
-                ExceptionAssert.Throws<ArgumentException>("name", () =>
-                {
-                    image.SetArtifact(string.Empty, "test");
-                });
-
-                ExceptionAssert.Throws<ArgumentNullException>("name", () =>
-                {
-                    image.SetArtifact(null, "test");
-                });
-
-                ExceptionAssert.Throws<ArgumentNullException>("value", () =>
-                {
-                    image.SetArtifact("test", null);
-                });
-
-                Assert.IsNull(image.GetArtifact("test"));
-
-                image.SetArtifact("test", string.Empty);
-                Assert.AreEqual(string.Empty, image.GetArtifact("test"));
-
-                image.SetArtifact("test", "123");
-                Assert.AreEqual("123", image.GetArtifact("test"));
-
-                image.SetAttribute("foo", "bar");
-
-                IEnumerable<string> names = image.ArtifactNames;
-                Assert.AreEqual(1, names.Count());
-                Assert.AreEqual("test", string.Join(",", (from name in names
-                                                          orderby name
-                                                          select name).ToArray()));
-            }
-        }
-
-        [TestMethod]
         public void Test_Attribute()
         {
             using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
