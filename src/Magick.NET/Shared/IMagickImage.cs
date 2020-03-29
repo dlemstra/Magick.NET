@@ -3644,6 +3644,14 @@ namespace ImageMagick
         void SetArtifact(string name, string value);
 
         /// <summary>
+        /// Inserts the artifact with the specified name and value into the artifact tree of the image.
+        /// </summary>
+        /// <param name="name">The name of the artifact.</param>
+        /// <param name="flag">The value of the artifact.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void SetArtifact(string name, bool flag);
+
+        /// <summary>
         /// Lessen (or intensify) when adding noise to an image.
         /// </summary>
         /// <param name="attenuate">The attenuate value.</param>

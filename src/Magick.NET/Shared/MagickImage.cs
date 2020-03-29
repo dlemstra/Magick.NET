@@ -5124,6 +5124,19 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Inserts the artifact with the specified name and value into the artifact tree of the image.
+        /// </summary>
+        /// <param name="name">The name of the artifact.</param>
+        /// <param name="flag">The value of the artifact.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void SetArtifact(string name, bool flag)
+        {
+            Throw.IfNullOrEmpty(nameof(name), name);
+
+            _nativeInstance.SetArtifact(name, flag ? "true" : "false");
+        }
+
+        /// <summary>
         /// Lessen (or intensify) when adding noise to an image.
         /// </summary>
         /// <param name="attenuate">The attenuate value.</param>
