@@ -11,7 +11,6 @@
 // and limitations under the License.
 
 using System;
-using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -19,7 +18,7 @@ namespace Magick.NET.Tests.Shared
 {
     public partial class MagickImageTests
     {
-        public class TheSetAttributeMethod
+        public class TheSetArtifactMethod
         {
             [TestClass]
             public class WithBoolean
