@@ -192,57 +192,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_Attribute()
-        {
-            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
-            {
-                ExceptionAssert.Throws<ArgumentException>("name", () =>
-                {
-                    image.GetAttribute(string.Empty);
-                });
-
-                ExceptionAssert.Throws<ArgumentNullException>("name", () =>
-                {
-                    image.GetAttribute(null);
-                });
-
-                ExceptionAssert.Throws<ArgumentException>("name", () =>
-                {
-                    image.SetAttribute(string.Empty, "test");
-                });
-
-                ExceptionAssert.Throws<ArgumentNullException>("name", () =>
-                {
-                    image.SetAttribute(null, "test");
-                });
-
-                ExceptionAssert.Throws<ArgumentNullException>("value", () =>
-                {
-                    image.SetAttribute("test", null);
-                });
-
-                Assert.IsNull(image.GetAttribute("test"));
-
-                IEnumerable<string> names = image.AttributeNames;
-                Assert.AreEqual(4, names.Count());
-
-                image.SetAttribute("test", string.Empty);
-                Assert.AreEqual(string.Empty, image.GetAttribute("test"));
-
-                image.SetAttribute("test", "123");
-                Assert.AreEqual("123", image.GetAttribute("test"));
-
-                image.SetArtifact("foo", "bar");
-
-                names = image.AttributeNames;
-                Assert.AreEqual(5, names.Count());
-                Assert.AreEqual("date:create,date:modify,jpeg:colorspace,jpeg:sampling-factor,test", string.Join(",", (from name in names
-                                                                                                                       orderby name
-                                                                                                                       select name).ToArray()));
-            }
-        }
-
-        [TestMethod]
         public void Test_AutoGamma()
         {
             using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
