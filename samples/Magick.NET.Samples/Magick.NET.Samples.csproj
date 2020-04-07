@@ -8,6 +8,10 @@
     <Platforms>x86;x64;AnyCPU</Platforms>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <NoWarn>CS0618</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\src\Magick.NET\Magick.NET.csproj" />
   </ItemGroup>
