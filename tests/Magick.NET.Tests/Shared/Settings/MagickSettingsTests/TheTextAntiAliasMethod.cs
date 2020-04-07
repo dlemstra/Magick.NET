@@ -31,7 +31,8 @@ namespace Magick.NET.Tests.Shared.Settings
                     image.Settings.FontPointsize = 100;
                     image.Annotate("TEST", Gravity.Center);
 
-                    ColorAssert.AreEqual(MagickColors.Azure, image, 175, 111);
+                    ColorAssert.AreEqual(MagickColors.Azure, image, 156, 119);
+                    ColorAssert.AreEqual(MagickColors.Azure, image, 173, 119);
                 }
             }
         }
