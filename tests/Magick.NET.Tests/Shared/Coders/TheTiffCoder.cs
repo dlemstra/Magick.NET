@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
                 profile.SetValue(IptcTag.Headline, "Magick.NET");
                 profile.SetValue(IptcTag.CopyrightNotice, "Copyright.NET");
 
-                input.AddProfile(profile);
+                input.SetProfile(profile);
 
                 using (MemoryStream memStream = new MemoryStream())
                 {

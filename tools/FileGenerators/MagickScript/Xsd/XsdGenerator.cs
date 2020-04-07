@@ -339,7 +339,7 @@ namespace FileGenerator.MagickScript
             if (parameter.ParameterType.IsGenericType && parameter.ParameterType.GetGenericTypeDefinition() == typeof(IEnumerable<>))
                 return true;
 
-            if (method.DeclaringType.Name == "MagickImage" && method.Name == "AddProfile")
+            if (method.DeclaringType.Name == "MagickImage" && method.Name == "SetProfile")
                 return true;
 
             return false;

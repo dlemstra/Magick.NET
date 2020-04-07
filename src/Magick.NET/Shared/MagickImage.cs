@@ -1109,27 +1109,15 @@ namespace ImageMagick
         public void AddNoise(NoiseType noiseType, double attenuate, Channels channels) => _nativeInstance.AddNoise(noiseType, attenuate, channels);
 
         /// <summary>
-        /// Adds the specified profile to the image or overwrites it.
+        /// Set the specified profile of the image. If a profile with the same name already exists it will be overwritten.
         /// </summary>
-        /// <param name="profile">The profile to add or overwrite.</param>
+        /// <param name="profile">The profile to set.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void AddProfile(IImageProfile profile) => AddProfile(profile, true);
-
-        /// <summary>
-        /// Adds the specified profile to the image or overwrites it when overWriteExisting is true.
-        /// </summary>
-        /// <param name="profile">The profile to add or overwrite.</param>
-        /// <param name="overwriteExisting">When set to false an existing profile with the same name
-        /// won't be overwritten.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void AddProfile(IImageProfile profile, bool overwriteExisting)
+        public void SetProfile(IImageProfile profile)
         {
             Throw.IfNull(nameof(profile), profile);
 
-            if (!overwriteExisting && _nativeInstance.HasProfile(profile.Name))
-                return;
-
-            byte[] datum = profile.ToByteArray();
+            var datum = profile.ToByteArray();
             if (datum == null || datum.Length == 0)
                 return;
 
@@ -3229,6 +3217,18 @@ namespace ImageMagick
         /// <param name="method">The pixel intensity method to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Grayscale(PixelIntensityMethod method) => _nativeInstance.Grayscale(method);
+
+        /// <summary>
+        /// Gets a value indicating whether a profile with the specified name already exists on the image.
+        /// </summary>
+        /// <param name="name">The name of the profile.</param>
+        /// <returns>A value indicating whether a profile with the specified name already exists on the image.</returns>
+        public bool HasProfile(string name)
+        {
+            Throw.IfNullOrEmpty(nameof(name), name);
+
+            return _nativeInstance.HasProfile(name);
+        }
 
         /// <summary>
         /// Apply a color lookup table (Hald CLUT) to the image.
@@ -5849,10 +5849,10 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(target), target);
 
-            if (!_nativeInstance.HasProfile(target.Name))
+            if (!HasProfile(target.Name))
                 return false;
 
-            AddProfile(target);
+            SetProfile(target);
 
             return true;
         }
@@ -5873,8 +5873,10 @@ namespace ImageMagick
             if (source.ColorSpace != ColorSpace)
                 return false;
 
-            AddProfile(source, false);
-            AddProfile(target);
+            if (!HasProfile(target.Name))
+                SetProfile(source);
+
+            SetProfile(target);
 
             return true;
         }

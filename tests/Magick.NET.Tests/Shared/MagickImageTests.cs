@@ -97,31 +97,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_AddProfile()
-        {
-            using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
-            {
-                var profile = image.GetColorProfile();
-                Assert.IsNull(profile);
-
-                image.AddProfile(ColorProfile.SRGB);
-                profile = image.GetColorProfile();
-                Assert.IsNotNull(profile);
-                Assert.AreEqual(3144, profile.ToByteArray().Length);
-
-                image.AddProfile(ColorProfile.AppleRGB, false);
-                profile = image.GetColorProfile();
-                Assert.IsNotNull(profile);
-                Assert.AreEqual(3144, profile.ToByteArray().Length);
-
-                image.AddProfile(ColorProfile.AppleRGB);
-                profile = image.GetColorProfile();
-                Assert.IsNotNull(profile);
-                Assert.AreEqual(552, profile.ToByteArray().Length);
-            }
-        }
-
-        [TestMethod]
         public void Test_AffineTransform()
         {
             using (IMagickImage image = new MagickImage(Files.Builtin.Wizard))

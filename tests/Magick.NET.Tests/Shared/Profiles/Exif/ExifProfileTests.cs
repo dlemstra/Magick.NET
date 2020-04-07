@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
                     var profile = image.GetExifProfile();
 
                     profile.SetValue(ExifTag.ExposureTime, new Rational(exposureTime));
-                    image.AddProfile(profile);
+                    image.SetProfile(profile);
 
                     image.Write(memStream);
                 }
@@ -56,7 +56,7 @@ namespace Magick.NET.Tests
                     var profile = image.GetExifProfile();
 
                     profile.SetValue(ExifTag.ExposureTime, new Rational(exposureTime, true));
-                    image.AddProfile(profile);
+                    image.SetProfile(profile);
 
                     image.Write(memStream);
                 }
@@ -81,7 +81,7 @@ namespace Magick.NET.Tests
             {
                 var profile = image.GetExifProfile();
                 profile.SetValue(ExifTag.ExposureBiasValue, new SignedRational(double.PositiveInfinity));
-                image.AddProfile(profile);
+                image.SetProfile(profile);
 
                 profile = image.GetExifProfile();
                 var value = profile.GetValue(ExifTag.ExposureBiasValue);
@@ -89,7 +89,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(double.PositiveInfinity, value.Value.ToDouble());
 
                 profile.SetValue(ExifTag.ExposureBiasValue, new SignedRational(double.NegativeInfinity));
-                image.AddProfile(profile);
+                image.SetProfile(profile);
 
                 profile = image.GetExifProfile();
                 value = profile.GetValue(ExifTag.ExposureBiasValue);
@@ -97,7 +97,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(double.NegativeInfinity, value.Value.ToDouble());
 
                 profile.SetValue(ExifTag.FlashEnergy, new Rational(double.NegativeInfinity));
-                image.AddProfile(profile);
+                image.SetProfile(profile);
 
                 profile = image.GetExifProfile();
                 var flashValue = profile.GetValue(ExifTag.FlashEnergy);
@@ -117,7 +117,7 @@ namespace Magick.NET.Tests
                 using (IMagickImage emptyImage = new MagickImage(Files.ImageMagickJPG))
                 {
                     Assert.IsNull(emptyImage.GetExifProfile());
-                    emptyImage.AddProfile(profile);
+                    emptyImage.SetProfile(profile);
 
                     profile = emptyImage.GetExifProfile();
                     TestExifProfile(profile);

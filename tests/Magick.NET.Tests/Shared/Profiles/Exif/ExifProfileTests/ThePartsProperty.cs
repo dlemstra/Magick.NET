@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
                         Assert.AreEqual(44, profile.Values.Count());
 
                         profile.Parts = ExifParts.ExifTags;
-                        image.AddProfile(profile);
+                        image.SetProfile(profile);
 
                         image.Write(memStream);
                     }

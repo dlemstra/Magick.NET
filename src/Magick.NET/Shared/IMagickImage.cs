@@ -492,22 +492,6 @@ namespace ImageMagick
         void AddNoise(NoiseType noiseType, double attenuate, Channels channels);
 
         /// <summary>
-        /// Adds the specified profile to the image or overwrites it.
-        /// </summary>
-        /// <param name="profile">The profile to add or overwrite.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void AddProfile(IImageProfile profile);
-
-        /// <summary>
-        /// Adds the specified profile to the image or overwrites it when overWriteExisting is true.
-        /// </summary>
-        /// <param name="profile">The profile to add or overwrite.</param>
-        /// <param name="overwriteExisting">When set to false an existing profile with the same name
-        /// won't be overwritten.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void AddProfile(IImageProfile profile, bool overwriteExisting);
-
-        /// <summary>
         /// Affine Transform image.
         /// </summary>
         /// <param name="affineMatrix">The affine matrix to use.</param>
@@ -2137,6 +2121,13 @@ namespace ImageMagick
         void Grayscale(PixelIntensityMethod method);
 
         /// <summary>
+        /// Gets a value indicating whether a profile with the specified name already exists on the image.
+        /// </summary>
+        /// <param name="name">The name of the profile.</param>
+        /// <returns>A value indicating whether a profile with the specified name already exists on the image.</returns>
+        bool HasProfile(string name);
+
+        /// <summary>
         /// Apply a color lookup table (Hald CLUT) to the image.
         /// </summary>
         /// <param name="image">The image to use.</param>
@@ -3695,6 +3686,13 @@ namespace ImageMagick
         /// <param name="color">The color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void SetColormap(int index, MagickColor color);
+
+        /// <summary>
+        /// Set the specified profile of the image. If a profile with the same name already exists it will be overwritten.
+        /// </summary>
+        /// <param name="profile">The profile to set.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void SetProfile(IImageProfile profile);
 
         /// <summary>
         /// Sets the associated read mask of the image. The mask must be the same dimensions as the image and

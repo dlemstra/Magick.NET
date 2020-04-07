@@ -107,20 +107,8 @@ namespace ImageMagick
                                 }
                                 case 'd':
                                 {
-                                    switch(element.Name[3])
-                                    {
-                                        case 'N':
-                                        {
-                                            ExecuteAddNoise(element, image);
-                                            return;
-                                        }
-                                        case 'P':
-                                        {
-                                            ExecuteAddProfile(element, image);
-                                            return;
-                                        }
-                                    }
-                                    break;
+                                    ExecuteAddNoise(element, image);
+                                    return;
                                 }
                             }
                             break;
@@ -683,8 +671,20 @@ namespace ImageMagick
                             {
                                 case 's':
                                 {
-                                    ExecuteHasAlpha(element, image);
-                                    return;
+                                    switch(element.Name[3])
+                                    {
+                                        case 'A':
+                                        {
+                                            ExecuteHasAlpha(element, image);
+                                            return;
+                                        }
+                                        case 'P':
+                                        {
+                                            ExecuteHasProfile(element, image);
+                                            return;
+                                        }
+                                    }
+                                    break;
                                 }
                                 case 'l':
                                 {
@@ -1228,6 +1228,11 @@ namespace ImageMagick
                                                 }
                                             }
                                             break;
+                                        }
+                                        case 'P':
+                                        {
+                                            ExecuteSetProfile(element, image);
+                                            return;
                                         }
                                         case 'R':
                                         {
@@ -1833,24 +1838,6 @@ namespace ImageMagick
                 image.AddNoise((NoiseType)arguments["noiseType"], (Channels)arguments["channels"]);
             else
                 throw new ArgumentException("Invalid argument combination for 'addNoise', allowed combinations are: [noiseType] [noiseType, attenuate] [noiseType, attenuate, channels] [noiseType, channels]");
-        }
-        private void ExecuteAddProfile(XmlElement element, IMagickImage image)
-        {
-            Hashtable arguments = new Hashtable();
-            foreach (XmlAttribute attribute in element.Attributes)
-            {
-                arguments[attribute.Name] = GetValue<Boolean>(attribute);
-            }
-            foreach (XmlElement elem in element.SelectNodes("*"))
-            {
-                arguments[elem.Name] = CreateProfile(elem);
-            }
-            if (OnlyContains(arguments, "profile"))
-                image.AddProfile((IImageProfile)arguments["profile"]);
-            else if (OnlyContains(arguments, "profile", "overwriteExisting"))
-                image.AddProfile((IImageProfile)arguments["profile"], (Boolean)arguments["overwriteExisting"]);
-            else
-                throw new ArgumentException("Invalid argument combination for 'addProfile', allowed combinations are: [profile] [profile, overwriteExisting]");
         }
         private void ExecuteAlpha(XmlElement element, IMagickImage image)
         {
@@ -2684,6 +2671,11 @@ namespace ImageMagick
         {
             IMagickImage image_ = CreateMagickImage(element["image"]);
             image.HaldClut(image_);
+        }
+        private void ExecuteHasProfile(XmlElement element, IMagickImage image)
+        {
+            String name_ = GetValue<String>(element, "name");
+            image.HasProfile(name_);
         }
         private void ExecuteHoughLine(XmlElement element, IMagickImage image)
         {
@@ -3532,9 +3524,22 @@ namespace ImageMagick
         }
         private void ExecuteSetArtifact(XmlElement element, IMagickImage image)
         {
-            String name_ = GetValue<String>(element, "name");
-            String value_ = GetValue<String>(element, "value");
-            image.SetArtifact(name_, value_);
+            Hashtable arguments = new Hashtable();
+            foreach (XmlAttribute attribute in element.Attributes)
+            {
+                if (attribute.Name == "flag")
+                    arguments["flag"] = GetValue<Boolean>(attribute);
+                else if (attribute.Name == "name")
+                    arguments["name"] = GetValue<String>(attribute);
+                else if (attribute.Name == "value")
+                    arguments["value"] = GetValue<String>(attribute);
+            }
+            if (OnlyContains(arguments, "name", "flag"))
+                image.SetArtifact((String)arguments["name"], (Boolean)arguments["flag"]);
+            else if (OnlyContains(arguments, "name", "value"))
+                image.SetArtifact((String)arguments["name"], (String)arguments["value"]);
+            else
+                throw new ArgumentException("Invalid argument combination for 'setArtifact', allowed combinations are: [name, flag] [name, value]");
         }
         private void ExecuteSetAttenuate(XmlElement element, IMagickImage image)
         {
@@ -3543,9 +3548,22 @@ namespace ImageMagick
         }
         private void ExecuteSetAttribute(XmlElement element, IMagickImage image)
         {
-            String name_ = GetValue<String>(element, "name");
-            String value_ = GetValue<String>(element, "value");
-            image.SetAttribute(name_, value_);
+            Hashtable arguments = new Hashtable();
+            foreach (XmlAttribute attribute in element.Attributes)
+            {
+                if (attribute.Name == "flag")
+                    arguments["flag"] = GetValue<Boolean>(attribute);
+                else if (attribute.Name == "name")
+                    arguments["name"] = GetValue<String>(attribute);
+                else if (attribute.Name == "value")
+                    arguments["value"] = GetValue<String>(attribute);
+            }
+            if (OnlyContains(arguments, "name", "flag"))
+                image.SetAttribute((String)arguments["name"], (Boolean)arguments["flag"]);
+            else if (OnlyContains(arguments, "name", "value"))
+                image.SetAttribute((String)arguments["name"], (String)arguments["value"]);
+            else
+                throw new ArgumentException("Invalid argument combination for 'setAttribute', allowed combinations are: [name, flag] [name, value]");
         }
         private void ExecuteSetClippingPath(XmlElement element, IMagickImage image)
         {
@@ -3566,6 +3584,11 @@ namespace ImageMagick
             Int32 index_ = GetValue<Int32>(element, "index");
             MagickColor color_ = GetValue<MagickColor>(element, "color");
             image.SetColormap(index_, color_);
+        }
+        private void ExecuteSetProfile(XmlElement element, IMagickImage image)
+        {
+            IImageProfile profile_ = CreateProfile(element);
+            image.SetProfile(profile_);
         }
         private void ExecuteSetReadMask(XmlElement element, IMagickImage image)
         {

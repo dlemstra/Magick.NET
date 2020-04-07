@@ -36,7 +36,7 @@ namespace Magick.NET.Tests
                         profile = new ExifProfile();
                         profile.SetValue(ExifTag.Copyright, "Dirk Lemstra");
 
-                        image.AddProfile(profile);
+                        image.SetProfile(profile);
 
                         profile = image.GetExifProfile();
                         Assert.IsNotNull(profile);

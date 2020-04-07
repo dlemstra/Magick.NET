@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
                     Assert.AreEqual(OrientationType.TopLeft, image.Orientation);
 
                     profile.SetValue(ExifTag.Orientation, (ushort)6); // RightTop
-                    image.AddProfile(profile);
+                    image.SetProfile(profile);
 
                     image.Orientation = OrientationType.LeftBotom;
 

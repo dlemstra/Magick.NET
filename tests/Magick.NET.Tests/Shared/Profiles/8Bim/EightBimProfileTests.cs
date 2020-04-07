@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
                 {
                     emptyImage.Strip();
                     Assert.IsNull(emptyImage.GetIptcProfile());
-                    emptyImage.AddProfile(profile);
+                    emptyImage.SetProfile(profile);
 
                     profile = emptyImage.Get8BimProfile();
                     TestProfile(profile);
@@ -53,7 +53,7 @@ namespace Magick.NET.Tests
                 using (IMagickImage emptyImage = new MagickImage(Files.ImageMagickJPG))
                 {
                     Assert.IsNull(emptyImage.Get8BimProfile());
-                    emptyImage.AddProfile(profile);
+                    emptyImage.SetProfile(profile);
 
                     profile = emptyImage.Get8BimProfile();
                     TestProfileValues(profile);

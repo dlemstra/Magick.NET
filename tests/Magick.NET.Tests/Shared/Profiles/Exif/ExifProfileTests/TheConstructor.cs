@@ -57,7 +57,7 @@ namespace Magick.NET.Tests
                     using (MemoryStream memStream = new MemoryStream())
                     {
                         var profile = new ExifProfile(memStream);
-                        image.AddProfile(profile);
+                        image.SetProfile(profile);
                     }
                 }
             }
@@ -69,7 +69,7 @@ namespace Magick.NET.Tests
                 {
                     var data = new byte[] { };
                     var profile = new ExifProfile(data);
-                    image.AddProfile(profile);
+                    image.SetProfile(profile);
                 }
             }
         }

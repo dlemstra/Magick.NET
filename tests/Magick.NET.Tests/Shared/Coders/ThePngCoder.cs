@@ -76,7 +76,7 @@ namespace Magick.NET.Tests
                 IExifProfile exifProfile = new ExifProfile();
                 exifProfile.SetValue(ExifTag.ImageUniqueID, "Have a nice day");
 
-                input.AddProfile(exifProfile);
+                input.SetProfile(exifProfile);
 
                 using (var memoryStream = new MemoryStream())
                 {

@@ -23,6 +23,7 @@ using (var memStream = new MemoryStream())
     {
         // Sets the output format to png
         image.Format = MagickFormat.Png;
+
         // Write the image to the memorystream
         image.Write(memStream);
     }
@@ -33,6 +34,7 @@ using (var image = new MagickImage("Snakeware.png"))
 {
     // Sets the output format to jpeg
     image.Format = MagickFormat.Jpeg;
+
     // Create byte array that contains a jpeg file
     byte[] data = image.ToByteArray();
 }
@@ -50,6 +52,7 @@ using (var image = new MagickImage())
 {
     // Reads the eps image, the specified settings tell Ghostscript to create an sRGB image
     image.Read("Snakeware.eps", settings);
+
     // Save image as tiff
     image.Write("Snakeware.tiff");
 }
@@ -57,21 +60,21 @@ using (var image = new MagickImage())
 // Read image from file
 using (var image = new MagickImage("Snakeware.jpg"))
 {
-    // Add a CMYK profile if your image does not contain a color profile.
-    image.AddProfile(ColorProfile.USWebCoatedSWOP);
-    // Adding the second profile will transform the colorspace from CMYK to RGB
-    image.AddProfile(ColorProfile.SRGB);
+    // Will use the CMYK profile if the image does not contain a color profile.
+    // The second profile will transform the colorspace from CMYK to RGB
+    image.TransformColorSpace(ColorProfile.USWebCoatedSWOP, ColorProfile.SRGB);
+
     // Save image as png
-    image.Write("Snakeware.png");
+    image.Write(SampleFiles.OutputDirectory + "Snakeware.png");
 }
 
 // Use custom color profile
 using (var image = new MagickImage("Snakeware.jpg"))
 {
-    // First add a CMYK profile if your image does not contain a color profile.
-    image.AddProfile(ColorProfile.USWebCoatedSWOP);
-    // Adding the second profile will transform the colorspace from your custom icc profile
-    image.AddProfile(new ColorProfile("YourProfile.icc"));
+    // Will use the CMYK profile if your image does not contain a color profile.
+    // The second profile will transform the colorspace from your custom icc profile
+    image.TransformColorSpace(ColorProfile.USWebCoatedSWOP, new ColorProfile("YourProfile.icc"));
+
     // Save image as tiff
     image.Write("Snakeware.tiff");
 }

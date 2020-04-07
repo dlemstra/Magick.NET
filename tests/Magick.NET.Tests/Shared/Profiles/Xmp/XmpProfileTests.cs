@@ -56,7 +56,7 @@ namespace Magick.NET.Tests
                 });
 
                 XmpProfile newProfile = XmpProfile.FromIXPathNavigable(doc);
-                image.AddProfile(newProfile);
+                image.SetProfile(newProfile);
 
                 doc = profile.ToIXPathNavigable();
                 TestIXPathNavigable(doc);
@@ -87,7 +87,7 @@ namespace Magick.NET.Tests
                 });
 
                 XmpProfile newProfile = XmpProfile.FromXDocument(doc);
-                image.AddProfile(newProfile);
+                image.SetProfile(newProfile);
 
                 doc = profile.ToXDocument();
                 TestXDocument(doc);

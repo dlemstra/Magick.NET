@@ -2253,14 +2253,6 @@
             <xs:attribute name="noiseType" use="required" type="NoiseType" />
           </xs:complexType>
         </xs:element>
-        <xs:element name="addProfile">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="profile" type="profile" />
-            </xs:sequence>
-            <xs:attribute name="overwriteExisting" type="bool" />
-          </xs:complexType>
-        </xs:element>
         <xs:element name="alpha">
           <xs:complexType>
             <xs:attribute name="value" use="required" type="AlphaOption" />
@@ -2581,6 +2573,11 @@
             <xs:sequence>
               <xs:element name="image" type="image" />
             </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="hasProfile">
+          <xs:complexType>
+            <xs:attribute name="name" use="required" type="xs:string" />
           </xs:complexType>
         </xs:element>
         <xs:element name="houghLine">
@@ -2938,8 +2935,9 @@
         </xs:element>
         <xs:element name="setArtifact">
           <xs:complexType>
+            <xs:attribute name="flag" type="bool" />
             <xs:attribute name="name" use="required" type="xs:string" />
-            <xs:attribute name="value" use="required" type="xs:string" />
+            <xs:attribute name="value" type="xs:string" />
           </xs:complexType>
         </xs:element>
         <xs:element name="setAttenuate">
@@ -2949,8 +2947,9 @@
         </xs:element>
         <xs:element name="setAttribute">
           <xs:complexType>
+            <xs:attribute name="flag" type="bool" />
             <xs:attribute name="name" use="required" type="xs:string" />
-            <xs:attribute name="value" use="required" type="xs:string" />
+            <xs:attribute name="value" type="xs:string" />
           </xs:complexType>
         </xs:element>
         <xs:element name="setClippingPath">
@@ -2965,6 +2964,7 @@
             <xs:attribute name="index" use="required" type="int" />
           </xs:complexType>
         </xs:element>
+        <xs:element name="setProfile" type="profile" />
         <xs:element name="setReadMask">
           <xs:complexType>
             <xs:sequence>

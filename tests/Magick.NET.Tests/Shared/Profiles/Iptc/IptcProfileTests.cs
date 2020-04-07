@@ -78,7 +78,7 @@ namespace Magick.NET.Tests
 
                     // Remove the 8bim profile so we can overwrite the iptc profile.
                     image.RemoveProfile("8bim");
-                    image.AddProfile(profile);
+                    image.SetProfile(profile);
 
                     image.Write(memStream);
                     memStream.Position = 0;
@@ -129,7 +129,7 @@ namespace Magick.NET.Tests
                 using (IMagickImage emptyImage = new MagickImage(Files.ImageMagickJPG))
                 {
                     Assert.IsNull(emptyImage.GetIptcProfile());
-                    emptyImage.AddProfile(profile);
+                    emptyImage.SetProfile(profile);
 
                     profile = emptyImage.GetIptcProfile();
                     TestProfileValues(profile);
