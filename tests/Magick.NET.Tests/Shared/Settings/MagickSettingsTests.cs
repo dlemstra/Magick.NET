@@ -391,14 +391,5 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(TextDirection.Undefined, image.Settings.TextDirection);
             }
         }
-
-        [TestMethod]
-        public void Test_TextEncoding()
-        {
-            using (IMagickImage image = new MagickImage(MagickColors.Azure, 300, 300))
-            {
-                Assert.AreEqual(null, image.Settings.TextEncoding);
-            }
-        }
     }
 }
