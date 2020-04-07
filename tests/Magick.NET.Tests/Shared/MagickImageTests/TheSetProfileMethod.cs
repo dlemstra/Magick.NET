@@ -18,118 +18,151 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheSetProfileMethod
         {
-            [TestMethod]
-            public void ShouldThrowExceptionWhenProfileIsNull()
+            [TestClass]
+            public class WithColorProfile
             {
-                using (IMagickImage image = new MagickImage())
+                [TestMethod]
+                public void ShouldThrowExceptionWhenProfileIsNull()
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("profile", () => image.SetProfile(null));
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("profile", () => image.SetProfile(null));
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldSetTheIccProperties()
+                {
+                    using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+                    {
+                        image.SetProfile(ColorProfile.SRGB);
+
+                        Assert.AreEqual("sRGB IEC61966-2.1", image.GetAttribute("icc:description"));
+                        Assert.AreEqual("IEC http://www.iec.ch", image.GetAttribute("icc:manufacturer"));
+                        Assert.AreEqual("IEC 61966-2.1 Default RGB colour space - sRGB", image.GetAttribute("icc:model"));
+                        Assert.AreEqual("Copyright (c) 1998 Hewlett-Packard Company", image.GetAttribute("icc:copyright"));
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseIccAsTheDefaultColorProfileName()
+                {
+                    using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+                    {
+                        var profile = image.GetColorProfile();
+                        Assert.IsNull(profile);
+
+                        image.SetProfile(ColorProfile.SRGB);
+
+                        Assert.IsTrue(image.HasProfile("icc"));
+                        Assert.IsFalse(image.HasProfile("icm"));
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheCorrectProfileName()
+                {
+                    using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+                    {
+                        var profile = image.GetColorProfile();
+                        Assert.IsNull(profile);
+
+                        image.SetProfile(new ImageProfile("icm", ColorProfile.SRGB.ToByteArray()));
+
+                        profile = image.GetColorProfile();
+
+                        Assert.IsNotNull(profile);
+                        Assert.AreEqual("icm", profile.Name);
+                        Assert.AreEqual(3144, profile.ToByteArray().Length);
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldOverwriteExistingProfile()
+                {
+                    using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+                    {
+                        image.SetProfile(ColorProfile.SRGB);
+
+                        image.SetProfile(ColorProfile.AppleRGB);
+
+                        var profile = image.GetColorProfile();
+                        Assert.IsNotNull(profile);
+                        Assert.AreEqual(ColorProfile.AppleRGB.ToByteArray().Length, profile.ToByteArray().Length);
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldUseTheSpecifiedMode()
+                {
+                    using (IMagickImage quantumImage = new MagickImage(Files.PictureJPG))
+                    {
+                        quantumImage.SetProfile(ColorProfile.USWebCoatedSWOP);
+
+                        using (IMagickImage highResImage = new MagickImage(Files.PictureJPG))
+                        {
+                            highResImage.SetProfile(ColorProfile.USWebCoatedSWOP, ColorTransformMode.HighRes);
+
+                            var difference = quantumImage.Compare(highResImage, ErrorMetric.RootMeanSquared);
+
+                            Assert.AreNotEqual(0.0, difference);
+                        }
+                    }
                 }
             }
 
-            [TestMethod]
-            public void ShouldSetTheIccProperties()
+            [TestClass]
+            public class WithInterface
             {
-                using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+                [TestMethod]
+                public void ShouldThrowExceptionWhenProfileIsNull()
                 {
-                    image.SetProfile(ColorProfile.SRGB);
-
-                    Assert.AreEqual("sRGB IEC61966-2.1", image.GetAttribute("icc:description"));
-                    Assert.AreEqual("IEC http://www.iec.ch", image.GetAttribute("icc:manufacturer"));
-                    Assert.AreEqual("IEC 61966-2.1 Default RGB colour space - sRGB", image.GetAttribute("icc:model"));
-                    Assert.AreEqual("Copyright (c) 1998 Hewlett-Packard Company", image.GetAttribute("icc:copyright"));
+                    using (IMagickImage image = new MagickImage())
+                    {
+                        ExceptionAssert.Throws<ArgumentNullException>("profile", () => image.SetProfile((IImageProfile)null));
+                    }
                 }
-            }
 
-            [TestMethod]
-            public void ShouldUseIccAsTheDefaultColorProfileName()
-            {
-                using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+                [TestMethod]
+                public void ShouldNotSetTheProfileWhenArrayIsNull()
                 {
-                    var profile = image.GetColorProfile();
-                    Assert.IsNull(profile);
+                    using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+                    {
+                        image.SetProfile(new TestImageProfile("foo", null));
 
-                    image.SetProfile(ColorProfile.SRGB);
-
-                    Assert.IsTrue(image.HasProfile("icc"));
-                    Assert.IsFalse(image.HasProfile("icm"));
+                        Assert.IsFalse(image.HasProfile("foo"));
+                    }
                 }
-            }
 
-            [TestMethod]
-            public void ShouldNotSetTheProfileWhenItIsEmpty()
-            {
-                using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+                [TestMethod]
+                public void ShouldNotSetTheProfileWhenArrayIsEmpty()
                 {
-                    var profile = image.GetColorProfile();
-                    Assert.IsNull(profile);
+                    using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+                    {
+                        image.SetProfile(new TestImageProfile("foo", new byte[0]));
 
-                    image.SetProfile(ColorProfile.SRGB);
-
-                    Assert.IsTrue(image.HasProfile("icc"));
-                    Assert.IsFalse(image.HasProfile("icm"));
+                        Assert.IsFalse(image.HasProfile("foo"));
+                    }
                 }
-            }
 
-            [TestMethod]
-            public void ShouldUseTheCorrectProfileName()
-            {
-                using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+                [TestMethod]
+                public void ShouldOverwriteExistingProfile()
                 {
-                    var profile = image.GetColorProfile();
-                    Assert.IsNull(profile);
+                    var profileA = new TestImageProfile("foo", new byte[1]);
+                    var profileB = new TestImageProfile("foo", new byte[2]);
 
-                    image.SetProfile(new ImageProfile("icm", ColorProfile.SRGB.ToByteArray()));
+                    using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+                    {
+                        image.SetProfile(profileA);
 
-                    profile = image.GetColorProfile();
+                        image.SetProfile(profileB);
 
-                    Assert.IsNotNull(profile);
-                    Assert.AreEqual("icm", profile.Name);
-                    Assert.AreEqual(3144, profile.ToByteArray().Length);
-                }
-            }
-
-            [TestMethod]
-            public void ShouldOverwriteExistingProfile()
-            {
-                using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
-                {
-                    image.SetProfile(ColorProfile.SRGB);
-
-                    image.SetProfile(ColorProfile.AppleRGB);
-
-                    var profile = image.GetColorProfile();
-                    Assert.IsNotNull(profile);
-                    Assert.AreEqual(ColorProfile.AppleRGB.ToByteArray().Length, profile.ToByteArray().Length);
-                }
-            }
-
-            [TestMethod]
-            public void ShouldNotSetTheProfileWhenTheByteArrayIsNull()
-            {
-                using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
-                {
-                    var profile = new TestImageProfile("icc", null);
-
-                    image.SetProfile(profile);
-
-                    Assert.IsFalse(image.HasProfile("icc"));
-                }
-            }
-
-            [TestMethod]
-            public void ShouldNotSetTheProfileWhenTheByteArrayIsEmpty()
-            {
-                using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
-                {
-                    var profile = new TestImageProfile("icc", new byte[0]);
-
-                    image.SetProfile(profile);
-
-                    Assert.IsFalse(image.HasProfile("icc"));
+                        var profile = image.GetProfile("foo");
+                        Assert.IsNotNull(profile);
+                        Assert.AreEqual(2, profile.ToByteArray().Length);
+                    }
                 }
             }
         }

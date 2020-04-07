@@ -3695,6 +3695,21 @@ namespace ImageMagick
         void SetProfile(IImageProfile profile);
 
         /// <summary>
+        /// Set the specified profile of the image. If a profile with the same name already exists it will be overwritten.
+        /// </summary>
+        /// <param name="profile">The profile to set.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void SetProfile(ColorProfile profile);
+
+        /// <summary>
+        /// Set the specified profile of the image. If a profile with the same name already exists it will be overwritten.
+        /// </summary>
+        /// <param name="profile">The profile to set.</param>
+        /// <param name="mode">The color transformation mode.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void SetProfile(ColorProfile profile, ColorTransformMode mode);
+
+        /// <summary>
         /// Sets the associated read mask of the image. The mask must be the same dimensions as the image and
         /// only contain the colors black and white.
         /// </summary>

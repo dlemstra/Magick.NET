@@ -5198,6 +5198,36 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Set the specified profile of the image. If a profile with the same name already exists it will be overwritten.
+        /// </summary>
+        /// <param name="profile">The profile to set.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void SetProfile(ColorProfile profile) => SetProfile(profile, ColorTransformMode.Quantum);
+
+        /// <summary>
+        /// Set the specified profile of the image. If a profile with the same name already exists it will be overwritten.
+        /// </summary>
+        /// <param name="profile">The profile to set.</param>
+        /// <param name="mode">The color transformation mode.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void SetProfile(ColorProfile profile, ColorTransformMode mode)
+        {
+            Throw.IfNull(nameof(profile), profile);
+
+            var datum = profile.ToByteArray();
+            if (datum == null || datum.Length == 0)
+                return;
+
+            if (mode == ColorTransformMode.Quantum)
+                SetArtifact("profile:highres-transform", false);
+
+            _nativeInstance.AddProfile(profile.Name, datum, datum.Length);
+
+            if (mode == ColorTransformMode.Quantum)
+                RemoveArtifact("profile:highres-transform");
+        }
+
+        /// <summary>
         /// Sets the associated read mask of the image. The mask must be the same dimensions as the image and
         /// only contain the colors black and white.
         /// </summary>
@@ -5861,13 +5891,7 @@ namespace ImageMagick
             if (!HasProfile(target.Name))
                 return false;
 
-            if (mode == ColorTransformMode.Quantum)
-                SetArtifact("profile:highres-transform", false);
-
-            SetProfile(target);
-
-            if (mode == ColorTransformMode.Quantum)
-                RemoveArtifact("profile:highres-transform");
+            SetProfile(target, mode);
 
             return true;
         }
@@ -5899,16 +5923,10 @@ namespace ImageMagick
             if (source.ColorSpace != ColorSpace)
                 return false;
 
-            if (mode == ColorTransformMode.Quantum)
-                SetArtifact("profile:highres-transform", false);
-
             if (!HasProfile(target.Name))
                 SetProfile(source);
 
-            SetProfile(target);
-
-            if (mode == ColorTransformMode.Quantum)
-                RemoveArtifact("profile:highres-transform");
+            SetProfile(target, mode);
 
             return true;
         }
