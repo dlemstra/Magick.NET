@@ -463,32 +463,5 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(15, image.Height);
             }
         }
-
-        [TestMethod]
-        public void Test_TextUnderColor()
-        {
-            using (IMagickImage image = new MagickImage())
-            {
-                ColorAssert.AreEqual(new MagickColor(0, 0, 0, 0), image.Settings.TextUnderColor);
-
-                image.Settings.TextUnderColor = MagickColors.Purple;
-                image.Read("label:First");
-
-                Assert.AreEqual(25, image.Width);
-                Assert.AreEqual(15, image.Height);
-
-                ColorAssert.AreEqual(MagickColors.Purple, image, 0, 0);
-                ColorAssert.AreEqual(MagickColors.Purple, image, 23, 0);
-
-                image.Settings.TextUnderColor = null;
-                image.Read("label:First");
-
-                Assert.AreEqual(25, image.Width);
-                Assert.AreEqual(15, image.Height);
-
-                ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
-                ColorAssert.AreEqual(MagickColors.White, image, 23, 0);
-            }
-        }
     }
 }
