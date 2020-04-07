@@ -76,13 +76,22 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldChangeTheColorSpace()
+            public void ShouldNotChangeTheColorSpaceWhenSourceColorSpaceIsIncorrect()
             {
                 using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
                 {
                     Assert.AreEqual(ColorSpace.sRGB, image.ColorSpace);
 
                     image.TransformColorSpace(ColorProfile.USWebCoatedSWOP, ColorProfile.USWebCoatedSWOP);
+                    Assert.AreEqual(ColorSpace.sRGB, image.ColorSpace);
+                }
+            }
+
+            [TestMethod]
+            public void ShouldChangeTheColorSpace()
+            {
+                using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+                {
                     Assert.AreEqual(ColorSpace.sRGB, image.ColorSpace);
 
                     image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.USWebCoatedSWOP);
@@ -103,6 +112,24 @@ namespace Magick.NET.Tests
 #else
 #error Not implemented!
 #endif
+                }
+            }
+
+            [TestMethod]
+            public void ShouldUseTheSpecifiedMode()
+            {
+                using (IMagickImage quantumImage = new MagickImage(Files.PictureJPG))
+                {
+                    quantumImage.TransformColorSpace(ColorProfile.USWebCoatedSWOP);
+
+                    using (IMagickImage highResImage = new MagickImage(Files.PictureJPG))
+                    {
+                        highResImage.TransformColorSpace(ColorProfile.USWebCoatedSWOP, ColorTransformMode.HighRes);
+
+                        var difference = quantumImage.Compare(highResImage, ErrorMetric.RootMeanSquared);
+
+                        Assert.AreNotEqual(0.0, difference);
+                    }
                 }
             }
         }

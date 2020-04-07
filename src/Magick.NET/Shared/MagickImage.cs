@@ -5845,14 +5845,29 @@ namespace ImageMagick
         /// </summary>
         /// <param name="target">The target color profile.</param>
         /// <returns>True when the colorspace was transformed otherwise false.</returns>
-        public bool TransformColorSpace(ColorProfile target)
+        public bool TransformColorSpace(ColorProfile target) => TransformColorSpace(target, ColorTransformMode.Quantum);
+
+        /// <summary>
+        /// Transforms the image from the colorspace of the source profile to the target profile. This
+        /// requires the image to have a color profile. Nothing will happen if the image has no color profile.
+        /// </summary>
+        /// <param name="target">The target color profile.</param>
+        /// <param name="mode">The color transformation mode.</param>
+        /// <returns>True when the colorspace was transformed otherwise false.</returns>
+        public bool TransformColorSpace(ColorProfile target, ColorTransformMode mode)
         {
             Throw.IfNull(nameof(target), target);
 
             if (!HasProfile(target.Name))
                 return false;
 
+            if (mode == ColorTransformMode.Quantum)
+                SetArtifact("profile:highres-transform", false);
+
             SetProfile(target);
+
+            if (mode == ColorTransformMode.Quantum)
+                RemoveArtifact("profile:highres-transform");
 
             return true;
         }
@@ -5865,7 +5880,18 @@ namespace ImageMagick
         /// <param name="source">The source color profile.</param>
         /// <param name="target">The target color profile.</param>
         /// <returns>True when the colorspace was transformed otherwise false.</returns>
-        public bool TransformColorSpace(ColorProfile source, ColorProfile target)
+        public bool TransformColorSpace(ColorProfile source, ColorProfile target) => TransformColorSpace(source, target, ColorTransformMode.Quantum);
+
+        /// <summary>
+        /// Transforms the image from the colorspace of the source profile to the target profile. The
+        /// source profile will only be used if the image does not contain a color profile. Nothing
+        /// will happen if the source profile has a different colorspace then that of the image.
+        /// </summary>
+        /// <param name="source">The source color profile.</param>
+        /// <param name="target">The target color profile.</param>
+        /// <param name="mode">The color transformation mode.</param>
+        /// <returns>True when the colorspace was transformed otherwise false.</returns>
+        public bool TransformColorSpace(ColorProfile source, ColorProfile target, ColorTransformMode mode)
         {
             Throw.IfNull(nameof(source), source);
             Throw.IfNull(nameof(target), target);
@@ -5873,10 +5899,16 @@ namespace ImageMagick
             if (source.ColorSpace != ColorSpace)
                 return false;
 
+            if (mode == ColorTransformMode.Quantum)
+                SetArtifact("profile:highres-transform", false);
+
             if (!HasProfile(target.Name))
                 SetProfile(source);
 
             SetProfile(target);
+
+            if (mode == ColorTransformMode.Quantum)
+                RemoveArtifact("profile:highres-transform");
 
             return true;
         }
