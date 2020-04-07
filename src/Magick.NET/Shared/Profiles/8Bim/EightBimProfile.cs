@@ -117,7 +117,10 @@ namespace ImageMagick
 
         private string GetClipPath(int offset, int length)
         {
-            ClipPathReader reader = new ClipPathReader(_width, _height);
+            if (_width == 0 || _height == 0)
+                return null;
+
+            var reader = new ClipPathReader(_width, _height);
             return reader.Read(Data, offset, length);
         }
 
