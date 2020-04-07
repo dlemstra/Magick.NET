@@ -382,14 +382,5 @@ namespace Magick.NET.Tests
                 ColorAssert.AreEqual(MagickColors.Purple, image, 244, 150);
             }
         }
-
-        [TestMethod]
-        public void Test_TextDirection()
-        {
-            using (IMagickImage image = new MagickImage())
-            {
-                Assert.AreEqual(TextDirection.Undefined, image.Settings.TextDirection);
-            }
-        }
     }
 }
