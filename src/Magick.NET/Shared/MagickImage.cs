@@ -1109,22 +1109,6 @@ namespace ImageMagick
         public void AddNoise(NoiseType noiseType, double attenuate, Channels channels) => _nativeInstance.AddNoise(noiseType, attenuate, channels);
 
         /// <summary>
-        /// Set the specified profile of the image. If a profile with the same name already exists it will be overwritten.
-        /// </summary>
-        /// <param name="profile">The profile to set.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void SetProfile(IImageProfile profile)
-        {
-            Throw.IfNull(nameof(profile), profile);
-
-            var datum = profile.ToByteArray();
-            if (datum == null || datum.Length == 0)
-                return;
-
-            _nativeInstance.AddProfile(profile.Name, datum, datum.Length);
-        }
-
-        /// <summary>
         /// Affine Transform image.
         /// </summary>
         /// <param name="affineMatrix">The affine matrix to use.</param>
@@ -5195,6 +5179,22 @@ namespace ImageMagick
             Throw.IfNull(nameof(color), color);
 
             _nativeInstance.SetColormap(index, color);
+        }
+
+        /// <summary>
+        /// Set the specified profile of the image. If a profile with the same name already exists it will be overwritten.
+        /// </summary>
+        /// <param name="profile">The profile to set.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void SetProfile(IImageProfile profile)
+        {
+            Throw.IfNull(nameof(profile), profile);
+
+            var datum = profile.ToByteArray();
+            if (datum == null || datum.Length == 0)
+                return;
+
+            _nativeInstance.AddProfile(profile.Name, datum, datum.Length);
         }
 
         /// <summary>
