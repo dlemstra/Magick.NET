@@ -384,21 +384,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_TextAntiAlias()
-        {
-            using (IMagickImage image = new MagickImage(MagickColors.Azure, 300, 300))
-            {
-                Assert.AreEqual(true, image.Settings.TextAntiAlias);
-
-                image.Settings.TextAntiAlias = false;
-                image.Settings.FontPointsize = 100;
-                image.Annotate("TEST", Gravity.Center);
-
-                ColorAssert.AreEqual(MagickColors.Azure, image, 175, 111);
-            }
-        }
-
-        [TestMethod]
         public void Test_TextDirection()
         {
             using (IMagickImage image = new MagickImage())
