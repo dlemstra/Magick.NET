@@ -12,7 +12,7 @@
 
 using System.IO;
 
-namespace Magick.NET.Tests.Shared.Optimizers.ImageOptimizerTests
+namespace Magick.NET.Tests
 {
     public partial class ImageOptimizerTests
     {

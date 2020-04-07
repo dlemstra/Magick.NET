@@ -15,7 +15,7 @@ using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Shared.Optimizers.ImageOptimizerTests
+namespace Magick.NET.Tests
 {
     public partial class ImageOptimizerTests
     {

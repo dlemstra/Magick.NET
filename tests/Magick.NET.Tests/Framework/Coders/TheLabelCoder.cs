@@ -17,8 +17,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
-    public class TheLabelCoder
+    public partial class TheLabelCoder
     {
         [TestMethod]
         public void ShouldUseTheDensity()

@@ -11,11 +11,10 @@
 // and limitations under the License.
 
 using System.IO;
-using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests.Shared.Defines.Jpeg.JpegWriteDefinesTests
+namespace Magick.NET.Tests
 {
     public partial class JpegWriteDefinesTests
     {
