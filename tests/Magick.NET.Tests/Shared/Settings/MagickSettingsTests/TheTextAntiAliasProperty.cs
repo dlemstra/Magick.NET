@@ -18,7 +18,7 @@ namespace Magick.NET.Tests
     public partial class MagickSettingsTests
     {
         [TestClass]
-        public class TheTextAntiAliasMethod
+        public class TheTextAntiAliasProperty
         {
             [TestMethod]
             public void ShouldDisableTextAntialiasingWhenFalse()
