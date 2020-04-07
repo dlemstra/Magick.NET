@@ -25,7 +25,7 @@ namespace Magick.NET.Tests.Shared.Settings
             {
                 using (IMagickImage image = new MagickImage(MagickColors.Azure, 300, 300))
                 {
-                    Assert.AreEqual(true, image.Settings.TextAntiAlias);
+                    Assert.IsTrue(image.Settings.TextAntiAlias);
 
                     image.Settings.TextAntiAlias = false;
                     image.Settings.FontPointsize = 100;
