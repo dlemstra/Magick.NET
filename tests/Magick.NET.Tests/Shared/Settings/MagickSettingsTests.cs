@@ -421,26 +421,5 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(49, image.Height);
             }
         }
-
-        [TestMethod]
-        public void Test_TextInterwordSpacing()
-        {
-            using (IMagickImage image = new MagickImage())
-            {
-                Assert.AreEqual(0, image.Settings.TextInterwordSpacing);
-
-                image.Settings.TextInterwordSpacing = 10;
-                image.Read("label:First second");
-
-                Assert.AreEqual(73, image.Width);
-                Assert.AreEqual(15, image.Height);
-
-                image.Settings.TextInterwordSpacing = 20;
-                image.Read("label:First second");
-
-                Assert.AreEqual(83, image.Width);
-                Assert.AreEqual(15, image.Height);
-            }
-        }
     }
 }
