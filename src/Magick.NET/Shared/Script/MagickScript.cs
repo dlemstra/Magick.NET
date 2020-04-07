@@ -27,6 +27,7 @@ namespace ImageMagick
     /// <summary>
     /// Class that can be used to execute a Magick Script Language file.
     /// </summary>
+    [Obsolete("More info here: https://github.com/dlemstra/Magick.NET/discussions/604")]
     public sealed partial class MagickScript
     {
         private static readonly XmlReaderSettings _ReaderSettings = CreateXmlReaderSettings();
