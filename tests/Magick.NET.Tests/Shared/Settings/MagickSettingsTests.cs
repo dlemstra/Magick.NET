@@ -490,14 +490,5 @@ namespace Magick.NET.Tests
                 ColorAssert.AreEqual(MagickColors.White, image, 23, 0);
             }
         }
-
-        [TestMethod]
-        public void Test_Verbose()
-        {
-            using (IMagickImage image = new MagickImage())
-            {
-                Assert.AreEqual(false, image.Settings.Verbose);
-            }
-        }
     }
 }
