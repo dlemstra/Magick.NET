@@ -442,26 +442,5 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(15, image.Height);
             }
         }
-
-        [TestMethod]
-        public void Test_TextKerning()
-        {
-            using (IMagickImage image = new MagickImage())
-            {
-                Assert.AreEqual(0, image.Settings.TextKerning);
-
-                image.Settings.TextKerning = 10;
-                image.Read("label:First");
-
-                Assert.AreEqual(65, image.Width);
-                Assert.AreEqual(15, image.Height);
-
-                image.Settings.TextKerning = 20;
-                image.Read("label:First");
-
-                Assert.AreEqual(105, image.Width);
-                Assert.AreEqual(15, image.Height);
-            }
-        }
     }
 }
