@@ -178,40 +178,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_BlackPointCompensation()
-        {
-            using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
-            {
-                Assert.AreEqual(false, image.BlackPointCompensation);
-                image.RenderingIntent = RenderingIntent.Relative;
-
-                image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.USWebCoatedSWOP);
-#if Q8 || Q16
-                ColorAssert.AreEqual(new MagickColor("#da478d06323d"), image, 130, 100);
-#elif Q16HDRI
-                ColorAssert.AreEqual(new MagickColor("#da7b8d1c318a"), image, 130, 100);
-#else
-#error Not implemented!
-#endif
-
-                image.Read(Files.FujiFilmFinePixS1ProPNG);
-
-                Assert.AreEqual(false, image.BlackPointCompensation);
-                image.RenderingIntent = RenderingIntent.Relative;
-                image.BlackPointCompensation = true;
-
-                image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.USWebCoatedSWOP);
-#if Q8 || Q16
-                ColorAssert.AreEqual(new MagickColor("#cd0a844e3209"), image, 130, 100);
-#elif Q16HDRI
-                ColorAssert.AreEqual(new MagickColor("#ccf7847331b2"), image, 130, 100);
-#else
-#error Not implemented!
-#endif
-            }
-        }
-
-        [TestMethod]
         public void Test_BlackThreshold()
         {
             using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
