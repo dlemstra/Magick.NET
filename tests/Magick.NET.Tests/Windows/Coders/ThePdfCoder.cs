@@ -25,15 +25,10 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI))
             {
-                Test_Image(image);
+                Assert.AreEqual(765, image.Width);
+                Assert.AreEqual(361, image.Height);
+                Assert.AreEqual(MagickFormat.Ai, image.Format);
             }
-        }
-
-        private static void Test_Image(IMagickImage image)
-        {
-            Assert.AreEqual(765, image.Width);
-            Assert.AreEqual(361, image.Height);
-            Assert.AreEqual(MagickFormat.Ai, image.Format);
         }
     }
 }

@@ -30,7 +30,10 @@ namespace Magick.NET.Tests
                 using (IMagickImage image = new MagickImage())
                 {
                     image.Read(Files.Coders.CartoonNetworkStudiosLogoAI);
-                    Test_Image(image);
+
+                    Assert.AreEqual(765, image.Width);
+                    Assert.AreEqual(361, image.Height);
+                    Assert.AreEqual(MagickFormat.Ai, image.Format);
                 }
             };
 
