@@ -107,7 +107,11 @@ namespace Magick.NET.Tests
 
                             var difference = quantumImage.Compare(highResImage, ErrorMetric.RootMeanSquared);
 
+#if Q16HDRI
+                            Assert.AreEqual(0.0, difference);
+#else
                             Assert.AreNotEqual(0.0, difference);
+#endif
                         }
                     }
                 }
