@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
     public partial class TheEpsCoder
     {
         [TestMethod]
-        public void ShouldReadTwoImage()
+        public void ShouldReadTwoImages()
         {
             using (IMagickImageCollection images = new MagickImageCollection(Files.Coders.SwedenHeartEPS))
             {
