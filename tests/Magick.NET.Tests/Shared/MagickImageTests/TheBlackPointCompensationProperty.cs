@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
                 {
-                    Assert.AreEqual(false, image.BlackPointCompensation);
+                    Assert.IsFalse(image.BlackPointCompensation);
                     image.RenderingIntent = RenderingIntent.Relative;
 
                     image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.USWebCoatedSWOP);

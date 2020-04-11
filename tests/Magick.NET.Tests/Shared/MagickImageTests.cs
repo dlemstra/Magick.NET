@@ -1917,7 +1917,7 @@ namespace Magick.NET.Tests
                 Assert.IsNotNull(sender);
                 Assert.IsNotNull(arguments);
                 Assert.IsNotNull(arguments.Origin);
-                Assert.AreEqual(false, arguments.Cancel);
+                Assert.IsFalse(arguments.Cancel);
 
                 progress = arguments.Progress;
                 if (cancel)
@@ -1957,7 +1957,7 @@ namespace Magick.NET.Tests
             settings.DitherMethod = DitherMethod.No;
             Assert.AreEqual(DitherMethod.No, settings.DitherMethod);
             settings.MeasureErrors = true;
-            Assert.AreEqual(true, settings.MeasureErrors);
+            Assert.IsTrue(settings.MeasureErrors);
 
             using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {

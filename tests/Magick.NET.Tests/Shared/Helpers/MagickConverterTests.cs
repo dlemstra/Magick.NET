@@ -38,7 +38,7 @@ namespace Magick.NET.Tests
         public void ConvertWithObject_TypeIsBooleanAndValueIsString_ReturnsValue()
         {
             bool value = MagickConverter.Convert<bool>((object)"true");
-            Assert.AreEqual(true, value);
+            Assert.IsTrue(value);
         }
 
         [TestMethod]
@@ -112,7 +112,7 @@ namespace Magick.NET.Tests
         public void ConvertWithString_TypeIsBoolean_ReturnsValue()
         {
             bool value = MagickConverter.Convert<bool>("1");
-            Assert.AreEqual(true, value);
+            Assert.IsTrue(value);
         }
 
         [TestMethod]

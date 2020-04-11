@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImage image = new MagickImage())
                 {
-                    Assert.AreEqual(false, image.Settings.Verbose);
+                    Assert.IsFalse(image.Settings.Verbose);
                 }
             }
         }

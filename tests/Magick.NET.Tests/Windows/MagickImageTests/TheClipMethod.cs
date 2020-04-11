@@ -55,7 +55,7 @@ namespace Magick.NET.Tests
                     using (IMagickImage mask = image.GetWriteMask())
                     {
                         Assert.IsNotNull(mask);
-                        Assert.AreEqual(false, mask.HasAlpha);
+                        Assert.IsFalse(mask.HasAlpha);
 
                         using (IPixelCollection pixels = mask.GetPixels())
                         {

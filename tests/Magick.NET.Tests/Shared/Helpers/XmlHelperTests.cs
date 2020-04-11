@@ -71,7 +71,7 @@ namespace Magick.NET.Tests
 
             bool value = XmlHelper.GetAttribute<bool>(element, "attr");
 
-            Assert.AreEqual(true, value);
+            Assert.IsTrue(value);
         }
 
         [TestMethod]
@@ -79,7 +79,7 @@ namespace Magick.NET.Tests
         {
             bool value = XmlHelper.GetValue<bool>(null);
 
-            Assert.AreEqual(false, value);
+            Assert.IsFalse(value);
         }
 
         [TestMethod]
@@ -91,7 +91,7 @@ namespace Magick.NET.Tests
 
             bool value = XmlHelper.GetValue<bool>(attribute);
 
-            Assert.AreEqual(true, value);
+            Assert.IsTrue(value);
         }
 
         [TestMethod]

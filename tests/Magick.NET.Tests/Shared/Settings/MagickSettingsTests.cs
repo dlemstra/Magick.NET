@@ -125,7 +125,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage())
             {
-                Assert.AreEqual(false, image.Settings.Debug);
+                Assert.IsFalse(image.Settings.Debug);
             }
         }
 
@@ -261,7 +261,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(MagickColors.Purple, 300, 300))
             {
-                Assert.AreEqual(true, image.Settings.StrokeAntiAlias);
+                Assert.IsTrue(image.Settings.StrokeAntiAlias);
 
                 image.Settings.StrokeWidth = 20;
                 image.Settings.StrokeAntiAlias = false;

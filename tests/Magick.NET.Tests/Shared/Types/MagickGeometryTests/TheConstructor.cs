@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(0, geometry.Y);
                 Assert.AreEqual(5, geometry.Width);
                 Assert.AreEqual(10, geometry.Height);
-                Assert.AreEqual(true, geometry.IgnoreAspectRatio);
+                Assert.IsTrue(geometry.IgnoreAspectRatio);
             }
 
             [TestMethod]
@@ -54,7 +54,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(1, geometry.Y);
                 Assert.AreEqual(10, geometry.Width);
                 Assert.AreEqual(5, geometry.Height);
-                Assert.AreEqual(true, geometry.Less);
+                Assert.IsTrue(geometry.Less);
             }
 
             [TestMethod]
@@ -66,7 +66,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(0, geometry.Y);
                 Assert.AreEqual(5, geometry.Width);
                 Assert.AreEqual(10, geometry.Height);
-                Assert.AreEqual(true, geometry.Greater);
+                Assert.IsTrue(geometry.Greater);
             }
 
             [TestMethod]
@@ -78,7 +78,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(0, geometry.Y);
                 Assert.AreEqual(10, geometry.Width);
                 Assert.AreEqual(15, geometry.Height);
-                Assert.AreEqual(true, geometry.FillArea);
+                Assert.IsTrue(geometry.FillArea);
             }
 
             [TestMethod]
@@ -90,7 +90,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(0, geometry.Y);
                 Assert.AreEqual(10, geometry.Width);
                 Assert.AreEqual(0, geometry.Height);
-                Assert.AreEqual(true, geometry.LimitPixels);
+                Assert.IsTrue(geometry.LimitPixels);
             }
 
             [TestMethod]
@@ -102,8 +102,8 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(0, geometry.Y);
                 Assert.AreEqual(50, geometry.Width);
                 Assert.AreEqual(0, geometry.Height);
-                Assert.AreEqual(true, geometry.IsPercentage);
-                Assert.AreEqual(true, geometry.Greater);
+                Assert.IsTrue(geometry.IsPercentage);
+                Assert.IsTrue(geometry.Greater);
             }
 
             [TestMethod]
@@ -115,7 +115,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(0, geometry.Y);
                 Assert.AreEqual(3, geometry.Width);
                 Assert.AreEqual(2, geometry.Height);
-                Assert.AreEqual(true, geometry.AspectRatio);
+                Assert.IsTrue(geometry.AspectRatio);
             }
 
             [TestMethod]
@@ -127,7 +127,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(0, geometry.Y);
                 Assert.AreEqual(4, geometry.Width);
                 Assert.AreEqual(3, geometry.Height);
-                Assert.AreEqual(true, geometry.AspectRatio);
+                Assert.IsTrue(geometry.AspectRatio);
             }
 
             [TestMethod]
@@ -139,7 +139,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(1, geometry.Y);
                 Assert.AreEqual(4, geometry.Width);
                 Assert.AreEqual(3, geometry.Height);
-                Assert.AreEqual(true, geometry.AspectRatio);
+                Assert.IsTrue(geometry.AspectRatio);
             }
 
             [TestMethod]
@@ -151,7 +151,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(1, geometry.Y);
                 Assert.AreEqual(4, geometry.Width);
                 Assert.AreEqual(3, geometry.Height);
-                Assert.AreEqual(true, geometry.AspectRatio);
+                Assert.IsTrue(geometry.AspectRatio);
             }
 
             [TestMethod]
@@ -196,7 +196,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(0, geometry.Y);
                 Assert.AreEqual(50, geometry.Width);
                 Assert.AreEqual(10, geometry.Height);
-                Assert.AreEqual(true, geometry.IsPercentage);
+                Assert.IsTrue(geometry.IsPercentage);
             }
 
             [TestMethod]
@@ -208,7 +208,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(10, geometry.Y);
                 Assert.AreEqual(15, geometry.Width);
                 Assert.AreEqual(20, geometry.Height);
-                Assert.AreEqual(true, geometry.IsPercentage);
+                Assert.IsTrue(geometry.IsPercentage);
             }
         }
     }

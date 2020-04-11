@@ -26,7 +26,7 @@ namespace Magick.NET.Tests
             Assert.AreEqual(1, settings.Colors);
             Assert.AreEqual(ColorSpace.Undefined, settings.ColorSpace);
             Assert.AreEqual(DitherMethod.Riemersma, settings.DitherMethod);
-            Assert.AreEqual(false, settings.MeasureErrors);
+            Assert.IsFalse(settings.MeasureErrors);
             Assert.AreEqual(0, settings.TreeDepth);
         }
     }

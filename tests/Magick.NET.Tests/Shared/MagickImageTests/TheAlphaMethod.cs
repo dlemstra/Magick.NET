@@ -45,7 +45,7 @@ namespace Magick.NET.Tests
                     image.Alpha(AlphaOption.Background);
                     image.Alpha(AlphaOption.Off);
 
-                    Assert.AreEqual(false, image.HasAlpha);
+                    Assert.IsFalse(image.HasAlpha);
                     ColorAssert.AreEqual(new MagickColor(Quantum.Max, 0, 0), image, 0, 0);
                 }
             }
