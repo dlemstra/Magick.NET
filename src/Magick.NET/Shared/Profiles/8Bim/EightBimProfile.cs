@@ -147,8 +147,8 @@ namespace ImageMagick
                 if (i + 7 > Data.Length)
                     return;
 
-                short id = ByteConverter.ToShort(Data, ref i);
-                bool isClipPath = id > 1999 && id < 2998;
+                var id = ByteConverter.ToShort(Data, ref i);
+                var isClipPath = id > 1999 && id < 2998;
 
                 string name = null;
                 int length = Data[i++];
@@ -174,12 +174,12 @@ namespace ImageMagick
                 {
                     if (isClipPath)
                     {
-                        ClipPath clipPath = CreateClipPath(name, i, length);
+                        var clipPath = CreateClipPath(name, i, length);
                         if (clipPath != null)
                             _clipPaths.Add(clipPath);
                     }
 
-                    byte[] data = new byte[length];
+                    var data = new byte[length];
                     Array.Copy(Data, i, data, 0, length);
                     _values.Add(new EightBimValue(id, data));
                 }
