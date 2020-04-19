@@ -3897,6 +3897,28 @@ namespace ImageMagick
         public void Minify() => _nativeInstance.Minify();
 
         /// <summary>
+        /// Returns the points that form the minimum bounding box around the image foreground objects with
+        /// the "Rotating Calipers" algorithm. he method also returns these properties: minimum-bounding-box:area,
+        /// minimum-bounding-box:width, minimum-bounding-box:height, and minimum-bounding-box:angle.
+        /// </summary>
+        /// <returns>The points that form the minimum bounding box around the image foreground objects.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public IEnumerable<PointD> MinimumBoundingBox()
+        {
+            var result = _nativeInstance.MinimumBoundingBox(out var length);
+            using (var coordinates = new PointInfoCollection(result, (int)length))
+            {
+                for (var i = 0; i < coordinates.Count; i++)
+                {
+                    var x = coordinates.GetX(i);
+                    var y = coordinates.GetY(i);
+
+                    yield return new PointD(x, y);
+                }
+            }
+        }
+
+        /// <summary>
         /// Modulate percent brightness of an image.
         /// </summary>
         /// <param name="brightness">The brightness percentage.</param>

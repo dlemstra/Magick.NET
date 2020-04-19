@@ -1727,6 +1727,21 @@
       ]
     },
     {
+      "name": "MinimumBoundingBox",
+      "type": "Instance",
+      "throws": true,
+      "arguments": [
+        {
+          "name": "length",
+          "type": "size_t",
+          "out": true
+        }
+      ],
+      "cleanup": {
+        "name": "ImageMagick.PointInfoCollection.DisposeList"
+      }
+    },
+    {
       "name": "Morphology",
       "instance": true,
       "throws": true,

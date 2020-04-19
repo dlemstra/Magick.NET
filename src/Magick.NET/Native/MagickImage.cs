@@ -433,6 +433,8 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_Modulate(IntPtr Instance, IntPtr modulate, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickImage_MinimumBoundingBox(IntPtr Instance, out UIntPtr length, out IntPtr exception);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Morphology(IntPtr Instance, UIntPtr method, IntPtr kernel, UIntPtr channels, UIntPtr iterations, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_MotionBlur(IntPtr Instance, double radius, double sigma, double angle, out IntPtr exception);
@@ -988,6 +990,8 @@ namespace ImageMagick
                 public static extern IntPtr MagickImage_Moments(IntPtr Instance, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_Modulate(IntPtr Instance, IntPtr modulate, out IntPtr exception);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickImage_MinimumBoundingBox(IntPtr Instance, out UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Morphology(IntPtr Instance, UIntPtr method, IntPtr kernel, UIntPtr channels, UIntPtr iterations, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -4770,6 +4774,34 @@ namespace ImageMagick
                     #endif
                     CheckException(exception);
                 }
+            }
+            public IntPtr MinimumBoundingBox(out UIntPtr length)
+            {
+                IntPtr exception = IntPtr.Zero;
+                IntPtr result;
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_MinimumBoundingBox(Instance, out length, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_MinimumBoundingBox(Instance, out length, out exception);
+                #endif
+                var magickException = MagickExceptionHelper.Create(exception);
+                if (magickException == null)
+                    return result;
+                if (magickException is MagickErrorException)
+                {
+                    if (result != IntPtr.Zero)
+                        ImageMagick.PointInfoCollection.DisposeList(result);
+                    throw magickException;
+                }
+                RaiseWarning(magickException);
+                return result;
             }
             public void Morphology(MorphologyMethod method, string kernel, Channels channels, int iterations)
             {
