@@ -1,5 +1,6 @@
 ﻿{
   "access": "internal",
+  "nativeConstructor": true,
   "constructor": {
     "arguments": [
       {
@@ -9,6 +10,26 @@
     ]
   },
   "methods": [
+    {
+      "name": "GetX",
+      "type": "double",
+      "arguments": [
+        {
+          "name": "index",
+          "type": "size_t"
+        }
+      ]
+    },
+    {
+      "name": "GetY",
+      "type": "double",
+      "arguments": [
+        {
+          "name": "index",
+          "type": "size_t"
+        }
+      ]
+    },
     {
       "name": "Set",
       "arguments": [

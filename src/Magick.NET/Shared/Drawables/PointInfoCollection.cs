@@ -22,7 +22,7 @@ namespace ImageMagick
         {
             for (int i = 0; i < coordinates.Count; i++)
             {
-                PointD point = coordinates[i];
+                var point = coordinates[i];
                 _nativeInstance.Set(i, point.X, point.Y);
             }
         }
@@ -42,5 +42,9 @@ namespace ImageMagick
             DebugThrow.IfNull(_nativeInstance);
             _nativeInstance.Dispose();
         }
+
+        public double GetX(int index) => _nativeInstance.GetX(index);
+
+        public double GetY(int index) => _nativeInstance.GetY(index);
     }
 }
