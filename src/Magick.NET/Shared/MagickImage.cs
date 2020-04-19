@@ -1722,7 +1722,7 @@ namespace ImageMagick
 
             settings.SetImageArtifacts(this);
 
-            var result = _nativeInstance.Compare(image, settings.Metric, channels, out double distortion);
+            var result = _nativeInstance.Compare(image, settings.Metric, channels, out var distortion);
             if (result != IntPtr.Zero)
                 differenceImage._nativeInstance.Instance = result;
 
@@ -3233,11 +3233,10 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public Dictionary<MagickColor, int> Histogram()
         {
-            IntPtr result = IntPtr.Zero;
+            var result = IntPtr.Zero;
             try
             {
-                UIntPtr length;
-                result = _nativeInstance.Histogram(out length);
+                result = _nativeInstance.Histogram(out var length);
                 return MagickColorCollection.ToDictionary(result, (int)length);
             }
             finally
@@ -5672,7 +5671,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(image), image);
 
-            var result = _nativeInstance.SubImageSearch(image, metric, similarityThreshold, out MagickRectangle rectangle, out double similarityMetric);
+            var result = _nativeInstance.SubImageSearch(image, metric, similarityThreshold, out var rectangle, out double similarityMetric);
             return new MagickSearchResult(Create(result, image.Settings), MagickGeometry.FromRectangle(rectangle), similarityMetric);
         }
 
