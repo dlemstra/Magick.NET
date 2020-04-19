@@ -820,34 +820,6 @@
       ]
     },
     {
-      "name": "Contrast",
-      "throws": true,
-      "arguments": [
-        {
-          "name": "enhance",
-          "type": "bool"
-        }
-      ]
-    },
-    {
-      "name": "ContrastStretch",
-      "throws": true,
-      "arguments": [
-        {
-          "name": "blackPoint",
-          "type": "double"
-        },
-        {
-          "name": "whitePoint",
-          "type": "double"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
       "name": "CompareDistortion",
       "type": "double",
       "throws": true,
@@ -935,6 +907,34 @@
           "name": "objects",
           "type": "Instance",
           "out": true
+        }
+      ]
+    },
+    {
+      "name": "Contrast",
+      "throws": true,
+      "arguments": [
+        {
+          "name": "enhance",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "ContrastStretch",
+      "throws": true,
+      "arguments": [
+        {
+          "name": "blackPoint",
+          "type": "double"
+        },
+        {
+          "name": "whitePoint",
+          "type": "double"
+        },
+        {
+          "name": "channels",
+          "type": "Channels"
         }
       ]
     },
