@@ -36,10 +36,7 @@ namespace ImageMagick
                 return _isEnabled.Value;
             }
 
-            set
-            {
-                _isEnabled = NativeOpenCL.SetEnabled(value);
-            }
+            set => _isEnabled = NativeOpenCL.SetEnabled(value);
         }
 
         /// <summary>
@@ -50,17 +47,16 @@ namespace ImageMagick
         {
             get
             {
-                UIntPtr length;
-                IntPtr devices = NativeOpenCL.GetDevices(out length);
-                Collection<OpenCLDevice> result = new Collection<OpenCLDevice>();
+                var devices = NativeOpenCL.GetDevices(out var length);
+                var result = new Collection<OpenCLDevice>();
 
                 if (devices == IntPtr.Zero)
                     return result;
 
                 for (int i = 0; i < (int)length; i++)
                 {
-                    IntPtr instance = NativeOpenCL.GetDevice(devices, i);
-                    OpenCLDevice device = OpenCLDevice.CreateInstance(instance);
+                    var instance = NativeOpenCL.GetDevice(devices, i);
+                    var device = OpenCLDevice.CreateInstance(instance);
                     if (device != null)
                         result.Add(device);
                 }
@@ -73,9 +69,6 @@ namespace ImageMagick
         /// Sets the directory that will be used by ImageMagick to store OpenCL cache files.
         /// </summary>
         /// <param name="path">The path of the OpenCL cache directory.</param>
-        public static void SetCacheDirectory(string path)
-        {
-            Environment.SetEnv("MAGICK_OPENCL_CACHE_DIR", FileHelper.GetFullPath(path));
-        }
+        public static void SetCacheDirectory(string path) => Environment.SetEnv("MAGICK_OPENCL_CACHE_DIR", FileHelper.GetFullPath(path));
     }
 }
