@@ -2234,6 +2234,26 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Returns the convex hull points of an image canvas.
+        /// </summary>
+        /// <returns>The convex hull points of an image canvas.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public IEnumerable<PointD> ConvexHull()
+        {
+            var result = _nativeInstance.ConvexHull(out var length);
+            using (var coordinates = new PointInfoCollection(result, (int)length))
+            {
+                for (var i = 0; i < coordinates.Count; i++)
+                {
+                    var x = coordinates.GetX(i);
+                    var y = coordinates.GetY(i);
+
+                    yield return new PointD(x, y);
+                }
+            }
+        }
+
+        /// <summary>
         /// Convolve image. Applies a user-specified convolution to the image.
         /// </summary>
         /// <param name="convolveMatrix">The convolution matrix.</param>

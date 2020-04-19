@@ -305,6 +305,8 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_ContrastStretch(IntPtr Instance, double blackPoint, double whitePoint, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickImage_ConvexHull(IntPtr Instance, out UIntPtr length, out IntPtr exception);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Convolve(IntPtr Instance, IntPtr matrix, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_CopyPixels(IntPtr Instance, IntPtr image, IntPtr geometry, IntPtr offset, UIntPtr channels, out IntPtr exception);
@@ -858,6 +860,8 @@ namespace ImageMagick
                 public static extern void MagickImage_Contrast(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool enhance, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_ContrastStretch(IntPtr Instance, double blackPoint, double whitePoint, UIntPtr channels, out IntPtr exception);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickImage_ConvexHull(IntPtr Instance, out UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Convolve(IntPtr Instance, IntPtr matrix, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -3543,6 +3547,34 @@ namespace ImageMagick
                 NativeMethods.X86.MagickImage_ContrastStretch(Instance, blackPoint, whitePoint, (UIntPtr)channels, out exception);
                 #endif
                 CheckException(exception);
+            }
+            public IntPtr ConvexHull(out UIntPtr length)
+            {
+                IntPtr exception = IntPtr.Zero;
+                IntPtr result;
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_ConvexHull(Instance, out length, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_ConvexHull(Instance, out length, out exception);
+                #endif
+                var magickException = MagickExceptionHelper.Create(exception);
+                if (magickException == null)
+                    return result;
+                if (magickException is MagickErrorException)
+                {
+                    if (result != IntPtr.Zero)
+                        ImageMagick.PointInfoCollection.DisposeList(result);
+                    throw magickException;
+                }
+                RaiseWarning(magickException);
+                return result;
             }
             public void Convolve(DoubleMatrix matrix)
             {

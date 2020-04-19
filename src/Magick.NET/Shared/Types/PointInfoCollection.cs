@@ -27,6 +27,12 @@ namespace ImageMagick
             }
         }
 
+        public PointInfoCollection(IntPtr instance, int count)
+        {
+            _nativeInstance = new NativePointInfoCollection(instance);
+            Count = count;
+        }
+
         private PointInfoCollection(int count)
         {
             _nativeInstance = new NativePointInfoCollection(count);
@@ -36,6 +42,17 @@ namespace ImageMagick
         public int Count { get; private set; }
 
         IntPtr INativeInstance.Instance => _nativeInstance.Instance;
+
+        public static void DisposeList(IntPtr instance)
+        {
+            if (instance == IntPtr.Zero)
+            {
+                return;
+            }
+
+            var nativeIstance = new NativePointInfoCollection(instance);
+            nativeIstance.Dispose();
+        }
 
         public void Dispose()
         {

@@ -1403,6 +1403,13 @@ namespace ImageMagick
         void ContrastStretch(Percentage blackPoint, Percentage whitePoint, Channels channels);
 
         /// <summary>
+        /// Returns the convex hull points of an image canvas.
+        /// </summary>
+        /// <returns>The convex hull points of an image canvas.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        IEnumerable<PointD> ConvexHull();
+
+        /// <summary>
         /// Convolve image. Applies a user-specified convolution to the image.
         /// </summary>
         /// <param name="convolveMatrix">The convolution matrix.</param>

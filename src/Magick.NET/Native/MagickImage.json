@@ -939,6 +939,21 @@
       ]
     },
     {
+      "name": "ConvexHull",
+      "type": "Instance",
+      "throws": true,
+      "arguments": [
+        {
+          "name": "length",
+          "type": "size_t",
+          "out": true
+        }
+      ],
+      "cleanup": {
+        "name": "ImageMagick.PointInfoCollection.DisposeList"
+      }
+    },
+    {
       "name": "Convolve",
       "instance": true,
       "throws": true,
