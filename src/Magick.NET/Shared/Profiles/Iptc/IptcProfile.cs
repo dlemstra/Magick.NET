@@ -98,9 +98,9 @@ namespace ImageMagick
         /// </summary>
         /// <param name="tag">The tag of the iptc value.</param>
         /// <returns>The values found with the specified tag.</returns>
-        public List<IptcValue> GetValues(IptcTag tag)
+        public List<IIptcValue> GetAllValues(IptcTag tag)
         {
-            var iptcValues = new List<IptcValue>();
+            var iptcValues = new List<IIptcValue>();
             foreach (IptcValue iptcValue in Values)
             {
                 if (iptcValue.Tag == tag)

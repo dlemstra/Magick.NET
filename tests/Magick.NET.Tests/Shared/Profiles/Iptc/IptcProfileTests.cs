@@ -263,7 +263,7 @@ namespace Magick.NET.Tests
             profile.SetValue(IptcTag.Caption, "test");
 
             // act
-            List<IptcValue> result = profile.GetValues(IptcTag.Byline);
+            List<IIptcValue> result = profile.GetAllValues(IptcTag.Byline);
 
             // assert
             Assert.IsNotNull(result);
@@ -286,7 +286,7 @@ namespace Magick.NET.Tests
             profile.SetDateTimeValue(tag, datetime);
 
             // assert
-            IptcValue actual = profile.GetValues(tag).First();
+            IIptcValue actual = profile.GetValue(tag);
             Assert.AreEqual("19940317", actual.Value);
         }
 
@@ -306,7 +306,7 @@ namespace Magick.NET.Tests
             profile.SetDateTimeValue(tag, dateTimeOffset);
 
             // assert
-            IptcValue actual = profile.GetValues(tag).First();
+            IIptcValue actual = profile.GetAllValues(tag).First();
             Assert.AreEqual("161516+0200", actual.Value);
         }
 
