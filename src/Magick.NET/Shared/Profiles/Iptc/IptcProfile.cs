@@ -205,6 +205,31 @@ namespace ImageMagick
         public void SetValue(IptcTag tag, string value) => SetValue(tag, Encoding.UTF8, value);
 
         /// <summary>
+        /// Makes sure the datetime is formatted according to the iptc specification.
+        /// <example>
+        /// A date will be formatted as CCYYMMDD, e.g. "19890317" for 17 March 1989.
+        /// A time value will be formatted as HHMMSS±HHMM, e.g. "090000+0200" for 9 o'clock Berlin time,
+        /// two hours ahead of UTC.
+        /// </example>
+        /// </summary>
+        /// <param name="tag">The tag of the iptc value.</param>
+        /// <param name="dateTimeOffset">The datetime.</param>
+        public void SetDateTimeValue(IptcTag tag, DateTimeOffset dateTimeOffset)
+        {
+            if (!tag.IsDate() && !tag.IsTime())
+            {
+                throw new ArgumentException("iptc tag is not a time or date type");
+            }
+
+            var formattedDate = tag.IsDate()
+                ? dateTimeOffset.ToString("yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture)
+                : dateTimeOffset.ToString("HHmmsszzzz", System.Globalization.CultureInfo.InvariantCulture)
+                    .Replace(":", string.Empty);
+
+            SetValue(tag, Encoding.UTF8, formattedDate);
+        }
+
+        /// <summary>
         /// Updates the data of the profile.
         /// </summary>
         protected override void UpdateData()

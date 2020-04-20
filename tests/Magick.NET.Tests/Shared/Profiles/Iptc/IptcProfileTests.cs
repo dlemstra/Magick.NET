@@ -270,6 +270,46 @@ namespace Magick.NET.Tests
             Assert.AreEqual(2, result.Count);
         }
 
+        [TestMethod]
+        [DataRow(IptcTag.DigitalCreationDate)]
+        [DataRow(IptcTag.ExpirationDate)]
+        [DataRow(IptcTag.CreatedDate)]
+        [DataRow(IptcTag.ReferenceDate)]
+        [DataRow(IptcTag.ReleaseDate)]
+        public void IptcProfile_SetDateValue_Works(IptcTag tag)
+        {
+            // arrange
+            var profile = new IptcProfile();
+            var datetime = new DateTimeOffset(new DateTime(1994, 3, 17));
+
+            // act
+            profile.SetDateTimeValue(tag, datetime);
+
+            // assert
+            IptcValue actual = profile.GetValues(tag).First();
+            Assert.AreEqual("19940317", actual.Value);
+        }
+
+        [TestMethod]
+        [DataRow(IptcTag.CreatedTime)]
+        [DataRow(IptcTag.DigitalCreationTime)]
+        [DataRow(IptcTag.ExpirationTime)]
+        [DataRow(IptcTag.ReleaseTime)]
+        public void IptcProfile_SetTimeValue_Works(IptcTag tag)
+        {
+            // arrange
+            var profile = new IptcProfile();
+            var dateTimeUtc = new DateTime(1994, 3, 17, 14, 15, 16, DateTimeKind.Utc);
+            DateTimeOffset dateTimeOffset = new DateTimeOffset(dateTimeUtc).ToOffset(TimeSpan.FromHours(2));
+
+            // act
+            profile.SetDateTimeValue(tag, dateTimeOffset);
+
+            // assert
+            IptcValue actual = profile.GetValues(tag).First();
+            Assert.AreEqual("161516+0200", actual.Value);
+        }
+
         private static void ContainsIptcValue(List<IIptcValue> values, IptcTag tag, string value)
         {
             Assert.IsTrue(values.Any(val => val.Tag == tag), $"Missing iptc tag {tag}");
