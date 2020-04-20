@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -52,7 +53,7 @@ namespace ImageMagick
         /// <param name="tag">The tag of the iptc value to remove.</param>
         /// <param name="value">The value of the iptc item to remove.</param>
         /// <returns>True when the value was found and removed.</returns>
-        public bool RemoveValue(IptcTag tag, string value);
+        bool RemoveValue(IptcTag tag, string value);
 
         /// <summary>
         /// Changes the encoding for all the values.
@@ -74,5 +75,17 @@ namespace ImageMagick
         /// <param name="tag">The tag of the iptc value.</param>
         /// <param name="value">The value.</param>
         void SetValue(IptcTag tag, string value);
+
+        /// <summary>
+        /// Makes sure the datetime is formatted according to the iptc specification.
+        /// <example>
+        /// A date will be formatted as CCYYMMDD, e.g. "19890317" for 17 March 1989.
+        /// A time value will be formatted as HHMMSS±HHMM, e.g. "090000+0200" for 9 o'clock Berlin time,
+        /// two hours ahead of UTC.
+        /// </example>
+        /// </summary>
+        /// <param name="tag">The tag of the iptc value.</param>
+        /// <param name="dateTimeOffset">The datetime.</param>
+        void SetDateTimeValue(IptcTag tag, DateTimeOffset dateTimeOffset);
     }
 }
