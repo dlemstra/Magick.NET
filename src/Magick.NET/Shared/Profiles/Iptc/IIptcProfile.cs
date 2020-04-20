@@ -26,18 +26,33 @@ namespace ImageMagick
         IEnumerable<IIptcValue> Values { get; }
 
         /// <summary>
-        /// Returns the value with the specified tag.
+        /// Returns the first occurrence of a iptc value with the specified tag.
         /// </summary>
         /// <param name="tag">The tag of the iptc value.</param>
         /// <returns>The value with the specified tag.</returns>
         IIptcValue GetValue(IptcTag tag);
 
         /// <summary>
-        /// Removes the value with the specified tag.
+        /// Returns all values with the specified tag.
         /// </summary>
         /// <param name="tag">The tag of the iptc value.</param>
-        /// <returns>True when the value was fount and removed.</returns>
+        /// <returns>The values found with the specified tag.</returns>
+        List<IptcValue> GetValues(IptcTag tag);
+
+        /// <summary>
+        /// Removes all values with the specified tag.
+        /// </summary>
+        /// <param name="tag">The tag of the iptc value to remove.</param>
+        /// <returns>True when the value was found and removed.</returns>
         bool RemoveValue(IptcTag tag);
+
+        /// <summary>
+        /// Removes values with the specified tag and value.
+        /// </summary>
+        /// <param name="tag">The tag of the iptc value to remove.</param>
+        /// <param name="value">The value of the iptc item to remove.</param>
+        /// <returns>True when the value was found and removed.</returns>
+        public bool RemoveValue(IptcTag tag, string value);
 
         /// <summary>
         /// Changes the encoding for all the values.
