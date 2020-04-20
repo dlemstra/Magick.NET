@@ -11,6 +11,7 @@
 // and limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -135,6 +136,145 @@ namespace Magick.NET.Tests
                     TestProfileValues(profile);
                 }
             }
+        }
+
+        [TestMethod]
+        [DataRow(IptcTag.ObjectAttribute)]
+        [DataRow(IptcTag.SubjectReference)]
+        [DataRow(IptcTag.SupplementalCategories)]
+        [DataRow(IptcTag.Keyword)]
+        [DataRow(IptcTag.LocationCode)]
+        [DataRow(IptcTag.LocationName)]
+        [DataRow(IptcTag.ReferenceService)]
+        [DataRow(IptcTag.ReferenceDate)]
+        [DataRow(IptcTag.ReferenceNumber)]
+        [DataRow(IptcTag.Byline)]
+        [DataRow(IptcTag.BylineTitle)]
+        [DataRow(IptcTag.Contact)]
+        [DataRow(IptcTag.LocalCaption)]
+        [DataRow(IptcTag.CaptionWriter)]
+        public void Test_AddRepeatable(IptcTag tag)
+        {
+            // arrange
+            var profile = new IptcProfile();
+            var expectedValue1 = "test";
+            var expectedValue2 = "another one";
+            profile.SetValue(tag, expectedValue1);
+
+            // act
+            profile.SetValue(tag, expectedValue2);
+
+            // assert
+            var values = profile.Values.ToList();
+            Assert.AreEqual(2, values.Count);
+            ContainsIptcValue(values, tag, expectedValue1);
+            ContainsIptcValue(values, tag, expectedValue2);
+        }
+
+        [TestMethod]
+        [DataRow(IptcTag.RecordVersion)]
+        [DataRow(IptcTag.ObjectType)]
+        [DataRow(IptcTag.Title)]
+        [DataRow(IptcTag.EditStatus)]
+        [DataRow(IptcTag.EditorialUpdate)]
+        [DataRow(IptcTag.Priority)]
+        [DataRow(IptcTag.Category)]
+        [DataRow(IptcTag.FixtureIdentifier)]
+        [DataRow(IptcTag.ReleaseDate)]
+        [DataRow(IptcTag.ReleaseTime)]
+        [DataRow(IptcTag.ExpirationDate)]
+        [DataRow(IptcTag.ExpirationTime)]
+        [DataRow(IptcTag.SpecialInstructions)]
+        [DataRow(IptcTag.ActionAdvised)]
+        [DataRow(IptcTag.CreatedDate)]
+        [DataRow(IptcTag.CreatedTime)]
+        [DataRow(IptcTag.DigitalCreationDate)]
+        [DataRow(IptcTag.DigitalCreationTime)]
+        [DataRow(IptcTag.OriginatingProgram)]
+        [DataRow(IptcTag.ProgramVersion)]
+        [DataRow(IptcTag.ObjectCycle)]
+        [DataRow(IptcTag.City)]
+        [DataRow(IptcTag.SubLocation)]
+        [DataRow(IptcTag.ProvinceState)]
+        [DataRow(IptcTag.CountryCode)]
+        [DataRow(IptcTag.Country)]
+        [DataRow(IptcTag.OriginalTransmissionReference)]
+        [DataRow(IptcTag.Headline)]
+        [DataRow(IptcTag.Credit)]
+        [DataRow(IptcTag.CopyrightNotice)]
+        [DataRow(IptcTag.Caption)]
+        [DataRow(IptcTag.ImageType)]
+        [DataRow(IptcTag.ImageOrientation)]
+        public void Test_AddNoneRepeatable_DoesOverrideOldValue(IptcTag tag)
+        {
+            // arrange
+            var profile = new IptcProfile();
+            var expectedValue = "another one";
+            profile.SetValue(tag, "test");
+
+            // act
+            profile.SetValue(tag, expectedValue);
+
+            // assert
+            var values = profile.Values.ToList();
+            Assert.AreEqual(1, values.Count);
+            ContainsIptcValue(values, tag, expectedValue);
+        }
+
+        [TestMethod]
+        public void Test_RemoveByTag_RemovesAllEntries()
+        {
+            // arrange
+            var profile = new IptcProfile();
+            profile.SetValue(IptcTag.Byline, "test");
+            profile.SetValue(IptcTag.Byline, "test2");
+
+            // act
+            var result = profile.RemoveValue(IptcTag.Byline);
+
+            // assert
+            Assert.IsTrue(result, "removed result should be true");
+            Assert.AreEqual(0, profile.Values.Count());
+        }
+
+        [TestMethod]
+        public void Test_RemoveByTagAndValue_Works()
+        {
+            // arrange
+            var profile = new IptcProfile();
+            profile.SetValue(IptcTag.Byline, "test");
+            profile.SetValue(IptcTag.Byline, "test2");
+
+            // act
+            var result = profile.RemoveValue(IptcTag.Byline, "test2");
+
+            // assert
+            Assert.IsTrue(result, "removed result should be true");
+            ContainsIptcValue(profile.Values.ToList(), IptcTag.Byline, "test");
+        }
+
+        [TestMethod]
+        public void Test_GetValues_RetrievesAllEntries()
+        {
+            // arrange
+            var profile = new IptcProfile();
+            profile.SetValue(IptcTag.Byline, "test");
+            profile.SetValue(IptcTag.Byline, "test2");
+            profile.SetValue(IptcTag.Caption, "test");
+
+            // act
+            List<IptcValue> result = profile.GetValues(IptcTag.Byline);
+
+            // assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(2, result.Count);
+        }
+
+        private static void ContainsIptcValue(List<IIptcValue> values, IptcTag tag, string value)
+        {
+            Assert.IsTrue(values.Any(val => val.Tag == tag), $"Missing iptc tag {tag}");
+            Assert.IsTrue(values.Contains(new IptcValue(tag, Encoding.UTF8.GetBytes(value))),
+                $"expected iptc value '{value}' was not found for tag '{tag}'");
         }
 
         private static void TestProfileValues(IIptcProfile profile) => TestProfileValues(profile, 18);

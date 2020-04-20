@@ -46,7 +46,7 @@ namespace ImageMagick.Defines
         Iptc = 16,
 
         /// <summary>
-        /// Iptc profile
+        /// Xmp profile
         /// </summary>
         Xmp = 32,
     }

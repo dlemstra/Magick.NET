@@ -58,6 +58,11 @@ namespace ImageMagick
         Priority = 10,
 
         /// <summary>
+        /// Subject Reference
+        /// </summary>
+        SubjectReference = 12,
+
+        /// <summary>
         /// Category
         /// </summary>
         Category = 15,
