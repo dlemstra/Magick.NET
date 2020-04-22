@@ -740,13 +740,13 @@ namespace ImageMagick
         /// </summary>
         public string Label
         {
-            get => GetAttribute("Label");
+            get => GetAttribute("label");
             set
             {
-                if (value == null)
-                    RemoveAttribute("Label");
+                if (value != null)
+                    SetAttribute("label", value);
                 else
-                    SetAttribute("Label", value);
+                    RemoveAttribute("label");
             }
         }
 
