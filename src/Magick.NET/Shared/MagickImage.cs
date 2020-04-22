@@ -567,8 +567,14 @@ namespace ImageMagick
         /// </summary>
         public string Comment
         {
-            get => Settings.GetOption("Comment");
-            set => Settings.SetOption("Comment", value);
+            get => GetAttribute("comment");
+            set
+            {
+                if (value != null)
+                    SetAttribute("comment", value);
+                else
+                    RemoveAttribute("comment");
+            }
         }
 
         /// <summary>
