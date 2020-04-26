@@ -214,17 +214,18 @@ namespace ImageMagick
         /// </summary>
         /// <param name="tag">The tag of the iptc value.</param>
         /// <param name="dateTimeOffset">The datetime.</param>
-        public void SetDateTimeValue(IptcTag tag, DateTimeOffset dateTimeOffset)
+        public void SetValue(IptcTag tag, DateTimeOffset dateTimeOffset)
         {
-            if (!tag.IsDate() && !tag.IsTime())
+            var isDate = tag.IsDate();
+
+            if (!isDate && !tag.IsTime())
             {
-                throw new ArgumentException("iptc tag is not a time or date type");
+                throw new ArgumentException("iptc tag is not a time or date type", nameof(tag));
             }
 
-            var formattedDate = tag.IsDate()
+            var formattedDate = isDate
                 ? dateTimeOffset.ToString("yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture)
-                : dateTimeOffset.ToString("HHmmsszzzz", System.Globalization.CultureInfo.InvariantCulture)
-                    .Replace(":", string.Empty);
+                : dateTimeOffset.ToString("HHmmsszzzz", System.Globalization.CultureInfo.InvariantCulture).Replace(":", string.Empty);
 
             SetValue(tag, Encoding.UTF8, formattedDate);
         }

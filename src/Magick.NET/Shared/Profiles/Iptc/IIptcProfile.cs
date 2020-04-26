@@ -86,6 +86,6 @@ namespace ImageMagick
         /// </summary>
         /// <param name="tag">The tag of the iptc value.</param>
         /// <param name="dateTimeOffset">The datetime.</param>
-        void SetDateTimeValue(IptcTag tag, DateTimeOffset dateTimeOffset);
+        void SetValue(IptcTag tag, DateTimeOffset dateTimeOffset);
     }
 }

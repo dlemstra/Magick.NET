@@ -161,7 +161,7 @@ namespace Magick.NET.Tests
                 var profile = new IptcProfile();
                 var datetime = new DateTimeOffset(new DateTime(1994, 3, 17));
 
-                profile.SetDateTimeValue(tag, datetime);
+                profile.SetValue(tag, datetime);
 
                 var actual = profile.GetValue(tag);
                 Assert.AreEqual("19940317", actual.Value);
@@ -178,7 +178,7 @@ namespace Magick.NET.Tests
                 var dateTimeUtc = new DateTime(1994, 3, 17, 14, 15, 16, DateTimeKind.Utc);
                 var dateTimeOffset = new DateTimeOffset(dateTimeUtc).ToOffset(TimeSpan.FromHours(2));
 
-                profile.SetDateTimeValue(tag, dateTimeOffset);
+                profile.SetValue(tag, dateTimeOffset);
 
                 var actual = profile.GetAllValues(tag).First();
                 Assert.AreEqual("161516+0200", actual.Value);

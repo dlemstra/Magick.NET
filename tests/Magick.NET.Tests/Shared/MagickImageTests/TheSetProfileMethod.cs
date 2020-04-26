@@ -177,7 +177,7 @@ namespace Magick.NET.Tests
                     {
                         var profile = input.GetIptcProfile();
 
-                        profile.SetDateTimeValue(IptcTag.ReferenceDate, new DateTimeOffset(2020, 1, 2, 3, 4, 5, TimeSpan.Zero));
+                        profile.SetValue(IptcTag.ReferenceDate, new DateTimeOffset(2020, 1, 2, 3, 4, 5, TimeSpan.Zero));
 
                         // Remove the 8bim profile so we can overwrite the iptc profile.
                         input.RemoveProfile("8bim");
