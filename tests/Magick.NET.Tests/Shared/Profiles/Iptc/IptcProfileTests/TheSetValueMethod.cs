@@ -151,6 +151,18 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
+            public void ShouldThrowExceptionWhenTagIsNotDateOrTime()
+            {
+                var profile = new IptcProfile();
+                var datetime = new DateTimeOffset(new DateTime(1994, 3, 17));
+
+                ExceptionAssert.Throws<ArgumentException>("tag", () =>
+                {
+                    profile.SetValue(IptcTag.ActionAdvised, datetime);
+                });
+            }
+
+            [TestMethod]
             [DataRow(IptcTag.DigitalCreationDate)]
             [DataRow(IptcTag.ExpirationDate)]
             [DataRow(IptcTag.CreatedDate)]
