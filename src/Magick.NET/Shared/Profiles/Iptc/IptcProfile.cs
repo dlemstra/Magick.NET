@@ -13,6 +13,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Text;
 
@@ -31,7 +32,6 @@ namespace ImageMagick
         public IptcProfile()
           : base("iptc")
         {
-            Initialize();
         }
 
         /// <summary>
@@ -41,7 +41,6 @@ namespace ImageMagick
         public IptcProfile(byte[] data)
           : base("iptc", data)
         {
-            Initialize();
         }
 
         /// <summary>
@@ -52,7 +51,6 @@ namespace ImageMagick
         public IptcProfile(string fileName)
           : base("iptc", fileName)
         {
-            Initialize();
         }
 
         /// <summary>
@@ -62,7 +60,6 @@ namespace ImageMagick
         public IptcProfile(Stream stream)
           : base("iptc", stream)
         {
-            Initialize();
         }
 
         /// <summary>
@@ -165,7 +162,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(encoding), encoding);
 
-            foreach (IptcValue value in Values)
+            foreach (var value in Values)
             {
                 value.Encoding = encoding;
             }
@@ -181,9 +178,13 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(encoding), encoding);
 
-            if (!tag.IsRepeatable())
+            if (tag.IsRepeatable())
             {
-                foreach (IptcValue iptcValue in Values)
+                Initialize();
+            }
+            else
+            {
+                foreach (var iptcValue in Values)
                 {
                     if (iptcValue.Tag == tag)
                     {
@@ -224,8 +225,8 @@ namespace ImageMagick
             }
 
             var formattedDate = isDate
-                ? dateTimeOffset.ToString("yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture)
-                : dateTimeOffset.ToString("HHmmsszzzz", System.Globalization.CultureInfo.InvariantCulture).Replace(":", string.Empty);
+                ? dateTimeOffset.ToString("yyyyMMdd", CultureInfo.InvariantCulture)
+                : dateTimeOffset.ToString("HHmmsszzzz", CultureInfo.InvariantCulture).Replace(":", string.Empty);
 
             SetValue(tag, Encoding.UTF8, formattedDate);
         }
