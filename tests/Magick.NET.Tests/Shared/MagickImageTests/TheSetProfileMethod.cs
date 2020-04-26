@@ -11,6 +11,7 @@
 // and limitations under the License.
 
 using System;
+using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -166,6 +167,35 @@ namespace Magick.NET.Tests
                         var profile = image.GetProfile("foo");
                         Assert.IsNotNull(profile);
                         Assert.AreEqual(2, profile.ToByteArray().Length);
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldSetTheIptcProfile()
+                {
+                    using (IMagickImage input = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+                    {
+                        var profile = input.GetIptcProfile();
+
+                        profile.SetDateTimeValue(IptcTag.ReferenceDate, new DateTimeOffset(2020, 1, 2, 3, 4, 5, TimeSpan.Zero));
+
+                        // Remove the 8bim profile so we can overwrite the iptc profile.
+                        input.RemoveProfile("8bim");
+                        input.SetProfile(profile);
+
+                        using (var memStream = new MemoryStream())
+                        {
+                            input.Write(memStream);
+                            memStream.Position = 0;
+
+                            using (IMagickImage output = new MagickImage(memStream))
+                            {
+                                profile = input.GetIptcProfile();
+
+                                Assert.IsNotNull(profile);
+                                Assert.AreEqual("20200102", profile.GetValue(IptcTag.ReferenceDate).Value);
+                            }
+                        }
                     }
                 }
             }
