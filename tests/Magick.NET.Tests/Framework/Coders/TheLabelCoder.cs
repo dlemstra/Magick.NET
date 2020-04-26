@@ -37,6 +37,52 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(21, image.Height);
             }
         }
+
+        [TestMethod]
+        public void ShouldCenterSingleCharacter()
+        {
+            var readSettings = new MagickReadSettings()
+            {
+                BackgroundColor = MagickColors.Transparent,
+                FillColor = MagickColors.Red,
+                TextUnderColor = MagickColors.Green,
+                TextGravity = Gravity.Center,
+                Width = 60,
+            };
+
+            using (IMagickImage image = new MagickImage("label:1", readSettings))
+            {
+                Assert.AreEqual(119, image.Height);
+
+                ColorAssert.AreEqual(MagickColors.Green, image, 40, 60);
+                ColorAssert.AreEqual(MagickColors.Red, image, 38, 60);
+                ColorAssert.AreEqual(MagickColors.Red, image, 34, 21);
+                ColorAssert.AreEqual(MagickColors.Green, image, 34, 95);
+            }
+        }
+
+        [TestMethod]
+        public void ShouldSupportMultipleLines()
+        {
+            var readSettings = new MagickReadSettings()
+            {
+                BackgroundColor = MagickColors.Transparent,
+                FillColor = MagickColors.Red,
+                TextUnderColor = MagickColors.Green,
+                TextGravity = Gravity.Center,
+                Width = 60,
+            };
+
+            using (IMagickImage image = new MagickImage("label:1\n2", readSettings))
+            {
+                Assert.AreEqual(237, image.Height);
+
+                ColorAssert.AreEqual(MagickColors.Green, image, 42, 158);
+                ColorAssert.AreEqual(MagickColors.Red, image, 44, 158);
+                ColorAssert.AreEqual(MagickColors.Green, image, 34, 137);
+                ColorAssert.AreEqual(MagickColors.Red, image, 34, 212);
+            }
+        }
     }
 }
 
