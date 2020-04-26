@@ -12,16 +12,8 @@
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Extension methods for IPTC tags.
-    /// </summary>
-    public static class IptcTagExtensions
+    internal static class IptcTagExtensions
     {
-        /// <summary>
-        /// Determines if the given tag can be repeated according to the specification.
-        /// </summary>
-        /// <param name="tag">The tag to check.</param>
-        /// <returns>True, if the tag can occur multiple times.</returns>
         public static bool IsRepeatable(this IptcTag tag)
         {
             switch (tag)
@@ -61,17 +53,11 @@ namespace ImageMagick
                 case IptcTag.ImageType:
                 case IptcTag.ImageOrientation:
                     return false;
-
                 default:
                     return true;
             }
         }
 
-        /// <summary>
-        /// Determines if the tag is a datetime tag which needs to be formatted as CCYYMMDD.
-        /// </summary>
-        /// <param name="tag">The tag to check.</param>
-        /// <returns>True, if its a datetime tag.</returns>
         public static bool IsDate(this IptcTag tag)
         {
             switch (tag)
@@ -82,17 +68,11 @@ namespace ImageMagick
                 case IptcTag.ReferenceDate:
                 case IptcTag.ReleaseDate:
                     return true;
-
                 default:
                     return false;
             }
         }
 
-        /// <summary>
-        /// Determines if the tag is a time tag which need to be formatted as HHMMSS±HHMM.
-        /// </summary>
-        /// <param name="tag">The tag to check.</param>
-        /// <returns>True, if its a time tag.</returns>
         public static bool IsTime(this IptcTag tag)
         {
             switch (tag)
@@ -102,7 +82,6 @@ namespace ImageMagick
                 case IptcTag.ExpirationTime:
                 case IptcTag.ReleaseTime:
                     return true;
-
                 default:
                     return false;
             }
