@@ -37,13 +37,13 @@ namespace Magick.NET.Tests
                     image.Settings.TextInterlineSpacing = 10;
                     image.Read("label:First\nSecond");
 
-                    Assert.AreEqual(42, image.Width);
+                    Assert.AreEqual(43, image.Width);
                     Assert.AreEqual(39, image.Height);
 
                     image.Settings.TextInterlineSpacing = 20;
                     image.Read("label:First\nSecond");
 
-                    Assert.AreEqual(42, image.Width);
+                    Assert.AreEqual(43, image.Width);
                     Assert.AreEqual(49, image.Height);
                 }
             }
