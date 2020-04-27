@@ -1,5 +1,17 @@
 @echo off
 
+set TOOLSDIR=C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools
+
+if exist "%TOOLSDIR%" goto found
+
+set TOOLSDIR=C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\Common7\Tools
+
+if exist "%TOOLSDIR%" goto found
+
+set TOOLSDIR=C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools
+
+if exist "%TOOLSDIR%" goto found
+
 set TOOLSDIR=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools
 
 if exist "%TOOLSDIR%" goto found
@@ -21,18 +33,6 @@ set TOOLSDIR=C:\Program Files (x86)\Microsoft Visual Studio\Preview\Professional
 if exist "%TOOLSDIR%" goto found
 
 set TOOLSDIR=C:\Program Files (x86)\Microsoft Visual Studio\Preview\Enterprise\Common7\Tools
-
-if exist "%TOOLSDIR%" goto found
-
-set TOOLSDIR=C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools
-
-if exist "%TOOLSDIR%" goto found
-
-set TOOLSDIR=C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\Common7\Tools
-
-if exist "%TOOLSDIR%" goto found
-
-set TOOLSDIR=C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools
 
 if exist "%TOOLSDIR%" goto found
 
