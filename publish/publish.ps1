@@ -53,7 +53,15 @@ function addMagickNetLibraries($xml, $quantumName, $platform) {
     addLibrary $xml Magick.NET $quantumName $platform "netstandard20"
 }
 
-function addNativeLibrary($quantumName, $platform, $runtime, $extension, $destination) {
+function addOpenMPLibrary($xml, $quantumName, $platform, $runtime, $destination) {
+    $folder = "$($env:VSINSTALLDIR)\VC\Redist\MSVC"
+    $version = (ls -Directory $folder | sort -Descending | select -First 1 -Property Name).Name
+    $source = "$folder\$version\x64\Microsoft.VC142.OpenMP\vcomp140.dll"
+    $target = "runtimes\win-x64\native\vcomp140.dll"
+    addFile $xml $source $target
+}
+
+function addNativeLibrary($xml, $quantumName, $platform, $runtime, $extension, $destination) {
     $source = fullPath "src\Magick.Native\libraries\Magick.Native-$quantumName-$platform$extension"
     $target = "runtimes\$runtime-$platform\native\Magick.Native-$quantumName-$platform$extension"
     addFile $xml $source $target
@@ -69,9 +77,13 @@ function addNativeLibraries($xml, $quantumName, $platform) {
 
     addNativeLibrary $quantumName $platform "win" ".dll" $destination
 
-    if (($platform -eq "x64") -and (!$quantumName.EndsWith("-OpenMP"))) {
-        addNativeLibrary $quantumName $platform "linux" ".dll.so" $destination
-        addNativeLibrary $quantumName $platform "osx" ".dll.dylib" $destination
+    if ($platform -eq "x64") {
+        if ($quantumName.EndsWith("-OpenMP")) {
+            addOpenMPLibrary $xml $quantumName $destination
+        } else {
+            addNativeLibrary $xml $quantumName $platform "linux" ".dll.so" $destination
+            addNativeLibrary $xml $quantumName $platform "osx" ".dll.dylib" $destination
+        }
     }
 }
 

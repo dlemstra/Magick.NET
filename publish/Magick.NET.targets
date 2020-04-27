@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <NativeDLL Include="$(MSBuildThisFileDirectory)\..\..\runtimes\**\Magick.Native*.dll" />
+    <NativeDLL Include="$(MSBuildThisFileDirectory)\..\..\runtimes\**\*.dll" />
     <Content Include="@(NativeDLL)">
       <Link>%(FileName)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
