@@ -111,5 +111,10 @@ namespace ImageMagick
         /// Sentinel
         /// </summary>
         Sentinel,
+
+        /// <summary>
+        /// RigidAffine
+        /// </summary>
+        RigidAffine,
     }
 }
