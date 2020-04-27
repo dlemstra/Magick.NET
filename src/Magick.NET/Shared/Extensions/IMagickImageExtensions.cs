@@ -21,11 +21,10 @@ namespace ImageMagick
             if (self == null)
                 return IntPtr.Zero;
 
-            INativeInstance nativeInstance = self as INativeInstance;
-            if (nativeInstance == null)
-                throw new NotSupportedException();
+            if (self is INativeInstance nativeInstance)
+                return nativeInstance.Instance;
 
-            return nativeInstance.Instance;
+            throw new NotSupportedException();
         }
 
         internal static MagickErrorInfo CreateErrorInfo(this IMagickImage self)
@@ -33,20 +32,18 @@ namespace ImageMagick
             if (self == null)
                 return null;
 
-            MagickImage image = self as MagickImage;
-            if (image == null)
-                throw new NotSupportedException();
+            if (self is MagickImage image)
+                return MagickImage.CreateErrorInfo(image);
 
-            return MagickImage.CreateErrorInfo(image);
+            throw new NotSupportedException();
         }
 
         internal static void SetNext(this IMagickImage self, IMagickImage next)
         {
-            MagickImage image = self as MagickImage;
-            if (image == null)
+            if (self is MagickImage image)
+                image.SetNext(next);
+            else
                 throw new NotSupportedException();
-
-            image.SetNext(next);
         }
     }
 }

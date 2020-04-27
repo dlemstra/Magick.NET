@@ -20,6 +20,7 @@ namespace ImageMagick
         {
             if (self == null)
                 return IntPtr.Zero;
+
             return self.Instance;
         }
     }
