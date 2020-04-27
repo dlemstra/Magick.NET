@@ -21,6 +21,8 @@ param (
 . $PSScriptRoot\..\tools\windows\utils.ps1
 
 function addFile($xml, $source, $target) {
+    Write-Host "Adding '$source' as '$target'"
+
     $files = $xml.package.files
 
     $file = $xml.CreateElement("file", $xml.DocumentElement.NamespaceURI)
@@ -54,9 +56,9 @@ function addMagickNetLibraries($xml, $quantumName, $platform) {
 }
 
 function addOpenMPLibrary($xml) {
-    $folder = "$($env:VSINSTALLDIR)VC\Redist\MSVC"
-    $version = (ls -Directory $folder | sort -Descending | select -First 1 -Property Name).Name
-    $source = "$folder\$version\x64\**\vcomp140.dll"
+    $redistFolder = "$($env:VSINSTALLDIR)VC\Redist\MSVC"
+    $redistVersion = (ls -Directory $redistFolder | sort -Descending | select -First 1 -Property Name).Name
+    $source = "$folder\$redistVersion\x64\Microsoft.VC142.OpenMP\vcomp140.dll"
     $target = "runtimes\win-x64\native\vcomp140.dll"
     addFile $xml $source $target
 }
