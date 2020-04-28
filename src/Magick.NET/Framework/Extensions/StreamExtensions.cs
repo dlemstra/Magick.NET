@@ -19,7 +19,7 @@ namespace ImageMagick
     {
         public static void CopyTo(this Stream self, Stream output)
         {
-            byte[] buffer = new byte[81920];
+            var buffer = new byte[81920];
             int len;
 
             while ((len = self.Read(buffer, 0, buffer.Length)) > 0)
