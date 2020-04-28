@@ -267,7 +267,7 @@ namespace ImageMagick
         /// <returns>A <see cref="MagickColor"/> instance.</returns>
         public static MagickColor FromRgb(byte red, byte green, byte blue)
         {
-            MagickColor color = new MagickColor();
+            var color = new MagickColor();
             color.Initialize(red, green, blue, 255);
             return color;
         }
@@ -283,7 +283,7 @@ namespace ImageMagick
         /// <returns>A <see cref="MagickColor"/> instance.</returns>
         public static MagickColor FromRgba(byte red, byte green, byte blue, byte alpha)
         {
-            MagickColor color = new MagickColor();
+            var color = new MagickColor();
             color.Initialize(red, green, blue, alpha);
             return color;
         }
@@ -429,7 +429,7 @@ namespace ImageMagick
             if (value == null)
                 return value;
 
-            MagickColor clone = new MagickColor()
+            var clone = new MagickColor()
             {
                 R = value.R,
                 G = value.G,
@@ -461,7 +461,7 @@ namespace ImageMagick
 
         private NativeMagickColor CreateNativeInstance()
         {
-            NativeMagickColor instance = new NativeMagickColor()
+            return new NativeMagickColor()
             {
                 Red = R,
                 Green = G,
@@ -470,7 +470,6 @@ namespace ImageMagick
                 Black = K,
                 IsCMYK = _isCmyk,
             };
-            return instance;
         }
 
         private void Initialize(NativeMagickColor instance)
