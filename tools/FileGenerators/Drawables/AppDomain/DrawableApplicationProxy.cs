@@ -23,13 +23,6 @@ namespace FileGenerator.Drawables
             DrawablesGenerator.Generate();
         }
 
-        public void GenerateDrawablesCore()
-        {
-            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
-
-            DrawablesGenerator.GenerateCore();
-        }
-
         public void GeneratePaths()
         {
             AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;

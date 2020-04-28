@@ -17,8 +17,6 @@ namespace FileGenerator.Drawables
 {
     internal sealed class DrawablesGenerator : DrawableCodeGenerator
     {
-        private bool _ForCore;
-
         private DrawablesGenerator()
         {
         }
@@ -29,12 +27,6 @@ namespace FileGenerator.Drawables
             generator.WriteDrawables();
             generator.WriteEnd();
 
-            if (!generator._ForCore)
-            {
-                generator.WriteLine();
-                generator.WriteLine("#endif");
-            }
-
             generator.CloseWriter();
         }
 
@@ -42,18 +34,9 @@ namespace FileGenerator.Drawables
         {
             var parameters = constructor.GetParameters();
             if (parameters.Length == 0)
-                return _ForCore && constructor.DeclaringType.GetConstructors().Count() == 1;
+                return constructor.DeclaringType.GetConstructors().Count() == 1;
 
-            if (_ForCore)
-                return parameters.All(parameter => IsSupportedByCore(parameter.ParameterType.Name));
-
-            return parameters.All(parameter => !IsSupportedByCore(parameter.ParameterType.Name));
-        }
-
-        private bool IsSupportedByCore(string typeName)
-        {
-            string[] invalidTypes = new string[] { "Color", "Matrix", "Rectangle" };
-            return !invalidTypes.Contains(typeName);
+            return true;
         }
 
         private void WriteDrawable(ConstructorInfo constructor)
@@ -88,8 +71,7 @@ namespace FileGenerator.Drawables
 
         private void WriteDrawables()
         {
-            if (_ForCore)
-                WriteLine(@"[System.CodeDom.Compiler.GeneratedCode(""Magick.NET.FileGenerator"", """")]");
+            WriteLine(@"[System.CodeDom.Compiler.GeneratedCode(""Magick.NET.FileGenerator"", """")]");
 
             WriteLine("public sealed partial class Drawables");
             WriteStartColon();
@@ -104,34 +86,14 @@ namespace FileGenerator.Drawables
 
         protected override void WriteUsing()
         {
-            if (!_ForCore)
-            {
-                WriteLine("#if !NETSTANDARD");
-                WriteLine();
-                WriteLine("using System.Drawing;");
-                WriteLine("using System.Drawing.Drawing2D;");
-                WriteLine();
-            }
-            else
-            {
-                WriteLine("using System.Collections.Generic;");
-                WriteLine("using System.Text;");
-                WriteLine();
-            }
+            WriteLine("using System.Collections.Generic;");
+            WriteLine("using System.Text;");
+            WriteLine();
         }
 
         public static void Generate()
         {
-            DrawablesGenerator generator = new DrawablesGenerator();
-            generator._ForCore = false;
-            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET\Framework\Drawables\Generated\Drawables.cs"));
-            Generate(generator);
-        }
-
-        public static void GenerateCore()
-        {
-            DrawablesGenerator generator = new DrawablesGenerator();
-            generator._ForCore = true;
+            var generator = new DrawablesGenerator();
             generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET\Shared\Drawables\Generated\Drawables.cs"));
             Generate(generator);
         }
