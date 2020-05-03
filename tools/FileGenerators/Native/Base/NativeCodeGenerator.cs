@@ -219,7 +219,6 @@ namespace FileGenerator.Native
         {
             WriteLine("using System;");
             WriteLine("using System.Security;");
-            WriteLine("using System.Diagnostics.CodeAnalysis;");
             WriteLine("using System.Runtime.InteropServices;");
             WriteQuantumType();
         }
