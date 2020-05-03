@@ -10,40 +10,50 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if WINDOWS_BUILD
-
 using ImageMagick;
-using ImageMagick.Formats.Pdf;
+using ImageMagick.Formats.Psd;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public partial class PdfReadDefinesTests
+    public partial class PsdReadDefinesTests
     {
         [TestClass]
-        public class TheFitPageProperty
+        public class TheAlphaUnblendProperty
         {
             [TestMethod]
-            public void ShouldLimitTheDimensions()
+            public void ShouldSetTheDefine()
             {
                 var settings = new MagickReadSettings()
                 {
-                    Defines = new PdfReadDefines()
+                    Defines = new PsdReadDefines()
                     {
-                        FitPage = new MagickGeometry(50, 40),
+                        AlphaUnblend = false,
                     },
                 };
 
                 using (IMagickImage image = new MagickImage())
                 {
-                    image.Read(Files.Coders.CartoonNetworkStudiosLogoAI, settings);
+                    image.Read(Files.Coders.PlayerPSD, settings);
 
-                    Assert.IsTrue(image.Width <= 50);
-                    Assert.IsTrue(image.Height <= 40);
+                    string define = image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend");
+                    Assert.AreEqual("False", define);
+                }
+            }
+
+            [TestMethod]
+            public void ShouldNotSetTheDefineWhenTheValueIsTrue()
+            {
+                using (IMagickImage image = new MagickImage())
+                {
+                    image.Settings.SetDefines(new PsdReadDefines()
+                    {
+                        AlphaUnblend = true,
+                    });
+
+                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));
                 }
             }
         }
     }
 }
-
-#endif

@@ -14,6 +14,7 @@
 
 using System.Linq;
 using ImageMagick;
+using ImageMagick.Formats.Pdf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
@@ -26,7 +27,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetThePassword()
             {
-                MagickReadSettings settings = new MagickReadSettings()
+                var settings = new MagickReadSettings()
                 {
                     Defines = new PdfReadDefines()
                     {
@@ -43,7 +44,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotBeAbleToOpenFileWithNullPassword()
             {
-                MagickReadSettings settings = new MagickReadSettings()
+                var settings = new MagickReadSettings()
                 {
                     Defines = new PdfReadDefines()
                     {

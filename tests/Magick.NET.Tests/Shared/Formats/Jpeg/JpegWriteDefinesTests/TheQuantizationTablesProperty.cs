@@ -10,40 +10,32 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if WINDOWS_BUILD
-
 using ImageMagick;
-using ImageMagick.Formats.Pdf;
+using ImageMagick.Formats.Jpeg;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public partial class PdfReadDefinesTests
+    public partial class JpegWriteDefinesTests
     {
         [TestClass]
-        public class TheFitPageProperty
+        public class TheQuantizationTablesProperty
         {
             [TestMethod]
-            public void ShouldLimitTheDimensions()
+            public void ShouldSetTheDefine()
             {
-                var settings = new MagickReadSettings()
+                var defines = new JpegWriteDefines()
                 {
-                    Defines = new PdfReadDefines()
-                    {
-                        FitPage = new MagickGeometry(50, 40),
-                    },
+                    QuantizationTables = @"C:\path\to\file.xml",
                 };
 
                 using (IMagickImage image = new MagickImage())
                 {
-                    image.Read(Files.Coders.CartoonNetworkStudiosLogoAI, settings);
+                    image.Settings.SetDefines(defines);
 
-                    Assert.IsTrue(image.Width <= 50);
-                    Assert.IsTrue(image.Height <= 40);
+                    Assert.AreEqual(@"C:\path\to\file.xml", image.Settings.GetDefine(MagickFormat.Jpeg, "q-table"));
                 }
             }
         }
     }
 }
-
-#endif

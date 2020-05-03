@@ -10,40 +10,35 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if WINDOWS_BUILD
-
 using ImageMagick;
-using ImageMagick.Formats.Pdf;
+using ImageMagick.Formats.Jp2;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public partial class PdfReadDefinesTests
+    public partial class Jp2ReadDefinesTests
     {
         [TestClass]
-        public class TheFitPageProperty
+        public class TheReduceFactorProperty
         {
             [TestMethod]
-            public void ShouldLimitTheDimensions()
+            public void ShouldSetTheDefine()
             {
                 var settings = new MagickReadSettings()
                 {
-                    Defines = new PdfReadDefines()
+                    Defines = new Jp2ReadDefines()
                     {
-                        FitPage = new MagickGeometry(50, 40),
+                        ReduceFactor = 2,
                     },
                 };
 
                 using (IMagickImage image = new MagickImage())
                 {
-                    image.Read(Files.Coders.CartoonNetworkStudiosLogoAI, settings);
+                    image.Read(Files.Coders.GrimJP2, settings);
 
-                    Assert.IsTrue(image.Width <= 50);
-                    Assert.IsTrue(image.Height <= 40);
+                    Assert.AreEqual("2", image.Settings.GetDefine(MagickFormat.Jp2, "reduce-factor"));
                 }
             }
         }
     }
 }
-
-#endif

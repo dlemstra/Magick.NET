@@ -10,40 +10,32 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if WINDOWS_BUILD
-
 using ImageMagick;
-using ImageMagick.Formats.Pdf;
+using ImageMagick.Formats.Jpeg;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public partial class PdfReadDefinesTests
+    public partial class JpegReadDefinesTests
     {
         [TestClass]
-        public class TheFitPageProperty
+        public class TheConstructor
         {
             [TestMethod]
-            public void ShouldLimitTheDimensions()
+            public void ShouldNotSetAnyDefines()
             {
-                var settings = new MagickReadSettings()
-                {
-                    Defines = new PdfReadDefines()
-                    {
-                        FitPage = new MagickGeometry(50, 40),
-                    },
-                };
-
                 using (IMagickImage image = new MagickImage())
                 {
-                    image.Read(Files.Coders.CartoonNetworkStudiosLogoAI, settings);
+                    image.Settings.SetDefines(new JpegReadDefines());
 
-                    Assert.IsTrue(image.Width <= 50);
-                    Assert.IsTrue(image.Height <= 40);
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Jpeg, "block-smoothing"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Jpeg, "colors"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Jpeg, "fancy-upsampling"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Jpeg, "size"));
+                    Assert.IsNull(image.Settings.GetDefine("profile:skip"));
                 }
             }
         }
     }
 }
-
-#endif

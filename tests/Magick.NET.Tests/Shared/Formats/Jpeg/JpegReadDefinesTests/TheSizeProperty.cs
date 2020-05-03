@@ -10,40 +10,55 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if WINDOWS_BUILD
-
 using ImageMagick;
-using ImageMagick.Formats.Pdf;
+using ImageMagick.Formats.Jpeg;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public partial class PdfReadDefinesTests
+    public partial class JpegReadDefinesTests
     {
         [TestClass]
-        public class TheFitPageProperty
+        public class TheSizeProperty
         {
             [TestMethod]
-            public void ShouldLimitTheDimensions()
+            public void ShouldSetTheDefine()
             {
                 var settings = new MagickReadSettings()
                 {
-                    Defines = new PdfReadDefines()
+                    Defines = new JpegReadDefines()
                     {
-                        FitPage = new MagickGeometry(50, 40),
+                        Size = new MagickGeometry(61, 59),
                     },
                 };
 
                 using (IMagickImage image = new MagickImage())
                 {
-                    image.Read(Files.Coders.CartoonNetworkStudiosLogoAI, settings);
+                    image.Read(Files.ImageMagickJPG, settings);
 
-                    Assert.IsTrue(image.Width <= 50);
-                    Assert.IsTrue(image.Height <= 40);
+                    Assert.AreEqual("61x59", image.Settings.GetDefine(MagickFormat.Jpeg, "size"));
+                }
+            }
+
+            [TestMethod]
+            public void ShouldReduceTheSize()
+            {
+                var settings = new MagickReadSettings()
+                {
+                    Defines = new JpegReadDefines()
+                    {
+                        Size = new MagickGeometry(61, 59),
+                    },
+                };
+
+                using (IMagickImage image = new MagickImage())
+                {
+                    image.Read(Files.ImageMagickJPG, settings);
+
+                    Assert.AreEqual(62, image.Width);
+                    Assert.AreEqual(59, image.Height);
                 }
             }
         }
     }
 }
-
-#endif

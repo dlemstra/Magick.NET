@@ -10,40 +10,32 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if WINDOWS_BUILD
-
 using ImageMagick;
-using ImageMagick.Formats.Pdf;
+using ImageMagick.Formats.Dds;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public partial class PdfReadDefinesTests
+    public partial class DdsWriteDefinesTests
     {
         [TestClass]
-        public class TheFitPageProperty
+        public class TheConstructor
         {
             [TestMethod]
-            public void ShouldLimitTheDimensions()
+            public void ShouldNotSetAnyDefines()
             {
-                var settings = new MagickReadSettings()
-                {
-                    Defines = new PdfReadDefines()
-                    {
-                        FitPage = new MagickGeometry(50, 40),
-                    },
-                };
-
                 using (IMagickImage image = new MagickImage())
                 {
-                    image.Read(Files.Coders.CartoonNetworkStudiosLogoAI, settings);
+                    image.Settings.SetDefines(new DdsWriteDefines());
 
-                    Assert.IsTrue(image.Width <= 50);
-                    Assert.IsTrue(image.Height <= 40);
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Dds, "cluster-fit"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Dds, "compression"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Dds, "fast-mipmaps"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Dds, "mipmaps"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Dds, "raw"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
                 }
             }
         }
     }
 }
-
-#endif

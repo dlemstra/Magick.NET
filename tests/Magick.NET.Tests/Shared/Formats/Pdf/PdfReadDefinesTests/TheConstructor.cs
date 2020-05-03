@@ -10,8 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if WINDOWS_BUILD
-
 using ImageMagick;
 using ImageMagick.Formats.Pdf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -21,29 +19,21 @@ namespace Magick.NET.Tests
     public partial class PdfReadDefinesTests
     {
         [TestClass]
-        public class TheFitPageProperty
+        public class TheConstructor
         {
             [TestMethod]
-            public void ShouldLimitTheDimensions()
+            public void ShouldNotSetDefines()
             {
-                var settings = new MagickReadSettings()
-                {
-                    Defines = new PdfReadDefines()
-                    {
-                        FitPage = new MagickGeometry(50, 40),
-                    },
-                };
-
                 using (IMagickImage image = new MagickImage())
                 {
-                    image.Read(Files.Coders.CartoonNetworkStudiosLogoAI, settings);
+                    image.Settings.SetDefines(new PdfReadDefines());
 
-                    Assert.IsTrue(image.Width <= 50);
-                    Assert.IsTrue(image.Height <= 40);
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Pdf, "fit-page"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Pdf, "use-trimbox"));
+                    Assert.IsNull(image.Settings.GetDefine("authenticate"));
                 }
             }
         }
     }
 }
-
-#endif

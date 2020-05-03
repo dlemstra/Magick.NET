@@ -10,40 +10,44 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if WINDOWS_BUILD
-
 using ImageMagick;
-using ImageMagick.Formats.Pdf;
+using ImageMagick.Formats.Tiff;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public partial class PdfReadDefinesTests
+    public partial class TiffWriteDefinesTests
     {
         [TestClass]
-        public class TheFitPageProperty
+        public class TheFillOrderProperty : TiffWriteDefinesTests
         {
             [TestMethod]
-            public void ShouldLimitTheDimensions()
+            public void ShouldSetTheDefine()
             {
-                var settings = new MagickReadSettings()
+                using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
                 {
-                    Defines = new PdfReadDefines()
+                    input.Settings.SetDefines(new TiffWriteDefines()
                     {
-                        FitPage = new MagickGeometry(50, 40),
-                    },
-                };
+                        FillOrder = Endian.LSB,
+                    });
 
+                    Assert.AreEqual("LSB", input.Settings.GetDefine(MagickFormat.Tiff, "fill-order"));
+                }
+            }
+
+            [TestMethod]
+            public void ShouldNotSetTheDefineWhenTheValueIsUndefined()
+            {
                 using (IMagickImage image = new MagickImage())
                 {
-                    image.Read(Files.Coders.CartoonNetworkStudiosLogoAI, settings);
+                    image.Settings.SetDefines(new TiffWriteDefines()
+                    {
+                        FillOrder = Endian.Undefined,
+                    });
 
-                    Assert.IsTrue(image.Width <= 50);
-                    Assert.IsTrue(image.Height <= 40);
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "fill-order"));
                 }
             }
         }
     }
 }
-
-#endif

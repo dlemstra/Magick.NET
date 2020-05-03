@@ -10,40 +10,32 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if WINDOWS_BUILD
-
 using ImageMagick;
-using ImageMagick.Formats.Pdf;
+using ImageMagick.Formats.Dng;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public partial class PdfReadDefinesTests
+    public partial class DngReadDefinesTests
     {
         [TestClass]
-        public class TheFitPageProperty
+        public class TheUseAutoWhitebalanceProperty
         {
             [TestMethod]
-            public void ShouldLimitTheDimensions()
+            public void ShouldSetTheDefine()
             {
-                var settings = new MagickReadSettings()
+                var defines = new DngReadDefines()
                 {
-                    Defines = new PdfReadDefines()
-                    {
-                        FitPage = new MagickGeometry(50, 40),
-                    },
+                    UseAutoWhitebalance = true,
                 };
 
                 using (IMagickImage image = new MagickImage())
                 {
-                    image.Read(Files.Coders.CartoonNetworkStudiosLogoAI, settings);
+                    image.Settings.SetDefines(defines);
 
-                    Assert.IsTrue(image.Width <= 50);
-                    Assert.IsTrue(image.Height <= 40);
+                    Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Dng, "use_auto_wb"));
                 }
             }
         }
     }
 }
-
-#endif

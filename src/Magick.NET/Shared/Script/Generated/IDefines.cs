@@ -17,6 +17,15 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Xml;
+using ImageMagick.Formats.Bmp;
+using ImageMagick.Formats.Caption;
+using ImageMagick.Formats.Dds;
+using ImageMagick.Formats.Jp2;
+using ImageMagick.Formats.Jpeg;
+using ImageMagick.Formats.Pdf;
+using ImageMagick.Formats.Png;
+using ImageMagick.Formats.Psd;
+using ImageMagick.Formats.Tiff;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -158,7 +167,7 @@ namespace ImageMagick
             if (element == null)
                 return null;
             BmpWriteDefines result = new BmpWriteDefines();
-            result.Subtype = GetValue<Nullable<ImageMagick.Defines.BmpSubtype>>(element, "subtype");
+            result.Subtype = GetValue<Nullable<BmpSubtype>>(element, "subtype");
             return result;
         }
         private IDefines CreateCaptionReadDefines(XmlElement element)
@@ -183,7 +192,7 @@ namespace ImageMagick
                 return null;
             DdsWriteDefines result = new DdsWriteDefines();
             result.ClusterFit = GetValue<Nullable<Boolean>>(element, "clusterFit");
-            result.Compression = GetValue<Nullable<ImageMagick.Defines.DdsCompression>>(element, "compression");
+            result.Compression = GetValue<Nullable<DdsCompression>>(element, "compression");
             result.FastMipmaps = GetValue<Nullable<Boolean>>(element, "fastMipmaps");
             result.Mipmaps = GetValue<Nullable<Int32>>(element, "mipmaps");
             result.MipmapsFromCollection = GetValue<Nullable<Boolean>>(element, "mipmapsFromCollection");
@@ -206,7 +215,7 @@ namespace ImageMagick
                 return null;
             Jp2WriteDefines result = new Jp2WriteDefines();
             result.NumberResolutions = GetValue<Nullable<Int32>>(element, "numberResolutions");
-            result.ProgressionOrder = GetValue<Nullable<ImageMagick.Defines.Jp2ProgressionOrder>>(element, "progressionOrder");
+            result.ProgressionOrder = GetValue<Nullable<Jp2ProgressionOrder>>(element, "progressionOrder");
             result.Quality = GetSingleArray(element["quality"]);
             result.Rate = GetSingleArray(element["rate"]);
             return result;
@@ -218,10 +227,10 @@ namespace ImageMagick
             JpegReadDefines result = new JpegReadDefines();
             result.BlockSmoothing = GetValue<Nullable<Boolean>>(element, "blockSmoothing");
             result.Colors = GetValue<Nullable<Int32>>(element, "colors");
-            result.DctMethod = GetValue<Nullable<ImageMagick.Defines.DctMethod>>(element, "dctMethod");
+            result.DctMethod = GetValue<Nullable<JpegDctMethod>>(element, "dctMethod");
             result.FancyUpsampling = GetValue<Nullable<Boolean>>(element, "fancyUpsampling");
             result.Size = GetValue<MagickGeometry>(element, "size");
-            result.SkipProfiles = GetValue<Nullable<ImageMagick.Defines.ProfileTypes>>(element, "skipProfiles");
+            result.SkipProfiles = GetValue<Nullable<JpegProfileTypes>>(element, "skipProfiles");
             return result;
         }
         private IDefines CreateJpegWriteDefines(XmlElement element)
@@ -230,11 +239,11 @@ namespace ImageMagick
                 return null;
             JpegWriteDefines result = new JpegWriteDefines();
             result.ArithmeticCoding = GetValue<Nullable<Boolean>>(element, "arithmeticCoding");
-            result.DctMethod = GetValue<Nullable<ImageMagick.Defines.DctMethod>>(element, "dctMethod");
+            result.DctMethod = GetValue<Nullable<JpegDctMethod>>(element, "dctMethod");
             result.Extent = GetValue<Nullable<Int32>>(element, "extent");
             result.OptimizeCoding = GetValue<Nullable<Boolean>>(element, "optimizeCoding");
             result.QuantizationTables = GetValue<String>(element, "quantizationTables");
-            result.SamplingFactor = GetValue<Nullable<ImageMagick.Defines.SamplingFactor>>(element, "samplingFactor");
+            result.SamplingFactor = GetValue<Nullable<JpegSamplingFactor>>(element, "samplingFactor");
             return result;
         }
         private IDefines CreatePdfReadDefines(XmlElement element)
@@ -257,7 +266,7 @@ namespace ImageMagick
             result.ChunkMallocMax = GetValue<Nullable<Int64>>(element, "chunkMallocMax");
             result.IgnoreCrc = GetValue<Boolean>(element, "ignoreCrc");
             result.PreserveiCCP = GetValue<Boolean>(element, "preserveiCCP");
-            result.SkipProfiles = GetValue<Nullable<ImageMagick.Defines.ProfileTypes>>(element, "skipProfiles");
+            result.SkipProfiles = GetValue<Nullable<PngProfileTypes>>(element, "skipProfiles");
             result.SwapBytes = GetValue<Boolean>(element, "swapBytes");
             return result;
         }
@@ -291,7 +300,7 @@ namespace ImageMagick
             if (element == null)
                 return null;
             TiffWriteDefines result = new TiffWriteDefines();
-            result.Alpha = GetValue<Nullable<ImageMagick.Defines.TiffAlpha>>(element, "alpha");
+            result.Alpha = GetValue<Nullable<TiffAlpha>>(element, "alpha");
             result.Endian = GetValue<Nullable<Endian>>(element, "endian");
             result.FillOrder = GetValue<Nullable<Endian>>(element, "fillOrder");
             result.RowsPerStrip = GetValue<Nullable<Int32>>(element, "rowsPerStrip");

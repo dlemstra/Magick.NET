@@ -12,6 +12,7 @@
 
 using System.IO;
 using ImageMagick;
+using ImageMagick.Formats.Tiff;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
@@ -30,10 +31,11 @@ namespace Magick.NET.Tests
 
             using (IMagickImage image = new MagickImage())
             {
-                MagickReadSettings readSettings = new MagickReadSettings(new TiffReadDefines()
+                var readSettings = new MagickReadSettings(new TiffReadDefines()
                 {
                     IgnoreTags = new string[] { "32934" },
                 });
+
                 image.Read(Files.Coders.IgnoreTagTIF, readSettings);
             }
         }

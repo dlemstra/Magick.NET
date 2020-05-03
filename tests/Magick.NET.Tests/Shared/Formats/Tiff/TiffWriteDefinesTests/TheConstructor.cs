@@ -10,40 +10,31 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if WINDOWS_BUILD
-
 using ImageMagick;
-using ImageMagick.Formats.Pdf;
+using ImageMagick.Formats.Tiff;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public partial class PdfReadDefinesTests
+    public partial class TiffWriteDefinesTests
     {
         [TestClass]
-        public class TheFitPageProperty
+        public class TheConstructor : TiffWriteDefinesTests
         {
             [TestMethod]
-            public void ShouldLimitTheDimensions()
+            public void ShouldNotSetAnyDefine()
             {
-                var settings = new MagickReadSettings()
-                {
-                    Defines = new PdfReadDefines()
-                    {
-                        FitPage = new MagickGeometry(50, 40),
-                    },
-                };
-
                 using (IMagickImage image = new MagickImage())
                 {
-                    image.Read(Files.Coders.CartoonNetworkStudiosLogoAI, settings);
+                    image.Settings.SetDefines(new TiffWriteDefines());
 
-                    Assert.IsTrue(image.Width <= 50);
-                    Assert.IsTrue(image.Height <= 40);
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "alpha"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "endian"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "fill-order"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "rows-per-strip"));
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "tile-geometry"));
                 }
             }
         }
     }
 }
-
-#endif

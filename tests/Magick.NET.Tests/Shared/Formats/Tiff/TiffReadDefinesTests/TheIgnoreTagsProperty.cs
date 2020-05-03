@@ -10,40 +10,44 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if WINDOWS_BUILD
-
 using ImageMagick;
-using ImageMagick.Formats.Pdf;
+using ImageMagick.Formats.Tiff;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public partial class PdfReadDefinesTests
+    public partial class TiffReadDefinesTests
     {
         [TestClass]
-        public class TheFitPageProperty
+        public class TheIgnoreTagsProperty
         {
             [TestMethod]
-            public void ShouldLimitTheDimensions()
+            public void ShouldSetTheDefine()
             {
-                var settings = new MagickReadSettings()
-                {
-                    Defines = new PdfReadDefines()
-                    {
-                        FitPage = new MagickGeometry(50, 40),
-                    },
-                };
-
                 using (IMagickImage image = new MagickImage())
                 {
-                    image.Read(Files.Coders.CartoonNetworkStudiosLogoAI, settings);
+                    image.Settings.SetDefines(new TiffReadDefines()
+                    {
+                        IgnoreTags = new[] { "1234" },
+                    });
 
-                    Assert.IsTrue(image.Width <= 50);
-                    Assert.IsTrue(image.Height <= 40);
+                    Assert.AreEqual("1234", image.Settings.GetDefine(MagickFormat.Tiff, "ignore-tags"));
+                }
+            }
+
+            [TestMethod]
+            public void ShouldNotSetTheDefineWhenTheValueIsEmpty()
+            {
+                using (IMagickImage image = new MagickImage())
+                {
+                    image.Settings.SetDefines(new TiffReadDefines()
+                    {
+                        IgnoreTags = new string[] { },
+                    });
+
+                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));
                 }
             }
         }
     }
 }
-
-#endif

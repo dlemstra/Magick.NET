@@ -10,40 +10,30 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if WINDOWS_BUILD
-
 using ImageMagick;
-using ImageMagick.Formats.Pdf;
+using ImageMagick.Formats.Tiff;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public partial class PdfReadDefinesTests
+    public partial class TiffWriteDefinesTests
     {
         [TestClass]
-        public class TheFitPageProperty
+        public class TheTileGeometryProperty : TiffWriteDefinesTests
         {
             [TestMethod]
-            public void ShouldLimitTheDimensions()
+            public void ShouldSetTheDefine()
             {
-                var settings = new MagickReadSettings()
+                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
                 {
-                    Defines = new PdfReadDefines()
+                    image.Settings.SetDefines(new TiffWriteDefines()
                     {
-                        FitPage = new MagickGeometry(50, 40),
-                    },
-                };
+                        TileGeometry = new MagickGeometry(1, 2),
+                    });
 
-                using (IMagickImage image = new MagickImage())
-                {
-                    image.Read(Files.Coders.CartoonNetworkStudiosLogoAI, settings);
-
-                    Assert.IsTrue(image.Width <= 50);
-                    Assert.IsTrue(image.Height <= 40);
+                    Assert.AreEqual("1x2", image.Settings.GetDefine(MagickFormat.Tiff, "tile-geometry"));
                 }
             }
         }
     }
 }
-
-#endif
