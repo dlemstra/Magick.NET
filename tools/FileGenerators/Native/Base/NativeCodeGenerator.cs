@@ -220,13 +220,22 @@ namespace FileGenerator.Native
             WriteLine("using System;");
             WriteLine("using System.Security;");
             WriteLine("using System.Runtime.InteropServices;");
-            WriteQuantumType();
+
+            if (UsesQuantumType())
+                WriteQuantumType();
         }
 
-        protected MagickClass Class
+        protected MagickClass Class { get; }
+
+        private bool UsesQuantumType()
         {
-            get;
-            private set;
+            if (Class.Properties.Any(property => property.Type.IsQuantumType))
+                return true;
+
+            if (Class.Methods.Any(method => method.Arguments.Any(argument => argument.Type.IsQuantumType)))
+                return true;
+
+            return false;
         }
     }
 }

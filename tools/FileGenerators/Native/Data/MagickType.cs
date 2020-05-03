@@ -116,6 +116,14 @@ namespace FileGenerator.Native
             }
         }
 
+        public bool IsQuantumType
+        {
+            get
+            {
+                return _Type == "QuantumType" || _Type == "QuantumType[]";
+            }
+        }
+
         public bool IsString
         {
             get
