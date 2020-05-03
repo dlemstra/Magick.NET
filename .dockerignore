@@ -2,8 +2,6 @@
 samples
 src/Magick.NET/bin
 src/Magick.NET/obj
-src/Magick.NET.Web/bin
-src/Magick.NET.Web/obj
 src/Magick.Native/libraries
 src/Magick.Native/resources
 TestResults

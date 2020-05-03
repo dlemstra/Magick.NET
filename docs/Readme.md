@@ -142,11 +142,6 @@ provide you with some help on how to use Magick.NET.
 - [Drawing](Drawing.md)
   - Draw text
 
-
-## Magick.NET.Web
-Magick.NET.Web is an extension to Magick.NET that can be used to script/optimize/compress image with an IHttpModule. The documentation for the library
-can be found here: [Magick.NET.Web](Magick.NET.Web.md).
-
 ## More documentation
 For some great ImageMagick examples please visit the following page: https://www.imagemagick.org/Usage. Create a [new issue](https://github.com/dlemstra/Magick.NET/issues)
 if you need help to change one of these examples into code.

@@ -82,14 +82,12 @@
   <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
     <Reference Include="System.Configuration" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Magick.NET\Magick.NET.csproj" />
-    <ProjectReference Condition="'$(TargetFramework)' == 'net45'" Include="..\..\src\Magick.NET.Web\Magick.NET.Web.csproj" />
   </ItemGroup>
 
   <ItemGroup>

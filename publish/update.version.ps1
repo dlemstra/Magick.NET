@@ -52,4 +52,3 @@ function updateAssemblyVersion($library, $version, $checkAssemblyVersion) {
 }
 
 updateAssemblyVersion "Magick.NET" $version
-updateAssemblyVersion "Magick.NET.Web" $version

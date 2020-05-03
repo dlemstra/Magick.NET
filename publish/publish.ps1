@@ -133,22 +133,6 @@ function createMagickNetNuGetPackage($quantumName, $platform, $version, $pfxPass
     createAndSignNuGetPackage $name $version $pfxPassword
 }
 
-function createMagickNetWebNuGetPackage($quantumName, $platform, $version, $pfxPassword) {
-    $name = "Magick.NET.Web-$quantumName-$platform"
-    $path = fullPath "publish\Magick.NET.Web.nuspec"
-    $xml = [xml](Get-Content $path)
-    $xml.package.metadata.id = $name
-    $xml.package.metadata.title = $name
-    $xml.package.metadata.version = $version
-
-    addLibrary $xml Magick.NET.Web $quantumName $platform "net40"
-
-    $nuspecFile = FullPath "publish\$name.nuspec"
-    $xml.Save($nuspecFile)
-
-    createAndSignNuGetPackage $name $version $pfxPassword
-}
-
 $platform = $platformName
 
 if ($platform -eq "Any CPU") {
@@ -156,10 +140,6 @@ if ($platform -eq "Any CPU") {
 }
 
 createMagickNetNuGetPackage $quantumName $platform $version $pfxPassword
-
-if (!$quantumName.EndsWith("-OpenMP")) {
-    createMagickNetWebNuGetPackage $quantumName $platform $version $pfxPassword
-}
 
 Remove-Item $destination -Recurse -ErrorAction Ignore
 [void](New-Item -ItemType directory -Path $destination)
