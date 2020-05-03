@@ -31,7 +31,7 @@ namespace ImageMagick.Formats.Psd
         /// <summary>
         /// Gets or sets which additional info should be written to the output file.
         /// </summary>
-        public PsdAdditionalInfo AdditionalInfo { get; set; }
+        public PsdAdditionalInfoPart AdditionalInfo { get; set; }
 
         /// <summary>
         /// Gets the defines that should be set as a define on an image.

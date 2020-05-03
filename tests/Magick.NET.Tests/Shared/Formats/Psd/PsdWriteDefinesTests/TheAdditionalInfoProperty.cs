@@ -29,7 +29,7 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(new PsdWriteDefines()
                     {
-                        AdditionalInfo = PsdAdditionalInfo.Selective,
+                        AdditionalInfo = PsdAdditionalInfoPart.Selective,
                     });
 
                     Assert.AreEqual("Selective", image.Settings.GetDefine(MagickFormat.Psd, "additional-info"));
@@ -47,14 +47,14 @@ namespace Magick.NET.Tests
 
                     var defines = new PsdWriteDefines()
                     {
-                        AdditionalInfo = PsdAdditionalInfo.All,
+                        AdditionalInfo = PsdAdditionalInfoPart.All,
                     };
                     WriteAndCheckProfile(images, defines, 264);
 
-                    defines.AdditionalInfo = PsdAdditionalInfo.Selective;
+                    defines.AdditionalInfo = PsdAdditionalInfoPart.Selective;
                     WriteAndCheckProfile(images, defines, 152);
 
-                    defines.AdditionalInfo = PsdAdditionalInfo.None;
+                    defines.AdditionalInfo = PsdAdditionalInfoPart.None;
                     WriteAndCheckProfile(images, defines, 0);
                 }
             }

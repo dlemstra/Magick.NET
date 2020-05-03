@@ -283,7 +283,7 @@ namespace ImageMagick
             if (element == null)
                 return null;
             PsdWriteDefines result = new PsdWriteDefines();
-            result.AdditionalInfo = GetValue<PsdAdditionalInfo>(element, "additionalInfo");
+            result.AdditionalInfo = GetValue<PsdAdditionalInfoPart>(element, "additionalInfo");
             return result;
         }
         private IDefines CreateTiffReadDefines(XmlElement element)

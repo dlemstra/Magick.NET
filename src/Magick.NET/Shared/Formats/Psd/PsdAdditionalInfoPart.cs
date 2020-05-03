@@ -15,7 +15,7 @@ namespace ImageMagick.Formats.Psd
     /// <summary>
     /// Specifies which additional info should be written to the output file.
     /// </summary>
-    public enum PsdAdditionalInfo
+    public enum PsdAdditionalInfoPart
     {
         /// <summary>
         /// None
