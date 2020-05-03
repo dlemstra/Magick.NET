@@ -90,7 +90,7 @@ namespace ImageMagick
 
                     for (int i = 0; i < (int)length; i++)
                     {
-                        string fontFamily = NativeMagickNET.GetFontFamily(list, i);
+                        var fontFamily = NativeMagickNET.GetFontFamily(list, i);
                         if (!string.IsNullOrEmpty(fontFamily) && !result.Contains(fontFamily))
                             result.Add(fontFamily);
                     }
@@ -123,7 +123,7 @@ namespace ImageMagick
 
                     for (int i = 0; i < (int)length; i++)
                     {
-                        string fontName = NativeMagickNET.GetFontName(list, i);
+                        var fontName = NativeMagickNET.GetFontName(list, i);
                         if (!string.IsNullOrEmpty(fontName))
                             result.Add(fontName);
                     }
@@ -145,8 +145,8 @@ namespace ImageMagick
         {
             get
             {
-                AssemblyTitleAttribute title = TypeHelper.GetCustomAttribute<AssemblyTitleAttribute>(typeof(MagickNET));
-                AssemblyFileVersionAttribute version = TypeHelper.GetCustomAttribute<AssemblyFileVersionAttribute>(typeof(MagickNET));
+                var title = TypeHelper.GetCustomAttribute<AssemblyTitleAttribute>(typeof(MagickNET));
+                var version = TypeHelper.GetCustomAttribute<AssemblyFileVersionAttribute>(typeof(MagickNET));
                 return title.Title + " " + version.Version;
             }
         }
@@ -184,7 +184,7 @@ namespace ImageMagick
         /// <param name="path">The path that contains the ImageMagick xml files.</param>
         public static void Initialize(string path)
         {
-            string newPath = FileHelper.GetFullPath(path);
+            var newPath = FileHelper.GetFullPath(path);
 
             CheckImageMagickFiles(newPath);
 
@@ -201,7 +201,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(configFiles), configFiles);
 
-            string path = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+            var path = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
             Directory.CreateDirectory(path);
 
             InitializePrivate(configFiles, path);
@@ -218,7 +218,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(configFiles), configFiles);
 
-            string newPath = FileHelper.GetFullPath(path);
+            var newPath = FileHelper.GetFullPath(path);
 
             InitializePrivate(configFiles, newPath);
         }
@@ -271,7 +271,7 @@ namespace ImageMagick
         {
             foreach (IConfigurationFile configurationFile in ConfigurationFiles.Default.Files)
             {
-                string fileName = Path.Combine(path, configurationFile.FileName);
+                var fileName = Path.Combine(path, configurationFile.FileName);
                 Throw.IfFalse(nameof(path), File.Exists(fileName), $"Unable to find file: {fileName}");
             }
         }
@@ -288,7 +288,7 @@ namespace ImageMagick
             if (_log == null)
                 return;
 
-            string managedText = UTF8Marshaler.NativeToManaged(text);
+            var managedText = UTF8Marshaler.NativeToManaged(text);
             _log(null, new LogEventArgs((LogEvents)type, managedText));
         }
 
