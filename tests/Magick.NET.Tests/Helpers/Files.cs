@@ -124,6 +124,8 @@ namespace Magick.NET.Tests
             public static string TestDDS => Root + @"Images/Coders/Test.dds";
 
             public static string TestMNG => Root + @"Images/Coders/Test.mng";
+
+            public static string WizardPSD => Root + @"Images/Coders/wizard.psd";
         }
 
         public static class Fonts
