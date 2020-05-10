@@ -145,6 +145,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "macos", "macos", "{8BAE93F7
 		build\macos\test.Magick.NET.sh = build\macos\test.Magick.NET.sh
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{3A8414CC-62A7-4E38-B6AC-75ED9D276971}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\master.yml = .github\workflows\master.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		DebugQ16|Any CPU = DebugQ16|Any CPU
@@ -426,6 +431,7 @@ Global
 		{1B3D9B95-355B-47B2-889D-30BF67F28FB0} = {7935EDEC-32B2-4BA2-93DC-FC990B26D51E}
 		{EE5A8EB5-C872-4837-89B0-11BCAE512DB2} = {7BDF1AD0-F12F-4149-9C3C-79223B8C1721}
 		{8BAE93F7-10BB-409F-8823-52D0F766E44D} = {F6E20621-E266-4314-ADE0-A899270F2312}
+		{3A8414CC-62A7-4E38-B6AC-75ED9D276971} = {4D648A8A-59E2-45A4-BEFD-44602709E044}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F6887AA-E540-48B3-BDC0-068B342ABEBE}
