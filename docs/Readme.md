@@ -58,11 +58,9 @@ the memory limit, it will not stop functioning. Instead it will use temporary pa
 
 ## OpenMP
 
-Magick.NET no longer uses OpenMP because the C++ Redistributable is statically linked. OpenMP is used to perform multithreaded operation on 
-an image to increase the performance. The best use case for this would be a standalone application. Starting with Magick.NET 7.0.7.700 there
-are extra packages for the x64 build of Magick.NET that has OpenMP support. This version requires you to install the
-[Microsoft Visual C++ Redistributable for Visual Studio 2019](https://visualstudio.microsoft.com/downloads/) on the machine that runs the
-application.
+Magick.NET does not use OpenMP because the C++ Redistributable is statically linked and the OpenMP library cannot be statically linked. OpenMP is
+used to perform multithreaded operation on an image to increase the performance. The best use case for this would be a standalone desktop application.
+Starting with Magick.NET 7.0.7.700 there are extra packages for the x64 build of Magick.NET that have OpenMP support.
 
 ## Ghostscript
 
