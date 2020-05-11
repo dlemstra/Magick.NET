@@ -40,8 +40,7 @@ You can add Magick.NET to your project with one of the following NuGet packages:
 | [Magick.NET-Q16-HDRI-OpenMP-x64](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-OpenMP-x64/) | | | [![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-OpenMP-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-OpenMP-x64/) | [![NuGet](https://img.shields.io/nuget/dt/Magick.NET-Q16-HDRI-OpenMP-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-OpenMP-x64/)
 
 
-Or click [here](https://github.com/dlemstra/Magick.NET/releases) to download Magick.NET. You can also install Magick.NET samples from NuGet, click [here](https://nuget.org/profiles/dlemstra/) to
-see the available packages. And follow me on twitter([@MagickNET](https://twitter.com/MagickNET)) to receive information about new downloads and changes to Magick.NET and ImageMagick.
+Follow me on twitter([@MagickNET](https://twitter.com/MagickNET)) to receive information about new downloads and changes to Magick.NET and ImageMagick.
 
 ## Development build
 
