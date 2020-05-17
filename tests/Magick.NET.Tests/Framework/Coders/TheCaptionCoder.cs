@@ -116,8 +116,8 @@ namespace Magick.NET.Tests
             {
                 Assert.AreEqual(83, image.Height);
 
-                ColorAssert.AreEqual(MagickColors.Black, image, 39, 58);
-                ColorAssert.AreEqual(new MagickColor("#0000"), image, 39, 63);
+                ColorAssert.AreEqual(MagickColors.Black, image, 39, 46);
+                ColorAssert.AreEqual(new MagickColor("#0000"), image, 39, 65);
             }
         }
 
@@ -138,12 +138,12 @@ namespace Magick.NET.Tests
             {
                 Assert.AreEqual(249, image.Height);
 
-                ColorAssert.AreEqual(MagickColors.Black, image, 39, 58);
-                ColorAssert.AreEqual(new MagickColor("#0000"), image, 39, 63);
-                ColorAssert.AreEqual(MagickColors.Black, image, 39, 127);
-                ColorAssert.AreEqual(new MagickColor("#0000"), image, 39, 145);
-                ColorAssert.AreEqual(MagickColors.Black, image, 39, 210);
-                ColorAssert.AreEqual(new MagickColor("#0000"), image, 39, 227);
+                ColorAssert.AreEqual(MagickColors.Black, image, 39, 47);
+                ColorAssert.AreEqual(new MagickColor("#0000"), image, 39, 66);
+                ColorAssert.AreEqual(MagickColors.Black, image, 39, 129);
+                ColorAssert.AreEqual(new MagickColor("#0000"), image, 39, 148);
+                ColorAssert.AreEqual(MagickColors.Black, image, 39, 211);
+                ColorAssert.AreEqual(new MagickColor("#0000"), image, 39, 230);
             }
         }
     }

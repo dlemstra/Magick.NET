@@ -268,7 +268,8 @@ namespace Magick.NET.Tests
                 image.Settings.StrokeColor = MagickColors.Orange;
                 image.Draw(new DrawableCircle(150, 150, 100, 100));
 
-                ColorAssert.AreEqual(MagickColors.Orange, image, 84, 103);
+                ColorAssert.AreEqual(MagickColors.Purple, image, 69, 149);
+                ColorAssert.AreEqual(MagickColors.Orange, image, 69, 150);
             }
         }
 
