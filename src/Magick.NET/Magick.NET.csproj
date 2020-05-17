@@ -4,8 +4,8 @@
     <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AssemblyVersion>7.17.0.0</AssemblyVersion>
-    <FileVersion>7.17.0.0</FileVersion>
-    <Version>7.17.0.0</Version>
+    <FileVersion>7.17.0.1</FileVersion>
+    <Version>7.17.0.1</Version>
     <Authors>Dirk Lemstra</Authors>
     <Copyright>Copyright 2013-2020 Dirk Lemstra</Copyright>
     <LangVersion>latest</LangVersion>
