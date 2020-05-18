@@ -145,5 +145,12 @@ namespace Magick.NET.Samples
         return _FilesDirectory + "YourProfile.icc";
       }
     }
-  }
+
+    public static string SampleBackground
+    {
+      get 
+      { 
+        return _FilesDirectory + "2FD-Background.jpg"; }
+      }
+    }
 }
