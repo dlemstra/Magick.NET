@@ -40,15 +40,14 @@ namespace Magick.NET.Samples
 
         public static void AddTextToExistingImage()
         {
-            var pathToBackgroundImage = Path.Combine(Environment.CurrentDirectory, "Files/2FD-Background.jpg");
-
-            var pathToNewImage = Path.Combine(Environment.CurrentDirectory, "Output/2FD-WithAddedText.jpg");
+            var pathToBackgroundImage = SampleFiles.SampleBackground;
+            var pathToNewImage = Path.Combine(SampleFiles.OutputDirectory, "2FD-WithAddedText.jpg");
             var textToWrite = "Insert This Text Into Image";
 
-            /* These settings will create a new caption
-                which automatically resizes the text to best
-                fit within the box.
-            */
+            // These settings will create a new caption
+            // which automatically resizes the text to best
+            // fit within the box.
+
             var readSettings = new MagickReadSettings()
             {
                 Font = "Calibri",
@@ -59,13 +58,15 @@ namespace Magick.NET.Samples
             };
 
             using (var image = new MagickImage(pathToBackgroundImage))
-            using (var caption = new MagickImage($"caption:{textToWrite}", readSettings))
             {
-                // Add the caption layer on top of the background image
-                // at position 590,450
-                image.Composite(caption, 590, 450, CompositeOperator.Over);
+                using (var caption = new MagickImage($"caption:{textToWrite}", readSettings))
+                {
+                    // Add the caption layer on top of the background image
+                    // at position 590,450
+                    image.Composite(caption, 590, 450, CompositeOperator.Over);
 
-                image.Write(pathToNewImage);
+                    image.Write(pathToNewImage);
+                }
             }
         }
     }
