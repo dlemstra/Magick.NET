@@ -68,7 +68,7 @@ namespace Magick.NET.Tests
             ColorGray actual = MagickColors.White;
             Assert.AreEqual(expected, actual);
 
-            MagickColor magickColor = actual;
+            MagickColor magickColor = actual.ToMagickColor();
             Assert.AreEqual(magickColor, MagickColors.White);
 
             Assert.IsNull(ColorGray.FromMagickColor(null));

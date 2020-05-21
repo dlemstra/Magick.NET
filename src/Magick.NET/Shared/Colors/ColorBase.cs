@@ -34,18 +34,6 @@ namespace ImageMagick
         protected MagickColor Color { get; }
 
         /// <summary>
-        /// Converts the specified color to a <see cref="MagickColor"/> instance.
-        /// </summary>
-        /// <param name="color">The color to use.</param>
-        public static implicit operator MagickColor(ColorBase color)
-        {
-            if (color == null)
-                return null;
-
-            return color.ToMagickColor();
-        }
-
-        /// <summary>
         /// Determines whether the specified <see cref="ColorBase"/> instances are considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="ColorBase"/> to compare.</param>

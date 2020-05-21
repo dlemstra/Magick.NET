@@ -57,7 +57,7 @@ namespace Magick.NET.Tests
             ColorHSL actual = MagickColors.White;
             Assert.AreEqual(expected, actual);
 
-            MagickColor magickColor = actual;
+            MagickColor magickColor = actual.ToMagickColor();
             Assert.AreEqual(magickColor, MagickColors.White);
 
             Assert.IsNull(ColorHSL.FromMagickColor(null));
@@ -95,28 +95,28 @@ namespace Magick.NET.Tests
         public void Test_ColorHSL()
         {
             ColorHSL color = new MagickColor("#010203");
-            ColorAssert.AreEqual(new MagickColor("#010203"), color);
+            ColorAssert.AreEqual(new MagickColor("#010203"), color.ToMagickColor());
 
             color = new MagickColor("#aabbcc");
-            ColorAssert.AreEqual(new MagickColor("#aabbcc"), color);
+            ColorAssert.AreEqual(new MagickColor("#aabbcc"), color.ToMagickColor());
 
             color = new MagickColor("#e0d8d9");
-            ColorAssert.AreEqual(new MagickColor("#e0d8d9"), color);
+            ColorAssert.AreEqual(new MagickColor("#e0d8d9"), color.ToMagickColor());
 
             color = new MagickColor("#e0d9d8");
-            ColorAssert.AreEqual(new MagickColor("#e0d9d8"), color);
+            ColorAssert.AreEqual(new MagickColor("#e0d9d8"), color.ToMagickColor());
 
             color = new MagickColor("#bbccbb");
 #if Q8
-            ColorAssert.AreEqual(new MagickColor("#bacbba"), color);
+            ColorAssert.AreEqual(new MagickColor("#bacbba"), color.ToMagickColor());
 #elif Q16 || Q16HDRI
-            ColorAssert.AreEqual(new MagickColor("#bbbacccbbbba"), color);
+            ColorAssert.AreEqual(new MagickColor("#bbbacccbbbba"), color.ToMagickColor());
 #else
 #error Not implemented!
 #endif
 
             color = new MagickColor("#bbaacc");
-            ColorAssert.AreEqual(new MagickColor("#bbaacc"), color);
+            ColorAssert.AreEqual(new MagickColor("#bbaacc"), color.ToMagickColor());
         }
     }
 }

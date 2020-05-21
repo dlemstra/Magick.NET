@@ -23,9 +23,9 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldCreateCorrectColorWhenUsingSystemDrawingColor()
         {
-            ColorRGB fuchsia = new ColorRGB(Color.Fuchsia);
+            var fuchsia = new ColorRGB(Color.Fuchsia);
 
-            ColorAssert.AreEqual(fuchsia, MagickColors.Fuchsia);
+            ColorAssert.AreEqual(fuchsia.ToMagickColor(), MagickColors.Fuchsia);
         }
     }
 }

@@ -105,9 +105,9 @@ namespace ImageMagick
         /// <returns>A <see cref="ColorRGB"/> instance.</returns>
         public ColorRGB ComplementaryColor()
         {
-            ColorHSV hsv = ColorHSV.FromMagickColor(this);
+            var hsv = ColorHSV.FromMagickColor(ToMagickColor());
             hsv.HueShift(180);
-            return new ColorRGB(hsv);
+            return new ColorRGB(hsv.ToMagickColor());
         }
     }
 }

@@ -85,11 +85,10 @@ namespace Magick.NET.Tests
             ColorRGB actual = MagickColors.Cyan;
             Assert.AreEqual(expected, actual);
 
-            MagickColor magickColor = actual;
+            MagickColor magickColor = actual.ToMagickColor();
             Assert.AreEqual(magickColor, MagickColors.Cyan);
 
             Assert.IsNull(ColorRGB.FromMagickColor(null));
-            Assert.IsNull((MagickColor)(ColorRGB)null);
         }
 
         [TestMethod]
@@ -125,34 +124,34 @@ namespace Magick.NET.Tests
         {
             ColorRGB color = MagickColors.Red;
             ColorRGB complementary = color.ComplementaryColor();
-            ColorAssert.AreEqual(MagickColors.Aqua, complementary);
+            ColorAssert.AreEqual(MagickColors.Aqua, complementary.ToMagickColor());
 
             color = MagickColors.Lime;
             complementary = color.ComplementaryColor();
-            ColorAssert.AreEqual(MagickColors.Fuchsia, complementary);
+            ColorAssert.AreEqual(MagickColors.Fuchsia, complementary.ToMagickColor());
 
             color = MagickColors.Black;
             complementary = color.ComplementaryColor();
-            ColorAssert.AreEqual(MagickColors.Black, complementary);
+            ColorAssert.AreEqual(MagickColors.Black, complementary.ToMagickColor());
 
             color = MagickColors.White;
             complementary = color.ComplementaryColor();
-            ColorAssert.AreEqual(MagickColors.White, complementary);
+            ColorAssert.AreEqual(MagickColors.White, complementary.ToMagickColor());
 
             color = new MagickColor("#aabbcc");
             complementary = color.ComplementaryColor();
-            ColorAssert.AreEqual(new MagickColor("#ccbbaa"), complementary);
+            ColorAssert.AreEqual(new MagickColor("#ccbbaa"), complementary.ToMagickColor());
 
             color = new MagickColor(4, 1, 3);
             complementary = color.ComplementaryColor();
-            ColorAssert.AreEqual(new MagickColor(1, 4, 1), complementary);
+            ColorAssert.AreEqual(new MagickColor(1, 4, 1), complementary.ToMagickColor());
 
             color = new MagickColor("#9aa01e");
             complementary = color.ComplementaryColor();
 #if Q8
-            ColorAssert.AreEqual(new MagickColor("#231ea0"), complementary);
+            ColorAssert.AreEqual(new MagickColor("#231ea0"), complementary.ToMagickColor());
 #elif Q16 || Q16HDRI
-            ColorAssert.AreEqual(new MagickColor("#24231e1ea0a0"), complementary);
+            ColorAssert.AreEqual(new MagickColor("#24231e1ea0a0"), complementary.ToMagickColor());
 #else
 #error Not implemented!
 #endif
