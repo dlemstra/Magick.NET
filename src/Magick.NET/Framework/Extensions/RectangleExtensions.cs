@@ -10,30 +10,23 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if !NETCORE
+#if !NETSTANDARD
 
 using System.Drawing;
-using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace ImageMagick
 {
-    public partial class MagickGeometryTests
+    /// <summary>
+    /// Extension methods for the <see cref="Rectangle"/> struct.
+    /// </summary>
+    public static class RectangleExtensions
     {
-        public partial class TheConstructor
-        {
-            [TestMethod]
-            public void ShouldSetTheProperties()
-            {
-                var rectangle = new Rectangle(1, 2, 3, 4);
-
-                var geometry = new MagickGeometry(rectangle);
-                Assert.AreEqual(1, geometry.X);
-                Assert.AreEqual(2, geometry.Y);
-                Assert.AreEqual(3, geometry.Width);
-                Assert.AreEqual(4, geometry.Height);
-            }
-        }
+        /// <summary>
+        /// Convert the specified <see cref="Rectangle"/> to a <see cref="MagickGeometry"/>.
+        /// </summary>
+        /// <param name="self">The rectangle to use.</param>
+        /// <returns>A <see cref="MagickGeometry"/> instance.</returns>
+        public static MagickGeometry ToGeometry(this Rectangle self) => new MagickGeometry().FromRectangle(self);
     }
 }
 

@@ -46,7 +46,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Converts the value of this instance to an equivalent Color.
+        /// Converts the value of this instance to an equivalent <see cref="Color"/>.
         /// </summary>
         /// <returns>A <see cref="Color"/> instance.</returns>
         public Color ToColor()

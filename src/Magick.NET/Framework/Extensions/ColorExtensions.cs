@@ -10,31 +10,23 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if !NETCORE
+#if !NETSTANDARD
 
 using System.Drawing;
-using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace ImageMagick
 {
-    public partial class MagickGeometryTests
+    /// <summary>
+    /// Extension methods for the <see cref="Color"/> struct.
+    /// </summary>
+    public static class ColorExtensions
     {
-        [TestClass]
-        public class CastFromRectange
-        {
-            [TestMethod]
-            public void ShouldSetTheProperties()
-            {
-                var rectangle = new Rectangle(4, 3, 2, 1);
-
-                var geometry = (MagickGeometry)rectangle;
-                Assert.AreEqual(4, geometry.X);
-                Assert.AreEqual(3, geometry.Y);
-                Assert.AreEqual(2, geometry.Width);
-                Assert.AreEqual(1, geometry.Height);
-            }
-        }
+        /// <summary>
+        /// Convert the specified <see cref="Color"/> to a <see cref="MagickColor"/>.
+        /// </summary>
+        /// <param name="self">The color to use.</param>
+        /// <returns>A <see cref="MagickColor"/> instance.</returns>
+        public static MagickColor ToColor(this Color self) => new MagickColor().FromColor(self);
     }
 }
 

@@ -22,16 +22,21 @@ namespace ImageMagick
     public sealed partial class MagickGeometry
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MagickGeometry"/> class.
+        /// Converts the specified <see cref="Rectangle"/> to a <see cref="MagickColor"/> instance.
         /// </summary>
-        /// <param name="rectangle">The rectangle to use.</param>
-        public MagickGeometry(Rectangle rectangle) => Initialize(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
+        /// <param name="rectangle">The <see cref="Rectangle"/> to convert.</param>
+        /// <returns>A <see cref="MagickColor"/> instance.</returns>
+        public MagickGeometry FromRectangle(Rectangle rectangle)
+        {
+            Initialize(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
+            return this;
+        }
 
         /// <summary>
-        /// Converts the specified rectangle to an instance of this type.
+        /// Converts the value of this instance to an equivalent <see cref="Rectangle"/>.
         /// </summary>
-        /// <param name="rectangle">The rectangle to use.</param>
-        public static explicit operator MagickGeometry(Rectangle rectangle) => new MagickGeometry(rectangle);
+        /// <returns>A <see cref="Color"/> instance.</returns>
+        public Rectangle ToRectangle() => new Rectangle(X, Y, Width, Height);
     }
 }
 
