@@ -233,7 +233,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the preferred size and location of an image canvas.
         /// </summary>
-        public MagickGeometry Page { get; set; }
+        public IMagickGeometry Page { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether stroke anti-aliasing is enabled or disabled.
@@ -444,7 +444,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the specified area to extract from the image.
         /// </summary>
-        protected MagickGeometry Extract { get; set; }
+        protected IMagickGeometry Extract { get; set; }
 
         /// <summary>
         /// Gets or sets the number of scenes.
@@ -674,7 +674,7 @@ namespace ImageMagick
                 Density = Density?.ToString(DensityUnit.Undefined),
                 Depth = Depth,
                 Endian = Endian,
-                Extract = MagickGeometry.ToString(Extract),
+                Extract = Extract?.ToString(),
                 Font = _font,
                 FontPointsize = _fontPointsize,
                 Format = format,
@@ -686,7 +686,7 @@ namespace ImageMagick
             instance.SetColorFuzz(ColorFuzz);
             instance.SetFileName(fileName);
             instance.SetNumberScenes(NumberScenes);
-            instance.SetPage(MagickGeometry.ToString(Page));
+            instance.SetPage(Page?.ToString());
             instance.SetPing(Ping);
             instance.SetQuality(Quality);
             instance.SetScene(Scene);

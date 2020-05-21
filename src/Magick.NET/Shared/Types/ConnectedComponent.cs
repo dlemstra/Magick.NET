@@ -77,14 +77,14 @@ namespace ImageMagick
         /// Returns the geometry of the area of this connected component.
         /// </summary>
         /// <returns>The geometry of the area of this connected component.</returns>
-        public MagickGeometry ToGeometry() => new MagickGeometry(X, Y, Width, Height);
+        public IMagickGeometry ToGeometry() => new MagickGeometry(X, Y, Width, Height);
 
         /// <summary>
         /// Returns the geometry of the area of this connected component.
         /// </summary>
         /// <param name="extent">The number of pixels to extent the image with.</param>
         /// <returns>The geometry of the area of this connected component.</returns>
-        public MagickGeometry ToGeometry(int extent)
+        public IMagickGeometry ToGeometry(int extent)
         {
             int extra;
             checked

@@ -163,7 +163,7 @@ namespace ImageMagick
         /// <param name="offset">The offset from origin.</param>
         /// <param name="image">The image to draw.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Composite(MagickGeometry offset, IMagickImage image)
+        public Drawables Composite(IMagickGeometry offset, IMagickImage image)
         {
             _drawables.Add(new DrawableComposite(offset, image));
             return this;
@@ -189,7 +189,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="image">The image to draw.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Composite(MagickGeometry offset, CompositeOperator compose, IMagickImage image)
+        public Drawables Composite(IMagickGeometry offset, CompositeOperator compose, IMagickImage image)
         {
             _drawables.Add(new DrawableComposite(offset, compose, image));
             return this;

@@ -40,7 +40,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the scale to use when the method is Convolve.
         /// </summary>
-        public MagickGeometry ConvolveScale { get; set; }
+        public IMagickGeometry ConvolveScale { get; set; }
 
         /// <summary>
         /// Gets or sets the number of iterations.

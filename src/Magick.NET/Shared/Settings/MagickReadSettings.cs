@@ -57,7 +57,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the specified area to extract from the image.
         /// </summary>
-        public MagickGeometry ExtractArea
+        public IMagickGeometry ExtractArea
         {
             get => Extract;
             set => Extract = value;

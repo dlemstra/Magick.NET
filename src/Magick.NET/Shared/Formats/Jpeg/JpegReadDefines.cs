@@ -52,7 +52,7 @@ namespace ImageMagick.Formats.Jpeg
         /// Gets or sets the size the scale the image to (jpeg:size). The output image won't be exactly
         /// the specified size. More information can be found here: http://jpegclub.org/djpeg/.
         /// </summary>
-        public MagickGeometry Size { get; set; }
+        public IMagickGeometry Size { get; set; }
 
         /// <summary>
         /// Gets or sets the profile(s) that should be skipped when the image is read (profile:skip).

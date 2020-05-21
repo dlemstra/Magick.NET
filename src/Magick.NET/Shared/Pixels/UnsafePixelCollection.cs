@@ -31,7 +31,7 @@ namespace ImageMagick
         {
         }
 
-        public override QuantumType[] GetArea(MagickGeometry geometry)
+        public override QuantumType[] GetArea(IMagickGeometry geometry)
         {
             if (geometry == null)
                 return null;
@@ -46,7 +46,7 @@ namespace ImageMagick
                 base.SetArea(x, y, width, height, values);
         }
 
-        public override void SetArea(MagickGeometry geometry, byte[] values)
+        public override void SetArea(IMagickGeometry geometry, byte[] values)
         {
             if (geometry != null)
                 base.SetArea(geometry, values);
@@ -59,7 +59,7 @@ namespace ImageMagick
                 base.SetArea(x, y, width, height, values);
         }
 
-        public override void SetArea(MagickGeometry geometry, double[] values)
+        public override void SetArea(IMagickGeometry geometry, double[] values)
         {
             if (geometry != null)
                 base.SetArea(geometry, values);
@@ -71,7 +71,7 @@ namespace ImageMagick
                 base.SetArea(x, y, width, height, values);
         }
 
-        public override void SetArea(MagickGeometry geometry, int[] values)
+        public override void SetArea(IMagickGeometry geometry, int[] values)
         {
             if (geometry != null)
                 base.SetArea(geometry, values);
@@ -83,7 +83,7 @@ namespace ImageMagick
                 base.SetArea(x, y, width, height, values);
         }
 
-        public override void SetArea(MagickGeometry geometry, QuantumType[] values)
+        public override void SetArea(IMagickGeometry geometry, QuantumType[] values)
         {
             if (geometry != null)
                 base.SetArea(geometry, values);
@@ -127,7 +127,7 @@ namespace ImageMagick
                 base.SetPixels(values);
         }
 
-        public override byte[] ToByteArray(MagickGeometry geometry, string mapping)
+        public override byte[] ToByteArray(IMagickGeometry geometry, string mapping)
         {
             if (geometry == null)
                 return null;
@@ -143,7 +143,7 @@ namespace ImageMagick
             return base.ToByteArray(x, y, width, height, mapping);
         }
 
-        public override ushort[] ToShortArray(MagickGeometry geometry, string mapping)
+        public override ushort[] ToShortArray(IMagickGeometry geometry, string mapping)
         {
             if (geometry == null)
                 return null;

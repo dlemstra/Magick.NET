@@ -57,7 +57,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="geometry">The geometry of the area.</param>
         /// <returns>A <see cref="QuantumType"/> array.</returns>
-        QuantumType[] GetArea(MagickGeometry geometry);
+        QuantumType[] GetArea(IMagickGeometry geometry);
 
         /// <summary>
         /// Returns the index of the specified channel. Returns -1 if not found.
@@ -150,7 +150,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="geometry">The geometry of the area.</param>
         /// <param name="values">The values of the pixels.</param>
-        void SetArea(MagickGeometry geometry, byte[] values);
+        void SetArea(IMagickGeometry geometry, byte[] values);
 #endif
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="geometry">The geometry of the area.</param>
         /// <param name="values">The values of the pixels.</param>
-        void SetArea(MagickGeometry geometry, double[] values);
+        void SetArea(IMagickGeometry geometry, double[] values);
 
         /// <summary>
         /// Changes the values of the specified pixels.
@@ -185,7 +185,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="geometry">The geometry of the area.</param>
         /// <param name="values">The values of the pixels.</param>
-        void SetArea(MagickGeometry geometry, int[] values);
+        void SetArea(IMagickGeometry geometry, int[] values);
 
         /// <summary>
         /// Changes the values of the specified pixels.
@@ -202,7 +202,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="geometry">The geometry of the area.</param>
         /// <param name="values">The values of the pixels.</param>
-        void SetArea(MagickGeometry geometry, QuantumType[] values);
+        void SetArea(IMagickGeometry geometry, QuantumType[] values);
 
         /// <summary>
         /// Returns the values of the pixels as an array.
@@ -238,7 +238,7 @@ namespace ImageMagick
         /// <param name="geometry">The geometry of the area.</param>
         /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
         /// <returns>A <see cref="byte"/> array.</returns>
-        byte[] ToByteArray(MagickGeometry geometry, string mapping);
+        byte[] ToByteArray(IMagickGeometry geometry, string mapping);
 
         /// <summary>
         /// Returns the values of the pixels as an array.
@@ -246,7 +246,7 @@ namespace ImageMagick
         /// <param name="geometry">The geometry of the area.</param>
         /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
         /// <returns>A <see cref="byte"/> array.</returns>
-        byte[] ToByteArray(MagickGeometry geometry, PixelMapping mapping);
+        byte[] ToByteArray(IMagickGeometry geometry, PixelMapping mapping);
 
         /// <summary>
         /// Returns the values of the pixels as an array.
@@ -290,7 +290,7 @@ namespace ImageMagick
         /// <param name="geometry">The geometry of the area.</param>
         /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
         /// <returns>An <see cref="ushort"/> array.</returns>
-        ushort[] ToShortArray(MagickGeometry geometry, string mapping);
+        ushort[] ToShortArray(IMagickGeometry geometry, string mapping);
 
         /// <summary>
         /// Returns the values of the pixels as an array.
@@ -298,7 +298,7 @@ namespace ImageMagick
         /// <param name="geometry">The geometry of the area.</param>
         /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
         /// <returns>An <see cref="ushort"/> array.</returns>
-        ushort[] ToShortArray(MagickGeometry geometry, PixelMapping mapping);
+        ushort[] ToShortArray(IMagickGeometry geometry, PixelMapping mapping);
 
         /// <summary>
         /// Returns the values of the pixels as an array.

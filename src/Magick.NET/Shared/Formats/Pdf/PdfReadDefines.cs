@@ -31,7 +31,7 @@ namespace ImageMagick.Formats.Pdf
         /// <summary>
         /// Gets or sets the size where the image should be scaled to (pdf:fit-page).
         /// </summary>
-        public MagickGeometry FitPage { get; set; }
+        public IMagickGeometry FitPage { get; set; }
 
         /// <summary>
         /// Gets or sets the password that should be used to open the pdf (authenticate).

@@ -52,7 +52,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="offset">The offset from origin.</param>
         /// <param name="image">The image to draw.</param>
-        public DrawableComposite(MagickGeometry offset, IMagickImage image)
+        public DrawableComposite(IMagickGeometry offset, IMagickImage image)
           : this(offset, CompositeOperator.In, image)
         {
         }
@@ -63,7 +63,7 @@ namespace ImageMagick
         /// <param name="offset">The offset from origin.</param>
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="image">The image to draw.</param>
-        public DrawableComposite(MagickGeometry offset, CompositeOperator compose, IMagickImage image)
+        public DrawableComposite(IMagickGeometry offset, CompositeOperator compose, IMagickImage image)
           : this(image)
         {
             Throw.IfNull(nameof(offset), offset);

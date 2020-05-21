@@ -19,7 +19,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class MagickSearchResult : IDisposable
     {
-        internal MagickSearchResult(IMagickImage image, MagickGeometry bestMatch, double similarityMetric)
+        internal MagickSearchResult(IMagickImage image, IMagickGeometry bestMatch, double similarityMetric)
         {
             SimilarityImage = image;
             BestMatch = bestMatch;
@@ -29,7 +29,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the offset for the best match.
         /// </summary>
-        public MagickGeometry BestMatch { get; }
+        public IMagickGeometry BestMatch { get; }
 
         /// <summary>
         /// Gets the a similarity image such that an exact match location is completely white and if none of

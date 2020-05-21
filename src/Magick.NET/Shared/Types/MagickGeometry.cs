@@ -17,7 +17,7 @@ namespace ImageMagick
     /// <summary>
     /// Encapsulation of the ImageMagick geometry object.
     /// </summary>
-    public sealed partial class MagickGeometry
+    public sealed partial class MagickGeometry : IMagickGeometry
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickGeometry"/> class.
@@ -97,6 +97,11 @@ namespace ImageMagick
         private MagickGeometry(NativeMagickGeometry instance) => Initialize(instance);
 
         /// <summary>
+        /// Gets a value indicating whether the value is an aspect ratio.
+        /// </summary>
+        public bool AspectRatio { get; internal set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether the image is resized based on the smallest fitting dimension (^).
         /// </summary>
         public bool FillArea { get; set; }
@@ -145,8 +150,6 @@ namespace ImageMagick
         /// Gets or sets the Y offset from origin.
         /// </summary>
         public int Y { get; set; }
-
-        internal bool AspectRatio { get; set; }
 
         /// <summary>
         /// Converts the specified string to an instance of this type.
@@ -226,7 +229,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The object to compare this geometry with.</param>
         /// <returns>A signed number indicating the relative values of this instance and value.</returns>
-        public int CompareTo(MagickGeometry other)
+        public int CompareTo(IMagickGeometry other)
         {
             if (other is null)
                 return 1;
@@ -250,15 +253,15 @@ namespace ImageMagick
             if (ReferenceEquals(this, obj))
                 return true;
 
-            return Equals(obj as MagickGeometry);
+            return Equals(obj as IMagickGeometry);
         }
 
         /// <summary>
-        /// Determines whether the specified <see cref="MagickGeometry"/> is equal to the current <see cref="MagickGeometry"/>.
+        /// Determines whether the specified <see cref="IMagickGeometry"/> is equal to the current <see cref="MagickGeometry"/>.
         /// </summary>
-        /// <param name="other">The <see cref="MagickGeometry"/> to compare this <see cref="MagickGeometry"/> with.</param>
-        /// <returns>True when the specified <see cref="MagickGeometry"/> is equal to the current <see cref="MagickGeometry"/>.</returns>
-        public bool Equals(MagickGeometry other)
+        /// <param name="other">The <see cref="IMagickGeometry"/> to compare this <see cref="MagickGeometry"/> with.</param>
+        /// <returns>True when the specified <see cref="IMagickGeometry"/> is equal to the current <see cref="MagickGeometry"/>.</returns>
+        public bool Equals(IMagickGeometry other)
         {
             if (other is null)
                 return false;
@@ -301,15 +304,15 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Returns a <see cref="PointD"/> that represents the position of the current <see cref="MagickGeometry"/>.
+        /// Returns a <see cref="PointD"/> that represents the position of the current <see cref="IMagickGeometry"/>.
         /// </summary>
-        /// <returns>A <see cref="PointD"/> that represents the position of the current <see cref="MagickGeometry"/>.</returns>
+        /// <returns>A <see cref="PointD"/> that represents the position of the current <see cref="IMagickGeometry"/>.</returns>
         public PointD ToPoint() => new PointD(X, Y);
 
         /// <summary>
-        /// Returns a string that represents the current <see cref="MagickGeometry"/>.
+        /// Returns a string that represents the current <see cref="IMagickGeometry"/>.
         /// </summary>
-        /// <returns>A string that represents the current <see cref="MagickGeometry"/>.</returns>
+        /// <returns>A string that represents the current <see cref="IMagickGeometry"/>.</returns>
         public override string ToString()
         {
             string result = null;
@@ -359,7 +362,7 @@ namespace ImageMagick
             return result;
         }
 
-        internal static MagickGeometry Clone(MagickGeometry value)
+        internal static IMagickGeometry Clone(IMagickGeometry value)
         {
             if (value == null)
                 return null;
@@ -380,7 +383,7 @@ namespace ImageMagick
             };
         }
 
-        internal static MagickGeometry FromRectangle(MagickRectangle rectangle)
+        internal static IMagickGeometry FromRectangle(MagickRectangle rectangle)
         {
             if (rectangle == null)
                 return null;
@@ -388,9 +391,7 @@ namespace ImageMagick
             return new MagickGeometry(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
         }
 
-        internal static MagickGeometry FromString(string value) => value == null ? null : new MagickGeometry(value);
-
-        internal static string ToString(MagickGeometry value) => value?.ToString();
+        internal static IMagickGeometry FromString(string value) => value == null ? null : new MagickGeometry(value);
 
         private static int ParseInt(string value)
         {
@@ -403,14 +404,6 @@ namespace ImageMagick
                 index++;
 
             return int.Parse(value.Substring(start, index), CultureInfo.InvariantCulture);
-        }
-
-        private NativeMagickGeometry CreateNativeInstance()
-        {
-            NativeMagickGeometry instance = new NativeMagickGeometry();
-            instance.Initialize(ToString());
-
-            return instance;
         }
 
         private void Initialize(int x, int y, int width, int height)

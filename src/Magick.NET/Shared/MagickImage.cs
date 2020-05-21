@@ -435,7 +435,7 @@ namespace ImageMagick
         /// Gets the smallest bounding box enclosing non-border pixels. The current fuzz value is used
         /// when discriminating between pixels.
         /// </summary>
-        public MagickGeometry BoundingBox => MagickGeometry.FromRectangle(_nativeInstance.BoundingBox);
+        public IMagickGeometry BoundingBox => MagickGeometry.FromRectangle(_nativeInstance.BoundingBox);
 
         /// <summary>
         /// Gets the number of channels that the image contains.
@@ -621,7 +621,7 @@ namespace ImageMagick
         /// Gets the preferred size of the image when encoding.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickGeometry EncodingGeometry => MagickGeometry.FromString(_nativeInstance.EncodingGeometry);
+        public IMagickGeometry EncodingGeometry => MagickGeometry.FromString(_nativeInstance.EncodingGeometry);
 
         /// <summary>
         /// Gets or sets the endianness (little like Intel or big like SPARC) for image formats which support
@@ -777,7 +777,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the preferred size and location of an image canvas.
         /// </summary>
-        public MagickGeometry Page
+        public IMagickGeometry Page
         {
             get => MagickGeometry.FromRectangle(_nativeInstance.Page);
             set
@@ -963,7 +963,7 @@ namespace ImageMagick
         /// function should be used instead.
         /// <para />
         /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
-        /// Use the <see cref="MagickGeometry"/> overload for more control over the resulting size.
+        /// Use the <see cref="IMagickGeometry"/> overload for more control over the resulting size.
         /// </summary>
         /// <param name="width">The new width.</param>
         /// <param name="height">The new height.</param>
@@ -981,11 +981,11 @@ namespace ImageMagick
         /// </summary>
         /// <param name="geometry">The geometry to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void AdaptiveResize(MagickGeometry geometry)
+        public void AdaptiveResize(IMagickGeometry geometry)
         {
             Throw.IfNull(nameof(geometry), geometry);
 
-            _nativeInstance.AdaptiveResize(MagickGeometry.ToString(geometry));
+            _nativeInstance.AdaptiveResize(geometry.ToString());
         }
 
         /// <summary>
@@ -1139,7 +1139,7 @@ namespace ImageMagick
         /// <param name="text">The text to use.</param>
         /// <param name="boundingArea">The bounding area.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Annotate(string text, MagickGeometry boundingArea) => Annotate(text, boundingArea, Gravity.Northwest, 0.0);
+        public void Annotate(string text, IMagickGeometry boundingArea) => Annotate(text, boundingArea, Gravity.Northwest, 0.0);
 
         /// <summary>
         /// Annotate using specified text, bounding area, and placement gravity.
@@ -1148,7 +1148,7 @@ namespace ImageMagick
         /// <param name="boundingArea">The bounding area.</param>
         /// <param name="gravity">The placement gravity.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Annotate(string text, MagickGeometry boundingArea, Gravity gravity) => Annotate(text, boundingArea, gravity, 0.0);
+        public void Annotate(string text, IMagickGeometry boundingArea, Gravity gravity) => Annotate(text, boundingArea, gravity, 0.0);
 
         /// <summary>
         /// Annotate using specified text, bounding area, and placement gravity.
@@ -1158,12 +1158,12 @@ namespace ImageMagick
         /// <param name="gravity">The placement gravity.</param>
         /// <param name="angle">The rotation.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Annotate(string text, MagickGeometry boundingArea, Gravity gravity, double angle)
+        public void Annotate(string text, IMagickGeometry boundingArea, Gravity gravity, double angle)
         {
             Throw.IfNullOrEmpty(nameof(text), text);
             Throw.IfNull(nameof(boundingArea), boundingArea);
 
-            _nativeInstance.Annotate(Settings.Drawing, text, MagickGeometry.ToString(boundingArea), gravity, angle);
+            _nativeInstance.Annotate(Settings.Drawing, text, boundingArea.ToString(), gravity, angle);
         }
 
         /// <summary>
@@ -1394,7 +1394,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="geometry">The geometry to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Chop(MagickGeometry geometry)
+        public void Chop(IMagickGeometry geometry)
         {
             Throw.IfNull(nameof(geometry), geometry);
 
@@ -1409,7 +1409,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void ChopHorizontal(int offset, int width)
         {
-            MagickGeometry geometry = new MagickGeometry(offset, 0, width, 0);
+            var geometry = new MagickGeometry(offset, 0, width, 0);
             Chop(geometry);
         }
 
@@ -1421,7 +1421,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void ChopVertical(int offset, int height)
         {
-            MagickGeometry geometry = new MagickGeometry(0, offset, 0, height);
+            var geometry = new MagickGeometry(0, offset, 0, height);
             Chop(geometry);
         }
 
@@ -1486,7 +1486,7 @@ namespace ImageMagick
         /// <param name="geometry">The area to clone.</param>
         /// <returns>A clone of the current image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImage Clone(MagickGeometry geometry)
+        public IMagickImage Clone(IMagickGeometry geometry)
         {
             Throw.IfNull(nameof(geometry), geometry);
 
@@ -2288,7 +2288,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(source), source);
 
-            MagickGeometry geometry = new MagickGeometry(0, 0, Math.Min(source.Width, Width), Math.Min(source.Height, Height));
+            var geometry = new MagickGeometry(0, 0, Math.Min(source.Width, Width), Math.Min(source.Height, Height));
 
             CopyPixels(source, geometry, 0, 0, channels);
         }
@@ -2299,7 +2299,7 @@ namespace ImageMagick
         /// <param name="source">The source image to copy the pixels from.</param>
         /// <param name="geometry">The geometry to copy.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void CopyPixels(IMagickImage source, MagickGeometry geometry) => CopyPixels(source, geometry, ImageMagick.Channels.All);
+        public void CopyPixels(IMagickImage source, IMagickGeometry geometry) => CopyPixels(source, geometry, ImageMagick.Channels.All);
 
         /// <summary>
         /// Copies pixels from the source image to the destination image.
@@ -2308,7 +2308,7 @@ namespace ImageMagick
         /// <param name="geometry">The geometry to copy.</param>
         /// <param name="channels">The channels to copy.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void CopyPixels(IMagickImage source, MagickGeometry geometry, Channels channels) => CopyPixels(source, geometry, 0, 0, channels);
+        public void CopyPixels(IMagickImage source, IMagickGeometry geometry, Channels channels) => CopyPixels(source, geometry, 0, 0, channels);
 
         /// <summary>
         /// Copies pixels from the source image as defined by the geometry the destination image at
@@ -2318,7 +2318,7 @@ namespace ImageMagick
         /// <param name="geometry">The geometry to copy.</param>
         /// <param name="offset">The offset to copy the pixels to.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void CopyPixels(IMagickImage source, MagickGeometry geometry, PointD offset) => CopyPixels(source, geometry, offset, ImageMagick.Channels.All);
+        public void CopyPixels(IMagickImage source, IMagickGeometry geometry, PointD offset) => CopyPixels(source, geometry, offset, ImageMagick.Channels.All);
 
         /// <summary>
         /// Copies pixels from the source image as defined by the geometry the destination image at
@@ -2329,7 +2329,7 @@ namespace ImageMagick
         /// <param name="offset">The offset to start the copy from.</param>
         /// <param name="channels">The channels to copy.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void CopyPixels(IMagickImage source, MagickGeometry geometry, PointD offset, Channels channels) => CopyPixels(source, geometry, (int)offset.X, (int)offset.Y, channels);
+        public void CopyPixels(IMagickImage source, IMagickGeometry geometry, PointD offset, Channels channels) => CopyPixels(source, geometry, (int)offset.X, (int)offset.Y, channels);
 
         /// <summary>
         /// Copies pixels from the source image as defined by the geometry the destination image at
@@ -2340,7 +2340,7 @@ namespace ImageMagick
         /// <param name="x">The X offset to start the copy from.</param>
         /// <param name="y">The Y offset to start the copy from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void CopyPixels(IMagickImage source, MagickGeometry geometry, int x, int y) => CopyPixels(source, geometry, x, y, ImageMagick.Channels.All);
+        public void CopyPixels(IMagickImage source, IMagickGeometry geometry, int x, int y) => CopyPixels(source, geometry, x, y, ImageMagick.Channels.All);
 
         /// <summary>
         /// Copies pixels from the source image as defined by the geometry the destination image at
@@ -2352,7 +2352,7 @@ namespace ImageMagick
         /// <param name="y">The Y offset to copy the pixels to.</param>
         /// <param name="channels">The channels to copy.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void CopyPixels(IMagickImage source, MagickGeometry geometry, int x, int y, Channels channels)
+        public void CopyPixels(IMagickImage source, IMagickGeometry geometry, int x, int y, Channels channels)
         {
             Throw.IfNull(nameof(source), source);
             Throw.IfNull(nameof(geometry), geometry);
@@ -2385,7 +2385,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="geometry">The subregion to crop.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Crop(MagickGeometry geometry) => Crop(geometry, Gravity.Undefined);
+        public void Crop(IMagickGeometry geometry) => Crop(geometry, Gravity.Undefined);
 
         /// <summary>
         /// Crop image (subregion of original image). You should call RePage afterwards unless you
@@ -2394,7 +2394,7 @@ namespace ImageMagick
         /// <param name="geometry">The subregion to crop.</param>
         /// <param name="gravity">The position where the cropping should start from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Crop(MagickGeometry geometry, Gravity gravity)
+        public void Crop(IMagickGeometry geometry, Gravity gravity)
         {
             Throw.IfNull(nameof(geometry), geometry);
 
@@ -2414,11 +2414,11 @@ namespace ImageMagick
         /// </summary>
         /// <param name="geometry">The size of the tile.</param>
         /// <returns>New title of the current image.</returns>
-        public IEnumerable<IMagickImage> CropToTiles(MagickGeometry geometry)
+        public IEnumerable<IMagickImage> CropToTiles(IMagickGeometry geometry)
         {
             Throw.IfNull(nameof(geometry), geometry);
 
-            IntPtr images = _nativeInstance.CropToTiles(MagickGeometry.ToString(geometry));
+            IntPtr images = _nativeInstance.CropToTiles(geometry.ToString());
             return CreateList(images);
         }
 
@@ -2671,7 +2671,7 @@ namespace ImageMagick
         /// <param name="evaluateOperator">The operator.</param>
         /// <param name="value">The value.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Evaluate(Channels channels, MagickGeometry geometry, EvaluateOperator evaluateOperator, double value)
+        public void Evaluate(Channels channels, IMagickGeometry geometry, EvaluateOperator evaluateOperator, double value)
         {
             Throw.IfNull(nameof(geometry), geometry);
             Throw.IfTrue(nameof(geometry), geometry.IsPercentage, "Percentage is not supported.");
@@ -2687,7 +2687,7 @@ namespace ImageMagick
         /// <param name="evaluateOperator">The operator.</param>
         /// <param name="percentage">The value.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Evaluate(Channels channels, MagickGeometry geometry, EvaluateOperator evaluateOperator, Percentage percentage) => Evaluate(channels, geometry, evaluateOperator, percentage.ToQuantum());
+        public void Evaluate(Channels channels, IMagickGeometry geometry, EvaluateOperator evaluateOperator, Percentage percentage) => Evaluate(channels, geometry, evaluateOperator, percentage.ToQuantum());
 
         /// <summary>
         /// Extend the image as defined by the width and height.
@@ -2752,7 +2752,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="geometry">The geometry to extend the image to.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Extent(MagickGeometry geometry) => Extent(geometry, Gravity.Undefined);
+        public void Extent(IMagickGeometry geometry) => Extent(geometry, Gravity.Undefined);
 
         /// <summary>
         /// Extend the image as defined by the geometry.
@@ -2760,7 +2760,7 @@ namespace ImageMagick
         /// <param name="geometry">The geometry to extend the image to.</param>
         /// <param name="backgroundColor">The background color to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Extent(MagickGeometry geometry, MagickColor backgroundColor)
+        public void Extent(IMagickGeometry geometry, MagickColor backgroundColor)
         {
             Throw.IfNull(nameof(backgroundColor), backgroundColor);
 
@@ -2774,11 +2774,11 @@ namespace ImageMagick
         /// <param name="geometry">The geometry to extend the image to.</param>
         /// <param name="gravity">The placement gravity.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Extent(MagickGeometry geometry, Gravity gravity)
+        public void Extent(IMagickGeometry geometry, Gravity gravity)
         {
             Throw.IfNull(nameof(geometry), geometry);
 
-            _nativeInstance.Extent(MagickGeometry.ToString(geometry), gravity);
+            _nativeInstance.Extent(geometry.ToString(), gravity);
         }
 
         /// <summary>
@@ -2788,7 +2788,7 @@ namespace ImageMagick
         /// <param name="gravity">The placement gravity.</param>
         /// <param name="backgroundColor">The background color to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Extent(MagickGeometry geometry, Gravity gravity, MagickColor backgroundColor)
+        public void Extent(IMagickGeometry geometry, Gravity gravity, MagickColor backgroundColor)
         {
             Throw.IfNull(nameof(backgroundColor), backgroundColor);
 
@@ -2949,7 +2949,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="geometry">The geometry of the frame.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Frame(MagickGeometry geometry)
+        public void Frame(IMagickGeometry geometry)
         {
             Throw.IfNull(nameof(geometry), geometry);
 
@@ -3697,7 +3697,7 @@ namespace ImageMagick
         {
             var geometry = new MagickGeometry(width, height);
 
-            _nativeInstance.LiquidRescale(MagickGeometry.ToString(geometry), deltaX, rigidity);
+            _nativeInstance.LiquidRescale(geometry.ToString(), deltaX, rigidity);
         }
 
         /// <summary>
@@ -3705,11 +3705,11 @@ namespace ImageMagick
         /// </summary>
         /// <param name="geometry">The geometry to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void LiquidRescale(MagickGeometry geometry)
+        public void LiquidRescale(IMagickGeometry geometry)
         {
             Throw.IfNull(nameof(geometry), geometry);
 
-            _nativeInstance.LiquidRescale(MagickGeometry.ToString(geometry), geometry.X, geometry.Y);
+            _nativeInstance.LiquidRescale(geometry.ToString(), geometry.X, geometry.Y);
         }
 
         /// <summary>
@@ -3755,7 +3755,7 @@ namespace ImageMagick
 
             var geometry = new MagickGeometry(percentageWidth, percentageHeight);
 
-            _nativeInstance.LiquidRescale(MagickGeometry.ToString(geometry), deltaX, rigidity);
+            _nativeInstance.LiquidRescale(geometry.ToString(), deltaX, rigidity);
         }
 
         /// <summary>
@@ -4795,7 +4795,7 @@ namespace ImageMagick
         /// Associates a mask with the image as defined by the specified region.
         /// </summary>
         /// <param name="region">The mask region.</param>
-        public void RegionMask(MagickGeometry region)
+        public void RegionMask(IMagickGeometry region)
         {
             Throw.IfNull(nameof(region), region);
 
@@ -4876,7 +4876,7 @@ namespace ImageMagick
         /// Resize image to specified size.
         /// <para />
         /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
-        /// Use the <see cref="MagickGeometry"/> overload for more control over the resulting size.
+        /// Use the <see cref="IMagickGeometry"/> overload for more control over the resulting size.
         /// </summary>
         /// <param name="width">The new width.</param>
         /// <param name="height">The new height.</param>
@@ -4888,7 +4888,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="geometry">The geometry to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Resize(MagickGeometry geometry)
+        public void Resize(IMagickGeometry geometry)
         {
             Throw.IfNull(nameof(geometry), geometry);
 
@@ -4904,7 +4904,7 @@ namespace ImageMagick
         {
             Throw.IfNegative(nameof(percentage), percentage);
 
-            MagickGeometry geometry = new MagickGeometry(percentage, percentage);
+            var geometry = new MagickGeometry(percentage, percentage);
             Resize(geometry);
         }
 
@@ -4919,7 +4919,7 @@ namespace ImageMagick
             Throw.IfNegative(nameof(percentageWidth), percentageWidth);
             Throw.IfNegative(nameof(percentageHeight), percentageHeight);
 
-            MagickGeometry geometry = new MagickGeometry(percentageWidth, percentageHeight);
+            var geometry = new MagickGeometry(percentageWidth, percentageHeight);
             Resize(geometry);
         }
 
@@ -4958,7 +4958,7 @@ namespace ImageMagick
         /// Resize image by using pixel sampling algorithm.
         /// <para />
         /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
-        /// Use the <see cref="MagickGeometry"/> overload for more control over the resulting size.
+        /// Use the <see cref="IMagickGeometry"/> overload for more control over the resulting size.
         /// </summary>
         /// <param name="width">The new width.</param>
         /// <param name="height">The new height.</param>
@@ -4970,7 +4970,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="geometry">The geometry to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Sample(MagickGeometry geometry)
+        public void Sample(IMagickGeometry geometry)
         {
             Throw.IfNull(nameof(geometry), geometry);
 
@@ -5002,7 +5002,7 @@ namespace ImageMagick
         /// Resize image by using simple ratio algorithm.
         /// <para />
         /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
-        /// Use the <see cref="MagickGeometry"/> overload for more control over the resulting size.
+        /// Use the <see cref="IMagickGeometry"/> overload for more control over the resulting size.
         /// </summary>
         /// <param name="width">The new width.</param>
         /// <param name="height">The new height.</param>
@@ -5014,11 +5014,11 @@ namespace ImageMagick
         /// </summary>
         /// <param name="geometry">The geometry to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Scale(MagickGeometry geometry)
+        public void Scale(IMagickGeometry geometry)
         {
             Throw.IfNull(nameof(geometry), geometry);
 
-            _nativeInstance.Scale(MagickGeometry.ToString(geometry));
+            _nativeInstance.Scale(geometry.ToString());
         }
 
         /// <summary>
@@ -5582,7 +5582,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="geometry">The geometry to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Splice(MagickGeometry geometry)
+        public void Splice(IMagickGeometry geometry)
         {
             Throw.IfNull(nameof(geometry), geometry);
 
@@ -5754,7 +5754,7 @@ namespace ImageMagick
         /// Resize image to thumbnail size.
         /// <para />
         /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
-        /// Use the <see cref="MagickGeometry"/> overload for more control over the resulting size.
+        /// Use the <see cref="IMagickGeometry"/> overload for more control over the resulting size.
         /// </summary>
         /// <param name="width">The new width.</param>
         /// <param name="height">The new height.</param>
@@ -5770,11 +5770,11 @@ namespace ImageMagick
         /// </summary>
         /// <param name="geometry">The geometry to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Thumbnail(MagickGeometry geometry)
+        public void Thumbnail(IMagickGeometry geometry)
         {
             Throw.IfNull(nameof(geometry), geometry);
 
-            _nativeInstance.Thumbnail(MagickGeometry.ToString(geometry));
+            _nativeInstance.Thumbnail(geometry.ToString());
         }
 
         /// <summary>
@@ -5795,7 +5795,7 @@ namespace ImageMagick
             Throw.IfNegative(nameof(percentageWidth), percentageWidth);
             Throw.IfNegative(nameof(percentageHeight), percentageHeight);
 
-            MagickGeometry geometry = new MagickGeometry(percentageWidth, percentageHeight);
+            var geometry = new MagickGeometry(percentageWidth, percentageHeight);
             Thumbnail(geometry);
         }
 

@@ -40,7 +40,7 @@ namespace ImageMagick
 
         public int Y { get; set; }
 
-        public static MagickRectangle FromGeometry(MagickGeometry geometry, MagickImage image)
+        public static MagickRectangle FromGeometry(IMagickGeometry geometry, MagickImage image)
         {
             if (geometry == null)
                 return null;

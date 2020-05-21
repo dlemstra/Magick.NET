@@ -51,7 +51,7 @@ namespace ImageMagick.Formats.Tiff
         /// <summary>
         /// Gets or sets the tile geometry (tiff:tile-geometry).
         /// </summary>
-        public MagickGeometry TileGeometry { get; set; }
+        public IMagickGeometry TileGeometry { get; set; }
 
         /// <summary>
         /// Gets the defines that should be set as a define on an image.

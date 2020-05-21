@@ -50,12 +50,12 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the frame geometry (width &amp; height frame thickness).
         /// </summary>
-        public MagickGeometry FrameGeometry { get; set; }
+        public IMagickGeometry FrameGeometry { get; set; }
 
         /// <summary>
         /// Gets or sets the thumbnail width &amp; height plus border width &amp; height.
         /// </summary>
-        public MagickGeometry Geometry { get; set; }
+        public IMagickGeometry Geometry { get; set; }
 
         /// <summary>
         /// Gets or sets the thumbnail position (e.g. SouthWestGravity).
@@ -85,7 +85,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the frame geometry (width &amp; height frame thickness).
         /// </summary>
-        public MagickGeometry TileGeometry { get; set; }
+        public IMagickGeometry TileGeometry { get; set; }
 
         /// <summary>
         /// Gets or sets the montage title.
@@ -97,7 +97,7 @@ namespace ImageMagick
         /// </summary>
         public MagickColor TransparentColor { get; set; }
 
-        private static string Convert(MagickGeometry geometry)
+        private static string Convert(IMagickGeometry geometry)
         {
             if (geometry == null)
                 return null;
@@ -107,7 +107,7 @@ namespace ImageMagick
 
         private INativeInstance CreateNativeInstance()
         {
-            NativeMontageSettings instance = new NativeMontageSettings();
+            var instance = new NativeMontageSettings();
             instance.SetBackgroundColor(BackgroundColor);
             instance.SetBorderColor(BorderColor);
             instance.SetBorderWidth(BorderWidth);
