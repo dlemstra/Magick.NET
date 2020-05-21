@@ -22,31 +22,28 @@ namespace ImageMagick
     public sealed partial class MagickColor
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MagickColor"/> class.
-        /// </summary>
-        /// <param name="color">The color to use.</param>
-        public MagickColor(Color color)
-        {
-            Initialize(color.R, color.G, color.B, color.A);
-        }
-
-        /// <summary>
-        /// Converts the specified <see cref="MagickColor"/> to a <see cref="Color"/> instance.
-        /// </summary>
-        /// <param name="color">The <see cref="MagickColor"/> to convert.</param>
-        public static implicit operator Color(MagickColor color)
-        {
-            if (color is null)
-                return Color.Empty;
-
-            return color.ToColor();
-        }
-
-        /// <summary>
         /// Converts the specified <see cref="Color"/> to a <see cref="MagickColor"/> instance.
         /// </summary>
         /// <param name="color">The <see cref="Color"/> to convert.</param>
-        public static implicit operator MagickColor(Color color) => new MagickColor(color);
+        /// <returns>A <see cref="MagickColor"/> instance.</returns>
+        public MagickColor FromColor(Color color)
+        {
+            Initialize(color.R, color.G, color.B, color.A);
+            return this;
+        }
+
+        /// <summary>
+        /// Determines whether the specified object is equal to the current color.
+        /// </summary>
+        /// <param name="color">The <see cref="Color"/> to compare this color with.</param>
+        /// <returns>True when the specified object is equal to the current color.</returns>
+        public bool Equals(Color color)
+        {
+            if (ReferenceEquals(this, color))
+                return true;
+
+            return Equals(color.ToColor());
+        }
 
         /// <summary>
         /// Converts the value of this instance to an equivalent Color.

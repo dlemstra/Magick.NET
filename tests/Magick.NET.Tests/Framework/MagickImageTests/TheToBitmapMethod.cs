@@ -82,13 +82,13 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangeTheColorSpaceToSrgb()
             {
-                using (IMagickImage image = new MagickImage(Color.Red, 1, 1))
+                using (IMagickImage image = new MagickImage(Color.Red.ToColor(), 1, 1))
                 {
                     image.ColorSpace = ColorSpace.YCbCr;
 
                     using (Bitmap bitmap = image.ToBitmap())
                     {
-                        ColorAssert.AreEqual(MagickColors.Red, bitmap.GetPixel(0, 0));
+                        ColorAssert.AreEqual(MagickColors.Red, bitmap.GetPixel(0, 0).ToColor());
                     }
 
                     Assert.AreEqual(ColorSpace.YCbCr, image.ColorSpace);
@@ -98,7 +98,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetTheDensityOfTheBitmapWhenBitmapDensityIsSetToUse()
             {
-                using (IMagickImage image = new MagickImage(Color.Red, 1, 1))
+                using (IMagickImage image = new MagickImage(Color.Red.ToColor(), 1, 1))
                 {
                     image.Density = new Density(300, 200);
 
@@ -113,7 +113,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenImageFormatIsNull()
             {
-                using (IMagickImage image = new MagickImage(Color.Red, 1, 1))
+                using (IMagickImage image = new MagickImage(Color.Red.ToColor(), 1, 1))
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("imageFormat", () => image.ToBitmap(null, BitmapDensity.Use));
                 }
@@ -122,7 +122,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetTheDensityOfTheBitmapWhenBitmapDensityIsSetToUseAndFormatIsSet()
             {
-                using (IMagickImage image = new MagickImage(Color.Red, 1, 1))
+                using (IMagickImage image = new MagickImage(Color.Red.ToColor(), 1, 1))
                 {
                     image.Density = new Density(300, 200);
 
@@ -156,9 +156,9 @@ namespace Magick.NET.Tests
                         // Cannot test JPEG due to rounding issues.
                         if (imageFormat != ImageFormat.Jpeg)
                         {
-                            ColorAssert.AreEqual(MagickColors.Red, bitmap.GetPixel(0, 0));
-                            ColorAssert.AreEqual(MagickColors.Red, bitmap.GetPixel(5, 5));
-                            ColorAssert.AreEqual(MagickColors.Red, bitmap.GetPixel(9, 9));
+                            ColorAssert.AreEqual(MagickColors.Red, bitmap.GetPixel(0, 0).ToColor());
+                            ColorAssert.AreEqual(MagickColors.Red, bitmap.GetPixel(5, 5).ToColor());
+                            ColorAssert.AreEqual(MagickColors.Red, bitmap.GetPixel(9, 9).ToColor());
                         }
                     }
                 }

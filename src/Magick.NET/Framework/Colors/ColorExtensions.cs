@@ -16,19 +16,17 @@ using System.Drawing;
 
 namespace ImageMagick
 {
-    /// <content>
-    /// Contains code that is not compatible with .NET Core.
-    /// </content>
-    public sealed partial class ColorRGB
+    /// <summary>
+    /// Extension methods for the <see cref="Color"/> struct.
+    /// </summary>
+    public static class ColorExtensions
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ColorRGB"/> class.
+        /// Convert the specified <see cref="Color"/> to a <see cref="MagickColor"/>.
         /// </summary>
-        /// <param name="color">The color to use.</param>
-        public ColorRGB(Color color)
-          : base(new MagickColor().FromColor(color))
-        {
-        }
+        /// <param name="self">The color.</param>
+        /// <returns>A <see cref="MagickColor"/> instance.</returns>
+        public static MagickColor ToColor(this Color self) => new MagickColor().FromColor(self);
     }
 }
 

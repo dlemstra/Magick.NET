@@ -24,15 +24,6 @@ namespace Magick.NET.Tests
         public class TheEqualsMethod
         {
             [TestMethod]
-            public void ShouldReturnTrueMagickColorIsNullAndColorIsEmpty()
-            {
-                MagickColor transparent = null;
-                Color transparentColor = transparent;
-
-                Assert.AreEqual(Color.Empty, transparentColor);
-            }
-
-            [TestMethod]
             public void ShouldReturnFalseWhenMagickColorAndColorAreDifferent()
             {
                 MagickColor transparent = MagickColors.CadetBlue;
