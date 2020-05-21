@@ -186,5 +186,12 @@ namespace FileGenerator.Native
                 return Enumerable.Empty<MagickProperty>();
             }
         }
+
+        [DataMember(Name = "interface")]
+        public bool HasInterface
+        {
+            get;
+            set;
+        }
     }
 }

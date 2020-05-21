@@ -10,14 +10,12 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
-
 namespace ImageMagick
 {
     /// <summary>
     /// PrimaryInfo information.
     /// </summary>
-    public partial class PrimaryInfo : IEquatable<PrimaryInfo>
+    public partial class PrimaryInfo : IPrimaryInfo
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PrimaryInfo"/> class.
@@ -55,11 +53,11 @@ namespace ImageMagick
         public double Z { get; }
 
         /// <summary>
-        /// Determines whether the specified <see cref="PrimaryInfo"/> is equal to the current <see cref="PrimaryInfo"/>.
+        /// Determines whether the specified <see cref="IPrimaryInfo"/> is equal to the current <see cref="PrimaryInfo"/>.
         /// </summary>
-        /// <param name="other">The <see cref="PrimaryInfo"/> to compare this <see cref="PrimaryInfo"/> with.</param>
-        /// <returns>True when the specified <see cref="PrimaryInfo"/> is equal to the current <see cref="PrimaryInfo"/>.</returns>
-        public bool Equals(PrimaryInfo other)
+        /// <param name="other">The <see cref="IPrimaryInfo"/> to compare this <see cref="PrimaryInfo"/> with.</param>
+        /// <returns>True when the specified <see cref="IPrimaryInfo"/> is equal to the current <see cref="PrimaryInfo"/>.</returns>
+        public bool Equals(IPrimaryInfo other)
         {
             if (other is null)
                 return false;
@@ -85,13 +83,13 @@ namespace ImageMagick
               Z.GetHashCode();
         }
 
-        private INativeInstance CreateNativeInstance()
+        private static INativeInstance CreateNativeInstance(IPrimaryInfo instance)
         {
             return new NativePrimaryInfo
             {
-                X = X,
-                Y = Y,
-                Z = Z,
+                X = instance.X,
+                Y = instance.Y,
+                Z = instance.Z,
             };
         }
     }

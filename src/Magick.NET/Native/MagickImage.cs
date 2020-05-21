@@ -1496,7 +1496,7 @@ namespace ImageMagick
                     return (int)result;
                 }
             }
-            public PrimaryInfo ChromaBluePrimary
+            public IPrimaryInfo ChromaBluePrimary
             {
                 get
                 {
@@ -1534,7 +1534,7 @@ namespace ImageMagick
                     }
                 }
             }
-            public PrimaryInfo ChromaGreenPrimary
+            public IPrimaryInfo ChromaGreenPrimary
             {
                 get
                 {
@@ -1572,7 +1572,7 @@ namespace ImageMagick
                     }
                 }
             }
-            public PrimaryInfo ChromaRedPrimary
+            public IPrimaryInfo ChromaRedPrimary
             {
                 get
                 {
@@ -1610,7 +1610,7 @@ namespace ImageMagick
                     }
                 }
             }
-            public PrimaryInfo ChromaWhitePoint
+            public IPrimaryInfo ChromaWhitePoint
             {
                 get
                 {

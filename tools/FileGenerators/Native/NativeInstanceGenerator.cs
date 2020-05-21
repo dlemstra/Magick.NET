@@ -133,18 +133,25 @@ namespace FileGenerator.Native
 
         private void WriteCreateInstance()
         {
+            var name = Class.Name;
+            if (Class.HasInterface)
+                name = "I" + name;
+
             if (Class.DynamicMode.HasFlag(DynamicMode.ManagedToNative))
             {
-                WriteLine("internal static INativeInstance CreateInstance(" + Class.Name + " instance)");
+                WriteLine("internal static INativeInstance CreateInstance(" + name + " instance)");
                 WriteStartColon();
                 WriteIf("instance == null", "return NativeInstance.Zero;");
-                WriteLine("return instance.CreateNativeInstance();");
+                if (Class.HasInterface)
+                    WriteLine("return " + Class.Name + ".CreateNativeInstance(instance);");
+                else
+                    WriteLine("return instance.CreateNativeInstance();");
                 WriteEndColon();
             }
 
             if (Class.DynamicMode.HasFlag(DynamicMode.NativeToManaged))
             {
-                WriteLine("internal static " + Class.Name + " CreateInstance(IntPtr instance)");
+                WriteLine("internal static " + name + " CreateInstance(IntPtr instance)");
                 WriteStartColon();
                 WriteIf("instance == IntPtr.Zero", "return null;");
                 WriteLine("using (Native" + Class.Name + " nativeInstance = new Native" + Class.Name + "(instance))");
@@ -294,7 +301,11 @@ namespace FileGenerator.Native
                 if (Class.IsStatic)
                     Write("static ");
 
-                WriteLine(property.Type.Managed + " " + property.Name);
+                var typeName = property.Type.Managed;
+                if (property.UseInterface)
+                    typeName = "I" + typeName;
+
+                WriteLine(typeName + " " + property.Name);
                 WriteStartColon();
 
                 WriteLine("get");

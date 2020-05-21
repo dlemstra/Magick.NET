@@ -465,7 +465,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the chromaticity blue primary point.
         /// </summary>
-        public PrimaryInfo ChromaBluePrimary
+        public IPrimaryInfo ChromaBluePrimary
         {
             get => _nativeInstance.ChromaBluePrimary;
             set => _nativeInstance.ChromaBluePrimary = value;
@@ -474,7 +474,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the chromaticity green primary point.
         /// </summary>
-        public PrimaryInfo ChromaGreenPrimary
+        public IPrimaryInfo ChromaGreenPrimary
         {
             get => _nativeInstance.ChromaGreenPrimary;
             set => _nativeInstance.ChromaGreenPrimary = value;
@@ -483,7 +483,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the chromaticity red primary point.
         /// </summary>
-        public PrimaryInfo ChromaRedPrimary
+        public IPrimaryInfo ChromaRedPrimary
         {
             get => _nativeInstance.ChromaRedPrimary;
             set => _nativeInstance.ChromaRedPrimary = value;
@@ -492,7 +492,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the chromaticity white primary point.
         /// </summary>
-        public PrimaryInfo ChromaWhitePoint
+        public IPrimaryInfo ChromaWhitePoint
         {
             get => _nativeInstance.ChromaWhitePoint;
             set => _nativeInstance.ChromaWhitePoint = value;

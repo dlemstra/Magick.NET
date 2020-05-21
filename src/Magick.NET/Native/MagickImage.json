@@ -126,19 +126,23 @@
     },
     {
       "name": "ChromaBluePrimary",
-      "type": "PrimaryInfo"
+      "type": "PrimaryInfo",
+      "interface": true
     },
     {
       "name": "ChromaGreenPrimary",
-      "type": "PrimaryInfo"
+      "type": "PrimaryInfo",
+      "interface": true
     },
     {
       "name": "ChromaRedPrimary",
-      "type": "PrimaryInfo"
+      "type": "PrimaryInfo",
+      "interface": true
     },
     {
       "name": "ChromaWhitePoint",
-      "type": "PrimaryInfo"
+      "type": "PrimaryInfo",
+      "interface": true
     },
     {
       "name": "ClassType",

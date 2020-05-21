@@ -224,13 +224,13 @@ namespace ImageMagick
                 }
             }
         }
-        internal static INativeInstance CreateInstance(PrimaryInfo instance)
+        internal static INativeInstance CreateInstance(IPrimaryInfo instance)
         {
             if (instance == null)
                 return NativeInstance.Zero;
-            return instance.CreateNativeInstance();
+            return PrimaryInfo.CreateNativeInstance(instance);
         }
-        internal static PrimaryInfo CreateInstance(IntPtr instance)
+        internal static IPrimaryInfo CreateInstance(IntPtr instance)
         {
             if (instance == IntPtr.Zero)
                 return null;

@@ -3118,7 +3118,7 @@ namespace Magick.NET.Tests
             }
         }
 
-        private static void Test_Chromaticity(double expectedX, double expectedY, double expectedZ, PrimaryInfo info)
+        private static void Test_Chromaticity(double expectedX, double expectedY, double expectedZ, IPrimaryInfo info)
         {
             Assert.AreEqual(expectedX, info.X, 0.001, "X is not equal.");
             Assert.AreEqual(expectedY, info.Y, 0.001, "Y is not equal.");

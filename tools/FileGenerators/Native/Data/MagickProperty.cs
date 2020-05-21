@@ -30,6 +30,13 @@ namespace FileGenerator.Native
             Type = new MagickType(_Type);
         }
 
+        [DataMember(Name = "readonly")]
+        public bool IsReadOnly
+        {
+            get;
+            set;
+        }
+
         [DataMember(Name = "name")]
         public string Name
         {
@@ -50,8 +57,8 @@ namespace FileGenerator.Native
             private set;
         }
 
-        [DataMember(Name = "readonly")]
-        public bool IsReadOnly
+        [DataMember(Name = "interface")]
+        public bool UseInterface
         {
             get;
             set;
