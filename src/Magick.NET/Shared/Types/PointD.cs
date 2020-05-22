@@ -117,14 +117,6 @@ namespace ImageMagick
         public override string ToString()
             => string.Format(CultureInfo.InvariantCulture, "{0}x{1}", X, Y);
 
-        internal static PointD FromPointInfo(PointInfo point)
-        {
-            if (point == null)
-                return default;
-
-            return new PointD(point.X, point.Y);
-        }
-
         private void Initialize(string value)
         {
             string[] values = value.Split('x');

@@ -26,9 +26,9 @@ namespace ImageMagick
             Channel = channel;
 
             NativeChannelMoments nativeInstance = new NativeChannelMoments(instance);
-            Centroid = PointD.FromPointInfo(nativeInstance.Centroid);
+            Centroid = nativeInstance.Centroid.ToPointD();
             EllipseAngle = nativeInstance.EllipseAngle;
-            EllipseAxis = PointD.FromPointInfo(nativeInstance.EllipseAxis);
+            EllipseAxis = nativeInstance.EllipseAxis.ToPointD();
             EllipseEccentricity = nativeInstance.EllipseEccentricity;
             EllipseIntensity = nativeInstance.EllipseIntensity;
             SetHuInvariants(nativeInstance);

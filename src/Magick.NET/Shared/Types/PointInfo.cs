@@ -18,7 +18,7 @@ namespace ImageMagick
     {
         private PointInfo(IntPtr instance)
         {
-            NativePointInfo nativeInstance = new NativePointInfo(instance);
+            var nativeInstance = new NativePointInfo(instance);
             X = nativeInstance.X;
             Y = nativeInstance.Y;
         }
@@ -27,6 +27,10 @@ namespace ImageMagick
 
         public double Y { get; }
 
-        public static PointInfo CreateInstance(IntPtr instance) => new PointInfo(instance);
+        public static PointInfo CreateInstance(IntPtr instance)
+            => new PointInfo(instance);
+
+        public PointD ToPointD()
+            => new PointD(X, Y);
     }
 }
