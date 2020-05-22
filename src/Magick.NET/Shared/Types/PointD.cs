@@ -20,17 +20,14 @@ namespace ImageMagick
     /// </summary>
     public struct PointD : IEquatable<PointD>
     {
-        private double _x;
-        private double _y;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PointD"/> struct.
         /// </summary>
         /// <param name="xy">The x and y.</param>
         public PointD(double xy)
         {
-            _x = xy;
-            _y = xy;
+            X = xy;
+            Y = xy;
         }
 
         /// <summary>
@@ -40,8 +37,8 @@ namespace ImageMagick
         /// <param name="y">The y.</param>
         public PointD(double x, double y)
         {
-            _x = x;
-            _y = y;
+            X = x;
+            Y = y;
         }
 
         /// <summary>
@@ -59,24 +56,12 @@ namespace ImageMagick
         /// <summary>
         /// Gets the x-coordinate of this Point.
         /// </summary>
-        public double X
-        {
-            get
-            {
-                return _x;
-            }
-        }
+        public double X { get; private set; }
 
         /// <summary>
         /// Gets the y-coordinate of this Point.
         /// </summary>
-        public double Y
-        {
-            get
-            {
-                return _y;
-            }
-        }
+        public double Y { get; private set; }
 
         /// <summary>
         /// Determines whether the specified <see cref="PointD"/> instances are considered equal.
@@ -84,9 +69,7 @@ namespace ImageMagick
         /// <param name="left">The first <see cref="PointD"/> to compare.</param>
         /// <param name="right"> The second <see cref="PointD"/> to compare.</param>
         public static bool operator ==(PointD left, PointD right)
-        {
-            return Equals(left, right);
-        }
+            => Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified <see cref="PointD"/> instances are not considered equal.
@@ -94,9 +77,7 @@ namespace ImageMagick
         /// <param name="left">The first <see cref="PointD"/> to compare.</param>
         /// <param name="right"> The second <see cref="PointD"/> to compare.</param>
         public static bool operator !=(PointD left, PointD right)
-        {
-            return !Equals(left, right);
-        }
+            => !Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified object is equal to the current <see cref="PointD"/>.
@@ -120,36 +101,26 @@ namespace ImageMagick
         /// <param name="other">The <see cref="PointD"/> to compare this <see cref="PointD"/> with.</param>
         /// <returns>True when the specified <see cref="PointD"/> is equal to the current <see cref="PointD"/>.</returns>
         public bool Equals(PointD other)
-        {
-            return
-              X == other.X &&
-              Y == other.Y;
-        }
+            => X == other.X && Y == other.Y;
 
         /// <summary>
         /// Serves as a hash of this type.
         /// </summary>
         /// <returns>A hash code for the current instance.</returns>
         public override int GetHashCode()
-        {
-            return
-              X.GetHashCode() ^
-              Y.GetHashCode();
-        }
+            => X.GetHashCode() ^ Y.GetHashCode();
 
         /// <summary>
         /// Returns a string that represents the current PointD.
         /// </summary>
         /// <returns>A string that represents the current PointD.</returns>
         public override string ToString()
-        {
-            return string.Format(CultureInfo.InvariantCulture, "{0}x{1}", _x, _y);
-        }
+            => string.Format(CultureInfo.InvariantCulture, "{0}x{1}", X, Y);
 
         internal static PointD FromPointInfo(PointInfo point)
         {
             if (point == null)
-                return default(PointD);
+                return default;
 
             return new PointD(point.X, point.Y);
         }
@@ -167,8 +138,8 @@ namespace ImageMagick
             else
                 y = x;
 
-            _x = x;
-            _y = y;
+            X = x;
+            Y = y;
         }
     }
 }
