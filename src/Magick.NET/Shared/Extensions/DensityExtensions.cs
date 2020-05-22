@@ -34,5 +34,13 @@ namespace ImageMagick
 
             return new MagickGeometry(pixelWidth, pixelHeight);
         }
+
+        internal static Density Clone(this Density self)
+        {
+            if (self == null)
+                return null;
+
+            return new Density(self.X, self.Y, self.Units);
+        }
     }
 }

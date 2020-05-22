@@ -169,22 +169,6 @@ namespace ImageMagick
                 return ToString(X / 2.54, Y / 2.54, units);
         }
 
-        internal static Density Create(string value)
-        {
-            if (string.IsNullOrEmpty(value))
-                return null;
-
-            return new Density(value);
-        }
-
-        internal static Density Clone(Density value)
-        {
-            if (value == null)
-                return null;
-
-            return new Density(value.X, value.Y, value.Units);
-        }
-
         private static string ToString(double x, double y, DensityUnit units)
         {
             string result = string.Format(CultureInfo.InvariantCulture, "{0}x{1}", x, y);

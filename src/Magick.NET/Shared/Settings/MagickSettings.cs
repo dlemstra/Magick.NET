@@ -37,7 +37,7 @@ namespace ImageMagick
                 ColorType = instance.ColorType;
                 Compression = instance.Compression;
                 Debug = instance.Debug;
-                Density = Density.Create(instance.Density);
+                Density = CreateDensity(instance.Density);
                 Depth = instance.Depth;
                 Endian = instance.Endian;
                 Extract = MagickGeometry.FromString(instance.Extract);
@@ -624,7 +624,7 @@ namespace ImageMagick
             ColorType = settings.ColorType;
             Compression = settings.Compression;
             Debug = settings.Debug;
-            Density = Density.Clone(settings.Density);
+            Density = settings.Density?.Clone();
             Depth = settings.Depth;
             Endian = settings.Endian;
             Extract = MagickGeometry.Clone(settings.Extract);
@@ -654,6 +654,14 @@ namespace ImageMagick
                 return format;
 
             return formatInfo.Module;
+        }
+
+        private static Density CreateDensity(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                return null;
+
+            return new Density(value);
         }
 
         private INativeInstance CreateNativeInstance()
