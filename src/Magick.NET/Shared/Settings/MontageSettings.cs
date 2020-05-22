@@ -20,12 +20,12 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the color of the background that thumbnails are composed on.
         /// </summary>
-        public MagickColor BackgroundColor { get; set; }
+        public IMagickColor BackgroundColor { get; set; }
 
         /// <summary>
         /// Gets or sets the frame border color.
         /// </summary>
-        public MagickColor BorderColor { get; set; }
+        public IMagickColor BorderColor { get; set; }
 
         /// <summary>
         /// Gets or sets the pixels between thumbnail and surrounding frame.
@@ -35,7 +35,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the fill color.
         /// </summary>
-        public MagickColor FillColor { get; set; }
+        public IMagickColor FillColor { get; set; }
 
         /// <summary>
         /// Gets or sets the label font.
@@ -75,7 +75,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the outline color.
         /// </summary>
-        public MagickColor StrokeColor { get; set; }
+        public IMagickColor StrokeColor { get; set; }
 
         /// <summary>
         /// Gets or sets the background texture image.
@@ -95,7 +95,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the transparent color.
         /// </summary>
-        public MagickColor TransparentColor { get; set; }
+        public IMagickColor TransparentColor { get; set; }
 
         private static string Convert(IMagickGeometry geometry)
         {

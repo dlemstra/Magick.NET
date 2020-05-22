@@ -257,7 +257,10 @@ namespace FileGenerator.Native
             {
                 string arguments = GetArgumentsDeclaration(method.Arguments);
                 bool isStatic = Class.IsStatic || ((method.IsStatic && !method.Throws) && !method.CreatesInstance);
-                WriteLine("public " + (isStatic ? "static " : "") + method.ReturnType.Managed + " " + method.Name + "(" + arguments + ")");
+                var typeName = method.ReturnType.Managed;
+                if (HasInterface(method.ReturnType))
+                    typeName = "I" + typeName;
+                WriteLine("public " + (isStatic ? "static " : "") + typeName + " " + method.Name + "(" + arguments + ")");
 
                 WriteStartColon();
 
@@ -302,7 +305,7 @@ namespace FileGenerator.Native
                     Write("static ");
 
                 var typeName = property.Type.Managed;
-                if (property.UseInterface)
+                if (HasInterface(property.Type))
                     typeName = "I" + typeName;
 
                 WriteLine(typeName + " " + property.Name);

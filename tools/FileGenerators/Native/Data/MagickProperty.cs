@@ -56,12 +56,5 @@ namespace FileGenerator.Native
             get;
             private set;
         }
-
-        [DataMember(Name = "interface")]
-        public bool UseInterface
-        {
-            get;
-            set;
-        }
     }
 }

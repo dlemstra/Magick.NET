@@ -577,7 +577,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="backgroundColor">The background color of the output image.</param>
         /// <returns>The resulting image of the flatten operation.</returns>
-        public IMagickImage Flatten(MagickColor backgroundColor)
+        public IMagickImage Flatten(IMagickColor backgroundColor)
         {
             ThrowIfEmpty();
 

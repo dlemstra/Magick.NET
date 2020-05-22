@@ -490,7 +490,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void BorderColor(MagickColor value)
+            public void BorderColor(IMagickColor value)
             {
                 using (INativeInstance valueNative = MagickColor.CreateInstance(value))
                 {
@@ -652,7 +652,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void FillColor(MagickColor value)
+            public void FillColor(IMagickColor value)
             {
                 using (INativeInstance valueNative = MagickColor.CreateInstance(value))
                 {
@@ -1520,7 +1520,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void StrokeColor(MagickColor value)
+            public void StrokeColor(IMagickColor value)
             {
                 using (INativeInstance valueNative = MagickColor.CreateInstance(value))
                 {
@@ -1818,7 +1818,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void TextUnderColor(MagickColor color)
+            public void TextUnderColor(IMagickColor color)
             {
                 using (INativeInstance colorNative = MagickColor.CreateInstance(color))
                 {

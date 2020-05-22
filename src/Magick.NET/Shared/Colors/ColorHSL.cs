@@ -33,7 +33,7 @@ namespace ImageMagick
             Lightness = lightness;
         }
 
-        private ColorHSL(MagickColor color)
+        private ColorHSL(IMagickColor color)
           : base(color)
         {
             Initialize(color.R, color.G, color.B);
@@ -62,11 +62,11 @@ namespace ImageMagick
         public static implicit operator ColorHSL(MagickColor color) => FromMagickColor(color);
 
         /// <summary>
-        /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
+        /// Converts the specified <see cref="IMagickColor"/> to an instance of this type.
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>A <see cref="ColorHSL"/> instance.</returns>
-        public static ColorHSL FromMagickColor(MagickColor color)
+        public static ColorHSL FromMagickColor(IMagickColor color)
         {
             if (color == null)
                 return null;

@@ -26,8 +26,15 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color to use.</param>
         public ColorRGB(Color color)
-          : base(new MagickColor().FromColor(color))
+          : base(CreateColor(color))
         {
+        }
+
+        private static IMagickColor CreateColor(Color color)
+        {
+            var result = new MagickColor();
+            result.SetFromColor(color);
+            return result;
         }
     }
 }

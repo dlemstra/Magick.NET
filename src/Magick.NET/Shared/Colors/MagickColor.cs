@@ -29,10 +29,8 @@ namespace ImageMagick
     /// <summary>
     /// Class that represents a color.
     /// </summary>
-    public sealed partial class MagickColor : IEquatable<MagickColor>, IComparable<MagickColor>
+    public sealed partial class MagickColor : IMagickColor
     {
-        private bool _isCmyk = false;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickColor"/> class.
         /// </summary>
@@ -44,7 +42,7 @@ namespace ImageMagick
         /// Initializes a new instance of the <see cref="MagickColor"/> class.
         /// </summary>
         /// <param name="color">The color to use.</param>
-        public MagickColor(MagickColor color)
+        public MagickColor(IMagickColor color)
         {
             Throw.IfNull(nameof(color), color);
 
@@ -53,7 +51,7 @@ namespace ImageMagick
             B = color.B;
             A = color.A;
             K = color.K;
-            _isCmyk = color._isCmyk;
+            IsCmyk = color.IsCmyk;
         }
 
 #if Q8
@@ -121,7 +119,7 @@ namespace ImageMagick
         {
             Initialize(cyan, magenta, yellow, alpha);
             K = black;
-            _isCmyk = true;
+            IsCmyk = true;
         }
 
 #if Q8
@@ -180,6 +178,11 @@ namespace ImageMagick
         public QuantumType G { get; set; }
 
         /// <summary>
+        /// Gets a value indicating whether the color is a CMYK color.
+        /// </summary>
+        public bool IsCmyk { get; private set; } = false;
+
+        /// <summary>
         /// Gets or sets the key (black) component value of this color.
         /// </summary>
         public QuantumType K { get; set; }
@@ -188,8 +191,6 @@ namespace ImageMagick
         /// Gets or sets the red component value of this color.
         /// </summary>
         public QuantumType R { get; set; }
-
-        internal int Count { get; set; }
 
         /// <summary>
         /// Determines whether the specified <see cref="MagickColor"/> instances are considered equal.
@@ -268,7 +269,7 @@ namespace ImageMagick
         public static MagickColor FromRgb(byte red, byte green, byte blue)
         {
             var color = new MagickColor();
-            color.Initialize(red, green, blue, 255);
+            color.SetFromBytes(red, green, blue, 255);
             return color;
         }
 
@@ -284,22 +285,16 @@ namespace ImageMagick
         public static MagickColor FromRgba(byte red, byte green, byte blue, byte alpha)
         {
             var color = new MagickColor();
-            color.Initialize(red, green, blue, alpha);
+            color.SetFromBytes(red, green, blue, alpha);
             return color;
         }
-
-        /// <summary>
-        /// Creates a clone of the current color.
-        /// </summary>
-        /// <returns>A clone of the current color.</returns>
-        public MagickColor Clone() => new MagickColor(this);
 
         /// <summary>
         /// Compares the current instance with another object of the same type.
         /// </summary>
         /// <param name="other">The color to compare this color with.</param>
         /// <returns>A signed number indicating the relative values of this instance and value.</returns>
-        public int CompareTo(MagickColor other)
+        public int CompareTo(IMagickColor other)
         {
             if (other is null)
                 return 1;
@@ -347,7 +342,7 @@ namespace ImageMagick
             if (ReferenceEquals(this, obj))
                 return true;
 
-            return Equals(obj as MagickColor);
+            return Equals(obj as IMagickColor);
         }
 
         /// <summary>
@@ -355,7 +350,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The color to compare this color with.</param>
         /// <returns>True when the specified color is equal to the current color.</returns>
-        public bool Equals(MagickColor other)
+        public bool Equals(IMagickColor other)
         {
             if (other is null)
                 return false;
@@ -364,7 +359,7 @@ namespace ImageMagick
                 return true;
 
             return
-              _isCmyk == other._isCmyk &&
+              IsCmyk == other.IsCmyk &&
               A == other.A &&
               B == other.B &&
               G == other.G &&
@@ -378,7 +373,7 @@ namespace ImageMagick
         /// <param name="other">The color to compare this color with.</param>
         /// <param name="fuzz">The fuzz factor.</param>
         /// <returns>True when the specified color is fuzzy equal to the current instance.</returns>
-        public bool FuzzyEquals(MagickColor other, Percentage fuzz)
+        public bool FuzzyEquals(IMagickColor other, Percentage fuzz)
         {
             if (other is null)
                 return false;
@@ -386,7 +381,7 @@ namespace ImageMagick
             if (ReferenceEquals(this, other))
                 return true;
 
-            using (NativeMagickColor instance = CreateNativeInstance())
+            using (NativeMagickColor instance = CreateNativeInstance(this))
             {
                 return instance.FuzzyEquals(other, fuzz.ToQuantumType());
             }
@@ -399,7 +394,7 @@ namespace ImageMagick
         public override int GetHashCode()
         {
             return
-              _isCmyk.GetHashCode() ^
+              IsCmyk.GetHashCode() ^
               A.GetHashCode() ^
               B.GetHashCode() ^
               G.GetHashCode() ^
@@ -408,47 +403,32 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Converts the value of this instance to a hexadecimal string.
+        /// Initializes the color with the specified bytes.
+        /// </summary>
+        /// <param name="red">Red component value of this color.</param>
+        /// <param name="green">Green component value of this color.</param>
+        /// <param name="blue">Blue component value of this color.</param>
+        /// <param name="alpha">Alpha component value of this color.</param>
+        public void SetFromBytes(byte red, byte green, byte blue, byte alpha)
+        {
+            R = Quantum.Convert(red);
+            G = Quantum.Convert(green);
+            B = Quantum.Convert(blue);
+            A = Quantum.Convert(alpha);
+            K = 0;
+            IsCmyk = false;
+        }
+
+        /// <summary>
+        /// Converts the value of this instance to a short hexadecimal string.
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
-        public override string ToString()
-        {
-            if (_isCmyk)
-                return string.Format(CultureInfo.InvariantCulture, "cmyka({0},{1},{2},{3},{4:0.0###})", R, G, B, K, (double)A / Quantum.Max);
-#if Q8
-            return string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}{3:X2}", R, G, B, A);
-#elif Q16 || Q16HDRI
-            return string.Format(CultureInfo.InvariantCulture, "#{0:X4}{1:X4}{2:X4}{3:X4}", (ushort)R, (ushort)G, (ushort)B, (ushort)A);
-#else
-#error Not implemented!
-#endif
-        }
-
-        internal static MagickColor Clone(MagickColor value)
-        {
-            if (value == null)
-                return value;
-
-            var clone = new MagickColor()
-            {
-                R = value.R,
-                G = value.G,
-                B = value.B,
-                A = value.A,
-                K = value.K,
-                _isCmyk = value._isCmyk,
-            };
-            return clone;
-        }
-
-        internal static string ToString(MagickColor value) => value?.ToString();
-
-        internal string ToShortString()
+        public string ToShortString()
         {
             if (A != Quantum.Max)
                 return ToString();
 
-            if (_isCmyk)
+            if (IsCmyk)
                 return string.Format(CultureInfo.InvariantCulture, "cmyk({0},{1},{2},{3})", R, G, B, K);
 #if Q8
             return string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}", R, G, B);
@@ -459,16 +439,62 @@ namespace ImageMagick
 #endif
         }
 
-        private NativeMagickColor CreateNativeInstance()
+        /// <summary>
+        /// Converts the value of this instance to a hexadecimal string.
+        /// </summary>
+        /// <returns>The <see cref="string"/>.</returns>
+        public override string ToString()
+        {
+            if (IsCmyk)
+                return string.Format(CultureInfo.InvariantCulture, "cmyka({0},{1},{2},{3},{4:0.0###})", R, G, B, K, (double)A / Quantum.Max);
+#if Q8
+            return string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}{3:X2}", R, G, B, A);
+#elif Q16 || Q16HDRI
+            return string.Format(CultureInfo.InvariantCulture, "#{0:X4}{1:X4}{2:X4}{3:X4}", (ushort)R, (ushort)G, (ushort)B, (ushort)A);
+#else
+#error Not implemented!
+#endif
+        }
+
+        internal static IMagickColor Clone(IMagickColor value)
+        {
+            if (value == null)
+                return value;
+
+            return new MagickColor()
+            {
+                R = value.R,
+                G = value.G,
+                B = value.B,
+                A = value.A,
+                K = value.K,
+                IsCmyk = value.IsCmyk,
+            };
+        }
+
+        internal static IMagickColor CreateInstance(IntPtr instance, out int count)
+        {
+            count = 0;
+            if (instance == IntPtr.Zero)
+                return null;
+
+            using (NativeMagickColor nativeInstance = new NativeMagickColor(instance))
+            {
+                count = (int)nativeInstance.Count;
+                return new MagickColor(nativeInstance);
+            }
+        }
+
+        private static NativeMagickColor CreateNativeInstance(IMagickColor instance)
         {
             return new NativeMagickColor()
             {
-                Red = R,
-                Green = G,
-                Blue = B,
-                Alpha = A,
-                Black = K,
-                IsCMYK = _isCmyk,
+                Red = instance.R,
+                Green = instance.G,
+                Blue = instance.B,
+                Alpha = instance.A,
+                Black = instance.K,
+                IsCMYK = instance.IsCmyk,
             };
         }
 
@@ -480,20 +506,8 @@ namespace ImageMagick
             A = instance.Alpha;
             K = instance.Black;
 
-            _isCmyk = instance.IsCMYK;
-            Count = (int)instance.Count;
+            IsCmyk = instance.IsCMYK;
         }
-
-#if !Q8
-        private void Initialize(byte red, byte green, byte blue, byte alpha)
-        {
-            R = Quantum.Convert(red);
-            G = Quantum.Convert(green);
-            B = Quantum.Convert(blue);
-            A = Quantum.Convert(alpha);
-            K = 0;
-        }
-#endif
 
         private void Initialize(QuantumType red, QuantumType green, QuantumType blue, QuantumType alpha)
         {
@@ -502,6 +516,7 @@ namespace ImageMagick
             B = blue;
             A = alpha;
             K = 0;
+            IsCmyk = false;
         }
 
         private void ParseHexColor(string color)

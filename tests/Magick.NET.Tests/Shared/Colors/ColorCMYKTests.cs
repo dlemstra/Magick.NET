@@ -58,7 +58,7 @@ namespace Magick.NET.Tests
             ColorCMYK actual = new MagickColor(Quantum.Max, 0, 0, 0, Quantum.Max);
             Assert.AreEqual(expected, actual);
 
-            MagickColor magickColor = actual.ToMagickColor();
+            var magickColor = actual.ToMagickColor();
             Assert.AreEqual(magickColor, new MagickColor(Quantum.Max, 0, 0, 0, Quantum.Max));
 
             Assert.IsNull(ColorCMYK.FromMagickColor(null));

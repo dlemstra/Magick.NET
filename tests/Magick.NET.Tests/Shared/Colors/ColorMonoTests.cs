@@ -68,7 +68,7 @@ namespace Magick.NET.Tests
             ColorMono actual = MagickColors.Black;
             Assert.AreEqual(expected, actual);
 
-            MagickColor magickColor = actual.ToMagickColor();
+            var magickColor = actual.ToMagickColor();
             Assert.AreEqual(magickColor, MagickColors.Black);
 
             Assert.IsNull(ColorMono.FromMagickColor(null));
@@ -95,7 +95,7 @@ namespace Magick.NET.Tests
         {
             ColorMono mono = new ColorMono(false);
 
-            MagickColor white = new MagickColor("#fff");
+            var white = new MagickColor("#fff");
             Assert.AreEqual(white, mono.ToMagickColor());
             ColorAssert.AreEqual(MagickColors.White, mono.ToMagickColor());
 

@@ -54,7 +54,7 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImage image = new MagickImage(Files.ConnectedComponentsPNG, 10, 10))
                 {
-                    Pixel pixel = image.GetPixels().First(p => p.ToColor() == MagickColors.Black);
+                    var pixel = image.GetPixels().First(p => p.ToColor().Equals(MagickColors.Black));
                     Assert.IsNotNull(pixel);
 
                     Assert.AreEqual(350, pixel.X);

@@ -12,7 +12,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace ImageMagick
 {
@@ -24,20 +23,20 @@ namespace ImageMagick
                 NativeMagickColorCollection.DisposeList(list);
         }
 
-        public static Dictionary<MagickColor, int> ToDictionary(IntPtr list, int length)
+        public static Dictionary<IMagickColor, int> ToDictionary(IntPtr list, int length)
         {
-            Dictionary<MagickColor, int> colors = new Dictionary<MagickColor, int>();
+            var colors = new Dictionary<IMagickColor, int>();
 
             if (list == IntPtr.Zero)
                 return colors;
 
             for (int i = 0; i < length; i++)
             {
-                IntPtr instance = NativeMagickColorCollection.GetInstance(list, i);
+                var instance = NativeMagickColorCollection.GetInstance(list, i);
                 DebugThrow.IfNull(instance);
 
-                MagickColor color = MagickColor.CreateInstance(instance);
-                colors[color] = color.Count;
+                var color = MagickColor.CreateInstance(instance, out var count);
+                colors[color] = count;
             }
 
             return colors;

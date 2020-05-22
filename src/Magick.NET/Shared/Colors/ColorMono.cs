@@ -39,12 +39,12 @@ namespace ImageMagick
             IsBlack = isBlack;
         }
 
-        private ColorMono(MagickColor color)
+        private ColorMono(IMagickColor color)
           : base(color)
         {
-            if (color == MagickColors.Black)
+            if (color.Equals(MagickColors.Black))
                 IsBlack = true;
-            else if (color == MagickColors.White)
+            else if (color.Equals(MagickColors.White))
                 IsBlack = false;
             else
                 throw new ArgumentException("Invalid color specified.", nameof(color));
@@ -63,11 +63,11 @@ namespace ImageMagick
         public static implicit operator ColorMono(MagickColor color) => FromMagickColor(color);
 
         /// <summary>
-        /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
+        /// Converts the specified <see cref="IMagickColor"/> to an instance of this type.
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>A <see cref="ColorMono"/> instance.</returns>
-        public static ColorMono FromMagickColor(MagickColor color)
+        public static ColorMono FromMagickColor(IMagickColor color)
         {
             if (color == null)
                 return null;

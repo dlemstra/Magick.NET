@@ -91,7 +91,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color of the border.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables BorderColor(MagickColor color)
+        public Drawables BorderColor(IMagickColor color)
         {
             _drawables.Add(new DrawableBorderColor(color));
             return this;
@@ -252,7 +252,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables FillColor(MagickColor color)
+        public Drawables FillColor(IMagickColor color)
         {
             _drawables.Add(new DrawableFillColor(color));
             return this;
@@ -587,7 +587,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables StrokeColor(MagickColor color)
+        public Drawables StrokeColor(IMagickColor color)
         {
             _drawables.Add(new DrawableStrokeColor(color));
             return this;
@@ -787,7 +787,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables TextUnderColor(MagickColor color)
+        public Drawables TextUnderColor(IMagickColor color)
         {
             _drawables.Add(new DrawableTextUnderColor(color));
             return this;

@@ -25,17 +25,17 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the color that emphasize pixel differences.
         /// </summary>
-        public MagickColor HighlightColor { get; set; }
+        public IMagickColor HighlightColor { get; set; }
 
         /// <summary>
         /// Gets or sets the color that de-emphasize pixel differences.
         /// </summary>
-        public MagickColor LowlightColor { get; set; }
+        public IMagickColor LowlightColor { get; set; }
 
         /// <summary>
         /// Gets or sets the color of pixels that are inside the read mask.
         /// </summary>
-        public MagickColor MasklightColor { get; set; }
+        public IMagickColor MasklightColor { get; set; }
 
         internal void SetImageArtifacts(IMagickImage image)
         {

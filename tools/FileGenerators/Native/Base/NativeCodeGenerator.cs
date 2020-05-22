@@ -39,6 +39,8 @@ namespace FileGenerator.Native
                     return "out " + argument.Type.Native;
                 else if (argument.IsOut)
                     return "out " + argument.Type.Managed;
+                else if (HasInterface(argument.Type))
+                    return "I" + argument.Type.Managed;
                 else
                     return argument.Type.Managed;
             }, (argument) =>
@@ -144,6 +146,11 @@ namespace FileGenerator.Native
                 return "IntPtr Instance";
             else
                 return "IntPtr Instance, " + arguments;
+        }
+
+        protected bool HasInterface(MagickType type)
+        {
+            return _Classes.Any(c => c.Name == type.Managed && c.HasInterface);
         }
 
         protected bool IsDynamic(string typeName)

@@ -52,9 +52,9 @@ namespace ImageMagick
 
         public DrawableAffine Affine { get; set; }
 
-        public MagickColor BorderColor { get; set; }
+        public IMagickColor BorderColor { get; set; }
 
-        public MagickColor FillColor { get; set; }
+        public IMagickColor FillColor { get; set; }
 
         public IMagickImage FillPattern { get; set; }
 
@@ -72,7 +72,7 @@ namespace ImageMagick
 
         public bool StrokeAntiAlias { get; set; }
 
-        public MagickColor StrokeColor { get; set; }
+        public IMagickColor StrokeColor { get; set; }
 
         public IEnumerable<double> StrokeDashArray
         {
@@ -112,7 +112,7 @@ namespace ImageMagick
 
         public double TextKerning { get; set; }
 
-        public MagickColor TextUnderColor { get; set; }
+        public IMagickColor TextUnderColor { get; set; }
 
         internal DrawingSettings Clone()
         {

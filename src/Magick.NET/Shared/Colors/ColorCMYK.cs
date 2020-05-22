@@ -100,7 +100,7 @@ namespace ImageMagick
         {
         }
 
-        private ColorCMYK(MagickColor color)
+        private ColorCMYK(IMagickColor color)
           : base(color)
         {
         }
@@ -161,11 +161,11 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
+        /// Converts the specified <see cref="IMagickColor"/> to an instance of this type.
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>A <see cref="ColorCMYK"/> instance.</returns>
-        public static ColorCMYK FromMagickColor(MagickColor color)
+        public static ColorCMYK FromMagickColor(IMagickColor color)
         {
             if (color == null)
                 return null;
@@ -173,7 +173,7 @@ namespace ImageMagick
             return new ColorCMYK(color);
         }
 
-        private static MagickColor CreateColor(string color)
+        private static IMagickColor CreateColor(string color)
         {
             Throw.IfNullOrEmpty(nameof(color), color);
 

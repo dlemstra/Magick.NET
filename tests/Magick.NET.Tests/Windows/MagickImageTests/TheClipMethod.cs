@@ -59,15 +59,15 @@ namespace Magick.NET.Tests
 
                         using (IPixelCollection pixels = mask.GetPixels())
                         {
-                            MagickColor pixelA = pixels.GetPixel(0, 0).ToColor();
-                            MagickColor pixelB = pixels.GetPixel(mask.Width - 1, mask.Height - 1).ToColor();
+                            var pixelA = pixels.GetPixel(0, 0).ToColor();
+                            var pixelB = pixels.GetPixel(mask.Width - 1, mask.Height - 1).ToColor();
 
                             Assert.AreEqual(pixelA, pixelB);
                             Assert.AreEqual(value, pixelA.R);
                             Assert.AreEqual(value, pixelA.G);
                             Assert.AreEqual(value, pixelA.B);
 
-                            MagickColor pixelC = pixels.GetPixel(mask.Width / 2, mask.Height / 2).ToColor();
+                            var pixelC = pixels.GetPixel(mask.Width / 2, mask.Height / 2).ToColor();
                             Assert.AreEqual(Quantum.Max - value, pixelC.R);
                             Assert.AreEqual(Quantum.Max - value, pixelC.G);
                             Assert.AreEqual(Quantum.Max - value, pixelC.B);

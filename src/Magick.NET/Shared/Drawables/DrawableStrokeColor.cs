@@ -21,7 +21,7 @@ namespace ImageMagick
         /// Initializes a new instance of the <see cref="DrawableStrokeColor"/> class.
         /// </summary>
         /// <param name="color">The color to use.</param>
-        public DrawableStrokeColor(MagickColor color)
+        public DrawableStrokeColor(IMagickColor color)
         {
             Throw.IfNull(nameof(color), color);
 
@@ -31,7 +31,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the color to use.
         /// </summary>
-        public MagickColor Color { get; set; }
+        public IMagickColor Color { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

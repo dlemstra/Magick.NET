@@ -71,7 +71,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the background color of the image.
         /// </summary>
-        MagickColor BackgroundColor { get; set; }
+        IMagickColor BackgroundColor { get; set; }
 
         /// <summary>
         /// Gets the height of the image before transformations.
@@ -91,7 +91,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the border color of the image.
         /// </summary>
-        MagickColor BorderColor { get; set; }
+        IMagickColor BorderColor { get; set; }
 
         /// <summary>
         /// Gets the smallest bounding box enclosing non-border pixels. The current fuzz value is used
@@ -269,7 +269,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the matte color.
         /// </summary>
-        MagickColor MatteColor { get; set; }
+        IMagickColor MatteColor { get; set; }
 
         /// <summary>
         /// Gets or sets the photo orientation of the image.
@@ -869,7 +869,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void ColorAlpha(MagickColor color);
+        void ColorAlpha(IMagickColor color);
 
         /// <summary>
         /// Applies the color decision list from the specified ASC CDL file.
@@ -884,7 +884,7 @@ namespace ImageMagick
         /// <param name="color">The color to use.</param>
         /// <param name="alpha">The alpha percentage.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Colorize(MagickColor color, Percentage alpha);
+        void Colorize(IMagickColor color, Percentage alpha);
 
         /// <summary>
         /// Colorize image with the specified color, using specified percent alpha for red, green,
@@ -895,7 +895,7 @@ namespace ImageMagick
         /// <param name="alphaGreen">The alpha percentage for green.</param>
         /// <param name="alphaBlue">The alpha percentage for blue.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Colorize(MagickColor color, Percentage alphaRed, Percentage alphaGreen, Percentage alphaBlue);
+        void Colorize(IMagickColor color, Percentage alphaRed, Percentage alphaGreen, Percentage alphaBlue);
 
         /// <summary>
         /// Apply a color matrix to the image channels.
@@ -909,7 +909,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="startColor">The start color of the color range.</param>
         /// <param name="stopColor">The stop color of the color range.</param>
-        void ColorThreshold(MagickColor startColor, MagickColor stopColor);
+        void ColorThreshold(IMagickColor startColor, IMagickColor stopColor);
 
         /// <summary>
         /// Compare current image with another image and returns error information.
@@ -1746,7 +1746,7 @@ namespace ImageMagick
         /// <param name="height">The height to extend the image to.</param>
         /// <param name="backgroundColor">The background color to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Extent(int width, int height, MagickColor backgroundColor);
+        void Extent(int width, int height, IMagickColor backgroundColor);
 
         /// <summary>
         /// Extend the image as defined by the width and height.
@@ -1765,7 +1765,7 @@ namespace ImageMagick
         /// <param name="gravity">The placement gravity.</param>
         /// <param name="backgroundColor">The background color to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Extent(int width, int height, Gravity gravity, MagickColor backgroundColor);
+        void Extent(int width, int height, Gravity gravity, IMagickColor backgroundColor);
 
         /// <summary>
         /// Extend the image as defined by the rectangle.
@@ -1780,7 +1780,7 @@ namespace ImageMagick
         /// <param name="geometry">The geometry to extend the image to.</param>
         /// <param name="backgroundColor">The background color to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Extent(IMagickGeometry geometry, MagickColor backgroundColor);
+        void Extent(IMagickGeometry geometry, IMagickColor backgroundColor);
 
         /// <summary>
         /// Extend the image as defined by the geometry.
@@ -1797,7 +1797,7 @@ namespace ImageMagick
         /// <param name="gravity">The placement gravity.</param>
         /// <param name="backgroundColor">The background color to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Extent(IMagickGeometry geometry, Gravity gravity, MagickColor backgroundColor);
+        void Extent(IMagickGeometry geometry, Gravity gravity, IMagickColor backgroundColor);
 
         /// <summary>
         /// Flip image (reflect each scanline in the vertical direction).
@@ -1823,7 +1823,7 @@ namespace ImageMagick
         /// <param name="x">The X coordinate.</param>
         /// <param name="y">The Y coordinate.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void FloodFill(MagickColor color, int x, int y);
+        void FloodFill(IMagickColor color, int x, int y);
 
         /// <summary>
         /// Flood-fill color across pixels that match the color of the target pixel and are neighbors
@@ -1834,7 +1834,7 @@ namespace ImageMagick
         /// <param name="y">The Y coordinate.</param>
         /// <param name="target">The target color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void FloodFill(MagickColor color, int x, int y, MagickColor target);
+        void FloodFill(IMagickColor color, int x, int y, IMagickColor target);
 
         /// <summary>
         /// Flood-fill color across pixels that match the color of the  target pixel and are neighbors
@@ -1843,7 +1843,7 @@ namespace ImageMagick
         /// <param name="color">The color to use.</param>
         /// <param name="coordinate">The position of the pixel.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void FloodFill(MagickColor color, PointD coordinate);
+        void FloodFill(IMagickColor color, PointD coordinate);
 
         /// <summary>
         /// Flood-fill color across pixels that match the color of the target pixel and are neighbors
@@ -1853,7 +1853,7 @@ namespace ImageMagick
         /// <param name="coordinate">The position of the pixel.</param>
         /// <param name="target">The target color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void FloodFill(MagickColor color, PointD coordinate, MagickColor target);
+        void FloodFill(IMagickColor color, PointD coordinate, IMagickColor target);
 
         /// <summary>
         /// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
@@ -1874,7 +1874,7 @@ namespace ImageMagick
         /// <param name="y">The Y coordinate.</param>
         /// <param name="target">The target color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void FloodFill(IMagickImage image, int x, int y, MagickColor target);
+        void FloodFill(IMagickImage image, int x, int y, IMagickColor target);
 
         /// <summary>
         /// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
@@ -1893,7 +1893,7 @@ namespace ImageMagick
         /// <param name="coordinate">The position of the pixel.</param>
         /// <param name="target">The target color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void FloodFill(IMagickImage image, PointD coordinate, MagickColor target);
+        void FloodFill(IMagickImage image, PointD coordinate, IMagickColor target);
 
         /// <summary>
         /// Flop image (reflect each scanline in the horizontal direction).
@@ -2040,7 +2040,7 @@ namespace ImageMagick
         /// <param name="index">The position index.</param>
         /// <returns>he color at colormap position index.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        MagickColor GetColormap(int index);
+        IMagickColor GetColormap(int index);
 
         /// <summary>
         /// Retrieve the color profile from the image.
@@ -2146,7 +2146,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>A color histogram.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        Dictionary<MagickColor, int> Histogram();
+        Dictionary<IMagickColor, int> Histogram();
 
         /// <summary>
         /// Identifies lines in the image.
@@ -2189,7 +2189,7 @@ namespace ImageMagick
         /// <param name="x">The X coordinate.</param>
         /// <param name="y">The Y coordinate.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseFloodFill(MagickColor color, int x, int y);
+        void InverseFloodFill(IMagickColor color, int x, int y);
 
         /// <summary>
         /// Flood-fill texture across pixels that do not match the color of the target pixel and are
@@ -2200,7 +2200,7 @@ namespace ImageMagick
         /// <param name="y">The Y coordinate.</param>
         /// <param name="target">The target color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseFloodFill(MagickColor color, int x, int y, MagickColor target);
+        void InverseFloodFill(IMagickColor color, int x, int y, IMagickColor target);
 
         /// <summary>
         /// Flood-fill color across pixels that match the color of the  target pixel and are neighbors
@@ -2209,7 +2209,7 @@ namespace ImageMagick
         /// <param name="color">The color to use.</param>
         /// <param name="coordinate">The position of the pixel.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseFloodFill(MagickColor color, PointD coordinate);
+        void InverseFloodFill(IMagickColor color, PointD coordinate);
 
         /// <summary>
         /// Flood-fill texture across pixels that do not match the color of the target pixel and are
@@ -2219,7 +2219,7 @@ namespace ImageMagick
         /// <param name="coordinate">The position of the pixel.</param>
         /// <param name="target">The target color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseFloodFill(MagickColor color, PointD coordinate, MagickColor target);
+        void InverseFloodFill(IMagickColor color, PointD coordinate, IMagickColor target);
 
         /// <summary>
         /// Flood-fill texture across pixels that do not match the color of the target pixel and are
@@ -2240,7 +2240,7 @@ namespace ImageMagick
         /// <param name="y">The Y coordinate.</param>
         /// <param name="target">The target color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseFloodFill(IMagickImage image, int x, int y, MagickColor target);
+        void InverseFloodFill(IMagickImage image, int x, int y, IMagickColor target);
 
         /// <summary>
         /// Flood-fill texture across pixels that do not match the color of the target pixel and are
@@ -2259,7 +2259,7 @@ namespace ImageMagick
         /// <param name="coordinate">The position of the pixel.</param>
         /// <param name="target">The target color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseFloodFill(IMagickImage image, PointD coordinate, MagickColor target);
+        void InverseFloodFill(IMagickImage image, PointD coordinate, IMagickColor target);
 
         /// <summary>
         /// Applies the reversed level operation to just the specific channels specified. It compresses
@@ -2357,7 +2357,7 @@ namespace ImageMagick
         /// <param name="blackColor">The color to map black to/from.</param>
         /// <param name="whiteColor">The color to map white to/from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseLevelColors(MagickColor blackColor, MagickColor whiteColor);
+        void InverseLevelColors(IMagickColor blackColor, IMagickColor whiteColor);
 
         /// <summary>
         /// Maps the given color to "black" and "white" values, linearly spreading out the colors, and
@@ -2368,7 +2368,7 @@ namespace ImageMagick
         /// <param name="whiteColor">The color to map white to/from.</param>
         /// <param name="channels">The channel(s) to level.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseLevelColors(MagickColor blackColor, MagickColor whiteColor, Channels channels);
+        void InverseLevelColors(IMagickColor blackColor, IMagickColor whiteColor, Channels channels);
 
         /// <summary>
         /// Changes any pixel that does not match the target with the color defined by fill.
@@ -2376,14 +2376,14 @@ namespace ImageMagick
         /// <param name="target">The color to replace.</param>
         /// <param name="fill">The color to replace opaque color with.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseOpaque(MagickColor target, MagickColor fill);
+        void InverseOpaque(IMagickColor target, IMagickColor fill);
 
         /// <summary>
         /// Add alpha channel to image, setting pixels that don't match the specified color to transparent.
         /// </summary>
         /// <param name="color">The color that should not be made transparent.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseTransparent(MagickColor color);
+        void InverseTransparent(IMagickColor color);
 
         /// <summary>
         /// Add alpha channel to image, setting pixels that don't lie in between the given two colors to
@@ -2392,7 +2392,7 @@ namespace ImageMagick
         /// <param name="colorLow">The low target color.</param>
         /// <param name="colorHigh">The high target color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseTransparentChroma(MagickColor colorLow, MagickColor colorHigh);
+        void InverseTransparentChroma(IMagickColor colorLow, IMagickColor colorHigh);
 
         /// <summary>
         /// Applies k-means color reduction to an image. This is a colorspace clustering or segmentation technique.
@@ -2503,7 +2503,7 @@ namespace ImageMagick
         /// <param name="blackColor">The color to map black to/from.</param>
         /// <param name="whiteColor">The color to map white to/from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void LevelColors(MagickColor blackColor, MagickColor whiteColor);
+        void LevelColors(IMagickColor blackColor, IMagickColor whiteColor);
 
         /// <summary>
         /// Maps the given color to "black" and "white" values, linearly spreading out the colors, and
@@ -2514,7 +2514,7 @@ namespace ImageMagick
         /// <param name="whiteColor">The color to map white to/from.</param>
         /// <param name="channels">The channel(s) to level.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void LevelColors(MagickColor blackColor, MagickColor whiteColor, Channels channels);
+        void LevelColors(IMagickColor blackColor, IMagickColor whiteColor, Channels channels);
 
         /// <summary>
         /// Discards any pixels below the black point and above the white point and levels the remaining pixels.
@@ -2610,7 +2610,7 @@ namespace ImageMagick
         /// <param name="colors">The colors to use.</param>
         /// <returns>The error informaton.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        MagickErrorInfo Map(IEnumerable<MagickColor> colors);
+        MagickErrorInfo Map(IEnumerable<IMagickColor> colors);
 
         /// <summary>
         /// Remap image colors with closest color from the specified colors.
@@ -2619,7 +2619,7 @@ namespace ImageMagick
         /// <param name="settings">Quantize settings.</param>
         /// <returns>The error informaton.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        MagickErrorInfo Map(IEnumerable<MagickColor> colors, QuantizeSettings settings);
+        MagickErrorInfo Map(IEnumerable<IMagickColor> colors, QuantizeSettings settings);
 
         /// <summary>
         /// Remap image colors with closest color from reference image.
@@ -2907,7 +2907,7 @@ namespace ImageMagick
         /// <param name="target">The color to replace.</param>
         /// <param name="fill">The color to replace opaque color with.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Opaque(MagickColor target, MagickColor fill);
+        void Opaque(IMagickColor target, IMagickColor fill);
 
         /// <summary>
         /// Perform a ordered dither based on a number of pre-defined dithering threshold maps, but over
@@ -3243,7 +3243,7 @@ namespace ImageMagick
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Read(MagickColor color, int width, int height);
+        void Read(IMagickColor color, int width, int height);
 
         /// <summary>
         /// Read single image frame.
@@ -3701,7 +3701,7 @@ namespace ImageMagick
         /// <param name="index">The position index.</param>
         /// <param name="color">The color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void SetColormap(int index, MagickColor color);
+        void SetColormap(int index, IMagickColor color);
 
         /// <summary>
         /// Set the specified profile of the image. If a profile with the same name already exists it will be overwritten.
@@ -3785,7 +3785,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color of the shadow.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Shadow(MagickColor color);
+        void Shadow(IMagickColor color);
 
         /// <summary>
         /// Simulate an image shadow.
@@ -3806,7 +3806,7 @@ namespace ImageMagick
         /// <param name="alpha">Transparency percentage.</param>
         /// <param name="color">The color of the shadow.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Shadow(int x, int y, double sigma, Percentage alpha, MagickColor color);
+        void Shadow(int x, int y, double sigma, Percentage alpha, IMagickColor color);
 
         /// <summary>
         /// Sharpen pixels in image.
@@ -4183,7 +4183,7 @@ namespace ImageMagick
         /// <param name="opacity">An opacity value used for tinting.</param>
         /// <param name="color">A color value used for tinting.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Tint(string opacity, MagickColor color);
+        void Tint(string opacity, IMagickColor color);
 
         /// <summary>
         /// Converts this instance to a base64 <see cref="string"/>.
@@ -4263,7 +4263,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color to make transparent.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Transparent(MagickColor color);
+        void Transparent(IMagickColor color);
 
         /// <summary>
         /// Add alpha channel to image, setting pixels that lie in between the given two colors to
@@ -4272,7 +4272,7 @@ namespace ImageMagick
         /// <param name="colorLow">The low target color.</param>
         /// <param name="colorHigh">The high target color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void TransparentChroma(MagickColor colorLow, MagickColor colorHigh);
+        void TransparentChroma(IMagickColor colorLow, IMagickColor colorHigh);
 
         /// <summary>
         /// Creates a horizontal mirror image by reflecting the pixels around the central y-axis while

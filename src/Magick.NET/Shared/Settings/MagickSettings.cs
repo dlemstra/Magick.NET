@@ -71,12 +71,12 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the background color.
         /// </summary>
-        public MagickColor BackgroundColor { get; set; }
+        public IMagickColor BackgroundColor { get; set; }
 
         /// <summary>
         /// Gets or sets the border color.
         /// </summary>
-        public MagickColor BorderColor
+        public IMagickColor BorderColor
         {
             get => Drawing.BorderColor;
             set => Drawing.BorderColor = value;
@@ -121,12 +121,12 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the fill color.
         /// </summary>
-        public MagickColor FillColor
+        public IMagickColor FillColor
         {
             get => Drawing.FillColor;
             set
             {
-                SetOptionAndArtifact("fill", MagickColor.ToString(value));
+                SetOptionAndArtifact("fill", value?.ToString());
                 Drawing.FillColor = value;
             }
         }
@@ -247,12 +247,12 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the color to use when drawing object outlines.
         /// </summary>
-        public MagickColor StrokeColor
+        public IMagickColor StrokeColor
         {
             get => Drawing.StrokeColor;
             set
             {
-                SetOptionAndArtifact("stroke", MagickColor.ToString(value));
+                SetOptionAndArtifact("stroke", value?.ToString());
                 Drawing.StrokeColor = value;
             }
         }
@@ -414,12 +414,12 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the text undercolor box.
         /// </summary>
-        public MagickColor TextUnderColor
+        public IMagickColor TextUnderColor
         {
             get => Drawing.TextUnderColor;
             set
             {
-                SetOptionAndArtifact("undercolor", MagickColor.ToString(value));
+                SetOptionAndArtifact("undercolor", value?.ToString());
                 Drawing.TextUnderColor = value;
             }
         }

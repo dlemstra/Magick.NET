@@ -146,7 +146,7 @@ namespace ImageMagick
                     return nameof(MontageSettings);
                 }
             }
-            public void SetBackgroundColor(MagickColor value)
+            public void SetBackgroundColor(IMagickColor value)
             {
                 using (INativeInstance valueNative = MagickColor.CreateInstance(value))
                 {
@@ -164,7 +164,7 @@ namespace ImageMagick
                     #endif
                 }
             }
-            public void SetBorderColor(MagickColor value)
+            public void SetBorderColor(IMagickColor value)
             {
                 using (INativeInstance valueNative = MagickColor.CreateInstance(value))
                 {
@@ -197,7 +197,7 @@ namespace ImageMagick
                 NativeMethods.X86.MontageSettings_SetBorderWidth(Instance, (UIntPtr)value);
                 #endif
             }
-            public void SetFillColor(MagickColor value)
+            public void SetFillColor(IMagickColor value)
             {
                 using (INativeInstance valueNative = MagickColor.CreateInstance(value))
                 {
@@ -314,7 +314,7 @@ namespace ImageMagick
                 NativeMethods.X86.MontageSettings_SetShadow(Instance, value);
                 #endif
             }
-            public void SetStrokeColor(MagickColor value)
+            public void SetStrokeColor(IMagickColor value)
             {
                 using (INativeInstance valueNative = MagickColor.CreateInstance(value))
                 {

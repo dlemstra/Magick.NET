@@ -1274,7 +1274,7 @@ namespace Magick.NET.Tests
         public void Test_Histogram()
         {
             IMagickImage image = new MagickImage();
-            Dictionary<MagickColor, int> histogram = image.Histogram();
+            var histogram = image.Histogram();
             Assert.IsNotNull(histogram);
             Assert.AreEqual(0, histogram.Count);
 

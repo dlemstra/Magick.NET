@@ -221,7 +221,7 @@ namespace ImageMagick
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
-        IMagickImage CreateImage(MagickColor color, int width, int height);
+        IMagickImage CreateImage(IMagickColor color, int width, int height);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImage"/>.

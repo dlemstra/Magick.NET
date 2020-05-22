@@ -23,7 +23,7 @@ namespace ImageMagick
         /// <param name="x">The X position.</param>
         /// <param name="y">The Y position.</param>
         /// <param name="color">The color.</param>
-        public SparseColorArg(double x, double y, MagickColor color)
+        public SparseColorArg(double x, double y, IMagickColor color)
         {
             Throw.IfNull(nameof(color), color);
 
@@ -45,6 +45,6 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the color.
         /// </summary>
-        public MagickColor Color { get; set; }
+        public IMagickColor Color { get; set; }
     }
 }

@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
 
                     using (IPixelCollection pixels = collection[1].GetPixels())
                     {
-                        MagickColor color = pixels.GetPixel(53, 3).ToColor();
+                        var color = pixels.GetPixel(53, 3).ToColor();
                         Assert.AreEqual(0, color.A);
                     }
 
@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
 
                     using (IPixelCollection pixels = collection[1].GetPixels())
                     {
-                        MagickColor color = pixels.GetPixel(53, 3).ToColor();
+                        var color = pixels.GetPixel(53, 3).ToColor();
                         Assert.AreEqual(Quantum.Max, color.A);
                     }
                 }

@@ -33,7 +33,7 @@ namespace ImageMagick
         /// Initializes a new instance of the <see cref="ColorRGB"/> class.
         /// </summary>
         /// <param name="value">The color to use.</param>
-        public ColorRGB(MagickColor value)
+        public ColorRGB(IMagickColor value)
           : base(value)
         {
         }
@@ -87,11 +87,11 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
+        /// Converts the specified <see cref="IMagickColor"/> to an instance of this type.
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>A <see cref="ColorRGB"/> instance.</returns>
-        public static ColorRGB FromMagickColor(MagickColor color)
+        public static ColorRGB FromMagickColor(IMagickColor color)
         {
             if (color == null)
                 return null;

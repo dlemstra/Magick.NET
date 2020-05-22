@@ -33,7 +33,7 @@ namespace ImageMagick
             Value = value;
         }
 
-        private ColorHSV(MagickColor color)
+        private ColorHSV(IMagickColor color)
           : base(color)
         {
             Initialize(color.R, color.G, color.B);
@@ -62,11 +62,11 @@ namespace ImageMagick
         public static implicit operator ColorHSV(MagickColor color) => FromMagickColor(color);
 
         /// <summary>
-        /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
+        /// Converts the specified <see cref="IMagickColor"/> to an instance of this type.
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>A <see cref="ColorHSV"/> instance.</returns>
-        public static ColorHSV FromMagickColor(MagickColor color)
+        public static ColorHSV FromMagickColor(IMagickColor color)
         {
             if (color == null)
                 return null;

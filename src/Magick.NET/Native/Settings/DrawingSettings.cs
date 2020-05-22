@@ -298,7 +298,7 @@ namespace ImageMagick
                     return nameof(DrawingSettings);
                 }
             }
-            public MagickColor BorderColor
+            public IMagickColor BorderColor
             {
                 get
                 {
@@ -336,7 +336,7 @@ namespace ImageMagick
                     }
                 }
             }
-            public MagickColor FillColor
+            public IMagickColor FillColor
             {
                 get
                 {
@@ -625,7 +625,7 @@ namespace ImageMagick
                     #endif
                 }
             }
-            public MagickColor StrokeColor
+            public IMagickColor StrokeColor
             {
                 get
                 {
@@ -1086,7 +1086,7 @@ namespace ImageMagick
                     #endif
                 }
             }
-            public MagickColor TextUnderColor
+            public IMagickColor TextUnderColor
             {
                 get
                 {

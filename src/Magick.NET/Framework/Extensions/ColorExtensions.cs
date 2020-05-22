@@ -22,11 +22,16 @@ namespace ImageMagick
     public static class ColorExtensions
     {
         /// <summary>
-        /// Convert the specified <see cref="Color"/> to a <see cref="MagickColor"/>.
+        /// Convert the specified <see cref="Color"/> to a <see cref="IMagickColor"/>.
         /// </summary>
         /// <param name="self">The color to use.</param>
-        /// <returns>A <see cref="MagickColor"/> instance.</returns>
-        public static MagickColor ToColor(this Color self) => new MagickColor().FromColor(self);
+        /// <returns>A <see cref="IMagickColor"/> instance.</returns>
+        public static IMagickColor ToColor(this Color self)
+        {
+            var color = new MagickColor();
+            color.SetFromColor(self);
+            return color;
+        }
     }
 }
 

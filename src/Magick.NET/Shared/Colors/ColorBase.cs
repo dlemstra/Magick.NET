@@ -23,7 +23,7 @@ namespace ImageMagick
         /// Initializes a new instance of the <see cref="ColorBase"/> class.
         /// </summary>
         /// <param name="color">The color to use.</param>
-        protected ColorBase(MagickColor color)
+        protected ColorBase(IMagickColor color)
         {
             Color = color;
         }
@@ -31,7 +31,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the actual color of this instance.
         /// </summary>
-        protected MagickColor Color { get; }
+        protected IMagickColor Color { get; }
 
         /// <summary>
         /// Determines whether the specified <see cref="ColorBase"/> instances are considered equal.
@@ -173,10 +173,10 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Converts the value of this instance to an equivalent <see cref="MagickColor"/>.
+        /// Converts the value of this instance to an equivalent <see cref="IMagickColor"/>.
         /// </summary>
-        /// <returns>A <see cref="MagickColor"/> instance.</returns>
-        public MagickColor ToMagickColor()
+        /// <returns>A <see cref="IMagickColor"/> instance.</returns>
+        public IMagickColor ToMagickColor()
         {
             UpdateColor();
 

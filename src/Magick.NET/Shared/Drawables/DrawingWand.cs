@@ -48,7 +48,7 @@ namespace ImageMagick
             }
         }
 
-        public void BorderColor(MagickColor color) => _nativeInstance.BorderColor(color);
+        public void BorderColor(IMagickColor color) => _nativeInstance.BorderColor(color);
 
         public void Circle(double originX, double originY, double perimeterX, double perimeterY) => _nativeInstance.Circle(originX, originY, perimeterX, perimeterY);
 
@@ -72,7 +72,7 @@ namespace ImageMagick
 
         public void Ellipse(double originX, double originY, double radiusX, double radiusY, double startDegrees, double endDegrees) => _nativeInstance.Ellipse(originX, originY, radiusX, radiusY, startDegrees, endDegrees);
 
-        public void FillColor(MagickColor color) => _nativeInstance.FillColor(color);
+        public void FillColor(IMagickColor color) => _nativeInstance.FillColor(color);
 
         public void FillOpacity(double value) => _nativeInstance.FillOpacity(value);
 
@@ -218,7 +218,7 @@ namespace ImageMagick
 
         public void StrokeAntialias(bool isEnabled) => _nativeInstance.StrokeAntialias(isEnabled);
 
-        public void StrokeColor(MagickColor color) => _nativeInstance.StrokeColor(color);
+        public void StrokeColor(IMagickColor color) => _nativeInstance.StrokeColor(color);
 
         public void StrokeDashArray(double[] dash)
         {
@@ -263,7 +263,7 @@ namespace ImageMagick
 
         public void TextKerning(double value) => _nativeInstance.TextKerning(value);
 
-        public void TextUnderColor(MagickColor color) => _nativeInstance.TextUnderColor(color);
+        public void TextUnderColor(IMagickColor color) => _nativeInstance.TextUnderColor(color);
 
         public void Translation(double x, double y) => _nativeInstance.Translation(x, y);
 

@@ -45,13 +45,8 @@ namespace FileGenerator.MagickColors
             Color color = (Color)property.GetValue(null, null);
 
             WriteComment(GetComment(color));
-            WriteLine("public static MagickColor " + name);
-            WriteStartColon();
-            WriteLine("get");
-            WriteStartColon();
-            WriteLine("return MagickColor.FromRgba(" + GetArguments(color) + ");");
-            WriteEndColon();
-            WriteEndColon();
+            WriteLine("public static MagickColor " + name + " => MagickColor.FromRgba(" + GetArguments(color) + ");");
+            WriteLine();
         }
 
         private void WriteColors()

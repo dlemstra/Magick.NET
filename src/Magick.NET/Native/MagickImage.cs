@@ -1305,7 +1305,7 @@ namespace ImageMagick
                     #endif
                 }
             }
-            public MagickColor BackgroundColor
+            public IMagickColor BackgroundColor
             {
                 get
                 {
@@ -1418,7 +1418,7 @@ namespace ImageMagick
                     #endif
                 }
             }
-            public MagickColor BorderColor
+            public IMagickColor BorderColor
             {
                 get
                 {
@@ -2305,7 +2305,7 @@ namespace ImageMagick
                     return result;
                 }
             }
-            public MagickColor MatteColor
+            public IMagickColor MatteColor
             {
                 get
                 {
@@ -3345,7 +3345,7 @@ namespace ImageMagick
                     CheckException(exception);
                 }
             }
-            public void Colorize(MagickColor color, string blend)
+            public void Colorize(IMagickColor color, string blend)
             {
                 using (INativeInstance colorNative = MagickColor.CreateInstance(color))
                 {
@@ -3392,7 +3392,7 @@ namespace ImageMagick
                     Instance = result;
                 }
             }
-            public void ColorThreshold(MagickColor startColor, MagickColor stopColor)
+            public void ColorThreshold(IMagickColor startColor, IMagickColor stopColor)
             {
                 using (INativeInstance startColorNative = MagickColor.CreateInstance(startColor))
                 {
@@ -3978,7 +3978,7 @@ namespace ImageMagick
                 CheckException(exception, result);
                 Instance = result;
             }
-            public void FloodFill(DrawingSettings settings, int x, int y, MagickColor target, bool invert)
+            public void FloodFill(DrawingSettings settings, int x, int y, IMagickColor target, bool invert)
             {
                 using (INativeInstance settingsNative = DrawingSettings.CreateInstance(settings))
                 {
@@ -4215,7 +4215,7 @@ namespace ImageMagick
                 CheckException(exception);
                 return (int)result;
             }
-            public MagickColor GetColormap(int index)
+            public IMagickColor GetColormap(int index)
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU
@@ -4538,7 +4538,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void LevelColors(MagickColor blackColor, MagickColor whiteColor, Channels channels, bool invert)
+            public void LevelColors(IMagickColor blackColor, IMagickColor whiteColor, Channels channels, bool invert)
             {
                 using (INativeInstance blackColorNative = MagickColor.CreateInstance(blackColor))
                 {
@@ -4885,7 +4885,7 @@ namespace ImageMagick
                 CheckException(exception, result);
                 Instance = result;
             }
-            public void Opaque(MagickColor target, MagickColor fill, bool invert)
+            public void Opaque(IMagickColor target, IMagickColor fill, bool invert)
             {
                 using (INativeInstance targetNative = MagickColor.CreateInstance(target))
                 {
@@ -5587,7 +5587,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void SetColormap(int index, MagickColor color)
+            public void SetColormap(int index, IMagickColor color)
             {
                 using (INativeInstance colorNative = MagickColor.CreateInstance(color))
                 {
@@ -6099,7 +6099,7 @@ namespace ImageMagick
                     Instance = result;
                 }
             }
-            public void Tint(string opacity, MagickColor tint)
+            public void Tint(string opacity, IMagickColor tint)
             {
                 using (INativeInstance opacityNative = UTF8Marshaler.CreateInstance(opacity))
                 {
@@ -6124,7 +6124,7 @@ namespace ImageMagick
                     }
                 }
             }
-            public void Transparent(MagickColor color, bool invert)
+            public void Transparent(IMagickColor color, bool invert)
             {
                 using (INativeInstance colorNative = MagickColor.CreateInstance(color))
                 {
@@ -6144,7 +6144,7 @@ namespace ImageMagick
                     CheckException(exception);
                 }
             }
-            public void TransparentChroma(MagickColor colorLow, MagickColor colorHigh, bool invert)
+            public void TransparentChroma(IMagickColor colorLow, IMagickColor colorHigh, bool invert)
             {
                 using (INativeInstance colorLowNative = MagickColor.CreateInstance(colorLow))
                 {

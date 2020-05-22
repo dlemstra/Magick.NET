@@ -46,7 +46,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the color of the area.
         /// </summary>
-        public MagickColor Color { get; }
+        public IMagickColor Color { get; }
 
         /// <summary>
         /// Gets the height of the area.

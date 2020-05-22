@@ -31,7 +31,7 @@ namespace ImageMagick
             V = v;
         }
 
-        private ColorYUV(MagickColor color)
+        private ColorYUV(IMagickColor color)
           : base(color)
         {
             Y = (1.0 / Quantum.Max) * ((0.298839 * color.R) + (0.586811 * color.G) + (0.11435 * color.B));
@@ -62,11 +62,11 @@ namespace ImageMagick
         public static implicit operator ColorYUV(MagickColor color) => FromMagickColor(color);
 
         /// <summary>
-        /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
+        /// Converts the specified <see cref="IMagickColor"/> to an instance of this type.
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>A <see cref="ColorYUV"/> instance.</returns>
-        public static ColorYUV FromMagickColor(MagickColor color)
+        public static ColorYUV FromMagickColor(IMagickColor color)
         {
             if (color == null)
                 return null;

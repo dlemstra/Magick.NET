@@ -130,7 +130,7 @@ namespace ImageMagick
                 #endif
                 return PointInfo.CreateInstance(result);
             }
-            public static MagickColor GetColor(IntPtr instance)
+            public static IMagickColor GetColor(IntPtr instance)
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU

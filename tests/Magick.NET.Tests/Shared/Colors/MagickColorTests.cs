@@ -61,9 +61,6 @@ namespace Magick.NET.Tests
             Assert.IsFalse(first > second);
             Assert.IsTrue(first >= second);
 
-            second = MagickColors.White.Clone();
-            Assert.AreEqual(0, first.CompareTo(second));
-
             QuantumType half = (QuantumType)(Quantum.Max / 2.0);
             first = new MagickColor(half, half, half, half, half);
 

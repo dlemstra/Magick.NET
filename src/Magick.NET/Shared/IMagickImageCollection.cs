@@ -168,7 +168,7 @@ namespace ImageMagick
         /// <param name="backgroundColor">The background color of the output image.</param>
         /// <returns>The resulting image of the flatten operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickImage Flatten(MagickColor backgroundColor);
+        IMagickImage Flatten(IMagickColor backgroundColor);
 
         /// <summary>
         /// Inserts an image with the specified file name into the collection.

@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
                 {
                     image.AutoThreshold(AutoThresholdMethod.Kapur);
 
-                    Dictionary<MagickColor, int> colors = image.Histogram();
+                    var colors = image.Histogram();
 
                     Assert.AreEqual(ColorType.Bilevel, image.DetermineColorType());
                     Assert.AreEqual(236359, colors[MagickColors.Black]);
@@ -43,7 +43,7 @@ namespace Magick.NET.Tests
                 {
                     image.AutoThreshold(AutoThresholdMethod.OTSU);
 
-                    Dictionary<MagickColor, int> colors = image.Histogram();
+                    var colors = image.Histogram();
 
                     Assert.AreEqual(ColorType.Bilevel, image.DetermineColorType());
                     Assert.AreEqual(67844, colors[MagickColors.Black]);
@@ -58,7 +58,7 @@ namespace Magick.NET.Tests
                 {
                     image.AutoThreshold(AutoThresholdMethod.Triangle);
 
-                    Dictionary<MagickColor, int> colors = image.Histogram();
+                    var colors = image.Histogram();
 
                     Assert.AreEqual(ColorType.Bilevel, image.DetermineColorType());
                     Assert.AreEqual(210553, colors[MagickColors.Black]);

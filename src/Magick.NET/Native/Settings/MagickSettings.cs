@@ -301,7 +301,7 @@ namespace ImageMagick
                     #endif
                 }
             }
-            public MagickColor BackgroundColor
+            public IMagickColor BackgroundColor
             {
                 get
                 {

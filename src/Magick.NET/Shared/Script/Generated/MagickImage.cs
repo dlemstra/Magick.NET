@@ -2972,9 +2972,9 @@ namespace ImageMagick
                     arguments["settings"] = CreateQuantizeSettings(elem);
             }
             if (OnlyContains(arguments, "colors"))
-                image.Map((IEnumerable<MagickColor>)arguments["colors"]);
+                image.Map((IEnumerable<IMagickColor>)arguments["colors"]);
             else if (OnlyContains(arguments, "colors", "settings"))
-                image.Map((IEnumerable<MagickColor>)arguments["colors"], (QuantizeSettings)arguments["settings"]);
+                image.Map((IEnumerable<IMagickColor>)arguments["colors"], (QuantizeSettings)arguments["settings"]);
             else if (OnlyContains(arguments, "image"))
                 image.Map((IMagickImage)arguments["image"]);
             else if (OnlyContains(arguments, "image", "settings"))

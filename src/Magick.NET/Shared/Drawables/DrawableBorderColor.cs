@@ -21,7 +21,7 @@ namespace ImageMagick
         /// Initializes a new instance of the <see cref="DrawableBorderColor"/> class.
         /// </summary>
         /// <param name="color">The color of the border.</param>
-        public DrawableBorderColor(MagickColor color)
+        public DrawableBorderColor(IMagickColor color)
         {
             Throw.IfNull(nameof(color), color);
 
@@ -31,7 +31,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the color to use.
         /// </summary>
-        public MagickColor Color { get; set; }
+        public IMagickColor Color { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

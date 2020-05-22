@@ -177,10 +177,10 @@ namespace ImageMagick
         /// <summary>
         /// Converts the pixel to a color. Assumes the pixel is RGBA.
         /// </summary>
-        /// <returns>A <see cref="MagickColor"/> instance.</returns>
-        public MagickColor ToColor()
+        /// <returns>A <see cref="IMagickColor"/> instance.</returns>
+        public IMagickColor ToColor()
         {
-            QuantumType[] value = GetValueWithoutIndexChannel();
+            var value = GetValueWithoutIndexChannel();
 
             if (value.Length == 0)
                 return null;
@@ -210,7 +210,7 @@ namespace ImageMagick
 
         internal static Pixel Create(PixelCollection collection, int x, int y, QuantumType[] value)
         {
-            Pixel pixel = new Pixel(collection);
+            var pixel = new Pixel(collection);
             pixel.Initialize(x, y, value);
             return pixel;
         }
