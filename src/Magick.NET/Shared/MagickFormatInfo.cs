@@ -20,7 +20,7 @@ namespace ImageMagick
     /// <summary>
     /// Class that contains information about an image format.
     /// </summary>
-    public sealed partial class MagickFormatInfo : IEquatable<MagickFormatInfo>
+    public sealed partial class MagickFormatInfo : IMagickFormatInfo
     {
         private static readonly Dictionary<MagickFormat, MagickFormatInfo> _All = LoadFormats();
 
@@ -71,9 +71,10 @@ namespace ImageMagick
         /// <summary>
         /// Gets the module.
         /// </summary>
-        public MagickFormat Module { get; private set; }
+        public MagickFormat ModuleFormat { get; private set; }
 
-        internal static IEnumerable<MagickFormatInfo> All => _All.Values;
+        internal static IEnumerable<MagickFormatInfo> All
+            => _All.Values;
 
         /// <summary>
         /// Returns the format information. The extension of the supplied file is used to determine
@@ -127,14 +128,15 @@ namespace ImageMagick
         /// </summary>
         /// <param name="obj">The object to compare this <see cref="MagickFormatInfo"/> with.</param>
         /// <returns>True when the specified object is equal to the current <see cref="MagickFormatInfo"/>.</returns>
-        public override bool Equals(object obj) => Equals(obj as MagickFormatInfo);
+        public override bool Equals(object obj)
+            => Equals(obj as MagickFormatInfo);
 
         /// <summary>
-        /// Determines whether the specified <see cref="MagickFormatInfo"/> is equal to the current <see cref="MagickFormatInfo"/>.
+        /// Determines whether the specified <see cref="IMagickFormatInfo"/> is equal to the current <see cref="MagickFormatInfo"/>.
         /// </summary>
-        /// <param name="other">The <see cref="MagickFormatInfo"/> to compare this <see cref="MagickFormatInfo"/> with.</param>
-        /// <returns>True when the specified <see cref="MagickFormatInfo"/> is equal to the current <see cref="MagickFormatInfo"/>.</returns>
-        public bool Equals(MagickFormatInfo other)
+        /// <param name="other">The <see cref="IMagickFormatInfo"/> to compare this <see cref="MagickFormatInfo"/> with.</param>
+        /// <returns>True when the specified <see cref="IMagickFormatInfo"/> is equal to the current <see cref="MagickFormatInfo"/>.</returns>
+        public bool Equals(IMagickFormatInfo other)
         {
             if (other is null)
                 return false;
@@ -149,16 +151,15 @@ namespace ImageMagick
         /// Serves as a hash of this type.
         /// </summary>
         /// <returns>A hash code for the current instance.</returns>
-        public override int GetHashCode() => Module.GetHashCode();
+        public override int GetHashCode()
+            => ModuleFormat.GetHashCode();
 
         /// <summary>
         /// Returns a string that represents the current format.
         /// </summary>
         /// <returns>A string that represents the current format.</returns>
         public override string ToString()
-        {
-            return string.Format(CultureInfo.InvariantCulture, "{0}: {1} ({2}R{3}W{4}M)", Format, Description, IsReadable ? "+" : "-", IsWritable ? "+" : "-", IsMultiFrame ? "+" : "-");
-        }
+            => string.Format(CultureInfo.InvariantCulture, "{0}: {1} ({2}R{3}W{4}M)", Format, Description, IsReadable ? "+" : "-", IsWritable ? "+" : "-", IsMultiFrame ? "+" : "-");
 
         /// <summary>
         /// Unregisters this format.
@@ -181,7 +182,7 @@ namespace ImageMagick
                 IsReadable = instance.IsReadable,
                 IsWritable = instance.IsWritable,
                 MimeType = instance.MimeType,
-                Module = GetFormat(instance.Module),
+                ModuleFormat = GetFormat(instance.Module),
             };
         }
 

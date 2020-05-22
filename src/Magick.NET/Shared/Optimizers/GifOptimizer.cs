@@ -22,13 +22,8 @@ namespace ImageMagick.ImageOptimizers
         /// <summary>
         /// Gets the format that the optimizer supports.
         /// </summary>
-        public MagickFormatInfo Format
-        {
-            get
-            {
-                return MagickNET.GetFormatInformation(MagickFormat.Gif);
-            }
-        }
+        public IMagickFormatInfo Format
+            => MagickNET.GetFormatInformation(MagickFormat.Gif);
 
         /// <summary>
         /// Gets or sets a value indicating whether various compression types will be used to find
@@ -45,9 +40,7 @@ namespace ImageMagick.ImageOptimizers
         /// <param name="file">The gif file to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool Compress(FileInfo file)
-        {
-            return LosslessCompress(file);
-        }
+            => LosslessCompress(file);
 
         /// <summary>
         /// Performs compression on the specified file. With some formats the image will be decoded
@@ -57,9 +50,7 @@ namespace ImageMagick.ImageOptimizers
         /// <param name="fileName">The file name of the gif image to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool Compress(string fileName)
-        {
-            return LosslessCompress(fileName);
-        }
+            => LosslessCompress(fileName);
 
         /// <summary>
         /// Performs compression on the specified stream. With some formats the image will be decoded
@@ -69,9 +60,7 @@ namespace ImageMagick.ImageOptimizers
         /// <param name="stream">The stream of the gif image to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool Compress(Stream stream)
-        {
-            return LosslessCompress(stream);
-        }
+            => LosslessCompress(stream);
 
         /// <summary>
         /// Performs lossless compression on the specified file. If the new file size is not smaller

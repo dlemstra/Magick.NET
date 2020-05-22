@@ -152,7 +152,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(imageFormat), imageFormat);
 
-            Format = MagickFormatInfo.GetFormat(imageFormat);
+            Format = imageFormat.ToFormat();
 
             MemoryStream memStream = new MemoryStream();
             Write(memStream);

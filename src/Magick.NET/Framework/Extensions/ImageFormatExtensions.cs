@@ -17,27 +17,24 @@ using System.Drawing.Imaging;
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Class that contains information about an image format.
-    /// </summary>
-    public sealed partial class MagickFormatInfo
+    internal static class ImageFormatExtensions
     {
-        internal static MagickFormat GetFormat(ImageFormat format)
+        public static MagickFormat ToFormat(this ImageFormat self)
         {
-            if (format == ImageFormat.Bmp || format == ImageFormat.MemoryBmp)
+            if (self == ImageFormat.Bmp || self == ImageFormat.MemoryBmp)
                 return MagickFormat.Bmp;
-            else if (format == ImageFormat.Gif)
+            else if (self == ImageFormat.Gif)
                 return MagickFormat.Gif;
-            else if (format == ImageFormat.Icon)
+            else if (self == ImageFormat.Icon)
                 return MagickFormat.Icon;
-            else if (format == ImageFormat.Jpeg)
+            else if (self == ImageFormat.Jpeg)
                 return MagickFormat.Jpeg;
-            else if (format == ImageFormat.Png)
+            else if (self == ImageFormat.Png)
                 return MagickFormat.Png;
-            else if (format == ImageFormat.Tiff)
+            else if (self == ImageFormat.Tiff)
                 return MagickFormat.Tiff;
             else
-                throw new NotSupportedException("Unsupported image format: " + format.ToString());
+                throw new NotSupportedException("Unsupported image format: " + self.ToString());
         }
     }
 }

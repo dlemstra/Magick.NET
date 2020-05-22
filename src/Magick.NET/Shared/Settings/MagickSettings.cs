@@ -649,11 +649,11 @@ namespace ImageMagick
 
         private static MagickFormat GetModule(MagickFormat format)
         {
-            MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(format);
+            var formatInfo = MagickNET.GetFormatInformation(format);
             if (formatInfo == null)
                 return format;
 
-            return formatInfo.Module;
+            return formatInfo.ModuleFormat;
         }
 
         private static Density CreateDensity(string value)

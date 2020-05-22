@@ -21,8 +21,8 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_IEquatable()
         {
-            MagickFormatInfo first = MagickFormatInfo.Create(MagickFormat.Png);
-            MagickFormatInfo second = MagickNET.GetFormatInformation(Files.SnakewarePNG);
+            var first = MagickFormatInfo.Create(MagickFormat.Png);
+            var second = MagickNET.GetFormatInformation(Files.SnakewarePNG);
 
             Assert.IsTrue(first == second);
             Assert.IsTrue(first.Equals(second));
@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Properties()
         {
-            MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(MagickFormat.Gradient);
+            var formatInfo = MagickNET.GetFormatInformation(MagickFormat.Gradient);
             Assert.IsNotNull(formatInfo);
             Assert.AreEqual(MagickFormat.Gradient, formatInfo.Format);
             Assert.IsTrue(formatInfo.CanReadMultithreaded);
@@ -64,7 +64,7 @@ namespace Magick.NET.Tests
             Assert.IsTrue(formatInfo.IsReadable);
             Assert.IsTrue(formatInfo.IsWritable);
             Assert.AreEqual("image/jpeg", formatInfo.MimeType);
-            Assert.AreEqual(MagickFormat.Jpeg, formatInfo.Module);
+            Assert.AreEqual(MagickFormat.Jpeg, formatInfo.ModuleFormat);
 
             formatInfo = MagickNET.GetFormatInformation(MagickFormat.Png);
             Assert.IsNotNull(formatInfo);
@@ -76,7 +76,7 @@ namespace Magick.NET.Tests
             Assert.IsTrue(formatInfo.IsReadable);
             Assert.IsTrue(formatInfo.IsWritable);
             Assert.AreEqual("image/png", formatInfo.MimeType);
-            Assert.AreEqual(MagickFormat.Png, formatInfo.Module);
+            Assert.AreEqual(MagickFormat.Png, formatInfo.ModuleFormat);
 
             formatInfo = MagickNET.GetFormatInformation(MagickFormat.Xps);
             Assert.IsNotNull(formatInfo);
@@ -88,13 +88,13 @@ namespace Magick.NET.Tests
             Assert.IsTrue(formatInfo.IsReadable);
             Assert.IsFalse(formatInfo.IsWritable);
             Assert.IsNull(formatInfo.MimeType);
-            Assert.AreEqual(MagickFormat.Xps, formatInfo.Module);
+            Assert.AreEqual(MagickFormat.Xps, formatInfo.ModuleFormat);
         }
 
         [TestMethod]
         public void Test_Unregister()
         {
-            MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(MagickFormat.X3f);
+            var formatInfo = MagickNET.GetFormatInformation(MagickFormat.X3f);
             Assert.IsNotNull(formatInfo);
             Assert.IsTrue(formatInfo.Unregister());
 

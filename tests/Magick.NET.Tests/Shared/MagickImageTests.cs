@@ -1131,7 +1131,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
             {
-                MagickFormatInfo info = image.FormatInfo;
+                var info = image.FormatInfo;
 
                 Assert.IsNotNull(info);
                 Assert.AreEqual(MagickFormat.Png, info.Format);

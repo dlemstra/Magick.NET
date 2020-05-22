@@ -10,8 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 
 namespace ImageMagick.ImageOptimizers
@@ -24,7 +22,8 @@ namespace ImageMagick.ImageOptimizers
         /// <summary>
         /// Gets the format that the optimizer supports.
         /// </summary>
-        public MagickFormatInfo Format => MagickNET.GetFormatInformation(MagickFormat.Png);
+        public IMagickFormatInfo Format
+            => MagickNET.GetFormatInformation(MagickFormat.Png);
 
         /// <summary>
         /// Gets or sets a value indicating whether various compression types will be used to find
@@ -40,7 +39,8 @@ namespace ImageMagick.ImageOptimizers
         /// </summary>
         /// <param name="file">The png file to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
-        public bool Compress([ValidatedNotNull] FileInfo file) => DoCompress(file, false);
+        public bool Compress([ValidatedNotNull] FileInfo file)
+            => DoCompress(file, false);
 
         /// <summary>
         /// Performs compression on the specified file. With some formats the image will be decoded
@@ -64,7 +64,8 @@ namespace ImageMagick.ImageOptimizers
         /// </summary>
         /// <param name="stream">The stream of the png image to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
-        public bool Compress(Stream stream) => DoCompress(stream, false);
+        public bool Compress(Stream stream)
+            => DoCompress(stream, false);
 
         /// <summary>
         /// Performs lossless compression on the specified file. If the new file size is not smaller
@@ -99,7 +100,8 @@ namespace ImageMagick.ImageOptimizers
         /// </summary>
         /// <param name="stream">The stream of the png image to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
-        public bool LosslessCompress(Stream stream) => DoCompress(stream, true);
+        public bool LosslessCompress(Stream stream)
+            => DoCompress(stream, true);
 
         private static void StartCompression(MagickImage image, bool lossless)
         {

@@ -664,7 +664,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the information about the format of the image.
         /// </summary>
-        public MagickFormatInfo FormatInfo => MagickNET.GetFormatInformation(Format);
+        public IMagickFormatInfo FormatInfo => MagickNET.GetFormatInformation(Format);
 
         /// <summary>
         /// Gets the gamma level of the image.

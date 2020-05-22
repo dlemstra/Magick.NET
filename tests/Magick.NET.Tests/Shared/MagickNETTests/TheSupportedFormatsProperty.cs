@@ -23,9 +23,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldContainsNoFormatInformationWithMagickFormatSetToUnknown()
             {
-                foreach (MagickFormatInfo formatInfo in MagickNET.SupportedFormats)
+                foreach (var formatInfo in MagickNET.SupportedFormats)
                 {
-                    Assert.AreNotEqual(MagickFormat.Unknown, formatInfo.Format, "Unknown format: " + formatInfo.Description + " (" + formatInfo.Module + ")");
+                    Assert.AreNotEqual(MagickFormat.Unknown, formatInfo.Format, "Unknown format: " + formatInfo.Description + " (" + formatInfo.ModuleFormat + ")");
                 }
             }
         }

@@ -19,7 +19,7 @@ namespace ImageMagick
     {
         public static void CheckFormat(IMagickImage image, MagickFormat expectedFormat)
         {
-            var format = image.FormatInfo.Module;
+            var format = image.FormatInfo.ModuleFormat;
             if (format != expectedFormat)
                 throw new MagickCorruptImageErrorException("Invalid image format: " + format.ToString());
         }
@@ -33,7 +33,7 @@ namespace ImageMagick
         }
 
         [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Not sure which exception will be thrown.")]
-        public static MagickFormatInfo GetFormatInformation(FileInfo file)
+        public static IMagickFormatInfo GetFormatInformation(FileInfo file)
         {
             var info = MagickNET.GetFormatInformation(file);
             if (info != null)
@@ -61,7 +61,7 @@ namespace ImageMagick
         }
 
         [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Not sure which exception will be thrown.")]
-        public static MagickFormatInfo GetFormatInformation(string fileName)
+        public static IMagickFormatInfo GetFormatInformation(string fileName)
         {
             var info = MagickNET.GetFormatInformation(fileName);
             if (info != null)
@@ -89,7 +89,7 @@ namespace ImageMagick
         }
 
         [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Not sure which exception will be thrown.")]
-        public static MagickFormatInfo GetFormatInformation(Stream stream)
+        public static IMagickFormatInfo GetFormatInformation(Stream stream)
         {
             var startPosition = stream.Position;
 
@@ -110,7 +110,7 @@ namespace ImageMagick
             }
         }
 
-        private static MagickFormatInfo GetFormatInformationFromHeader(Stream stream)
+        private static IMagickFormatInfo GetFormatInformationFromHeader(Stream stream)
         {
             var buffer = new byte[4];
             stream.Read(buffer, 0, buffer.Length);

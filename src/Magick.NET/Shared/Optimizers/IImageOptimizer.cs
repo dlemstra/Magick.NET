@@ -22,7 +22,7 @@ namespace ImageMagick.ImageOptimizers
         /// <summary>
         /// Gets the format that the optimizer supports.
         /// </summary>
-        MagickFormatInfo Format { get; }
+        IMagickFormatInfo Format { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether various compression types will be used to find

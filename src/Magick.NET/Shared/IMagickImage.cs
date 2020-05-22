@@ -212,7 +212,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the information about the format of the image.
         /// </summary>
-        MagickFormatInfo FormatInfo { get; }
+        IMagickFormatInfo FormatInfo { get; }
 
         /// <summary>
         /// Gets the gamma level of the image.

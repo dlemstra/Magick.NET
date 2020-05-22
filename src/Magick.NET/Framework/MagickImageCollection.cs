@@ -52,7 +52,7 @@ namespace ImageMagick
             return new Bitmap(memStream);
         }
 
-        private void SetFormat(ImageFormat format) => SetFormat(MagickFormatInfo.GetFormat(format));
+        private void SetFormat(ImageFormat format) => SetFormat(format.ToFormat());
     }
 }
 

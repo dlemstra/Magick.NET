@@ -44,7 +44,7 @@ namespace ImageMagick
 
                 foreach (var optimizer in _optimizers)
                 {
-                    formats.Add(optimizer.Format.Module.ToString());
+                    formats.Add(optimizer.Format.ModuleFormat.ToString());
                 }
 
                 return string.Join(", ", formats.ToArray());
@@ -112,14 +112,14 @@ namespace ImageMagick
         /// </summary>
         /// <param name="formatInfo">The format information to check.</param>
         /// <returns>True when the supplied formation information is supported.</returns>
-        public bool IsSupported(MagickFormatInfo formatInfo)
+        public bool IsSupported(IMagickFormatInfo formatInfo)
         {
             if (formatInfo == null)
                 return false;
 
             foreach (var optimizer in _optimizers)
             {
-                if (optimizer.Format.Format == formatInfo.Module)
+                if (optimizer.Format.Format == formatInfo.ModuleFormat)
                     return true;
             }
 
@@ -236,14 +236,14 @@ namespace ImageMagick
             return GetOptimizer(info);
         }
 
-        private IImageOptimizer GetOptimizer(MagickFormatInfo info)
+        private IImageOptimizer GetOptimizer(IMagickFormatInfo info)
         {
             if (info == null)
                 return null;
 
             foreach (var optimizer in _optimizers)
             {
-                if (optimizer.Format.Module == info.Module)
+                if (optimizer.Format.ModuleFormat == info.ModuleFormat)
                     return optimizer;
             }
 
