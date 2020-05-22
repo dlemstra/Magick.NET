@@ -149,20 +149,6 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Returns a <see cref="MagickGeometry"/> based on the specified width and height.
-        /// </summary>
-        /// <param name="width">The width in cm or inches.</param>
-        /// <param name="height">The height in cm or inches.</param>
-        /// <returns>A <see cref="MagickGeometry"/> based on the specified width and height in cm or inches.</returns>
-        public IMagickGeometry ToGeometry(double width, double height)
-        {
-            int pixelWidth = (int)(width * X);
-            int pixelHeight = (int)(height * Y);
-
-            return new MagickGeometry(pixelWidth, pixelHeight);
-        }
-
-        /// <summary>
         /// Returns a string that represents the current <see cref="Density"/>.
         /// </summary>
         /// <returns>A string that represents the current <see cref="Density"/>.</returns>
