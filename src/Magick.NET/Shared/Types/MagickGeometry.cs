@@ -304,6 +304,21 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Initializes the geometry using the sepcified value.
+        /// </summary>
+        /// <param name="x">The X offset from origin.</param>
+        /// <param name="y">The Y offset from origin.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        public void Initialize(int x, int y, int width, int height)
+        {
+            X = x;
+            Y = y;
+            Width = width;
+            Height = height;
+        }
+
+        /// <summary>
         /// Returns a <see cref="PointD"/> that represents the position of the current <see cref="IMagickGeometry"/>.
         /// </summary>
         /// <returns>A <see cref="PointD"/> that represents the position of the current <see cref="IMagickGeometry"/>.</returns>
@@ -404,14 +419,6 @@ namespace ImageMagick
                 index++;
 
             return int.Parse(value.Substring(start, index), CultureInfo.InvariantCulture);
-        }
-
-        private void Initialize(int x, int y, int width, int height)
-        {
-            X = x;
-            Y = y;
-            Width = width;
-            Height = height;
         }
 
         private void InitializeFromPercentage(int x, int y, int width, int height)

@@ -196,4 +196,8 @@
       <LogicalName>ImageMagick.Resources.Xml.type-ghostscript.xml</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Framework\Types\" />
+  </ItemGroup>
 </Project>

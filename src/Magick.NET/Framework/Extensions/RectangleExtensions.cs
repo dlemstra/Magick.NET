@@ -26,7 +26,12 @@ namespace ImageMagick
         /// </summary>
         /// <param name="self">The rectangle to use.</param>
         /// <returns>A <see cref="MagickGeometry"/> instance.</returns>
-        public static MagickGeometry ToGeometry(this Rectangle self) => new MagickGeometry().FromRectangle(self);
+        public static MagickGeometry ToGeometry(this Rectangle self)
+        {
+            var geometry = new MagickGeometry();
+            geometry.SetFromRectangle(self);
+            return geometry;
+        }
     }
 }
 

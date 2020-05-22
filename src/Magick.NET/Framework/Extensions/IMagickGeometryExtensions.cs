@@ -16,27 +16,30 @@ using System.Drawing;
 
 namespace ImageMagick
 {
-    /// <content>
-    /// Contains code that is not compatible with .NET Core.
-    /// </content>
-    public sealed partial class MagickGeometry
+    /// <summary>
+    /// Extension methods for the <see cref="IMagickGeometry"/> interface.
+    /// </summary>
+    public static class IMagickGeometryExtensions
     {
         /// <summary>
-        /// Converts the specified <see cref="Rectangle"/> to a <see cref="MagickColor"/> instance.
+        /// Sets the values of this class using the specified <see cref="Rectangle"/>.
         /// </summary>
+        /// /// <param name="self">The geometry.</param>
         /// <param name="rectangle">The <see cref="Rectangle"/> to convert.</param>
-        /// <returns>A <see cref="MagickColor"/> instance.</returns>
-        public MagickGeometry FromRectangle(Rectangle rectangle)
-        {
-            Initialize(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
-            return this;
-        }
+        public static void SetFromRectangle(this IMagickGeometry self, Rectangle rectangle) => self?.Initialize(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
 
         /// <summary>
         /// Converts the value of this instance to an equivalent <see cref="Rectangle"/>.
         /// </summary>
+        /// <param name="self">The geometry.</param>
         /// <returns>A <see cref="Color"/> instance.</returns>
-        public Rectangle ToRectangle() => new Rectangle(X, Y, Width, Height);
+        public static Rectangle ToRectangle(this IMagickGeometry self)
+        {
+            if (self == null)
+                return default;
+
+            return new Rectangle(self.X, self.Y, self.Width, self.Height);
+        }
     }
 }
 

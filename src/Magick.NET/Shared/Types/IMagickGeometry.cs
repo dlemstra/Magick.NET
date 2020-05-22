@@ -75,6 +75,15 @@ namespace ImageMagick
         int Y { get; set; }
 
         /// <summary>
+        /// Initializes the geometry using the sepcified value.
+        /// </summary>
+        /// <param name="x">The X offset from origin.</param>
+        /// <param name="y">The Y offset from origin.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        void Initialize(int x, int y, int width, int height);
+
+        /// <summary>
         /// Returns a <see cref="PointD"/> that represents the position of the current <see cref="IMagickGeometry"/>.
         /// </summary>
         /// <returns>A <see cref="PointD"/> that represents the position of the current <see cref="IMagickGeometry"/>.</returns>
