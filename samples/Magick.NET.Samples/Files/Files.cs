@@ -16,7 +16,6 @@ namespace Magick.NET.Samples
   {
     private const string _RootDirectory = @"..\..\Samples\Magick.NET\";
     private const string _FilesDirectory = _RootDirectory + @"Files\";
-    private const string _ScriptsDirectory = _RootDirectory + @"Scripts\";
 
     public static string CorruptImageJpg
     {
