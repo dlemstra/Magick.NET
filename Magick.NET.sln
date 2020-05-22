@@ -28,7 +28,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{6D1DE15B-E
 		docs\ExifData.md = docs\ExifData.md
 		docs\Initialization.md = docs\Initialization.md
 		docs\LosslessCompression.md = docs\LosslessCompression.md
-		docs\MagickScript.md = docs\MagickScript.md
 		docs\ReadingImages.md = docs\ReadingImages.md
 		docs\Readme.md = docs\Readme.md
 		docs\ReadRawImageFromCamera.md = docs\ReadRawImageFromCamera.md
@@ -105,7 +104,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{7935EDEC
 	ProjectSection(SolutionItems) = preProject
 		tools\Generate.Drawables.cmd = tools\Generate.Drawables.cmd
 		tools\Generate.MagickColors.cmd = tools\Generate.MagickColors.cmd
-		tools\Generate.MagickScript.cmd = tools\Generate.MagickScript.cmd
 		tools\Generate.Native.cmd = tools\Generate.Native.cmd
 	EndProjectSection
 EndProject

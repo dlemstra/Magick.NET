@@ -162,9 +162,6 @@
     <EmbeddedResource Include="Resources\ColorProfiles\RGB\SRGB.icm">
       <LogicalName>ImageMagick.Resources.ColorProfiles.RGB.SRGB.icm</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Release$(QuantumType)\MagickScript.xsd">
-      <LogicalName>ImageMagick.Resources.MagickScript.xsd</LogicalName>
-    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\resources\Release$(QuantumType)\colors.xml">
       <LogicalName>ImageMagick.Resources.Xml.colors.xml</LogicalName>
     </EmbeddedResource>

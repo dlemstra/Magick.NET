@@ -146,28 +146,5 @@ namespace Magick.NET.Tests
         {
             public static string Checkerboard => "pattern:checkerboard";
         }
-
-        public static class Scripts
-        {
-            public static string Collection => Root + @"Shared/Script/Collection.msl";
-
-            public static string Draw => Root + @"Shared/Script/Draw.msl";
-
-            public static string Defines => Root + @"Shared/Script/Defines.msl";
-
-            public static string Distort => Root + @"Shared/Script/Distort.msl";
-
-            public static string Events => Root + @"Shared/Script/Events.msl";
-
-            public static string ImageProfile => Root + @"Shared/Script/ImageProfile.msl";
-
-            public static string Invalid => Root + @"Framework/Script/Invalid.msl";
-
-            public static string PixelReadSettings => Root + @"Shared/Script/PixelReadSettings.msl";
-
-            public static string Resize => Root + @"Shared/Script/Resize.msl";
-
-            public static string Variables => Root + @"Shared/Script/Variables.msl";
-        }
     }
 }

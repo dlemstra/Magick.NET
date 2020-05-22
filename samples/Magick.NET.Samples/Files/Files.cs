@@ -26,22 +26,6 @@ namespace Magick.NET.Samples
       }
     }
 
-    public static string CloneMsl
-    {
-      get
-      {
-        return _ScriptsDirectory + "Clone.msl";
-      }
-    }
-
-    public static string CropMsl
-    {
-      get
-      {
-        return _ScriptsDirectory + "Crop.msl";
-      }
-    }
-
     public static string FileWithWarningJpg
     {
       get
@@ -71,14 +55,6 @@ namespace Magick.NET.Samples
       get
       {
         return _RootDirectory + @"Output\";
-      }
-    }
-
-    public static string ResizeMsl
-    {
-      get
-      {
-        return _ScriptsDirectory + "Resize.msl";
       }
     }
 
@@ -127,14 +103,6 @@ namespace Magick.NET.Samples
       get
       {
         return _FilesDirectory + "StillLife.cr2";
-      }
-    }
-
-    public static string WaveMsl
-    {
-      get
-      {
-        return _ScriptsDirectory + "Wave.msl";
       }
     }
 
