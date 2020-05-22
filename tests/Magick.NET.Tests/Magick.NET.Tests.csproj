@@ -9,10 +9,6 @@
     <Configurations>DebugQ8;DebugQ16;DebugQ16-HDRI;TestQ8;TestQ16;TestQ16-HDRI;TestQ8-OpenMP;TestQ16-OpenMP;TestQ16-HDRI-OpenMP</Configurations>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <NoWarn>CS0618</NoWarn>
-  </PropertyGroup>
-
   <PropertyGroup Condition="$(Configuration.EndsWith('Q8'))">
     <DefineConstants>Q8;PLATFORM_$(Platform)</DefineConstants>
     <QuantumType>Q8</QuantumType>

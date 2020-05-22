@@ -42,59 +42,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void GetAttribute_NodeIsNull_ReturnsDefault()
-        {
-            int value = XmlHelper.GetAttribute<int>(null, "attr");
-
-            Assert.AreEqual(0, value);
-        }
-
-        [TestMethod]
-        public void GetAttribute_ElementDoesNotContainAttribute_ReturnsDefault()
-        {
-            var doc = new XmlDocument();
-            XmlElement element = doc.CreateElement("test");
-
-            int value = XmlHelper.GetAttribute<int>(element, "attr");
-
-            Assert.AreEqual(0, value);
-        }
-
-        [TestMethod]
-        public void GetAttribute_ValidAttribute_ReturnsValue()
-        {
-            var doc = new XmlDocument();
-            XmlElement element = doc.CreateElement("test");
-            XmlAttribute attribute = doc.CreateAttribute("attr");
-            attribute.Value = "true";
-            element.Attributes.Append(attribute);
-
-            bool value = XmlHelper.GetAttribute<bool>(element, "attr");
-
-            Assert.IsTrue(value);
-        }
-
-        [TestMethod]
-        public void GetValue_AttributeIsNull_ReturnsDefault()
-        {
-            bool value = XmlHelper.GetValue<bool>(null);
-
-            Assert.IsFalse(value);
-        }
-
-        [TestMethod]
-        public void GetValue_ValidAttribute_ReturnsDefault()
-        {
-            var doc = new XmlDocument();
-            XmlAttribute attribute = doc.CreateAttribute("attr");
-            attribute.Value = "true";
-
-            bool value = XmlHelper.GetValue<bool>(attribute);
-
-            Assert.IsTrue(value);
-        }
-
-        [TestMethod]
         public void SetAttribute_DoesNotHaveAttritubte_AttributeIsAdded()
         {
             var doc = new XmlDocument();

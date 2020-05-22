@@ -29,22 +29,6 @@ namespace ImageMagick
             return element;
         }
 
-        public static T GetAttribute<T>(XmlElement element, string name)
-        {
-            if (element == null || !element.HasAttribute(name))
-                return default(T);
-
-            return MagickConverter.Convert<T>(element.GetAttribute(name));
-        }
-
-        public static T GetValue<T>(XmlAttribute attribute)
-        {
-            if (attribute == null)
-                return default(T);
-
-            return MagickConverter.Convert<T>(attribute.Value);
-        }
-
         public static void SetAttribute<TType>(XmlElement element, string name, TType value)
         {
             DebugThrow.IfNull(nameof(element), element);
