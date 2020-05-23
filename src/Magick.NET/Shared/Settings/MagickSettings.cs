@@ -30,7 +30,7 @@ namespace ImageMagick
     /// <summary>
     /// Class that contains various settings.
     /// </summary>
-    public partial class MagickSettings : IMagickSettings
+    public partial class MagickSettings : IMagickSettings<QuantumType>
     {
         private readonly Dictionary<string, string> _options = new Dictionary<string, string>();
 
@@ -674,7 +674,7 @@ namespace ImageMagick
             return new Density(value);
         }
 
-        private static INativeInstance CreateNativeInstance(IMagickSettings instance)
+        private static INativeInstance CreateNativeInstance(IMagickSettings<QuantumType> instance)
         {
             var settings = (MagickSettings)instance;
 

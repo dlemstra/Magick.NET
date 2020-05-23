@@ -15,6 +15,16 @@ using System;
 using System.Security;
 using System.Runtime.InteropServices;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     public partial class MagickImageCollection
@@ -549,7 +559,7 @@ namespace ImageMagick
                     CheckException(exception);
                 }
             }
-            public IntPtr ReadBlob(IMagickSettings settings, byte[] data, int offset, int length)
+            public IntPtr ReadBlob(IMagickSettings<QuantumType> settings, byte[] data, int offset, int length)
             {
                 using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
                 {
@@ -580,7 +590,7 @@ namespace ImageMagick
                     return result;
                 }
             }
-            public IntPtr ReadFile(IMagickSettings settings)
+            public IntPtr ReadFile(IMagickSettings<QuantumType> settings)
             {
                 using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
                 {
@@ -611,7 +621,7 @@ namespace ImageMagick
                     return result;
                 }
             }
-            public IntPtr ReadStream(IMagickSettings settings, ReadWriteStreamDelegate reader, SeekStreamDelegate seeker, TellStreamDelegate teller)
+            public IntPtr ReadStream(IMagickSettings<QuantumType> settings, ReadWriteStreamDelegate reader, SeekStreamDelegate seeker, TellStreamDelegate teller)
             {
                 using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
                 {
@@ -670,7 +680,7 @@ namespace ImageMagick
                 RaiseWarning(magickException);
                 return result;
             }
-            public void WriteFile(IMagickImage image, IMagickSettings settings)
+            public void WriteFile(IMagickImage image, IMagickSettings<QuantumType> settings)
             {
                 using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
                 {
@@ -690,7 +700,7 @@ namespace ImageMagick
                     CheckException(exception);
                 }
             }
-            public void WriteStream(IMagickImage image, IMagickSettings settings, ReadWriteStreamDelegate writer, SeekStreamDelegate seeker, TellStreamDelegate teller, ReadWriteStreamDelegate reader)
+            public void WriteStream(IMagickImage image, IMagickSettings<QuantumType> settings, ReadWriteStreamDelegate writer, SeekStreamDelegate seeker, TellStreamDelegate teller, ReadWriteStreamDelegate reader)
             {
                 using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
                 {

@@ -1021,7 +1021,7 @@ namespace ImageMagick
                 }
             }
         }
-        internal static INativeInstance CreateInstance(IMagickSettings instance)
+        internal static INativeInstance CreateInstance(IMagickSettings<QuantumType> instance)
         {
             if (instance == null)
                 return NativeInstance.Zero;

@@ -833,7 +833,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the settings for this MagickImage instance.
         /// </summary>
-        public IMagickSettings Settings
+        public IMagickSettings<QuantumType> Settings
             => _settings;
 
         /// <summary>

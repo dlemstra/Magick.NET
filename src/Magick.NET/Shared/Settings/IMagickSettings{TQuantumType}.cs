@@ -13,22 +13,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-#if Q8
-using QuantumType = System.Byte;
-#elif Q16
-using QuantumType = System.UInt16;
-#elif Q16HDRI
-using QuantumType = System.Single;
-#else
-#error Not implemented!
-#endif
-
 namespace ImageMagick
 {
     /// <summary>
     /// Class that contains various settings.
     /// </summary>
-    public interface IMagickSettings
+    /// <typeparam name="TQuantumType">The quantum type.</typeparam>
+    public interface IMagickSettings<TQuantumType>
     {
         /// <summary>
         /// Gets or sets the affine to use when annotating with text or drawing.
@@ -43,12 +34,12 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the background color.
         /// </summary>
-        IMagickColor<QuantumType> BackgroundColor { get; set; }
+        IMagickColor<TQuantumType> BackgroundColor { get; set; }
 
         /// <summary>
         /// Gets or sets the border color.
         /// </summary>
-        IMagickColor<QuantumType> BorderColor { get; set; }
+        IMagickColor<TQuantumType> BorderColor { get; set; }
 
         /// <summary>
         /// Gets or sets the color space.
@@ -89,7 +80,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the fill color.
         /// </summary>
-        IMagickColor<QuantumType> FillColor { get; set; }
+        IMagickColor<TQuantumType> FillColor { get; set; }
 
         /// <summary>
         /// Gets or sets the fill pattern.
@@ -144,7 +135,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the color to use when drawing object outlines.
         /// </summary>
-        IMagickColor<QuantumType> StrokeColor { get; set; }
+        IMagickColor<TQuantumType> StrokeColor { get; set; }
 
         /// <summary>
         /// Gets or sets the pattern of dashes and gaps used to stroke paths. This represents a
@@ -227,7 +218,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the text undercolor box.
         /// </summary>
-        IMagickColor<QuantumType> TextUnderColor { get; set; }
+        IMagickColor<TQuantumType> TextUnderColor { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether verbose output os turned on or off.
