@@ -48,7 +48,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnCorrectValue()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 1, 1))
+                using (var image = new MagickImage(MagickColors.Red, 1, 1))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -64,7 +64,7 @@ namespace Magick.NET.Tests
 
             private static void ThrowsArgumentOutOfRangeException(string paramName, int x, int y)
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+                using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {

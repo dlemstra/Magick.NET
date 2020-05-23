@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_CopyTo()
         {
-            using (IMagickImageCollection collection = new MagickImageCollection())
+            using (var collection = new MagickImageCollection())
             {
                 collection.Add(new MagickImage(Files.SnakewarePNG));
                 collection.Add(new MagickImage(Files.RoseSparkleGIF));
@@ -70,7 +70,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Deconstruct()
         {
-            using (IMagickImageCollection collection = new MagickImageCollection())
+            using (var collection = new MagickImageCollection())
             {
                 ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
@@ -79,7 +79,7 @@ namespace Magick.NET.Tests
 
                 collection.Add(new MagickImage(MagickColors.Red, 20, 20));
 
-                using (IMagickImageCollection frames = new MagickImageCollection())
+                using (var frames = new MagickImageCollection())
                 {
                     frames.Add(new MagickImage(MagickColors.Red, 10, 20));
                     frames.Add(new MagickImage(MagickColors.Purple, 10, 20));
@@ -104,7 +104,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Evaluate()
         {
-            using (IMagickImageCollection collection = new MagickImageCollection())
+            using (var collection = new MagickImageCollection())
             {
                 ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
@@ -113,7 +113,7 @@ namespace Magick.NET.Tests
 
                 collection.Add(new MagickImage(MagickColors.Yellow, 40, 10));
 
-                using (IMagickImageCollection frames = new MagickImageCollection())
+                using (var frames = new MagickImageCollection())
                 {
                     frames.Add(new MagickImage(MagickColors.Green, 10, 10));
                     frames.Add(new MagickImage(MagickColors.White, 10, 10));
@@ -123,7 +123,7 @@ namespace Magick.NET.Tests
                     collection.Add(frames.AppendHorizontally());
                 }
 
-                using (IMagickImage image = collection.Evaluate(EvaluateOperator.Min))
+                using (var image = collection.Evaluate(EvaluateOperator.Min))
                 {
                     ColorAssert.AreEqual(MagickColors.Green, image, 0, 0);
                     ColorAssert.AreEqual(MagickColors.Yellow, image, 10, 0);
@@ -136,7 +136,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Flatten()
         {
-            using (IMagickImageCollection collection = new MagickImageCollection())
+            using (var collection = new MagickImageCollection())
             {
                 ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
@@ -144,11 +144,11 @@ namespace Magick.NET.Tests
                 });
 
                 collection.Add(new MagickImage(MagickColors.Brown, 10, 10));
-                IMagickImage center = new MagickImage(MagickColors.Fuchsia, 4, 4);
+                var center = new MagickImage(MagickColors.Fuchsia, 4, 4);
                 center.Page = new MagickGeometry(3, 3, 4, 4);
                 collection.Add(center);
 
-                using (IMagickImage image = collection.Flatten())
+                using (var image = collection.Flatten())
                 {
                     ColorAssert.AreEqual(MagickColors.Brown, image, 0, 0);
                     ColorAssert.AreEqual(MagickColors.Fuchsia, image, 5, 5);
@@ -159,7 +159,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Index()
         {
-            using (IMagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
+            using (var collection = new MagickImageCollection(Files.RoseSparkleGIF))
             {
                 for (int i = 0; i < collection.Count; i++)
                 {
@@ -175,7 +175,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Merge()
         {
-            using (IMagickImageCollection collection = new MagickImageCollection())
+            using (var collection = new MagickImageCollection())
             {
                 ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
@@ -184,7 +184,7 @@ namespace Magick.NET.Tests
 
                 collection.Read(Files.RoseSparkleGIF);
 
-                using (IMagickImage first = collection.Merge())
+                using (var first = collection.Merge())
                 {
                     Assert.AreEqual(collection[0].Width, first.Width);
                     Assert.AreEqual(collection[0].Height, first.Height);
@@ -195,7 +195,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Montage()
         {
-            using (IMagickImageCollection collection = new MagickImageCollection())
+            using (var collection = new MagickImageCollection())
             {
                 var settings = new MontageSettings();
                 settings.Geometry = new MagickGeometry(string.Format("{0}x{1}", 200, 200));
@@ -221,7 +221,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Morph()
         {
-            using (IMagickImageCollection collection = new MagickImageCollection())
+            using (var collection = new MagickImageCollection())
             {
                 ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
@@ -245,7 +245,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Mosaic()
         {
-            using (IMagickImageCollection collection = new MagickImageCollection())
+            using (var collection = new MagickImageCollection())
             {
                 ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
@@ -255,7 +255,7 @@ namespace Magick.NET.Tests
                 collection.Add(Files.SnakewarePNG);
                 collection.Add(Files.ImageMagickJPG);
 
-                using (IMagickImage mosaic = collection.Mosaic())
+                using (var mosaic = collection.Mosaic())
                 {
                     Assert.AreEqual(286, mosaic.Width);
                     Assert.AreEqual(118, mosaic.Height);
@@ -266,7 +266,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Smush()
         {
-            using (IMagickImageCollection collection = new MagickImageCollection())
+            using (var collection = new MagickImageCollection())
             {
                 ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
@@ -280,13 +280,13 @@ namespace Magick.NET.Tests
 
                 collection.AddRange(Files.RoseSparkleGIF);
 
-                using (IMagickImage image = collection.SmushHorizontal(20))
+                using (var image = collection.SmushHorizontal(20))
                 {
                     Assert.AreEqual((70 * 3) + (20 * 2), image.Width);
                     Assert.AreEqual(46, image.Height);
                 }
 
-                using (IMagickImage image = collection.SmushVertical(40))
+                using (var image = collection.SmushVertical(40))
                 {
                     Assert.AreEqual(70, image.Width);
                     Assert.AreEqual((46 * 3) + (40 * 2), image.Height);
@@ -304,13 +304,13 @@ namespace Magick.NET.Tests
             settings.Format = MagickFormat.Text;
             settings.TextGravity = Gravity.Center;
 
-            using (IMagickImageCollection images = new MagickImageCollection(Files.ImageMagickTXT, settings))
+            using (var images = new MagickImageCollection(Files.ImageMagickTXT, settings))
             {
                 Assert.AreEqual(2, images.Count);
                 ColorAssert.AreEqual(MagickColors.Gold, images[0], 348, 648);
             }
 
-            using (IMagickImageCollection images = new MagickImageCollection())
+            using (var images = new MagickImageCollection())
             {
                 images.Ping(Files.ImageMagickTXT, settings);
 
@@ -326,9 +326,9 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Remove()
         {
-            using (IMagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
+            using (var collection = new MagickImageCollection(Files.RoseSparkleGIF))
             {
-                IMagickImage first = collection[0];
+                var first = collection[0];
                 collection.Remove(first);
 
                 Assert.AreEqual(2, collection.Count);
@@ -345,7 +345,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_RePage()
         {
-            using (IMagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
+            using (var collection = new MagickImageCollection(Files.RoseSparkleGIF))
             {
                 collection[0].Page = new MagickGeometry("0x0+10+20");
 
@@ -370,12 +370,12 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Reverse()
         {
-            using (IMagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
+            using (var collection = new MagickImageCollection(Files.RoseSparkleGIF))
             {
-                IMagickImage first = collection.First();
+                var first = collection.First();
                 collection.Reverse();
 
-                IMagickImage last = collection.Last();
+                var last = collection.Last();
                 Assert.IsTrue(last == first);
             }
         }
@@ -383,7 +383,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_ToBase64()
         {
-            using (IMagickImageCollection collection = new MagickImageCollection())
+            using (var collection = new MagickImageCollection())
             {
                 Assert.AreEqual(string.Empty, collection.ToBase64());
 
@@ -395,7 +395,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_TrimBounds()
         {
-            using (IMagickImageCollection collection = new MagickImageCollection())
+            using (var collection = new MagickImageCollection())
             {
                 ExceptionAssert.Throws<InvalidOperationException>(() =>
                 {
@@ -421,7 +421,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Warning()
         {
-            int count = 0;
+            var count = 0;
             EventHandler<WarningEventArgs> warningDelegate = (sender, arguments) =>
             {
                 Assert.IsNotNull(sender);
@@ -433,7 +433,7 @@ namespace Magick.NET.Tests
                 count++;
             };
 
-            using (IMagickImageCollection collection = new MagickImageCollection())
+            using (var collection = new MagickImageCollection())
             {
                 collection.Warning += warningDelegate;
                 collection.Read(Files.EightBimTIF);
@@ -451,10 +451,10 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Write()
         {
-            long fileSize = new FileInfo(Files.RoseSparkleGIF).Length;
+            var fileSize = new FileInfo(Files.RoseSparkleGIF).Length;
             Assert.AreEqual(fileSize, 9891);
 
-            using (IMagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
+            using (var collection = new MagickImageCollection(Files.RoseSparkleGIF))
             {
                 using (MemoryStream memStream = new MemoryStream())
                 {
@@ -467,7 +467,7 @@ namespace Magick.NET.Tests
             var tempFile = new FileInfo(Path.GetTempFileName() + ".gif");
             try
             {
-                using (IMagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
+                using (var collection = new MagickImageCollection(Files.RoseSparkleGIF))
                 {
                     collection.Write(tempFile);
 
@@ -496,7 +496,7 @@ namespace Magick.NET.Tests
         private static void Test_Read(IMagickImageCollection collection)
         {
             Assert.AreEqual(3, collection.Count);
-            foreach (MagickImage image in collection)
+            foreach (var image in collection)
             {
                 Assert.AreEqual(70, image.Width);
                 Assert.AreEqual(46, image.Height);

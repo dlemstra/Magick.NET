@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldDefaultToBlack()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     ColorAssert.AreEqual(new MagickColor(0, 0, 0, 0), image.Settings.TextUnderColor);
                 }
@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldUseBlackWhenSetToNull()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.Settings.TextUnderColor = null;
                     image.Read("label:First");
@@ -48,7 +48,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldUseTheSpecifiedColor()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.Settings.TextUnderColor = MagickColors.Purple;
                     image.Read("label:First");

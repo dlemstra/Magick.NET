@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenXTooLow()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnPixelsWhenAreaIsCorrect()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -54,7 +54,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnPixelsWhenAreaIsCorrectAndMappingIsEnum()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -69,7 +69,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenGeometryIsNull()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -84,7 +84,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenGeometryIsNullAndMappingIsEnum()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -99,7 +99,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenGeometryIsSpecifiedAndMappingIsNull()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -114,7 +114,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenGeometryIsSpecifiedAndMappingIsEmpty()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -129,7 +129,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnArrayWhenGeometryIsCorrect()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -144,7 +144,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnArrayWhenGeometryIsCorrectAndMappingIsEnum()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -159,7 +159,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenMappingIsNull()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -174,7 +174,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenMappingIsEmpty()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -189,7 +189,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenMappingIsInvalid()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -204,7 +204,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnArrayWhenTwoChannelsAreSupplied()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -219,7 +219,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnArrayWhenTwoChannelsAreSuppliedAndMappingIsEnum()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {

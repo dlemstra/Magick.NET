@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
                 Font = Files.Fonts.KaushanScript,
             };
 
-            using (IMagickImage image = new MagickImage("label:asf", settings))
+            using (var image = new MagickImage("label:asf", settings))
             {
                 ColorAssert.AreEqual(MagickColors.Black, image, 293, 68);
                 ColorAssert.AreEqual(MagickColors.Black, image, 17, 200);

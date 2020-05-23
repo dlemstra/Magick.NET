@@ -102,7 +102,7 @@
       "arguments": [
         {
           "name": "value",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         }
       ]
     },
@@ -155,7 +155,7 @@
       "arguments": [
         {
           "name": "value",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         }
       ]
     },

@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
                 {
                     using (Bitmap bitmap = new Bitmap(Files.SnakewarePNG))
                     {
-                        using (IMagickImage image = new MagickImage(bitmap))
+                        using (var image = new MagickImage(bitmap))
                         {
                             Assert.AreEqual(286, image.Width);
                             Assert.AreEqual(67, image.Height);
@@ -58,7 +58,7 @@ namespace Magick.NET.Tests
                     {
                         Assert.AreEqual(bitmap.RawFormat, ImageFormat.MemoryBmp);
 
-                        using (IMagickImage image = new MagickImage(bitmap))
+                        using (var image = new MagickImage(bitmap))
                         {
                             Assert.AreEqual(50, image.Width);
                             Assert.AreEqual(100, image.Height);
@@ -79,7 +79,7 @@ namespace Magick.NET.Tests
                             bytes = memStream.GetBuffer();
                         }
 
-                        using (IMagickImage image = new MagickImage(bytes))
+                        using (var image = new MagickImage(bytes))
                         {
                             image.Settings.Compression = CompressionMethod.Group4;
 
@@ -88,9 +88,9 @@ namespace Magick.NET.Tests
                                 image.Write(memStream);
                                 memStream.Position = 0;
 
-                                using (IMagickImage before = new MagickImage(Files.Coders.PageTIF))
+                                using (var before = new MagickImage(Files.Coders.PageTIF))
                                 {
-                                    using (IMagickImage after = new MagickImage(memStream))
+                                    using (var after = new MagickImage(memStream))
                                     {
                                         Assert.AreEqual(0.0, before.Compare(after, ErrorMetric.RootMeanSquared));
                                     }

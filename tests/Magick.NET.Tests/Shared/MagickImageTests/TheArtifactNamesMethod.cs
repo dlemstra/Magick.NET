@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTheArtifactNames()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     image.SetArtifact("foo", "bar");
                     image.SetAttribute("bar", "foo");

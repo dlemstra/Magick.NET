@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
                     },
                 };
 
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.Read(Files.ImageMagickJPG, settings);
 

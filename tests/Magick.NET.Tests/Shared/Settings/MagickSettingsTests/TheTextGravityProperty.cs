@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldDetermineThePositionOfTheText()
             {
-                using (IMagickImage image = new MagickImage("xc:red", 300, 300))
+                using (var image = new MagickImage("xc:red", 300, 300))
                 {
                     Assert.AreEqual(Gravity.Undefined, image.Settings.TextGravity);
 

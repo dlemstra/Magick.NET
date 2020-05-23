@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldGetTheCommentAttribute()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.SetAttribute("comment", "foo");
 
@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetTheCommentAttribute()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.Comment = "foo";
 
@@ -45,7 +45,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldRemoveTheCommentAttributeWhenSetToNull()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.SetAttribute("comment", "foo");
 

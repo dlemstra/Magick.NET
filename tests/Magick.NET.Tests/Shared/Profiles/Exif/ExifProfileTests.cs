@@ -15,6 +15,16 @@ using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace Magick.NET.Tests
 {
     // TODO: Move methods to another class
@@ -28,7 +38,7 @@ namespace Magick.NET.Tests
             {
                 double exposureTime = 1.0 / 1600;
 
-                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetExifProfile();
 
@@ -39,7 +49,7 @@ namespace Magick.NET.Tests
                 }
 
                 memStream.Position = 0;
-                using (IMagickImage image = new MagickImage(memStream))
+                using (var image = new MagickImage(memStream))
                 {
                     var profile = image.GetExifProfile();
 
@@ -51,7 +61,7 @@ namespace Magick.NET.Tests
                 }
 
                 memStream.Position = 0;
-                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetExifProfile();
 
@@ -62,7 +72,7 @@ namespace Magick.NET.Tests
                 }
 
                 memStream.Position = 0;
-                using (IMagickImage image = new MagickImage(memStream))
+                using (var image = new MagickImage(memStream))
                 {
                     var profile = image.GetExifProfile();
 
@@ -77,7 +87,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Infinity()
         {
-            using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
                 var profile = image.GetExifProfile();
                 profile.SetValue(ExifTag.ExposureBiasValue, new SignedRational(double.PositiveInfinity));
@@ -109,12 +119,12 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Values()
         {
-            using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
                 var profile = image.GetExifProfile();
                 TestExifProfile(profile);
 
-                using (IMagickImage emptyImage = new MagickImage(Files.ImageMagickJPG))
+                using (var emptyImage = new MagickImage(Files.ImageMagickJPG))
                 {
                     Assert.IsNull(emptyImage.GetExifProfile());
                     emptyImage.SetProfile(profile);
@@ -128,7 +138,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_ExifTypeUndefined()
         {
-            using (IMagickImage image = new MagickImage(Files.ExifUndefTypeJPG))
+            using (var image = new MagickImage(Files.ExifUndefTypeJPG))
             {
                 var profile = image.GetExifProfile();
                 Assert.IsNotNull(profile);
@@ -143,7 +153,7 @@ namespace Magick.NET.Tests
             }
         }
 
-        private static void TestExifProfile(IExifProfile profile)
+        private static void TestExifProfile(IExifProfile<QuantumType> profile)
         {
             Assert.IsNotNull(profile);
 

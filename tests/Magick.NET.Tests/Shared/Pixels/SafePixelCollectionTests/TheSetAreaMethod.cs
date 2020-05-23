@@ -35,7 +35,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenByteArrayIsNull()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenByteArrayHasInvalidSize()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -65,7 +65,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenByteArrayHasTooManyValues()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -81,7 +81,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangePixelsWhenByteArrayHasMaxNumberOfValues()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -96,7 +96,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenByteArrayIsSpecifiedAndGeometryIsNull()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -111,7 +111,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangePixelsWhenGeometryAndByteArrayAreSpecified()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -126,7 +126,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenDoubleArrayIsNull()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -141,7 +141,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenDoubleArrayHasInvalidSize()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -156,7 +156,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenDoubleArrayHasTooManyValues()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -172,7 +172,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangePixelsWhenDoubleArrayHasMaxNumberOfValues()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -187,7 +187,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenDoubleArrayIsSpecifiedAndGeometryIsNull()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -202,7 +202,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangePixelsWhenGeometryAndDoubleArrayAreSpecified()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -217,7 +217,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenIntArrayIsNull()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -232,7 +232,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenIntArrayHasInvalidSize()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -247,7 +247,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenIntArrayHasTooManyValues()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -263,7 +263,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangePixelsWhenIntArrayHasMaxNumberOfValues()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -278,7 +278,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenIntArrayIsSpecifiedAndGeometryIsNull()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -293,7 +293,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangePixelsWhenGeometryAndIntArrayAreSpecified()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -308,7 +308,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenArrayIsNull()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -323,7 +323,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenArrayHasInvalidSize()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -338,7 +338,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenArrayHasTooManyValues()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -354,7 +354,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangePixelsWhenArrayHasMaxNumberOfValues()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -369,7 +369,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenArrayIsSpecifiedAndGeometryIsNull()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -384,7 +384,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangePixelsWhenGeometryAndArrayAreSpecified()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {

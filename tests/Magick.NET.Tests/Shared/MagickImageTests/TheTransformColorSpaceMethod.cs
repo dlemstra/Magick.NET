@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnFalseWhenTheImageHasNoProfile()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     var result = image.TransformColorSpace(ColorProfile.AdobeRGB1998);
 
@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTrueWhenTheImageHasProfile()
             {
-                using (IMagickImage image = new MagickImage(Files.PictureJPG))
+                using (var image = new MagickImage(Files.PictureJPG))
                 {
                     var result = image.TransformColorSpace(ColorProfile.SRGB);
 
@@ -45,7 +45,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnFalseWhenSourceProfileColorSpaceIsIncorrect()
             {
-                using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+                using (var image = new MagickImage(Files.MagickNETIconPNG))
                 {
                     var result = image.TransformColorSpace(ColorProfile.USWebCoatedSWOP, ColorProfile.AdobeRGB1998);
 
@@ -56,7 +56,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTrueWhenSourceProfileColorSpaceIsCorrect()
             {
-                using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+                using (var image = new MagickImage(Files.MagickNETIconPNG))
                 {
                     var result = image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.AdobeRGB1998);
 
@@ -67,7 +67,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTrueWhenSourceProfileColorSpaceIsCorrectAndTheImageHasNoProfile()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     var result = image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.AdobeRGB1998);
 
@@ -78,7 +78,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotChangeTheColorSpaceWhenSourceColorSpaceIsIncorrect()
             {
-                using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+                using (var image = new MagickImage(Files.MagickNETIconPNG))
                 {
                     Assert.AreEqual(ColorSpace.sRGB, image.ColorSpace);
 
@@ -90,7 +90,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangeTheColorSpace()
             {
-                using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+                using (var image = new MagickImage(Files.MagickNETIconPNG))
                 {
                     Assert.AreEqual(ColorSpace.sRGB, image.ColorSpace);
 
@@ -102,7 +102,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldClampPixels()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.White, 1, 1))
+                using (var image = new MagickImage(MagickColors.White, 1, 1))
                 {
                     image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.AdobeRGB1998);
 #if Q8 || Q16
@@ -118,11 +118,11 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldUseTheSpecifiedMode()
             {
-                using (IMagickImage quantumImage = new MagickImage(Files.PictureJPG))
+                using (var quantumImage = new MagickImage(Files.PictureJPG))
                 {
                     quantumImage.TransformColorSpace(ColorProfile.USWebCoatedSWOP);
 
-                    using (IMagickImage highResImage = new MagickImage(Files.PictureJPG))
+                    using (var highResImage = new MagickImage(Files.PictureJPG))
                     {
                         highResImage.TransformColorSpace(ColorProfile.USWebCoatedSWOP, ColorTransformMode.HighRes);
 

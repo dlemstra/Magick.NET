@@ -21,13 +21,13 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_ImageSize()
         {
-            using (IMagickImage image = CreateImage(null))
+            using (var image = CreateImage(null))
             {
                 Assert.AreEqual(107, image.Width);
                 Assert.AreEqual(19, image.Height);
             }
 
-            using (IMagickImage image = CreateImage(97))
+            using (var image = CreateImage(97))
             {
                 Assert.AreEqual(142, image.Width);
                 Assert.AreEqual(24, image.Height);
@@ -42,9 +42,9 @@ namespace Magick.NET.Tests
             Assert.AreEqual(2, density.Density.Y);
         }
 
-        private IMagickImage CreateImage(int? density)
+        private MagickImage CreateImage(int? density)
         {
-            IMagickImage image = new MagickImage(MagickColors.Purple, 500, 500);
+            var image = new MagickImage(MagickColors.Purple, 500, 500);
             var pointSize = new DrawableFontPointSize(20);
             var text = new DrawableText(250, 250, "Magick.NET");
 

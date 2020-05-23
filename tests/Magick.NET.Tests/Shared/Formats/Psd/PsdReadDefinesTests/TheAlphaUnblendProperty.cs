@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
                     },
                 };
 
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.Read(Files.Coders.PlayerPSD, settings);
 
@@ -44,7 +44,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotSetTheDefineWhenTheValueIsTrue()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(new PsdReadDefines()
                     {

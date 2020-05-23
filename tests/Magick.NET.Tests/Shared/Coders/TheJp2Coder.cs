@@ -21,19 +21,19 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldReadTheImageWithCorrectDimensions()
         {
-            using (IMagickImage image = new MagickImage(Files.Coders.GrimJP2))
+            using (var image = new MagickImage(Files.Coders.GrimJP2))
             {
                 Assert.AreEqual(2155, image.Width);
                 Assert.AreEqual(2687, image.Height);
             }
 
-            using (IMagickImage image = new MagickImage(Files.Coders.GrimJP2 + "[0]"))
+            using (var image = new MagickImage(Files.Coders.GrimJP2 + "[0]"))
             {
                 Assert.AreEqual(2155, image.Width);
                 Assert.AreEqual(2687, image.Height);
             }
 
-            using (IMagickImage image = new MagickImage(Files.Coders.GrimJP2 + "[1]"))
+            using (var image = new MagickImage(Files.Coders.GrimJP2 + "[1]"))
             {
                 Assert.AreEqual(256, image.Width);
                 Assert.AreEqual(256, image.Height);

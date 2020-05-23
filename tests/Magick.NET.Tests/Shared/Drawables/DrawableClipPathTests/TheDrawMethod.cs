@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetTheClipMask()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Thistle, 100, 100))
+                using (var image = new MagickImage(MagickColors.Thistle, 100, 100))
                 {
                     SetClipMask(image, 20, 20, 80, 80);
 
@@ -48,7 +48,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            private void SetClipMask(IMagickImage image, int x0, int y0, int x1, int y1)
+            private void SetClipMask(MagickImage image, int x0, int y0, int x1, int y1)
             {
                 var drawables = new Drawables();
 

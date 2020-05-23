@@ -12,6 +12,16 @@
 
 using System;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <summary>
@@ -19,7 +29,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class MagickSearchResult : IDisposable
     {
-        internal MagickSearchResult(IMagickImage image, IMagickGeometry bestMatch, double similarityMetric)
+        internal MagickSearchResult(IMagickImage<QuantumType> image, IMagickGeometry bestMatch, double similarityMetric)
         {
             SimilarityImage = image;
             BestMatch = bestMatch;
@@ -35,7 +45,7 @@ namespace ImageMagick
         /// Gets the a similarity image such that an exact match location is completely white and if none of
         /// the pixels match, black, otherwise some gray level in-between.
         /// </summary>
-        public IMagickImage SimilarityImage { get; private set; }
+        public IMagickImage<QuantumType> SimilarityImage { get; private set; }
 
         /// <summary>
         /// Gets the similarity metric.

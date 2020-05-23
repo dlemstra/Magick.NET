@@ -26,7 +26,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnEnumerator()
             {
-                using (IMagickImage image = new MagickImage(Files.CirclePNG))
+                using (var image = new MagickImage(Files.CirclePNG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnEnumeratorForInterfaceImplementation()
             {
-                using (IMagickImage image = new MagickImage(Files.CirclePNG))
+                using (var image = new MagickImage(Files.CirclePNG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -52,7 +52,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnEnumeratorForFirst()
             {
-                using (IMagickImage image = new MagickImage(Files.ConnectedComponentsPNG, 10, 10))
+                using (var image = new MagickImage(Files.ConnectedComponentsPNG, 10, 10))
                 {
                     var pixel = image.GetPixels().First(p => p.ToColor().Equals(MagickColors.Black));
                     Assert.IsNotNull(pixel);
@@ -66,7 +66,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnEnumeratorForCount()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+                using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {

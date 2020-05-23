@@ -10,6 +10,16 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <summary>
@@ -37,7 +47,7 @@ namespace ImageMagick
         /// </summary>
         public double Tolerance { get; set; } = 0.01;
 
-        internal void SetImageArtifacts(IMagickImage image)
+        internal void SetImageArtifacts(IMagickImage<QuantumType> image)
         {
             if (!string.IsNullOrEmpty(SeedColors))
                 image.SetArtifact("kmeans:seed-colors", SeedColors);

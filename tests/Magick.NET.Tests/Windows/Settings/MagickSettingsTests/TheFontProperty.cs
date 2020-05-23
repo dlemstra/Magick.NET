@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetTheFontWhenReadingImage()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     Assert.AreEqual(null, image.Settings.Font);
 

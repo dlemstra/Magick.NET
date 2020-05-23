@@ -23,13 +23,13 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldIgnoreTheSpecifiedTags()
         {
-            using (IMagickImage image = new MagickImage())
+            using (var image = new MagickImage())
             {
                 image.Settings.SetDefine(MagickFormat.Tiff, "ignore-tags", "32934");
                 image.Read(Files.Coders.IgnoreTagTIF);
             }
 
-            using (IMagickImage image = new MagickImage())
+            using (var image = new MagickImage())
             {
                 var readSettings = new MagickReadSettings(new TiffReadDefines()
                 {
@@ -43,7 +43,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldBeAbleToReadAndWriteIptcValues()
         {
-            using (IMagickImage input = new MagickImage(Files.MagickNETIconPNG))
+            using (var input = new MagickImage(Files.MagickNETIconPNG))
             {
                 var profile = input.GetIptcProfile();
                 Assert.IsNull(profile);
@@ -60,7 +60,7 @@ namespace Magick.NET.Tests
                     input.Write(memStream);
 
                     memStream.Position = 0;
-                    using (IMagickImage output = new MagickImage(memStream))
+                    using (var output = new MagickImage(memStream))
                     {
                         profile = output.GetIptcProfile();
                         Assert.IsNotNull(profile);
@@ -74,7 +74,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldBeAbleToWriteLzwPTiffToStream()
         {
-            using (IMagickImage image = new MagickImage(Files.InvitationTIF))
+            using (var image = new MagickImage(Files.InvitationTIF))
             {
                 image.Settings.Compression = CompressionMethod.LZW;
                 using (var stream = new MemoryStream())
@@ -87,7 +87,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldBeAbleToUseGroup4Compression()
         {
-            using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
+            using (var input = new MagickImage(Files.Builtin.Logo))
             {
                 input.Settings.Compression = CompressionMethod.Group4;
                 using (var stream = new MemoryStream())
@@ -95,7 +95,7 @@ namespace Magick.NET.Tests
                     input.Write(stream, MagickFormat.Tiff);
 
                     stream.Position = 0;
-                    using (IMagickImage output = new MagickImage(stream))
+                    using (var output = new MagickImage(stream))
                     {
                         Assert.AreEqual(output.Compression, CompressionMethod.Group4);
                     }
@@ -106,7 +106,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldBeAbleToUseFaxCompression()
         {
-            using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
+            using (var input = new MagickImage(Files.Builtin.Logo))
             {
                 input.Settings.Compression = CompressionMethod.Fax;
                 using (var stream = new MemoryStream())
@@ -114,7 +114,7 @@ namespace Magick.NET.Tests
                     input.Write(stream, MagickFormat.Tiff);
 
                     stream.Position = 0;
-                    using (IMagickImage output = new MagickImage(stream))
+                    using (var output = new MagickImage(stream))
                     {
                         Assert.AreEqual(output.Compression, CompressionMethod.Fax);
                     }
@@ -125,7 +125,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldBeAbleToReadImageWithInfiniteRowsPerStrip()
         {
-            using (IMagickImage image = new MagickImage(Files.Coders.RowsPerStripTIF))
+            using (var image = new MagickImage(Files.Coders.RowsPerStripTIF))
             {
                 Assert.AreEqual(image.Format, MagickFormat.Tiff);
             }

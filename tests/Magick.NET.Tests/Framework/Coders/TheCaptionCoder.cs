@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
                 Height = 85,
             };
 
-            using (IMagickImage image = new MagickImage(caption, readSettings))
+            using (var image = new MagickImage(caption, readSettings))
             {
                 ColorAssert.AreEqual(MagickColors.Blue, image, 55, 20);
             }
@@ -52,7 +52,7 @@ namespace Magick.NET.Tests
                 Width = 450,
             };
 
-            using (IMagickImage image = new MagickImage(caption, readSettings))
+            using (var image = new MagickImage(caption, readSettings))
             {
                 ColorAssert.AreEqual(MagickColors.Green, image, 170, 67);
                 ColorAssert.AreEqual(MagickColors.Red, image, 444, 26);
@@ -73,7 +73,7 @@ namespace Magick.NET.Tests
                 Height = 101,
             };
 
-            using (IMagickImage image = new MagickImage(caption, readSettings))
+            using (var image = new MagickImage(caption, readSettings))
             {
                 ColorAssert.AreEqual(MagickColors.Black, image, 415, 27);
                 ColorAssert.AreEqual(MagickColors.Black, image, 425, 54);
@@ -92,7 +92,7 @@ namespace Magick.NET.Tests
                 Width = 400,
             };
 
-            using (IMagickImage image = new MagickImage(caption, readSettings))
+            using (var image = new MagickImage(caption, readSettings))
             {
                 ColorAssert.AreEqual(MagickColors.White, image, 321, 30);
                 ColorAssert.AreEqual(MagickColors.Black, image, 86, 86);
@@ -112,7 +112,7 @@ namespace Magick.NET.Tests
                 Width = 40,
             };
 
-            using (IMagickImage image = new MagickImage(caption, readSettings))
+            using (var image = new MagickImage(caption, readSettings))
             {
                 Assert.AreEqual(83, image.Height);
 
@@ -134,7 +134,7 @@ namespace Magick.NET.Tests
                 Width = 40,
             };
 
-            using (IMagickImage image = new MagickImage(caption, readSettings))
+            using (var image = new MagickImage(caption, readSettings))
             {
                 Assert.AreEqual(249, image.Height);
 

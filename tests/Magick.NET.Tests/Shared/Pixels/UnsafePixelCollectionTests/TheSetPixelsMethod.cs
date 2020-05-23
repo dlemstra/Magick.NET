@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotThrowExceptionWhenByteArrayIsNull()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -45,7 +45,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotThrowExceptionWhenByteArrayHasInvalidSize()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -57,7 +57,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotThrowExceptionWhenByteArrayIsTooLong()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -70,7 +70,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangePixelsWhenByteArrayHasMaxNumberOfValues()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -85,7 +85,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotThrowExceptionWhenDoubleArrayIsNull()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -97,7 +97,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotThrowExceptionWhenDoubleArrayHasInvalidSize()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -109,7 +109,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotThrowExceptionWhenDoubleArrayIsTooLong()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -122,7 +122,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangePixelsWhenDoubleArrayHasMaxNumberOfValues()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -137,7 +137,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotThrowExceptionWhenIntArrayIsNull()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -149,7 +149,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotThrowExceptionWhenIntArrayHasInvalidSize()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -161,7 +161,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotThrowExceptionWhenIntArrayIsTooLong()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -174,7 +174,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangePixelsWhenIntArrayHasMaxNumberOfValues()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -189,7 +189,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotThrowExceptionWhenArrayIsNull()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -201,7 +201,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotThrowExceptionWhenIntHasInvalidSize()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -213,7 +213,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotThrowExceptionWhenArrayIsTooLong()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -226,7 +226,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangePixelsWhenArrayHasMaxNumberOfValues()
             {
-                using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {

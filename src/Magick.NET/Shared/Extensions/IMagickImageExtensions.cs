@@ -12,11 +12,21 @@
 
 using System;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     internal static class IMagickImageExtensions
     {
-        internal static IntPtr GetInstance(this IMagickImage self)
+        internal static IntPtr GetInstance(this IMagickImage<QuantumType> self)
         {
             if (self == null)
                 return IntPtr.Zero;
@@ -27,7 +37,7 @@ namespace ImageMagick
             throw new NotSupportedException();
         }
 
-        internal static MagickSettings GetSettings(this IMagickImage self)
+        internal static MagickSettings GetSettings(this IMagickImage<QuantumType> self)
         {
             var settings = self?.Settings as MagickSettings;
             if (settings != null)
@@ -36,7 +46,7 @@ namespace ImageMagick
             throw new NotSupportedException();
         }
 
-        internal static MagickErrorInfo CreateErrorInfo(this IMagickImage self)
+        internal static MagickErrorInfo CreateErrorInfo(this IMagickImage<QuantumType> self)
         {
             if (self == null)
                 return null;
@@ -47,7 +57,7 @@ namespace ImageMagick
             throw new NotSupportedException();
         }
 
-        internal static void SetNext(this IMagickImage self, IMagickImage next)
+        internal static void SetNext(this IMagickImage<QuantumType> self, IMagickImage<QuantumType> next)
         {
             if (self is MagickImage image)
                 image.SetNext(next);

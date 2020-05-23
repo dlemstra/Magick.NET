@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldRemoveWriteMask()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     using (var writeMask = new MagickImage(MagickColors.Black, image.Width, image.Height))
                     {

@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetTheDefine()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     var defines = new DdsWriteDefines
                     {

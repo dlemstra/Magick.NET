@@ -23,9 +23,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldCreateDifferentImagesEachRun()
             {
-                using (IMagickImage imageA = new MagickImage(MagickColors.Black, 10, 10))
+                using (var imageA = new MagickImage(MagickColors.Black, 10, 10))
                 {
-                    using (IMagickImage imageB = new MagickImage(MagickColors.Black, 10, 10))
+                    using (var imageB = new MagickImage(MagickColors.Black, 10, 10))
                     {
                         imageA.AddNoise(NoiseType.Random);
                         imageB.AddNoise(NoiseType.Random);

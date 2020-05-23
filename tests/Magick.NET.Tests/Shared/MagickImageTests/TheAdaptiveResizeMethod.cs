@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotEnlargeTheImage()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Black, 512, 1))
+                using (var image = new MagickImage(MagickColors.Black, 512, 1))
                 {
                     image.AdaptiveResize(512, 512);
 
@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldEnlargeTheImageWhenAspectRatioIsIgnored()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Black, 512, 1))
+                using (var image = new MagickImage(MagickColors.Black, 512, 1))
                 {
                     var geometry = new MagickGeometry(512, 512)
                     {
@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldResizeTheImage()
             {
-                using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+                using (var image = new MagickImage(Files.MagickNETIconPNG))
                 {
                     image.AdaptiveResize(100, 80);
 

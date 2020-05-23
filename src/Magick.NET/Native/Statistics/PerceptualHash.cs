@@ -15,6 +15,16 @@ using System;
 using System.Security;
 using System.Runtime.InteropServices;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     public partial class PerceptualHash
@@ -67,7 +77,7 @@ namespace ImageMagick
                 NativeMethods.X86.PerceptualHash_DisposeList(list);
                 #endif
             }
-            public static IntPtr GetInstance(IMagickImage image, IntPtr list, PixelChannel channel)
+            public static IntPtr GetInstance(IMagickImage<QuantumType> image, IntPtr list, PixelChannel channel)
             {
                 #if PLATFORM_AnyCPU
                 if (NativeLibrary.Is64Bit)

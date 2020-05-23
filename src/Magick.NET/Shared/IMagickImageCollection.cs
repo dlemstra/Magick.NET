@@ -29,7 +29,7 @@ namespace ImageMagick
     /// <summary>
     /// Represents the collection of images.
     /// </summary>
-    public partial interface IMagickImageCollection : IDisposable, IList<IMagickImage>
+    public partial interface IMagickImageCollection : IDisposable, IList<IMagickImage<QuantumType>>
     {
         /// <summary>
         /// Event that will we raised when a warning is thrown by ImageMagick.
@@ -63,7 +63,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="images">The images to add to the collection.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void AddRange(IEnumerable<IMagickImage> images);
+        void AddRange(IEnumerable<IMagickImage<QuantumType>> images);
 
         /// <summary>
         /// Adds the image(s) from the specified file name to the collection.
@@ -100,14 +100,14 @@ namespace ImageMagick
         /// </summary>
         /// <returns>A single image, by appending all the images in the collection horizontally (+append).</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickImage AppendHorizontally();
+        IMagickImage<QuantumType> AppendHorizontally();
 
         /// <summary>
         /// Creates a single image, by appending all the images in the collection vertically (-append).
         /// </summary>
         /// <returns>A single image, by appending all the images in the collection vertically (-append).</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickImage AppendVertically();
+        IMagickImage<QuantumType> AppendVertically();
 
         /// <summary>
         /// Merge a sequence of images. This is useful for GIF animation sequences that have page
@@ -128,7 +128,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The images combined into a single image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickImage Combine();
+        IMagickImage<QuantumType> Combine();
 
         /// <summary>
         /// Combines the images into a single image. The grayscale value of the pixels of each image
@@ -138,7 +138,7 @@ namespace ImageMagick
         /// <param name="colorSpace">The image colorspace.</param>
         /// <returns>The images combined into a single image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickImage Combine(ColorSpace colorSpace);
+        IMagickImage<QuantumType> Combine(ColorSpace colorSpace);
 
         /// <summary>
         /// Perform complex mathematics on an image sequence.
@@ -161,7 +161,7 @@ namespace ImageMagick
         /// <param name="evaluateOperator">The operator.</param>
         /// <returns>The resulting image of the evaluation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickImage Evaluate(EvaluateOperator evaluateOperator);
+        IMagickImage<QuantumType> Evaluate(EvaluateOperator evaluateOperator);
 
         /// <summary>
         /// Use the virtual canvas size of first image. Images which fall outside this canvas is clipped.
@@ -169,7 +169,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The resulting image of the flatten operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickImage Flatten();
+        IMagickImage<QuantumType> Flatten();
 
         /// <summary>
         /// Flatten this collection into a single image.
@@ -178,7 +178,7 @@ namespace ImageMagick
         /// <param name="backgroundColor">The background color of the output image.</param>
         /// <returns>The resulting image of the flatten operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickImage Flatten(IMagickColor<QuantumType> backgroundColor);
+        IMagickImage<QuantumType> Flatten(IMagickColor<QuantumType> backgroundColor);
 
         /// <summary>
         /// Inserts an image with the specified file name into the collection.
@@ -192,7 +192,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="image">The image to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Map(IMagickImage image);
+        void Map(IMagickImage<QuantumType> image);
 
         /// <summary>
         /// Remap image colors with closest color from reference image.
@@ -200,7 +200,7 @@ namespace ImageMagick
         /// <param name="image">The image to use.</param>
         /// <param name="settings">Quantize settings.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Map(IMagickImage image, QuantizeSettings settings);
+        void Map(IMagickImage<QuantumType> image, QuantizeSettings settings);
 
         /// <summary>
         /// Merge all layers onto a canvas just large enough to hold all the actual images. The virtual
@@ -208,7 +208,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The resulting image of the merge operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickImage Merge();
+        IMagickImage<QuantumType> Merge();
 
         /// <summary>
         /// Create a composite image by combining the images with the specified settings.
@@ -216,7 +216,7 @@ namespace ImageMagick
         /// <param name="settings">The settings to use.</param>
         /// <returns>The resulting image of the montage operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickImage Montage(IMontageSettings<QuantumType> settings);
+        IMagickImage<QuantumType> Montage(IMontageSettings<QuantumType> settings);
 
         /// <summary>
         /// The Morph method requires a minimum of two images. The first image is transformed into
@@ -232,7 +232,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The resulting image of the mosaic operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickImage Mosaic();
+        IMagickImage<QuantumType> Mosaic();
 
         /// <summary>
         /// Compares each image the GIF disposed forms of the previous image in the sequence. From
@@ -342,7 +342,7 @@ namespace ImageMagick
         /// <param name="terms">The list of polynomial coefficients and degree pairs and a constant.</param>
         /// <returns>A new image where each pixel is the sum of the pixels in the image sequence after applying its
         /// corresponding terms (coefficient and degree pairs).</returns>
-        IMagickImage Polynomial(double[] terms);
+        IMagickImage<QuantumType> Polynomial(double[] terms);
 
         /// <summary>
         /// Quantize images (reduce number of colors).
@@ -497,7 +497,7 @@ namespace ImageMagick
         /// <param name="offset">Minimum distance in pixels between images.</param>
         /// <returns>The resulting image of the smush operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickImage SmushHorizontal(int offset);
+        IMagickImage<QuantumType> SmushHorizontal(int offset);
 
         /// <summary>
         /// Smush images from list into single image in vertical direction.
@@ -505,7 +505,7 @@ namespace ImageMagick
         /// <param name="offset">Minimum distance in pixels between images.</param>
         /// <returns>The resulting image of the smush operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickImage SmushVertical(int offset);
+        IMagickImage<QuantumType> SmushVertical(int offset);
 
         /// <summary>
         /// Converts this instance to a <see cref="byte"/> array.

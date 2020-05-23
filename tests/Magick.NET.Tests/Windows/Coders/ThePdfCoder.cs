@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Format()
         {
-            using (IMagickImage image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI))
+            using (var image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI))
             {
                 Assert.AreEqual(765, image.Width);
                 Assert.AreEqual(361, image.Height);

@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -39,9 +39,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldCompositeTheImage()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage other = new MagickImage("xc:purple", 1, 1))
+                        using (var other = new MagickImage("xc:purple", 1, 1))
                         {
                             image.Composite(other);
 
@@ -53,11 +53,11 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldPreserveGrayColorSpace()
                 {
-                    using (IMagickImage logo = new MagickImage(Files.Builtin.Logo))
+                    using (var logo = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage blue = logo.Separate(Channels.Blue).First())
+                        using (var blue = logo.Separate(Channels.Blue).First())
                         {
-                            using (IMagickImage green = logo.Separate(Channels.Green).First())
+                            using (var green = logo.Separate(Channels.Green).First())
                             {
                                 blue.Composite(green, CompositeOperator.Modulate);
 
@@ -74,7 +74,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -86,9 +86,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldOnlyCompositeTheSpecifiedChannel()
                 {
-                    using (IMagickImage image = new MagickImage("xc:black", 1, 1))
+                    using (var image = new MagickImage("xc:black", 1, 1))
                     {
-                        using (IMagickImage other = new MagickImage("xc:white", 1, 1))
+                        using (var other = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(other, Channels.Green);
 
@@ -104,7 +104,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -116,9 +116,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldAddTransparencyWithCopyAlpha()
                 {
-                    using (IMagickImage image = new MagickImage(MagickColors.Red, 2, 1))
+                    using (var image = new MagickImage(MagickColors.Red, 2, 1))
                     {
-                        using (IMagickImage alpha = new MagickImage(MagickColors.Black, 1, 1))
+                        using (var alpha = new MagickImage(MagickColors.Black, 1, 1))
                         {
                             alpha.BackgroundColor = MagickColors.White;
                             alpha.Extent(2, 1, Gravity.East);
@@ -138,7 +138,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -150,9 +150,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldOnlyCompositeTheSpecifiedChannel()
                 {
-                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage red = new MagickImage(MagickColors.Red, image.Width, image.Height))
+                        using (var red = new MagickImage(MagickColors.Red, image.Width, image.Height))
                         {
                             image.Composite(red, CompositeOperator.Multiply, Channels.Blue);
 
@@ -168,7 +168,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -180,9 +180,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenArgumentIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage red = new MagickImage(MagickColors.Red, image.Width, image.Height))
+                        using (var red = new MagickImage(MagickColors.Red, image.Width, image.Height))
                         {
                             image.Composite(red, CompositeOperator.CopyCyan, null);
                         }
@@ -192,9 +192,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheArguments()
                 {
-                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
+                        using (var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
                         {
                             image.Warning += (object sender, WarningEventArgs arguments) => Assert.Fail(arguments.Message);
                             image.Composite(blur, CompositeOperator.Blur, "3");
@@ -205,9 +205,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldRemoveTheArtifact()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage blur = new MagickImage("xc:white", 1, 1))
+                        using (var blur = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(blur, CompositeOperator.Blur, "3");
 
@@ -223,7 +223,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -235,9 +235,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenArgumentIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage red = new MagickImage(MagickColors.Red, image.Width, image.Height))
+                        using (var red = new MagickImage(MagickColors.Red, image.Width, image.Height))
                         {
                             image.Composite(red, CompositeOperator.CopyCyan, null, Channels.Red);
                         }
@@ -247,9 +247,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheArguments()
                 {
-                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
+                        using (var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
                         {
                             image.Warning += (object sender, WarningEventArgs arguments) => Assert.Fail(arguments.Message);
                             image.Composite(blur, CompositeOperator.Blur, "3", Channels.Red);
@@ -260,9 +260,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldRemoveTheArtifact()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage blur = new MagickImage("xc:white", 1, 1))
+                        using (var blur = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(blur, CompositeOperator.Blur, "3", Channels.Red);
 
@@ -278,7 +278,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -290,9 +290,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheOffset()
                 {
-                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
+                        using (var yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
                         {
                             image.Composite(yellow, 100, 100);
 
@@ -310,7 +310,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -322,9 +322,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheOffset()
                 {
-                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
+                        using (var yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
                         {
                             image.Composite(yellow, 100, 100, Channels.Red);
 
@@ -342,7 +342,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -354,9 +354,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheOffset()
                 {
-                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
+                        using (var yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
                         {
                             image.Composite(yellow, 100, 100, CompositeOperator.Copy);
 
@@ -374,7 +374,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -386,9 +386,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheOffset()
                 {
-                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
+                        using (var yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
                         {
                             image.Composite(yellow, 100, 100, CompositeOperator.Clear, Channels.Red);
 
@@ -406,7 +406,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -418,9 +418,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenArgumentIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage red = new MagickImage("xc:white", 1, 1))
+                        using (var red = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(red, 0, 0, CompositeOperator.CopyAlpha, null);
                         }
@@ -430,9 +430,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheArguments()
                 {
-                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
+                        using (var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
                         {
                             image.Warning += (object sender, WarningEventArgs arguments) => Assert.Fail(arguments.Message);
                             image.Composite(blur, 0, 0, CompositeOperator.Blur, "3");
@@ -443,9 +443,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldRemoveTheArtifact()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage blur = new MagickImage("xc:white", 1, 1))
+                        using (var blur = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(blur, 0, 0, CompositeOperator.Blur, "3");
 
@@ -461,7 +461,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -473,9 +473,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenArgumentIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage red = new MagickImage("xc:white", 1, 1))
+                        using (var red = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(red, 0, 0, CompositeOperator.CopyAlpha, null, Channels.Red);
                         }
@@ -485,9 +485,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheArguments()
                 {
-                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
+                        using (var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
                         {
                             image.Warning += (object sender, WarningEventArgs arguments) => Assert.Fail(arguments.Message);
                             image.Composite(blur, 0, 0, CompositeOperator.Blur, "3", Channels.Red);
@@ -498,9 +498,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldRemoveTheArtifact()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage blur = new MagickImage("xc:white", 1, 1))
+                        using (var blur = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(blur, 0, 0, CompositeOperator.Blur, "3", Channels.Red);
 
@@ -516,7 +516,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -528,9 +528,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheOffset()
                 {
-                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
+                        using (var yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
                         {
                             image.Composite(yellow, new PointD(100, 100));
 
@@ -548,7 +548,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -560,9 +560,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheOffset()
                 {
-                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
+                        using (var yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
                         {
                             image.Composite(yellow, new PointD(100, 100), Channels.Red);
 
@@ -580,7 +580,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -592,9 +592,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheOffset()
                 {
-                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
+                        using (var yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
                         {
                             image.Composite(yellow, new PointD(100, 100), CompositeOperator.Copy);
 
@@ -612,7 +612,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -624,9 +624,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheOffset()
                 {
-                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
+                        using (var yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
                         {
                             image.Composite(yellow, new PointD(100, 100), CompositeOperator.Clear, Channels.Red);
 
@@ -644,7 +644,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -656,9 +656,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenArgumentIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage red = new MagickImage("xc:white", 1, 1))
+                        using (var red = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(red, new PointD(0, 0), CompositeOperator.CopyAlpha, null);
                         }
@@ -668,9 +668,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheArguments()
                 {
-                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
+                        using (var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
                         {
                             image.Warning += (object sender, WarningEventArgs arguments) => Assert.Fail(arguments.Message);
                             image.Composite(blur, new PointD(0, 0), CompositeOperator.Blur, "3");
@@ -681,9 +681,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldRemoveTheArtifact()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage blur = new MagickImage("xc:white", 1, 1))
+                        using (var blur = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(blur, new PointD(0, 0), CompositeOperator.Blur, "3");
 
@@ -699,7 +699,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -711,9 +711,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenArgumentIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage red = new MagickImage("xc:white", 1, 1))
+                        using (var red = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(red, new PointD(0, 0), CompositeOperator.CopyAlpha, null, Channels.Red);
                         }
@@ -723,9 +723,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheArguments()
                 {
-                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
+                        using (var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
                         {
                             image.Warning += (object sender, WarningEventArgs arguments) => Assert.Fail(arguments.Message);
                             image.Composite(blur, new PointD(0, 0), CompositeOperator.Blur, "3", Channels.Red);
@@ -736,9 +736,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldRemoveTheArtifact()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage blur = new MagickImage("xc:white", 1, 1))
+                        using (var blur = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(blur, new PointD(0, 0), CompositeOperator.Blur, "3", Channels.Red);
 
@@ -754,7 +754,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -766,9 +766,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheGravity()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 3, 3))
+                    using (var image = new MagickImage("xc:red", 3, 3))
                     {
-                        using (IMagickImage other = new MagickImage("xc:white", 1, 1))
+                        using (var other = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(other, Gravity.East);
 
@@ -784,7 +784,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -796,9 +796,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheGravity()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 3, 3))
+                    using (var image = new MagickImage("xc:red", 3, 3))
                     {
-                        using (IMagickImage other = new MagickImage("xc:white", 1, 1))
+                        using (var other = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(other, Gravity.West, Channels.Green);
 
@@ -814,7 +814,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -826,7 +826,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldSetMaskWithChangeMask()
                 {
-                    using (IMagickImage background = new MagickImage("xc:red", 100, 100))
+                    using (var background = new MagickImage("xc:red", 100, 100))
                     {
                         background.BackgroundColor = MagickColors.White;
                         background.Extent(200, 100);
@@ -837,12 +837,12 @@ namespace Magick.NET.Tests
                             new DrawableText(135, 70, "X"),
                         };
 
-                        using (IMagickImage image = background.Clone())
+                        using (var image = background.Clone())
                         {
                             image.Draw(drawables);
                             image.Composite(background, Gravity.Center, CompositeOperator.ChangeMask);
 
-                            using (IMagickImage result = new MagickImage(MagickColors.Transparent, 200, 100))
+                            using (var result = new MagickImage(MagickColors.Transparent, 200, 100))
                             {
                                 result.Draw(drawables);
                                 Assert.AreEqual(0.0603, result.Compare(image, ErrorMetric.RootMeanSquared), 0.001);
@@ -857,9 +857,9 @@ namespace Magick.NET.Tests
                     var backgroundColor = MagickColors.LightBlue;
                     var overlayColor = MagickColors.YellowGreen;
 
-                    using (IMagickImage background = new MagickImage(backgroundColor, 100, 100))
+                    using (var background = new MagickImage(backgroundColor, 100, 100))
                     {
-                        using (IMagickImage overlay = new MagickImage(overlayColor, 50, 50))
+                        using (var overlay = new MagickImage(overlayColor, 50, 50))
                         {
                             background.Composite(overlay, Gravity.West, CompositeOperator.Over);
 
@@ -888,9 +888,9 @@ namespace Magick.NET.Tests
                     var backgroundColor = MagickColors.LightBlue;
                     var overlayColor = MagickColors.YellowGreen;
 
-                    using (IMagickImage background = new MagickImage(backgroundColor, 100, 100))
+                    using (var background = new MagickImage(backgroundColor, 100, 100))
                     {
-                        using (IMagickImage overlay = new MagickImage(overlayColor, 50, 50))
+                        using (var overlay = new MagickImage(overlayColor, 50, 50))
                         {
                             background.Composite(overlay, Gravity.East, CompositeOperator.Over);
 
@@ -920,7 +920,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -932,9 +932,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheGravity()
                 {
-                    using (IMagickImage image = new MagickImage("xc:white", 3, 3))
+                    using (var image = new MagickImage("xc:white", 3, 3))
                     {
-                        using (IMagickImage other = new MagickImage("xc:black", 1, 1))
+                        using (var other = new MagickImage("xc:black", 1, 1))
                         {
                             image.Composite(other, Gravity.South, CompositeOperator.Clear, Channels.Green);
 
@@ -950,7 +950,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -962,9 +962,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenArgumentIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage red = new MagickImage("xc:white", 1, 1))
+                        using (var red = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(red, Gravity.East, CompositeOperator.Blend, null);
                         }
@@ -974,9 +974,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheArguments()
                 {
-                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
+                        using (var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
                         {
                             image.Warning += (object sender, WarningEventArgs arguments) => Assert.Fail(arguments.Message);
                             image.Composite(blur, Gravity.Center, CompositeOperator.Blur, "3");
@@ -987,9 +987,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldRemoveTheArtifact()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage blur = new MagickImage("xc:white", 1, 1))
+                        using (var blur = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(blur, Gravity.Center, CompositeOperator.Blur, "3");
 
@@ -1005,7 +1005,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -1017,9 +1017,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenArgumentIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage red = new MagickImage("xc:white", 1, 1))
+                        using (var red = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(red, Gravity.East, CompositeOperator.Blend, null, Channels.Red);
                         }
@@ -1029,9 +1029,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheArguments()
                 {
-                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
+                        using (var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
                         {
                             image.Warning += (object sender, WarningEventArgs arguments) => Assert.Fail(arguments.Message);
                             image.Composite(blur, Gravity.Center, CompositeOperator.Blur, "3", Channels.Red);
@@ -1042,9 +1042,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldRemoveTheArtifact()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage blur = new MagickImage("xc:white", 1, 1))
+                        using (var blur = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(blur, Gravity.Center, CompositeOperator.Blur, "3", Channels.Red);
 
@@ -1060,7 +1060,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -1072,9 +1072,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheGravity()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 3, 3))
+                    using (var image = new MagickImage("xc:red", 3, 3))
                     {
-                        using (IMagickImage other = new MagickImage("xc:white", 1, 1))
+                        using (var other = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(other, Gravity.Northeast, 1, 1);
 
@@ -1090,7 +1090,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -1102,9 +1102,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheGravity()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 3, 3))
+                    using (var image = new MagickImage("xc:red", 3, 3))
                     {
-                        using (IMagickImage other = new MagickImage("xc:white", 1, 1))
+                        using (var other = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(other, Gravity.Southwest, 1, 1);
 
@@ -1120,7 +1120,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -1132,9 +1132,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheGravity()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 3, 3))
+                    using (var image = new MagickImage("xc:red", 3, 3))
                     {
-                        using (IMagickImage other = new MagickImage("xc:white", 1, 1))
+                        using (var other = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(other, Gravity.Northwest, 1, 1, CompositeOperator.Over);
 
@@ -1150,7 +1150,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -1162,9 +1162,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheGravity()
                 {
-                    using (IMagickImage image = new MagickImage("xc:white", 3, 3))
+                    using (var image = new MagickImage("xc:white", 3, 3))
                     {
-                        using (IMagickImage other = new MagickImage("xc:black", 1, 1))
+                        using (var other = new MagickImage("xc:black", 1, 1))
                         {
                             image.Composite(other, Gravity.Southeast, 1, 1, CompositeOperator.Clear, Channels.Green);
 
@@ -1180,7 +1180,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -1192,9 +1192,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenArgumentIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage red = new MagickImage("xc:white", 1, 1))
+                        using (var red = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(red, Gravity.East, 0, 0, CompositeOperator.Blend, null);
                         }
@@ -1204,9 +1204,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheArguments()
                 {
-                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
+                        using (var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
                         {
                             image.Warning += (object sender, WarningEventArgs arguments) => Assert.Fail(arguments.Message);
                             image.Composite(blur, Gravity.Center, 1, 1, CompositeOperator.Blur, "3");
@@ -1217,9 +1217,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldRemoveTheArtifact()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage blur = new MagickImage("xc:white", 1, 1))
+                        using (var blur = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(blur, Gravity.Center, 0, 0, CompositeOperator.Blur, "3");
 
@@ -1235,7 +1235,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -1247,9 +1247,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenArgumentIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage red = new MagickImage("xc:white", 1, 1))
+                        using (var red = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(red, Gravity.East, 0, 0, CompositeOperator.Blend, null, Channels.Red);
                         }
@@ -1259,9 +1259,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheArguments()
                 {
-                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
+                        using (var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
                         {
                             image.Warning += (object sender, WarningEventArgs arguments) => Assert.Fail(arguments.Message);
                             image.Composite(blur, Gravity.Center, 0, 0, CompositeOperator.Blur, "3", Channels.Red);
@@ -1272,9 +1272,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldRemoveTheArtifact()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage blur = new MagickImage("xc:white", 1, 1))
+                        using (var blur = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(blur, Gravity.Center, 0, 0, CompositeOperator.Blur, "3", Channels.Red);
 
@@ -1290,7 +1290,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -1302,9 +1302,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheGravity()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 3, 3))
+                    using (var image = new MagickImage("xc:red", 3, 3))
                     {
-                        using (IMagickImage other = new MagickImage("xc:white", 1, 1))
+                        using (var other = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(other, Gravity.East, new PointD(1, 0));
 
@@ -1320,7 +1320,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -1332,9 +1332,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheGravity()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 3, 3))
+                    using (var image = new MagickImage("xc:red", 3, 3))
                     {
-                        using (IMagickImage other = new MagickImage("xc:white", 1, 1))
+                        using (var other = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(other, Gravity.West, new PointD(1, 0));
 
@@ -1350,7 +1350,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -1362,9 +1362,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheGravity()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 3, 3))
+                    using (var image = new MagickImage("xc:red", 3, 3))
                     {
-                        using (IMagickImage other = new MagickImage("xc:white", 1, 1))
+                        using (var other = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(other, Gravity.West, new PointD(0, -1), CompositeOperator.Over);
 
@@ -1380,7 +1380,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -1392,9 +1392,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheGravity()
                 {
-                    using (IMagickImage image = new MagickImage("xc:white", 3, 3))
+                    using (var image = new MagickImage("xc:white", 3, 3))
                     {
-                        using (IMagickImage other = new MagickImage("xc:black", 1, 1))
+                        using (var other = new MagickImage("xc:black", 1, 1))
                         {
                             image.Composite(other, Gravity.South, new PointD(0, 1), CompositeOperator.Clear, Channels.Green);
 
@@ -1410,7 +1410,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -1422,9 +1422,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenArgumentIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage red = new MagickImage("xc:white", 1, 1))
+                        using (var red = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(red, Gravity.East, new PointD(0, 0), CompositeOperator.Blend, null);
                         }
@@ -1434,9 +1434,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheArguments()
                 {
-                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
+                        using (var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
                         {
                             image.Warning += (object sender, WarningEventArgs arguments) => Assert.Fail(arguments.Message);
                             image.Composite(blur, Gravity.Center, new PointD(1, 1), CompositeOperator.Blur, "3");
@@ -1447,9 +1447,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldRemoveTheArtifact()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage blur = new MagickImage("xc:white", 1, 1))
+                        using (var blur = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(blur, Gravity.Center, new PointD(0, 0), CompositeOperator.Blur, "3");
 
@@ -1465,7 +1465,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -1477,9 +1477,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenArgumentIsNull()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage red = new MagickImage("xc:white", 1, 1))
+                        using (var red = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(red, Gravity.East, new PointD(0, 0), CompositeOperator.Blend, null, Channels.Red);
                         }
@@ -1489,9 +1489,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheArguments()
                 {
-                    using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
+                        using (var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
                         {
                             image.Warning += (object sender, WarningEventArgs arguments) => Assert.Fail(arguments.Message);
                             image.Composite(blur, Gravity.Center, new PointD(0, 0), CompositeOperator.Blur, "3", Channels.Red);
@@ -1502,9 +1502,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldRemoveTheArtifact()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 1, 1))
+                    using (var image = new MagickImage("xc:red", 1, 1))
                     {
-                        using (IMagickImage blur = new MagickImage("xc:white", 1, 1))
+                        using (var blur = new MagickImage("xc:white", 1, 1))
                         {
                             image.Composite(blur, Gravity.Center, new PointD(0, 0), CompositeOperator.Blur, "3", Channels.Red);
 

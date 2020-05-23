@@ -52,7 +52,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldAllowEmptyStream()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     using (MemoryStream memStream = new MemoryStream())
                     {
@@ -65,7 +65,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldAllowEmptyData()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     var data = new byte[] { };
                     var profile = new ExifProfile(data);

@@ -46,7 +46,7 @@ namespace Magick.NET.Tests
                     Assert.AreEqual(width, images[0].Width);
                     Assert.AreEqual(height, images[0].Height);
 
-                    using (IMagickImage image = images.AppendVertically())
+                    using (var image = images.AppendVertically())
                     {
                         Assert.AreEqual(width, image.Width);
                         Assert.AreEqual(height * 3, image.Height);

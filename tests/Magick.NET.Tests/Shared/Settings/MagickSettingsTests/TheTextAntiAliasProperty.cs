@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldDisableTextAntialiasingWhenFalse()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Azure, 300, 300))
+                using (var image = new MagickImage(MagickColors.Azure, 300, 300))
                 {
                     Assert.IsTrue(image.Settings.TextAntiAlias);
 

@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldReadTheCorrectColors()
         {
-            using (IMagickImage image = new MagickImage(Files.Coders.PlayerPSD))
+            using (var image = new MagickImage(Files.Coders.PlayerPSD))
             {
                 ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
 
@@ -47,7 +47,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldCorrectlyWriteGrayscaleImage()
         {
-            using (IMagickImage input = new MagickImage(Files.Builtin.Wizard))
+            using (var input = new MagickImage(Files.Builtin.Wizard))
             {
                 input.Quantize(new QuantizeSettings
                 {
@@ -60,7 +60,7 @@ namespace Magick.NET.Tests
                     input.Write(memoryStream, MagickFormat.Psd);
 
                     memoryStream.Position = 0;
-                    using (IMagickImage output = new MagickImage(memoryStream))
+                    using (var output = new MagickImage(memoryStream))
                     {
                         var distortion = output.Compare(input, ErrorMetric.RootMeanSquared);
 
@@ -73,7 +73,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldCorrectlyWriteGrayscaleAlphaImage()
         {
-            using (IMagickImage input = new MagickImage(Files.Builtin.Wizard))
+            using (var input = new MagickImage(Files.Builtin.Wizard))
             {
                 input.Quantize(new QuantizeSettings
                 {
@@ -89,7 +89,7 @@ namespace Magick.NET.Tests
                     input.Write(memoryStream, MagickFormat.Psd);
 
                     memoryStream.Position = 0;
-                    using (IMagickImage output = new MagickImage(memoryStream))
+                    using (var output = new MagickImage(memoryStream))
                     {
                         var distortion = output.Compare(input, ErrorMetric.RootMeanSquared);
 

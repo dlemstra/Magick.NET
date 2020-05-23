@@ -23,9 +23,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangeTheImage()
             {
-                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
                 {
-                    using (IMagickImage result = image.Clone())
+                    using (var result = image.Clone())
                     {
                         result.Clahe(10, 20, 30, 1.5);
 

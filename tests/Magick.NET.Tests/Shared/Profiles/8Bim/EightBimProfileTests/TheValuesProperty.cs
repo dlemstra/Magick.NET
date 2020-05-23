@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTheValues()
             {
-                using (IMagickImage image = new MagickImage(Files.EightBimTIF))
+                using (var image = new MagickImage(Files.EightBimTIF))
                 {
                     var profile = image.Get8BimProfile();
 

@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
                 using (Bitmap bitmap = new Bitmap(Files.SnakewarePNG))
                 {
                     MagickFactory factory = new MagickFactory();
-                    using (IMagickImage image = factory.CreateImage(bitmap))
+                    using (var image = factory.CreateImage(bitmap))
                     {
                         Assert.AreEqual(286, image.Width);
                         Assert.AreEqual(67, image.Height);

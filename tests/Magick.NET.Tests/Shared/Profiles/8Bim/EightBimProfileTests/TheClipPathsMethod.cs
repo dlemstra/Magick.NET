@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTheClippingPaths()
             {
-                using (IMagickImage image = new MagickImage(Files.EightBimTIF))
+                using (var image = new MagickImage(Files.EightBimTIF))
                 {
                     var profile = image.Get8BimProfile();
 
@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnEmptyListWhenSizeIsUnknown()
             {
-                using (IMagickImage image = new MagickImage(Files.EightBimTIF))
+                using (var image = new MagickImage(Files.EightBimTIF))
                 {
                     var profile = image.Get8BimProfile();
 

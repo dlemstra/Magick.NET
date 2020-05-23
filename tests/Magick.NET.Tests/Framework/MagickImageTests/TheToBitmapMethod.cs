@@ -82,7 +82,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangeTheColorSpaceToSrgb()
             {
-                using (IMagickImage image = new MagickImage(Color.Red.ToColor(), 1, 1))
+                using (var image = new MagickImage(Color.Red.ToColor(), 1, 1))
                 {
                     image.ColorSpace = ColorSpace.YCbCr;
 
@@ -98,7 +98,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetTheDensityOfTheBitmapWhenBitmapDensityIsSetToUse()
             {
-                using (IMagickImage image = new MagickImage(Color.Red.ToColor(), 1, 1))
+                using (var image = new MagickImage(Color.Red.ToColor(), 1, 1))
                 {
                     image.Density = new Density(300, 200);
 
@@ -113,7 +113,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenImageFormatIsNull()
             {
-                using (IMagickImage image = new MagickImage(Color.Red.ToColor(), 1, 1))
+                using (var image = new MagickImage(Color.Red.ToColor(), 1, 1))
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("imageFormat", () => image.ToBitmap(null, BitmapDensity.Use));
                 }
@@ -122,7 +122,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetTheDensityOfTheBitmapWhenBitmapDensityIsSetToUseAndFormatIsSet()
             {
-                using (IMagickImage image = new MagickImage(Color.Red.ToColor(), 1, 1))
+                using (var image = new MagickImage(Color.Red.ToColor(), 1, 1))
                 {
                     image.Density = new Density(300, 200);
 
@@ -136,7 +136,7 @@ namespace Magick.NET.Tests
 
             private void AssertUnsupportedImageFormat(ImageFormat imageFormat)
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 10, 10))
+                using (var image = new MagickImage(MagickColors.Red, 10, 10))
                 {
                     ExceptionAssert.Throws<NotSupportedException>(() =>
                     {
@@ -147,7 +147,7 @@ namespace Magick.NET.Tests
 
             private void AssertSupportedImageFormat(ImageFormat imageFormat)
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 10, 10))
+                using (var image = new MagickImage(MagickColors.Red, 10, 10))
                 {
                     using (Bitmap bitmap = image.ToBitmap(imageFormat))
                     {

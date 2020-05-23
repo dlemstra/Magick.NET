@@ -10,6 +10,16 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <summary>
@@ -17,7 +27,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class DrawableComposite : IDrawable, IDrawingWand
     {
-        private readonly IMagickImage _image;
+        private readonly IMagickImage<QuantumType> _image;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DrawableComposite"/> class.
@@ -25,7 +35,7 @@ namespace ImageMagick
         /// <param name="x">The X coordinate.</param>
         /// <param name="y">The Y coordinate.</param>
         /// <param name="image">The image to draw.</param>
-        public DrawableComposite(double x, double y, IMagickImage image)
+        public DrawableComposite(double x, double y, IMagickImage<QuantumType> image)
           : this(x, y, CompositeOperator.In, image)
         {
         }
@@ -37,7 +47,7 @@ namespace ImageMagick
         /// <param name="y">The Y coordinate.</param>
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="image">The image to draw.</param>
-        public DrawableComposite(double x, double y, CompositeOperator compose, IMagickImage image)
+        public DrawableComposite(double x, double y, CompositeOperator compose, IMagickImage<QuantumType> image)
           : this(image)
         {
             X = x;
@@ -52,7 +62,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="offset">The offset from origin.</param>
         /// <param name="image">The image to draw.</param>
-        public DrawableComposite(IMagickGeometry offset, IMagickImage image)
+        public DrawableComposite(IMagickGeometry offset, IMagickImage<QuantumType> image)
           : this(offset, CompositeOperator.In, image)
         {
         }
@@ -63,7 +73,7 @@ namespace ImageMagick
         /// <param name="offset">The offset from origin.</param>
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="image">The image to draw.</param>
-        public DrawableComposite(IMagickGeometry offset, CompositeOperator compose, IMagickImage image)
+        public DrawableComposite(IMagickGeometry offset, CompositeOperator compose, IMagickImage<QuantumType> image)
           : this(image)
         {
             Throw.IfNull(nameof(offset), offset);
@@ -75,7 +85,7 @@ namespace ImageMagick
             Compose = compose;
         }
 
-        private DrawableComposite(IMagickImage image)
+        private DrawableComposite(IMagickImage<QuantumType> image)
         {
             Throw.IfNull(nameof(image), image);
 

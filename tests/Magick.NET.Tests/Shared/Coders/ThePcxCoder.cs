@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldBeAbleToWriteOneBitImages()
         {
-            using (IMagickImage input = new MagickImage(MagickColors.Purple, 1, 1))
+            using (var input = new MagickImage(MagickColors.Purple, 1, 1))
             {
                 input.ColorType = ColorType.Bilevel;
 
@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
 
                     memoryStream.Position = 0;
 
-                    using (IMagickImage output = new MagickImage(memoryStream))
+                    using (var output = new MagickImage(memoryStream))
                     {
                         Assert.AreEqual(1, output.Depth);
                     }

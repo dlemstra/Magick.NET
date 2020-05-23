@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenSettingsIsNull()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("settings", () => image.Deskew(null));
                 }
@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenSettingsThresholdIsNegative()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     var settings = new DeskewSettings()
                     {
@@ -47,7 +47,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenThresholdIsNegative()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     ExceptionAssert.Throws<ArgumentException>("settings", () => image.Deskew(new Percentage(-1)));
                 }
@@ -56,7 +56,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldDeskewTheImage()
             {
-                using (IMagickImage image = new MagickImage(Files.LetterJPG))
+                using (var image = new MagickImage(Files.LetterJPG))
                 {
                     image.ColorType = ColorType.Bilevel;
 
@@ -71,7 +71,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldUseAutoCrop()
             {
-                using (IMagickImage image = new MagickImage(Files.LetterJPG))
+                using (var image = new MagickImage(Files.LetterJPG))
                 {
                     var settings = new DeskewSettings()
                     {
@@ -89,7 +89,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTheAngle()
             {
-                using (IMagickImage image = new MagickImage(Files.LetterJPG))
+                using (var image = new MagickImage(Files.LetterJPG))
                 {
                     var angle = image.Deskew(new Percentage(10));
 

@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetAdditionalInfoToNullWhenNotSpecified()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(new PsdWriteDefines());
 

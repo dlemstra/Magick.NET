@@ -28,7 +28,7 @@ namespace ImageMagick
 {
     internal sealed partial class DrawingWand : IDisposable
     {
-        public DrawingWand(IMagickImage image)
+        public DrawingWand(IMagickImage<QuantumType> image)
         {
             _nativeInstance = new NativeDrawingWand(image, image.GetSettings().Drawing);
         }
@@ -69,7 +69,7 @@ namespace ImageMagick
 
         public void Color(double x, double y, PaintMethod paintMethod) => _nativeInstance.Color(x, y, paintMethod);
 
-        public void Composite(double x, double y, double width, double height, CompositeOperator compositeOperator, IMagickImage image) => _nativeInstance.Composite(x, y, width, height, compositeOperator, image);
+        public void Composite(double x, double y, double width, double height, CompositeOperator compositeOperator, IMagickImage<QuantumType> image) => _nativeInstance.Composite(x, y, width, height, compositeOperator, image);
 
         public void Density(PointD value) => _nativeInstance.Density(value.ToString());
 

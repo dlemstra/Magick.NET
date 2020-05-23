@@ -12,6 +12,16 @@
 
 using System.Globalization;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <summary>
@@ -36,7 +46,7 @@ namespace ImageMagick
         /// </summary>
         public IMagickGeometry Viewport { get; set; }
 
-        internal void SetImageArtifacts(IMagickImage image)
+        internal void SetImageArtifacts(IMagickImage<QuantumType> image)
         {
             if (Scale != null)
                 image.SetArtifact("distort:scale", Scale.Value.ToString(CultureInfo.InvariantCulture));

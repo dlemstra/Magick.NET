@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldRemoveTheThumbnail()
             {
-                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetExifProfile();
                     Assert.IsNotNull(profile);

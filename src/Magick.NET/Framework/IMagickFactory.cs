@@ -16,18 +16,18 @@ using System.Drawing;
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Interface for a class that can be used to create <see cref="IMagickImage"/>, <see cref="IMagickImageCollection"/> or <see cref="IMagickImageInfo"/> instances.
-    /// </summary>
-    public partial interface IMagickFactory
+    /// <content>
+    /// Contains code that is not compatible with .NET Core.
+    /// </content>
+    public partial interface IMagickFactory<TQuantumType>
     {
         /// <summary>
-        /// Initializes a new instance that implements <see cref="IMagickImage"/>.
+        /// Initializes a new instance that implements <see cref="IMagickImage{TQuantumType}"/>.
         /// </summary>
         /// <param name="bitmap">The bitmap to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
-        IMagickImage CreateImage(Bitmap bitmap);
+        /// <returns>A new <see cref="IMagickImage{TQuantumType}"/> instance.</returns>
+        IMagickImage<TQuantumType> CreateImage(Bitmap bitmap);
     }
 }
 

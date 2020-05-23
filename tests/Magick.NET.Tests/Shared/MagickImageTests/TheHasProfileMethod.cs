@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenNameIsNull()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("name", () => image.HasProfile(null));
                 }
@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenNameIsEmpty()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     ExceptionAssert.Throws<ArgumentException>("name", () => image.HasProfile(string.Empty));
                 }
@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTrueWhenImageHasProfileWithTheSpecifiedName()
             {
-                using (IMagickImage image = new MagickImage(Files.InvitationTIF))
+                using (var image = new MagickImage(Files.InvitationTIF))
                 {
                     Assert.IsTrue(image.HasProfile("icc"));
                 }
@@ -51,7 +51,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnFalseWhenImageDoesNotHaveProfileWithTheSpecifiedName()
             {
-                using (IMagickImage image = new MagickImage(Files.InvitationTIF))
+                using (var image = new MagickImage(Files.InvitationTIF))
                 {
                     Assert.IsFalse(image.HasProfile("foo"));
                 }

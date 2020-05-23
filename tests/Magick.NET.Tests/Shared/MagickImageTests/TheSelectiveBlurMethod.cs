@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldBlurTheImage()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Rose))
+                using (var image = new MagickImage(Files.Builtin.Rose))
                 {
                     image.SelectiveBlur(0, 5, new Percentage(20));
 

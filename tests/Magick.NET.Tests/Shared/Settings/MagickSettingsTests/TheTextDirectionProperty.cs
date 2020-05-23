@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldDefaultToUndefined()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     Assert.AreEqual(TextDirection.Undefined, image.Settings.TextDirection);
                 }

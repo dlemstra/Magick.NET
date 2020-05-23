@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldOnlyNegateGrayscaleWhenSetToTrue()
                 {
-                    using (IMagickImage image = new MagickImage("xc:white", 2, 1))
+                    using (var image = new MagickImage("xc:white", 2, 1))
                     {
                         using (var pixels = image.GetPixels())
                         {

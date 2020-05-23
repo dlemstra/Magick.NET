@@ -94,7 +94,7 @@ namespace Magick.NET.Tests
 
         private static IIptcValue GetIptcValue()
         {
-            using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
                 var profile = image.GetIptcProfile();
                 return profile.Values.ElementAt(1);

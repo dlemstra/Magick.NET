@@ -1,5 +1,6 @@
 ﻿{
   "nativeConstructor": true,
+  "quantumType": true,
   "constructor": {
     "throws": true,
     "arguments": [
@@ -732,7 +733,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         },
         {
           "name": "method",
@@ -802,7 +803,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         },
         {
           "name": "metric",
@@ -826,7 +827,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         },
         {
           "name": "metric",
@@ -844,7 +845,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         },
         {
           "name": "x",
@@ -870,7 +871,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         },
         {
           "name": "gravity",
@@ -970,7 +971,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         },
         {
           "name": "geometry",
@@ -1128,7 +1129,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         }
       ]
     },
@@ -1440,7 +1441,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         }
       ]
     },
@@ -1676,7 +1677,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         },
         {
           "name": "settings",
@@ -2338,7 +2339,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         }
       ]
     },
@@ -2366,7 +2367,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         }
       ]
     },
@@ -2376,7 +2377,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         }
       ]
     },
@@ -2605,7 +2606,7 @@
       "arguments": [
         {
           "name": "watermark",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         }
       ]
     },
@@ -2616,7 +2617,7 @@
       "arguments": [
         {
           "name": "rightImage",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         }
       ]
     },
@@ -2632,7 +2633,7 @@
       "arguments": [
         {
           "name": "reference",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         },
         {
           "name": "metric",
@@ -2675,7 +2676,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         }
       ]
     },

@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldHaveTheCorrectColorspace()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Black, 1, 1))
+                using (var image = new MagickImage(MagickColors.Black, 1, 1))
                 {
                     image.ColorSpace = ColorSpace.CMYK;
                     image.Opaque(MagickColors.Black, new MagickColor("cmyk(128,23,250,156)"));

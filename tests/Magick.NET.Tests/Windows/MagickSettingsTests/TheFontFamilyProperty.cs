@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangeTheFont()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     Assert.AreEqual(null, image.Settings.FontFamily);
                     Assert.AreEqual(0, image.Settings.FontPointsize);

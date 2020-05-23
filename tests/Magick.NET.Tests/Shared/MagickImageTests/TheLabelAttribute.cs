@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldGetTheLabelAttribute()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.SetAttribute("label", "foo");
 
@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetTheLabelAttribute()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.Label = "foo";
 
@@ -45,7 +45,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldRemoveTheLabelAttributeWhenSetToNull()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.SetAttribute("label", "foo");
 

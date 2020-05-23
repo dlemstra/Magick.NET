@@ -12,6 +12,16 @@
 
 using System.Globalization;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <summary>
@@ -29,7 +39,7 @@ namespace ImageMagick
         /// </summary>
         public double? SignalToNoiseRatio { get; set; }
 
-        internal void SetImageArtifacts(IMagickImage image)
+        internal void SetImageArtifacts(IMagickImage<QuantumType> image)
         {
             if (SignalToNoiseRatio != null)
                 image.SetArtifact("complex:snr", SignalToNoiseRatio.Value.ToString(CultureInfo.InvariantCulture));

@@ -34,7 +34,7 @@ namespace ImageMagick
     /// <content>
     /// Contains code that is not compatible with .NET Core.
     /// </content>
-    public partial interface IMagickImage
+    public partial interface IMagickImage<TQuantumType>
     {
         /// <summary>
         /// Read single image frame.

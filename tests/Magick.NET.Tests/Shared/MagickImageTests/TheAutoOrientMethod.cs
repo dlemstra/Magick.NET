@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldRotateTheImage()
             {
-                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
                 {
                     Assert.AreEqual(600, image.Width);
                     Assert.AreEqual(400, image.Height);

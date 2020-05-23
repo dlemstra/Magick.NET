@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenSettingsIsNull()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("settings", () => image.Kmeans(null));
                 }
@@ -38,7 +38,7 @@ namespace Magick.NET.Tests
                     NumberColors = -1,
                 };
 
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     ExceptionAssert.Throws<ArgumentException>("settings", () => image.Kmeans(settings));
                 }
@@ -52,7 +52,7 @@ namespace Magick.NET.Tests
                     MaxIterations = -1,
                 };
 
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     ExceptionAssert.Throws<ArgumentException>("settings", () => image.Kmeans(settings));
                 }
@@ -67,7 +67,7 @@ namespace Magick.NET.Tests
                     NumberColors = 1,
                 };
 
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 1, 1))
+                using (var image = new MagickImage(MagickColors.Red, 1, 1))
                 {
                     image.Kmeans(settings);
 
@@ -83,7 +83,7 @@ namespace Magick.NET.Tests
                     NumberColors = 5,
                 };
 
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     image.Kmeans(settings);
 

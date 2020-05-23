@@ -24,7 +24,7 @@ namespace ImageMagick
 {
     internal static class ICompareSettingsExtensions
     {
-        public static void SetImageArtifacts(this ICompareSettings<QuantumType> self, IMagickImage image)
+        public static void SetImageArtifacts(this ICompareSettings<QuantumType> self, IMagickImage<QuantumType> image)
         {
             if (self == null)
                 return;

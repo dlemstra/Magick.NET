@@ -22,9 +22,9 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldUseDxt1AsTheDefaultCompression()
         {
-            using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
+            using (var input = new MagickImage(Files.Builtin.Logo))
             {
-                using (IMagickImage output = WriteDds(input))
+                using (var output = WriteDds(input))
                 {
                     Assert.AreEqual(CompressionMethod.DXT1, output.Compression);
                 }
@@ -34,18 +34,18 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldUseDxt5AsTheDefaultCompressionForImagesWithAnAlphaChannel()
         {
-            using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
+            using (var input = new MagickImage(Files.Builtin.Logo))
             {
                 input.Alpha(AlphaOption.Set);
 
-                using (IMagickImage output = WriteDds(input))
+                using (var output = WriteDds(input))
                 {
                     Assert.AreEqual(CompressionMethod.DXT5, output.Compression);
                 }
             }
         }
 
-        private static IMagickImage WriteDds(IMagickImage input)
+        private static MagickImage WriteDds(MagickImage input)
         {
             using (MemoryStream memStream = new MemoryStream())
             {

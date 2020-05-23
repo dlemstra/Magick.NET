@@ -228,7 +228,7 @@ namespace Magick.NET.Tests
                     };
                     var data = File.ReadAllBytes(Files.ImageMagickJPG);
 
-                    using (IMagickImage image = factory.CreateImage(data, 0, data.Length, settings))
+                    using (var image = factory.CreateImage(data, 0, data.Length, settings))
                     {
                         Assert.IsInstanceOfType(image, typeof(MagickImage));
                         Assert.AreEqual(123, image.Width);
@@ -889,7 +889,7 @@ namespace Magick.NET.Tests
 
                     using (var stream = File.OpenRead(Files.ImageMagickJPG))
                     {
-                        using (IMagickImage image = factory.CreateImage(stream))
+                        using (var image = factory.CreateImage(stream))
                         {
                             Assert.IsInstanceOfType(image, typeof(MagickImage));
                             Assert.AreEqual(123, image.Width);

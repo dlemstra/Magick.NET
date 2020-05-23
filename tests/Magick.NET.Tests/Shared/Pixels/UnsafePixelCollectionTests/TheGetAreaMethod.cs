@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenWidthTooLow()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+                using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -65,7 +65,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenWidthZero()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+                using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -80,7 +80,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenHeightTooLow()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+                using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -105,7 +105,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenHeightZero()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+                using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -132,7 +132,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnAreaWhenAreaIsValid()
             {
-                using (IMagickImage image = new MagickImage(Files.CirclePNG))
+                using (var image = new MagickImage(Files.CirclePNG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -149,7 +149,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnNullWhenGeometryIsNull()
             {
-                using (IMagickImage image = new MagickImage(Files.RedPNG))
+                using (var image = new MagickImage(Files.RedPNG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -162,7 +162,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnAreaWhenGeometryIsValid()
             {
-                using (IMagickImage image = new MagickImage(Files.RedPNG))
+                using (var image = new MagickImage(Files.RedPNG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -178,7 +178,7 @@ namespace Magick.NET.Tests
 
             private static void ThrowsOverflowExceptionWhen32Bit(int x, int y, int width, int height)
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+                using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -199,7 +199,7 @@ namespace Magick.NET.Tests
 
             private static void ThrowsNoException(int x, int y, int width, int height)
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+                using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {

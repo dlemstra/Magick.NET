@@ -16,6 +16,16 @@ using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace Magick.NET.Tests
 {
     public partial class MagickImageCollectionTests
@@ -67,7 +77,7 @@ namespace Magick.NET.Tests
                 {
                     using (IMagickImageCollection images = new MagickImageCollection())
                     {
-                        images.AddRange((IEnumerable<IMagickImage>)null);
+                        images.AddRange((IEnumerable<IMagickImage<QuantumType>>)null);
                     }
                 });
             }
@@ -77,7 +87,7 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImageCollection images = new MagickImageCollection())
                 {
-                    images.AddRange(new IMagickImage[0]);
+                    images.AddRange(new IMagickImage<QuantumType>[0]);
 
                     Assert.AreEqual(0, images.Count);
                 }
@@ -100,7 +110,7 @@ namespace Magick.NET.Tests
             {
                 using (IMagickImageCollection images = new MagickImageCollection())
                 {
-                    images.AddRange(new IMagickImage[] { });
+                    images.AddRange(new IMagickImage<QuantumType>[] { });
 
                     Assert.AreEqual(0, images.Count);
                 }
@@ -226,7 +236,7 @@ namespace Magick.NET.Tests
                 {
                     var image = new MagickImage("xc:red", 100, 100);
 
-                    var list = new List<IMagickImage> { image };
+                    var list = new List<IMagickImage<QuantumType>> { image };
 
                     images.AddRange(list);
 

@@ -26,7 +26,7 @@ namespace Magick.NET.Tests
             {
                 ExceptionAssert.Throws<ArgumentNullException>("color", () =>
                 {
-                    using (IMagickImage image = new MagickImage(MagickColors.White, 2, 2))
+                    using (var image = new MagickImage(MagickColors.White, 2, 2))
                     {
                         image.FloodFill((MagickColor)null, 0, 0);
                     }
@@ -38,7 +38,7 @@ namespace Magick.NET.Tests
             {
                 ExceptionAssert.Throws<ArgumentNullException>("color", () =>
                 {
-                    using (IMagickImage image = new MagickImage(MagickColors.White, 2, 2))
+                    using (var image = new MagickImage(MagickColors.White, 2, 2))
                     {
                         image.FloodFill((MagickColor)null, default);
                     }
@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
             {
                 ExceptionAssert.Throws<ArgumentNullException>("target", () =>
                 {
-                    using (IMagickImage image = new MagickImage(MagickColors.White, 2, 2))
+                    using (var image = new MagickImage(MagickColors.White, 2, 2))
                     {
                         image.FloodFill(MagickColors.Purple, 0, 0, null);
                     }
@@ -62,7 +62,7 @@ namespace Magick.NET.Tests
             {
                 ExceptionAssert.Throws<ArgumentNullException>("target", () =>
                 {
-                    using (IMagickImage image = new MagickImage(MagickColors.White, 2, 2))
+                    using (var image = new MagickImage(MagickColors.White, 2, 2))
                     {
                         image.FloodFill(MagickColors.Purple, default, null);
                     }
@@ -72,7 +72,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangeTheColors()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.White, 2, 2))
+                using (var image = new MagickImage(MagickColors.White, 2, 2))
                 {
                     image.FloodFill(MagickColors.Red, 0, 0);
 
@@ -86,7 +86,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangeThePointDColors()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.White, 2, 2))
+                using (var image = new MagickImage(MagickColors.White, 2, 2))
                 {
                     image.FloodFill(MagickColors.Red, new PointD(0, 0));
 
@@ -100,9 +100,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangeTheTargetColors()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.White, 2, 2))
+                using (var image = new MagickImage(MagickColors.White, 2, 2))
                 {
-                    using (IMagickImage green = new MagickImage(MagickColors.Green, 1, 1))
+                    using (var green = new MagickImage(MagickColors.Green, 1, 1))
                     {
                         image.Composite(green, 0, 0, CompositeOperator.Over);
                     }
@@ -119,9 +119,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangeThePoinDTargetColors()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.White, 2, 2))
+                using (var image = new MagickImage(MagickColors.White, 2, 2))
                 {
-                    using (IMagickImage green = new MagickImage(MagickColors.Green, 1, 1))
+                    using (var green = new MagickImage(MagickColors.Green, 1, 1))
                     {
                         image.Composite(green, new PointD(0, 0), CompositeOperator.Over);
                     }
@@ -138,9 +138,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangeTheNeighboursWithTargetColor()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.White, 2, 2))
+                using (var image = new MagickImage(MagickColors.White, 2, 2))
                 {
-                    using (IMagickImage green = new MagickImage(MagickColors.Green, 1, 1))
+                    using (var green = new MagickImage(MagickColors.Green, 1, 1))
                     {
                         image.Composite(green, 0, 1, CompositeOperator.Over);
                     }
@@ -157,9 +157,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangeTheNeighboursWithPointDTargetColor()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.White, 2, 2))
+                using (var image = new MagickImage(MagickColors.White, 2, 2))
                 {
-                    using (IMagickImage green = new MagickImage(MagickColors.Green, 1, 1))
+                    using (var green = new MagickImage(MagickColors.Green, 1, 1))
                     {
                         image.Composite(green, new PointD(0, 1), CompositeOperator.Over);
                     }
@@ -176,9 +176,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotChangeTheTargetColors()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.White, 2, 2))
+                using (var image = new MagickImage(MagickColors.White, 2, 2))
                 {
-                    using (IMagickImage green = new MagickImage(MagickColors.Green, 1, 1))
+                    using (var green = new MagickImage(MagickColors.Green, 1, 1))
                     {
                         image.Composite(green, 1, 1, CompositeOperator.Over);
                     }
@@ -195,9 +195,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotChangeThePoinDTargetColors()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.White, 2, 2))
+                using (var image = new MagickImage(MagickColors.White, 2, 2))
                 {
-                    using (IMagickImage green = new MagickImage(MagickColors.Green, 1, 1))
+                    using (var green = new MagickImage(MagickColors.Green, 1, 1))
                     {
                         image.Composite(green, new PointD(1, 1), CompositeOperator.Over);
                     }
@@ -214,7 +214,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangeTheColorsWithTheSameTransparency()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.White, 2, 2))
+                using (var image = new MagickImage(MagickColors.White, 2, 2))
                 {
                     image.HasAlpha = true;
 

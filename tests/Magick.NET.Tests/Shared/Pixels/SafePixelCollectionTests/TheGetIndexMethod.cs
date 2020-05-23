@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnMinusOneForInvalidChannel()
             {
-                using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+                using (var image = new MagickImage(Files.MagickNETIconPNG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -36,7 +36,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnIndexForValidChannel()
             {
-                using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+                using (var image = new MagickImage(Files.MagickNETIconPNG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {

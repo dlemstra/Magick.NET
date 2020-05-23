@@ -14,12 +14,22 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <summary>
     /// Class that can be used to access an Exif profile.
     /// </summary>
-    public sealed class ExifProfile : ImageProfile, IExifProfile
+    public sealed class ExifProfile : ImageProfile, IExifProfile<QuantumType>
     {
         private List<IExifValue> _values;
         private List<ExifTag> _invalidTags = new List<ExifTag>();
@@ -96,7 +106,7 @@ namespace ImageMagick
         /// Returns the thumbnail in the exif profile when available.
         /// </summary>
         /// <returns>The thumbnail in the exif profile when available.</returns>
-        public IMagickImage CreateThumbnail()
+        public IMagickImage<QuantumType> CreateThumbnail()
         {
             InitializeValues();
 

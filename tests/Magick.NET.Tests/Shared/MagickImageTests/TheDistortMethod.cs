@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowAnExceptionWhenArgumentsIsNull()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("arguments", () =>
                     {
@@ -36,7 +36,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowAnExceptionWhenArgumentsIsNullAndSettingsIsNot()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("arguments", () =>
                     {
@@ -48,7 +48,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowAnExceptionWhenArgumentsIsEmpty()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     ExceptionAssert.Throws<ArgumentException>("arguments", () =>
                     {
@@ -60,7 +60,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowAnExceptionWhenArgumentsIsEmptyAndSettingsIsNot()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     ExceptionAssert.Throws<ArgumentException>("arguments", () =>
                     {
@@ -72,7 +72,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowAnExceptionWhenSettingsIsNull()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
                     {
@@ -84,7 +84,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetAnArtifactWhenTheScaleOfTheSettingsIsNotNull()
             {
-                using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+                using (var image = new MagickImage(Files.MagickNETIconPNG))
                 {
                     DistortSettings settings = new DistortSettings()
                     {
@@ -100,7 +100,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetAnArtifactWhenTheViewportOfTheSettingsIsNotNull()
             {
-                using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+                using (var image = new MagickImage(Files.MagickNETIconPNG))
                 {
                     DistortSettings settings = new DistortSettings()
                     {
@@ -116,7 +116,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldBeAbleToPerformPerspectiveDistortion()
             {
-                using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+                using (var image = new MagickImage(Files.MagickNETIconPNG))
                 {
                     image.BackgroundColor = MagickColors.Cornsilk;
                     image.VirtualPixelMethod = VirtualPixelMethod.Background;

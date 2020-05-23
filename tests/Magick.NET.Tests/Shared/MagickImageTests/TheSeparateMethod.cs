@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTheCorrectNumberOfChannels()
             {
-                using (IMagickImage rose = new MagickImage(Files.Builtin.Rose))
+                using (var rose = new MagickImage(Files.Builtin.Rose))
                 {
                     var i = 0;
                     foreach (MagickImage image in rose.Separate())
@@ -44,7 +44,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTheSpecifiedChannels()
             {
-                using (IMagickImage rose = new MagickImage(Files.Builtin.Rose))
+                using (var rose = new MagickImage(Files.Builtin.Rose))
                 {
                     var i = 0;
                     foreach (MagickImage image in rose.Separate(Channels.Red | Channels.Green))
@@ -60,9 +60,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnImageWithGrayColorspace()
             {
-                using (IMagickImage logo = new MagickImage(Files.Builtin.Logo))
+                using (var logo = new MagickImage(Files.Builtin.Logo))
                 {
-                    using (IMagickImage blue = logo.Separate(Channels.Blue).First())
+                    using (var blue = logo.Separate(Channels.Blue).First())
                     {
                         Assert.AreEqual(ColorSpace.Gray, blue.ColorSpace);
                     }

@@ -41,7 +41,7 @@ namespace Magick.NET.Tests
                     colors.Add(new MagickImage(MagickColors.Red, 1, 1));
                     colors.Add(new MagickImage(MagickColors.Green, 1, 1));
 
-                    using (IMagickImage remapImage = colors.AppendHorizontally())
+                    using (var remapImage = colors.AppendHorizontally())
                     {
                         using (IMagickImageCollection collection = new MagickImageCollection())
                         {

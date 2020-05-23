@@ -29,7 +29,7 @@ namespace Magick.NET.Tests
                     PreserveiCCP = true,
                 };
 
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(defines);
 
@@ -45,7 +45,7 @@ namespace Magick.NET.Tests
                     PreserveiCCP = false,
                 };
 
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(defines);
 

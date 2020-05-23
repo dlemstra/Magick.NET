@@ -36,7 +36,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenLowBlackIsNegative()
                 {
-                    using (IMagickImage image = new MagickImage(MagickColors.Red, 1, 1))
+                    using (var image = new MagickImage(MagickColors.Red, 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentException>("percentageLowBlack", () =>
                         {
@@ -48,7 +48,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenLowWhiteIsNegative()
                 {
-                    using (IMagickImage image = new MagickImage(MagickColors.Red, 1, 1))
+                    using (var image = new MagickImage(MagickColors.Red, 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentException>("percentageLowWhite", () =>
                         {
@@ -60,7 +60,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenHighWhiteIsNegative()
                 {
-                    using (IMagickImage image = new MagickImage(MagickColors.Red, 1, 1))
+                    using (var image = new MagickImage(MagickColors.Red, 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentException>("percentageHighWhite", () =>
                         {
@@ -72,7 +72,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenHighBlackIsNegative()
                 {
-                    using (IMagickImage image = new MagickImage(MagickColors.Red, 1, 1))
+                    using (var image = new MagickImage(MagickColors.Red, 1, 1))
                     {
                         ExceptionAssert.Throws<ArgumentException>("percentageHighBlack", () =>
                         {
@@ -84,7 +84,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldChangeTheImage()
                 {
-                    using (IMagickImage image = new MagickImage("gradient:", 50, 256))
+                    using (var image = new MagickImage("gradient:", 50, 256))
                     {
                         image.RangeThreshold(new Percentage(40), new Percentage(40), new Percentage(60), new Percentage(60));
 
@@ -102,7 +102,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldChangeTheImage()
                 {
-                    using (IMagickImage image = new MagickImage("gradient:", 50, 256))
+                    using (var image = new MagickImage("gradient:", 50, 256))
                     {
                         var lowBlack = (QuantumType)(Quantum.Max * 0.4);
                         var lowWhite = (QuantumType)(Quantum.Max * 0.4);

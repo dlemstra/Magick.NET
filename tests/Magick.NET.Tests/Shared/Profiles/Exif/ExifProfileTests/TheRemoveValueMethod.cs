@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldRemoveValueAndReturnTrue()
             {
-                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetExifProfile();
 
@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldRemoveFalseWhenProfileDoesNotContainTag()
             {
-                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetExifProfile();
 

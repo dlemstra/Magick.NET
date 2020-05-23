@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTheValues()
             {
-                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetIptcProfile();
                     Assert.IsNotNull(profile);

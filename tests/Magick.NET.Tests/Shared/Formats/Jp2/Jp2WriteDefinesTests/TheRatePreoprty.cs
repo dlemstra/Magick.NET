@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetTheDefine()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(new Jp2WriteDefines()
                     {
@@ -38,7 +38,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotSetTheDefineWhenTheCollectionIsEmpty()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(new Jp2WriteDefines()
                     {

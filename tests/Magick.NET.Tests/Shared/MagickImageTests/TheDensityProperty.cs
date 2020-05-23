@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotChangeWhenValueIsNull()
             {
-                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     Assert.AreEqual(300, image.Density.X);
 
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
             {
                 using (var memStream = new MemoryStream())
                 {
-                    using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+                    using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                     {
                         var profile = image.GetExifProfile();
                         var value = profile.GetValue(ExifTag.XResolution);
@@ -51,7 +51,7 @@ namespace Magick.NET.Tests
                     }
 
                     memStream.Position = 0;
-                    using (IMagickImage image = new MagickImage(memStream))
+                    using (var image = new MagickImage(memStream))
                     {
                         var profile = image.GetExifProfile();
                         var value = profile.GetValue(ExifTag.XResolution);

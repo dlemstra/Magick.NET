@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldRemoveTheProfile()
             {
-                using (IMagickImage image = new MagickImage(Files.PictureJPG))
+                using (var image = new MagickImage(Files.PictureJPG))
                 {
                     var profile = image.GetColorProfile();
                     Assert.IsNotNull(profile);

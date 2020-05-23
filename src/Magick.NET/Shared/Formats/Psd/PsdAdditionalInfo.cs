@@ -13,6 +13,16 @@
 using System;
 using System.Text;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick.Formats.Psd
 {
     /// <summary>
@@ -35,7 +45,7 @@ namespace ImageMagick.Formats.Psd
         /// </summary>
         /// <param name="image">The image to create the additonal info from.</param>
         /// <returns>The additional info from a <see cref="MagickFormat.Psd"/> image.</returns>
-        public static PsdAdditionalInfo FromImage(IMagickImage image)
+        public static PsdAdditionalInfo FromImage(IMagickImage<QuantumType> image)
         {
             Throw.IfNull(nameof(image), image);
 

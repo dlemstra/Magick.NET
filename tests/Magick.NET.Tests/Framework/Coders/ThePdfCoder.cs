@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
         {
             ReadDelegate action = () =>
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.Read(Files.Coders.CartoonNetworkStudiosLogoAI);
 
@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
                 }
             };
 
-            IAsyncResult[] results = new IAsyncResult[3];
+            var results = new IAsyncResult[3];
 
             for (int i = 0; i < results.Length; ++i)
             {

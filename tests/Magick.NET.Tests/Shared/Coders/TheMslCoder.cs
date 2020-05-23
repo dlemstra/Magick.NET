@@ -36,7 +36,7 @@ namespace Magick.NET.Tests
 
                     memStream.Position = 0;
 
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         MagickReadSettings readSettings = new MagickReadSettings()
                         {

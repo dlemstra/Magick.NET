@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenExpressionIsNull()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("expression", () => image.FormatExpression(null));
                 }
@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenExpressionIsEmpty()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     ExceptionAssert.Throws<ArgumentException>("expression", () => image.FormatExpression(string.Empty));
                 }
@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnProfiles()
             {
-                using (IMagickImage image = new MagickImage(Files.InvitationTIF))
+                using (var image = new MagickImage(Files.InvitationTIF))
                 {
                     Assert.AreEqual("sRGB IEC61966-2.1", image.FormatExpression("%[profile:icc]"));
                 }
@@ -51,7 +51,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnSignature()
             {
-                using (IMagickImage image = new MagickImage(Files.RedPNG))
+                using (var image = new MagickImage(Files.RedPNG))
                 {
                     Assert.AreEqual("92f59c51ad61b99b3c9ebd51f1c77b9c80c0478e2fdb7db47831376b1e4a00db", image.FormatExpression("%#"));
                 }
@@ -72,7 +72,7 @@ namespace Magick.NET.Tests
                     count++;
                 };
 
-                using (IMagickImage image = new MagickImage(Files.RedPNG))
+                using (var image = new MagickImage(Files.RedPNG))
                 {
                     image.Warning += warningDelegate;
                     var result = image.FormatExpression("%EOO");

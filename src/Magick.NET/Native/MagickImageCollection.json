@@ -59,7 +59,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         },
         {
           "name": "stack",
@@ -76,7 +76,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         }
       ]
     },
@@ -89,7 +89,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         },
         {
           "name": "colorSpace",
@@ -106,7 +106,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         },
         {
           "name": "complexOperator",
@@ -123,7 +123,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         }
       ]
     },
@@ -146,7 +146,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         },
         {
           "name": "evaluateOperator",
@@ -161,7 +161,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         },
         {
           "name": "settings",
@@ -169,7 +169,7 @@
         },
         {
           "name": "remapImage",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         }
       ]
     },
@@ -182,7 +182,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         },
         {
           "name": "method",
@@ -199,7 +199,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         },
         {
           "name": "settings",
@@ -216,7 +216,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         },
         {
           "name": "frames",
@@ -233,7 +233,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         }
       ]
     },
@@ -246,7 +246,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         }
       ]
     },
@@ -257,7 +257,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         }
       ]
     },
@@ -270,7 +270,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         },
         {
           "name": "terms",
@@ -289,7 +289,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         },
         {
           "name": "settings",
@@ -369,7 +369,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         },
         {
           "name": "offset",
@@ -388,7 +388,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         },
         {
           "name": "settings",
@@ -403,7 +403,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "IMagickImage"
+          "type": "MagickImage"
         },
         {
           "name": "settings",

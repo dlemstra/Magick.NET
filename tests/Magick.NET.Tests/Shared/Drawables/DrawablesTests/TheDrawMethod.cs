@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldDrawTheDrawables()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Fuchsia, 100, 100))
+                using (var image = new MagickImage(MagickColors.Fuchsia, 100, 100))
                 {
                     var drawables = new Drawables()
                       .FillColor(MagickColors.Red)

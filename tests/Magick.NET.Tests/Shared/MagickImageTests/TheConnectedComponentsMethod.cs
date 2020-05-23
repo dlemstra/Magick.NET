@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotSetTheAttributesWhenOnlyTheComponentsAreSpecified()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 1, 1))
+                using (var image = new MagickImage(MagickColors.Red, 1, 1))
                 {
                     image.ConnectedComponents(4).ToArray();
 
@@ -46,7 +46,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetTheAreaThreshold()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 1, 1))
+                using (var image = new MagickImage(MagickColors.Red, 1, 1))
                 {
                     var settings = new ConnectedComponentsSettings()
                     {
@@ -61,7 +61,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetMeanColor()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 1, 1))
+                using (var image = new MagickImage(MagickColors.Red, 1, 1))
                 {
                     var settings = new ConnectedComponentsSettings()
                     {
@@ -76,9 +76,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTheConnectedComponents()
             {
-                using (IMagickImage image = new MagickImage(Files.ConnectedComponentsPNG))
+                using (var image = new MagickImage(Files.ConnectedComponentsPNG))
                 {
-                    using (IMagickImage temp = image.Clone())
+                    using (var temp = image.Clone())
                     {
                         temp.Blur(0, 10);
                         temp.Threshold((Percentage)50);
@@ -106,7 +106,7 @@ namespace Magick.NET.Tests
                     }
 
 #if !Q8
-                    using (IMagickImage temp = image.Clone())
+                    using (var temp = image.Clone())
                     {
                         var settings = new ConnectedComponentsSettings()
                         {
@@ -136,7 +136,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            private void AssertComponent(IMagickImage image, ConnectedComponent component, int id, int x, int y, int width, int height, int area, IMagickColor<QuantumType> color, int centroidX, int centroidY)
+            private void AssertComponent(IMagickImage<QuantumType> image, ConnectedComponent component, int id, int x, int y, int width, int height, int area, IMagickColor<QuantumType> color, int centroidX, int centroidY)
             {
                 var delta = 2;
 
@@ -150,7 +150,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(centroidX, component.Centroid.X, delta);
                 Assert.AreEqual(centroidY, component.Centroid.Y, delta);
 
-                using (IMagickImage componentImage = image.Clone())
+                using (var componentImage = image.Clone())
                 {
                     componentImage.Crop(component.ToGeometry(10));
                     Assert.AreEqual(width + 20, componentImage.Width, delta);

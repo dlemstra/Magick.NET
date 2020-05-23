@@ -21,7 +21,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_IEquatable()
         {
-            IMagickImage image = new MagickImage(Files.SnakewarePNG);
+            var image = new MagickImage(Files.SnakewarePNG);
 
             var first = image.Statistics();
 
@@ -45,11 +45,11 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Statistics()
         {
-            IMagickImage image = new MagickImage(Files.SnakewarePNG);
+            var image = new MagickImage(Files.SnakewarePNG);
 
             var statistics = image.Statistics();
 
-            ChannelStatistics red = statistics.GetChannel(PixelChannel.Red);
+            var red = statistics.GetChannel(PixelChannel.Red);
 
             Assert.IsNotNull(red);
 #if Q8

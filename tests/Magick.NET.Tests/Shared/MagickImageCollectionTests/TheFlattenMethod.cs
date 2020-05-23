@@ -44,7 +44,7 @@ namespace Magick.NET.Tests
 
                     images.Add(image);
 
-                    using (IMagickImage result = images.Flatten())
+                    using (var result = images.Flatten())
                     {
                         ColorAssert.AreEqual(MagickColors.Moccasin, result, 0, 0);
                     }
@@ -62,7 +62,7 @@ namespace Magick.NET.Tests
 
                     images.Add(image);
 
-                    using (IMagickImage result = images.Flatten(MagickColors.MistyRose))
+                    using (var result = images.Flatten(MagickColors.MistyRose))
                     {
                         ColorAssert.AreEqual(MagickColors.MistyRose, result, 0, 0);
                         Assert.AreEqual(MagickColors.Moccasin, image.BackgroundColor);

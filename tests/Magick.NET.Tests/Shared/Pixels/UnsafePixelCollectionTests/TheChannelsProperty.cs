@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnChannelCountOfImage()
             {
-                using (IMagickImage image = new MagickImage(Files.CMYKJPG))
+                using (var image = new MagickImage(Files.CMYKJPG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {

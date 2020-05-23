@@ -33,9 +33,9 @@ namespace Magick.NET.Tests
                         FontPointsize = 100,
                     };
 
-                    using (IMagickImage image = new MagickImage("label:Test", readSettings))
+                    using (var image = new MagickImage("label:Test", readSettings))
                     {
-                        using (IMagickImage alpha = image.Clone())
+                        using (var alpha = image.Clone())
                         {
                             alpha.Alpha(AlphaOption.Extract);
                             alpha.Shade(130, 30);

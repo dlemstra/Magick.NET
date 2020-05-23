@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
         {
             using (TemporaryFile file = new TemporaryFile(Files.MagickNETIconPNG))
             {
-                using (IMagickImage image = new MagickImage(file))
+                using (var image = new MagickImage(file))
                 {
                     image.Write(file, MagickFormat.Bmp3);
                 }
@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
                     Format = MagickFormat.Bmp3,
                 };
 
-                using (IMagickImage image = new MagickImage(file, settings))
+                using (var image = new MagickImage(file, settings))
                 {
                     Assert.AreEqual(MagickFormat.Bmp3, image.Format);
                 }

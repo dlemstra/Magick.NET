@@ -48,7 +48,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnOriginalDataWhenNotParsed()
             {
-                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetExifProfile();
 
@@ -60,7 +60,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldPreserveTheThumbnail()
             {
-                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetExifProfile();
                     Assert.IsNotNull(profile);
@@ -69,7 +69,7 @@ namespace Magick.NET.Tests
 
                     profile = new ExifProfile(bytes);
 
-                    using (IMagickImage thumbnail = profile.CreateThumbnail())
+                    using (var thumbnail = profile.CreateThumbnail())
                     {
                         Assert.IsNotNull(thumbnail);
                         Assert.AreEqual(128, thumbnail.Width);

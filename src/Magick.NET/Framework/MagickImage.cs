@@ -88,7 +88,7 @@ namespace ImageMagick
         [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "False positive.")]
         public Bitmap ToBitmap(BitmapDensity bitmapDensity)
         {
-            IMagickImage image = this;
+            IMagickImage<QuantumType> image = this;
 
             string mapping = "BGR";
             var format = PixelFormat.Format24bppRgb;
@@ -107,7 +107,7 @@ namespace ImageMagick
                     format = PixelFormat.Format32bppArgb;
                 }
 
-                using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                using (var pixels = image.GetPixelsUnsafe())
                 {
                     var bitmap = new Bitmap(image.Width, image.Height, format);
                     var data = bitmap.LockBits(new Rectangle(0, 0, image.Width, image.Height), ImageLockMode.ReadWrite, format);
@@ -139,7 +139,8 @@ namespace ImageMagick
         /// </summary>
         /// <param name="imageFormat">The image format.</param>
         /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/>.</returns>
-        public Bitmap ToBitmap(ImageFormat imageFormat) => ToBitmap(imageFormat, BitmapDensity.Ignore);
+        public Bitmap ToBitmap(ImageFormat imageFormat)
+            => ToBitmap(imageFormat, BitmapDensity.Ignore);
 
         /// <summary>
         /// Converts this instance to a <see cref="Bitmap"/> using the specified <see cref="ImageFormat"/>.
@@ -184,7 +185,7 @@ namespace ImageMagick
         [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "False positive.")]
         public BitmapSource ToBitmapSource(BitmapDensity bitmapDensity)
         {
-            IMagickImage image = this;
+            IMagickImage<QuantumType> image = this;
 
             var mapping = "RGB";
             var format = MediaPixelFormats.Rgb24;

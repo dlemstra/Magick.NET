@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
             {
                 using (var memStream = new MemoryStream())
                 {
-                    using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+                    using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                     {
                         var profile = image.GetExifProfile();
                         Assert.AreEqual(44, profile.Values.Count());
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
                     }
 
                     memStream.Position = 0;
-                    using (IMagickImage image = new MagickImage(memStream))
+                    using (var image = new MagickImage(memStream))
                     {
                         var profile = image.GetExifProfile();
                         Assert.AreEqual(24, profile.Values.Count());

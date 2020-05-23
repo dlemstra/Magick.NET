@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotThrowExceptionWhenWidthOutOfRange()
             {
-                using (IMagickImage image = new MagickImage(Files.RedPNG))
+                using (var image = new MagickImage(Files.RedPNG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -35,7 +35,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotThrowExceptionWhenHeightOutOfRange()
             {
-                using (IMagickImage image = new MagickImage(Files.RedPNG))
+                using (var image = new MagickImage(Files.RedPNG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -47,7 +47,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnPixelWhenIndexIsCorrect()
             {
-                using (IMagickImage image = new MagickImage(Files.RedPNG))
+                using (var image = new MagickImage(Files.RedPNG))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {

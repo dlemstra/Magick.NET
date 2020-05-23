@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
                     Extent = 5,
                 };
 
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(defines);
 
@@ -46,7 +46,7 @@ namespace Magick.NET.Tests
                     Extent = 10,
                 };
 
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     using (MemoryStream memStream = new MemoryStream())
                     {

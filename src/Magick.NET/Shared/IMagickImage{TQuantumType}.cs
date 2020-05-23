@@ -15,22 +15,13 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
-#if Q8
-using QuantumType = System.Byte;
-#elif Q16
-using QuantumType = System.UInt16;
-#elif Q16HDRI
-using QuantumType = System.Single;
-#else
-#error Not implemented!
-#endif
-
 namespace ImageMagick
 {
     /// <summary>
     /// Interface that represents an ImageMagick image.
     /// </summary>
-    public partial interface IMagickImage : IEquatable<IMagickImage>, IComparable<IMagickImage>, IDisposable
+    /// <typeparam name="TQuantumType">The quantum type.</typeparam>
+    public partial interface IMagickImage<TQuantumType> : IEquatable<IMagickImage<TQuantumType>>, IComparable<IMagickImage<TQuantumType>>, IDisposable
     {
         /// <summary>
         /// Event that will be raised when progress is reported by this image.
@@ -71,7 +62,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the background color of the image.
         /// </summary>
-        IMagickColor<QuantumType> BackgroundColor { get; set; }
+        IMagickColor<TQuantumType> BackgroundColor { get; set; }
 
         /// <summary>
         /// Gets the height of the image before transformations.
@@ -91,7 +82,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the border color of the image.
         /// </summary>
-        IMagickColor<QuantumType> BorderColor { get; set; }
+        IMagickColor<TQuantumType> BorderColor { get; set; }
 
         /// <summary>
         /// Gets the smallest bounding box enclosing non-border pixels. The current fuzz value is used
@@ -269,7 +260,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the matte color.
         /// </summary>
-        IMagickColor<QuantumType> MatteColor { get; set; }
+        IMagickColor<TQuantumType> MatteColor { get; set; }
 
         /// <summary>
         /// Gets or sets the photo orientation of the image.
@@ -299,7 +290,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the settings for this instance.
         /// </summary>
-        IMagickSettings<QuantumType> Settings { get; }
+        IMagickSettings<TQuantumType> Settings { get; }
 
         /// <summary>
         /// Gets the signature of this image.
@@ -812,7 +803,7 @@ namespace ImageMagick
         /// Creates a clone of the current image.
         /// </summary>
         /// <returns>A clone of the current image.</returns>
-        IMagickImage Clone();
+        IMagickImage<TQuantumType> Clone();
 
         /// <summary>
         /// Creates a clone of the current image with the specified geometry.
@@ -820,7 +811,7 @@ namespace ImageMagick
         /// <param name="geometry">The area to clone.</param>
         /// <returns>A clone of the current image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickImage Clone(IMagickGeometry geometry);
+        IMagickImage<TQuantumType> Clone(IMagickGeometry geometry);
 
         /// <summary>
         /// Creates a clone of the current image.
@@ -828,7 +819,7 @@ namespace ImageMagick
         /// <param name="width">The width of the area to clone.</param>
         /// <param name="height">The height of the area to clone.</param>
         /// <returns>A clone of the current image.</returns>
-        IMagickImage Clone(int width, int height);
+        IMagickImage<TQuantumType> Clone(int width, int height);
 
         /// <summary>
         /// Creates a clone of the current image.
@@ -838,14 +829,14 @@ namespace ImageMagick
         /// <param name="width">The width of the area to clone.</param>
         /// <param name="height">The height of the area to clone.</param>
         /// <returns>A clone of the current image.</returns>
-        IMagickImage Clone(int x, int y, int width, int height);
+        IMagickImage<TQuantumType> Clone(int x, int y, int width, int height);
 
         /// <summary>
         /// Apply a color lookup table (CLUT) to the image.
         /// </summary>
         /// <param name="image">The image to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Clut(IMagickImage image);
+        void Clut(IMagickImage<TQuantumType> image);
 
         /// <summary>
         /// Apply a color lookup table (CLUT) to the image.
@@ -853,7 +844,7 @@ namespace ImageMagick
         /// <param name="image">The image to use.</param>
         /// <param name="method">Pixel interpolate method.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Clut(IMagickImage image, PixelInterpolateMethod method);
+        void Clut(IMagickImage<TQuantumType> image, PixelInterpolateMethod method);
 
         /// <summary>
         /// Apply a color lookup table (CLUT) to the image.
@@ -862,14 +853,14 @@ namespace ImageMagick
         /// <param name="method">Pixel interpolate method.</param>
         /// <param name="channels">The channel(s) to clut.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Clut(IMagickImage image, PixelInterpolateMethod method, Channels channels);
+        void Clut(IMagickImage<TQuantumType> image, PixelInterpolateMethod method, Channels channels);
 
         /// <summary>
         /// Sets the alpha channel to the specified color.
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void ColorAlpha(IMagickColor<QuantumType> color);
+        void ColorAlpha(IMagickColor<TQuantumType> color);
 
         /// <summary>
         /// Applies the color decision list from the specified ASC CDL file.
@@ -884,7 +875,7 @@ namespace ImageMagick
         /// <param name="color">The color to use.</param>
         /// <param name="alpha">The alpha percentage.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Colorize(IMagickColor<QuantumType> color, Percentage alpha);
+        void Colorize(IMagickColor<TQuantumType> color, Percentage alpha);
 
         /// <summary>
         /// Colorize image with the specified color, using specified percent alpha for red, green,
@@ -895,7 +886,7 @@ namespace ImageMagick
         /// <param name="alphaGreen">The alpha percentage for green.</param>
         /// <param name="alphaBlue">The alpha percentage for blue.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Colorize(IMagickColor<QuantumType> color, Percentage alphaRed, Percentage alphaGreen, Percentage alphaBlue);
+        void Colorize(IMagickColor<TQuantumType> color, Percentage alphaRed, Percentage alphaGreen, Percentage alphaBlue);
 
         /// <summary>
         /// Apply a color matrix to the image channels.
@@ -909,7 +900,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="startColor">The start color of the color range.</param>
         /// <param name="stopColor">The stop color of the color range.</param>
-        void ColorThreshold(IMagickColor<QuantumType> startColor, IMagickColor<QuantumType> stopColor);
+        void ColorThreshold(IMagickColor<TQuantumType> startColor, IMagickColor<TQuantumType> stopColor);
 
         /// <summary>
         /// Compare current image with another image and returns error information.
@@ -917,7 +908,7 @@ namespace ImageMagick
         /// <param name="image">The other image to compare with this image.</param>
         /// <returns>The error information.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        MagickErrorInfo Compare(IMagickImage image);
+        MagickErrorInfo Compare(IMagickImage<TQuantumType> image);
 
         /// <summary>
         /// Returns the distortion based on the specified metric.
@@ -926,7 +917,7 @@ namespace ImageMagick
         /// <param name="metric">The metric to use.</param>
         /// <returns>The distortion based on the specified metric.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        double Compare(IMagickImage image, ErrorMetric metric);
+        double Compare(IMagickImage<TQuantumType> image, ErrorMetric metric);
 
         /// <summary>
         /// Returns the distortion based on the specified metric.
@@ -936,7 +927,7 @@ namespace ImageMagick
         /// <param name="channels">The channel(s) to compare.</param>
         /// <returns>The distortion based on the specified metric.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        double Compare(IMagickImage image, ErrorMetric metric, Channels channels);
+        double Compare(IMagickImage<TQuantumType> image, ErrorMetric metric, Channels channels);
 
         /// <summary>
         /// Returns the distortion based on the specified metric.
@@ -946,7 +937,7 @@ namespace ImageMagick
         /// <param name="difference">The image that will contain the difference.</param>
         /// <returns>The distortion based on the specified metric.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        double Compare(IMagickImage image, ICompareSettings<QuantumType> settings, IMagickImage difference);
+        double Compare(IMagickImage<TQuantumType> image, ICompareSettings<TQuantumType> settings, IMagickImage<TQuantumType> difference);
 
         /// <summary>
         /// Returns the distortion based on the specified metric.
@@ -956,7 +947,7 @@ namespace ImageMagick
         /// <param name="difference">The image that will contain the difference.</param>
         /// <returns>The distortion based on the specified metric.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        double Compare(IMagickImage image, ErrorMetric metric, IMagickImage difference);
+        double Compare(IMagickImage<TQuantumType> image, ErrorMetric metric, IMagickImage<TQuantumType> difference);
 
         /// <summary>
         /// Returns the distortion based on the specified metric.
@@ -967,7 +958,7 @@ namespace ImageMagick
         /// <param name="channels">The channel(s) to compare.</param>
         /// <returns>The distortion based on the specified metric.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        double Compare(IMagickImage image, ICompareSettings<QuantumType> settings, IMagickImage difference, Channels channels);
+        double Compare(IMagickImage<TQuantumType> image, ICompareSettings<TQuantumType> settings, IMagickImage<TQuantumType> difference, Channels channels);
 
         /// <summary>
         /// Returns the distortion based on the specified metric.
@@ -978,14 +969,14 @@ namespace ImageMagick
         /// <param name="channels">The channel(s) to compare.</param>
         /// <returns>The distortion based on the specified metric.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        double Compare(IMagickImage image, ErrorMetric metric, IMagickImage difference, Channels channels);
+        double Compare(IMagickImage<TQuantumType> image, ErrorMetric metric, IMagickImage<TQuantumType> difference, Channels channels);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the 'In' operator.
         /// </summary>
         /// <param name="image">The image to composite with this image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image);
+        void Composite(IMagickImage<TQuantumType> image);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the 'In' operator.
@@ -993,7 +984,7 @@ namespace ImageMagick
         /// <param name="image">The image to composite with this image.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, Channels channels);
+        void Composite(IMagickImage<TQuantumType> image, Channels channels);
 
         /// <summary>
         /// Compose an image onto another using the specified algorithm.
@@ -1001,7 +992,7 @@ namespace ImageMagick
         /// <param name="image">The image to composite with this image.</param>
         /// <param name="compose">The algorithm to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, CompositeOperator compose);
+        void Composite(IMagickImage<TQuantumType> image, CompositeOperator compose);
 
         /// <summary>
         /// Compose an image onto another using the specified algorithm.
@@ -1010,7 +1001,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, CompositeOperator compose, Channels channels);
+        void Composite(IMagickImage<TQuantumType> image, CompositeOperator compose, Channels channels);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1019,7 +1010,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, CompositeOperator compose, string args);
+        void Composite(IMagickImage<TQuantumType> image, CompositeOperator compose, string args);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1029,7 +1020,7 @@ namespace ImageMagick
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, CompositeOperator compose, string args, Channels channels);
+        void Composite(IMagickImage<TQuantumType> image, CompositeOperator compose, string args, Channels channels);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the 'In' operator.
@@ -1038,7 +1029,7 @@ namespace ImageMagick
         /// <param name="x">The X offset from origin.</param>
         /// <param name="y">The Y offset from origin.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, int x, int y);
+        void Composite(IMagickImage<TQuantumType> image, int x, int y);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the 'In' operator.
@@ -1048,7 +1039,7 @@ namespace ImageMagick
         /// <param name="y">The Y offset from origin.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, int x, int y, Channels channels);
+        void Composite(IMagickImage<TQuantumType> image, int x, int y, Channels channels);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1058,7 +1049,7 @@ namespace ImageMagick
         /// <param name="y">The Y offset from origin.</param>
         /// <param name="compose">The algorithm to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, int x, int y, CompositeOperator compose);
+        void Composite(IMagickImage<TQuantumType> image, int x, int y, CompositeOperator compose);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1069,7 +1060,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, int x, int y, CompositeOperator compose, Channels channels);
+        void Composite(IMagickImage<TQuantumType> image, int x, int y, CompositeOperator compose, Channels channels);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1080,7 +1071,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, int x, int y, CompositeOperator compose, string args);
+        void Composite(IMagickImage<TQuantumType> image, int x, int y, CompositeOperator compose, string args);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1092,7 +1083,7 @@ namespace ImageMagick
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, int x, int y, CompositeOperator compose, string args, Channels channels);
+        void Composite(IMagickImage<TQuantumType> image, int x, int y, CompositeOperator compose, string args, Channels channels);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the 'In' operator.
@@ -1100,7 +1091,7 @@ namespace ImageMagick
         /// <param name="image">The image to composite with this image.</param>
         /// <param name="offset">The offset from origin.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, PointD offset);
+        void Composite(IMagickImage<TQuantumType> image, PointD offset);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the 'In' operator.
@@ -1109,7 +1100,7 @@ namespace ImageMagick
         /// <param name="offset">The offset from origin.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, PointD offset, Channels channels);
+        void Composite(IMagickImage<TQuantumType> image, PointD offset, Channels channels);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1118,7 +1109,7 @@ namespace ImageMagick
         /// <param name="offset">The offset from origin.</param>
         /// <param name="compose">The algorithm to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, PointD offset, CompositeOperator compose);
+        void Composite(IMagickImage<TQuantumType> image, PointD offset, CompositeOperator compose);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1128,17 +1119,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, PointD offset, CompositeOperator compose, Channels channels);
-
-        /// <summary>
-        /// Compose an image onto another at specified offset using the specified algorithm.
-        /// </summary>
-        /// <param name="image">The image to composite with this image.</param>
-        /// <param name="offset">The offset from origin.</param>
-        /// <param name="compose">The algorithm to use.</param>
-        /// <param name="args">The arguments for the algorithm (compose:args).</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, PointD offset, CompositeOperator compose, string args);
+        void Composite(IMagickImage<TQuantumType> image, PointD offset, CompositeOperator compose, Channels channels);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1147,9 +1128,19 @@ namespace ImageMagick
         /// <param name="offset">The offset from origin.</param>
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Composite(IMagickImage<TQuantumType> image, PointD offset, CompositeOperator compose, string args);
+
+        /// <summary>
+        /// Compose an image onto another at specified offset using the specified algorithm.
+        /// </summary>
+        /// <param name="image">The image to composite with this image.</param>
+        /// <param name="offset">The offset from origin.</param>
+        /// <param name="compose">The algorithm to use.</param>
+        /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, PointD offset, CompositeOperator compose, string args, Channels channels);
+        void Composite(IMagickImage<TQuantumType> image, PointD offset, CompositeOperator compose, string args, Channels channels);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the 'In' operator.
@@ -1157,7 +1148,7 @@ namespace ImageMagick
         /// <param name="image">The image to composite with this image.</param>
         /// <param name="gravity">The placement gravity.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, Gravity gravity);
+        void Composite(IMagickImage<TQuantumType> image, Gravity gravity);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the 'In' operator.
@@ -1166,7 +1157,7 @@ namespace ImageMagick
         /// <param name="gravity">The placement gravity.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, Gravity gravity, Channels channels);
+        void Composite(IMagickImage<TQuantumType> image, Gravity gravity, Channels channels);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1175,7 +1166,7 @@ namespace ImageMagick
         /// <param name="gravity">The placement gravity.</param>
         /// <param name="compose">The algorithm to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, Gravity gravity, CompositeOperator compose);
+        void Composite(IMagickImage<TQuantumType> image, Gravity gravity, CompositeOperator compose);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1185,7 +1176,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, Gravity gravity, CompositeOperator compose, Channels channels);
+        void Composite(IMagickImage<TQuantumType> image, Gravity gravity, CompositeOperator compose, Channels channels);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1195,7 +1186,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, Gravity gravity, CompositeOperator compose, string args);
+        void Composite(IMagickImage<TQuantumType> image, Gravity gravity, CompositeOperator compose, string args);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1206,7 +1197,7 @@ namespace ImageMagick
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, Gravity gravity, CompositeOperator compose, string args, Channels channels);
+        void Composite(IMagickImage<TQuantumType> image, Gravity gravity, CompositeOperator compose, string args, Channels channels);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the 'In' operator.
@@ -1216,7 +1207,7 @@ namespace ImageMagick
         /// <param name="x">The X offset from origin.</param>
         /// <param name="y">The Y offset from origin.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, Gravity gravity, int x, int y);
+        void Composite(IMagickImage<TQuantumType> image, Gravity gravity, int x, int y);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the 'In' operator.
@@ -1227,7 +1218,7 @@ namespace ImageMagick
         /// <param name="y">The Y offset from origin.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, Gravity gravity, int x, int y, Channels channels);
+        void Composite(IMagickImage<TQuantumType> image, Gravity gravity, int x, int y, Channels channels);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the 'In' operator.
@@ -1238,7 +1229,7 @@ namespace ImageMagick
         /// <param name="y">The Y offset from origin.</param>
         /// <param name="compose">The algorithm to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, Gravity gravity, int x, int y, CompositeOperator compose);
+        void Composite(IMagickImage<TQuantumType> image, Gravity gravity, int x, int y, CompositeOperator compose);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the 'In' operator.
@@ -1250,19 +1241,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, Gravity gravity, int x, int y, CompositeOperator compose, Channels channels);
-
-        /// <summary>
-        /// Compose an image onto another at specified offset using the specified algorithm.
-        /// </summary>
-        /// <param name="image">The image to composite with this image.</param>
-        /// <param name="gravity">The placement gravity.</param>
-        /// <param name="x">The X offset from origin.</param>
-        /// <param name="y">The Y offset from origin.</param>
-        /// <param name="compose">The algorithm to use.</param>
-        /// <param name="args">The arguments for the algorithm (compose:args).</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, Gravity gravity, int x, int y, CompositeOperator compose, string args);
+        void Composite(IMagickImage<TQuantumType> image, Gravity gravity, int x, int y, CompositeOperator compose, Channels channels);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1273,9 +1252,21 @@ namespace ImageMagick
         /// <param name="y">The Y offset from origin.</param>
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Composite(IMagickImage<TQuantumType> image, Gravity gravity, int x, int y, CompositeOperator compose, string args);
+
+        /// <summary>
+        /// Compose an image onto another at specified offset using the specified algorithm.
+        /// </summary>
+        /// <param name="image">The image to composite with this image.</param>
+        /// <param name="gravity">The placement gravity.</param>
+        /// <param name="x">The X offset from origin.</param>
+        /// <param name="y">The Y offset from origin.</param>
+        /// <param name="compose">The algorithm to use.</param>
+        /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, Gravity gravity, int x, int y, CompositeOperator compose, string args, Channels channels);
+        void Composite(IMagickImage<TQuantumType> image, Gravity gravity, int x, int y, CompositeOperator compose, string args, Channels channels);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the 'In' operator.
@@ -1284,7 +1275,7 @@ namespace ImageMagick
         /// <param name="gravity">The placement gravity.</param>
         /// <param name="offset">The offset from origin.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, Gravity gravity, PointD offset);
+        void Composite(IMagickImage<TQuantumType> image, Gravity gravity, PointD offset);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the 'In' operator.
@@ -1294,7 +1285,7 @@ namespace ImageMagick
         /// <param name="offset">The offset from origin.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, Gravity gravity, PointD offset, Channels channels);
+        void Composite(IMagickImage<TQuantumType> image, Gravity gravity, PointD offset, Channels channels);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the 'In' operator.
@@ -1304,7 +1295,7 @@ namespace ImageMagick
         /// <param name="offset">The offset from origin.</param>
         /// <param name="compose">The algorithm to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, Gravity gravity, PointD offset, CompositeOperator compose);
+        void Composite(IMagickImage<TQuantumType> image, Gravity gravity, PointD offset, CompositeOperator compose);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the 'In' operator.
@@ -1315,7 +1306,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, Gravity gravity, PointD offset, CompositeOperator compose, Channels channels);
+        void Composite(IMagickImage<TQuantumType> image, Gravity gravity, PointD offset, CompositeOperator compose, Channels channels);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1326,7 +1317,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, Gravity gravity, PointD offset, CompositeOperator compose, string args);
+        void Composite(IMagickImage<TQuantumType> image, Gravity gravity, PointD offset, CompositeOperator compose, string args);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1338,7 +1329,7 @@ namespace ImageMagick
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, Gravity gravity, PointD offset, CompositeOperator compose, string args, Channels channels);
+        void Composite(IMagickImage<TQuantumType> image, Gravity gravity, PointD offset, CompositeOperator compose, string args, Channels channels);
 
         /// <summary>
         /// Determines the connected-components of the image.
@@ -1421,7 +1412,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="source">The source image to copy the pixels from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void CopyPixels(IMagickImage source);
+        void CopyPixels(IMagickImage<TQuantumType> source);
 
         /// <summary>
         /// Copies pixels from the source image to the destination image.
@@ -1429,7 +1420,7 @@ namespace ImageMagick
         /// <param name="source">The source image to copy the pixels from.</param>
         /// <param name="channels">The channels to copy.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void CopyPixels(IMagickImage source, Channels channels);
+        void CopyPixels(IMagickImage<TQuantumType> source, Channels channels);
 
         /// <summary>
         /// Copies pixels from the source image to the destination image.
@@ -1437,7 +1428,7 @@ namespace ImageMagick
         /// <param name="source">The source image to copy the pixels from.</param>
         /// <param name="geometry">The geometry to copy.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void CopyPixels(IMagickImage source, IMagickGeometry geometry);
+        void CopyPixels(IMagickImage<TQuantumType> source, IMagickGeometry geometry);
 
         /// <summary>
         /// Copies pixels from the source image to the destination image.
@@ -1446,7 +1437,7 @@ namespace ImageMagick
         /// <param name="geometry">The geometry to copy.</param>
         /// <param name="channels">The channels to copy.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void CopyPixels(IMagickImage source, IMagickGeometry geometry, Channels channels);
+        void CopyPixels(IMagickImage<TQuantumType> source, IMagickGeometry geometry, Channels channels);
 
         /// <summary>
         /// Copies pixels from the source image as defined by the geometry the destination image at
@@ -1456,7 +1447,7 @@ namespace ImageMagick
         /// <param name="geometry">The geometry to copy.</param>
         /// <param name="offset">The offset to copy the pixels to.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void CopyPixels(IMagickImage source, IMagickGeometry geometry, PointD offset);
+        void CopyPixels(IMagickImage<TQuantumType> source, IMagickGeometry geometry, PointD offset);
 
         /// <summary>
         /// Copies pixels from the source image as defined by the geometry the destination image at
@@ -1467,7 +1458,7 @@ namespace ImageMagick
         /// <param name="offset">The offset to start the copy from.</param>
         /// <param name="channels">The channels to copy.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void CopyPixels(IMagickImage source, IMagickGeometry geometry, PointD offset, Channels channels);
+        void CopyPixels(IMagickImage<TQuantumType> source, IMagickGeometry geometry, PointD offset, Channels channels);
 
         /// <summary>
         /// Copies pixels from the source image as defined by the geometry the destination image at
@@ -1478,7 +1469,7 @@ namespace ImageMagick
         /// <param name="x">The X offset to start the copy from.</param>
         /// <param name="y">The Y offset to start the copy from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void CopyPixels(IMagickImage source, IMagickGeometry geometry, int x, int y);
+        void CopyPixels(IMagickImage<TQuantumType> source, IMagickGeometry geometry, int x, int y);
 
         /// <summary>
         /// Copies pixels from the source image as defined by the geometry the destination image at
@@ -1490,7 +1481,7 @@ namespace ImageMagick
         /// <param name="y">The Y offset to copy the pixels to.</param>
         /// <param name="channels">The channels to copy.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void CopyPixels(IMagickImage source, IMagickGeometry geometry, int x, int y, Channels channels);
+        void CopyPixels(IMagickImage<TQuantumType> source, IMagickGeometry geometry, int x, int y, Channels channels);
 
         /// <summary>
         /// Crop image (subregion of original image) using CropPosition.Center. You should call
@@ -1534,14 +1525,14 @@ namespace ImageMagick
         /// <param name="width">The width of the tile.</param>
         /// <param name="height">The height of the tile.</param>
         /// <returns>New title of the current image.</returns>
-        IEnumerable<IMagickImage> CropToTiles(int width, int height);
+        IEnumerable<IMagickImage<TQuantumType>> CropToTiles(int width, int height);
 
         /// <summary>
         /// Creates tiles of the current image in the specified dimension.
         /// </summary>
         /// <param name="geometry">The size of the tile.</param>
         /// <returns>New title of the current image.</returns>
-        IEnumerable<IMagickImage> CropToTiles(IMagickGeometry geometry);
+        IEnumerable<IMagickImage<TQuantumType>> CropToTiles(IMagickGeometry geometry);
 
         /// <summary>
         /// Displaces an image's colormap by a given number of positions.
@@ -1746,7 +1737,7 @@ namespace ImageMagick
         /// <param name="height">The height to extend the image to.</param>
         /// <param name="backgroundColor">The background color to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Extent(int width, int height, IMagickColor<QuantumType> backgroundColor);
+        void Extent(int width, int height, IMagickColor<TQuantumType> backgroundColor);
 
         /// <summary>
         /// Extend the image as defined by the width and height.
@@ -1765,7 +1756,7 @@ namespace ImageMagick
         /// <param name="gravity">The placement gravity.</param>
         /// <param name="backgroundColor">The background color to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Extent(int width, int height, Gravity gravity, IMagickColor<QuantumType> backgroundColor);
+        void Extent(int width, int height, Gravity gravity, IMagickColor<TQuantumType> backgroundColor);
 
         /// <summary>
         /// Extend the image as defined by the rectangle.
@@ -1780,7 +1771,7 @@ namespace ImageMagick
         /// <param name="geometry">The geometry to extend the image to.</param>
         /// <param name="backgroundColor">The background color to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Extent(IMagickGeometry geometry, IMagickColor<QuantumType> backgroundColor);
+        void Extent(IMagickGeometry geometry, IMagickColor<TQuantumType> backgroundColor);
 
         /// <summary>
         /// Extend the image as defined by the geometry.
@@ -1797,7 +1788,7 @@ namespace ImageMagick
         /// <param name="gravity">The placement gravity.</param>
         /// <param name="backgroundColor">The background color to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Extent(IMagickGeometry geometry, Gravity gravity, IMagickColor<QuantumType> backgroundColor);
+        void Extent(IMagickGeometry geometry, Gravity gravity, IMagickColor<TQuantumType> backgroundColor);
 
         /// <summary>
         /// Flip image (reflect each scanline in the vertical direction).
@@ -1813,7 +1804,7 @@ namespace ImageMagick
         /// <param name="x">The X coordinate.</param>
         /// <param name="y">The Y coordinate.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void FloodFill(QuantumType alpha, int x, int y);
+        void FloodFill(TQuantumType alpha, int x, int y);
 
         /// <summary>
         /// Flood-fill color across pixels that match the color of the  target pixel and are neighbors
@@ -1823,7 +1814,7 @@ namespace ImageMagick
         /// <param name="x">The X coordinate.</param>
         /// <param name="y">The Y coordinate.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void FloodFill(IMagickColor<QuantumType> color, int x, int y);
+        void FloodFill(IMagickColor<TQuantumType> color, int x, int y);
 
         /// <summary>
         /// Flood-fill color across pixels that match the color of the target pixel and are neighbors
@@ -1834,7 +1825,7 @@ namespace ImageMagick
         /// <param name="y">The Y coordinate.</param>
         /// <param name="target">The target color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void FloodFill(IMagickColor<QuantumType> color, int x, int y, IMagickColor<QuantumType> target);
+        void FloodFill(IMagickColor<TQuantumType> color, int x, int y, IMagickColor<TQuantumType> target);
 
         /// <summary>
         /// Flood-fill color across pixels that match the color of the  target pixel and are neighbors
@@ -1843,7 +1834,7 @@ namespace ImageMagick
         /// <param name="color">The color to use.</param>
         /// <param name="coordinate">The position of the pixel.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void FloodFill(IMagickColor<QuantumType> color, PointD coordinate);
+        void FloodFill(IMagickColor<TQuantumType> color, PointD coordinate);
 
         /// <summary>
         /// Flood-fill color across pixels that match the color of the target pixel and are neighbors
@@ -1853,7 +1844,7 @@ namespace ImageMagick
         /// <param name="coordinate">The position of the pixel.</param>
         /// <param name="target">The target color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void FloodFill(IMagickColor<QuantumType> color, PointD coordinate, IMagickColor<QuantumType> target);
+        void FloodFill(IMagickColor<TQuantumType> color, PointD coordinate, IMagickColor<TQuantumType> target);
 
         /// <summary>
         /// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
@@ -1863,7 +1854,7 @@ namespace ImageMagick
         /// <param name="x">The X coordinate.</param>
         /// <param name="y">The Y coordinate.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void FloodFill(IMagickImage image, int x, int y);
+        void FloodFill(IMagickImage<TQuantumType> image, int x, int y);
 
         /// <summary>
         /// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
@@ -1874,7 +1865,7 @@ namespace ImageMagick
         /// <param name="y">The Y coordinate.</param>
         /// <param name="target">The target color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void FloodFill(IMagickImage image, int x, int y, IMagickColor<QuantumType> target);
+        void FloodFill(IMagickImage<TQuantumType> image, int x, int y, IMagickColor<TQuantumType> target);
 
         /// <summary>
         /// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
@@ -1883,7 +1874,7 @@ namespace ImageMagick
         /// <param name="image">The image to use.</param>
         /// <param name="coordinate">The position of the pixel.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void FloodFill(IMagickImage image, PointD coordinate);
+        void FloodFill(IMagickImage<TQuantumType> image, PointD coordinate);
 
         /// <summary>
         /// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
@@ -1893,7 +1884,7 @@ namespace ImageMagick
         /// <param name="coordinate">The position of the pixel.</param>
         /// <param name="target">The target color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void FloodFill(IMagickImage image, PointD coordinate, IMagickColor<QuantumType> target);
+        void FloodFill(IMagickImage<TQuantumType> image, PointD coordinate, IMagickColor<TQuantumType> target);
 
         /// <summary>
         /// Flop image (reflect each scanline in the horizontal direction).
@@ -2040,7 +2031,7 @@ namespace ImageMagick
         /// <param name="index">The position index.</param>
         /// <returns>he color at colormap position index.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickColor<QuantumType> GetColormap(int index);
+        IMagickColor<TQuantumType> GetColormap(int index);
 
         /// <summary>
         /// Retrieve the color profile from the image.
@@ -2061,7 +2052,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The exif profile from the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IExifProfile GetExifProfile();
+        IExifProfile<TQuantumType> GetExifProfile();
 
         /// <summary>
         /// Retrieve the iptc profile from the image.
@@ -2098,14 +2089,14 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The associated read mask of the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickImage GetReadMask();
+        IMagickImage<TQuantumType> GetReadMask();
 
         /// <summary>
         /// Gets the associated write mask of the image.
         /// </summary>
         /// <returns>The associated write mask of the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickImage GetWriteMask();
+        IMagickImage<TQuantumType> GetWriteMask();
 
         /// <summary>
         /// Retrieve the xmp profile from the image.
@@ -2139,14 +2130,14 @@ namespace ImageMagick
         /// </summary>
         /// <param name="image">The image to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void HaldClut(IMagickImage image);
+        void HaldClut(IMagickImage<TQuantumType> image);
 
         /// <summary>
         /// Creates a color histogram.
         /// </summary>
         /// <returns>A color histogram.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        Dictionary<IMagickColor<QuantumType>, int> Histogram();
+        Dictionary<IMagickColor<TQuantumType>, int> Histogram();
 
         /// <summary>
         /// Identifies lines in the image.
@@ -2179,7 +2170,7 @@ namespace ImageMagick
         /// <param name="x">The X coordinate.</param>
         /// <param name="y">The Y coordinate.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseFloodFill(QuantumType alpha, int x, int y);
+        void InverseFloodFill(TQuantumType alpha, int x, int y);
 
         /// <summary>
         /// Flood-fill texture across pixels that do not match the color of the target pixel and are
@@ -2189,7 +2180,7 @@ namespace ImageMagick
         /// <param name="x">The X coordinate.</param>
         /// <param name="y">The Y coordinate.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseFloodFill(IMagickColor<QuantumType> color, int x, int y);
+        void InverseFloodFill(IMagickColor<TQuantumType> color, int x, int y);
 
         /// <summary>
         /// Flood-fill texture across pixels that do not match the color of the target pixel and are
@@ -2200,7 +2191,7 @@ namespace ImageMagick
         /// <param name="y">The Y coordinate.</param>
         /// <param name="target">The target color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseFloodFill(IMagickColor<QuantumType> color, int x, int y, IMagickColor<QuantumType> target);
+        void InverseFloodFill(IMagickColor<TQuantumType> color, int x, int y, IMagickColor<TQuantumType> target);
 
         /// <summary>
         /// Flood-fill color across pixels that match the color of the  target pixel and are neighbors
@@ -2209,7 +2200,7 @@ namespace ImageMagick
         /// <param name="color">The color to use.</param>
         /// <param name="coordinate">The position of the pixel.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseFloodFill(IMagickColor<QuantumType> color, PointD coordinate);
+        void InverseFloodFill(IMagickColor<TQuantumType> color, PointD coordinate);
 
         /// <summary>
         /// Flood-fill texture across pixels that do not match the color of the target pixel and are
@@ -2219,7 +2210,7 @@ namespace ImageMagick
         /// <param name="coordinate">The position of the pixel.</param>
         /// <param name="target">The target color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseFloodFill(IMagickColor<QuantumType> color, PointD coordinate, IMagickColor<QuantumType> target);
+        void InverseFloodFill(IMagickColor<TQuantumType> color, PointD coordinate, IMagickColor<TQuantumType> target);
 
         /// <summary>
         /// Flood-fill texture across pixels that do not match the color of the target pixel and are
@@ -2229,7 +2220,7 @@ namespace ImageMagick
         /// <param name="x">The X coordinate.</param>
         /// <param name="y">The Y coordinate.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseFloodFill(IMagickImage image, int x, int y);
+        void InverseFloodFill(IMagickImage<TQuantumType> image, int x, int y);
 
         /// <summary>
         /// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
@@ -2240,7 +2231,7 @@ namespace ImageMagick
         /// <param name="y">The Y coordinate.</param>
         /// <param name="target">The target color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseFloodFill(IMagickImage image, int x, int y, IMagickColor<QuantumType> target);
+        void InverseFloodFill(IMagickImage<TQuantumType> image, int x, int y, IMagickColor<TQuantumType> target);
 
         /// <summary>
         /// Flood-fill texture across pixels that do not match the color of the target pixel and are
@@ -2249,7 +2240,7 @@ namespace ImageMagick
         /// <param name="image">The image to use.</param>
         /// <param name="coordinate">The position of the pixel.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseFloodFill(IMagickImage image, PointD coordinate);
+        void InverseFloodFill(IMagickImage<TQuantumType> image, PointD coordinate);
 
         /// <summary>
         /// Flood-fill texture across pixels that do not match the color of the target pixel and are
@@ -2259,7 +2250,7 @@ namespace ImageMagick
         /// <param name="coordinate">The position of the pixel.</param>
         /// <param name="target">The target color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseFloodFill(IMagickImage image, PointD coordinate, IMagickColor<QuantumType> target);
+        void InverseFloodFill(IMagickImage<TQuantumType> image, PointD coordinate, IMagickColor<TQuantumType> target);
 
         /// <summary>
         /// Applies the reversed level operation to just the specific channels specified. It compresses
@@ -2269,7 +2260,7 @@ namespace ImageMagick
         /// <param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
         /// <param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseLevel(QuantumType blackPoint, QuantumType whitePoint);
+        void InverseLevel(TQuantumType blackPoint, TQuantumType whitePoint);
 
         /// <summary>
         /// Applies the reversed level operation to just the specific channels specified. It compresses
@@ -2290,7 +2281,7 @@ namespace ImageMagick
         /// <param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
         /// <param name="channels">The channel(s) to level.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseLevel(QuantumType blackPoint, QuantumType whitePoint, Channels channels);
+        void InverseLevel(TQuantumType blackPoint, TQuantumType whitePoint, Channels channels);
 
         /// <summary>
         /// Applies the reversed level operation to just the specific channels specified. It compresses
@@ -2312,7 +2303,7 @@ namespace ImageMagick
         /// <param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
         /// <param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseLevel(QuantumType blackPoint, QuantumType whitePoint, double midpoint);
+        void InverseLevel(TQuantumType blackPoint, TQuantumType whitePoint, double midpoint);
 
         /// <summary>
         /// Applies the reversed level operation to just the specific channels specified. It compresses
@@ -2335,7 +2326,7 @@ namespace ImageMagick
         /// <param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
         /// <param name="channels">The channel(s) to level.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseLevel(QuantumType blackPoint, QuantumType whitePoint, double midpoint, Channels channels);
+        void InverseLevel(TQuantumType blackPoint, TQuantumType whitePoint, double midpoint, Channels channels);
 
         /// <summary>
         /// Applies the reversed level operation to just the specific channels specified. It compresses
@@ -2357,7 +2348,7 @@ namespace ImageMagick
         /// <param name="blackColor">The color to map black to/from.</param>
         /// <param name="whiteColor">The color to map white to/from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseLevelColors(IMagickColor<QuantumType> blackColor, IMagickColor<QuantumType> whiteColor);
+        void InverseLevelColors(IMagickColor<TQuantumType> blackColor, IMagickColor<TQuantumType> whiteColor);
 
         /// <summary>
         /// Maps the given color to "black" and "white" values, linearly spreading out the colors, and
@@ -2368,7 +2359,7 @@ namespace ImageMagick
         /// <param name="whiteColor">The color to map white to/from.</param>
         /// <param name="channels">The channel(s) to level.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseLevelColors(IMagickColor<QuantumType> blackColor, IMagickColor<QuantumType> whiteColor, Channels channels);
+        void InverseLevelColors(IMagickColor<TQuantumType> blackColor, IMagickColor<TQuantumType> whiteColor, Channels channels);
 
         /// <summary>
         /// Changes any pixel that does not match the target with the color defined by fill.
@@ -2376,14 +2367,14 @@ namespace ImageMagick
         /// <param name="target">The color to replace.</param>
         /// <param name="fill">The color to replace opaque color with.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseOpaque(IMagickColor<QuantumType> target, IMagickColor<QuantumType> fill);
+        void InverseOpaque(IMagickColor<TQuantumType> target, IMagickColor<TQuantumType> fill);
 
         /// <summary>
         /// Add alpha channel to image, setting pixels that don't match the specified color to transparent.
         /// </summary>
         /// <param name="color">The color that should not be made transparent.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseTransparent(IMagickColor<QuantumType> color);
+        void InverseTransparent(IMagickColor<TQuantumType> color);
 
         /// <summary>
         /// Add alpha channel to image, setting pixels that don't lie in between the given two colors to
@@ -2392,7 +2383,7 @@ namespace ImageMagick
         /// <param name="colorLow">The low target color.</param>
         /// <param name="colorHigh">The high target color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void InverseTransparentChroma(IMagickColor<QuantumType> colorLow, IMagickColor<QuantumType> colorHigh);
+        void InverseTransparentChroma(IMagickColor<TQuantumType> colorLow, IMagickColor<TQuantumType> colorHigh);
 
         /// <summary>
         /// Applies k-means color reduction to an image. This is a colorspace clustering or segmentation technique.
@@ -2422,7 +2413,7 @@ namespace ImageMagick
         /// <param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
         /// <param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Level(QuantumType blackPoint, QuantumType whitePoint);
+        void Level(TQuantumType blackPoint, TQuantumType whitePoint);
 
         /// <summary>
         /// Adjust the levels of the image by scaling the colors falling between specified white and
@@ -2441,7 +2432,7 @@ namespace ImageMagick
         /// <param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
         /// <param name="channels">The channel(s) to level.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Level(QuantumType blackPoint, QuantumType whitePoint, Channels channels);
+        void Level(TQuantumType blackPoint, TQuantumType whitePoint, Channels channels);
 
         /// <summary>
         /// Adjust the levels of the image by scaling the colors falling between specified white and
@@ -2461,7 +2452,7 @@ namespace ImageMagick
         /// <param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
         /// <param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Level(QuantumType blackPoint, QuantumType whitePoint, double gamma);
+        void Level(TQuantumType blackPoint, TQuantumType whitePoint, double gamma);
 
         /// <summary>
         /// Adjust the levels of the image by scaling the colors falling between specified white and
@@ -2482,7 +2473,7 @@ namespace ImageMagick
         /// <param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
         /// <param name="channels">The channel(s) to level.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Level(QuantumType blackPoint, QuantumType whitePoint, double gamma, Channels channels);
+        void Level(TQuantumType blackPoint, TQuantumType whitePoint, double gamma, Channels channels);
 
         /// <summary>
         /// Adjust the levels of the image by scaling the colors falling between specified white and
@@ -2503,7 +2494,7 @@ namespace ImageMagick
         /// <param name="blackColor">The color to map black to/from.</param>
         /// <param name="whiteColor">The color to map white to/from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void LevelColors(IMagickColor<QuantumType> blackColor, IMagickColor<QuantumType> whiteColor);
+        void LevelColors(IMagickColor<TQuantumType> blackColor, IMagickColor<TQuantumType> whiteColor);
 
         /// <summary>
         /// Maps the given color to "black" and "white" values, linearly spreading out the colors, and
@@ -2514,7 +2505,7 @@ namespace ImageMagick
         /// <param name="whiteColor">The color to map white to/from.</param>
         /// <param name="channels">The channel(s) to level.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void LevelColors(IMagickColor<QuantumType> blackColor, IMagickColor<QuantumType> whiteColor, Channels channels);
+        void LevelColors(IMagickColor<TQuantumType> blackColor, IMagickColor<TQuantumType> whiteColor, Channels channels);
 
         /// <summary>
         /// Discards any pixels below the black point and above the white point and levels the remaining pixels.
@@ -2610,7 +2601,7 @@ namespace ImageMagick
         /// <param name="colors">The colors to use.</param>
         /// <returns>The error informaton.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        MagickErrorInfo Map(IEnumerable<IMagickColor<QuantumType>> colors);
+        MagickErrorInfo Map(IEnumerable<IMagickColor<TQuantumType>> colors);
 
         /// <summary>
         /// Remap image colors with closest color from the specified colors.
@@ -2619,7 +2610,7 @@ namespace ImageMagick
         /// <param name="settings">Quantize settings.</param>
         /// <returns>The error informaton.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        MagickErrorInfo Map(IEnumerable<IMagickColor<QuantumType>> colors, QuantizeSettings settings);
+        MagickErrorInfo Map(IEnumerable<IMagickColor<TQuantumType>> colors, QuantizeSettings settings);
 
         /// <summary>
         /// Remap image colors with closest color from reference image.
@@ -2627,7 +2618,7 @@ namespace ImageMagick
         /// <param name="image">The image to use.</param>
         /// <returns>The error informaton.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        MagickErrorInfo Map(IMagickImage image);
+        MagickErrorInfo Map(IMagickImage<TQuantumType> image);
 
         /// <summary>
         /// Remap image colors with closest color from reference image.
@@ -2636,7 +2627,7 @@ namespace ImageMagick
         /// <param name="settings">Quantize settings.</param>
         /// <returns>The error informaton.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        MagickErrorInfo Map(IMagickImage image, QuantizeSettings settings);
+        MagickErrorInfo Map(IMagickImage<TQuantumType> image, QuantizeSettings settings);
 
         /// <summary>
         /// Delineate arbitrarily shaped clusters in the image.
@@ -2907,7 +2898,7 @@ namespace ImageMagick
         /// <param name="target">The color to replace.</param>
         /// <param name="fill">The color to replace opaque color with.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Opaque(IMagickColor<QuantumType> target, IMagickColor<QuantumType> fill);
+        void Opaque(IMagickColor<TQuantumType> target, IMagickColor<TQuantumType> fill);
 
         /// <summary>
         /// Perform a ordered dither based on a number of pre-defined dithering threshold maps, but over
@@ -3120,7 +3111,7 @@ namespace ImageMagick
         /// <param name="low">The low threshold.</param>
         /// <param name="high">The high threshold.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void RandomThreshold(QuantumType low, QuantumType high);
+        void RandomThreshold(TQuantumType low, TQuantumType high);
 
         /// <summary>
         /// Changes the value of individual pixels based on the intensity of each pixel compared to a
@@ -3130,7 +3121,7 @@ namespace ImageMagick
         /// <param name="high">The high threshold.</param>
         /// <param name="channels">The channel(s) to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void RandomThreshold(QuantumType low, QuantumType high, Channels channels);
+        void RandomThreshold(TQuantumType low, TQuantumType high, Channels channels);
 
         /// <summary>
         /// Applies soft and hard thresholding.
@@ -3150,7 +3141,7 @@ namespace ImageMagick
         /// <param name="highWhite">Defines the maximum white threshold value.</param>
         /// <param name="highBlack">Defines the maximum black threshold value.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void RangeThreshold(QuantumType lowBlack, QuantumType lowWhite, QuantumType highWhite, QuantumType highBlack);
+        void RangeThreshold(TQuantumType lowBlack, TQuantumType lowWhite, TQuantumType highWhite, TQuantumType highBlack);
 
         /// <summary>
         /// Read single image frame.
@@ -3243,7 +3234,7 @@ namespace ImageMagick
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Read(IMagickColor<QuantumType> color, int width, int height);
+        void Read(IMagickColor<TQuantumType> color, int width, int height);
 
         /// <summary>
         /// Read single image frame.
@@ -3617,7 +3608,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The channels from the image as grayscale images.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IEnumerable<IMagickImage> Separate();
+        IEnumerable<IMagickImage<TQuantumType>> Separate();
 
         /// <summary>
         /// Separates the specified channels from the image and returns it as grayscale images.
@@ -3625,7 +3616,7 @@ namespace ImageMagick
         /// <param name="channels">The channel(s) to separates.</param>
         /// <returns>The channels from the image as grayscale images.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IEnumerable<IMagickImage> Separate(Channels channels);
+        IEnumerable<IMagickImage<TQuantumType>> Separate(Channels channels);
 
         /// <summary>
         /// Applies a special effect to the image, similar to the effect achieved in a photo darkroom
@@ -3701,7 +3692,7 @@ namespace ImageMagick
         /// <param name="index">The position index.</param>
         /// <param name="color">The color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void SetColormap(int index, IMagickColor<QuantumType> color);
+        void SetColormap(int index, IMagickColor<TQuantumType> color);
 
         /// <summary>
         /// Set the specified profile of the image. If a profile with the same name already exists it will be overwritten.
@@ -3731,7 +3722,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="image">The image that contains the read mask.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void SetReadMask(IMagickImage image);
+        void SetReadMask(IMagickImage<TQuantumType> image);
 
         /// <summary>
         /// Sets the associated write mask of the image. The mask must be the same dimensions as the image and
@@ -3739,7 +3730,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="image">The image that contains the write mask.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void SetWriteMask(IMagickImage image);
+        void SetWriteMask(IMagickImage<TQuantumType> image);
 
         /// <summary>
         /// Shade image using distant light source.
@@ -3785,7 +3776,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color of the shadow.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Shadow(IMagickColor<QuantumType> color);
+        void Shadow(IMagickColor<TQuantumType> color);
 
         /// <summary>
         /// Simulate an image shadow.
@@ -3806,7 +3797,7 @@ namespace ImageMagick
         /// <param name="alpha">Transparency percentage.</param>
         /// <param name="color">The color of the shadow.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Shadow(int x, int y, double sigma, Percentage alpha, IMagickColor<QuantumType> color);
+        void Shadow(int x, int y, double sigma, Percentage alpha, IMagickColor<TQuantumType> color);
 
         /// <summary>
         /// Sharpen pixels in image.
@@ -4030,7 +4021,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="watermark">The image to use as a watermark.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Stegano(IMagickImage watermark);
+        void Stegano(IMagickImage<TQuantumType> watermark);
 
         /// <summary>
         /// Create an image which appears in stereo when viewed with red-blue glasses (Red image on
@@ -4038,7 +4029,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="rightImage">The image to use as the right part of the resulting image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Stereo(IMagickImage rightImage);
+        void Stereo(IMagickImage<TQuantumType> rightImage);
 
         /// <summary>
         /// Strips an image of all profiles and comments.
@@ -4069,7 +4060,7 @@ namespace ImageMagick
         /// <param name="image">The image to search for.</param>
         /// <returns>The result of the search action.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        MagickSearchResult SubImageSearch(IMagickImage image);
+        MagickSearchResult SubImageSearch(IMagickImage<TQuantumType> image);
 
         /// <summary>
         /// Search for the specified image at EVERY possible location in this image. This is slow!
@@ -4080,7 +4071,7 @@ namespace ImageMagick
         /// <param name="metric">The metric to use.</param>
         /// <returns>The result of the search action.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        MagickSearchResult SubImageSearch(IMagickImage image, ErrorMetric metric);
+        MagickSearchResult SubImageSearch(IMagickImage<TQuantumType> image, ErrorMetric metric);
 
         /// <summary>
         /// Search for the specified image at EVERY possible location in this image. This is slow!
@@ -4092,14 +4083,14 @@ namespace ImageMagick
         /// <param name="similarityThreshold">Minimum distortion for (sub)image match.</param>
         /// <returns>The result of the search action.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        MagickSearchResult SubImageSearch(IMagickImage image, ErrorMetric metric, double similarityThreshold);
+        MagickSearchResult SubImageSearch(IMagickImage<TQuantumType> image, ErrorMetric metric, double similarityThreshold);
 
         /// <summary>
         /// Channel a texture on image background.
         /// </summary>
         /// <param name="image">The image to use as a texture on the image background.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Texture(IMagickImage image);
+        void Texture(IMagickImage<TQuantumType> image);
 
         /// <summary>
         /// Threshold image.
@@ -4155,7 +4146,7 @@ namespace ImageMagick
         /// <param name="image">The image to composite with this image.</param>
         /// <param name="compose">The algorithm to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Tile(IMagickImage image, CompositeOperator compose);
+        void Tile(IMagickImage<TQuantumType> image, CompositeOperator compose);
 
         /// <summary>
         /// Compose an image repeated across and down the image.
@@ -4164,7 +4155,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Tile(IMagickImage image, CompositeOperator compose, string args);
+        void Tile(IMagickImage<TQuantumType> image, CompositeOperator compose, string args);
 
         /// <summary>
         /// Applies a color vector to each pixel in the image. The length of the vector is 0 for black
@@ -4183,7 +4174,7 @@ namespace ImageMagick
         /// <param name="opacity">An opacity value used for tinting.</param>
         /// <param name="color">A color value used for tinting.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Tint(string opacity, IMagickColor<QuantumType> color);
+        void Tint(string opacity, IMagickColor<TQuantumType> color);
 
         /// <summary>
         /// Converts this instance to a base64 <see cref="string"/>.
@@ -4263,7 +4254,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color to make transparent.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Transparent(IMagickColor<QuantumType> color);
+        void Transparent(IMagickColor<TQuantumType> color);
 
         /// <summary>
         /// Add alpha channel to image, setting pixels that lie in between the given two colors to
@@ -4272,7 +4263,7 @@ namespace ImageMagick
         /// <param name="colorLow">The low target color.</param>
         /// <param name="colorHigh">The high target color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void TransparentChroma(IMagickColor<QuantumType> colorLow, IMagickColor<QuantumType> colorHigh);
+        void TransparentChroma(IMagickColor<TQuantumType> colorLow, IMagickColor<TQuantumType> colorHigh);
 
         /// <summary>
         /// Creates a horizontal mirror image by reflecting the pixels around the central y-axis while
@@ -4306,7 +4297,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The unique colors of an image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickImage UniqueColors();
+        IMagickImage<TQuantumType> UniqueColors();
 
         /// <summary>
         /// Replace image with a sharpened version of the original image using the unsharp mask algorithm.
@@ -4383,14 +4374,14 @@ namespace ImageMagick
         /// Removes noise from the image using a wavelet transform.
         /// </summary>
         /// <param name="threshold">The threshold for smoothing.</param>
-        void WaveletDenoise(QuantumType threshold);
+        void WaveletDenoise(TQuantumType threshold);
 
         /// <summary>
         /// Removes noise from the image using a wavelet transform.
         /// </summary>
         /// <param name="threshold">The threshold for smoothing.</param>
         /// <param name="softness">Attenuate the smoothing threshold.</param>
-        void WaveletDenoise(QuantumType threshold, double softness);
+        void WaveletDenoise(TQuantumType threshold, double softness);
 
         /// <summary>
         /// Removes noise from the image using a wavelet transform.

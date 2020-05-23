@@ -15,6 +15,16 @@ using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
@@ -25,7 +35,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowAnExceptionWhenImageIsNull()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                     {
@@ -37,9 +47,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowAnExceptionWhenImageIsNullAndErrorMetricIsSpecified()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
-                    using (IMagickImage diff = new MagickImage())
+                    using (var diff = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -52,9 +62,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowAnExceptionWhenImageIsNullAndSettingsAreNotNull()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
-                    using (IMagickImage diff = new MagickImage())
+                    using (var diff = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
@@ -67,9 +77,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowAnExceptionWhenSettingsIsNull()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
-                    using (IMagickImage diff = new MagickImage())
+                    using (var diff = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
                         {
@@ -82,7 +92,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowAnExceptionWhenDifferenceIsNull()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("difference", () =>
                     {
@@ -94,9 +104,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowAnExceptionWhenDifferenceIsNotMagickImage()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
-                    IMagickImage diff = Substitute.For<IMagickImage>();
+                    var diff = Substitute.For<IMagickImage<QuantumType>>();
 
                     ExceptionAssert.Throws<NotSupportedException>(() =>
                     {
@@ -113,11 +123,11 @@ namespace Magick.NET.Tests
                     HighlightColor = MagickColors.Fuchsia,
                 };
 
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
-                    using (IMagickImage other = new MagickImage(Files.Builtin.Logo))
+                    using (var other = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage diff = new MagickImage())
+                        using (var diff = new MagickImage())
                         {
                             image.Compare(other, settings, diff);
                         }
@@ -140,11 +150,11 @@ namespace Magick.NET.Tests
                     LowlightColor = MagickColors.Fuchsia,
                 };
 
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
-                    using (IMagickImage other = new MagickImage(Files.Builtin.Logo))
+                    using (var other = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage diff = new MagickImage())
+                        using (var diff = new MagickImage())
                         {
                             image.Compare(other, settings, diff);
                         }
@@ -167,11 +177,11 @@ namespace Magick.NET.Tests
                     MasklightColor = MagickColors.Fuchsia,
                 };
 
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
-                    using (IMagickImage other = new MagickImage(Files.Builtin.Logo))
+                    using (var other = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage diff = new MagickImage())
+                        using (var diff = new MagickImage())
                         {
                             image.Compare(other, settings, diff);
                         }
@@ -189,9 +199,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnEmptyErrorInfoWhenTheImagesAreEqual()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
-                    using (IMagickImage other = new MagickImage(Files.Builtin.Logo))
+                    using (var other = new MagickImage(Files.Builtin.Logo))
                     {
                         MagickErrorInfo errorInfo = image.Compare(other);
 
@@ -210,11 +220,11 @@ namespace Magick.NET.Tests
                     Metric = ErrorMetric.RootMeanSquared,
                 };
 
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
-                    using (IMagickImage other = new MagickImage(Files.Builtin.Logo))
+                    using (var other = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage diff = new MagickImage())
+                        using (var diff = new MagickImage())
                         {
                             double result = image.Compare(other, settings, diff);
 
@@ -227,11 +237,11 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnZeroWhenTheImagesAreEqualAndErrorMetricIsRootMeanSquared()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
-                    using (IMagickImage other = new MagickImage(Files.Builtin.Logo))
+                    using (var other = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (IMagickImage diff = new MagickImage())
+                        using (var diff = new MagickImage())
                         {
                             double result = image.Compare(other, ErrorMetric.RootMeanSquared, diff);
 
@@ -244,9 +254,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnErrorInfoWhenTheImagesAreNotEqual()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
-                    using (IMagickImage other = new MagickImage(Files.Builtin.Logo))
+                    using (var other = new MagickImage(Files.Builtin.Logo))
                     {
                         other.Rotate(180);
 
@@ -276,18 +286,18 @@ namespace Magick.NET.Tests
                     MasklightColor = MagickColors.Magenta,
                 };
 
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
-                    using (IMagickImage mask = new MagickImage("xc:white", image.Width, image.Height - 100))
+                    using (var mask = new MagickImage("xc:white", image.Width, image.Height - 100))
                     {
                         image.SetReadMask(mask);
                     }
 
-                    using (IMagickImage other = new MagickImage(Files.Builtin.Logo))
+                    using (var other = new MagickImage(Files.Builtin.Logo))
                     {
                         other.Rotate(180);
 
-                        using (IMagickImage diff = new MagickImage())
+                        using (var diff = new MagickImage())
                         {
                             double result = image.Compare(other, settings, diff);
 
@@ -303,11 +313,11 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldUseTheColorFuzz()
             {
-                using (IMagickImage image = new MagickImage(new MagickColor("#f1d3bc"), 1, 1))
+                using (var image = new MagickImage(new MagickColor("#f1d3bc"), 1, 1))
                 {
-                    using (IMagickImage other = new MagickImage(new MagickColor("#24292e"), 1, 1))
+                    using (var other = new MagickImage(new MagickColor("#24292e"), 1, 1))
                     {
-                        using (IMagickImage diff = new MagickImage())
+                        using (var diff = new MagickImage())
                         {
                             image.ColorFuzz = new Percentage(75);
                             double result = image.Compare(other, ErrorMetric.Absolute, diff);

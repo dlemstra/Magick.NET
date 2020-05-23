@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenExpressionIsNull()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("expression", () => image.Fx(null));
                 }
@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenExpressionIsEmpty()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     ExceptionAssert.Throws<ArgumentException>("expression", () => image.Fx(string.Empty));
                 }
@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenExpressionIsInvalid()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     ExceptionAssert.Throws<MagickOptionErrorException>(() => image.Fx("foobar"));
                 }
@@ -51,7 +51,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldEvaluateTheExpression()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     image.Fx("b");
 
@@ -79,7 +79,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldEvaluateExpressionMethod()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     image.Fx("rand()");
                 }

@@ -46,13 +46,13 @@ namespace Magick.NET.Tests
 
             private static void AssertClipColors(bool inside, QuantumType value)
             {
-                using (IMagickImage image = new MagickImage(Files.InvitationTIF))
+                using (var image = new MagickImage(Files.InvitationTIF))
                 {
                     image.Alpha(AlphaOption.Transparent);
                     image.Clip("Pad A", inside);
                     image.Alpha(AlphaOption.Opaque);
 
-                    using (IMagickImage mask = image.GetWriteMask())
+                    using (var mask = image.GetWriteMask())
                     {
                         Assert.IsNotNull(mask);
                         Assert.IsFalse(mask.HasAlpha);

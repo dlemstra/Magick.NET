@@ -36,7 +36,7 @@ namespace Magick.NET.Tests
         public void ShouldSetTheCorrectValueForTheAlphaChannel()
         {
             _settings.Format = MagickFormat.Rgba;
-            using (IMagickImage image = new MagickImage(_bytes, _settings))
+            using (var image = new MagickImage(_bytes, _settings))
             {
                 using (IPixelCollection pixels = image.GetPixels())
                 {
@@ -54,7 +54,7 @@ namespace Magick.NET.Tests
         public void ShouldSetTheCorrectValueForTheOpacityChannel()
         {
             _settings.Format = MagickFormat.Rgbo;
-            using (IMagickImage image = new MagickImage(_bytes, _settings))
+            using (var image = new MagickImage(_bytes, _settings))
             {
                 using (IPixelCollection pixels = image.GetPixels())
                 {

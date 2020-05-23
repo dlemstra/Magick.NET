@@ -23,12 +23,12 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldCreateImage()
             {
-                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetExifProfile();
                     Assert.IsNotNull(profile);
 
-                    using (IMagickImage thumbnail = profile.CreateThumbnail())
+                    using (var thumbnail = profile.CreateThumbnail())
                     {
                         Assert.IsNotNull(thumbnail);
                         Assert.AreEqual(128, thumbnail.Width);

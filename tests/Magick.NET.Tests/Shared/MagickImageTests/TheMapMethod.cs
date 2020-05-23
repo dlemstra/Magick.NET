@@ -16,6 +16,16 @@ using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
@@ -26,11 +36,11 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenImageIsNull()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                     {
-                        image.Map((IMagickImage)null);
+                        image.Map((IMagickImage<QuantumType>)null);
                     });
                 }
             }
@@ -38,7 +48,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenColorsIsNull()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("colors", () =>
                     {
@@ -50,7 +60,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenColorsIsEmpty()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     ExceptionAssert.Throws<ArgumentException>("colors", () =>
                     {
@@ -62,9 +72,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldUseTheColorsOfTheImage()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
-                    using (IMagickImage colors = CreatePallete())
+                    using (var colors = CreatePalleteImage())
                     {
                         image.Map(colors);
 
@@ -78,7 +88,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldUseTheColors()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     var colors = new List<MagickColor>
                     {
@@ -95,7 +105,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            private IMagickImage CreatePallete()
+            private IMagickImage<QuantumType> CreatePalleteImage()
             {
                 using (IMagickImageCollection images = new MagickImageCollection())
                 {

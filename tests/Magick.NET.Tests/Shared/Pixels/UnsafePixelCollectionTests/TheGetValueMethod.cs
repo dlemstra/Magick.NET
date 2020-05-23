@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnCorrectValue()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 1, 1))
+                using (var image = new MagickImage(MagickColors.Red, 1, 1))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -66,7 +66,7 @@ namespace Magick.NET.Tests
 
             private static void ThrowsOverflowException(int x, int y)
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+                using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {
@@ -87,7 +87,7 @@ namespace Magick.NET.Tests
 
             private static void ThrowsNoException(int x, int y)
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+                using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {

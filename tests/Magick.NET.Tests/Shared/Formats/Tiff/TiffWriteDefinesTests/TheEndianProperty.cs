@@ -24,14 +24,14 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetTheDefine()
             {
-                using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
+                using (var input = new MagickImage(Files.Builtin.Logo))
                 {
                     input.Settings.SetDefines(new TiffWriteDefines()
                     {
                         Endian = Endian.MSB,
                     });
 
-                    using (IMagickImage output = WriteTiff(input))
+                    using (var output = WriteTiff(input))
                     {
                         Assert.AreEqual("msb", output.GetAttribute("tiff:endian"));
                     }
@@ -41,7 +41,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotSetTheDefineWhenTheValueIsUndefined()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(new TiffWriteDefines()
                     {

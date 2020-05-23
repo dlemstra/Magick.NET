@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
                     Subtype = BmpSubtype.RGB555,
                 };
 
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     image.Format = MagickFormat.Bmp;
                     image.ColorType = ColorType.TrueColor;

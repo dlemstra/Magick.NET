@@ -13,11 +13,21 @@
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     internal static class ImageOptimizerHelper
     {
-        public static void CheckFormat(IMagickImage image, MagickFormat expectedFormat)
+        public static void CheckFormat(IMagickImage<QuantumType> image, MagickFormat expectedFormat)
         {
             var format = image.FormatInfo.ModuleFormat;
             if (format != expectedFormat)

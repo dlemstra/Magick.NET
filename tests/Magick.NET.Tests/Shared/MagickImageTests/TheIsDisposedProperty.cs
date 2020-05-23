@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnFalseWhenTheImageIsNotDisposed()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     Assert.IsFalse(image.IsDisposed);
                 }
@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTrueWhenTheImageIsDisposed()
             {
-                IMagickImage image = new MagickImage();
+                var image = new MagickImage();
                 image.Dispose();
 
                 Assert.IsTrue(image.IsDisposed);

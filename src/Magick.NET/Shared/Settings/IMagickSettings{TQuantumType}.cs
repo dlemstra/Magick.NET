@@ -85,7 +85,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the fill pattern.
         /// </summary>
-        IMagickImage FillPattern { get; set; }
+        IMagickImage<TQuantumType> FillPattern { get; set; }
 
         /// <summary>
         /// Gets or sets the rule to use when filling drawn objects.
@@ -173,7 +173,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the pattern image to use while stroking object outlines.
         /// </summary>
-        IMagickImage StrokePattern { get; set; }
+        IMagickImage<TQuantumType> StrokePattern { get; set; }
 
         /// <summary>
         /// Gets or sets the stroke width for drawing lines, circles, ellipses, etc.

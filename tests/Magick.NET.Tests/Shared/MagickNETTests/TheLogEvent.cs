@@ -35,7 +35,7 @@ namespace Magick.NET.Tests
 
             private void ShouldNotCallLogDelegeteWhenLogEventsAreNotSet()
             {
-                using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+                using (var image = new MagickImage(Files.SnakewarePNG))
                 {
                     int count = 0;
                     EventHandler<LogEventArgs> logDelegate = (sender, arguments) =>
@@ -55,7 +55,7 @@ namespace Magick.NET.Tests
 
             private void ShouldCallLogDelegateWhenLogEventsAreSet()
             {
-                using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+                using (var image = new MagickImage(Files.SnakewarePNG))
                 {
                     int count = 0;
                     EventHandler<LogEventArgs> logDelegate = (sender, arguments) =>
@@ -98,7 +98,7 @@ namespace Magick.NET.Tests
 
                 MagickNET.Log += logDelegate;
 
-                using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+                using (var image = new MagickImage(Files.SnakewarePNG))
                 {
                 }
 
@@ -109,7 +109,7 @@ namespace Magick.NET.Tests
 
             private void ShouldStopCallingLogDelegateWhenLogDelegateIsRemoved()
             {
-                using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+                using (var image = new MagickImage(Files.SnakewarePNG))
                 {
                     int count = 0;
                     EventHandler<LogEventArgs> logDelegate = (sender, arguments) =>

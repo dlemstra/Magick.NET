@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetTheDefine()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(new PngReadDefines()
                     {
@@ -48,7 +48,7 @@ namespace Magick.NET.Tests
 
                 var exception = ExceptionAssert.Throws<MagickCoderErrorException>(() =>
                 {
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         image.Read(Files.SnakewarePNG, settings);
                     }

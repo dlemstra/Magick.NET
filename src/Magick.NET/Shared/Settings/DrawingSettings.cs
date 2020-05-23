@@ -66,7 +66,7 @@ namespace ImageMagick
 
         public IMagickColor<QuantumType> FillColor { get; set; }
 
-        public IMagickImage FillPattern { get; set; }
+        public IMagickImage<QuantumType> FillPattern { get; set; }
 
         public FillRule FillRule { get; set; }
 
@@ -102,7 +102,7 @@ namespace ImageMagick
 
         public int StrokeMiterLimit { get; set; }
 
-        public IMagickImage StrokePattern { get; set; }
+        public IMagickImage<QuantumType> StrokePattern { get; set; }
 
         public double StrokeWidth { get; set; }
 

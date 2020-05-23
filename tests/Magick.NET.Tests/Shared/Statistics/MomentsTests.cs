@@ -22,11 +22,11 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Moments()
         {
-            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                Moments moments = image.Moments();
+                var moments = image.Moments();
                 Assert.IsNotNull(moments);
-                ChannelMoments first = moments.GetChannel(PixelChannel.Red);
+                var first = moments.GetChannel(PixelChannel.Red);
                 Assert.IsNotNull(first);
 
                 Assert.AreEqual(PixelChannel.Red, first.Channel);
@@ -38,14 +38,14 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(0.41, first.EllipseEccentricity, 0.01);
                 Assert.AreEqual(0.79, first.EllipseIntensity, 0.01);
 
-                double[] expected = new double[] { 0.2004, 0.0003, 0.0001, 0.0, 0.0, 0.0, 0.0, 0.0 };
+                var expected = new double[] { 0.2004, 0.0003, 0.0001, 0.0, 0.0, 0.0, 0.0, 0.0 };
                 for (int i = 0; i < 8; i++)
                 {
                     Assert.AreEqual(expected[i], first.HuInvariants(i), 0.0001);
                 }
 
                 moments = image.Moments();
-                ChannelMoments second = moments.GetChannel(PixelChannel.Red);
+                var second = moments.GetChannel(PixelChannel.Red);
 
                 Assert.IsTrue(first.Centroid == second.Centroid);
                 Assert.IsTrue(first.Centroid.Equals(second.Centroid));

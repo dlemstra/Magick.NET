@@ -26,7 +26,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenNameIsNull()
                 {
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("name", () =>
                         {
@@ -38,7 +38,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenNameIsEmpty()
                 {
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentException>("name", () =>
                         {
@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldSetValue()
                 {
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         image.SetArtifact("test", true);
                         Assert.AreEqual("true", image.GetArtifact("test"));
@@ -64,7 +64,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenNameIsNull()
                 {
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("name", () =>
                         {
@@ -76,7 +76,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenNameIsEmpty()
                 {
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentException>("name", () =>
                         {
@@ -88,7 +88,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenValueIsNull()
                 {
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("value", () =>
                         {
@@ -100,7 +100,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldSetEmptyValue()
                 {
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         image.SetArtifact("test", string.Empty);
                         Assert.AreEqual(string.Empty, image.GetArtifact("test"));
@@ -110,7 +110,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldSetValue()
                 {
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         image.SetArtifact("test", "123");
                         Assert.AreEqual("123", image.GetArtifact("test"));

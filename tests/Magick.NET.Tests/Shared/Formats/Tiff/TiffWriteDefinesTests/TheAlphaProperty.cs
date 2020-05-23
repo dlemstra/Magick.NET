@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetTheDefine()
             {
-                using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
+                using (var input = new MagickImage(Files.Builtin.Logo))
                 {
                     input.Settings.SetDefines(new TiffWriteDefines()
                     {
@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
 
                     input.Alpha(AlphaOption.Set);
 
-                    using (IMagickImage output = WriteTiff(input))
+                    using (var output = WriteTiff(input))
                     {
                         Assert.AreEqual("associated", output.GetAttribute("tiff:alpha"));
                     }

@@ -22,14 +22,14 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldCreateWhiteImage()
         {
-            using (IMagickImage input = new MagickImage("xc:white", 1, 1))
+            using (var input = new MagickImage("xc:white", 1, 1))
             {
                 using (var memoryStream = new MemoryStream())
                 {
                     input.Write(memoryStream, MagickFormat.Pnm);
 
                     memoryStream.Position = 0;
-                    using (IMagickImage output = new MagickImage(memoryStream))
+                    using (var output = new MagickImage(memoryStream))
                     {
                         ColorAssert.AreEqual(MagickColors.White, output, 0, 0);
                     }
@@ -40,14 +40,14 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldCreateBlackImage()
         {
-            using (IMagickImage input = new MagickImage("xc:black", 1, 1))
+            using (var input = new MagickImage("xc:black", 1, 1))
             {
                 using (var memoryStream = new MemoryStream())
                 {
                     input.Write(memoryStream, MagickFormat.Pnm);
 
                     memoryStream.Position = 0;
-                    using (IMagickImage output = new MagickImage(memoryStream))
+                    using (var output = new MagickImage(memoryStream))
                     {
                         ColorAssert.AreEqual(MagickColors.Black, output, 0, 0);
                     }

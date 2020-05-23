@@ -173,7 +173,7 @@ namespace ImageMagick
         /// <param name="offset">The offset from origin.</param>
         /// <param name="image">The image to draw.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Composite(IMagickGeometry offset, IMagickImage image)
+        public Drawables Composite(IMagickGeometry offset, IMagickImage<QuantumType> image)
         {
             _drawables.Add(new DrawableComposite(offset, image));
             return this;
@@ -186,7 +186,7 @@ namespace ImageMagick
         /// <param name="y">The Y coordinate.</param>
         /// <param name="image">The image to draw.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Composite(double x, double y, IMagickImage image)
+        public Drawables Composite(double x, double y, IMagickImage<QuantumType> image)
         {
             _drawables.Add(new DrawableComposite(x, y, image));
             return this;
@@ -199,7 +199,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="image">The image to draw.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Composite(IMagickGeometry offset, CompositeOperator compose, IMagickImage image)
+        public Drawables Composite(IMagickGeometry offset, CompositeOperator compose, IMagickImage<QuantumType> image)
         {
             _drawables.Add(new DrawableComposite(offset, compose, image));
             return this;
@@ -213,7 +213,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="image">The image to draw.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Composite(double x, double y, CompositeOperator compose, IMagickImage image)
+        public Drawables Composite(double x, double y, CompositeOperator compose, IMagickImage<QuantumType> image)
         {
             _drawables.Add(new DrawableComposite(x, y, compose, image));
             return this;

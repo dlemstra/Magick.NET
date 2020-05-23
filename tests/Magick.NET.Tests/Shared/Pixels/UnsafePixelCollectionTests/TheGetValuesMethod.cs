@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnAllPixels()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Purple, 4, 2))
+                using (var image = new MagickImage(MagickColors.Purple, 4, 2))
                 {
                     using (IPixelCollection pixels = image.GetPixelsUnsafe())
                     {

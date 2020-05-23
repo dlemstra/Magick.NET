@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_IgnoreTags()
         {
-            using (IMagickImage image = new MagickImage())
+            using (var image = new MagickImage())
             {
                 var exception = ExceptionAssert.Throws<MagickCoderErrorException>(() =>
                 {

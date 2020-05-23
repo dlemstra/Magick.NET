@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenStartColorIsNull()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("startColor", () => image.ColorThreshold(null, new MagickColor()));
                 }
@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenStopColorIsNull()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("stopColor", () => image.ColorThreshold(new MagickColor(), null));
                 }
@@ -46,7 +46,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangeTheImageToBlackAndWhite()
             {
-                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
                 {
                     var startColor = MagickColor.FromRgb(60, 110, 150);
                     var stopColor = MagickColor.FromRgb(70, 120, 170);

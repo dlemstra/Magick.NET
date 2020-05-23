@@ -30,9 +30,9 @@ namespace Magick.NET.Tests
 
             private void ShouldMakeDuplicatePlasmaImagesWhenSet()
             {
-                using (IMagickImage first = new MagickImage("plasma:red", 10, 10))
+                using (var first = new MagickImage("plasma:red", 10, 10))
                 {
-                    using (IMagickImage second = new MagickImage("plasma:red", 10, 10))
+                    using (var second = new MagickImage("plasma:red", 10, 10))
                     {
                         Assert.AreNotEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
                     }
@@ -43,9 +43,9 @@ namespace Magick.NET.Tests
             {
                 MagickNET.SetRandomSeed(42);
 
-                using (IMagickImage first = new MagickImage("plasma:red", 10, 10))
+                using (var first = new MagickImage("plasma:red", 10, 10))
                 {
-                    using (IMagickImage second = new MagickImage("plasma:red", 10, 10))
+                    using (var second = new MagickImage("plasma:red", 10, 10))
                     {
                         Assert.AreEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
                     }

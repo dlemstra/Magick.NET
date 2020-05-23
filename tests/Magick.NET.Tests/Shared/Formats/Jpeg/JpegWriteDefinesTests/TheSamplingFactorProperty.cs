@@ -41,14 +41,14 @@ namespace Magick.NET.Tests
                     SamplingFactor = JpegSamplingFactor.Ratio420,
                 };
 
-                using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
+                using (var input = new MagickImage(Files.Builtin.Logo))
                 {
                     using (var memoryStream = new MemoryStream())
                     {
                         input.Write(memoryStream, defines);
 
                         memoryStream.Position = 0;
-                        using (IMagickImage output = new MagickImage(memoryStream))
+                        using (var output = new MagickImage(memoryStream))
                         {
                             output.Read(memoryStream);
 
@@ -65,7 +65,7 @@ namespace Magick.NET.Tests
                     SamplingFactor = samplingFactor,
                 };
 
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(defines);
 

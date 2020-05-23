@@ -13,6 +13,16 @@
 using System.Collections.Generic;
 using System.IO;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick.ImageOptimizers
 {
     internal sealed class PngHelper
@@ -24,7 +34,7 @@ namespace ImageMagick.ImageOptimizers
             _optimalCompression = optimizer.OptimalCompression;
         }
 
-        public TemporaryFile FindBestFileQuality(IMagickImage image, out int bestQuality)
+        public TemporaryFile FindBestFileQuality(IMagickImage<QuantumType> image, out int bestQuality)
         {
             bestQuality = 0;
 
@@ -63,7 +73,7 @@ namespace ImageMagick.ImageOptimizers
             return bestFile;
         }
 
-        public MemoryStream FindBestStreamQuality(IMagickImage image, out int bestQuality)
+        public MemoryStream FindBestStreamQuality(IMagickImage<QuantumType> image, out int bestQuality)
         {
             bestQuality = 0;
 
@@ -100,7 +110,7 @@ namespace ImageMagick.ImageOptimizers
             return bestStream;
         }
 
-        private static void CheckTransparency(IMagickImage image)
+        private static void CheckTransparency(IMagickImage<QuantumType> image)
         {
             if (!image.HasAlpha)
                 return;

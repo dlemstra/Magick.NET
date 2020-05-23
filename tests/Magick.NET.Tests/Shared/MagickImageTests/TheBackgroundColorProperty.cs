@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenImageIsDisposed()
             {
-                IMagickImage image = new MagickImage();
+                var image = new MagickImage();
                 image.Dispose();
 
                 ExceptionAssert.Throws<ObjectDisposedException>(() =>

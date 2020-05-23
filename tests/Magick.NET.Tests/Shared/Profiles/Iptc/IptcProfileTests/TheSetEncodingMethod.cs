@@ -26,7 +26,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenEncodingIsNull()
             {
-                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetIptcProfile();
 
@@ -40,7 +40,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetTheEncodingOfTheValues()
             {
-                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetIptcProfile();
                     var firstValue = profile.Values.First();

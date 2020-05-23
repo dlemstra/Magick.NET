@@ -29,7 +29,7 @@ namespace Magick.NET.Tests
             {
                 byte[] pixels = new byte[150];
 
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+                using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
                     var bitmapSource = image.ToBitmapSource();
 
@@ -52,7 +52,7 @@ namespace Magick.NET.Tests
             {
                 byte[] pixels = new byte[200];
 
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 10, 5))
+                using (var image = new MagickImage(MagickColors.Red, 10, 5))
                 {
                     image.ColorSpace = ColorSpace.CMYK;
 
@@ -78,7 +78,7 @@ namespace Magick.NET.Tests
             {
                 byte[] pixels = new byte[200];
 
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+                using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
                     image.HasAlpha = true;
 
@@ -104,7 +104,7 @@ namespace Magick.NET.Tests
             {
                 byte[] pixels = new byte[150];
 
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+                using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
                     image.ColorSpace = ColorSpace.YCbCr;
 
@@ -129,7 +129,7 @@ namespace Magick.NET.Tests
             {
                 byte[] pixels = new byte[150];
 
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+                using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
                     image.Density = new Density(1, 2, DensityUnit.Undefined);
 
@@ -145,7 +145,7 @@ namespace Magick.NET.Tests
             {
                 byte[] pixels = new byte[150];
 
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+                using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
                     image.Density = new Density(1, 2, DensityUnit.PixelsPerInch);
 
@@ -161,7 +161,7 @@ namespace Magick.NET.Tests
             {
                 byte[] pixels = new byte[150];
 
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+                using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
                     image.Density = new Density(1, 2, DensityUnit.PixelsPerCentimeter);
 
@@ -175,7 +175,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldIgnoreTheDensityOfTheImage()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 200, 100))
+                using (var image = new MagickImage(MagickColors.Red, 200, 100))
                 {
                     image.Density = new Density(300);
 
@@ -189,7 +189,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldUseTheDensityOfTheImageWhenBitmapDensityIsSetToUse()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 200, 100))
+                using (var image = new MagickImage(MagickColors.Red, 200, 100))
                 {
                     image.Density = new Density(300, 200);
 

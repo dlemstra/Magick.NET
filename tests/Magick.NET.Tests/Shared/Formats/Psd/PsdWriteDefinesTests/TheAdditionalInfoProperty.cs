@@ -15,6 +15,16 @@ using ImageMagick;
 using ImageMagick.Formats.Psd;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace Magick.NET.Tests
 {
     public partial class PsdWriteDefinesTests
@@ -25,7 +35,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetTheDefine()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(new PsdWriteDefines()
                     {
@@ -39,7 +49,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldMakeSetWhichAdditionalInfoShouldBeWritten()
             {
-                using (IMagickImageCollection images = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
                     images.Read(Files.Coders.LayerStylesSamplePSD);
 
@@ -59,7 +69,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            private static void CheckProfile(IMagickImage image, int expectedLength)
+            private static void CheckProfile(IMagickImage<QuantumType> image, int expectedLength)
             {
                 var profile = image.GetProfile("psd:additional-info");
                 int actualLength = profile?.ToByteArray().Length ?? 0;

@@ -35,14 +35,14 @@ namespace Magick.NET.Tests
         public void CanReadFromLargePangoFile()
         {
             string fileName = "pango:<span font=\"Arial\">" + new string('*', 4500) + "</span>";
-            using (IMagickImage image = new MagickImage(fileName))
+            using (var image = new MagickImage(fileName))
             {
             }
         }
 
         private static string LoadImage()
         {
-            using (IMagickImage image = new MagickImage("pango:1"))
+            using (var image = new MagickImage("pango:1"))
             {
                 return image.Signature;
             }

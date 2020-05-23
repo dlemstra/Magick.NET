@@ -10,6 +10,16 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <summary>
@@ -67,7 +77,7 @@ namespace ImageMagick
         /// </summary>
         public string UserKernel { get; set; }
 
-        internal void SetImageArtifacts(IMagickImage image)
+        internal void SetImageArtifacts(IMagickImage<QuantumType> image)
         {
             if (ConvolveBias != null)
                 image.SetArtifact("convolve:bias", ConvolveBias.ToString());

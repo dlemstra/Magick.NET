@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldBeDisabledByDefault()
             {
-                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
                 {
                     Assert.IsFalse(image.BlackPointCompensation);
                     image.RenderingIntent = RenderingIntent.Relative;
@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldBeUsedInTheColorTransformation()
             {
-                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
                 {
                     image.RenderingIntent = RenderingIntent.Relative;
                     image.BlackPointCompensation = true;

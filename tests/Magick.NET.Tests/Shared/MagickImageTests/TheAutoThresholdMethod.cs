@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThresholdImageWithKapurMethod()
             {
-                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
                 {
                     image.AutoThreshold(AutoThresholdMethod.Kapur);
 
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThresholdImageWithOTSUMethod()
             {
-                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
                 {
                     image.AutoThreshold(AutoThresholdMethod.OTSU);
 
@@ -54,7 +54,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThresholdImageWithTriangleMethod()
             {
-                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
                 {
                     image.AutoThreshold(AutoThresholdMethod.Triangle);
 

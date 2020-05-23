@@ -113,7 +113,7 @@ namespace ImageMagick.ImageOptimizers
         public bool LosslessCompress(Stream stream)
             => DoCompress(stream, true);
 
-        private static bool CanUseColormap(IMagickImage image, bool lossless)
+        private static bool CanUseColormap(IMagickImage<QuantumType> image, bool lossless)
         {
             if (image.ClassType == ClassType.Pseudo)
                 return true;
@@ -151,7 +151,7 @@ namespace ImageMagick.ImageOptimizers
             return true;
         }
 
-        private static void FixAlpha(IMagickImage image, QuantumType min, QuantumType max)
+        private static void FixAlpha(IMagickImage<QuantumType> image, QuantumType min, QuantumType max)
         {
             using (var pixels = image.GetPixelsUnsafe())
             {

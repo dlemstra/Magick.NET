@@ -14,20 +14,30 @@
 
 using System.Drawing;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <content>
     /// Contains code that is not compatible with .NET Core.
     /// </content>
-    public sealed partial class MagickFactory : IMagickFactory
+    public sealed partial class MagickFactory : IMagickFactory<QuantumType>
     {
         /// <summary>
-        /// Initializes a new instance that implements <see cref="IMagickImage"/>.
+        /// Initializes a new instance that implements <see cref="IMagickImage{TQuantumType}"/>.
         /// </summary>
         /// <param name="bitmap">The bitmap to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
-        public IMagickImage CreateImage(Bitmap bitmap) => new MagickImage(bitmap);
+        /// <returns>A new <see cref="IMagickImage{QuantumType}"/> instance.</returns>
+        public IMagickImage<QuantumType> CreateImage(Bitmap bitmap) => new MagickImage(bitmap);
     }
 }
 

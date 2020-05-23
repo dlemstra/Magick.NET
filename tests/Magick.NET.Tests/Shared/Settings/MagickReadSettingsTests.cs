@@ -76,7 +76,7 @@ namespace Magick.NET.Tests
                 ExtractArea = new MagickGeometry(10, 10, 20, 30),
             };
 
-            using (IMagickImage image = new MagickImage(Files.Coders.GrimJP2, readSettings))
+            using (var image = new MagickImage(Files.Coders.GrimJP2, readSettings))
             {
                 Assert.AreEqual(20, image.Width);
                 Assert.AreEqual(30, image.Height);
@@ -99,7 +99,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Image_Read_Density()
         {
-            using (IMagickImage image = new MagickImage())
+            using (var image = new MagickImage())
             {
                 MagickReadSettings settings = new MagickReadSettings();
                 settings.Density = new Density(300);
@@ -116,10 +116,10 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Image_Read_FrameIndex()
         {
-            using (IMagickImage image = new MagickImage(Files.RoseSparkleGIF))
+            using (var image = new MagickImage(Files.RoseSparkleGIF))
             {
-                IMagickImage imageA = new MagickImage();
-                IMagickImage imageB = new MagickImage();
+                var imageA = new MagickImage();
+                var imageB = new MagickImage();
 
                 MagickReadSettings settings = new MagickReadSettings();
 
@@ -160,7 +160,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Image_Read_Dimensions()
         {
-            using (IMagickImage image = new MagickImage())
+            using (var image = new MagickImage())
             {
                 MagickReadSettings settings = new MagickReadSettings();
                 settings.Width = 10;
@@ -191,7 +191,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Image_Read_Scenes()
         {
-            using (IMagickImage image = new MagickImage())
+            using (var image = new MagickImage())
             {
                 image.Read(Files.RoseSparkleGIF);
 

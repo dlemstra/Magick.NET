@@ -13,6 +13,16 @@
 using System.Collections.Generic;
 using System.IO;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <summary>
@@ -140,9 +150,9 @@ namespace ImageMagick
             using (IMagickImageCollection images = new MagickImageCollection())
             {
                 images.Ping(data);
-                foreach (MagickImage image in images)
+                foreach (var image in images)
                 {
-                    MagickImageInfo info = new MagickImageInfo();
+                    var info = new MagickImageInfo();
                     info.Initialize(image);
                     yield return info;
                 }
@@ -159,12 +169,12 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public static IEnumerable<IMagickImageInfo> ReadCollection(byte[] data, int offset, int count)
         {
-            using (IMagickImageCollection images = new MagickImageCollection())
+            using (var images = new MagickImageCollection())
             {
                 images.Ping(data, offset, count);
-                foreach (MagickImage image in images)
+                foreach (var image in images)
                 {
-                    MagickImageInfo info = new MagickImageInfo();
+                    var info = new MagickImageInfo();
                     info.Initialize(image);
                     yield return info;
                 }
@@ -192,10 +202,10 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public static IEnumerable<IMagickImageInfo> ReadCollection(Stream stream)
         {
-            using (IMagickImageCollection images = new MagickImageCollection())
+            using (var images = new MagickImageCollection())
             {
                 images.Ping(stream);
-                foreach (MagickImage image in images)
+                foreach (var image in images)
                 {
                     MagickImageInfo info = new MagickImageInfo();
                     info.Initialize(image);
@@ -212,10 +222,10 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public static IEnumerable<IMagickImageInfo> ReadCollection(string fileName)
         {
-            using (IMagickImageCollection images = new MagickImageCollection())
+            using (var images = new MagickImageCollection())
             {
                 images.Ping(fileName);
-                foreach (MagickImage image in images)
+                foreach (var image in images)
                 {
                     MagickImageInfo info = new MagickImageInfo();
                     info.Initialize(image);
@@ -231,7 +241,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Read(byte[] data)
         {
-            using (MagickImage image = new MagickImage())
+            using (var image = new MagickImage())
             {
                 image.Ping(data);
                 Initialize(image);
@@ -247,7 +257,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Read(byte[] data, int offset, int count)
         {
-            using (MagickImage image = new MagickImage())
+            using (var image = new MagickImage())
             {
                 image.Ping(data, offset, count);
                 Initialize(image);
@@ -261,7 +271,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Read(FileInfo file)
         {
-            using (MagickImage image = new MagickImage())
+            using (var image = new MagickImage())
             {
                 image.Ping(file);
                 Initialize(image);
@@ -275,7 +285,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Read(Stream stream)
         {
-            using (MagickImage image = new MagickImage())
+            using (var image = new MagickImage())
             {
                 image.Ping(stream);
                 Initialize(image);
@@ -289,14 +299,14 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Read(string fileName)
         {
-            using (MagickImage image = new MagickImage())
+            using (var image = new MagickImage())
             {
                 image.Ping(fileName);
                 Initialize(image);
             }
         }
 
-        private void Initialize(MagickImage image)
+        private void Initialize(IMagickImage<QuantumType> image)
         {
             ColorSpace = image.ColorSpace;
             Compression = image.Compression;

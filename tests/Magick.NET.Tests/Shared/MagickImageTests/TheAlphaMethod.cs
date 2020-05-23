@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldMakeImageTransparent()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Wizard))
+                using (var image = new MagickImage(Files.Builtin.Wizard))
                 {
                     Assert.AreEqual(image.HasAlpha, false);
 
@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldUseTheBackgroundColor()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Wizard))
+                using (var image = new MagickImage(Files.Builtin.Wizard))
                 {
                     image.Alpha(AlphaOption.Transparent);
 

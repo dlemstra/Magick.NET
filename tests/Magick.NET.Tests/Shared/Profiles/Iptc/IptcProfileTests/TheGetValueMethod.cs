@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnNullWhenImageDoesNotContainValue()
             {
-                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetIptcProfile();
                     var value = profile.GetValue(IptcTag.ReferenceNumber);
@@ -35,7 +35,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTheValue()
             {
-                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetIptcProfile();
                     var value = profile.GetValue(IptcTag.Title);

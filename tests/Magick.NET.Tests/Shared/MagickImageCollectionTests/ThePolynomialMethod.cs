@@ -61,7 +61,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldCreateImage()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     var channels = image.Separate();
 
@@ -69,7 +69,7 @@ namespace Magick.NET.Tests
                     {
                         var terms = new double[] { 0.30, 1, 0.59, 1, 0.11, 1 };
 
-                        using (IMagickImage polynomial = images.Polynomial(terms))
+                        using (var polynomial = images.Polynomial(terms))
                         {
                             var distortion = polynomial.Compare(image, ErrorMetric.RootMeanSquared);
                             Assert.AreEqual(0.086, distortion, 0.001);

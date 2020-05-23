@@ -5,7 +5,7 @@
     "arguments": [
       {
         "name": "image",
-        "type": "IMagickImage"
+        "type": "MagickImage"
       }
     ]
   },

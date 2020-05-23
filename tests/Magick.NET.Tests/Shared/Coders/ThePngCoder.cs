@@ -14,6 +14,16 @@ using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace Magick.NET.Tests
 {
     [TestClass]
@@ -22,7 +32,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldThrowExceptionAndNotChangeTheOriginalImageWhenTheImageIsCorrupt()
         {
-            using (IMagickImage image = new MagickImage(MagickColors.Purple, 4, 2))
+            using (var image = new MagickImage(MagickColors.Purple, 4, 2))
             {
                 ExceptionAssert.Throws<MagickCoderErrorException>(() =>
                 {
@@ -37,7 +47,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldBeAbleToReadPngWithLargeIDAT()
         {
-            using (IMagickImage image = new MagickImage(Files.VicelandPNG))
+            using (var image = new MagickImage(Files.VicelandPNG))
             {
                 Assert.AreEqual(200, image.Width);
                 Assert.AreEqual(28, image.Height);
@@ -47,7 +57,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldNotRaiseWarningForValidModificationDateThatBecomes24Hours()
         {
-            using (IMagickImage image = new MagickImage("logo:"))
+            using (var image = new MagickImage("logo:"))
             {
                 image.Warning += HandleWarning;
                 image.SetAttribute("date:modify", "2017-09-10T20:35:00+03:30");
@@ -59,7 +69,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldNotRaiseWarningForValidModificationDateThatBecomes60Minutes()
         {
-            using (IMagickImage image = new MagickImage("logo:"))
+            using (var image = new MagickImage("logo:"))
             {
                 image.Warning += HandleWarning;
                 image.SetAttribute("date:modify", "2017-09-10T15:30:00+03:30");
@@ -71,9 +81,9 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldReadTheExifChunk()
         {
-            using (IMagickImage input = new MagickImage(MagickColors.YellowGreen, 1, 1))
+            using (var input = new MagickImage(MagickColors.YellowGreen, 1, 1))
             {
-                IExifProfile exifProfile = new ExifProfile();
+                IExifProfile<QuantumType> exifProfile = new ExifProfile();
                 exifProfile.SetValue(ExifTag.ImageUniqueID, "Have a nice day");
 
                 input.SetProfile(exifProfile);
@@ -84,7 +94,7 @@ namespace Magick.NET.Tests
 
                     memoryStream.Position = 0;
 
-                    using (IMagickImage output = new MagickImage(memoryStream))
+                    using (var output = new MagickImage(memoryStream))
                     {
                         exifProfile = output.GetExifProfile();
 
@@ -112,7 +122,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldWritePng00Correctly()
         {
-            using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
                 using (var stream = new MemoryStream())
                 {

@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenCollectionIsEmpty()
             {
-                using (IMagickImage rose = new MagickImage(Files.Builtin.Rose))
+                using (var rose = new MagickImage(Files.Builtin.Rose))
                 {
                     using (IMagickImageCollection collection = new MagickImageCollection())
                     {
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldCombineSeparatedImages()
             {
-                using (IMagickImage rose = new MagickImage(Files.Builtin.Rose))
+                using (var rose = new MagickImage(Files.Builtin.Rose))
                 {
                     using (IMagickImageCollection collection = new MagickImageCollection())
                     {
@@ -47,7 +47,7 @@ namespace Magick.NET.Tests
 
                         Assert.AreEqual(3, collection.Count);
 
-                        using (IMagickImage image = collection.Combine())
+                        using (var image = collection.Combine())
                         {
                             Assert.AreEqual(rose.TotalColors, image.TotalColors);
                         }
@@ -58,7 +58,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldCombineCmykImage()
             {
-                using (IMagickImage cmyk = new MagickImage(Files.CMYKJPG))
+                using (var cmyk = new MagickImage(Files.CMYKJPG))
                 {
                     using (IMagickImageCollection collection = new MagickImageCollection())
                     {
@@ -66,7 +66,7 @@ namespace Magick.NET.Tests
 
                         Assert.AreEqual(4, collection.Count);
 
-                        using (IMagickImage image = collection.Combine(ColorSpace.CMYK))
+                        using (var image = collection.Combine(ColorSpace.CMYK))
                         {
                             Assert.AreEqual(0.0, cmyk.Compare(image, ErrorMetric.RootMeanSquared));
                         }

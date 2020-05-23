@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Affine()
         {
-            using (IMagickImage image = new MagickImage(MagickColors.White, 300, 300))
+            using (var image = new MagickImage(MagickColors.White, 300, 300))
             {
                 Assert.AreEqual(null, image.Settings.Affine);
 
@@ -38,7 +38,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_BorderColor()
         {
-            using (IMagickImage image = new MagickImage(MagickColors.MediumTurquoise, 10, 10))
+            using (var image = new MagickImage(MagickColors.MediumTurquoise, 10, 10))
             {
                 ColorAssert.AreEqual(new MagickColor("#df"), image.Settings.BorderColor);
 
@@ -55,7 +55,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_ColorSpace()
         {
-            using (IMagickImage image = new MagickImage())
+            using (var image = new MagickImage())
             {
                 Assert.AreEqual(ColorSpace.Undefined, image.Settings.ColorSpace);
 
@@ -71,7 +71,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_ColorType()
         {
-            using (IMagickImage image = new MagickImage())
+            using (var image = new MagickImage())
             {
                 Assert.AreEqual(ColorType.Undefined, image.Settings.ColorType);
 
@@ -87,7 +87,7 @@ namespace Magick.NET.Tests
                     image.Write(memStream);
                     memStream.Position = 0;
 
-                    using (IMagickImage result = new MagickImage(memStream))
+                    using (var result = new MagickImage(memStream))
                     {
                         Assert.AreEqual(ColorType.TrueColor, result.ColorType);
                     }
@@ -98,7 +98,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Compression()
         {
-            using (IMagickImage image = new MagickImage())
+            using (var image = new MagickImage())
             {
                 Assert.AreEqual(CompressionMethod.Undefined, image.Settings.Compression);
 
@@ -112,7 +112,7 @@ namespace Magick.NET.Tests
                     image.Write(memStream);
                     memStream.Position = 0;
 
-                    using (IMagickImage result = new MagickImage(memStream))
+                    using (var result = new MagickImage(memStream))
                     {
                         Assert.AreEqual(CompressionMethod.NoCompression, result.Compression);
                     }
@@ -123,7 +123,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Debug()
         {
-            using (IMagickImage image = new MagickImage())
+            using (var image = new MagickImage())
             {
                 Assert.IsFalse(image.Settings.Debug);
             }
@@ -132,7 +132,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Endian()
         {
-            using (IMagickImage image = new MagickImage(Files.NoisePNG))
+            using (var image = new MagickImage(Files.NoisePNG))
             {
                 Assert.AreEqual(Endian.Undefined, image.Settings.Endian);
 
@@ -146,7 +146,7 @@ namespace Magick.NET.Tests
                     MagickReadSettings settings = new MagickReadSettings();
                     settings.Format = MagickFormat.Ipl;
 
-                    using (IMagickImage result = new MagickImage(memStream, settings))
+                    using (var result = new MagickImage(memStream, settings))
                     {
                         Assert.AreEqual(Endian.MSB, result.Endian);
                     }
@@ -157,7 +157,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_FillColor()
         {
-            using (IMagickImage image = new MagickImage(MagickColors.Transparent, 100, 100))
+            using (var image = new MagickImage(MagickColors.Transparent, 100, 100))
             {
                 ColorAssert.AreEqual(MagickColors.Black, image.Settings.FillColor);
 
@@ -188,7 +188,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_FillPattern()
         {
-            using (IMagickImage image = new MagickImage(MagickColors.Transparent, 500, 500))
+            using (var image = new MagickImage(MagickColors.Transparent, 500, 500))
             {
                 Assert.AreEqual(null, image.Settings.FillPattern);
 
@@ -208,7 +208,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_FillRule()
         {
-            using (IMagickImage image = new MagickImage(MagickColors.SkyBlue, 100, 60))
+            using (var image = new MagickImage(MagickColors.SkyBlue, 100, 60))
             {
                 Assert.AreEqual(FillRule.EvenOdd, image.Settings.FillRule);
 
@@ -232,7 +232,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Interlace()
         {
-            using (IMagickImage image = new MagickImage(MagickColors.Fuchsia, 100, 60))
+            using (var image = new MagickImage(MagickColors.Fuchsia, 100, 60))
             {
                 using (MemoryStream memStream = new MemoryStream())
                 {
@@ -259,7 +259,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_StrokeAntiAlias()
         {
-            using (IMagickImage image = new MagickImage(MagickColors.Purple, 300, 300))
+            using (var image = new MagickImage(MagickColors.Purple, 300, 300))
             {
                 Assert.IsTrue(image.Settings.StrokeAntiAlias);
 
@@ -276,7 +276,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_StrokeDashArray()
         {
-            using (IMagickImage image = new MagickImage(MagickColors.SkyBlue, 100, 60))
+            using (var image = new MagickImage(MagickColors.SkyBlue, 100, 60))
             {
                 Assert.AreEqual(null, image.Settings.StrokeDashArray);
                 Assert.AreEqual(0, image.Settings.StrokeDashOffset);
@@ -297,7 +297,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_StrokeLineCap()
         {
-            using (IMagickImage image = new MagickImage(MagickColors.SkyBlue, 100, 60))
+            using (var image = new MagickImage(MagickColors.SkyBlue, 100, 60))
             {
                 Assert.AreEqual(LineCap.Butt, image.Settings.StrokeLineCap);
 
@@ -314,7 +314,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_StrokeLineJoin()
         {
-            using (IMagickImage image = new MagickImage(MagickColors.SkyBlue, 100, 60))
+            using (var image = new MagickImage(MagickColors.SkyBlue, 100, 60))
             {
                 Assert.AreEqual(LineJoin.Miter, image.Settings.StrokeLineJoin);
 
@@ -331,7 +331,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_StrokeMiterLimit()
         {
-            using (IMagickImage image = new MagickImage(MagickColors.SkyBlue, 100, 60))
+            using (var image = new MagickImage(MagickColors.SkyBlue, 100, 60))
             {
                 Assert.AreEqual(10, image.Settings.StrokeMiterLimit);
 
@@ -348,7 +348,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_StrokePattern()
         {
-            using (IMagickImage image = new MagickImage(MagickColors.Red, 250, 100))
+            using (var image = new MagickImage(MagickColors.Red, 250, 100))
             {
                 Assert.AreEqual(null, image.Settings.StrokePattern);
 
@@ -369,7 +369,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_StrokeWidth()
         {
-            using (IMagickImage image = new MagickImage(MagickColors.Purple, 300, 300))
+            using (var image = new MagickImage(MagickColors.Purple, 300, 300))
             {
                 Assert.AreEqual(1, image.Settings.StrokeWidth);
                 Assert.AreEqual(new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max, 0), image.Settings.StrokeColor);

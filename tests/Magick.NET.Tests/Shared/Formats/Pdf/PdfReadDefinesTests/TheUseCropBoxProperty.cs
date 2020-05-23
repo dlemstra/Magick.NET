@@ -29,7 +29,7 @@ namespace Magick.NET.Tests
                     UseCropBox = true,
                 };
 
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(defines);
 

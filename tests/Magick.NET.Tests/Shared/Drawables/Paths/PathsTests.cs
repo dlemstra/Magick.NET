@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Draw_Drawables()
         {
-            using (IMagickImage image = new MagickImage(MagickColors.Green, 100, 10))
+            using (var image = new MagickImage(MagickColors.Green, 100, 10))
             {
                 image.Draw(new Drawables()
                   .StrokeColor(MagickColors.Red)
@@ -41,7 +41,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Draw_Paths()
         {
-            using (IMagickImage image = new MagickImage(MagickColors.Fuchsia, 100, 3))
+            using (var image = new MagickImage(MagickColors.Fuchsia, 100, 3))
             {
                 image.Draw(new Paths()
                   .LineToAbs(10, 1)

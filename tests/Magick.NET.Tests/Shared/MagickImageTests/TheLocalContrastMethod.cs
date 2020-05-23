@@ -23,9 +23,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldOnlyChangeSpecifiedChannels()
             {
-                using (IMagickImage image = new MagickImage("plasma:purple", 100, 100))
+                using (var image = new MagickImage("plasma:purple", 100, 100))
                 {
-                    using (IMagickImage allChannels = image.Clone())
+                    using (var allChannels = image.Clone())
                     {
                         allChannels.LocalContrast(2, new Percentage(50));
                         image.LocalContrast(2, new Percentage(50), Channels.Red);

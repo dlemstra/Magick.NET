@@ -57,7 +57,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_IEquatable()
         {
-            using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
                 var first = image.GetIptcProfile();
 
@@ -82,7 +82,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_ToByteArray()
         {
-            using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
                 var profile = image.GetIptcProfile();
                 Assert.IsNotNull(profile);

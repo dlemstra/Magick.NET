@@ -29,7 +29,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new PixelReadSettings();
 
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                         {
@@ -43,7 +43,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new PixelReadSettings();
 
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentException>("data", () =>
                         {
@@ -55,7 +55,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
                         {
@@ -81,7 +81,7 @@ namespace Magick.NET.Tests
 
                     var settings = new PixelReadSettings(2, 1, StorageType.Double, PixelMapping.RGBA);
 
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         image.ReadPixels(data, settings);
 
@@ -116,7 +116,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new PixelReadSettings();
 
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                         {
@@ -130,7 +130,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new PixelReadSettings();
 
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentException>("data", () =>
                         {
@@ -144,7 +144,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new PixelReadSettings();
 
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentException>("offset", () =>
                         {
@@ -158,7 +158,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new PixelReadSettings();
 
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentException>("count", () =>
                         {
@@ -172,7 +172,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new PixelReadSettings();
 
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentException>("count", () =>
                         {
@@ -184,7 +184,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
                         {
@@ -202,7 +202,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new PixelReadSettings();
 
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("file", () =>
                         {
@@ -214,7 +214,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
                         {
@@ -233,7 +233,7 @@ namespace Magick.NET.Tests
                     using (var temporyFile = new TemporaryFile(bytes))
                     {
                         FileInfo file = temporyFile;
-                        using (IMagickImage image = new MagickImage())
+                        using (var image = new MagickImage())
                         {
                             image.ReadPixels(file, settings);
 
@@ -253,7 +253,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new PixelReadSettings();
 
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                         {
@@ -267,7 +267,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new PixelReadSettings();
 
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                         {
@@ -279,7 +279,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
                         {
@@ -293,7 +293,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new PixelReadSettings(1, 1, StorageType.Char, null);
 
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentException>("settings", () =>
                         {
@@ -307,7 +307,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new PixelReadSettings(1, 1, StorageType.Char, string.Empty);
 
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentException>("settings", () =>
                         {
@@ -322,7 +322,7 @@ namespace Magick.NET.Tests
                     var settings = new PixelReadSettings(1, 1, StorageType.Char, "RGBA");
                     settings.ReadSettings.Width = null;
 
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentException>("settings", () =>
                         {
@@ -337,7 +337,7 @@ namespace Magick.NET.Tests
                     var settings = new PixelReadSettings(1, 1, StorageType.Char, "RGBA");
                     settings.ReadSettings.Height = null;
 
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentException>("settings", () =>
                         {
@@ -356,7 +356,7 @@ namespace Magick.NET.Tests
                     using (var temporyFile = new TemporaryFile(bytes))
                     {
                         var fileName = temporyFile.FullName;
-                        using (IMagickImage image = new MagickImage())
+                        using (var image = new MagickImage())
                         {
                             image.ReadPixels(fileName, settings);
 
@@ -376,7 +376,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new PixelReadSettings();
 
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
                         {
@@ -390,7 +390,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new PixelReadSettings();
 
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentException>("stream", () =>
                         {
@@ -402,7 +402,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
                         {
@@ -420,7 +420,7 @@ namespace Magick.NET.Tests
 
                     using (var memoryStream = new MemoryStream(bytes))
                     {
-                        using (IMagickImage image = new MagickImage())
+                        using (var image = new MagickImage())
                         {
                             image.ReadPixels(memoryStream, settings);
 

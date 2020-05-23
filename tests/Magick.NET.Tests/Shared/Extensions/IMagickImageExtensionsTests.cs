@@ -15,6 +15,16 @@ using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace Magick.NET.Tests
 {
     [TestClass]
@@ -23,7 +33,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void GetInstance_IMagickImageIsNotINativeInstance_ThrowsException()
         {
-            IMagickImage image = Substitute.For<IMagickImage>();
+            var image = Substitute.For<IMagickImage<QuantumType>>();
             ExceptionAssert.Throws<NotSupportedException>(() =>
             {
                 image.GetInstance();
@@ -33,14 +43,14 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void CreateErrorInfo_ValueIsNull_ReturnsNull()
         {
-            IMagickImage image = null;
+            IMagickImage<QuantumType> image = null;
             Assert.IsNull(image.CreateErrorInfo());
         }
 
         [TestMethod]
         public void CreateErrorInfo_IMagickImageIsNotMagickImage_ThrowsException()
         {
-            IMagickImage image = Substitute.For<IMagickImage>();
+            IMagickImage<QuantumType> image = Substitute.For<IMagickImage<QuantumType>>();
             ExceptionAssert.Throws<NotSupportedException>(() =>
             {
                 image.CreateErrorInfo();
@@ -50,7 +60,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void SetNext_ValueIsNull_ThrowsException()
         {
-            IMagickImage image = null;
+            IMagickImage<QuantumType> image = null;
             ExceptionAssert.Throws<NotSupportedException>(() =>
             {
                 image.SetNext(null);

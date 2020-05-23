@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldTrimTheBackground()
             {
-                using (IMagickImage image = new MagickImage("xc:fuchsia", 50, 50))
+                using (var image = new MagickImage("xc:fuchsia", 50, 50))
                 {
                     ColorAssert.AreEqual(MagickColors.Fuchsia, image, 0, 0);
                     ColorAssert.AreEqual(MagickColors.Fuchsia, image, 49, 49);
@@ -47,7 +47,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldTrimTheBackgroundWithThePercentage()
             {
-                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
                 {
                     image.BackgroundColor = MagickColors.Black;
                     image.Rotate(10);

@@ -22,10 +22,10 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Channel()
         {
-            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                PerceptualHash phash = image.PerceptualHash();
-                ChannelPerceptualHash channel = phash.GetChannel(PixelChannel.Red);
+                var phash = image.PerceptualHash();
+                var channel = phash.GetChannel(PixelChannel.Red);
 
                 ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
                 {
@@ -152,7 +152,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_ToString()
         {
-            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
                 PerceptualHash phash = image.PerceptualHash();
                 string hash = phash.ToString();
@@ -174,11 +174,11 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_SumSquaredDistance()
         {
-            using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                PerceptualHash phash = image.PerceptualHash();
+                var phash = image.PerceptualHash();
 
-                using (IMagickImage other = new MagickImage(Files.MagickNETIconPNG))
+                using (var other = new MagickImage(Files.MagickNETIconPNG))
                 {
                     other.HasAlpha = false;
                     Assert.AreEqual(3, other.ChannelCount);

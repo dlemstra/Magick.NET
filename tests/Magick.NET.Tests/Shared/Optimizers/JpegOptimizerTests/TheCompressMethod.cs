@@ -80,7 +80,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldPreserveTheColorProfile()
                 {
-                    using (MagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         image.Ping(Files.PictureJPG);
 
@@ -93,7 +93,7 @@ namespace Magick.NET.Tests
 
                         Assert.IsTrue(result);
 
-                        using (MagickImage image = new MagickImage())
+                        using (var image = new MagickImage())
                         {
                             image.Ping(tempFile);
 
@@ -105,7 +105,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotPreserveTheExifProfile()
                 {
-                    using (MagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         image.Ping(Files.PictureJPG);
 
@@ -118,7 +118,7 @@ namespace Magick.NET.Tests
 
                         Assert.IsTrue(result);
 
-                        using (MagickImage image = new MagickImage())
+                        using (var image = new MagickImage())
                         {
                             image.Ping(tempFile);
 

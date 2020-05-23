@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldDefaultToZero()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     Assert.AreEqual(0, image.Settings.TextInterlineSpacing);
                 }
@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldBeUsedWhenRenderingText()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.Settings.TextInterlineSpacing = 10;
                     image.Read("label:First\nSecond");

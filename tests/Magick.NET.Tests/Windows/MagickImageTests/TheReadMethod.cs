@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
             {
                 using (NonSeekableStream stream = new NonSeekableStream(Files.Coders.CartoonNetworkStudiosLogoAI))
                 {
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         image.Read(stream);
                     }
@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldUseTheReadSettings()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     using (FileStream fs = File.OpenRead(Files.Logos.MagickNETSVG))
                     {

@@ -84,7 +84,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnAreaWhenAreaIsValid()
             {
-                using (IMagickImage image = new MagickImage(Files.CirclePNG))
+                using (var image = new MagickImage(Files.CirclePNG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -101,7 +101,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenGeometryIsNull()
             {
-                using (IMagickImage image = new MagickImage(Files.RedPNG))
+                using (var image = new MagickImage(Files.RedPNG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -116,7 +116,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnAreaWhenGeometryIsValid()
             {
-                using (IMagickImage image = new MagickImage(Files.RedPNG))
+                using (var image = new MagickImage(Files.RedPNG))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {
@@ -132,7 +132,7 @@ namespace Magick.NET.Tests
 
             private static void ThrowsArgumentException(string paramName, int x, int y, int width, int height)
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+                using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
                     using (IPixelCollection pixels = image.GetPixels())
                     {

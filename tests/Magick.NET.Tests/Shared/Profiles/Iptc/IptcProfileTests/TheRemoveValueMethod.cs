@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldRemoveTheValueAndReturnTrueWhenValueWasFound()
             {
-                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetIptcProfile();
                     var result = profile.RemoveValue(IptcTag.Title);
@@ -66,7 +66,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnFalseWhenProfileDoesNotContainTag()
             {
-                using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetIptcProfile();
                     var result = profile.RemoveValue(IptcTag.ReferenceNumber);

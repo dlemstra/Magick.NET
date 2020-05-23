@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenBitmapIsNull()
                 {
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("bitmap", () =>
                         {
@@ -44,7 +44,7 @@ namespace Magick.NET.Tests
                 {
                     using (Bitmap bitmap = new Bitmap(Files.SnakewarePNG))
                     {
-                        using (IMagickImage image = new MagickImage())
+                        using (var image = new MagickImage())
                         {
                             image.Read(bitmap);
 
@@ -62,7 +62,7 @@ namespace Magick.NET.Tests
                     {
                         Assert.AreEqual(bitmap.RawFormat, ImageFormat.MemoryBmp);
 
-                        using (IMagickImage image = new MagickImage())
+                        using (var image = new MagickImage())
                         {
                             image.Read(bitmap);
 
@@ -79,7 +79,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseBaseDirectoryOfCurrentAppDomainWhenFileNameStartsWithTilde()
                 {
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         var exception = ExceptionAssert.Throws<MagickBlobErrorException>(() =>
                         {
@@ -94,7 +94,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotUseBaseDirectoryOfCurrentAppDomainWhenFileNameIsTilde()
                 {
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         var exception = ExceptionAssert.Throws<MagickBlobErrorException>(() =>
                         {

@@ -12,6 +12,16 @@
 
 using System.IO;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick.ImageOptimizers
 {
     /// <summary>
@@ -124,7 +134,7 @@ namespace ImageMagick.ImageOptimizers
             return false;
         }
 
-        private static bool DoLosslessCompress(FileInfo file, IMagickImage image)
+        private static bool DoLosslessCompress(FileInfo file, IMagickImage<QuantumType> image)
         {
             ImageOptimizerHelper.CheckFormat(image, MagickFormat.Gif);
 
@@ -146,13 +156,13 @@ namespace ImageMagick.ImageOptimizers
             return isCompressed;
         }
 
-        private static void LosslessCompress(IMagickImage image)
+        private static void LosslessCompress(IMagickImage<QuantumType> image)
         {
             image.Strip();
             image.GetSettings().Interlace = Interlace.NoInterlace;
         }
 
-        private static bool DoLosslessCompress(IMagickImage image, Stream stream, long startPosition)
+        private static bool DoLosslessCompress(IMagickImage<QuantumType> image, Stream stream, long startPosition)
         {
             ImageOptimizerHelper.CheckFormat(image, MagickFormat.Gif);
 

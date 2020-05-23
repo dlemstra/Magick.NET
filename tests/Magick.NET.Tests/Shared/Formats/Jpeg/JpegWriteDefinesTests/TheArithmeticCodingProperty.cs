@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
                     ArithmeticCoding = false,
                 };
 
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(defines);
 
@@ -46,7 +46,7 @@ namespace Magick.NET.Tests
                     ArithmeticCoding = true,
                 };
 
-                using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
+                using (var input = new MagickImage(Files.Builtin.Logo))
                 {
                     using (var memStream = new MemoryStream())
                     {
@@ -55,7 +55,7 @@ namespace Magick.NET.Tests
                         Assert.AreEqual("True", input.Settings.GetDefine(MagickFormat.Jpeg, "arithmetic-coding"));
 
                         memStream.Position = 0;
-                        using (IMagickImage output = new MagickImage(memStream))
+                        using (var output = new MagickImage(memStream))
                         {
                             var coding = output.GetAttribute("jpeg:coding");
                             Assert.AreEqual("arithmetic", coding);

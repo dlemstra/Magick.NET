@@ -144,7 +144,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the fill pattern.
         /// </summary>
-        public IMagickImage FillPattern
+        public IMagickImage<QuantumType> FillPattern
         {
             get => Drawing.FillPattern;
             set => Drawing.FillPattern = value;
@@ -323,7 +323,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the pattern image to use while stroking object outlines.
         /// </summary>
-        public IMagickImage StrokePattern
+        public IMagickImage<QuantumType> StrokePattern
         {
             get => Drawing.StrokePattern;
             set => Drawing.StrokePattern = value;

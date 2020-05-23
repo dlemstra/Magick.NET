@@ -12,6 +12,16 @@
 
 using System.Globalization;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <summary>
@@ -34,7 +44,7 @@ namespace ImageMagick
         /// </summary>
         public bool MeanColor { get; set; }
 
-        internal void SetImageArtifacts(IMagickImage image)
+        internal void SetImageArtifacts(IMagickImage<QuantumType> image)
         {
             if (AreaThreshold != null)
                 image.SetArtifact("connected-components:area-threshold", AreaThreshold.Value.ToString(CultureInfo.InvariantCulture));

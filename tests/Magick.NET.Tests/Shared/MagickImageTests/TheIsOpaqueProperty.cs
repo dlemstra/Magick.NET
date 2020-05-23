@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnTrueWhenImageIsOpaque()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     Assert.IsTrue(image.IsOpaque);
                 }
@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnFalseWhenImageIsNotOpaque()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     image.Alpha(AlphaOption.Transparent);
                     Assert.IsFalse(image.IsOpaque);

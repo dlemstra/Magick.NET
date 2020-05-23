@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenArgumentsIsNull()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("arguments", () =>
                     {
@@ -46,7 +46,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenArgumentsIsEmpty()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     ExceptionAssert.Throws<ArgumentException>("arguments", () =>
                     {
@@ -58,7 +58,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenGeometryIsNull()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("geometry", () =>
                     {
@@ -70,7 +70,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenGeometryIsPercentage()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     ExceptionAssert.Throws<ArgumentException>("geometry", () =>
                     {
@@ -84,7 +84,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangeTheSpecifiedChannels()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     image.Evaluate(Channels.Red, EvaluateFunction.Arcsin, new double[] { 5.0 });
 
@@ -105,9 +105,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldUseWriteMask()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Black, 2, 1))
+                using (var image = new MagickImage(MagickColors.Black, 2, 1))
                 {
-                    using (IMagickImage mask = new MagickImage(MagickColors.White, 2, 1))
+                    using (var mask = new MagickImage(MagickColors.White, 2, 1))
                     {
                         using (IPixelCollection pixels = mask.GetPixelsUnsafe())
                         {

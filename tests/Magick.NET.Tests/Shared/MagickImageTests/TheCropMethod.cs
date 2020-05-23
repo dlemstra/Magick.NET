@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetImageToCorrectDimensions()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     image.Crop(40, 50);
 
@@ -35,7 +35,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldUseUndefinedGravityAsTheDefault()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     image.Crop(150, 40);
 
@@ -49,7 +49,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldUseCenterGravity()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     image.Crop(50, 40, Gravity.Center);
 
@@ -63,7 +63,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldUseEastGravity()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     image.Crop(50, 40, Gravity.East);
 
@@ -76,7 +76,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldUseAspectRatioOfMagickGeometry()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     image.Crop(new MagickGeometry("3:2"));
 
@@ -89,7 +89,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldUseAspectRatioOfMagickGeometryAndGravity()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     image.Crop(new MagickGeometry("3:2"), Gravity.South);
 
@@ -102,7 +102,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldUseOffsetFromMagickGeometryAndGravity()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     image.Crop(new MagickGeometry(10, 10, 100, 100), Gravity.Center);
 
@@ -115,7 +115,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldUseUndefinedGravityAsTheDefaultForMagickGeometry()
             {
-                using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     image.Crop(new MagickGeometry("150x40"));
 

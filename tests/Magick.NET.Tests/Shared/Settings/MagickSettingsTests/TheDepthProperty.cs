@@ -23,13 +23,13 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangeTheDepthOfTheOutputImage()
             {
-                using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
+                using (var input = new MagickImage(Files.Builtin.Logo))
                 {
                     input.Settings.Depth = 5;
 
                     var bytes = input.ToByteArray(MagickFormat.Tga);
 
-                    using (IMagickImage output = new MagickImage(bytes, MagickFormat.Tga))
+                    using (var output = new MagickImage(bytes, MagickFormat.Tga))
                     {
                         Assert.AreEqual(5, output.Depth);
                     }

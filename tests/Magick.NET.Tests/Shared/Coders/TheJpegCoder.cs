@@ -21,7 +21,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldDecodeCorrectly()
         {
-            using (IMagickImage image = new MagickImage(Files.WhiteJPG))
+            using (var image = new MagickImage(Files.WhiteJPG))
             {
                 using (var pixels = image.GetPixels())
                 {

@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
                     },
                 };
 
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.Read(Files.ImageMagickJPG, settings);
 
@@ -52,7 +52,7 @@ namespace Magick.NET.Tests
                     },
                 };
 
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.Read(Files.ImageMagickJPG, settings);
 
@@ -71,7 +71,7 @@ namespace Magick.NET.Tests
                     },
                 };
 
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.Read(Files.FujiFilmFinePixS1ProJPG);
                     Assert.IsNotNull(image.GetIptcProfile());

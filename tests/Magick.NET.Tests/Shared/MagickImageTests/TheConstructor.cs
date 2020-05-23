@@ -328,7 +328,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
-                    using (IMagickImage image = new MagickImage(File.ReadAllBytes(Files.CirclePNG), (MagickReadSettings)null))
+                    using (var image = new MagickImage(File.ReadAllBytes(Files.CirclePNG), (MagickReadSettings)null))
                     {
                     }
                 }
@@ -385,7 +385,7 @@ namespace Magick.NET.Tests
 
                     var settings = new PixelReadSettings(2, 1, StorageType.Double, PixelMapping.RGBA);
 
-                    using (IMagickImage image = new MagickImage(data, settings))
+                    using (var image = new MagickImage(data, settings))
                     {
                         Assert.AreEqual(2, image.Width);
                         Assert.AreEqual(1, image.Height);
@@ -463,7 +463,7 @@ namespace Magick.NET.Tests
                 {
                     var color = new MagickColor("red");
 
-                    using (IMagickImage image = new MagickImage(color, 20, 30))
+                    using (var image = new MagickImage(color, 20, 30))
                     {
                         Assert.AreEqual(20, image.Width);
                         Assert.AreEqual(30, image.Height);
@@ -515,7 +515,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
-                    using (IMagickImage image = new MagickImage(new FileInfo(Files.CirclePNG), (MagickReadSettings)null))
+                    using (var image = new MagickImage(new FileInfo(Files.CirclePNG), (MagickReadSettings)null))
                     {
                     }
                 }
@@ -554,7 +554,7 @@ namespace Magick.NET.Tests
                     using (var temporyFile = new TemporaryFile(bytes))
                     {
                         FileInfo file = temporyFile;
-                        using (IMagickImage image = new MagickImage(file, settings))
+                        using (var image = new MagickImage(file, settings))
                         {
                             Assert.AreEqual(1, image.Width);
                             Assert.AreEqual(1, image.Height);
@@ -636,7 +636,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
-                    using (IMagickImage image = new MagickImage(Files.CirclePNG, (MagickReadSettings)null))
+                    using (var image = new MagickImage(Files.CirclePNG, (MagickReadSettings)null))
                     {
                     }
                 }
@@ -732,7 +732,7 @@ namespace Magick.NET.Tests
                     using (var temporyFile = new TemporaryFile(bytes))
                     {
                         var fileName = temporyFile.FullName;
-                        using (IMagickImage image = new MagickImage(fileName, settings))
+                        using (var image = new MagickImage(fileName, settings))
                         {
                             Assert.AreEqual(1, image.Width);
                             Assert.AreEqual(1, image.Height);
@@ -793,7 +793,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldReadImage()
                 {
-                    using (IMagickImage image = new MagickImage("xc:red", 20, 30))
+                    using (var image = new MagickImage("xc:red", 20, 30))
                     {
                         Assert.AreEqual(20, image.Width);
                         Assert.AreEqual(30, image.Height);
@@ -878,7 +878,7 @@ namespace Magick.NET.Tests
                 {
                     using (var fileStream = File.OpenRead(Files.CirclePNG))
                     {
-                        using (IMagickImage image = new MagickImage(fileStream, (MagickReadSettings)null))
+                        using (var image = new MagickImage(fileStream, (MagickReadSettings)null))
                         {
                         }
                     }
@@ -928,7 +928,7 @@ namespace Magick.NET.Tests
 
                     using (var memoryStream = new MemoryStream(bytes))
                     {
-                        using (IMagickImage image = new MagickImage(memoryStream, settings))
+                        using (var image = new MagickImage(memoryStream, settings))
                         {
                             Assert.AreEqual(1, image.Width);
                             Assert.AreEqual(1, image.Height);

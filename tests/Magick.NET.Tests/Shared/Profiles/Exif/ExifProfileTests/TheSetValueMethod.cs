@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
             {
                 using (var memStream = new MemoryStream())
                 {
-                    using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
+                    using (var image = new MagickImage(Files.ImageMagickJPG))
                     {
                         var profile = image.GetExifProfile();
                         Assert.IsNull(profile);
@@ -45,7 +45,7 @@ namespace Magick.NET.Tests
                     }
 
                     memStream.Position = 0;
-                    using (IMagickImage image = new MagickImage(memStream))
+                    using (var image = new MagickImage(memStream))
                     {
                         var profile = image.GetExifProfile();
 

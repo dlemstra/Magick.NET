@@ -31,7 +31,7 @@ namespace Magick.NET.Tests
                 Density = new Density(96, 96, DensityUnit.PixelsPerInch),
             };
 
-            using (IMagickImage image = new MagickImage($"label:Masai Mara", readSettings))
+            using (var image = new MagickImage($"label:Masai Mara", readSettings))
             {
                 Assert.AreEqual(91, image.Width);
                 Assert.AreEqual(21, image.Height);
@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
                 Width = 60,
             };
 
-            using (IMagickImage image = new MagickImage("label:1", readSettings))
+            using (var image = new MagickImage("label:1", readSettings))
             {
                 Assert.AreEqual(119, image.Height);
 
@@ -73,7 +73,7 @@ namespace Magick.NET.Tests
                 Width = 60,
             };
 
-            using (IMagickImage image = new MagickImage("label:1\n2", readSettings))
+            using (var image = new MagickImage("label:1\n2", readSettings))
             {
                 Assert.AreEqual(237, image.Height);
 

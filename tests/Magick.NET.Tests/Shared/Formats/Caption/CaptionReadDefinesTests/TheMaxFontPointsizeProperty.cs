@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
                     },
                 };
 
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     image.Read("caption:123", settings);
 
@@ -55,7 +55,7 @@ namespace Magick.NET.Tests
                     },
                 };
 
-                using (IMagickImage image = new MagickImage("caption:testing 1 2 3", settings))
+                using (var image = new MagickImage("caption:testing 1 2 3", settings))
                 {
                     ColorAssert.AreEqual(MagickColors.White, image, 32, 64);
                 }

@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetTheBackgroundColorWhenReadingImage()
             {
-                using (IMagickImage image = new MagickImage())
+                using (var image = new MagickImage())
                 {
                     ColorAssert.AreEqual(MagickColors.White, image.Settings.BackgroundColor);
 

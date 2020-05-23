@@ -23,11 +23,11 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldUseTheDefaultPixelIntensityMethod()
             {
-                using (IMagickImage imageA = new MagickImage(MagickColors.Purple, 1, 1))
+                using (var imageA = new MagickImage(MagickColors.Purple, 1, 1))
                 {
                     imageA.Grayscale();
 
-                    using (IMagickImage imageB = new MagickImage(MagickColors.Purple, 1, 1))
+                    using (var imageB = new MagickImage(MagickColors.Purple, 1, 1))
                     {
                         imageB.Grayscale(PixelIntensityMethod.Brightness);
 
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotRoundWhenHdriEnabled()
             {
-                using (IMagickImage image = new MagickImage(MagickColors.Black, 1, 1))
+                using (var image = new MagickImage(MagickColors.Black, 1, 1))
                 {
                     image.Grayscale(PixelIntensityMethod.Average);
 

@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenProfileIsNull()
                 {
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("profile", () => image.SetProfile(null));
                     }
@@ -36,7 +36,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldSetTheIccProperties()
                 {
-                    using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
+                    using (var image = new MagickImage(Files.MagickNETIconPNG))
                     {
                         image.SetProfile(ColorProfile.SRGB);
 
@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseIccAsTheDefaultColorProfileName()
                 {
-                    using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+                    using (var image = new MagickImage(Files.SnakewarePNG))
                     {
                         var profile = image.GetColorProfile();
                         Assert.IsNull(profile);
@@ -65,7 +65,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheCorrectProfileName()
                 {
-                    using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+                    using (var image = new MagickImage(Files.SnakewarePNG))
                     {
                         var profile = image.GetColorProfile();
                         Assert.IsNull(profile);
@@ -83,7 +83,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldOverwriteExistingProfile()
                 {
-                    using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+                    using (var image = new MagickImage(Files.SnakewarePNG))
                     {
                         image.SetProfile(ColorProfile.SRGB);
 
@@ -98,11 +98,11 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheSpecifiedMode()
                 {
-                    using (IMagickImage quantumImage = new MagickImage(Files.PictureJPG))
+                    using (var quantumImage = new MagickImage(Files.PictureJPG))
                     {
                         quantumImage.SetProfile(ColorProfile.USWebCoatedSWOP);
 
-                        using (IMagickImage highResImage = new MagickImage(Files.PictureJPG))
+                        using (var highResImage = new MagickImage(Files.PictureJPG))
                         {
                             highResImage.SetProfile(ColorProfile.USWebCoatedSWOP, ColorTransformMode.HighRes);
 
@@ -124,7 +124,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenProfileIsNull()
                 {
-                    using (IMagickImage image = new MagickImage())
+                    using (var image = new MagickImage())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("profile", () => image.SetProfile((IImageProfile)null));
                     }
@@ -133,7 +133,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotSetTheProfileWhenArrayIsNull()
                 {
-                    using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+                    using (var image = new MagickImage(Files.SnakewarePNG))
                     {
                         image.SetProfile(new TestImageProfile("foo", null));
 
@@ -144,7 +144,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotSetTheProfileWhenArrayIsEmpty()
                 {
-                    using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+                    using (var image = new MagickImage(Files.SnakewarePNG))
                     {
                         image.SetProfile(new TestImageProfile("foo", new byte[0]));
 
@@ -158,7 +158,7 @@ namespace Magick.NET.Tests
                     var profileA = new TestImageProfile("foo", new byte[1]);
                     var profileB = new TestImageProfile("foo", new byte[2]);
 
-                    using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
+                    using (var image = new MagickImage(Files.SnakewarePNG))
                     {
                         image.SetProfile(profileA);
 
@@ -173,7 +173,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldSetTheIptcProfile()
                 {
-                    using (IMagickImage input = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+                    using (var input = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                     {
                         var profile = input.GetIptcProfile();
 
@@ -188,7 +188,7 @@ namespace Magick.NET.Tests
                             input.Write(memStream);
                             memStream.Position = 0;
 
-                            using (IMagickImage output = new MagickImage(memStream))
+                            using (var output = new MagickImage(memStream))
                             {
                                 profile = input.GetIptcProfile();
 
