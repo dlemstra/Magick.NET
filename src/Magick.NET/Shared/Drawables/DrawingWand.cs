@@ -12,7 +12,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace ImageMagick
@@ -21,7 +20,7 @@ namespace ImageMagick
     {
         public DrawingWand(IMagickImage image)
         {
-            _nativeInstance = new NativeDrawingWand(image, image.Settings.Drawing);
+            _nativeInstance = new NativeDrawingWand(image, image.GetSettings().Drawing);
         }
 
         public void Draw(IEnumerable<IDrawable> drawables)

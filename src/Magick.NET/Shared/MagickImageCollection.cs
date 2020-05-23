@@ -330,7 +330,7 @@ namespace ImageMagick
             {
                 AttachImages();
                 IntPtr image = _nativeInstance.Append(_images[0], false);
-                return MagickImage.Create(image, _images[0].Settings);
+                return MagickImage.Create(image, _images[0].GetSettings());
             }
             finally
             {
@@ -351,7 +351,7 @@ namespace ImageMagick
             {
                 AttachImages();
                 IntPtr image = _nativeInstance.Append(_images[0], true);
-                return MagickImage.Create(image, _images[0].Settings);
+                return MagickImage.Create(image, _images[0].GetSettings());
             }
             finally
             {
@@ -368,7 +368,7 @@ namespace ImageMagick
         {
             ThrowIfEmpty();
 
-            MagickSettings settings = _images[0].Settings.Clone();
+            var settings = _images[0].GetSettings().Clone();
 
             IntPtr images;
             try
@@ -407,7 +407,7 @@ namespace ImageMagick
         [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The collection takes ownership of the images.")]
         public IMagickImageCollection Clone()
         {
-            IMagickImageCollection result = new MagickImageCollection();
+            var result = new MagickImageCollection();
             foreach (MagickImage image in this)
                 result.Add(image.Clone());
 
@@ -438,7 +438,7 @@ namespace ImageMagick
             {
                 AttachImages();
                 IntPtr image = _nativeInstance.Combine(_images[0], colorSpace);
-                return MagickImage.Create(image, _images[0].Settings);
+                return MagickImage.Create(image, _images[0].GetSettings());
             }
             finally
             {
@@ -456,7 +456,7 @@ namespace ImageMagick
             Throw.IfNull(nameof(complexSettings), complexSettings);
             ThrowIfEmpty();
 
-            MagickSettings settings = _images[0].Settings.Clone();
+            var settings = _images[0].GetSettings().Clone();
 
             IntPtr images;
             try
@@ -513,7 +513,7 @@ namespace ImageMagick
         {
             ThrowIfEmpty();
 
-            MagickSettings settings = _images[0].Settings.Clone();
+            var settings = _images[0].GetSettings().Clone();
 
             IntPtr images;
             try
@@ -555,7 +555,7 @@ namespace ImageMagick
             {
                 AttachImages();
                 IntPtr image = _nativeInstance.Evaluate(_images[0], evaluateOperator);
-                return MagickImage.Create(image, _images[0].Settings);
+                return MagickImage.Create(image, _images[0].GetSettings());
             }
             finally
             {
@@ -588,7 +588,7 @@ namespace ImageMagick
             {
                 AttachImages();
                 IntPtr image = _nativeInstance.Merge(_images[0], LayerMethod.Flatten);
-                return MagickImage.Create(image, _images[0].Settings);
+                return MagickImage.Create(image, _images[0].GetSettings());
             }
             finally
             {
@@ -696,7 +696,7 @@ namespace ImageMagick
 
             using (IMagickImageCollection collection = new MagickImageCollection())
             {
-                collection.AddRange(MagickImage.CreateList(images, _images[0].Settings));
+                collection.AddRange(MagickImage.CreateList(images, _images[0].GetSettings()));
                 if (settings.TransparentColor != null)
                 {
                     foreach (IMagickImage image in collection)
@@ -719,7 +719,7 @@ namespace ImageMagick
         {
             ThrowIfCountLowerThan(2);
 
-            MagickSettings settings = _images[0].Settings.Clone();
+            var settings = _images[0].GetSettings().Clone();
 
             IntPtr images;
             try
@@ -755,7 +755,7 @@ namespace ImageMagick
         {
             ThrowIfEmpty();
 
-            MagickSettings settings = _images[0].Settings.Clone();
+            var settings = _images[0].GetSettings().Clone();
 
             IntPtr images;
             try
@@ -782,7 +782,7 @@ namespace ImageMagick
         {
             ThrowIfEmpty();
 
-            MagickSettings settings = _images[0].Settings.Clone();
+            var settings = _images[0].GetSettings().Clone();
 
             IntPtr images;
             try
@@ -945,7 +945,7 @@ namespace ImageMagick
             {
                 AttachImages();
                 IntPtr image = _nativeInstance.Polynomial(_images[0], terms, terms.Length);
-                return MagickImage.Create(image, _images[0].Settings);
+                return MagickImage.Create(image, _images[0].GetSettings());
             }
             finally
             {
@@ -1185,7 +1185,7 @@ namespace ImageMagick
             {
                 AttachImages();
                 IntPtr image = _nativeInstance.Smush(_images[0], offset, false);
-                return MagickImage.Create(image, _images[0].Settings);
+                return MagickImage.Create(image, _images[0].GetSettings());
             }
             finally
             {
@@ -1207,7 +1207,7 @@ namespace ImageMagick
             {
                 AttachImages();
                 IntPtr image = _nativeInstance.Smush(_images[0], offset, true);
-                return MagickImage.Create(image, _images[0].Settings);
+                return MagickImage.Create(image, _images[0].GetSettings());
             }
             finally
             {
@@ -1347,7 +1347,7 @@ namespace ImageMagick
             if (_images.Count == 0)
                 return;
 
-            MagickSettings settings = _images[0].Settings.Clone();
+            var settings = _images[0].GetSettings().Clone();
             settings.FileName = null;
 
             try
@@ -1420,7 +1420,7 @@ namespace ImageMagick
             if (_images.Count == 0)
                 return;
 
-            MagickSettings settings = _images[0].Settings.Clone();
+            var settings = _images[0].GetSettings().Clone();
             settings.FileName = fileName;
 
             try
@@ -1582,7 +1582,7 @@ namespace ImageMagick
             {
                 AttachImages();
                 IntPtr image = _nativeInstance.Merge(_images[0], layerMethod);
-                return MagickImage.Create(image, _images[0].Settings);
+                return MagickImage.Create(image, _images[0].GetSettings());
             }
             finally
             {

@@ -1010,11 +1010,11 @@ namespace ImageMagick
                 }
             }
         }
-        internal static INativeInstance CreateInstance(MagickSettings instance)
+        internal static INativeInstance CreateInstance(IMagickSettings instance)
         {
             if (instance == null)
                 return NativeInstance.Zero;
-            return instance.CreateNativeInstance();
+            return MagickSettings.CreateNativeInstance(instance);
         }
     }
 }

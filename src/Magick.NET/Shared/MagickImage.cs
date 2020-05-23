@@ -37,6 +37,7 @@ namespace ImageMagick
         private ProgressDelegate _nativeProgress;
         private EventHandler<ProgressEventArgs> _progress;
         private EventHandler<WarningEventArgs> _warning;
+        private MagickSettings _settings;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImage"/> class.
@@ -181,7 +182,7 @@ namespace ImageMagick
             if (magickImage == null)
                 throw new NotSupportedException();
 
-            SetSettings(magickImage.Settings.Clone());
+            SetSettings(magickImage._settings.Clone());
             SetInstance(new NativeMagickImage(magickImage._nativeInstance.Clone()));
         }
 
@@ -399,7 +400,7 @@ namespace ImageMagick
             set
             {
                 _nativeInstance.BackgroundColor = value;
-                Settings.BackgroundColor = value;
+                _settings.BackgroundColor = value;
             }
         }
 
@@ -520,7 +521,7 @@ namespace ImageMagick
             {
                 double newValue = value.ToQuantum();
                 _nativeInstance.ColorFuzz = newValue;
-                Settings.ColorFuzz = newValue;
+                _settings.ColorFuzz = newValue;
             }
         }
 
@@ -549,8 +550,8 @@ namespace ImageMagick
         {
             get
             {
-                if (Settings.ColorType != ColorType.Undefined)
-                    return Settings.ColorType;
+                if (_settings.ColorType != ColorType.Undefined)
+                    return _settings.ColorType;
 
                 return _nativeInstance.ColorType;
             }
@@ -558,7 +559,7 @@ namespace ImageMagick
             set
             {
                 _nativeInstance.ColorType = value;
-                Settings.ColorType = value;
+                _settings.ColorType = value;
             }
         }
 
@@ -657,7 +658,7 @@ namespace ImageMagick
             set
             {
                 _nativeInstance.Format = EnumHelper.GetName(value);
-                Settings.Format = value;
+                _settings.Format = value;
             }
         }
 
@@ -717,7 +718,7 @@ namespace ImageMagick
             set
             {
                 _nativeInstance.Interlace = value;
-                Settings.Interlace = value;
+                _settings.Interlace = value;
             }
         }
 
@@ -816,7 +817,7 @@ namespace ImageMagick
                 quality = quality > 100 ? 100 : quality;
 
                 _nativeInstance.Quality = quality;
-                Settings.Quality = quality;
+                _settings.Quality = quality;
             }
         }
 
@@ -832,7 +833,8 @@ namespace ImageMagick
         /// <summary>
         /// Gets the settings for this MagickImage instance.
         /// </summary>
-        public MagickSettings Settings { get; private set; }
+        public IMagickSettings Settings
+            => _settings;
 
         /// <summary>
         /// Gets the signature of this image.
@@ -1163,7 +1165,7 @@ namespace ImageMagick
             Throw.IfNullOrEmpty(nameof(text), text);
             Throw.IfNull(nameof(boundingArea), boundingArea);
 
-            _nativeInstance.Annotate(Settings.Drawing, text, boundingArea.ToString(), gravity, angle);
+            _nativeInstance.Annotate(_settings.Drawing, text, boundingArea.ToString(), gravity, angle);
         }
 
         /// <summary>
@@ -1176,7 +1178,7 @@ namespace ImageMagick
         {
             Throw.IfNullOrEmpty(nameof(text), text);
 
-            _nativeInstance.AnnotateGravity(Settings.Drawing, text, gravity);
+            _nativeInstance.AnnotateGravity(_settings.Drawing, text, gravity);
         }
 
         /// <summary>
@@ -1492,7 +1494,7 @@ namespace ImageMagick
 
             MagickImage clone = new MagickImage();
             clone.SetInstance(new NativeMagickImage(_nativeInstance.CloneArea(geometry.Width, geometry.Height)));
-            clone.SetSettings(Settings);
+            clone.SetSettings(_settings);
             clone.CopyPixels(this, geometry, 0, 0);
 
             return clone;
@@ -2917,7 +2919,7 @@ namespace ImageMagick
         {
             Throw.IfNullOrEmpty(nameof(text), text);
 
-            DrawingSettings settings = Settings.Drawing;
+            var settings = _settings.Drawing;
 
             settings.Text = text;
             IntPtr result = _nativeInstance.FontTypeMetrics(settings, ignoreNewlines);
@@ -3150,7 +3152,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public IPixelCollection GetPixels()
         {
-            if (Settings.Ping)
+            if (_settings.Ping)
                 throw new InvalidOperationException("Image contains no pixel data.");
 
             return new SafePixelCollection(this);
@@ -3164,7 +3166,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public IPixelCollection GetPixelsUnsafe()
         {
-            if (Settings.Ping)
+            if (_settings.Ping)
                 throw new InvalidOperationException("Image contains no pixel data.");
 
             return new UnsafePixelCollection(this);
@@ -4352,7 +4354,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(caption), caption);
 
-            _nativeInstance.Polaroid(Settings.Drawing, caption, angle, method);
+            _nativeInstance.Polaroid(_settings.Drawing, caption, angle, method);
         }
 
         /// <summary>
@@ -4670,7 +4672,7 @@ namespace ImageMagick
             Throw.IfTrue(nameof(width), width <= 0, "The width should be positive.");
             Throw.IfTrue(nameof(height), height <= 0, "The height should be positive.");
 
-            MagickReadSettings readSettings = new MagickReadSettings(Settings)
+            MagickReadSettings readSettings = new MagickReadSettings(_settings)
             {
                 Width = width,
                 Height = height,
@@ -5720,7 +5722,7 @@ namespace ImageMagick
             Throw.IfNull(nameof(image), image);
 
             var result = _nativeInstance.SubImageSearch(image, metric, similarityThreshold, out var rectangle, out double similarityMetric);
-            return new MagickSearchResult(Create(result, image.Settings), MagickGeometry.FromRectangle(rectangle), similarityMetric);
+            return new MagickSearchResult(Create(result, image.GetSettings()), MagickGeometry.FromRectangle(rectangle), similarityMetric);
         }
 
         /// <summary>
@@ -5834,7 +5836,8 @@ namespace ImageMagick
         /// </summary>
         /// <param name="opacity">A color value used for tinting.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Tint(string opacity) => Tint(opacity, Settings.FillColor);
+        public void Tint(string opacity)
+            => Tint(opacity, _settings.FillColor);
 
         /// <summary>
         /// Applies a color vector to each pixel in the image. The length of the vector is 0 for black
@@ -5894,7 +5897,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public byte[] ToByteArray(IWriteDefines defines)
         {
-            Settings.SetDefines(defines);
+            _settings.SetDefines(defines);
             return ToByteArray(defines.Format);
         }
 
@@ -6042,7 +6045,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The unique colors of an image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImage UniqueColors() => Create(_nativeInstance.UniqueColors(), Settings);
+        public IMagickImage UniqueColors() => Create(_nativeInstance.UniqueColors(), _settings);
 
         /// <summary>
         /// Replace image with a sharpened version of the original image using the unsharp mask algorithm.
@@ -6184,7 +6187,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Write(FileInfo file, IWriteDefines defines)
         {
-            Settings.SetDefines(defines);
+            _settings.SetDefines(defines);
             Write(file);
         }
 
@@ -6196,7 +6199,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Write(FileInfo file, MagickFormat format)
         {
-            Settings.Format = format;
+            _settings.Format = format;
             Write(file);
         }
 
@@ -6209,7 +6212,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(stream), stream);
 
-            Settings.FileName = null;
+            _settings.FileName = null;
 
             using (StreamWrapper wrapper = StreamWrapper.CreateForWriting(stream))
             {
@@ -6239,8 +6242,8 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Write(Stream stream, IWriteDefines defines)
         {
-            Settings.SetDefines(defines);
-            Settings.Format = defines.Format;
+            _settings.SetDefines(defines);
+            _settings.Format = defines.Format;
             Write(stream);
         }
 
@@ -6253,7 +6256,7 @@ namespace ImageMagick
         public void Write(Stream stream, MagickFormat format)
         {
             var currentFormat = Format;
-            Settings.Format = format;
+            _settings.Format = format;
             Write(stream);
             Format = currentFormat;
         }
@@ -6281,7 +6284,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Write(string fileName, IWriteDefines defines)
         {
-            Settings.SetDefines(defines);
+            _settings.SetDefines(defines);
             Write(fileName);
         }
 
@@ -6293,7 +6296,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Write(string fileName, MagickFormat format)
         {
-            Settings.Format = format;
+            _settings.Format = format;
             Write(fileName);
         }
 
@@ -6404,16 +6407,16 @@ namespace ImageMagick
             return new PointD(x, y);
         }
 
-        private IEnumerable<IMagickImage> CreateList(IntPtr images) => CreateList(images, Settings.Clone());
+        private IEnumerable<IMagickImage> CreateList(IntPtr images) => CreateList(images, _settings.Clone());
 
         private MagickReadSettings CreateReadSettings(MagickReadSettings readSettings)
         {
             if (readSettings != null && readSettings.FrameCount.HasValue)
                 Throw.IfFalse(nameof(readSettings), readSettings.FrameCount.Value == 1, "The frame count can only be set to 1 when a single image is being read.");
 
-            MagickReadSettings newReadSettings = null;
+            MagickReadSettings newReadSettings;
             if (readSettings == null)
-                newReadSettings = new MagickReadSettings(Settings);
+                newReadSettings = new MagickReadSettings(_settings);
             else
                 newReadSettings = new MagickReadSettings(readSettings);
 
@@ -6428,8 +6431,8 @@ namespace ImageMagick
 
             if (disposing)
             {
-                if (Settings != null)
-                    Settings.Artifact -= OnArtifact;
+                if (_settings != null)
+                    _settings.Artifact -= OnArtifact;
             }
         }
 
@@ -6451,7 +6454,7 @@ namespace ImageMagick
                 target.A = alpha;
             }
 
-            _nativeInstance.FloodFill(Settings.Drawing, x, y, target, invert);
+            _nativeInstance.FloodFill(_settings.Drawing, x, y, target, invert);
         }
 
         private void FloodFill(IMagickColor color, int x, int y, bool invert)
@@ -6472,7 +6475,7 @@ namespace ImageMagick
             Throw.IfNull(nameof(color), color);
             Throw.IfNull(nameof(target), target);
 
-            var settings = Settings.Drawing;
+            var settings = _settings.Drawing;
 
             using (IMagickImage fillPattern = settings.FillPattern)
             {
@@ -6505,7 +6508,7 @@ namespace ImageMagick
             Throw.IfNull(nameof(image), image);
             Throw.IfNull(nameof(target), target);
 
-            var settings = Settings.Drawing;
+            var settings = _settings.Drawing;
 
             using (IMagickImage fillPattern = settings.FillPattern)
             {
@@ -6573,7 +6576,7 @@ namespace ImageMagick
             var newReadSettings = CreateReadSettings(readSettings);
             SetSettings(newReadSettings);
 
-            Settings.Ping = ping;
+            _settings.Ping = ping;
 
             _nativeInstance.ReadBlob(Settings, data, offset, length);
 
@@ -6594,8 +6597,8 @@ namespace ImageMagick
             var newReadSettings = CreateReadSettings(readSettings);
             SetSettings(newReadSettings);
 
-            Settings.Ping = ping;
-            Settings.FileName = null;
+            _settings.Ping = ping;
+            _settings.FileName = null;
 
             using (var wrapper = StreamWrapper.CreateForReading(stream))
             {
@@ -6623,8 +6626,8 @@ namespace ImageMagick
             var newReadSettings = CreateReadSettings(readSettings);
             SetSettings(newReadSettings);
 
-            Settings.Ping = ping;
-            Settings.FileName = filePath;
+            _settings.Ping = ping;
+            _settings.FileName = filePath;
 
             _nativeInstance.ReadFile(Settings);
 
@@ -6632,9 +6635,7 @@ namespace ImageMagick
         }
 
         private void ResetSettings()
-        {
-            Settings.Format = MagickFormat.Unknown;
-        }
+            => _settings.Format = MagickFormat.Unknown;
 
         private void SetInstance(NativeMagickImage instance)
         {
@@ -6646,11 +6647,11 @@ namespace ImageMagick
 
         private void SetSettings(MagickSettings settings)
         {
-            if (Settings != null)
-                Settings.Artifact -= OnArtifact;
+            if (_settings != null)
+                _settings.Artifact -= OnArtifact;
 
-            Settings = settings;
-            Settings.Artifact += OnArtifact;
+            _settings = settings;
+            _settings.Artifact += OnArtifact;
         }
     }
 }

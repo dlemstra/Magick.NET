@@ -299,7 +299,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the settings for this instance.
         /// </summary>
-        MagickSettings Settings { get; }
+        IMagickSettings Settings { get; }
 
         /// <summary>
         /// Gets the signature of this image.

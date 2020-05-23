@@ -149,7 +149,7 @@ namespace ImageMagick.ImageOptimizers
         private static void LosslessCompress(IMagickImage image)
         {
             image.Strip();
-            image.Settings.Interlace = Interlace.NoInterlace;
+            image.GetSettings().Interlace = Interlace.NoInterlace;
         }
 
         private static bool DoLosslessCompress(IMagickImage image, Stream stream, long startPosition)

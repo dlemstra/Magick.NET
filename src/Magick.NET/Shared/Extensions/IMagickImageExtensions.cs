@@ -27,6 +27,15 @@ namespace ImageMagick
             throw new NotSupportedException();
         }
 
+        internal static MagickSettings GetSettings(this IMagickImage self)
+        {
+            var settings = self?.Settings as MagickSettings;
+            if (settings != null)
+                return settings;
+
+            throw new NotSupportedException();
+        }
+
         internal static MagickErrorInfo CreateErrorInfo(this IMagickImage self)
         {
             if (self == null)

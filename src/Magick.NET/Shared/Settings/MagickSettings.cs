@@ -20,7 +20,7 @@ namespace ImageMagick
     /// <summary>
     /// Class that contains various settings.
     /// </summary>
-    public partial class MagickSettings
+    public partial class MagickSettings : IMagickSettings
     {
         private readonly Dictionary<string, string> _options = new Dictionary<string, string>();
 
@@ -664,47 +664,49 @@ namespace ImageMagick
             return new Density(value);
         }
 
-        private INativeInstance CreateNativeInstance()
+        private static INativeInstance CreateNativeInstance(IMagickSettings instance)
         {
-            string format = GetFormat();
-            string fileName = FileName;
+            var settings = (MagickSettings)instance;
+
+            string format = settings.GetFormat();
+            string fileName = settings.FileName;
             if (!string.IsNullOrEmpty(fileName) && !string.IsNullOrEmpty(format))
                 fileName = format + ":" + fileName;
 
-            var instance = new NativeMagickSettings
+            var result = new NativeMagickSettings
             {
-                AntiAlias = AntiAlias,
-                BackgroundColor = BackgroundColor,
-                ColorSpace = ColorSpace,
-                ColorType = ColorType,
-                Compression = Compression,
-                Debug = Debug,
-                Density = Density?.ToString(DensityUnit.Undefined),
-                Depth = Depth,
-                Endian = Endian,
-                Extract = Extract?.ToString(),
-                Font = _font,
-                FontPointsize = _fontPointsize,
+                AntiAlias = settings.AntiAlias,
+                BackgroundColor = settings.BackgroundColor,
+                ColorSpace = settings.ColorSpace,
+                ColorType = settings.ColorType,
+                Compression = settings.Compression,
+                Debug = settings.Debug,
+                Density = settings.Density?.ToString(DensityUnit.Undefined),
+                Depth = settings.Depth,
+                Endian = settings.Endian,
+                Extract = settings.Extract?.ToString(),
+                Font = settings._font,
+                FontPointsize = settings._fontPointsize,
                 Format = format,
-                Interlace = Interlace,
-                Monochrome = Monochrome,
-                Verbose = Verbose,
+                Interlace = settings.Interlace,
+                Monochrome = settings.Monochrome,
+                Verbose = settings.Verbose,
             };
 
-            instance.SetColorFuzz(ColorFuzz);
-            instance.SetFileName(fileName);
-            instance.SetNumberScenes(NumberScenes);
-            instance.SetPage(Page?.ToString());
-            instance.SetPing(Ping);
-            instance.SetQuality(Quality);
-            instance.SetScene(Scene);
-            instance.SetScenes(Scenes);
-            instance.SetSize(Size);
+            result.SetColorFuzz(settings.ColorFuzz);
+            result.SetFileName(fileName);
+            result.SetNumberScenes(settings.NumberScenes);
+            result.SetPage(settings.Page?.ToString());
+            result.SetPing(settings.Ping);
+            result.SetQuality(settings.Quality);
+            result.SetScene(settings.Scene);
+            result.SetScenes(settings.Scenes);
+            result.SetSize(settings.Size);
 
-            foreach (string key in _options.Keys)
-                instance.SetOption(key, _options[key]);
+            foreach (string key in settings._options.Keys)
+                result.SetOption(key, settings._options[key]);
 
-            return instance;
+            return result;
         }
 
         private string GetFormat()

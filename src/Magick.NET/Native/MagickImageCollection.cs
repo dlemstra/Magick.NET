@@ -548,7 +548,7 @@ namespace ImageMagick
                     CheckException(exception);
                 }
             }
-            public IntPtr ReadBlob(MagickSettings settings, byte[] data, int offset, int length)
+            public IntPtr ReadBlob(IMagickSettings settings, byte[] data, int offset, int length)
             {
                 using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
                 {
@@ -579,7 +579,7 @@ namespace ImageMagick
                     return result;
                 }
             }
-            public IntPtr ReadFile(MagickSettings settings)
+            public IntPtr ReadFile(IMagickSettings settings)
             {
                 using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
                 {
@@ -610,7 +610,7 @@ namespace ImageMagick
                     return result;
                 }
             }
-            public IntPtr ReadStream(MagickSettings settings, ReadWriteStreamDelegate reader, SeekStreamDelegate seeker, TellStreamDelegate teller)
+            public IntPtr ReadStream(IMagickSettings settings, ReadWriteStreamDelegate reader, SeekStreamDelegate seeker, TellStreamDelegate teller)
             {
                 using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
                 {
@@ -669,7 +669,7 @@ namespace ImageMagick
                 RaiseWarning(magickException);
                 return result;
             }
-            public void WriteFile(IMagickImage image, MagickSettings settings)
+            public void WriteFile(IMagickImage image, IMagickSettings settings)
             {
                 using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
                 {
@@ -689,7 +689,7 @@ namespace ImageMagick
                     CheckException(exception);
                 }
             }
-            public void WriteStream(IMagickImage image, MagickSettings settings, ReadWriteStreamDelegate writer, SeekStreamDelegate seeker, TellStreamDelegate teller, ReadWriteStreamDelegate reader)
+            public void WriteStream(IMagickImage image, IMagickSettings settings, ReadWriteStreamDelegate writer, SeekStreamDelegate seeker, TellStreamDelegate teller, ReadWriteStreamDelegate reader)
             {
                 using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
                 {
