@@ -15,7 +15,7 @@ using (var image = new MagickImage("FujiFilmFinePixS1Pro.jpg"))
     else
     {
         // Write all values to the console
-        foreach (IExifValue value in profile.Values)
+        foreach (var value in profile.Values)
         {
             Console.WriteLine("{0}({1}): {2}", value.Tag, value.DataType, value.ToString());
         }

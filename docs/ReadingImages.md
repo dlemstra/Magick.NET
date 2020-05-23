@@ -11,14 +11,14 @@ using (var image = new MagickImage("Snakeware.jpg"))
 // Read from stream.
 using (var memStream = LoadMemoryStreamImage())
 {
-    using (MagickImage image = new MagickImage(memStream))
+    using (var image = new MagickImage(memStream))
     {
     }
 }
 
 // Read from byte array.
 var data = LoadImageBytes();
-using (MagickImage image = new MagickImage(data))
+using (var image = new MagickImage(data))
 {
 }
 

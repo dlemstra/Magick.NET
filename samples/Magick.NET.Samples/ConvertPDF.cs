@@ -25,17 +25,17 @@ namespace Magick.NET.Samples
     {
         public static void ConvertPDFToMultipleImages()
         {
-            MagickReadSettings settings = new MagickReadSettings();
+            var settings = new MagickReadSettings();
             // Settings the density to 300 dpi will create an image with a better quality
             settings.Density = new Density(300, 300);
 
-            using (MagickImageCollection images = new MagickImageCollection())
+            using (var images = new MagickImageCollection())
             {
                 // Add all the pages of the pdf file to the collection
                 images.Read(SampleFiles.SnakewarePdf, settings);
 
                 int page = 1;
-                foreach (MagickImage image in images)
+                foreach (var image in images)
                 {
                     // Write page to file that contains the page number
                     image.Write(SampleFiles.OutputDirectory + "Snakeware.Page" + page + ".png");
@@ -49,24 +49,24 @@ namespace Magick.NET.Samples
 
         public static void ConvertPDFTOneImage()
         {
-            MagickReadSettings settings = new MagickReadSettings();
+            var settings = new MagickReadSettings();
             // Settings the density to 300 dpi will create an image with a better quality
             settings.Density = new Density(300);
 
-            using (MagickImageCollection images = new MagickImageCollection())
+            using (var images = new MagickImageCollection())
             {
                 // Add all the pages of the pdf file to the collection
                 images.Read(SampleFiles.SnakewarePdf, settings);
 
                 // Create new image that appends all the pages horizontally
-                using (IMagickImage horizontal = images.AppendHorizontally())
+                using (var horizontal = images.AppendHorizontally())
                 {
                     // Save result as a png
                     horizontal.Write(SampleFiles.OutputDirectory + "Snakeware.horizontal.png");
                 }
 
                 // Create new image that appends all the pages vertically
-                using (IMagickImage vertical = images.AppendVertically())
+                using (var vertical = images.AppendVertically())
                 {
                     // Save result as a png
                     vertical.Write(SampleFiles.OutputDirectory + "Snakeware.vertical.png");
@@ -76,7 +76,7 @@ namespace Magick.NET.Samples
 
         public static void CreatePDFFromTwoImages()
         {
-            using (MagickImageCollection collection = new MagickImageCollection())
+            using (var collection = new MagickImageCollection())
             {
                 // Add first page
                 collection.Add(new MagickImage(SampleFiles.SnakewareJpg));
@@ -91,7 +91,7 @@ namespace Magick.NET.Samples
         public static void CreatePDFFromSingleImage()
         {
             // Read image from file
-            using (MagickImage image = new MagickImage(SampleFiles.SnakewareJpg))
+            using (var image = new MagickImage(SampleFiles.SnakewareJpg))
             {
                 // Create pdf file with a single page
                 image.Write(SampleFiles.OutputDirectory + "Snakeware.pdf");
@@ -100,9 +100,9 @@ namespace Magick.NET.Samples
 
         public static void ReadSinglePageFromPDF()
         {
-            using (MagickImageCollection collection = new MagickImageCollection())
+            using (var collection = new MagickImageCollection())
             {
-                MagickReadSettings settings = new MagickReadSettings();
+                var settings = new MagickReadSettings();
                 settings.FrameIndex = 0; // First page
                 settings.FrameCount = 1; // Number of pages
 

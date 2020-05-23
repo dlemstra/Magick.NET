@@ -19,7 +19,7 @@ namespace Magick.NET.Samples
     {
         public static void UsingColors()
         {
-            using (MagickImage image = new MagickImage(SampleFiles.SnakewarePng))
+            using (var image = new MagickImage(SampleFiles.SnakewarePng))
             {
                 image.TransparentChroma(Color.Black.ToColor(), Color.Blue.ToColor());
                 image.BackgroundColor = new ColorMono(true).ToMagickColor();

@@ -25,7 +25,7 @@ using (var images = new MagickImageCollection())
 ## Create animated gif
 
 ```C#
-using (MagickImageCollection collection = new MagickImageCollection())
+using (var collection = new MagickImageCollection())
 {
     // Add first image and set the animation delay (in 1/100th of a second) 
     collection.Add("Snakeware.png");

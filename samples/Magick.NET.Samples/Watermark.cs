@@ -10,7 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
 using ImageMagick;
 
 namespace Magick.NET.Samples
@@ -20,10 +19,10 @@ namespace Magick.NET.Samples
         public static void CreateWatermark()
         {
             // Read image that needs a watermark
-            using (MagickImage image = new MagickImage(SampleFiles.FujiFilmFinePixS1ProJpg))
+            using (var image = new MagickImage(SampleFiles.FujiFilmFinePixS1ProJpg))
             {
                 // Read the watermark that will be put on top of the image
-                using (MagickImage watermark = new MagickImage(SampleFiles.SnakewarePng))
+                using (var watermark = new MagickImage(SampleFiles.SnakewarePng))
                 {
                     // Draw the watermark in the bottom right corner
                     image.Composite(watermark, Gravity.Southeast, CompositeOperator.Over);

@@ -20,10 +20,10 @@ namespace Magick.NET.Samples
         public static void ReadExifData()
         {
             // Read image from file
-            using (MagickImage image = new MagickImage(SampleFiles.FujiFilmFinePixS1ProJpg))
+            using (var image = new MagickImage(SampleFiles.FujiFilmFinePixS1ProJpg))
             {
                 // Retrieve the exif information
-                IExifProfile profile = image.GetExifProfile();
+                var profile = image.GetExifProfile();
 
                 // Check if image contains an exif profile
                 if (profile == null)
@@ -31,7 +31,7 @@ namespace Magick.NET.Samples
                 else
                 {
                     // Write all values to the console
-                    foreach (IExifValue value in profile.Values)
+                    foreach (var value in profile.Values)
                     {
                         Console.WriteLine("{0}({1}): {2}", value.Tag, value.DataType, value.ToString());
                     }
@@ -42,13 +42,13 @@ namespace Magick.NET.Samples
         public static void CreateThumbnailFromExifData()
         {
             // Read image from file
-            using (MagickImage image = new MagickImage(SampleFiles.FujiFilmFinePixS1ProJpg))
+            using (var image = new MagickImage(SampleFiles.FujiFilmFinePixS1ProJpg))
             {
                 // Retrieve the exif information
-                IExifProfile profile = image.GetExifProfile();
+                var profile = image.GetExifProfile();
 
                 // Create thumbnail from exif information
-                using (IMagickImage thumbnail = profile.CreateThumbnail())
+                using (var thumbnail = profile.CreateThumbnail())
                 {
                     // Check if exif profile contains thumbnail and save it
                     if (thumbnail != null)

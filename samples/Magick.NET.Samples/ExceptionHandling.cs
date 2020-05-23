@@ -27,7 +27,7 @@ namespace Magick.NET.Samples
             try
             {
                 // Read invalid jpg file
-                using (MagickImage image = new MagickImage(SampleFiles.InvalidFileJpg))
+                using (var image = new MagickImage(SampleFiles.InvalidFileJpg))
                 {
                 }
             }
@@ -41,7 +41,7 @@ namespace Magick.NET.Samples
             try
             {
                 // Read corrupt jpg file
-                using (MagickImage image = new MagickImage(SampleFiles.CorruptImageJpg))
+                using (var image = new MagickImage(SampleFiles.CorruptImageJpg))
                 {
                 }
             }
@@ -55,7 +55,7 @@ namespace Magick.NET.Samples
 
         public static void ObtainWarningThatOccurredDuringRead()
         {
-            using (MagickImage image = new MagickImage())
+            using (var image = new MagickImage())
             {
                 // Attach event handler to warning event
                 image.Warning += MagickImage_Warning;

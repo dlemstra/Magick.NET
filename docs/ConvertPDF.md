@@ -28,7 +28,7 @@ using (var images = new MagickImageCollection())
         image.Write("Snakeware.Page" + page + ".png");
         // Writing to a specific format works the same as for a single image
         image.Format = MagickFormat.Ptif;
-        image.Write("Snakeware.Page" + page + ".tif");    
+        image.Write("Snakeware.Page" + page + ".tif");
         page++;
     }
 }

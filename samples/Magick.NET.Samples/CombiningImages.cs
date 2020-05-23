@@ -18,18 +18,18 @@ namespace Magick.NET.Samples
     {
         public static void MergeMultipleImages()
         {
-            using (MagickImageCollection images = new MagickImageCollection())
+            using (var images = new MagickImageCollection())
             {
                 // Add the first image
-                MagickImage first = new MagickImage(SampleFiles.SnakewarePng);
+                var first = new MagickImage(SampleFiles.SnakewarePng);
                 images.Add(first);
 
                 // Add the second image
-                MagickImage second = new MagickImage(SampleFiles.SnakewarePng);
+                var second = new MagickImage(SampleFiles.SnakewarePng);
                 images.Add(second);
 
                 // Create a mosaic from both images
-                using (IMagickImage result = images.Mosaic())
+                using (var result = images.Mosaic())
                 {
                     // Save the result
                     result.Write(SampleFiles.OutputDirectory + "Mosaic.png");
@@ -39,7 +39,7 @@ namespace Magick.NET.Samples
 
         public static void CreateAnimatedGif()
         {
-            using (MagickImageCollection collection = new MagickImageCollection())
+            using (var collection = new MagickImageCollection())
             {
                 // Add first image and set the animation delay to 100ms
                 collection.Add(SampleFiles.SnakewarePng);
@@ -51,7 +51,7 @@ namespace Magick.NET.Samples
                 collection[1].Flip();
 
                 // Optionally reduce colors
-                QuantizeSettings settings = new QuantizeSettings();
+                var settings = new QuantizeSettings();
                 settings.Colors = 256;
                 collection.Quantize(settings);
 

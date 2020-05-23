@@ -31,11 +31,11 @@ namespace Magick.NET.Samples
         public static void ReadImage()
         {
             // Log all events
-            ImageMagick.MagickNET.SetLogEvents(LogEvents.All);
+            MagickNET.SetLogEvents(LogEvents.All);
             // Set the log handler (all threads use the same handler)
-            ImageMagick.MagickNET.Log += MagickNET_Log;
+            MagickNET.Log += MagickNET_Log;
 
-            using (MagickImage image = new MagickImage())
+            using (var image = new MagickImage())
             {
                 // Trace logging checks if this is set to true.
                 image.Settings.Debug = true;

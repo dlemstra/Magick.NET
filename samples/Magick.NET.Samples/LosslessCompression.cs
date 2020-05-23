@@ -20,12 +20,12 @@ namespace Magick.NET.Samples
     {
         public static void MakeGooglePageSpeedInsightsHappy()
         {
-            FileInfo snakewareLogo = new FileInfo(SampleFiles.OutputDirectory + "OptimizeTest.jpg");
+            var snakewareLogo = new FileInfo(SampleFiles.OutputDirectory + "OptimizeTest.jpg");
             File.Copy(SampleFiles.SnakewareJpg, snakewareLogo.FullName, true);
 
             Console.WriteLine("Bytes before: " + snakewareLogo.Length);
 
-            ImageOptimizer optimizer = new ImageOptimizer();
+            var optimizer = new ImageOptimizer();
             optimizer.LosslessCompress(snakewareLogo);
 
             snakewareLogo.Refresh();

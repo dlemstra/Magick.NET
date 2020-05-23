@@ -21,7 +21,7 @@ namespace Magick.NET.Samples
         public static void ResizeAnimatedGif()
         {
             // Read from file
-            using (MagickImageCollection collection = new MagickImageCollection(SampleFiles.SnakewareGif))
+            using (var collection = new MagickImageCollection(SampleFiles.SnakewareGif))
             {
                 // This will remove the optimization and change the image to how it looks at that point
                 // during the animation. More info here: http://www.imagemagick.org/Usage/anim_basics/#coalesce
@@ -29,7 +29,7 @@ namespace Magick.NET.Samples
 
                 // Resize each image in the collection to a width of 200. When zero is specified for the height
                 // the height will be calculated with the aspect ratio.
-                foreach (MagickImage image in collection)
+                foreach (var image in collection)
                 {
                     image.Resize(200, 0);
                 }
@@ -42,9 +42,9 @@ namespace Magick.NET.Samples
         public static void ResizeToFixedSize()
         {
             // Read from file
-            using (MagickImage image = new MagickImage(SampleFiles.SnakewarePng))
+            using (var image = new MagickImage(SampleFiles.SnakewarePng))
             {
-                MagickGeometry size = new MagickGeometry(100, 100);
+                var size = new MagickGeometry(100, 100);
                 // This will resize the image to a fixed size without maintaining the aspect ratio.
                 // Normally an image will be resized to fit inside the specified size.
                 size.IgnoreAspectRatio = true;

@@ -23,7 +23,7 @@ namespace Magick.NET.Samples
     {
         public static void ConvertCR2ToJPG()
         {
-            using (MagickImage image = new MagickImage(SampleFiles.StillLifeCR2))
+            using (var image = new MagickImage(SampleFiles.StillLifeCR2))
             {
                 image.Write(SampleFiles.OutputDirectory + "StillLife.jpg");
             }
