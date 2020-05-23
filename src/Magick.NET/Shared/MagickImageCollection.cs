@@ -991,7 +991,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The resulting image of the quantize operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickErrorInfo Quantize()
+        public IMagickErrorInfo Quantize()
             => Quantize(new QuantizeSettings());
 
         /// <summary>
@@ -1000,7 +1000,7 @@ namespace ImageMagick
         /// <param name="settings">Quantize settings.</param>
         /// <returns>The resulting image of the quantize operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickErrorInfo Quantize(QuantizeSettings settings)
+        public IMagickErrorInfo Quantize(QuantizeSettings settings)
         {
             ThrowIfEmpty();
 

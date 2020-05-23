@@ -595,7 +595,7 @@ namespace Magick.NET.Tests
 
             var second = first.Clone();
 
-            MagickErrorInfo same = first.Compare(second);
+            var same = first.Compare(second);
             Assert.IsNotNull(same);
             Assert.AreEqual(0, same.MeanErrorPerPixel);
 
@@ -603,7 +603,7 @@ namespace Magick.NET.Tests
             Assert.AreEqual(0, distortion);
 
             first.Threshold(new Percentage(50));
-            MagickErrorInfo different = first.Compare(second);
+            var different = first.Compare(second);
             Assert.IsNotNull(different);
             Assert.AreNotEqual(0, different.MeanErrorPerPixel);
 
@@ -1931,7 +1931,7 @@ namespace Magick.NET.Tests
 
             using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
-                MagickErrorInfo errorInfo = image.Quantize(settings);
+                var errorInfo = image.Quantize(settings);
 #if Q8
                 Assert.AreEqual(7.066, errorInfo.MeanErrorPerPixel, 0.001);
 #elif Q16 || Q16HDRI

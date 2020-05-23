@@ -203,7 +203,7 @@ namespace Magick.NET.Tests
                 {
                     using (var other = new MagickImage(Files.Builtin.Logo))
                     {
-                        MagickErrorInfo errorInfo = image.Compare(other);
+                        var errorInfo = image.Compare(other);
 
                         Assert.AreEqual(0, errorInfo.MeanErrorPerPixel);
                         Assert.AreEqual(0, errorInfo.NormalizedMaximumError);
@@ -260,7 +260,7 @@ namespace Magick.NET.Tests
                     {
                         other.Rotate(180);
 
-                        MagickErrorInfo errorInfo = image.Compare(other);
+                        var errorInfo = image.Compare(other);
 
 #if Q8
                         Assert.AreEqual(44.55, errorInfo.MeanErrorPerPixel, 0.01);

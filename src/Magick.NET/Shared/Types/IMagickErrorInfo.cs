@@ -15,33 +15,21 @@ namespace ImageMagick
     /// <summary>
     /// Encapsulates the error information.
     /// </summary>
-    public sealed class MagickErrorInfo : IMagickErrorInfo
+    public interface IMagickErrorInfo
     {
-        internal MagickErrorInfo()
-          : this(0, 0, 0)
-        {
-        }
-
-        internal MagickErrorInfo(double meanErrorPerPixel, double normalizedMeanError, double normalizedMaximumError)
-        {
-            MeanErrorPerPixel = meanErrorPerPixel;
-            NormalizedMeanError = normalizedMeanError;
-            NormalizedMaximumError = normalizedMaximumError;
-        }
-
         /// <summary>
         /// Gets the mean error per pixel computed when an image is color reduced.
         /// </summary>
-        public double MeanErrorPerPixel { get; }
+        double MeanErrorPerPixel { get; }
 
         /// <summary>
         /// Gets the normalized maximum error per pixel computed when an image is color reduced.
         /// </summary>
-        public double NormalizedMaximumError { get; }
+        double NormalizedMaximumError { get; }
 
         /// <summary>
         /// Gets the normalized mean error per pixel computed when an image is color reduced.
         /// </summary>
-        public double NormalizedMeanError { get; }
+        double NormalizedMeanError { get; }
     }
 }

@@ -62,7 +62,7 @@ namespace Magick.NET.Tests
                         MeasureErrors = true,
                     };
 
-                    MagickErrorInfo errorInfo = collection.Quantize(settings);
+                    var errorInfo = collection.Quantize(settings);
                     Assert.IsNotNull(errorInfo);
 
 #if Q8

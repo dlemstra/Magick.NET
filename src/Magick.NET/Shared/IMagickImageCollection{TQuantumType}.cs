@@ -340,7 +340,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The resulting image of the quantize operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        MagickErrorInfo Quantize();
+        IMagickErrorInfo Quantize();
 
         /// <summary>
         /// Quantize images (reduce number of colors).
@@ -348,7 +348,7 @@ namespace ImageMagick
         /// <param name="settings">Quantize settings.</param>
         /// <returns>The resulting image of the quantize operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        MagickErrorInfo Quantize(QuantizeSettings settings);
+        IMagickErrorInfo Quantize(QuantizeSettings settings);
 
         /// <summary>
         /// Read all image frames.

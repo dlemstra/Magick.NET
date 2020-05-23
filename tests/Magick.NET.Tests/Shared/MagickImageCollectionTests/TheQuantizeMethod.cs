@@ -60,7 +60,7 @@ namespace Magick.NET.Tests
                         MeasureErrors = false,
                     };
 
-                    MagickErrorInfo errorInfo = images.Quantize(settings);
+                    var errorInfo = images.Quantize(settings);
                     Assert.IsNull(errorInfo);
                 }
             }

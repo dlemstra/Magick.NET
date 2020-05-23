@@ -1715,7 +1715,7 @@ namespace ImageMagick
         /// <param name="image">The other image to compare with this image.</param>
         /// <returns>The error information.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickErrorInfo Compare(IMagickImage<QuantumType> image)
+        public IMagickErrorInfo Compare(IMagickImage<QuantumType> image)
         {
             Throw.IfNull(nameof(image), image);
 
@@ -3998,7 +3998,7 @@ namespace ImageMagick
         /// <param name="colors">The colors to use.</param>
         /// <returns>The error informaton.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickErrorInfo Map(IEnumerable<IMagickColor<QuantumType>> colors)
+        public IMagickErrorInfo Map(IEnumerable<IMagickColor<QuantumType>> colors)
         {
             Throw.IfNull(nameof(colors), colors);
 
@@ -4013,7 +4013,7 @@ namespace ImageMagick
         /// <returns>The error informaton.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The collection takes ownership of the images.")]
-        public MagickErrorInfo Map(IEnumerable<IMagickColor<QuantumType>> colors, QuantizeSettings settings)
+        public IMagickErrorInfo Map(IEnumerable<IMagickColor<QuantumType>> colors, QuantizeSettings settings)
         {
             Throw.IfNull(nameof(colors), colors);
 
@@ -4039,7 +4039,7 @@ namespace ImageMagick
         /// <param name="image">The image to use.</param>
         /// <returns>The error informaton.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickErrorInfo Map(IMagickImage<QuantumType> image)
+        public IMagickErrorInfo Map(IMagickImage<QuantumType> image)
             => Map(image, new QuantizeSettings());
 
         /// <summary>
@@ -4049,7 +4049,7 @@ namespace ImageMagick
         /// <param name="settings">Quantize settings.</param>
         /// <returns>The error informaton.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickErrorInfo Map(IMagickImage<QuantumType> image, QuantizeSettings settings)
+        public IMagickErrorInfo Map(IMagickImage<QuantumType> image, QuantizeSettings settings)
         {
             Throw.IfNull(nameof(image), image);
             Throw.IfNull(nameof(settings), settings);
@@ -4650,7 +4650,7 @@ namespace ImageMagick
         /// <param name="settings">Quantize settings.</param>
         /// <returns>The error information.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickErrorInfo Quantize(QuantizeSettings settings)
+        public IMagickErrorInfo Quantize(QuantizeSettings settings)
         {
             Throw.IfNull(nameof(settings), settings);
 
@@ -6667,7 +6667,7 @@ namespace ImageMagick
             return new MagickImage(instance, settings.Clone());
         }
 
-        internal static MagickErrorInfo CreateErrorInfo(MagickImage image)
+        internal static IMagickErrorInfo CreateErrorInfo(MagickImage image)
         {
             if (image == null)
                 return null;

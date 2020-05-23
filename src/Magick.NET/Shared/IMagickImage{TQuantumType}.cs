@@ -908,7 +908,7 @@ namespace ImageMagick
         /// <param name="image">The other image to compare with this image.</param>
         /// <returns>The error information.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        MagickErrorInfo Compare(IMagickImage<TQuantumType> image);
+        IMagickErrorInfo Compare(IMagickImage<TQuantumType> image);
 
         /// <summary>
         /// Returns the distortion based on the specified metric.
@@ -2601,7 +2601,7 @@ namespace ImageMagick
         /// <param name="colors">The colors to use.</param>
         /// <returns>The error informaton.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        MagickErrorInfo Map(IEnumerable<IMagickColor<TQuantumType>> colors);
+        IMagickErrorInfo Map(IEnumerable<IMagickColor<TQuantumType>> colors);
 
         /// <summary>
         /// Remap image colors with closest color from the specified colors.
@@ -2610,7 +2610,7 @@ namespace ImageMagick
         /// <param name="settings">Quantize settings.</param>
         /// <returns>The error informaton.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        MagickErrorInfo Map(IEnumerable<IMagickColor<TQuantumType>> colors, QuantizeSettings settings);
+        IMagickErrorInfo Map(IEnumerable<IMagickColor<TQuantumType>> colors, QuantizeSettings settings);
 
         /// <summary>
         /// Remap image colors with closest color from reference image.
@@ -2618,7 +2618,7 @@ namespace ImageMagick
         /// <param name="image">The image to use.</param>
         /// <returns>The error informaton.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        MagickErrorInfo Map(IMagickImage<TQuantumType> image);
+        IMagickErrorInfo Map(IMagickImage<TQuantumType> image);
 
         /// <summary>
         /// Remap image colors with closest color from reference image.
@@ -2627,7 +2627,7 @@ namespace ImageMagick
         /// <param name="settings">Quantize settings.</param>
         /// <returns>The error informaton.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        MagickErrorInfo Map(IMagickImage<TQuantumType> image, QuantizeSettings settings);
+        IMagickErrorInfo Map(IMagickImage<TQuantumType> image, QuantizeSettings settings);
 
         /// <summary>
         /// Delineate arbitrarily shaped clusters in the image.
@@ -3075,7 +3075,7 @@ namespace ImageMagick
         /// <param name="settings">Quantize settings.</param>
         /// <returns>The error information.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        MagickErrorInfo Quantize(QuantizeSettings settings);
+        IMagickErrorInfo Quantize(QuantizeSettings settings);
 
         /// <summary>
         /// Raise image (lighten or darken the edges of an image to give a 3-D raised effect).

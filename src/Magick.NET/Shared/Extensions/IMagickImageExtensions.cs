@@ -46,7 +46,7 @@ namespace ImageMagick
             throw new NotSupportedException();
         }
 
-        internal static MagickErrorInfo CreateErrorInfo(this IMagickImage<QuantumType> self)
+        internal static IMagickErrorInfo CreateErrorInfo(this IMagickImage<QuantumType> self)
         {
             if (self == null)
                 return null;
