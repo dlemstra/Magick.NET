@@ -50,7 +50,7 @@ namespace ImageMagick
             }
         }
 
-        public DrawableAffine Affine { get; set; }
+        public IDrawableAffine Affine { get; set; }
 
         public IMagickColor BorderColor { get; set; }
 

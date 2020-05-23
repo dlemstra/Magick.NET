@@ -23,7 +23,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the affine to use when annotating with text or drawing.
         /// </summary>
-        DrawableAffine Affine { get; set; }
+        IDrawableAffine Affine { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether anti-aliasing should be enabled (default true).

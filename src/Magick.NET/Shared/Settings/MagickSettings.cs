@@ -57,7 +57,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the affine to use when annotating with text or drawing.
         /// </summary>
-        public DrawableAffine Affine
+        public IDrawableAffine Affine
         {
             get => Drawing.Affine;
             set => Drawing.Affine = value;

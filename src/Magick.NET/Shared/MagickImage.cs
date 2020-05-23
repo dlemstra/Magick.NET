@@ -1121,7 +1121,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="affineMatrix">The affine matrix to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void AffineTransform(DrawableAffine affineMatrix)
+        public void AffineTransform(IDrawableAffine affineMatrix)
         {
             Throw.IfNull(nameof(affineMatrix), affineMatrix);
 
