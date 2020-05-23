@@ -5784,7 +5784,7 @@ namespace ImageMagick
         /// <param name="method">The sparse color method to use.</param>
         /// <param name="args">The sparse color arguments.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void SparseColor(SparseColorMethod method, IEnumerable<SparseColorArg> args)
+        public void SparseColor(SparseColorMethod method, IEnumerable<ISparseColorArg<QuantumType>> args)
             => SparseColor(ImageMagick.Channels.Composite, method, args);
 
         /// <summary>
@@ -5794,8 +5794,8 @@ namespace ImageMagick
         /// <param name="method">The sparse color method to use.</param>
         /// <param name="args">The sparse color arguments.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void SparseColor(SparseColorMethod method, params SparseColorArg[] args)
-            => SparseColor(ImageMagick.Channels.Composite, method, (IEnumerable<SparseColorArg>)args);
+        public void SparseColor(SparseColorMethod method, params ISparseColorArg<QuantumType>[] args)
+            => SparseColor(ImageMagick.Channels.Composite, method, (IEnumerable<ISparseColorArg<QuantumType>>)args);
 
         /// <summary>
         /// Sparse color image, given a set of coordinates, interpolates the colors found at those
@@ -5805,7 +5805,7 @@ namespace ImageMagick
         /// <param name="method">The sparse color method to use.</param>
         /// <param name="args">The sparse color arguments.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void SparseColor(Channels channels, SparseColorMethod method, IEnumerable<SparseColorArg> args)
+        public void SparseColor(Channels channels, SparseColorMethod method, IEnumerable<ISparseColorArg<QuantumType>> args)
         {
             Throw.IfNull(nameof(args), args);
 
@@ -5816,9 +5816,9 @@ namespace ImageMagick
 
             Throw.IfTrue(nameof(channels), !hasRed && !hasGreen && !hasBlue && !hasAlpha, "Invalid channels specified.");
 
-            List<double> arguments = new List<double>();
+            var arguments = new List<double>();
 
-            foreach (SparseColorArg arg in args)
+            foreach (var arg in args)
             {
                 arguments.Add(arg.X);
                 arguments.Add(arg.Y);
@@ -5845,8 +5845,8 @@ namespace ImageMagick
         /// <param name="method">The sparse color method to use.</param>
         /// <param name="args">The sparse color arguments.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void SparseColor(Channels channels, SparseColorMethod method, params SparseColorArg[] args)
-            => SparseColor(channels, method, (IEnumerable<SparseColorArg>)args);
+        public void SparseColor(Channels channels, SparseColorMethod method, params ISparseColorArg<QuantumType>[] args)
+            => SparseColor(channels, method, (IEnumerable<ISparseColorArg<QuantumType>>)args);
 
         /// <summary>
         /// Simulates a pencil sketch.
