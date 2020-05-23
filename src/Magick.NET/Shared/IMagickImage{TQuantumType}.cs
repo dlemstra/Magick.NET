@@ -4060,7 +4060,7 @@ namespace ImageMagick
         /// <param name="image">The image to search for.</param>
         /// <returns>The result of the search action.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        MagickSearchResult SubImageSearch(IMagickImage<TQuantumType> image);
+        IMagickSearchResult<TQuantumType> SubImageSearch(IMagickImage<TQuantumType> image);
 
         /// <summary>
         /// Search for the specified image at EVERY possible location in this image. This is slow!
@@ -4071,7 +4071,7 @@ namespace ImageMagick
         /// <param name="metric">The metric to use.</param>
         /// <returns>The result of the search action.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        MagickSearchResult SubImageSearch(IMagickImage<TQuantumType> image, ErrorMetric metric);
+        IMagickSearchResult<TQuantumType> SubImageSearch(IMagickImage<TQuantumType> image, ErrorMetric metric);
 
         /// <summary>
         /// Search for the specified image at EVERY possible location in this image. This is slow!
@@ -4083,7 +4083,7 @@ namespace ImageMagick
         /// <param name="similarityThreshold">Minimum distortion for (sub)image match.</param>
         /// <returns>The result of the search action.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        MagickSearchResult SubImageSearch(IMagickImage<TQuantumType> image, ErrorMetric metric, double similarityThreshold);
+        IMagickSearchResult<TQuantumType> SubImageSearch(IMagickImage<TQuantumType> image, ErrorMetric metric, double similarityThreshold);
 
         /// <summary>
         /// Channel a texture on image background.

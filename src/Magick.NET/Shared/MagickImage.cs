@@ -6015,7 +6015,7 @@ namespace ImageMagick
         /// <param name="image">The image to search for.</param>
         /// <returns>The result of the search action.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickSearchResult SubImageSearch(IMagickImage<QuantumType> image)
+        public IMagickSearchResult<QuantumType> SubImageSearch(IMagickImage<QuantumType> image)
             => SubImageSearch(image, ErrorMetric.RootMeanSquared, -1);
 
         /// <summary>
@@ -6027,7 +6027,7 @@ namespace ImageMagick
         /// <param name="metric">The metric to use.</param>
         /// <returns>The result of the search action.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickSearchResult SubImageSearch(IMagickImage<QuantumType> image, ErrorMetric metric)
+        public IMagickSearchResult<QuantumType> SubImageSearch(IMagickImage<QuantumType> image, ErrorMetric metric)
             => SubImageSearch(image, metric, -1);
 
         /// <summary>
@@ -6040,7 +6040,7 @@ namespace ImageMagick
         /// <param name="similarityThreshold">Minimum distortion for (sub)image match.</param>
         /// <returns>The result of the search action.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickSearchResult SubImageSearch(IMagickImage<QuantumType> image, ErrorMetric metric, double similarityThreshold)
+        public IMagickSearchResult<QuantumType> SubImageSearch(IMagickImage<QuantumType> image, ErrorMetric metric, double similarityThreshold)
         {
             Throw.IfNull(nameof(image), image);
 

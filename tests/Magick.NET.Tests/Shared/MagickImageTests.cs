@@ -2589,7 +2589,7 @@ namespace Magick.NET.Tests
 
                 using (var combined = images.AppendHorizontally())
                 {
-                    using (MagickSearchResult searchResult = combined.SubImageSearch(new MagickImage(MagickColors.Red, 1, 1), ErrorMetric.RootMeanSquared))
+                    using (var searchResult = combined.SubImageSearch(new MagickImage(MagickColors.Red, 1, 1), ErrorMetric.RootMeanSquared))
                     {
                         Assert.IsNotNull(searchResult);
                         Assert.IsNotNull(searchResult.SimilarityImage);
