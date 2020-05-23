@@ -10,41 +10,32 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if Q8
-using QuantumType = System.Byte;
-#elif Q16
-using QuantumType = System.UInt16;
-#elif Q16HDRI
-using QuantumType = System.Single;
-#else
-#error Not implemented!
-#endif
-
 namespace ImageMagick
 {
     /// <summary>
     /// Class that contains setting for the compare operations.
     /// </summary>
-    public sealed class CompareSettings : ICompareSettings<QuantumType>
+    /// <typeparam name="TQuantumType">The quantum type.</typeparam>
+    public interface ICompareSettings<TQuantumType>
     {
         /// <summary>
         /// Gets or sets the error metric to use.
         /// </summary>
-        public ErrorMetric Metric { get; set; }
+        ErrorMetric Metric { get; set; }
 
         /// <summary>
         /// Gets or sets the color that emphasize pixel differences.
         /// </summary>
-        public IMagickColor<QuantumType> HighlightColor { get; set; }
+        IMagickColor<TQuantumType> HighlightColor { get; set; }
 
         /// <summary>
         /// Gets or sets the color that de-emphasize pixel differences.
         /// </summary>
-        public IMagickColor<QuantumType> LowlightColor { get; set; }
+        IMagickColor<TQuantumType> LowlightColor { get; set; }
 
         /// <summary>
         /// Gets or sets the color of pixels that are inside the read mask.
         /// </summary>
-        public IMagickColor<QuantumType> MasklightColor { get; set; }
+        IMagickColor<TQuantumType> MasklightColor { get; set; }
     }
 }

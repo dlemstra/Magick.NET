@@ -1686,7 +1686,7 @@ namespace ImageMagick
         /// <param name="difference">The image that will contain the difference.</param>
         /// <returns>The distortion based on the specified metric.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public double Compare(IMagickImage image, CompareSettings settings, IMagickImage difference) => Compare(image, settings, difference, ImageMagick.Channels.Composite);
+        public double Compare(IMagickImage image, ICompareSettings<QuantumType> settings, IMagickImage difference) => Compare(image, settings, difference, ImageMagick.Channels.Composite);
 
         /// <summary>
         /// Returns the distortion based on the specified metric.
@@ -1718,7 +1718,7 @@ namespace ImageMagick
         /// <param name="channels">The channel(s) to compare.</param>
         /// <returns>The distortion based on the specified metric.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public double Compare(IMagickImage image, CompareSettings settings, IMagickImage difference, Channels channels)
+        public double Compare(IMagickImage image, ICompareSettings<QuantumType> settings, IMagickImage difference, Channels channels)
         {
             Throw.IfNull(nameof(image), image);
             Throw.IfNull(nameof(settings), settings);
