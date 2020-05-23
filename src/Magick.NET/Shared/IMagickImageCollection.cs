@@ -14,6 +14,16 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <summary>
@@ -168,7 +178,7 @@ namespace ImageMagick
         /// <param name="backgroundColor">The background color of the output image.</param>
         /// <returns>The resulting image of the flatten operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickImage Flatten(IMagickColor backgroundColor);
+        IMagickImage Flatten(IMagickColor<QuantumType> backgroundColor);
 
         /// <summary>
         /// Inserts an image with the specified file name into the collection.

@@ -14,6 +14,16 @@
 
 using System.Drawing;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <content>
@@ -30,7 +40,7 @@ namespace ImageMagick
         {
         }
 
-        private static IMagickColor CreateColor(Color color)
+        private static IMagickColor<QuantumType> CreateColor(Color color)
         {
             var result = new MagickColor();
             result.SetFromColor(color);

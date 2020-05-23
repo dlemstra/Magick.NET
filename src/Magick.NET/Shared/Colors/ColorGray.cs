@@ -43,7 +43,7 @@ namespace ImageMagick
             _shade = shade;
         }
 
-        private ColorGray(IMagickColor color)
+        private ColorGray(IMagickColor<QuantumType> color)
           : base(color)
         {
             _shade = Quantum.ScaleToQuantum(color.R);

@@ -15,6 +15,16 @@ using System;
 using System.Security;
 using System.Runtime.InteropServices;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     public partial class MagickImage : IDisposable
@@ -1306,7 +1316,7 @@ namespace ImageMagick
                     #endif
                 }
             }
-            public IMagickColor BackgroundColor
+            public IMagickColor<QuantumType> BackgroundColor
             {
                 get
                 {
@@ -1419,7 +1429,7 @@ namespace ImageMagick
                     #endif
                 }
             }
-            public IMagickColor BorderColor
+            public IMagickColor<QuantumType> BorderColor
             {
                 get
                 {
@@ -2306,7 +2316,7 @@ namespace ImageMagick
                     return result;
                 }
             }
-            public IMagickColor MatteColor
+            public IMagickColor<QuantumType> MatteColor
             {
                 get
                 {
@@ -3346,7 +3356,7 @@ namespace ImageMagick
                     CheckException(exception);
                 }
             }
-            public void Colorize(IMagickColor color, string blend)
+            public void Colorize(IMagickColor<QuantumType> color, string blend)
             {
                 using (INativeInstance colorNative = MagickColor.CreateInstance(color))
                 {
@@ -3393,7 +3403,7 @@ namespace ImageMagick
                     Instance = result;
                 }
             }
-            public void ColorThreshold(IMagickColor startColor, IMagickColor stopColor)
+            public void ColorThreshold(IMagickColor<QuantumType> startColor, IMagickColor<QuantumType> stopColor)
             {
                 using (INativeInstance startColorNative = MagickColor.CreateInstance(startColor))
                 {
@@ -3979,7 +3989,7 @@ namespace ImageMagick
                 CheckException(exception, result);
                 Instance = result;
             }
-            public void FloodFill(DrawingSettings settings, int x, int y, IMagickColor target, bool invert)
+            public void FloodFill(DrawingSettings settings, int x, int y, IMagickColor<QuantumType> target, bool invert)
             {
                 using (INativeInstance settingsNative = DrawingSettings.CreateInstance(settings))
                 {
@@ -4216,7 +4226,7 @@ namespace ImageMagick
                 CheckException(exception);
                 return (int)result;
             }
-            public IMagickColor GetColormap(int index)
+            public IMagickColor<QuantumType> GetColormap(int index)
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU
@@ -4539,7 +4549,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void LevelColors(IMagickColor blackColor, IMagickColor whiteColor, Channels channels, bool invert)
+            public void LevelColors(IMagickColor<QuantumType> blackColor, IMagickColor<QuantumType> whiteColor, Channels channels, bool invert)
             {
                 using (INativeInstance blackColorNative = MagickColor.CreateInstance(blackColor))
                 {
@@ -4886,7 +4896,7 @@ namespace ImageMagick
                 CheckException(exception, result);
                 Instance = result;
             }
-            public void Opaque(IMagickColor target, IMagickColor fill, bool invert)
+            public void Opaque(IMagickColor<QuantumType> target, IMagickColor<QuantumType> fill, bool invert)
             {
                 using (INativeInstance targetNative = MagickColor.CreateInstance(target))
                 {
@@ -5588,7 +5598,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void SetColormap(int index, IMagickColor color)
+            public void SetColormap(int index, IMagickColor<QuantumType> color)
             {
                 using (INativeInstance colorNative = MagickColor.CreateInstance(color))
                 {
@@ -6100,7 +6110,7 @@ namespace ImageMagick
                     Instance = result;
                 }
             }
-            public void Tint(string opacity, IMagickColor tint)
+            public void Tint(string opacity, IMagickColor<QuantumType> tint)
             {
                 using (INativeInstance opacityNative = UTF8Marshaler.CreateInstance(opacity))
                 {
@@ -6125,7 +6135,7 @@ namespace ImageMagick
                     }
                 }
             }
-            public void Transparent(IMagickColor color, bool invert)
+            public void Transparent(IMagickColor<QuantumType> color, bool invert)
             {
                 using (INativeInstance colorNative = MagickColor.CreateInstance(color))
                 {
@@ -6145,7 +6155,7 @@ namespace ImageMagick
                     CheckException(exception);
                 }
             }
-            public void TransparentChroma(IMagickColor colorLow, IMagickColor colorHigh, bool invert)
+            public void TransparentChroma(IMagickColor<QuantumType> colorLow, IMagickColor<QuantumType> colorHigh, bool invert)
             {
                 using (INativeInstance colorLowNative = MagickColor.CreateInstance(colorLow))
                 {

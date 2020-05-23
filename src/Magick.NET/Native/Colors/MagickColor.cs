@@ -401,7 +401,7 @@ namespace ImageMagick
                     #endif
                 }
             }
-            public bool FuzzyEquals(IMagickColor other, QuantumType fuzz)
+            public bool FuzzyEquals(IMagickColor<QuantumType> other, QuantumType fuzz)
             {
                 using (INativeInstance otherNative = MagickColor.CreateInstance(other))
                 {
@@ -438,13 +438,13 @@ namespace ImageMagick
                 }
             }
         }
-        internal static INativeInstance CreateInstance(IMagickColor instance)
+        internal static INativeInstance CreateInstance(IMagickColor<QuantumType> instance)
         {
             if (instance == null)
                 return NativeInstance.Zero;
             return MagickColor.CreateNativeInstance(instance);
         }
-        internal static IMagickColor CreateInstance(IntPtr instance)
+        internal static IMagickColor<QuantumType> CreateInstance(IntPtr instance)
         {
             if (instance == IntPtr.Zero)
                 return null;

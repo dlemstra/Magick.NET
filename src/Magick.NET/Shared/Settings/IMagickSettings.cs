@@ -13,6 +13,16 @@
 using System.Collections.Generic;
 using System.Text;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <summary>
@@ -33,12 +43,12 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the background color.
         /// </summary>
-        IMagickColor BackgroundColor { get; set; }
+        IMagickColor<QuantumType> BackgroundColor { get; set; }
 
         /// <summary>
         /// Gets or sets the border color.
         /// </summary>
-        IMagickColor BorderColor { get; set; }
+        IMagickColor<QuantumType> BorderColor { get; set; }
 
         /// <summary>
         /// Gets or sets the color space.
@@ -79,7 +89,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the fill color.
         /// </summary>
-        IMagickColor FillColor { get; set; }
+        IMagickColor<QuantumType> FillColor { get; set; }
 
         /// <summary>
         /// Gets or sets the fill pattern.
@@ -134,7 +144,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the color to use when drawing object outlines.
         /// </summary>
-        IMagickColor StrokeColor { get; set; }
+        IMagickColor<QuantumType> StrokeColor { get; set; }
 
         /// <summary>
         /// Gets or sets the pattern of dashes and gaps used to stroke paths. This represents a
@@ -217,7 +227,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the text undercolor box.
         /// </summary>
-        IMagickColor TextUnderColor { get; set; }
+        IMagickColor<QuantumType> TextUnderColor { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether verbose output os turned on or off.

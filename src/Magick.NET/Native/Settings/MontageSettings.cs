@@ -15,6 +15,16 @@ using System;
 using System.Security;
 using System.Runtime.InteropServices;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     public partial class MontageSettings
@@ -147,7 +157,7 @@ namespace ImageMagick
                     return nameof(MontageSettings);
                 }
             }
-            public void SetBackgroundColor(IMagickColor value)
+            public void SetBackgroundColor(IMagickColor<QuantumType> value)
             {
                 using (INativeInstance valueNative = MagickColor.CreateInstance(value))
                 {
@@ -165,7 +175,7 @@ namespace ImageMagick
                     #endif
                 }
             }
-            public void SetBorderColor(IMagickColor value)
+            public void SetBorderColor(IMagickColor<QuantumType> value)
             {
                 using (INativeInstance valueNative = MagickColor.CreateInstance(value))
                 {
@@ -198,7 +208,7 @@ namespace ImageMagick
                 NativeMethods.X86.MontageSettings_SetBorderWidth(Instance, (UIntPtr)value);
                 #endif
             }
-            public void SetFillColor(IMagickColor value)
+            public void SetFillColor(IMagickColor<QuantumType> value)
             {
                 using (INativeInstance valueNative = MagickColor.CreateInstance(value))
                 {
@@ -315,7 +325,7 @@ namespace ImageMagick
                 NativeMethods.X86.MontageSettings_SetShadow(Instance, value);
                 #endif
             }
-            public void SetStrokeColor(IMagickColor value)
+            public void SetStrokeColor(IMagickColor<QuantumType> value)
             {
                 using (INativeInstance valueNative = MagickColor.CreateInstance(value))
                 {

@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
     [ExcludeFromCodeCoverage]
     internal static class ColorAssert
     {
-        public static void AreEqual(IMagickColor expected, IMagickColor actual)
+        public static void AreEqual(IMagickColor<QuantumType> expected, IMagickColor<QuantumType> actual)
         {
             Assert.IsNotNull(actual);
 
@@ -45,7 +45,7 @@ namespace Magick.NET.Tests
             AreEqual(expected.A, actual.A, expected, actual, delta, "A");
         }
 
-        public static void AreEqual(IMagickColor expected, IMagickImage image, int x, int y)
+        public static void AreEqual(IMagickColor<QuantumType> expected, IMagickImage image, int x, int y)
         {
             using (IPixelCollection pixels = image.GetPixelsUnsafe())
             {
@@ -53,14 +53,14 @@ namespace Magick.NET.Tests
             }
         }
 
-        public static void AreNotEqual(IMagickColor notExpected, IMagickColor actual)
+        public static void AreNotEqual(IMagickColor<QuantumType> notExpected, IMagickColor<QuantumType> actual)
         {
             if (notExpected.R == actual.R && notExpected.G == actual.G &&
                notExpected.B == actual.B && notExpected.A == actual.A)
                 Assert.Fail("Colors are the same (" + actual.ToString() + ")");
         }
 
-        public static void AreNotEqual(IMagickColor notExpected, IMagickImage image, int x, int y)
+        public static void AreNotEqual(IMagickColor<QuantumType> notExpected, IMagickImage image, int x, int y)
         {
             using (IPixelCollection collection = image.GetPixelsUnsafe())
             {
@@ -69,21 +69,15 @@ namespace Magick.NET.Tests
         }
 
         public static void IsTransparent(float alpha)
-        {
-            Assert.AreEqual(0, alpha);
-        }
+            => Assert.AreEqual(0, alpha);
 
         public static void IsNotTransparent(float alpha)
-        {
-            Assert.AreEqual(Quantum.Max, alpha);
-        }
+            => Assert.AreEqual(Quantum.Max, alpha);
 
-        private static void AreEqual(IMagickColor expected, Pixel actual)
-        {
-            AreEqual(expected, actual.ToColor());
-        }
+        private static void AreEqual(IMagickColor<QuantumType> expected, Pixel actual)
+            => AreEqual(expected, actual.ToColor());
 
-        private static void AreEqual(QuantumType expected, QuantumType actual, IMagickColor expectedColor, IMagickColor actualColor, float delta, string channel)
+        private static void AreEqual(QuantumType expected, QuantumType actual, IMagickColor<QuantumType> expectedColor, IMagickColor<QuantumType> actualColor, float delta, string channel)
         {
 #if Q16HDRI
             if (double.IsNaN(actual))
@@ -93,9 +87,7 @@ namespace Magick.NET.Tests
             Assert.AreEqual(expected, actual, delta, channel + " is not equal (" + expectedColor.ToString() + " != " + actualColor.ToString() + ")");
         }
 
-        private static void AreNotEqual(IMagickColor expected, Pixel actual)
-        {
-            AreNotEqual(expected, actual.ToColor());
-        }
+        private static void AreNotEqual(IMagickColor<QuantumType> expected, Pixel actual)
+            => AreNotEqual(expected, actual.ToColor());
     }
 }

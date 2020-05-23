@@ -15,6 +15,16 @@ using System;
 using System.Security;
 using System.Runtime.InteropServices;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     internal partial class DrawingSettings
@@ -299,7 +309,7 @@ namespace ImageMagick
                     return nameof(DrawingSettings);
                 }
             }
-            public IMagickColor BorderColor
+            public IMagickColor<QuantumType> BorderColor
             {
                 get
                 {
@@ -337,7 +347,7 @@ namespace ImageMagick
                     }
                 }
             }
-            public IMagickColor FillColor
+            public IMagickColor<QuantumType> FillColor
             {
                 get
                 {
@@ -626,7 +636,7 @@ namespace ImageMagick
                     #endif
                 }
             }
-            public IMagickColor StrokeColor
+            public IMagickColor<QuantumType> StrokeColor
             {
                 get
                 {
@@ -1087,7 +1097,7 @@ namespace ImageMagick
                     #endif
                 }
             }
-            public IMagickColor TextUnderColor
+            public IMagickColor<QuantumType> TextUnderColor
             {
                 get
                 {

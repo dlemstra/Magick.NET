@@ -15,6 +15,16 @@ using System;
 using System.Security;
 using System.Runtime.InteropServices;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     public partial class ConnectedComponent
@@ -131,7 +141,7 @@ namespace ImageMagick
                 #endif
                 return PointInfo.CreateInstance(result);
             }
-            public static IMagickColor GetColor(IntPtr instance)
+            public static IMagickColor<QuantumType> GetColor(IntPtr instance)
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU

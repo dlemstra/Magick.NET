@@ -10,6 +10,16 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <summary>
@@ -21,7 +31,7 @@ namespace ImageMagick
         /// Initializes a new instance of the <see cref="DrawableStrokeColor"/> class.
         /// </summary>
         /// <param name="color">The color to use.</param>
-        public DrawableStrokeColor(IMagickColor color)
+        public DrawableStrokeColor(IMagickColor<QuantumType> color)
         {
             Throw.IfNull(nameof(color), color);
 
@@ -31,7 +41,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the color to use.
         /// </summary>
-        public IMagickColor Color { get; set; }
+        public IMagickColor<QuantumType> Color { get; set; }
 
         /// <summary>
         /// Draws this instance with the drawing wand.

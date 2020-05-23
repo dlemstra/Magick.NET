@@ -18,7 +18,8 @@ namespace ImageMagick
     /// <summary>
     /// Interface for a class that can be used to create <see cref="IMagickImage"/>, <see cref="IMagickImageCollection"/> or <see cref="IMagickImageInfo"/> instances.
     /// </summary>
-    public partial interface IMagickFactory
+    /// <typeparam name="TQuantumType">The quantum type.</typeparam>
+    public partial interface IMagickFactory<TQuantumType>
     {
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImageCollection"/>.
@@ -221,7 +222,7 @@ namespace ImageMagick
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
-        IMagickImage CreateImage(IMagickColor color, int width, int height);
+        IMagickImage CreateImage(IMagickColor<TQuantumType> color, int width, int height);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImage"/>.

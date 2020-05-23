@@ -12,37 +12,28 @@
 
 using System;
 
-#if Q8
-using QuantumType = System.Byte;
-#elif Q16
-using QuantumType = System.UInt16;
-#elif Q16HDRI
-using QuantumType = System.Single;
-#else
-#error Not implemented!
-#endif
-
 namespace ImageMagick
 {
     /// <summary>
     /// Interface that represents a color.
     /// </summary>
-    public interface IMagickColor : IEquatable<IMagickColor>, IComparable<IMagickColor>
+    /// <typeparam name="TQuantumType">The quantum type.</typeparam>
+    public interface IMagickColor<TQuantumType> : IEquatable<IMagickColor<TQuantumType>>, IComparable<IMagickColor<TQuantumType>>
     {
         /// <summary>
         /// Gets or sets the alpha component value of this color.
         /// </summary>
-        QuantumType A { get; set; }
+        TQuantumType A { get; set; }
 
         /// <summary>
         /// Gets or sets the blue component value of this color.
         /// </summary>
-        QuantumType B { get; set; }
+        TQuantumType B { get; set; }
 
         /// <summary>
         /// Gets or sets the green component value of this color.
         /// </summary>
-        QuantumType G { get; set; }
+        TQuantumType G { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether the color is a CMYK color.
@@ -52,12 +43,12 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the key (black) component value of this color.
         /// </summary>
-        QuantumType K { get; set; }
+        TQuantumType K { get; set; }
 
         /// <summary>
         /// Gets or sets the red component value of this color.
         /// </summary>
-        QuantumType R { get; set; }
+        TQuantumType R { get; set; }
 
         /// <summary>
         /// Determines whether the specified color is fuzzy equal to the current color.
@@ -65,7 +56,7 @@ namespace ImageMagick
         /// <param name="other">The color to compare this color with.</param>
         /// <param name="fuzz">The fuzz factor.</param>
         /// <returns>True when the specified color is fuzzy equal to the current instance.</returns>
-        bool FuzzyEquals(IMagickColor other, Percentage fuzz);
+        bool FuzzyEquals(IMagickColor<TQuantumType> other, Percentage fuzz);
 
         /// <summary>
         /// Initializes the color with the specified bytes.

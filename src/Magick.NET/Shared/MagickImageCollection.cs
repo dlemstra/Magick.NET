@@ -16,6 +16,16 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <summary>
@@ -577,7 +587,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="backgroundColor">The background color of the output image.</param>
         /// <returns>The resulting image of the flatten operation.</returns>
-        public IMagickImage Flatten(IMagickColor backgroundColor)
+        public IMagickImage Flatten(IMagickColor<QuantumType> backgroundColor)
         {
             ThrowIfEmpty();
 

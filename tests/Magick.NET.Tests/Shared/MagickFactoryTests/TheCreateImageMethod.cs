@@ -24,9 +24,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldCreateMagickImage()
             {
-                IMagickFactory factory = new MagickFactory();
+                var factory = new MagickFactory();
 
-                using (IMagickImage image = factory.CreateImage())
+                using (var image = factory.CreateImage())
                 {
                     Assert.IsInstanceOfType(image, typeof(MagickImage));
                     Assert.AreEqual(0, image.Width);
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                     {
@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     ExceptionAssert.Throws<ArgumentException>("data", () =>
                     {
@@ -61,10 +61,10 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldCreateMagickImage()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var data = File.ReadAllBytes(Files.ImageMagickJPG);
 
-                    using (IMagickImage image = factory.CreateImage(data))
+                    using (var image = factory.CreateImage(data))
                     {
                         Assert.IsInstanceOfType(image, typeof(MagickImage));
                         Assert.AreEqual(123, image.Width);
@@ -78,7 +78,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                     {
@@ -89,7 +89,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     ExceptionAssert.Throws<ArgumentException>("data", () =>
                     {
@@ -100,7 +100,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenOffsetIsNegative()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     ExceptionAssert.Throws<ArgumentException>("offset", () =>
                     {
@@ -111,7 +111,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsZero()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
@@ -122,7 +122,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsNegative()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
@@ -133,10 +133,10 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldCreateMagickImage()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var data = File.ReadAllBytes(Files.ImageMagickJPG);
 
-                    using (IMagickImage image = factory.CreateImage(data, 0, data.Length))
+                    using (var image = factory.CreateImage(data, 0, data.Length))
                     {
                         Assert.IsInstanceOfType(image, typeof(MagickImage));
                         Assert.AreEqual(123, image.Width);
@@ -150,7 +150,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
                     ExceptionAssert.Throws<ArgumentNullException>("data", () =>
@@ -162,7 +162,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
                     ExceptionAssert.Throws<ArgumentException>("data", () =>
@@ -174,7 +174,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenOffsetIsNegative()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
                     ExceptionAssert.Throws<ArgumentException>("offset", () =>
@@ -186,7 +186,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsZero()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
                     ExceptionAssert.Throws<ArgumentException>("count", () =>
@@ -198,7 +198,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsNegative()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
                     ExceptionAssert.Throws<ArgumentException>("count", () =>
@@ -210,7 +210,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var bytes = File.ReadAllBytes(Files.CirclePNG);
 
                     using (var image = factory.CreateImage(bytes, 0, bytes.Length, (MagickReadSettings)null))
@@ -221,7 +221,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldCreateMagickImage()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new MagickReadSettings()
                     {
                         BackgroundColor = MagickColors.Purple,
@@ -243,7 +243,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
                     ExceptionAssert.Throws<ArgumentNullException>("data", () =>
@@ -255,7 +255,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
                     ExceptionAssert.Throws<ArgumentException>("data", () =>
@@ -267,7 +267,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenOffsetIsNegative()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
                     ExceptionAssert.Throws<ArgumentException>("offset", () =>
@@ -279,7 +279,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsZero()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
                     ExceptionAssert.Throws<ArgumentException>("count", () =>
@@ -291,7 +291,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsNegative()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
                     ExceptionAssert.Throws<ArgumentException>("count", () =>
@@ -303,7 +303,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var bytes = File.ReadAllBytes(Files.CirclePNG);
 
                     ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
@@ -315,7 +315,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldCreateMagickImage()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var data = new byte[]
                     {
                         0, 0, 0, 0, 0, 0, 0, 0,
@@ -330,7 +330,7 @@ namespace Magick.NET.Tests
 
                     var settings = new PixelReadSettings(2, 1, StorageType.Double, PixelMapping.RGBA);
 
-                    using (IMagickImage image = factory.CreateImage(data, 0, data.Length, settings))
+                    using (var image = factory.CreateImage(data, 0, data.Length, settings))
                     {
                         Assert.IsInstanceOfType(image, typeof(MagickImage));
                         Assert.AreEqual(2, image.Width);
@@ -344,7 +344,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
                     ExceptionAssert.Throws<ArgumentNullException>("data", () =>
@@ -356,7 +356,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
                     ExceptionAssert.Throws<ArgumentException>("data", () =>
@@ -368,7 +368,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     using (var image = factory.CreateImage(File.ReadAllBytes(Files.CirclePNG), (MagickReadSettings)null))
                     {
@@ -378,14 +378,14 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldCreateMagickImage()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var data = File.ReadAllBytes(Files.ImageMagickJPG);
                     var readSettings = new MagickReadSettings
                     {
                         BackgroundColor = MagickColors.Goldenrod,
                     };
 
-                    using (IMagickImage image = factory.CreateImage(data, readSettings))
+                    using (var image = factory.CreateImage(data, readSettings))
                     {
                         Assert.IsInstanceOfType(image, typeof(MagickImage));
                         Assert.AreEqual(123, image.Width);
@@ -400,7 +400,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
                     ExceptionAssert.Throws<ArgumentNullException>("data", () =>
@@ -412,7 +412,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
                     ExceptionAssert.Throws<ArgumentException>("data", () =>
@@ -424,7 +424,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
                     {
@@ -435,7 +435,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldCreateMagickImage()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var data = new byte[]
                     {
                         0, 0, 0, 0, 0, 0, 0, 0,
@@ -450,7 +450,7 @@ namespace Magick.NET.Tests
 
                     var settings = new PixelReadSettings(2, 1, StorageType.Double, PixelMapping.RGBA);
 
-                    using (IMagickImage image = factory.CreateImage(data, settings))
+                    using (var image = factory.CreateImage(data, settings))
                     {
                         Assert.IsInstanceOfType(image, typeof(MagickImage));
                         Assert.AreEqual(2, image.Width);
@@ -464,7 +464,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenColorIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     ExceptionAssert.Throws<ArgumentNullException>("color", () =>
                     {
@@ -475,7 +475,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenWidthIsZero()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     ExceptionAssert.Throws<ArgumentException>("width", () =>
                     {
@@ -486,7 +486,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenHeightIsZero()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     ExceptionAssert.Throws<ArgumentException>("height", () =>
                     {
@@ -497,7 +497,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenWidthIsNegative()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     ExceptionAssert.Throws<ArgumentException>("width", () =>
                     {
@@ -508,7 +508,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenHeightIsNegative()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     ExceptionAssert.Throws<ArgumentException>("height", () =>
                     {
@@ -519,10 +519,10 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldCreateMagickImage()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var color = MagickColors.Goldenrod;
 
-                    using (IMagickImage image = factory.CreateImage(color, 10, 5))
+                    using (var image = factory.CreateImage(color, 10, 5))
                     {
                         Assert.IsInstanceOfType(image, typeof(MagickImage));
                         Assert.AreEqual(10, image.Width);
@@ -536,7 +536,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileInfoIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     ExceptionAssert.Throws<ArgumentNullException>("file", () =>
                     {
@@ -547,10 +547,10 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldCreateMagickImage()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var file = new FileInfo(Files.ImageMagickJPG);
 
-                    using (IMagickImage image = factory.CreateImage(file))
+                    using (var image = factory.CreateImage(file))
                     {
                         Assert.IsInstanceOfType(image, typeof(MagickImage));
                         Assert.AreEqual(123, image.Width);
@@ -564,7 +564,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileInfoIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
                     ExceptionAssert.Throws<ArgumentNullException>("file", () =>
@@ -576,9 +576,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
-                    using (IMagickImage image = factory.CreateImage(new FileInfo(Files.CirclePNG), (MagickReadSettings)null))
+                    using (var image = factory.CreateImage(new FileInfo(Files.CirclePNG), (MagickReadSettings)null))
                     {
                         Assert.IsInstanceOfType(image, typeof(MagickImage));
                     }
@@ -591,7 +591,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileInfoIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
                     ExceptionAssert.Throws<ArgumentNullException>("file", () =>
@@ -603,7 +603,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
                     {
@@ -614,7 +614,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldCreateMagickImage()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var data = new byte[]
                     {
                         0, 0, 0, 0, 0, 0, 0, 0,
@@ -631,7 +631,7 @@ namespace Magick.NET.Tests
 
                     using (var temporaryFile = new TemporaryFile(data))
                     {
-                        using (IMagickImage image = factory.CreateImage(temporaryFile, settings))
+                        using (var image = factory.CreateImage(temporaryFile, settings))
                         {
                             Assert.IsInstanceOfType(image, typeof(MagickImage));
                             Assert.AreEqual(2, image.Width);
@@ -646,7 +646,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenColorIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                     {
@@ -657,7 +657,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenWidthIsZero()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     ExceptionAssert.Throws<ArgumentException>("width", () =>
                     {
@@ -668,7 +668,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenHeightIsZero()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     ExceptionAssert.Throws<ArgumentException>("height", () =>
                     {
@@ -679,7 +679,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenWidthIsNegative()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     ExceptionAssert.Throws<ArgumentException>("width", () =>
                     {
@@ -690,7 +690,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenHeightIsNegative()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     ExceptionAssert.Throws<ArgumentException>("height", () =>
                     {
@@ -701,9 +701,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldReadImage()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
-                    using (IMagickImage image = factory.CreateImage("xc:red", 20, 30))
+                    using (var image = factory.CreateImage("xc:red", 20, 30))
                     {
                         Assert.AreEqual(20, image.Width);
                         Assert.AreEqual(30, image.Height);
@@ -718,7 +718,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileInfoIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                     {
@@ -729,7 +729,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsEmpty()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                     {
@@ -740,9 +740,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldCreateMagickImage()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
-                    using (IMagickImage image = factory.CreateImage(Files.ImageMagickJPG))
+                    using (var image = factory.CreateImage(Files.ImageMagickJPG))
                     {
                         Assert.IsInstanceOfType(image, typeof(MagickImage));
                         Assert.AreEqual(123, image.Width);
@@ -756,7 +756,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
                     ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
@@ -768,7 +768,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsEmpty()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
                     ExceptionAssert.Throws<ArgumentException>("fileName", () =>
@@ -780,9 +780,9 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
-                    using (IMagickImage image = factory.CreateImage(Files.CirclePNG, (MagickReadSettings)null))
+                    using (var image = factory.CreateImage(Files.CirclePNG, (MagickReadSettings)null))
                     {
                         Assert.IsInstanceOfType(image, typeof(MagickImage));
                     }
@@ -795,7 +795,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
                     ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
@@ -807,7 +807,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsEmpty()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
                     ExceptionAssert.Throws<ArgumentException>("fileName", () =>
@@ -819,7 +819,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
                     ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
@@ -831,7 +831,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldCreateMagickImage()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var data = new byte[]
                     {
                         0, 0, 0, 0, 0, 0, 0, 0,
@@ -848,7 +848,7 @@ namespace Magick.NET.Tests
 
                     using (var temporaryFile = new TemporaryFile(data))
                     {
-                        using (IMagickImage image = factory.CreateImage(temporaryFile.FullName, settings))
+                        using (var image = factory.CreateImage(temporaryFile.FullName, settings))
                         {
                             Assert.IsInstanceOfType(image, typeof(MagickImage));
                             Assert.AreEqual(2, image.Width);
@@ -863,7 +863,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
                     {
@@ -874,7 +874,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenStreamIsEmpty()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     ExceptionAssert.Throws<ArgumentException>("stream", () =>
                     {
@@ -885,7 +885,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldCreateMagickImage()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     using (var stream = File.OpenRead(Files.ImageMagickJPG))
                     {
@@ -904,7 +904,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
                     ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
@@ -916,7 +916,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenStreamIsEmpty()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new MagickReadSettings();
 
                     ExceptionAssert.Throws<ArgumentException>("stream", () =>
@@ -928,11 +928,11 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     using (var fileStream = File.OpenRead(Files.CirclePNG))
                     {
-                        using (IMagickImage image = factory.CreateImage(fileStream, (MagickReadSettings)null))
+                        using (var image = factory.CreateImage(fileStream, (MagickReadSettings)null))
                         {
                             Assert.IsInstanceOfType(image, typeof(MagickImage));
                         }
@@ -946,7 +946,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
                     ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
@@ -958,7 +958,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenStreamIsEmpty()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var settings = new PixelReadSettings();
 
                     ExceptionAssert.Throws<ArgumentException>("stream", () =>
@@ -970,7 +970,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
 
                     using (var fileStream = File.OpenRead(Files.CirclePNG))
                     {
@@ -984,7 +984,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldCreateMagickImage()
                 {
-                    IMagickFactory factory = new MagickFactory();
+                    var factory = new MagickFactory();
                     var data = new byte[]
                     {
                         0, 0, 0, 0, 0, 0, 0, 0,
@@ -1001,7 +1001,7 @@ namespace Magick.NET.Tests
 
                     using (var stream = new MemoryStream(data))
                     {
-                        using (IMagickImage image = factory.CreateImage(stream, settings))
+                        using (var image = factory.CreateImage(stream, settings))
                         {
                             Assert.IsInstanceOfType(image, typeof(MagickImage));
                             Assert.AreEqual(2, image.Width);

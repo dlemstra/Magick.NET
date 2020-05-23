@@ -14,6 +14,16 @@
 using System.Collections.Generic;
 using System.Text;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     [System.CodeDom.Compiler.GeneratedCode("Magick.NET.FileGenerator", "")]
@@ -91,7 +101,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color of the border.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables BorderColor(IMagickColor color)
+        public Drawables BorderColor(IMagickColor<QuantumType> color)
         {
             _drawables.Add(new DrawableBorderColor(color));
             return this;
@@ -252,7 +262,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables FillColor(IMagickColor color)
+        public Drawables FillColor(IMagickColor<QuantumType> color)
         {
             _drawables.Add(new DrawableFillColor(color));
             return this;
@@ -587,7 +597,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables StrokeColor(IMagickColor color)
+        public Drawables StrokeColor(IMagickColor<QuantumType> color)
         {
             _drawables.Add(new DrawableStrokeColor(color));
             return this;
@@ -787,7 +797,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables TextUnderColor(IMagickColor color)
+        public Drawables TextUnderColor(IMagickColor<QuantumType> color)
         {
             _drawables.Add(new DrawableTextUnderColor(color));
             return this;

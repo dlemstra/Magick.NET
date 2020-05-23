@@ -10,6 +10,16 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <summary>
@@ -23,7 +33,7 @@ namespace ImageMagick
         /// <param name="x">The X position.</param>
         /// <param name="y">The Y position.</param>
         /// <param name="color">The color.</param>
-        public SparseColorArg(double x, double y, IMagickColor color)
+        public SparseColorArg(double x, double y, IMagickColor<QuantumType> color)
         {
             Throw.IfNull(nameof(color), color);
 
@@ -45,6 +55,6 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the color.
         /// </summary>
-        public IMagickColor Color { get; set; }
+        public IMagickColor<QuantumType> Color { get; set; }
     }
 }

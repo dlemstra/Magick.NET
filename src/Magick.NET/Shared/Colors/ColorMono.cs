@@ -39,7 +39,7 @@ namespace ImageMagick
             IsBlack = isBlack;
         }
 
-        private ColorMono(IMagickColor color)
+        private ColorMono(IMagickColor<QuantumType> color)
           : base(color)
         {
             if (color.Equals(MagickColors.Black))
@@ -63,11 +63,11 @@ namespace ImageMagick
         public static implicit operator ColorMono(MagickColor color) => FromMagickColor(color);
 
         /// <summary>
-        /// Converts the specified <see cref="IMagickColor"/> to an instance of this type.
+        /// Converts the specified <see cref="IMagickColor{QuantumType}"/> to an instance of this type.
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>A <see cref="ColorMono"/> instance.</returns>
-        public static ColorMono FromMagickColor(IMagickColor color)
+        public static ColorMono FromMagickColor(IMagickColor<QuantumType> color)
         {
             if (color == null)
                 return null;

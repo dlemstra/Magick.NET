@@ -29,7 +29,7 @@ namespace ImageMagick
     /// <summary>
     /// Class that represents a color.
     /// </summary>
-    public sealed partial class MagickColor : IMagickColor
+    public sealed partial class MagickColor : IMagickColor<QuantumType>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickColor"/> class.
@@ -42,7 +42,7 @@ namespace ImageMagick
         /// Initializes a new instance of the <see cref="MagickColor"/> class.
         /// </summary>
         /// <param name="color">The color to use.</param>
-        public MagickColor(IMagickColor color)
+        public MagickColor(IMagickColor<QuantumType> color)
         {
             Throw.IfNull(nameof(color), color);
 
@@ -294,7 +294,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The color to compare this color with.</param>
         /// <returns>A signed number indicating the relative values of this instance and value.</returns>
-        public int CompareTo(IMagickColor other)
+        public int CompareTo(IMagickColor<QuantumType> other)
         {
             if (other is null)
                 return 1;
@@ -342,7 +342,7 @@ namespace ImageMagick
             if (ReferenceEquals(this, obj))
                 return true;
 
-            return Equals(obj as IMagickColor);
+            return Equals(obj as IMagickColor<QuantumType>);
         }
 
         /// <summary>
@@ -350,7 +350,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The color to compare this color with.</param>
         /// <returns>True when the specified color is equal to the current color.</returns>
-        public bool Equals(IMagickColor other)
+        public bool Equals(IMagickColor<QuantumType> other)
         {
             if (other is null)
                 return false;
@@ -373,7 +373,7 @@ namespace ImageMagick
         /// <param name="other">The color to compare this color with.</param>
         /// <param name="fuzz">The fuzz factor.</param>
         /// <returns>True when the specified color is fuzzy equal to the current instance.</returns>
-        public bool FuzzyEquals(IMagickColor other, Percentage fuzz)
+        public bool FuzzyEquals(IMagickColor<QuantumType> other, Percentage fuzz)
         {
             if (other is null)
                 return false;
@@ -456,7 +456,7 @@ namespace ImageMagick
 #endif
         }
 
-        internal static IMagickColor Clone(IMagickColor value)
+        internal static IMagickColor<QuantumType> Clone(IMagickColor<QuantumType> value)
         {
             if (value == null)
                 return value;
@@ -472,7 +472,7 @@ namespace ImageMagick
             };
         }
 
-        internal static IMagickColor CreateInstance(IntPtr instance, out int count)
+        internal static IMagickColor<QuantumType> CreateInstance(IntPtr instance, out int count)
         {
             count = 0;
             if (instance == IntPtr.Zero)
@@ -485,7 +485,7 @@ namespace ImageMagick
             }
         }
 
-        private static NativeMagickColor CreateNativeInstance(IMagickColor instance)
+        private static NativeMagickColor CreateNativeInstance(IMagickColor<QuantumType> instance)
         {
             return new NativeMagickColor()
             {

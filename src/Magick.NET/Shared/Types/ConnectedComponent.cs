@@ -14,6 +14,16 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <summary>
@@ -46,7 +56,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the color of the area.
         /// </summary>
-        public IMagickColor Color { get; }
+        public IMagickColor<QuantumType> Color { get; }
 
         /// <summary>
         /// Gets the height of the area.

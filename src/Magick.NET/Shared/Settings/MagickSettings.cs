@@ -15,6 +15,16 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <summary>
@@ -71,12 +81,12 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the background color.
         /// </summary>
-        public IMagickColor BackgroundColor { get; set; }
+        public IMagickColor<QuantumType> BackgroundColor { get; set; }
 
         /// <summary>
         /// Gets or sets the border color.
         /// </summary>
-        public IMagickColor BorderColor
+        public IMagickColor<QuantumType> BorderColor
         {
             get => Drawing.BorderColor;
             set => Drawing.BorderColor = value;
@@ -121,7 +131,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the fill color.
         /// </summary>
-        public IMagickColor FillColor
+        public IMagickColor<QuantumType> FillColor
         {
             get => Drawing.FillColor;
             set
@@ -247,7 +257,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the color to use when drawing object outlines.
         /// </summary>
-        public IMagickColor StrokeColor
+        public IMagickColor<QuantumType> StrokeColor
         {
             get => Drawing.StrokeColor;
             set
@@ -414,7 +424,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the text undercolor box.
         /// </summary>
-        public IMagickColor TextUnderColor
+        public IMagickColor<QuantumType> TextUnderColor
         {
             get => Drawing.TextUnderColor;
             set

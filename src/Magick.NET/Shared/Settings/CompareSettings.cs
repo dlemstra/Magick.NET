@@ -10,6 +10,16 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <summary>
@@ -25,17 +35,17 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the color that emphasize pixel differences.
         /// </summary>
-        public IMagickColor HighlightColor { get; set; }
+        public IMagickColor<QuantumType> HighlightColor { get; set; }
 
         /// <summary>
         /// Gets or sets the color that de-emphasize pixel differences.
         /// </summary>
-        public IMagickColor LowlightColor { get; set; }
+        public IMagickColor<QuantumType> LowlightColor { get; set; }
 
         /// <summary>
         /// Gets or sets the color of pixels that are inside the read mask.
         /// </summary>
-        public IMagickColor MasklightColor { get; set; }
+        public IMagickColor<QuantumType> MasklightColor { get; set; }
 
         internal void SetImageArtifacts(IMagickImage image)
         {

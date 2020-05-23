@@ -100,7 +100,7 @@ namespace ImageMagick
         {
         }
 
-        private ColorCMYK(IMagickColor color)
+        private ColorCMYK(IMagickColor<QuantumType> color)
           : base(color)
         {
         }
@@ -161,11 +161,11 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Converts the specified <see cref="IMagickColor"/> to an instance of this type.
+        /// Converts the specified <see cref="IMagickColor{QuantumType}"/> to an instance of this type.
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>A <see cref="ColorCMYK"/> instance.</returns>
-        public static ColorCMYK FromMagickColor(IMagickColor color)
+        public static ColorCMYK FromMagickColor(IMagickColor<QuantumType> color)
         {
             if (color == null)
                 return null;
@@ -173,7 +173,7 @@ namespace ImageMagick
             return new ColorCMYK(color);
         }
 
-        private static IMagickColor CreateColor(string color)
+        private static IMagickColor<QuantumType> CreateColor(string color)
         {
             Throw.IfNullOrEmpty(nameof(color), color);
 

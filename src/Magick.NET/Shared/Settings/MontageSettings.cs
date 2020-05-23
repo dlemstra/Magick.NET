@@ -10,6 +10,16 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <summary>
@@ -20,12 +30,12 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the color of the background that thumbnails are composed on.
         /// </summary>
-        public IMagickColor BackgroundColor { get; set; }
+        public IMagickColor<QuantumType> BackgroundColor { get; set; }
 
         /// <summary>
         /// Gets or sets the frame border color.
         /// </summary>
-        public IMagickColor BorderColor { get; set; }
+        public IMagickColor<QuantumType> BorderColor { get; set; }
 
         /// <summary>
         /// Gets or sets the pixels between thumbnail and surrounding frame.
@@ -35,7 +45,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the fill color.
         /// </summary>
-        public IMagickColor FillColor { get; set; }
+        public IMagickColor<QuantumType> FillColor { get; set; }
 
         /// <summary>
         /// Gets or sets the label font.
@@ -75,7 +85,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the outline color.
         /// </summary>
-        public IMagickColor StrokeColor { get; set; }
+        public IMagickColor<QuantumType> StrokeColor { get; set; }
 
         /// <summary>
         /// Gets or sets the background texture image.
@@ -95,7 +105,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the transparent color.
         /// </summary>
-        public IMagickColor TransparentColor { get; set; }
+        public IMagickColor<QuantumType> TransparentColor { get; set; }
 
         private static string Convert(IMagickGeometry geometry)
         {

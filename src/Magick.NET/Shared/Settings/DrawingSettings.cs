@@ -14,6 +14,16 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     internal sealed partial class DrawingSettings
@@ -52,9 +62,9 @@ namespace ImageMagick
 
         public IDrawableAffine Affine { get; set; }
 
-        public IMagickColor BorderColor { get; set; }
+        public IMagickColor<QuantumType> BorderColor { get; set; }
 
-        public IMagickColor FillColor { get; set; }
+        public IMagickColor<QuantumType> FillColor { get; set; }
 
         public IMagickImage FillPattern { get; set; }
 
@@ -72,7 +82,7 @@ namespace ImageMagick
 
         public bool StrokeAntiAlias { get; set; }
 
-        public IMagickColor StrokeColor { get; set; }
+        public IMagickColor<QuantumType> StrokeColor { get; set; }
 
         public IEnumerable<double> StrokeDashArray
         {
@@ -112,7 +122,7 @@ namespace ImageMagick
 
         public double TextKerning { get; set; }
 
-        public IMagickColor TextUnderColor { get; set; }
+        public IMagickColor<QuantumType> TextUnderColor { get; set; }
 
         internal DrawingSettings Clone()
         {

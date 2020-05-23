@@ -14,6 +14,16 @@
 
 using System.Drawing;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <summary>
@@ -22,11 +32,11 @@ namespace ImageMagick
     public static class ColorExtensions
     {
         /// <summary>
-        /// Convert the specified <see cref="Color"/> to a <see cref="IMagickColor"/>.
+        /// Convert the specified <see cref="Color"/> to a <see cref="IMagickColor{QuantumType}"/>.
         /// </summary>
         /// <param name="self">The color to use.</param>
-        /// <returns>A <see cref="IMagickColor"/> instance.</returns>
-        public static IMagickColor ToColor(this Color self)
+        /// <returns>A <see cref="IMagickColor{QuantumType}"/> instance.</returns>
+        public static IMagickColor<QuantumType> ToColor(this Color self)
         {
             var color = new MagickColor();
             color.SetFromColor(self);

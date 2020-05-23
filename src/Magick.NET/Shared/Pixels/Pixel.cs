@@ -177,8 +177,8 @@ namespace ImageMagick
         /// <summary>
         /// Converts the pixel to a color. Assumes the pixel is RGBA.
         /// </summary>
-        /// <returns>A <see cref="IMagickColor"/> instance.</returns>
-        public IMagickColor ToColor()
+        /// <returns>A <see cref="IMagickColor{TQuantumType}"/> instance.</returns>
+        public IMagickColor<QuantumType> ToColor()
         {
             var value = GetValueWithoutIndexChannel();
 

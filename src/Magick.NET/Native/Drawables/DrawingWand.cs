@@ -15,6 +15,16 @@ using System;
 using System.Security;
 using System.Runtime.InteropServices;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     internal partial class DrawingWand : IDisposable
@@ -491,7 +501,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void BorderColor(IMagickColor value)
+            public void BorderColor(IMagickColor<QuantumType> value)
             {
                 using (INativeInstance valueNative = MagickColor.CreateInstance(value))
                 {
@@ -653,7 +663,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void FillColor(IMagickColor value)
+            public void FillColor(IMagickColor<QuantumType> value)
             {
                 using (INativeInstance valueNative = MagickColor.CreateInstance(value))
                 {
@@ -1521,7 +1531,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void StrokeColor(IMagickColor value)
+            public void StrokeColor(IMagickColor<QuantumType> value)
             {
                 using (INativeInstance valueNative = MagickColor.CreateInstance(value))
                 {
@@ -1819,7 +1829,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void TextUnderColor(IMagickColor color)
+            public void TextUnderColor(IMagickColor<QuantumType> color)
             {
                 using (INativeInstance colorNative = MagickColor.CreateInstance(color))
                 {

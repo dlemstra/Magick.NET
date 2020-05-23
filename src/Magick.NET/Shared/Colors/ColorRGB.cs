@@ -10,8 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
-
 #if Q8
 using QuantumType = System.Byte;
 #elif Q16
@@ -33,7 +31,7 @@ namespace ImageMagick
         /// Initializes a new instance of the <see cref="ColorRGB"/> class.
         /// </summary>
         /// <param name="value">The color to use.</param>
-        public ColorRGB(IMagickColor value)
+        public ColorRGB(IMagickColor<QuantumType> value)
           : base(value)
         {
         }
@@ -87,11 +85,11 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Converts the specified <see cref="IMagickColor"/> to an instance of this type.
+        /// Converts the specified <see cref="IMagickColor{QuantumType}"/> to an instance of this type.
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>A <see cref="ColorRGB"/> instance.</returns>
-        public static ColorRGB FromMagickColor(IMagickColor color)
+        public static ColorRGB FromMagickColor(IMagickColor<QuantumType> color)
         {
             if (color == null)
                 return null;

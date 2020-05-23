@@ -12,6 +12,16 @@
 
 using System;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <summary>
@@ -23,7 +33,7 @@ namespace ImageMagick
         /// Initializes a new instance of the <see cref="ColorBase"/> class.
         /// </summary>
         /// <param name="color">The color to use.</param>
-        protected ColorBase(IMagickColor color)
+        protected ColorBase(IMagickColor<QuantumType> color)
         {
             Color = color;
         }
@@ -31,7 +41,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the actual color of this instance.
         /// </summary>
-        protected IMagickColor Color { get; }
+        protected IMagickColor<QuantumType> Color { get; }
 
         /// <summary>
         /// Determines whether the specified <see cref="ColorBase"/> instances are considered equal.
@@ -173,10 +183,10 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Converts the value of this instance to an equivalent <see cref="IMagickColor"/>.
+        /// Converts the value of this instance to an equivalent <see cref="IMagickColor{QuantumType}"/>.
         /// </summary>
-        /// <returns>A <see cref="IMagickColor"/> instance.</returns>
-        public IMagickColor ToMagickColor()
+        /// <returns>A <see cref="IMagickColor{QuantumType}"/> instance.</returns>
+        public IMagickColor<QuantumType> ToMagickColor()
         {
             UpdateColor();
 

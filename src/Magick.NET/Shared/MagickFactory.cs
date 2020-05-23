@@ -13,12 +13,22 @@
 using System.Collections.Generic;
 using System.IO;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <summary>
     /// Class that can be used to create <see cref="IMagickImage"/>, <see cref="IMagickImageCollection"/> or <see cref="IMagickImageInfo"/> instances.
     /// </summary>
-    public sealed partial class MagickFactory : IMagickFactory
+    public sealed partial class MagickFactory : IMagickFactory<QuantumType>
     {
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImageCollection"/>.
@@ -221,7 +231,7 @@ namespace ImageMagick
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         /// <returns>A new <see cref="IMagickImage"/> instance.</returns>
-        public IMagickImage CreateImage(IMagickColor color, int width, int height) => new MagickImage(color, width, height);
+        public IMagickImage CreateImage(IMagickColor<QuantumType> color, int width, int height) => new MagickImage(color, width, height);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImage"/>.

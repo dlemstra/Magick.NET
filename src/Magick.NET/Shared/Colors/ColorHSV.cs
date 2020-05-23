@@ -12,6 +12,16 @@
 
 using System;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <summary>
@@ -33,7 +43,7 @@ namespace ImageMagick
             Value = value;
         }
 
-        private ColorHSV(IMagickColor color)
+        private ColorHSV(IMagickColor<QuantumType> color)
           : base(color)
         {
             Initialize(color.R, color.G, color.B);
@@ -62,11 +72,11 @@ namespace ImageMagick
         public static implicit operator ColorHSV(MagickColor color) => FromMagickColor(color);
 
         /// <summary>
-        /// Converts the specified <see cref="IMagickColor"/> to an instance of this type.
+        /// Converts the specified <see cref="IMagickColor{QuantumType}"/> to an instance of this type.
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>A <see cref="ColorHSV"/> instance.</returns>
-        public static ColorHSV FromMagickColor(IMagickColor color)
+        public static ColorHSV FromMagickColor(IMagickColor<QuantumType> color)
         {
             if (color == null)
                 return null;
