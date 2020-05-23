@@ -1,5 +1,6 @@
 ﻿{
   "dynamic": "NativeToManaged",
+  "interface":  true,
   "instance": false,
   "methods": [
     {

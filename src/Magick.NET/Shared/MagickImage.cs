@@ -2263,7 +2263,7 @@ namespace ImageMagick
         /// <param name="connectivity">How many neighbors to visit, choose from 4 or 8.</param>
         /// <returns>The connected-components of the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IEnumerable<ConnectedComponent> ConnectedComponents(int connectivity)
+        public IEnumerable<IConnectedComponent<QuantumType>> ConnectedComponents(int connectivity)
         {
             var settings = new ConnectedComponentsSettings
             {
@@ -2278,7 +2278,7 @@ namespace ImageMagick
         /// <param name="settings">The settings for this operation.</param>
         /// <returns>The connected-components of the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IEnumerable<ConnectedComponent> ConnectedComponents(ConnectedComponentsSettings settings)
+        public IEnumerable<IConnectedComponent<QuantumType>> ConnectedComponents(ConnectedComponentsSettings settings)
         {
             Throw.IfNull(nameof(settings), settings);
 

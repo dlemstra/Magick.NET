@@ -136,7 +136,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            private void AssertComponent(IMagickImage<QuantumType> image, ConnectedComponent component, int id, int x, int y, int width, int height, int area, IMagickColor<QuantumType> color, int centroidX, int centroidY)
+            private void AssertComponent(IMagickImage<QuantumType> image, IConnectedComponent<QuantumType> component, int id, int x, int y, int width, int height, int area, IMagickColor<QuantumType> color, int centroidX, int centroidY)
             {
                 var delta = 2;
 

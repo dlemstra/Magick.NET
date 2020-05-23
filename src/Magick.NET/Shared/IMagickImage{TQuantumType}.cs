@@ -1337,7 +1337,7 @@ namespace ImageMagick
         /// <param name="connectivity">How many neighbors to visit, choose from 4 or 8.</param>
         /// <returns>The connected-components of the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IEnumerable<ConnectedComponent> ConnectedComponents(int connectivity);
+        IEnumerable<IConnectedComponent<TQuantumType>> ConnectedComponents(int connectivity);
 
         /// <summary>
         /// Determines the connected-components of the image.
@@ -1345,7 +1345,7 @@ namespace ImageMagick
         /// <param name="settings">The settings for this operation.</param>
         /// <returns>The connected-components of the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IEnumerable<ConnectedComponent> ConnectedComponents(ConnectedComponentsSettings settings);
+        IEnumerable<IConnectedComponent<TQuantumType>> ConnectedComponents(ConnectedComponentsSettings settings);
 
         /// <summary>
         /// Contrast image (enhance intensity differences in image).

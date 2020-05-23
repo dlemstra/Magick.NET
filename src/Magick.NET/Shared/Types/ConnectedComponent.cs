@@ -29,7 +29,7 @@ namespace ImageMagick
     /// <summary>
     /// Encapsulation of the ImageMagick connected component object.
     /// </summary>
-    public sealed partial class ConnectedComponent
+    public sealed partial class ConnectedComponent : IConnectedComponent<QuantumType>
     {
         private ConnectedComponent(IntPtr instance)
         {
@@ -105,16 +105,16 @@ namespace ImageMagick
             return new MagickGeometry(X - extent, Y - extent, Width + extra, Height + extra);
         }
 
-        internal static IEnumerable<ConnectedComponent> Create(IntPtr list, int length)
+        internal static IEnumerable<IConnectedComponent<QuantumType>> Create(IntPtr list, int length)
         {
-            Collection<ConnectedComponent> result = new Collection<ConnectedComponent>();
+            var result = new Collection<IConnectedComponent<QuantumType>>();
 
             if (list == IntPtr.Zero)
                 return result;
 
             for (int i = 0; i < length; i++)
             {
-                IntPtr instance = NativeConnectedComponent.GetInstance(list, i);
+                var instance = NativeConnectedComponent.GetInstance(list, i);
                 if (instance == IntPtr.Zero)
                     continue;
 
