@@ -1,5 +1,6 @@
 ﻿{
   "dynamic": "NativeToManaged",
+  "interface": true,
   "noConstructor": true,
   "properties": [
     {

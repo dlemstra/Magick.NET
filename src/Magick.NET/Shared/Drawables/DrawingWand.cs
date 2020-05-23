@@ -95,7 +95,7 @@ namespace ImageMagick
 
         public void FontPointSize(double value) => _nativeInstance.FontPointSize(value);
 
-        public TypeMetric FontTypeMetrics(string text, bool ignoreNewlines)
+        public ITypeMetric FontTypeMetrics(string text, bool ignoreNewlines)
         {
             var result = _nativeInstance.FontTypeMetrics(text, ignoreNewlines);
             return TypeMetric.CreateInstance(result);

@@ -247,7 +247,7 @@ namespace ImageMagick
                 }
             }
         }
-        internal static TypeMetric CreateInstance(IntPtr instance)
+        internal static ITypeMetric CreateInstance(IntPtr instance)
         {
             if (instance == IntPtr.Zero)
                 return null;

@@ -1103,7 +1103,7 @@ namespace Magick.NET.Tests
             {
                 image.Settings.Font = "Arial";
                 image.Settings.FontPointsize = 15;
-                TypeMetric typeMetric = image.FontTypeMetrics("Magick.NET");
+                var typeMetric = image.FontTypeMetrics("Magick.NET");
                 Assert.IsNotNull(typeMetric);
                 Assert.AreEqual(14, typeMetric.Ascent);
                 Assert.AreEqual(-4, typeMetric.Descent);
