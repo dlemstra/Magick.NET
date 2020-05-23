@@ -134,7 +134,9 @@ namespace FileGenerator.Native
         private void WriteCreateInstance()
         {
             var name = Class.Name;
-            if (Class.HasInterface)
+            if (Class.IsQuantumType)
+                name = "I" + name + "<QuantumType>";
+            else if (Class.HasInterface)
                 name = "I" + name;
 
             if (Class.DynamicMode.HasFlag(DynamicMode.ManagedToNative))
@@ -142,7 +144,7 @@ namespace FileGenerator.Native
                 WriteLine("internal static INativeInstance CreateInstance(" + name + " instance)");
                 WriteStartColon();
                 WriteIf("instance == null", "return NativeInstance.Zero;");
-                if (Class.HasInterface)
+                if (Class.IsQuantumType || Class.HasInterface)
                     WriteLine("return " + Class.Name + ".CreateNativeInstance(instance);");
                 else
                     WriteLine("return instance.CreateNativeInstance();");
@@ -257,9 +259,7 @@ namespace FileGenerator.Native
             {
                 string arguments = GetArgumentsDeclaration(method.Arguments);
                 bool isStatic = Class.IsStatic || ((method.IsStatic && !method.Throws) && !method.CreatesInstance);
-                var typeName = method.ReturnType.Managed;
-                if (HasInterface(method.ReturnType))
-                    typeName = "I" + typeName;
+                string typeName = GetTypeName(method.ReturnType);
                 WriteLine("public " + (isStatic ? "static " : "") + typeName + " " + method.Name + "(" + arguments + ")");
 
                 WriteStartColon();
@@ -304,9 +304,7 @@ namespace FileGenerator.Native
                 if (Class.IsStatic)
                     Write("static ");
 
-                var typeName = property.Type.Managed;
-                if (HasInterface(property.Type))
-                    typeName = "I" + typeName;
+                var typeName = GetTypeName(property.Type);
 
                 WriteLine(typeName + " " + property.Name);
                 WriteStartColon();
@@ -471,6 +469,19 @@ namespace FileGenerator.Native
 
             if (IsDynamic(Class.Name))
                 WriteCreateInstance();
+        }
+
+        private string GetTypeName(MagickType type)
+        {
+            var typeName = type.Managed;
+
+            if (IsQuantumType(type))
+                return "I" + typeName + "<QuantumType>";
+
+            if (HasInterface(type))
+                typeName = "I" + typeName;
+
+            return typeName;
         }
     }
 }

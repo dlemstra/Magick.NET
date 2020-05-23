@@ -39,6 +39,8 @@ namespace FileGenerator.Native
                     return "out " + argument.Type.Native;
                 else if (argument.IsOut)
                     return "out " + argument.Type.Managed;
+                else if (IsQuantumType(argument.Type))
+                    return "I" + argument.Type.Managed + "<QuantumType>";
                 else if (HasInterface(argument.Type))
                     return "I" + argument.Type.Managed;
                 else
@@ -149,19 +151,16 @@ namespace FileGenerator.Native
         }
 
         protected bool HasInterface(MagickType type)
-        {
-            return _Classes.Any(c => c.Name == type.Managed && c.HasInterface);
-        }
+            => _Classes.Any(c => c.Name == type.Managed && c.HasInterface);
 
         protected bool IsDynamic(string typeName)
-        {
-            return _Classes.Any(c => c.Name == typeName && c.IsDynamic);
-        }
+            => _Classes.Any(c => c.Name == typeName && c.IsDynamic);
 
         protected bool IsDynamic(MagickType type)
-        {
-            return IsDynamic(type.Managed);
-        }
+            => IsDynamic(type.Managed);
+
+        protected bool IsQuantumType(MagickType type)
+            => _Classes.Any(c => c.Name == type.Managed && c.IsQuantumType);
 
         protected bool NeedsCreate(MagickType type)
         {
@@ -172,9 +171,7 @@ namespace FileGenerator.Native
         }
 
         protected static void RegisterClasses(IEnumerable<MagickClass> magickClasses)
-        {
-            _Classes = magickClasses.ToArray();
-        }
+            =>  _Classes = magickClasses.ToArray();
 
         protected void WriteCheckException(bool throws)
         {
@@ -188,9 +185,7 @@ namespace FileGenerator.Native
         }
 
         protected void WriteNativeIf(string action)
-        {
-            WriteNativeIfContent(action);
-        }
+            => WriteNativeIfContent(action);
 
         protected void WriteNativeIfContent(string action)
         {
@@ -212,9 +207,7 @@ namespace FileGenerator.Native
         }
 
         protected void WriteThrowStart()
-        {
-            WriteThrowStart(true);
-        }
+            => WriteThrowStart(true);
 
         protected void WriteThrowStart(bool throws)
         {
@@ -238,13 +231,16 @@ namespace FileGenerator.Native
 
         private bool UsesQuantumType()
         {
-            if (Class.Properties.Any(property => property.Type.IsQuantumType))
+            if (Class.Properties.Any(property => UsesQuantumType(property.Type)))
                 return true;
 
-            if (Class.Methods.Any(method => method.Arguments.Any(argument => argument.Type.IsQuantumType)))
+            if (Class.Methods.Any(method => UsesQuantumType(method.ReturnType) || method.Arguments.Any(argument => UsesQuantumType(argument.Type))))
                 return true;
 
             return false;
         }
+
+        private bool UsesQuantumType(MagickType type)
+            => type.IsQuantumType || IsQuantumType(type);
     }
 }

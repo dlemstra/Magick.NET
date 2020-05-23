@@ -1,6 +1,6 @@
 ﻿{
   "dynamic": "Both",
-  "interface": true,
+  "quantumType": true,
   "properties": [
     {
       "name": "Count",

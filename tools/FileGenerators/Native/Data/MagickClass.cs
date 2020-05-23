@@ -115,6 +115,13 @@ namespace FileGenerator.Native
             set;
         }
 
+        [DataMember(Name = "interface")]
+        public bool HasInterface
+        {
+            get;
+            set;
+        }
+
         [DataMember(Name = "noConstructor")]
         public bool HasNoConstructor
         {
@@ -143,6 +150,13 @@ namespace FileGenerator.Native
             {
                 return DynamicMode != DynamicMode.None;
             }
+        }
+
+        [DataMember(Name = "quantumType")]
+        public bool IsQuantumType
+        {
+            get;
+            set;
         }
 
         [DataMember(Name = "static")]
@@ -185,13 +199,6 @@ namespace FileGenerator.Native
 
                 return Enumerable.Empty<MagickProperty>();
             }
-        }
-
-        [DataMember(Name = "interface")]
-        public bool HasInterface
-        {
-            get;
-            set;
         }
     }
 }

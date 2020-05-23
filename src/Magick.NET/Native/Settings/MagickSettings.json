@@ -1,6 +1,6 @@
 ﻿{
   "dynamic": "ManagedToNative",
-  "interface": true,
+  "quantumType": true,
   "properties": [
     {
       "name": "AntiAlias",
