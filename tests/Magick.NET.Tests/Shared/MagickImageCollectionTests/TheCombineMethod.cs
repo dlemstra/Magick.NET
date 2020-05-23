@@ -26,7 +26,7 @@ namespace Magick.NET.Tests
             {
                 using (var rose = new MagickImage(Files.Builtin.Rose))
                 {
-                    using (IMagickImageCollection collection = new MagickImageCollection())
+                    using (var collection = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<InvalidOperationException>(() =>
                         {
@@ -41,7 +41,7 @@ namespace Magick.NET.Tests
             {
                 using (var rose = new MagickImage(Files.Builtin.Rose))
                 {
-                    using (IMagickImageCollection collection = new MagickImageCollection())
+                    using (var collection = new MagickImageCollection())
                     {
                         collection.AddRange(rose.Separate(Channels.RGB));
 
@@ -60,7 +60,7 @@ namespace Magick.NET.Tests
             {
                 using (var cmyk = new MagickImage(Files.CMYKJPG))
                 {
-                    using (IMagickImageCollection collection = new MagickImageCollection())
+                    using (var collection = new MagickImageCollection())
                     {
                         collection.AddRange(cmyk.Separate(Channels.CMYK));
 

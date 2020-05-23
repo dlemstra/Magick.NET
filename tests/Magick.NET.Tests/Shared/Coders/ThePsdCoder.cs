@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldReadTheProfileForAllLayers()
         {
-            using (IMagickImageCollection images = new MagickImageCollection(Files.Coders.LayerStylesSamplePSD))
+            using (var images = new MagickImageCollection(Files.Coders.LayerStylesSamplePSD))
             {
                 Assert.AreEqual(4, images.Count);
 

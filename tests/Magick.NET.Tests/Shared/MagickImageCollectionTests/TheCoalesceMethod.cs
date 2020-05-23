@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenCollectionIsEmpty()
             {
-                using (IMagickImageCollection images = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
                     ExceptionAssert.Throws<InvalidOperationException>(() =>
                     {
@@ -36,7 +36,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldMergeTheImages()
             {
-                using (IMagickImageCollection collection = new MagickImageCollection())
+                using (var collection = new MagickImageCollection())
                 {
                     collection.Read(Files.RoseSparkleGIF);
 

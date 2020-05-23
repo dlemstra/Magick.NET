@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenItemIsNull()
             {
-                using (IMagickImageCollection images = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("item", () =>
                     {
@@ -48,9 +48,9 @@ namespace Magick.NET.Tests
             {
                 ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
-                        images.Add(null);
+                        images.Add((string)null);
                     }
                 });
             }
@@ -60,7 +60,7 @@ namespace Magick.NET.Tests
             {
                 ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         images.Add(string.Empty);
                     }
@@ -70,7 +70,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenCollectionAlreadyContainsItem()
             {
-                using (IMagickImageCollection images = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
                     var image = new MagickImage();
                     images.Add(image);

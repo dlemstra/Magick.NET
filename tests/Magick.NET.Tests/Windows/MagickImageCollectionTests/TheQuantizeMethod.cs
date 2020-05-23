@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReduceTheColors()
             {
-                using (IMagickImageCollection collection = new MagickImageCollection())
+                using (var collection = new MagickImageCollection())
                 {
                     collection.Add(Files.FujiFilmFinePixS1ProJPG);
 
@@ -52,7 +52,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnErrorInfoWhenMeasureErrorsIsTrue()
             {
-                using (IMagickImageCollection collection = new MagickImageCollection())
+                using (var collection = new MagickImageCollection())
                 {
                     collection.Add(Files.FujiFilmFinePixS1ProJPG);
 

@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenCollectionIsEmpty()
             {
-                using (IMagickImageCollection images = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
                     ExceptionAssert.Throws<InvalidOperationException>(() => images.OptimizePlus());
                 }
@@ -43,7 +43,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldRemoveDuplicateImages()
             {
-                using (IMagickImageCollection collection = new MagickImageCollection())
+                using (var collection = new MagickImageCollection())
                 {
                     collection.Add(new MagickImage(MagickColors.Red, 11, 11));
                     /* The second image will not be removed if it is a duplicate so we need to add an extra one. */

@@ -112,7 +112,7 @@ namespace ImageMagick.ImageOptimizers
             bool isCompressed = false;
             long startPosition = stream.Position;
 
-            using (IMagickImageCollection images = new MagickImageCollection(stream))
+            using (var images = new MagickImageCollection(stream))
             {
                 if (images.Count == 1)
                     isCompressed = DoLosslessCompress(images[0], stream, startPosition);
@@ -125,7 +125,7 @@ namespace ImageMagick.ImageOptimizers
 
         private static bool DoLosslessCompress(FileInfo file)
         {
-            using (IMagickImageCollection images = new MagickImageCollection(file))
+            using (var images = new MagickImageCollection(file))
             {
                 if (images.Count == 1)
                     return DoLosslessCompress(file, images[0]);

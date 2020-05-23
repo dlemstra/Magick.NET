@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnBitmap()
             {
-                using (IMagickImageCollection images = new MagickImageCollection(Files.RoseSparkleGIF))
+                using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
                 {
                     Assert.AreEqual(3, images.Count);
 
@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldUseOptimizationForSingleImage()
             {
-                using (IMagickImageCollection images = new MagickImageCollection(Files.RoseSparkleGIF))
+                using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
                 {
                     images.RemoveAt(0);
                     images.RemoveAt(0);

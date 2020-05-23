@@ -24,14 +24,14 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldDitherWhenSpecifiedInSettings()
             {
-                using (IMagickImageCollection colors = new MagickImageCollection())
+                using (var colors = new MagickImageCollection())
                 {
                     colors.Add(new MagickImage(MagickColors.Red, 1, 1));
                     colors.Add(new MagickImage(MagickColors.Green, 1, 1));
 
                     using (var remapImage = colors.AppendHorizontally())
                     {
-                        using (IMagickImageCollection collection = new MagickImageCollection())
+                        using (var collection = new MagickImageCollection())
                         {
                             collection.Read(Files.RoseSparkleGIF);
 

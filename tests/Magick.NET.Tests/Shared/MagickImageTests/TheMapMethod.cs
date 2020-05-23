@@ -107,7 +107,7 @@ namespace Magick.NET.Tests
 
             private IMagickImage<QuantumType> CreatePalleteImage()
             {
-                using (IMagickImageCollection images = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
                     images.Add(new MagickImage(MagickColors.Red, 1, 1));
                     images.Add(new MagickImage(MagickColors.Blue, 1, 1));

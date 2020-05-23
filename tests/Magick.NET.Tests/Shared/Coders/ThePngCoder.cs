@@ -107,7 +107,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldSetTheAnimationProperties()
         {
-            using (IMagickImageCollection images = new MagickImageCollection(Files.Coders.TestMNG))
+            using (var images = new MagickImageCollection(Files.Coders.TestMNG))
             {
                 Assert.AreEqual(8, images.Count);
 

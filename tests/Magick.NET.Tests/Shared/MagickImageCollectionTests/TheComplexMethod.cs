@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenCollectionIsEmpty()
             {
-                using (IMagickImageCollection images = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
                     ExceptionAssert.Throws<InvalidOperationException>(() => images.Complex(new ComplexSettings()));
                 }
@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenSettingsIsNull()
             {
-                using (IMagickImageCollection images = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("complexSettings", () => images.Complex(null));
                 }
@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldApplyTheOperatorToTheImages()
             {
-                using (IMagickImageCollection collection = new MagickImageCollection())
+                using (var collection = new MagickImageCollection())
                 {
                     collection.Read(Files.RoseSparkleGIF);
 

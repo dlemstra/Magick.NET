@@ -76,7 +76,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(expectedLength, actualLength);
             }
 
-            private static void WriteAndCheckProfile(IMagickImageCollection images, PsdWriteDefines defines, int expectedLength)
+            private static void WriteAndCheckProfile(IMagickImageCollection<QuantumType> images, PsdWriteDefines defines, int expectedLength)
             {
                 using (var memStream = new MemoryStream())
                 {

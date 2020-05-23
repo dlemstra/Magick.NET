@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenCollectionIsEmpty()
             {
-                using (IMagickImageCollection images = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
                     ExceptionAssert.Throws<InvalidOperationException>(() =>
                     {
@@ -36,14 +36,14 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenCollectionIsEmptyAndImageIsNotNull()
             {
-                using (IMagickImageCollection colors = new MagickImageCollection())
+                using (var colors = new MagickImageCollection())
                 {
                     colors.Add(new MagickImage(MagickColors.Red, 1, 1));
                     colors.Add(new MagickImage(MagickColors.Green, 1, 1));
 
                     using (var remapImage = colors.AppendHorizontally())
                     {
-                        using (IMagickImageCollection collection = new MagickImageCollection())
+                        using (var collection = new MagickImageCollection())
                         {
                             ExceptionAssert.Throws<InvalidOperationException>(() =>
                             {
@@ -57,7 +57,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenImageIsNull()
             {
-                using (IMagickImageCollection images = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
                     images.Read(Files.RoseSparkleGIF);
 
@@ -71,7 +71,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenSettingsIsNull()
             {
-                using (IMagickImageCollection images = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
                     images.Read(Files.RoseSparkleGIF);
 

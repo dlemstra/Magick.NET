@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
                     },
                 };
 
-                using (IMagickImageCollection images = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
                     images.Read(Files.Coders.TestDDS, settings);
 
@@ -52,7 +52,7 @@ namespace Magick.NET.Tests
                     },
                 };
 
-                using (IMagickImageCollection images = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
                     images.Read(Files.Coders.TestDDS, settings);
 

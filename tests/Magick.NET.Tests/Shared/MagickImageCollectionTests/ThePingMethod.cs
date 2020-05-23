@@ -29,7 +29,7 @@ namespace Magick.NET.Tests
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                     {
-                        using (IMagickImageCollection images = new MagickImageCollection())
+                        using (var images = new MagickImageCollection())
                         {
                             images.Ping((byte[])null);
                         }
@@ -41,7 +41,7 @@ namespace Magick.NET.Tests
                 {
                     ExceptionAssert.Throws<ArgumentException>("data", () =>
                     {
-                        using (IMagickImageCollection images = new MagickImageCollection())
+                        using (var images = new MagickImageCollection())
                         {
                             images.Ping(new byte[0]);
                         }
@@ -58,7 +58,7 @@ namespace Magick.NET.Tests
 
                     var bytes = File.ReadAllBytes(Files.CirclePNG);
 
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         images.Ping(bytes, readSettings);
 
@@ -75,7 +75,7 @@ namespace Magick.NET.Tests
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                     {
-                        using (IMagickImageCollection images = new MagickImageCollection())
+                        using (var images = new MagickImageCollection())
                         {
                             images.Ping((byte[])null, 0, 0);
                         }
@@ -87,7 +87,7 @@ namespace Magick.NET.Tests
                 {
                     ExceptionAssert.Throws<ArgumentException>("data", () =>
                     {
-                        using (IMagickImageCollection images = new MagickImageCollection())
+                        using (var images = new MagickImageCollection())
                         {
                             images.Ping(new byte[] { }, 0, 0);
                         }
@@ -99,7 +99,7 @@ namespace Magick.NET.Tests
                 {
                     ExceptionAssert.Throws<ArgumentException>("offset", () =>
                     {
-                        using (IMagickImageCollection images = new MagickImageCollection())
+                        using (var images = new MagickImageCollection())
                         {
                             images.Ping(new byte[] { 215 }, -1, 0);
                         }
@@ -111,7 +111,7 @@ namespace Magick.NET.Tests
                 {
                     ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
-                        using (IMagickImageCollection images = new MagickImageCollection())
+                        using (var images = new MagickImageCollection())
                         {
                             images.Ping(new byte[] { 215 }, 0, 0);
                         }
@@ -123,7 +123,7 @@ namespace Magick.NET.Tests
                 {
                     ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
-                        using (IMagickImageCollection images = new MagickImageCollection())
+                        using (var images = new MagickImageCollection())
                         {
                             images.Ping(new byte[] { 215 }, 0, -1);
                         }
@@ -133,7 +133,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldPingImage()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         var fileBytes = File.ReadAllBytes(Files.SnakewarePNG);
                         var bytes = new byte[fileBytes.Length + 10];
@@ -155,7 +155,7 @@ namespace Magick.NET.Tests
                     {
                         var settings = new MagickReadSettings();
 
-                        using (IMagickImageCollection images = new MagickImageCollection())
+                        using (var images = new MagickImageCollection())
                         {
                             images.Ping(null, 0, 0, settings);
                         }
@@ -169,7 +169,7 @@ namespace Magick.NET.Tests
                     {
                         var settings = new MagickReadSettings();
 
-                        using (IMagickImageCollection images = new MagickImageCollection())
+                        using (var images = new MagickImageCollection())
                         {
                             images.Ping(new byte[] { }, 0, 0, settings);
                         }
@@ -183,7 +183,7 @@ namespace Magick.NET.Tests
                     {
                         var settings = new MagickReadSettings();
 
-                        using (IMagickImageCollection images = new MagickImageCollection())
+                        using (var images = new MagickImageCollection())
                         {
                             images.Ping(new byte[] { 215 }, -1, 0, settings);
                         }
@@ -197,7 +197,7 @@ namespace Magick.NET.Tests
                     {
                         var settings = new MagickReadSettings();
 
-                        using (IMagickImageCollection images = new MagickImageCollection())
+                        using (var images = new MagickImageCollection())
                         {
                             images.Ping(new byte[] { 215 }, 0, 0, settings);
                         }
@@ -211,7 +211,7 @@ namespace Magick.NET.Tests
                     {
                         var settings = new MagickReadSettings();
 
-                        using (IMagickImageCollection images = new MagickImageCollection())
+                        using (var images = new MagickImageCollection())
                         {
                             images.Ping(new byte[] { 215 }, 0, -1, settings);
                         }
@@ -227,7 +227,7 @@ namespace Magick.NET.Tests
                     var bytes = new byte[fileBytes.Length + 10];
                     fileBytes.CopyTo(bytes, 10);
 
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         images.Ping(bytes, 10, bytes.Length - 10, settings);
                         Assert.AreEqual(1, images.Count);
@@ -239,7 +239,7 @@ namespace Magick.NET.Tests
                 {
                     var bytes = File.ReadAllBytes(Files.CirclePNG);
 
-                    using (IMagickImageCollection image = new MagickImageCollection())
+                    using (var image = new MagickImageCollection())
                     {
                         image.Ping(bytes, 0, bytes.Length, null);
                     }
@@ -254,7 +254,7 @@ namespace Magick.NET.Tests
                 {
                     var bytes = File.ReadAllBytes(Files.SnakewarePNG);
 
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         images.Ping(bytes, null);
 
@@ -271,7 +271,7 @@ namespace Magick.NET.Tests
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("file", () =>
                     {
-                        using (IMagickImageCollection images = new MagickImageCollection())
+                        using (var images = new MagickImageCollection())
                         {
                             images.Ping((FileInfo)null);
                         }
@@ -287,7 +287,7 @@ namespace Magick.NET.Tests
                 {
                     var file = new FileInfo(Files.SnakewarePNG);
 
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         images.Ping(file, null);
 
@@ -304,7 +304,7 @@ namespace Magick.NET.Tests
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                     {
-                        using (IMagickImageCollection images = new MagickImageCollection())
+                        using (var images = new MagickImageCollection())
                         {
                             images.Ping((string)null);
                         }
@@ -316,7 +316,7 @@ namespace Magick.NET.Tests
                 {
                     ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                     {
-                        using (IMagickImageCollection images = new MagickImageCollection())
+                        using (var images = new MagickImageCollection())
                         {
                             images.Ping(string.Empty);
                         }
@@ -328,7 +328,7 @@ namespace Magick.NET.Tests
                 {
                     ExceptionAssert.Throws<MagickBlobErrorException>(() =>
                     {
-                        using (IMagickImageCollection images = new MagickImageCollection())
+                        using (var images = new MagickImageCollection())
                         {
                             images.Ping(Files.Missing);
                         }
@@ -343,7 +343,7 @@ namespace Magick.NET.Tests
                         Format = MagickFormat.Png,
                     };
 
-                    using (IMagickImageCollection input = new MagickImageCollection())
+                    using (var input = new MagickImageCollection())
                     {
                         input.Ping(Files.CirclePNG, readSettings);
 
@@ -358,7 +358,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenFileNameSettingsIsNull()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         images.Ping(Files.SnakewarePNG, null);
 
@@ -375,7 +375,7 @@ namespace Magick.NET.Tests
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
                     {
-                        using (IMagickImageCollection images = new MagickImageCollection())
+                        using (var images = new MagickImageCollection())
                         {
                             images.Ping((Stream)null);
                         }
@@ -392,7 +392,7 @@ namespace Magick.NET.Tests
 
                     using (var stream = File.OpenRead(Files.CirclePNG))
                     {
-                        using (IMagickImageCollection input = new MagickImageCollection())
+                        using (var input = new MagickImageCollection())
                         {
                             input.Ping(stream, readSettings);
 
@@ -410,7 +410,7 @@ namespace Magick.NET.Tests
                 {
                     using (var stream = File.OpenRead(Files.SnakewarePNG))
                     {
-                        using (IMagickImageCollection images = new MagickImageCollection())
+                        using (var images = new MagickImageCollection())
                         {
                             images.Ping(stream, null);
 

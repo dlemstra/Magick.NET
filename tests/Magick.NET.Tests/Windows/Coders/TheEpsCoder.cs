@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldReadTwoImages()
         {
-            using (IMagickImageCollection images = new MagickImageCollection(Files.Coders.SwedenHeartEPS))
+            using (var images = new MagickImageCollection(Files.Coders.SwedenHeartEPS))
             {
                 Assert.AreEqual(2, images.Count);
 
@@ -41,7 +41,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldReadClipPathsInTiffPreview()
         {
-            using (IMagickImageCollection images = new MagickImageCollection(Files.Coders.SwedenHeartEPS))
+            using (var images = new MagickImageCollection(Files.Coders.SwedenHeartEPS))
             {
                 var profile = images[1].Get8BimProfile();
 

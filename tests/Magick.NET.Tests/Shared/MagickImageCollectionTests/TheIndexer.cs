@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenValueIsNull()
             {
-                using (IMagickImageCollection images = new MagickImageCollection(Files.CirclePNG))
+                using (var images = new MagickImageCollection(Files.CirclePNG))
                 {
                     ExceptionAssert.Throws<InvalidOperationException>(() =>
                     {
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
                 var imageA = new MagickImage();
                 var imageB = new MagickImage();
 
-                using (IMagickImageCollection images = new MagickImageCollection(new[] { imageA, imageB }))
+                using (var images = new MagickImageCollection(new[] { imageA, imageB }))
                 {
                     ExceptionAssert.Throws<InvalidOperationException>(() =>
                     {
@@ -53,7 +53,7 @@ namespace Magick.NET.Tests
             {
                 var image = new MagickImage();
 
-                using (IMagickImageCollection images = new MagickImageCollection(new[] { image }))
+                using (var images = new MagickImageCollection(new[] { image }))
                 {
                     images[0] = image;
                 }

@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenCollectionIsEmpty()
             {
-                using (IMagickImageCollection images = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
                     ExceptionAssert.Throws<InvalidOperationException>(() =>
                     {
@@ -36,7 +36,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldUseImageBackground()
             {
-                using (IMagickImageCollection images = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
                     var image = new MagickImage(MagickColors.Red, 10, 10);
                     image.Extent(110, 110, Gravity.Center, MagickColors.None);
@@ -54,7 +54,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldUseSpecifiedBackground()
             {
-                using (IMagickImageCollection images = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
                     var image = new MagickImage(MagickColors.Red, 10, 10);
                     image.Extent(110, 110, Gravity.Center, MagickColors.None);

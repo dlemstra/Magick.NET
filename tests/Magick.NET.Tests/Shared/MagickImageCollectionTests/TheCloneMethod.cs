@@ -23,9 +23,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnEmptyCollectionWhenCollectionIsEmpty()
             {
-                using (IMagickImageCollection images = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
-                    using (IMagickImageCollection clones = images.Clone())
+                    using (var clones = images.Clone())
                     {
                         Assert.AreEqual(0, clones.Count);
                     }
@@ -35,13 +35,13 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldCloneTheImagesInTheCollection()
             {
-                using (IMagickImageCollection images = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
                     images.Add(Files.Builtin.Logo);
                     images.Add(Files.Builtin.Rose);
                     images.Add(Files.Builtin.Wizard);
 
-                    using (IMagickImageCollection clones = images.Clone())
+                    using (var clones = images.Clone())
                     {
                         Assert.IsFalse(ReferenceEquals(images[0], clones[0]));
                         Assert.IsFalse(ReferenceEquals(images[1], clones[1]));

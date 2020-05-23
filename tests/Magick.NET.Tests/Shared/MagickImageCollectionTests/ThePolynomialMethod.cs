@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenCollectionIsEmpty()
             {
-                using (IMagickImageCollection images = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
                     ExceptionAssert.Throws<InvalidOperationException>(() =>
                     {
@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenTermsIsNull()
             {
-                using (IMagickImageCollection images = new MagickImageCollection(Files.Builtin.Logo))
+                using (var images = new MagickImageCollection(Files.Builtin.Logo))
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("terms", () =>
                     {
@@ -49,7 +49,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenTermsIsEmpty()
             {
-                using (IMagickImageCollection images = new MagickImageCollection(Files.Builtin.Logo))
+                using (var images = new MagickImageCollection(Files.Builtin.Logo))
                 {
                     ExceptionAssert.Throws<ArgumentException>("terms", () =>
                     {
@@ -65,7 +65,7 @@ namespace Magick.NET.Tests
                 {
                     var channels = image.Separate();
 
-                    using (IMagickImageCollection images = new MagickImageCollection(channels))
+                    using (var images = new MagickImageCollection(channels))
                     {
                         var terms = new double[] { 0.30, 1, 0.59, 1, 0.11, 1 };
 

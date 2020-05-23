@@ -480,7 +480,7 @@ namespace Magick.NET.Tests
             }
         }
 
-        private static void Test_Ping(IMagickImageCollection collection)
+        private static void Test_Ping(IMagickImageCollection<QuantumType> collection)
         {
             Assert.AreEqual(1, collection.Count);
 
@@ -493,7 +493,7 @@ namespace Magick.NET.Tests
             Assert.IsNotNull(profile);
         }
 
-        private static void Test_Read(IMagickImageCollection collection)
+        private static void Test_Read(IMagickImageCollection<QuantumType> collection)
         {
             Assert.AreEqual(3, collection.Count);
             foreach (var image in collection)

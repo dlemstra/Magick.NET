@@ -4021,7 +4021,7 @@ namespace ImageMagick
             if (colorList.Count == 0)
                 throw new ArgumentException("Value cannot be empty.", nameof(colors));
 
-            using (IMagickImageCollection images = new MagickImageCollection())
+            using (var images = new MagickImageCollection())
             {
                 foreach (var color in colorList)
                     images.Add(new MagickImage(color, 1, 1));

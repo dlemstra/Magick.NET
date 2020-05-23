@@ -63,7 +63,7 @@ namespace Magick.NET.Tests
 
                     var bytes = File.ReadAllBytes(Files.CirclePNG);
 
-                    using (IMagickImageCollection input = new MagickImageCollection(bytes, readSettings))
+                    using (var input = new MagickImageCollection(bytes, readSettings))
                     {
                         Assert.AreEqual(MagickFormat.Unknown, input[0].Settings.Format);
                     }
@@ -125,7 +125,7 @@ namespace Magick.NET.Tests
                     var bytes = new byte[fileBytes.Length + 10];
                     fileBytes.CopyTo(bytes, 10);
 
-                    using (IMagickImageCollection images = new MagickImageCollection(bytes, 10, bytes.Length - 10))
+                    using (var images = new MagickImageCollection(bytes, 10, bytes.Length - 10))
                     {
                         Assert.AreEqual(1, images.Count);
                     }
@@ -176,7 +176,7 @@ namespace Magick.NET.Tests
                 {
                     ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
-                        using (IMagickImageCollection images = new MagickImageCollection(new byte[] { 215 }, 0, -1, MagickFormat.Png))
+                        using (var images = new MagickImageCollection(new byte[] { 215 }, 0, -1, MagickFormat.Png))
                         {
                         }
                     });
@@ -189,7 +189,7 @@ namespace Magick.NET.Tests
                     var bytes = new byte[fileBytes.Length + 10];
                     fileBytes.CopyTo(bytes, 10);
 
-                    using (IMagickImageCollection images = new MagickImageCollection(bytes, 10, bytes.Length - 10, MagickFormat.Png))
+                    using (var images = new MagickImageCollection(bytes, 10, bytes.Length - 10, MagickFormat.Png))
                     {
                         Assert.AreEqual(1, images.Count);
                     }
@@ -250,7 +250,7 @@ namespace Magick.NET.Tests
 
                     ExceptionAssert.Throws<ArgumentException>("count", () =>
                     {
-                        using (IMagickImageCollection images = new MagickImageCollection(new byte[] { 215 }, 0, -1, settings))
+                        using (var images = new MagickImageCollection(new byte[] { 215 }, 0, -1, settings))
                         {
                         }
                     });
@@ -265,7 +265,7 @@ namespace Magick.NET.Tests
                     var bytes = new byte[fileBytes.Length + 10];
                     fileBytes.CopyTo(bytes, 10);
 
-                    using (IMagickImageCollection images = new MagickImageCollection(bytes, 10, bytes.Length - 10, settings))
+                    using (var images = new MagickImageCollection(bytes, 10, bytes.Length - 10, settings))
                     {
                         Assert.AreEqual(1, images.Count);
                     }
@@ -276,7 +276,7 @@ namespace Magick.NET.Tests
                 {
                     var bytes = File.ReadAllBytes(Files.CirclePNG);
 
-                    using (IMagickImageCollection image = new MagickImageCollection(bytes, 0, bytes.Length, null))
+                    using (var image = new MagickImageCollection(bytes, 0, bytes.Length, null))
                     {
                     }
                 }
@@ -290,7 +290,7 @@ namespace Magick.NET.Tests
                 {
                     var bytes = File.ReadAllBytes(Files.SnakewarePNG);
 
-                    using (IMagickImageCollection images = new MagickImageCollection(bytes, null))
+                    using (var images = new MagickImageCollection(bytes, null))
                     {
                         Assert.AreEqual(1, images.Count);
                     }
@@ -342,7 +342,7 @@ namespace Magick.NET.Tests
                 {
                     var file = new FileInfo(Files.SnakewarePNG);
 
-                    using (IMagickImageCollection images = new MagickImageCollection(file, null))
+                    using (var images = new MagickImageCollection(file, null))
                     {
                         Assert.AreEqual(1, images.Count);
                     }
@@ -387,7 +387,7 @@ namespace Magick.NET.Tests
                         Format = MagickFormat.Png,
                     };
 
-                    using (IMagickImageCollection input = new MagickImageCollection(Files.CirclePNG, readSettings))
+                    using (var input = new MagickImageCollection(Files.CirclePNG, readSettings))
                     {
                         Assert.AreEqual(MagickFormat.Unknown, input[0].Settings.Format);
                     }
@@ -444,7 +444,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenFileNameSettingsIsNull()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection(Files.SnakewarePNG, null))
+                    using (var images = new MagickImageCollection(Files.SnakewarePNG, null))
                     {
                         Assert.AreEqual(1, images.Count);
                     }
@@ -492,7 +492,7 @@ namespace Magick.NET.Tests
 
                     var list = new List<IMagickImage<QuantumType>> { image };
 
-                    using (IMagickImageCollection images = new MagickImageCollection(list))
+                    using (var images = new MagickImageCollection(list))
                     {
                         Assert.IsTrue(ReferenceEquals(image, list[0]));
                     }
@@ -521,7 +521,7 @@ namespace Magick.NET.Tests
 
                     using (var stream = File.OpenRead(Files.CirclePNG))
                     {
-                        using (IMagickImageCollection input = new MagickImageCollection(stream, readSettings))
+                        using (var input = new MagickImageCollection(stream, readSettings))
                         {
                             Assert.AreEqual(MagickFormat.Unknown, input[0].Settings.Format);
                         }
@@ -581,7 +581,7 @@ namespace Magick.NET.Tests
                 {
                     using (var stream = File.OpenRead(Files.SnakewarePNG))
                     {
-                        using (IMagickImageCollection images = new MagickImageCollection(stream, null))
+                        using (var images = new MagickImageCollection(stream, null))
                         {
                             Assert.AreEqual(1, images.Count);
                         }

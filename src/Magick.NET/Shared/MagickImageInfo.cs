@@ -147,7 +147,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public static IEnumerable<IMagickImageInfo> ReadCollection(byte[] data)
         {
-            using (IMagickImageCollection images = new MagickImageCollection())
+            using (var images = new MagickImageCollection())
             {
                 images.Ping(data);
                 foreach (var image in images)

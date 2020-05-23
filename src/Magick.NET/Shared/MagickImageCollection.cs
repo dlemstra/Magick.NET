@@ -31,7 +31,7 @@ namespace ImageMagick
     /// <summary>
     /// Represents the collection of images.
     /// </summary>
-    public sealed partial class MagickImageCollection : IMagickImageCollection
+    public sealed partial class MagickImageCollection : IMagickImageCollection<QuantumType>
     {
         private readonly List<IMagickImage<QuantumType>> _images;
         private readonly NativeMagickImageCollection _nativeInstance;
@@ -424,7 +424,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>A clone of the current image collection.</returns>
         [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The collection takes ownership of the images.")]
-        public IMagickImageCollection Clone()
+        public IMagickImageCollection<QuantumType> Clone()
         {
             var result = new MagickImageCollection();
             foreach (var image in this)
@@ -721,7 +721,7 @@ namespace ImageMagick
                 DetachImages();
             }
 
-            using (IMagickImageCollection collection = new MagickImageCollection())
+            using (var collection = new MagickImageCollection())
             {
                 collection.AddRange(MagickImage.CreateList(images, _images[0].GetSettings()));
                 if (settings.TransparentColor != null)

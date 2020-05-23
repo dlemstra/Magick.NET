@@ -21,7 +21,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ShouldReturnTheCorrectNumberOfAnimationIterations()
         {
-            using (IMagickImageCollection images = new MagickImageCollection())
+            using (var images = new MagickImageCollection())
             {
                 images.Add(new MagickImage(MagickColors.Red, 1, 1));
                 images.Add(new MagickImage(MagickColors.Green, 1, 1));

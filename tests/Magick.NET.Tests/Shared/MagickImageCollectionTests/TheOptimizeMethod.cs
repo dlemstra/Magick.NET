@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenCollectionIsEmpty()
             {
-                using (IMagickImageCollection images = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
                     ExceptionAssert.Throws<InvalidOperationException>(() => images.Optimize());
                 }
@@ -43,7 +43,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldCorrectlyOptimizeTheImages()
             {
-                using (IMagickImageCollection collection = new MagickImageCollection())
+                using (var collection = new MagickImageCollection())
                 {
                     collection.Add(new MagickImage(MagickColors.Red, 11, 11));
 
@@ -67,7 +67,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldCorrectlyOptimizeDuplicateFrames()
             {
-                using (IMagickImageCollection images = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
                     images.Add(new MagickImage("xc:red", 2, 2));
                     images.Add(new MagickImage("xc:red", 2, 2));

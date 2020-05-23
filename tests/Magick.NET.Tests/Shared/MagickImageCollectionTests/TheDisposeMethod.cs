@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             {
                 var image = new MagickImage(MagickColors.Red, 10, 10);
 
-                IMagickImageCollection collection = new MagickImageCollection
+                var collection = new MagickImageCollection
                 {
                     image,
                 };

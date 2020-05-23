@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                         {
@@ -40,7 +40,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentException>("data", () =>
                         {
@@ -59,7 +59,7 @@ namespace Magick.NET.Tests
 
                     var bytes = File.ReadAllBytes(Files.CirclePNG);
 
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         images.Read(bytes, readSettings);
 
@@ -74,7 +74,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                         {
@@ -86,7 +86,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentException>("data", () =>
                         {
@@ -98,7 +98,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenOffsetIsNegative()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentException>("offset", () =>
                         {
@@ -110,7 +110,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsZero()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentException>("count", () =>
                         {
@@ -122,7 +122,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsNegative()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentException>("count", () =>
                         {
@@ -134,7 +134,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldReadImage()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         var fileBytes = File.ReadAllBytes(Files.SnakewarePNG);
                         var bytes = new byte[fileBytes.Length + 10];
@@ -152,7 +152,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                         {
@@ -164,7 +164,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentException>("data", () =>
                         {
@@ -176,7 +176,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenOffsetIsNegative()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentException>("offset", () =>
                         {
@@ -188,7 +188,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsZero()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentException>("count", () =>
                         {
@@ -200,7 +200,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenCountIsNegative()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentException>("count", () =>
                         {
@@ -216,7 +216,7 @@ namespace Magick.NET.Tests
                     var bytes = new byte[fileBytes.Length + 10];
                     fileBytes.CopyTo(bytes, 10);
 
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         images.Read(bytes, 10, bytes.Length - 10, MagickFormat.Png);
                         Assert.AreEqual(1, images.Count);
@@ -232,7 +232,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new MagickReadSettings();
 
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                         {
@@ -246,7 +246,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new MagickReadSettings();
 
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentException>("data", () =>
                         {
@@ -260,7 +260,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new MagickReadSettings();
 
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentException>("offset", () =>
                         {
@@ -274,7 +274,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new MagickReadSettings();
 
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentException>("count", () =>
                         {
@@ -288,7 +288,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new MagickReadSettings();
 
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentException>("count", () =>
                         {
@@ -306,7 +306,7 @@ namespace Magick.NET.Tests
                     var bytes = new byte[fileBytes.Length + 10];
                     fileBytes.CopyTo(bytes, 10);
 
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         images.Read(bytes, 10, bytes.Length - 10, settings);
                         Assert.AreEqual(1, images.Count);
@@ -318,7 +318,7 @@ namespace Magick.NET.Tests
                 {
                     var bytes = File.ReadAllBytes(Files.CirclePNG);
 
-                    using (IMagickImageCollection image = new MagickImageCollection())
+                    using (var image = new MagickImageCollection())
                     {
                         image.Read(bytes, 0, bytes.Length, null);
                     }
@@ -331,7 +331,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("data", () =>
                         {
@@ -343,7 +343,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentException>("data", () =>
                         {
@@ -357,7 +357,7 @@ namespace Magick.NET.Tests
                 {
                     var bytes = Encoding.ASCII.GetBytes("%PDF-");
 
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<MagickCorruptImageErrorException>(() =>
                         {
@@ -373,7 +373,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         var settings = new MagickReadSettings();
 
@@ -387,7 +387,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         var settings = new MagickReadSettings();
 
@@ -407,7 +407,7 @@ namespace Magick.NET.Tests
                         Format = MagickFormat.Png,
                     };
 
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<MagickCorruptImageErrorException>(() =>
                         {
@@ -421,7 +421,7 @@ namespace Magick.NET.Tests
                 {
                     var bytes = File.ReadAllBytes(Files.SnakewarePNG);
 
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         images.Read(bytes, null);
 
@@ -436,7 +436,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileInfoIsNull()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("file", () =>
                         {
@@ -451,7 +451,7 @@ namespace Magick.NET.Tests
                     [TestMethod]
                     public void ShouldThrowExceptionWhenFileInfoIsNull()
                     {
-                        using (IMagickImageCollection images = new MagickImageCollection())
+                        using (var images = new MagickImageCollection())
                         {
                             ExceptionAssert.Throws<ArgumentNullException>("file", () =>
                             {
@@ -465,7 +465,7 @@ namespace Magick.NET.Tests
                     {
                         var file = new FileInfo(Files.SnakewarePNG);
 
-                        using (IMagickImageCollection images = new MagickImageCollection())
+                        using (var images = new MagickImageCollection())
                         {
                             images.Read(file, null);
 
@@ -481,7 +481,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileInfoIsNull()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         var settings = new MagickReadSettings();
 
@@ -497,7 +497,7 @@ namespace Magick.NET.Tests
                 {
                     var file = new FileInfo(Files.SnakewarePNG);
 
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         images.Read(file, null);
 
@@ -512,7 +512,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsNull()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                         {
@@ -524,7 +524,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsEmpty()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                         {
@@ -536,7 +536,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsInvalid()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<MagickBlobErrorException>(() =>
                         {
@@ -553,7 +553,7 @@ namespace Magick.NET.Tests
                         Format = MagickFormat.Png,
                     };
 
-                    using (IMagickImageCollection input = new MagickImageCollection())
+                    using (var input = new MagickImageCollection())
                     {
                         input.Read(Files.CirclePNG, readSettings);
 
@@ -568,7 +568,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsNull()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                         {
@@ -580,7 +580,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenFileNameIsEmpty()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                         {
@@ -598,7 +598,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new MagickReadSettings();
 
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
                         {
@@ -612,7 +612,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new MagickReadSettings();
 
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentException>("fileName", () =>
                         {
@@ -624,7 +624,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         images.Read(Files.CirclePNG, null);
 
@@ -639,7 +639,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
                         {
@@ -658,7 +658,7 @@ namespace Magick.NET.Tests
 
                     using (var stream = File.OpenRead(Files.CirclePNG))
                     {
-                        using (IMagickImageCollection input = new MagickImageCollection())
+                        using (var input = new MagickImageCollection())
                         {
                             input.Read(stream, readSettings);
 
@@ -674,7 +674,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
                         {
@@ -686,7 +686,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldThrowExceptionWhenStreamIsEmpty()
                 {
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentException>("stream", () =>
                         {
@@ -702,7 +702,7 @@ namespace Magick.NET.Tests
 
                     using (MemoryStream stream = new MemoryStream(bytes))
                     {
-                        using (IMagickImageCollection images = new MagickImageCollection())
+                        using (var images = new MagickImageCollection())
                         {
                             ExceptionAssert.Throws<MagickCorruptImageErrorException>(() =>
                             {
@@ -721,7 +721,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new MagickReadSettings();
 
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
                         {
@@ -735,7 +735,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new MagickReadSettings();
 
-                    using (IMagickImageCollection images = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
                         ExceptionAssert.Throws<ArgumentException>("stream", () =>
                         {
@@ -749,7 +749,7 @@ namespace Magick.NET.Tests
                 {
                     using (var fileStream = File.OpenRead(Files.CirclePNG))
                     {
-                        using (IMagickImageCollection images = new MagickImageCollection())
+                        using (var images = new MagickImageCollection())
                         {
                             images.Read(fileStream, null);
 
@@ -769,7 +769,7 @@ namespace Magick.NET.Tests
 
                     using (MemoryStream stream = new MemoryStream(bytes))
                     {
-                        using (IMagickImageCollection images = new MagickImageCollection())
+                        using (var images = new MagickImageCollection())
                         {
                             ExceptionAssert.Throws<MagickCorruptImageErrorException>(() =>
                             {
