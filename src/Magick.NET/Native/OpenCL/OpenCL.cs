@@ -14,6 +14,7 @@
 using System;
 using System.Security;
 using System.Runtime.InteropServices;
+
 namespace ImageMagick
 {
     public static partial class OpenCL

@@ -230,6 +230,8 @@ namespace FileGenerator.Native
 
             if (UsesQuantumType())
                 WriteQuantumType();
+            else
+                WriteLine();
         }
 
         protected MagickClass Class { get; }
