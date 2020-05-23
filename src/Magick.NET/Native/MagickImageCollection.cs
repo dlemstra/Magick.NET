@@ -379,7 +379,7 @@ namespace ImageMagick
                 RaiseWarning(magickException);
                 return result;
             }
-            public IntPtr Montage(IMagickImage image, MontageSettings settings)
+            public IntPtr Montage(IMagickImage image, IMontageSettings<QuantumType> settings)
             {
                 using (INativeInstance settingsNative = MontageSettings.CreateInstance(settings))
                 {

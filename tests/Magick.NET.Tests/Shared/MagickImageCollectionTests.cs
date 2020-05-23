@@ -197,7 +197,7 @@ namespace Magick.NET.Tests
         {
             using (IMagickImageCollection collection = new MagickImageCollection())
             {
-                MontageSettings settings = new MontageSettings();
+                var settings = new MontageSettings();
                 settings.Geometry = new MagickGeometry(string.Format("{0}x{1}", 200, 200));
                 settings.TileGeometry = new MagickGeometry(string.Format("{0}x", 2));
 
@@ -209,7 +209,7 @@ namespace Magick.NET.Tests
                 for (int i = 0; i < 9; i++)
                     collection.Add(Files.Builtin.Logo);
 
-                using (IMagickImage montageResult = collection.Montage(settings))
+                using (var montageResult = collection.Montage(settings))
                 {
                     Assert.IsNotNull(montageResult);
                     Assert.AreEqual(400, montageResult.Width);

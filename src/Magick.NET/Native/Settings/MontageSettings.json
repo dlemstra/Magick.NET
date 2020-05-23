@@ -1,5 +1,6 @@
 ﻿{
   "dynamic": "ManagedToNative",
+  "quantumType": true,
   "methods": [
     {
       "name": "SetBackgroundColor",

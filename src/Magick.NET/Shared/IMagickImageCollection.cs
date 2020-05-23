@@ -216,7 +216,7 @@ namespace ImageMagick
         /// <param name="settings">The settings to use.</param>
         /// <returns>The resulting image of the montage operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickImage Montage(MontageSettings settings);
+        IMagickImage Montage(IMontageSettings<QuantumType> settings);
 
         /// <summary>
         /// The Morph method requires a minimum of two images. The first image is transformed into

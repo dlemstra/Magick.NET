@@ -398,11 +398,11 @@ namespace ImageMagick
                 }
             }
         }
-        internal static INativeInstance CreateInstance(MontageSettings instance)
+        internal static INativeInstance CreateInstance(IMontageSettings<QuantumType> instance)
         {
             if (instance == null)
                 return NativeInstance.Zero;
-            return instance.CreateNativeInstance();
+            return MontageSettings.CreateNativeInstance(instance);
         }
     }
 }

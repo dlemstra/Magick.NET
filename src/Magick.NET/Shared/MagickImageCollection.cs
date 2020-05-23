@@ -685,7 +685,7 @@ namespace ImageMagick
         /// <param name="settings">The settings to use.</param>
         /// <returns>The resulting image of the montage operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImage Montage(MontageSettings settings)
+        public IMagickImage Montage(IMontageSettings<QuantumType> settings)
         {
             ThrowIfEmpty();
 
