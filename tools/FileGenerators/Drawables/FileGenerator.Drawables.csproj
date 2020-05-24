@@ -47,6 +47,7 @@
     <Compile Include="AppDomain\DrawableAppDomainHelper.cs" />
     <Compile Include="AppDomain\DrawableApplicationProxy.cs" />
     <Compile Include="Base\DrawableCodeGenerator.cs" />
+    <Compile Include="IDrawablesGenerator.cs" />
     <Compile Include="IPathsGenerator.cs" />
     <Compile Include="PathsGenerator.cs" />
     <Compile Include="DrawablesGenerator.cs" />

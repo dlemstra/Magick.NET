@@ -1609,7 +1609,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="drawables">The drawable(s) to draw on the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Draw(Drawables drawables);
+        void Draw(IDrawables<TQuantumType> drawables);
 
         /// <summary>
         /// Draw on image using one or more drawables.

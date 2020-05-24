@@ -14,12 +14,22 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <summary>
     /// Class that can be used to chain path actions.
     /// </summary>
-    public sealed partial class Paths : IPaths
+    public sealed partial class Paths : IPaths<QuantumType>
     {
         private readonly Drawables _drawables;
         private readonly Collection<IPath> _paths;
@@ -39,10 +49,10 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Converts the specified <see cref="Paths"/> to a <see cref="Drawables"/> instance.
+        /// Converts this instance to a <see cref="IDrawables{TQuantumType}"/> instance.
         /// </summary>
         /// <returns>A new <see cref="Drawables"/> instance.</returns>
-        public Drawables Drawables()
+        public IDrawables<QuantumType> Drawables()
         {
             if (_drawables == null)
                 return new Drawables().Path(this);

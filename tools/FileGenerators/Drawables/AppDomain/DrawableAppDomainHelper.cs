@@ -17,6 +17,16 @@ namespace FileGenerator.Drawables
     [Serializable]
     internal static class DrawableAppDomainHelper
     {
+        private static void GenerateIDrawables()
+        {
+            AppDomain domain = AppDomainHelper.CreateDomain();
+            DrawableApplicationProxy proxy = AppDomainHelper.CreateProxy<DrawableApplicationProxy>(domain);
+
+            proxy.GenerateIDrawables();
+
+            AppDomain.Unload(domain);
+        }
+
         private static void GenerateDrawables()
         {
             AppDomain domain = AppDomainHelper.CreateDomain();
@@ -49,6 +59,7 @@ namespace FileGenerator.Drawables
 
         public static void Execute()
         {
+            GenerateIDrawables();
             GenerateDrawables();
             GenerateIPaths();
             GeneratePaths();

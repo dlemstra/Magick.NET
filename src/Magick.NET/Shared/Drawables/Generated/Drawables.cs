@@ -39,7 +39,7 @@ namespace ImageMagick
         /// <param name="translateX">The X coordinate of the translation element.</param>
         /// <param name="translateY">The Y coordinate of the translation element.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Affine(double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY)
+        public IDrawables<QuantumType> Affine(double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY)
         {
             _drawables.Add(new DrawableAffine(scaleX, scaleY, shearX, shearY, translateX, translateY));
             return this;
@@ -52,7 +52,7 @@ namespace ImageMagick
         /// <param name="y">The Y coordinate.</param>
         /// <param name="paintMethod">The paint method to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Alpha(double x, double y, PaintMethod paintMethod)
+        public IDrawables<QuantumType> Alpha(double x, double y, PaintMethod paintMethod)
         {
             _drawables.Add(new DrawableAlpha(x, y, paintMethod));
             return this;
@@ -68,7 +68,7 @@ namespace ImageMagick
         /// <param name="startDegrees">The starting degrees of rotation.</param>
         /// <param name="endDegrees">The ending degrees of rotation.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Arc(double startX, double startY, double endX, double endY, double startDegrees, double endDegrees)
+        public IDrawables<QuantumType> Arc(double startX, double startY, double endX, double endY, double startDegrees, double endDegrees)
         {
             _drawables.Add(new DrawableArc(startX, startY, endX, endY, startDegrees, endDegrees));
             return this;
@@ -79,7 +79,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="coordinates">The coordinates.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Bezier(params PointD[] coordinates)
+        public IDrawables<QuantumType> Bezier(params PointD[] coordinates)
         {
             _drawables.Add(new DrawableBezier(coordinates));
             return this;
@@ -90,7 +90,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="coordinates">The coordinates.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Bezier(IEnumerable<PointD> coordinates)
+        public IDrawables<QuantumType> Bezier(IEnumerable<PointD> coordinates)
         {
             _drawables.Add(new DrawableBezier(coordinates));
             return this;
@@ -101,7 +101,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color of the border.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables BorderColor(IMagickColor<QuantumType> color)
+        public IDrawables<QuantumType> BorderColor(IMagickColor<QuantumType> color)
         {
             _drawables.Add(new DrawableBorderColor(color));
             return this;
@@ -115,7 +115,7 @@ namespace ImageMagick
         /// <param name="perimeterX">The perimeter X coordinate.</param>
         /// <param name="perimeterY">The perimeter Y coordinate.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Circle(double originX, double originY, double perimeterX, double perimeterY)
+        public IDrawables<QuantumType> Circle(double originX, double originY, double perimeterX, double perimeterY)
         {
             _drawables.Add(new DrawableCircle(originX, originY, perimeterX, perimeterY));
             return this;
@@ -126,7 +126,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="clipPath">The ID of the clip path.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables ClipPath(string clipPath)
+        public IDrawables<QuantumType> ClipPath(string clipPath)
         {
             _drawables.Add(new DrawableClipPath(clipPath));
             return this;
@@ -137,7 +137,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="fillRule">The rule to use when filling drawn objects.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables ClipRule(FillRule fillRule)
+        public IDrawables<QuantumType> ClipRule(FillRule fillRule)
         {
             _drawables.Add(new DrawableClipRule(fillRule));
             return this;
@@ -148,7 +148,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="units">The clip path units.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables ClipUnits(ClipPathUnit units)
+        public IDrawables<QuantumType> ClipUnits(ClipPathUnit units)
         {
             _drawables.Add(new DrawableClipUnits(units));
             return this;
@@ -161,7 +161,7 @@ namespace ImageMagick
         /// <param name="y">The Y coordinate.</param>
         /// <param name="paintMethod">The paint method to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Color(double x, double y, PaintMethod paintMethod)
+        public IDrawables<QuantumType> Color(double x, double y, PaintMethod paintMethod)
         {
             _drawables.Add(new DrawableColor(x, y, paintMethod));
             return this;
@@ -173,7 +173,7 @@ namespace ImageMagick
         /// <param name="offset">The offset from origin.</param>
         /// <param name="image">The image to draw.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Composite(IMagickGeometry offset, IMagickImage<QuantumType> image)
+        public IDrawables<QuantumType> Composite(IMagickGeometry offset, IMagickImage<QuantumType> image)
         {
             _drawables.Add(new DrawableComposite(offset, image));
             return this;
@@ -186,7 +186,7 @@ namespace ImageMagick
         /// <param name="y">The Y coordinate.</param>
         /// <param name="image">The image to draw.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Composite(double x, double y, IMagickImage<QuantumType> image)
+        public IDrawables<QuantumType> Composite(double x, double y, IMagickImage<QuantumType> image)
         {
             _drawables.Add(new DrawableComposite(x, y, image));
             return this;
@@ -199,7 +199,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="image">The image to draw.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Composite(IMagickGeometry offset, CompositeOperator compose, IMagickImage<QuantumType> image)
+        public IDrawables<QuantumType> Composite(IMagickGeometry offset, CompositeOperator compose, IMagickImage<QuantumType> image)
         {
             _drawables.Add(new DrawableComposite(offset, compose, image));
             return this;
@@ -213,7 +213,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="image">The image to draw.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Composite(double x, double y, CompositeOperator compose, IMagickImage<QuantumType> image)
+        public IDrawables<QuantumType> Composite(double x, double y, CompositeOperator compose, IMagickImage<QuantumType> image)
         {
             _drawables.Add(new DrawableComposite(x, y, compose, image));
             return this;
@@ -224,7 +224,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="density">The vertical and horizontal resolution.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Density(double density)
+        public IDrawables<QuantumType> Density(double density)
         {
             _drawables.Add(new DrawableDensity(density));
             return this;
@@ -235,7 +235,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="pointDensity">The vertical and horizontal resolution.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Density(PointD pointDensity)
+        public IDrawables<QuantumType> Density(PointD pointDensity)
         {
             _drawables.Add(new DrawableDensity(pointDensity));
             return this;
@@ -251,7 +251,7 @@ namespace ImageMagick
         /// <param name="startDegrees">The starting degrees of rotation.</param>
         /// <param name="endDegrees">The ending degrees of rotation.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Ellipse(double originX, double originY, double radiusX, double radiusY, double startDegrees, double endDegrees)
+        public IDrawables<QuantumType> Ellipse(double originX, double originY, double radiusX, double radiusY, double startDegrees, double endDegrees)
         {
             _drawables.Add(new DrawableEllipse(originX, originY, radiusX, radiusY, startDegrees, endDegrees));
             return this;
@@ -262,7 +262,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables FillColor(IMagickColor<QuantumType> color)
+        public IDrawables<QuantumType> FillColor(IMagickColor<QuantumType> color)
         {
             _drawables.Add(new DrawableFillColor(color));
             return this;
@@ -273,7 +273,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="opacity">The opacity.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables FillOpacity(Percentage opacity)
+        public IDrawables<QuantumType> FillOpacity(Percentage opacity)
         {
             _drawables.Add(new DrawableFillOpacity(opacity));
             return this;
@@ -284,7 +284,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="url">Url specifying pattern ID (e.g. "#pattern_id").</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables FillPatternUrl(string url)
+        public IDrawables<QuantumType> FillPatternUrl(string url)
         {
             _drawables.Add(new DrawableFillPatternUrl(url));
             return this;
@@ -295,7 +295,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="fillRule">The rule to use when filling drawn objects.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables FillRule(FillRule fillRule)
+        public IDrawables<QuantumType> FillRule(FillRule fillRule)
         {
             _drawables.Add(new DrawableFillRule(fillRule));
             return this;
@@ -306,7 +306,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="family">The font family or the full path to the font file.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Font(string family)
+        public IDrawables<QuantumType> Font(string family)
         {
             _drawables.Add(new DrawableFont(family));
             return this;
@@ -320,7 +320,7 @@ namespace ImageMagick
         /// <param name="weight">The weight of the font.</param>
         /// <param name="stretch">The font stretching type.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Font(string family, FontStyleType style, FontWeight weight, FontStretch stretch)
+        public IDrawables<QuantumType> Font(string family, FontStyleType style, FontWeight weight, FontStretch stretch)
         {
             _drawables.Add(new DrawableFont(family, style, weight, stretch));
             return this;
@@ -331,7 +331,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="pointSize">The point size.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables FontPointSize(double pointSize)
+        public IDrawables<QuantumType> FontPointSize(double pointSize)
         {
             _drawables.Add(new DrawableFontPointSize(pointSize));
             return this;
@@ -342,7 +342,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="gravity">The gravity.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Gravity(Gravity gravity)
+        public IDrawables<QuantumType> Gravity(Gravity gravity)
         {
             _drawables.Add(new DrawableGravity(gravity));
             return this;
@@ -356,7 +356,7 @@ namespace ImageMagick
         /// <param name="endX">The ending X coordinate.</param>
         /// <param name="endY">The ending Y coordinate.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Line(double startX, double startY, double endX, double endY)
+        public IDrawables<QuantumType> Line(double startX, double startY, double endX, double endY)
         {
             _drawables.Add(new DrawableLine(startX, startY, endX, endY));
             return this;
@@ -367,7 +367,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="paths">The paths to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Path(params IPath[] paths)
+        public IDrawables<QuantumType> Path(params IPath[] paths)
         {
             _drawables.Add(new DrawablePath(paths));
             return this;
@@ -378,7 +378,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="paths">The paths to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Path(IEnumerable<IPath> paths)
+        public IDrawables<QuantumType> Path(IEnumerable<IPath> paths)
         {
             _drawables.Add(new DrawablePath(paths));
             return this;
@@ -390,7 +390,7 @@ namespace ImageMagick
         /// <param name="x">The X coordinate.</param>
         /// <param name="y">The Y coordinate.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Point(double x, double y)
+        public IDrawables<QuantumType> Point(double x, double y)
         {
             _drawables.Add(new DrawablePoint(x, y));
             return this;
@@ -401,7 +401,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="coordinates">The coordinates.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Polygon(params PointD[] coordinates)
+        public IDrawables<QuantumType> Polygon(params PointD[] coordinates)
         {
             _drawables.Add(new DrawablePolygon(coordinates));
             return this;
@@ -412,7 +412,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="coordinates">The coordinates.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Polygon(IEnumerable<PointD> coordinates)
+        public IDrawables<QuantumType> Polygon(IEnumerable<PointD> coordinates)
         {
             _drawables.Add(new DrawablePolygon(coordinates));
             return this;
@@ -423,7 +423,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="coordinates">The coordinates.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Polyline(params PointD[] coordinates)
+        public IDrawables<QuantumType> Polyline(params PointD[] coordinates)
         {
             _drawables.Add(new DrawablePolyline(coordinates));
             return this;
@@ -434,7 +434,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="coordinates">The coordinates.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Polyline(IEnumerable<PointD> coordinates)
+        public IDrawables<QuantumType> Polyline(IEnumerable<PointD> coordinates)
         {
             _drawables.Add(new DrawablePolyline(coordinates));
             return this;
@@ -444,7 +444,7 @@ namespace ImageMagick
         /// Applies the DrawablePopClipPath operation to the <see cref="Drawables" />.
         /// </summary>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables PopClipPath()
+        public IDrawables<QuantumType> PopClipPath()
         {
             _drawables.Add(new DrawablePopClipPath());
             return this;
@@ -454,7 +454,7 @@ namespace ImageMagick
         /// Applies the DrawablePopGraphicContext operation to the <see cref="Drawables" />.
         /// </summary>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables PopGraphicContext()
+        public IDrawables<QuantumType> PopGraphicContext()
         {
             _drawables.Add(new DrawablePopGraphicContext());
             return this;
@@ -464,7 +464,7 @@ namespace ImageMagick
         /// Applies the DrawablePopPattern operation to the <see cref="Drawables" />.
         /// </summary>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables PopPattern()
+        public IDrawables<QuantumType> PopPattern()
         {
             _drawables.Add(new DrawablePopPattern());
             return this;
@@ -475,7 +475,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="clipPath">The ID of the clip path.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables PushClipPath(string clipPath)
+        public IDrawables<QuantumType> PushClipPath(string clipPath)
         {
             _drawables.Add(new DrawablePushClipPath(clipPath));
             return this;
@@ -485,7 +485,7 @@ namespace ImageMagick
         /// Applies the DrawablePushGraphicContext operation to the <see cref="Drawables" />.
         /// </summary>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables PushGraphicContext()
+        public IDrawables<QuantumType> PushGraphicContext()
         {
             _drawables.Add(new DrawablePushGraphicContext());
             return this;
@@ -500,7 +500,7 @@ namespace ImageMagick
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables PushPattern(string id, double x, double y, double width, double height)
+        public IDrawables<QuantumType> PushPattern(string id, double x, double y, double width, double height)
         {
             _drawables.Add(new DrawablePushPattern(id, x, y, width, height));
             return this;
@@ -514,7 +514,7 @@ namespace ImageMagick
         /// <param name="lowerRightX">The lower right X coordinate.</param>
         /// <param name="lowerRightY">The lower right Y coordinate.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Rectangle(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY)
+        public IDrawables<QuantumType> Rectangle(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY)
         {
             _drawables.Add(new DrawableRectangle(upperLeftX, upperLeftY, lowerRightX, lowerRightY));
             return this;
@@ -525,7 +525,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="angle">The angle.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Rotation(double angle)
+        public IDrawables<QuantumType> Rotation(double angle)
         {
             _drawables.Add(new DrawableRotation(angle));
             return this;
@@ -541,7 +541,7 @@ namespace ImageMagick
         /// <param name="cornerWidth">The corner width.</param>
         /// <param name="cornerHeight">The corner height.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables RoundRectangle(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY, double cornerWidth, double cornerHeight)
+        public IDrawables<QuantumType> RoundRectangle(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY, double cornerWidth, double cornerHeight)
         {
             _drawables.Add(new DrawableRoundRectangle(upperLeftX, upperLeftY, lowerRightX, lowerRightY, cornerWidth, cornerHeight));
             return this;
@@ -553,7 +553,7 @@ namespace ImageMagick
         /// <param name="x">Horizontal scale factor.</param>
         /// <param name="y">Vertical scale factor.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Scaling(double x, double y)
+        public IDrawables<QuantumType> Scaling(double x, double y)
         {
             _drawables.Add(new DrawableScaling(x, y));
             return this;
@@ -564,7 +564,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="angle">The angle.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables SkewX(double angle)
+        public IDrawables<QuantumType> SkewX(double angle)
         {
             _drawables.Add(new DrawableSkewX(angle));
             return this;
@@ -575,7 +575,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="angle">The angle.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables SkewY(double angle)
+        public IDrawables<QuantumType> SkewY(double angle)
         {
             _drawables.Add(new DrawableSkewY(angle));
             return this;
@@ -586,7 +586,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="isEnabled">True if stroke antialiasing is enabled otherwise false.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables StrokeAntialias(bool isEnabled)
+        public IDrawables<QuantumType> StrokeAntialias(bool isEnabled)
         {
             _drawables.Add(new DrawableStrokeAntialias(isEnabled));
             return this;
@@ -597,7 +597,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables StrokeColor(IMagickColor<QuantumType> color)
+        public IDrawables<QuantumType> StrokeColor(IMagickColor<QuantumType> color)
         {
             _drawables.Add(new DrawableStrokeColor(color));
             return this;
@@ -608,7 +608,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="dash">An array containing the dash information.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables StrokeDashArray(params double[] dash)
+        public IDrawables<QuantumType> StrokeDashArray(params double[] dash)
         {
             _drawables.Add(new DrawableStrokeDashArray(dash));
             return this;
@@ -619,7 +619,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="offset">The dash offset.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables StrokeDashOffset(double offset)
+        public IDrawables<QuantumType> StrokeDashOffset(double offset)
         {
             _drawables.Add(new DrawableStrokeDashOffset(offset));
             return this;
@@ -630,7 +630,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="lineCap">The line cap.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables StrokeLineCap(LineCap lineCap)
+        public IDrawables<QuantumType> StrokeLineCap(LineCap lineCap)
         {
             _drawables.Add(new DrawableStrokeLineCap(lineCap));
             return this;
@@ -641,7 +641,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="lineJoin">The line join.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables StrokeLineJoin(LineJoin lineJoin)
+        public IDrawables<QuantumType> StrokeLineJoin(LineJoin lineJoin)
         {
             _drawables.Add(new DrawableStrokeLineJoin(lineJoin));
             return this;
@@ -652,7 +652,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="miterlimit">The miter limit.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables StrokeMiterLimit(int miterlimit)
+        public IDrawables<QuantumType> StrokeMiterLimit(int miterlimit)
         {
             _drawables.Add(new DrawableStrokeMiterLimit(miterlimit));
             return this;
@@ -663,7 +663,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="opacity">The opacity.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables StrokeOpacity(Percentage opacity)
+        public IDrawables<QuantumType> StrokeOpacity(Percentage opacity)
         {
             _drawables.Add(new DrawableStrokeOpacity(opacity));
             return this;
@@ -674,7 +674,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="url">Url specifying pattern ID (e.g. "#pattern_id").</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables StrokePatternUrl(string url)
+        public IDrawables<QuantumType> StrokePatternUrl(string url)
         {
             _drawables.Add(new DrawableStrokePatternUrl(url));
             return this;
@@ -685,7 +685,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="width">The width.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables StrokeWidth(double width)
+        public IDrawables<QuantumType> StrokeWidth(double width)
         {
             _drawables.Add(new DrawableStrokeWidth(width));
             return this;
@@ -698,7 +698,7 @@ namespace ImageMagick
         /// <param name="y">The Y coordinate.</param>
         /// <param name="value">The text to draw.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Text(double x, double y, string value)
+        public IDrawables<QuantumType> Text(double x, double y, string value)
         {
             _drawables.Add(new DrawableText(x, y, value));
             return this;
@@ -709,7 +709,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="alignment">Text alignment.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables TextAlignment(TextAlignment alignment)
+        public IDrawables<QuantumType> TextAlignment(TextAlignment alignment)
         {
             _drawables.Add(new DrawableTextAlignment(alignment));
             return this;
@@ -720,7 +720,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="isEnabled">True if text antialiasing is enabled otherwise false.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables TextAntialias(bool isEnabled)
+        public IDrawables<QuantumType> TextAntialias(bool isEnabled)
         {
             _drawables.Add(new DrawableTextAntialias(isEnabled));
             return this;
@@ -731,7 +731,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="decoration">The text decoration.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables TextDecoration(TextDecoration decoration)
+        public IDrawables<QuantumType> TextDecoration(TextDecoration decoration)
         {
             _drawables.Add(new DrawableTextDecoration(decoration));
             return this;
@@ -742,7 +742,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="direction">Direction to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables TextDirection(TextDirection direction)
+        public IDrawables<QuantumType> TextDirection(TextDirection direction)
         {
             _drawables.Add(new DrawableTextDirection(direction));
             return this;
@@ -753,7 +753,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="encoding">Encoding to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables TextEncoding(Encoding encoding)
+        public IDrawables<QuantumType> TextEncoding(Encoding encoding)
         {
             _drawables.Add(new DrawableTextEncoding(encoding));
             return this;
@@ -764,7 +764,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="spacing">Spacing to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables TextInterlineSpacing(double spacing)
+        public IDrawables<QuantumType> TextInterlineSpacing(double spacing)
         {
             _drawables.Add(new DrawableTextInterlineSpacing(spacing));
             return this;
@@ -775,7 +775,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="spacing">Spacing to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables TextInterwordSpacing(double spacing)
+        public IDrawables<QuantumType> TextInterwordSpacing(double spacing)
         {
             _drawables.Add(new DrawableTextInterwordSpacing(spacing));
             return this;
@@ -786,7 +786,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="kerning">Kerning to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables TextKerning(double kerning)
+        public IDrawables<QuantumType> TextKerning(double kerning)
         {
             _drawables.Add(new DrawableTextKerning(kerning));
             return this;
@@ -797,7 +797,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables TextUnderColor(IMagickColor<QuantumType> color)
+        public IDrawables<QuantumType> TextUnderColor(IMagickColor<QuantumType> color)
         {
             _drawables.Add(new DrawableTextUnderColor(color));
             return this;
@@ -809,7 +809,7 @@ namespace ImageMagick
         /// <param name="x">The X coordinate.</param>
         /// <param name="y">The Y coordinate.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Translation(double x, double y)
+        public IDrawables<QuantumType> Translation(double x, double y)
         {
             _drawables.Add(new DrawableTranslation(x, y));
             return this;
@@ -823,7 +823,7 @@ namespace ImageMagick
         /// <param name="lowerRightX">The lower right X coordinate.</param>
         /// <param name="lowerRightY">The lower right Y coordinate.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public Drawables Viewbox(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY)
+        public IDrawables<QuantumType> Viewbox(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY)
         {
             _drawables.Add(new DrawableViewbox(upperLeftX, upperLeftY, lowerRightX, lowerRightY));
             return this;

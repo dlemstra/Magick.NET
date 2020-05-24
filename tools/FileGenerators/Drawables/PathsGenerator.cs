@@ -17,13 +17,14 @@ namespace FileGenerator.Drawables
     internal sealed class PathsGenerator : DrawableCodeGenerator
     {
         private PathsGenerator()
+            : base(false)
         {
         }
 
         protected override void WriteUsing()
         {
             WriteLine("using System.Collections.Generic;");
-            WriteLine();
+            WriteQuantumType();
         }
 
         private void WritePath(ConstructorInfo constructor)
@@ -33,7 +34,7 @@ namespace FileGenerator.Drawables
 
             foreach (string commentLine in Types.GetCommentLines(constructor, "Paths"))
                 WriteLine(commentLine);
-            Write("public IPaths " + name + "(");
+            Write("public IPaths<QuantumType> " + name + "(");
             WriteParameterDeclaration(parameters);
             WriteLine(")");
             WriteStartColon();

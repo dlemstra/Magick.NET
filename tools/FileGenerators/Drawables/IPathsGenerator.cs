@@ -17,6 +17,7 @@ namespace FileGenerator.Drawables
     internal sealed class IPathsGenerator : DrawableCodeGenerator
     {
         private IPathsGenerator()
+            : base(true)
         {
         }
 
@@ -31,9 +32,9 @@ namespace FileGenerator.Drawables
             var name = constructor.DeclaringType.Name.Substring(4);
             var parameters = constructor.GetParameters();
 
-            foreach (string commentLine in Types.GetCommentLines(constructor, "IPaths"))
+            foreach (string commentLine in Types.GetCommentLines(constructor, "IPaths{TQuantumType}"))
                 WriteLine(commentLine);
-            Write("IPaths " + name + "(");
+            Write("IPaths<TQuantumType> " + name + "(");
             WriteParameterDeclaration(parameters);
             WriteLine(");");
             WriteLine();
@@ -50,7 +51,7 @@ namespace FileGenerator.Drawables
         private void WritePaths()
         {
             WriteLine(@"[System.CodeDom.Compiler.GeneratedCode(""Magick.NET.FileGenerator"", """")]");
-            WriteLine("public partial interface IPaths");
+            WriteLine("public partial interface IPaths<TQuantumType>");
             WriteStartColon();
 
             foreach (var path in Types.GetPaths())
@@ -64,7 +65,7 @@ namespace FileGenerator.Drawables
         public static void Generate()
         {
             var generator = new IPathsGenerator();
-            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET\Shared\Drawables\Paths\Generated\IPaths.cs"));
+            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET\Shared\Drawables\Paths\Generated\IPaths{TQuantumType}.cs"));
             generator.WriteStart("ImageMagick");
             generator.WritePaths();
             generator.WriteEnd();

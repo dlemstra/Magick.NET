@@ -18,9 +18,12 @@ namespace FileGenerator.Drawables
 {
     internal abstract class DrawableCodeGenerator : CodeGenerator
     {
-        protected DrawableCodeGenerator()
+        private readonly bool _isInterface;
+
+        protected DrawableCodeGenerator(bool isInterface)
         {
             Types = new DrawableTypes(QuantumDepth.Q16);
+            _isInterface = isInterface;
         }
 
         protected DrawableTypes Types { get; private set; }
@@ -73,11 +76,11 @@ namespace FileGenerator.Drawables
             }
         }
 
-        private static string GetArgumentTypeName(Type type)
+        private string GetArgumentTypeName(Type type)
         {
             var name = type.GetGenericArguments().First().Name;
             if (name == "UInt16")
-                name = "QuantumType";
+                name = _isInterface ? "TQuantumType" : "QuantumType";
 
             return name;
         }

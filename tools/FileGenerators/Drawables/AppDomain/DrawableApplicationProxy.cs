@@ -16,6 +16,13 @@ namespace FileGenerator.Drawables
 {
     internal sealed class DrawableApplicationProxy : ApplicationProxy
     {
+        public void GenerateIDrawables()
+        {
+            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
+
+            IDrawablesGenerator.Generate();
+        }
+
         public void GenerateDrawables()
         {
             AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;

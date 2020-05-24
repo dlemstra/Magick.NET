@@ -18,13 +18,14 @@ namespace ImageMagick
     /// <summary>
     /// Class that can be used to chain path actions.
     /// </summary>
+    /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     [SuppressMessage("Naming", "CA1710", Justification = "No need to use Collection suffix.")]
-    public partial interface IPaths : IEnumerable<IPath>
+    public partial interface IPaths<TQuantumType> : IEnumerable<IPath>
     {
         /// <summary>
-        /// Converts the specified <see cref="IPaths"/> to a <see cref="Drawables"/> instance.
+        /// Converts this instance to a <see cref="IDrawables{TQuantumType}"/> instance.
         /// </summary>
         /// <returns>A new <see cref="Drawables"/> instance.</returns>
-        Drawables Drawables();
+        IDrawables<TQuantumType> Drawables();
     }
 }

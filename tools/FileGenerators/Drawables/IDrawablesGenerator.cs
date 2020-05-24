@@ -15,14 +15,14 @@ using System.Reflection;
 
 namespace FileGenerator.Drawables
 {
-    internal sealed class DrawablesGenerator : DrawableCodeGenerator
+    internal sealed class IDrawablesGenerator : DrawableCodeGenerator
     {
-        private DrawablesGenerator()
-            : base(false)
+        private IDrawablesGenerator()
+            : base(true)
         {
         }
 
-        private static void Generate(DrawablesGenerator generator)
+        private static void Generate(IDrawablesGenerator generator)
         {
             generator.WriteStart("ImageMagick");
             generator.WriteDrawables();
@@ -48,17 +48,11 @@ namespace FileGenerator.Drawables
             var name = constructor.DeclaringType.Name.Substring(8);
             var parameters = constructor.GetParameters();
 
-            foreach (string commentLine in Types.GetCommentLines(constructor, "Drawables"))
+            foreach (string commentLine in Types.GetCommentLines(constructor, "IDrawables{TQuantumType}"))
                 WriteLine(commentLine);
-            Write("public IDrawables<QuantumType> " + name + "(");
+            Write("public IDrawables<TQuantumType> " + name + "(");
             WriteParameterDeclaration(parameters);
-            WriteLine(")");
-            WriteStartColon();
-            Write("_drawables.Add(new " + constructor.DeclaringType.Name + "(");
-            WriteParameters(parameters);
-            WriteLine("));");
-            WriteLine("return this;");
-            WriteEndColon();
+            WriteLine(");");
             WriteLine();
         }
 
@@ -74,7 +68,7 @@ namespace FileGenerator.Drawables
         {
             WriteLine(@"[System.CodeDom.Compiler.GeneratedCode(""Magick.NET.FileGenerator"", """")]");
 
-            WriteLine("public sealed partial class Drawables");
+            WriteLine("public partial interface IDrawables<TQuantumType>");
             WriteStartColon();
 
             foreach (var drawable in Types.GetDrawables())
@@ -89,13 +83,13 @@ namespace FileGenerator.Drawables
         {
             WriteLine("using System.Collections.Generic;");
             WriteLine("using System.Text;");
-            WriteQuantumType();
+            WriteLine();
         }
 
         public static void Generate()
         {
-            var generator = new DrawablesGenerator();
-            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET\Shared\Drawables\Generated\Drawables.cs"));
+            var generator = new IDrawablesGenerator();
+            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET\Shared\Drawables\Generated\IDrawables{TQuantumType}.cs"));
             Generate(generator);
         }
     }
