@@ -12,12 +12,22 @@
 
 using System.Globalization;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <summary>
     /// Class that contains setting for when an image is being read.
     /// </summary>
-    public sealed class MagickReadSettings : MagickSettings
+    public sealed class MagickReadSettings : MagickSettings, IMagickReadSettings<QuantumType>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickReadSettings"/> class.
@@ -40,7 +50,7 @@ namespace ImageMagick
             Copy(settings);
         }
 
-        internal MagickReadSettings(MagickReadSettings settings)
+        internal MagickReadSettings(IMagickReadSettings<QuantumType> settings)
         {
             Copy(settings);
 
@@ -150,9 +160,9 @@ namespace ImageMagick
             NumberScenes = FrameCount ?? 1;
         }
 
-        private void Copy(MagickReadSettings settings)
+        private void Copy(IMagickReadSettings<QuantumType> settings)
         {
-            base.Copy(settings);
+            Copy((MagickSettings)settings);
 
             Defines = settings.Defines;
             FrameIndex = settings.FrameIndex;

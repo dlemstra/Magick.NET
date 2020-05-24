@@ -85,7 +85,7 @@ namespace ImageMagick
         /// <param name="count">The maximum number of bytes to read.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickImage(byte[] data, int offset, int count, MagickReadSettings readSettings)
+        public MagickImage(byte[] data, int offset, int count, IMagickReadSettings<QuantumType> readSettings)
             : this() => Read(data, offset, count, readSettings);
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace ImageMagick
         /// <param name="data">The byte array to read the image data from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickImage(byte[] data, MagickReadSettings readSettings)
+        public MagickImage(byte[] data, IMagickReadSettings<QuantumType> readSettings)
             : this() => Read(data, readSettings);
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace ImageMagick
         /// <param name="file">The file to read the image from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickImage(FileInfo file, MagickReadSettings readSettings)
+        public MagickImage(FileInfo file, IMagickReadSettings<QuantumType> readSettings)
             : this() => Read(file, readSettings);
 
         /// <summary>
@@ -209,7 +209,7 @@ namespace ImageMagick
         /// <param name="stream">The stream to read the image data from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickImage(Stream stream, MagickReadSettings readSettings)
+        public MagickImage(Stream stream, IMagickReadSettings<QuantumType> readSettings)
             : this() => Read(stream, readSettings);
 
         /// <summary>
@@ -245,7 +245,7 @@ namespace ImageMagick
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickImage(string fileName, MagickReadSettings readSettings)
+        public MagickImage(string fileName, IMagickReadSettings<QuantumType> readSettings)
           : this() => Read(fileName, readSettings);
 
         /// <summary>
@@ -4505,7 +4505,7 @@ namespace ImageMagick
         /// <param name="count">The maximum number of bytes to read.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Ping(byte[] data, int offset, int count, MagickReadSettings readSettings)
+        public void Ping(byte[] data, int offset, int count, IMagickReadSettings<QuantumType> readSettings)
         {
             Throw.IfNullOrEmpty(nameof(data), data);
             Throw.IfTrue(nameof(offset), offset < 0, "The offset should be positive.");
@@ -4522,7 +4522,7 @@ namespace ImageMagick
         /// <param name="data">The byte array to read the information from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Ping(byte[] data, MagickReadSettings readSettings)
+        public void Ping(byte[] data, IMagickReadSettings<QuantumType> readSettings)
         {
             Throw.IfNullOrEmpty(nameof(data), data);
 
@@ -4542,7 +4542,7 @@ namespace ImageMagick
         /// <param name="file">The file to read the image from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Ping(FileInfo file, MagickReadSettings readSettings)
+        public void Ping(FileInfo file, IMagickReadSettings<QuantumType> readSettings)
         {
             Throw.IfNull(nameof(file), file);
 
@@ -4563,7 +4563,7 @@ namespace ImageMagick
         /// <param name="stream">The stream to read the image data from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Ping([ValidatedNotNull] Stream stream, MagickReadSettings readSettings)
+        public void Ping([ValidatedNotNull] Stream stream, IMagickReadSettings<QuantumType> readSettings)
             => Read(stream, readSettings, true);
 
         /// <summary>
@@ -4580,7 +4580,7 @@ namespace ImageMagick
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Ping(string fileName, MagickReadSettings readSettings)
+        public void Ping(string fileName, IMagickReadSettings<QuantumType> readSettings)
             => Read(fileName, readSettings, true);
 
         /// <summary>
@@ -4783,7 +4783,7 @@ namespace ImageMagick
         /// <param name="count">The maximum number of bytes to read.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Read(byte[] data, int offset, int count, MagickReadSettings readSettings)
+        public void Read(byte[] data, int offset, int count, IMagickReadSettings<QuantumType> readSettings)
         {
             Throw.IfNullOrEmpty(nameof(data), data);
             Throw.IfTrue(nameof(offset), offset < 0, "The offset should be positive.");
@@ -4813,7 +4813,7 @@ namespace ImageMagick
         /// <param name="data">The byte array to read the image data from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Read(byte[] data, MagickReadSettings readSettings)
+        public void Read(byte[] data, IMagickReadSettings<QuantumType> readSettings)
         {
             Throw.IfNullOrEmpty(nameof(data), data);
 
@@ -4861,7 +4861,7 @@ namespace ImageMagick
         /// <param name="file">The file to read the image from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Read(FileInfo file, MagickReadSettings readSettings)
+        public void Read(FileInfo file, IMagickReadSettings<QuantumType> readSettings)
         {
             Throw.IfNull(nameof(file), file);
 
@@ -4906,7 +4906,7 @@ namespace ImageMagick
         /// <param name="stream">The stream to read the image data from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Read([ValidatedNotNull] Stream stream, MagickReadSettings readSettings)
+        public void Read([ValidatedNotNull] Stream stream, IMagickReadSettings<QuantumType> readSettings)
             => Read(stream, readSettings, false);
 
         /// <summary>
@@ -4929,7 +4929,7 @@ namespace ImageMagick
             Throw.IfTrue(nameof(width), width <= 0, "The width should be positive.");
             Throw.IfTrue(nameof(height), height <= 0, "The height should be positive.");
 
-            MagickReadSettings readSettings = new MagickReadSettings(_settings)
+            var readSettings = new MagickReadSettings(_settings)
             {
                 Width = width,
                 Height = height,
@@ -4953,7 +4953,7 @@ namespace ImageMagick
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Read(string fileName, MagickReadSettings readSettings)
+        public void Read(string fileName, IMagickReadSettings<QuantumType> readSettings)
             => Read(fileName, readSettings, false);
 
         /// <summary>
@@ -6758,7 +6758,7 @@ namespace ImageMagick
         private IEnumerable<IMagickImage<QuantumType>> CreateList(IntPtr images)
             => CreateList(images, _settings.Clone());
 
-        private MagickReadSettings CreateReadSettings(MagickReadSettings readSettings)
+        private MagickReadSettings CreateReadSettings(IMagickReadSettings<QuantumType> readSettings)
         {
             if (readSettings != null && readSettings.FrameCount.HasValue)
                 Throw.IfFalse(nameof(readSettings), readSettings.FrameCount.Value == 1, "The frame count can only be set to 1 when a single image is being read.");
@@ -6922,7 +6922,7 @@ namespace ImageMagick
         private void OnWarning(object sender, WarningEventArgs arguments)
             => _warning?.Invoke(this, arguments);
 
-        private void Read(byte[] data, int offset, int length, MagickReadSettings readSettings, bool ping)
+        private void Read(byte[] data, int offset, int length, IMagickReadSettings<QuantumType> readSettings, bool ping)
         {
             var newReadSettings = CreateReadSettings(readSettings);
             SetSettings(newReadSettings);
@@ -6934,7 +6934,7 @@ namespace ImageMagick
             ResetSettings();
         }
 
-        private void Read(Stream stream, MagickReadSettings readSettings, bool ping)
+        private void Read(Stream stream, IMagickReadSettings<QuantumType> readSettings, bool ping)
         {
             Throw.IfNullOrEmpty(nameof(stream), stream);
 
@@ -6969,7 +6969,7 @@ namespace ImageMagick
             ResetSettings();
         }
 
-        private void Read(string fileName, MagickReadSettings readSettings, bool ping)
+        private void Read(string fileName, IMagickReadSettings<QuantumType> readSettings, bool ping)
         {
             string filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);

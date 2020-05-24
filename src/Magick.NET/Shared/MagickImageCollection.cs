@@ -1504,7 +1504,7 @@ namespace ImageMagick
             Write(fileName);
         }
 
-        private static MagickSettings CreateSettings(MagickReadSettings readSettings)
+        private static MagickSettings CreateSettings(IMagickReadSettings<QuantumType> readSettings)
         {
             if (readSettings == null)
                 return new MagickSettings();
@@ -1520,7 +1520,7 @@ namespace ImageMagick
             return Convert.ToBase64String(bytes);
         }
 
-        private void AddImages(byte[] data, int offset, int count, MagickReadSettings readSettings, bool ping)
+        private void AddImages(byte[] data, int offset, int count, IMagickReadSettings<QuantumType> readSettings, bool ping)
         {
             MagickSettings settings = CreateSettings(readSettings);
             settings.Ping = ping;
@@ -1529,7 +1529,7 @@ namespace ImageMagick
             AddImages(result, settings);
         }
 
-        private void AddImages(string fileName, MagickReadSettings readSettings, bool ping)
+        private void AddImages(string fileName, IMagickReadSettings<QuantumType> readSettings, bool ping)
         {
             string filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
@@ -1542,7 +1542,7 @@ namespace ImageMagick
             AddImages(result, settings);
         }
 
-        private void AddImages(Stream stream, MagickReadSettings readSettings, bool ping)
+        private void AddImages(Stream stream, IMagickReadSettings<QuantumType> readSettings, bool ping)
         {
             Throw.IfNullOrEmpty(nameof(stream), stream);
 
