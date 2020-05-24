@@ -1,5 +1,6 @@
 ﻿{
   "dynamic": "ManagedToNative",
+  "interface": true,
   "methods": [
     {
       "name": "SetColors",

@@ -2610,7 +2610,7 @@ namespace ImageMagick
         /// <param name="settings">Quantize settings.</param>
         /// <returns>The error informaton.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickErrorInfo Map(IEnumerable<IMagickColor<TQuantumType>> colors, QuantizeSettings settings);
+        IMagickErrorInfo Map(IEnumerable<IMagickColor<TQuantumType>> colors, IQuantizeSettings settings);
 
         /// <summary>
         /// Remap image colors with closest color from reference image.
@@ -2627,7 +2627,7 @@ namespace ImageMagick
         /// <param name="settings">Quantize settings.</param>
         /// <returns>The error informaton.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickErrorInfo Map(IMagickImage<TQuantumType> image, QuantizeSettings settings);
+        IMagickErrorInfo Map(IMagickImage<TQuantumType> image, IQuantizeSettings settings);
 
         /// <summary>
         /// Delineate arbitrarily shaped clusters in the image.
@@ -3075,7 +3075,7 @@ namespace ImageMagick
         /// <param name="settings">Quantize settings.</param>
         /// <returns>The error information.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickErrorInfo Quantize(QuantizeSettings settings);
+        IMagickErrorInfo Quantize(IQuantizeSettings settings);
 
         /// <summary>
         /// Raise image (lighten or darken the edges of an image to give a 3-D raised effect).

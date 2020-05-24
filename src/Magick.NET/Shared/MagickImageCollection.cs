@@ -669,7 +669,7 @@ namespace ImageMagick
         /// <param name="image">The image to use.</param>
         /// <param name="settings">Quantize settings.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Map(IMagickImage<QuantumType> image, QuantizeSettings settings)
+        public void Map(IMagickImage<QuantumType> image, IQuantizeSettings settings)
         {
             ThrowIfEmpty();
 
@@ -1000,7 +1000,7 @@ namespace ImageMagick
         /// <param name="settings">Quantize settings.</param>
         /// <returns>The resulting image of the quantize operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickErrorInfo Quantize(QuantizeSettings settings)
+        public IMagickErrorInfo Quantize(IQuantizeSettings settings)
         {
             ThrowIfEmpty();
 

@@ -4013,7 +4013,7 @@ namespace ImageMagick
         /// <returns>The error informaton.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "The collection takes ownership of the images.")]
-        public IMagickErrorInfo Map(IEnumerable<IMagickColor<QuantumType>> colors, QuantizeSettings settings)
+        public IMagickErrorInfo Map(IEnumerable<IMagickColor<QuantumType>> colors, IQuantizeSettings settings)
         {
             Throw.IfNull(nameof(colors), colors);
 
@@ -4049,7 +4049,7 @@ namespace ImageMagick
         /// <param name="settings">Quantize settings.</param>
         /// <returns>The error informaton.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickErrorInfo Map(IMagickImage<QuantumType> image, QuantizeSettings settings)
+        public IMagickErrorInfo Map(IMagickImage<QuantumType> image, IQuantizeSettings settings)
         {
             Throw.IfNull(nameof(image), image);
             Throw.IfNull(nameof(settings), settings);
@@ -4650,7 +4650,7 @@ namespace ImageMagick
         /// <param name="settings">Quantize settings.</param>
         /// <returns>The error information.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickErrorInfo Quantize(QuantizeSettings settings)
+        public IMagickErrorInfo Quantize(IQuantizeSettings settings)
         {
             Throw.IfNull(nameof(settings), settings);
 

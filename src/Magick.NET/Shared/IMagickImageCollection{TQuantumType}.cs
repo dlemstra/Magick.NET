@@ -191,7 +191,7 @@ namespace ImageMagick
         /// <param name="image">The image to use.</param>
         /// <param name="settings">Quantize settings.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Map(IMagickImage<TQuantumType> image, QuantizeSettings settings);
+        void Map(IMagickImage<TQuantumType> image, IQuantizeSettings settings);
 
         /// <summary>
         /// Merge all layers onto a canvas just large enough to hold all the actual images. The virtual
@@ -348,7 +348,7 @@ namespace ImageMagick
         /// <param name="settings">Quantize settings.</param>
         /// <returns>The resulting image of the quantize operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickErrorInfo Quantize(QuantizeSettings settings);
+        IMagickErrorInfo Quantize(IQuantizeSettings settings);
 
         /// <summary>
         /// Read all image frames.

@@ -187,11 +187,11 @@ namespace ImageMagick
                 #endif
             }
         }
-        internal static INativeInstance CreateInstance(QuantizeSettings instance)
+        internal static INativeInstance CreateInstance(IQuantizeSettings instance)
         {
             if (instance == null)
                 return NativeInstance.Zero;
-            return instance.CreateNativeInstance();
+            return QuantizeSettings.CreateNativeInstance(instance);
         }
     }
 }

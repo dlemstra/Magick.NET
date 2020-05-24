@@ -331,7 +331,7 @@ namespace ImageMagick
                 RaiseWarning(magickException);
                 return result;
             }
-            public void Map(IMagickImage<QuantumType> image, QuantizeSettings settings, IMagickImage<QuantumType> remapImage)
+            public void Map(IMagickImage<QuantumType> image, IQuantizeSettings settings, IMagickImage<QuantumType> remapImage)
             {
                 using (INativeInstance settingsNative = QuantizeSettings.CreateInstance(settings))
                 {
@@ -539,7 +539,7 @@ namespace ImageMagick
                 RaiseWarning(magickException);
                 return result;
             }
-            public void Quantize(IMagickImage<QuantumType> image, QuantizeSettings settings)
+            public void Quantize(IMagickImage<QuantumType> image, IQuantizeSettings settings)
             {
                 using (INativeInstance settingsNative = QuantizeSettings.CreateInstance(settings))
                 {

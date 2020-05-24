@@ -4666,7 +4666,7 @@ namespace ImageMagick
                 CheckException(exception, result);
                 Instance = result;
             }
-            public bool Map(IMagickImage<QuantumType> image, QuantizeSettings settings)
+            public bool Map(IMagickImage<QuantumType> image, IQuantizeSettings settings)
             {
                 using (INativeInstance settingsNative = QuantizeSettings.CreateInstance(settings))
                 {
@@ -5026,7 +5026,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void Quantize(QuantizeSettings settings)
+            public void Quantize(IQuantizeSettings settings)
             {
                 using (INativeInstance settingsNative = QuantizeSettings.CreateInstance(settings))
                 {
