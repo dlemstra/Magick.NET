@@ -50,7 +50,7 @@ namespace FileGenerator.Drawables
 
             foreach (string commentLine in Types.GetCommentLines(constructor, "IDrawables{TQuantumType}"))
                 WriteLine(commentLine);
-            Write("public IDrawables<TQuantumType> " + name + "(");
+            Write("IDrawables<TQuantumType> " + name + "(");
             WriteParameterDeclaration(parameters);
             WriteLine(");");
             WriteLine();

@@ -29,7 +29,7 @@ namespace ImageMagick
         /// <param name="translateX">The X coordinate of the translation element.</param>
         /// <param name="translateY">The Y coordinate of the translation element.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Affine(double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY);
+        IDrawables<TQuantumType> Affine(double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY);
 
         /// <summary>
         /// Applies the DrawableAlpha operation to the <see cref="IDrawables{TQuantumType}" />.
@@ -38,7 +38,7 @@ namespace ImageMagick
         /// <param name="y">The Y coordinate.</param>
         /// <param name="paintMethod">The paint method to use.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Alpha(double x, double y, PaintMethod paintMethod);
+        IDrawables<TQuantumType> Alpha(double x, double y, PaintMethod paintMethod);
 
         /// <summary>
         /// Applies the DrawableArc operation to the <see cref="IDrawables{TQuantumType}" />.
@@ -50,28 +50,28 @@ namespace ImageMagick
         /// <param name="startDegrees">The starting degrees of rotation.</param>
         /// <param name="endDegrees">The ending degrees of rotation.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Arc(double startX, double startY, double endX, double endY, double startDegrees, double endDegrees);
+        IDrawables<TQuantumType> Arc(double startX, double startY, double endX, double endY, double startDegrees, double endDegrees);
 
         /// <summary>
         /// Applies the DrawableBezier operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="coordinates">The coordinates.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Bezier(params PointD[] coordinates);
+        IDrawables<TQuantumType> Bezier(params PointD[] coordinates);
 
         /// <summary>
         /// Applies the DrawableBezier operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="coordinates">The coordinates.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Bezier(IEnumerable<PointD> coordinates);
+        IDrawables<TQuantumType> Bezier(IEnumerable<PointD> coordinates);
 
         /// <summary>
         /// Applies the DrawableBorderColor operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="color">The color of the border.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> BorderColor(IMagickColor<TQuantumType> color);
+        IDrawables<TQuantumType> BorderColor(IMagickColor<TQuantumType> color);
 
         /// <summary>
         /// Applies the DrawableCircle operation to the <see cref="IDrawables{TQuantumType}" />.
@@ -81,28 +81,28 @@ namespace ImageMagick
         /// <param name="perimeterX">The perimeter X coordinate.</param>
         /// <param name="perimeterY">The perimeter Y coordinate.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Circle(double originX, double originY, double perimeterX, double perimeterY);
+        IDrawables<TQuantumType> Circle(double originX, double originY, double perimeterX, double perimeterY);
 
         /// <summary>
         /// Applies the DrawableClipPath operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="clipPath">The ID of the clip path.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> ClipPath(string clipPath);
+        IDrawables<TQuantumType> ClipPath(string clipPath);
 
         /// <summary>
         /// Applies the DrawableClipRule operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="fillRule">The rule to use when filling drawn objects.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> ClipRule(FillRule fillRule);
+        IDrawables<TQuantumType> ClipRule(FillRule fillRule);
 
         /// <summary>
         /// Applies the DrawableClipUnits operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="units">The clip path units.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> ClipUnits(ClipPathUnit units);
+        IDrawables<TQuantumType> ClipUnits(ClipPathUnit units);
 
         /// <summary>
         /// Applies the DrawableColor operation to the <see cref="IDrawables{TQuantumType}" />.
@@ -111,7 +111,7 @@ namespace ImageMagick
         /// <param name="y">The Y coordinate.</param>
         /// <param name="paintMethod">The paint method to use.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Color(double x, double y, PaintMethod paintMethod);
+        IDrawables<TQuantumType> Color(double x, double y, PaintMethod paintMethod);
 
         /// <summary>
         /// Applies the DrawableComposite operation to the <see cref="IDrawables{TQuantumType}" />.
@@ -119,7 +119,7 @@ namespace ImageMagick
         /// <param name="offset">The offset from origin.</param>
         /// <param name="image">The image to draw.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Composite(IMagickGeometry offset, IMagickImage<TQuantumType> image);
+        IDrawables<TQuantumType> Composite(IMagickGeometry offset, IMagickImage<TQuantumType> image);
 
         /// <summary>
         /// Applies the DrawableComposite operation to the <see cref="IDrawables{TQuantumType}" />.
@@ -128,7 +128,7 @@ namespace ImageMagick
         /// <param name="y">The Y coordinate.</param>
         /// <param name="image">The image to draw.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Composite(double x, double y, IMagickImage<TQuantumType> image);
+        IDrawables<TQuantumType> Composite(double x, double y, IMagickImage<TQuantumType> image);
 
         /// <summary>
         /// Applies the DrawableComposite operation to the <see cref="IDrawables{TQuantumType}" />.
@@ -137,7 +137,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="image">The image to draw.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Composite(IMagickGeometry offset, CompositeOperator compose, IMagickImage<TQuantumType> image);
+        IDrawables<TQuantumType> Composite(IMagickGeometry offset, CompositeOperator compose, IMagickImage<TQuantumType> image);
 
         /// <summary>
         /// Applies the DrawableComposite operation to the <see cref="IDrawables{TQuantumType}" />.
@@ -147,21 +147,21 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="image">The image to draw.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Composite(double x, double y, CompositeOperator compose, IMagickImage<TQuantumType> image);
+        IDrawables<TQuantumType> Composite(double x, double y, CompositeOperator compose, IMagickImage<TQuantumType> image);
 
         /// <summary>
         /// Applies the DrawableDensity operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="density">The vertical and horizontal resolution.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Density(double density);
+        IDrawables<TQuantumType> Density(double density);
 
         /// <summary>
         /// Applies the DrawableDensity operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="pointDensity">The vertical and horizontal resolution.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Density(PointD pointDensity);
+        IDrawables<TQuantumType> Density(PointD pointDensity);
 
         /// <summary>
         /// Applies the DrawableEllipse operation to the <see cref="IDrawables{TQuantumType}" />.
@@ -173,42 +173,42 @@ namespace ImageMagick
         /// <param name="startDegrees">The starting degrees of rotation.</param>
         /// <param name="endDegrees">The ending degrees of rotation.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Ellipse(double originX, double originY, double radiusX, double radiusY, double startDegrees, double endDegrees);
+        IDrawables<TQuantumType> Ellipse(double originX, double originY, double radiusX, double radiusY, double startDegrees, double endDegrees);
 
         /// <summary>
         /// Applies the DrawableFillColor operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> FillColor(IMagickColor<TQuantumType> color);
+        IDrawables<TQuantumType> FillColor(IMagickColor<TQuantumType> color);
 
         /// <summary>
         /// Applies the DrawableFillOpacity operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="opacity">The opacity.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> FillOpacity(Percentage opacity);
+        IDrawables<TQuantumType> FillOpacity(Percentage opacity);
 
         /// <summary>
         /// Applies the DrawableFillPatternUrl operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="url">Url specifying pattern ID (e.g. "#pattern_id").</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> FillPatternUrl(string url);
+        IDrawables<TQuantumType> FillPatternUrl(string url);
 
         /// <summary>
         /// Applies the DrawableFillRule operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="fillRule">The rule to use when filling drawn objects.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> FillRule(FillRule fillRule);
+        IDrawables<TQuantumType> FillRule(FillRule fillRule);
 
         /// <summary>
         /// Applies the DrawableFont operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="family">The font family or the full path to the font file.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Font(string family);
+        IDrawables<TQuantumType> Font(string family);
 
         /// <summary>
         /// Applies the DrawableFont operation to the <see cref="IDrawables{TQuantumType}" />.
@@ -218,21 +218,21 @@ namespace ImageMagick
         /// <param name="weight">The weight of the font.</param>
         /// <param name="stretch">The font stretching type.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Font(string family, FontStyleType style, FontWeight weight, FontStretch stretch);
+        IDrawables<TQuantumType> Font(string family, FontStyleType style, FontWeight weight, FontStretch stretch);
 
         /// <summary>
         /// Applies the DrawableFontPointSize operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="pointSize">The point size.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> FontPointSize(double pointSize);
+        IDrawables<TQuantumType> FontPointSize(double pointSize);
 
         /// <summary>
         /// Applies the DrawableGravity operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="gravity">The gravity.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Gravity(Gravity gravity);
+        IDrawables<TQuantumType> Gravity(Gravity gravity);
 
         /// <summary>
         /// Applies the DrawableLine operation to the <see cref="IDrawables{TQuantumType}" />.
@@ -242,21 +242,21 @@ namespace ImageMagick
         /// <param name="endX">The ending X coordinate.</param>
         /// <param name="endY">The ending Y coordinate.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Line(double startX, double startY, double endX, double endY);
+        IDrawables<TQuantumType> Line(double startX, double startY, double endX, double endY);
 
         /// <summary>
         /// Applies the DrawablePath operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="paths">The paths to use.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Path(params IPath[] paths);
+        IDrawables<TQuantumType> Path(params IPath[] paths);
 
         /// <summary>
         /// Applies the DrawablePath operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="paths">The paths to use.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Path(IEnumerable<IPath> paths);
+        IDrawables<TQuantumType> Path(IEnumerable<IPath> paths);
 
         /// <summary>
         /// Applies the DrawablePoint operation to the <see cref="IDrawables{TQuantumType}" />.
@@ -264,66 +264,66 @@ namespace ImageMagick
         /// <param name="x">The X coordinate.</param>
         /// <param name="y">The Y coordinate.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Point(double x, double y);
+        IDrawables<TQuantumType> Point(double x, double y);
 
         /// <summary>
         /// Applies the DrawablePolygon operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="coordinates">The coordinates.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Polygon(params PointD[] coordinates);
+        IDrawables<TQuantumType> Polygon(params PointD[] coordinates);
 
         /// <summary>
         /// Applies the DrawablePolygon operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="coordinates">The coordinates.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Polygon(IEnumerable<PointD> coordinates);
+        IDrawables<TQuantumType> Polygon(IEnumerable<PointD> coordinates);
 
         /// <summary>
         /// Applies the DrawablePolyline operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="coordinates">The coordinates.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Polyline(params PointD[] coordinates);
+        IDrawables<TQuantumType> Polyline(params PointD[] coordinates);
 
         /// <summary>
         /// Applies the DrawablePolyline operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="coordinates">The coordinates.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Polyline(IEnumerable<PointD> coordinates);
+        IDrawables<TQuantumType> Polyline(IEnumerable<PointD> coordinates);
 
         /// <summary>
         /// Applies the DrawablePopClipPath operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> PopClipPath();
+        IDrawables<TQuantumType> PopClipPath();
 
         /// <summary>
         /// Applies the DrawablePopGraphicContext operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> PopGraphicContext();
+        IDrawables<TQuantumType> PopGraphicContext();
 
         /// <summary>
         /// Applies the DrawablePopPattern operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> PopPattern();
+        IDrawables<TQuantumType> PopPattern();
 
         /// <summary>
         /// Applies the DrawablePushClipPath operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="clipPath">The ID of the clip path.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> PushClipPath(string clipPath);
+        IDrawables<TQuantumType> PushClipPath(string clipPath);
 
         /// <summary>
         /// Applies the DrawablePushGraphicContext operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> PushGraphicContext();
+        IDrawables<TQuantumType> PushGraphicContext();
 
         /// <summary>
         /// Applies the DrawablePushPattern operation to the <see cref="IDrawables{TQuantumType}" />.
@@ -334,7 +334,7 @@ namespace ImageMagick
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> PushPattern(string id, double x, double y, double width, double height);
+        IDrawables<TQuantumType> PushPattern(string id, double x, double y, double width, double height);
 
         /// <summary>
         /// Applies the DrawableRectangle operation to the <see cref="IDrawables{TQuantumType}" />.
@@ -344,14 +344,14 @@ namespace ImageMagick
         /// <param name="lowerRightX">The lower right X coordinate.</param>
         /// <param name="lowerRightY">The lower right Y coordinate.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Rectangle(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY);
+        IDrawables<TQuantumType> Rectangle(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY);
 
         /// <summary>
         /// Applies the DrawableRotation operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="angle">The angle.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Rotation(double angle);
+        IDrawables<TQuantumType> Rotation(double angle);
 
         /// <summary>
         /// Applies the DrawableRoundRectangle operation to the <see cref="IDrawables{TQuantumType}" />.
@@ -363,7 +363,7 @@ namespace ImageMagick
         /// <param name="cornerWidth">The corner width.</param>
         /// <param name="cornerHeight">The corner height.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> RoundRectangle(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY, double cornerWidth, double cornerHeight);
+        IDrawables<TQuantumType> RoundRectangle(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY, double cornerWidth, double cornerHeight);
 
         /// <summary>
         /// Applies the DrawableScaling operation to the <see cref="IDrawables{TQuantumType}" />.
@@ -371,91 +371,91 @@ namespace ImageMagick
         /// <param name="x">Horizontal scale factor.</param>
         /// <param name="y">Vertical scale factor.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Scaling(double x, double y);
+        IDrawables<TQuantumType> Scaling(double x, double y);
 
         /// <summary>
         /// Applies the DrawableSkewX operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="angle">The angle.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> SkewX(double angle);
+        IDrawables<TQuantumType> SkewX(double angle);
 
         /// <summary>
         /// Applies the DrawableSkewY operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="angle">The angle.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> SkewY(double angle);
+        IDrawables<TQuantumType> SkewY(double angle);
 
         /// <summary>
         /// Applies the DrawableStrokeAntialias operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="isEnabled">True if stroke antialiasing is enabled otherwise false.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> StrokeAntialias(bool isEnabled);
+        IDrawables<TQuantumType> StrokeAntialias(bool isEnabled);
 
         /// <summary>
         /// Applies the DrawableStrokeColor operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> StrokeColor(IMagickColor<TQuantumType> color);
+        IDrawables<TQuantumType> StrokeColor(IMagickColor<TQuantumType> color);
 
         /// <summary>
         /// Applies the DrawableStrokeDashArray operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="dash">An array containing the dash information.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> StrokeDashArray(params double[] dash);
+        IDrawables<TQuantumType> StrokeDashArray(params double[] dash);
 
         /// <summary>
         /// Applies the DrawableStrokeDashOffset operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="offset">The dash offset.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> StrokeDashOffset(double offset);
+        IDrawables<TQuantumType> StrokeDashOffset(double offset);
 
         /// <summary>
         /// Applies the DrawableStrokeLineCap operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="lineCap">The line cap.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> StrokeLineCap(LineCap lineCap);
+        IDrawables<TQuantumType> StrokeLineCap(LineCap lineCap);
 
         /// <summary>
         /// Applies the DrawableStrokeLineJoin operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="lineJoin">The line join.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> StrokeLineJoin(LineJoin lineJoin);
+        IDrawables<TQuantumType> StrokeLineJoin(LineJoin lineJoin);
 
         /// <summary>
         /// Applies the DrawableStrokeMiterLimit operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="miterlimit">The miter limit.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> StrokeMiterLimit(int miterlimit);
+        IDrawables<TQuantumType> StrokeMiterLimit(int miterlimit);
 
         /// <summary>
         /// Applies the DrawableStrokeOpacity operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="opacity">The opacity.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> StrokeOpacity(Percentage opacity);
+        IDrawables<TQuantumType> StrokeOpacity(Percentage opacity);
 
         /// <summary>
         /// Applies the DrawableStrokePatternUrl operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="url">Url specifying pattern ID (e.g. "#pattern_id").</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> StrokePatternUrl(string url);
+        IDrawables<TQuantumType> StrokePatternUrl(string url);
 
         /// <summary>
         /// Applies the DrawableStrokeWidth operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="width">The width.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> StrokeWidth(double width);
+        IDrawables<TQuantumType> StrokeWidth(double width);
 
         /// <summary>
         /// Applies the DrawableText operation to the <see cref="IDrawables{TQuantumType}" />.
@@ -464,70 +464,70 @@ namespace ImageMagick
         /// <param name="y">The Y coordinate.</param>
         /// <param name="value">The text to draw.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Text(double x, double y, string value);
+        IDrawables<TQuantumType> Text(double x, double y, string value);
 
         /// <summary>
         /// Applies the DrawableTextAlignment operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="alignment">Text alignment.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> TextAlignment(TextAlignment alignment);
+        IDrawables<TQuantumType> TextAlignment(TextAlignment alignment);
 
         /// <summary>
         /// Applies the DrawableTextAntialias operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="isEnabled">True if text antialiasing is enabled otherwise false.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> TextAntialias(bool isEnabled);
+        IDrawables<TQuantumType> TextAntialias(bool isEnabled);
 
         /// <summary>
         /// Applies the DrawableTextDecoration operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="decoration">The text decoration.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> TextDecoration(TextDecoration decoration);
+        IDrawables<TQuantumType> TextDecoration(TextDecoration decoration);
 
         /// <summary>
         /// Applies the DrawableTextDirection operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="direction">Direction to use.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> TextDirection(TextDirection direction);
+        IDrawables<TQuantumType> TextDirection(TextDirection direction);
 
         /// <summary>
         /// Applies the DrawableTextEncoding operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="encoding">Encoding to use.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> TextEncoding(Encoding encoding);
+        IDrawables<TQuantumType> TextEncoding(Encoding encoding);
 
         /// <summary>
         /// Applies the DrawableTextInterlineSpacing operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="spacing">Spacing to use.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> TextInterlineSpacing(double spacing);
+        IDrawables<TQuantumType> TextInterlineSpacing(double spacing);
 
         /// <summary>
         /// Applies the DrawableTextInterwordSpacing operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="spacing">Spacing to use.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> TextInterwordSpacing(double spacing);
+        IDrawables<TQuantumType> TextInterwordSpacing(double spacing);
 
         /// <summary>
         /// Applies the DrawableTextKerning operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="kerning">Kerning to use.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> TextKerning(double kerning);
+        IDrawables<TQuantumType> TextKerning(double kerning);
 
         /// <summary>
         /// Applies the DrawableTextUnderColor operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> TextUnderColor(IMagickColor<TQuantumType> color);
+        IDrawables<TQuantumType> TextUnderColor(IMagickColor<TQuantumType> color);
 
         /// <summary>
         /// Applies the DrawableTranslation operation to the <see cref="IDrawables{TQuantumType}" />.
@@ -535,7 +535,7 @@ namespace ImageMagick
         /// <param name="x">The X coordinate.</param>
         /// <param name="y">The Y coordinate.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Translation(double x, double y);
+        IDrawables<TQuantumType> Translation(double x, double y);
 
         /// <summary>
         /// Applies the DrawableViewbox operation to the <see cref="IDrawables{TQuantumType}" />.
@@ -545,7 +545,7 @@ namespace ImageMagick
         /// <param name="lowerRightX">The lower right X coordinate.</param>
         /// <param name="lowerRightY">The lower right Y coordinate.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        public IDrawables<TQuantumType> Viewbox(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY);
+        IDrawables<TQuantumType> Viewbox(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY);
 
     }
 }
