@@ -36,7 +36,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         pixels.SetPixel((Pixel)null);
                     }
@@ -48,7 +48,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         ExceptionAssert.Throws<MagickCacheErrorException>(() =>
                         {
@@ -63,7 +63,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         ExceptionAssert.Throws<MagickCacheErrorException>(() =>
                         {
@@ -78,7 +78,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         Pixel pixel = new Pixel(0, 0, new QuantumType[] { 0 });
                         pixels.SetPixel(pixel);
@@ -93,7 +93,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         Pixel pixel = new Pixel(0, 0, new QuantumType[] { 0, 0, 0, 0 });
                         pixels.SetPixel(pixel);
@@ -108,7 +108,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         Pixel pixel = new Pixel(0, 0, new QuantumType[] { 0, Quantum.Max, 0 });
                         pixels.SetPixel(pixel);
@@ -123,7 +123,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         pixels.SetPixel((IEnumerable<Pixel>)null);
                     }
@@ -135,7 +135,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         Pixel pixelA = new Pixel(0, 0, new QuantumType[] { 0 });
                         Pixel pixelB = new Pixel(1, 0, new QuantumType[] { 0, 0 });
@@ -152,7 +152,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         Pixel pixelA = new Pixel(0, 0, new QuantumType[] { Quantum.Max, 0, 0 });
                         Pixel pixelB = new Pixel(1, 0, new QuantumType[] { 0, 0, Quantum.Max });
@@ -169,7 +169,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         pixels.SetPixel(0, 0, null);
                     }
@@ -181,7 +181,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         pixels.SetPixel(0, 0, new QuantumType[] { });
                     }
@@ -193,7 +193,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         ExceptionAssert.Throws<MagickCacheErrorException>(() =>
                         {
@@ -208,7 +208,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         ExceptionAssert.Throws<MagickCacheErrorException>(() =>
                         {
@@ -223,7 +223,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         pixels.SetPixel(0, 0, new QuantumType[] { 0 });
 
@@ -237,7 +237,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         pixels.SetPixel(0, 0, new QuantumType[] { 0, 0, 0, 0 });
 
@@ -251,7 +251,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         pixels.SetPixel(0, 0, new QuantumType[] { 0, 0, 0 });
 

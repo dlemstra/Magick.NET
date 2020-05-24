@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(MagickColors.Purple, 4, 2))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         var values = pixels.GetValues();
                         int length = 4 * 2 * 3;

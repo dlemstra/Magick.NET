@@ -26,7 +26,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         ExceptionAssert.Throws<ArgumentOutOfRangeException>("x", () =>
                         {
@@ -41,7 +41,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         ExceptionAssert.Throws<ArgumentOutOfRangeException>("y", () =>
                         {
@@ -56,7 +56,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.RedPNG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         Pixel pixel = pixels[300, 100];
 

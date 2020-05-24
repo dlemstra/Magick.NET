@@ -38,7 +38,7 @@ namespace Magick.NET.Tests
             _settings.Format = MagickFormat.Bgra;
             using (var image = new MagickImage(_bytes, _settings))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (var pixels = image.GetPixels())
                 {
                     Pixel pixel = pixels.GetPixel(0, 0);
                     Assert.AreEqual(4, pixel.Channels);
@@ -56,7 +56,7 @@ namespace Magick.NET.Tests
             _settings.Format = MagickFormat.Bgro;
             using (var image = new MagickImage(_bytes, _settings))
             {
-                using (IPixelCollection pixels = image.GetPixels())
+                using (var pixels = image.GetPixels())
                 {
                     Pixel pixel = pixels.GetPixel(0, 0);
                     Assert.AreEqual(4, pixel.Channels);

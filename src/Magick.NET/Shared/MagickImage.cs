@@ -3309,7 +3309,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>A pixel collection that can be used to read or modify the pixels of this image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IPixelCollection GetPixels()
+        public IPixelCollection<QuantumType> GetPixels()
         {
             if (_settings.Ping)
                 throw new InvalidOperationException("Image contains no pixel data.");
@@ -3323,7 +3323,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>A pixel collection that can be used to read or modify the pixels of this image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IPixelCollection GetPixelsUnsafe()
+        public IPixelCollection<QuantumType> GetPixelsUnsafe()
         {
             if (_settings.Ping)
                 throw new InvalidOperationException("Image contains no pixel data.");
@@ -6797,7 +6797,7 @@ namespace ImageMagick
         private void FloodFill(QuantumType alpha, int x, int y, bool invert)
         {
             IMagickColor<QuantumType> target;
-            using (IPixelCollection pixels = GetPixelsUnsafe())
+            using (var pixels = GetPixelsUnsafe())
             {
                 target = pixels.GetPixel(x, y).ToColor();
                 target.A = alpha;
@@ -6811,7 +6811,7 @@ namespace ImageMagick
             Throw.IfNull(nameof(color), color);
 
             IMagickColor<QuantumType> target;
-            using (IPixelCollection pixels = GetPixelsUnsafe())
+            using (var pixels = GetPixelsUnsafe())
             {
                 target = pixels.GetPixel(x, y).ToColor();
             }
@@ -6844,7 +6844,7 @@ namespace ImageMagick
             Throw.IfNull(nameof(image), image);
 
             IMagickColor<QuantumType> target;
-            using (IPixelCollection pixels = GetPixelsUnsafe())
+            using (var pixels = GetPixelsUnsafe())
             {
                 target = pixels.GetPixel(x, y).ToColor();
             }

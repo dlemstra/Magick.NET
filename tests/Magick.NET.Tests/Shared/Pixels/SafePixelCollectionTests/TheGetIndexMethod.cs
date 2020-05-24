@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.MagickNETIconPNG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         int index = pixels.GetIndex(PixelChannel.Black);
                         Assert.AreEqual(-1, index);
@@ -38,7 +38,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.MagickNETIconPNG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         int index = pixels.GetIndex(PixelChannel.Green);
                         Assert.AreEqual(1, index);

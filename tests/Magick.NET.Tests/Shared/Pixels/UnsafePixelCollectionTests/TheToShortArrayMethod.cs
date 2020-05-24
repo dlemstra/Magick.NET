@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         if (Is64Bit)
                         {
@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = pixels.ToShortArray(60, 60, 63, 58, "RGBA");
                         int length = 63 * 58 * 4;
@@ -65,7 +65,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = pixels.ToShortArray(60, 60, 63, 58, PixelMapping.RGBA);
                         int length = 63 * 58 * 4;
@@ -80,7 +80,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = pixels.ToShortArray(null, "RGB");
                         Assert.IsNull(values);
@@ -93,7 +93,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = pixels.ToShortArray(new MagickGeometry(1, 2, 3, 4), null);
                         Assert.IsNull(values);
@@ -106,7 +106,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         ExceptionAssert.Throws<MagickResourceLimitErrorException>(() =>
                         {
@@ -121,7 +121,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = pixels.ToShortArray(new MagickGeometry(10, 10, 113, 108), "RG");
                         var length = 113 * 108 * 2;
@@ -136,7 +136,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = pixels.ToShortArray(new MagickGeometry(10, 10, 113, 108), PixelMapping.RGB);
                         var length = 113 * 108 * 3;
@@ -151,7 +151,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = pixels.ToShortArray(null);
                         Assert.IsNull(values);
@@ -164,7 +164,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         ExceptionAssert.Throws<MagickResourceLimitErrorException>(() =>
                         {
@@ -179,7 +179,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         ExceptionAssert.Throws<MagickOptionErrorException>(() =>
                         {
@@ -194,7 +194,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = pixels.ToShortArray("RG");
                         int length = image.Width * image.Height * 2;
@@ -209,7 +209,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = pixels.ToShortArray(PixelMapping.RGB);
                         int length = image.Width * image.Height * 3;

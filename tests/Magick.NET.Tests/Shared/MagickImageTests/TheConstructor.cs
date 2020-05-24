@@ -390,7 +390,7 @@ namespace Magick.NET.Tests
                         Assert.AreEqual(2, image.Width);
                         Assert.AreEqual(1, image.Height);
 
-                        using (IPixelCollection pixels = image.GetPixels())
+                        using (var pixels = image.GetPixels())
                         {
                             Pixel pixel = pixels.GetPixel(0, 0);
                             Assert.AreEqual(4, pixel.Channels);

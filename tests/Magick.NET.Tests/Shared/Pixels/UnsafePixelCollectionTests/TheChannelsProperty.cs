@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.CMYKJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         Assert.AreEqual(image.ChannelCount, pixels.Channels);
 

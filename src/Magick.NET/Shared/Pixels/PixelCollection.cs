@@ -13,7 +13,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -27,7 +26,7 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-    internal abstract partial class PixelCollection : IPixelCollection
+    internal abstract partial class PixelCollection : IPixelCollection<QuantumType>
     {
         protected PixelCollection(MagickImage image)
         {

@@ -109,7 +109,7 @@ namespace Magick.NET.Tests
                 {
                     using (var mask = new MagickImage(MagickColors.White, 2, 1))
                     {
-                        using (IPixelCollection pixels = mask.GetPixelsUnsafe())
+                        using (var pixels = mask.GetPixelsUnsafe())
                         {
                             pixels.SetPixel(0, 0, new QuantumType[] { 0, 0, 0 });
                         }

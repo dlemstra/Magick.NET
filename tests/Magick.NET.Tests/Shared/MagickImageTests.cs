@@ -2301,7 +2301,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(width + 20, image.Width);
                 Assert.AreEqual(height + 20, image.Height);
 
-                using (IPixelCollection pixels = image.GetPixels())
+                using (var pixels = image.GetPixels())
                 {
                     Pixel pixel = pixels.GetPixel(90, 9);
                     Assert.AreEqual(0, pixel.ToColor().A);
@@ -2414,7 +2414,7 @@ namespace Magick.NET.Tests
                     image.SparseColor(Channels.Blue, SparseColorMethod.Barycentric, args);
                 });
 
-                using (IPixelCollection pixels = image.GetPixels())
+                using (var pixels = image.GetPixels())
                 {
                     ColorAssert.AreEqual(pixels.GetPixel(0, 0).ToColor(), pixels.GetPixel(599, 59).ToColor());
                 }
@@ -2430,7 +2430,7 @@ namespace Magick.NET.Tests
 
                 image.SparseColor(SparseColorMethod.Barycentric, args);
 
-                using (IPixelCollection pixels = image.GetPixels())
+                using (var pixels = image.GetPixels())
                 {
                     ColorAssert.AreNotEqual(pixels.GetPixel(0, 0).ToColor(), pixels.GetPixel(599, 59).ToColor());
                 }

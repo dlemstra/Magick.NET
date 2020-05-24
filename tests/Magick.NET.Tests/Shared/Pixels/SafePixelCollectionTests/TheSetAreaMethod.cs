@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("values", () =>
                         {
@@ -52,7 +52,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         ExceptionAssert.Throws<ArgumentException>("values", () =>
                         {
@@ -67,7 +67,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         ExceptionAssert.Throws<ArgumentException>("values", () =>
                         {
@@ -83,7 +83,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         var values = new byte[113 * 108 * image.ChannelCount];
                         pixels.SetArea(10, 10, 113, 108, values);
@@ -98,7 +98,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("geometry", () =>
                         {
@@ -113,7 +113,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         var values = new byte[113 * 108 * image.ChannelCount];
                         pixels.SetArea(new MagickGeometry(10, 10, 113, 108), values);
@@ -128,7 +128,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("values", () =>
                         {
@@ -143,7 +143,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         ExceptionAssert.Throws<ArgumentException>("values", () =>
                         {
@@ -158,7 +158,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         ExceptionAssert.Throws<ArgumentException>("values", () =>
                         {
@@ -174,7 +174,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         var values = new double[113 * 108 * image.ChannelCount];
                         pixels.SetArea(10, 10, 113, 108, values);
@@ -189,7 +189,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("geometry", () =>
                         {
@@ -204,7 +204,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         var values = new double[113 * 108 * image.ChannelCount];
                         pixels.SetArea(new MagickGeometry(10, 10, 113, 108), values);
@@ -219,7 +219,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("values", () =>
                         {
@@ -234,7 +234,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         ExceptionAssert.Throws<ArgumentException>("values", () =>
                         {
@@ -249,7 +249,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         ExceptionAssert.Throws<ArgumentException>("values", () =>
                         {
@@ -265,7 +265,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         var values = new int[113 * 108 * image.ChannelCount];
                         pixels.SetArea(10, 10, 113, 108, values);
@@ -280,7 +280,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("geometry", () =>
                         {
@@ -295,7 +295,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         var values = new int[113 * 108 * image.ChannelCount];
                         pixels.SetArea(new MagickGeometry(10, 10, 113, 108), values);
@@ -310,7 +310,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("values", () =>
                         {
@@ -325,7 +325,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         ExceptionAssert.Throws<ArgumentException>("values", () =>
                         {
@@ -340,7 +340,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         ExceptionAssert.Throws<ArgumentException>("values", () =>
                         {
@@ -356,7 +356,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         var values = new QuantumType[113 * 108 * image.ChannelCount];
                         pixels.SetArea(10, 10, 113, 108, values);
@@ -371,7 +371,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("geometry", () =>
                         {
@@ -386,7 +386,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         var values = new QuantumType[113 * 108 * image.ChannelCount];
                         pixels.SetArea(new MagickGeometry(10, 10, 113, 108), values);

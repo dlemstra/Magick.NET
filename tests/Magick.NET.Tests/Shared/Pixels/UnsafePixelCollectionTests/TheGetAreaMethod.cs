@@ -52,7 +52,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         ExceptionAssert.Throws<OverflowException>(() =>
                         {
@@ -67,7 +67,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         ExceptionAssert.Throws<MagickCacheErrorException>(() =>
                         {
@@ -82,7 +82,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         if (Is64Bit)
                         {
@@ -107,7 +107,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         ExceptionAssert.Throws<MagickCacheErrorException>(() =>
                         {
@@ -134,7 +134,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.CirclePNG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var area = pixels.GetArea(28, 28, 2, 3);
                         int length = 2 * 3 * 4; // width * height * channelCount
@@ -151,7 +151,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.RedPNG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var area = pixels.GetArea(null);
                         Assert.IsNull(area);
@@ -164,7 +164,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.RedPNG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var area = pixels.GetArea(new MagickGeometry(0, 0, 6, 5));
                         int length = 6 * 5 * 4; // width * height * channelCount
@@ -180,7 +180,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         if (Is64Bit)
                         {
@@ -201,7 +201,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         pixels.GetArea(x, y, width, height);
                     }

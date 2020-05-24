@@ -47,7 +47,7 @@ namespace Magick.NET.Tests
 
         public static void AreEqual(IMagickColor<QuantumType> expected, IMagickImage<QuantumType> image, int x, int y)
         {
-            using (IPixelCollection pixels = image.GetPixelsUnsafe())
+            using (var pixels = image.GetPixelsUnsafe())
             {
                 AreEqual(expected, pixels.GetPixel(x, y));
             }
@@ -62,7 +62,7 @@ namespace Magick.NET.Tests
 
         public static void AreNotEqual(IMagickColor<QuantumType> notExpected, IMagickImage<QuantumType> image, int x, int y)
         {
-            using (IPixelCollection collection = image.GetPixelsUnsafe())
+            using (var collection = image.GetPixelsUnsafe())
             {
                 AreNotEqual(notExpected, collection.GetPixel(x, y));
             }

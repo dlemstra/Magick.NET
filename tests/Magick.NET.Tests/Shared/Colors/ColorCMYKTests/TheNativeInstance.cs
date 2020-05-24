@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
                     image.ColorSpace = ColorSpace.CMYK;
                     image.Opaque(MagickColors.Black, new MagickColor("cmyk(128,23,250,156)"));
 
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var color = pixels.GetPixel(0, 0).ToColor();
 #if Q8

@@ -52,7 +52,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(MagickColors.Red, 1, 1))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var pixel = pixels.GetValue(0, 0);
 
@@ -68,7 +68,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         if (Is64Bit)
                         {
@@ -89,7 +89,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         pixels.GetValue(x, y);
                     }

@@ -36,7 +36,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         pixels.SetArea(10, 10, 1000, 1000, (byte[])null);
                     }
@@ -48,7 +48,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         pixels.SetArea(10, 10, 1000, 1000, new byte[] { 0, 0, 0, 0 });
                     }
@@ -60,7 +60,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = new byte[(113 * 108 * image.ChannelCount) + image.ChannelCount];
                         pixels.SetArea(10, 10, 113, 108, values);
@@ -73,7 +73,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = new byte[113 * 108 * image.ChannelCount];
                         pixels.SetArea(10, 10, 113, 108, values);
@@ -88,7 +88,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         pixels.SetArea(null, new byte[] { 0 });
                     }
@@ -100,7 +100,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = new byte[113 * 108 * image.ChannelCount];
                         pixels.SetArea(new MagickGeometry(10, 10, 113, 108), values);
@@ -115,7 +115,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         pixels.SetArea(10, 10, 1000, 1000, (double[])null);
                     }
@@ -127,7 +127,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         pixels.SetArea(10, 10, 1000, 1000, new double[] { 0, 0, 0, 0 });
                     }
@@ -139,7 +139,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = new double[(113 * 108 * image.ChannelCount) + image.ChannelCount];
                         pixels.SetArea(10, 10, 113, 108, values);
@@ -152,7 +152,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = new double[113 * 108 * image.ChannelCount];
                         pixels.SetArea(10, 10, 113, 108, values);
@@ -167,7 +167,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         pixels.SetArea(null, new double[] { 0 });
                     }
@@ -179,7 +179,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = new double[113 * 108 * image.ChannelCount];
                         pixels.SetArea(new MagickGeometry(10, 10, 113, 108), values);
@@ -194,7 +194,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         pixels.SetArea(10, 10, 1000, 1000, (int[])null);
                     }
@@ -206,7 +206,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         pixels.SetArea(10, 10, 1000, 1000, new int[] { 0, 0, 0, 0 });
                     }
@@ -218,7 +218,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = new int[(113 * 108 * image.ChannelCount) + image.ChannelCount];
                         pixels.SetArea(10, 10, 113, 108, values);
@@ -231,7 +231,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = new int[113 * 108 * image.ChannelCount];
                         pixels.SetArea(10, 10, 113, 108, values);
@@ -246,7 +246,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         pixels.SetArea(null, new int[] { 0 });
                     }
@@ -258,7 +258,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = new int[113 * 108 * image.ChannelCount];
                         pixels.SetArea(new MagickGeometry(10, 10, 113, 108), values);
@@ -273,7 +273,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         pixels.SetArea(10, 10, 1000, 1000, (QuantumType[])null);
                     }
@@ -285,7 +285,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         pixels.SetArea(10, 10, 1000, 1000, new QuantumType[] { 0, 0, 0, 0 });
                     }
@@ -297,7 +297,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = new QuantumType[(113 * 108 * image.ChannelCount) + image.ChannelCount];
                         pixels.SetArea(10, 10, 113, 108, values);
@@ -310,7 +310,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = new QuantumType[113 * 108 * image.ChannelCount];
                         pixels.SetArea(10, 10, 113, 108, values);
@@ -325,7 +325,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         pixels.SetArea(null, new QuantumType[] { 0 });
                     }
@@ -337,7 +337,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = new QuantumType[113 * 108 * image.ChannelCount];
                         pixels.SetArea(new MagickGeometry(10, 10, 113, 108), values);

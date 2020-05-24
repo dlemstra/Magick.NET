@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.RedPNG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         Pixel pixel = pixels[image.Width + 1, 0];
                     }
@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.RedPNG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         Pixel pixel = pixels[0, image.Height + 1];
                     }
@@ -49,7 +49,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.RedPNG))
                 {
-                    using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
                         Pixel pixel = pixels[300, 100];
 

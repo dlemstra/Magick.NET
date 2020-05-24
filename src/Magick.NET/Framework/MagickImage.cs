@@ -215,7 +215,7 @@ namespace ImageMagick
                 var step = format.BitsPerPixel / 8;
                 var stride = Width * step;
 
-                using (IPixelCollection pixels = image.GetPixelsUnsafe())
+                using (var pixels = image.GetPixelsUnsafe())
                 {
                     var bytes = pixels.ToByteArray(mapping);
                     var dpi = GetDpi(bitmapDensity);

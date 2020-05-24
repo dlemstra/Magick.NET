@@ -40,7 +40,7 @@ namespace Magick.NET.Tests
                 {
                     collection.Read(Files.RoseSparkleGIF);
 
-                    using (IPixelCollection pixels = collection[1].GetPixels())
+                    using (var pixels = collection[1].GetPixels())
                     {
                         var color = pixels.GetPixel(53, 3).ToColor();
                         Assert.AreEqual(0, color.A);
@@ -48,7 +48,7 @@ namespace Magick.NET.Tests
 
                     collection.Coalesce();
 
-                    using (IPixelCollection pixels = collection[1].GetPixels())
+                    using (var pixels = collection[1].GetPixels())
                     {
                         var color = pixels.GetPixel(53, 3).ToColor();
                         Assert.AreEqual(Quantum.Max, color.A);

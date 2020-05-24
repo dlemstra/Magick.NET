@@ -13,22 +13,13 @@
 using System;
 using System.Collections.Generic;
 
-#if Q8
-using QuantumType = System.Byte;
-#elif Q16
-using QuantumType = System.UInt16;
-#elif Q16HDRI
-using QuantumType = System.Single;
-#else
-#error Not implemented!
-#endif
-
 namespace ImageMagick
 {
     /// <summary>
     /// Interface that can be used to access the individual pixels of an image.
     /// </summary>
-    public interface IPixelCollection : IEnumerable<Pixel>, IDisposable
+    /// <typeparam name="TQuantumType">The quantum type.</typeparam>
+    public interface IPixelCollection<TQuantumType> : IEnumerable<Pixel>, IDisposable
     {
         /// <summary>
         /// Gets the number of channels that the image contains.
@@ -49,15 +40,15 @@ namespace ImageMagick
         /// <param name="y">The Y coordinate of the area.</param>
         /// <param name="width">The width of the area.</param>
         /// <param name="height">The height of the area.</param>
-        /// <returns>A <see cref="QuantumType"/> array.</returns>
-        QuantumType[] GetArea(int x, int y, int width, int height);
+        /// <returns>A <typeparamref name="TQuantumType"/> array.</returns>
+        TQuantumType[] GetArea(int x, int y, int width, int height);
 
         /// <summary>
         /// Returns the pixel of the specified area.
         /// </summary>
         /// <param name="geometry">The geometry of the area.</param>
-        /// <returns>A <see cref="QuantumType"/> array.</returns>
-        QuantumType[] GetArea(IMagickGeometry geometry);
+        /// <returns>A <typeparamref name="TQuantumType"/> array.</returns>
+        TQuantumType[] GetArea(IMagickGeometry geometry);
 
         /// <summary>
         /// Returns the index of the specified channel. Returns -1 if not found.
@@ -79,14 +70,14 @@ namespace ImageMagick
         /// </summary>
         /// <param name="x">The X coordinate of the pixel.</param>
         /// <param name="y">The Y coordinate of the pixel.</param>
-        /// <returns>A <see cref="QuantumType"/> array.</returns>
-        QuantumType[] GetValue(int x, int y);
+        /// <returns>A <typeparamref name="TQuantumType"/> array.</returns>
+        TQuantumType[] GetValue(int x, int y);
 
         /// <summary>
         /// Returns the values of the pixels as an array.
         /// </summary>
-        /// <returns>A <see cref="QuantumType"/> array.</returns>
-        QuantumType[] GetValues();
+        /// <returns>A <typeparamref name="TQuantumType"/> array.</returns>
+        TQuantumType[] GetValues();
 
         /// <summary>
         /// Changes the value of the specified pixel.
@@ -106,7 +97,7 @@ namespace ImageMagick
         /// <param name="x">The X coordinate of the pixel.</param>
         /// <param name="y">The Y coordinate of the pixel.</param>
         /// <param name="value">The value of the pixel.</param>
-        void SetPixel(int x, int y, QuantumType[] value);
+        void SetPixel(int x, int y, TQuantumType[] value);
 
 #if !Q8
         /// <summary>
@@ -132,7 +123,7 @@ namespace ImageMagick
         /// Changes the values of the specified pixels.
         /// </summary>
         /// <param name="values">The values of the pixels.</param>
-        void SetPixels(QuantumType[] values);
+        void SetPixels(TQuantumType[] values);
 
 #if !Q8
         /// <summary>
@@ -195,20 +186,20 @@ namespace ImageMagick
         /// <param name="width">The width of the area.</param>
         /// <param name="height">The height of the area.</param>
         /// <param name="values">The values of the pixels.</param>
-        void SetArea(int x, int y, int width, int height, QuantumType[] values);
+        void SetArea(int x, int y, int width, int height, TQuantumType[] values);
 
         /// <summary>
         /// Changes the values of the specified pixels.
         /// </summary>
         /// <param name="geometry">The geometry of the area.</param>
         /// <param name="values">The values of the pixels.</param>
-        void SetArea(IMagickGeometry geometry, QuantumType[] values);
+        void SetArea(IMagickGeometry geometry, TQuantumType[] values);
 
         /// <summary>
         /// Returns the values of the pixels as an array.
         /// </summary>
-        /// <returns>A <see cref="QuantumType"/> array.</returns>
-        QuantumType[] ToArray();
+        /// <returns>A <typeparamref name="TQuantumType"/> array.</returns>
+        TQuantumType[] ToArray();
 
         /// <summary>
         /// Returns the values of the pixels as an array.

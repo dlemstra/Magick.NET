@@ -57,7 +57,7 @@ namespace Magick.NET.Tests
                         Assert.IsNotNull(mask);
                         Assert.IsFalse(mask.HasAlpha);
 
-                        using (IPixelCollection pixels = mask.GetPixels())
+                        using (var pixels = mask.GetPixels())
                         {
                             var pixelA = pixels.GetPixel(0, 0).ToColor();
                             var pixelB = pixels.GetPixel(mask.Width - 1, mask.Height - 1).ToColor();

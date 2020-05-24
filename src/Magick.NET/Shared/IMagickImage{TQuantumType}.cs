@@ -2066,7 +2066,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>A pixel collection that can be used to read or modify the pixels of this image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IPixelCollection GetPixels();
+        IPixelCollection<TQuantumType> GetPixels();
 
         /// <summary>
         /// Returns a pixel collection that can be used to read or modify the pixels of this image. This instance
@@ -2074,7 +2074,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>A pixel collection that can be used to read or modify the pixels of this image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IPixelCollection GetPixelsUnsafe();
+        IPixelCollection<TQuantumType> GetPixelsUnsafe();
 
         /// <summary>
         /// Retrieve a named profile from the image.

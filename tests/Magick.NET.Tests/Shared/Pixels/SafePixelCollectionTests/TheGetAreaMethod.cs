@@ -86,7 +86,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.CirclePNG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         var area = pixels.GetArea(28, 28, 2, 3);
                         int length = 2 * 3 * 4; // width * height * channelCount
@@ -103,7 +103,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.RedPNG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("geometry", () =>
                         {
@@ -118,7 +118,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.RedPNG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         var area = pixels.GetArea(new MagickGeometry(0, 0, 6, 5));
                         int length = 6 * 5 * 4; // width * height * channelCount
@@ -134,7 +134,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         ExceptionAssert.Throws<ArgumentOutOfRangeException>(paramName, () =>
                         {

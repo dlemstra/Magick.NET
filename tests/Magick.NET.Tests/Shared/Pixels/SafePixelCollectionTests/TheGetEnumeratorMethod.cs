@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.CirclePNG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         IEnumerator<Pixel> enumerator = pixels.GetEnumerator();
                         Assert.IsNotNull(enumerator);
@@ -41,7 +41,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.CirclePNG))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         IEnumerable enumerable = pixels;
                         Assert.IsNotNull(enumerable.GetEnumerator());
@@ -68,7 +68,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
-                    using (IPixelCollection pixels = image.GetPixels())
+                    using (var pixels = image.GetPixels())
                     {
                         Assert.AreEqual(50, pixels.Count());
                     }
