@@ -51,9 +51,9 @@ namespace ImageMagick
             if (!string.IsNullOrEmpty(description))
                 message += " (" + description + ")";
 
-            List<MagickException> innerExceptions = CreateRelatedExceptions(exception);
+            var innerExceptions = CreateRelatedExceptions(exception);
 
-            MagickException result = Create(severity, message);
+            var result = Create(severity, message);
             result.SetRelatedException(innerExceptions);
 
             return result;

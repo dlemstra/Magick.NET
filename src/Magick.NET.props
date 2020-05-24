@@ -1,0 +1,44 @@
+<Project>
+  <PropertyGroup>
+    <TargetFrameworks>net20;net40;netstandard13;netstandard20</TargetFrameworks>
+    <OutputPath>bin/$(Configuration)/$(Platform)/</OutputPath>
+    <AssemblyVersion>7.17.0.0</AssemblyVersion>
+    <FileVersion>7.17.0.1</FileVersion>
+    <Version>7.17.0.1</Version>
+    <Authors>Dirk Lemstra</Authors>
+    <Copyright>Copyright 2013-2020 Dirk Lemstra</Copyright>
+    <LangVersion>latest</LangVersion>
+    <Configurations>DebugQ8;DebugQ16;DebugQ16-HDRI;TestQ8;TestQ16;TestQ16-HDRI;TestQ8-OpenMP;TestQ16-OpenMP;TestQ16-HDRI-OpenMP;ReleaseQ8;ReleaseQ8-OpenMP;ReleaseQ16;ReleaseQ16-OpenMP;ReleaseQ16-HDRI;ReleaseQ16-HDRI-OpenMP</Configurations>
+    <RootNamespace>ImageMagick</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="!$(Configuration.Contains('Release'))">
+    <Optimize>false</Optimize>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(Configuration.Contains('Release'))">
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <TreatWarningsAsErrors Condition="'$(OS)' == 'Windows_NT'">true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>../../Magick.NET.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="../../stylecop.json" Link="stylecop.json" />
+    <AdditionalFiles Include="../Magick.NET.ruleset" Link="Magick.NET.ruleset" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>../Magick.NET.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="../Magick.Native/TrademarkAttribute.cs" Link="TrademarkAttribute.cs" />
+  </ItemGroup>
+</Project>

@@ -522,10 +522,10 @@ namespace ImageMagick
         /// </summary>
         public Percentage ColorFuzz
         {
-            get => Percentage.FromQuantum(_nativeInstance.ColorFuzz);
+            get => PercentageExtensions.FromQuantum(_nativeInstance.ColorFuzz);
             set
             {
-                double newValue = value.ToQuantum();
+                var newValue = value.ToQuantum();
                 _nativeInstance.ColorFuzz = newValue;
                 _settings.ColorFuzz = newValue;
             }

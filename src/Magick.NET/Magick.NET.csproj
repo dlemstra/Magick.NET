@@ -1,17 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <TargetFrameworks>net20;net40;netstandard13;netstandard20</TargetFrameworks>
-    <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <AssemblyVersion>7.17.0.0</AssemblyVersion>
-    <FileVersion>7.17.0.1</FileVersion>
-    <Version>7.17.0.1</Version>
-    <Authors>Dirk Lemstra</Authors>
-    <Copyright>Copyright 2013-2020 Dirk Lemstra</Copyright>
-    <LangVersion>latest</LangVersion>
     <Platforms>x86;x64;AnyCPU</Platforms>
-    <Configurations>DebugQ8;DebugQ16;DebugQ16-HDRI;TestQ8;TestQ16;TestQ16-HDRI;TestQ8-OpenMP;TestQ16-OpenMP;TestQ16-HDRI-OpenMP;ReleaseQ8;ReleaseQ8-OpenMP;ReleaseQ16;ReleaseQ16-OpenMP;ReleaseQ16-HDRI;ReleaseQ16-HDRI-OpenMP</Configurations>
-    <RootNamespace>ImageMagick</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration.EndsWith('Q8'))">
@@ -50,20 +40,7 @@
     <QuantumName>Q16-HDRI-OpenMP</QuantumName>
   </PropertyGroup>
 
-  <PropertyGroup Condition="!$(Configuration.Contains('Release'))">
-    <Optimize>false</Optimize>
-    <DebugType>full</DebugType>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="$(Configuration.Contains('Release'))">
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <TreatWarningsAsErrors Condition="'$(OS)' == 'Windows_NT'">true</TreatWarningsAsErrors>
-  </PropertyGroup>
-
   <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\Magick.NET.snk</AssemblyOriginatorKeyFile>
     <DefineConstants>$(DefineConstants);WINDOWS_BUILD</DefineConstants>
   </PropertyGroup>
 
@@ -80,6 +57,14 @@
     <Reference Include="PresentationCore" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard13'">
     <PackageReference Include="System.Collections.NonGeneric" Version="4.3.0" />
     <PackageReference Include="System.Xml.XDocument" Version="4.3.0" />
@@ -87,26 +72,6 @@
     <PackageReference Include="System.Xml.XPath.XDocument" Version="4.3.0" />
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
   </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164" PrivateAssets="All" />
-    <AdditionalFiles Include="..\..\stylecop.json" Link="stylecop.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <AdditionalFiles Include="..\Magick.NET.ruleset" Link="Magick.NET.ruleset" />
-  </ItemGroup>
-
-  <PropertyGroup>
-    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Platform)' == 'x86'">
     <PlatformTarget>x86</PlatformTarget>
@@ -119,28 +84,24 @@
   <PropertyGroup>
     <AssemblyName>Magick.NET-$(QuantumName)-$(Platform)</AssemblyName>
     <AssemblyTitle>Magick.NET $(QuantumName) $(Platform) $(TargetFrameWork)</AssemblyTitle>
-    <DocumentationFile>bin\$(Configuration)\$(Platform)\$(TargetFrameWork)\Magick.NET-$(QuantumName)-$(Platform).xml</DocumentationFile>
+    <DocumentationFile>bin/$(Configuration)/$(Platform)/$(TargetFrameWork)/Magick.NET-$(QuantumName)-$(Platform).xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(Platform)' == 'AnyCPU' and !$(TargetFramework.StartsWith('netstandard'))">
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\libraries\Magick.Native-$(QuantumName)-x86.gz">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)/../Magick.Native/libraries/Magick.Native-$(QuantumName)-x86.gz">
       <LogicalName>ImageMagick.Resources.Library.Magick.Native_x86.gz</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.Native\libraries\Magick.Native-$(QuantumName)-x64.gz">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)/../Magick.Native/libraries/Magick.Native-$(QuantumName)-x64.gz">
       <LogicalName>ImageMagick.Resources.Library.Magick.Native_x64.gz</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Resources\**" />
+    <None Remove="Resources/**" />
   </ItemGroup>
 
   <ItemGroup Condition="$(Configuration.Contains('Release'))">
-    <Compile Remove="Properties\InternalsVisibleTo.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="..\Magick.Native\TrademarkAttribute.cs" Link="TrademarkAttribute.cs" />
+    <Compile Remove="Properties/InternalsVisibleTo.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -193,4 +154,10 @@
       <LogicalName>ImageMagick.Resources.Xml.type-ghostscript.xml</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Magick.NET.Core/Magick.NET.Core.csproj" />
+  </ItemGroup>
+
+  <Import Project="../Magick.NET.props" />
 </Project>

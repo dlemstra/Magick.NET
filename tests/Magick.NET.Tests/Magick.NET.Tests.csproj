@@ -1,12 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <TargetFrameworks>net45;netcoreapp2.0</TargetFrameworks>
-    <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
-    <AssemblyName>Magick.NET.Tests</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <LangVersion>latest</LangVersion>
     <Platforms>x86;x64;AnyCPU</Platforms>
-    <Configurations>DebugQ8;DebugQ16;DebugQ16-HDRI;TestQ8;TestQ16;TestQ16-HDRI;TestQ8-OpenMP;TestQ16-OpenMP;TestQ16-HDRI-OpenMP</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration.EndsWith('Q8'))">
@@ -39,9 +34,8 @@
     <QuantumType>Q16-HDRI</QuantumType>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <Optimize>false</Optimize>
-    <DebugType>full</DebugType>
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netcore'))">
+    <DefineConstants>$(DefineConstants);NETCORE</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration.StartsWith('Debug'))">
@@ -49,22 +43,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\Magick.NET.snk</AssemblyOriginatorKeyFile>
     <DefineConstants>$(DefineConstants);WINDOWS_BUILD</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="$(TargetFramework.StartsWith('netcore'))">
-    <DefineConstants>$(DefineConstants);NETCORE</DefineConstants>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <AdditionalFiles Include="..\..\stylecop.json" Link="stylecop.json" />
-    <AdditionalFiles Include="..\Magick.NET.ruleset" Link="Magick.NET.ruleset" />
-  </ItemGroup>
-
-  <PropertyGroup>
-    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
@@ -83,10 +62,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Magick.NET\Magick.NET.csproj" />
+    <ProjectReference Include="../../src/Magick.NET/Magick.NET.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
-  </ItemGroup>
+  <Import Project="../Magick.NET.props" />
 </Project>
