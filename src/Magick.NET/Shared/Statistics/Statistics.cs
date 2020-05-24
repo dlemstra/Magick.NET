@@ -38,14 +38,14 @@ namespace ImageMagick
         /// Returns the statistics for the all the channels.
         /// </summary>
         /// <returns>The statistics for the all the channels.</returns>
-        public ChannelStatistics Composite() => GetChannel(PixelChannel.Composite);
+        public IChannelStatistics Composite() => GetChannel(PixelChannel.Composite);
 
         /// <summary>
         /// Returns the statistics for the specified channel.
         /// </summary>
         /// <param name="channel">The channel to get the statistics for.</param>
         /// <returns>The statistics for the specified channel.</returns>
-        public ChannelStatistics GetChannel(PixelChannel channel)
+        public IChannelStatistics GetChannel(PixelChannel channel)
         {
             _channels.TryGetValue(channel, out ChannelStatistics channelStatistics);
             return channelStatistics;

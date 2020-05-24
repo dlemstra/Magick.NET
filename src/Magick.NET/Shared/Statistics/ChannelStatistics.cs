@@ -17,7 +17,7 @@ namespace ImageMagick
     /// <summary>
     /// Encapsulation of the ImageMagick ImageChannelStatistics object.
     /// </summary>
-    public sealed partial class ChannelStatistics : IEquatable<ChannelStatistics>
+    public sealed partial class ChannelStatistics : IChannelStatistics
     {
         private ChannelStatistics(PixelChannel channel, IntPtr instance)
         {
@@ -123,11 +123,11 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Determines whether the specified <see cref="ChannelStatistics"/> is equal to the current <see cref="ChannelStatistics"/>.
+        /// Determines whether the specified <see cref="IChannelStatistics"/> is equal to the current <see cref="ChannelStatistics"/>.
         /// </summary>
         /// <param name="other">The channel statistics to compare this <see cref="ChannelStatistics"/> with.</param>
-        /// <returns>True when the specified <see cref="ChannelStatistics"/> is equal to the current <see cref="ChannelStatistics"/>.</returns>
-        public bool Equals(ChannelStatistics other)
+        /// <returns>True when the specified <see cref="IChannelStatistics"/> is equal to the current <see cref="ChannelStatistics"/>.</returns>
+        public bool Equals(IChannelStatistics other)
         {
             if (other is null)
                 return false;
