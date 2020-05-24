@@ -92,11 +92,11 @@ namespace ImageMagick
                 }
             }
         }
-        internal static INativeInstance CreateInstance(DoubleMatrix instance)
+        internal static INativeInstance CreateInstance(IDoubleMatrix instance)
         {
             if (instance == null)
                 return NativeInstance.Zero;
-            return instance.CreateNativeInstance();
+            return DoubleMatrix.CreateNativeInstance(instance);
         }
     }
 }

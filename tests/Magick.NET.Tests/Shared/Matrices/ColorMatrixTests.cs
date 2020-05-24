@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Constructor_ValidOrder_PropertiesAreSet()
         {
-            MagickColorMatrix matrix = new MagickColorMatrix(2, 0.0, 1.0, 0.1, 1.1);
+            var matrix = new MagickColorMatrix(2, 0.0, 1.0, 0.1, 1.1);
 
             Assert.AreEqual(2, matrix.Order);
             Assert.AreEqual(0.0, matrix.GetValue(0, 0));
@@ -106,7 +106,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Indexer_ValidIndex_ReturnValue()
         {
-            MagickColorMatrix matrix = new MagickColorMatrix(1, 8);
+            var matrix = new MagickColorMatrix(1, 8);
 
             Assert.AreEqual(8, matrix[0, 0]);
         }
@@ -138,7 +138,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void GetValue_ValidIndex_ReturnValue()
         {
-            MagickColorMatrix matrix = new MagickColorMatrix(1, 4);
+            var matrix = new MagickColorMatrix(1, 4);
 
             Assert.AreEqual(4, matrix.GetValue(0, 0));
         }
@@ -158,7 +158,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void SetColumn_ValuesIsNull_ThrowsException()
         {
-            MagickColorMatrix matrix = new MagickColorMatrix(2);
+            var matrix = new MagickColorMatrix(2);
 
             ExceptionAssert.Throws<ArgumentNullException>("values", () =>
             {
@@ -169,7 +169,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void SetColumn_InvalidNumberOfValues_ThrowsException()
         {
-            MagickColorMatrix matrix = new MagickColorMatrix(2);
+            var matrix = new MagickColorMatrix(2);
 
             ExceptionAssert.Throws<ArgumentException>("values", () =>
             {
@@ -180,7 +180,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void SetColumn_CorrectNumberOfValues_SetsColumn()
         {
-            MagickColorMatrix matrix = new MagickColorMatrix(2);
+            var matrix = new MagickColorMatrix(2);
 
             matrix.SetColumn(1, 6, 8);
             Assert.AreEqual(0, matrix.GetValue(0, 0));
@@ -204,7 +204,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void SetRowValuesIsNull_ThrowsException()
         {
-            MagickColorMatrix matrix = new MagickColorMatrix(2);
+            var matrix = new MagickColorMatrix(2);
 
             ExceptionAssert.Throws<ArgumentNullException>("values", () =>
             {
@@ -215,7 +215,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void SetRow_InvalidNumberOfValues_ThrowsException()
         {
-            MagickColorMatrix matrix = new MagickColorMatrix(2);
+            var matrix = new MagickColorMatrix(2);
 
             ExceptionAssert.Throws<ArgumentException>("values", () =>
             {
@@ -226,7 +226,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void SetRow_CorrectNumberOfValues_SetsColumn()
         {
-            MagickColorMatrix matrix = new MagickColorMatrix(2);
+            var matrix = new MagickColorMatrix(2);
 
             matrix.SetRow(1, 6, 8);
             Assert.AreEqual(0, matrix.GetValue(0, 0));
@@ -262,7 +262,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void SetValue_ValidIndex_SetsValue()
         {
-            MagickColorMatrix matrix = new MagickColorMatrix(2);
+            var matrix = new MagickColorMatrix(2);
 
             matrix.SetValue(1, 0, 1.5);
 
@@ -275,14 +275,14 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ToArray_ReturnsArray()
         {
-            MagickColorMatrix matrix = new MagickColorMatrix(1, 6);
+            var matrix = new MagickColorMatrix(1, 6);
 
             CollectionAssert.AreEqual(new double[] { 6 }, matrix.ToArray());
         }
 
         private static void Indexer_InvalidIndex_ThrowsException(string paramName, int x, int y)
         {
-            MagickColorMatrix matrix = new MagickColorMatrix(2);
+            var matrix = new MagickColorMatrix(2);
 
             ExceptionAssert.Throws<ArgumentOutOfRangeException>(paramName, () =>
             {
@@ -292,7 +292,7 @@ namespace Magick.NET.Tests
 
         private static void GetValue_InvalidIndex_ThrowsException(string paramName, int x, int y)
         {
-            MagickColorMatrix matrix = new MagickColorMatrix(2);
+            var matrix = new MagickColorMatrix(2);
 
             ExceptionAssert.Throws<ArgumentOutOfRangeException>(paramName, () =>
             {
@@ -302,7 +302,7 @@ namespace Magick.NET.Tests
 
         private static void SetColumn_InvalidColumn_ThrowsException(int x)
         {
-            MagickColorMatrix matrix = new MagickColorMatrix(2);
+            var matrix = new MagickColorMatrix(2);
 
             ExceptionAssert.Throws<ArgumentOutOfRangeException>("x", () =>
             {
@@ -312,7 +312,7 @@ namespace Magick.NET.Tests
 
         private static void SetRow_InvalidRow_ThrowsException(int y)
         {
-            MagickColorMatrix matrix = new MagickColorMatrix(2);
+            var matrix = new MagickColorMatrix(2);
 
             ExceptionAssert.Throws<ArgumentOutOfRangeException>("y", () =>
             {
@@ -322,7 +322,7 @@ namespace Magick.NET.Tests
 
         private static void SetValue_InvalidIndex_ThrowsException(string paramName, int x, int y)
         {
-            MagickColorMatrix matrix = new MagickColorMatrix(2);
+            var matrix = new MagickColorMatrix(2);
 
             ExceptionAssert.Throws<ArgumentOutOfRangeException>(paramName, () =>
             {

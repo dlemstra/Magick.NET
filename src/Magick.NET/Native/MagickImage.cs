@@ -3381,7 +3381,7 @@ namespace ImageMagick
                     }
                 }
             }
-            public void ColorMatrix(DoubleMatrix matrix)
+            public void ColorMatrix(IDoubleMatrix matrix)
             {
                 using (INativeInstance matrixNative = DoubleMatrix.CreateInstance(matrix))
                 {
@@ -3579,7 +3579,7 @@ namespace ImageMagick
                 RaiseWarning(magickException);
                 return result;
             }
-            public void Convolve(DoubleMatrix matrix)
+            public void Convolve(IDoubleMatrix matrix)
             {
                 using (INativeInstance matrixNative = DoubleMatrix.CreateInstance(matrix))
                 {

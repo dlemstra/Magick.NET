@@ -1689,7 +1689,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="matrix">The color matrix to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void ColorMatrix(MagickColorMatrix matrix)
+        public void ColorMatrix(IMagickColorMatrix matrix)
         {
             Throw.IfNull(nameof(matrix), matrix);
 
@@ -2379,7 +2379,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="convolveMatrix">The convolution matrix.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Convolve(ConvolveMatrix convolveMatrix)
+        public void Convolve(IConvolveMatrix convolveMatrix)
         {
             Throw.IfNull(nameof(convolveMatrix), convolveMatrix);
 

@@ -15,7 +15,7 @@ namespace ImageMagick
     /// <summary>
     /// Encapsulates a color matrix in the order of 1 to 6 (1x1 through 6x6).
     /// </summary>
-    public sealed class MagickColorMatrix : DoubleMatrix
+    public sealed class MagickColorMatrix : DoubleMatrix, IMagickColorMatrix
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickColorMatrix"/> class.

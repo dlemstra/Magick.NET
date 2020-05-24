@@ -49,7 +49,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Constructor_ValidOrder_PropertiesAreSet()
         {
-            ConvolveMatrix matrix = new ConvolveMatrix(3, 0.0, 1.0, 2.0, 0.1, 1.1, 2.1, 0.2, 1.2, 2.2);
+            var matrix = new ConvolveMatrix(3, 0.0, 1.0, 2.0, 0.1, 1.1, 2.1, 0.2, 1.2, 2.2);
 
             Assert.AreEqual(3, matrix.Order);
             Assert.AreEqual(0.0, matrix.GetValue(0, 0));
@@ -108,7 +108,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Indexer_ValidIndex_ReturnValue()
         {
-            ConvolveMatrix matrix = new ConvolveMatrix(1, 8);
+            var matrix = new ConvolveMatrix(1, 8);
 
             Assert.AreEqual(8, matrix[0, 0]);
         }
@@ -140,7 +140,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void GetValue_ValidIndex_ReturnValue()
         {
-            ConvolveMatrix matrix = new ConvolveMatrix(1, 4);
+            var matrix = new ConvolveMatrix(1, 4);
 
             Assert.AreEqual(4, matrix.GetValue(0, 0));
         }
@@ -160,7 +160,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void SetColumn_ValuesIsNull_ThrowsException()
         {
-            ConvolveMatrix matrix = new ConvolveMatrix(1);
+            var matrix = new ConvolveMatrix(1);
 
             ExceptionAssert.Throws<ArgumentNullException>("values", () =>
             {
@@ -171,7 +171,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void SetColumn_InvalidNumberOfValues_ThrowsException()
         {
-            ConvolveMatrix matrix = new ConvolveMatrix(1);
+            var matrix = new ConvolveMatrix(1);
 
             ExceptionAssert.Throws<ArgumentException>("values", () =>
             {
@@ -182,7 +182,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void SetColumn_CorrectNumberOfValues_SetsColumn()
         {
-            ConvolveMatrix matrix = new ConvolveMatrix(3);
+            var matrix = new ConvolveMatrix(3);
 
             matrix.SetColumn(1, 6, 8, 10);
             Assert.AreEqual(0, matrix.GetValue(0, 0));
@@ -211,7 +211,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void SetRowValuesIsNull_ThrowsException()
         {
-            ConvolveMatrix matrix = new ConvolveMatrix(1);
+            var matrix = new ConvolveMatrix(1);
 
             ExceptionAssert.Throws<ArgumentNullException>("values", () =>
             {
@@ -222,7 +222,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void SetRow_InvalidNumberOfValues_ThrowsException()
         {
-            ConvolveMatrix matrix = new ConvolveMatrix(1);
+            var matrix = new ConvolveMatrix(1);
 
             ExceptionAssert.Throws<ArgumentException>("values", () =>
             {
@@ -233,7 +233,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void SetRow_CorrectNumberOfValues_SetsColumn()
         {
-            ConvolveMatrix matrix = new ConvolveMatrix(3);
+            var matrix = new ConvolveMatrix(3);
 
             matrix.SetRow(1, 6, 8, 10);
             Assert.AreEqual(0, matrix.GetValue(0, 0));
@@ -274,7 +274,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void SetValue_ValidIndex_SetsValue()
         {
-            ConvolveMatrix matrix = new ConvolveMatrix(3);
+            var matrix = new ConvolveMatrix(3);
 
             matrix.SetValue(1, 2, 1.5);
 
@@ -292,14 +292,14 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void ToArray_ReturnsArray()
         {
-            ConvolveMatrix matrix = new ConvolveMatrix(1, 6);
+            var matrix = new ConvolveMatrix(1, 6);
 
             CollectionAssert.AreEqual(new double[] { 6 }, matrix.ToArray());
         }
 
         private static void Indexer_InvalidIndex_ThrowsException(string paramName, int x, int y)
         {
-            ConvolveMatrix matrix = new ConvolveMatrix(1);
+            var matrix = new ConvolveMatrix(1);
 
             ExceptionAssert.Throws<ArgumentOutOfRangeException>(paramName, () =>
             {
@@ -309,7 +309,7 @@ namespace Magick.NET.Tests
 
         private static void GetValue_InvalidIndex_ThrowsException(string paramName, int x, int y)
         {
-            ConvolveMatrix matrix = new ConvolveMatrix(1);
+            var matrix = new ConvolveMatrix(1);
 
             ExceptionAssert.Throws<ArgumentOutOfRangeException>(paramName, () =>
             {
@@ -319,7 +319,7 @@ namespace Magick.NET.Tests
 
         private static void SetColumn_InvalidColumn_ThrowsException(int x)
         {
-            ConvolveMatrix matrix = new ConvolveMatrix(1);
+            var matrix = new ConvolveMatrix(1);
 
             ExceptionAssert.Throws<ArgumentOutOfRangeException>("x", () =>
             {
@@ -329,7 +329,7 @@ namespace Magick.NET.Tests
 
         private static void SetRow_InvalidRow_ThrowsException(int y)
         {
-            ConvolveMatrix matrix = new ConvolveMatrix(1);
+            var matrix = new ConvolveMatrix(1);
 
             ExceptionAssert.Throws<ArgumentOutOfRangeException>("y", () =>
             {
@@ -339,7 +339,7 @@ namespace Magick.NET.Tests
 
         private static void SetValue_InvalidIndex_ThrowsException(string paramName, int x, int y)
         {
-            ConvolveMatrix matrix = new ConvolveMatrix(1);
+            var matrix = new ConvolveMatrix(1);
 
             ExceptionAssert.Throws<ArgumentOutOfRangeException>(paramName, () =>
             {

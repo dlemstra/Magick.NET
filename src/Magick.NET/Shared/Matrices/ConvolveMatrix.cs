@@ -15,7 +15,7 @@ namespace ImageMagick
     /// <summary>
     /// Encapsulates a convolution kernel.
     /// </summary>
-    public sealed class ConvolveMatrix : DoubleMatrix
+    public sealed class ConvolveMatrix : DoubleMatrix, IConvolveMatrix
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ConvolveMatrix"/> class.

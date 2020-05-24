@@ -541,7 +541,7 @@ namespace Magick.NET.Tests
         {
             using (var image = new MagickImage(Files.Builtin.Rose))
             {
-                MagickColorMatrix matrix = new MagickColorMatrix(3, 0, 0, 1, 0, 1, 0, 1, 0, 0);
+                var matrix = new MagickColorMatrix(3, 0, 0, 1, 0, 1, 0, 1, 0, 0);
 
                 image.ColorMatrix(matrix);
 
@@ -704,7 +704,7 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(11, image.Width);
                 Assert.AreEqual(11, image.Height);
 
-                ConvolveMatrix matrix = new ConvolveMatrix(3, 0, 0.5, 0, 0.5, 1, 0.5, 0, 0.5, 0);
+                var matrix = new ConvolveMatrix(3, 0, 0.5, 0, 0.5, 1, 0.5, 0, 0.5, 0);
                 image.Convolve(matrix);
 
                 MagickColor gray = new MagickColor("#800080008000");

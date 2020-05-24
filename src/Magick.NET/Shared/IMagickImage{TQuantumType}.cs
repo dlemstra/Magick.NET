@@ -893,7 +893,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="matrix">The color matrix to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void ColorMatrix(MagickColorMatrix matrix);
+        void ColorMatrix(IMagickColorMatrix matrix);
 
         /// <summary>
         /// Forces all pixels in the color range to white otherwise black.
@@ -1405,7 +1405,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="convolveMatrix">The convolution matrix.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Convolve(ConvolveMatrix convolveMatrix);
+        void Convolve(IConvolveMatrix convolveMatrix);
 
         /// <summary>
         /// Copies pixels from the source image to the destination image.

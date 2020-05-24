@@ -43,7 +43,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the order of the matrix.
         /// </summary>
-        public int Order { get; private set; }
+        public int Order { get; }
 
         /// <summary>
         /// Get or set the value at the specified x/y position.
@@ -63,9 +63,7 @@ namespace ImageMagick
         /// <param name="y">The y position.</param>
         /// <returns>The value at the specified x/y position.</returns>
         public double GetValue(int x, int y)
-        {
-            return _values[GetIndex(x, y)];
-        }
+            => _values[GetIndex(x, y)];
 
         /// <summary>
         /// Set the column at the specified x position.
@@ -108,17 +106,17 @@ namespace ImageMagick
         /// <param name="y">The y position.</param>
         /// <param name="value">The value.</param>
         public void SetValue(int x, int y, double value)
-        {
-            _values[GetIndex(x, y)] = value;
-        }
+            => _values[GetIndex(x, y)] = value;
 
         /// <summary>
         /// Returns a string that represents the current DoubleMatrix.
         /// </summary>
         /// <returns>The double array.</returns>
-        public double[] ToArray() => _values;
+        public double[] ToArray()
+            => _values;
 
-        private INativeInstance CreateNativeInstance() => new NativeDoubleMatrix(_values, Order);
+        private static INativeInstance CreateNativeInstance(IDoubleMatrix instance)
+            => new NativeDoubleMatrix(instance.ToArray(), instance.Order);
 
         private int GetIndex(int x, int y)
         {
