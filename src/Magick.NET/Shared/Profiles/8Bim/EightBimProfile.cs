@@ -121,7 +121,7 @@ namespace ImageMagick
                 return null;
 
             var reader = new ClipPathReader(_width, _height);
-            return reader.Read(Data, offset, length);
+            return reader.Read(GetData(), offset, length);
         }
 
         private void Initialize()
@@ -132,30 +132,32 @@ namespace ImageMagick
             _clipPaths = new Collection<IClipPath>();
             _values = new Collection<IEightBimValue>();
 
+            var data = GetData();
+
             int i = 0;
-            while (i < Data.Length)
+            while (i < data.Length)
             {
-                if (Data[i++] != '8')
+                if (data[i++] != '8')
                     continue;
-                if (Data[i++] != 'B')
+                if (data[i++] != 'B')
                     continue;
-                if (Data[i++] != 'I')
+                if (data[i++] != 'I')
                     continue;
-                if (Data[i++] != 'M')
+                if (data[i++] != 'M')
                     continue;
 
-                if (i + 7 > Data.Length)
+                if (i + 7 > data.Length)
                     return;
 
-                var id = ByteConverter.ToShort(Data, ref i);
+                var id = ByteConverter.ToShort(data, ref i);
                 var isClipPath = id > 1999 && id < 2998;
 
                 string name = null;
-                int length = Data[i++];
+                int length = data[i++];
                 if (length != 0)
                 {
-                    if (isClipPath && i + length < Data.Length)
-                        name = Encoding.ASCII.GetString(Data, i, length);
+                    if (isClipPath && i + length < data.Length)
+                        name = Encoding.ASCII.GetString(data, i, length);
 
                     i += length;
                 }
@@ -163,8 +165,8 @@ namespace ImageMagick
                 if ((length & 0x01) == 0)
                     i++;
 
-                length = ByteConverter.ToUInt(Data, ref i);
-                if (i + length > Data.Length)
+                length = ByteConverter.ToUInt(data, ref i);
+                if (i + length > data.Length)
                     return;
 
                 if (length < 0)
@@ -179,9 +181,9 @@ namespace ImageMagick
                             _clipPaths.Add(clipPath);
                     }
 
-                    var data = new byte[length];
-                    Array.Copy(Data, i, data, 0, length);
-                    _values.Add(new EightBimValue(id, data));
+                    var value = new byte[length];
+                    Array.Copy(data, i, value, 0, length);
+                    _values.Add(new EightBimValue(id, value));
                 }
 
                 i += length;

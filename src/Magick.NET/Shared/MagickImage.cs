@@ -3274,7 +3274,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The exif profile from the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IExifProfile<QuantumType> GetExifProfile()
+        public IExifProfile GetExifProfile()
         {
             StringInfo info = _nativeInstance.GetProfile("exif");
             if (info == null || info.Datum == null)

@@ -28,6 +28,8 @@ namespace Magick.NET
 
         public bool Equals(IImageProfile other) => false;
 
+        public byte[] GetData() => _bytes;
+
         public byte[] ToByteArray() => _bytes;
     }
 }

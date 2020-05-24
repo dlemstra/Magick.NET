@@ -2052,7 +2052,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The exif profile from the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IExifProfile<TQuantumType> GetExifProfile();
+        IExifProfile GetExifProfile();
 
         /// <summary>
         /// Retrieve the iptc profile from the image.

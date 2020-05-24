@@ -132,7 +132,7 @@ namespace ImageMagick
         private void Initialize()
         {
             var reader = new ColorProfileReader();
-            reader.Read(Data);
+            reader.Read(GetData());
 
             ColorSpace = reader.ColorSpace;
             Copyright = reader.Copyright;

@@ -153,7 +153,7 @@ namespace Magick.NET.Tests
             }
         }
 
-        private static void TestExifProfile(IExifProfile<QuantumType> profile)
+        private static void TestExifProfile(IExifProfile profile)
         {
             Assert.IsNotNull(profile);
 

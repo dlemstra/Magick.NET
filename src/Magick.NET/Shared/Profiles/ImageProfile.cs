@@ -20,6 +20,8 @@ namespace ImageMagick
     /// </summary>
     public class ImageProfile : IImageProfile
     {
+        private byte[] _data;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ImageProfile"/> class.
         /// </summary>
@@ -31,7 +33,7 @@ namespace ImageMagick
             Throw.IfNull(nameof(data), data);
 
             Name = name;
-            Data = Copy(data);
+            _data = Copy(data);
         }
 
         /// <summary>
@@ -46,7 +48,7 @@ namespace ImageMagick
             Name = name;
 
             var bytes = new Bytes(stream);
-            Data = bytes.Data;
+            _data = bytes.Data;
         }
 
         /// <summary>
@@ -62,7 +64,7 @@ namespace ImageMagick
             Name = name;
 
             var filePath = FileHelper.CheckForBaseDirectory(fileName);
-            Data = File.ReadAllBytes(filePath);
+            _data = File.ReadAllBytes(filePath);
         }
 
         /// <summary>
@@ -79,12 +81,6 @@ namespace ImageMagick
         /// Gets the name of the profile.
         /// </summary>
         public string Name { get; }
-
-        /// <summary>
-        /// Gets or sets the data of this profile.
-        /// </summary>
-        [SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "The property needs to be an array.")]
-        protected byte[] Data { get; set; }
 
         /// <summary>
         /// Determines whether the specified object is equal to the current <see cref="ImageProfile"/>.
@@ -119,14 +115,14 @@ namespace ImageMagick
 
             var data = other.ToByteArray();
             if (data.Length == 0)
-                return Data is null || Data.Length == 0;
+                return _data is null || _data.Length == 0;
 
-            if (Data.Length != data.Length)
+            if (_data.Length != data.Length)
                 return false;
 
-            for (int i = 0; i < Data.Length; i++)
+            for (int i = 0; i < _data.Length; i++)
             {
-                if (Data[i] != data[i])
+                if (_data[i] != data[i])
                     return false;
             }
 
@@ -134,20 +130,35 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Returns the <see cref="byte"/> array of this profile.
+        /// </summary>
+        /// <returns>A <see cref="byte"/> array.</returns>
+        public byte[] GetData()
+            => _data;
+
+        /// <summary>
         /// Serves as a hash of this type.
         /// </summary>
         /// <returns>A hash code for the current instance.</returns>
-        public override int GetHashCode() => Data.GetHashCode() ^ Name.GetHashCode();
+        public override int GetHashCode()
+            => _data.GetHashCode() ^ Name.GetHashCode();
 
         /// <summary>
-        /// Converts this instance to a byte array.
+        /// Converts this instance to a <see cref="byte"/> array.
         /// </summary>
         /// <returns>A <see cref="byte"/> array.</returns>
         public byte[] ToByteArray()
         {
             UpdateData();
-            return Copy(Data);
+            return Copy(_data);
         }
+
+        /// <summary>
+        /// Sets the data of the profile.
+        /// </summary>
+        /// <param name="data">The new data of the profile.</param>
+        protected void SetData(byte[] data)
+            => _data = data;
 
         /// <summary>
         /// Updates the data of the profile.

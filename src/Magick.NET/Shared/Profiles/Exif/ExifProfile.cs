@@ -14,22 +14,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-#if Q8
-using QuantumType = System.Byte;
-#elif Q16
-using QuantumType = System.UInt16;
-#elif Q16HDRI
-using QuantumType = System.Single;
-#else
-#error Not implemented!
-#endif
-
 namespace ImageMagick
 {
     /// <summary>
     /// Class that can be used to access an Exif profile.
     /// </summary>
-    public sealed class ExifProfile : ImageProfile, IExifProfile<QuantumType>
+    public sealed class ExifProfile : ImageProfile, IExifProfile
     {
         private List<IExifValue> _values;
         private List<ExifTag> _invalidTags = new List<ExifTag>();
@@ -90,6 +80,30 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Gets the length of the thumbnail data in the <see cref="byte"/> array of the profile.
+        /// </summary>
+        public int ThumbnailLength
+        {
+            get
+            {
+                InitializeValues();
+                return _thumbnailLength;
+            }
+        }
+
+        /// <summary>
+        /// Gets the offset of the thumbnail data in the <see cref="byte"/> array of the profile.
+        /// </summary>
+        public int ThumbnailOffset
+        {
+            get
+            {
+                InitializeValues();
+                return _thumbnailOffset;
+            }
+        }
+
+        /// <summary>
         /// Gets the values of this exif profile.
         /// </summary>
         public IEnumerable<IExifValue> Values
@@ -100,25 +114,6 @@ namespace ImageMagick
 
                 return _values;
             }
-        }
-
-        /// <summary>
-        /// Returns the thumbnail in the exif profile when available.
-        /// </summary>
-        /// <returns>The thumbnail in the exif profile when available.</returns>
-        public IMagickImage<QuantumType> CreateThumbnail()
-        {
-            InitializeValues();
-
-            if (_thumbnailOffset == 0 || _thumbnailLength == 0)
-                return null;
-
-            if (Data.Length < (_thumbnailOffset + _thumbnailLength))
-                return null;
-
-            var data = new byte[_thumbnailLength];
-            Array.Copy(Data, _thumbnailOffset, data, 0, _thumbnailLength);
-            return new MagickImage(data);
         }
 
         /// <summary>
@@ -208,12 +203,12 @@ namespace ImageMagick
 
             if (_values.Count == 0)
             {
-                Data = null;
+                SetData(null);
                 return;
             }
 
             var writer = new ExifWriter(Parts);
-            Data = writer.Write(_values);
+            SetData(writer.Write(_values));
         }
 
         private void InitializeValues()
@@ -221,14 +216,15 @@ namespace ImageMagick
             if (_values != null)
                 return;
 
-            if (Data == null)
+            var data = GetData();
+            if (data == null)
             {
                 _values = new List<IExifValue>();
                 return;
             }
 
             var reader = new ExifReader();
-            reader.Read(Data);
+            reader.Read(data);
 
             _values = reader.Values;
             _invalidTags = reader.InvalidTags;

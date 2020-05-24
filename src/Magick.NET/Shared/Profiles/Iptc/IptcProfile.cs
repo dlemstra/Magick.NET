@@ -242,22 +242,24 @@ namespace ImageMagick
                 length += value.Length + 5;
             }
 
-            Data = new byte[length];
+            var data = new byte[length];
 
             int i = 0;
             foreach (var value in Values)
             {
-                Data[i++] = 28;
-                Data[i++] = 2;
-                Data[i++] = (byte)value.Tag;
-                Data[i++] = (byte)(value.Length >> 8);
-                Data[i++] = (byte)value.Length;
+                data[i++] = 28;
+                data[i++] = 2;
+                data[i++] = (byte)value.Tag;
+                data[i++] = (byte)(value.Length >> 8);
+                data[i++] = (byte)value.Length;
                 if (value.Length > 0)
                 {
-                    Buffer.BlockCopy(value.ToByteArray(), 0, Data, i, value.Length);
+                    Buffer.BlockCopy(value.ToByteArray(), 0, data, i, value.Length);
                     i += value.Length;
                 }
             }
+
+            SetData(data);
         }
 
         private void Initialize()
@@ -267,25 +269,26 @@ namespace ImageMagick
 
             _values = new Collection<IIptcValue>();
 
-            if (Data == null || Data[0] != 0x1c)
+            var data = GetData();
+            if (data == null || data[0] != 0x1c)
                 return;
 
             int i = 0;
-            while (i + 4 < Data.Length)
+            while (i + 4 < data.Length)
             {
-                if (Data[i++] != 28)
+                if (data[i++] != 28)
                     continue;
 
                 i++;
 
-                var tag = (IptcTag)Data[i++];
+                var tag = (IptcTag)data[i++];
 
-                var count = ByteConverter.ToShort(Data, ref i);
+                var count = ByteConverter.ToShort(data, ref i);
 
-                var data = new byte[count];
-                if ((count > 0) && (i + count <= Data.Length))
-                    Buffer.BlockCopy(Data, i, data, 0, count);
-                _values.Add(new IptcValue(tag, data));
+                var value = new byte[count];
+                if ((count > 0) && (i + count <= data.Length))
+                    Buffer.BlockCopy(data, i, value, 0, count);
+                _values.Add(new IptcValue(tag, value));
 
                 i += count;
             }

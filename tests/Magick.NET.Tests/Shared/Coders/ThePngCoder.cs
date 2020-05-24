@@ -83,7 +83,7 @@ namespace Magick.NET.Tests
         {
             using (var input = new MagickImage(MagickColors.YellowGreen, 1, 1))
             {
-                IExifProfile<QuantumType> exifProfile = new ExifProfile();
+                IExifProfile exifProfile = new ExifProfile();
                 exifProfile.SetValue(ExifTag.ImageUniqueID, "Have a nice day");
 
                 input.SetProfile(exifProfile);

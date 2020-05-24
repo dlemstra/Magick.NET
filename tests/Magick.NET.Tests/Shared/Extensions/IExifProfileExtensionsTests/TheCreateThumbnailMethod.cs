@@ -15,7 +15,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public partial class ExifProfileTests
+    public partial class IExifProfileExtensionsTests
     {
         [TestClass]
         public class TheCreateThumbnailMethod

@@ -50,7 +50,7 @@ namespace ImageMagick
                 {
                     document.CreateNavigator().WriteSubtree(writer);
                     writer.Flush();
-                    Data = memStream.ToArray();
+                    SetData(memStream.ToArray());
                 }
             }
         }
@@ -71,7 +71,7 @@ namespace ImageMagick
                 {
                     document.WriteTo(writer);
                     writer.Flush();
-                    Data = memStream.ToArray();
+                    SetData(memStream.ToArray());
                 }
             }
         }
@@ -123,7 +123,8 @@ namespace ImageMagick
         /// <returns>A <see cref="XmlReader"/>.</returns>
         public XmlReader CreateReader()
         {
-            var memStream = new MemoryStream(Data, 0, Data.Length);
+            var data = GetData();
+            var memStream = new MemoryStream(data, 0, data.Length);
             var settings = XmlHelper.CreateReaderSettings();
             settings.CloseInput = true;
 

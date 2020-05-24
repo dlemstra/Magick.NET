@@ -17,8 +17,7 @@ namespace ImageMagick
     /// <summary>
     /// Interface that  describes an Exif profile.
     /// </summary>
-    /// <typeparam name="TQuantumType">Thequantum type.</typeparam>
-    public interface IExifProfile<TQuantumType> : IImageProfile
+    public interface IExifProfile : IImageProfile
     {
         /// <summary>
         /// Gets or sets which parts will be written when the profile is added to an image.
@@ -31,15 +30,19 @@ namespace ImageMagick
         IEnumerable<ExifTag> InvalidTags { get; }
 
         /// <summary>
+        /// Gets the length of the thumbnail data in the <see cref="byte"/> array of the profile.
+        /// </summary>
+        int ThumbnailLength { get; }
+
+        /// <summary>
+        /// Gets the offset of the thumbnail in the <see cref="byte"/> array of the profile.
+        /// </summary>
+        int ThumbnailOffset { get; }
+
+        /// <summary>
         /// Gets the values of this exif profile.
         /// </summary>
         IEnumerable<IExifValue> Values { get; }
-
-        /// <summary>
-        /// Returns the thumbnail in the exif profile when available.
-        /// </summary>
-        /// <returns>The thumbnail in the exif profile when available.</returns>
-        IMagickImage<TQuantumType> CreateThumbnail();
 
         /// <summary>
         /// Returns the value with the specified tag.

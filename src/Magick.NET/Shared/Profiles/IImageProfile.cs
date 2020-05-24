@@ -25,6 +25,12 @@ namespace ImageMagick
         string Name { get; }
 
         /// <summary>
+        /// Returns the <see cref="byte"/> array of this profile.
+        /// </summary>
+        /// <returns>A <see cref="byte"/> array.</returns>
+        byte[] GetData();
+
+        /// <summary>
         /// Converts this instance to a byte array.
         /// </summary>
         /// <returns>A <see cref="byte"/> array.</returns>
