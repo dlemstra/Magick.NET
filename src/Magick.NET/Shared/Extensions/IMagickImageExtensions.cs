@@ -27,7 +27,7 @@ namespace ImageMagick
     /// <summary>
     /// Extension methods for the <see cref="IMagickImage{QuantumType}"/> interface.
     /// </summary>
-    public static class IMagickImageExtensions
+    public static partial class IMagickImageExtensions
     {
         internal static IntPtr GetInstance(this IMagickImage<QuantumType> self)
         {

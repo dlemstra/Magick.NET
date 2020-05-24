@@ -40,10 +40,6 @@
     <QuantumName>Q16-HDRI-OpenMP</QuantumName>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
-    <DefineConstants>$(DefineConstants);WINDOWS_BUILD</DefineConstants>
-  </PropertyGroup>
-
   <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard'))">
     <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>
   </PropertyGroup>
@@ -70,7 +66,6 @@
     <PackageReference Include="System.Xml.XDocument" Version="4.3.0" />
     <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
     <PackageReference Include="System.Xml.XPath.XDocument" Version="4.3.0" />
-    <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Platform)' == 'x86'">
@@ -98,10 +93,6 @@
 
   <ItemGroup>
     <None Remove="Resources/**" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(Configuration.Contains('Release'))">
-    <Compile Remove="Properties/InternalsVisibleTo.cs" />
   </ItemGroup>
 
   <ItemGroup>

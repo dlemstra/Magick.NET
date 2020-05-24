@@ -65,7 +65,7 @@ namespace FileGenerator.Drawables
         public static void Generate()
         {
             var generator = new IPathsGenerator();
-            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET\Shared\Drawables\Paths\Generated\IPaths{TQuantumType}.cs"));
+            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET.Core\Drawables\Paths\Generated\IPaths{TQuantumType}.cs"));
             generator.WriteStart("ImageMagick");
             generator.WritePaths();
             generator.WriteEnd();

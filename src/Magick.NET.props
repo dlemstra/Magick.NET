@@ -13,10 +13,18 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+    <DefineConstants>$(DefineConstants);WINDOWS_BUILD</DefineConstants>
+  </PropertyGroup>
+
   <PropertyGroup Condition="!$(Configuration.Contains('Release'))">
     <Optimize>false</Optimize>
     <DebugType>full</DebugType>
   </PropertyGroup>
+
+  <ItemGroup Condition="$(Configuration.Contains('Release'))">
+    <Compile Remove="Properties/InternalsVisibleTo.cs" />
+  </ItemGroup>
 
   <PropertyGroup Condition="$(Configuration.Contains('Release'))">
     <Optimize>true</Optimize>
@@ -32,6 +40,8 @@
   <ItemGroup>
     <AdditionalFiles Include="../../stylecop.json" Link="stylecop.json" />
     <AdditionalFiles Include="../Magick.NET.ruleset" Link="Magick.NET.ruleset" />
+    <Compile Include="../Throw.cs" Link="Helpers/Throw.cs" />
+    <Compile Include="../ValidatedNotNullAttribute.cs" Link="Helpers/ValidatedNotNullAttribute.cs" />
   </ItemGroup>
 
   <PropertyGroup>

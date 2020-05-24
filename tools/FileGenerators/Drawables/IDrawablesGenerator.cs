@@ -89,7 +89,7 @@ namespace FileGenerator.Drawables
         public static void Generate()
         {
             var generator = new IDrawablesGenerator();
-            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET\Shared\Drawables\Generated\IDrawables{TQuantumType}.cs"));
+            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET.Core\Drawables\Generated\IDrawables{TQuantumType}.cs"));
             Generate(generator);
         }
     }

@@ -57,11 +57,28 @@ namespace ImageMagick
             if (Value == null)
                 return null;
 
-            var description = ExifTagDescriptionAttribute.GetDescription(Tag, Value);
+            var description = GetDescription(Tag, Value);
             if (description != null)
                 return description;
 
             return StringValue;
+        }
+
+        private string GetDescription(ExifTag tag, object value)
+        {
+            var tagValue = (ExifTagValue)(ushort)tag;
+            var attributes = TypeHelper.GetCustomAttributes<ExifTagDescriptionAttribute>(tagValue);
+
+            if (attributes == null || attributes.Length == 0)
+                return null;
+
+            foreach (var attribute in attributes)
+            {
+                if (Equals(attribute.Value, value))
+                    return attribute.Description;
+            }
+
+            return null;
         }
     }
 }
