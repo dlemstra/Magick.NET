@@ -2941,7 +2941,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The perceptual hash of this image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        PerceptualHash PerceptualHash();
+        IPerceptualHash PerceptualHash();
 
         /// <summary>
         /// Reads only metadata and not the pixel data.

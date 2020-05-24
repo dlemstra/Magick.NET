@@ -4461,7 +4461,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The perceptual hash of this image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public PerceptualHash PerceptualHash()
+        public IPerceptualHash PerceptualHash()
         {
             var list = _nativeInstance.PerceptualHash();
 

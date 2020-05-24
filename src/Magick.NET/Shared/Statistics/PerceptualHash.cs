@@ -18,7 +18,7 @@ namespace ImageMagick
     /// <summary>
     /// Contains the he perceptual hash of one or more image channels.
     /// </summary>
-    public sealed partial class PerceptualHash
+    public sealed partial class PerceptualHash : IPerceptualHash
     {
         private readonly Dictionary<PixelChannel, ChannelPerceptualHash> _channels;
 
@@ -79,14 +79,14 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The <see cref="PerceptualHash"/> to get the distance of.</param>
         /// <returns>The sum squared difference between this hash and the other hash.</returns>
-        public double SumSquaredDistance(PerceptualHash other)
+        public double SumSquaredDistance(IPerceptualHash other)
         {
             Throw.IfNull(nameof(other), other);
 
             return
-              _channels[PixelChannel.Red].SumSquaredDistance(other._channels[PixelChannel.Red]) +
-              _channels[PixelChannel.Green].SumSquaredDistance(other._channels[PixelChannel.Green]) +
-              _channels[PixelChannel.Blue].SumSquaredDistance(other._channels[PixelChannel.Blue]);
+              _channels[PixelChannel.Red].SumSquaredDistance(other.GetChannel(PixelChannel.Red)) +
+              _channels[PixelChannel.Green].SumSquaredDistance(other.GetChannel(PixelChannel.Green)) +
+              _channels[PixelChannel.Blue].SumSquaredDistance(other.GetChannel(PixelChannel.Blue));
         }
 
         /// <summary>

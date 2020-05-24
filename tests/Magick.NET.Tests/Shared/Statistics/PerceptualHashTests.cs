@@ -154,7 +154,7 @@ namespace Magick.NET.Tests
         {
             using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                PerceptualHash phash = image.PerceptualHash();
+                var phash = image.PerceptualHash();
                 string hash = phash.ToString();
                 Assert.AreEqual(210, hash.Length);
 #if Q8
@@ -183,7 +183,7 @@ namespace Magick.NET.Tests
                     other.HasAlpha = false;
                     Assert.AreEqual(3, other.ChannelCount);
 
-                    PerceptualHash otherPhash = other.PerceptualHash();
+                    var otherPhash = other.PerceptualHash();
 #if Q8
                     OpenCLValue.Assert(394.74, 394.90, phash.SumSquaredDistance(otherPhash), 0.01);
 #elif Q16
