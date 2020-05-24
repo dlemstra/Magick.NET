@@ -2588,7 +2588,7 @@ namespace ImageMagick
         /// <param name="settings">The deskew settings.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         /// <returns>The angle that was used.</returns>
-        public double Deskew(DeskewSettings settings)
+        public double Deskew(IDeskewSettings settings)
         {
             Throw.IfNull(nameof(settings), settings);
             Throw.IfNegative(nameof(settings), settings.Threshold);

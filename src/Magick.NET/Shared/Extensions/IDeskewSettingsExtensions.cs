@@ -10,21 +10,24 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
-    /// <summary>
-    /// Class that contains setting for the deskew operation.
-    /// </summary>
-    public sealed class DeskewSettings : IDeskewSettings
+    internal static class IDeskewSettingsExtensions
     {
-        /// <summary>
-        /// Gets or sets a value indicating whether the image should be auto cropped after deskewing.
-        /// </summary>
-        public bool AutoCrop { get; set; }
-
-        /// <summary>
-        /// Gets or sets the threshold.
-        /// </summary>
-        public Percentage Threshold { get; set; }
+        internal static void SetImageArtifacts(this IDeskewSettings self, IMagickImage<QuantumType> image)
+        {
+            if (self.AutoCrop)
+                image.SetArtifact("deskew:auto-crop", "true");
+        }
     }
 }

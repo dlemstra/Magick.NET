@@ -1568,7 +1568,7 @@ namespace ImageMagick
         /// <param name="settings">The deskew settings.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         /// <returns>The angle that was used.</returns>
-        double Deskew(DeskewSettings settings);
+        double Deskew(IDeskewSettings settings);
 
         /// <summary>
         /// Despeckle image (reduce speckle noise).

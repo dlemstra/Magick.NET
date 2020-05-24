@@ -15,16 +15,16 @@ namespace ImageMagick
     /// <summary>
     /// Class that contains setting for the deskew operation.
     /// </summary>
-    public sealed class DeskewSettings : IDeskewSettings
+    public interface IDeskewSettings
     {
         /// <summary>
         /// Gets or sets a value indicating whether the image should be auto cropped after deskewing.
         /// </summary>
-        public bool AutoCrop { get; set; }
+        bool AutoCrop { get; set; }
 
         /// <summary>
         /// Gets or sets the threshold.
         /// </summary>
-        public Percentage Threshold { get; set; }
+        Percentage Threshold { get; set; }
     }
 }
