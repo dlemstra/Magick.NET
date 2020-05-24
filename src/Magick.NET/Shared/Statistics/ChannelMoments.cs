@@ -17,7 +17,7 @@ namespace ImageMagick
     /// <summary>
     /// The normalized moments of one image channels.
     /// </summary>
-    public sealed partial class ChannelMoments
+    public sealed partial class ChannelMoments : IChannelMoments
     {
         private double[] _huInvariants;
 

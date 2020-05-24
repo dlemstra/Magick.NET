@@ -36,7 +36,7 @@ namespace ImageMagick
         /// Gets the moments for the all the channels.
         /// </summary>
         /// <returns>The moments for the all the channels.</returns>
-        public ChannelMoments Composite()
+        public IChannelMoments Composite()
         {
             return GetChannel(PixelChannel.Composite);
         }
@@ -46,7 +46,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="channel">The channel to get the moments for.</param>
         /// <returns>The moments for the specified channel.</returns>
-        public ChannelMoments GetChannel(PixelChannel channel)
+        public IChannelMoments GetChannel(PixelChannel channel)
         {
             _channels.TryGetValue(channel, out ChannelMoments moments);
             return moments;
@@ -60,9 +60,9 @@ namespace ImageMagick
 
         private void AddChannel(IntPtr list, PixelChannel channel)
         {
-            IntPtr instance = NativeMoments.GetInstance(list, channel);
+            var instance = NativeMoments.GetInstance(list, channel);
 
-            ChannelMoments result = ChannelMoments.Create(channel, instance);
+            var result = ChannelMoments.Create(channel, instance);
             if (result != null)
                 _channels.Add(result.Channel, result);
         }
