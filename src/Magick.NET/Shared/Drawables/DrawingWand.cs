@@ -74,10 +74,7 @@ namespace ImageMagick
         public void Density(PointD value) => _nativeInstance.Density(value.ToString());
 
         public void Dispose()
-        {
-            DebugThrow.IfNull(_nativeInstance);
-            _nativeInstance.Dispose();
-        }
+            => _nativeInstance.Dispose();
 
         public void Ellipse(double originX, double originY, double radiusX, double radiusY, double startDegrees, double endDegrees) => _nativeInstance.Ellipse(originX, originY, radiusX, radiusY, startDegrees, endDegrees);
 
@@ -107,8 +104,6 @@ namespace ImageMagick
 
         public void PathArcAbs(IEnumerable<PathArc> pathArcs)
         {
-            DebugThrow.IfNull(nameof(pathArcs), pathArcs);
-
             foreach (PathArc pathArc in pathArcs)
             {
                 _nativeInstance.PathArcAbs(pathArc.X, pathArc.Y, pathArc.RadiusX, pathArc.RadiusY, pathArc.RotationX, pathArc.UseLargeArc, pathArc.UseSweep);
@@ -117,8 +112,6 @@ namespace ImageMagick
 
         public void PathArcRel(IEnumerable<PathArc> pathArcs)
         {
-            DebugThrow.IfNull(nameof(pathArcs), pathArcs);
-
             foreach (PathArc pathArc in pathArcs)
             {
                 _nativeInstance.PathArcRel(pathArc.X, pathArc.Y, pathArc.RadiusX, pathArc.RadiusY, pathArc.RotationX, pathArc.UseLargeArc, pathArc.UseSweep);
@@ -135,8 +128,6 @@ namespace ImageMagick
 
         public void PathLineToAbs(IEnumerable<PointD> coordinates)
         {
-            DebugThrow.IfNull(nameof(coordinates), coordinates);
-
             foreach (PointD coordinate in coordinates)
             {
                 _nativeInstance.PathLineToAbs(coordinate.X, coordinate.Y);
@@ -153,8 +144,6 @@ namespace ImageMagick
 
         public void PathLineToRel(IEnumerable<PointD> coordinates)
         {
-            DebugThrow.IfNull(nameof(coordinates), coordinates);
-
             foreach (PointD coordinate in coordinates)
             {
                 _nativeInstance.PathLineToRel(coordinate.X, coordinate.Y);
@@ -183,8 +172,6 @@ namespace ImageMagick
 
         public void Polygon(IList<PointD> coordinates)
         {
-            DebugThrow.IfNull(nameof(coordinates), coordinates);
-
             using (PointInfoCollection pointInfo = new PointInfoCollection(coordinates))
             {
                 _nativeInstance.Polygon(pointInfo, pointInfo.Count);
@@ -193,8 +180,6 @@ namespace ImageMagick
 
         public void Polyline(IList<PointD> coordinates)
         {
-            DebugThrow.IfNull(nameof(coordinates), coordinates);
-
             using (PointInfoCollection pointInfo = new PointInfoCollection(coordinates))
             {
                 _nativeInstance.Polyline(pointInfo, pointInfo.Count);
@@ -230,11 +215,7 @@ namespace ImageMagick
         public void StrokeColor(IMagickColor<QuantumType> color) => _nativeInstance.StrokeColor(color);
 
         public void StrokeDashArray(double[] dash)
-        {
-            DebugThrow.IfNull(nameof(dash), dash);
-
-            _nativeInstance.StrokeDashArray(dash, dash.Length);
-        }
+            => _nativeInstance.StrokeDashArray(dash, dash.Length);
 
         public void StrokeDashOffset(double value) => _nativeInstance.StrokeDashOffset(value);
 

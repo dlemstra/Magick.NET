@@ -52,7 +52,12 @@ namespace ImageMagick
         {
         }
 
-        internal ColorProfile(string name, byte[] data)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ColorProfile"/> class.
+        /// </summary>
+        /// <param name="name">The name of the color profile (e.g. icc or icm).</param>
+        /// <param name="data">A byte array containing the profile.</param>
+        public ColorProfile(string name, byte[] data)
           : base(name, data)
         {
             Initialize();

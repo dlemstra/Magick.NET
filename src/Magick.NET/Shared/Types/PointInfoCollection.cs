@@ -55,10 +55,7 @@ namespace ImageMagick
         }
 
         public void Dispose()
-        {
-            DebugThrow.IfNull(_nativeInstance);
-            _nativeInstance.Dispose();
-        }
+            => _nativeInstance.Dispose();
 
         public double GetX(int index) => _nativeInstance.GetX(index);
 

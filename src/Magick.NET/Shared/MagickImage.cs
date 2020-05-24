@@ -16,6 +16,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
+using ImageMagick.Core;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -5021,7 +5022,7 @@ namespace ImageMagick
             Throw.IfNullOrEmpty(nameof(stream), stream);
 
             var bytes = new Bytes(stream);
-            ReadPixels(bytes.Data, 0, bytes.Length, settings);
+            ReadPixels(bytes.GetData(), 0, bytes.Length, settings);
         }
 
         /// <summary>
@@ -6941,7 +6942,7 @@ namespace ImageMagick
             var bytes = Bytes.FromStreamBuffer(stream);
             if (bytes != null)
             {
-                Read(bytes.Data, 0, bytes.Length, readSettings, ping);
+                Read(bytes.GetData(), 0, bytes.Length, readSettings, ping);
                 return;
             }
 

@@ -47,29 +47,5 @@ namespace ImageMagick
             Marshal.Copy(nativeData, buffer, 0, length);
             return buffer;
         }
-
-        public static int ToUInt(byte[] data, ref int offset)
-        {
-            if (offset + 4 > data.Length)
-                return 0;
-
-            int value = data[offset++] << 24;
-            value = value | (data[offset++] << 16);
-            value = value | (data[offset++] << 8);
-            value = value | data[offset++];
-
-            int result = (int)(value & 0xffffffff);
-            return result < 0 ? 0 : result;
-        }
-
-        public static short ToShort(byte[] data, ref int offset)
-        {
-            if (offset + 2 > data.Length)
-                return 0;
-
-            short result = (short)(data[offset++] << 8);
-            result = (short)(result | (short)data[offset++]);
-            return (short)(result & 0xffff);
-        }
     }
 }

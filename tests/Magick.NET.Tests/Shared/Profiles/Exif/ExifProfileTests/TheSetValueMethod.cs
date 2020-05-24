@@ -57,55 +57,6 @@ namespace Magick.NET.Tests
                     }
                 }
             }
-
-            [TestMethod]
-            public void ShouldReturnFalseWhenExifTagIsInvalid()
-            {
-                var exifProfile = new ExifProfile();
-
-                ExceptionAssert.Throws<NotSupportedException>(() =>
-                {
-                    exifProfile.SetValue(new ExifTag<int>((ExifTagValue)42), 42);
-                });
-            }
-
-            [TestMethod]
-            public void ShouldCorrectlyHandleFraction()
-            {
-                var profile = new ExifProfile();
-                profile.SetValue(ExifTag.ShutterSpeedValue, new SignedRational(75.55));
-
-                var value = profile.GetValue(ExifTag.ShutterSpeedValue);
-
-                Assert.IsNotNull(value);
-                Assert.AreEqual("1511/20", value.ToString());
-            }
-
-            [TestMethod]
-            public void ShouldCorrectlyHandleArray()
-            {
-                Rational[] latitude = new Rational[] { new Rational(12.3), new Rational(4.56), new Rational(789.0) };
-
-                var profile = new ExifProfile();
-                profile.SetValue(ExifTag.GPSLatitude, latitude);
-
-                var value = profile.GetValue(ExifTag.GPSLatitude);
-
-                Assert.IsNotNull(value);
-                Rational[] values = (Rational[])value.GetValue();
-                Assert.IsNotNull(values);
-                CollectionAssert.AreEqual(latitude, values);
-            }
-
-            [TestMethod]
-            public void ShouldAllowNullValues()
-            {
-                var profile = new ExifProfile();
-                profile.SetValue(ExifTag.ReferenceBlackWhite, null);
-
-                var value = profile.GetValue(ExifTag.ReferenceBlackWhite);
-                TestValue(value, null);
-            }
         }
     }
 }

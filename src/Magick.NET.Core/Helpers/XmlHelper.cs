@@ -20,20 +20,14 @@ namespace ImageMagick
     {
         public static XmlElement CreateElement(XmlNode node, string name)
         {
-            DebugThrow.IfNull(nameof(node), node);
-            DebugThrow.IfNullOrEmpty(nameof(name), name);
-
-            XmlDocument doc = node.GetType() == typeof(XmlDocument) ? (XmlDocument)node : node.OwnerDocument;
-            XmlElement element = doc.CreateElement(name);
+            var doc = node.GetType() == typeof(XmlDocument) ? (XmlDocument)node : node.OwnerDocument;
+            var element = doc.CreateElement(name);
             node.AppendChild(element);
             return element;
         }
 
         public static void SetAttribute<TType>(XmlElement element, string name, TType value)
         {
-            DebugThrow.IfNull(nameof(element), element);
-            DebugThrow.IfNullOrEmpty(nameof(name), name);
-
             XmlAttribute attribute;
             if (element.HasAttribute(name))
                 attribute = element.Attributes[name];

@@ -10,17 +10,13 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if NETSTANDARD
-
-using System.IO;
-using System.Threading.Tasks;
-
-namespace ImageMagick
+#if NET20
+namespace System.Runtime.CompilerServices
 {
-    internal static partial class FileHelper
+    [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Class |
+        AttributeTargets.Method)]
+    internal sealed class ExtensionAttribute : Attribute
     {
-        public static string CheckForBaseDirectory(string fileName) => fileName;
     }
 }
-
 #endif

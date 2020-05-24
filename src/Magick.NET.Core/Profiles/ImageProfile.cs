@@ -10,8 +10,8 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using ImageMagick.Core;
 
 namespace ImageMagick
 {
@@ -48,7 +48,7 @@ namespace ImageMagick
             Name = name;
 
             var bytes = new Bytes(stream);
-            _data = bytes.Data;
+            _data = bytes.GetData();
         }
 
         /// <summary>

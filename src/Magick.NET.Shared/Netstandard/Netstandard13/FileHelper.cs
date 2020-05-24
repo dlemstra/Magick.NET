@@ -10,21 +10,18 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
-
 namespace ImageMagick
 {
-    [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
-    internal sealed class ExifTagDescriptionAttribute : Attribute
+    internal static partial class FileHelper
     {
-        public ExifTagDescriptionAttribute(object value, string description)
-        {
-            Value = value;
-            Description = description;
-        }
-
-        public object Value { get; }
-
-        public string Description { get; }
+#if NETSTANDARD1_3
+        /// <summary>
+        /// Will add the base directory of the app domain to the file name if it start with ~.
+        /// </summary>
+        /// <param name="fileName">The fiflename.</param>
+        /// <returns>The filename starting with the base directory of the app domain if it start with ~.</returns>
+        public static string CheckForBaseDirectory(string fileName)
+            => fileName;
+#endif
     }
 }

@@ -65,9 +65,5 @@
     <ProjectReference Include="../../src/Magick.NET/Magick.NET.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Shared\Profiles\Exif\Tags\" />
-  </ItemGroup>
-
   <Import Project="../Magick.NET.props" />
 </Project>

@@ -147,7 +147,8 @@ namespace Magick.NET.Tests
                 {
                     if (value.DataType == ExifDataType.Undefined)
                     {
-                        Assert.AreEqual(4, ((ExifByteArray)value).Value.Length);
+                        byte[] data = (byte[])value.GetValue();
+                        Assert.AreEqual(4, data.Length);
                     }
                 }
             }

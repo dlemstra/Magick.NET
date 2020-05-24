@@ -21,31 +21,6 @@ namespace Magick.NET.Tests
         public class TheToByteArrayMethod
         {
             [TestMethod]
-            public void ShouldReturnEmptyArrayWhenEmpty()
-            {
-                var profile = new ExifProfile();
-
-                var bytes = profile.ToByteArray();
-                Assert.AreEqual(0, bytes.Length);
-            }
-
-            [TestMethod]
-            public void ShouldReturnEmptyArrayWhenAllValuesAreInvalid()
-            {
-                var bytes = new byte[] { 69, 120, 105, 102, 0, 0, 73, 73, 42, 0, 8, 0, 0, 0, 1, 0, 42, 1, 4, 0, 1, 0, 0, 0, 42, 0, 0, 0, 26, 0, 0, 0, 0, 0 };
-
-                var profile = new ExifProfile(bytes);
-
-                var unkownTag = new ExifTag<uint>((ExifTagValue)298);
-                var value = profile.GetValue<uint>(unkownTag);
-                Assert.AreEqual(42U, value.GetValue());
-                Assert.AreEqual("42", value.ToString());
-
-                bytes = profile.ToByteArray();
-                Assert.AreEqual(0, bytes.Length);
-            }
-
-            [TestMethod]
             public void ShouldReturnOriginalDataWhenNotParsed()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -77,34 +52,6 @@ namespace Magick.NET.Tests
                         Assert.AreEqual(MagickFormat.Jpeg, thumbnail.Format);
                     }
                 }
-            }
-
-            [TestMethod]
-            public void ShouldExcludeNullValues()
-            {
-                var profile = new ExifProfile();
-                profile.SetValue(ExifTag.ImageDescription, null);
-
-                var data = profile.ToByteArray();
-
-                var reader = new ExifReader();
-                reader.Read(data);
-
-                Assert.AreEqual(0, reader.Values.Count);
-            }
-
-            [TestMethod]
-            public void ShouldExcludeEmptyStrings()
-            {
-                var profile = new ExifProfile();
-                profile.SetValue(ExifTag.ImageDescription, string.Empty);
-
-                var data = profile.ToByteArray();
-
-                var reader = new ExifReader();
-                reader.Read(data);
-
-                Assert.AreEqual(0, reader.Values.Count);
             }
         }
     }

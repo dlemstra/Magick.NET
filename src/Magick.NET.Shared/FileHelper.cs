@@ -10,12 +10,26 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.IO;
 
 namespace ImageMagick
 {
     internal static partial class FileHelper
     {
+#if !NETSTANDARD1_3
+        public static string CheckForBaseDirectory(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+                return fileName;
+
+            if (fileName.Length < 2 || fileName[0] != '~')
+                return fileName;
+
+            return AppDomain.CurrentDomain.BaseDirectory + fileName.Substring(1);
+        }
+#endif
+
         public static string GetFullPath(string path)
         {
             Throw.IfNullOrEmpty(nameof(path), path);

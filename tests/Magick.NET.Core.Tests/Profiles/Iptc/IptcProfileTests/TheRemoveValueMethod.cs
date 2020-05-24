@@ -23,30 +23,29 @@ namespace Magick.NET.Tests
         public class TheRemoveValueMethod
         {
             [TestMethod]
-            public void ShouldRemoveTheValueAndReturnTrueWhenValueWasFound()
+            public void ShouldRemoveAllValues()
             {
-                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-                {
-                    var profile = image.GetIptcProfile();
-                    var result = profile.RemoveValue(IptcTag.Title);
+                var profile = new IptcProfile();
+                profile.SetValue(IptcTag.Byline, "test");
+                profile.SetValue(IptcTag.Byline, "test2");
 
-                    Assert.IsTrue(result);
+                var result = profile.RemoveValue(IptcTag.Byline);
 
-                    var value = profile.GetValue(IptcTag.Title);
-                    Assert.IsNull(value);
-                }
+                Assert.IsTrue(result);
+                Assert.AreEqual(0, profile.Values.Count());
             }
 
             [TestMethod]
-            public void ShouldReturnFalseWhenProfileDoesNotContainTag()
+            public void ShouldOnlyRemoveTheValueWithTheSpecifiedValue()
             {
-                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-                {
-                    var profile = image.GetIptcProfile();
-                    var result = profile.RemoveValue(IptcTag.ReferenceNumber);
+                var profile = new IptcProfile();
+                profile.SetValue(IptcTag.Byline, "test");
+                profile.SetValue(IptcTag.Byline, "test2");
 
-                    Assert.IsFalse(result);
-                }
+                var result = profile.RemoveValue(IptcTag.Byline, "test2");
+
+                Assert.IsTrue(result);
+                Assert.IsTrue(profile.Values.Contains(new IptcValue(IptcTag.Byline, Encoding.UTF8.GetBytes("test"))));
             }
         }
     }

@@ -24,10 +24,11 @@ namespace ImageMagick
     /// </summary>
     public sealed class EightBimProfile : ImageProfile, IEightBimProfile
     {
+        private readonly int _height;
+        private readonly int _width;
+
         private Collection<IClipPath> _clipPaths;
-        private int _height;
         private Collection<IEightBimValue> _values;
-        private int _width;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EightBimProfile"/> class.
@@ -57,9 +58,16 @@ namespace ImageMagick
         {
         }
 
-        internal EightBimProfile(MagickImage image, byte[] data)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EightBimProfile"/> class.
+        /// </summary>
+        /// <param name="image">The image that contains the profile.</param>
+        /// <param name="data">The byte array to read the 8bim profile from.</param>
+        public EightBimProfile(IMagickImage image, byte[] data)
           : base("8bim", data)
         {
+            Throw.IfNull(nameof(image), image);
+
             _width = image.Width;
             _height = image.Height;
         }

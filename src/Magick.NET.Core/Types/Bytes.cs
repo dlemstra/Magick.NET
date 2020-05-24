@@ -13,12 +13,20 @@
 using System;
 using System.IO;
 
-namespace ImageMagick
+namespace ImageMagick.Core
 {
-    internal sealed class Bytes
+    /// <summary>
+    /// Class that can be used to transform a <see cref="Stream"/> into an array of <see cref="byte"/>.
+    /// </summary>
+    public sealed class Bytes
     {
         private const int BufferSize = 8192;
+        private byte[] _data;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Bytes"/> class.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
         public Bytes(Stream stream)
         {
             Throw.IfNull(nameof(stream), stream);
@@ -31,10 +39,16 @@ namespace ImageMagick
         {
         }
 
-        public byte[] Data { get; private set; }
-
+        /// <summary>
+        /// Gets the length of the stream.
+        /// </summary>
         public int Length { get; private set; }
 
+        /// <summary>
+        /// Creates a <see cref="Bytes"/> instance if the stream supports it.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <returns>A <see cref="Bytes"/> instance if the stream supports it.</returns>
         public static Bytes FromStreamBuffer(Stream stream)
         {
             var memStream = stream as MemoryStream;
@@ -42,19 +56,27 @@ namespace ImageMagick
             if (memStream == null || memStream.Position != 0)
                 return null;
 
-            Bytes bytes = new Bytes();
+            var bytes = new Bytes();
             if (bytes.SetDataWithMemoryStreamBuffer(memStream))
                 return bytes;
 
             return null;
         }
 
+        /// <summary>
+        /// Returns the data of the stream as a <see cref="byte"/> array.
+        /// </summary>
+        /// <returns>The data of the stream as a <see cref="byte"/> array.</returns>
+        public byte[] GetData()
+            => _data;
+
         private static void CheckLength(long length)
         {
-            Throw.IfFalse(nameof(length), IsSupportedLength(length), "Streams with a length larger than 2147483591 are not supported, read from file instead.");
+            Throw.IfFalse(nameof(length), IsSupportedLength(length), $"Streams with a length larger than {int.MaxValue} are not supported, read from file instead.");
         }
 
-        private static bool IsSupportedLength(long length) => length <= int.MaxValue;
+        private static bool IsSupportedLength(long length)
+            => length <= int.MaxValue;
 
         private void SetData(Stream stream)
         {
@@ -92,8 +114,8 @@ namespace ImageMagick
             if (SetDataWithMemoryStreamBuffer(memStream))
                 return;
 
-            Data = memStream.ToArray();
-            Length = Data.Length;
+            _data = memStream.ToArray();
+            Length = _data.Length;
         }
 
         private bool SetDataWithMemoryStreamBuffer(MemoryStream memStream)
@@ -103,7 +125,7 @@ namespace ImageMagick
 
             try
             {
-                Data = memStream.GetBuffer();
+                _data = memStream.GetBuffer();
                 Length = (int)memStream.Length;
                 return true;
             }
@@ -119,11 +141,11 @@ namespace ImageMagick
             CheckLength(stream.Length);
 
             Length = (int)stream.Length;
-            Data = new byte[Length];
+            _data = new byte[Length];
 
             int read = 0;
             int bytesRead = 0;
-            while ((bytesRead = stream.Read(Data, read, Length - read)) != 0)
+            while ((bytesRead = stream.Read(_data, read, Length - read)) != 0)
             {
                 read += bytesRead;
             }

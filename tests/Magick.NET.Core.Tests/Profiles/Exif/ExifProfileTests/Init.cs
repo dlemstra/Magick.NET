@@ -10,25 +10,17 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if !NETSTANDARD
+using ImageMagick;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using System;
-
-namespace ImageMagick
+namespace Magick.NET.Tests
 {
-    internal static partial class FileHelper
+    public partial class ExifProfileTests
     {
-        public static string CheckForBaseDirectory(string fileName)
+        private static void TestValue(IExifValue value, string expected)
         {
-            if (string.IsNullOrEmpty(fileName))
-                return fileName;
-
-            if (fileName.Length < 2 || fileName[0] != '~')
-                return fileName;
-
-            return AppDomain.CurrentDomain.BaseDirectory + fileName.Substring(1);
+            Assert.IsNotNull(value);
+            Assert.AreEqual(expected, value.GetValue());
         }
     }
 }
-
-#endif

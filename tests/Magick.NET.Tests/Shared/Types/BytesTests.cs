@@ -12,7 +12,7 @@
 
 using System;
 using System.IO;
-using ImageMagick;
+using ImageMagick.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
@@ -51,8 +51,8 @@ namespace Magick.NET.Tests
                 var bytes = new Bytes(memStream);
 
                 Assert.AreEqual(0, bytes.Length);
-                Assert.IsNotNull(bytes.Data);
-                Assert.AreEqual(0, bytes.Data.Length);
+                Assert.IsNotNull(bytes.GetData());
+                Assert.AreEqual(0, bytes.GetData().Length);
             }
         }
 
@@ -64,8 +64,8 @@ namespace Magick.NET.Tests
                 var bytes = new Bytes(fileStream);
 
                 Assert.AreEqual(18749, bytes.Length);
-                Assert.IsNotNull(bytes.Data);
-                Assert.AreEqual(18749, bytes.Data.Length);
+                Assert.IsNotNull(bytes.GetData());
+                Assert.AreEqual(18749, bytes.GetData().Length);
             }
         }
 
