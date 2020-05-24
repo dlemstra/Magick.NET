@@ -18,7 +18,7 @@ namespace ImageMagick
     /// <summary>
     /// Contains the he perceptual hash of one image channel.
     /// </summary>
-    public partial class ChannelPerceptualHash
+    public partial class ChannelPerceptualHash : IChannelPerceptualHash
     {
         private readonly double[] _srgbHuPhash;
         private readonly double[] _hclpHuPhash;
@@ -95,16 +95,16 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The <see cref="ChannelPerceptualHash"/> to get the distance of.</param>
         /// <returns>The sum squared difference between this hash and the other hash.</returns>
-        public double SumSquaredDistance(ChannelPerceptualHash other)
+        public double SumSquaredDistance(IChannelPerceptualHash other)
         {
             Throw.IfNull(nameof(other), other);
 
-            double ssd = 0.0;
+            var ssd = 0.0;
 
             for (int i = 0; i < 7; i++)
             {
-                ssd += (_srgbHuPhash[i] - other._srgbHuPhash[i]) * (_srgbHuPhash[i] - other._srgbHuPhash[i]);
-                ssd += (_hclpHuPhash[i] - other._hclpHuPhash[i]) * (_hclpHuPhash[i] - other._hclpHuPhash[i]);
+                ssd += (_srgbHuPhash[i] - other.SrgbHuPhash(i)) * (_srgbHuPhash[i] - other.SrgbHuPhash(i));
+                ssd += (_hclpHuPhash[i] - other.HclpHuPhash(i)) * (_hclpHuPhash[i] - other.HclpHuPhash(i));
             }
 
             return ssd;
@@ -125,7 +125,7 @@ namespace ImageMagick
                 if (!int.TryParse(hash.Substring(i * 5, 5), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out int hex))
                     throw new ArgumentException("Invalid hash specified", nameof(hash));
 
-                double value = (ushort)hex / Math.Pow(10.0, hex >> 17);
+                var value = (ushort)hex / Math.Pow(10.0, hex >> 17);
                 if ((hex & (1 << 16)) != 0)
                     value = -value;
                 if (i < 7)
@@ -138,7 +138,7 @@ namespace ImageMagick
         private void SetHash()
         {
             _hash = string.Empty;
-            for (int i = 0; i < 14; i++)
+            for (var i = 0; i < 14; i++)
             {
                 double value;
                 if (i < 7)
@@ -146,14 +146,14 @@ namespace ImageMagick
                 else
                     value = _hclpHuPhash[i - 7];
 
-                int hex = 0;
+                var hex = 0;
                 while (hex < 7 && Math.Abs(value * 10) < 65536)
                 {
-                    value = value * 10;
+                    value *= 10;
                     hex++;
                 }
 
-                hex = hex << 1;
+                hex <<= 1;
                 if (value < 0.0)
                     hex |= 1;
                 hex = (hex << 16) + (int)(value < 0.0 ? -(value - 0.5) : value + 0.5);
@@ -163,13 +163,13 @@ namespace ImageMagick
 
         private void SetHclpHuPhash(NativeChannelPerceptualHash instance)
         {
-            for (int i = 0; i < 7; i++)
+            for (var i = 0; i < 7; i++)
                 _hclpHuPhash[i] = instance.GetHclpHuPhash(i);
         }
 
         private void SetSrgbHuPhash(NativeChannelPerceptualHash instance)
         {
-            for (int i = 0; i < 7; i++)
+            for (var i = 0; i < 7; i++)
                 _srgbHuPhash[i] = instance.GetSrgbHuPhash(i);
         }
     }
