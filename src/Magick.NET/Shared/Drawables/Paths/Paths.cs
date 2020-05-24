@@ -41,16 +41,13 @@ namespace ImageMagick
         /// <summary>
         /// Converts the specified <see cref="Paths"/> to a <see cref="Drawables"/> instance.
         /// </summary>
-        /// <param name="paths">The <see cref="Paths"/> to convert.</param>
-        public static implicit operator Drawables(Paths paths)
+        /// <returns>A new <see cref="Drawables"/> instance.</returns>
+        public Drawables Drawables()
         {
-            if (paths is null)
-                return null;
+            if (_drawables == null)
+                return new Drawables().Path(this);
 
-            if (paths._drawables == null)
-                return new Drawables().Path(paths);
-
-            return paths._drawables.Path(paths);
+            return _drawables.Path(this);
         }
 
         /// <summary>

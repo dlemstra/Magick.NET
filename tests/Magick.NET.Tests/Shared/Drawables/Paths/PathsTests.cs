@@ -29,7 +29,8 @@ namespace Magick.NET.Tests
                   .StrokeWidth(5)
                   .Paths()
                   .LineToRel(10, 2)
-                  .LineToRel(80, 4));
+                  .LineToRel(80, 4)
+                  .Drawables());
 
                 ColorAssert.AreEqual(MagickColors.Green, image, 9, 5);
                 ColorAssert.AreEqual(MagickColors.Red, image, 55, 5);
@@ -45,7 +46,8 @@ namespace Magick.NET.Tests
             {
                 image.Draw(new Paths()
                   .LineToAbs(10, 1)
-                  .LineToAbs(90, 1));
+                  .LineToAbs(90, 1)
+                  .Drawables());
 
                 ColorAssert.AreEqual(MagickColors.Fuchsia, image, 9, 1);
 
@@ -62,12 +64,7 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void Test_Paths()
         {
-            Paths paths = null;
-
-            Drawables drawables = paths;
-            Assert.IsNull(drawables);
-
-            paths = new Paths();
+            var paths = new Paths();
             IEnumerator enumerator = ((IEnumerable)paths).GetEnumerator();
             Assert.IsFalse(enumerator.MoveNext());
         }
