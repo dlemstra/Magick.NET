@@ -96,7 +96,7 @@ namespace ImageMagick
         /// <param name="count">The maximum number of bytes to read.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickImage(byte[] data, int offset, int count, PixelReadSettings settings)
+        public MagickImage(byte[] data, int offset, int count, IPixelReadSettings<QuantumType> settings)
             : this() => ReadPixels(data, offset, count, settings);
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace ImageMagick
         /// <param name="data">The byte array to read the image data from.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickImage(byte[] data, PixelReadSettings settings)
+        public MagickImage(byte[] data, IPixelReadSettings<QuantumType> settings)
             : this() => ReadPixels(data, settings);
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace ImageMagick
         /// <param name="file">The file to read the image from.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickImage(FileInfo file, PixelReadSettings settings)
+        public MagickImage(FileInfo file, IPixelReadSettings<QuantumType> settings)
             : this() => ReadPixels(file, settings);
 
         /// <summary>
@@ -218,7 +218,7 @@ namespace ImageMagick
         /// <param name="stream">The stream to read the image data from.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickImage(Stream stream, PixelReadSettings settings)
+        public MagickImage(Stream stream, IPixelReadSettings<QuantumType> settings)
             : this() => ReadPixels(stream, settings);
 
         /// <summary>
@@ -263,7 +263,7 @@ namespace ImageMagick
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickImage(string fileName, PixelReadSettings settings)
+        public MagickImage(string fileName, IPixelReadSettings<QuantumType> settings)
           : this() => ReadPixels(fileName, settings);
 
         private MagickImage(NativeMagickImage instance, MagickSettings settings)
@@ -4962,7 +4962,7 @@ namespace ImageMagick
         /// <param name="data">The byte array to read the image data from.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void ReadPixels(byte[] data, PixelReadSettings settings)
+        public void ReadPixels(byte[] data, IPixelReadSettings<QuantumType> settings)
         {
             Throw.IfNullOrEmpty(nameof(data), data);
 
@@ -4977,7 +4977,7 @@ namespace ImageMagick
         /// <param name="count">The maximum number of bytes to read.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void ReadPixels(byte[] data, int offset, int count, PixelReadSettings settings)
+        public void ReadPixels(byte[] data, int offset, int count, IPixelReadSettings<QuantumType> settings)
         {
             Throw.IfNullOrEmpty(nameof(data), data);
             Throw.IfTrue(nameof(offset), offset < 0, "The offset should be positive.");
@@ -5003,7 +5003,7 @@ namespace ImageMagick
         /// <param name="file">The file to read the image from.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void ReadPixels(FileInfo file, PixelReadSettings settings)
+        public void ReadPixels(FileInfo file, IPixelReadSettings<QuantumType> settings)
         {
             Throw.IfNull(nameof(file), file);
 
@@ -5016,7 +5016,7 @@ namespace ImageMagick
         /// <param name="stream">The stream to read the image data from.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void ReadPixels(Stream stream, PixelReadSettings settings)
+        public void ReadPixels(Stream stream, IPixelReadSettings<QuantumType> settings)
         {
             Throw.IfNullOrEmpty(nameof(stream), stream);
 
@@ -5030,7 +5030,7 @@ namespace ImageMagick
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void ReadPixels(string fileName, PixelReadSettings settings)
+        public void ReadPixels(string fileName, IPixelReadSettings<QuantumType> settings)
         {
             string filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
@@ -6706,7 +6706,7 @@ namespace ImageMagick
         internal void SetNext(IMagickImage<QuantumType> image)
             => _nativeInstance.SetNext(image.GetInstance());
 
-        private static int GetExpectedLength(PixelReadSettings settings)
+        private static int GetExpectedLength(IPixelReadSettings<QuantumType> settings)
         {
             Throw.IfTrue(nameof(settings), settings.ReadSettings.Width == null, "ReadSettings.Width should be defined");
             Throw.IfTrue(nameof(settings), settings.ReadSettings.Height == null, "ReadSettings.Height should be defined when pixel storage is set.");

@@ -10,12 +10,22 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
     /// <summary>
     /// Class that contains setting for when pixels are read.
     /// </summary>
-    public sealed class PixelReadSettings
+    public sealed class PixelReadSettings : IPixelReadSettings<QuantumType>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PixelReadSettings"/> class.
@@ -65,6 +75,6 @@ namespace ImageMagick
         /// <summary>
         /// Gets the settings to use when reading the image.
         /// </summary>
-        public MagickReadSettings ReadSettings { get; internal set; }
+        public IMagickReadSettings<QuantumType> ReadSettings { get; internal set; }
     }
 }
