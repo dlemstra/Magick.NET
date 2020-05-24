@@ -5945,7 +5945,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The image statistics.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public Statistics Statistics()
+        public IStatistics Statistics()
         {
             var list = _nativeInstance.Statistics();
             try

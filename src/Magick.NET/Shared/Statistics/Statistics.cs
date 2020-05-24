@@ -18,7 +18,7 @@ namespace ImageMagick
     /// <summary>
     /// Encapsulation of the ImageMagick ImageStatistics object.
     /// </summary>
-    public sealed partial class Statistics : IEquatable<Statistics>
+    public sealed partial class Statistics : IStatistics
     {
         private readonly Dictionary<PixelChannel, ChannelStatistics> _channels;
 
@@ -35,10 +35,17 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Gets the channels.
+        /// </summary>
+        public IEnumerable<PixelChannel> Channels
+            => _channels.Keys;
+
+        /// <summary>
         /// Returns the statistics for the all the channels.
         /// </summary>
         /// <returns>The statistics for the all the channels.</returns>
-        public IChannelStatistics Composite() => GetChannel(PixelChannel.Composite);
+        public IChannelStatistics Composite()
+            => GetChannel(PixelChannel.Composite);
 
         /// <summary>
         /// Returns the statistics for the specified channel.
@@ -61,7 +68,7 @@ namespace ImageMagick
             if (obj == null)
                 return false;
 
-            return Equals(obj as Statistics);
+            return Equals(obj as IStatistics);
         }
 
         /// <summary>
@@ -69,7 +76,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The image statistics to compare this <see cref="Statistics"/> with.</param>
         /// <returns>True when the specified image statistics is equal to the current <see cref="Statistics"/>.</returns>
-        public bool Equals(Statistics other)
+        public bool Equals(IStatistics other)
         {
             if (other is null)
                 return false;
@@ -77,15 +84,19 @@ namespace ImageMagick
             if (ReferenceEquals(this, other))
                 return true;
 
-            if (_channels.Count != other._channels.Count)
+            var otherChannels = new List<PixelChannel>(other.Channels);
+
+            if (_channels.Count != otherChannels.Count)
                 return false;
 
             foreach (PixelChannel channel in _channels.Keys)
             {
-                if (!other._channels.ContainsKey(channel))
+                if (!otherChannels.Contains(channel))
                     return false;
 
-                if (!_channels[channel].Equals(other._channels[channel]))
+                var otherChannel = other.GetChannel(channel);
+
+                if (!_channels[channel].Equals(otherChannel))
                     return false;
             }
 

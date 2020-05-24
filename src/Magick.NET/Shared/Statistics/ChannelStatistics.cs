@@ -119,7 +119,7 @@ namespace ImageMagick
             if (obj == null)
                 return false;
 
-            return Equals(obj as ChannelStatistics);
+            return Equals(obj as IChannelStatistics);
         }
 
         /// <summary>
