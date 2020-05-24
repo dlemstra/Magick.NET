@@ -3204,6 +3204,18 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Returns the value of the artifact with the specified name.
+        /// </summary>
+        /// <param name="name">The name of the artifact.</param>
+        /// <returns>The value of the artifact with the specified name.</returns>
+        public string GetArtifact(string name)
+        {
+            Throw.IfNullOrEmpty(nameof(name), name);
+
+            return _nativeInstance.GetArtifact(name);
+        }
+
+        /// <summary>
         /// Returns the value of a named image attribute.
         /// </summary>
         /// <param name="name">The name of the attribute.</param>
@@ -3255,18 +3267,6 @@ namespace ImageMagick
                 return profile;
 
             return GetColorProfile("icm");
-        }
-
-        /// <summary>
-        /// Returns the value of the artifact with the specified name.
-        /// </summary>
-        /// <param name="name">The name of the artifact.</param>
-        /// <returns>The value of the artifact with the specified name.</returns>
-        public string GetArtifact(string name)
-        {
-            Throw.IfNullOrEmpty(nameof(name), name);
-
-            return _nativeInstance.GetArtifact(name);
         }
 
         /// <summary>

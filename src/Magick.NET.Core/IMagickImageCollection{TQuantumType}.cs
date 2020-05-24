@@ -20,7 +20,7 @@ namespace ImageMagick
     /// Represents the collection of images.
     /// </summary>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
-    public partial interface IMagickImageCollection<TQuantumType> : IDisposable, IList<IMagickImage<TQuantumType>>
+    public interface IMagickImageCollection<TQuantumType> : IDisposable, IList<IMagickImage<TQuantumType>>
     {
         /// <summary>
         /// Event that will we raised when a warning is thrown by ImageMagick.
