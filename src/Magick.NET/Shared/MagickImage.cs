@@ -2648,7 +2648,7 @@ namespace ImageMagick
         /// <param name="settings">The settings for the distort operation.</param>
         /// <param name="arguments">An array containing the arguments for the distortion.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Distort(DistortMethod method, DistortSettings settings, params double[] arguments)
+        public void Distort(DistortMethod method, IDistortSettings settings, params double[] arguments)
         {
             Throw.IfNull(nameof(settings), settings);
             Throw.IfNullOrEmpty(nameof(arguments), arguments);

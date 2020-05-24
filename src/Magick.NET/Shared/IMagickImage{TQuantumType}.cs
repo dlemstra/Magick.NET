@@ -1602,7 +1602,7 @@ namespace ImageMagick
         /// <param name="settings">The settings for the distort operation.</param>
         /// <param name="arguments">An array containing the arguments for the distortion.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Distort(DistortMethod method, DistortSettings settings, params double[] arguments);
+        void Distort(DistortMethod method, IDistortSettings settings, params double[] arguments);
 
         /// <summary>
         /// Draw on image using one or more drawables.

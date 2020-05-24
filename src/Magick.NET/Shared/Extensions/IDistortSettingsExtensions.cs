@@ -10,6 +10,8 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System.Globalization;
+
 #if Q8
 using QuantumType = System.Byte;
 #elif Q16
@@ -22,18 +24,15 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-    internal static class ICompareSettingsExtensions
+    internal static class IDistortSettingsExtensions
     {
-        public static void SetImageArtifacts(this ICompareSettings<QuantumType> self, IMagickImage<QuantumType> image)
+        public static void SetImageArtifacts(this IDistortSettings self, IMagickImage<QuantumType> image)
         {
-            if (self.HighlightColor != null)
-                image.SetArtifact("compare:highlight-color", self.HighlightColor.ToString());
+            if (self.Scale != null)
+                image.SetArtifact("distort:scale", self.Scale.Value.ToString(CultureInfo.InvariantCulture));
 
-            if (self.LowlightColor != null)
-                image.SetArtifact("compare:lowlight-color", self.LowlightColor.ToString());
-
-            if (self.MasklightColor != null)
-                image.SetArtifact("compare:masklight-color", self.MasklightColor.ToString());
+            if (self.Viewport != null)
+                image.SetArtifact("distort:viewport", self.Viewport.ToString());
         }
     }
 }
