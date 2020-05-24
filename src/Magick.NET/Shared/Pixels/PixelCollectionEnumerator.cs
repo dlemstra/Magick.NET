@@ -26,7 +26,7 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-    internal sealed class PixelCollectionEnumerator : IEnumerator<Pixel>
+    internal sealed class PixelCollectionEnumerator : IEnumerator<IPixel<QuantumType>>
     {
         private readonly PixelCollection _collection;
         private readonly int _height;
@@ -45,21 +45,16 @@ namespace ImageMagick
         }
 
         object IEnumerator.Current
-        {
-            get
-            {
-                return Current;
-            }
-        }
+            => Current;
 
-        public Pixel Current
+        public IPixel<QuantumType> Current
         {
             get
             {
                 if (_x == -1)
                     return null;
 
-                QuantumType[] pixel = new QuantumType[_collection.Channels];
+                var pixel = new QuantumType[_collection.Channels];
                 Array.Copy(_row, _x * _collection.Channels, pixel, 0, _collection.Channels);
 
                 return Pixel.Create(_collection, _x, _y, pixel);

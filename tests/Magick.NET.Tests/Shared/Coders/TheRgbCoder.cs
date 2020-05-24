@@ -40,7 +40,7 @@ namespace Magick.NET.Tests
             {
                 using (var pixels = image.GetPixels())
                 {
-                    Pixel pixel = pixels.GetPixel(0, 0);
+                    var pixel = pixels.GetPixel(0, 0);
                     Assert.AreEqual(4, pixel.Channels);
                     Assert.AreEqual(1, pixel.GetChannel(0));
                     Assert.AreEqual(2, pixel.GetChannel(1));
@@ -58,7 +58,7 @@ namespace Magick.NET.Tests
             {
                 using (var pixels = image.GetPixels())
                 {
-                    Pixel pixel = pixels.GetPixel(0, 0);
+                    var pixel = pixels.GetPixel(0, 0);
                     Assert.AreEqual(4, pixel.Channels);
                     Assert.AreEqual(1, pixel.GetChannel(0));
                     Assert.AreEqual(2, pixel.GetChannel(1));

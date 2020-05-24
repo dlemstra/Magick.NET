@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        Pixel pixel = pixels.GetPixel(image.Width + 1, 0);
+                        var pixel = pixels.GetPixel(image.Width + 1, 0);
                     }
                 }
             }
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        Pixel pixel = pixels.GetPixel(0, image.Height + 1);
+                        var pixel = pixels.GetPixel(0, image.Height + 1);
                     }
                 }
             }
@@ -51,7 +51,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        Pixel pixel = pixels.GetPixel(55, 68);
+                        var pixel = pixels.GetPixel(55, 68);
                         ColorAssert.AreEqual(new MagickColor("#a8dff8ff"), pixel.ToColor());
                     }
                 }

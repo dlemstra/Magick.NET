@@ -14,6 +14,16 @@ using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace Magick.NET.Tests
 {
     [TestClass]
@@ -161,7 +171,7 @@ namespace Magick.NET.Tests
             {
                 ColorAssert.AreEqual(MagickColors.Black, image.Settings.FillColor);
 
-                Pixel pixelA;
+                IPixel<QuantumType> pixelA;
                 image.Settings.FillColor = MagickColors.Red;
                 image.Read("caption:Magick.NET");
 
@@ -173,7 +183,7 @@ namespace Magick.NET.Tests
                     pixelA = pixels.GetPixel(64, 6);
                 }
 
-                Pixel pixelB;
+                IPixel<QuantumType> pixelB;
                 image.Settings.FillColor = MagickColors.Yellow;
                 image.Read("caption:Magick.NET");
                 using (var pixels = image.GetPixels())

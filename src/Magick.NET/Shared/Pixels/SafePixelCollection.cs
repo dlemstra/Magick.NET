@@ -47,7 +47,7 @@ namespace ImageMagick
             return base.GetArea(x, y, width, height);
         }
 
-        public override Pixel GetPixel(int x, int y)
+        public override IPixel<QuantumType> GetPixel(int x, int y)
         {
             CheckIndex(x, y);
 
@@ -61,14 +61,14 @@ namespace ImageMagick
             return base.GetValue(x, y);
         }
 
-        public override void SetPixel(Pixel pixel)
+        public override void SetPixel(IPixel<QuantumType> pixel)
         {
             Throw.IfNull(nameof(pixel), pixel);
 
-            SetPixelPrivate(pixel.X, pixel.Y, pixel.Value);
+            SetPixelPrivate(pixel.X, pixel.Y, pixel.ToArray());
         }
 
-        public override void SetPixel(IEnumerable<Pixel> pixels)
+        public override void SetPixel(IEnumerable<IPixel<QuantumType>> pixels)
         {
             Throw.IfNull(nameof(pixels), pixels);
 

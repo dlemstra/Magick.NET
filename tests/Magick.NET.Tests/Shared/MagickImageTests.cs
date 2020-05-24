@@ -2303,7 +2303,7 @@ namespace Magick.NET.Tests
 
                 using (var pixels = image.GetPixels())
                 {
-                    Pixel pixel = pixels.GetPixel(90, 9);
+                    var pixel = pixels.GetPixel(90, 9);
                     Assert.AreEqual(0, pixel.ToColor().A);
 
                     pixel = pixels.GetPixel(34, 55);

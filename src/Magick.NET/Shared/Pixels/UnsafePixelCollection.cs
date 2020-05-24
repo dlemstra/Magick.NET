@@ -89,7 +89,7 @@ namespace ImageMagick
                 base.SetArea(geometry, values);
         }
 
-        public override void SetPixel(IEnumerable<Pixel> pixels)
+        public override void SetPixel(IEnumerable<IPixel<QuantumType>> pixels)
         {
             if (pixels != null)
                 base.SetPixel(pixels);

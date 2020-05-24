@@ -90,7 +90,7 @@ namespace Magick.NET.Tests
 
                         using (var pixels = image.GetPixels())
                         {
-                            Pixel pixel = pixels.GetPixel(0, 0);
+                            var pixel = pixels.GetPixel(0, 0);
                             Assert.AreEqual(4, pixel.Channels);
                             Assert.AreEqual(0, pixel.GetChannel(0));
                             Assert.AreEqual(0, pixel.GetChannel(1));

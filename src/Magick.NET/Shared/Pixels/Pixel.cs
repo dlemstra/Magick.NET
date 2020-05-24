@@ -28,9 +28,10 @@ namespace ImageMagick
     /// <summary>
     /// Class that can be used to access an individual pixel of an image.
     /// </summary>
-    public sealed class Pixel : IEquatable<Pixel>
+    public sealed class Pixel : IPixel<QuantumType>
     {
         private PixelCollection _collection;
+        private QuantumType[] _value;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Pixel"/> class.
@@ -66,7 +67,8 @@ namespace ImageMagick
         /// <summary>
         /// Gets the number of channels that the pixel contains.
         /// </summary>
-        public int Channels => Value.Length;
+        public int Channels
+            => _value.Length;
 
         /// <summary>
         /// Gets the X coordinate of the pixel.
@@ -77,8 +79,6 @@ namespace ImageMagick
         /// Gets the Y coordinate of the pixel.
         /// </summary>
         public int Y { get; private set; }
-
-        internal QuantumType[] Value { get; private set; }
 
         /// <summary>
         /// Returns the value of the specified channel.
@@ -108,7 +108,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The pixel to compare this color with.</param>
         /// <returns>True when the specified pixel is equal to the current pixel.</returns>
-        public bool Equals(Pixel other)
+        public bool Equals(IPixel<QuantumType> other)
         {
             if (other is null)
                 return false;
@@ -119,9 +119,11 @@ namespace ImageMagick
             if (Channels != other.Channels)
                 return false;
 
-            for (int i = 0; i < Value.Length; i++)
+            var otherValue = other.ToArray();
+
+            for (int i = 0; i < _value.Length; i++)
             {
-                if (Value[i] != other.Value[i])
+                if (_value[i] != otherValue[i])
                     return false;
             }
 
@@ -135,30 +137,18 @@ namespace ImageMagick
         /// <returns>The value of the specified channel.</returns>
         public QuantumType GetChannel(int channel)
         {
-            if (channel < 0 || channel >= Value.Length)
+            if (channel < 0 || channel >= _value.Length)
                 return 0;
 
-            return Value[channel];
+            return _value[channel];
         }
 
         /// <summary>
         /// Serves as a hash of this type.
         /// </summary>
         /// <returns>A hash code for the current instance.</returns>
-        public override int GetHashCode() => Value.GetHashCode();
-
-        /// <summary>
-        /// Sets the values of this pixel.
-        /// </summary>
-        /// <param name="values">The values.</param>
-        public void Set(QuantumType[] values)
-        {
-            if (values == null || values.Length != Value.Length)
-                return;
-
-            Array.Copy(values, 0, Value, 0, Value.Length);
-            UpdateCollection();
-        }
+        public override int GetHashCode()
+            => _value.GetHashCode();
 
         /// <summary>
         /// Set the value of the specified channel.
@@ -167,12 +157,32 @@ namespace ImageMagick
         /// <param name="value">The value.</param>
         public void SetChannel(int channel, QuantumType value)
         {
-            if (channel < 0 || channel >= Value.Length)
+            if (channel < 0 || channel >= _value.Length)
                 return;
 
-            Value[channel] = value;
+            _value[channel] = value;
             UpdateCollection();
         }
+
+        /// <summary>
+        /// Sets the values of this pixel.
+        /// </summary>
+        /// <param name="values">The values.</param>
+        public void SetValues(QuantumType[] values)
+        {
+            if (values == null || values.Length != _value.Length)
+                return;
+
+            Array.Copy(values, 0, _value, 0, _value.Length);
+            UpdateCollection();
+        }
+
+        /// <summary>
+        /// Returns the value of this pixel as an array.
+        /// </summary>
+        /// <returns>A <see cref="QuantumType"/> array.</returns>
+        public QuantumType[] ToArray()
+            => _value;
 
         /// <summary>
         /// Converts the pixel to a color. Assumes the pixel is RGBA.
@@ -223,13 +233,13 @@ namespace ImageMagick
         private QuantumType[] GetValueWithoutIndexChannel()
         {
             if (_collection == null)
-                return Value;
+                return _value;
 
             int index = _collection.GetIndex(PixelChannel.Index);
             if (index == -1)
-                return Value;
+                return _value;
 
-            List<QuantumType> newValue = new List<QuantumType>(Value);
+            List<QuantumType> newValue = new List<QuantumType>(_value);
             newValue.RemoveAt(index);
 
             return newValue.ToArray();
@@ -239,13 +249,13 @@ namespace ImageMagick
         {
             X = x;
             Y = y;
-            Value = value;
+            _value = value;
         }
 
         private void UpdateCollection()
         {
             if (_collection != null)
-                _collection.SetPixelUnchecked(X, Y, Value);
+                _collection.SetPixelUnchecked(X, Y, _value);
         }
     }
 }

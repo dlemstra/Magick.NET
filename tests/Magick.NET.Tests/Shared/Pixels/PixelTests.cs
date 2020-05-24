@@ -59,8 +59,8 @@ namespace Magick.NET.Tests
         {
             QuantumType half = (QuantumType)(Quantum.Max / 2.0);
 
-            Pixel first = new Pixel(0, 0, 3);
-            first.Set(new QuantumType[] { Quantum.Max, 0, half });
+            var first = new Pixel(0, 0, 3);
+            first.SetValues(new QuantumType[] { Quantum.Max, 0, half });
 
             Assert.AreEqual(Quantum.Max, first.GetChannel(0));
             Assert.AreEqual(0, first.GetChannel(1));
@@ -80,24 +80,24 @@ namespace Magick.NET.Tests
         {
             QuantumType half = (QuantumType)(Quantum.Max / 2.0);
 
-            Pixel pixel = new Pixel(0, 0, 1);
-            pixel.Set(new QuantumType[] { Quantum.Max });
+            var pixel = new Pixel(0, 0, 1);
+            pixel.SetValues(new QuantumType[] { Quantum.Max });
             ColorAssert.AreEqual(new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max), pixel.ToColor());
 
             pixel = new Pixel(0, 0, 2);
-            pixel.Set(new QuantumType[] { Quantum.Max, 0 });
+            pixel.SetValues(new QuantumType[] { Quantum.Max, 0 });
             ColorAssert.AreEqual(new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max, 0), pixel.ToColor());
 
             pixel = new Pixel(0, 0, 3);
-            pixel.Set(new QuantumType[] { Quantum.Max, 0, half });
+            pixel.SetValues(new QuantumType[] { Quantum.Max, 0, half });
             ColorAssert.AreEqual(new MagickColor(Quantum.Max, 0, half), pixel.ToColor());
 
             pixel = new Pixel(0, 0, 4);
-            pixel.Set(new QuantumType[] { 0, half, Quantum.Max, Quantum.Max });
+            pixel.SetValues(new QuantumType[] { 0, half, Quantum.Max, Quantum.Max });
             ColorAssert.AreEqual(new MagickColor(0, half, Quantum.Max, Quantum.Max), pixel.ToColor());
 
             pixel = new Pixel(0, 0, 5);
-            pixel.Set(new QuantumType[] { Quantum.Max, 0, half, Quantum.Max, Quantum.Max });
+            pixel.SetValues(new QuantumType[] { Quantum.Max, 0, half, Quantum.Max, Quantum.Max });
             ColorAssert.AreEqual(new MagickColor(Quantum.Max, 0, half, Quantum.Max), pixel.ToColor());
         }
     }

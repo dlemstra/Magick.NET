@@ -19,7 +19,7 @@ namespace ImageMagick
     /// Interface that can be used to access the individual pixels of an image.
     /// </summary>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
-    public interface IPixelCollection<TQuantumType> : IEnumerable<Pixel>, IDisposable
+    public interface IPixelCollection<TQuantumType> : IEnumerable<IPixel<TQuantumType>>, IDisposable
     {
         /// <summary>
         /// Gets the number of channels that the image contains.
@@ -31,7 +31,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="x">The X coordinate.</param>
         /// <param name="y">The Y coordinate.</param>
-        Pixel this[int x, int y] { get; }
+        IPixel<TQuantumType> this[int x, int y] { get; }
 
         /// <summary>
         /// Returns the pixel at the specified coordinates.
@@ -63,7 +63,7 @@ namespace ImageMagick
         /// <param name="x">The X coordinate of the pixel.</param>
         /// <param name="y">The Y coordinate of the pixel.</param>
         /// <returns>The <see cref="Pixel"/> at the specified coordinate.</returns>
-        Pixel GetPixel(int x, int y);
+        IPixel<TQuantumType> GetPixel(int x, int y);
 
         /// <summary>
         /// Returns the value of the specified coordinate.
@@ -83,13 +83,13 @@ namespace ImageMagick
         /// Changes the value of the specified pixel.
         /// </summary>
         /// <param name="pixel">The pixel to set.</param>
-        void SetPixel(Pixel pixel);
+        void SetPixel(IPixel<TQuantumType> pixel);
 
         /// <summary>
         /// Changes the value of the specified pixels.
         /// </summary>
         /// <param name="pixels">The pixels to set.</param>
-        void SetPixel(IEnumerable<Pixel> pixels);
+        void SetPixel(IEnumerable<IPixel<TQuantumType>> pixels);
 
         /// <summary>
         /// Changes the value of the specified pixel.

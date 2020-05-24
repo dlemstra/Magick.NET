@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        IEnumerator<Pixel> enumerator = pixels.GetEnumerator();
+                        var enumerator = pixels.GetEnumerator();
                         Assert.IsNotNull(enumerator);
                     }
                 }

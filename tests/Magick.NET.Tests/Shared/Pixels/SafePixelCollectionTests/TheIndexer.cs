@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
                     {
                         ExceptionAssert.Throws<ArgumentOutOfRangeException>("x", () =>
                         {
-                            Pixel pixel = pixels[image.Width + 1, 0];
+                            var pixel = pixels[image.Width + 1, 0];
                         });
                     }
                 }
@@ -45,7 +45,7 @@ namespace Magick.NET.Tests
                     {
                         ExceptionAssert.Throws<ArgumentOutOfRangeException>("y", () =>
                         {
-                            Pixel pixel = pixels[0, image.Height + 1];
+                            var pixel = pixels[0, image.Height + 1];
                         });
                     }
                 }
@@ -58,7 +58,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        Pixel pixel = pixels[300, 100];
+                        var pixel = pixels[300, 100];
 
                         ColorAssert.AreEqual(MagickColors.Red, pixel.ToColor());
                     }

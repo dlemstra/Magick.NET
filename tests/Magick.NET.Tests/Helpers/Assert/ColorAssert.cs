@@ -74,7 +74,7 @@ namespace Magick.NET.Tests
         public static void IsNotTransparent(float alpha)
             => Assert.AreEqual(Quantum.Max, alpha);
 
-        private static void AreEqual(IMagickColor<QuantumType> expected, Pixel actual)
+        private static void AreEqual(IMagickColor<QuantumType> expected, IPixel<QuantumType> actual)
             => AreEqual(expected, actual.ToColor());
 
         private static void AreEqual(QuantumType expected, QuantumType actual, IMagickColor<QuantumType> expectedColor, IMagickColor<QuantumType> actualColor, float delta, string channel)
@@ -87,7 +87,7 @@ namespace Magick.NET.Tests
             Assert.AreEqual(expected, actual, delta, channel + " is not equal (" + expectedColor.ToString() + " != " + actualColor.ToString() + ")");
         }
 
-        private static void AreNotEqual(IMagickColor<QuantumType> expected, Pixel actual)
+        private static void AreNotEqual(IMagickColor<QuantumType> expected, IPixel<QuantumType> actual)
             => AreNotEqual(expected, actual.ToColor());
     }
 }

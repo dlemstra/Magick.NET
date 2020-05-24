@@ -58,7 +58,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        Pixel pixel = pixels.GetPixel(55, 68);
+                        var pixel = pixels.GetPixel(55, 68);
                         ColorAssert.AreEqual(new MagickColor("#a8dff8ff"), pixel.ToColor());
                     }
                 }
