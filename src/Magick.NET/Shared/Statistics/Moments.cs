@@ -18,7 +18,7 @@ namespace ImageMagick
     /// <summary>
     /// The normalized moments of one or more image channels.
     /// </summary>
-    public sealed partial class Moments
+    public sealed partial class Moments : IMoments
     {
         private readonly Dictionary<PixelChannel, ChannelMoments> _channels;
 
@@ -28,7 +28,7 @@ namespace ImageMagick
                 return;
 
             _channels = new Dictionary<PixelChannel, ChannelMoments>();
-            foreach (PixelChannel channel in image.Channels)
+            foreach (var channel in image.Channels)
                 AddChannel(list, channel);
         }
 
@@ -37,9 +37,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The moments for the all the channels.</returns>
         public IChannelMoments Composite()
-        {
-            return GetChannel(PixelChannel.Composite);
-        }
+            => GetChannel(PixelChannel.Composite);
 
         /// <summary>
         /// Gets the moments for the specified channel.

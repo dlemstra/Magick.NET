@@ -4321,7 +4321,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The normalized moments of one or more image channels.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public Moments Moments()
+        public IMoments Moments()
         {
             var list = _nativeInstance.Moments();
             try

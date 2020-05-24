@@ -2833,7 +2833,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The normalized moments of one or more image channels.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        Moments Moments();
+        IMoments Moments();
 
         /// <summary>
         /// Motion blur image with specified blur factor.
