@@ -21,7 +21,7 @@ namespace ImageMagick
     /// </summary>
     public sealed partial class OpenCLDevice
     {
-        private NativeOpenCLDevice _instance;
+        private readonly NativeOpenCLDevice _instance;
         private bool _profileKernels;
 
         private OpenCLDevice(IntPtr instance)
@@ -35,42 +35,27 @@ namespace ImageMagick
         /// Gets the benchmark score of the device.
         /// </summary>
         public double BenchmarkScore
-        {
-            get
-            {
-                return _instance.BenchmarkScore;
-            }
-        }
+            => _instance.BenchmarkScore;
 
         /// <summary>
         /// Gets the type of the device.
         /// </summary>
         public OpenCLDeviceType DeviceType
-        {
-            get
-            {
-                return _instance.DeviceType;
-            }
-        }
+            => _instance.DeviceType;
 
         /// <summary>
         /// Gets the name of the device.
         /// </summary>
         public string Name
-        {
-            get
-            {
-                return _instance.Name;
-            }
-        }
+            => _instance.Name;
 
         /// <summary>
         /// Gets or sets a value indicating whether the device is enabled or disabled.
         /// </summary>
         public bool IsEnabled
         {
-            get { return _instance.IsEnabled; }
-            set { _instance.IsEnabled = value; }
+            get => _instance.IsEnabled;
+            set => _instance.IsEnabled = value;
         }
 
         /// <summary>
@@ -106,11 +91,7 @@ namespace ImageMagick
         /// </summary>
         public bool ProfileKernels
         {
-            get
-            {
-                return _profileKernels;
-            }
-
+            get => _profileKernels;
             set
             {
                 _instance.SetProfileKernels(value);
@@ -122,12 +103,7 @@ namespace ImageMagick
         /// Gets the OpenCL version supported by the device.
         /// </summary>
         public string Version
-        {
-            get
-            {
-                return _instance.Version;
-            }
-        }
+            => _instance.Version;
 
         internal static OpenCLDevice CreateInstance(IntPtr instance)
         {
