@@ -2826,7 +2826,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="settings">The morphology settings.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Morphology(MorphologySettings settings);
+        void Morphology(IMorphologySettings settings);
 
         /// <summary>
         /// Returns the normalized moments of one or more image channels.

@@ -4304,7 +4304,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="settings">The morphology settings.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Morphology(MorphologySettings settings)
+        public void Morphology(IMorphologySettings settings)
         {
             Throw.IfNull(nameof(settings), settings);
 
