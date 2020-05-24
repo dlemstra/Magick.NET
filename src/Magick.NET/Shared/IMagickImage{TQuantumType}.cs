@@ -2390,7 +2390,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="settings">The kmeans settings.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Kmeans(KmeansSettings settings);
+        void Kmeans(IKmeansSettings settings);
 
         /// <summary>
         /// An edge preserving noise reduction filter.

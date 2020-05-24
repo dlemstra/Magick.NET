@@ -3721,7 +3721,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="settings">The kmeans settings.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Kmeans(KmeansSettings settings)
+        public void Kmeans(IKmeansSettings settings)
         {
             Throw.IfNull(nameof(settings), settings);
             Throw.IfNegative(nameof(settings), settings.NumberColors);

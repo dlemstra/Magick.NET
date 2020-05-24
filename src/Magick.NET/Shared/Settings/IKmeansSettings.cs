@@ -15,26 +15,26 @@ namespace ImageMagick
     /// <summary>
     /// Class that contains setting for the kmeans operation.
     /// </summary>
-    public sealed class KmeansSettings : IKmeansSettings
+    public interface IKmeansSettings
     {
         /// <summary>
         /// Gets or sets the seed clusters from color list (e.g. red;green;blue).
         /// </summary>
-        public string SeedColors { get; set; }
+        string SeedColors { get; set; }
 
         /// <summary>
         /// Gets or sets the number of colors to use as seeds.
         /// </summary>
-        public int NumberColors { get; set; }
+        int NumberColors { get; set; }
 
         /// <summary>
         /// Gets or sets the maximum number of iterations while converging.
         /// </summary>
-        public int MaxIterations { get; set; } = 100;
+        int MaxIterations { get; set; }
 
         /// <summary>
         /// Gets or sets the maximum tolerance.
         /// </summary>
-        public double Tolerance { get; set; } = 0.01;
+        double Tolerance { get; set; }
     }
 }
