@@ -52,6 +52,6 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the width.
         /// </summary>
-        public int? Width { get; set; }
+        int? Width { get; set; }
     }
 }
