@@ -14,9 +14,9 @@ using System.Reflection;
 
 namespace FileGenerator.Drawables
 {
-    internal sealed class PathsGenerator : DrawableCodeGenerator
+    internal sealed class IPathsGenerator : DrawableCodeGenerator
     {
-        private PathsGenerator()
+        private IPathsGenerator()
         {
         }
 
@@ -31,17 +31,11 @@ namespace FileGenerator.Drawables
             var name = constructor.DeclaringType.Name.Substring(4);
             var parameters = constructor.GetParameters();
 
-            foreach (string commentLine in Types.GetCommentLines(constructor, "Paths"))
+            foreach (string commentLine in Types.GetCommentLines(constructor, "IPaths"))
                 WriteLine(commentLine);
-            Write("public IPaths " + name + "(");
+            Write("IPaths " + name + "(");
             WriteParameterDeclaration(parameters);
-            WriteLine(")");
-            WriteStartColon();
-            Write("_paths.Add(new " + constructor.DeclaringType.Name + "(");
-            WriteParameters(parameters);
-            WriteLine("));");
-            WriteLine("return this;");
-            WriteEndColon();
+            WriteLine(");");
             WriteLine();
         }
 
@@ -56,7 +50,7 @@ namespace FileGenerator.Drawables
         private void WritePaths()
         {
             WriteLine(@"[System.CodeDom.Compiler.GeneratedCode(""Magick.NET.FileGenerator"", """")]");
-            WriteLine("public sealed partial class Paths");
+            WriteLine("public partial interface IPaths");
             WriteStartColon();
 
             foreach (var path in Types.GetPaths())
@@ -69,8 +63,8 @@ namespace FileGenerator.Drawables
 
         public static void Generate()
         {
-            var generator = new PathsGenerator();
-            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET\Shared\Drawables\Paths\Generated\Paths.cs"));
+            var generator = new IPathsGenerator();
+            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET\Shared\Drawables\Paths\Generated\IPaths.cs"));
             generator.WriteStart("ImageMagick");
             generator.WritePaths();
             generator.WriteEnd();

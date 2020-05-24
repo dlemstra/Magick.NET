@@ -96,7 +96,7 @@ namespace ImageMagick
         /// Creates a new <see cref="Paths"/> instance.
         /// </summary>
         /// <returns>A new <see cref="Paths"/> instance.</returns>
-        public Paths Paths()
+        public IPaths Paths()
             => new Paths(this);
 
         /// <summary>

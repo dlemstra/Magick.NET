@@ -27,6 +27,16 @@ namespace FileGenerator.Drawables
             AppDomain.Unload(domain);
         }
 
+        private static void GenerateIPaths()
+        {
+            AppDomain domain = AppDomainHelper.CreateDomain();
+            DrawableApplicationProxy proxy = AppDomainHelper.CreateProxy<DrawableApplicationProxy>(domain);
+
+            proxy.GenerateIPaths();
+
+            AppDomain.Unload(domain);
+        }
+
         private static void GeneratePaths()
         {
             AppDomain domain = AppDomainHelper.CreateDomain();
@@ -40,6 +50,7 @@ namespace FileGenerator.Drawables
         public static void Execute()
         {
             GenerateDrawables();
+            GenerateIPaths();
             GeneratePaths();
         }
     }

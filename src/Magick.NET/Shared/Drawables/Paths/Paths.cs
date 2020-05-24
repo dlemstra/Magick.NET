@@ -19,7 +19,7 @@ namespace ImageMagick
     /// <summary>
     /// Class that can be used to chain path actions.
     /// </summary>
-    public sealed partial class Paths : IEnumerable<IPath>
+    public sealed partial class Paths : IPaths
     {
         private readonly Drawables _drawables;
         private readonly Collection<IPath> _paths;

@@ -30,7 +30,7 @@ namespace ImageMagick
     public sealed partial class Drawables
     {
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableAffine" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableAffine operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="scaleX">The X coordinate scaling element.</param>
         /// <param name="scaleY">The Y coordinate scaling element.</param>
@@ -46,7 +46,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableAlpha" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableAlpha operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="x">The X coordinate.</param>
         /// <param name="y">The Y coordinate.</param>
@@ -59,7 +59,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableArc" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableArc operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="startX">The starting X coordinate of the bounding rectangle.</param>
         /// <param name="startY">The starting Y coordinate of thebounding rectangle.</param>
@@ -75,7 +75,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableBezier" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableBezier operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="coordinates">The coordinates.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -86,7 +86,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableBezier" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableBezier operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="coordinates">The coordinates.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -97,7 +97,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableBorderColor" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableBorderColor operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="color">The color of the border.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -108,7 +108,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableCircle" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableCircle operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="originX">The origin X coordinate.</param>
         /// <param name="originY">The origin Y coordinate.</param>
@@ -122,7 +122,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableClipPath" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableClipPath operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="clipPath">The ID of the clip path.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -133,7 +133,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableClipRule" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableClipRule operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="fillRule">The rule to use when filling drawn objects.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -144,7 +144,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableClipUnits" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableClipUnits operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="units">The clip path units.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -155,7 +155,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableColor" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableColor operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="x">The X coordinate.</param>
         /// <param name="y">The Y coordinate.</param>
@@ -168,7 +168,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableComposite" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableComposite operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="offset">The offset from origin.</param>
         /// <param name="image">The image to draw.</param>
@@ -180,7 +180,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableComposite" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableComposite operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="x">The X coordinate.</param>
         /// <param name="y">The Y coordinate.</param>
@@ -193,7 +193,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableComposite" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableComposite operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="offset">The offset from origin.</param>
         /// <param name="compose">The algorithm to use.</param>
@@ -206,7 +206,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableComposite" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableComposite operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="x">The X coordinate.</param>
         /// <param name="y">The Y coordinate.</param>
@@ -220,7 +220,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableDensity" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableDensity operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="density">The vertical and horizontal resolution.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -231,7 +231,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableDensity" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableDensity operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="pointDensity">The vertical and horizontal resolution.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -242,7 +242,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableEllipse" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableEllipse operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="originX">The origin X coordinate.</param>
         /// <param name="originY">The origin Y coordinate.</param>
@@ -258,7 +258,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableFillColor" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableFillColor operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -269,7 +269,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableFillOpacity" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableFillOpacity operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="opacity">The opacity.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -280,7 +280,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableFillPatternUrl" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableFillPatternUrl operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="url">Url specifying pattern ID (e.g. "#pattern_id").</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -291,7 +291,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableFillRule" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableFillRule operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="fillRule">The rule to use when filling drawn objects.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -302,7 +302,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableFont" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableFont operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="family">The font family or the full path to the font file.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -313,7 +313,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableFont" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableFont operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="family">The font family or the full path to the font file.</param>
         /// <param name="style">The style of the font.</param>
@@ -327,7 +327,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableFontPointSize" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableFontPointSize operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="pointSize">The point size.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -338,7 +338,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableGravity" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableGravity operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="gravity">The gravity.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -349,7 +349,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableLine" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableLine operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="startX">The starting X coordinate.</param>
         /// <param name="startY">The starting Y coordinate.</param>
@@ -363,7 +363,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawablePath" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawablePath operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="paths">The paths to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -374,7 +374,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawablePath" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawablePath operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="paths">The paths to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -385,7 +385,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawablePoint" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawablePoint operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="x">The X coordinate.</param>
         /// <param name="y">The Y coordinate.</param>
@@ -397,7 +397,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawablePolygon" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawablePolygon operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="coordinates">The coordinates.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -408,7 +408,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawablePolygon" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawablePolygon operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="coordinates">The coordinates.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -419,7 +419,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawablePolyline" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawablePolyline operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="coordinates">The coordinates.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -430,7 +430,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawablePolyline" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawablePolyline operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="coordinates">The coordinates.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -441,7 +441,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawablePopClipPath" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawablePopClipPath operation to the <see cref="Drawables" />.
         /// </summary>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables PopClipPath()
@@ -451,7 +451,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawablePopGraphicContext" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawablePopGraphicContext operation to the <see cref="Drawables" />.
         /// </summary>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables PopGraphicContext()
@@ -461,7 +461,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawablePopPattern" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawablePopPattern operation to the <see cref="Drawables" />.
         /// </summary>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables PopPattern()
@@ -471,7 +471,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawablePushClipPath" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawablePushClipPath operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="clipPath">The ID of the clip path.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -482,7 +482,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawablePushGraphicContext" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawablePushGraphicContext operation to the <see cref="Drawables" />.
         /// </summary>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
         public Drawables PushGraphicContext()
@@ -492,7 +492,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawablePushPattern" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawablePushPattern operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="id">The ID of the pattern.</param>
         /// <param name="x">The X coordinate.</param>
@@ -507,7 +507,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableRectangle" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableRectangle operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="upperLeftX">The upper left X coordinate.</param>
         /// <param name="upperLeftY">The upper left Y coordinate.</param>
@@ -521,7 +521,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableRotation" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableRotation operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="angle">The angle.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -532,7 +532,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableRoundRectangle" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableRoundRectangle operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="upperLeftX">The upper left X coordinate.</param>
         /// <param name="upperLeftY">The upper left Y coordinate.</param>
@@ -548,7 +548,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableScaling" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableScaling operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="x">Horizontal scale factor.</param>
         /// <param name="y">Vertical scale factor.</param>
@@ -560,7 +560,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableSkewX" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableSkewX operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="angle">The angle.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -571,7 +571,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableSkewY" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableSkewY operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="angle">The angle.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -582,7 +582,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableStrokeAntialias" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableStrokeAntialias operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="isEnabled">True if stroke antialiasing is enabled otherwise false.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -593,7 +593,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableStrokeColor" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableStrokeColor operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -604,7 +604,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableStrokeDashArray" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableStrokeDashArray operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="dash">An array containing the dash information.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -615,7 +615,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableStrokeDashOffset" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableStrokeDashOffset operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="offset">The dash offset.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -626,7 +626,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableStrokeLineCap" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableStrokeLineCap operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="lineCap">The line cap.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -637,7 +637,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableStrokeLineJoin" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableStrokeLineJoin operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="lineJoin">The line join.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -648,7 +648,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableStrokeMiterLimit" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableStrokeMiterLimit operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="miterlimit">The miter limit.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -659,7 +659,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableStrokeOpacity" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableStrokeOpacity operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="opacity">The opacity.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -670,7 +670,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableStrokePatternUrl" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableStrokePatternUrl operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="url">Url specifying pattern ID (e.g. "#pattern_id").</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -681,7 +681,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableStrokeWidth" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableStrokeWidth operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="width">The width.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -692,7 +692,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableText" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableText operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="x">The X coordinate.</param>
         /// <param name="y">The Y coordinate.</param>
@@ -705,7 +705,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableTextAlignment" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableTextAlignment operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="alignment">Text alignment.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -716,7 +716,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableTextAntialias" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableTextAntialias operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="isEnabled">True if text antialiasing is enabled otherwise false.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -727,7 +727,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableTextDecoration" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableTextDecoration operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="decoration">The text decoration.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -738,7 +738,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableTextDirection" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableTextDirection operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="direction">Direction to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -749,7 +749,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableTextEncoding" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableTextEncoding operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="encoding">Encoding to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -760,7 +760,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableTextInterlineSpacing" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableTextInterlineSpacing operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="spacing">Spacing to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -771,7 +771,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableTextInterwordSpacing" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableTextInterwordSpacing operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="spacing">Spacing to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -782,7 +782,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableTextKerning" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableTextKerning operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="kerning">Kerning to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -793,7 +793,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableTextUnderColor" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableTextUnderColor operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>The <see cref="Drawables" /> instance.</returns>
@@ -804,7 +804,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableTranslation" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableTranslation operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="x">The X coordinate.</param>
         /// <param name="y">The Y coordinate.</param>
@@ -816,7 +816,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Adds a new instance of the <see cref="DrawableViewbox" /> class to the <see cref="Drawables" />.
+        /// Applies the DrawableViewbox operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="upperLeftX">The upper left X coordinate.</param>
         /// <param name="upperLeftY">The upper left Y coordinate.</param>

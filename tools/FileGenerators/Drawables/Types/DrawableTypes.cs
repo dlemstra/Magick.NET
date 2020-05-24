@@ -31,11 +31,9 @@ namespace FileGenerator.Drawables
             summary.RemoveAll();
             summary.Add(
               new XText(Environment.NewLine),
-              new XText("Adds a new instance of the "),
-              new XElement("see",
-                new XAttribute("cref", typeName)
-              ),
-              new XText($" class to the "),
+              new XText("Applies the "),
+              new XText(typeName),
+              new XText($" operation to the "),
               cref,
               new XText("."),
               new XText(Environment.NewLine)
