@@ -5537,7 +5537,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="profile">The profile to set.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void SetProfile(ColorProfile profile)
+        public void SetProfile(IColorProfile profile)
             => SetProfile(profile, ColorTransformMode.Quantum);
 
         /// <summary>
@@ -5546,7 +5546,7 @@ namespace ImageMagick
         /// <param name="profile">The profile to set.</param>
         /// <param name="mode">The color transformation mode.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void SetProfile(ColorProfile profile, ColorTransformMode mode)
+        public void SetProfile(IColorProfile profile, ColorTransformMode mode)
         {
             Throw.IfNull(nameof(profile), profile);
 
@@ -6252,7 +6252,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="target">The target color profile.</param>
         /// <returns>True when the colorspace was transformed otherwise false.</returns>
-        public bool TransformColorSpace(ColorProfile target)
+        public bool TransformColorSpace(IColorProfile target)
             => TransformColorSpace(target, ColorTransformMode.Quantum);
 
         /// <summary>
@@ -6262,7 +6262,7 @@ namespace ImageMagick
         /// <param name="target">The target color profile.</param>
         /// <param name="mode">The color transformation mode.</param>
         /// <returns>True when the colorspace was transformed otherwise false.</returns>
-        public bool TransformColorSpace(ColorProfile target, ColorTransformMode mode)
+        public bool TransformColorSpace(IColorProfile target, ColorTransformMode mode)
         {
             Throw.IfNull(nameof(target), target);
 
@@ -6282,7 +6282,7 @@ namespace ImageMagick
         /// <param name="source">The source color profile.</param>
         /// <param name="target">The target color profile.</param>
         /// <returns>True when the colorspace was transformed otherwise false.</returns>
-        public bool TransformColorSpace(ColorProfile source, ColorProfile target)
+        public bool TransformColorSpace(IColorProfile source, IColorProfile target)
             => TransformColorSpace(source, target, ColorTransformMode.Quantum);
 
         /// <summary>
@@ -6294,7 +6294,7 @@ namespace ImageMagick
         /// <param name="target">The target color profile.</param>
         /// <param name="mode">The color transformation mode.</param>
         /// <returns>True when the colorspace was transformed otherwise false.</returns>
-        public bool TransformColorSpace(ColorProfile source, ColorProfile target, ColorTransformMode mode)
+        public bool TransformColorSpace(IColorProfile source, IColorProfile target, ColorTransformMode mode)
         {
             Throw.IfNull(nameof(source), source);
             Throw.IfNull(nameof(target), target);

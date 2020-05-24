@@ -3706,7 +3706,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="profile">The profile to set.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void SetProfile(ColorProfile profile);
+        void SetProfile(IColorProfile profile);
 
         /// <summary>
         /// Set the specified profile of the image. If a profile with the same name already exists it will be overwritten.
@@ -3714,7 +3714,7 @@ namespace ImageMagick
         /// <param name="profile">The profile to set.</param>
         /// <param name="mode">The color transformation mode.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void SetProfile(ColorProfile profile, ColorTransformMode mode);
+        void SetProfile(IColorProfile profile, ColorTransformMode mode);
 
         /// <summary>
         /// Sets the associated read mask of the image. The mask must be the same dimensions as the image and
@@ -4217,7 +4217,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="target">The target color profile.</param>
         /// <returns>True when the colorspace was transformed otherwise false.</returns>
-        bool TransformColorSpace(ColorProfile target);
+        bool TransformColorSpace(IColorProfile target);
 
         /// <summary>
         /// Transforms the image from the colorspace of the source profile to the target profile. This
@@ -4226,7 +4226,7 @@ namespace ImageMagick
         /// <param name="target">The target color profile.</param>
         /// <param name="mode">The color transformation mode.</param>
         /// <returns>True when the colorspace was transformed otherwise false.</returns>
-        bool TransformColorSpace(ColorProfile target, ColorTransformMode mode);
+        bool TransformColorSpace(IColorProfile target, ColorTransformMode mode);
 
         /// <summary>
         /// Transforms the image from the colorspace of the source profile to the target profile. The
@@ -4236,7 +4236,7 @@ namespace ImageMagick
         /// <param name="source">The source color profile.</param>
         /// <param name="target">The target color profile.</param>
         /// <returns>True when the colorspace was transformed otherwise false.</returns>
-        bool TransformColorSpace(ColorProfile source, ColorProfile target);
+        bool TransformColorSpace(IColorProfile source, IColorProfile target);
 
         /// <summary>
         /// Transforms the image from the colorspace of the source profile to the target profile. The
@@ -4247,7 +4247,7 @@ namespace ImageMagick
         /// <param name="target">The target color profile.</param>
         /// <param name="mode">The color transformation mode.</param>
         /// <returns>True when the colorspace was transformed otherwise false.</returns>
-        bool TransformColorSpace(ColorProfile source, ColorProfile target, ColorTransformMode mode);
+        bool TransformColorSpace(IColorProfile source, IColorProfile target, ColorTransformMode mode);
 
         /// <summary>
         /// Add alpha channel to image, setting pixels matching color to transparent.
