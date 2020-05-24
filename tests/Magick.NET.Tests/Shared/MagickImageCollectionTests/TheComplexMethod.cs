@@ -48,7 +48,7 @@ namespace Magick.NET.Tests
 
                     collection.Complex(new ComplexSettings
                     {
-                        Operator = ComplexOperator.Conjugate,
+                        ComplexOperator = ComplexOperator.Conjugate,
                     });
 
                     Assert.AreEqual(2, collection.Count);

@@ -136,7 +136,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="complexSettings">The complex settings.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Complex(ComplexSettings complexSettings);
+        void Complex(IComplexSettings complexSettings);
 
         /// <summary>
         /// Break down an image sequence into constituent parts. This is useful for creating GIF or

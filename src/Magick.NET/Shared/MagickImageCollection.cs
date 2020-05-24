@@ -471,7 +471,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="complexSettings">The complex settings.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Complex(ComplexSettings complexSettings)
+        public void Complex(IComplexSettings complexSettings)
         {
             Throw.IfNull(nameof(complexSettings), complexSettings);
             ThrowIfEmpty();
@@ -483,7 +483,7 @@ namespace ImageMagick
             {
                 AttachImages();
                 complexSettings.SetImageArtifacts(_images[0]);
-                images = _nativeInstance.Complex(_images[0], complexSettings.Operator);
+                images = _nativeInstance.Complex(_images[0], complexSettings.ComplexOperator);
             }
             finally
             {

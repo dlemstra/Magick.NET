@@ -10,21 +10,26 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System.Globalization;
+
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
-    /// <summary>
-    /// Class that contains setting for the complex operation.
-    /// </summary>
-    public sealed class ComplexSettings : IComplexSettings
+    internal static class IComplexSettingsExtensions
     {
-        /// <summary>
-        /// Gets or sets the complex operator.
-        /// </summary>
-        public ComplexOperator ComplexOperator { get; set; }
-
-        /// <summary>
-        /// Gets or sets the signal to noise ratio.
-        /// </summary>
-        public double? SignalToNoiseRatio { get; set; }
+        public static void SetImageArtifacts(this IComplexSettings self, IMagickImage<QuantumType> image)
+        {
+            if (self.SignalToNoiseRatio != null)
+                image.SetArtifact("complex:snr", self.SignalToNoiseRatio.Value.ToString(CultureInfo.InvariantCulture));
+        }
     }
 }
