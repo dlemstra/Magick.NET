@@ -13,9 +13,6 @@
 #if !NETCORE
 
 using System;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -25,82 +22,6 @@ namespace Magick.NET.Tests
     {
         public partial class TheConstructor
         {
-            [TestClass]
-            public class WithBitmap
-            {
-                [TestMethod]
-                public void ShouldThrowExceptionWhenBitmapIsNull()
-                {
-                    ExceptionAssert.Throws<ArgumentNullException>("bitmap", () =>
-                    {
-                        new MagickImage((Bitmap)null);
-                    });
-                }
-
-                [TestMethod]
-                public void ShouldUsePngFormatWhenBitmapIsPng()
-                {
-                    using (Bitmap bitmap = new Bitmap(Files.SnakewarePNG))
-                    {
-                        using (var image = new MagickImage(bitmap))
-                        {
-                            Assert.AreEqual(286, image.Width);
-                            Assert.AreEqual(67, image.Height);
-                            Assert.AreEqual(MagickFormat.Png, image.Format);
-                        }
-                    }
-                }
-
-                [TestMethod]
-                public void ShouldUseBmpFormatWhenBitmapIsMemoryBmp()
-                {
-                    using (Bitmap bitmap = new Bitmap(50, 100, PixelFormat.Format24bppRgb))
-                    {
-                        Assert.AreEqual(bitmap.RawFormat, ImageFormat.MemoryBmp);
-
-                        using (var image = new MagickImage(bitmap))
-                        {
-                            Assert.AreEqual(50, image.Width);
-                            Assert.AreEqual(100, image.Height);
-                            Assert.AreEqual(MagickFormat.Bmp3, image.Format);
-                        }
-                    }
-                }
-
-                [TestMethod]
-                public void ShouldCreateCorrectImageWithByteArrayFromSystemDrawing()
-                {
-                    using (Image img = Image.FromFile(Files.Coders.PageTIF))
-                    {
-                        byte[] bytes = null;
-                        using (MemoryStream memStream = new MemoryStream())
-                        {
-                            img.Save(memStream, ImageFormat.Tiff);
-                            bytes = memStream.GetBuffer();
-                        }
-
-                        using (var image = new MagickImage(bytes))
-                        {
-                            image.Settings.Compression = CompressionMethod.Group4;
-
-                            using (MemoryStream memStream = new MemoryStream())
-                            {
-                                image.Write(memStream);
-                                memStream.Position = 0;
-
-                                using (var before = new MagickImage(Files.Coders.PageTIF))
-                                {
-                                    using (var after = new MagickImage(memStream))
-                                    {
-                                        Assert.AreEqual(0.0, before.Compare(after, ErrorMetric.RootMeanSquared));
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
             public partial class WithFileName
             {
                 [TestMethod]

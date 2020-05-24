@@ -16,43 +16,63 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
-    /// <content>
-    /// Contains code that is not compatible with .NET Core.
-    /// </content>
-    public sealed partial class MagickImageCollection
+    /// <summary>
+    /// Extension methods for the <see cref="IMagickImageCollection{QuantumType}"/> interface.
+    /// </summary>
+    public static class IMagickImageCollectionExtensions
     {
         /// <summary>
         /// Converts this instance to a <see cref="Bitmap"/> using <see cref="ImageFormat.Tiff"/>.
         /// </summary>
+        /// <param name="self">The image collection.</param>
         /// <returns>A <see cref="Bitmap"/> that has the format <see cref="ImageFormat.Tiff"/>.</returns>
-        public Bitmap ToBitmap()
+        public static Bitmap ToBitmap(this IMagickImageCollection<QuantumType> self)
         {
-            if (Count == 1)
-                return this[0].ToBitmap();
+            Throw.IfNull(nameof(self), self);
 
-            return ToBitmap(ImageFormat.Tiff);
+            if (self.Count == 1)
+                return self[0].ToBitmap();
+
+            return ToBitmap(self, ImageFormat.Tiff);
         }
 
         /// <summary>
         /// Converts this instance to a <see cref="Bitmap"/> using the specified <see cref="ImageFormat"/>.
         /// Supported formats are: Gif, Icon, Tiff.
         /// </summary>
+        /// <param name="self">The image collection.</param>
         /// <param name="imageFormat">The image format.</param>
         /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/>.</returns>
-        public Bitmap ToBitmap(ImageFormat imageFormat)
+        public static Bitmap ToBitmap(this IMagickImageCollection<QuantumType> self, ImageFormat imageFormat)
         {
-            SetFormat(imageFormat);
+            Throw.IfNull(nameof(self), self);
+            Throw.IfNull(nameof(imageFormat), imageFormat);
+
+            var format = imageFormat.ToFormat();
+
+            foreach (var image in self)
+            {
+                image.Settings.Format = format;
+            }
 
             var memStream = new MemoryStream();
-            Write(memStream);
+            self.Write(memStream);
             memStream.Position = 0;
             /* Do not dispose the memStream, the bitmap owns it. */
             return new Bitmap(memStream);
         }
-
-        private void SetFormat(ImageFormat format) => SetFormat(format.ToFormat());
     }
 }
 

@@ -13,7 +13,6 @@
 #if !NETSTANDARD
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -40,29 +39,20 @@ namespace ImageMagick
     /// <content>
     /// Contains code that is not compatible with .NET Core.
     /// </content>
-    public sealed partial class MagickImage
+    public static partial class IMagickImageExtentions
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MagickImage"/> class.
-        /// </summary>
-        /// <param name="bitmap">The bitmap to use.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickImage(Bitmap bitmap)
-          : this()
-        {
-            Read(bitmap);
-        }
-
         /// <summary>
         /// Read single image frame.
         /// </summary>
+        /// <param name="self">The image.</param>
         /// <param name="bitmap">The bitmap to read the image from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Read(Bitmap bitmap)
+        public static void Read(this IMagickImage<QuantumType> self, Bitmap bitmap)
         {
+            Throw.IfNull(nameof(self), self);
             Throw.IfNull(nameof(bitmap), bitmap);
 
-            using (MemoryStream memStream = new MemoryStream())
+            using (var memStream = new MemoryStream())
             {
                 if (IsSupportedImageFormat(bitmap.RawFormat))
                     bitmap.Save(memStream, bitmap.RawFormat);
@@ -70,25 +60,29 @@ namespace ImageMagick
                     bitmap.Save(memStream, ImageFormat.Bmp);
 
                 memStream.Position = 0;
-                Read(memStream);
+                self.Read(memStream);
             }
         }
 
         /// <summary>
         /// Converts this instance to a <see cref="Bitmap"/> using <see cref="ImageFormat.Bmp"/>.
         /// </summary>
+        /// <param name="self">The image.</param>
         /// <returns>A <see cref="Bitmap"/> that has the format <see cref="ImageFormat.Bmp"/>.</returns>
-        public Bitmap ToBitmap() => ToBitmap(BitmapDensity.Ignore);
+        public static Bitmap ToBitmap(this IMagickImage<QuantumType> self)
+            => ToBitmap(self, BitmapDensity.Ignore);
 
         /// <summary>
         /// Converts this instance to a <see cref="Bitmap"/> using <see cref="ImageFormat.Bmp"/>.
         /// </summary>
+        /// <param name="self">The image.</param>
         /// <param name="bitmapDensity">The bitmap density.</param>
         /// <returns>A <see cref="Bitmap"/> that has the format <see cref="ImageFormat.Bmp"/>.</returns>
-        [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "False positive.")]
-        public Bitmap ToBitmap(BitmapDensity bitmapDensity)
+        public static Bitmap ToBitmap(this IMagickImage<QuantumType> self, BitmapDensity bitmapDensity)
         {
-            IMagickImage<QuantumType> image = this;
+            Throw.IfNull(nameof(self), self);
+
+            IMagickImage<QuantumType> image = self;
 
             string mapping = "BGR";
             var format = PixelFormat.Format24bppRgb;
@@ -97,7 +91,7 @@ namespace ImageMagick
             {
                 if (image.ColorSpace != ColorSpace.sRGB)
                 {
-                    image = Clone();
+                    image = self.Clone();
                     image.ColorSpace = ColorSpace.sRGB;
                 }
 
@@ -112,9 +106,9 @@ namespace ImageMagick
                     var bitmap = new Bitmap(image.Width, image.Height, format);
                     var data = bitmap.LockBits(new Rectangle(0, 0, image.Width, image.Height), ImageLockMode.ReadWrite, format);
                     var destination = data.Scan0;
-                    for (int y = 0; y < Height; y++)
+                    for (int y = 0; y < self.Height; y++)
                     {
-                        byte[] bytes = pixels.ToByteArray(0, y, Width, 1, mapping);
+                        byte[] bytes = pixels.ToByteArray(0, y, self.Width, 1, mapping);
                         Marshal.Copy(bytes, 0, destination, bytes.Length);
 
                         destination = new IntPtr(destination.ToInt64() + data.Stride);
@@ -122,13 +116,13 @@ namespace ImageMagick
 
                     bitmap.UnlockBits(data);
 
-                    SetBitmapDensity(bitmap, bitmapDensity);
+                    SetBitmapDensity(image, bitmap, bitmapDensity);
                     return bitmap;
                 }
             }
             finally
             {
-                if (!ReferenceEquals(this, image))
+                if (!ReferenceEquals(self, image))
                     image.Dispose();
             }
         }
@@ -137,32 +131,35 @@ namespace ImageMagick
         /// Converts this instance to a <see cref="Bitmap"/> using the specified <see cref="ImageFormat"/>.
         /// Supported formats are: Bmp, Gif, Icon, Jpeg, Png, Tiff.
         /// </summary>
+        /// <param name="self">The image.</param>
         /// <param name="imageFormat">The image format.</param>
         /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/>.</returns>
-        public Bitmap ToBitmap(ImageFormat imageFormat)
-            => ToBitmap(imageFormat, BitmapDensity.Ignore);
+        public static Bitmap ToBitmap(this IMagickImage<QuantumType> self, ImageFormat imageFormat)
+            => ToBitmap(self, imageFormat, BitmapDensity.Ignore);
 
         /// <summary>
         /// Converts this instance to a <see cref="Bitmap"/> using the specified <see cref="ImageFormat"/>.
         /// Supported formats are: Bmp, Gif, Icon, Jpeg, Png, Tiff.
         /// </summary>
+        /// <param name="self">The image.</param>
         /// <param name="imageFormat">The image format.</param>
         /// <param name="bitmapDensity">The bitmap density.</param>
         /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/>.</returns>
-        public Bitmap ToBitmap(ImageFormat imageFormat, BitmapDensity bitmapDensity)
+        public static Bitmap ToBitmap(this IMagickImage<QuantumType> self, ImageFormat imageFormat, BitmapDensity bitmapDensity)
         {
+            Throw.IfNull(nameof(self), self);
             Throw.IfNull(nameof(imageFormat), imageFormat);
 
-            Format = imageFormat.ToFormat();
+            self.Format = imageFormat.ToFormat();
 
             MemoryStream memStream = new MemoryStream();
-            Write(memStream);
+            self.Write(memStream);
             memStream.Position = 0;
 
             /* Do not dispose the memStream, the bitmap owns it. */
             var bitmap = new Bitmap(memStream);
 
-            SetBitmapDensity(bitmap, bitmapDensity);
+            SetBitmapDensity(self, bitmap, bitmapDensity);
 
             return bitmap;
         }
@@ -171,37 +168,38 @@ namespace ImageMagick
         /// <summary>
         /// Converts this instance to a <see cref="BitmapSource"/>.
         /// </summary>
+        /// <param name="self">The image.</param>
         /// <returns>A <see cref="BitmapSource"/>.</returns>
-        public BitmapSource ToBitmapSource()
-        {
-            return ToBitmapSource(BitmapDensity.Ignore);
-        }
+        public static BitmapSource ToBitmapSource(this IMagickImage<QuantumType> self)
+            => ToBitmapSource(self, BitmapDensity.Ignore);
 
         /// <summary>
         /// Converts this instance to a <see cref="BitmapSource"/>.
         /// </summary>
+        /// <param name="self">The image.</param>
         /// <param name="bitmapDensity">The bitmap density.</param>
         /// <returns>A <see cref="BitmapSource"/>.</returns>
-        [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "False positive.")]
-        public BitmapSource ToBitmapSource(BitmapDensity bitmapDensity)
+        public static BitmapSource ToBitmapSource(this IMagickImage<QuantumType> self, BitmapDensity bitmapDensity)
         {
-            IMagickImage<QuantumType> image = this;
+            Throw.IfNull(nameof(self), self);
+
+            IMagickImage<QuantumType> image = self;
 
             var mapping = "RGB";
             var format = MediaPixelFormats.Rgb24;
 
             try
             {
-                if (ColorSpace == ColorSpace.CMYK && !image.HasAlpha)
+                if (self.ColorSpace == ColorSpace.CMYK && !image.HasAlpha)
                 {
                     mapping = "CMYK";
                     format = MediaPixelFormats.Cmyk32;
                 }
                 else
                 {
-                    if (ColorSpace != ColorSpace.sRGB)
+                    if (image.ColorSpace != ColorSpace.sRGB)
                     {
-                        image = Clone();
+                        image = self.Clone();
                         image.ColorSpace = ColorSpace.sRGB;
                     }
 
@@ -213,18 +211,18 @@ namespace ImageMagick
                 }
 
                 var step = format.BitsPerPixel / 8;
-                var stride = Width * step;
+                var stride = image.Width * step;
 
                 using (var pixels = image.GetPixelsUnsafe())
                 {
                     var bytes = pixels.ToByteArray(mapping);
-                    var dpi = GetDpi(bitmapDensity);
-                    return BitmapSource.Create(Width, Height, dpi.X, dpi.Y, format, null, bytes, stride);
+                    var dpi = GetDpi(image, bitmapDensity);
+                    return BitmapSource.Create(image.Width, image.Height, dpi.X, dpi.Y, format, null, bytes, stride);
                 }
             }
             finally
             {
-                if (!ReferenceEquals(this, image))
+                if (!ReferenceEquals(self, image))
                     image.Dispose();
             }
         }
@@ -241,21 +239,21 @@ namespace ImageMagick
               format.Guid.Equals(ImageFormat.Tiff.Guid);
         }
 
-        private void SetBitmapDensity(Bitmap bitmap, BitmapDensity bitmapDensity)
+        private static void SetBitmapDensity(IMagickImage<QuantumType> image, Bitmap bitmap, BitmapDensity bitmapDensity)
         {
             if (bitmapDensity == BitmapDensity.Use)
             {
-                var dpi = GetDpi(bitmapDensity);
+                var dpi = GetDpi(image, bitmapDensity);
                 bitmap.SetResolution((float)dpi.X, (float)dpi.Y);
             }
         }
 
-        private Density GetDpi(BitmapDensity bitmapDensity)
+        private static Density GetDpi(IMagickImage<QuantumType> image, BitmapDensity bitmapDensity)
         {
-            if (bitmapDensity == BitmapDensity.Ignore || (Density.Units == DensityUnit.Undefined && Density.X == 0 && Density.Y == 0))
+            if (bitmapDensity == BitmapDensity.Ignore || (image.Density.Units == DensityUnit.Undefined && image.Density.X == 0 && image.Density.Y == 0))
                 return new Density(96);
 
-            return Density.ChangeUnits(DensityUnit.PixelsPerInch);
+            return image.Density.ChangeUnits(DensityUnit.PixelsPerInch);
         }
     }
 }

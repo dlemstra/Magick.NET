@@ -24,7 +24,10 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-    internal static class IMagickImageExtensions
+    /// <summary>
+    /// Extension methods for the <see cref="IMagickImage{QuantumType}"/> interface.
+    /// </summary>
+    public static class IMagickImageExtensions
     {
         internal static IntPtr GetInstance(this IMagickImage<QuantumType> self)
         {

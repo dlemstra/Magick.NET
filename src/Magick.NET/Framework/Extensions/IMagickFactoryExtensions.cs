@@ -26,18 +26,27 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-    /// <content>
-    /// Contains code that is not compatible with .NET Core.
-    /// </content>
-    public sealed partial class MagickFactory : IMagickFactory<QuantumType>
+    /// <summary>
+    /// Extension methods for the <see cref="IMagickFactory{QuantumType}"/> interface.
+    /// </summary>
+    public static class IMagickFactoryExtensions
     {
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImage{TQuantumType}"/>.
         /// </summary>
+        /// <param name="self">The image factory.</param>
         /// <param name="bitmap">The bitmap to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         /// <returns>A new <see cref="IMagickImage{QuantumType}"/> instance.</returns>
-        public IMagickImage<QuantumType> CreateImage(Bitmap bitmap) => new MagickImage(bitmap);
+        public static IMagickImage<QuantumType> CreateImage(this IMagickFactory<QuantumType> self, Bitmap bitmap)
+        {
+            Throw.IfNull(nameof(self), self);
+
+            var image = self.CreateImage();
+            image.Read(bitmap);
+
+            return image;
+        }
     }
 }
 
