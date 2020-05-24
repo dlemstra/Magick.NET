@@ -68,7 +68,8 @@ namespace FileGenerator.Native
         public MagickType(string type)
         {
             _Type = !string.IsNullOrEmpty(type) ? type : "void";
-            _IsEnum = File.Exists(PathHelper.GetFullPath(@"\src\Magick.NET\Shared\Enums\" + type + ".cs"));
+            _IsEnum = File.Exists(PathHelper.GetFullPath(@"\src\Magick.NET.Core\Enums\" + type + ".cs"));
+            _IsEnum = _IsEnum || File.Exists(PathHelper.GetFullPath(@"\src\Magick.NET\Shared\Enums\" + type + ".cs"));
         }
 
         public bool HasInstance

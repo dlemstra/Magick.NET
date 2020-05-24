@@ -10,16 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if Q8
-using QuantumType = System.Byte;
-#elif Q16
-using QuantumType = System.UInt16;
-#elif Q16HDRI
-using QuantumType = System.Single;
-#else
-#error Not implemented!
-#endif
-
 namespace ImageMagick
 {
     /// <summary>
@@ -33,7 +23,7 @@ namespace ImageMagick
         HighRes,
 
         /// <summary>
-        /// Quantum (<see cref="QuantumType"/>)
+        /// Quantum
         /// </summary>
         Quantum,
     }
