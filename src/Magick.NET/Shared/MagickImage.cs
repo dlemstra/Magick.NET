@@ -2278,7 +2278,7 @@ namespace ImageMagick
         /// <param name="settings">The settings for this operation.</param>
         /// <returns>The connected-components of the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IEnumerable<IConnectedComponent<QuantumType>> ConnectedComponents(ConnectedComponentsSettings settings)
+        public IEnumerable<IConnectedComponent<QuantumType>> ConnectedComponents(IConnectedComponentsSettings settings)
         {
             Throw.IfNull(nameof(settings), settings);
 

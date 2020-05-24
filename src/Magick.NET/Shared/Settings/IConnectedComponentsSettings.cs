@@ -15,21 +15,21 @@ namespace ImageMagick
     /// <summary>
     /// Class that contains setting for the connected components operation.
     /// </summary>
-    public sealed class ConnectedComponentsSettings : IConnectedComponentsSettings
+    public interface IConnectedComponentsSettings
     {
         /// <summary>
         /// Gets or sets the threshold that eliminate small objects by merging them with their larger neighbors.
         /// </summary>
-        public double? AreaThreshold { get; set; }
+        double? AreaThreshold { get; set; }
 
         /// <summary>
         /// Gets or sets how many neighbors to visit, choose from 4 or 8.
         /// </summary>
-        public int Connectivity { get; set; }
+        int Connectivity { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the object color in the labeled image will be replaced with the mean-color from the source image.
         /// </summary>
-        public bool MeanColor { get; set; }
+        bool MeanColor { get; set; }
     }
 }

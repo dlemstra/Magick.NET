@@ -1345,7 +1345,7 @@ namespace ImageMagick
         /// <param name="settings">The settings for this operation.</param>
         /// <returns>The connected-components of the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IEnumerable<IConnectedComponent<TQuantumType>> ConnectedComponents(ConnectedComponentsSettings settings);
+        IEnumerable<IConnectedComponent<TQuantumType>> ConnectedComponents(IConnectedComponentsSettings settings);
 
         /// <summary>
         /// Contrast image (enhance intensity differences in image).
