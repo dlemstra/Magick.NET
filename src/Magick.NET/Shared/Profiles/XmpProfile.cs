@@ -24,7 +24,7 @@ namespace ImageMagick
     /// <summary>
     /// Class that contains an XMP profile.
     /// </summary>
-    public sealed class XmpProfile : ImageProfile
+    public sealed class XmpProfile : ImageProfile, IXmpProfile
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="XmpProfile"/> class.

@@ -2103,7 +2103,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The xmp profile from the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        XmpProfile GetXmpProfile();
+        IXmpProfile GetXmpProfile();
 
         /// <summary>
         /// Converts the colors in the image to gray.

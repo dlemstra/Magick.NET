@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
         {
             using (var image = new MagickImage(Files.InvitationTIF))
             {
-                XmpProfile profile = image.GetXmpProfile();
+                var profile = image.GetXmpProfile();
                 Assert.IsNotNull(profile);
 
                 using (XmlReader reader = profile.CreateReader())
@@ -45,17 +45,17 @@ namespace Magick.NET.Tests
         {
             using (var image = new MagickImage(Files.InvitationTIF))
             {
-                XmpProfile profile = image.GetXmpProfile();
+                var profile = image.GetXmpProfile();
                 Assert.IsNotNull(profile);
 
-                IXPathNavigable doc = profile.ToIXPathNavigable();
+                var doc = profile.ToIXPathNavigable();
 
                 ExceptionAssert.Throws<ArgumentNullException>("document", () =>
                 {
                     XmpProfile.FromIXPathNavigable(null);
                 });
 
-                XmpProfile newProfile = XmpProfile.FromIXPathNavigable(doc);
+                var newProfile = XmpProfile.FromIXPathNavigable(doc);
                 image.SetProfile(newProfile);
 
                 doc = profile.ToIXPathNavigable();
@@ -76,17 +76,17 @@ namespace Magick.NET.Tests
         {
             using (var image = new MagickImage(Files.InvitationTIF))
             {
-                XmpProfile profile = image.GetXmpProfile();
+                var profile = image.GetXmpProfile();
                 Assert.IsNotNull(profile);
 
-                XDocument doc = profile.ToXDocument();
+                var doc = profile.ToXDocument();
 
                 ExceptionAssert.Throws<ArgumentNullException>("document", () =>
                 {
                     XmpProfile.FromXDocument(null);
                 });
 
-                XmpProfile newProfile = XmpProfile.FromXDocument(doc);
+                var newProfile = XmpProfile.FromXDocument(doc);
                 image.SetProfile(newProfile);
 
                 doc = profile.ToXDocument();
@@ -107,7 +107,7 @@ namespace Magick.NET.Tests
         {
             using (var image = new MagickImage(Files.InvitationTIF))
             {
-                XmpProfile profile = image.GetXmpProfile();
+                var profile = image.GetXmpProfile();
                 Assert.IsNotNull(profile);
 
                 IXPathNavigable doc = profile.ToIXPathNavigable();
@@ -120,7 +120,7 @@ namespace Magick.NET.Tests
         {
             using (var image = new MagickImage(Files.InvitationTIF))
             {
-                XmpProfile profile = image.GetXmpProfile();
+                var profile = image.GetXmpProfile();
                 Assert.IsNotNull(profile);
 
                 XDocument document = profile.ToXDocument();
@@ -132,7 +132,7 @@ namespace Magick.NET.Tests
         {
             Assert.IsNotNull(document);
 
-            XPathNavigator navigator = document.CreateNavigator();
+            var navigator = document.CreateNavigator();
             navigator.MoveToRoot();
             Assert.IsTrue(navigator.MoveToChild(XPathNodeType.Element));
             Assert.IsTrue(navigator.MoveToChild(XPathNodeType.Element));

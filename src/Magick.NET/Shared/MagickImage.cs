@@ -3369,7 +3369,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The xmp profile from the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public XmpProfile GetXmpProfile()
+        public IXmpProfile GetXmpProfile()
         {
             var info = _nativeInstance.GetProfile("xmp");
             if (info == null || info.Datum == null)
