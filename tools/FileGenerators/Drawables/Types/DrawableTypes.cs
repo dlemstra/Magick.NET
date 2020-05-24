@@ -70,9 +70,7 @@ namespace FileGenerator.Drawables
         }
 
         private void LoadComments()
-        {
-            _Comments = XDocument.Load(AssemblyFile.Replace(".dll", ".xml"));
-        }
+            => _Comments = XDocument.Load(AssemblyFile.Replace(".dll", ".xml"));
 
         public DrawableTypes(QuantumDepth depth)
           : base(depth)
@@ -88,7 +86,7 @@ namespace FileGenerator.Drawables
             memberName = memberName.Replace("Boolean", "System.Boolean");
             memberName = memberName.Replace("Double", "System.Double");
             memberName = memberName.Replace("Int32", "System.Int32");
-            if (memberName.Contains("IEnumerable"))
+            if (memberName.Contains("`1["))
             {
                 memberName = memberName.Replace("`1[", "{");
                 memberName = memberName.Replace("])", "})");
@@ -108,13 +106,9 @@ namespace FileGenerator.Drawables
         }
 
         public IEnumerable<ConstructorInfo[]> GetDrawables()
-        {
-            return GetInterfaceConstructors("IDrawable");
-        }
+            => GetInterfaceConstructors("IDrawable");
 
         public IEnumerable<ConstructorInfo[]> GetPaths()
-        {
-            return GetInterfaceConstructors("IPath");
-        }
+            => GetInterfaceConstructors("IPath");
     }
 }

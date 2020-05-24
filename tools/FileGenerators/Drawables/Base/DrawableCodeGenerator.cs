@@ -23,11 +23,7 @@ namespace FileGenerator.Drawables
             Types = new DrawableTypes(QuantumDepth.Q16);
         }
 
-        protected DrawableTypes Types
-        {
-            get;
-            private set;
-        }
+        protected DrawableTypes Types { get; private set; }
 
         protected string GetTypeName(Type type)
         {
@@ -36,7 +32,7 @@ namespace FileGenerator.Drawables
                 name += "params ";
 
             if (type.IsGenericType)
-                return name + type.Name.Replace("`1", "") + "<" + type.GetGenericArguments().First().Name + ">";
+                return name + type.Name.Replace("`1", "") + "<" + GetArgumentTypeName(type) + ">";
 
             switch (type.Name)
             {
@@ -57,7 +53,7 @@ namespace FileGenerator.Drawables
         {
             for (int i = 0; i < parameters.Length; i++)
             {
-                Write(GetTypeName(parameters[i].ParameterType));
+                Write(this.GetTypeName(parameters[i].ParameterType));
                 Write(" ");
                 Write(parameters[i].Name);
 
@@ -75,6 +71,15 @@ namespace FileGenerator.Drawables
                 if (i != parameters.Length - 1)
                     Write(", ");
             }
+        }
+
+        private static string GetArgumentTypeName(Type type)
+        {
+            var name = type.GetGenericArguments().First().Name;
+            if (name == "UInt16")
+                name = "QuantumType";
+
+            return name;
         }
     }
 }
