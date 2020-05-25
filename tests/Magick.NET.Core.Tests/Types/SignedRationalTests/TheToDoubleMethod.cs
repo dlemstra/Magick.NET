@@ -18,27 +18,27 @@ namespace Magick.NET.Core.Tests
     public partial class RationalTests
     {
         [TestClass]
-        public class TheToDoubleMethod
+        public class SignedRationalTests
         {
             [TestMethod]
             public void ShouldReturnNanWhenNumeratorIsZero()
             {
-                var rational = new Rational(0, 0);
+                var rational = new SignedRational(0, 0);
                 Assert.AreEqual(double.NaN, rational.ToDouble());
             }
 
             [TestMethod]
             public void ShouldReturnPositiveInfinityWhenDenominatorIsZero()
             {
-                var rational = new Rational(2, 0);
+                var rational = new SignedRational(2, 0);
                 Assert.AreEqual(double.PositiveInfinity, rational.ToDouble());
             }
 
             [TestMethod]
-            public void ShouldReturnPositiveInfinityWhenValueIsNegativeInfinity()
+            public void ShouldReturnNegativeInfinityWhenDenominatorIsZeroAndValueIsNegative()
             {
-                var rational = new Rational(double.NegativeInfinity);
-                Assert.AreEqual(double.PositiveInfinity, rational.ToDouble());
+                var rational = new SignedRational(-2, 0);
+                Assert.AreEqual(double.NegativeInfinity, rational.ToDouble());
             }
         }
     }
