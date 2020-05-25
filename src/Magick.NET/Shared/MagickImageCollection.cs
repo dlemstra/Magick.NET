@@ -15,7 +15,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using ImageMagick.Core;
 
 #if Q8
 using QuantumType = System.Byte;

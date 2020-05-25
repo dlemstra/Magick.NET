@@ -13,20 +13,13 @@
 using System;
 using System.IO;
 
-namespace ImageMagick.Core
+namespace ImageMagick
 {
-    /// <summary>
-    /// Class that can be used to transform a <see cref="Stream"/> into an array of <see cref="byte"/>.
-    /// </summary>
-    public sealed class Bytes
+    internal sealed class Bytes
     {
         private const int BufferSize = 8192;
         private byte[] _data;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Bytes"/> class.
-        /// </summary>
-        /// <param name="stream">The stream.</param>
         public Bytes(Stream stream)
         {
             Throw.IfNull(nameof(stream), stream);
@@ -39,16 +32,8 @@ namespace ImageMagick.Core
         {
         }
 
-        /// <summary>
-        /// Gets the length of the stream.
-        /// </summary>
         public int Length { get; private set; }
 
-        /// <summary>
-        /// Creates a <see cref="Bytes"/> instance if the stream supports it.
-        /// </summary>
-        /// <param name="stream">The stream.</param>
-        /// <returns>A <see cref="Bytes"/> instance if the stream supports it.</returns>
         public static Bytes FromStreamBuffer(Stream stream)
         {
             var memStream = stream as MemoryStream;
@@ -63,10 +48,6 @@ namespace ImageMagick.Core
             return null;
         }
 
-        /// <summary>
-        /// Returns the data of the stream as a <see cref="byte"/> array.
-        /// </summary>
-        /// <returns>The data of the stream as a <see cref="byte"/> array.</returns>
         public byte[] GetData()
             => _data;
 

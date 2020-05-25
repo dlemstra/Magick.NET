@@ -11,7 +11,6 @@
 // and limitations under the License.
 
 using System.IO;
-using ImageMagick.Core;
 
 namespace ImageMagick
 {

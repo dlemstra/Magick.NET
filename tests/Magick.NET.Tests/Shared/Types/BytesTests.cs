@@ -12,7 +12,7 @@
 
 using System;
 using System.IO;
-using ImageMagick.Core;
+using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
