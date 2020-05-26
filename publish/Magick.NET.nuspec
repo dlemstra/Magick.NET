@@ -19,7 +19,6 @@
       <group targetFramework=".NETFramework2.0"/>
       <group targetFramework=".NETFramework4.0"/>
       <group targetFramework=".NETStandard1.3">
-        <dependency id="System.Collections.NonGeneric" version="4.3.0" />
         <dependency id="System.Xml.XDocument" version="4.3.0" />
         <dependency id="System.Xml.XmlDocument" version="4.3.0" />
         <dependency id="System.Xml.XPath.XDocument" version="4.3.0" />

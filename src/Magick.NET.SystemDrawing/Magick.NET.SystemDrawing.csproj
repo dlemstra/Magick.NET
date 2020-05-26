@@ -1,12 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <TargetFrameworks>net20;net40</TargetFrameworks>
+    <TargetFrameworks>net20;net40;netstandard20</TargetFrameworks>
     <Platforms>AnyCPU</Platforms>
     <Configurations>Debug;Test;Release</Configurations>
   </PropertyGroup>
 
   <ItemGroup Condition="!$(TargetFramework.StartsWith('netstandard'))">
     <Reference Include="System.Drawing" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard'))">
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>

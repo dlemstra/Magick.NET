@@ -52,8 +52,4 @@
   </ItemGroup>
 
   <Import Project="../Shared/Magick.NET.props" />
-
-  <PropertyGroup>
-    <TargetFrameworks>net45</TargetFrameworks>
-  </PropertyGroup>
 </Project>
