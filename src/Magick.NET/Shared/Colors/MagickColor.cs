@@ -420,6 +420,18 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Converts the value of this instance to a <see cref="byte"/> array (RGBA or CMYKA).
+        /// </summary>
+        /// <returns>The <see cref="byte"/> array.</returns>
+        public byte[] ToByteArray()
+        {
+            if (IsCmyk)
+                return new[] { Quantum.ScaleToByte(R), Quantum.ScaleToByte(G), Quantum.ScaleToByte(B), Quantum.ScaleToByte(K), Quantum.ScaleToByte(A) };
+            else
+                return new[] { Quantum.ScaleToByte(R), Quantum.ScaleToByte(G), Quantum.ScaleToByte(B), Quantum.ScaleToByte(A) };
+        }
+
+        /// <summary>
         /// Converts the value of this instance to a short hexadecimal string.
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>

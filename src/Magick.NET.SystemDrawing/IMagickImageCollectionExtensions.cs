@@ -10,21 +10,9 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if !NETSTANDARD
-
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-
-#if Q8
-using QuantumType = System.Byte;
-#elif Q16
-using QuantumType = System.UInt16;
-#elif Q16HDRI
-using QuantumType = System.Single;
-#else
-#error Not implemented!
-#endif
 
 namespace ImageMagick
 {
@@ -37,8 +25,9 @@ namespace ImageMagick
         /// Converts this instance to a <see cref="Bitmap"/> using <see cref="ImageFormat.Tiff"/>.
         /// </summary>
         /// <param name="self">The image collection.</param>
+        /// <typeparam name="TQuantumType">The quantum type.</typeparam>
         /// <returns>A <see cref="Bitmap"/> that has the format <see cref="ImageFormat.Tiff"/>.</returns>
-        public static Bitmap ToBitmap(this IMagickImageCollection<QuantumType> self)
+        public static Bitmap ToBitmap<TQuantumType>(this IMagickImageCollection<TQuantumType> self)
         {
             Throw.IfNull(nameof(self), self);
 
@@ -54,8 +43,9 @@ namespace ImageMagick
         /// </summary>
         /// <param name="self">The image collection.</param>
         /// <param name="imageFormat">The image format.</param>
+        /// <typeparam name="TQuantumType">The quantum type.</typeparam>
         /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/>.</returns>
-        public static Bitmap ToBitmap(this IMagickImageCollection<QuantumType> self, ImageFormat imageFormat)
+        public static Bitmap ToBitmap<TQuantumType>(this IMagickImageCollection<TQuantumType> self, ImageFormat imageFormat)
         {
             Throw.IfNull(nameof(self), self);
             Throw.IfNull(nameof(imageFormat), imageFormat);
@@ -75,5 +65,3 @@ namespace ImageMagick
         }
     }
 }
-
-#endif

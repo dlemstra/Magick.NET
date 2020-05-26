@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <TargetFrameworks>net20;net40;netstandard20</TargetFrameworks>
+    <TargetFrameworks>net20;net40</TargetFrameworks>
     <Platforms>AnyCPU</Platforms>
     <Configurations>Debug;Test;Release</Configurations>
   </PropertyGroup>
@@ -15,6 +15,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="../Magick.NET.Shared/Framework/Net20/ExtensionAttribute.cs" Link="Frameworks/Framework/Net20/ExtensionAttribute.cs" />
+    <Compile Include="../Magick.NET.Shared/Throw.cs" Link="Helpers/Throw.cs" />
+    <Compile Include="../Magick.NET.Shared/ValidatedNotNullAttribute.cs" Link="Helpers/ValidatedNotNullAttribute.cs" />
   </ItemGroup>
 
   <ItemGroup>

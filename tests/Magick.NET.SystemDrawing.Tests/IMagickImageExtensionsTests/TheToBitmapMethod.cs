@@ -10,8 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if !NETCORE
-
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -82,13 +80,13 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldChangeTheColorSpaceToSrgb()
             {
-                using (var image = new MagickImage(Color.Red.ToColor(), 1, 1))
+                using (var image = new MagickImage(ToMagickColor(Color.Red), 1, 1))
                 {
                     image.ColorSpace = ColorSpace.YCbCr;
 
                     using (Bitmap bitmap = image.ToBitmap())
                     {
-                        ColorAssert.AreEqual(MagickColors.Red, bitmap.GetPixel(0, 0).ToColor());
+                        ColorAssert.AreEqual(MagickColors.Red, ToMagickColor(bitmap.GetPixel(0, 0)));
                     }
 
                     Assert.AreEqual(ColorSpace.YCbCr, image.ColorSpace);
@@ -98,11 +96,11 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSetTheDensityOfTheBitmapWhenBitmapDensityIsSetToUse()
             {
-                using (var image = new MagickImage(Color.Red.ToColor(), 1, 1))
+                using (var image = new MagickImage(ToMagickColor(Color.Red), 1, 1))
                 {
                     image.Density = new Density(300, 200);
 
-                    using (Bitmap bitmap = image.ToBitmap(BitmapDensity.Use))
+                    using (Bitmap bitmap = image.ToBitmapWithDensity())
                     {
                         Assert.AreEqual(300, (int)bitmap.HorizontalResolution);
                         Assert.AreEqual(200, (int)bitmap.VerticalResolution);
@@ -113,20 +111,20 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldThrowExceptionWhenImageFormatIsNull()
             {
-                using (var image = new MagickImage(Color.Red.ToColor(), 1, 1))
+                using (var image = new MagickImage(ToMagickColor(Color.Red), 1, 1))
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("imageFormat", () => image.ToBitmap(null, BitmapDensity.Use));
+                    ExceptionAssert.Throws<ArgumentNullException>("imageFormat", () => image.ToBitmapWithDensity(null));
                 }
             }
 
             [TestMethod]
             public void ShouldSetTheDensityOfTheBitmapWhenBitmapDensityIsSetToUseAndFormatIsSet()
             {
-                using (var image = new MagickImage(Color.Red.ToColor(), 1, 1))
+                using (var image = new MagickImage(ToMagickColor(Color.Red), 1, 1))
                 {
                     image.Density = new Density(300, 200);
 
-                    using (Bitmap bitmap = image.ToBitmap(ImageFormat.Jpeg, BitmapDensity.Use))
+                    using (Bitmap bitmap = image.ToBitmapWithDensity(ImageFormat.Jpeg))
                     {
                         Assert.AreEqual(300, (int)bitmap.HorizontalResolution);
                         Assert.AreEqual(200, (int)bitmap.VerticalResolution);
@@ -156,15 +154,20 @@ namespace Magick.NET.Tests
                         // Cannot test JPEG due to rounding issues.
                         if (imageFormat != ImageFormat.Jpeg)
                         {
-                            ColorAssert.AreEqual(MagickColors.Red, bitmap.GetPixel(0, 0).ToColor());
-                            ColorAssert.AreEqual(MagickColors.Red, bitmap.GetPixel(5, 5).ToColor());
-                            ColorAssert.AreEqual(MagickColors.Red, bitmap.GetPixel(9, 9).ToColor());
+                            ColorAssert.AreEqual(MagickColors.Red, ToMagickColor(bitmap.GetPixel(0, 0)));
+                            ColorAssert.AreEqual(MagickColors.Red, ToMagickColor(bitmap.GetPixel(5, 5)));
+                            ColorAssert.AreEqual(MagickColors.Red, ToMagickColor(bitmap.GetPixel(9, 9)));
                         }
                     }
                 }
             }
+
+            private MagickColor ToMagickColor(Color color)
+            {
+                var result = new MagickColor();
+                result.SetFromColor(color);
+                return result;
+            }
         }
     }
 }
-
-#endif

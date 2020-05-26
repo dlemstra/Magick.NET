@@ -68,6 +68,12 @@ namespace ImageMagick
         void SetFromBytes(byte red, byte green, byte blue, byte alpha);
 
         /// <summary>
+        /// Converts the value of this instance to a <see cref="byte"/> array (RGBA or CMYKA).
+        /// </summary>
+        /// <returns>The <see cref="byte"/> array.</returns>
+        byte[] ToByteArray();
+
+        /// <summary>
         /// Converts the value of this instance to a short hexadecimal string.
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>

@@ -10,7 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System.Drawing;
 using ImageMagick;
 
 namespace Magick.NET.Samples
@@ -21,7 +20,7 @@ namespace Magick.NET.Samples
         {
             using (var image = new MagickImage(SampleFiles.SnakewarePng))
             {
-                image.TransparentChroma(Color.Black.ToColor(), Color.Blue.ToColor());
+                image.TransparentChroma(MagickColors.Black, MagickColors.Blue);
                 image.BackgroundColor = new ColorMono(true).ToMagickColor();
 
                 // Q16 (Blue):

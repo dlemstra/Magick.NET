@@ -133,7 +133,7 @@ namespace Magick.NET.Tests
                 {
                     image.Density = new Density(1, 2, DensityUnit.Undefined);
 
-                    var bitmapSource = image.ToBitmapSource(BitmapDensity.Use);
+                    var bitmapSource = image.ToBitmapSourceWithDensity();
 
                     Assert.AreEqual(1, bitmapSource.DpiX);
                     Assert.AreEqual(2, bitmapSource.DpiY);
@@ -149,7 +149,7 @@ namespace Magick.NET.Tests
                 {
                     image.Density = new Density(1, 2, DensityUnit.PixelsPerInch);
 
-                    var bitmapSource = image.ToBitmapSource(BitmapDensity.Use);
+                    var bitmapSource = image.ToBitmapSourceWithDensity();
 
                     Assert.AreEqual(1, bitmapSource.DpiX);
                     Assert.AreEqual(2, bitmapSource.DpiY);
@@ -165,7 +165,7 @@ namespace Magick.NET.Tests
                 {
                     image.Density = new Density(1, 2, DensityUnit.PixelsPerCentimeter);
 
-                    var bitmapSource = image.ToBitmapSource(BitmapDensity.Use);
+                    var bitmapSource = image.ToBitmapSourceWithDensity();
 
                     Assert.AreEqual(2.54, bitmapSource.DpiX, 0.01);
                     Assert.AreEqual(5.08, bitmapSource.DpiY, 0.01);
@@ -193,7 +193,7 @@ namespace Magick.NET.Tests
                 {
                     image.Density = new Density(300, 200);
 
-                    var bitmapSource = image.ToBitmapSource(BitmapDensity.Use);
+                    var bitmapSource = image.ToBitmapSourceWithDensity();
 
                     Assert.AreEqual(64, (int)bitmapSource.Width);
                     Assert.AreEqual(48, (int)bitmapSource.Height);

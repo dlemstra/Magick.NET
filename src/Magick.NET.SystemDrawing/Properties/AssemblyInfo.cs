@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2020 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+// Copyright 2013-2020 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -10,24 +10,14 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if !NETCORE
+using System;
+using System.Runtime.InteropServices;
+#if NET20
+using System.Security.Permissions;
+#endif
 
-using System.Drawing;
-using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace Magick.NET.Tests
-{
-    public partial class ColorRGBTests : ColorBaseTests<ColorRGB>
-    {
-        [TestMethod]
-        public void ShouldCreateCorrectColorWhenUsingSystemDrawingColor()
-        {
-            var fuchsia = new ColorRGB(Color.Fuchsia);
-
-            ColorAssert.AreEqual(fuchsia.ToMagickColor(), MagickColors.Fuchsia);
-        }
-    }
-}
-
+[assembly: ComVisible(false)]
+[assembly: CLSCompliant(false)]
+#if NET20
+[assembly: SecurityPermission(SecurityAction.RequestMinimum, UnmanagedCode = true)]
 #endif

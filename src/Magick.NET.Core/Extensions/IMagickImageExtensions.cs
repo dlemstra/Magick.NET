@@ -10,29 +10,27 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if !NETSTANDARD
-
-using System.Drawing;
-
 namespace ImageMagick
 {
     /// <summary>
-    /// Extension methods for the <see cref="Rectangle"/> struct.
+    /// Extension methods for the <see cref="IMagickImage"/> interface.
     /// </summary>
-    public static class RectangleExtensions
+    public static class IMagickImageExtensions
     {
         /// <summary>
-        /// Convert the specified <see cref="Rectangle"/> to a <see cref="MagickGeometry"/>.
+        /// Returns the default density for this image in the specified <see cref="DensityUnit"/>.
         /// </summary>
-        /// <param name="self">The rectangle to use.</param>
-        /// <returns>A <see cref="MagickGeometry"/> instance.</returns>
-        public static MagickGeometry ToGeometry(this Rectangle self)
+        /// <param name="self">The image.</param>
+        /// <param name="units">The units.</param>
+        /// <returns>A <see cref="Density"/> instance.</returns>
+        public static Density GetDefaultDensity(this IMagickImage self, DensityUnit units)
         {
-            var geometry = new MagickGeometry();
-            geometry.SetFromRectangle(self);
-            return geometry;
+            Throw.IfNull(nameof(self), self);
+
+            if (units == DensityUnit.Undefined || (self.Density.Units == DensityUnit.Undefined && self.Density.X == 0 && self.Density.Y == 0))
+                return new Density(96);
+
+            return self.Density.ChangeUnits(units);
         }
     }
 }
-
-#endif

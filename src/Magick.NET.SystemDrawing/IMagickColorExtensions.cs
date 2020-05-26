@@ -10,19 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if !NETSTANDARD
-
 using System.Drawing;
-
-#if Q8
-using QuantumType = System.Byte;
-#elif Q16
-using QuantumType = System.UInt16;
-#elif Q16HDRI
-using QuantumType = System.Single;
-#else
-#error Not implemented!
-#endif
 
 namespace ImageMagick
 {
@@ -36,28 +24,34 @@ namespace ImageMagick
         /// </summary>
         /// <param name="self">The color.</param>
         /// <param name="color">The <see cref="Color"/> to convert.</param>
-        public static void SetFromColor(this IMagickColor<QuantumType> self, Color color) => self?.SetFromBytes(color.R, color.G, color.B, color.A);
+        /// <typeparam name="TQuantumType">The quantum type.</typeparam>
+        public static void SetFromColor<TQuantumType>(this IMagickColor<TQuantumType> self, Color color)
+            => self?.SetFromBytes(color.R, color.G, color.B, color.A);
 
         /// <summary>
         /// Converts the value of this instance to an equivalent Color.
         /// </summary>
         /// <param name="self">The color.</param>
         /// <returns>A <see cref="Color"/> instance.</returns>
-        public static Color ToColor(this IMagickColor<QuantumType> self)
+        /// <typeparam name="TQuantumType">The quantum type.</typeparam>
+        public static Color ToColor<TQuantumType>(this IMagickColor<TQuantumType> self)
         {
             if (self == null)
                 return default;
 
+            var bytes = self.ToByteArray();
+
             if (!self.IsCmyk)
-                return Color.FromArgb(Quantum.ScaleToByte(self.A), Quantum.ScaleToByte(self.R), Quantum.ScaleToByte(self.G), Quantum.ScaleToByte(self.B));
+                return Color.FromArgb(bytes[3], bytes[0], bytes[1], bytes[2]);
 
-            var r = Quantum.ScaleToQuantum(Quantum.Max - ((Quantum.ScaleToDouble(self.R) * (Quantum.Max - self.K)) + self.K));
-            var g = Quantum.ScaleToQuantum(Quantum.Max - ((Quantum.ScaleToDouble(self.G) * (Quantum.Max - self.K)) + self.K));
-            var b = Quantum.ScaleToQuantum(Quantum.Max - ((Quantum.ScaleToDouble(self.B) * (Quantum.Max - self.K)) + self.K));
+            byte r = CmykToRgb(bytes, 0);
+            byte g = CmykToRgb(bytes, 1);
+            byte b = CmykToRgb(bytes, 2);
 
-            return Color.FromArgb(Quantum.ScaleToByte(self.A), Quantum.ScaleToByte(r), Quantum.ScaleToByte(g), Quantum.ScaleToByte(b));
+            return Color.FromArgb(bytes[4], r, g, b);
         }
+
+        private static byte CmykToRgb(byte[] bytes, int index)
+            => (byte)(255 - (((1.0 / 255) * bytes[index] * (255 - bytes[3])) + bytes[3]));
     }
 }
-
-#endif

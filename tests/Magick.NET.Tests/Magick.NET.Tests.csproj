@@ -56,15 +56,18 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Drawing" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="../Shared/ColorAssert.cs" Link="Asserts/ColorAssert.cs" />
+    <Compile Include="../Shared/Files.cs" Link="Helpers/Files.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="../../src/Magick.NET/Magick.NET.csproj" />
   </ItemGroup>
 
-  <Import Project="../Magick.NET.props" />
+  <Import Project="../Shared/Magick.NET.props" />
 </Project>

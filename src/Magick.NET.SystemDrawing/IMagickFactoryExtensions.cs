@@ -10,19 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if !NETSTANDARD
-
 using System.Drawing;
-
-#if Q8
-using QuantumType = System.Byte;
-#elif Q16
-using QuantumType = System.UInt16;
-#elif Q16HDRI
-using QuantumType = System.Single;
-#else
-#error Not implemented!
-#endif
 
 namespace ImageMagick
 {
@@ -36,9 +24,10 @@ namespace ImageMagick
         /// </summary>
         /// <param name="self">The image factory.</param>
         /// <param name="bitmap">The bitmap to use.</param>
+        /// <typeparam name="TQuantumType">The quantum type.</typeparam>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         /// <returns>A new <see cref="IMagickImage{QuantumType}"/> instance.</returns>
-        public static IMagickImage<QuantumType> CreateImage(this IMagickFactory<QuantumType> self, Bitmap bitmap)
+        public static IMagickImage<TQuantumType> CreateImage<TQuantumType>(this IMagickFactory<TQuantumType> self, Bitmap bitmap)
         {
             Throw.IfNull(nameof(self), self);
 
@@ -49,5 +38,3 @@ namespace ImageMagick
         }
     }
 }
-
-#endif

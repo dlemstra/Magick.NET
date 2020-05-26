@@ -3,7 +3,7 @@
 ```C#
 using (var image = new MagickImage("Snakeware.png"))
 {
-    image.TransparentChroma(Color.Black.ToColor(), Color.Blue.ToColor());
+    image.TransparentChroma(MagickColors.Black, MagickColors.Blue);
     image.BackgroundColor = new ColorMono(true).ToMagickColor();
 
     // Q16 (Blue):

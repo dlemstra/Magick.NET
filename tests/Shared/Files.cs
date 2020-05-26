@@ -77,6 +77,7 @@ namespace Magick.NET.Tests
             string[] paths =
             {
                 @"../../../../",
+                @"../../../../../Magick.NET.Tests/", // Other tests projects
                 @"../../../../../Tests/Magick.NET.Tests/", // Code coverage
             };
 

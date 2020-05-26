@@ -125,14 +125,14 @@ $version = [IO.File]::ReadAllText("$PSScriptRoot\Magick.Native.version").Trim()
 $folder = "$PSScriptRoot\temp"
 $libraries = "$PSScriptRoot\libraries"
 $resources = "$PSScriptRoot\resources"
-$testFolder = "$PSScriptRoot\..\..\tests\Magick.NET.Tests\bin"
 $samplesFolder = "$PSScriptRoot\..\..\samples\Magick.NET.Samples\bin"
 
 installPackage $version $folder
 copyMetadata $folder $PSScriptRoot
 copyLibraries $folder $libraries
 copyResources $folder $resources
-copyToTestProjects $libraries $testFolder
+copyToTestProjects $libraries "$PSScriptRoot\..\..\tests\Magick.NET.Tests\bin"
+copyToTestProjects $libraries "$PSScriptRoot\..\..\tests\Magick.NET.SystemDrawing.Tests\bin"
 copyToSamplesProjects $libraries $samplesFolder
 createCompressedLibraries $libraries
 createTrademarkAttribute $folder $PSScriptRoot

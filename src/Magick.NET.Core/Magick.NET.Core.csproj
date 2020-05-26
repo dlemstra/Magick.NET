@@ -12,21 +12,21 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-  
+
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard13'">
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="../Magick.NET.Shared/Throw.cs" Link="Helpers/Throw.cs" />
-    <Compile Include="../Magick.NET.Shared/ValidatedNotNullAttribute.cs" Link="Helpers/ValidatedNotNullAttribute.cs" />
     <Compile Include="../Magick.NET.Shared/Netstandard/Netstandard13/FileHelper.cs" Link="Frameworks/Netstandard/Netstandard13/FileHelper.cs" />
     <Compile Include="../Magick.NET.Shared/Netstandard/Netstandard13/MemoryStreamExtensions.cs" Link="Frameworks/Netstandard/Netstandard13/MemoryStreamExtensions.cs" />
     <Compile Include="../Magick.NET.Shared/Netstandard/Netstandard13/TypeHelper.cs" Link="Frameworks/Netstandard/Netstandard13/TypeHelper.cs" />
     <Compile Include="../Magick.NET.Shared/Bytes.cs" Link="Helpers/Bytes.cs" />
     <Compile Include="../Magick.NET.Shared/EnumHelper.cs" Link="Helpers/EnumHelper.cs" />
     <Compile Include="../Magick.NET.Shared/FileHelper.cs" Link="Helpers/FileHelper.cs" />
+    <Compile Include="../Magick.NET.Shared/Throw.cs" Link="Helpers/Throw.cs" />
     <Compile Include="../Magick.NET.Shared/TypeHelper.cs" Link="Helpers/TypeHelper.cs" />
+    <Compile Include="../Magick.NET.Shared/ValidatedNotNullAttribute.cs" Link="Helpers/ValidatedNotNullAttribute.cs" />
   </ItemGroup>
 
   <ItemGroup>

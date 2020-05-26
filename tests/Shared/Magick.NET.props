@@ -18,13 +18,13 @@
 
   <ItemGroup>
     <AdditionalFiles Include="../../stylecop.json" Link="stylecop.json" />
-    <AdditionalFiles Include="../Magick.NET.ruleset" Link="Magick.NET.ruleset" />
-    <Compile Include="../ExceptionAssert.cs" Link="Asserts/ExceptionAssert.cs" />
-    <Compile Include="../ExcludeFromCodeCoverageAttribute.cs" Link="ExcludeFromCodeCoverageAttribute.cs" />
+    <AdditionalFiles Include="../Shared/Magick.NET.ruleset" Link="Magick.NET.ruleset" />
+    <Compile Include="../Shared/ExceptionAssert.cs" Link="Asserts/ExceptionAssert.cs" />
+    <Compile Include="../Shared/ExcludeFromCodeCoverageAttribute.cs" Link="ExcludeFromCodeCoverageAttribute.cs" />
   </ItemGroup>
 
   <PropertyGroup>
-    <CodeAnalysisRuleSet>../Magick.NET.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>../Shared/Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>

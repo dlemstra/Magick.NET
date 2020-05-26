@@ -41,10 +41,6 @@
     <QuantumName>Q16-HDRI-OpenMP</QuantumName>
   </PropertyGroup>
 
-  <ItemGroup Condition="!$(TargetFramework.StartsWith('netstandard'))">
-    <Reference Include="System.Drawing" />
-  </ItemGroup>
-
   <ItemGroup Condition="'$(TargetFramework)' == 'net40'">
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -88,15 +84,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="../Magick.NET.Shared/Throw.cs" Link="Helpers/Throw.cs" />
-    <Compile Include="../Magick.NET.Shared/ValidatedNotNullAttribute.cs" Link="Helpers/ValidatedNotNullAttribute.cs" />
+    <Compile Include="../Magick.NET.Shared/Framework/Net20/ExtensionAttribute.cs" Link="Frameworks/Framework/Net20/ExtensionAttribute.cs" />
     <Compile Include="../Magick.NET.Shared/Netstandard/Netstandard13/FileHelper.cs" Link="Frameworks/Netstandard/Netstandard13/FileHelper.cs" />
     <Compile Include="../Magick.NET.Shared/Netstandard/Netstandard13/MemoryStreamExtensions.cs" Link="Frameworks/Netstandard/Netstandard13/MemoryStreamExtensions.cs" />
     <Compile Include="../Magick.NET.Shared/Netstandard/Netstandard13/TypeHelper.cs" Link="Frameworks/Netstandard/Netstandard13/TypeHelper.cs" />
     <Compile Include="../Magick.NET.Shared/Bytes.cs" Link="Helpers/Bytes.cs" />
     <Compile Include="../Magick.NET.Shared/EnumHelper.cs" Link="Helpers/EnumHelper.cs" />
     <Compile Include="../Magick.NET.Shared/FileHelper.cs" Link="Helpers/FileHelper.cs" />
+    <Compile Include="../Magick.NET.Shared/Throw.cs" Link="Helpers/Throw.cs" />
     <Compile Include="../Magick.NET.Shared/TypeHelper.cs" Link="Helpers/TypeHelper.cs" />
+    <Compile Include="../Magick.NET.Shared/ValidatedNotNullAttribute.cs" Link="Helpers/ValidatedNotNullAttribute.cs" />
   </ItemGroup>
 
   <ItemGroup>
