@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../src/Magick.NET.Core/Magick.NET.Core.csproj" />
+    <ProjectReference Include="../../src/Magick.NET.SystemDrawing/Magick.NET.SystemDrawing.csproj" />
   </ItemGroup>
 
   <Import Project="../Magick.NET.props" />

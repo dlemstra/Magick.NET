@@ -2,6 +2,7 @@
   <PropertyGroup>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Platforms>x86;x64;AnyCPU</Platforms>
+    <Configurations>DebugQ8;DebugQ16;DebugQ16-HDRI;TestQ8;TestQ16;TestQ16-HDRI;TestQ8-OpenMP;TestQ16-OpenMP;TestQ16-HDRI-OpenMP</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration.EndsWith('Q8'))">

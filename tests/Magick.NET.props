@@ -3,7 +3,6 @@
     <TargetFrameworks>net45;netcoreapp2.0</TargetFrameworks>
     <OutputPath>bin/$(Configuration)/$(Platform)/</OutputPath>
     <LangVersion>latest</LangVersion>
-    <Configurations>DebugQ8;DebugQ16;DebugQ16-HDRI;TestQ8;TestQ16;TestQ16-HDRI;TestQ8-OpenMP;TestQ16-OpenMP;TestQ16-HDRI-OpenMP</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration.Contains('Release'))">

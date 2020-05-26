@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id/>
+    <id>Magick.NET.SystemDrawing</id>
     <version/>
-    <title/>
+    <title>Magick.NET.SystemDrawing</title>
     <authors>Dirk Lemstra</authors>
     <owners>Dirk Lemstra</owners>
     <license type="expression">Apache-2.0</license>
@@ -18,14 +18,11 @@
     <dependencies>
       <group targetFramework=".NETFramework2.0"/>
       <group targetFramework=".NETFramework4.0"/>
-      <group targetFramework=".NETStandard1.3">
-        <dependency id="System.Collections.NonGeneric" version="4.3.0" />
-        <dependency id="System.Xml.XDocument" version="4.3.0" />
-        <dependency id="System.Xml.XmlDocument" version="4.3.0" />
-        <dependency id="System.Xml.XPath.XDocument" version="4.3.0" />
-      </group>
       <group targetFramework=".NETStandard2.0"/>
     </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Drawing"/>
+    </frameworkAssemblies>
   </metadata>
   <files>
     <file src="..\logo\Magick.NET.icon.png" target="Magick.NET.icon.png" />

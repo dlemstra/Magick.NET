@@ -1,6 +1,5 @@
 <Project>
   <PropertyGroup>
-    <TargetFrameworks>net20;net40;netstandard13;netstandard20</TargetFrameworks>
     <OutputPath>bin/$(Configuration)/$(Platform)/</OutputPath>
     <AssemblyVersion>7.17.0.0</AssemblyVersion>
     <FileVersion>7.17.0.1</FileVersion>
@@ -8,7 +7,6 @@
     <Authors>Dirk Lemstra</Authors>
     <Copyright>Copyright 2013-2020 Dirk Lemstra</Copyright>
     <LangVersion>latest</LangVersion>
-    <Configurations>DebugQ8;DebugQ16;DebugQ16-HDRI;TestQ8;TestQ16;TestQ16-HDRI;TestQ8-OpenMP;TestQ16-OpenMP;TestQ16-HDRI-OpenMP;ReleaseQ8;ReleaseQ8-OpenMP;ReleaseQ16;ReleaseQ16-OpenMP;ReleaseQ16-HDRI;ReleaseQ16-HDRI-OpenMP</Configurations>
     <RootNamespace>ImageMagick</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -45,15 +43,6 @@
   <ItemGroup>
     <AdditionalFiles Include="../../stylecop.json" Link="stylecop.json" />
     <AdditionalFiles Include="../Magick.NET.ruleset" Link="Magick.NET.ruleset" />
-    <Compile Include="../Magick.NET.Shared/Throw.cs" Link="Helpers/Throw.cs" />
-    <Compile Include="../Magick.NET.Shared/ValidatedNotNullAttribute.cs" Link="Helpers/ValidatedNotNullAttribute.cs" />
-    <Compile Include="../Magick.NET.Shared/Netstandard/Netstandard13/FileHelper.cs" Link="Frameworks/Netstandard/Netstandard13/FileHelper.cs" />
-    <Compile Include="../Magick.NET.Shared/Netstandard/Netstandard13/MemoryStreamExtensions.cs" Link="Frameworks/Netstandard/Netstandard13/MemoryStreamExtensions.cs" />
-    <Compile Include="../Magick.NET.Shared/Netstandard/Netstandard13/TypeHelper.cs" Link="Frameworks/Netstandard/Netstandard13/TypeHelper.cs" />
-    <Compile Include="../Magick.NET.Shared/Bytes.cs" Link="Helpers/Bytes.cs" />
-    <Compile Include="../Magick.NET.Shared/EnumHelper.cs" Link="Helpers/EnumHelper.cs" />
-    <Compile Include="../Magick.NET.Shared/FileHelper.cs" Link="Helpers/FileHelper.cs" />
-    <Compile Include="../Magick.NET.Shared/TypeHelper.cs" Link="Helpers/TypeHelper.cs" />
   </ItemGroup>
 
   <PropertyGroup>
