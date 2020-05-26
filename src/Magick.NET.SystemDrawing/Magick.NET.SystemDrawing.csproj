@@ -18,9 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="../Magick.NET.Shared/Framework/Net20/ExtensionAttribute.cs" Link="Frameworks/Framework/Net20/ExtensionAttribute.cs" />
-    <Compile Include="../Magick.NET.Shared/Throw.cs" Link="Helpers/Throw.cs" />
-    <Compile Include="../Magick.NET.Shared/ValidatedNotNullAttribute.cs" Link="Helpers/ValidatedNotNullAttribute.cs" />
+    <Compile Include="../Shared/Framework/Net20/ExtensionAttribute.cs" Link="Frameworks/Framework/Net20/ExtensionAttribute.cs" />
+    <Compile Include="../Shared/Throw.cs" Link="Helpers/Throw.cs" />
+    <Compile Include="../Shared/ValidatedNotNullAttribute.cs" Link="Helpers/ValidatedNotNullAttribute.cs" />
   </ItemGroup>
 
   <ItemGroup>
