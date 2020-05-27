@@ -1,6 +1,5 @@
 <Project>
   <PropertyGroup>
-    <TargetFrameworks>net45;netcoreapp2.0</TargetFrameworks>
     <OutputPath>bin/$(Configuration)/$(Platform)/</OutputPath>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>

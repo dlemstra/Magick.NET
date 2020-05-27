@@ -133,6 +133,7 @@ copyLibraries $folder $libraries
 copyResources $folder $resources
 copyToTestProjects $libraries "$PSScriptRoot\..\..\tests\Magick.NET.Tests\bin"
 copyToTestProjects $libraries "$PSScriptRoot\..\..\tests\Magick.NET.SystemDrawing.Tests\bin"
+copyToTestProjects $libraries "$PSScriptRoot\..\..\tests\Magick.NET.SystemWindowsMedia.Tests\bin"
 copyToSamplesProjects $libraries $samplesFolder
 createCompressedLibraries $libraries
 createTrademarkAttribute $folder $PSScriptRoot

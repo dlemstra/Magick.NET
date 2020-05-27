@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Magick.NET.SystemWindowsMedia</id>
+    <version/>
+    <title>Magick.NET.SystemWindowsMedia</title>
+    <authors>Dirk Lemstra</authors>
+    <owners>Dirk Lemstra</owners>
+    <license type="expression">Apache-2.0</license>
+    <projectUrl>https://github.com/dlemstra/Magick.NET</projectUrl>
+    <icon>Magick.NET.icon.png</icon>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>ImageMagick is a powerful image manipulation library that supports over 100 major file formats (not including sub-formats). With Magick.NET you can use ImageMagick without having to install ImageMagick on your server or desktop. Visit https://github.com/dlemstra/Magick.NET/tree/master/docs before installing to help you decide the best version.</description>
+    <summary>A .NET API to the ImageMagick image-processing library for Desktop and Web.</summary>
+    <releaseNotes/>
+    <copyright>Copyright 2013-2020 Dirk Lemstra</copyright>
+    <tags>ImageMagick Magick.NET Image Convert Resize Draw Effects</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.0"/>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\logo\Magick.NET.icon.png" target="Magick.NET.icon.png" />
+    <file src="..\Copyright.txt" target="Copyright.txt" />
+  </files>
+</package>
