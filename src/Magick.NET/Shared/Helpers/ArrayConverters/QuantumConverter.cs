@@ -31,20 +31,20 @@ namespace ImageMagick
             if (nativeData == IntPtr.Zero)
                 return null;
 
-            QuantumType[] result = new QuantumType[length];
+            var result = new QuantumType[length];
 
             unsafe
             {
 #if Q8
-                byte* sourcePtr = (byte*)nativeData;
+                var sourcePtr = (byte*)nativeData;
 #elif Q16
-                ushort* sourcePtr = (ushort*)nativeData;
+                var sourcePtr = (ushort*)nativeData;
 #elif Q16HDRI
-                float* sourcePtr = (float*)nativeData;
+                var sourcePtr = (float*)nativeData;
 #else
 #error Not implemented!
 #endif
-                for (int i = 0; i < length; ++i)
+                for (var i = 0; i < length; ++i)
                 {
                     result[i] = *sourcePtr++;
                 }
