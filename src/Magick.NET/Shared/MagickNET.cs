@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using ImageMagick.Configuration;
 
 namespace ImageMagick
@@ -236,6 +237,20 @@ namespace ImageMagick
             => NativeMagickNET.SetRandomSeed(-1);
 
         /// <summary>
+        /// Sets the directory that contains the Ghostscript file gsdll32.dll / gsdll64.dll.
+        /// </summary>
+        /// <param name="path">The path of the Ghostscript directory.</param>
+        public static void SetGhostscriptDirectory(string path)
+            => Environment.SetEnv("MAGICK_GHOSTSCRIPT_PATH", FileHelper.GetFullPath(path));
+
+        /// <summary>
+        /// Sets the directory that contains the Ghostscript font files.
+        /// </summary>
+        /// <param name="path">The path of the Ghostscript font directory.</param>
+        public static void SetGhostscriptFontDirectory(string path)
+            => Environment.SetEnv("MAGICK_GHOSTSCRIPT_FONT_PATH", FileHelper.GetFullPath(path));
+
+        /// <summary>
         /// Set the events that will be written to the log. The log will be written to the Log event
         /// and the debug window in VisualStudio. To change the log settings you must use a custom
         /// log.xml file.
@@ -250,18 +265,18 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Sets the directory that contains the Ghostscript file gsdll32.dll / gsdll64.dll.
+        /// Sets the directory that contains the Native library. This currently only works on Windows.
         /// </summary>
-        /// <param name="path">The path of the Ghostscript directory.</param>
-        public static void SetGhostscriptDirectory(string path)
-            => Environment.SetEnv("MAGICK_GHOSTSCRIPT_PATH", FileHelper.GetFullPath(path));
-
-        /// <summary>
-        /// Sets the directory that contains the Ghostscript font files.
-        /// </summary>
-        /// <param name="path">The path of the Ghostscript font directory.</param>
-        public static void SetGhostscriptFontDirectory(string path)
-            => Environment.SetEnv("MAGICK_GHOSTSCRIPT_FONT_PATH", FileHelper.GetFullPath(path));
+        /// <param name="path">The path of the directory that contains the native library.</param>
+        public static void SetNativeLibraryDirectory(string path)
+        {
+#if NETSTANDARD
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+               NativeWindowsMethods.SetDllDirectory(FileHelper.GetFullPath(path));
+#else
+            NativeWindowsMethods.SetDllDirectory(FileHelper.GetFullPath(path));
+#endif
+        }
 
         /// <summary>
         /// Sets the directory that will be used when ImageMagick does not have enough memory for the
@@ -315,6 +330,13 @@ namespace ImageMagick
                 eventFlags = EnumHelper.ConvertFlags(_logEvents);
 
             NativeMagickNET.SetLogEvents(eventFlags);
+        }
+
+        private static class NativeWindowsMethods
+        {
+            [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool SetDllDirectory(string lpPathName);
         }
     }
 }
