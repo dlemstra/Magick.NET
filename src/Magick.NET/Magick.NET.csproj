@@ -41,11 +41,6 @@
     <QuantumName>Q16-HDRI-OpenMP</QuantumName>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net40'">
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-  </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164" PrivateAssets="All" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">

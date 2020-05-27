@@ -10,13 +10,8 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if !NETSTANDARD
-
-#if !NET20
 using System.Windows.Media.Imaging;
-using MediaPixelFormat = System.Windows.Media.PixelFormat;
 using MediaPixelFormats = System.Windows.Media.PixelFormats;
-#endif
 
 namespace ImageMagick
 {
@@ -25,7 +20,6 @@ namespace ImageMagick
     /// </content>
     public static partial class IMagickImageExtentions
     {
-#if !NET20
         /// <summary>
         /// Converts this instance to a <see cref="BitmapSource"/>.
         /// </summary>
@@ -91,8 +85,5 @@ namespace ImageMagick
                     image.Dispose();
             }
         }
-#endif
     }
 }
-
-#endif

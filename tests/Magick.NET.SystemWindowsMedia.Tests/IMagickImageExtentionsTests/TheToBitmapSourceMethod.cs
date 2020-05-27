@@ -10,14 +10,12 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if !NETCORE
-
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.SystemWindowsMedia.Tests
 {
     public partial class MagickImageTests
     {
@@ -127,8 +125,6 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotConvertTheDpiWhenDensityIsUndefinedAndNotZero()
             {
-                byte[] pixels = new byte[150];
-
                 using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
                     image.Density = new Density(1, 2, DensityUnit.Undefined);
@@ -143,8 +139,6 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldNotConvertTheDpiWhenDensityIsPixelsPerInch()
             {
-                byte[] pixels = new byte[150];
-
                 using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
                     image.Density = new Density(1, 2, DensityUnit.PixelsPerInch);
@@ -159,8 +153,6 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldConvertTheDpiWhenDensityIsPixelsPerCentimeter()
             {
-                byte[] pixels = new byte[150];
-
                 using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
                     image.Density = new Density(1, 2, DensityUnit.PixelsPerCentimeter);
@@ -202,5 +194,3 @@ namespace Magick.NET.Tests
         }
     }
 }
-
-#endif
