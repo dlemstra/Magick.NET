@@ -13,7 +13,7 @@
 using System;
 using System.IO;
 
-namespace Magick.NET.Tests
+namespace Magick.NET
 {
     public static class Files
     {
