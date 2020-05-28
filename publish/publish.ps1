@@ -19,40 +19,13 @@ param (
 )
 
 . $PSScriptRoot\..\tools\windows\utils.ps1
-
-function addFile($xml, $source, $target) {
-    Write-Host "Adding '$source' as '$target'"
-
-    $files = $xml.package.files
-
-    $file = $xml.CreateElement("file", $xml.DocumentElement.NamespaceURI)
-
-    $srcAtt = $xml.CreateAttribute("src")
-    $srcAtt.Value = $source
-    [void]$file.Attributes.Append($srcAtt)
-
-    $targetAtt = $xml.CreateAttribute("target")
-    $targetAtt.Value = $target
-    [void]$file.Attributes.Append($targetAtt)
-
-    [void]$files.AppendChild($file)
-}
-
-function addLibrary($xml, $library, $quantumName, $platform, $targetFramework) {
-    $source = fullPath "src\$library\bin\Release$quantumName\$platform\$targetFramework\$library-$quantumName-$platform.dll"
-    $target = "lib\$targetFramework\$library-$quantumName-$platform.dll"
-    addFile $xml $source $target
-
-    $source = fullPath "src\$library\bin\Release$quantumName\$platform\$targetFramework\$library-$quantumName-$platform.xml"
-    $target = "lib\$targetFramework\$library-$quantumName-$platform.xml"
-    addFile $xml $source $target
-}
+. $PSScriptRoot\publish.shared.ps1
 
 function addMagickNetLibraries($xml, $quantumName, $platform) {
-    addLibrary $xml Magick.NET $quantumName $platform "net20"
-    addLibrary $xml Magick.NET $quantumName $platform "net40"
-    addLibrary $xml Magick.NET $quantumName $platform "netstandard13"
-    addLibrary $xml Magick.NET $quantumName $platform "netstandard20"
+    addLibrary $xml "Magick.NET" $quantumName $platform "net20"
+    addLibrary $xml "Magick.NET" $quantumName $platform "net40"
+    addLibrary $xml "Magick.NET" $quantumName $platform "netstandard13"
+    addLibrary $xml "Magick.NET" $quantumName $platform "netstandard20"
 }
 
 function addOpenMPLibrary($xml) {
@@ -89,29 +62,12 @@ function addNativeLibraries($xml, $quantumName, $platform) {
     }
 }
 
-function createAndSignNuGetPackage($name, $version, $pfxPassword) {
-    $nuspecFile = fullPath "publish\$name.nuspec"
-
-    $nuget = fullPath "tools\windows\nuget.exe"
-    & $nuget pack $nuspecFile -NoPackageAnalysis
-    checkExitCode "Failed to create NuGet package"
-
-    if ($pfxPassword.Length -gt 0) {
-        $nupkgFile = fullPath "$name*.nupkg"
-        $certificate = fullPath "build\windows\ImageMagick.pfx"
-        & $nuget sign $nupkgFile -CertificatePath "$certificate" -CertificatePassword "$pfxPassword" -Timestamper http://sha256timestamp.ws.symantec.com/sha256/timestamp
-        checkExitCode "Failed to sign NuGet package"
-    }
-}
-
 function createMagickNetNuGetPackage($quantumName, $platform, $version, $pfxPassword) {
+    $xml = loadAndInitNuSpec "Magick.NET" $version
+
     $name = "Magick.NET-$quantumName-$platform"
-    $path = fullPath "publish\Magick.NET.nuspec"
-    $xml = [xml](Get-Content $path)
     $xml.package.metadata.id = $name
     $xml.package.metadata.title = $name
-    $xml.package.metadata.version = $version
-    $xml.package.metadata.releaseNotes = "https://github.com/dlemstra/Magick.NET/releases/tag/$version"
 
     $platform = $platformName
 
@@ -127,10 +83,7 @@ function createMagickNetNuGetPackage($quantumName, $platform, $version, $pfxPass
         addFile $xml "Magick.NET.targets" "build\net40\$name.targets"
     }
 
-    $nuspecFile = FullPath "publish\$name.nuspec"
-    $xml.Save($nuspecFile)
-
-    createAndSignNuGetPackage $name $version $pfxPassword
+    createAndSignNuGetPackage $xml $name $version $pfxPassword
 }
 
 $platform = $platformName
@@ -141,6 +94,4 @@ if ($platform -eq "Any CPU") {
 
 createMagickNetNuGetPackage $quantumName $platform $version $pfxPassword
 
-Remove-Item $destination -Recurse -ErrorAction Ignore
-[void](New-Item -ItemType directory -Path $destination)
-Copy-Item "*.nupkg" $destination
+copyNuGetPackages $destination

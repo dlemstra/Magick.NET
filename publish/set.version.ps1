@@ -15,7 +15,7 @@
 $tag = [IO.File]::ReadAllText("tag.txt").Trim()
 
 if ($tag.Length -eq 0) {
-    $tag = Get-Date -Format "yyyy.MM.dd.HHmm"
+    $tag = Get-Date -Format "0.yyyy.MMdd.HHmm"
 }
 
 Write-Host "::set-env name=NuGetVersion::$tag"

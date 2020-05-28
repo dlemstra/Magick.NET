@@ -115,5 +115,59 @@ jobs:
     - name: Upload libraries
       uses: actions/upload-artifact@v1
       with:
-        name: windows
+        name: packages
+        path: publish/output
+
+  libraries:
+    name: Library
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        libraryName: [Core, SystemDrawing, SystemWindowsMedia]
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+
+    - name: Install dependencies
+      run: ./install.dependencies.cmd
+      working-directory: build/windows
+
+    - name: Install Magick.Native
+      run: ./install.cmd
+      working-directory: src/Magick.Native
+
+    - name: 'Build Magick.NET.${{ matrix.libraryName }} (Release)'
+      run: './build.Magick.NET.cmd "Q8" "Any CPU" Release'
+      working-directory: build/windows
+
+    - name: 'Sign libraries (Magick.NET.${{ matrix.libraryName }})'
+      uses: dlemstra/code-sign-action@v1
+      with:
+        certificate: '${{ secrets.IMAGEMAGICK_CERTIFICATE }}'
+        folder: 'src/Magick.NET.${{ matrix.libraryName }}/bin'
+        recursive: true
+
+    - name: Set NuGet version
+      run: ./set.version.ps1
+      working-directory: publish
+
+    - name: Create NuGet package
+      run: './publish.library.cmd "Magick.NET.${{ matrix.libraryName }}"'
+      working-directory: publish
+
+    - name: Sign NuGet package
+      uses: dlemstra/code-sign-action@v1
+      with:
+        certificate: '${{ secrets.IMAGEMAGICK_CERTIFICATE }}'
+        folder: publish/output
+
+    - name: Upload libraries
+      uses: actions/upload-artifact@v1
+      with:
+        name: packages
         path: publish/output
