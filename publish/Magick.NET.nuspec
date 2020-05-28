@@ -16,14 +16,14 @@
     <copyright>Copyright 2013-2020 Dirk Lemstra</copyright>
     <tags>ImageMagick Magick.NET Image Convert Resize Draw Effects</tags>
     <dependencies>
-      <group targetFramework=".NETFramework2.0"/>
-      <group targetFramework=".NETFramework4.0"/>
+      <group targetFramework=".NETFramework2.0" />
+      <group targetFramework=".NETFramework4.0" />
       <group targetFramework=".NETStandard1.3">
         <dependency id="System.Xml.XDocument" version="4.3.0" />
         <dependency id="System.Xml.XmlDocument" version="4.3.0" />
         <dependency id="System.Xml.XPath.XDocument" version="4.3.0" />
       </group>
-      <group targetFramework=".NETStandard2.0"/>
+      <group targetFramework=".NETStandard2.0" />
     </dependencies>
   </metadata>
   <files>
