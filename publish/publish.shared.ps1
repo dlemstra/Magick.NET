@@ -45,7 +45,7 @@ function addLibrary($xml, $library, $quantumName, $platform, $targetFramework) {
     addFile $xml $source $target
 }
 
-function loadAndInitNuSpec($package, $version) {
+function loadAndInitNuSpec($package, $version, $commit) {
     $path = fullPath "publish\$package.nuspec"
     $xml = [xml](Get-Content $path)
     $xml.package.metadata.version = $version
@@ -53,10 +53,13 @@ function loadAndInitNuSpec($package, $version) {
 
     $namespaceManager = New-Object -TypeName "Xml.XmlNamespaceManager" -ArgumentList $xml.NameTable
     $namespaceManager.AddNamespace("nuspec", $xml.DocumentElement.NamespaceURI)
-    $nodes = $xml.DocumentElement.SelectNodes("//nuspec:dependency[not(@version)]", $namespaceManager)
+    $nodes = $xml.SelectNodes("//nuspec:dependency[not(@version)]", $namespaceManager)
     foreach ($node in $nodes) {
         $node.SetAttribute("version", $version);
     }
+
+    $repository = $xml.SelectSingleNode("//nuspec:repository", $namespaceManager)
+    $repository.SetAttribute("commit", $commit);
 
     return $xml
 }

@@ -20,4 +20,10 @@ if ($tag.Length -eq 0) {
 
 Write-Host "::set-env name=NuGetVersion::$tag"
 
+& cmd /c 'git rev-parse HEAD > commit.txt 2> nul'
+
+$commit = [IO.File]::ReadAllText("commit.txt").Trim()
+
+Write-Host "::set-env name=GitCommitId::$commit"
+
 Exit 0
