@@ -93,36 +93,31 @@ namespace ImageMagick
 
             IMagickImage<TQuantumType> image = self;
 
-            string mapping = "BGR";
-            var format = PixelFormat.Format24bppRgb;
+            var isGray = image.ChannelCount == 1 && image.ColorSpace == ColorSpace.Gray;
+            var format = isGray ? PixelFormat.Format8bppIndexed : PixelFormat.Format24bppRgb;
 
             try
             {
-                if (image.ColorSpace != ColorSpace.sRGB)
+                if (!isGray)
                 {
-                    image = self.Clone();
-                    image.ColorSpace = ColorSpace.sRGB;
-                }
+                    if (image.ColorSpace != ColorSpace.sRGB)
+                    {
+                        image = self.Clone();
+                        image.ColorSpace = ColorSpace.sRGB;
+                    }
 
-                if (image.HasAlpha)
-                {
-                    mapping = "BGRA";
-                    format = PixelFormat.Format32bppArgb;
+                    if (image.HasAlpha)
+                        format = PixelFormat.Format32bppArgb;
                 }
 
                 using (var pixels = image.GetPixelsUnsafe())
                 {
                     var bitmap = new Bitmap(image.Width, image.Height, format);
-                    for (int y = 0; y < self.Height; y++)
-                    {
-                        var data = bitmap.LockBits(new Rectangle(0, y, image.Width, 1), ImageLockMode.ReadWrite, format);
-                        var destination = data.Scan0;
 
-                        var bytes = pixels.ToByteArray(0, y, self.Width, 1, mapping);
-                        Marshal.Copy(bytes, 0, destination, bytes.Length);
-
-                        bitmap.UnlockBits(data);
-                    }
+                    if (typeof(TQuantumType) == typeof(byte) && isGray)
+                        CopyGrayPixels(image, pixels, format, bitmap);
+                    else
+                        CopyPixels(image, pixels, format, bitmap);
 
                     SetBitmapDensity(self, bitmap, useDensity);
                     return bitmap;
@@ -159,6 +154,66 @@ namespace ImageMagick
             {
                 var dpi = image.GetDefaultDensity(useDpi ? DensityUnit.PixelsPerInch : DensityUnit.Undefined);
                 bitmap.SetResolution((float)dpi.X, (float)dpi.Y);
+            }
+        }
+
+        private static unsafe void CopyGrayPixels<TQuantumType>(IMagickImage<TQuantumType> image, IUnsafePixelCollection<TQuantumType> pixels, PixelFormat format, Bitmap bitmap)
+        {
+            for (int y = 0; y < image.Height; y++)
+            {
+                var source = (byte*)pixels.GetAreaPointer(0, y, image.Width, 1);
+
+                var row = new Rectangle(0, y, image.Width, 1);
+                var data = bitmap.LockBits(row, ImageLockMode.WriteOnly, format);
+                var destination = (byte*)data.Scan0;
+
+                var remainging = image.Width;
+                while (remainging >= 4)
+                {
+                    *(destination++) = *(source++);
+                    *(destination++) = *(source++);
+                    *(destination++) = *(source++);
+                    *(destination++) = *(source++);
+
+                    remainging -= 4;
+                }
+
+                while (remainging-- > 0)
+                {
+                    *(destination++) = *(source++);
+                }
+
+                bitmap.UnlockBits(data);
+            }
+        }
+
+        private static void CopyPixels<TQuantumType>(IMagickImage<TQuantumType> image, IUnsafePixelCollection<TQuantumType> pixels, PixelFormat format, Bitmap bitmap)
+        {
+            var mapping = GetMapping(format);
+
+            for (int y = 0; y < image.Height; y++)
+            {
+                var row = new Rectangle(0, y, image.Width, 1);
+                var data = bitmap.LockBits(row, ImageLockMode.WriteOnly, format);
+                var destination = data.Scan0;
+
+                var bytes = pixels.ToByteArray(0, y, image.Width, 1, mapping);
+                Marshal.Copy(bytes, 0, destination, bytes.Length);
+
+                bitmap.UnlockBits(data);
+            }
+        }
+
+        private static string GetMapping(PixelFormat format)
+        {
+            switch (format)
+            {
+                case PixelFormat.Format8bppIndexed:
+                    return "R";
+                case PixelFormat.Format32bppArgb:
+                    return "BGR";
+                default:
+                    return "BGRA";
             }
         }
 

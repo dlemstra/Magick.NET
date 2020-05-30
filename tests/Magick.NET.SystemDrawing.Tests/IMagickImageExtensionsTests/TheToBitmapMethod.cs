@@ -84,12 +84,28 @@ namespace Magick.NET.SystemDrawing.Tests
                 {
                     image.ColorSpace = ColorSpace.YCbCr;
 
-                    using (Bitmap bitmap = image.ToBitmap())
+                    using (var bitmap = image.ToBitmap())
                     {
                         ColorAssert.AreEqual(MagickColors.Red, ToMagickColor(bitmap.GetPixel(0, 0)));
                     }
 
                     Assert.AreEqual(ColorSpace.YCbCr, image.ColorSpace);
+                }
+            }
+
+            [TestMethod]
+            public void ShouldBeAbleToConvertGrayImage()
+            {
+                using (var image = new MagickImage(ToMagickColor(Color.Magenta), 5, 1))
+                {
+                    image.ColorType = ColorType.Bilevel;
+                    image.ClassType = ClassType.Direct;
+
+                    using (var bitmap = image.ToBitmap())
+                    {
+                        for (int i = 0; i < image.Width; i++)
+                            ColorAssert.AreEqual(MagickColors.White, ToMagickColor(bitmap.GetPixel(i, 0)));
+                    }
                 }
             }
 
@@ -100,7 +116,7 @@ namespace Magick.NET.SystemDrawing.Tests
                 {
                     image.Density = new Density(300, 200);
 
-                    using (Bitmap bitmap = image.ToBitmapWithDensity())
+                    using (var bitmap = image.ToBitmapWithDensity())
                     {
                         Assert.AreEqual(300, (int)bitmap.HorizontalResolution);
                         Assert.AreEqual(200, (int)bitmap.VerticalResolution);
@@ -124,7 +140,7 @@ namespace Magick.NET.SystemDrawing.Tests
                 {
                     image.Density = new Density(300, 200);
 
-                    using (Bitmap bitmap = image.ToBitmapWithDensity(ImageFormat.Jpeg))
+                    using (var bitmap = image.ToBitmapWithDensity(ImageFormat.Jpeg))
                     {
                         Assert.AreEqual(300, (int)bitmap.HorizontalResolution);
                         Assert.AreEqual(200, (int)bitmap.VerticalResolution);
@@ -147,7 +163,7 @@ namespace Magick.NET.SystemDrawing.Tests
             {
                 using (var image = new MagickImage(MagickColors.Red, 10, 10))
                 {
-                    using (Bitmap bitmap = image.ToBitmap(imageFormat))
+                    using (var bitmap = image.ToBitmap(imageFormat))
                     {
                         Assert.AreEqual(imageFormat, bitmap.RawFormat);
 
