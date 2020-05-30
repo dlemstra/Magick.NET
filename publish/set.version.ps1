@@ -10,15 +10,15 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 
-& cmd /c 'git describe --exact-match --tags HEAD > tag.txt 2> nul'
+& cmd /c 'git describe --exact-match --tags HEAD > version.txt 2> nul'
+$version = [IO.File]::ReadAllText("version.txt").Trim()
 
-$tag = [IO.File]::ReadAllText("tag.txt").Trim()
-
-if ($tag.Length -eq 0) {
-    $tag = Get-Date -Format "0.yyyy.MMdd.HHmm"
+if ($version.Length -eq 0) {
+    & cmd /c 'git log -1 --date=format:"0.%Y.%m%d.%H%M" --format="%ad" > version.txt 2> nul'
+    $version = [IO.File]::ReadAllText("version.txt").Trim()
 }
 
-Write-Host "::set-env name=NuGetVersion::$tag"
+Write-Host "::set-env name=NuGetVersion::$version"
 
 & cmd /c 'git rev-parse HEAD > commit.txt 2> nul'
 
