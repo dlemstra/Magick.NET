@@ -11,6 +11,7 @@
 # and limitations under the License.
 
 param (
+    [parameter(mandatory=$true)][string]$library
     [parameter(mandatory=$true)][string]$version
 )
 
@@ -51,4 +52,4 @@ function updateAssemblyVersion($library, $version, $checkAssemblyVersion) {
     [IO.File]::WriteAllText($fileName, $content, [System.Text.Encoding]::Default)
 }
 
-updateAssemblyVersion "Magick.NET" $version
+updateAssemblyVersion $library $version
