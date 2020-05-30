@@ -180,10 +180,18 @@ namespace ImageMagick
         private byte* FillBuffer(byte* p, int length)
         {
             byte* q = _bufferStart;
-            while (length > 0)
+            while (length >= 4)
             {
                 *(q++) = *(p++);
-                length--;
+                *(q++) = *(p++);
+                *(q++) = *(p++);
+                *(q++) = *(p++);
+                length -= 4;
+            }
+
+            while (length-- > 0)
+            {
+                *(q++) = *(p++);
             }
 
             return p;
@@ -192,10 +200,18 @@ namespace ImageMagick
         private byte* ReadBuffer(byte* p, int length)
         {
             byte* q = _bufferStart;
-            while (length > 0)
+            while (length >= 4)
             {
                 *(p++) = *(q++);
-                length--;
+                *(p++) = *(q++);
+                *(p++) = *(q++);
+                *(p++) = *(q++);
+                length -= 4;
+            }
+
+            while (length-- > 0)
+            {
+                *(p++) = *(q++);
             }
 
             return p;
