@@ -117,7 +117,7 @@ namespace ImageMagick
                     var destination = data.Scan0;
                     for (int y = 0; y < self.Height; y++)
                     {
-                        byte[] bytes = pixels.ToByteArray(0, y, self.Width, 1, mapping);
+                        var bytes = pixels.ToByteArray(0, y, self.Width, 1, mapping);
                         Marshal.Copy(bytes, 0, destination, bytes.Length);
 
                         destination = new IntPtr(destination.ToInt64() + data.Stride);
@@ -143,7 +143,7 @@ namespace ImageMagick
 
             self.Format = imageFormat.ToFormat();
 
-            MemoryStream memStream = new MemoryStream();
+            var memStream = new MemoryStream();
             self.Write(memStream);
             memStream.Position = 0;
 
