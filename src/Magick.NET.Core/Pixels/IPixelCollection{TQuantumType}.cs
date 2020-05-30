@@ -34,7 +34,7 @@ namespace ImageMagick
         IPixel<TQuantumType> this[int x, int y] { get; }
 
         /// <summary>
-        /// Returns the pixel at the specified coordinates.
+        /// Returns the pixels at the specified area.
         /// </summary>
         /// <param name="x">The X coordinate of the area.</param>
         /// <param name="y">The Y coordinate of the area.</param>
@@ -44,7 +44,7 @@ namespace ImageMagick
         TQuantumType[] GetArea(int x, int y, int width, int height);
 
         /// <summary>
-        /// Returns the pixel of the specified area.
+        /// Returns the pixels of the specified area.
         /// </summary>
         /// <param name="geometry">The geometry of the area.</param>
         /// <returns>A <typeparamref name="TQuantumType"/> array.</returns>

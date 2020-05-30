@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.Collections.Generic;
 
 #if Q8
@@ -24,7 +25,7 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-    internal sealed class UnsafePixelCollection : PixelCollection
+    internal sealed class UnsafePixelCollection : PixelCollection, IUnsafePixelCollection<QuantumType>
     {
         public UnsafePixelCollection(MagickImage image)
             : base(image)
@@ -37,6 +38,14 @@ namespace ImageMagick
                 return null;
 
             return base.GetArea(geometry);
+        }
+
+        public override IntPtr GetAreaPointer(IMagickGeometry geometry)
+        {
+            if (geometry == null)
+                return IntPtr.Zero;
+
+            return base.GetAreaPointer(geometry);
         }
 
 #if !Q8

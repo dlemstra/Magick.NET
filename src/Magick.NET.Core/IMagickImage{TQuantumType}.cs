@@ -821,7 +821,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>A pixel collection that can be used to read or modify the pixels of this image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IPixelCollection<TQuantumType> GetPixelsUnsafe();
+        IUnsafePixelCollection<TQuantumType> GetPixelsUnsafe();
 
         /// <summary>
         /// Gets the associated read mask of the image.

@@ -3323,7 +3323,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>A pixel collection that can be used to read or modify the pixels of this image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IPixelCollection<QuantumType> GetPixelsUnsafe()
+        public IUnsafePixelCollection<QuantumType> GetPixelsUnsafe()
         {
             if (_settings.Ping)
                 throw new InvalidOperationException("Image contains no pixel data.");

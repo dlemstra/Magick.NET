@@ -55,6 +55,12 @@ namespace ImageMagick
         public virtual QuantumType[] GetArea(IMagickGeometry geometry)
             => GetArea(geometry.X, geometry.Y, geometry.Width, geometry.Height);
 
+        public virtual IntPtr GetAreaPointer(int x, int y, int width, int height)
+            => _nativeInstance.GetArea(x, y, width, height);
+
+        public virtual IntPtr GetAreaPointer(IMagickGeometry geometry)
+            => GetAreaPointer(geometry.X, geometry.Y, geometry.Width, geometry.Height);
+
         IEnumerator IEnumerable.GetEnumerator()
             => GetEnumerator();
 
