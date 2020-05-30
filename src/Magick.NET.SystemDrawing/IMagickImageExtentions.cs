@@ -113,17 +113,16 @@ namespace ImageMagick
                 using (var pixels = image.GetPixelsUnsafe())
                 {
                     var bitmap = new Bitmap(image.Width, image.Height, format);
-                    var data = bitmap.LockBits(new Rectangle(0, 0, image.Width, image.Height), ImageLockMode.ReadWrite, format);
-                    var destination = data.Scan0;
                     for (int y = 0; y < self.Height; y++)
                     {
+                        var data = bitmap.LockBits(new Rectangle(0, y, image.Width, 1), ImageLockMode.ReadWrite, format);
+                        var destination = data.Scan0;
+
                         var bytes = pixels.ToByteArray(0, y, self.Width, 1, mapping);
                         Marshal.Copy(bytes, 0, destination, bytes.Length);
 
-                        destination = new IntPtr(destination.ToInt64() + data.Stride);
+                        bitmap.UnlockBits(data);
                     }
-
-                    bitmap.UnlockBits(data);
 
                     SetBitmapDensity(self, bitmap, useDensity);
                     return bitmap;
