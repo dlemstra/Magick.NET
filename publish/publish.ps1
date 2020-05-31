@@ -94,5 +94,4 @@ if ($platform -eq "Any CPU") {
 }
 
 createMagickNetNuGetPackage $quantumName $platform $version $commit $pfxPassword
-
 copyNuGetPackages $destination

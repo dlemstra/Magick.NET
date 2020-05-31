@@ -46,27 +46,22 @@ function addLibrary($xml, $library, $quantumName, $platform, $targetFramework) {
 }
 
 function loadAndInitNuSpec($package, $version, $commit) {
-    $path = fullPath "publish\$package.nuspec"
-    $xml = [xml](Get-Content $path)
-    $xml.package.metadata.version = $version
-    $xml.package.metadata.releaseNotes = "https://github.com/dlemstra/Magick.NET/releases/tag/$version"
+    $fileName = fullPath "publish\$package.nuspec"
+    $xml = [xml](Get-Content $fileName)
 
-    $namespaceManager = New-Object -TypeName "Xml.XmlNamespaceManager" -ArgumentList $xml.NameTable
-    $namespaceManager.AddNamespace("nuspec", $xml.DocumentElement.NamespaceURI)
-    $nodes = $xml.SelectNodes("//nuspec:dependency[not(@version)]", $namespaceManager)
-    foreach ($node in $nodes) {
-        $node.SetAttribute("version", $version);
+    if ($version.StartsWith("0.")) {
+        $xml.package.metadata.version = $version
     }
 
     $repository = $xml.SelectSingleNode("//nuspec:repository", $namespaceManager)
-    $repository.SetAttribute("commit", $commit);
+    $repository.SetAttribute("commit", $commit)
 
     return $xml
 }
 
 function createAndSignNuGetPackage($xml, $name, $version, $pfxPassword) {
-    $nuspecFile = fullPath "publish\$name.nuspec"
-    $xml.Save($nuspecFile)
+    $fileName = fullPath "publish\$name.nuspec"
+    $xml.Save($fileName)
 
     $nuget = fullPath "tools\windows\nuget.exe"
     & $nuget pack $nuspecFile -NoPackageAnalysis

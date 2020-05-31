@@ -42,5 +42,4 @@ function createMagickNetLibraryNuGetPackage($packageName, $version, $commit, $pf
 }
 
 createMagickNetLibraryNuGetPackage $packageName $version $commit $pfxPassword
-
 copyNuGetPackages $destination
