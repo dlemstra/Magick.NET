@@ -45,8 +45,8 @@ function addLibrary($xml, $library, $quantumName, $platform, $targetFramework) {
     addFile $xml $source $target
 }
 
-function loadAndInitNuSpec($package, $version, $commit) {
-    $fileName = fullPath "publish\$package.nuspec"
+function loadAndInitNuSpec($library, $version, $commit) {
+    $fileName = fullPath "publish\$library.nuspec"
     $xml = [xml](Get-Content $fileName)
 
     if ($version.StartsWith("0.")) {
@@ -61,16 +61,16 @@ function loadAndInitNuSpec($package, $version, $commit) {
     return $xml
 }
 
-function createAndSignNuGetPackage($xml, $name, $version, $pfxPassword) {
-    $fileName = fullPath "publish\$name.nuspec"
+function createAndSignNuGetPackage($xml, $library, $version, $pfxPassword) {
+    $fileName = fullPath "publish\$library.nuspec"
     $xml.Save($fileName)
 
     $nuget = fullPath "tools\windows\nuget.exe"
-    & $nuget pack $nuspecFile -NoPackageAnalysis
+    & $nuget pack $fileName -NoPackageAnalysis
     checkExitCode "Failed to create NuGet package"
 
     if ($pfxPassword.Length -gt 0) {
-        $nupkgFile = fullPath "$name*.nupkg"
+        $nupkgFile = fullPath "$library*.nupkg"
         $certificate = fullPath "build\windows\ImageMagick.pfx"
         & $nuget sign $nupkgFile -CertificatePath "$certificate" -CertificatePassword "$pfxPassword" -Timestamper http://sha256timestamp.ws.symantec.com/sha256/timestamp
         checkExitCode "Failed to sign NuGet package"
