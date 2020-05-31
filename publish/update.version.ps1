@@ -77,6 +77,7 @@ function updateMagickNETProps() {
 
 function updateCoreVersion($xml) {
     $version = getVersion "Magick.NET.Core"
+
     $namespaceManager = New-Object -TypeName "Xml.XmlNamespaceManager" -ArgumentList $xml.NameTable
     $namespaceManager.AddNamespace("nuspec", $xml.DocumentElement.NamespaceURI)
     $nodes = $xml.SelectNodes("//nuspec:dependency[@id='Magick.NET.Core']", $namespaceManager)

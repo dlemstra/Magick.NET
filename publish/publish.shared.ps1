@@ -53,6 +53,8 @@ function loadAndInitNuSpec($package, $version, $commit) {
         $xml.package.metadata.version = $version
     }
 
+    $namespaceManager = New-Object -TypeName "Xml.XmlNamespaceManager" -ArgumentList $xml.NameTable
+    $namespaceManager.AddNamespace("nuspec", $xml.DocumentElement.NamespaceURI)
     $repository = $xml.SelectSingleNode("//nuspec:repository", $namespaceManager)
     $repository.SetAttribute("commit", $commit)
 
