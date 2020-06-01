@@ -15,7 +15,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public partial class MagickImageTests
+    public partial class MagickFactoryTests
     {
         [TestClass]
         public class TheQuantumInfoProperty
@@ -23,33 +23,29 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldHaveTheCorrectDephValue()
             {
-                using (var image = new MagickImage())
-                {
+                var factory = new MagickFactory();
 #if Q8
-                    Assert.AreEqual(image.QuantumInfo.Depth, 8);
+                Assert.AreEqual(factory.QuantumInfo.Depth, 8);
 #elif Q16 || Q16HDRI
-                    Assert.AreEqual(image.QuantumInfo.Depth, 16);
+                Assert.AreEqual(factory.QuantumInfo.Depth, 16);
 #else
 #error Not implemented!
 #endif
-                }
             }
 
             [TestMethod]
             public void ShouldHaveTheCorrectMaxValue()
             {
-                using (var image = new MagickImage())
-                {
+                var factory = new MagickFactory();
 #if Q8
-                    Assert.AreEqual(image.QuantumInfo.Max, byte.MaxValue);
+                Assert.AreEqual(factory.QuantumInfo.Max, byte.MaxValue);
 #elif Q16
-                    Assert.AreEqual(image.QuantumInfo.Max, ushort.MaxValue);
+                Assert.AreEqual(factory.QuantumInfo.Max, ushort.MaxValue);
 #elif Q16HDRI
-                    Assert.AreEqual(image.QuantumInfo.Max, (float)ushort.MaxValue);
+                Assert.AreEqual(factory.QuantumInfo.Max, (float)ushort.MaxValue);
 #else
 #error Not implemented!
 #endif
-                }
             }
         }
     }

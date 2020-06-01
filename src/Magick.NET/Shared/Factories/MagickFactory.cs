@@ -66,6 +66,12 @@ namespace ImageMagick
         public IMagickImageInfoFactory ImageInfo { get; }
 
         /// <summary>
+        /// Gets the quantum information of this image.
+        /// </summary>
+        public IQuantumInfo<QuantumType> QuantumInfo
+            => ImageMagick.QuantumInfo.Instance;
+
+        /// <summary>
         /// Gets a factory that can be used to create various settings.
         /// </summary>
         public ISettingsFactory<QuantumType> Settings { get; }

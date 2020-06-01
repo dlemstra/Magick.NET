@@ -837,12 +837,6 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Gets the quantum information of this image.
-        /// </summary>
-        public IQuantumInfo<QuantumType> QuantumInfo
-            => ImageMagick.QuantumInfo.Instance;
-
-        /// <summary>
         /// Gets or sets the type of rendering intent.
         /// </summary>
         public RenderingIntent RenderingIntent
