@@ -22,20 +22,23 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickGeometry"/> class.
         /// </summary>
-        public MagickGeometry() => Initialize(0, 0, 0, 0);
+        public MagickGeometry()
+            => Initialize(0, 0, 0, 0);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified width and height.
         /// </summary>
         /// <param name="widthAndHeight">The width and height.</param>
-        public MagickGeometry(int widthAndHeight) => Initialize(0, 0, widthAndHeight, widthAndHeight);
+        public MagickGeometry(int widthAndHeight)
+            => Initialize(0, 0, widthAndHeight, widthAndHeight);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified width and height.
         /// </summary>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        public MagickGeometry(int width, int height) => Initialize(0, 0, width, height);
+        public MagickGeometry(int width, int height)
+            => Initialize(0, 0, width, height);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified offsets, width and height.
@@ -44,7 +47,8 @@ namespace ImageMagick
         /// <param name="y">The Y offset from origin.</param>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        public MagickGeometry(int x, int y, int width, int height) => Initialize(x, y, width, height);
+        public MagickGeometry(int x, int y, int width, int height)
+            => Initialize(x, y, width, height);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified width and height.
@@ -94,7 +98,8 @@ namespace ImageMagick
             }
         }
 
-        private MagickGeometry(NativeMagickGeometry instance) => Initialize(instance);
+        private MagickGeometry(NativeMagickGeometry instance)
+            => Initialize(instance);
 
         /// <summary>
         /// Gets a value indicating whether the value is an aspect ratio.
@@ -156,7 +161,8 @@ namespace ImageMagick
         /// </summary>
         /// <param name="value">Geometry specifications in the form: &lt;width&gt;x&lt;height&gt;
         /// {+-}&lt;xoffset&gt;{+-}&lt;yoffset&gt; (where width, height, xoffset, and yoffset are numbers).</param>
-        public static explicit operator MagickGeometry(string value) => new MagickGeometry(value);
+        public static explicit operator MagickGeometry(string value)
+            => new MagickGeometry(value);
 
         /// <summary>
         /// Determines whether the specified <see cref="MagickGeometry"/> instances are considered equal.
@@ -322,7 +328,8 @@ namespace ImageMagick
         /// Returns a <see cref="PointD"/> that represents the position of the current <see cref="IMagickGeometry"/>.
         /// </summary>
         /// <returns>A <see cref="PointD"/> that represents the position of the current <see cref="IMagickGeometry"/>.</returns>
-        public PointD ToPoint() => new PointD(X, Y);
+        public PointD ToPoint()
+            => new PointD(X, Y);
 
         /// <summary>
         /// Returns a string that represents the current <see cref="IMagickGeometry"/>.
