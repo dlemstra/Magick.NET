@@ -96,34 +96,34 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)/../Magick.Native/resources/Release$(QuantumType)/colors.xml">
+    <EmbeddedResource Include="../Magick.Native/resources/Release$(QuantumType)/colors.xml" Link="Resources/colors.xml">
       <LogicalName>ImageMagick.Resources.Xml.colors.xml</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)/../Magick.Native/resources/Release$(QuantumType)/configure.xml">
+    <EmbeddedResource Include="../Magick.Native/resources/Release$(QuantumType)/configure.xml" Link="Resources/configure.xml">
       <LogicalName>ImageMagick.Resources.Xml.configure.xml</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)/../Magick.Native/resources/Release$(QuantumType)/delegates.xml">
+    <EmbeddedResource Include="../Magick.Native/resources/Release$(QuantumType)/delegates.xml" Link="Resources/delegates.xml">
       <LogicalName>ImageMagick.Resources.Xml.delegates.xml</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)/../Magick.Native/resources/Release$(QuantumType)/english.xml">
+    <EmbeddedResource Include="../Magick.Native/resources/Release$(QuantumType)/english.xml" Link="Resources/english.xml">
       <LogicalName>ImageMagick.Resources.Xml.english.xml</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)/../Magick.Native/resources/Release$(QuantumType)/locale.xml">
+    <EmbeddedResource Include="../Magick.Native/resources/Release$(QuantumType)/locale.xml" Link="Resources/locale.xml">
       <LogicalName>ImageMagick.Resources.Xml.locale.xml</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)/../Magick.Native/resources/Release$(QuantumType)/log.xml">
+    <EmbeddedResource Include="../Magick.Native/resources/Release$(QuantumType)/log.xml" Link="Resources/log.xml">
       <LogicalName>ImageMagick.Resources.Xml.log.xml</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)/../Magick.Native/resources/Release$(QuantumType)/policy.xml">
+    <EmbeddedResource Include="../Magick.Native/resources/Release$(QuantumType)/policy.xml" Link="Resources/policy.xml">
       <LogicalName>ImageMagick.Resources.Xml.policy.xml</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)/../Magick.Native/resources/Release$(QuantumType)/thresholds.xml">
+    <EmbeddedResource Include="../Magick.Native/resources/Release$(QuantumType)/thresholds.xml" Link="Resources/thresholds.xml">
       <LogicalName>ImageMagick.Resources.Xml.thresholds.xml</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)/../Magick.Native/resources/Release$(QuantumType)/type.xml">
+    <EmbeddedResource Include="../Magick.Native/resources/Release$(QuantumType)/type.xml" Link="Resources/type.xml">
       <LogicalName>ImageMagick.Resources.Xml.type.xml</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)/../Magick.Native/resources/Release$(QuantumType)/type-ghostscript.xml">
+    <EmbeddedResource Include="../Magick.Native/resources/Release$(QuantumType)/type-ghostscript.xml" Link="Resources/type-ghostscript.xml">
       <LogicalName>ImageMagick.Resources.Xml.type-ghostscript.xml</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
