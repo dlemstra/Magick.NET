@@ -19,6 +19,7 @@ namespace ImageMagick
     /// </summary>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     public interface IUnsafePixelCollection<TQuantumType> : IPixelCollection<TQuantumType>
+        where TQuantumType : struct
     {
         /// <summary>
         /// Returns a pointer to the pixels of the specified area.

@@ -24,7 +24,8 @@ namespace ImageMagick
         /// </summary>
         /// /// <param name="self">The geometry.</param>
         /// <param name="rectangle">The <see cref="Rectangle"/> to convert.</param>
-        public static void SetFromRectangle(this IMagickGeometry self, Rectangle rectangle) => self?.Initialize(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
+        public static void SetFromRectangle(this IMagickGeometry self, Rectangle rectangle)
+            => self?.Initialize(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
 
         /// <summary>
         /// Converts the value of this instance to an equivalent <see cref="Rectangle"/>.

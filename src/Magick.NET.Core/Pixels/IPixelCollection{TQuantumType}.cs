@@ -20,6 +20,7 @@ namespace ImageMagick
     /// </summary>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     public interface IPixelCollection<TQuantumType> : IEnumerable<IPixel<TQuantumType>>, IDisposable
+        where TQuantumType : struct
     {
         /// <summary>
         /// Gets the number of channels that the image contains.

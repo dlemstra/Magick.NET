@@ -19,6 +19,7 @@ namespace ImageMagick
     /// </summary>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     public interface IMagickSearchResult<TQuantumType> : IDisposable
+        where TQuantumType : struct
     {
         /// <summary>
         /// Gets the offset for the best match.

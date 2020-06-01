@@ -20,6 +20,7 @@ namespace ImageMagick
     /// </summary>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     public interface IMagickFactory<TQuantumType> : IMagickFactory
+        where TQuantumType : struct
     {
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImageCollection{TQuantumType}"/>.

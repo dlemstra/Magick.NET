@@ -19,6 +19,7 @@ namespace ImageMagick
     /// </summary>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     public interface IMagickColor<TQuantumType> : IEquatable<IMagickColor<TQuantumType>>, IComparable<IMagickColor<TQuantumType>>
+        where TQuantumType : struct
     {
         /// <summary>
         /// Gets or sets the alpha component value of this color.

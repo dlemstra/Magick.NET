@@ -28,6 +28,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         /// <returns>A new <see cref="IMagickImage{QuantumType}"/> instance.</returns>
         public static IMagickImage<TQuantumType> CreateImage<TQuantumType>(this IMagickFactory<TQuantumType> self, Bitmap bitmap)
+            where TQuantumType : struct
         {
             Throw.IfNull(nameof(self), self);
 

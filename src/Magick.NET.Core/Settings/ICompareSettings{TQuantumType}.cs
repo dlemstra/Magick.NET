@@ -17,6 +17,7 @@ namespace ImageMagick
     /// </summary>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     public interface ICompareSettings<TQuantumType>
+        where TQuantumType : struct
     {
         /// <summary>
         /// Gets or sets the error metric to use.

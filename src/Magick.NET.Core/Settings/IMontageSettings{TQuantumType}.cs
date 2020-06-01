@@ -17,6 +17,7 @@ namespace ImageMagick
     /// </summary>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     public interface IMontageSettings<TQuantumType>
+        where TQuantumType : struct
     {
         /// <summary>
         /// Gets or sets the color of the background that thumbnails are composed on.

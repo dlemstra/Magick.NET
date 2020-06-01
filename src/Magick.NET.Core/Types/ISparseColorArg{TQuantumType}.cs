@@ -17,6 +17,7 @@ namespace ImageMagick
     /// </summary>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     public interface ISparseColorArg<TQuantumType>
+        where TQuantumType : struct
     {
         /// <summary>
         /// Gets or sets the X position.

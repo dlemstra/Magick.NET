@@ -20,6 +20,7 @@ namespace ImageMagick
     /// </summary>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     public interface IMagickSettings<TQuantumType>
+        where TQuantumType : struct
     {
         /// <summary>
         /// Gets or sets the affine to use when annotating with text or drawing.

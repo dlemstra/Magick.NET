@@ -28,6 +28,7 @@ namespace ImageMagick
         /// <typeparam name="TQuantumType">The quantum type.</typeparam>
         /// <returns>A <see cref="Bitmap"/> that has the format <see cref="ImageFormat.Tiff"/>.</returns>
         public static Bitmap ToBitmap<TQuantumType>(this IMagickImageCollection<TQuantumType> self)
+            where TQuantumType : struct
         {
             Throw.IfNull(nameof(self), self);
 
@@ -46,6 +47,7 @@ namespace ImageMagick
         /// <typeparam name="TQuantumType">The quantum type.</typeparam>
         /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/>.</returns>
         public static Bitmap ToBitmap<TQuantumType>(this IMagickImageCollection<TQuantumType> self, ImageFormat imageFormat)
+            where TQuantumType : struct
         {
             Throw.IfNull(nameof(self), self);
             Throw.IfNull(nameof(imageFormat), imageFormat);

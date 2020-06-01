@@ -21,6 +21,7 @@ namespace ImageMagick
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     [SuppressMessage("Naming", "CA1710", Justification = "No need to use Collection suffix.")]
     public partial interface IDrawables<TQuantumType> : IEnumerable<IDrawable>
+        where TQuantumType : struct
     {
         /// <summary>
         /// Draw on the specified image.

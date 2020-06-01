@@ -17,6 +17,7 @@ namespace ImageMagick
     /// </summary>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     public interface IPixelReadSettings<TQuantumType>
+        where TQuantumType : struct
     {
         /// <summary>
         /// Gets or sets the mapping of the pixels (e.g. RGB/RGBA/ARGB).

@@ -10,7 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -21,6 +20,7 @@ namespace ImageMagick
     /// </summary>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     public interface IMagickImageCollection<TQuantumType> : IMagickImageCollection, IList<IMagickImage<TQuantumType>>
+        where TQuantumType : struct
     {
         /// <summary>
         /// Adds the image(s) from the specified byte array to the collection.

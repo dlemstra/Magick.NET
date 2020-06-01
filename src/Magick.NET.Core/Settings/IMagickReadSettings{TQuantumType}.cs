@@ -17,6 +17,7 @@ namespace ImageMagick
     /// </summary>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     public interface IMagickReadSettings<TQuantumType> : IMagickSettings<TQuantumType>
+        where TQuantumType : struct
     {
         /// <summary>
         /// Gets or sets the defines that should be set before the image is read.
