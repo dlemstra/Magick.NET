@@ -35,8 +35,14 @@ namespace ImageMagick
         /// </summary>
         public MagickFactory()
         {
+            ImageInfo = new MagickImageInfoFactory();
             Settings = new SettingsFactory();
         }
+
+        /// <summary>
+        /// Gets a factory that can be used to create <see cref="IMagickImageInfo"/> instances.
+        /// </summary>
+        public IMagickImageInfoFactory ImageInfo { get; }
 
         /// <summary>
         /// Gets a factory that can be used to create various settings.
@@ -337,59 +343,5 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public IMagickImage<QuantumType> CreateImage(string fileName, IPixelReadSettings<QuantumType> settings)
             => new MagickImage(fileName, settings);
-
-        /// <summary>
-        /// Initializes a new instance that implements <see cref="IMagickImageInfo"/>.
-        /// </summary>
-        /// <returns>A new <see cref="IMagickImageInfo"/> instance.</returns>
-        public IMagickImageInfo CreateImageInfo()
-            => new MagickImageInfo();
-
-        /// <summary>
-        /// Initializes a new instance that implements <see cref="IMagickImageInfo"/>.
-        /// </summary>
-        /// <param name="data">The byte array to read the information from.</param>
-        /// <returns>A new <see cref="IMagickImageInfo"/> instance.</returns>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImageInfo CreateImageInfo(byte[] data)
-            => new MagickImageInfo(data);
-
-        /// <summary>
-        /// Initializes a new instance that implements <see cref="IMagickImageInfo"/>.
-        /// </summary>
-        /// <param name="data">The byte array to read the information from.</param>
-        /// <param name="offset">The offset at which to begin reading data.</param>
-        /// <param name="count">The maximum number of bytes to read.</param>
-        /// <returns>A new <see cref="IMagickImageInfo"/> instance.</returns>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImageInfo CreateImageInfo(byte[] data, int offset, int count)
-            => new MagickImageInfo(data, offset, count);
-
-        /// <summary>
-        /// Initializes a new instance that implements <see cref="IMagickImageInfo"/>.
-        /// </summary>
-        /// <param name="file">The file to read the image from.</param>
-        /// <returns>A new <see cref="IMagickImageInfo"/> instance.</returns>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImageInfo CreateImageInfo(FileInfo file)
-            => new MagickImageInfo(file);
-
-        /// <summary>
-        /// Initializes a new instance that implements <see cref="IMagickImageInfo"/>.
-        /// </summary>
-        /// <param name="stream">The stream to read the image data from.</param>
-        /// <returns>A new <see cref="IMagickImageInfo"/> instance.</returns>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImageInfo CreateImageInfo(Stream stream)
-            => new MagickImageInfo(stream);
-
-        /// <summary>
-        /// Initializes a new instance that implements <see cref="IMagickImageInfo"/>.
-        /// </summary>
-        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-        /// <returns>A new <see cref="IMagickImageInfo"/> instance.</returns>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImageInfo CreateImageInfo(string fileName)
-            => new MagickImageInfo(fileName);
     }
 }

@@ -16,7 +16,7 @@ using System.IO;
 namespace ImageMagick
 {
     /// <summary>
-    /// Interface for a class that can be used to create <see cref="IMagickImage{TQuantumType}"/>, <see cref="IMagickImageCollection{TQuantumType}"/> or <see cref="IMagickImageInfo"/> instances.
+    /// Class that can be used to create various instances.
     /// </summary>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     public interface IMagickFactory<TQuantumType> : IMagickFactory
