@@ -19,6 +19,7 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageInfoFactoryTests
     {
+        [TestClass]
         public partial class TheCreateMethod
         {
             [TestMethod]
