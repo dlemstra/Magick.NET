@@ -9,4 +9,5 @@ IMVERSION.MAJOR.MINOR.PATCH
 - MINOR will be incremented when a functionality is added in a backwards-compatible manner
 - PATCH will be incremented when only the ImageMagick libraries are rebuild with a newer version
 
-The AssemblyVersion will only change when IMVERSION, MAJOR or MINOR are modified.
+The other libraries use normal semver and have the follow version strategy: MAJOR.MINOR.PATCH.0.
+And the AssemblyVersion will only change when one of the first three number is modified. 
