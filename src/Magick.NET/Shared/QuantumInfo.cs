@@ -34,6 +34,6 @@ namespace ImageMagick
 
         public int Depth { get; }
 
-        public byte Max { get; }
+        public QuantumType Max { get; }
     }
 }
