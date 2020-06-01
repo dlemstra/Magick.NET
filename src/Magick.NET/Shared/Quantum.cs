@@ -29,15 +29,21 @@ namespace ImageMagick
     /// </summary>
     public static partial class Quantum
     {
+        static Quantum()
+        {
+            Depth = NativeQuantum.Depth;
+            Max = NativeQuantum.Max;
+        }
+
         /// <summary>
-        /// Gets the Quantum depth.
+        /// Gets the quantum depth.
         /// </summary>
-        public static int Depth => NativeQuantum.Depth;
+        public static int Depth { get; }
 
         /// <summary>
         /// Gets the maximum value of the quantum.
         /// </summary>
-        public static QuantumType Max => NativeQuantum.Max;
+        public static QuantumType Max { get; }
 
         internal static QuantumType Convert(byte value)
         {

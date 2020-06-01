@@ -10,29 +10,30 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace Magick.NET.Tests
-{
-    public partial class QuantumTests
-    {
-        [TestClass]
-        public class TheMaxProperty
-        {
-            [TestMethod]
-            public void ShouldHaveTheCorrectValue()
-            {
 #if Q8
-                Assert.AreEqual(Quantum.Max, byte.MaxValue);
+using QuantumType = System.Byte;
 #elif Q16
-                Assert.AreEqual(Quantum.Max, ushort.MaxValue);
+using QuantumType = System.UInt16;
 #elif Q16HDRI
-                Assert.AreEqual(Quantum.Max, (float)ushort.MaxValue);
+using QuantumType = System.Single;
 #else
 #error Not implemented!
 #endif
-            }
+
+namespace ImageMagick
+{
+    internal sealed class QuantumInfo : IQuantumInfo<QuantumType>
+    {
+        private QuantumInfo(int depth, QuantumType max)
+        {
+            Depth = depth;
+            Max = max;
         }
+
+        public static QuantumInfo Instance { get; } = new QuantumInfo(Quantum.Depth, Quantum.Max);
+
+        public int Depth { get; }
+
+        public byte Max { get; }
     }
 }

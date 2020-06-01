@@ -15,20 +15,18 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public partial class QuantumTests
+    public partial class QuantumInfoTests
     {
         [TestClass]
-        public class TheMaxProperty
+        public class TheDepthProperty
         {
             [TestMethod]
             public void ShouldHaveTheCorrectValue()
             {
 #if Q8
-                Assert.AreEqual(Quantum.Max, byte.MaxValue);
-#elif Q16
-                Assert.AreEqual(Quantum.Max, ushort.MaxValue);
-#elif Q16HDRI
-                Assert.AreEqual(Quantum.Max, (float)ushort.MaxValue);
+                Assert.AreEqual(QuantumInfo.Instance.Depth, 8);
+#elif Q16 || Q16HDRI
+                Assert.AreEqual(QuantumInfo.Instance.Depth, 16);
 #else
 #error Not implemented!
 #endif

@@ -15,7 +15,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public partial class QuantumTests
+    public partial class QuantumInfoTests
     {
         [TestClass]
         public class TheMaxProperty
@@ -24,11 +24,11 @@ namespace Magick.NET.Tests
             public void ShouldHaveTheCorrectValue()
             {
 #if Q8
-                Assert.AreEqual(Quantum.Max, byte.MaxValue);
+                Assert.AreEqual(QuantumInfo.Instance.Max, byte.MaxValue);
 #elif Q16
-                Assert.AreEqual(Quantum.Max, ushort.MaxValue);
+                Assert.AreEqual(QuantumInfo.Instance.Max, ushort.MaxValue);
 #elif Q16HDRI
-                Assert.AreEqual(Quantum.Max, (float)ushort.MaxValue);
+                Assert.AreEqual(QuantumInfo.Instance.Max, (float)ushort.MaxValue);
 #else
 #error Not implemented!
 #endif

@@ -39,6 +39,11 @@ namespace ImageMagick
         IMagickColor<TQuantumType> MatteColor { get; set; }
 
         /// <summary>
+        /// Gets the quantum information of this image.
+        /// </summary>
+        IQuantumInfo<TQuantumType> QuantumInfo { get; }
+
+        /// <summary>
         /// Gets the settings for this instance.
         /// </summary>
         IMagickSettings<TQuantumType> Settings { get; }
