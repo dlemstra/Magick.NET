@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
                 var settings = factory.CreateComplexSettings();
 
                 Assert.IsNotNull(settings);
-                Assert.IsInstanceOfType(settings, typeof(CompareSettings));
+                Assert.IsInstanceOfType(settings, typeof(ComplexSettings));
             }
         }
     }
