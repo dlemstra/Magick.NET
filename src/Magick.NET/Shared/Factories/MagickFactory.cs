@@ -32,11 +32,17 @@ namespace ImageMagick
         /// </summary>
         public MagickFactory()
         {
+            Geometry = new MagickGeometryFactory();
             Image = new MagickImageFactory();
             ImageCollection = new MagickImageCollectionFactory();
             ImageInfo = new MagickImageInfoFactory();
             Settings = new SettingsFactory();
         }
+
+        /// <summary>
+        /// Gets a factory that can be used to create <see cref="IMagickGeometry"/> instances.
+        /// </summary>
+        public IMagickGeometryFactory Geometry { get; }
 
         /// <summary>
         /// Gets a factory that can be used to create <see cref="IMagickImage{QuantumType}"/> instances.

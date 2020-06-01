@@ -18,6 +18,11 @@ namespace ImageMagick
     public interface IMagickFactory
     {
         /// <summary>
+        /// Gets a factory that can be used to create <see cref="IMagickGeometry"/> instances.
+        /// </summary>
+        IMagickGeometryFactory Geometry { get; }
+
+        /// <summary>
         /// Gets a factory that can be used to create <see cref="IMagickImageInfo"/> instances.
         /// </summary>
         IMagickImageInfoFactory ImageInfo { get; }
