@@ -403,6 +403,8 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Implode(IntPtr Instance, double amount, UIntPtr method, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickImage_InterpolativeResize(IntPtr Instance, UIntPtr width, UIntPtr height, UIntPtr method, out IntPtr exception);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_Kmeans(IntPtr Instance, UIntPtr numberColors, UIntPtr maxIterations, double tolerance, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Kuwahara(IntPtr Instance, double radius, double sigma, out IntPtr exception);
@@ -960,6 +962,8 @@ namespace ImageMagick
                 public static extern IntPtr MagickImage_HoughLine(IntPtr Instance, UIntPtr width, UIntPtr height, UIntPtr threshold, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Implode(IntPtr Instance, double amount, UIntPtr method, out IntPtr exception);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickImage_InterpolativeResize(IntPtr Instance, UIntPtr width, UIntPtr height, UIntPtr method, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_Kmeans(IntPtr Instance, UIntPtr numberColors, UIntPtr maxIterations, double tolerance, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -4492,6 +4496,25 @@ namespace ImageMagick
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickImage_Implode(Instance, amount, (UIntPtr)method, out exception);
+                #endif
+                CheckException(exception, result);
+                Instance = result;
+            }
+            public void InterpolativeResize(int width, int height, PixelInterpolateMethod method)
+            {
+                IntPtr exception = IntPtr.Zero;
+                IntPtr result;
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_InterpolativeResize(Instance, (UIntPtr)width, (UIntPtr)height, (UIntPtr)method, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_InterpolativeResize(Instance, (UIntPtr)width, (UIntPtr)height, (UIntPtr)method, out exception);
                 #endif
                 CheckException(exception, result);
                 Instance = result;

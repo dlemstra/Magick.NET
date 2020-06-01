@@ -1333,6 +1333,15 @@ namespace ImageMagick
         void Implode(double amount, PixelInterpolateMethod method);
 
         /// <summary>
+        /// Resize image to specified size using the specified interpolation method.
+        /// </summary>
+        /// <param name="width">The new width.</param>
+        /// <param name="height">The new height.</param>
+        /// <param name="method">Pixel interpolate method.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void InterpolativeResize(int width, int height, PixelInterpolateMethod method);
+
+        /// <summary>
         /// Applies the reversed level operation to just the specific channels specified. It compresses
         /// the full range of color values, so that they lie between the given black and white points.
         /// Gamma is applied before the values are mapped. Uses a midpoint of 1.0.

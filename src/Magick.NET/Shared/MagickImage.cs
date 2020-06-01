@@ -3463,6 +3463,16 @@ namespace ImageMagick
             => _nativeInstance.Implode(amount, method);
 
         /// <summary>
+        /// Resize image to specified size using the specified interpolation method.
+        /// </summary>
+        /// <param name="width">The new width.</param>
+        /// <param name="height">The new height.</param>
+        /// <param name="method">Pixel interpolate method.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void InterpolativeResize(int width, int height, PixelInterpolateMethod method)
+            => _nativeInstance.InterpolativeResize(width, height, method);
+
+        /// <summary>
         /// Floodfill pixels not matching color (within fuzz factor) of target pixel(x,y) with
         /// replacement alpha value using method.
         /// </summary>

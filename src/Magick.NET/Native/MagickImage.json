@@ -1515,6 +1515,25 @@
       ]
     },
     {
+      "name": "InterpolativeResize",
+      "instance": true,
+      "throws": true,
+      "arguments": [
+        {
+          "name": "width",
+          "type": "size_t"
+        },
+        {
+          "name": "height",
+          "type": "size_t"
+        },
+        {
+          "name": "method",
+          "type": "PixelInterpolateMethod"
+        }
+      ]
+    },
+    {
       "name": "Kmeans",
       "throws": true,
       "arguments": [
