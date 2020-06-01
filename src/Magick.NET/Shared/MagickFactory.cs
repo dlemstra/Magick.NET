@@ -31,6 +31,19 @@ namespace ImageMagick
     public sealed partial class MagickFactory : IMagickFactory<QuantumType>
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="MagickFactory"/> class.
+        /// </summary>
+        public MagickFactory()
+        {
+            Settings = new SettingsFactory();
+        }
+
+        /// <summary>
+        /// Gets a factory that can be used to create various settings.
+        /// </summary>
+        public ISettingsFactory<QuantumType> Settings { get; }
+
+        /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImageCollection{TQuantumType}"/>.
         /// </summary>
         /// <returns>A new <see cref="IMagickImageCollection{TQuantumType}"/> instance.</returns>

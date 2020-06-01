@@ -23,6 +23,11 @@ namespace ImageMagick
         where TQuantumType : struct
     {
         /// <summary>
+        /// Gets a factory that can be used to create various settings.
+        /// </summary>
+        ISettingsFactory<TQuantumType> Settings { get; }
+
+        /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImageCollection{TQuantumType}"/>.
         /// </summary>
         /// <returns>A new <see cref="IMagickImageCollection{TQuantumType}"/> instance.</returns>
