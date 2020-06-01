@@ -15,24 +15,24 @@ using System.Drawing;
 namespace ImageMagick
 {
     /// <summary>
-    /// Extension methods for the <see cref="IMagickFactory{QuantumType}"/> interface.
+    /// Extension methods for the <see cref="IMagickImageFactory{QuantumType}"/> interface.
     /// </summary>
-    public static class IMagickFactoryExtensions
+    public static class IMagickImageFactoryExtensions
     {
         /// <summary>
-        /// Initializes a new instance that implements <see cref="IMagickImage{TQuantumType}"/>.
+        /// Initializes a new instance that implements <see cref="IMagickImageFactory{TQuantumType}"/>.
         /// </summary>
         /// <param name="self">The image factory.</param>
         /// <param name="bitmap">The bitmap to use.</param>
         /// <typeparam name="TQuantumType">The quantum type.</typeparam>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         /// <returns>A new <see cref="IMagickImage{QuantumType}"/> instance.</returns>
-        public static IMagickImage<TQuantumType> CreateImage<TQuantumType>(this IMagickFactory<TQuantumType> self, Bitmap bitmap)
+        public static IMagickImage<TQuantumType> Create<TQuantumType>(this IMagickImageFactory<TQuantumType> self, Bitmap bitmap)
             where TQuantumType : struct
         {
             Throw.IfNull(nameof(self), self);
 
-            var image = self.CreateImage();
+            var image = self.Create();
             image.Read(bitmap);
 
             return image;

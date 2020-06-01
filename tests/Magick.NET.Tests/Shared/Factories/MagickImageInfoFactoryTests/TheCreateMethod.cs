@@ -17,7 +17,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public partial class MagickFactoryTests
+    public partial class MagickImageInfoFactoryTests
     {
         public partial class TheCreateMethod
         {

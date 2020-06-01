@@ -16,17 +16,17 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.SystemDrawing.Tests
 {
-    public partial class MagickFactoryTests
+    public partial class MagickImageFactoryTests
     {
-        public partial class TheCreateImageMethod
+        public partial class TheCreateMethod
         {
             [TestMethod]
             public void ShouldCreateImageFromBitmap()
             {
-                using (Bitmap bitmap = new Bitmap(Files.SnakewarePNG))
+                using (var bitmap = new Bitmap(Files.SnakewarePNG))
                 {
-                    MagickFactory factory = new MagickFactory();
-                    using (var image = factory.CreateImage(bitmap))
+                    var factory = new MagickImageFactory();
+                    using (var image = factory.Create(bitmap))
                     {
                         Assert.AreEqual(286, image.Width);
                         Assert.AreEqual(67, image.Height);
