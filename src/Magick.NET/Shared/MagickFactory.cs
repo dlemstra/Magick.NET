@@ -33,6 +33,7 @@ namespace ImageMagick
         public MagickFactory()
         {
             Image = new MagickImageFactory();
+            ImageCollection = new MagickImageCollectionFactory();
             ImageInfo = new MagickImageInfoFactory();
             Settings = new SettingsFactory();
         }
