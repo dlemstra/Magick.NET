@@ -29,7 +29,7 @@ namespace Magick.NET.Tests
 
                 using (var images = factory.Create())
                 {
-                    Assert.IsInstanceOfType(images, typeof(MagickImage));
+                    Assert.IsInstanceOfType(images, typeof(MagickImageCollection));
                 }
             }
 
