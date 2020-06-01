@@ -25,6 +25,11 @@ namespace ImageMagick
         IMagickColorFactory<TQuantumType> Color { get; }
 
         /// <summary>
+        /// Gets a factory that can be used to create <see cref="IDrawables{QuantumType}"/> instances.
+        /// </summary>
+        IDrawablesFactory<TQuantumType> Drawables { get; }
+
+        /// <summary>
         /// Gets a factory that can be used to create <see cref="IMagickImage{TQuantumType}"/> instances.
         /// </summary>
         IMagickImageFactory<TQuantumType> Image { get; }

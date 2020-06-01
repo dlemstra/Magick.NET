@@ -33,6 +33,7 @@ namespace ImageMagick
         public MagickFactory()
         {
             Color = new MagickColorFactory();
+            Drawables = new DrawablesFactory();
             Geometry = new MagickGeometryFactory();
             Image = new MagickImageFactory();
             ImageCollection = new MagickImageCollectionFactory();
@@ -44,6 +45,11 @@ namespace ImageMagick
         /// Gets a factory that can be used to create <see cref="IMagickColorFactory{TQuantumType}"/> instances.
         /// </summary>
         public IMagickColorFactory<QuantumType> Color { get; }
+
+        /// <summary>
+        /// Gets a factory that can be used to create <see cref="IDrawables{QuantumType}"/> instances.
+        /// </summary>
+        public IDrawablesFactory<QuantumType> Drawables { get; }
 
         /// <summary>
         /// Gets a factory that can be used to create <see cref="IMagickGeometry"/> instances.
