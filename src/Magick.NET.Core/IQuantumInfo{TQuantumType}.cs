@@ -21,11 +21,11 @@ namespace ImageMagick
         /// <summary>
         /// Gets the quantum depth.
         /// </summary>
-        public int Depth { get; }
+        int Depth { get; }
 
         /// <summary>
         /// Gets the maximum value of the quantum.
         /// </summary>
-        public TQuantumType Max { get; }
+        TQuantumType Max { get; }
     }
 }
