@@ -20,6 +20,11 @@ namespace ImageMagick
         where TQuantumType : struct
     {
         /// <summary>
+        /// Gets a factory that can be used to create <see cref="IMagickColorFactory{TQuantumType}"/> instances.
+        /// </summary>
+        IMagickColorFactory<TQuantumType> Color { get; }
+
+        /// <summary>
         /// Gets a factory that can be used to create <see cref="IMagickImage{TQuantumType}"/> instances.
         /// </summary>
         IMagickImageFactory<TQuantumType> Image { get; }
