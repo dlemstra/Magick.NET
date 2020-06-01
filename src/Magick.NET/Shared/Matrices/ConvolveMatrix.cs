@@ -20,7 +20,7 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="ConvolveMatrix"/> class.
         /// </summary>
-        /// <param name="order">The order.</param>
+        /// <param name="order">The order (odd number).</param>
         public ConvolveMatrix(int order)
           : base(order, null)
         {
@@ -30,7 +30,7 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="ConvolveMatrix"/> class.
         /// </summary>
-        /// <param name="order">The order.</param>
+        /// <param name="order">The order (odd number).</param>
         /// <param name="values">The values to initialize the matrix with.</param>
         public ConvolveMatrix(int order, params double[] values)
           : base(order, values)

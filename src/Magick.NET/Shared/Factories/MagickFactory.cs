@@ -38,6 +38,7 @@ namespace ImageMagick
             Image = new MagickImageFactory();
             ImageCollection = new MagickImageCollectionFactory();
             ImageInfo = new MagickImageInfoFactory();
+            Matrix = new MatrixFactory();
             Settings = new SettingsFactory();
         }
 
@@ -70,6 +71,11 @@ namespace ImageMagick
         /// Gets a factory that can be used to create <see cref="IMagickImageInfo"/> instances.
         /// </summary>
         public IMagickImageInfoFactory ImageInfo { get; }
+
+        /// <summary>
+        /// Gets a factory that can be used to create various matrix instances.
+        /// </summary>
+        public IMatrixFactory Matrix { get; }
 
         /// <summary>
         /// Gets the quantum information of this image.
