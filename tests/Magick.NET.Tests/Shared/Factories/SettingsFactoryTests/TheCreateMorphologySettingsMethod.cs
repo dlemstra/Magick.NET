@@ -20,6 +20,7 @@ namespace Magick.NET.Tests
         [TestClass]
         public class TheCreateMorphologySettingsMethod
         {
+            [TestMethod]
             public void ShouldCreateInstance()
             {
                 var factory = new SettingsFactory();

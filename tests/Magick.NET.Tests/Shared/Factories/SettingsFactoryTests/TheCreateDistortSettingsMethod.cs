@@ -20,6 +20,7 @@ namespace Magick.NET.Tests
         [TestClass]
         public class TheCreateDistortSettingsMethod
         {
+            [TestMethod]
             public void ShouldCreateInstance()
             {
                 var factory = new SettingsFactory();
