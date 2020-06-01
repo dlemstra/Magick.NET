@@ -12,20 +12,19 @@
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Class that can be used to acquire information about the quantum.
-    /// </summary>
-    /// <typeparam name="TQuantumType">The quantum type.</typeparam>
-    public interface IQuantumInfo<TQuantumType>
+    internal class QuantumInfo<TQuantumType> : IQuantumInfo<TQuantumType>
     {
-        /// <summary>
-        /// Gets the quantum depth.
-        /// </summary>
-        int Depth { get; }
+        public QuantumInfo(int depth, TQuantumType max)
+        {
+            Depth = depth;
+            Max = max;
+        }
 
-        /// <summary>
-        /// Gets the maximum value of the quantum.
-        /// </summary>
-        TQuantumType Max { get; }
+        public int Depth { get; }
+
+        public TQuantumType Max { get; }
+
+        public IQuantumInfo<double> ToDouble()
+            => new QuantumInfo<double>(Depth, (double)(object)Max);
     }
 }

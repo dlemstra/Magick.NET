@@ -35,5 +35,8 @@ namespace ImageMagick
         public int Depth { get; }
 
         public QuantumType Max { get; }
+
+        public IQuantumInfo<double> ToDouble()
+            => new QuantumInfo<double>(Depth, Max);
     }
 }
