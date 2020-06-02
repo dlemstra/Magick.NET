@@ -717,6 +717,35 @@ namespace Magick.NET.Tests
                         ColorAssert.AreEqual(MagickColors.Red, image, 5, 5);
                     }
                 }
+
+                [TestMethod]
+                public void ShouldUseBaseDirectoryOfCurrentAppDomainWhenFileNameStartsWithTilde()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        var exception = ExceptionAssert.Throws<MagickBlobErrorException>(() =>
+                        {
+                            image.Read("~/test.gif");
+                        }, "error/blob.c/OpenBlob");
+
+                        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                        Assert.IsTrue(exception.Message.Contains(baseDirectory));
+                    }
+                }
+
+                [TestMethod]
+                public void ShouldNotUseBaseDirectoryOfCurrentAppDomainWhenFileNameIsTilde()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        var exception = ExceptionAssert.Throws<MagickBlobErrorException>(() =>
+                        {
+                            image.Read("~");
+                        }, "error/blob.c/OpenBlob");
+
+                        Assert.IsTrue(exception.Message.Contains("~"));
+                    }
+                }
             }
 
             [TestClass]

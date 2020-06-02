@@ -18,88 +18,50 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.SystemDrawing.Tests
 {
-    public partial class MagickImageTests
+    public partial class IMagickImageExtensionsTests
     {
         [TestClass]
-        public class WithBitmap
+        public partial class TheReadMethod
         {
-            public partial class TheReadMethod
+            [TestMethod]
+            public void ShouldThrowExceptionWhenBitmapIsNull()
             {
-                [TestMethod]
-                public void ShouldThrowExceptionWhenBitmapIsNull()
+                using (var image = new MagickImage())
+                {
+                    ExceptionAssert.Throws<ArgumentNullException>("bitmap", () => image.Read((Bitmap)null));
+                }
+            }
+
+            [TestMethod]
+            public void ShouldUsePngFormatWhenBitmapIsPng()
+            {
+                using (Bitmap bitmap = new Bitmap(Files.SnakewarePNG))
                 {
                     using (var image = new MagickImage())
                     {
-                        ExceptionAssert.Throws<ArgumentNullException>("bitmap", () =>
-                        {
-                            image.Read((Bitmap)null);
-                        });
-                    }
-                }
+                        image.Read(bitmap);
 
-                [TestMethod]
-                public void ShouldUsePngFormatWhenBitmapIsPng()
-                {
-                    using (Bitmap bitmap = new Bitmap(Files.SnakewarePNG))
-                    {
-                        using (var image = new MagickImage())
-                        {
-                            image.Read(bitmap);
-
-                            Assert.AreEqual(286, image.Width);
-                            Assert.AreEqual(67, image.Height);
-                            Assert.AreEqual(MagickFormat.Png, image.Format);
-                        }
-                    }
-                }
-
-                [TestMethod]
-                public void ShouldUseBmpFormatWhenBitmapIsMemoryBmp()
-                {
-                    using (Bitmap bitmap = new Bitmap(100, 50, PixelFormat.Format24bppRgb))
-                    {
-                        Assert.AreEqual(bitmap.RawFormat, ImageFormat.MemoryBmp);
-
-                        using (var image = new MagickImage())
-                        {
-                            image.Read(bitmap);
-
-                            Assert.AreEqual(100, image.Width);
-                            Assert.AreEqual(50, image.Height);
-                            Assert.AreEqual(MagickFormat.Bmp3, image.Format);
-                        }
+                        Assert.AreEqual(286, image.Width);
+                        Assert.AreEqual(67, image.Height);
+                        Assert.AreEqual(MagickFormat.Png, image.Format);
                     }
                 }
             }
 
-            public partial class WithFileName
+            [TestMethod]
+            public void ShouldUseBmpFormatWhenBitmapIsMemoryBmp()
             {
-                [TestMethod]
-                public void ShouldUseBaseDirectoryOfCurrentAppDomainWhenFileNameStartsWithTilde()
+                using (Bitmap bitmap = new Bitmap(100, 50, PixelFormat.Format24bppRgb))
                 {
+                    Assert.AreEqual(bitmap.RawFormat, ImageFormat.MemoryBmp);
+
                     using (var image = new MagickImage())
                     {
-                        var exception = ExceptionAssert.Throws<MagickBlobErrorException>(() =>
-                        {
-                            image.Read("~/test.gif");
-                        }, "error/blob.c/OpenBlob");
+                        image.Read(bitmap);
 
-                        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                        Assert.IsTrue(exception.Message.Contains(baseDirectory));
-                    }
-                }
-
-                [TestMethod]
-                public void ShouldNotUseBaseDirectoryOfCurrentAppDomainWhenFileNameIsTilde()
-                {
-                    using (var image = new MagickImage())
-                    {
-                        var exception = ExceptionAssert.Throws<MagickBlobErrorException>(() =>
-                        {
-                            image.Read("~");
-                        }, "error/blob.c/OpenBlob");
-
-                        Assert.IsTrue(exception.Message.Contains("~"));
+                        Assert.AreEqual(100, image.Width);
+                        Assert.AreEqual(50, image.Height);
+                        Assert.AreEqual(MagickFormat.Bmp3, image.Format);
                     }
                 }
             }
