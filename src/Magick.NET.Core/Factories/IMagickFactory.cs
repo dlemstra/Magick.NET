@@ -26,5 +26,10 @@ namespace ImageMagick
         /// Gets a factory that can be used to create <see cref="IMagickImageInfo"/> instances.
         /// </summary>
         IMagickImageInfoFactory ImageInfo { get; }
+
+        /// <summary>
+        /// Gets a factory that can be used to create various matrix instances.
+        /// </summary>
+        IMatrixFactory Matrix { get; }
     }
 }
