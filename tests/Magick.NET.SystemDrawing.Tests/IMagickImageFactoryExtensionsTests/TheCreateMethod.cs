@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -18,8 +19,16 @@ namespace Magick.NET.SystemDrawing.Tests
 {
     public partial class MagickImageFactoryTests
     {
+        [TestClass]
         public partial class TheCreateMethod
         {
+            [TestMethod]
+            public void ShouldThrowExceptionWhenBitmapIsNull()
+            {
+                var factory = new MagickImageFactory();
+                ExceptionAssert.Throws<ArgumentNullException>("bitmap", () => factory.Create((Bitmap)null));
+            }
+
             [TestMethod]
             public void ShouldCreateImageFromBitmap()
             {
