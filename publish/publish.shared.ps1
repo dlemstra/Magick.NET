@@ -49,12 +49,18 @@ function loadAndInitNuSpec($library, $version, $commit) {
     $fileName = fullPath "publish\$library.nuspec"
     $xml = [xml](Get-Content $fileName)
 
-    if ($version.StartsWith("0.")) {
-        $xml.package.metadata.version = $version
-    }
-
     $namespaceManager = New-Object -TypeName "Xml.XmlNamespaceManager" -ArgumentList $xml.NameTable
     $namespaceManager.AddNamespace("nuspec", $xml.DocumentElement.NamespaceURI)
+
+    if ($version.StartsWith("0.")) {
+        $xml.package.metadata.version = $version
+
+        $nodes = $xml.SelectNodes("//nuspec:dependency[@id='Magick.NET.Core']", $namespaceManager)
+        foreach ($node in $nodes) {
+            $node.SetAttribute("version", $version)
+        }
+    }
+    
     $repository = $xml.SelectSingleNode("//nuspec:repository", $namespaceManager)
     $repository.SetAttribute("commit", $commit)
 
