@@ -10,7 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -220,7 +219,7 @@ namespace ImageMagick
             {
                 case PixelFormat.Format8bppIndexed:
                     return "R";
-                case PixelFormat.Format32bppArgb:
+                case PixelFormat.Format24bppRgb:
                     return "BGR";
                 default:
                     return "BGRA";
