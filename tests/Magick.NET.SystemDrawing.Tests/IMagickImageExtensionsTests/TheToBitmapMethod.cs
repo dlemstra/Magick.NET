@@ -110,6 +110,37 @@ namespace Magick.NET.SystemDrawing.Tests
             }
 
             [TestMethod]
+            public void ShouldBeAbleToConvertRgbImage()
+            {
+                using (var image = new MagickImage(ToMagickColor(Color.Magenta), 5, 1))
+                {
+                    using (var bitmap = image.ToBitmap())
+                    {
+                        for (int i = 0; i < image.Width; i++)
+                            ColorAssert.AreEqual(MagickColors.Magenta, ToMagickColor(bitmap.GetPixel(i, 0)));
+                    }
+                }
+            }
+
+            [TestMethod]
+            public void ShouldBeAbleToConvertRgbaImage()
+            {
+                using (var image = new MagickImage(ToMagickColor(Color.Magenta), 5, 1))
+                {
+                    image.Alpha(AlphaOption.On);
+
+                    using (var bitmap = image.ToBitmap())
+                    {
+                        var color = MagickColors.Magenta;
+                        color.A = Quantum.Max;
+
+                        for (int i = 0; i < image.Width; i++)
+                            ColorAssert.AreEqual(color, ToMagickColor(bitmap.GetPixel(i, 0)));
+                    }
+                }
+            }
+
+            [TestMethod]
             public void ShouldThrowExceptionWhenImageFormatIsNull()
             {
                 using (var image = new MagickImage(ToMagickColor(Color.Red), 1, 1))
