@@ -141,10 +141,10 @@ namespace ImageMagick
             Throw.IfNull(nameof(self), self);
             Throw.IfNull(nameof(imageFormat), imageFormat);
 
-            self.Format = imageFormat.ToFormat();
+            var format = imageFormat.ToFormat();
 
             var memStream = new MemoryStream();
-            self.Write(memStream);
+            self.Write(memStream, format);
             memStream.Position = 0;
 
             /* Do not dispose the memStream, the bitmap owns it. */
@@ -227,14 +227,11 @@ namespace ImageMagick
         }
 
         private static bool IsSupportedImageFormat(ImageFormat format)
-        {
-            return
-                format.Guid.Equals(ImageFormat.Bmp.Guid) ||
-                format.Guid.Equals(ImageFormat.Gif.Guid) ||
-                format.Guid.Equals(ImageFormat.Icon.Guid) ||
-                format.Guid.Equals(ImageFormat.Jpeg.Guid) ||
-                format.Guid.Equals(ImageFormat.Png.Guid) ||
-                format.Guid.Equals(ImageFormat.Tiff.Guid);
-        }
+            => format.Guid.Equals(ImageFormat.Bmp.Guid) ||
+               format.Guid.Equals(ImageFormat.Gif.Guid) ||
+               format.Guid.Equals(ImageFormat.Icon.Guid) ||
+               format.Guid.Equals(ImageFormat.Jpeg.Guid) ||
+               format.Guid.Equals(ImageFormat.Png.Guid) ||
+               format.Guid.Equals(ImageFormat.Tiff.Guid);
     }
 }
