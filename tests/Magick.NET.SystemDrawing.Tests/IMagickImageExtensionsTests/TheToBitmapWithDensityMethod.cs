@@ -21,7 +21,7 @@ namespace Magick.NET.SystemDrawing.Tests
     public partial class IMagickImageExtensionsTests
     {
         [TestClass]
-        public class TheToBitmapMethod
+        public class TheToBitmapWithDensityMethod
         {
             [TestMethod]
             public void ShouldThrowExceptionWhenImageFormatIsExif()
@@ -84,7 +84,7 @@ namespace Magick.NET.SystemDrawing.Tests
                 {
                     image.ColorSpace = ColorSpace.YCbCr;
 
-                    using (var bitmap = image.ToBitmap())
+                    using (var bitmap = image.ToBitmapWithDensity())
                     {
                         ColorAssert.AreEqual(MagickColors.Red, ToMagickColor(bitmap.GetPixel(0, 0)));
                     }
@@ -101,10 +101,25 @@ namespace Magick.NET.SystemDrawing.Tests
                     image.ColorType = ColorType.Bilevel;
                     image.ClassType = ClassType.Direct;
 
-                    using (var bitmap = image.ToBitmap())
+                    using (var bitmap = image.ToBitmapWithDensity())
                     {
                         for (int i = 0; i < image.Width; i++)
                             ColorAssert.AreEqual(MagickColors.White, ToMagickColor(bitmap.GetPixel(i, 0)));
+                    }
+                }
+            }
+
+            [TestMethod]
+            public void ShouldSetTheDensityOfTheBitmap()
+            {
+                using (var image = new MagickImage(ToMagickColor(Color.Red), 1, 1))
+                {
+                    image.Density = new Density(300, 200);
+
+                    using (var bitmap = image.ToBitmapWithDensity())
+                    {
+                        Assert.AreEqual(300, (int)bitmap.HorizontalResolution);
+                        Assert.AreEqual(200, (int)bitmap.VerticalResolution);
                     }
                 }
             }
@@ -118,13 +133,28 @@ namespace Magick.NET.SystemDrawing.Tests
                 }
             }
 
+            [TestMethod]
+            public void ShouldSetTheDensityOfTheBitmapWhenFormatIsUsed()
+            {
+                using (var image = new MagickImage(ToMagickColor(Color.Red), 1, 1))
+                {
+                    image.Density = new Density(300, 200);
+
+                    using (var bitmap = image.ToBitmapWithDensity(ImageFormat.Jpeg))
+                    {
+                        Assert.AreEqual(300, (int)bitmap.HorizontalResolution);
+                        Assert.AreEqual(200, (int)bitmap.VerticalResolution);
+                    }
+                }
+            }
+
             private void AssertUnsupportedImageFormat(ImageFormat imageFormat)
             {
                 using (var image = new MagickImage(MagickColors.Red, 10, 10))
                 {
                     ExceptionAssert.Throws<NotSupportedException>(() =>
                     {
-                        image.ToBitmap(imageFormat);
+                        image.ToBitmapWithDensity(imageFormat);
                     });
                 }
             }
@@ -133,7 +163,7 @@ namespace Magick.NET.SystemDrawing.Tests
             {
                 using (var image = new MagickImage(MagickColors.Red, 10, 10))
                 {
-                    using (var bitmap = image.ToBitmap(imageFormat))
+                    using (var bitmap = image.ToBitmapWithDensity(imageFormat))
                     {
                         Assert.AreEqual(imageFormat, bitmap.RawFormat);
 
