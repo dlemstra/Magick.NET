@@ -85,13 +85,13 @@ namespace ImageMagick
             if (File.Exists(tempFile))
                 return;
 
-            string resourceName = "ImageMagick.Resources.Library.Magick.Native_" + NativeLibrary.PlatformName + ".gz";
+            var resourceName = "ImageMagick.Resources.Library.Magick.Native_" + NativeLibrary.PlatformName + ".gz";
 
-            using (Stream stream = Assembly.GetManifestResourceStream(resourceName))
+            using (var stream = Assembly.GetManifestResourceStream(resourceName))
             {
-                using (GZipStream compressedStream = new GZipStream(stream, CompressionMode.Decompress, false))
+                using (var compressedStream = new GZipStream(stream, CompressionMode.Decompress, false))
                 {
-                    using (FileStream fileStream = File.Open(tempFile, FileMode.CreateNew))
+                    using (var fileStream = File.Open(tempFile, FileMode.CreateNew))
                     {
                         compressedStream.CopyTo(fileStream);
                     }
