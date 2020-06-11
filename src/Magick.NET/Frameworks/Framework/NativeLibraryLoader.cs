@@ -11,14 +11,11 @@
 // and limitations under the License.
 
 #if PLATFORM_AnyCPU && !NETSTANDARD
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.Compression;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Security.AccessControl;
 using System.Security.Principal;
-using System.Text;
 using ImageMagick.Configuration;
 
 namespace ImageMagick
@@ -28,12 +25,7 @@ namespace ImageMagick
         private static volatile bool _loaded;
 
         private static Assembly Assembly
-        {
-            get
-            {
-                return typeof(NativeLibraryLoader).Assembly;
-            }
-        }
+            => typeof(NativeLibraryLoader).Assembly;
 
         public static void Load()
         {
@@ -49,9 +41,9 @@ namespace ImageMagick
             AssemblyFileVersionAttribute version = (AssemblyFileVersionAttribute)Assembly.GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false)[0];
 
 #if NET20
-            string path = Path.Combine(MagickAnyCPU.CacheDirectory, "Magick.NET.net20." + version.Version);
+            var path = Path.Combine(MagickAnyCPU.CacheDirectory, "Magick.NET.net20." + version.Version);
 #else
-            string path = Path.Combine(MagickAnyCPU.CacheDirectory, "Magick.NET.net40." + version.Version);
+            var path = Path.Combine(MagickAnyCPU.CacheDirectory, "Magick.NET.net40." + version.Version);
 #endif
             if (!Directory.Exists(path))
             {
@@ -64,9 +56,9 @@ namespace ImageMagick
 
         private static void ExtractLibrary()
         {
-            string name = NativeLibrary.Name + "-" + NativeLibrary.QuantumName + "-" + NativeLibrary.PlatformName;
-            string cacheDirectory = CreateCacheDirectory();
-            string tempFile = Path.Combine(cacheDirectory, name + ".dll");
+            var name = NativeLibrary.Name + "-" + NativeLibrary.QuantumName + "-" + NativeLibrary.PlatformName;
+            var cacheDirectory = CreateCacheDirectory();
+            var tempFile = Path.Combine(cacheDirectory, name + ".dll");
 
             WriteAssembly(tempFile);
 
@@ -80,10 +72,10 @@ namespace ImageMagick
             if (!MagickAnyCPU.HasSharedCacheDirectory || !MagickAnyCPU.UsesDefaultCacheDirectory)
                 return;
 
-            DirectoryInfo directoryInfo = new DirectoryInfo(cacheDirectory);
-            DirectorySecurity directorySecurity = directoryInfo.GetAccessControl();
-            SecurityIdentifier identity = new SecurityIdentifier(WellKnownSidType.WorldSid, null);
-            InheritanceFlags inheritanceFlags = InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit;
+            var directoryInfo = new DirectoryInfo(cacheDirectory);
+            var directorySecurity = directoryInfo.GetAccessControl();
+            var identity = new SecurityIdentifier(WellKnownSidType.WorldSid, null);
+            var inheritanceFlags = InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit;
             directorySecurity.AddAccessRule(new FileSystemAccessRule(identity, FileSystemRights.ReadAndExecute, inheritanceFlags, PropagationFlags.NoPropagateInherit, AccessControlType.Allow));
             directoryInfo.SetAccessControl(directorySecurity);
         }
