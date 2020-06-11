@@ -35,21 +35,6 @@ namespace ImageMagick
             }
         }
 
-        public static void Copy(Stream source, Stream destination)
-        {
-#if NET20
-            byte[] buffer = new byte[16384];
-            int bytesRead;
-
-            while ((bytesRead = source.Read(buffer, 0, buffer.Length)) > 0)
-            {
-                destination.Write(buffer, 0, bytesRead);
-            }
-#else
-            source.CopyTo(destination);
-#endif
-        }
-
         public static void Load()
         {
             if (_loaded)
@@ -116,7 +101,7 @@ namespace ImageMagick
                 {
                     using (FileStream fileStream = File.Open(tempFile, FileMode.CreateNew))
                     {
-                        Copy(compressedStream, fileStream);
+                        compressedStream.CopyTo(fileStream);
                     }
                 }
             }
