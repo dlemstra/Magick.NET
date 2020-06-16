@@ -54,12 +54,12 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Gets the x-coordinate of this Point.
+        /// Gets the x-coordinate of this <see cref="PointD"/>.
         /// </summary>
         public double X { get; private set; }
 
         /// <summary>
-        /// Gets the y-coordinate of this Point.
+        /// Gets the y-coordinate of this <see cref="PointD"/>.
         /// </summary>
         public double Y { get; private set; }
 
