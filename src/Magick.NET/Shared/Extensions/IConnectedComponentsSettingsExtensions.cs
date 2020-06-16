@@ -10,8 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System.Globalization;
-
 #if Q8
 using QuantumType = System.Byte;
 #elif Q16
@@ -28,11 +26,32 @@ namespace ImageMagick
     {
         internal static void SetImageArtifacts(this IConnectedComponentsSettings self, IMagickImage<QuantumType> image)
         {
+            if (self.AngleThreshold != null)
+                image.SetArtifact("connected-components:angle-threshold", self.AngleThreshold.Value.ToString());
+
             if (self.AreaThreshold != null)
-                image.SetArtifact("connected-components:area-threshold", self.AreaThreshold.Value.ToString(CultureInfo.InvariantCulture));
+                image.SetArtifact("connected-components:area-threshold", self.AreaThreshold.Value.ToString());
+
+            if (self.CircularityThreshold != null)
+                image.SetArtifact("connected-components:circularity-threshold", self.CircularityThreshold.Value.ToString());
+
+            if (self.DiameterThreshold != null)
+                image.SetArtifact("connected-components:diameter-threshold", self.DiameterThreshold.Value.ToString());
+
+            if (self.EccentricityThreshold != null)
+                image.SetArtifact("connected-components:eccentricity-threshold", self.EccentricityThreshold.Value.ToString());
+
+            if (self.MajorAxisThreshold != null)
+                image.SetArtifact("connected-components:major-axis-threshold", self.MajorAxisThreshold.Value.ToString());
 
             if (self.MeanColor)
                 image.SetArtifact("connected-components:mean-color", "true");
+
+            if (self.MinorAxisThreshold != null)
+                image.SetArtifact("connected-components:minor-axis-threshold", self.MinorAxisThreshold.Value.ToString());
+
+            if (self.PerimeterThreshold != null)
+                image.SetArtifact("connected-components:perimeter-threshold", self.PerimeterThreshold.Value.ToString());
         }
     }
 }

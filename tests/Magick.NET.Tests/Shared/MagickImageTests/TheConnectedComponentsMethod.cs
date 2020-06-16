@@ -32,48 +32,6 @@ namespace Magick.NET.Tests
         public class TheConnectedComponentsMethod
         {
             [TestMethod]
-            public void ShouldNotSetTheAttributesWhenOnlyTheComponentsAreSpecified()
-            {
-                using (var image = new MagickImage(MagickColors.Red, 1, 1))
-                {
-                    image.ConnectedComponents(4).ToArray();
-
-                    Assert.IsNull(image.GetArtifact("connected-components:area-threshold"));
-                    Assert.IsNull(image.GetArtifact("connected-components:mean-color"));
-                }
-            }
-
-            [TestMethod]
-            public void ShouldSetTheAreaThreshold()
-            {
-                using (var image = new MagickImage(MagickColors.Red, 1, 1))
-                {
-                    var settings = new ConnectedComponentsSettings()
-                    {
-                        AreaThreshold = 1.5,
-                    };
-                    image.ConnectedComponents(settings).ToArray();
-
-                    Assert.AreEqual("1.5", image.GetArtifact("connected-components:area-threshold"));
-                }
-            }
-
-            [TestMethod]
-            public void ShouldSetMeanColor()
-            {
-                using (var image = new MagickImage(MagickColors.Red, 1, 1))
-                {
-                    var settings = new ConnectedComponentsSettings()
-                    {
-                        MeanColor = true,
-                    };
-                    image.ConnectedComponents(settings).ToArray();
-
-                    Assert.AreEqual("true", image.GetArtifact("connected-components:mean-color"));
-                }
-            }
-
-            [TestMethod]
             public void ShouldReturnTheConnectedComponents()
             {
                 using (var image = new MagickImage(Files.ConnectedComponentsPNG))
@@ -112,7 +70,7 @@ namespace Magick.NET.Tests
                         {
                             Connectivity = 4,
                             MeanColor = true,
-                            AreaThreshold = 400,
+                            AreaThreshold = new Threshold(400),
                         };
 
                         var components = temp.ConnectedComponents(settings).OrderBy(component => component.X).ToArray();
