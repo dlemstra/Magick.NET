@@ -18,12 +18,14 @@ if ($version.Length -eq 0) {
     $version = [IO.File]::ReadAllText("version.txt").Trim()
 }
 
+Write-Host "Setting NuGetVersion to $version"
 Write-Host "::set-env name=NuGetVersion::$version"
 
 & cmd /c 'git rev-parse HEAD > commit.txt 2> nul'
 
 $commit = [IO.File]::ReadAllText("commit.txt").Trim()
 
+Write-Host "Setting GitCommitId to $commit"
 Write-Host "::set-env name=GitCommitId::$commit"
 
 Exit 0
