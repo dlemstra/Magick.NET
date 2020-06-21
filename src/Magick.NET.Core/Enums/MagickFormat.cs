@@ -68,6 +68,11 @@ namespace ImageMagick
         Avi,
 
         /// <summary>
+        /// AV1 Image File Format (Heic)
+        /// </summary>
+        Avif,
+
+        /// <summary>
         /// AVS X image
         /// </summary>
         Avs,
