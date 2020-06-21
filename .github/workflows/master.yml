@@ -69,7 +69,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       with:
-        fetch-depth: 1
+        fetch-depth: 0
 
     - name: Install dependencies
       run: ./install.dependencies.cmd
@@ -131,7 +131,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       with:
-        fetch-depth: 1
+        fetch-depth: 0
 
     - name: Install dependencies
       run: ./install.dependencies.cmd
