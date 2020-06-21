@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Magick.NET.SystemDrawing</id>
-    <version>2.0.0.0</version>
+    <version>2.0.1.0</version>
     <title>Magick.NET.SystemDrawing</title>
     <authors>Dirk Lemstra</authors>
     <owners>Dirk Lemstra</owners>
