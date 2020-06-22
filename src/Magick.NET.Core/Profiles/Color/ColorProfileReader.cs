@@ -64,8 +64,6 @@ namespace ImageMagick
                     return ColorSpace.XYZ;
                 case "YCbr":
                     return ColorSpace.YCbCr;
-                case "Yxy":
-                    return ColorSpace.XyY;
                 default:
                     throw new NotSupportedException(colorSpace);
             }
