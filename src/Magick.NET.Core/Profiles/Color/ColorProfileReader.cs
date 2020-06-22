@@ -50,7 +50,7 @@ namespace ImageMagick
                     return ColorSpace.CMYK;
                 case "GRAY":
                     return ColorSpace.Gray;
-                case "HLS":
+                case "HSL":
                     return ColorSpace.HSL;
                 case "HSV":
                     return ColorSpace.HSV;
