@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -31,6 +32,25 @@ namespace Magick.NET.Tests
                     Assert.AreEqual(Quantum.Max, color.G);
                     Assert.AreEqual(Quantum.Max, color.B);
                     Assert.AreEqual(Quantum.Max, color.A);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ShouldReadImageProfile()
+        {
+            using (var image = new MagickImage(Files.CMYKJPG))
+            {
+                image.SetProfile(ColorProfile.USWebCoatedSWOP);
+                using (var memoryStream = new MemoryStream())
+                {
+                    image.Write(memoryStream);
+
+                    memoryStream.Position = 0;
+                    image.Read(memoryStream);
+
+                    var profile = image.GetColorProfile();
+                    Assert.IsNotNull(profile);
                 }
             }
         }
