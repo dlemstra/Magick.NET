@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
     <TargetFrameworks>net20;net40;netstandard13;netstandard20</TargetFrameworks>
     <Platforms>AnyCPU</Platforms>
@@ -21,9 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="../Shared/Netstandard/Netstandard13/FileHelper.cs" Link="Frameworks/Netstandard/Netstandard13/FileHelper.cs" />
-    <Compile Include="../Shared/Netstandard/Netstandard13/MemoryStreamExtensions.cs" Link="Frameworks/Netstandard/Netstandard13/MemoryStreamExtensions.cs" />
-    <Compile Include="../Shared/Netstandard/Netstandard13/TypeHelper.cs" Link="Frameworks/Netstandard/Netstandard13/TypeHelper.cs" />
+    <Compile Include="../Shared/Frameworks/Net/Net20/ExtensionAttribute.cs" Link="Frameworks/Net/Net20/ExtensionAttribute.cs" />
+    <Compile Include="../Shared/Frameworks/Netstandard/Netstandard13/FileHelper.cs" Link="Frameworks/Netstandard/Netstandard13/FileHelper.cs" />
+    <Compile Include="../Shared/Frameworks/Netstandard/Netstandard13/MemoryStreamExtensions.cs" Link="Frameworks/Netstandard/Netstandard13/MemoryStreamExtensions.cs" />
+    <Compile Include="../Shared/Frameworks/Netstandard/Netstandard13/TypeHelper.cs" Link="Frameworks/Netstandard/Netstandard13/TypeHelper.cs" />
     <Compile Include="../Shared/Bytes.cs" Link="Helpers/Bytes.cs" />
     <Compile Include="../Shared/EnumHelper.cs" Link="Helpers/EnumHelper.cs" />
     <Compile Include="../Shared/FileHelper.cs" Link="Helpers/FileHelper.cs" />
