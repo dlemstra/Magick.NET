@@ -47,7 +47,7 @@ namespace ImageMagick
 
         internal MagickReadSettings(MagickSettings settings)
         {
-            Copy(settings);
+            CopyFrom(settings);
         }
 
         internal MagickReadSettings(IMagickReadSettings<QuantumType> settings)
@@ -162,7 +162,7 @@ namespace ImageMagick
 
         private void Copy(IMagickReadSettings<QuantumType> settings)
         {
-            Copy((MagickSettings)settings);
+            CopyFrom((MagickSettings)settings);
 
             Defines = settings.Defines;
             FrameIndex = settings.FrameIndex;

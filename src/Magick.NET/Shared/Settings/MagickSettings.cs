@@ -587,8 +587,8 @@ namespace ImageMagick
 
         internal MagickSettings Clone()
         {
-            MagickSettings clone = new MagickSettings();
-            clone.Copy(this);
+            var clone = new MagickSettings();
+            clone.CopyFrom(this);
 
             return clone;
         }
@@ -623,7 +623,7 @@ namespace ImageMagick
         /// Copies the settings from the specified <see cref="MagickSettings"/>.
         /// </summary>
         /// <param name="settings">The settings to copy the data from.</param>
-        protected void Copy(MagickSettings settings)
+        protected void CopyFrom(MagickSettings settings)
         {
             if (settings == null)
                 return;
