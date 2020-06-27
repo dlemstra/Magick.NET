@@ -41,14 +41,10 @@ namespace ImageMagick
         /// </summary>
         /// <param name="readDefines">The read defines to set.</param>
         public MagickReadSettings(IReadDefines readDefines)
-        {
-            SetDefines(readDefines);
-        }
+            => SetDefines(readDefines);
 
         internal MagickReadSettings(MagickSettings settings)
-        {
-            CopyFrom(settings);
-        }
+            => CopyFrom(settings);
 
         internal MagickReadSettings(IMagickReadSettings<QuantumType> settings)
         {
