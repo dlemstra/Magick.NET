@@ -20,7 +20,15 @@
       <group targetFramework=".NETFramework4.0">
         <dependency id="Magick.NET.Core" version="3.0.0.0" />
       </group>
+      <group targetFramework=".NETCoreApp3.0">
+        <dependency id="Magick.NET.Core" version="3.0.0.0" />
+      </group>
     </dependencies>
+    <frameworkReferences>
+      <group targetFramework=".NETCoreApp3.0">
+        <frameworkReference name="Microsoft.WindowsDesktop.App.WPF" />
+      </group>
+    </frameworkReferences>
   </metadata>
   <files>
     <file src="..\logo\Magick.NET.icon.png" target="Magick.NET.icon.png" />

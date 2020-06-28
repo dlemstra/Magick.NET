@@ -1,18 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="15.0">
   <PropertyGroup>
-    <TargetFrameworks>net40</TargetFrameworks>
+    <TargetFrameworks>net40;netcoreapp3.0</TargetFrameworks>
     <Platforms>AnyCPU</Platforms>
     <AssemblyVersion>1.0.2.0</AssemblyVersion>
     <FileVersion>1.0.2.0</FileVersion>
     <Version>1.0.2.0</Version>
     <Configurations>Debug;Test;Release</Configurations>
     <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164" PrivateAssets="All" />
