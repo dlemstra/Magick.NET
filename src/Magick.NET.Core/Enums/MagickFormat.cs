@@ -63,6 +63,11 @@ namespace ImageMagick
         Arw,
 
         /// <summary>
+        /// Image sequence laid out in continuous irregular courses (Unknown)
+        /// </summary>
+        Ashlar,
+
+        /// <summary>
         /// Microsoft Audio/Visual Interleaved
         /// </summary>
         Avi,
