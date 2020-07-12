@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
 #if WINDOWS_BUILD
                 Assert.AreEqual("cairo flif freetype gslib heic jng jp2 jpeg lcms lqr openexr pangocairo png ps raw rsvg tiff webp xml zlib", delegates);
 #else
-                Assert.AreEqual("fontconfig freetype heic jng jp2 jpeg lcms lqr openexr png raw tiff webp xml zlib", delegates);
+                Assert.AreEqual("fontconfig freetype heic jng jp2 jpeg lcms lqr openexr pango png raw rsvg tiff webp xml zlib", delegates);
 #endif
             }
         }
