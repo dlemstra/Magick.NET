@@ -181,5 +181,10 @@ namespace ImageMagick
         /// Xor
         /// </summary>
         Xor,
+
+        /// <summary>
+        /// InverseLog
+        /// </summary>
+        InverseLog,
     }
 }
