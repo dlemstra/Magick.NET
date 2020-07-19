@@ -42,6 +42,8 @@ namespace Magick.NET.Tests
                             image.Read(memStream);
                         });
 
+                        memStream.Position = 0;
+
                         ExceptionAssert.Throws<MagickPolicyErrorException>(() =>
                         {
                             MagickReadSettings settings = new MagickReadSettings()
