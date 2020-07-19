@@ -44,6 +44,11 @@ namespace ImageMagick.Formats.Tiff
         public Endian? FillOrder { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the compression of the image should be preserved (tiff:preserve-compression).
+        /// </summary>
+        public bool PreserveCompression { get; set; }
+
+        /// <summary>
         /// Gets or sets the rows per strip (tiff:rows-per-strip).
         /// </summary>
         public int? RowsPerStrip { get; set; }
@@ -68,6 +73,9 @@ namespace ImageMagick.Formats.Tiff
 
                 if (FillOrder.HasValue && FillOrder.Value != ImageMagick.Endian.Undefined)
                     yield return CreateDefine("fill-order", FillOrder.Value);
+
+                if (PreserveCompression)
+                    yield return CreateDefine("preserve-compression", PreserveCompression);
 
                 if (RowsPerStrip.HasValue)
                     yield return CreateDefine("rows-per-strip", RowsPerStrip.Value);

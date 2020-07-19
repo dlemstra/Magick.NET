@@ -19,21 +19,33 @@ namespace Magick.NET.Tests
     public partial class TiffWriteDefinesTests
     {
         [TestClass]
-        public class TheConstructor : TiffWriteDefinesTests
+        public class ThePreserveCompressionProperty : TiffWriteDefinesTests
         {
             [TestMethod]
-            public void ShouldNotSetAnyDefine()
+            public void ShouldSetTheDefineWhenSetToTrue()
+            {
+                using (var image = new MagickImage(Files.Builtin.Logo))
+                {
+                    image.Settings.SetDefines(new TiffWriteDefines()
+                    {
+                        PreserveCompression = true,
+                    });
+
+                    Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Tiff, "preserve-compression"));
+                }
+            }
+
+            [TestMethod]
+            public void ShouldNotSetTheDefineWhenSetToFalse()
             {
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new TiffWriteDefines());
+                    image.Settings.SetDefines(new TiffWriteDefines()
+                    {
+                        PreserveCompression = false,
+                    });
 
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "alpha"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "endian"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "fill-order"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "preserve-compression"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "rows-per-strip"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "tile-geometry"));
+                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "preserve-compression"));
                 }
             }
         }
