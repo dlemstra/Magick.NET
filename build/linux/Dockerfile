@@ -8,6 +8,8 @@ RUN cd /build; ./install.dependencies.sh
 
 COPY stylecop.json /build/stylecop.json
 
+COPY logo /build/logo
+
 COPY tests /build/tests
 
 COPY src /build/src
