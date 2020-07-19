@@ -121,7 +121,7 @@ namespace Magick.NET.Tests
                 ColorAssert.AreEqual(MagickColors.White, image, 118, 6);
                 ColorAssert.AreEqual(MagickColors.Black, image, 120, 6);
                 ColorAssert.AreEqual(MagickColors.Black, image, 141, 6);
-                ColorAssert.AreEqual(MagickColors.White, image, 143, 6);
+                ColorAssert.AreEqual(MagickColors.White, image, 144, 6);
                 ColorAssert.AreEqual(MagickColors.White, image, 114, 43);
                 ColorAssert.AreEqual(MagickColors.Black, image, 116, 43);
                 ColorAssert.AreEqual(MagickColors.Black, image, 135, 43);
