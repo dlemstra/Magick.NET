@@ -105,7 +105,7 @@ namespace Magick.NET.Tests
 <svg version=""1.1"" xmlns=""http://www.w3.org/2000/svg"" xmlns:xlink=""http://www.w3.org/1999/xlink"" viewBox=""0 0 220 80"">
 <style type=""text/css"">
   .st0{font-family:'Arial';font-size:40}
-  .st1{font-family:""Georgia"";font-size:40}
+  .st1{font-family:""Times New Roman"";font-size:40}
 </style>
 <g id=""changable-text"">
   <text transform=""matrix(1 0 0 1 1 35)"" class=""st0"">FONT TEST</text>
@@ -118,10 +118,14 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(220, image.Width);
                 Assert.AreEqual(80, image.Height);
 
+                ColorAssert.AreEqual(MagickColors.White, image, 118, 6);
                 ColorAssert.AreEqual(MagickColors.Black, image, 120, 6);
                 ColorAssert.AreEqual(MagickColors.Black, image, 141, 6);
-                ColorAssert.AreEqual(MagickColors.Black, image, 122, 42);
-                ColorAssert.AreEqual(MagickColors.Black, image, 144, 42);
+                ColorAssert.AreEqual(MagickColors.White, image, 143, 6);
+                ColorAssert.AreEqual(MagickColors.White, image, 114, 43);
+                ColorAssert.AreEqual(MagickColors.Black, image, 116, 43);
+                ColorAssert.AreEqual(MagickColors.Black, image, 135, 43);
+                ColorAssert.AreEqual(MagickColors.White, image, 136, 43);
             }
         }
 
