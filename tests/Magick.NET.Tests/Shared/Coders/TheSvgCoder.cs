@@ -104,8 +104,8 @@ namespace Magick.NET.Tests
             var svg = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <svg version=""1.1"" xmlns=""http://www.w3.org/2000/svg"" xmlns:xlink=""http://www.w3.org/1999/xlink"" viewBox=""0 0 220 80"">
 <style type=""text/css"">
-  .st0{font-family:'Tahoma';font-size:40}
-  .st1{font-family:""Courier"";font-size:40}
+  .st0{font-family:'Courier New';font-size:40}
+  .st1{font-family:""Arial"";font-size:40}
 </style>
 <g id=""changable-text"">
   <text transform=""matrix(1 0 0 1 1 35)"" class=""st0"">FONT TEST</text>
@@ -115,8 +115,11 @@ namespace Magick.NET.Tests
             var bytes = Encoding.UTF8.GetBytes(svg);
             using (var image = new MagickImage(bytes))
             {
-                ColorAssert.AreEqual(MagickColors.Black, image, 133, 55);
-                ColorAssert.AreEqual(MagickColors.Black, image, 124, 20);
+                Assert.AreEqual(220, image.Width);
+                Assert.AreEqual(80, image.Height);
+
+                ColorAssert.AreEqual(MagickColors.Black, image, 93, 12);
+                ColorAssert.AreEqual(MagickColors.Black, image, 107, 41);
             }
         }
 
