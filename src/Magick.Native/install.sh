@@ -36,5 +36,7 @@ copyToTestProjects() {
     copyToTestProject "Q16-HDRI"
 }
 
-installPackage
-copyToTestProjects
+if [ ! -d "temp" ]; then
+    installPackage
+    copyToTestProjects
+fi
