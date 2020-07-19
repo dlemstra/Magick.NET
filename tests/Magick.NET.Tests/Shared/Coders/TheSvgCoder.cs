@@ -112,7 +112,7 @@ namespace Magick.NET.Tests
   <text transform=""matrix(1 0 0 1 1 70)"" class=""st1"">FONT TEST</text>
 </g>
 </svg>";
-            var bytes = Encoding.UTF8.GetBytes(svg);
+            var bytes = Encoding.ASCII.GetBytes(svg);
             using (var image = new MagickImage(bytes))
             {
                 Assert.AreEqual(220, image.Width);
