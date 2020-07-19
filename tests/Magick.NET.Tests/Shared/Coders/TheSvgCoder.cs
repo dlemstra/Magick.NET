@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using System.Text;
 using System.Threading.Tasks;
 using ImageMagick;
@@ -118,24 +119,16 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(220, image.Width);
                 Assert.AreEqual(80, image.Height);
 
-                try
+                if (BitConverter.IsLittleEndian)
                 {
-                    System.IO.Directory.CreateDirectory("/Users/runner/work/Magick.NET/testimage");
-                    image.Write("/Users/runner/work/Magick.NET/testimage/test.png");
+                    ColorAssert.AreEqual(MagickColors.White, image, 118, 6);
+                    ColorAssert.AreEqual(MagickColors.Black, image, 120, 6);
+                    ColorAssert.AreEqual(MagickColors.Black, image, 141, 6);
+                    ColorAssert.AreEqual(MagickColors.White, image, 145, 6);
+                    ColorAssert.AreEqual(MagickColors.White, image, 114, 43);
+                    ColorAssert.AreEqual(MagickColors.Black, image, 116, 43);
+                    ColorAssert.AreEqual(MagickColors.Black, image, 135, 43);
                 }
-                catch
-                {
-                }
-
-                /*
-                ColorAssert.AreEqual(MagickColors.White, image, 118, 6);
-                ColorAssert.AreEqual(MagickColors.Black, image, 120, 6);
-                ColorAssert.AreEqual(MagickColors.Black, image, 141, 6);
-                ColorAssert.AreEqual(MagickColors.White, image, 145, 6);
-                ColorAssert.AreEqual(MagickColors.White, image, 114, 43);
-                ColorAssert.AreEqual(MagickColors.Black, image, 116, 43);
-                ColorAssert.AreEqual(MagickColors.Black, image, 135, 43);
-                */
             }
         }
 

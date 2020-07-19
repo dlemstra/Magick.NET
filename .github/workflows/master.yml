@@ -42,12 +42,6 @@ jobs:
     - name: Build and Test
       run: build/macos/test.Magick.NET.sh
 
-    - name: Upload test image
-      uses: actions/upload-artifact@v1
-      with:
-        name: test
-        path: /Users/runner/work/Magick.NET/testimage
-
   windows:
     name: Windows
     runs-on: windows-latest
