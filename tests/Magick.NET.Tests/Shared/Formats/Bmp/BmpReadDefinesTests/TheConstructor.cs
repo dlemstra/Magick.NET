@@ -10,32 +10,26 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
-using System.Linq;
 using ImageMagick;
+using ImageMagick.Formats.Bmp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
-    public class TestIssue
+    public partial class BmpReadDefinesTests
     {
-        [TestMethod]
-        public void RunTest()
+        [TestClass]
+        public class TheConstructor
         {
-            using (MagickImageCollection images = new MagickImageCollection())
+            [TestMethod]
+            public void ShouldNotSetAnyDefines()
             {
-                MagickImage firstFrame = new MagickImage(@"logo:");
-                firstFrame.Format = MagickFormat.Tiff;
-                firstFrame.Settings.Compression = CompressionMethod.JPEG;
-                images.Add(firstFrame);
+                using (var image = new MagickImage())
+                {
+                    image.Settings.SetDefines(new BmpReadDefines());
 
-                MagickImage secondFrame = new MagickImage(@"logo:");
-                secondFrame.Format = MagickFormat.Tiff;
-                secondFrame.Settings.Compression = CompressionMethod.Group4;
-                images.Add(secondFrame);
-
-                images.Write(@"i:\test.tiff", MagickFormat.Tiff);
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Bmp, "ignore-filesize"));
+                }
             }
         }
     }
