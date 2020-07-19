@@ -10,8 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if WINDOWS_BUILD
-
 using System.Text;
 using System.Threading.Tasks;
 using ImageMagick;
@@ -147,5 +145,3 @@ namespace Magick.NET.Tests
         }
     }
 }
-
-#endif
