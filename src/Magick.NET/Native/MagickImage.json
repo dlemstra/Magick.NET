@@ -172,8 +172,7 @@
     },
     {
       "name": "Compression",
-      "type": "CompressionMethod",
-      "readonly": true
+      "type": "CompressionMethod"
     },
     {
       "name": "Depth",

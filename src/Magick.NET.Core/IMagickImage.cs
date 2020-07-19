@@ -2405,6 +2405,13 @@ namespace ImageMagick
         void SetClippingPath(string value, string pathName);
 
         /// <summary>
+        /// Gets the compression of the image. This method should only be used when the encoder uses the compression of the image. For
+        /// most usecases Setting.Compression should be used instead.
+        /// </summary>
+        /// <param name="compression">The compression method.</param>
+        void SetCompression(CompressionMethod compression);
+
+        /// <summary>
         /// Set the specified profile of the image. If a profile with the same name already exists it will be overwritten.
         /// </summary>
         /// <param name="profile">The profile to set.</param>

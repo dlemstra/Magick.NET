@@ -5514,6 +5514,14 @@ namespace ImageMagick
             => SetAttribute("8BIM:1999,2998:" + pathName, value);
 
         /// <summary>
+        /// Gets the compression of the image. This method should only be used when the encoder uses the compression of the image. For
+        /// most usecases Setting.Compression should be used instead.
+        /// </summary>
+        /// <param name="compression">The compression method.</param>
+        public void SetCompression(CompressionMethod compression)
+            => _nativeInstance.Compression = compression;
+
+        /// <summary>
         /// Set color at colormap position index.
         /// </summary>
         /// <param name="index">The position index.</param>
