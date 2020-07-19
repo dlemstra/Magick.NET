@@ -11,6 +11,8 @@ buildAndTest() {
 cd src/Magick.Native
 ./install.sh
 
+fc-list : family
+
 cd ../../
 buildAndTest "Q8"
 buildAndTest "Q16"
