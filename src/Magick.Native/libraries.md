@@ -1,5 +1,5 @@
 # Libraries
-Magick.Native [f99a5300bbaa75f8c5dee2a03e24b273c298e688](https://github.com/dlemstra/Magick.Native/commit/f99a5300bbaa75f8c5dee2a03e24b273c298e688) is build with the following libraries:
+Magick.Native [4dbe0c04eaa0ff38fbdcd1ad4e86250550c52754](https://github.com/dlemstra/Magick.Native/commit/4dbe0c04eaa0ff38fbdcd1ad4e86250550c52754) is build with the following libraries:
 
 - aom 2.0.0 (18 May 2020)
 - cairo 1.16.0 (19 October 2018)
