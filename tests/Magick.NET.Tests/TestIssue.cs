@@ -23,20 +23,6 @@ namespace Magick.NET.Tests
         [TestMethod]
         public void RunTest()
         {
-            using (MagickImageCollection images = new MagickImageCollection())
-            {
-                MagickImage firstFrame = new MagickImage(@"logo:");
-                firstFrame.Format = MagickFormat.Tiff;
-                firstFrame.Settings.Compression = CompressionMethod.JPEG;
-                images.Add(firstFrame);
-
-                MagickImage secondFrame = new MagickImage(@"logo:");
-                secondFrame.Format = MagickFormat.Tiff;
-                secondFrame.Settings.Compression = CompressionMethod.Group4;
-                images.Add(secondFrame);
-
-                images.Write(@"i:\test.tiff", MagickFormat.Tiff);
-            }
         }
     }
 }
