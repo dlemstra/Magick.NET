@@ -7,7 +7,7 @@ installPackage() {
     mkdir temp
 
     # Temporary download from DropBox
-    nuget_url="https://dl.dropboxusercontent.com/s/k5kwq0ntbz2u8i4/Magick.Native.$version.nupkg"
+    nuget_url="https://dl.dropboxusercontent.com/s/kl25ols8c3d9u4o/Magick.Native.$version.nupkg"
     curl -s -o Magick.Native.$version.nupkg $nuget_url
 
     cwd=$(pwd)
@@ -29,6 +29,7 @@ copyToTestProject() {
     mkdir -p $folder
     cp temp/Magick.Native.$version/content/Release$quantum/x64/*.xml $folder
 }
+
 
 copyToTestProjects() {
     copyToTestProject "Q8"
