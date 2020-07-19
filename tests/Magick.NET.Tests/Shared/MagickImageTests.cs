@@ -2619,36 +2619,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void ToBase64_ReturnsBase64EncodedString()
-        {
-            using (var image = new MagickImage(Files.SnakewarePNG))
-            {
-                string base64 = image.ToBase64();
-                Assert.IsNotNull(base64);
-                Assert.AreEqual(11704, base64.Length);
-
-                byte[] bytes = Convert.FromBase64String(base64);
-                Assert.IsNotNull(bytes);
-                Assert.AreEqual(8778, bytes.Length);
-            }
-        }
-
-        [TestMethod]
-        public void ToBase64_OtherFormat_ReturnsBase64EncodedString()
-        {
-            using (var image = new MagickImage(Files.SnakewarePNG))
-            {
-                string base64 = image.ToBase64(MagickFormat.Tiff);
-                Assert.IsNotNull(base64);
-                Assert.AreEqual(10800, base64.Length);
-
-                byte[] bytes = Convert.FromBase64String(base64);
-                Assert.IsNotNull(bytes);
-                Assert.AreEqual(8100, bytes.Length);
-            }
-        }
-
-        [TestMethod]
         public void Test_ToByteArray()
         {
             using (var image = new MagickImage(Files.SnakewarePNG))
