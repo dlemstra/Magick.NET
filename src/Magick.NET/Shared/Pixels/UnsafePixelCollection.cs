@@ -48,44 +48,6 @@ namespace ImageMagick
             return base.GetAreaPointer(geometry);
         }
 
-#if !Q8
-        public override void SetArea(int x, int y, int width, int height, byte[] values)
-        {
-            if (values != null)
-                base.SetArea(x, y, width, height, values);
-        }
-
-        public override void SetArea(IMagickGeometry geometry, byte[] values)
-        {
-            if (geometry != null)
-                base.SetArea(geometry, values);
-        }
-#endif
-
-        public override void SetArea(int x, int y, int width, int height, double[] values)
-        {
-            if (values != null)
-                base.SetArea(x, y, width, height, values);
-        }
-
-        public override void SetArea(IMagickGeometry geometry, double[] values)
-        {
-            if (geometry != null)
-                base.SetArea(geometry, values);
-        }
-
-        public override void SetArea(int x, int y, int width, int height, int[] values)
-        {
-            if (values != null)
-                base.SetArea(x, y, width, height, values);
-        }
-
-        public override void SetArea(IMagickGeometry geometry, int[] values)
-        {
-            if (geometry != null)
-                base.SetArea(geometry, values);
-        }
-
         public override void SetArea(int x, int y, int width, int height, QuantumType[] values)
         {
             if (values != null)
@@ -96,6 +58,60 @@ namespace ImageMagick
         {
             if (geometry != null)
                 base.SetArea(geometry, values);
+        }
+
+        public override void SetByteArea(int x, int y, int width, int height, byte[] values)
+        {
+            if (values != null)
+                base.SetByteArea(x, y, width, height, values);
+        }
+
+        public override void SetByteArea(IMagickGeometry geometry, byte[] values)
+        {
+            if (geometry != null)
+                base.SetByteArea(geometry, values);
+        }
+
+        public override void SetBytePixels(byte[] values)
+        {
+            if (values != null)
+                base.SetBytePixels(values);
+        }
+
+        public override void SetDoubleArea(int x, int y, int width, int height, double[] values)
+        {
+            if (values != null)
+                base.SetDoubleArea(x, y, width, height, values);
+        }
+
+        public override void SetDoubleArea(IMagickGeometry geometry, double[] values)
+        {
+            if (geometry != null)
+                base.SetDoubleArea(geometry, values);
+        }
+
+        public override void SetDoublePixels(double[] values)
+        {
+            if (values != null)
+                base.SetDoublePixels(values);
+        }
+
+        public override void SetIntArea(int x, int y, int width, int height, int[] values)
+        {
+            if (values != null)
+                base.SetIntArea(x, y, width, height, values);
+        }
+
+        public override void SetIntArea(IMagickGeometry geometry, int[] values)
+        {
+            if (geometry != null)
+                base.SetIntArea(geometry, values);
+        }
+
+        public override void SetIntPixels(int[] values)
+        {
+            if (values != null)
+                base.SetIntPixels(values);
         }
 
         public override void SetPixel(IEnumerable<IPixel<QuantumType>> pixels)
@@ -110,27 +126,7 @@ namespace ImageMagick
                 base.SetPixel(x, y, value);
         }
 
-#if !Q8
-        public override void SetPixels(byte[] values)
-        {
-            if (values != null)
-                base.SetPixels(values);
-        }
-#endif
-
         public override void SetPixels(QuantumType[] values)
-        {
-            if (values != null)
-                base.SetPixels(values);
-        }
-
-        public override void SetPixels(double[] values)
-        {
-            if (values != null)
-                base.SetPixels(values);
-        }
-
-        public override void SetPixels(int[] values)
         {
             if (values != null)
                 base.SetPixels(values);

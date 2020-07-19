@@ -79,6 +79,60 @@ namespace ImageMagick
         public QuantumType[] GetValues()
             => GetAreaUnchecked(0, 0, Image.Width, Image.Height);
 
+        public virtual void SetArea(int x, int y, int width, int height, QuantumType[] values)
+            => SetAreaUnchecked(x, y, width, height, values);
+
+        public virtual void SetArea(IMagickGeometry geometry, QuantumType[] values)
+            => SetArea(geometry.X, geometry.Y, geometry.Width, geometry.Height, values);
+
+        public virtual void SetByteArea(int x, int y, int width, int height, byte[] values)
+        {
+            var castedValues = CastArray(values, Quantum.Convert);
+            SetAreaUnchecked(x, y, width, height, castedValues);
+        }
+
+        public virtual void SetByteArea(IMagickGeometry geometry, byte[] values)
+            => SetByteArea(geometry.X, geometry.Y, geometry.Width, geometry.Height, values);
+
+        public virtual void SetBytePixels(byte[] values)
+        {
+            var castedValues = CastArray(values, Quantum.Convert);
+            SetAreaUnchecked(0, 0, Image.Width, Image.Height, castedValues);
+        }
+
+        public virtual void SetDoubleArea(int x, int y, int width, int height, double[] values)
+        {
+            var castedValues = CastArray(values, Quantum.Convert);
+            SetAreaUnchecked(x, y, width, height, castedValues);
+        }
+
+        public virtual void SetDoubleArea(IMagickGeometry geometry, double[] values)
+            => SetDoubleArea(geometry.X, geometry.Y, geometry.Width, geometry.Height, values);
+
+        public virtual void SetDoublePixels(double[] values)
+        {
+            var castedValues = CastArray(values, Quantum.Convert);
+            SetAreaUnchecked(0, 0, Image.Width, Image.Height, castedValues);
+        }
+
+        public virtual void SetIntArea(int x, int y, int width, int height, int[] values)
+        {
+            QuantumType[] castedValues = CastArray(values, Quantum.Convert);
+            SetAreaUnchecked(x, y, width, height, castedValues);
+        }
+
+        public virtual void SetIntArea(IMagickGeometry geometry, int[] values)
+            => SetIntArea(geometry.X, geometry.Y, geometry.Width, geometry.Height, values);
+
+        public virtual void SetIntPixels(int[] values)
+        {
+            var castedValues = CastArray(values, Quantum.Convert);
+            SetAreaUnchecked(0, 0, Image.Width, Image.Height, castedValues);
+        }
+
+        public virtual void SetPixel(int x, int y, QuantumType[] value)
+            => SetPixelUnchecked(x, y, value);
+
         public virtual void SetPixel(IPixel<QuantumType> pixel)
         {
             if (pixel != null)
@@ -95,64 +149,8 @@ namespace ImageMagick
             }
         }
 
-        public virtual void SetPixel(int x, int y, QuantumType[] value)
-            => SetPixelUnchecked(x, y, value);
-
-#if !Q8
-        public virtual void SetPixels(byte[] values)
-        {
-            var castedValues = CastArray(values, Quantum.Convert);
-            SetAreaUnchecked(0, 0, Image.Width, Image.Height, castedValues);
-        }
-#endif
-
-        public virtual void SetPixels(double[] values)
-        {
-            var castedValues = CastArray(values, Quantum.Convert);
-            SetAreaUnchecked(0, 0, Image.Width, Image.Height, castedValues);
-        }
-
-        public virtual void SetPixels(int[] values)
-        {
-            var castedValues = CastArray(values, Quantum.Convert);
-            SetAreaUnchecked(0, 0, Image.Width, Image.Height, castedValues);
-        }
-
-        public virtual void SetPixels(QuantumType[] values) => SetAreaUnchecked(0, 0, Image.Width, Image.Height, values);
-
-#if !Q8
-        public virtual void SetArea(int x, int y, int width, int height, byte[] values)
-        {
-            var castedValues = CastArray(values, Quantum.Convert);
-            SetAreaUnchecked(x, y, width, height, castedValues);
-        }
-
-        public virtual void SetArea(IMagickGeometry geometry, byte[] values) => SetArea(geometry.X, geometry.Y, geometry.Width, geometry.Height, values);
-#endif
-
-        public virtual void SetArea(int x, int y, int width, int height, double[] values)
-        {
-            var castedValues = CastArray(values, Quantum.Convert);
-            SetAreaUnchecked(x, y, width, height, castedValues);
-        }
-
-        public virtual void SetArea(IMagickGeometry geometry, double[] values)
-            => SetArea(geometry.X, geometry.Y, geometry.Width, geometry.Height, values);
-
-        public virtual void SetArea(int x, int y, int width, int height, int[] values)
-        {
-            QuantumType[] castedValues = CastArray(values, Quantum.Convert);
-            SetAreaUnchecked(x, y, width, height, castedValues);
-        }
-
-        public virtual void SetArea(IMagickGeometry geometry, int[] values)
-            => SetArea(geometry.X, geometry.Y, geometry.Width, geometry.Height, values);
-
-        public virtual void SetArea(int x, int y, int width, int height, QuantumType[] values)
-            => SetAreaUnchecked(x, y, width, height, values);
-
-        public virtual void SetArea(IMagickGeometry geometry, QuantumType[] values)
-            => SetArea(geometry.X, geometry.Y, geometry.Width, geometry.Height, values);
+        public virtual void SetPixels(QuantumType[] values)
+            => SetAreaUnchecked(0, 0, Image.Width, Image.Height, values);
 
         public QuantumType[] ToArray()
             => GetValues();

@@ -81,6 +81,92 @@ namespace ImageMagick
         TQuantumType[] GetValues();
 
         /// <summary>
+        /// Changes the values of the specified pixels.
+        /// </summary>
+        /// <param name="x">The X coordinate of the area.</param>
+        /// <param name="y">The Y coordinate of the area.</param>
+        /// <param name="width">The width of the area.</param>
+        /// <param name="height">The height of the area.</param>
+        /// <param name="values">The values of the pixels.</param>
+        void SetArea(int x, int y, int width, int height, TQuantumType[] values);
+
+        /// <summary>
+        /// Changes the values of the specified pixels.
+        /// </summary>
+        /// <param name="geometry">The geometry of the area.</param>
+        /// <param name="values">The values of the pixels.</param>
+        void SetArea(IMagickGeometry geometry, TQuantumType[] values);
+
+        /// <summary>
+        /// Changes the values of the specified pixels.
+        /// </summary>
+        /// <param name="x">The X coordinate of the area.</param>
+        /// <param name="y">The Y coordinate of the area.</param>
+        /// <param name="width">The width of the area.</param>
+        /// <param name="height">The height of the area.</param>
+        /// <param name="values">The values of the pixels.</param>
+        void SetByteArea(int x, int y, int width, int height, byte[] values);
+
+        /// <summary>
+        /// Changes the values of the specified pixels.
+        /// </summary>
+        /// <param name="geometry">The geometry of the area.</param>
+        /// <param name="values">The values of the pixels.</param>
+        void SetByteArea(IMagickGeometry geometry, byte[] values);
+
+        /// <summary>
+        /// Changes the values of the specified pixels.
+        /// </summary>
+        /// <param name="values">The values of the pixels.</param>
+        void SetBytePixels(byte[] values);
+
+        /// <summary>
+        /// Changes the values of the specified pixels.
+        /// </summary>
+        /// <param name="x">The X coordinate of the area.</param>
+        /// <param name="y">The Y coordinate of the area.</param>
+        /// <param name="width">The width of the area.</param>
+        /// <param name="height">The height of the area.</param>
+        /// <param name="values">The values of the pixels.</param>
+        void SetDoubleArea(int x, int y, int width, int height, double[] values);
+
+        /// <summary>
+        /// Changes the values of the specified pixels.
+        /// </summary>
+        /// <param name="geometry">The geometry of the area.</param>
+        /// <param name="values">The values of the pixels.</param>
+        void SetDoubleArea(IMagickGeometry geometry, double[] values);
+
+        /// <summary>
+        /// Changes the values of the specified pixels.
+        /// </summary>
+        /// <param name="values">The values of the pixels.</param>
+        void SetDoublePixels(double[] values);
+
+        /// <summary>
+        /// Changes the values of the specified pixels.
+        /// </summary>
+        /// <param name="x">The X coordinate of the area.</param>
+        /// <param name="y">The Y coordinate of the area.</param>
+        /// <param name="width">The width of the area.</param>
+        /// <param name="height">The height of the area.</param>
+        /// <param name="values">The values of the pixels.</param>
+        void SetIntArea(int x, int y, int width, int height, int[] values);
+
+        /// <summary>
+        /// Changes the values of the specified pixels.
+        /// </summary>
+        /// <param name="geometry">The geometry of the area.</param>
+        /// <param name="values">The values of the pixels.</param>
+        void SetIntArea(IMagickGeometry geometry, int[] values);
+
+        /// <summary>
+        /// Changes the values of the specified pixels.
+        /// </summary>
+        /// <param name="values">The values of the pixels.</param>
+        void SetIntPixels(int[] values);
+
+        /// <summary>
         /// Changes the value of the specified pixel.
         /// </summary>
         /// <param name="pixel">The pixel to set.</param>
@@ -100,101 +186,11 @@ namespace ImageMagick
         /// <param name="value">The value of the pixel.</param>
         void SetPixel(int x, int y, TQuantumType[] value);
 
-#if !Q8
-        /// <summary>
-        /// Changes the values of the specified pixels.
-        /// </summary>
-        /// <param name="values">The values of the pixels.</param>
-        void SetPixels(byte[] values);
-#endif
-
-        /// <summary>
-        /// Changes the values of the specified pixels.
-        /// </summary>
-        /// <param name="values">The values of the pixels.</param>
-        void SetPixels(double[] values);
-
-        /// <summary>
-        /// Changes the values of the specified pixels.
-        /// </summary>
-        /// <param name="values">The values of the pixels.</param>
-        void SetPixels(int[] values);
-
         /// <summary>
         /// Changes the values of the specified pixels.
         /// </summary>
         /// <param name="values">The values of the pixels.</param>
         void SetPixels(TQuantumType[] values);
-
-#if !Q8
-        /// <summary>
-        /// Changes the values of the specified pixels.
-        /// </summary>
-        /// <param name="x">The X coordinate of the area.</param>
-        /// <param name="y">The Y coordinate of the area.</param>
-        /// <param name="width">The width of the area.</param>
-        /// <param name="height">The height of the area.</param>
-        /// <param name="values">The values of the pixels.</param>
-        void SetArea(int x, int y, int width, int height, byte[] values);
-
-        /// <summary>
-        /// Changes the values of the specified pixels.
-        /// </summary>
-        /// <param name="geometry">The geometry of the area.</param>
-        /// <param name="values">The values of the pixels.</param>
-        void SetArea(IMagickGeometry geometry, byte[] values);
-#endif
-
-        /// <summary>
-        /// Changes the values of the specified pixels.
-        /// </summary>
-        /// <param name="x">The X coordinate of the area.</param>
-        /// <param name="y">The Y coordinate of the area.</param>
-        /// <param name="width">The width of the area.</param>
-        /// <param name="height">The height of the area.</param>
-        /// <param name="values">The values of the pixels.</param>
-        void SetArea(int x, int y, int width, int height, double[] values);
-
-        /// <summary>
-        /// Changes the values of the specified pixels.
-        /// </summary>
-        /// <param name="geometry">The geometry of the area.</param>
-        /// <param name="values">The values of the pixels.</param>
-        void SetArea(IMagickGeometry geometry, double[] values);
-
-        /// <summary>
-        /// Changes the values of the specified pixels.
-        /// </summary>
-        /// <param name="x">The X coordinate of the area.</param>
-        /// <param name="y">The Y coordinate of the area.</param>
-        /// <param name="width">The width of the area.</param>
-        /// <param name="height">The height of the area.</param>
-        /// <param name="values">The values of the pixels.</param>
-        void SetArea(int x, int y, int width, int height, int[] values);
-
-        /// <summary>
-        /// Changes the values of the specified pixels.
-        /// </summary>
-        /// <param name="geometry">The geometry of the area.</param>
-        /// <param name="values">The values of the pixels.</param>
-        void SetArea(IMagickGeometry geometry, int[] values);
-
-        /// <summary>
-        /// Changes the values of the specified pixels.
-        /// </summary>
-        /// <param name="x">The X coordinate of the area.</param>
-        /// <param name="y">The Y coordinate of the area.</param>
-        /// <param name="width">The width of the area.</param>
-        /// <param name="height">The height of the area.</param>
-        /// <param name="values">The values of the pixels.</param>
-        void SetArea(int x, int y, int width, int height, TQuantumType[] values);
-
-        /// <summary>
-        /// Changes the values of the specified pixels.
-        /// </summary>
-        /// <param name="geometry">The geometry of the area.</param>
-        /// <param name="values">The values of the pixels.</param>
-        void SetArea(IMagickGeometry geometry, TQuantumType[] values);
 
         /// <summary>
         /// Returns the values of the pixels as an array.

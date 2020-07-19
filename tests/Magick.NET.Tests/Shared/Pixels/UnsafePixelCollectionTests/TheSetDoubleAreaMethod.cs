@@ -10,69 +10,49 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-#if Q8
-using QuantumType = System.Byte;
-#elif Q16
-using QuantumType = System.UInt16;
-#elif Q16HDRI
-using QuantumType = System.Single;
-#else
-#error Not implemented!
-#endif
-
 namespace Magick.NET.Tests
 {
-    public partial class SafePixelCollectionTests
+    public partial class UnsafePixelCollectionTests
     {
         [TestClass]
-        public class TheSetAreaMethod
+        public class TheSetDoubleAreaMethod
         {
             [TestMethod]
-            public void ShouldThrowExceptionWhenArrayIsNull()
+            public void ShouldNotThrowExceptionWhenArrayIsNull()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (var pixels = image.GetPixels())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
-                        ExceptionAssert.Throws<ArgumentNullException>("values", () =>
-                        {
-                            pixels.SetArea(10, 10, 1000, 1000, null);
-                        });
+                        pixels.SetDoubleArea(10, 10, 1000, 1000, null);
                     }
                 }
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenArrayHasInvalidSize()
+            public void ShouldNotThrowExceptionWhenArrayHasInvalidSize()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (var pixels = image.GetPixels())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
-                        ExceptionAssert.Throws<ArgumentException>("values", () =>
-                        {
-                            pixels.SetArea(10, 10, 1000, 1000, new QuantumType[] { 0, 0, 0, 0 });
-                        });
+                        pixels.SetDoubleArea(10, 10, 1000, 1000, new double[] { 0, 0, 0, 0 });
                     }
                 }
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenArrayHasTooManyValues()
+            public void ShouldNotThrowExceptionWhenArrayHasTooManyValues()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (var pixels = image.GetPixels())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
-                        ExceptionAssert.Throws<ArgumentException>("values", () =>
-                        {
-                            var values = new QuantumType[(113 * 108 * image.ChannelCount) + image.ChannelCount];
-                            pixels.SetArea(10, 10, 113, 108, values);
-                        });
+                        var values = new double[(113 * 108 * image.ChannelCount) + image.ChannelCount];
+                        pixels.SetDoubleArea(10, 10, 113, 108, values);
                     }
                 }
             }
@@ -82,10 +62,10 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (var pixels = image.GetPixels())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
-                        var values = new QuantumType[113 * 108 * image.ChannelCount];
-                        pixels.SetArea(10, 10, 113, 108, values);
+                        var values = new double[113 * 108 * image.ChannelCount];
+                        pixels.SetDoubleArea(10, 10, 113, 108, values);
 
                         ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                     }
@@ -93,16 +73,13 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldThrowExceptionWhenArrayIsSpecifiedAndGeometryIsNull()
+            public void ShouldNotThrowExceptionWhenArrayIsSpecifiedAndGeometryIsNull()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (var pixels = image.GetPixels())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
-                        ExceptionAssert.Throws<ArgumentNullException>("geometry", () =>
-                        {
-                            pixels.SetArea(null, new QuantumType[] { 0 });
-                        });
+                        pixels.SetDoubleArea(null, new double[] { 0 });
                     }
                 }
             }
@@ -112,10 +89,10 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (var pixels = image.GetPixels())
+                    using (var pixels = image.GetPixelsUnsafe())
                     {
-                        var values = new QuantumType[113 * 108 * image.ChannelCount];
-                        pixels.SetArea(new MagickGeometry(10, 10, 113, 108), values);
+                        var values = new double[113 * 108 * image.ChannelCount];
+                        pixels.SetDoubleArea(new MagickGeometry(10, 10, 113, 108), values);
 
                         ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                     }

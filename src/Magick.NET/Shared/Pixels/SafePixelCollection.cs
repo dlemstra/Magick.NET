@@ -61,6 +61,83 @@ namespace ImageMagick
             return base.GetValue(x, y);
         }
 
+        public override void SetArea(int x, int y, int width, int height, QuantumType[] values)
+        {
+            CheckValues(x, y, width, height, values);
+            base.SetArea(x, y, width, height, values);
+        }
+
+        public override void SetArea(IMagickGeometry geometry, QuantumType[] values)
+        {
+            Throw.IfNull(nameof(geometry), geometry);
+
+            base.SetArea(geometry, values);
+        }
+
+        public override void SetByteArea(int x, int y, int width, int height, byte[] values)
+        {
+            CheckValues(x, y, width, height, values);
+            base.SetByteArea(x, y, width, height, values);
+        }
+
+        public override void SetByteArea(IMagickGeometry geometry, byte[] values)
+        {
+            Throw.IfNull(nameof(geometry), geometry);
+
+            base.SetByteArea(geometry, values);
+        }
+
+        public override void SetBytePixels(byte[] values)
+        {
+            CheckValues(values);
+            base.SetBytePixels(values);
+        }
+
+        public override void SetDoubleArea(int x, int y, int width, int height, double[] values)
+        {
+            CheckValues(x, y, width, height, values);
+            base.SetDoubleArea(x, y, width, height, values);
+        }
+
+        public override void SetDoubleArea(IMagickGeometry geometry, double[] values)
+        {
+            Throw.IfNull(nameof(geometry), geometry);
+
+            base.SetDoubleArea(geometry, values);
+        }
+
+        public override void SetDoublePixels(double[] values)
+        {
+            CheckValues(values);
+            base.SetDoublePixels(values);
+        }
+
+        public override void SetIntArea(int x, int y, int width, int height, int[] values)
+        {
+            CheckValues(x, y, width, height, values);
+            base.SetIntArea(x, y, width, height, values);
+        }
+
+        public override void SetIntArea(IMagickGeometry geometry, int[] values)
+        {
+            Throw.IfNull(nameof(geometry), geometry);
+
+            base.SetIntArea(geometry, values);
+        }
+
+        public override void SetIntPixels(int[] values)
+        {
+            CheckValues(values);
+            base.SetIntPixels(values);
+        }
+
+        public override void SetPixel(int x, int y, QuantumType[] value)
+        {
+            Throw.IfNullOrEmpty(nameof(value), value);
+
+            SetPixelPrivate(x, y, value);
+        }
+
         public override void SetPixel(IPixel<QuantumType> pixel)
         {
             Throw.IfNull(nameof(pixel), pixel);
@@ -75,91 +152,10 @@ namespace ImageMagick
             base.SetPixel(pixels);
         }
 
-        public override void SetPixel(int x, int y, QuantumType[] value)
-        {
-            Throw.IfNullOrEmpty(nameof(value), value);
-
-            SetPixelPrivate(x, y, value);
-        }
-
-#if !Q8
-        public override void SetPixels(byte[] values)
-        {
-            CheckValues(values);
-            base.SetPixels(values);
-        }
-#endif
-
-        public override void SetPixels(double[] values)
-        {
-            CheckValues(values);
-            base.SetPixels(values);
-        }
-
-        public override void SetPixels(int[] values)
-        {
-            CheckValues(values);
-            base.SetPixels(values);
-        }
-
         public override void SetPixels(QuantumType[] values)
         {
             CheckValues(values);
             base.SetPixels(values);
-        }
-
-#if !Q8
-        public override void SetArea(int x, int y, int width, int height, byte[] values)
-        {
-            CheckValues(x, y, width, height, values);
-            base.SetArea(x, y, width, height, values);
-        }
-
-        public override void SetArea(IMagickGeometry geometry, byte[] values)
-        {
-            Throw.IfNull(nameof(geometry), geometry);
-
-            base.SetArea(geometry, values);
-        }
-#endif
-
-        public override void SetArea(int x, int y, int width, int height, double[] values)
-        {
-            CheckValues(x, y, width, height, values);
-            base.SetArea(x, y, width, height, values);
-        }
-
-        public override void SetArea(IMagickGeometry geometry, double[] values)
-        {
-            Throw.IfNull(nameof(geometry), geometry);
-
-            base.SetArea(geometry, values);
-        }
-
-        public override void SetArea(int x, int y, int width, int height, int[] values)
-        {
-            CheckValues(x, y, width, height, values);
-            base.SetArea(x, y, width, height, values);
-        }
-
-        public override void SetArea(IMagickGeometry geometry, int[] values)
-        {
-            Throw.IfNull(nameof(geometry), geometry);
-
-            base.SetArea(geometry, values);
-        }
-
-        public override void SetArea(int x, int y, int width, int height, QuantumType[] values)
-        {
-            CheckValues(x, y, width, height, values);
-            base.SetArea(x, y, width, height, values);
-        }
-
-        public override void SetArea(IMagickGeometry geometry, QuantumType[] values)
-        {
-            Throw.IfNull(nameof(geometry), geometry);
-
-            base.SetArea(geometry, values);
         }
 
         public override byte[] ToByteArray(IMagickGeometry geometry, string mapping)
