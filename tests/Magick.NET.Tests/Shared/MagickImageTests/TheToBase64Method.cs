@@ -12,6 +12,7 @@
 
 using System;
 using ImageMagick;
+using ImageMagick.Formats.Tiff;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
@@ -37,11 +38,31 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldReturnBase64EncodedStringWhenOtherFormatIsSpecified()
+            public void ShouldReturnBase64EncodedStringUsingTheSpecifiedFormat()
             {
                 using (var image = new MagickImage(Files.SnakewarePNG))
                 {
-                    var base64 = image.ToBase64(MagickFormat.Tiff);
+                    var base64 = image.ToBase64(MagickFormat.Jpeg);
+                    Assert.IsNotNull(base64);
+                    Assert.AreEqual(1140, base64.Length);
+
+                    var bytes = Convert.FromBase64String(base64);
+                    Assert.IsNotNull(bytes);
+                    Assert.AreEqual(853, bytes.Length);
+                }
+            }
+
+            [TestMethod]
+            public void ShouldReturnBase64EncodedStringUsingTheSpecifiedDefines()
+            {
+                using (var image = new MagickImage(Files.SnakewarePNG))
+                {
+                    var defines = new TiffWriteDefines
+                    {
+                        PreserveCompression = true,
+                    };
+
+                    var base64 = image.ToBase64(defines);
                     Assert.IsNotNull(base64);
                     Assert.AreEqual(10800, base64.Length);
 
