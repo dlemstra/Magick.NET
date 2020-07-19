@@ -120,8 +120,8 @@ namespace Magick.NET.Tests
 
                 try
                 {
-                    System.IO.Directory.CreateDirectory("/output");
-                    image.Write("/output/test.png");
+                    System.IO.Directory.CreateDirectory("/Users/runner/work/Magick.NET/testimage");
+                    image.Write("/Users/runner/work/Magick.NET/testimage/test.png");
                 }
                 catch
                 {
