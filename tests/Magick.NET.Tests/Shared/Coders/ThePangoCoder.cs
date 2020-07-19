@@ -10,8 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if WINDOWS_BUILD
-
 using System.Threading.Tasks;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -19,10 +17,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Magick.NET.Tests
 {
     [TestClass]
-    public class PangoTests
+    public class ThePangoCoder
     {
         [TestMethod]
-        public void PangoDecoderIsThreadSafe()
+        public void IsThreadSafe()
         {
             string signature = LoadImage();
             Parallel.For(1, 10, (int i) =>
@@ -49,5 +47,3 @@ namespace Magick.NET.Tests
         }
     }
 }
-
-#endif
