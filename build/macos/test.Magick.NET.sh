@@ -11,6 +11,7 @@ buildAndTest() {
 cd src/Magick.Native
 ./install.sh
 
+brew install fontconfig
 fc-list : family
 
 cd ../../
