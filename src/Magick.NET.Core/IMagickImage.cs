@@ -2924,6 +2924,17 @@ namespace ImageMagick
         void WaveletDenoise(Percentage thresholdPercentage, double softness);
 
         /// <summary>
+        /// Apply a white balancing to an image according to a grayworld assumption in the LAB colorspace.
+        /// </summary>
+        void WhiteBalance();
+
+        /// <summary>
+        /// Apply a white balancing to an image according to a grayworld assumption in the LAB colorspace.
+        /// </summary>
+        /// <param name="vibrance">The vibrance.</param>
+        void WhiteBalance(Percentage vibrance);
+
+        /// <summary>
         /// Forces all pixels above the threshold into white while leaving all pixels at or below
         /// the threshold unchanged.
         /// </summary>

@@ -595,6 +595,8 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Wave(IntPtr Instance, UIntPtr method, double amplitude, double length, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickImage_WhiteBalance(IntPtr Instance, out IntPtr exception);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_WaveletDenoise(IntPtr Instance, double threshold, double softness, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_WhiteThreshold(IntPtr Instance, IntPtr threshold, UIntPtr channels, out IntPtr exception);
@@ -1156,6 +1158,8 @@ namespace ImageMagick
                 public static extern IntPtr MagickImage_Vignette(IntPtr Instance, double radius, double sigma, IntPtr x, IntPtr y, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Wave(IntPtr Instance, UIntPtr method, double amplitude, double length, out IntPtr exception);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickImage_WhiteBalance(IntPtr Instance, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_WaveletDenoise(IntPtr Instance, double threshold, double softness, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -6352,6 +6356,23 @@ namespace ImageMagick
                 #endif
                 CheckException(exception, result);
                 Instance = result;
+            }
+            public void WhiteBalance()
+            {
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_WhiteBalance(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_WhiteBalance(Instance, out exception);
+                #endif
+                CheckException(exception);
             }
             public void WaveletDenoise(double threshold, double softness)
             {

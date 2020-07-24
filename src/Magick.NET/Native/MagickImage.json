@@ -2861,6 +2861,10 @@
       ]
     },
     {
+      "name": "WhiteBalance",
+      "throws": true
+    },
+    {
       "name": "WaveletDenoise",
       "instance": true,
       "throws": true,

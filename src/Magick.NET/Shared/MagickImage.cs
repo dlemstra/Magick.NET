@@ -6519,6 +6519,23 @@ namespace ImageMagick
             => WaveletDenoise(thresholdPercentage.ToQuantumType(), softness);
 
         /// <summary>
+        /// Apply a white balancing to an image according to a grayworld assumption in the LAB colorspace.
+        /// </summary>
+        public void WhiteBalance()
+            => _nativeInstance.WhiteBalance();
+
+        /// <summary>
+        /// Apply a white balancing to an image according to a grayworld assumption in the LAB colorspace.
+        /// </summary>
+        /// <param name="vibrance">The vibrance.</param>
+        public void WhiteBalance(Percentage vibrance)
+        {
+            SetArtifact("white-balance:vibrance", vibrance.ToString());
+            WhiteBalance();
+            RemoveArtifact("white-balance:vibrance");
+        }
+
+        /// <summary>
         /// Forces all pixels above the threshold into white while leaving all pixels at or below
         /// the threshold unchanged.
         /// </summary>
