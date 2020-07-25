@@ -28,6 +28,8 @@ namespace Magick.NET.Tests
                     image.WhiteBalance();
 #if Q8
                     ColorAssert.AreEqual(new MagickColor("#dd4946"), image, 45, 25);
+#elif Q16
+                    ColorAssert.AreEqual(new MagickColor("#de494a714699"), image, 45, 25);
 #else
                     ColorAssert.AreEqual(new MagickColor("#de494a714698"), image, 45, 25);
 #endif
@@ -43,7 +45,7 @@ namespace Magick.NET.Tests
 #if Q8
                     ColorAssert.AreEqual(new MagickColor("#00a13b"), image, 45, 25);
 #elif Q16
-                    ColorAssert.AreEqual(new MagickColor("#e079a2033c3c"), image, 45, 25);
+                    ColorAssert.AreEqual(new MagickColor("#0000a2043c3d"), image, 45, 25);
 #else
                     image.Clamp();
                     ColorAssert.AreEqual(new MagickColor("#0000a2033c3c"), image, 45, 25);
