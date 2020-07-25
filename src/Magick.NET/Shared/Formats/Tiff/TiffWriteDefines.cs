@@ -59,7 +59,7 @@ namespace ImageMagick.Formats.Tiff
         public IMagickGeometry TileGeometry { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether tiff layers should be written (tiff:write-layers).
+        /// Gets or sets a value indicating whether photoshop layers should be written (tiff:write-layers).
         /// </summary>
         public bool WriteLayers { get; set; }
 
