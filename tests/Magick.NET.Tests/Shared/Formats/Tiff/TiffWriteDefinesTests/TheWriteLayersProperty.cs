@@ -19,22 +19,33 @@ namespace Magick.NET.Tests
     public partial class TiffWriteDefinesTests
     {
         [TestClass]
-        public class TheConstructor : TiffWriteDefinesTests
+        public class TheWriteLayersProperty : TiffWriteDefinesTests
         {
             [TestMethod]
-            public void ShouldNotSetAnyDefine()
+            public void ShouldSetTheDefineWhenSetToTrue()
+            {
+                using (var image = new MagickImage(Files.Builtin.Logo))
+                {
+                    image.Settings.SetDefines(new TiffWriteDefines()
+                    {
+                        WriteLayers = true,
+                    });
+
+                    Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Tiff, "write-layers"));
+                }
+            }
+
+            [TestMethod]
+            public void ShouldNotSetTheDefineWhenSetToFalse()
             {
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new TiffWriteDefines());
+                    image.Settings.SetDefines(new TiffWriteDefines()
+                    {
+                        WriteLayers = false,
+                    });
 
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "alpha"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "endian"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "fill-order"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "preserve-compression"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "rows-per-strip"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "tile-geometry"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "write-layers"));
+                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "write-layers"));
                 }
             }
         }

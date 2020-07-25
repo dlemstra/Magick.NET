@@ -59,6 +59,11 @@ namespace ImageMagick.Formats.Tiff
         public IMagickGeometry TileGeometry { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether tiff layers should be written (tiff:write-layers).
+        /// </summary>
+        public bool WriteLayers { get; set; }
+
+        /// <summary>
         /// Gets the defines that should be set as a define on an image.
         /// </summary>
         public override IEnumerable<IDefine> Defines
@@ -82,6 +87,9 @@ namespace ImageMagick.Formats.Tiff
 
                 if (TileGeometry != null)
                     yield return CreateDefine("tile-geometry", TileGeometry);
+
+                if (WriteLayers)
+                    yield return CreateDefine("write-layers", WriteLayers);
             }
         }
     }
