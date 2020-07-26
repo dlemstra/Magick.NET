@@ -27,7 +27,7 @@ namespace ImageMagick
         internal static void SetImageArtifacts(this IDeskewSettings self, IMagickImage<QuantumType> image)
         {
             if (self.AutoCrop)
-                image.SetArtifact("deskew:auto-crop", "true");
+                image.SetArtifact("deskew:auto-crop", self.AutoCrop);
         }
     }
 }

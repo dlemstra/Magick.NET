@@ -45,7 +45,7 @@ namespace ImageMagick
                 image.SetArtifact("connected-components:major-axis-threshold", self.MajorAxisThreshold.Value.ToString());
 
             if (self.MeanColor)
-                image.SetArtifact("connected-components:mean-color", "true");
+                image.SetArtifact("connected-components:mean-color", self.MeanColor);
 
             if (self.MinorAxisThreshold != null)
                 image.SetArtifact("connected-components:minor-axis-threshold", self.MinorAxisThreshold.Value.ToString());

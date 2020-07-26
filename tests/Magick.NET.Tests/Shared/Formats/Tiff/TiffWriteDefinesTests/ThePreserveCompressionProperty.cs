@@ -31,7 +31,7 @@ namespace Magick.NET.Tests
                         PreserveCompression = true,
                     });
 
-                    Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Tiff, "preserve-compression"));
+                    Assert.AreEqual("true", image.Settings.GetDefine(MagickFormat.Tiff, "preserve-compression"));
                 }
             }
 

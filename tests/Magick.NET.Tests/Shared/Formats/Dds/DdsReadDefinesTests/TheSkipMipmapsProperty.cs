@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
                     images.Read(Files.Coders.TestDDS, settings);
 
                     Assert.AreEqual(5, images.Count);
-                    Assert.AreEqual("False", images[0].Settings.GetDefine(MagickFormat.Dds, "skip-mipmaps"));
+                    Assert.AreEqual("false", images[0].Settings.GetDefine(MagickFormat.Dds, "skip-mipmaps"));
                 }
             }
 

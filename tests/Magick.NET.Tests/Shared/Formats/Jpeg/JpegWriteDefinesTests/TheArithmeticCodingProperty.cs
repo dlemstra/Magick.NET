@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(defines);
 
-                    Assert.AreEqual("False", image.Settings.GetDefine(MagickFormat.Jpeg, "arithmetic-coding"));
+                    Assert.AreEqual("false", image.Settings.GetDefine(MagickFormat.Jpeg, "arithmetic-coding"));
                 }
             }
 
@@ -52,7 +52,7 @@ namespace Magick.NET.Tests
                     {
                         input.Write(memStream, defines);
 
-                        Assert.AreEqual("True", input.Settings.GetDefine(MagickFormat.Jpeg, "arithmetic-coding"));
+                        Assert.AreEqual("true", input.Settings.GetDefine(MagickFormat.Jpeg, "arithmetic-coding"));
 
                         memStream.Position = 0;
                         using (var output = new MagickImage(memStream))

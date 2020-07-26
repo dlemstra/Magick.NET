@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
 
                     image.Settings.SetDefines(defines);
 
-                    Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Dds, "cluster-fit"));
+                    Assert.AreEqual("true", image.Settings.GetDefine(MagickFormat.Dds, "cluster-fit"));
                 }
             }
         }

@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(defines);
 
-                    Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Dng, "use_auto_wb"));
+                    Assert.AreEqual("true", image.Settings.GetDefine(MagickFormat.Dng, "use_auto_wb"));
                 }
             }
         }

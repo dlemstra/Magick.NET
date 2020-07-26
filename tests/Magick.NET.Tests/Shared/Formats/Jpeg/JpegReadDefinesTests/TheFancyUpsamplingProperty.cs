@@ -36,7 +36,7 @@ namespace Magick.NET.Tests
                 {
                     image.Read(Files.ImageMagickJPG, settings);
 
-                    Assert.AreEqual("False", image.Settings.GetDefine(MagickFormat.Jpeg, "fancy-upsampling"));
+                    Assert.AreEqual("false", image.Settings.GetDefine(MagickFormat.Jpeg, "fancy-upsampling"));
                 }
             }
         }

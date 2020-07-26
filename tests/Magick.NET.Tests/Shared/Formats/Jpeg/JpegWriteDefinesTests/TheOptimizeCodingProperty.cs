@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(defines);
 
-                    Assert.AreEqual("False", image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
+                    Assert.AreEqual("false", image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
                 }
             }
         }

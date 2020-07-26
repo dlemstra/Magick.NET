@@ -36,7 +36,7 @@ namespace Magick.NET.Tests
                 {
                     image.Read(Files.ImageMagickJPG, settings);
 
-                    Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Jpeg, "block-smoothing"));
+                    Assert.AreEqual("true", image.Settings.GetDefine(MagickFormat.Jpeg, "block-smoothing"));
                 }
             }
         }

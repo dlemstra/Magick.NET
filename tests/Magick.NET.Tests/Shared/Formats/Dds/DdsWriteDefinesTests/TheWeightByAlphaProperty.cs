@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
 
                     image.Settings.SetDefines(defines);
 
-                    Assert.AreEqual("False", image.Settings.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
+                    Assert.AreEqual("false", image.Settings.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
                 }
             }
         }

@@ -31,7 +31,7 @@ namespace Magick.NET.Tests
                         IgnoreExifPoperties = true,
                     });
 
-                    Assert.AreEqual("False", image.Settings.GetDefine(MagickFormat.Tiff, "exif-properties"));
+                    Assert.AreEqual("false", image.Settings.GetDefine(MagickFormat.Tiff, "exif-properties"));
                 }
             }
 

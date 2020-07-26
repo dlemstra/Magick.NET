@@ -10,7 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System.IO;
 using ImageMagick;
 using ImageMagick.Formats.Bmp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -34,7 +33,7 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(defines);
 
-                    Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Bmp, "ignore-filesize"));
+                    Assert.AreEqual("true", image.Settings.GetDefine(MagickFormat.Bmp, "ignore-filesize"));
                 }
             }
 

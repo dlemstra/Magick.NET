@@ -36,8 +36,8 @@ namespace Magick.NET.Tests
                 {
                     image.Read(Files.Coders.PlayerPSD, settings);
 
-                    string define = image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend");
-                    Assert.AreEqual("False", define);
+                    var define = image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend");
+                    Assert.AreEqual("false", define);
                 }
             }
 

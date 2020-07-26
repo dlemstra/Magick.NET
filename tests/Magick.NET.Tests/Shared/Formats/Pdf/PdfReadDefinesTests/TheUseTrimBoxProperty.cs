@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(defines);
 
-                    Assert.AreEqual("False", image.Settings.GetDefine(MagickFormat.Pdf, "use-trimbox"));
+                    Assert.AreEqual("false", image.Settings.GetDefine(MagickFormat.Pdf, "use-trimbox"));
                 }
             }
         }

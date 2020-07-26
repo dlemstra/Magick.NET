@@ -31,7 +31,7 @@ namespace Magick.NET.Tests
                         WriteLayers = true,
                     });
 
-                    Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Tiff, "write-layers"));
+                    Assert.AreEqual("true", image.Settings.GetDefine(MagickFormat.Tiff, "write-layers"));
                 }
             }
 
