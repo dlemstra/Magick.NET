@@ -32,5 +32,14 @@ namespace ImageMagick
             if (self.ConvolveScale != null)
                 image.SetArtifact("convolve:scale", self.ConvolveScale.ToString());
         }
+
+        public static void RemoveImageArtifacts(this IMorphologySettings self, IMagickImage<QuantumType> image)
+        {
+            if (self.ConvolveBias != null)
+                image.RemoveArtifact("convolve:bias");
+
+            if (self.ConvolveScale != null)
+                image.RemoveArtifact("convolve:scale");
+        }
     }
 }

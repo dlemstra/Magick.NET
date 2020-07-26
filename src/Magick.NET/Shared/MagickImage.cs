@@ -4333,6 +4333,8 @@ namespace ImageMagick
                 Morphology(settings.Method, settings.UserKernel, settings.Channels, settings.Iterations);
             else
                 Morphology(settings.Method, settings.Kernel, settings.KernelArguments, settings.Channels, settings.Iterations);
+
+            settings.RemoveImageArtifacts(this);
         }
 
         /// <summary>
