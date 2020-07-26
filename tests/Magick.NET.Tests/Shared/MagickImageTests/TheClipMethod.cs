@@ -10,8 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if WINDOWS_BUILD
-
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -78,5 +76,3 @@ namespace Magick.NET.Tests
         }
     }
 }
-
-#endif
