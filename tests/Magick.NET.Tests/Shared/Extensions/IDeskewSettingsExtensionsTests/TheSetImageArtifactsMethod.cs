@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldSetRemoveAutoCrop()
+            public void ShouldSetAutoCrop()
             {
                 using (var image = new MagickImage())
                 {
