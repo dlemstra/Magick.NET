@@ -24,10 +24,16 @@ namespace ImageMagick
 {
     internal static class IDeskewSettingsExtensions
     {
-        internal static void SetImageArtifacts(this IDeskewSettings self, IMagickImage<QuantumType> image)
+        public static void SetImageArtifacts(this IDeskewSettings self, IMagickImage<QuantumType> image)
         {
             if (self.AutoCrop)
                 image.SetArtifact("deskew:auto-crop", self.AutoCrop);
+        }
+
+        public static void RemoveImageArtifacts(this IDeskewSettings self, IMagickImage<QuantumType> image)
+        {
+            if (self.AutoCrop)
+                image.RemoveArtifact("deskew:auto-crop");
         }
     }
 }

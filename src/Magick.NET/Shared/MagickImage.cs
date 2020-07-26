@@ -2600,6 +2600,8 @@ namespace ImageMagick
 
             _nativeInstance.Deskew(settings.Threshold.ToQuantum());
 
+            settings.RemoveImageArtifacts(this);
+
             var artifact = GetArtifact("deskew:angle");
             if (!double.TryParse(artifact, NumberStyles.Any, CultureInfo.InvariantCulture, out var result))
                 return 0.0;
