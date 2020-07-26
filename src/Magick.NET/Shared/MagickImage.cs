@@ -2295,6 +2295,7 @@ namespace ImageMagick
             }
             finally
             {
+                settings.RemoveImageArtifacts(this);
                 ConnectedComponent.DisposeList(objects);
             }
         }

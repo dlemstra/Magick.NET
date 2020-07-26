@@ -24,7 +24,7 @@ namespace ImageMagick
 {
     internal static class IConnectedComponentsSettingsExtensions
     {
-        internal static void SetImageArtifacts(this IConnectedComponentsSettings self, IMagickImage<QuantumType> image)
+        public static void SetImageArtifacts(this IConnectedComponentsSettings self, IMagickImage<QuantumType> image)
         {
             if (self.AngleThreshold != null)
                 image.SetArtifact("connected-components:angle-threshold", self.AngleThreshold.Value.ToString());
@@ -52,6 +52,36 @@ namespace ImageMagick
 
             if (self.PerimeterThreshold != null)
                 image.SetArtifact("connected-components:perimeter-threshold", self.PerimeterThreshold.Value.ToString());
+        }
+
+        public static void RemoveImageArtifacts(this IConnectedComponentsSettings self, IMagickImage<QuantumType> image)
+        {
+            if (self.AngleThreshold != null)
+                image.RemoveArtifact("connected-components:angle-threshold");
+
+            if (self.AreaThreshold != null)
+                image.RemoveArtifact("connected-components:area-threshold");
+
+            if (self.CircularityThreshold != null)
+                image.RemoveArtifact("connected-components:circularity-threshold");
+
+            if (self.DiameterThreshold != null)
+                image.RemoveArtifact("connected-components:diameter-threshold");
+
+            if (self.EccentricityThreshold != null)
+                image.RemoveArtifact("connected-components:eccentricity-threshold");
+
+            if (self.MajorAxisThreshold != null)
+                image.RemoveArtifact("connected-components:major-axis-threshold");
+
+            if (self.MeanColor)
+                image.RemoveArtifact("connected-components:mean-color");
+
+            if (self.MinorAxisThreshold != null)
+                image.RemoveArtifact("connected-components:minor-axis-threshold");
+
+            if (self.PerimeterThreshold != null)
+                image.RemoveArtifact("connected-components:perimeter-threshold");
         }
     }
 }
