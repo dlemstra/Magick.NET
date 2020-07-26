@@ -34,5 +34,14 @@ namespace ImageMagick
             if (self.Viewport != null)
                 image.SetArtifact("distort:viewport", self.Viewport.ToString());
         }
+
+        public static void RemoveImageArtifacts(this IDistortSettings self, IMagickImage<QuantumType> image)
+        {
+            if (self.Scale != null)
+                image.RemoveArtifact("distort:scale");
+
+            if (self.Viewport != null)
+                image.RemoveArtifact("distort:viewport");
+        }
     }
 }

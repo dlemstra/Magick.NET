@@ -2661,6 +2661,8 @@ namespace ImageMagick
             settings.SetImageArtifacts(this);
 
             _nativeInstance.Distort(method, settings.Bestfit, arguments, arguments.Length);
+
+            settings.RemoveImageArtifacts(this);
         }
 
         /// <summary>
