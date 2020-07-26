@@ -82,38 +82,6 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldSetAnArtifactWhenTheScaleOfTheSettingsIsNotNull()
-            {
-                using (var image = new MagickImage(Files.MagickNETIconPNG))
-                {
-                    var settings = new DistortSettings()
-                    {
-                        Scale = 5.2,
-                    };
-
-                    image.Distort(DistortMethod.Barrel, settings, new double[] { 0, 0, 0, 0, 0 });
-
-                    Assert.AreEqual("5.2", image.GetArtifact("distort:scale"));
-                }
-            }
-
-            [TestMethod]
-            public void ShouldSetAnArtifactWhenTheViewportOfTheSettingsIsNotNull()
-            {
-                using (var image = new MagickImage(Files.MagickNETIconPNG))
-                {
-                    var settings = new DistortSettings()
-                    {
-                        Viewport = new MagickGeometry(1, 2, 300, 400),
-                    };
-
-                    image.Distort(DistortMethod.Barrel, settings, new double[] { 0, 0, 0, 0, 0 });
-
-                    Assert.AreEqual("300x400+1+2", image.GetArtifact("distort:viewport"));
-                }
-            }
-
-            [TestMethod]
             public void ShouldBeAbleToPerformPerspectiveDistortion()
             {
                 using (var image = new MagickImage(Files.MagickNETIconPNG))

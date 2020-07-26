@@ -59,23 +59,6 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldSetSeedColorsAsAnArtifact()
-            {
-                var settings = new KmeansSettings()
-                {
-                    SeedColors = "red;green",
-                    NumberColors = 1,
-                };
-
-                using (var image = new MagickImage(MagickColors.Red, 1, 1))
-                {
-                    image.Kmeans(settings);
-
-                    Assert.AreEqual("red;green", image.GetArtifact("kmeans:seed-colors"));
-                }
-            }
-
-            [TestMethod]
             public void ShouldReduceTheNumberOfColors()
             {
                 var settings = new KmeansSettings()
