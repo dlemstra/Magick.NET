@@ -116,87 +116,6 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldSetAnArtifactWhenTheHighlightOfTheSettingsIsNotNull()
-            {
-                CompareSettings settings = new CompareSettings()
-                {
-                    HighlightColor = MagickColors.Fuchsia,
-                };
-
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    using (var other = new MagickImage(Files.Builtin.Logo))
-                    {
-                        using (var diff = new MagickImage())
-                        {
-                            image.Compare(other, settings, diff);
-                        }
-                    }
-#if Q8
-                    Assert.AreEqual("#FF00FFFF", image.GetArtifact("compare:highlight-color"));
-#elif Q16 || Q16HDRI
-                    Assert.AreEqual("#FFFF0000FFFFFFFF", image.GetArtifact("compare:highlight-color"));
-#else
-#error Not implemented!
-#endif
-                }
-            }
-
-            [TestMethod]
-            public void ShouldSetAnArtifactWhenTheLowlightOfTheSettingsIsNotNull()
-            {
-                CompareSettings settings = new CompareSettings()
-                {
-                    LowlightColor = MagickColors.Fuchsia,
-                };
-
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    using (var other = new MagickImage(Files.Builtin.Logo))
-                    {
-                        using (var diff = new MagickImage())
-                        {
-                            image.Compare(other, settings, diff);
-                        }
-                    }
-#if Q8
-                    Assert.AreEqual("#FF00FFFF", image.GetArtifact("compare:lowlight-color"));
-#elif Q16 || Q16HDRI
-                    Assert.AreEqual("#FFFF0000FFFFFFFF", image.GetArtifact("compare:lowlight-color"));
-#else
-#error Not implemented!
-#endif
-                }
-            }
-
-            [TestMethod]
-            public void ShouldSetAnArtifactWhenTheMasklightOfTheSettingsIsNotNull()
-            {
-                CompareSettings settings = new CompareSettings()
-                {
-                    MasklightColor = MagickColors.Fuchsia,
-                };
-
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    using (var other = new MagickImage(Files.Builtin.Logo))
-                    {
-                        using (var diff = new MagickImage())
-                        {
-                            image.Compare(other, settings, diff);
-                        }
-                    }
-#if Q8
-                    Assert.AreEqual("#FF00FFFF", image.GetArtifact("compare:masklight-color"));
-#elif Q16 || Q16HDRI
-                    Assert.AreEqual("#FFFF0000FFFFFFFF", image.GetArtifact("compare:masklight-color"));
-#else
-#error Not implemented!
-#endif
-                }
-            }
-
-            [TestMethod]
             public void ShouldReturnEmptyErrorInfoWhenTheImagesAreEqual()
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
@@ -264,10 +183,8 @@ namespace Magick.NET.Tests
 
 #if Q8
                         Assert.AreEqual(44.55, errorInfo.MeanErrorPerPixel, 0.01);
-#elif Q16 || Q16HDRI
-                        Assert.AreEqual(11450.85, errorInfo.MeanErrorPerPixel, 0.01);
 #else
-#error Not implemented!
+                        Assert.AreEqual(11450.85, errorInfo.MeanErrorPerPixel, 0.01);
 #endif
                         Assert.AreEqual(1, errorInfo.NormalizedMaximumError);
                         Assert.AreEqual(0.13, errorInfo.NormalizedMeanError, 0.01);
