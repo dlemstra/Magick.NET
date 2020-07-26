@@ -1588,7 +1588,7 @@ namespace ImageMagick
 
         private void AttachImages()
         {
-            for (int i = 0; i < _images.Count - 1; i++)
+            for (var i = 0; i < _images.Count - 1; i++)
             {
                 _images[i].SetNext(_images[i + 1]);
             }
@@ -1605,7 +1605,7 @@ namespace ImageMagick
 
         private void DetachImages()
         {
-            for (var i = _images.Count - 2; i > 0; i--)
+            for (var i = 0; i < _images.Count - 1; i++)
             {
                 _images[i].SetNext(null);
             }
