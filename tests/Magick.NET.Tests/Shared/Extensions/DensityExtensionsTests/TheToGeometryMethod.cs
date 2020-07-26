@@ -15,7 +15,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    public partial class DensityExtensionsTets
+    public partial class DensityExtensionsTests
     {
         [TestClass]
         public class TheToGeometryMethod
