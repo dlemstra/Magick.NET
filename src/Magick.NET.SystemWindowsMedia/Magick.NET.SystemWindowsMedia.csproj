@@ -2,9 +2,9 @@
   <PropertyGroup>
     <TargetFrameworks>net40;netcoreapp3.0</TargetFrameworks>
     <Platforms>AnyCPU</Platforms>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.0.0</FileVersion>
-    <Version>2.0.0.0</Version>
+    <AssemblyVersion>2.0.1.0</AssemblyVersion>
+    <FileVersion>2.0.1.0</FileVersion>
+    <Version>2.0.1.0</Version>
     <Configurations>Debug;Test;Release</Configurations>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
