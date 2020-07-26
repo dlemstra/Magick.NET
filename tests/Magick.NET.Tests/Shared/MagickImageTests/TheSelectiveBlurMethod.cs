@@ -29,10 +29,8 @@ namespace Magick.NET.Tests
 
 #if Q8
                     ColorAssert.AreEqual(new MagickColor("#df3a39ff"), image, 37, 20);
-#elif Q16 || Q16HDRI
-                    ColorAssert.AreEqual(new MagickColor("#df003a7738aeffff"), image, 37, 20);
 #else
-#error Not implemented!
+                    ColorAssert.AreEqual(new MagickColor("#df003a7738aeffff"), image, 37, 20);
 #endif
                 }
             }

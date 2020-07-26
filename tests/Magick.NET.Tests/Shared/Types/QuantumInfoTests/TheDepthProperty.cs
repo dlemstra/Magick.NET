@@ -25,10 +25,8 @@ namespace Magick.NET.Tests
             {
 #if Q8
                 Assert.AreEqual(QuantumInfo.Instance.Depth, 8);
-#elif Q16 || Q16HDRI
-                Assert.AreEqual(QuantumInfo.Instance.Depth, 16);
 #else
-#error Not implemented!
+                Assert.AreEqual(QuantumInfo.Instance.Depth, 16);
 #endif
             }
         }

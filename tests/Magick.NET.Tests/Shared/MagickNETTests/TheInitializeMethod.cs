@@ -51,10 +51,8 @@ namespace Magick.NET.Tests
                     path += "Q8";
 #elif Q16
                     path += "Q16";
-#elif Q16HDRI
-                    path += "Q16-HDRI";
 #else
-#error Not implemented!
+                    path += "Q16-HDRI";
 #endif
 
                     foreach (string fileName in Directory.GetFiles(path, "*.xml"))

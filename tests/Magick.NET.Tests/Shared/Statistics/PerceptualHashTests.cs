@@ -53,7 +53,7 @@ namespace Magick.NET.Tests
                 TestChannel(channel, 4, 8.7557, 8.7557, 5.1134, 5.1087);
                 TestChannel(channel, 5, 8.3019, 8.3018, 3.4791, 3.4733);
                 TestChannel(channel, 6, 8.4398, 8.4398, 5.0679, 5.0815);
-#elif Q16HDRI
+#else
                 TestChannel(channel, 0, 0.6979, 0.6979, 0.2944, 0.2945);
                 TestChannel(channel, 1, 3.4385, 3.4385, 1.1850, 1.1834);
                 TestChannel(channel, 2, 3.9123, 3.9123, 1.5006, 1.5009);
@@ -61,8 +61,6 @@ namespace Magick.NET.Tests
                 TestChannel(channel, 4, 8.7557, 8.7557, 5.3844, 5.3651);
                 TestChannel(channel, 5, 8.3018, 8.3018, 3.6804, 3.6675);
                 TestChannel(channel, 6, 8.4398, 8.4398, 5.6247, 5.6501);
-#else
-#error Not implemented!
 #endif
 
                 channel = phash.GetChannel(PixelChannel.Green);
@@ -82,7 +80,7 @@ namespace Magick.NET.Tests
                 TestChannel(channel, 4, 8.8174, 8.8174, 1.7230, 1.7230);
                 TestChannel(channel, 5, 6.4821, 6.4821, 0.9413, 0.9413);
                 TestChannel(channel, 6, 9.2148, 9.2148, 1.5063, 1.5063);
-#elif Q16HDRI
+#else
                 TestChannel(channel, 0, 0.6942, 0.6942, -0.0601, -0.0601);
                 TestChannel(channel, 1, 3.3989, 3.3989, 0.3092, 0.3092);
                 TestChannel(channel, 2, 4.1169, 4.1169, 0.6084, 0.6084);
@@ -90,8 +88,6 @@ namespace Magick.NET.Tests
                 TestChannel(channel, 4, 8.8174, 8.8174, 1.7230, 1.7230);
                 TestChannel(channel, 5, 6.4821, 6.4821, 0.9413, 0.9413);
                 TestChannel(channel, 6, 9.2148, 9.2148, 1.5063, 1.5063);
-#else
-#error Not implemented!
 #endif
 
                 channel = phash.GetChannel(PixelChannel.Blue);
@@ -111,7 +107,7 @@ namespace Magick.NET.Tests
                 TestChannel(channel, 4, 10.4771, 10.4772, 8.8663, 8.8663);
                 TestChannel(channel, 5, 6.9448, 6.9448, 6.6094, 6.6094);
                 TestChannel(channel, 6, 10.1388, 10.1388, 9.0737, 9.0737);
-#elif Q16HDRI
+#else
                 TestChannel(channel, 0, 0.7222, 0.7222, 0.6984, 0.6984);
                 TestChannel(channel, 1, 3.8295, 3.8295, 3.4609, 3.4609);
                 TestChannel(channel, 2, 5.1304, 5.1304, 4.1314, 4.1314);
@@ -119,8 +115,6 @@ namespace Magick.NET.Tests
                 TestChannel(channel, 4, 10.4772, 10.4772, 8.8663, 8.8663);
                 TestChannel(channel, 5, 6.9448, 6.9448, 6.6094, 6.6094);
                 TestChannel(channel, 6, 10.1388, 10.1388, 9.0737, 9.0737);
-#else
-#error Not implemented!
 #endif
             }
         }
@@ -161,10 +155,8 @@ namespace Magick.NET.Tests
                 OpenCLValue.Assert("81b4488655898d38a7aa6223562032620f8a2614819b78241685c4b8c1a786f0689c9881b1f884ca8a0d38af2f622728fd3d623fedeacea78bcaedaa81d8884349824c583ad981c37895998c8658c42a628ed61b216279b81b49887348a1608af44622a3619d362371", "81b4488656898d38a7a96223562017620f7a26cd81a1e823ec85b3b8cc3186ec889ad481b1f884cb8a0d58af30622728fd41623fedea8aa78d4aeda481d8f84355824cd83ae281c378959a8c8668c42a628ec61b216279c81b49887348a1608af44622a3619d362370", hash);
 #elif Q16
                 OpenCLValue.Assert("81b4488652898d48a7a9622346206e620f8a649d8297d835bd86eb58c7be887e78c5f881b1e884c58a0d18af2d622718fd35623ffdeac9a78cbaedaa81d888434e824c683ad781c37895978c8688c426628ed61b216279b81b48887318a1628af43622a2619d162372", "81b4488652898d48a7a9622346206e620f8a646682939835e986ec98c78f887ae8c67f81b1e884c58a0d18af2d622718fd35623ffdeac9a78cbaedaa81d888434e824c683ad781c37895978c8688c426628ed61b216279b81b48887318a1628af43622a2619d162372", hash);
-#elif Q16HDRI
-                OpenCLValue.Assert("81b4488652898d48a7a9622346206e620f8a730882e4a83a9e877108d25488fc58dbb781b1e884c58a0d18af2d622718fd35623ffdeac9a78cbaedaa81d888434e824c683ad781c37895978c8688c426628ed61b216279b81b48887318a1628af43622a2619d162372", "81b4488652898d48a7a9622346206e620f8a731182e3a83aa2876d48d19488f438dcb581b1e884c58a0d18af2d622718fd35623ffdeac9a78cbaedaa81d888434e824c683ad781c37895978c8688c426628ed61b216279b81b48887318a1628af43622a2619d162372", hash);
 #else
-#error Not implemented!
+                OpenCLValue.Assert("81b4488652898d48a7a9622346206e620f8a730882e4a83a9e877108d25488fc58dbb781b1e884c58a0d18af2d622718fd35623ffdeac9a78cbaedaa81d888434e824c683ad781c37895978c8688c426628ed61b216279b81b48887318a1628af43622a2619d162372", "81b4488652898d48a7a9622346206e620f8a731182e3a83aa2876d48d19488f438dcb581b1e884c58a0d18af2d622718fd35623ffdeac9a78cbaedaa81d888434e824c683ad781c37895978c8688c426628ed61b216279b81b48887318a1628af43622a2619d162372", hash);
 #endif
                 PerceptualHash clone = new PerceptualHash(hash);
                 Assert.AreEqual(0.0, phash.SumSquaredDistance(clone), 0.001);
@@ -188,10 +180,8 @@ namespace Magick.NET.Tests
                     OpenCLValue.Assert(394.74, 394.90, phash.SumSquaredDistance(otherPhash), 0.01);
 #elif Q16
                     OpenCLValue.Assert(395.35, 395.39, phash.SumSquaredDistance(otherPhash), 0.02);
-#elif Q16HDRI
-                    OpenCLValue.Assert(395.60, 395.68, phash.SumSquaredDistance(otherPhash), 0.02);
 #else
-#error Not implemented!
+                    OpenCLValue.Assert(395.60, 395.68, phash.SumSquaredDistance(otherPhash), 0.02);
 #endif
                 }
             }

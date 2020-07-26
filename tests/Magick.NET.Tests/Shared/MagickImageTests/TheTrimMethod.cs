@@ -56,11 +56,9 @@ namespace Magick.NET.Tests
 #if Q8 || Q16
                     Assert.AreEqual(558, image.Width);
                     Assert.AreEqual(318, image.Height);
-#elif Q16HDRI
+#else
                     Assert.AreEqual(560, image.Width);
                     Assert.AreEqual(320, image.Height);
-#else
-#error Not implemented!
 #endif
                 }
             }

@@ -109,10 +109,8 @@ namespace Magick.NET.Tests
             color = new MagickColor("#bbccbb");
 #if Q8
             ColorAssert.AreEqual(new MagickColor("#bacbba"), color.ToMagickColor());
-#elif Q16 || Q16HDRI
-            ColorAssert.AreEqual(new MagickColor("#bbbacccbbbba"), color.ToMagickColor());
 #else
-#error Not implemented!
+            ColorAssert.AreEqual(new MagickColor("#bbbacccbbbba"), color.ToMagickColor());
 #endif
 
             color = new MagickColor("#bbaacc");

@@ -58,11 +58,9 @@ namespace Magick.NET.Tests
 
 #elif Q16
                     ColorAssert.AreEqual(new MagickColor("#aaabb3b4b9ba0001"), collection[1], 10, 10);
-#elif Q16HDRI
+#else
                     collection[1].Clamp();
                     ColorAssert.AreEqual(new MagickColor("#0000000000000000"), collection[1], 10, 10);
-#else
-#error Not implemented!
 #endif
                 }
             }

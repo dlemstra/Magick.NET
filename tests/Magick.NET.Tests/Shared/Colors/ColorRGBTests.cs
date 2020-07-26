@@ -150,10 +150,8 @@ namespace Magick.NET.Tests
             complementary = color.ComplementaryColor();
 #if Q8
             ColorAssert.AreEqual(new MagickColor("#231ea0"), complementary.ToMagickColor());
-#elif Q16 || Q16HDRI
-            ColorAssert.AreEqual(new MagickColor("#24231e1ea0a0"), complementary.ToMagickColor());
 #else
-#error Not implemented!
+            ColorAssert.AreEqual(new MagickColor("#24231e1ea0a0"), complementary.ToMagickColor());
 #endif
         }
 

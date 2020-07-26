@@ -20,10 +20,8 @@ namespace Magick.NET.Tests
     {
 #if Q8
         private readonly byte[] _bytes = new byte[] { 1, 2, 3, 4 };
-#elif Q16 || Q16HDRI
-        private readonly byte[] _bytes = new byte[] { 1, 0, 2, 0, 3, 0, 4, 0 };
 #else
-#error Not implemented!
+        private readonly byte[] _bytes = new byte[] { 1, 0, 2, 0, 3, 0, 4, 0 };
 #endif
 
         private readonly MagickReadSettings _settings = new MagickReadSettings()

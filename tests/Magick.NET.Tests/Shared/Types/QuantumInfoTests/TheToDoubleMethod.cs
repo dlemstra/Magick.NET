@@ -28,11 +28,9 @@ namespace Magick.NET.Tests
 #if Q8
                 Assert.AreEqual(quantumInfo.Depth, 8);
                 Assert.AreEqual(quantumInfo.Max, 255.0);
-#elif Q16 || Q16HDRI
+#else
                 Assert.AreEqual(quantumInfo.Depth, 16);
                 Assert.AreEqual(quantumInfo.Max, 65535.0);
-#else
-#error Not implemented!
 #endif
             }
         }

@@ -27,10 +27,8 @@ namespace Magick.NET.Tests
                 Assert.AreEqual(QuantumInfo.Instance.Max, byte.MaxValue);
 #elif Q16
                 Assert.AreEqual(QuantumInfo.Instance.Max, ushort.MaxValue);
-#elif Q16HDRI
-                Assert.AreEqual(QuantumInfo.Instance.Max, (float)ushort.MaxValue);
 #else
-#error Not implemented!
+                Assert.AreEqual(QuantumInfo.Instance.Max, (float)ushort.MaxValue);
 #endif
             }
         }

@@ -65,7 +65,7 @@ namespace Magick.NET.Tests
             Assert.AreEqual(3.35, red.SumCubed, 0.01);
             Assert.AreEqual(6.71, red.SumFourthPower, 0.01);
             Assert.AreEqual(1.67, red.SumSquared, 0.01);
-#elif Q16 || Q16HDRI
+#else
             Assert.AreEqual(8, red.Depth);
             Assert.AreEqual(0.98, red.Entropy, 0.01);
             Assert.AreEqual(-1.89, red.Kurtosis, 0.01);
@@ -78,8 +78,6 @@ namespace Magick.NET.Tests
             Assert.AreEqual(57013088.69, red.SumCubed, 0.01);
             Assert.AreEqual(29304727586.71, red.SumFourthPower, 0.01);
             Assert.AreEqual(110920.40, red.SumSquared, 0.01);
-#else
-#error Not implemented!
 #endif
 
             Assert.IsNotNull(statistics.Composite());

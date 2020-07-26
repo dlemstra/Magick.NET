@@ -27,10 +27,8 @@ namespace Magick.NET.Tests
                 StringAssert.Contains(MagickNET.Version, "Q8");
 #elif Q16
             StringAssert.Contains(MagickNET.Version, "Q16");
-#elif Q16HDRI
-            StringAssert.Contains(MagickNET.Version, "Q16-HDRI");
 #else
-#error Not implemented!
+            StringAssert.Contains(MagickNET.Version, "Q16-HDRI");
 #endif
             }
         }

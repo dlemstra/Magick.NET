@@ -26,10 +26,8 @@ namespace Magick.NET.Tests
                 var color = new MagickColor(MagickColors.Red);
 #if Q8
                 Assert.AreEqual("#FF0000FF", color.ToString());
-#elif Q16 || Q16HDRI
-                Assert.AreEqual("#FFFF00000000FFFF", color.ToString());
 #else
-#error Not implemented!
+                Assert.AreEqual("#FFFF00000000FFFF", color.ToString());
 #endif
             }
 
@@ -40,10 +38,8 @@ namespace Magick.NET.Tests
                 var color = new MagickColor(0, Quantum.Max, 0, 0, (System.Byte)(Quantum.Max / 3));
 #elif Q16
                 var color = new MagickColor(0, Quantum.Max, 0, 0, (System.UInt16)(Quantum.Max / 3));
-#elif Q16HDRI
-                var color = new MagickColor(0, Quantum.Max, 0, 0, (System.Single)(Quantum.Max / 3));
 #else
-#error Not implemented!
+                var color = new MagickColor(0, Quantum.Max, 0, 0, (System.Single)(Quantum.Max / 3));
 #endif
                 Assert.AreEqual("cmyka(0," + Quantum.Max + ",0,0,0.3333)", color.ToString());
 

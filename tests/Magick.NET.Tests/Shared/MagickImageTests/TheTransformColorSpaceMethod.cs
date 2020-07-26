@@ -107,10 +107,8 @@ namespace Magick.NET.Tests
                     image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.AdobeRGB1998);
 #if Q8 || Q16
                     ColorAssert.AreEqual(new MagickColor("#ffffff"), image, 1, 1);
-#elif Q16HDRI
-                    ColorAssert.AreEqual(new MagickColor(65538f, 65531f, 65542f, 65535f), image, 1, 1);
 #else
-#error Not implemented!
+                    ColorAssert.AreEqual(new MagickColor(65538f, 65531f, 65542f, 65535f), image, 1, 1);
 #endif
                 }
             }
