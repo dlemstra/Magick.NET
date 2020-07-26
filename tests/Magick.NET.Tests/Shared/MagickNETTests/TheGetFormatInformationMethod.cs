@@ -50,9 +50,6 @@ namespace Magick.NET.Tests
                 if (format == MagickFormat.Clipboard || format == MagickFormat.Emf || format == MagickFormat.Wmf)
                     return false;
 
-                if (format == MagickFormat.Exr)
-                    return false;
-
                 if (format == MagickFormat.Flif)
                     return false;
 #endif
