@@ -1809,6 +1809,8 @@ namespace ImageMagick
             if (result != IntPtr.Zero)
                 differenceImage._nativeInstance.Instance = result;
 
+            settings.RemoveImageArtifacts(this);
+
             return distortion;
         }
 

@@ -35,5 +35,17 @@ namespace ImageMagick
             if (self.MasklightColor != null)
                 image.SetArtifact("compare:masklight-color", self.MasklightColor.ToString());
         }
+
+        public static void RemoveImageArtifacts(this ICompareSettings<QuantumType> self, IMagickImage<QuantumType> image)
+        {
+            if (self.HighlightColor != null)
+                image.RemoveArtifact("compare:highlight-color");
+
+            if (self.LowlightColor != null)
+                image.RemoveArtifact("compare:lowlight-color");
+
+            if (self.MasklightColor != null)
+                image.RemoveArtifact("compare:masklight-color");
+        }
     }
 }
