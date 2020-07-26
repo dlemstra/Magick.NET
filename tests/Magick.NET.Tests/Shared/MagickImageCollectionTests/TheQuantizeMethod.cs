@@ -19,7 +19,7 @@ namespace Magick.NET.Tests
     public partial class MagickImageCollectionTests
     {
         [TestClass]
-        public partial class TheQuantizeMethod
+        public class TheQuantizeMethod
         {
             [TestMethod]
             public void ShouldThrowExceptionWhenCollectionIsEmpty()
@@ -62,6 +62,58 @@ namespace Magick.NET.Tests
 
                     var errorInfo = images.Quantize(settings);
                     Assert.IsNull(errorInfo);
+                }
+            }
+
+            [TestMethod]
+            public void ShouldReduceTheColors()
+            {
+                using (var collection = new MagickImageCollection())
+                {
+                    collection.Add(Files.FujiFilmFinePixS1ProJPG);
+
+                    QuantizeSettings settings = new QuantizeSettings
+                    {
+                        Colors = 3,
+                    };
+
+                    collection.Quantize(settings);
+
+#if Q8
+                    ColorAssert.AreEqual(new MagickColor("#2b414f"), collection[0], 120, 140);
+                    ColorAssert.AreEqual(new MagickColor("#7b929f"), collection[0], 95, 140);
+                    ColorAssert.AreEqual(new MagickColor("#44739f"), collection[0], 300, 150);
+#else
+                    ColorAssert.AreEqual(new MagickColor("#2af841624f09"), collection[0], 120, 140);
+                    ColorAssert.AreEqual(new MagickColor("#7b3c92b69f5a"), collection[0], 95, 140);
+                    ColorAssert.AreEqual(new MagickColor("#44bc73059f70"), collection[0], 300, 150);
+#endif
+                }
+            }
+
+            [TestMethod]
+            public void ShouldReturnErrorInfoWhenMeasureErrorsIsTrue()
+            {
+                using (var collection = new MagickImageCollection())
+                {
+                    collection.Add(Files.FujiFilmFinePixS1ProJPG);
+
+                    QuantizeSettings settings = new QuantizeSettings
+                    {
+                        Colors = 3,
+                        MeasureErrors = true,
+                    };
+
+                    var errorInfo = collection.Quantize(settings);
+                    Assert.IsNotNull(errorInfo);
+
+#if Q8
+                    Assert.AreEqual(13.62, errorInfo.MeanErrorPerPixel, 0.01);
+#else
+                    Assert.AreEqual(3526, errorInfo.MeanErrorPerPixel, 1);
+#endif
+                    Assert.AreEqual(0.47, errorInfo.NormalizedMaximumError, 0.01);
+                    Assert.AreEqual(0.006, errorInfo.NormalizedMeanError, 0.001);
                 }
             }
         }

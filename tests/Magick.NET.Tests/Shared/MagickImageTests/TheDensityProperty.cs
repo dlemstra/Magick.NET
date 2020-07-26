@@ -60,6 +60,22 @@ namespace Magick.NET.Tests
                     }
                 }
             }
+
+            [TestMethod]
+            public void ShouldSetTheCorrectDimensionsWhenReadingImage()
+            {
+                using (var image = new MagickImage())
+                {
+                    Assert.AreEqual(null, image.Settings.Density);
+
+                    image.Settings.Density = new Density(100);
+
+                    image.Read(Files.Logos.MagickNETSVG);
+                    Assert.AreEqual(new Density(100, DensityUnit.Undefined), image.Density);
+                    Assert.AreEqual(524, image.Width);
+                    Assert.AreEqual(252, image.Height);
+                }
+            }
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Magick.NET.Tests
     public partial class MagickImageCollectionTests
     {
         [TestClass]
-        public partial class TheMapMethod
+        public class TheMapMethod
         {
             [TestMethod]
             public void ShouldThrowExceptionWhenCollectionIsEmpty()
@@ -79,6 +79,40 @@ namespace Magick.NET.Tests
                     {
                         images.Map(images[0], null);
                     });
+                }
+            }
+
+            [TestMethod]
+            public void ShouldDitherWhenSpecifiedInSettings()
+            {
+                using (var colors = new MagickImageCollection())
+                {
+                    colors.Add(new MagickImage(MagickColors.Red, 1, 1));
+                    colors.Add(new MagickImage(MagickColors.Green, 1, 1));
+
+                    using (var remapImage = colors.AppendHorizontally())
+                    {
+                        using (var collection = new MagickImageCollection())
+                        {
+                            collection.Read(Files.RoseSparkleGIF);
+
+                            var settings = new QuantizeSettings
+                            {
+                                DitherMethod = DitherMethod.FloydSteinberg,
+                            };
+
+                            collection.Map(remapImage, settings);
+
+                            ColorAssert.AreEqual(MagickColors.Red, collection[0], 60, 17);
+                            ColorAssert.AreEqual(MagickColors.Green, collection[0], 37, 24);
+
+                            ColorAssert.AreEqual(MagickColors.Red, collection[1], 58, 30);
+                            ColorAssert.AreEqual(MagickColors.Green, collection[1], 36, 26);
+
+                            ColorAssert.AreEqual(MagickColors.Red, collection[2], 60, 40);
+                            ColorAssert.AreEqual(MagickColors.Green, collection[2], 17, 21);
+                        }
+                    }
                 }
             }
         }

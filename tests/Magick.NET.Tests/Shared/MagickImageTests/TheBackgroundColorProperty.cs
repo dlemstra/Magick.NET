@@ -32,6 +32,22 @@ namespace Magick.NET.Tests
                     image.BackgroundColor = MagickColors.PaleGreen;
                 });
             }
+
+            [TestMethod]
+            public void ShouldSetTheBackgroundColorWhenReadingImage()
+            {
+                using (var image = new MagickImage())
+                {
+                    ColorAssert.AreEqual(MagickColors.White, image.Settings.BackgroundColor);
+
+                    image.Read(Files.Logos.MagickNETSVG);
+                    ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
+
+                    image.Settings.BackgroundColor = MagickColors.Yellow;
+                    image.Read(Files.Logos.MagickNETSVG);
+                    ColorAssert.AreEqual(MagickColors.Yellow, image, 0, 0);
+                }
+            }
         }
     }
 }

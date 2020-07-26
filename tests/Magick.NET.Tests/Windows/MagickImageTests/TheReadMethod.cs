@@ -12,7 +12,6 @@
 
 #if WINDOWS_BUILD
 
-using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -30,29 +29,6 @@ namespace Magick.NET.Tests
                     using (var image = new MagickImage())
                     {
                         image.Read(stream);
-                    }
-                }
-            }
-
-            [TestMethod]
-            public void ShouldUseTheReadSettings()
-            {
-                using (var image = new MagickImage())
-                {
-                    using (FileStream fs = File.OpenRead(Files.Logos.MagickNETSVG))
-                    {
-                        byte[] buffer = new byte[fs.Length + 1];
-                        fs.Read(buffer, 0, (int)fs.Length);
-
-                        using (MemoryStream memStream = new MemoryStream(buffer, 0, (int)fs.Length))
-                        {
-                            image.Read(memStream, new MagickReadSettings()
-                            {
-                                Density = new Density(72),
-                            });
-
-                            ColorAssert.AreEqual(new MagickColor("#231f20"), image, 129, 101);
-                        }
                     }
                 }
             }
