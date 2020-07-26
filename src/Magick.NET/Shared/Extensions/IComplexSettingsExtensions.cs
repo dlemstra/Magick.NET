@@ -31,5 +31,11 @@ namespace ImageMagick
             if (self.SignalToNoiseRatio != null)
                 image.SetArtifact("complex:snr", self.SignalToNoiseRatio.Value.ToString(CultureInfo.InvariantCulture));
         }
+
+        public static void RemoveImageArtifacts(this IComplexSettings self, IMagickImage<QuantumType> image)
+        {
+            if (self.SignalToNoiseRatio != null)
+                image.RemoveArtifact("complex:snr");
+        }
     }
 }

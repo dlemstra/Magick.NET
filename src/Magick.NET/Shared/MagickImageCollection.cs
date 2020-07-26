@@ -493,6 +493,8 @@ namespace ImageMagick
             Clear();
             foreach (var image in MagickImage.CreateList(images, settings))
                 Add(image);
+
+            complexSettings.RemoveImageArtifacts(_images[0]);
         }
 
         /// <summary>
