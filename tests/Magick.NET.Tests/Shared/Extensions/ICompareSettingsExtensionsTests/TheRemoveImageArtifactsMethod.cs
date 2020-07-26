@@ -21,7 +21,7 @@ namespace Magick.NET.Tests
         public class TheRemoveImageArtifactsMethod : ICompareSettingsExtensionsTests
         {
             [TestMethod]
-            public void ShouldSetTheHighlightColor()
+            public void ShouldRemoveTheHighlightColor()
             {
                 using (var image = new MagickImage())
                 {
@@ -38,7 +38,7 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldSetTheLowlightColor()
+            public void ShouldRemoveTheLowlightColor()
             {
                 using (var image = new MagickImage())
                 {
@@ -55,7 +55,7 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldSetTheMasklightColor()
+            public void ShouldRemoveTheMasklightColor()
             {
                 using (var image = new MagickImage())
                 {
