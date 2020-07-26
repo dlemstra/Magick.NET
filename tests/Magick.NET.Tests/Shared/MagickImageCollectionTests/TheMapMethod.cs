@@ -109,7 +109,7 @@ namespace Magick.NET.Tests
                             ColorAssert.AreEqual(MagickColors.Red, collection[1], 27, 45);
                             ColorAssert.AreEqual(MagickColors.Green, collection[1], 36, 26);
 
-                            ColorAssert.AreEqual(MagickColors.Red, collection[2], 60, 40);
+                            ColorAssert.AreEqual(MagickColors.Red, collection[2], 55, 12);
                             ColorAssert.AreEqual(MagickColors.Green, collection[2], 17, 21);
                         }
                     }
