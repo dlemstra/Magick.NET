@@ -539,9 +539,7 @@ namespace ImageMagick
         /// <param name="name">The name of the define.</param>
         /// <param name="flag">The value of the define.</param>
         public void SetDefine(MagickFormat format, string name, bool flag)
-        {
-            SetDefine(format, name, flag ? "true" : "false");
-        }
+            => SetDefine(format, name, flag ? "true" : "false");
 
         /// <summary>
         /// Sets a format-specific option.
@@ -603,7 +601,8 @@ namespace ImageMagick
             return null;
         }
 
-        internal void SetOption(string key, string value) => _options[key] = value;
+        internal void SetOption(string key, string value)
+            => _options[key] = value;
 
         /// <summary>
         /// Creates a define string for the specified format and name.
