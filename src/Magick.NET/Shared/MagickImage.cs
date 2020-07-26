@@ -3747,6 +3747,8 @@ namespace ImageMagick
             settings.SetImageArtifacts(this);
 
             _nativeInstance.Kmeans(settings.NumberColors, settings.MaxIterations, settings.Tolerance);
+
+            settings.RemoveImageArtifacts(this);
         }
 
         /// <summary>

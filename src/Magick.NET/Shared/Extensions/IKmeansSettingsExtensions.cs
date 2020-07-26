@@ -29,5 +29,11 @@ namespace ImageMagick
             if (!string.IsNullOrEmpty(self.SeedColors))
                 image.SetArtifact("kmeans:seed-colors", self.SeedColors);
         }
+
+        public static void RemoveImageArtifacts(this IKmeansSettings self, IMagickImage<QuantumType> image)
+        {
+            if (!string.IsNullOrEmpty(self.SeedColors))
+                image.RemoveArtifact("kmeans:seed-colors");
+        }
     }
 }
