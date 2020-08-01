@@ -1592,7 +1592,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="image">The image to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Clut(IMagickImage<QuantumType> image)
+        public void Clut(IMagickImage image)
             => Clut(image, PixelInterpolateMethod.Undefined);
 
         /// <summary>
@@ -1601,7 +1601,7 @@ namespace ImageMagick
         /// <param name="image">The image to use.</param>
         /// <param name="method">Pixel interpolate method.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Clut(IMagickImage<QuantumType> image, PixelInterpolateMethod method)
+        public void Clut(IMagickImage image, PixelInterpolateMethod method)
             => Clut(image, method, ImageMagick.Channels.Composite);
 
         /// <summary>
@@ -1611,7 +1611,7 @@ namespace ImageMagick
         /// <param name="method">Pixel interpolate method.</param>
         /// <param name="channels">The channel(s) to clut.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Clut(IMagickImage<QuantumType> image, PixelInterpolateMethod method, Channels channels)
+        public void Clut(IMagickImage image, PixelInterpolateMethod method, Channels channels)
         {
             Throw.IfNull(nameof(image), image);
 
@@ -1715,7 +1715,7 @@ namespace ImageMagick
         /// <param name="image">The other image to compare with this image.</param>
         /// <returns>The error information.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickErrorInfo Compare(IMagickImage<QuantumType> image)
+        public IMagickErrorInfo Compare(IMagickImage image)
         {
             Throw.IfNull(nameof(image), image);
 
@@ -1732,7 +1732,7 @@ namespace ImageMagick
         /// <param name="metric">The metric to use.</param>
         /// <returns>The distortion based on the specified metric.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public double Compare(IMagickImage<QuantumType> image, ErrorMetric metric)
+        public double Compare(IMagickImage image, ErrorMetric metric)
             => Compare(image, metric, ImageMagick.Channels.Composite);
 
         /// <summary>
@@ -1743,7 +1743,7 @@ namespace ImageMagick
         /// <param name="channels">The channel(s) to compare.</param>
         /// <returns>The distortion based on the specified metric.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public double Compare(IMagickImage<QuantumType> image, ErrorMetric metric, Channels channels)
+        public double Compare(IMagickImage image, ErrorMetric metric, Channels channels)
         {
             Throw.IfNull(nameof(image), image);
 
@@ -1758,7 +1758,7 @@ namespace ImageMagick
         /// <param name="difference">The image that will contain the difference.</param>
         /// <returns>The distortion based on the specified metric.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public double Compare(IMagickImage<QuantumType> image, ICompareSettings<QuantumType> settings, IMagickImage<QuantumType> difference)
+        public double Compare(IMagickImage image, ICompareSettings<QuantumType> settings, IMagickImage difference)
             => Compare(image, settings, difference, ImageMagick.Channels.Composite);
 
         /// <summary>
@@ -1769,7 +1769,7 @@ namespace ImageMagick
         /// <param name="difference">The image that will contain the difference.</param>
         /// <returns>The distortion based on the specified metric.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public double Compare(IMagickImage<QuantumType> image, ErrorMetric metric, IMagickImage<QuantumType> difference)
+        public double Compare(IMagickImage image, ErrorMetric metric, IMagickImage difference)
             => Compare(image, metric, difference, ImageMagick.Channels.Composite);
 
         /// <summary>
@@ -1781,7 +1781,7 @@ namespace ImageMagick
         /// <param name="channels">The channel(s) to compare.</param>
         /// <returns>The distortion based on the specified metric.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public double Compare(IMagickImage<QuantumType> image, ErrorMetric metric, IMagickImage<QuantumType> difference, Channels channels)
+        public double Compare(IMagickImage image, ErrorMetric metric, IMagickImage difference, Channels channels)
             => Compare(image, new CompareSettings { Metric = metric }, difference, channels);
 
         /// <summary>
@@ -1793,7 +1793,7 @@ namespace ImageMagick
         /// <param name="channels">The channel(s) to compare.</param>
         /// <returns>The distortion based on the specified metric.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public double Compare(IMagickImage<QuantumType> image, ICompareSettings<QuantumType> settings, IMagickImage<QuantumType> difference, Channels channels)
+        public double Compare(IMagickImage image, ICompareSettings<QuantumType> settings, IMagickImage difference, Channels channels)
         {
             Throw.IfNull(nameof(image), image);
             Throw.IfNull(nameof(settings), settings);
@@ -1838,7 +1838,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="image">The image to composite with this image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image)
+        public void Composite(IMagickImage image)
             => Composite(image, CompositeOperator.In);
 
         /// <summary>
@@ -1847,7 +1847,7 @@ namespace ImageMagick
         /// <param name="image">The image to composite with this image.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, Channels channels)
+        public void Composite(IMagickImage image, Channels channels)
             => Composite(image, CompositeOperator.In, channels);
 
         /// <summary>
@@ -1856,7 +1856,7 @@ namespace ImageMagick
         /// <param name="image">The image to composite with this image.</param>
         /// <param name="compose">The algorithm to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, CompositeOperator compose)
+        public void Composite(IMagickImage image, CompositeOperator compose)
             => Composite(image, 0, 0, compose);
 
         /// <summary>
@@ -1866,7 +1866,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, CompositeOperator compose, Channels channels)
+        public void Composite(IMagickImage image, CompositeOperator compose, Channels channels)
             => Composite(image, 0, 0, compose, channels);
 
         /// <summary>
@@ -1876,7 +1876,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, CompositeOperator compose, string args)
+        public void Composite(IMagickImage image, CompositeOperator compose, string args)
             => Composite(image, 0, 0, compose, args);
 
         /// <summary>
@@ -1887,7 +1887,7 @@ namespace ImageMagick
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, CompositeOperator compose, string args, Channels channels)
+        public void Composite(IMagickImage image, CompositeOperator compose, string args, Channels channels)
             => Composite(image, 0, 0, compose, args, channels);
 
         /// <summary>
@@ -1897,7 +1897,7 @@ namespace ImageMagick
         /// <param name="x">The X offset from origin.</param>
         /// <param name="y">The Y offset from origin.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, int x, int y)
+        public void Composite(IMagickImage image, int x, int y)
             => Composite(image, x, y, CompositeOperator.In);
 
         /// <summary>
@@ -1908,7 +1908,7 @@ namespace ImageMagick
         /// <param name="y">The Y offset from origin.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, int x, int y, Channels channels)
+        public void Composite(IMagickImage image, int x, int y, Channels channels)
             => Composite(image, x, y, CompositeOperator.In, channels);
 
         /// <summary>
@@ -1919,7 +1919,7 @@ namespace ImageMagick
         /// <param name="y">The Y offset from origin.</param>
         /// <param name="compose">The algorithm to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, int x, int y, CompositeOperator compose)
+        public void Composite(IMagickImage image, int x, int y, CompositeOperator compose)
             => Composite(image, x, y, compose, null);
 
         /// <summary>
@@ -1931,7 +1931,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, int x, int y, CompositeOperator compose, Channels channels)
+        public void Composite(IMagickImage image, int x, int y, CompositeOperator compose, Channels channels)
             => Composite(image, x, y, compose, null, channels);
 
         /// <summary>
@@ -1943,7 +1943,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, int x, int y, CompositeOperator compose, string args)
+        public void Composite(IMagickImage image, int x, int y, CompositeOperator compose, string args)
             => Composite(image, x, y, compose, args, ImageMagick.Channels.Default);
 
         /// <summary>
@@ -1956,7 +1956,7 @@ namespace ImageMagick
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, int x, int y, CompositeOperator compose, string args, Channels channels)
+        public void Composite(IMagickImage image, int x, int y, CompositeOperator compose, string args, Channels channels)
         {
             Throw.IfNull(nameof(image), image);
 
@@ -1980,7 +1980,7 @@ namespace ImageMagick
         /// <param name="image">The image to composite with this image.</param>
         /// <param name="offset">The offset from origin.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, PointD offset)
+        public void Composite(IMagickImage image, PointD offset)
             => Composite(image, offset, CompositeOperator.In);
 
         /// <summary>
@@ -1990,7 +1990,7 @@ namespace ImageMagick
         /// <param name="offset">The offset from origin.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, PointD offset, Channels channels)
+        public void Composite(IMagickImage image, PointD offset, Channels channels)
             => Composite(image, offset, CompositeOperator.In, channels);
 
         /// <summary>
@@ -2000,7 +2000,7 @@ namespace ImageMagick
         /// <param name="offset">The offset from origin.</param>
         /// <param name="compose">The algorithm to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, PointD offset, CompositeOperator compose)
+        public void Composite(IMagickImage image, PointD offset, CompositeOperator compose)
             => Composite(image, offset, compose, null);
 
         /// <summary>
@@ -2011,7 +2011,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, PointD offset, CompositeOperator compose, Channels channels)
+        public void Composite(IMagickImage image, PointD offset, CompositeOperator compose, Channels channels)
             => Composite(image, offset, compose, null, channels);
 
         /// <summary>
@@ -2022,7 +2022,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, PointD offset, CompositeOperator compose, string args)
+        public void Composite(IMagickImage image, PointD offset, CompositeOperator compose, string args)
             => Composite(image, (int)offset.X, (int)offset.Y, compose, args);
 
         /// <summary>
@@ -2034,7 +2034,7 @@ namespace ImageMagick
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, PointD offset, CompositeOperator compose, string args, Channels channels)
+        public void Composite(IMagickImage image, PointD offset, CompositeOperator compose, string args, Channels channels)
             => Composite(image, (int)offset.X, (int)offset.Y, compose, args, channels);
 
         /// <summary>
@@ -2043,7 +2043,7 @@ namespace ImageMagick
         /// <param name="image">The image to composite with this image.</param>
         /// <param name="gravity">The placement gravity.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, Gravity gravity)
+        public void Composite(IMagickImage image, Gravity gravity)
             => Composite(image, gravity, CompositeOperator.In);
 
         /// <summary>
@@ -2053,7 +2053,7 @@ namespace ImageMagick
         /// <param name="gravity">The placement gravity.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, Gravity gravity, Channels channels)
+        public void Composite(IMagickImage image, Gravity gravity, Channels channels)
             => Composite(image, gravity, CompositeOperator.In, channels);
 
         /// <summary>
@@ -2063,7 +2063,7 @@ namespace ImageMagick
         /// <param name="gravity">The placement gravity.</param>
         /// <param name="compose">The algorithm to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, Gravity gravity, CompositeOperator compose)
+        public void Composite(IMagickImage image, Gravity gravity, CompositeOperator compose)
             => Composite(image, gravity, compose, null);
 
         /// <summary>
@@ -2074,7 +2074,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, Gravity gravity, CompositeOperator compose, Channels channels)
+        public void Composite(IMagickImage image, Gravity gravity, CompositeOperator compose, Channels channels)
             => Composite(image, gravity, compose, null, channels);
 
         /// <summary>
@@ -2085,7 +2085,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, Gravity gravity, CompositeOperator compose, string args)
+        public void Composite(IMagickImage image, Gravity gravity, CompositeOperator compose, string args)
             => Composite(image, gravity, compose, args, ImageMagick.Channels.Default);
 
         /// <summary>
@@ -2097,7 +2097,7 @@ namespace ImageMagick
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, Gravity gravity, CompositeOperator compose, string args, Channels channels)
+        public void Composite(IMagickImage image, Gravity gravity, CompositeOperator compose, string args, Channels channels)
             => Composite(image, gravity, 0, 0, compose, args, channels);
 
         /// <summary>
@@ -2108,7 +2108,7 @@ namespace ImageMagick
         /// <param name="x">The X offset from origin.</param>
         /// <param name="y">The Y offset from origin.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, Gravity gravity, int x, int y)
+        public void Composite(IMagickImage image, Gravity gravity, int x, int y)
             => Composite(image, gravity, x, y, CompositeOperator.In);
 
         /// <summary>
@@ -2120,7 +2120,7 @@ namespace ImageMagick
         /// <param name="y">The Y offset from origin.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, Gravity gravity, int x, int y, Channels channels)
+        public void Composite(IMagickImage image, Gravity gravity, int x, int y, Channels channels)
             => Composite(image, gravity, x, y, CompositeOperator.In, channels);
 
         /// <summary>
@@ -2132,7 +2132,7 @@ namespace ImageMagick
         /// <param name="y">The Y offset from origin.</param>
         /// <param name="compose">The algorithm to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, Gravity gravity, int x, int y, CompositeOperator compose)
+        public void Composite(IMagickImage image, Gravity gravity, int x, int y, CompositeOperator compose)
             => Composite(image, gravity, x, y, compose, null);
 
         /// <summary>
@@ -2145,7 +2145,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, Gravity gravity, int x, int y, CompositeOperator compose, Channels channels)
+        public void Composite(IMagickImage image, Gravity gravity, int x, int y, CompositeOperator compose, Channels channels)
             => Composite(image, gravity, x, y, compose, null, channels);
 
         /// <summary>
@@ -2158,7 +2158,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, Gravity gravity, int x, int y, CompositeOperator compose, string args)
+        public void Composite(IMagickImage image, Gravity gravity, int x, int y, CompositeOperator compose, string args)
             => Composite(image, gravity, x, y, compose, args, ImageMagick.Channels.Default);
 
         /// <summary>
@@ -2172,7 +2172,7 @@ namespace ImageMagick
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, Gravity gravity, int x, int y, CompositeOperator compose, string args, Channels channels)
+        public void Composite(IMagickImage image, Gravity gravity, int x, int y, CompositeOperator compose, string args, Channels channels)
         {
             Throw.IfNull(nameof(image), image);
 
@@ -2197,7 +2197,7 @@ namespace ImageMagick
         /// <param name="gravity">The placement gravity.</param>
         /// <param name="offset">The offset from origin.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, Gravity gravity, PointD offset)
+        public void Composite(IMagickImage image, Gravity gravity, PointD offset)
             => Composite(image, gravity, offset, CompositeOperator.In);
 
         /// <summary>
@@ -2208,7 +2208,7 @@ namespace ImageMagick
         /// <param name="offset">The offset from origin.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, Gravity gravity, PointD offset, Channels channels)
+        public void Composite(IMagickImage image, Gravity gravity, PointD offset, Channels channels)
             => Composite(image, gravity, offset, CompositeOperator.In, channels);
 
         /// <summary>
@@ -2219,7 +2219,7 @@ namespace ImageMagick
         /// <param name="offset">The offset from origin.</param>
         /// <param name="compose">The algorithm to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, Gravity gravity, PointD offset, CompositeOperator compose)
+        public void Composite(IMagickImage image, Gravity gravity, PointD offset, CompositeOperator compose)
             => Composite(image, gravity, offset, compose, null);
 
         /// <summary>
@@ -2231,7 +2231,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, Gravity gravity, PointD offset, CompositeOperator compose, Channels channels)
+        public void Composite(IMagickImage image, Gravity gravity, PointD offset, CompositeOperator compose, Channels channels)
             => Composite(image, gravity, offset, compose, null, channels);
 
         /// <summary>
@@ -2243,7 +2243,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, Gravity gravity, PointD offset, CompositeOperator compose, string args)
+        public void Composite(IMagickImage image, Gravity gravity, PointD offset, CompositeOperator compose, string args)
             => Composite(image, gravity, offset, compose, args, ImageMagick.Channels.Default);
 
         /// <summary>
@@ -2256,7 +2256,7 @@ namespace ImageMagick
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage<QuantumType> image, Gravity gravity, PointD offset, CompositeOperator compose, string args, Channels channels)
+        public void Composite(IMagickImage image, Gravity gravity, PointD offset, CompositeOperator compose, string args, Channels channels)
             => Composite(image, gravity, (int)offset.X, (int)offset.Y, compose, args, channels);
 
         /// <summary>
@@ -2394,7 +2394,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="source">The source image to copy the pixels from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void CopyPixels(IMagickImage<QuantumType> source)
+        public void CopyPixels(IMagickImage source)
             => CopyPixels(source, ImageMagick.Channels.All);
 
         /// <summary>
@@ -2403,7 +2403,7 @@ namespace ImageMagick
         /// <param name="source">The source image to copy the pixels from.</param>
         /// <param name="channels">The channels to copy.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void CopyPixels(IMagickImage<QuantumType> source, Channels channels)
+        public void CopyPixels(IMagickImage source, Channels channels)
         {
             Throw.IfNull(nameof(source), source);
 
@@ -2418,7 +2418,7 @@ namespace ImageMagick
         /// <param name="source">The source image to copy the pixels from.</param>
         /// <param name="geometry">The geometry to copy.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void CopyPixels(IMagickImage<QuantumType> source, IMagickGeometry geometry)
+        public void CopyPixels(IMagickImage source, IMagickGeometry geometry)
             => CopyPixels(source, geometry, ImageMagick.Channels.All);
 
         /// <summary>
@@ -2428,7 +2428,7 @@ namespace ImageMagick
         /// <param name="geometry">The geometry to copy.</param>
         /// <param name="channels">The channels to copy.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void CopyPixels(IMagickImage<QuantumType> source, IMagickGeometry geometry, Channels channels)
+        public void CopyPixels(IMagickImage source, IMagickGeometry geometry, Channels channels)
             => CopyPixels(source, geometry, 0, 0, channels);
 
         /// <summary>
@@ -2439,7 +2439,7 @@ namespace ImageMagick
         /// <param name="geometry">The geometry to copy.</param>
         /// <param name="offset">The offset to copy the pixels to.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void CopyPixels(IMagickImage<QuantumType> source, IMagickGeometry geometry, PointD offset)
+        public void CopyPixels(IMagickImage source, IMagickGeometry geometry, PointD offset)
             => CopyPixels(source, geometry, offset, ImageMagick.Channels.All);
 
         /// <summary>
@@ -2451,7 +2451,7 @@ namespace ImageMagick
         /// <param name="offset">The offset to start the copy from.</param>
         /// <param name="channels">The channels to copy.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void CopyPixels(IMagickImage<QuantumType> source, IMagickGeometry geometry, PointD offset, Channels channels)
+        public void CopyPixels(IMagickImage source, IMagickGeometry geometry, PointD offset, Channels channels)
             => CopyPixels(source, geometry, (int)offset.X, (int)offset.Y, channels);
 
         /// <summary>
@@ -2463,7 +2463,7 @@ namespace ImageMagick
         /// <param name="x">The X offset to start the copy from.</param>
         /// <param name="y">The Y offset to start the copy from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void CopyPixels(IMagickImage<QuantumType> source, IMagickGeometry geometry, int x, int y)
+        public void CopyPixels(IMagickImage source, IMagickGeometry geometry, int x, int y)
             => CopyPixels(source, geometry, x, y, ImageMagick.Channels.All);
 
         /// <summary>
@@ -2476,7 +2476,7 @@ namespace ImageMagick
         /// <param name="y">The Y offset to copy the pixels to.</param>
         /// <param name="channels">The channels to copy.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void CopyPixels(IMagickImage<QuantumType> source, IMagickGeometry geometry, int x, int y, Channels channels)
+        public void CopyPixels(IMagickImage source, IMagickGeometry geometry, int x, int y, Channels channels)
         {
             Throw.IfNull(nameof(source), source);
             Throw.IfNull(nameof(geometry), geometry);
@@ -3417,7 +3417,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="image">The image to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void HaldClut(IMagickImage<QuantumType> image)
+        public void HaldClut(IMagickImage image)
         {
             Throw.IfNull(nameof(image), image);
 
@@ -4058,7 +4058,7 @@ namespace ImageMagick
         /// <param name="image">The image to use.</param>
         /// <returns>The error informaton.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickErrorInfo Map(IMagickImage<QuantumType> image)
+        public IMagickErrorInfo Map(IMagickImage image)
             => Map(image, new QuantizeSettings());
 
         /// <summary>
@@ -4068,7 +4068,7 @@ namespace ImageMagick
         /// <param name="settings">Quantize settings.</param>
         /// <returns>The error informaton.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickErrorInfo Map(IMagickImage<QuantumType> image, IQuantizeSettings settings)
+        public IMagickErrorInfo Map(IMagickImage image, IQuantizeSettings settings)
         {
             Throw.IfNull(nameof(image), image);
             Throw.IfNull(nameof(settings), settings);
@@ -5598,7 +5598,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="image">The image that contains the read mask.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void SetReadMask(IMagickImage<QuantumType> image)
+        public void SetReadMask(IMagickImage image)
         {
             Throw.IfNull(nameof(image), image);
 
@@ -5611,7 +5611,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="image">The image that contains the write mask.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>z
-        public void SetWriteMask(IMagickImage<QuantumType> image)
+        public void SetWriteMask(IMagickImage image)
         {
             Throw.IfNull(nameof(image), image);
 
@@ -5992,7 +5992,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="watermark">The image to use as a watermark.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Stegano(IMagickImage<QuantumType> watermark)
+        public void Stegano(IMagickImage watermark)
         {
             Throw.IfNull(nameof(watermark), watermark);
 
@@ -6005,7 +6005,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="rightImage">The image to use as the right part of the resulting image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Stereo(IMagickImage<QuantumType> rightImage)
+        public void Stereo(IMagickImage rightImage)
         {
             Throw.IfNull(nameof(rightImage), rightImage);
 
@@ -6082,7 +6082,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="image">The image to use as a texture on the image background.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Texture(IMagickImage<QuantumType> image)
+        public void Texture(IMagickImage image)
         {
             Throw.IfNull(nameof(image), image);
 
@@ -6161,7 +6161,7 @@ namespace ImageMagick
         /// <param name="image">The image to composite with this image.</param>
         /// <param name="compose">The algorithm to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Tile(IMagickImage<QuantumType> image, CompositeOperator compose)
+        public void Tile(IMagickImage image, CompositeOperator compose)
             => Tile(image, compose, null);
 
         /// <summary>
@@ -6171,7 +6171,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Tile(IMagickImage<QuantumType> image, CompositeOperator compose, string args)
+        public void Tile(IMagickImage image, CompositeOperator compose, string args)
         {
             Throw.IfNull(nameof(image), image);
 
@@ -6760,7 +6760,7 @@ namespace ImageMagick
             return _nativeInstance.ChannelOffset(pixelChannel);
         }
 
-        internal void SetNext(IMagickImage<QuantumType> image)
+        internal void SetNext(IMagickImage image)
             => _nativeInstance.SetNext(image.GetInstance());
 
         private static int GetExpectedLength(IPixelReadSettings<QuantumType> settings)
