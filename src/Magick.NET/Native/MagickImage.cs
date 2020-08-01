@@ -3346,7 +3346,7 @@ namespace ImageMagick
                 CheckException(exception, result);
                 return result;
             }
-            public void Clut(IMagickImage<QuantumType> image, PixelInterpolateMethod method, Channels channels)
+            public void Clut(IMagickImage image, PixelInterpolateMethod method, Channels channels)
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
@@ -3453,7 +3453,7 @@ namespace ImageMagick
                     }
                 }
             }
-            public IntPtr Compare(IMagickImage<QuantumType> image, ErrorMetric metric, Channels channels, out double distortion)
+            public IntPtr Compare(IMagickImage image, ErrorMetric metric, Channels channels, out double distortion)
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -3472,7 +3472,7 @@ namespace ImageMagick
                 CheckException(exception, result);
                 return result;
             }
-            public double CompareDistortion(IMagickImage<QuantumType> image, ErrorMetric metric, Channels channels)
+            public double CompareDistortion(IMagickImage image, ErrorMetric metric, Channels channels)
             {
                 IntPtr exception = IntPtr.Zero;
                 double result;
@@ -3491,7 +3491,7 @@ namespace ImageMagick
                 CheckException(exception);
                 return result;
             }
-            public void Composite(IMagickImage<QuantumType> image, int x, int y, CompositeOperator compose, Channels channels)
+            public void Composite(IMagickImage image, int x, int y, CompositeOperator compose, Channels channels)
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
@@ -3508,7 +3508,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void CompositeGravity(IMagickImage<QuantumType> image, Gravity gravity, int x, int y, CompositeOperator compose, Channels channels)
+            public void CompositeGravity(IMagickImage image, Gravity gravity, int x, int y, CompositeOperator compose, Channels channels)
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
@@ -3628,7 +3628,7 @@ namespace ImageMagick
                     Instance = result;
                 }
             }
-            public void CopyPixels(IMagickImage<QuantumType> image, MagickRectangle geometry, OffsetInfo offset, Channels channels)
+            public void CopyPixels(IMagickImage image, MagickRectangle geometry, OffsetInfo offset, Channels channels)
             {
                 using (INativeInstance geometryNative = MagickRectangle.CreateInstance(geometry))
                 {
@@ -3902,7 +3902,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public bool Equals(IMagickImage<QuantumType> image)
+            public bool Equals(IMagickImage image)
             {
                 IntPtr exception = IntPtr.Zero;
                 bool result;
@@ -4407,7 +4407,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void HaldClut(IMagickImage<QuantumType> image)
+            public void HaldClut(IMagickImage image)
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
@@ -4712,7 +4712,7 @@ namespace ImageMagick
                 CheckException(exception, result);
                 Instance = result;
             }
-            public bool Map(IMagickImage<QuantumType> image, IQuantizeSettings settings)
+            public bool Map(IMagickImage image, IQuantizeSettings settings)
             {
                 using (INativeInstance settingsNative = QuantizeSettings.CreateInstance(settings))
                 {
@@ -5664,7 +5664,7 @@ namespace ImageMagick
                     CheckException(exception);
                 }
             }
-            public bool SetColorMetric(IMagickImage<QuantumType> image)
+            public bool SetColorMetric(IMagickImage image)
             {
                 IntPtr exception = IntPtr.Zero;
                 bool result;
@@ -5713,7 +5713,7 @@ namespace ImageMagick
                 NativeMethods.X86.MagickImage_SetProgressDelegate(Instance, method);
                 #endif
             }
-            public void SetReadMask(IMagickImage<QuantumType> image)
+            public void SetReadMask(IMagickImage image)
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
@@ -5730,7 +5730,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void SetWriteMask(IMagickImage<QuantumType> image)
+            public void SetWriteMask(IMagickImage image)
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
@@ -6002,7 +6002,7 @@ namespace ImageMagick
                 RaiseWarning(magickException);
                 return result;
             }
-            public void Stegano(IMagickImage<QuantumType> watermark)
+            public void Stegano(IMagickImage watermark)
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -6021,7 +6021,7 @@ namespace ImageMagick
                 CheckException(exception, result);
                 Instance = result;
             }
-            public void Stereo(IMagickImage<QuantumType> rightImage)
+            public void Stereo(IMagickImage rightImage)
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -6057,7 +6057,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public IntPtr SubImageSearch(IMagickImage<QuantumType> reference, ErrorMetric metric, double similarityThreshold, out MagickRectangle offset, out double similarityMetric)
+            public IntPtr SubImageSearch(IMagickImage reference, ErrorMetric metric, double similarityThreshold, out MagickRectangle offset, out double similarityMetric)
             {
                 using (INativeInstance offsetNative = MagickRectangle.CreateInstance())
                 {
@@ -6100,7 +6100,7 @@ namespace ImageMagick
                 CheckException(exception, result);
                 Instance = result;
             }
-            public void Texture(IMagickImage<QuantumType> image)
+            public void Texture(IMagickImage image)
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU

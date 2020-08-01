@@ -148,7 +148,7 @@ namespace ImageMagick
         private sealed class NativeMagickImageCollection : NativeHelper
         {
             static NativeMagickImageCollection() { Environment.Initialize(); }
-            public IntPtr Append(IMagickImage<QuantumType> image, bool stack)
+            public IntPtr Append(IMagickImage image, bool stack)
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -176,7 +176,7 @@ namespace ImageMagick
                 RaiseWarning(magickException);
                 return result;
             }
-            public IntPtr Coalesce(IMagickImage<QuantumType> image)
+            public IntPtr Coalesce(IMagickImage image)
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -204,7 +204,7 @@ namespace ImageMagick
                 RaiseWarning(magickException);
                 return result;
             }
-            public IntPtr Combine(IMagickImage<QuantumType> image, ColorSpace colorSpace)
+            public IntPtr Combine(IMagickImage image, ColorSpace colorSpace)
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -232,7 +232,7 @@ namespace ImageMagick
                 RaiseWarning(magickException);
                 return result;
             }
-            public IntPtr Complex(IMagickImage<QuantumType> image, ComplexOperator complexOperator)
+            public IntPtr Complex(IMagickImage image, ComplexOperator complexOperator)
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -260,7 +260,7 @@ namespace ImageMagick
                 RaiseWarning(magickException);
                 return result;
             }
-            public IntPtr Deconstruct(IMagickImage<QuantumType> image)
+            public IntPtr Deconstruct(IMagickImage image)
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -303,7 +303,7 @@ namespace ImageMagick
                 NativeMethods.X86.MagickImageCollection_Dispose(value);
                 #endif
             }
-            public IntPtr Evaluate(IMagickImage<QuantumType> image, EvaluateOperator evaluateOperator)
+            public IntPtr Evaluate(IMagickImage image, EvaluateOperator evaluateOperator)
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -331,7 +331,7 @@ namespace ImageMagick
                 RaiseWarning(magickException);
                 return result;
             }
-            public void Map(IMagickImage<QuantumType> image, IQuantizeSettings settings, IMagickImage<QuantumType> remapImage)
+            public void Map(IMagickImage image, IQuantizeSettings settings, IMagickImage remapImage)
             {
                 using (INativeInstance settingsNative = QuantizeSettings.CreateInstance(settings))
                 {
@@ -351,7 +351,7 @@ namespace ImageMagick
                     CheckException(exception);
                 }
             }
-            public IntPtr Merge(IMagickImage<QuantumType> image, LayerMethod method)
+            public IntPtr Merge(IMagickImage image, LayerMethod method)
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -379,7 +379,7 @@ namespace ImageMagick
                 RaiseWarning(magickException);
                 return result;
             }
-            public IntPtr Montage(IMagickImage<QuantumType> image, IMontageSettings<QuantumType> settings)
+            public IntPtr Montage(IMagickImage image, IMontageSettings<QuantumType> settings)
             {
                 using (INativeInstance settingsNative = MontageSettings.CreateInstance(settings))
                 {
@@ -410,7 +410,7 @@ namespace ImageMagick
                     return result;
                 }
             }
-            public IntPtr Morph(IMagickImage<QuantumType> image, int frames)
+            public IntPtr Morph(IMagickImage image, int frames)
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -438,7 +438,7 @@ namespace ImageMagick
                 RaiseWarning(magickException);
                 return result;
             }
-            public IntPtr Optimize(IMagickImage<QuantumType> image)
+            public IntPtr Optimize(IMagickImage image)
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -466,7 +466,7 @@ namespace ImageMagick
                 RaiseWarning(magickException);
                 return result;
             }
-            public IntPtr OptimizePlus(IMagickImage<QuantumType> image)
+            public IntPtr OptimizePlus(IMagickImage image)
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -494,7 +494,7 @@ namespace ImageMagick
                 RaiseWarning(magickException);
                 return result;
             }
-            public void OptimizeTransparency(IMagickImage<QuantumType> image)
+            public void OptimizeTransparency(IMagickImage image)
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
@@ -511,7 +511,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public IntPtr Polynomial(IMagickImage<QuantumType> image, double[] terms, int length)
+            public IntPtr Polynomial(IMagickImage image, double[] terms, int length)
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -539,7 +539,7 @@ namespace ImageMagick
                 RaiseWarning(magickException);
                 return result;
             }
-            public void Quantize(IMagickImage<QuantumType> image, IQuantizeSettings settings)
+            public void Quantize(IMagickImage image, IQuantizeSettings settings)
             {
                 using (INativeInstance settingsNative = QuantizeSettings.CreateInstance(settings))
                 {
@@ -652,7 +652,7 @@ namespace ImageMagick
                     return result;
                 }
             }
-            public IntPtr Smush(IMagickImage<QuantumType> image, int offset, bool stack)
+            public IntPtr Smush(IMagickImage image, int offset, bool stack)
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -680,7 +680,7 @@ namespace ImageMagick
                 RaiseWarning(magickException);
                 return result;
             }
-            public void WriteFile(IMagickImage<QuantumType> image, IMagickSettings<QuantumType> settings)
+            public void WriteFile(IMagickImage image, IMagickSettings<QuantumType> settings)
             {
                 using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
                 {
@@ -700,7 +700,7 @@ namespace ImageMagick
                     CheckException(exception);
                 }
             }
-            public void WriteStream(IMagickImage<QuantumType> image, IMagickSettings<QuantumType> settings, ReadWriteStreamDelegate writer, SeekStreamDelegate seeker, TellStreamDelegate teller, ReadWriteStreamDelegate reader)
+            public void WriteStream(IMagickImage image, IMagickSettings<QuantumType> settings, ReadWriteStreamDelegate writer, SeekStreamDelegate seeker, TellStreamDelegate teller, ReadWriteStreamDelegate reader)
             {
                 using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
                 {

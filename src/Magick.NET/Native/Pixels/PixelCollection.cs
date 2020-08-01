@@ -94,7 +94,7 @@ namespace ImageMagick
                 NativeMethods.X86.PixelCollection_Dispose(instance);
                 #endif
             }
-            public NativePixelCollection(IMagickImage<QuantumType> image)
+            public NativePixelCollection(IMagickImage image)
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU

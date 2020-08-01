@@ -406,7 +406,7 @@ namespace ImageMagick
                 NativeMethods.X86.DrawingWand_Dispose(instance);
                 #endif
             }
-            public NativeDrawingWand(IMagickImage<QuantumType> image, DrawingSettings settings)
+            public NativeDrawingWand(IMagickImage image, DrawingSettings settings)
             {
                 using (INativeInstance settingsNative = DrawingSettings.CreateInstance(settings))
                 {
@@ -609,7 +609,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void Composite(double x, double y, double width, double height, CompositeOperator compositeOperator, IMagickImage<QuantumType> image)
+            public void Composite(double x, double y, double width, double height, CompositeOperator compositeOperator, IMagickImage image)
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU

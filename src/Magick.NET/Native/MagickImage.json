@@ -1,6 +1,6 @@
 ﻿{
   "nativeConstructor": true,
-  "quantumType": true,
+  "interface": true,
   "constructor": {
     "throws": true,
     "arguments": [
