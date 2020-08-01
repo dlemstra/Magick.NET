@@ -26,7 +26,7 @@ namespace ImageMagick
 {
     internal static class IMagickImageExtensions
     {
-        internal static IntPtr GetInstance(this IMagickImage<QuantumType> self)
+        internal static IntPtr GetInstance(this IMagickImage self)
         {
             if (self == null)
                 return IntPtr.Zero;
@@ -46,7 +46,7 @@ namespace ImageMagick
             throw new NotSupportedException();
         }
 
-        internal static IMagickErrorInfo CreateErrorInfo(this IMagickImage<QuantumType> self)
+        internal static IMagickErrorInfo CreateErrorInfo(this IMagickImage self)
         {
             if (self == null)
                 return null;
@@ -57,7 +57,7 @@ namespace ImageMagick
             throw new NotSupportedException();
         }
 
-        internal static void SetNext(this IMagickImage<QuantumType> self, IMagickImage<QuantumType> next)
+        internal static void SetNext(this IMagickImage self, IMagickImage next)
         {
             if (self is MagickImage image)
                 image.SetNext(next);
