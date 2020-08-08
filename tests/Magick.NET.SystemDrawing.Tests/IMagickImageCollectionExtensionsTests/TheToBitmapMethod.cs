@@ -45,7 +45,7 @@ namespace Magick.NET.SystemDrawing.Tests
                     images.RemoveAt(0);
                     images.RemoveAt(0);
 
-                    Assert.AreEqual(1, images.Count);
+                    EnumerableAssert.IsSingle(images);
 
                     using (Bitmap bitmap = images.ToBitmap())
                     {

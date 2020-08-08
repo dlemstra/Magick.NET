@@ -139,7 +139,7 @@ namespace Magick.NET.Tests
 
                     using (var images = factory.Create(bytes, 10, bytes.Length - 10))
                     {
-                        Assert.AreEqual(1, images.Count);
+                        EnumerableAssert.IsSingle(images);
                     }
                 }
             }
@@ -221,7 +221,7 @@ namespace Magick.NET.Tests
 
                     using (var images = factory.Create(bytes, 10, bytes.Length - 10, settings))
                     {
-                        Assert.AreEqual(1, images.Count);
+                        EnumerableAssert.IsSingle(images);
                     }
                 }
 

@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
                 var result = profile.RemoveValue(IptcTag.Byline);
 
                 Assert.IsTrue(result);
-                Assert.AreEqual(0, profile.Values.Count());
+                EnumerableAssert.IsEmpty(profile.Values);
             }
 
             [TestMethod]

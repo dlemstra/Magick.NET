@@ -56,7 +56,7 @@ namespace Magick.NET.Tests
                 {
                     images.Read(Files.Coders.TestDDS, settings);
 
-                    Assert.AreEqual(1, images.Count);
+                    EnumerableAssert.IsSingle(images);
                 }
             }
         }

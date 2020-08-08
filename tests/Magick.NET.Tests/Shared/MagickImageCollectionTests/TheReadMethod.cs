@@ -141,7 +141,7 @@ namespace Magick.NET.Tests
                         fileBytes.CopyTo(bytes, 10);
 
                         images.Read(bytes, 10, bytes.Length - 10);
-                        Assert.AreEqual(1, images.Count);
+                        EnumerableAssert.IsSingle(images);
                     }
                 }
             }
@@ -219,7 +219,7 @@ namespace Magick.NET.Tests
                     using (var images = new MagickImageCollection())
                     {
                         images.Read(bytes, 10, bytes.Length - 10, MagickFormat.Png);
-                        Assert.AreEqual(1, images.Count);
+                        EnumerableAssert.IsSingle(images);
                     }
                 }
             }
@@ -309,7 +309,7 @@ namespace Magick.NET.Tests
                     using (var images = new MagickImageCollection())
                     {
                         images.Read(bytes, 10, bytes.Length - 10, settings);
-                        Assert.AreEqual(1, images.Count);
+                        EnumerableAssert.IsSingle(images);
                     }
                 }
 
@@ -425,7 +425,7 @@ namespace Magick.NET.Tests
                     {
                         images.Read(bytes, null);
 
-                        Assert.AreEqual(1, images.Count);
+                        EnumerableAssert.IsSingle(images);
                     }
                 }
             }
@@ -469,7 +469,7 @@ namespace Magick.NET.Tests
                         {
                             images.Read(file, null);
 
-                            Assert.AreEqual(1, images.Count);
+                            EnumerableAssert.IsSingle(images);
                         }
                     }
                 }
@@ -501,7 +501,7 @@ namespace Magick.NET.Tests
                     {
                         images.Read(file, null);
 
-                        Assert.AreEqual(1, images.Count);
+                        EnumerableAssert.IsSingle(images);
                     }
                 }
             }
@@ -628,7 +628,7 @@ namespace Magick.NET.Tests
                     {
                         images.Read(Files.CirclePNG, null);
 
-                        Assert.AreEqual(1, images.Count);
+                        EnumerableAssert.IsSingle(images);
                     }
                 }
             }
@@ -753,7 +753,7 @@ namespace Magick.NET.Tests
                         {
                             images.Read(fileStream, null);
 
-                            Assert.AreEqual(1, images.Count);
+                            EnumerableAssert.IsSingle(images);
                         }
                     }
                 }

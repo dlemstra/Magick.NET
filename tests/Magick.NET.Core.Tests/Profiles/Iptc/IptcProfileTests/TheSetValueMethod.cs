@@ -96,7 +96,7 @@ namespace Magick.NET.Tests
                 profile.SetValue(tag, expectedValue);
 
                 var values = profile.Values.ToList();
-                Assert.AreEqual(1, values.Count);
+                EnumerableAssert.IsSingle(values);
                 Assert.IsTrue(values.Contains(new IptcValue(tag, Encoding.UTF8.GetBytes(expectedValue))));
             }
 

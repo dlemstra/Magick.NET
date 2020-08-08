@@ -140,7 +140,7 @@ namespace Magick.NET.Tests
                         fileBytes.CopyTo(bytes, 10);
 
                         images.Ping(bytes, 10, bytes.Length - 10);
-                        Assert.AreEqual(1, images.Count);
+                        EnumerableAssert.IsSingle(images);
                     }
                 }
             }
@@ -230,7 +230,7 @@ namespace Magick.NET.Tests
                     using (var images = new MagickImageCollection())
                     {
                         images.Ping(bytes, 10, bytes.Length - 10, settings);
-                        Assert.AreEqual(1, images.Count);
+                        EnumerableAssert.IsSingle(images);
                     }
                 }
 
@@ -258,7 +258,7 @@ namespace Magick.NET.Tests
                     {
                         images.Ping(bytes, null);
 
-                        Assert.AreEqual(1, images.Count);
+                        EnumerableAssert.IsSingle(images);
                     }
                 }
             }
@@ -291,7 +291,7 @@ namespace Magick.NET.Tests
                     {
                         images.Ping(file, null);
 
-                        Assert.AreEqual(1, images.Count);
+                        EnumerableAssert.IsSingle(images);
                     }
                 }
             }
@@ -362,7 +362,7 @@ namespace Magick.NET.Tests
                     {
                         images.Ping(Files.SnakewarePNG, null);
 
-                        Assert.AreEqual(1, images.Count);
+                        EnumerableAssert.IsSingle(images);
                     }
                 }
             }
@@ -414,7 +414,7 @@ namespace Magick.NET.Tests
                         {
                             images.Ping(stream, null);
 
-                            Assert.AreEqual(1, images.Count);
+                            EnumerableAssert.IsSingle(images);
                         }
                     }
                 }

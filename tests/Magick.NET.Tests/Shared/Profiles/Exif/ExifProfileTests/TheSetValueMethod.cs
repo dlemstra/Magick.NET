@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
                         var profile = image.GetExifProfile();
 
                         Assert.IsNotNull(profile);
-                        Assert.AreEqual(1, profile.Values.Count());
+                        EnumerableAssert.IsSingle(profile.Values);
 
                         var value = profile.Values.FirstOrDefault(val => val.Tag == ExifTag.Copyright);
                         TestValue(value, "Dirk Lemstra");

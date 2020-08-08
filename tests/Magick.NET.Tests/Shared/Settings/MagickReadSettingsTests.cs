@@ -46,7 +46,7 @@ namespace Magick.NET.Tests
 
                 collection.Read(Files.RoseSparkleGIF, settings);
 
-                Assert.AreEqual(1, collection.Count);
+                EnumerableAssert.IsSingle(collection);
 
                 settings = new MagickReadSettings();
                 settings.FrameIndex = 1;

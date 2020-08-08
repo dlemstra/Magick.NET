@@ -85,7 +85,7 @@ namespace Magick.NET.Tests
 
                             using (var output = new MagickImageCollection(tempfile))
                             {
-                                Assert.AreEqual(1, output.Count);
+                                EnumerableAssert.IsSingle(output);
                                 Assert.AreEqual(MagickFormat.Tiff, output[0].Format);
                             }
                         }
@@ -138,7 +138,7 @@ namespace Magick.NET.Tests
                                 memoryStream.Position = 0;
                                 using (var output = new MagickImageCollection(stream))
                                 {
-                                    Assert.AreEqual(1, output.Count);
+                                    EnumerableAssert.IsSingle(output);
                                     Assert.AreEqual(MagickFormat.Tiff, output[0].Format);
                                 }
                             }
@@ -204,7 +204,7 @@ namespace Magick.NET.Tests
 
                             using (var output = new MagickImageCollection(tempfile.FullName))
                             {
-                                Assert.AreEqual(1, output.Count);
+                                EnumerableAssert.IsSingle(output);
                                 Assert.AreEqual(MagickFormat.Tiff, output[0].Format);
                             }
                         }

@@ -56,7 +56,7 @@ namespace Magick.NET.Tests
                 var reader = new ExifReader();
                 reader.Read(data);
 
-                Assert.AreEqual(0, reader.Values.Count);
+                EnumerableAssert.IsEmpty(reader.Values);
             }
 
             [TestMethod]
@@ -70,7 +70,7 @@ namespace Magick.NET.Tests
                 var reader = new ExifReader();
                 reader.Read(data);
 
-                Assert.AreEqual(0, reader.Values.Count);
+                EnumerableAssert.IsEmpty(reader.Values);
             }
         }
     }

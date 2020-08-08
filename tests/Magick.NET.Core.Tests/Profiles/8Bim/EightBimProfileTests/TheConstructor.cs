@@ -29,12 +29,12 @@ namespace Magick.NET.Tests
                 var bytes = ToBytes('8', 'B', 'I', 'M', (short)42, (byte)0, 1);
 
                 var profile = new EightBimProfile(bytes);
-                Assert.AreEqual(0, profile.Values.Count());
+                EnumerableAssert.IsEmpty(profile.Values);
 
                 bytes = ToBytes('8', 'B', 'I', 'M', (short)42, (short)0, -1);
 
                 profile = new EightBimProfile(bytes);
-                Assert.AreEqual(0, profile.Values.Count());
+                EnumerableAssert.IsEmpty(profile.Values);
             }
 
             [TestMethod]
@@ -43,8 +43,8 @@ namespace Magick.NET.Tests
                 var bytes = ToBytes('8', 'B', 'I', 'M', (short)2000, (short)0, 1, (byte)0);
 
                 var profile = new EightBimProfile(bytes);
-                Assert.AreEqual(1, profile.Values.Count());
-                Assert.AreEqual(0, profile.ClipPaths.Count());
+                EnumerableAssert.IsSingle(profile.Values);
+                EnumerableAssert.IsEmpty(profile.ClipPaths);
             }
 
             private static byte[] ToBytes(params object[] objects)

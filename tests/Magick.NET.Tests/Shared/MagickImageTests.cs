@@ -1266,7 +1266,7 @@ namespace Magick.NET.Tests
             var image = new MagickImage();
             var histogram = image.Histogram();
             Assert.IsNotNull(histogram);
-            Assert.AreEqual(0, histogram.Count);
+            EnumerableAssert.IsEmpty(histogram);
 
             image = new MagickImage(Files.RedPNG);
             histogram = image.Histogram();
@@ -1840,16 +1840,16 @@ namespace Magick.NET.Tests
         {
             using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
-                IEnumerable<string> names = image.ProfileNames;
+                var names = image.ProfileNames;
                 Assert.IsNotNull(names);
                 Assert.AreEqual("8bim,exif,icc,iptc,xmp", string.Join(",", names));
             }
 
             using (var image = new MagickImage(Files.RedPNG))
             {
-                IEnumerable<string> names = image.ProfileNames;
+                var names = image.ProfileNames;
                 Assert.IsNotNull(names);
-                Assert.AreEqual(0, names.Count());
+                EnumerableAssert.IsEmpty(names);
             }
         }
 

@@ -66,7 +66,7 @@ namespace Magick.NET.Tests
                 {
                     images.AddRange(bytes, null);
 
-                    Assert.AreEqual(1, images.Count);
+                    EnumerableAssert.IsSingle(images);
                 }
             }
 
@@ -89,7 +89,7 @@ namespace Magick.NET.Tests
                 {
                     images.AddRange(new IMagickImage<QuantumType>[0]);
 
-                    Assert.AreEqual(0, images.Count);
+                    EnumerableAssert.IsEmpty(images);
                 }
             }
 
@@ -112,7 +112,7 @@ namespace Magick.NET.Tests
                 {
                     images.AddRange(new IMagickImage<QuantumType>[] { });
 
-                    Assert.AreEqual(0, images.Count);
+                    EnumerableAssert.IsEmpty(images);
                 }
             }
 
@@ -147,7 +147,7 @@ namespace Magick.NET.Tests
                 {
                     images.AddRange(Files.SnakewarePNG, null);
 
-                    Assert.AreEqual(1, images.Count);
+                    EnumerableAssert.IsSingle(images);
                 }
             }
 
@@ -184,7 +184,7 @@ namespace Magick.NET.Tests
                     {
                         images.AddRange(stream, null);
 
-                        Assert.AreEqual(1, images.Count);
+                        EnumerableAssert.IsSingle(images);
                     }
                 }
             }

@@ -337,7 +337,7 @@ namespace Magick.NET.Tests
                 first = collection[0];
                 collection.RemoveAt(0);
 
-                Assert.AreEqual(1, collection.Count);
+                EnumerableAssert.IsSingle(collection);
                 Assert.AreEqual(-1, collection.IndexOf(first));
             }
         }

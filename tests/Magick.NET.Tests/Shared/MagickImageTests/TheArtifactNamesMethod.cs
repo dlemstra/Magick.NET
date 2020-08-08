@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
                     image.SetAttribute("bar", "foo");
 
                     var names = image.ArtifactNames;
-                    Assert.AreEqual(1, names.Count());
+                    EnumerableAssert.IsSingle(names);
                     Assert.AreEqual("foo", string.Join(",", (from name in names
                                                               orderby name
                                                               select name).ToArray()));

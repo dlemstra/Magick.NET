@@ -29,7 +29,7 @@ namespace Magick.NET.Tests
 
                 reader.Read(data);
 
-                Assert.AreEqual(0, reader.Values.Count);
+                EnumerableAssert.IsEmpty(reader.Values);
             }
 
             [TestMethod]
@@ -40,7 +40,7 @@ namespace Magick.NET.Tests
 
                 reader.Read(data);
 
-                Assert.AreEqual(0, reader.Values.Count);
+                EnumerableAssert.IsEmpty(reader.Values);
             }
 
             [TestMethod]
@@ -51,8 +51,8 @@ namespace Magick.NET.Tests
 
                 reader.Read(data);
 
-                Assert.AreEqual(0, reader.Values.Count);
-                Assert.AreEqual(1, reader.InvalidTags.Count());
+                EnumerableAssert.IsEmpty(reader.Values);
+                EnumerableAssert.IsSingle(reader.InvalidTags);
             }
 
             [TestMethod]
@@ -63,7 +63,7 @@ namespace Magick.NET.Tests
 
                 reader.Read(data);
 
-                Assert.AreEqual(0, reader.Values.Count);
+                EnumerableAssert.IsEmpty(reader.Values);
                 Assert.AreEqual(2, reader.InvalidTags.Count);
             }
 
@@ -75,7 +75,7 @@ namespace Magick.NET.Tests
 
                 reader.Read(data);
 
-                Assert.AreEqual(0, reader.Values.Count);
+                EnumerableAssert.IsEmpty(reader.Values);
                 Assert.AreEqual(2, reader.InvalidTags.Count);
             }
 
@@ -87,7 +87,7 @@ namespace Magick.NET.Tests
 
                 reader.Read(data);
 
-                Assert.AreEqual(1, reader.Values.Count);
+                EnumerableAssert.IsSingle(reader.Values);
                 Assert.AreEqual(string.Empty, reader.Values.First().GetValue());
             }
         }

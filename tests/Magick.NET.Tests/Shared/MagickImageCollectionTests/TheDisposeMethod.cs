@@ -31,7 +31,7 @@ namespace Magick.NET.Tests
                 };
                 collection.Dispose();
 
-                Assert.AreEqual(0, collection.Count);
+                EnumerableAssert.IsEmpty(collection);
                 Assert.IsTrue(image.IsDisposed);
             }
         }

@@ -16,5 +16,9 @@
     <ProjectReference Include="../../src/Magick.NET.Core/Magick.NET.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Include="../Shared/EnumerableAssert.cs" Link="Asserts/EnumerableAssert.cs" />
+  </ItemGroup>
+
   <Import Project="../Shared/Magick.NET.props" />
 </Project>

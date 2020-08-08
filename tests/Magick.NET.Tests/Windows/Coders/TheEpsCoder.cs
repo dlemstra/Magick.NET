@@ -45,7 +45,7 @@ namespace Magick.NET.Tests
             {
                 var profile = images[1].Get8BimProfile();
 
-                Assert.AreEqual(1, profile.ClipPaths.Count());
+                EnumerableAssert.IsSingle(profile.ClipPaths);
             }
         }
     }

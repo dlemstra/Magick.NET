@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
                 {
                     using (var clones = images.Clone())
                     {
-                        Assert.AreEqual(0, clones.Count);
+                        EnumerableAssert.IsEmpty(clones);
                     }
                 }
             }

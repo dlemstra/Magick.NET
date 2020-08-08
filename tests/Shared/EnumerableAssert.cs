@@ -10,22 +10,18 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System.Collections.Generic;
 using System.Linq;
-using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magick.NET.Tests
+namespace Magick.NET
 {
-    [TestClass]
-    public class DrawablePathTests
+    internal static class EnumerableAssert
     {
-        [TestMethod]
-        public void Test_DrawablePath()
-        {
-            DrawablePath path = new DrawablePath();
-            EnumerableAssert.IsEmpty(path.Paths);
+        public static void IsSingle<T>(IEnumerable<T> items)
+            => Assert.AreEqual(1, items.Count());
 
-            ((IDrawingWand)path).Draw(null);
-        }
+        public static void IsEmpty<T>(IEnumerable<T> items)
+            => Assert.AreEqual(0, items.Count());
     }
 }
