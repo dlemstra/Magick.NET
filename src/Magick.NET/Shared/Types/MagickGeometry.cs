@@ -340,10 +340,10 @@ namespace ImageMagick
         /// <returns>A string that represents the current <see cref="IMagickGeometry"/>.</returns>
         public override string ToString()
         {
-            string result = null;
-
             if (AspectRatio)
                 return Width + ":" + Height;
+
+            string result = null;
 
             if (Width > 0)
                 result += Width;
