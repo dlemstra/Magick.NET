@@ -34,6 +34,18 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
+            public void ShouldThrowExceptionWhenWidthIsNegative()
+            {
+                ExceptionAssert.Throws<ArgumentException>("width", () => new MagickGeometry(-1, 0));
+            }
+
+            [TestMethod]
+            public void ShouldThrowExceptionWhenHeightIsNegative()
+            {
+                ExceptionAssert.Throws<ArgumentException>("height", () => new MagickGeometry(0, -1));
+            }
+
+            [TestMethod]
             public void ShouldSetIgnoreAspectRatio()
             {
                 var geometry = new MagickGeometry("5x10!");

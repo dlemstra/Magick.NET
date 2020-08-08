@@ -318,6 +318,9 @@ namespace ImageMagick
         /// <param name="height">The height.</param>
         public void Initialize(int x, int y, int width, int height)
         {
+            Throw.IfNegative(nameof(width), width);
+            Throw.IfNegative(nameof(height), height);
+
             X = x;
             Y = y;
             Width = width;
