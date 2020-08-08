@@ -39,9 +39,9 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldReturnCorrectValueForNegativeValues()
             {
-                var geometry = new MagickGeometry(-1, -2, 20, 10);
+                var geometry = new MagickGeometry(-1, -2, -20, -10);
 
-                Assert.AreEqual("20x10-1-2", geometry.ToString());
+                Assert.AreEqual("-20x-10-1-2", geometry.ToString());
             }
 
             [TestMethod]
