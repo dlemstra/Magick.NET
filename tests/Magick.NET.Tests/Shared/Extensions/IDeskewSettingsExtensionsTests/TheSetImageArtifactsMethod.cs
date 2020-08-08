@@ -45,6 +45,7 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
+                    EnumerableAssert.IsSingle(image.ArtifactNames);
                     Assert.AreEqual("true", image.GetArtifact("deskew:auto-crop"));
                 }
             }

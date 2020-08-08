@@ -45,6 +45,7 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
+                    EnumerableAssert.IsSingle(image.ArtifactNames);
                     Assert.AreEqual("4.2", image.GetArtifact("distort:scale"));
                 }
             }
@@ -61,6 +62,7 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
+                    EnumerableAssert.IsSingle(image.ArtifactNames);
                     Assert.AreEqual("3x4+1+2", image.GetArtifact("distort:viewport"));
                 }
             }

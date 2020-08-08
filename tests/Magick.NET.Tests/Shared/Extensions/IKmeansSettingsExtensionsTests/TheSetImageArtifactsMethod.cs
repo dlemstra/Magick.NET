@@ -45,6 +45,7 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
+                    EnumerableAssert.IsSingle(image.ArtifactNames);
                     Assert.AreEqual("red;blue", image.GetArtifact("kmeans:seed-colors"));
                 }
             }

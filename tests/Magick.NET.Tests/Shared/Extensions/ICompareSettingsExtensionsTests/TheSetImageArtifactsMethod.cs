@@ -45,6 +45,8 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
+                    EnumerableAssert.IsSingle(image.ArtifactNames);
+
 #if Q8
                     Assert.AreEqual("#FF00FFFF", image.GetArtifact("compare:highlight-color"));
 #else
@@ -65,6 +67,8 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
+                    EnumerableAssert.IsSingle(image.ArtifactNames);
+
 #if Q8
                     Assert.AreEqual("#FF00FFFF", image.GetArtifact("compare:lowlight-color"));
 #else
@@ -84,6 +88,8 @@ namespace Magick.NET.Tests
                     };
 
                     settings.SetImageArtifacts(image);
+
+                    EnumerableAssert.IsSingle(image.ArtifactNames);
 
 #if Q8
                     Assert.AreEqual("#FF00FFFF", image.GetArtifact("compare:masklight-color"));

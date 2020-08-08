@@ -45,6 +45,7 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
+                    EnumerableAssert.IsSingle(image.ArtifactNames);
                     Assert.AreEqual("1.2", image.GetArtifact("complex:snr"));
                 }
             }
