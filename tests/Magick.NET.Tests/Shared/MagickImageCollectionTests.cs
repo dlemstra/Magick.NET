@@ -479,28 +479,5 @@ namespace Magick.NET.Tests
                 Cleanup.DeleteFile(tempFile);
             }
         }
-
-        private static void Test_Ping(IMagickImageCollection<QuantumType> collection)
-        {
-            Assert.AreEqual(1, collection.Count);
-
-            ExceptionAssert.Throws<InvalidOperationException>(() =>
-            {
-                collection[0].GetPixels();
-            });
-
-            var profile = collection[0].Get8BimProfile();
-            Assert.IsNotNull(profile);
-        }
-
-        private static void Test_Read(IMagickImageCollection<QuantumType> collection)
-        {
-            Assert.AreEqual(3, collection.Count);
-            foreach (var image in collection)
-            {
-                Assert.AreEqual(70, image.Width);
-                Assert.AreEqual(46, image.Height);
-            }
-        }
     }
 }
