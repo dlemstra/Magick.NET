@@ -425,7 +425,7 @@ namespace ImageMagick
             while (index < value.Length && char.IsNumber(value[index]))
                 index++;
 
-            return int.Parse(value.Substring(start, index), CultureInfo.InvariantCulture);
+            return int.Parse(value.Substring(start, index - start), CultureInfo.InvariantCulture);
         }
 
         private void InitializeFromPercentage(int x, int y, int width, int height)
