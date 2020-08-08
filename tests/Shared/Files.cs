@@ -71,7 +71,6 @@ namespace Magick.NET
 
         public static string TestPNG => Root + @"Images/Test.png";
 
-        [ExcludeFromCodeCoverage]
         private static string GetRoot()
         {
             string[] paths =

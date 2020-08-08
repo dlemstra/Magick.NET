@@ -27,7 +27,6 @@
     <AdditionalFiles Include="../../stylecop.json" Link="stylecop.json" />
     <AdditionalFiles Include="../Shared/Magick.NET.ruleset" Link="Magick.NET.ruleset" />
     <Compile Include="../Shared/ExceptionAssert.cs" Link="Asserts/ExceptionAssert.cs" />
-    <Compile Include="../Shared/ExcludeFromCodeCoverageAttribute.cs" Link="ExcludeFromCodeCoverageAttribute.cs" />
   </ItemGroup>
 
   <PropertyGroup>

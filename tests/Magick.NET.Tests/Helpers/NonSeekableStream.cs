@@ -14,7 +14,6 @@ using System.IO;
 
 namespace Magick.NET.Tests
 {
-    [ExcludeFromCodeCoverage]
     internal sealed class NonSeekableStream : TestStream
     {
         public NonSeekableStream(string fileName)

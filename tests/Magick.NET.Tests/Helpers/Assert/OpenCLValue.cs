@@ -14,7 +14,6 @@ using ImageMagick;
 
 namespace Magick.NET.Tests
 {
-    [ExcludeFromCodeCoverage]
     internal static class OpenCLValue
     {
         private static bool HasEnabledOpenCLDevices

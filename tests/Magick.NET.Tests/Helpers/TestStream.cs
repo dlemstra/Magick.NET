@@ -16,7 +16,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-    [ExcludeFromCodeCoverage]
     internal class TestStream : Stream
     {
         private readonly bool _canRead;

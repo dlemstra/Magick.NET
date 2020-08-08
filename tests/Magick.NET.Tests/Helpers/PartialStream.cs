@@ -14,7 +14,6 @@ using System.IO;
 
 namespace Magick.NET.Tests
 {
-    [ExcludeFromCodeCoverage]
     internal sealed class PartialStream : TestStream
     {
         private bool _firstReadDone = false;

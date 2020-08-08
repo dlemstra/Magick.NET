@@ -16,7 +16,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET
 {
-    [ExcludeFromCodeCoverage]
     internal static class ExceptionAssert
     {
         public static TException Throws<TException>(Action action)

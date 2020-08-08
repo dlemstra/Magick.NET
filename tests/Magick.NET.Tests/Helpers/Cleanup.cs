@@ -10,12 +10,10 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
 using System.IO;
 
 namespace Magick.NET.Tests
 {
-    [ExcludeFromCodeCoverage]
     public static class Cleanup
     {
         public static void DeleteDirectory(string path)

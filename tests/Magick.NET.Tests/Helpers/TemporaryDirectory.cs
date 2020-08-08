@@ -15,7 +15,6 @@ using System.IO;
 
 namespace Magick.NET.Tests
 {
-    [ExcludeFromCodeCoverage]
     public class TemporaryDirectory : IDisposable
     {
         private DirectoryInfo _tempDirectory;

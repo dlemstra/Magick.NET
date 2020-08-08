@@ -15,7 +15,6 @@ using System.IO;
 
 namespace Magick.NET.Tests
 {
-    [ExcludeFromCodeCoverage]
     internal sealed class WriteExceptionStream : TestStream
     {
         public WriteExceptionStream(Stream innerStream)

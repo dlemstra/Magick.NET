@@ -25,7 +25,6 @@ using QuantumType = System.Single;
 
 namespace Magick.NET
 {
-    [ExcludeFromCodeCoverage]
     internal static class ColorAssert
     {
         public static void AreEqual(IMagickColor<QuantumType> expected, IMagickColor<QuantumType> actual)
