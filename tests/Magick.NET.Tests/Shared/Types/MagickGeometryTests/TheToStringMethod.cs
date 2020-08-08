@@ -56,7 +56,7 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldSetLess()
+            public void ShouldReturnCorrectValueForLess()
             {
                 var geometry = new MagickGeometry(2, 1, 10, 5)
                 {
@@ -67,7 +67,7 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldSetGreater()
+            public void ShouldReturnCorrectValueForGreater()
             {
                 var geometry = new MagickGeometry(0, 10)
                 {
@@ -78,7 +78,7 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldSetFillArea()
+            public void ShouldReturnCorrectValueForFillArea()
             {
                 var geometry = new MagickGeometry(10, 15)
                 {
@@ -89,7 +89,7 @@ namespace Magick.NET.Tests
             }
 
             [TestMethod]
-            public void ShouldSetLimitPixels()
+            public void ShouldReturnCorrectValueForLimitPixels()
             {
                 var geometry = new MagickGeometry(10, 0)
                 {
