@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    Assert.IsNull(image.GetArtifact("connected-components:angle-threshold"));
+                    EnumerableAssert.IsEmpty(image.ArtifactNames);
                 }
             }
 
@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    Assert.IsNull(image.GetArtifact("connected-components:area-threshold"));
+                    EnumerableAssert.IsEmpty(image.ArtifactNames);
                 }
             }
 
@@ -67,7 +67,7 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    Assert.IsNull(image.GetArtifact("connected-components:circularity-threshold"));
+                    EnumerableAssert.IsEmpty(image.ArtifactNames);
                 }
             }
 
@@ -84,7 +84,7 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    Assert.IsNull(image.GetArtifact("connected-components:diameter-threshold"));
+                    EnumerableAssert.IsEmpty(image.ArtifactNames);
                 }
             }
 
@@ -101,7 +101,7 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    Assert.IsNull(image.GetArtifact("connected-components:eccentricity-threshold"));
+                    EnumerableAssert.IsEmpty(image.ArtifactNames);
                 }
             }
 
@@ -118,7 +118,7 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    Assert.IsNull(image.GetArtifact("connected-components:major-axis-threshold"));
+                    EnumerableAssert.IsEmpty(image.ArtifactNames);
                 }
             }
 
@@ -135,7 +135,7 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    Assert.IsNull(image.GetArtifact("connected-components:mean-color"));
+                    EnumerableAssert.IsEmpty(image.ArtifactNames);
                 }
             }
 
@@ -152,7 +152,7 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    Assert.IsNull(image.GetArtifact("connected-components:minor-axis-threshold"));
+                    EnumerableAssert.IsEmpty(image.ArtifactNames);
                 }
             }
 
@@ -169,7 +169,7 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    Assert.IsNull(image.GetArtifact("connected-components:perimeter-threshold"));
+                    EnumerableAssert.IsEmpty(image.ArtifactNames);
                 }
             }
         }

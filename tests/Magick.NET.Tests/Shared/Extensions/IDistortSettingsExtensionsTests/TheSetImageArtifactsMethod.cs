@@ -29,8 +29,7 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    Assert.IsNull(image.GetArtifact("distort:scale"));
-                    Assert.IsNull(image.GetArtifact("distort:viewport"));
+                    EnumerableAssert.IsEmpty(image.ArtifactNames);
                 }
             }
 

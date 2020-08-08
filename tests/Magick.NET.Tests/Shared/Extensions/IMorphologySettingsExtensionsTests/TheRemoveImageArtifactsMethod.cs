@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    Assert.IsNull(image.GetArtifact("convolve:bias"));
+                    EnumerableAssert.IsEmpty(image.ArtifactNames);
                 }
             }
 
@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    Assert.IsNull(image.GetArtifact("convolve:scale"));
+                    EnumerableAssert.IsEmpty(image.ArtifactNames);
                 }
             }
         }

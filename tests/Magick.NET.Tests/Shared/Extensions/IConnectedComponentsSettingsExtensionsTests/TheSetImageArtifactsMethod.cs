@@ -29,15 +29,7 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    Assert.IsNull(image.GetArtifact("connected-components:angle-threshold"));
-                    Assert.IsNull(image.GetArtifact("connected-components:area-threshold"));
-                    Assert.IsNull(image.GetArtifact("connected-components:circularity-threshold"));
-                    Assert.IsNull(image.GetArtifact("connected-components:diameter-threshold"));
-                    Assert.IsNull(image.GetArtifact("connected-components:eccentricity-threshold"));
-                    Assert.IsNull(image.GetArtifact("connected-components:major-axis-threshold"));
-                    Assert.IsNull(image.GetArtifact("connected-components:mean-color"));
-                    Assert.IsNull(image.GetArtifact("connected-components:minor-axis-threshold"));
-                    Assert.IsNull(image.GetArtifact("connected-components:perimeter-threshold"));
+                    EnumerableAssert.IsEmpty(image.ArtifactNames);
                 }
             }
 

@@ -29,9 +29,7 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    Assert.IsNull(image.GetArtifact("compare:highlight-color"));
-                    Assert.IsNull(image.GetArtifact("compare:lowlight-color"));
-                    Assert.IsNull(image.GetArtifact("compare:masklight-color"));
+                    EnumerableAssert.IsEmpty(image.ArtifactNames);
                 }
             }
 

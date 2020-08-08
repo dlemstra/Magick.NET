@@ -29,8 +29,7 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    Assert.IsNull(image.GetArtifact("convolve:bias"));
-                    Assert.IsNull(image.GetArtifact("convolve:scale"));
+                    EnumerableAssert.IsEmpty(image.ArtifactNames);
                 }
             }
 

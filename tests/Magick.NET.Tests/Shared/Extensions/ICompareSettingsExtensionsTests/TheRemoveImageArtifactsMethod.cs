@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    Assert.IsNull(image.GetArtifact("compare:highlight-color"));
+                    EnumerableAssert.IsEmpty(image.ArtifactNames);
                 }
             }
 
@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    Assert.IsNull(image.GetArtifact("compare:lowlight-color"));
+                    EnumerableAssert.IsEmpty(image.ArtifactNames);
                 }
             }
 
@@ -67,7 +67,7 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    Assert.IsNull(image.GetArtifact("compare:masklight-color"));
+                    EnumerableAssert.IsEmpty(image.ArtifactNames);
                 }
             }
         }

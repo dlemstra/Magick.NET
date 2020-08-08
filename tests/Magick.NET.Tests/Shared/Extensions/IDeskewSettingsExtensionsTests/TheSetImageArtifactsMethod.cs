@@ -29,7 +29,7 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    Assert.IsNull(image.GetArtifact("deskew:auto-crop"));
+                    EnumerableAssert.IsEmpty(image.ArtifactNames);
                 }
             }
 

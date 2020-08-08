@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    Assert.IsNull(image.GetArtifact("complex:snr"));
+                    EnumerableAssert.IsEmpty(image.ArtifactNames);
                 }
             }
         }
