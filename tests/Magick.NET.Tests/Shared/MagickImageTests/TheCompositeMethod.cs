@@ -122,6 +122,7 @@ namespace Magick.NET.Tests
 
                             image.Composite(alpha, CompositeOperator.CopyAlpha);
 
+                            Assert.IsTrue(image.HasAlpha);
                             ColorAssert.AreEqual(MagickColors.Red, image, 0, 0);
                             ColorAssert.AreEqual(new MagickColor("#f000"), image, 1, 0);
                         }
