@@ -57,12 +57,9 @@ namespace Magick.NET.Tests
                     {
                         using (var blue = logo.Separate(Channels.Blue).First())
                         {
-                            using (var green = logo.Separate(Channels.Green).First())
-                            {
-                                blue.Composite(green, CompositeOperator.Modulate);
+                            blue.Composite(logo, CompositeOperator.Modulate);
 
-                                Assert.AreEqual(ColorSpace.Gray, blue.ColorSpace);
-                            }
+                            Assert.AreEqual(ColorSpace.Gray, blue.ColorSpace);
                         }
                     }
                 }
