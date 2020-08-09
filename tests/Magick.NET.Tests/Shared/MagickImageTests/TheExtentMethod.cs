@@ -29,22 +29,22 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage(MagickColors.Black, 1, 1))
                     {
-                        image.Extent(2, 2);
+                        image.Extent(2, 3);
 
                         Assert.AreEqual(2, image.Width);
-                        Assert.AreEqual(2, image.Height);
+                        Assert.AreEqual(3, image.Height);
                     }
                 }
 
                 [TestMethod]
                 public void ShouldExtentTheImageAtOffset()
                 {
-                    using (var image = new MagickImage(MagickColors.Black, 2, 2))
+                    using (var image = new MagickImage(MagickColors.Black, 1, 1))
                     {
                         image.BackgroundColor = MagickColors.Purple;
-                        image.Extent(-1, -1, 3, 3);
+                        image.Extent(-1, -1, 2, 3);
 
-                        Assert.AreEqual(3, image.Width);
+                        Assert.AreEqual(2, image.Width);
                         Assert.AreEqual(3, image.Height);
                         ColorAssert.AreEqual(MagickColors.Purple, image, 0, 0);
                     }
@@ -55,10 +55,10 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage(MagickColors.Black, 1, 1))
                     {
-                        image.Extent(2, 2, MagickColors.Purple);
+                        image.Extent(2, 3, MagickColors.Purple);
 
                         Assert.AreEqual(2, image.Width);
-                        Assert.AreEqual(2, image.Height);
+                        Assert.AreEqual(3, image.Height);
                         ColorAssert.AreEqual(MagickColors.Purple, image, 1, 1);
                     }
                 }
@@ -69,11 +69,11 @@ namespace Magick.NET.Tests
                     using (var image = new MagickImage(MagickColors.Black, 1, 1))
                     {
                         image.BackgroundColor = MagickColors.Purple;
-                        image.Extent(2, 2, Gravity.Northwest);
+                        image.Extent(2, 3, Gravity.Southeast);
 
                         Assert.AreEqual(2, image.Width);
-                        Assert.AreEqual(2, image.Height);
-                        ColorAssert.AreEqual(MagickColors.Purple, image, 1, 1);
+                        Assert.AreEqual(3, image.Height);
+                        ColorAssert.AreEqual(MagickColors.Purple, image, 0, 0);
                     }
                 }
 
@@ -82,10 +82,10 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage(MagickColors.Black, 1, 1))
                     {
-                        image.Extent(2, 2, Gravity.Northwest, MagickColors.Purple);
+                        image.Extent(2, 3, Gravity.Northwest, MagickColors.Purple);
 
                         Assert.AreEqual(2, image.Width);
-                        Assert.AreEqual(2, image.Height);
+                        Assert.AreEqual(3, image.Height);
                         ColorAssert.AreEqual(MagickColors.Purple, image, 1, 1);
                     }
                 }
@@ -108,22 +108,22 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage(MagickColors.Black, 1, 1))
                     {
-                        image.Extent(new MagickGeometry(2, 2));
+                        image.Extent(new MagickGeometry(2, 3));
 
                         Assert.AreEqual(2, image.Width);
-                        Assert.AreEqual(2, image.Height);
+                        Assert.AreEqual(3, image.Height);
                     }
                 }
 
                 [TestMethod]
                 public void ShouldExtentTheImageAtOffset()
                 {
-                    using (var image = new MagickImage(MagickColors.Black, 2, 2))
+                    using (var image = new MagickImage(MagickColors.Black, 1, 1))
                     {
                         image.BackgroundColor = MagickColors.Purple;
-                        image.Extent(new MagickGeometry(-1, -1, 3, 3));
+                        image.Extent(new MagickGeometry(-1, -1, 2, 3));
 
-                        Assert.AreEqual(3, image.Width);
+                        Assert.AreEqual(2, image.Width);
                         Assert.AreEqual(3, image.Height);
                         ColorAssert.AreEqual(MagickColors.Purple, image, 0, 0);
                     }
@@ -134,10 +134,10 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage(MagickColors.Black, 1, 1))
                     {
-                        image.Extent(new MagickGeometry(2, 2), MagickColors.Purple);
+                        image.Extent(new MagickGeometry(2, 3), MagickColors.Purple);
 
                         Assert.AreEqual(2, image.Width);
-                        Assert.AreEqual(2, image.Height);
+                        Assert.AreEqual(3, image.Height);
                         ColorAssert.AreEqual(MagickColors.Purple, image, 1, 1);
                     }
                 }
@@ -148,11 +148,11 @@ namespace Magick.NET.Tests
                     using (var image = new MagickImage(MagickColors.Black, 1, 1))
                     {
                         image.BackgroundColor = MagickColors.Purple;
-                        image.Extent(new MagickGeometry(2, 2), Gravity.Northwest);
+                        image.Extent(new MagickGeometry(2, 3), Gravity.Southwest);
 
                         Assert.AreEqual(2, image.Width);
-                        Assert.AreEqual(2, image.Height);
-                        ColorAssert.AreEqual(MagickColors.Purple, image, 1, 1);
+                        Assert.AreEqual(3, image.Height);
+                        ColorAssert.AreEqual(MagickColors.Purple, image, 0, 0);
                     }
                 }
 
@@ -161,11 +161,11 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage(MagickColors.Black, 1, 1))
                     {
-                        image.Extent(new MagickGeometry(2, 2), Gravity.Northwest, MagickColors.Purple);
+                        image.Extent(new MagickGeometry(2, 3), Gravity.Southwest, MagickColors.Purple);
 
                         Assert.AreEqual(2, image.Width);
-                        Assert.AreEqual(2, image.Height);
-                        ColorAssert.AreEqual(MagickColors.Purple, image, 1, 1);
+                        Assert.AreEqual(3, image.Height);
+                        ColorAssert.AreEqual(MagickColors.Purple, image, 0, 0);
                     }
                 }
             }
