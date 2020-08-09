@@ -14,8 +14,8 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
 
-  <PropertyGroup Condition="$(Configuration.Contains('Release'))">
-    <TreatWarningsAsErrors Condition="'$(OS)' == 'Windows_NT'">true</TreatWarningsAsErrors>
+  <PropertyGroup Condition="$(Configuration.Contains('Test'))">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
