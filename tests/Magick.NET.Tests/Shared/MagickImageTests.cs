@@ -1034,28 +1034,6 @@ namespace Magick.NET.Tests
                 ColorAssert.AreEqual(new MagickColor("#0000"), image, 105, 60);
             }
         }
-
-        [TestMethod]
-        public void Test_Extent()
-        {
-            using (var image = new MagickImage())
-            {
-                image.Read(Files.RedPNG);
-                image.Resize(new MagickGeometry(100, 100));
-                Assert.AreEqual(100, image.Width);
-                Assert.AreEqual(33, image.Height);
-
-                image.BackgroundColor = MagickColors.Transparent;
-                image.Extent(100, 100, Gravity.Center);
-                Assert.AreEqual(100, image.Width);
-                Assert.AreEqual(100, image.Height);
-
-                ColorAssert.AreEqual(MagickColors.Transparent, image, 0, 0);
-                ColorAssert.AreEqual(MagickColors.Red, image, 15, 50);
-                ColorAssert.AreEqual(new MagickColor(0, 0, 0, 0), image, 35, 35);
-            }
-        }
-
         [TestMethod]
         public void Test_FlipFlop()
         {
