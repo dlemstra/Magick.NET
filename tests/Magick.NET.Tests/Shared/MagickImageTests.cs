@@ -1034,6 +1034,7 @@ namespace Magick.NET.Tests
                 ColorAssert.AreEqual(new MagickColor("#0000"), image, 105, 60);
             }
         }
+
         [TestMethod]
         public void Test_FlipFlop()
         {
