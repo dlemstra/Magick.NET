@@ -190,7 +190,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheArguments()
                 {
-                    using (var image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(MagickColors.Red, 10, 10))
                     {
                         using (var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
                         {
@@ -245,7 +245,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheArguments()
                 {
-                    using (var image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(MagickColors.Red, 10, 10))
                     {
                         using (var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
                         {
@@ -428,7 +428,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheArguments()
                 {
-                    using (var image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(MagickColors.Red, 10, 10))
                     {
                         using (var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
                         {
@@ -483,7 +483,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheArguments()
                 {
-                    using (var image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(MagickColors.Red, 10, 10))
                     {
                         using (var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
                         {
@@ -666,7 +666,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheArguments()
                 {
-                    using (var image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(MagickColors.Red, 10, 10))
                     {
                         using (var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
                         {
@@ -721,7 +721,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheArguments()
                 {
-                    using (var image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(MagickColors.Red, 10, 10))
                     {
                         using (var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
                         {
@@ -972,7 +972,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheArguments()
                 {
-                    using (var image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(MagickColors.Red, 10, 10))
                     {
                         using (var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
                         {
@@ -1027,7 +1027,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheArguments()
                 {
-                    using (var image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(MagickColors.Red, 10, 10))
                     {
                         using (var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
                         {
@@ -1202,7 +1202,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheArguments()
                 {
-                    using (var image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(MagickColors.Red, 10, 10))
                     {
                         using (var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
                         {
@@ -1257,7 +1257,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheArguments()
                 {
-                    using (var image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(MagickColors.Red, 10, 10))
                     {
                         using (var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
                         {
@@ -1432,7 +1432,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheArguments()
                 {
-                    using (var image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(MagickColors.Red, 10, 10))
                     {
                         using (var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
                         {
@@ -1487,7 +1487,7 @@ namespace Magick.NET.Tests
                 [TestMethod]
                 public void ShouldUseTheArguments()
                 {
-                    using (var image = new MagickImage(Files.Builtin.Logo))
+                    using (var image = new MagickImage(MagickColors.Red, 10, 10))
                     {
                         using (var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
                         {
