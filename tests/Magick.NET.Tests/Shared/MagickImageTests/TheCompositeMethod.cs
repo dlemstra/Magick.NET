@@ -1092,7 +1092,7 @@ namespace Magick.NET.Tests
                     {
                         ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                         {
-                            image.Composite(null, Gravity.West, 0, 0);
+                            image.Composite(null, Gravity.West, 0, 0, Channels.Green);
                         });
                     }
                 }
@@ -1104,9 +1104,9 @@ namespace Magick.NET.Tests
                     {
                         using (var other = new MagickImage("xc:white", 1, 1))
                         {
-                            image.Composite(other, Gravity.Southwest, 1, 1);
+                            image.Composite(other, Gravity.Southwest, 1, 1, Channels.Green);
 
-                            ColorAssert.AreEqual(MagickColors.White, image, 1, 1);
+                            ColorAssert.AreEqual(MagickColors.Yellow, image, 1, 1);
                         }
                     }
                 }
