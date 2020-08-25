@@ -33,6 +33,20 @@ namespace Magick.NET.Tests
                     }
                 }
             }
+
+            [TestMethod]
+            public void ShouldUsePercentageOfTheWidthAndHeight()
+            {
+                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
+                {
+                    using (var result = image.Clone())
+                    {
+                        result.Clahe(new Percentage(1.6666), new Percentage(5), 30, 1.5);
+
+                        Assert.AreEqual(0.08, image.Compare(result, ErrorMetric.RootMeanSquared), 0.01);
+                    }
+                }
+            }
         }
     }
 }

@@ -738,6 +738,17 @@ namespace ImageMagick
         /// A variant of adaptive histogram equalization in which the contrast amplification is limited,
         /// so as to reduce this problem of noise amplification.
         /// </summary>
+        /// <param name="xTiles">The percentage of tile divisions to use in horizontal direction.</param>
+        /// <param name="yTiles">The percentage of tile divisions to use in vertical direction.</param>
+        /// <param name="numberBins">The number of bins for histogram ("dynamic range").</param>
+        /// <param name="clipLimit">The contrast limit for localised changes in contrast. A limit less than 1
+        /// results in standard non-contrast limited AHE.</param>
+        void Clahe(Percentage xTiles, Percentage yTiles, int numberBins, double clipLimit);
+
+        /// <summary>
+        /// A variant of adaptive histogram equalization in which the contrast amplification is limited,
+        /// so as to reduce this problem of noise amplification.
+        /// </summary>
         /// <param name="xTiles">The number of tile divisions to use in horizontal direction.</param>
         /// <param name="yTiles">The number of tile divisions to use in vertical direction.</param>
         /// <param name="numberBins">The number of bins for histogram ("dynamic range").</param>
