@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldSharpenByDefault()
             {
-                using (var image = new MagickImage("logo:"))
+                using (var image = new MagickImage(Files.NoisePNG))
                 {
                     using (var other = image.Clone())
                     {
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldUseHalfOfQuantumForMidpointByDefault()
             {
-                using (var image = new MagickImage("logo:"))
+                using (var image = new MagickImage(Files.NoisePNG))
                 {
                     using (var other = image.Clone())
                     {
@@ -55,14 +55,14 @@ namespace Magick.NET.Tests
             [TestMethod]
             public void ShouldAdjustTheImageContrast()
             {
-                using (var image = new MagickImage("logo:"))
+                using (var image = new MagickImage(Files.NoisePNG))
                 {
                     using (var other = image.Clone())
                     {
                         other.SigmoidalContrast(true, 4.0, new Percentage(25));
 
                         var difference = other.Compare(image, ErrorMetric.RootMeanSquared);
-                        Assert.AreEqual(0.04179, difference, 0.00001);
+                        Assert.AreEqual(0.05107, difference, 0.00001);
                     }
                 }
             }
