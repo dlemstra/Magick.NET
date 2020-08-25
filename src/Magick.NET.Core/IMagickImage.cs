@@ -3048,14 +3048,14 @@ namespace ImageMagick
         void Shear(double xAngle, double yAngle);
 
         /// <summary>
-        /// adjust the image contrast with a non-linear sigmoidal contrast algorithm.
+        /// Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
         /// </summary>
         /// <param name="contrast">The contrast.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void SigmoidalContrast(double contrast);
 
         /// <summary>
-        /// adjust the image contrast with a non-linear sigmoidal contrast algorithm.
+        /// Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
         /// </summary>
         /// <param name="sharpen">Specifies if sharpening should be used.</param>
         /// <param name="contrast">The contrast.</param>
@@ -3063,7 +3063,7 @@ namespace ImageMagick
         void SigmoidalContrast(bool sharpen, double contrast);
 
         /// <summary>
-        /// adjust the image contrast with a non-linear sigmoidal contrast algorithm.
+        /// Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
         /// </summary>
         /// <param name="contrast">The contrast to use.</param>
         /// <param name="midpoint">The midpoint to use.</param>
@@ -3071,7 +3071,7 @@ namespace ImageMagick
         void SigmoidalContrast(double contrast, double midpoint);
 
         /// <summary>
-        /// adjust the image contrast with a non-linear sigmoidal contrast algorithm.
+        /// Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
         /// </summary>
         /// <param name="sharpen">Specifies if sharpening should be used.</param>
         /// <param name="contrast">The contrast to use.</param>
@@ -3080,7 +3080,7 @@ namespace ImageMagick
         void SigmoidalContrast(bool sharpen, double contrast, double midpoint);
 
         /// <summary>
-        /// adjust the image contrast with a non-linear sigmoidal contrast algorithm.
+        /// Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
         /// </summary>
         /// <param name="contrast">The contrast to use.</param>
         /// <param name="midpointPercentage">The midpoint to use.</param>
@@ -3088,7 +3088,7 @@ namespace ImageMagick
         void SigmoidalContrast(double contrast, Percentage midpointPercentage);
 
         /// <summary>
-        /// adjust the image contrast with a non-linear sigmoidal contrast algorithm.
+        /// Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
         /// </summary>
         /// <param name="sharpen">Specifies if sharpening should be used.</param>
         /// <param name="contrast">The contrast to use.</param>

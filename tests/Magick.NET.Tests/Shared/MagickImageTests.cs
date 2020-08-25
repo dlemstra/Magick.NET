@@ -2255,20 +2255,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_SigmoidalContrast()
-        {
-            using (var image = new MagickImage(Files.NoisePNG))
-            {
-                image.SigmoidalContrast(true, 8.0);
-
-                using (var original = new MagickImage(Files.NoisePNG))
-                {
-                    Assert.AreEqual(0.07361, original.Compare(image, ErrorMetric.RootMeanSquared), 0.00001);
-                }
-            }
-        }
-
-        [TestMethod]
         public void Test_Signature()
         {
             using (var image = new MagickImage())
