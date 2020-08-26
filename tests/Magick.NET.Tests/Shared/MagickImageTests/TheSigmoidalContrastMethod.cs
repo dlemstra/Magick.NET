@@ -62,7 +62,7 @@ namespace Magick.NET.Tests
                         other.SigmoidalContrast(true, 4.0, new Percentage(25));
 
                         var difference = other.Compare(image, ErrorMetric.RootMeanSquared);
-                        Assert.AreEqual(0.05107, difference, 0.00001);
+                        Assert.AreEqual(0.051, difference, 0.001);
                     }
                 }
             }
