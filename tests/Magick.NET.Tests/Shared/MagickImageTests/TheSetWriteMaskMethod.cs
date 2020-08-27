@@ -19,7 +19,7 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [TestClass]
-        public class TheSetReadMaskMethod
+        public class TheSetWriteMaskMethod
         {
             [TestMethod]
             public void ShouldThrowExceptionWhenImageIsNull()
@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
                 {
                     ExceptionAssert.Throws<ArgumentNullException>("image", () =>
                     {
-                        image.SetReadMask(null);
+                        image.SetWriteMask(null);
                     });
                 }
             }
@@ -40,9 +40,9 @@ namespace Magick.NET.Tests
                 {
                     using (var imageMask = new MagickImage(MagickColors.White, 10, 15))
                     {
-                        image.SetReadMask(imageMask);
+                        image.SetWriteMask(imageMask);
 
-                        using (var mask = image.GetReadMask())
+                        using (var mask = image.GetWriteMask())
                         {
                             Assert.IsNotNull(mask);
                             Assert.AreEqual(mask.Width, 640);
