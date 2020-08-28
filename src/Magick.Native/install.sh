@@ -7,7 +7,7 @@ installPackage() {
     mkdir temp
 
     # Temporary download from DropBox
-    nuget_url="https://dl.dropboxusercontent.com/s/1cyri92cgdtgmru/Magick.Native.$version.nupkg"
+    nuget_url="https://dl.dropboxusercontent.com/s/l2jd0tqqae9c0wu/Magick.Native.$version.nupkg"
     curl -s -o Magick.Native.$version.nupkg $nuget_url
 
     cwd=$(pwd)
