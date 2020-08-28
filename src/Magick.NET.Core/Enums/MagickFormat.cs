@@ -728,6 +728,11 @@ namespace ImageMagick
         O,
 
         /// <summary>
+        /// OpenRaster format
+        /// </summary>
+        Ora,
+
+        /// <summary>
         /// Olympus Digital Camera Raw Image File
         /// </summary>
         Orf,

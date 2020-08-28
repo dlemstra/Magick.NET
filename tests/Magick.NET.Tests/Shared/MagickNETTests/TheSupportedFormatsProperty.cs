@@ -21,7 +21,7 @@ namespace Magick.NET.Tests
         public class TheSupportedFormatsProperty
         {
             [TestMethod]
-            public void ShouldContainsNoFormatInformationWithMagickFormatSetToUnknown()
+            public void ShouldContainNoFormatInformationWithMagickFormatSetToUnknown()
             {
                 foreach (var formatInfo in MagickNET.SupportedFormats)
                 {

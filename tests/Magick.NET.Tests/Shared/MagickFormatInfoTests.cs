@@ -78,17 +78,17 @@ namespace Magick.NET.Tests
             Assert.AreEqual("image/png", formatInfo.MimeType);
             Assert.AreEqual(MagickFormat.Png, formatInfo.ModuleFormat);
 
-            formatInfo = MagickNET.GetFormatInformation(MagickFormat.Xps);
+            formatInfo = MagickNET.GetFormatInformation(MagickFormat.Pango);
             Assert.IsNotNull(formatInfo);
             Assert.IsFalse(formatInfo.CanReadMultithreaded);
             Assert.IsFalse(formatInfo.CanWriteMultithreaded);
-            Assert.AreEqual("Microsoft XML Paper Specification", formatInfo.Description);
-            Assert.AreEqual(MagickFormat.Xps, formatInfo.Format);
+            Assert.AreEqual("Pango Markup Language", formatInfo.Description);
+            Assert.AreEqual(MagickFormat.Pango, formatInfo.Format);
             Assert.IsFalse(formatInfo.IsMultiFrame);
             Assert.IsTrue(formatInfo.IsReadable);
             Assert.IsFalse(formatInfo.IsWritable);
             Assert.IsNull(formatInfo.MimeType);
-            Assert.AreEqual(MagickFormat.Xps, formatInfo.ModuleFormat);
+            Assert.AreEqual(MagickFormat.Pango, formatInfo.ModuleFormat);
         }
 
         [TestMethod]
