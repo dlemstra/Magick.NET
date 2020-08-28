@@ -1383,54 +1383,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_Level()
-        {
-            using (var first = new MagickImage(Files.MagickNETIconPNG))
-            {
-                first.Level(new Percentage(50.0), new Percentage(10.0));
-
-                using (var second = new MagickImage(Files.MagickNETIconPNG))
-                {
-                    Assert.AreNotEqual(first, second);
-                    Assert.AreNotEqual(first.Signature, second.Signature);
-
-                    QuantumType fifty = (QuantumType)(Quantum.Max * 0.5);
-                    QuantumType ten = (QuantumType)(Quantum.Max * 0.1);
-                    second.Level(fifty, ten, Channels.Red);
-                    second.Level(fifty, ten, Channels.Green | Channels.Blue);
-                    second.Level(fifty, ten, Channels.Alpha);
-
-                    Assert.AreEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
-
-                    Assert.AreEqual(first, second);
-                    Assert.AreEqual(first.Signature, second.Signature);
-                }
-            }
-
-            using (var first = new MagickImage(Files.MagickNETIconPNG))
-            {
-                first.InverseLevel(new Percentage(50.0), new Percentage(10.0));
-
-                using (var second = new MagickImage(Files.MagickNETIconPNG))
-                {
-                    Assert.AreNotEqual(first, second);
-                    Assert.AreNotEqual(first.Signature, second.Signature);
-
-                    QuantumType fifty = (QuantumType)(Quantum.Max * 0.5);
-                    QuantumType ten = (QuantumType)(Quantum.Max * 0.1);
-                    second.InverseLevel(fifty, ten, Channels.Red);
-                    second.InverseLevel(fifty, ten, Channels.Green | Channels.Blue);
-                    second.InverseLevel(fifty, ten, Channels.Alpha);
-
-                    Assert.AreEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
-
-                    Assert.AreEqual(first, second);
-                    Assert.AreEqual(first.Signature, second.Signature);
-                }
-            }
-        }
-
-        [TestMethod]
         public void Test_LevelColors()
         {
             using (var image = new MagickImage(Files.MagickNETIconPNG))
