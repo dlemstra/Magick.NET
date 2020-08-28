@@ -2134,21 +2134,6 @@ namespace Magick.NET.Tests
         }
 
         [TestMethod]
-        public void Test_Sharpen()
-        {
-            using (var image = new MagickImage(Files.NoisePNG))
-            {
-                image.Sharpen(10, 20);
-                image.Clamp();
-
-                using (var original = new MagickImage(Files.NoisePNG))
-                {
-                    Assert.AreEqual(0.06675, image.Compare(original, ErrorMetric.RootMeanSquared), 0.00001);
-                }
-            }
-        }
-
-        [TestMethod]
         public void Test_Shave()
         {
             using (var image = new MagickImage(Files.Builtin.Logo))
