@@ -103,7 +103,7 @@ namespace ImageMagick
 
             try
             {
-                if (image.ColorSpace != ColorSpace.sRGB && image.ColorSpace != ColorSpace.Gray)
+                if (IssRGBCompatibleColorspace(image.ColorSpace))
                 {
                     image = self.Clone();
                     image.ColorSpace = ColorSpace.sRGB;
@@ -189,5 +189,13 @@ namespace ImageMagick
                format.Guid.Equals(ImageFormat.Jpeg.Guid) ||
                format.Guid.Equals(ImageFormat.Png.Guid) ||
                format.Guid.Equals(ImageFormat.Tiff.Guid);
+
+        private static bool IssRGBCompatibleColorspace(ColorSpace colorSpace)
+            => colorSpace == ColorSpace.sRGB ||
+               colorSpace == ColorSpace.RGB ||
+               colorSpace == ColorSpace.scRGB ||
+               colorSpace == ColorSpace.Transparent ||
+               colorSpace == ColorSpace.Gray ||
+               colorSpace == ColorSpace.LinearGray;
     }
 }
