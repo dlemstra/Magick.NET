@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:latest
+FROM mcr.microsoft.com/dotnet/core/sdk:latest
 
 RUN mkdir /build
 

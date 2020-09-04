@@ -11,7 +11,7 @@ jobs:
   linux:
     name: 'Linux (Q8/Q16/Q16-HDRI)'
     container:
-      image: microsoft/dotnet:latest
+      image: mcr.microsoft.com/dotnet/core/sdk:latest
     runs-on: ubuntu-latest
 
     steps:
