@@ -18,17 +18,6 @@ param (
 . $PSScriptRoot\..\..\tools\windows\utils.ps1
 
 function runProjectTests($quantumName, $platformName, $targetFramework, $project) {
-    $folder = fullPath "tests\$project.Tests\bin\Test$quantumName\$platform\$targetFramework"
-    $fileName = "$folder\$project.Tests.dll"
-
-    & $vstest $fileName /platform:$testPlatform /TestAdapterPath:$folder
-
-    CheckExitCode("Failed to test Magick.NET")
-}
-
-function runTests($quantumName, $platformName, $targetFramework) {
-    $vstest = "$($env:VSINSTALLDIR)\Common7\IDE\Extensions\TestPlatform\vstest.console.exe"
-
     $platform = $platformName
     $testPlatform = $platformName
 
@@ -37,10 +26,23 @@ function runTests($quantumName, $platformName, $targetFramework) {
       $testPlatform = "x64"
     }
 
-    runProjectTests $quantumName $platformName $targetFramework "Magick.NET.Core"
+    $folder = fullPath "tests\$project.Tests\bin\Test$quantumName\$platform\$targetFramework"
+    $fileName = "$folder\$project.Tests.dll"
+
+    $vstest = "$($env:VSINSTALLDIR)\Common7\IDE\Extensions\TestPlatform\vstest.console.exe"
+    & $vstest $fileName /platform:$testPlatform /TestAdapterPath:$folder
+
+    CheckExitCode("Failed to test Magick.NET")
+}
+
+function runTests($quantumName, $platformName, $targetFramework) {
     runProjectTests $quantumName $platformName $targetFramework "Magick.NET"
-    runProjectTests $quantumName $platformName $targetFramework "Magick.NET.SystemDrawing"
-    runProjectTests $quantumName $platformName $targetFramework "Magick.NET.SystemWindowsMedia"
+
+    if ($platformName -eq "Any CPU") {
+        runProjectTests $quantumName $platformName $targetFramework "Magick.NET.Core"
+        runProjectTests $quantumName $platformName $targetFramework "Magick.NET.SystemDrawing"
+        runProjectTests $quantumName $platformName $targetFramework "Magick.NET.SystemWindowsMedia"
+    }
 }
 
 function testMagickNET($quantumName, $platformName) {
