@@ -19,7 +19,7 @@ param (
 
 function runProjectTests($quantumName, $platformName, $targetFramework, $project) {
     $folder = fullPath "tests\$project.Tests\bin\Test$quantumName\$platform\$targetFramework"
-    $fileName = "$folder\Magick.NET.Tests.dll"
+    $fileName = "$folder\$project.Tests.dll"
 
     & $vstest $fileName /platform:$testPlatform /TestAdapterPath:$folder
 
