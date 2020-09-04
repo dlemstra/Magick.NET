@@ -103,7 +103,7 @@ namespace ImageMagick
 
             try
             {
-                if (IssRGBCompatibleColorspace(image.ColorSpace))
+                if (!IssRGBCompatibleColorspace(image.ColorSpace))
                 {
                     image = self.Clone();
                     image.ColorSpace = ColorSpace.sRGB;
