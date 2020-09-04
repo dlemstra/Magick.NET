@@ -156,6 +156,9 @@ namespace ImageMagick
 
         private ExifValue CreateValue(ExifTagValue tag, ExifDataType dataType, uint numberOfComponents)
         {
+            if (!_reader.CanRead(numberOfComponents))
+                return null;
+
             var exifValue = ExifValues.Create(tag);
             if (exifValue == null)
                 exifValue = ExifValues.Create(tag, dataType, numberOfComponents);
