@@ -35,12 +35,12 @@ function copyToSamplesProject($source, $target, $quantum, $platform) {
 }
 
 function copyToSamplesProjects($source, $target) {
-    copyToTestProject $source $target "Q8" "x86"
-    copyToTestProject $source $target "Q8" "x64"
-    copyToTestProject $source $target "Q16" "x86"
-    copyToTestProject $source $target "Q16" "x64"
-    copyToTestProject $source $target "Q16-HDRI" "x86"
-    copyToTestProject $source $target "Q16-HDRI" "x64"
+    copyToSamplesProject $source $target "Q8" "x86"
+    copyToSamplesProject $source $target "Q8" "x64"
+    copyToSamplesProject $source $target "Q16" "x86"
+    copyToSamplesProject $source $target "Q16" "x64"
+    copyToSamplesProject $source $target "Q16-HDRI" "x86"
+    copyToSamplesProject $source $target "Q16-HDRI" "x64"
 }
 
 function copyToTestProject($source, $target, $quantum, $platform) {
