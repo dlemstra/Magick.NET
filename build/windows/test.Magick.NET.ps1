@@ -17,7 +17,7 @@ param (
 
 . $PSScriptRoot\..\..\tools\windows\utils.ps1
 
-function runProjectTests($quantumName, $platformName, $targetFramework, $project) {
+function runTests($quantumName, $platformName, $targetFramework, $project) {
     $platform = $platformName
     $testPlatform = $platformName
 
@@ -35,21 +35,18 @@ function runProjectTests($quantumName, $platformName, $targetFramework, $project
     CheckExitCode("Failed to test Magick.NET")
 }
 
-function runTests($quantumName, $platformName, $targetFramework) {
-    runProjectTests $quantumName $platformName $targetFramework "Magick.NET"
-
-    if ($platformName -eq "Any CPU") {
-        runProjectTests "" $platformName $targetFramework "Magick.NET.Core"
-        runProjectTests "" $platformName $targetFramework "Magick.NET.SystemDrawing"
-        runProjectTests "" $platformName $targetFramework "Magick.NET.SystemWindowsMedia"
-    }
-}
-
 function testMagickNET($quantumName, $platformName) {
-    runTests $quantumName $platformName "net45"
+    runTests $quantumName $platformName "net45" "Magick.NET"
 
     if ($platformName -ne "Any CPU") {
-        runTests $quantumName $platformName "netcoreapp2.0"
+        runTests $quantumName $platformName "netcoreapp2.0" "Magick.NET"
+    } else {
+        runTests "" $platformName "net45" "Magick.NET.Core"
+        runTests "" $platformName "netcoreapp2.0" "Magick.NET.Core"
+        runTests $quantumName $platformName "net45" "Magick.NET.SystemDrawing"
+        runTests $quantumName $platformName "netcoreapp2.0" "Magick.NET.SystemDrawing"
+        runTests $quantumName $platformName "net45" "Magick.NET.SystemWindowsMedia"
+        runTests $quantumName $platformName "netcoreapp3.0" "Magick.NET.SystemWindowsMedia"
     }
 }
 
