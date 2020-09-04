@@ -39,9 +39,9 @@ function runTests($quantumName, $platformName, $targetFramework) {
     runProjectTests $quantumName $platformName $targetFramework "Magick.NET"
 
     if ($platformName -eq "Any CPU") {
-        runProjectTests $quantumName $platformName $targetFramework "Magick.NET.Core"
-        runProjectTests $quantumName $platformName $targetFramework "Magick.NET.SystemDrawing"
-        runProjectTests $quantumName $platformName $targetFramework "Magick.NET.SystemWindowsMedia"
+        runProjectTests "" $platformName $targetFramework "Magick.NET.Core"
+        runProjectTests "" $platformName $targetFramework "Magick.NET.SystemDrawing"
+        runProjectTests "" $platformName $targetFramework "Magick.NET.SystemWindowsMedia"
     }
 }
 
