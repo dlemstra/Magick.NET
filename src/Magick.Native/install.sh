@@ -19,7 +19,7 @@ installPackage() {
 copyToTestProject() {
     local quantum=$1
 
-    folder=../../tests/Magick.NET.Tests/bin/Test$quantum/AnyCPU/netcoreapp2.0
+    folder=../../tests/Magick.NET.Tests/bin/Test$quantum/AnyCPU/netcoreapp3.0
     mkdir -p $folder
 
     cp temp/Magick.Native.$version/content/Release$quantum/x64/Magick.Native-$quantum-x64.dll.so $folder

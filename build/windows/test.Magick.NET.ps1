@@ -39,15 +39,16 @@ function testMagickNET($quantumName, $platformName) {
     runTests $quantumName $platformName "net45" "Magick.NET"
 
     if ($platformName -ne "Any CPU") {
-        runTests $quantumName $platformName "netcoreapp2.0" "Magick.NET"
+        runTests $quantumName $platformName "netcoreapp3.0" "Magick.NET"
     } else {
         runTests "" $platformName "net45" "Magick.NET.Core"
-        runTests "" $platformName "netcoreapp2.0" "Magick.NET.Core"
-        runTests $quantumName $platformName "net45" "Magick.NET.SystemDrawing"
-        runTests $quantumName $platformName "netcoreapp2.0" "Magick.NET.SystemDrawing"
-        runTests $quantumName $platformName "net45" "Magick.NET.SystemWindowsMedia"
-        runTests $quantumName $platformName "netcoreapp3.0" "Magick.NET.SystemWindowsMedia"
+        runTests "" $platformName "netcoreapp3.0" "Magick.NET.Core"
     }
+
+    runTests $quantumName $platformName "net45" "Magick.NET.SystemDrawing"
+    runTests $quantumName $platformName "netcoreapp3.0" "Magick.NET.SystemDrawing"
+    runTests $quantumName $platformName "net45" "Magick.NET.SystemWindowsMedia"
+    runTests $quantumName $platformName "netcoreapp3.0" "Magick.NET.SystemWindowsMedia"
 }
 
 testMagickNET $quantumName $platformName
