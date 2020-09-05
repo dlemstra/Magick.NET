@@ -41,7 +41,7 @@ function testMagickNET($quantumName, $platformName) {
     if ($platformName -ne "Any CPU") {
         runTests $quantumName $platformName "netcoreapp3.0" "Magick.NET"
 
-        if ($quantumName -contains "OpenMP") {
+        if ($quantumName -like "*OpenMP*") {
             return
         }
 
@@ -52,7 +52,7 @@ function testMagickNET($quantumName, $platformName) {
         runTests "" $platformName "netcoreapp3.0" "Magick.NET.Core"
     }
 
-    if ($quantumName -contains "OpenMP") {
+    if ($quantumName -like "*OpenMP*") {
         return
     }
 
