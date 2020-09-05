@@ -39,16 +39,16 @@ function testMagickNET($quantumName, $platformName) {
     runTests $quantumName $platformName "net45" "Magick.NET"
 
     if ($platformName -ne "Any CPU") {
+        runTests "" $platformName "netcoreapp3.0" "Magick.NET.Core"
         runTests $quantumName $platformName "netcoreapp3.0" "Magick.NET"
+        runTests $quantumName $platformName "netcoreapp3.0" "Magick.NET.SystemDrawing"
+        runTests $quantumName $platformName "netcoreapp3.0" "Magick.NET.SystemWindowsMedia"
 
         if ($quantumName -contains "OpenMP") {
             return
         }
     } else {
         runTests "" $platformName "net45" "Magick.NET.Core"
-        runTests "" $platformName "netcoreapp3.0" "Magick.NET.Core"
-        runTests $quantumName $platformName "netcoreapp3.0" "Magick.NET.SystemDrawing"
-        runTests $quantumName $platformName "netcoreapp3.0" "Magick.NET.SystemWindowsMedia"
     }
 
     runTests $quantumName $platformName "net45" "Magick.NET.SystemDrawing"
