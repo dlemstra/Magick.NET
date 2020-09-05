@@ -45,11 +45,11 @@ function testMagickNET($quantumName, $platformName) {
             return
         }
 
-        runTests "" $platformName "netcoreapp3.0" "Magick.NET.Core"
         runTests $quantumName $platformName "netcoreapp3.0" "Magick.NET.SystemDrawing"
         runTests $quantumName $platformName "netcoreapp3.0" "Magick.NET.SystemWindowsMedia"
     } else {
         runTests "" $platformName "net45" "Magick.NET.Core"
+        runTests "" $platformName "netcoreapp3.0" "Magick.NET.Core"
     }
 
     runTests $quantumName $platformName "net45" "Magick.NET.SystemDrawing"
