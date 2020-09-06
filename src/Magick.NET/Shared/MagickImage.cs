@@ -6406,14 +6406,16 @@ namespace ImageMagick
             => _nativeInstance.Transverse();
 
         /// <summary>
-        /// Trim edges that are the background color from the image.
+        /// Trim edges that are the background color from the image. The property <see cref="BoundingBox"/> can be used to the
+        /// coordinates of the area that will be extracted.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Trim()
             => _nativeInstance.Trim();
 
         /// <summary>
-        /// Trim edges that are the background color from the image.
+        /// Trim edges that are the background color from the image. The property <see cref="BoundingBox"/> can be used to the
+        /// coordinates of the area that will be extracted.
         /// </summary>
         /// <param name="percentBackground">The percentage of background pixels permitted in the outer rows and columns.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
