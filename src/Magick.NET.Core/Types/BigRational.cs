@@ -172,7 +172,7 @@ namespace ImageMagick
 
             var sb = new StringBuilder();
             sb.Append(Numerator.ToString(provider));
-            sb.Append("/");
+            sb.Append('/');
             sb.Append(Denominator.ToString(provider));
 
             return sb.ToString();

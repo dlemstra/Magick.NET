@@ -27,12 +27,12 @@ namespace ImageMagick
         /// <summary>
         /// Cyan
         /// </summary>
-        Cyan = 0,
+        Cyan = Red,
 
         /// <summary>
         /// Gray
         /// </summary>
-        Gray = 0,
+        Gray = Red,
 
         /// <summary>
         /// Green
@@ -42,7 +42,7 @@ namespace ImageMagick
         /// <summary>
         /// Magenta
         /// </summary>
-        Magenta = 1,
+        Magenta = Green,
 
         /// <summary>
         /// Blue
@@ -52,7 +52,7 @@ namespace ImageMagick
         /// <summary>
         /// Yellow
         /// </summary>
-        Yellow = 2,
+        Yellow = Blue,
 
         /// <summary>
         /// Black

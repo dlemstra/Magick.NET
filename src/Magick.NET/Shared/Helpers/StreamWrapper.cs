@@ -70,6 +70,7 @@ namespace ImageMagick
         }
 
         [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Exceptions will result in a memory leak.")]
+        [SuppressMessage("Usage", "CA1801:Review unused parameters", Justification = "This argument is part of an external API.")]
         public int Read(IntPtr data, UIntPtr count, IntPtr user_data)
         {
             int total = (int)count;
@@ -109,6 +110,7 @@ namespace ImageMagick
         }
 
         [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Exceptions will result in a memory leak.")]
+        [SuppressMessage("Usage", "CA1801:Review unused parameters", Justification = "This argument is part of an external API.")]
         public long Seek(long offset, IntPtr whence, IntPtr user_data)
         {
             try
@@ -132,6 +134,7 @@ namespace ImageMagick
         }
 
         [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Exceptions will result in a memory leak.")]
+        [SuppressMessage("Usage", "CA1801:Review unused parameters", Justification = "This argument is part of an external API.")]
         public long Tell(IntPtr user_data)
         {
             try
@@ -145,6 +148,7 @@ namespace ImageMagick
         }
 
         [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Exceptions will result in a memory leak.")]
+        [SuppressMessage("Usage", "CA1801:Review unused parameters", Justification = "This argument is part of an external API.")]
         public int Write(IntPtr data, UIntPtr count, IntPtr user_data)
         {
             int total = (int)count;

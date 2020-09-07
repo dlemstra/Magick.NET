@@ -25,7 +25,7 @@ namespace ImageMagick
         /// <summary>
         /// Forget
         /// </summary>
-        Forget = 0,
+        Forget = Undefined,
 
         /// <summary>
         /// Northwest

@@ -35,12 +35,12 @@ namespace ImageMagick
         /// <summary>
         /// Gray
         /// </summary>
-        Gray = 0x0001,
+        Gray = Red,
 
         /// <summary>
         /// Cyan
         /// </summary>
-        Cyan = 0x0001,
+        Cyan = Red,
 
         /// <summary>
         /// Green
@@ -50,7 +50,7 @@ namespace ImageMagick
         /// <summary>
         /// Magenta
         /// </summary>
-        Magenta = 0x0002,
+        Magenta = Green,
 
         /// <summary>
         /// Blue
@@ -60,7 +60,7 @@ namespace ImageMagick
         /// <summary>
         /// Yellow
         /// </summary>
-        Yellow = 0x0004,
+        Yellow = Blue,
 
         /// <summary>
         /// Black
@@ -75,7 +75,7 @@ namespace ImageMagick
         /// <summary>
         /// Opacity
         /// </summary>
-        Opacity = 0x0010,
+        Opacity = Alpha,
 
         /// <summary>
         /// Index

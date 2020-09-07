@@ -64,7 +64,7 @@ namespace ImageMagick
             return StringValue;
         }
 
-        private string GetDescription(ExifTag tag, object value)
+        private static string GetDescription(ExifTag tag, object value)
         {
             var tagValue = (ExifTagValue)(ushort)tag;
             var attributes = TypeHelper.GetCustomAttributes<ExifTagDescriptionAttribute>(tagValue);

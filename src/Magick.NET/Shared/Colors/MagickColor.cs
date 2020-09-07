@@ -170,7 +170,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets a value indicating whether the color is a CMYK color.
         /// </summary>
-        public bool IsCmyk { get; private set; } = false;
+        public bool IsCmyk { get; private set; }
 
         /// <summary>
         /// Gets or sets the key (black) component value of this color.

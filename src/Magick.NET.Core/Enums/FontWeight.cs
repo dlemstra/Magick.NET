@@ -35,7 +35,7 @@ namespace ImageMagick
         /// <summary>
         /// Ultra light (200)
         /// </summary>
-        UltraLight = 200,
+        UltraLight = ExtraLight,
 
         /// <summary>
         /// Light (300)
@@ -50,7 +50,7 @@ namespace ImageMagick
         /// <summary>
         /// Regular (400)
         /// </summary>
-        Regular = 400,
+        Regular = Normal,
 
         /// <summary>
         /// Medium (500)
@@ -65,7 +65,7 @@ namespace ImageMagick
         /// <summary>
         /// Semi bold (600)
         /// </summary>
-        SemiBold = 600,
+        SemiBold = DemiBold,
 
         /// <summary>
         /// Bold (700)
@@ -80,7 +80,7 @@ namespace ImageMagick
         /// <summary>
         /// Ultra bold (800)
         /// </summary>
-        UltraBold = 800,
+        UltraBold = ExtraBold,
 
         /// <summary>
         /// Heavy (900)
@@ -90,6 +90,6 @@ namespace ImageMagick
         /// <summary>
         /// Black (900)
         /// </summary>
-        Black = 900,
+        Black = Heavy,
     }
 }

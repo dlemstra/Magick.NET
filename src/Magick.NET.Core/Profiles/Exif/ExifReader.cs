@@ -21,7 +21,7 @@ namespace ImageMagick
         private bool _isLittleEndian;
         private uint _exifOffset;
         private uint _gpsOffset;
-        private uint _startIndex = 0;
+        private uint _startIndex;
 
         private delegate TDataType ReadMethod<TDataType>();
 
