@@ -18,117 +18,117 @@ namespace ImageMagick
     public enum MorphologyMethod
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Convolve
+        /// Convolve.
         /// </summary>
         Convolve,
 
         /// <summary>
-        /// Correlate
+        /// Correlate.
         /// </summary>
         Correlate,
 
         /// <summary>
-        /// Erode
+        /// Erode.
         /// </summary>
         Erode,
 
         /// <summary>
-        /// Dilate
+        /// Dilate.
         /// </summary>
         Dilate,
 
         /// <summary>
-        /// ErodeIntensity
+        /// ErodeIntensity.
         /// </summary>
         ErodeIntensity,
 
         /// <summary>
-        /// DilateIntensity
+        /// DilateIntensity.
         /// </summary>
         DilateIntensity,
 
         /// <summary>
-        /// IterativeDistance
+        /// IterativeDistance.
         /// </summary>
         IterativeDistance,
 
         /// <summary>
-        /// Open
+        /// Open.
         /// </summary>
         Open,
 
         /// <summary>
-        /// Close
+        /// Close.
         /// </summary>
         Close,
 
         /// <summary>
-        /// OpenIntensity
+        /// OpenIntensity.
         /// </summary>
         OpenIntensity,
 
         /// <summary>
-        /// CloseIntensity
+        /// CloseIntensity.
         /// </summary>
         CloseIntensity,
 
         /// <summary>
-        /// Smooth
+        /// Smooth.
         /// </summary>
         Smooth,
 
         /// <summary>
-        /// EdgeIn
+        /// EdgeIn.
         /// </summary>
         EdgeIn,
 
         /// <summary>
-        /// EdgeOut
+        /// EdgeOut.
         /// </summary>
         EdgeOut,
 
         /// <summary>
-        /// Edge
+        /// Edge.
         /// </summary>
         Edge,
 
         /// <summary>
-        /// TopHat
+        /// TopHat.
         /// </summary>
         TopHat,
 
         /// <summary>
-        /// BottomHat
+        /// BottomHat.
         /// </summary>
         BottomHat,
 
         /// <summary>
-        /// HitAndMiss
+        /// HitAndMiss.
         /// </summary>
         HitAndMiss,
 
         /// <summary>
-        /// Thinning
+        /// Thinning.
         /// </summary>
         Thinning,
 
         /// <summary>
-        /// Thicken
+        /// Thicken.
         /// </summary>
         Thicken,
 
         /// <summary>
-        /// Distance
+        /// Distance.
         /// </summary>
         Distance,
 
         /// <summary>
-        /// Voronoi
+        /// Voronoi.
         /// </summary>
         Voronoi,
     }

@@ -18,27 +18,27 @@ namespace ImageMagick
     public enum EvaluateFunction
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Arcsin
+        /// Arcsin.
         /// </summary>
         Arcsin,
 
         /// <summary>
-        /// Arctan
+        /// Arctan.
         /// </summary>
         Arctan,
 
         /// <summary>
-        /// Polynomial
+        /// Polynomial.
         /// </summary>
         Polynomial,
 
         /// <summary>
-        /// Sinusoid
+        /// Sinusoid.
         /// </summary>
         Sinusoid,
     }

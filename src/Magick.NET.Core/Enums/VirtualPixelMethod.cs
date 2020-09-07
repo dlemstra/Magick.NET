@@ -18,87 +18,87 @@ namespace ImageMagick
     public enum VirtualPixelMethod
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Background
+        /// Background.
         /// </summary>
         Background,
 
         /// <summary>
-        /// Dither
+        /// Dither.
         /// </summary>
         Dither,
 
         /// <summary>
-        /// Edge
+        /// Edge.
         /// </summary>
         Edge,
 
         /// <summary>
-        /// Mirror
+        /// Mirror.
         /// </summary>
         Mirror,
 
         /// <summary>
-        /// Random
+        /// Random.
         /// </summary>
         Random,
 
         /// <summary>
-        /// Tile
+        /// Tile.
         /// </summary>
         Tile,
 
         /// <summary>
-        /// Transparent
+        /// Transparent.
         /// </summary>
         Transparent,
 
         /// <summary>
-        /// Mask
+        /// Mask.
         /// </summary>
         Mask,
 
         /// <summary>
-        /// Black
+        /// Black.
         /// </summary>
         Black,
 
         /// <summary>
-        /// Gray
+        /// Gray.
         /// </summary>
         Gray,
 
         /// <summary>
-        /// White
+        /// White.
         /// </summary>
         White,
 
         /// <summary>
-        /// HorizontalTile
+        /// HorizontalTile.
         /// </summary>
         HorizontalTile,
 
         /// <summary>
-        /// VerticalTile
+        /// VerticalTile.
         /// </summary>
         VerticalTile,
 
         /// <summary>
-        /// HorizontalTileEdge
+        /// HorizontalTileEdge.
         /// </summary>
         HorizontalTileEdge,
 
         /// <summary>
-        /// VerticalTileEdge
+        /// VerticalTileEdge.
         /// </summary>
         VerticalTileEdge,
 
         /// <summary>
-        /// CheckerTile
+        /// CheckerTile.
         /// </summary>
         CheckerTile,
     }

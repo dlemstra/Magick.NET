@@ -18,47 +18,47 @@ namespace ImageMagick
     public enum OrientationType
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// TopLeft
+        /// TopLeft.
         /// </summary>
         TopLeft,
 
         /// <summary>
-        /// TopRight
+        /// TopRight.
         /// </summary>
         TopRight,
 
         /// <summary>
-        /// BottomRight
+        /// BottomRight.
         /// </summary>
         BottomRight,
 
         /// <summary>
-        /// BottomLeft
+        /// BottomLeft.
         /// </summary>
         BottomLeft,
 
         /// <summary>
-        /// LeftTop
+        /// LeftTop.
         /// </summary>
         LeftTop,
 
         /// <summary>
-        /// RightTop
+        /// RightTop.
         /// </summary>
         RightTop,
 
         /// <summary>
-        /// RightBottom
+        /// RightBottom.
         /// </summary>
         RightBottom,
 
         /// <summary>
-        /// LeftBotom
+        /// LeftBotom.
         /// </summary>
         LeftBotom,
     }

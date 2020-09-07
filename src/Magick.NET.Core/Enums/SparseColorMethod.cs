@@ -18,42 +18,42 @@ namespace ImageMagick
     public enum SparseColorMethod
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Barycentric
+        /// Barycentric.
         /// </summary>
         Barycentric = DistortMethod.Affine,
 
         /// <summary>
-        /// Bilinear
+        /// Bilinear.
         /// </summary>
         Bilinear = DistortMethod.BilinearReverse,
 
         /// <summary>
-        /// Polynomial
+        /// Polynomial.
         /// </summary>
         Polynomial = DistortMethod.Polynomial,
 
         /// <summary>
-        /// Shepards
+        /// Shepards.
         /// </summary>
         Shepards = DistortMethod.Shepards,
 
         /// <summary>
-        /// Voronoi
+        /// Voronoi.
         /// </summary>
         Voronoi = DistortMethod.Sentinel,
 
         /// <summary>
-        /// Inverse
+        /// Inverse.
         /// </summary>
         Inverse = 19,
 
         /// <summary>
-        /// Manhattan
+        /// Manhattan.
         /// </summary>
         Manhattan = 20,
     }

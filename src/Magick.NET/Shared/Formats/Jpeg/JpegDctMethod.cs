@@ -18,17 +18,17 @@ namespace ImageMagick.Formats.Jpeg
     public enum JpegDctMethod
     {
         /// <summary>
-        /// Fast
+        /// Fast.
         /// </summary>
         Fast,
 
         /// <summary>
-        /// Float
+        /// Float.
         /// </summary>
         Float,
 
         /// <summary>
-        /// Slow
+        /// Slow.
         /// </summary>
         Slow,
     }

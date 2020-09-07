@@ -18,32 +18,32 @@ namespace ImageMagick
     public enum FontStyleType
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Normal
+        /// Normal.
         /// </summary>
         Normal,
 
         /// <summary>
-        /// Italic
+        /// Italic.
         /// </summary>
         Italic,
 
         /// <summary>
-        /// Oblique
+        /// Oblique.
         /// </summary>
         Oblique,
 
         /// <summary>
-        /// Any
+        /// Any.
         /// </summary>
         Any,
 
         /// <summary>
-        /// Bold
+        /// Bold.
         /// </summary>
         Bold,
     }

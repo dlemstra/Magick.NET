@@ -20,22 +20,22 @@ namespace ImageMagick
     public enum ExifTagValue
     {
         /// <summary>
-        /// Unknown
+        /// Unknown.
         /// </summary>
         Unknown = 0xFFFF,
 
         /// <summary>
-        /// SubIFDOffset
+        /// SubIFDOffset.
         /// </summary>
         SubIFDOffset = 0x8769,
 
         /// <summary>
-        /// GPSIFDOffset
+        /// GPSIFDOffset.
         /// </summary>
         GPSIFDOffset = 0x8825,
 
         /// <summary>
-        /// SubfileType
+        /// SubfileType.
         /// </summary>
         [ExifTagDescription(0U, "Full-resolution Image")]
         [ExifTagDescription(1U, "Reduced-resolution image")]
@@ -49,7 +49,7 @@ namespace ImageMagick
         SubfileType = 0x00FE,
 
         /// <summary>
-        /// OldSubfileType
+        /// OldSubfileType.
         /// </summary>
         [ExifTagDescription((ushort)1, "Full-resolution Image")]
         [ExifTagDescription((ushort)2, "Reduced-resolution image")]
@@ -57,22 +57,22 @@ namespace ImageMagick
         OldSubfileType = 0x00FF,
 
         /// <summary>
-        /// ImageWidth
+        /// ImageWidth.
         /// </summary>
         ImageWidth = 0x0100,
 
         /// <summary>
-        /// ImageLength
+        /// ImageLength.
         /// </summary>
         ImageLength = 0x0101,
 
         /// <summary>
-        /// BitsPerSample
+        /// BitsPerSample.
         /// </summary>
         BitsPerSample = 0x0102,
 
         /// <summary>
-        /// Compression
+        /// Compression.
         /// </summary>
         [ExifTagDescription((ushort)1, "Uncompressed")]
         [ExifTagDescription((ushort)2, "CCITT 1D")]
@@ -118,7 +118,7 @@ namespace ImageMagick
         Compression = 0x0103,
 
         /// <summary>
-        /// PhotometricInterpretation
+        /// PhotometricInterpretation.
         /// </summary>
         [ExifTagDescription((ushort)0, "WhiteIsZero")]
         [ExifTagDescription((ushort)1, "BlackIsZero")]
@@ -137,7 +137,7 @@ namespace ImageMagick
         PhotometricInterpretation = 0x0106,
 
         /// <summary>
-        /// Thresholding
+        /// Thresholding.
         /// </summary>
         [ExifTagDescription((ushort)1, "No dithering or halftoning")]
         [ExifTagDescription((ushort)2, "Ordered dither or halftone")]
@@ -145,49 +145,49 @@ namespace ImageMagick
         Thresholding = 0x0107,
 
         /// <summary>
-        /// CellWidth
+        /// CellWidth.
         /// </summary>
         CellWidth = 0x0108,
 
         /// <summary>
-        /// CellLength
+        /// CellLength.
         /// </summary>
         CellLength = 0x0109,
 
         /// <summary>
-        /// FillOrder
+        /// FillOrder.
         /// </summary>
         [ExifTagDescription((ushort)1, "Normal")]
         [ExifTagDescription((ushort)2, "Reversed")]
         FillOrder = 0x010A,
 
         /// <summary>
-        /// DocumentName
+        /// DocumentName.
         /// </summary>
         DocumentName = 0x010D,
 
         /// <summary>
-        /// ImageDescription
+        /// ImageDescription.
         /// </summary>
         ImageDescription = 0x010E,
 
         /// <summary>
-        /// Make
+        /// Make.
         /// </summary>
         Make = 0x010F,
 
         /// <summary>
-        /// Model
+        /// Model.
         /// </summary>
         Model = 0x0110,
 
         /// <summary>
-        /// StripOffsets
+        /// StripOffsets.
         /// </summary>
         StripOffsets = 0x0111,
 
         /// <summary>
-        /// Orientation
+        /// Orientation.
         /// </summary>
         [ExifTagDescription((ushort)1, "Horizontal (normal)")]
         [ExifTagDescription((ushort)2, "Mirror horizontal")]
@@ -200,74 +200,74 @@ namespace ImageMagick
         Orientation = 0x0112,
 
         /// <summary>
-        /// SamplesPerPixel
+        /// SamplesPerPixel.
         /// </summary>
         SamplesPerPixel = 0x0115,
 
         /// <summary>
-        /// RowsPerStrip
+        /// RowsPerStrip.
         /// </summary>
         RowsPerStrip = 0x0116,
 
         /// <summary>
-        /// StripByteCounts
+        /// StripByteCounts.
         /// </summary>
         StripByteCounts = 0x0117,
 
         /// <summary>
-        /// MinSampleValue
+        /// MinSampleValue.
         /// </summary>
         MinSampleValue = 0x0118,
 
         /// <summary>
-        /// MaxSampleValue
+        /// MaxSampleValue.
         /// </summary>
         MaxSampleValue = 0x0119,
 
         /// <summary>
-        /// XResolution
+        /// XResolution.
         /// </summary>
         XResolution = 0x011A,
 
         /// <summary>
-        /// YResolution
+        /// YResolution.
         /// </summary>
         YResolution = 0x011B,
 
         /// <summary>
-        /// PlanarConfiguration
+        /// PlanarConfiguration.
         /// </summary>
         [ExifTagDescription((ushort)1, "Chunky")]
         [ExifTagDescription((ushort)2, "Planar")]
         PlanarConfiguration = 0x011C,
 
         /// <summary>
-        /// PageName
+        /// PageName.
         /// </summary>
         PageName = 0x011D,
 
         /// <summary>
-        /// XPosition
+        /// XPosition.
         /// </summary>
         XPosition = 0x011E,
 
         /// <summary>
-        /// YPosition
+        /// YPosition.
         /// </summary>
         YPosition = 0x011F,
 
         /// <summary>
-        /// FreeOffsets
+        /// FreeOffsets.
         /// </summary>
         FreeOffsets = 0x0120,
 
         /// <summary>
-        /// FreeByteCounts
+        /// FreeByteCounts.
         /// </summary>
         FreeByteCounts = 0x0121,
 
         /// <summary>
-        /// GrayResponseUnit
+        /// GrayResponseUnit.
         /// </summary>
         [ExifTagDescription((ushort)1, "0.1")]
         [ExifTagDescription((ushort)2, "0.001")]
@@ -277,12 +277,12 @@ namespace ImageMagick
         GrayResponseUnit = 0x0122,
 
         /// <summary>
-        /// GrayResponseCurve
+        /// GrayResponseCurve.
         /// </summary>
         GrayResponseCurve = 0x0123,
 
         /// <summary>
-        /// T4Options
+        /// T4Options.
         /// </summary>
         [ExifTagDescription(0U, "2-Dimensional encoding")]
         [ExifTagDescription(1U, "Uncompressed")]
@@ -290,13 +290,13 @@ namespace ImageMagick
         T4Options = 0x0124,
 
         /// <summary>
-        /// T6Options
+        /// T6Options.
         /// </summary>
         [ExifTagDescription(1U, "Uncompressed")]
         T6Options = 0x0125,
 
         /// <summary>
-        /// ResolutionUnit
+        /// ResolutionUnit.
         /// </summary>
         [ExifTagDescription((ushort)1, "None")]
         [ExifTagDescription((ushort)2, "Inches")]
@@ -304,92 +304,92 @@ namespace ImageMagick
         ResolutionUnit = 0x0128,
 
         /// <summary>
-        /// PageNumber
+        /// PageNumber.
         /// </summary>
         PageNumber = 0x0129,
 
         /// <summary>
-        /// ColorResponseUnit
+        /// ColorResponseUnit.
         /// </summary>
         ColorResponseUnit = 0x012C,
 
         /// <summary>
-        /// TransferFunction
+        /// TransferFunction.
         /// </summary>
         TransferFunction = 0x012D,
 
         /// <summary>
-        /// Software
+        /// Software.
         /// </summary>
         Software = 0x0131,
 
         /// <summary>
-        /// DateTime
+        /// DateTime.
         /// </summary>
         DateTime = 0x0132,
 
         /// <summary>
-        /// Artist
+        /// Artist.
         /// </summary>
         Artist = 0x013B,
 
         /// <summary>
-        /// HostComputer
+        /// HostComputer.
         /// </summary>
         HostComputer = 0x013C,
 
         /// <summary>
-        /// Predictor
+        /// Predictor.
         /// </summary>
         Predictor = 0x013D,
 
         /// <summary>
-        /// WhitePoint
+        /// WhitePoint.
         /// </summary>
         WhitePoint = 0x013E,
 
         /// <summary>
-        /// PrimaryChromaticities
+        /// PrimaryChromaticities.
         /// </summary>
         PrimaryChromaticities = 0x013F,
 
         /// <summary>
-        /// ColorMap
+        /// ColorMap.
         /// </summary>
         ColorMap = 0x0140,
 
         /// <summary>
-        /// HalftoneHints
+        /// HalftoneHints.
         /// </summary>
         HalftoneHints = 0x0141,
 
         /// <summary>
-        /// TileWidth
+        /// TileWidth.
         /// </summary>
         TileWidth = 0x0142,
 
         /// <summary>
-        /// TileLength
+        /// TileLength.
         /// </summary>
         TileLength = 0x0143,
 
         /// <summary>
-        /// TileOffsets
+        /// TileOffsets.
         /// </summary>
         TileOffsets = 0x0144,
 
         /// <summary>
-        /// TileByteCounts
+        /// TileByteCounts.
         /// </summary>
         TileByteCounts = 0x0145,
 
         /// <summary>
-        /// BadFaxLines
+        /// BadFaxLines.
         /// </summary>
         BadFaxLines = 0x0146,
 
         /// <summary>
-        /// CleanFaxData
+        /// CleanFaxData.
         /// </summary>
         [ExifTagDescription(0U, "Clean")]
         [ExifTagDescription(1U, "Regenerated")]
@@ -397,39 +397,39 @@ namespace ImageMagick
         CleanFaxData = 0x0147,
 
         /// <summary>
-        /// ConsecutiveBadFaxLines
+        /// ConsecutiveBadFaxLines.
         /// </summary>
         ConsecutiveBadFaxLines = 0x0148,
 
         /// <summary>
-        /// InkSet
+        /// InkSet.
         /// </summary>
         [ExifTagDescription((ushort)1, "CMYK")]
         [ExifTagDescription((ushort)2, "Not CMYK")]
         InkSet = 0x014C,
 
         /// <summary>
-        /// InkNames
+        /// InkNames.
         /// </summary>
         InkNames = 0x014D,
 
         /// <summary>
-        /// NumberOfInks
+        /// NumberOfInks.
         /// </summary>
         NumberOfInks = 0x014E,
 
         /// <summary>
-        /// DotRange
+        /// DotRange.
         /// </summary>
         DotRange = 0x0150,
 
         /// <summary>
-        /// TargetPrinter
+        /// TargetPrinter.
         /// </summary>
         TargetPrinter = 0x0151,
 
         /// <summary>
-        /// ExtraSamples
+        /// ExtraSamples.
         /// </summary>
         [ExifTagDescription((ushort)0, "Unspecified")]
         [ExifTagDescription((ushort)1, "Associated Alpha")]
@@ -437,7 +437,7 @@ namespace ImageMagick
         ExtraSamples = 0x0152,
 
         /// <summary>
-        /// SampleFormat
+        /// SampleFormat.
         /// </summary>
         [ExifTagDescription((ushort)1, "Unsigned")]
         [ExifTagDescription((ushort)2, "Signed")]
@@ -448,63 +448,63 @@ namespace ImageMagick
         SampleFormat = 0x0153,
 
         /// <summary>
-        /// SMinSampleValue
+        /// SMinSampleValue.
         /// </summary>
         SMinSampleValue = 0x0154,
 
         /// <summary>
-        /// SMaxSampleValue
+        /// SMaxSampleValue.
         /// </summary>
         SMaxSampleValue = 0x0155,
 
         /// <summary>
-        /// TransferRange
+        /// TransferRange.
         /// </summary>
         TransferRange = 0x0156,
 
         /// <summary>
-        /// ClipPath
+        /// ClipPath.
         /// </summary>
         ClipPath = 0x0157,
 
         /// <summary>
-        /// XClipPathUnits
+        /// XClipPathUnits.
         /// </summary>
         XClipPathUnits = 0x0158,
 
         /// <summary>
-        /// YClipPathUnits
+        /// YClipPathUnits.
         /// </summary>
         YClipPathUnits = 0x0159,
 
         /// <summary>
-        /// Indexed
+        /// Indexed.
         /// </summary>
         [ExifTagDescription((ushort)0, "Not indexed")]
         [ExifTagDescription((ushort)1, "Indexed")]
         Indexed = 0x015A,
 
         /// <summary>
-        /// JPEGTables
+        /// JPEGTables.
         /// </summary>
         JPEGTables = 0x015B,
 
         /// <summary>
-        /// OPIProxy
+        /// OPIProxy.
         /// </summary>
         [ExifTagDescription((ushort)0, "Higher resolution image does not exist")]
         [ExifTagDescription((ushort)1, "Higher resolution image exists")]
         OPIProxy = 0x015F,
 
         /// <summary>
-        /// ProfileType
+        /// ProfileType.
         /// </summary>
         [ExifTagDescription(0U, "Unspecified")]
         [ExifTagDescription(1U, "Group 3 FAX")]
         ProfileType = 0x0191,
 
         /// <summary>
-        /// FaxProfile
+        /// FaxProfile.
         /// </summary>
         [ExifTagDescription((byte)0, "Unknown")]
         [ExifTagDescription((byte)1, "Minimal B&W lossless, S")]
@@ -518,7 +518,7 @@ namespace ImageMagick
         FaxProfile = 0x0192,
 
         /// <summary>
-        /// CodingMethods
+        /// CodingMethods.
         /// </summary>
         [ExifTagDescription(0UL, "Unspecified compression")]
         [ExifTagDescription(1UL, "Modified Huffman")]
@@ -530,231 +530,231 @@ namespace ImageMagick
         CodingMethods = 0x0193,
 
         /// <summary>
-        /// VersionYear
+        /// VersionYear.
         /// </summary>
         VersionYear = 0x0194,
 
         /// <summary>
-        /// ModeNumber
+        /// ModeNumber.
         /// </summary>
         ModeNumber = 0x0195,
 
         /// <summary>
-        /// Decode
+        /// Decode.
         /// </summary>
         Decode = 0x01B1,
 
         /// <summary>
-        /// DefaultImageColor
+        /// DefaultImageColor.
         /// </summary>
         DefaultImageColor = 0x01B2,
 
         /// <summary>
-        /// T82ptions
+        /// T82ptions.
         /// </summary>
         T82ptions = 0x01B3,
 
         /// <summary>
-        /// JPEGProc
+        /// JPEGProc.
         /// </summary>
         [ExifTagDescription((ushort)1, "Baseline")]
         [ExifTagDescription((ushort)14, "Lossless")]
         JPEGProc = 0x0200,
 
         /// <summary>
-        /// JPEGInterchangeFormat
+        /// JPEGInterchangeFormat.
         /// </summary>
         JPEGInterchangeFormat = 0x0201,
 
         /// <summary>
-        /// JPEGInterchangeFormatLength
+        /// JPEGInterchangeFormatLength.
         /// </summary>
         JPEGInterchangeFormatLength = 0x0202,
 
         /// <summary>
-        /// JPEGRestartInterval
+        /// JPEGRestartInterval.
         /// </summary>
         JPEGRestartInterval = 0x0203,
 
         /// <summary>
-        /// JPEGLosslessPredictors
+        /// JPEGLosslessPredictors.
         /// </summary>
         JPEGLosslessPredictors = 0x0205,
 
         /// <summary>
-        /// JPEGPointTransforms
+        /// JPEGPointTransforms.
         /// </summary>
         JPEGPointTransforms = 0x0206,
 
         /// <summary>
-        /// JPEGQTables
+        /// JPEGQTables.
         /// </summary>
         JPEGQTables = 0x0207,
 
         /// <summary>
-        /// JPEGDCTables
+        /// JPEGDCTables.
         /// </summary>
         JPEGDCTables = 0x0208,
 
         /// <summary>
-        /// JPEGACTables
+        /// JPEGACTables.
         /// </summary>
         JPEGACTables = 0x0209,
 
         /// <summary>
-        /// YCbCrCoefficients
+        /// YCbCrCoefficients.
         /// </summary>
         YCbCrCoefficients = 0x0211,
 
         /// <summary>
-        /// YCbCrSubsampling
+        /// YCbCrSubsampling.
         /// </summary>
         YCbCrSubsampling = 0x0212,
 
         /// <summary>
-        /// YCbCrPositioning
+        /// YCbCrPositioning.
         /// </summary>
         [ExifTagDescription((ushort)1, "Centered")]
         [ExifTagDescription((ushort)2, "Co-sited")]
         YCbCrPositioning = 0x0213,
 
         /// <summary>
-        /// ReferenceBlackWhite
+        /// ReferenceBlackWhite.
         /// </summary>
         ReferenceBlackWhite = 0x0214,
 
         /// <summary>
-        /// StripRowCounts
+        /// StripRowCounts.
         /// </summary>
         StripRowCounts = 0x022F,
 
         /// <summary>
-        /// XMP
+        /// XMP.
         /// </summary>
         XMP = 0x02BC,
 
         /// <summary>
-        /// Rating
+        /// Rating.
         /// </summary>
         Rating = 0x4746,
 
         /// <summary>
-        /// RatingPercent
+        /// RatingPercent.
         /// </summary>
         RatingPercent = 0x4749,
 
         /// <summary>
-        /// ImageID
+        /// ImageID.
         /// </summary>
         ImageID = 0x800D,
 
         /// <summary>
-        /// CFARepeatPatternDim
+        /// CFARepeatPatternDim.
         /// </summary>
         CFARepeatPatternDim = 0x828D,
 
         /// <summary>
-        /// CFAPattern2
+        /// CFAPattern2.
         /// </summary>
         CFAPattern2 = 0x828E,
 
         /// <summary>
-        /// BatteryLevel
+        /// BatteryLevel.
         /// </summary>
         BatteryLevel = 0x828F,
 
         /// <summary>
-        /// Copyright
+        /// Copyright.
         /// </summary>
         Copyright = 0x8298,
 
         /// <summary>
-        /// ExposureTime
+        /// ExposureTime.
         /// </summary>
         ExposureTime = 0x829A,
 
         /// <summary>
-        /// FNumber
+        /// FNumber.
         /// </summary>
         FNumber = 0x829D,
 
         /// <summary>
-        /// MDFileTag
+        /// MDFileTag.
         /// </summary>
         MDFileTag = 0x82A5,
 
         /// <summary>
-        /// MDScalePixel
+        /// MDScalePixel.
         /// </summary>
         MDScalePixel = 0x82A6,
 
         /// <summary>
-        /// MDLabName
+        /// MDLabName.
         /// </summary>
         MDLabName = 0x82A8,
 
         /// <summary>
-        /// MDSampleInfo
+        /// MDSampleInfo.
         /// </summary>
         MDSampleInfo = 0x82A9,
 
         /// <summary>
-        /// MDPrepDate
+        /// MDPrepDate.
         /// </summary>
         MDPrepDate = 0x82AA,
 
         /// <summary>
-        /// MDPrepTime
+        /// MDPrepTime.
         /// </summary>
         MDPrepTime = 0x82AB,
 
         /// <summary>
-        /// MDFileUnits
+        /// MDFileUnits.
         /// </summary>
         MDFileUnits = 0x82AC,
 
         /// <summary>
-        /// PixelScale
+        /// PixelScale.
         /// </summary>
         PixelScale = 0x830E,
 
         /// <summary>
-        /// IntergraphPacketData
+        /// IntergraphPacketData.
         /// </summary>
         IntergraphPacketData = 0x847E,
 
         /// <summary>
-        /// IntergraphRegisters
+        /// IntergraphRegisters.
         /// </summary>
         IntergraphRegisters = 0x847F,
 
         /// <summary>
-        /// IntergraphMatrix
+        /// IntergraphMatrix.
         /// </summary>
         IntergraphMatrix = 0x8480,
 
         /// <summary>
-        /// ModelTiePoint
+        /// ModelTiePoint.
         /// </summary>
         ModelTiePoint = 0x8482,
 
         /// <summary>
-        /// SEMInfo
+        /// SEMInfo.
         /// </summary>
         SEMInfo = 0x8546,
 
         /// <summary>
-        /// ModelTransform
+        /// ModelTransform.
         /// </summary>
         ModelTransform = 0x85D8,
 
         /// <summary>
-        /// ImageLayer
+        /// ImageLayer.
         /// </summary>
         ImageLayer = 0x87AC,
 
         /// <summary>
-        /// ExposureProgram
+        /// ExposureProgram.
         /// </summary>
         [ExifTagDescription((ushort)0, "Not Defined")]
         [ExifTagDescription((ushort)1, "Manual")]
@@ -769,37 +769,37 @@ namespace ImageMagick
         ExposureProgram = 0x8822,
 
         /// <summary>
-        /// SpectralSensitivity
+        /// SpectralSensitivity.
         /// </summary>
         SpectralSensitivity = 0x8824,
 
         /// <summary>
-        /// ISOSpeedRatings
+        /// ISOSpeedRatings.
         /// </summary>
         ISOSpeedRatings = 0x8827,
 
         /// <summary>
-        /// OECF
+        /// OECF.
         /// </summary>
         OECF = 0x8828,
 
         /// <summary>
-        /// Interlace
+        /// Interlace.
         /// </summary>
         Interlace = 0x8829,
 
         /// <summary>
-        /// TimeZoneOffset
+        /// TimeZoneOffset.
         /// </summary>
         TimeZoneOffset = 0x882A,
 
         /// <summary>
-        /// SelfTimerMode
+        /// SelfTimerMode.
         /// </summary>
         SelfTimerMode = 0x882B,
 
         /// <summary>
-        /// SensitivityType
+        /// SensitivityType.
         /// </summary>
         [ExifTagDescription((ushort)0, "Unknown")]
         [ExifTagDescription((ushort)1, "Standard Output Sensitivity")]
@@ -812,117 +812,117 @@ namespace ImageMagick
         SensitivityType = 0x8830,
 
         /// <summary>
-        /// StandardOutputSensitivity
+        /// StandardOutputSensitivity.
         /// </summary>
         StandardOutputSensitivity = 0x8831,
 
         /// <summary>
-        /// RecommendedExposureIndex
+        /// RecommendedExposureIndex.
         /// </summary>
         RecommendedExposureIndex = 0x8832,
 
         /// <summary>
-        /// ISOSpeed
+        /// ISOSpeed.
         /// </summary>
         ISOSpeed = 0x8833,
 
         /// <summary>
-        /// ISOSpeedLatitudeyyy
+        /// ISOSpeedLatitudeyyy.
         /// </summary>
         ISOSpeedLatitudeyyy = 0x8834,
 
         /// <summary>
-        /// ISOSpeedLatitudezzz
+        /// ISOSpeedLatitudezzz.
         /// </summary>
         ISOSpeedLatitudezzz = 0x8835,
 
         /// <summary>
-        /// FaxRecvParams
+        /// FaxRecvParams.
         /// </summary>
         FaxRecvParams = 0x885C,
 
         /// <summary>
-        /// FaxSubaddress
+        /// FaxSubaddress.
         /// </summary>
         FaxSubaddress = 0x885D,
 
         /// <summary>
-        /// FaxRecvTime
+        /// FaxRecvTime.
         /// </summary>
         FaxRecvTime = 0x885E,
 
         /// <summary>
-        /// ExifVersion
+        /// ExifVersion.
         /// </summary>
         ExifVersion = 0x9000,
 
         /// <summary>
-        /// DateTimeOriginal
+        /// DateTimeOriginal.
         /// </summary>
         DateTimeOriginal = 0x9003,
 
         /// <summary>
-        /// DateTimeDigitized
+        /// DateTimeDigitized.
         /// </summary>
         DateTimeDigitized = 0x9004,
 
         /// <summary>
-        /// OffsetTime
+        /// OffsetTime.
         /// </summary>
         OffsetTime = 0x9010,
 
         /// <summary>
-        /// OffsetTimeOriginal
+        /// OffsetTimeOriginal.
         /// </summary>
         OffsetTimeOriginal = 0x9011,
 
         /// <summary>
-        /// OffsetTimeDigitized
+        /// OffsetTimeDigitized.
         /// </summary>
         OffsetTimeDigitized = 0x9012,
 
         /// <summary>
-        /// ComponentsConfiguration
+        /// ComponentsConfiguration.
         /// </summary>
         ComponentsConfiguration = 0x9101,
 
         /// <summary>
-        /// CompressedBitsPerPixel
+        /// CompressedBitsPerPixel.
         /// </summary>
         CompressedBitsPerPixel = 0x9102,
 
         /// <summary>
-        /// ShutterSpeedValue
+        /// ShutterSpeedValue.
         /// </summary>
         ShutterSpeedValue = 0x9201,
 
         /// <summary>
-        /// ApertureValue
+        /// ApertureValue.
         /// </summary>
         ApertureValue = 0x9202,
 
         /// <summary>
-        /// BrightnessValue
+        /// BrightnessValue.
         /// </summary>
         BrightnessValue = 0x9203,
 
         /// <summary>
-        /// ExposureBiasValue
+        /// ExposureBiasValue.
         /// </summary>
         ExposureBiasValue = 0x9204,
 
         /// <summary>
-        /// MaxApertureValue
+        /// MaxApertureValue.
         /// </summary>
         MaxApertureValue = 0x9205,
 
         /// <summary>
-        /// SubjectDistance
+        /// SubjectDistance.
         /// </summary>
         SubjectDistance = 0x9206,
 
         /// <summary>
-        /// MeteringMode
+        /// MeteringMode.
         /// </summary>
         [ExifTagDescription((ushort)0, "Unknown")]
         [ExifTagDescription((ushort)1, "Average")]
@@ -935,7 +935,7 @@ namespace ImageMagick
         MeteringMode = 0x9207,
 
         /// <summary>
-        /// LightSource
+        /// LightSource.
         /// </summary>
         [ExifTagDescription((ushort)0, "Unknown")]
         [ExifTagDescription((ushort)1, "Daylight")]
@@ -962,7 +962,7 @@ namespace ImageMagick
         LightSource = 0x9208,
 
         /// <summary>
-        /// Flash
+        /// Flash.
         /// </summary>
         [ExifTagDescription((ushort)0, "No Flash")]
         [ExifTagDescription((ushort)1, "Fired")]
@@ -994,37 +994,37 @@ namespace ImageMagick
         Flash = 0x9209,
 
         /// <summary>
-        /// FocalLength
+        /// FocalLength.
         /// </summary>
         FocalLength = 0x920A,
 
         /// <summary>
-        /// FlashEnergy2
+        /// FlashEnergy2.
         /// </summary>
         FlashEnergy2 = 0x920B,
 
         /// <summary>
-        /// SpatialFrequencyResponse2
+        /// SpatialFrequencyResponse2.
         /// </summary>
         SpatialFrequencyResponse2 = 0x920C,
 
         /// <summary>
-        /// Noise
+        /// Noise.
         /// </summary>
         Noise = 0x920D,
 
         /// <summary>
-        /// FocalPlaneXResolution2
+        /// FocalPlaneXResolution2.
         /// </summary>
         FocalPlaneXResolution2 = 0x920E,
 
         /// <summary>
-        /// FocalPlaneYResolution2
+        /// FocalPlaneYResolution2.
         /// </summary>
         FocalPlaneYResolution2 = 0x920F,
 
         /// <summary>
-        /// FocalPlaneResolutionUnit2
+        /// FocalPlaneResolutionUnit2.
         /// </summary>
         [ExifTagDescription((ushort)1, "None")]
         [ExifTagDescription((ushort)2, "Inches")]
@@ -1034,12 +1034,12 @@ namespace ImageMagick
         FocalPlaneResolutionUnit2 = 0x9210,
 
         /// <summary>
-        /// ImageNumber
+        /// ImageNumber.
         /// </summary>
         ImageNumber = 0x9211,
 
         /// <summary>
-        /// SecurityClassification
+        /// SecurityClassification.
         /// </summary>
         [ExifTagDescription("C", "Confidential")]
         [ExifTagDescription("R", "Restricted")]
@@ -1049,27 +1049,27 @@ namespace ImageMagick
         SecurityClassification = 0x9212,
 
         /// <summary>
-        /// ImageHistory
+        /// ImageHistory.
         /// </summary>
         ImageHistory = 0x9213,
 
         /// <summary>
-        /// SubjectArea
+        /// SubjectArea.
         /// </summary>
         SubjectArea = 0x9214,
 
         /// <summary>
-        /// ExposureIndex2
+        /// ExposureIndex2.
         /// </summary>
         ExposureIndex2 = 0x9215,
 
         /// <summary>
-        /// TIFFEPStandardID
+        /// TIFFEPStandardID.
         /// </summary>
         TIFFEPStandardID = 0x9216,
 
         /// <summary>
-        /// SensingMethod
+        /// SensingMethod.
         /// </summary>
         [ExifTagDescription((ushort)1, "Not defined")]
         [ExifTagDescription((ushort)2, "One-chip color area")]
@@ -1081,97 +1081,97 @@ namespace ImageMagick
         SensingMethod2 = 0x9217,
 
         /// <summary>
-        /// MakerNote
+        /// MakerNote.
         /// </summary>
         MakerNote = 0x927C,
 
         /// <summary>
-        /// UserComment
+        /// UserComment.
         /// </summary>
         UserComment = 0x9286,
 
         /// <summary>
-        /// SubsecTime
+        /// SubsecTime.
         /// </summary>
         SubsecTime = 0x9290,
 
         /// <summary>
-        /// SubsecTimeOriginal
+        /// SubsecTimeOriginal.
         /// </summary>
         SubsecTimeOriginal = 0x9291,
 
         /// <summary>
-        /// SubsecTimeDigitized
+        /// SubsecTimeDigitized.
         /// </summary>
         SubsecTimeDigitized = 0x9292,
 
         /// <summary>
-        /// ImageSourceData
+        /// ImageSourceData.
         /// </summary>
         ImageSourceData = 0x935C,
 
         /// <summary>
-        /// AmbientTemperature
+        /// AmbientTemperature.
         /// </summary>
         AmbientTemperature = 0x9400,
 
         /// <summary>
-        /// Humidity
+        /// Humidity.
         /// </summary>
         Humidity = 0x9401,
 
         /// <summary>
-        /// Pressure
+        /// Pressure.
         /// </summary>
         Pressure = 0x9402,
 
         /// <summary>
-        /// WaterDepth
+        /// WaterDepth.
         /// </summary>
         WaterDepth = 0x9403,
 
         /// <summary>
-        /// Acceleration
+        /// Acceleration.
         /// </summary>
         Acceleration = 0x9404,
 
         /// <summary>
-        /// CameraElevationAngle
+        /// CameraElevationAngle.
         /// </summary>
         CameraElevationAngle = 0x9405,
 
         /// <summary>
-        /// XPTitle
+        /// XPTitle.
         /// </summary>
         XPTitle = 0x9C9B,
 
         /// <summary>
-        /// XPComment
+        /// XPComment.
         /// </summary>
         XPComment = 0x9C9C,
 
         /// <summary>
-        /// XPAuthor
+        /// XPAuthor.
         /// </summary>
         XPAuthor = 0x9C9D,
 
         /// <summary>
-        /// XPKeywords
+        /// XPKeywords.
         /// </summary>
         XPKeywords = 0x9C9E,
 
         /// <summary>
-        /// XPSubject
+        /// XPSubject.
         /// </summary>
         XPSubject = 0x9C9F,
 
         /// <summary>
-        /// FlashpixVersion
+        /// FlashpixVersion.
         /// </summary>
         FlashpixVersion = 0xA000,
 
         /// <summary>
-        /// ColorSpace
+        /// ColorSpace.
         /// </summary>
         [ExifTagDescription((ushort)1, "sRGB")]
         [ExifTagDescription((ushort)2, "Adobe RGB")]
@@ -1181,42 +1181,42 @@ namespace ImageMagick
         ColorSpace = 0xA001,
 
         /// <summary>
-        /// PixelXDimension
+        /// PixelXDimension.
         /// </summary>
         PixelXDimension = 0xA002,
 
         /// <summary>
-        /// PixelYDimension
+        /// PixelYDimension.
         /// </summary>
         PixelYDimension = 0xA003,
 
         /// <summary>
-        /// RelatedSoundFile
+        /// RelatedSoundFile.
         /// </summary>
         RelatedSoundFile = 0xA004,
 
         /// <summary>
-        /// FlashEnergy
+        /// FlashEnergy.
         /// </summary>
         FlashEnergy = 0xA20B,
 
         /// <summary>
-        /// SpatialFrequencyResponse
+        /// SpatialFrequencyResponse.
         /// </summary>
         SpatialFrequencyResponse = 0xA20C,
 
         /// <summary>
-        /// FocalPlaneXResolution
+        /// FocalPlaneXResolution.
         /// </summary>
         FocalPlaneXResolution = 0xA20E,
 
         /// <summary>
-        /// FocalPlaneYResolution
+        /// FocalPlaneYResolution.
         /// </summary>
         FocalPlaneYResolution = 0xA20F,
 
         /// <summary>
-        /// FocalPlaneResolutionUnit
+        /// FocalPlaneResolutionUnit.
         /// </summary>
         [ExifTagDescription((ushort)1, "None")]
         [ExifTagDescription((ushort)2, "Inches")]
@@ -1226,17 +1226,17 @@ namespace ImageMagick
         FocalPlaneResolutionUnit = 0xA210,
 
         /// <summary>
-        /// SubjectLocation
+        /// SubjectLocation.
         /// </summary>
         SubjectLocation = 0xA214,
 
         /// <summary>
-        /// ExposureIndex
+        /// ExposureIndex.
         /// </summary>
         ExposureIndex = 0xA215,
 
         /// <summary>
-        /// SensingMethod
+        /// SensingMethod.
         /// </summary>
         [ExifTagDescription((ushort)1, "Not defined")]
         [ExifTagDescription((ushort)2, "One-chip color area")]
@@ -1248,29 +1248,29 @@ namespace ImageMagick
         SensingMethod = 0xA217,
 
         /// <summary>
-        /// FileSource
+        /// FileSource.
         /// </summary>
         FileSource = 0xA300,
 
         /// <summary>
-        /// SceneType
+        /// SceneType.
         /// </summary>
         SceneType = 0xA301,
 
         /// <summary>
-        /// CFAPattern
+        /// CFAPattern.
         /// </summary>
         CFAPattern = 0xA302,
 
         /// <summary>
-        /// CustomRendered
+        /// CustomRendered.
         /// </summary>
         [ExifTagDescription((ushort)1, "Normal")]
         [ExifTagDescription((ushort)2, "Custom")]
         CustomRendered = 0xA401,
 
         /// <summary>
-        /// ExposureMode
+        /// ExposureMode.
         /// </summary>
         [ExifTagDescription((ushort)0, "Auto")]
         [ExifTagDescription((ushort)1, "Manual")]
@@ -1278,24 +1278,24 @@ namespace ImageMagick
         ExposureMode = 0xA402,
 
         /// <summary>
-        /// WhiteBalance
+        /// WhiteBalance.
         /// </summary>
         [ExifTagDescription((ushort)0, "Auto")]
         [ExifTagDescription((ushort)1, "Manual")]
         WhiteBalance = 0xA403,
 
         /// <summary>
-        /// DigitalZoomRatio
+        /// DigitalZoomRatio.
         /// </summary>
         DigitalZoomRatio = 0xA404,
 
         /// <summary>
-        /// FocalLengthIn35mmFilm
+        /// FocalLengthIn35mmFilm.
         /// </summary>
         FocalLengthIn35mmFilm = 0xA405,
 
         /// <summary>
-        /// SceneCaptureType
+        /// SceneCaptureType.
         /// </summary>
         [ExifTagDescription((ushort)0, "Standard")]
         [ExifTagDescription((ushort)1, "Landscape")]
@@ -1304,7 +1304,7 @@ namespace ImageMagick
         SceneCaptureType = 0xA406,
 
         /// <summary>
-        /// GainControl
+        /// GainControl.
         /// </summary>
         [ExifTagDescription((ushort)0, "None")]
         [ExifTagDescription((ushort)1, "Low gain up")]
@@ -1314,7 +1314,7 @@ namespace ImageMagick
         GainControl = 0xA407,
 
         /// <summary>
-        /// Contrast
+        /// Contrast.
         /// </summary>
         [ExifTagDescription((ushort)0, "Normal")]
         [ExifTagDescription((ushort)1, "Low")]
@@ -1322,7 +1322,7 @@ namespace ImageMagick
         Contrast = 0xA408,
 
         /// <summary>
-        /// Saturation
+        /// Saturation.
         /// </summary>
         [ExifTagDescription((ushort)0, "Normal")]
         [ExifTagDescription((ushort)1, "Low")]
@@ -1330,7 +1330,7 @@ namespace ImageMagick
         Saturation = 0xA409,
 
         /// <summary>
-        /// Sharpness
+        /// Sharpness.
         /// </summary>
         [ExifTagDescription((ushort)0, "Normal")]
         [ExifTagDescription((ushort)1, "Soft")]
@@ -1338,12 +1338,12 @@ namespace ImageMagick
         Sharpness = 0xA40A,
 
         /// <summary>
-        /// DeviceSettingDescription
+        /// DeviceSettingDescription.
         /// </summary>
         DeviceSettingDescription = 0xA40B,
 
         /// <summary>
-        /// SubjectDistanceRange
+        /// SubjectDistanceRange.
         /// </summary>
         [ExifTagDescription((ushort)0, "Unknown")]
         [ExifTagDescription((ushort)1, "Macro")]
@@ -1352,202 +1352,202 @@ namespace ImageMagick
         SubjectDistanceRange = 0xA40C,
 
         /// <summary>
-        /// ImageUniqueID
+        /// ImageUniqueID.
         /// </summary>
         ImageUniqueID = 0xA420,
 
         /// <summary>
-        /// OwnerName
+        /// OwnerName.
         /// </summary>
         OwnerName = 0xA430,
 
         /// <summary>
-        /// SerialNumber
+        /// SerialNumber.
         /// </summary>
         SerialNumber = 0xA431,
 
         /// <summary>
-        /// LensInfo
+        /// LensInfo.
         /// </summary>
         LensInfo = 0xA432,
 
         /// <summary>
-        /// LensMake
+        /// LensMake.
         /// </summary>
         LensMake = 0xA433,
 
         /// <summary>
-        /// LensModel
+        /// LensModel.
         /// </summary>
         LensModel = 0xA434,
 
         /// <summary>
-        /// LensSerialNumber
+        /// LensSerialNumber.
         /// </summary>
         LensSerialNumber = 0xA435,
 
         /// <summary>
-        /// GDALMetadata
+        /// GDALMetadata.
         /// </summary>
         GDALMetadata = 0xA480,
 
         /// <summary>
-        /// GDALNoData
+        /// GDALNoData.
         /// </summary>
         GDALNoData = 0xA481,
 
         /// <summary>
-        /// GPSVersionID
+        /// GPSVersionID.
         /// </summary>
         GPSVersionID = 0x0000,
 
         /// <summary>
-        /// GPSLatitudeRef
+        /// GPSLatitudeRef.
         /// </summary>
         GPSLatitudeRef = 0x0001,
 
         /// <summary>
-        /// GPSLatitude
+        /// GPSLatitude.
         /// </summary>
         GPSLatitude = 0x0002,
 
         /// <summary>
-        /// GPSLongitudeRef
+        /// GPSLongitudeRef.
         /// </summary>
         GPSLongitudeRef = 0x0003,
 
         /// <summary>
-        /// GPSLongitude
+        /// GPSLongitude.
         /// </summary>
         GPSLongitude = 0x0004,
 
         /// <summary>
-        /// GPSAltitudeRef
+        /// GPSAltitudeRef.
         /// </summary>
         GPSAltitudeRef = 0x0005,
 
         /// <summary>
-        /// GPSAltitude
+        /// GPSAltitude.
         /// </summary>
         GPSAltitude = 0x0006,
 
         /// <summary>
-        /// GPSTimestamp
+        /// GPSTimestamp.
         /// </summary>
         GPSTimestamp = 0x0007,
 
         /// <summary>
-        /// GPSSatellites
+        /// GPSSatellites.
         /// </summary>
         GPSSatellites = 0x0008,
 
         /// <summary>
-        /// GPSStatus
+        /// GPSStatus.
         /// </summary>
         GPSStatus = 0x0009,
 
         /// <summary>
-        /// GPSMeasureMode
+        /// GPSMeasureMode.
         /// </summary>
         GPSMeasureMode = 0x000A,
 
         /// <summary>
-        /// GPSDOP
+        /// GPSDOP.
         /// </summary>
         GPSDOP = 0x000B,
 
         /// <summary>
-        /// GPSSpeedRef
+        /// GPSSpeedRef.
         /// </summary>
         GPSSpeedRef = 0x000C,
 
         /// <summary>
-        /// GPSSpeed
+        /// GPSSpeed.
         /// </summary>
         GPSSpeed = 0x000D,
 
         /// <summary>
-        /// GPSTrackRef
+        /// GPSTrackRef.
         /// </summary>
         GPSTrackRef = 0x000E,
 
         /// <summary>
-        /// GPSTrack
+        /// GPSTrack.
         /// </summary>
         GPSTrack = 0x000F,
 
         /// <summary>
-        /// GPSImgDirectionRef
+        /// GPSImgDirectionRef.
         /// </summary>
         GPSImgDirectionRef = 0x0010,
 
         /// <summary>
-        /// GPSImgDirection
+        /// GPSImgDirection.
         /// </summary>
         GPSImgDirection = 0x0011,
 
         /// <summary>
-        /// GPSMapDatum
+        /// GPSMapDatum.
         /// </summary>
         GPSMapDatum = 0x0012,
 
         /// <summary>
-        /// GPSDestLatitudeRef
+        /// GPSDestLatitudeRef.
         /// </summary>
         GPSDestLatitudeRef = 0x0013,
 
         /// <summary>
-        /// GPSDestLatitude
+        /// GPSDestLatitude.
         /// </summary>
         GPSDestLatitude = 0x0014,
 
         /// <summary>
-        /// GPSDestLongitudeRef
+        /// GPSDestLongitudeRef.
         /// </summary>
         GPSDestLongitudeRef = 0x0015,
 
         /// <summary>
-        /// GPSDestLongitude
+        /// GPSDestLongitude.
         /// </summary>
         GPSDestLongitude = 0x0016,
 
         /// <summary>
-        /// GPSDestBearingRef
+        /// GPSDestBearingRef.
         /// </summary>
         GPSDestBearingRef = 0x0017,
 
         /// <summary>
-        /// GPSDestBearing
+        /// GPSDestBearing.
         /// </summary>
         GPSDestBearing = 0x0018,
 
         /// <summary>
-        /// GPSDestDistanceRef
+        /// GPSDestDistanceRef.
         /// </summary>
         GPSDestDistanceRef = 0x0019,
 
         /// <summary>
-        /// GPSDestDistance
+        /// GPSDestDistance.
         /// </summary>
         GPSDestDistance = 0x001A,
 
         /// <summary>
-        /// GPSProcessingMethod
+        /// GPSProcessingMethod.
         /// </summary>
         GPSProcessingMethod = 0x001B,
 
         /// <summary>
-        /// GPSAreaInformation
+        /// GPSAreaInformation.
         /// </summary>
         GPSAreaInformation = 0x001C,
 
         /// <summary>
-        /// GPSDateStamp
+        /// GPSDateStamp.
         /// </summary>
         GPSDateStamp = 0x001D,
 
         /// <summary>
-        /// GPSDifferential
+        /// GPSDifferential.
         /// </summary>
         GPSDifferential = 0x001E,
     }

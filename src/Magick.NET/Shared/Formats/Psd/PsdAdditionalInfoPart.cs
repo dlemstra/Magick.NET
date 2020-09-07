@@ -18,12 +18,12 @@ namespace ImageMagick.Formats.Psd
     public enum PsdAdditionalInfoPart
     {
         /// <summary>
-        /// None
+        /// None.
         /// </summary>
         None,
 
         /// <summary>
-        /// All
+        /// All.
         /// </summary>
         All,
 

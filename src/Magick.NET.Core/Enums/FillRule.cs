@@ -18,17 +18,17 @@ namespace ImageMagick
     public enum FillRule
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// EvenOdd
+        /// EvenOdd.
         /// </summary>
         EvenOdd,
 
         /// <summary>
-        /// Nonzero
+        /// Nonzero.
         /// </summary>
         Nonzero,
     }

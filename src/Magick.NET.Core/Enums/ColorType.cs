@@ -18,62 +18,62 @@ namespace ImageMagick
     public enum ColorType
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Bilevel
+        /// Bilevel.
         /// </summary>
         Bilevel,
 
         /// <summary>
-        /// Grayscale
+        /// Grayscale.
         /// </summary>
         Grayscale,
 
         /// <summary>
-        /// GrayscaleAlpha
+        /// GrayscaleAlpha.
         /// </summary>
         GrayscaleAlpha,
 
         /// <summary>
-        /// Palette
+        /// Palette.
         /// </summary>
         Palette,
 
         /// <summary>
-        /// PaletteAlpha
+        /// PaletteAlpha.
         /// </summary>
         PaletteAlpha,
 
         /// <summary>
-        /// TrueColor
+        /// TrueColor.
         /// </summary>
         TrueColor,
 
         /// <summary>
-        /// TrueColorAlpha
+        /// TrueColorAlpha.
         /// </summary>
         TrueColorAlpha,
 
         /// <summary>
-        /// ColorSeparation
+        /// ColorSeparation.
         /// </summary>
         ColorSeparation,
 
         /// <summary>
-        /// ColorSeparationAlpha
+        /// ColorSeparationAlpha.
         /// </summary>
         ColorSeparationAlpha,
 
         /// <summary>
-        /// Optimize
+        /// Optimize.
         /// </summary>
         Optimize,
 
         /// <summary>
-        /// PaletteBilevelAlpha
+        /// PaletteBilevelAlpha.
         /// </summary>
         PaletteBilevelAlpha,
     }

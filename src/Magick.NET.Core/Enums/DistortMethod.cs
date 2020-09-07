@@ -18,102 +18,102 @@ namespace ImageMagick
     public enum DistortMethod
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Affine
+        /// Affine.
         /// </summary>
         Affine,
 
         /// <summary>
-        /// AffineProjection
+        /// AffineProjection.
         /// </summary>
         AffineProjection,
 
         /// <summary>
-        /// ScaleRotateTranslate
+        /// ScaleRotateTranslate.
         /// </summary>
         ScaleRotateTranslate,
 
         /// <summary>
-        /// Perspective
+        /// Perspective.
         /// </summary>
         Perspective,
 
         /// <summary>
-        /// PerspectiveProjection
+        /// PerspectiveProjection.
         /// </summary>
         PerspectiveProjection,
 
         /// <summary>
-        /// BilinearForward
+        /// BilinearForward.
         /// </summary>
         BilinearForward,
 
         /// <summary>
-        /// BilinearReverse
+        /// BilinearReverse.
         /// </summary>
         BilinearReverse,
 
         /// <summary>
-        /// Polynomial
+        /// Polynomial.
         /// </summary>
         Polynomial,
 
         /// <summary>
-        /// Arc
+        /// Arc.
         /// </summary>
         Arc,
 
         /// <summary>
-        /// Polar
+        /// Polar.
         /// </summary>
         Polar,
 
         /// <summary>
-        /// DePolar
+        /// DePolar.
         /// </summary>
         DePolar,
 
         /// <summary>
-        /// Cylinder2Plane
+        /// Cylinder2Plane.
         /// </summary>
         Cylinder2Plane,
 
         /// <summary>
-        /// Plane2Cylinder
+        /// Plane2Cylinder.
         /// </summary>
         Plane2Cylinder,
 
         /// <summary>
-        /// Barrel
+        /// Barrel.
         /// </summary>
         Barrel,
 
         /// <summary>
-        /// BarrelInverse
+        /// BarrelInverse.
         /// </summary>
         BarrelInverse,
 
         /// <summary>
-        /// Shepards
+        /// Shepards.
         /// </summary>
         Shepards,
 
         /// <summary>
-        /// Resize
+        /// Resize.
         /// </summary>
         Resize,
 
         /// <summary>
-        /// Sentinel
+        /// Sentinel.
         /// </summary>
         Sentinel,
 
         /// <summary>
-        /// RigidAffine
+        /// RigidAffine.
         /// </summary>
         RigidAffine,
     }

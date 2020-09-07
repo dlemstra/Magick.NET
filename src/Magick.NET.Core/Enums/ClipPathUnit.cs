@@ -18,22 +18,22 @@ namespace ImageMagick
     public enum ClipPathUnit
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// UserSpace
+        /// UserSpace.
         /// </summary>
         UserSpace,
 
         /// <summary>
-        /// UserSpaceOnUse
+        /// UserSpaceOnUse.
         /// </summary>
         UserSpaceOnUse,
 
         /// <summary>
-        /// ObjectBoundingBox
+        /// ObjectBoundingBox.
         /// </summary>
         ObjectBoundingBox,
     }

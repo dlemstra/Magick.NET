@@ -18,42 +18,42 @@ namespace ImageMagick
     public enum Interlace
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// NoInterlace
+        /// NoInterlace.
         /// </summary>
         NoInterlace,
 
         /// <summary>
-        /// Line
+        /// Line.
         /// </summary>
         Line,
 
         /// <summary>
-        /// Plane
+        /// Plane.
         /// </summary>
         Plane,
 
         /// <summary>
-        /// Partition
+        /// Partition.
         /// </summary>
         Partition,
 
         /// <summary>
-        /// Gif
+        /// Gif.
         /// </summary>
         Gif,
 
         /// <summary>
-        /// Jpeg
+        /// Jpeg.
         /// </summary>
         Jpeg,
 
         /// <summary>
-        /// Png
+        /// Png.
         /// </summary>
         Png,
     }

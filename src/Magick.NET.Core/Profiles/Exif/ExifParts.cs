@@ -21,27 +21,27 @@ namespace ImageMagick
     public enum ExifParts
     {
         /// <summary>
-        /// None
+        /// None.
         /// </summary>
         None = 0,
 
         /// <summary>
-        /// IfdTags
+        /// IfdTags.
         /// </summary>
         IfdTags = 1,
 
         /// <summary>
-        /// ExifTags
+        /// ExifTags.
         /// </summary>
         ExifTags = 4,
 
         /// <summary>
-        /// GpsTags
+        /// GpsTags.
         /// </summary>
         GpsTags = 8,
 
         /// <summary>
-        /// All
+        /// All.
         /// </summary>
         All = IfdTags | ExifTags | GpsTags,
     }

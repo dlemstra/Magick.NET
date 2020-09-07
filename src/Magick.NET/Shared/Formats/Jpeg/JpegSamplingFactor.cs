@@ -18,32 +18,32 @@ namespace ImageMagick.Formats.Jpeg
     public enum JpegSamplingFactor
     {
         /// <summary>
-        /// 4:4:4
+        /// 4:4:4.
         /// </summary>
         Ratio444,
 
         /// <summary>
-        /// 4:2:2
+        /// 4:2:2.
         /// </summary>
         Ratio422,
 
         /// <summary>
-        /// 4:1:1
+        /// 4:1:1.
         /// </summary>
         Ratio411,
 
         /// <summary>
-        /// 4:4:0
+        /// 4:4:0.
         /// </summary>
         Ratio440,
 
         /// <summary>
-        /// 4:2:0
+        /// 4:2:0.
         /// </summary>
         Ratio420,
 
         /// <summary>
-        /// 4:1:0
+        /// 4:1:0.
         /// </summary>
         Ratio410,
     }

@@ -18,27 +18,27 @@ namespace ImageMagick
     public enum PixelMapping
     {
         /// <summary>
-        /// RGB
+        /// RGB.
         /// </summary>
         RGB,
 
         /// <summary>
-        /// BGR
+        /// BGR.
         /// </summary>
         BGR,
 
         /// <summary>
-        /// RGBA
+        /// RGBA.
         /// </summary>
         RGBA,
 
         /// <summary>
-        /// ABGR
+        /// ABGR.
         /// </summary>
         ABGR,
 
         /// <summary>
-        /// CMYK
+        /// CMYK.
         /// </summary>
         CMYK,
     }

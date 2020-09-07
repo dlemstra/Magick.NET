@@ -18,52 +18,52 @@ namespace ImageMagick
     public enum PixelIntensityMethod
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Average
+        /// Average.
         /// </summary>
         Average,
 
         /// <summary>
-        /// Brightness
+        /// Brightness.
         /// </summary>
         Brightness,
 
         /// <summary>
-        /// Lightness
+        /// Lightness.
         /// </summary>
         Lightness,
 
         /// <summary>
-        /// MS
+        /// MS.
         /// </summary>
         MS,
 
         /// <summary>
-        /// Rec601Luma
+        /// Rec601Luma.
         /// </summary>
         Rec601Luma,
 
         /// <summary>
-        /// Rec601Luminance
+        /// Rec601Luminance.
         /// </summary>
         Rec601Luminance,
 
         /// <summary>
-        /// Rec709Luma
+        /// Rec709Luma.
         /// </summary>
         Rec709Luma,
 
         /// <summary>
-        /// Rec709Luminance
+        /// Rec709Luminance.
         /// </summary>
         Rec709Luminance,
 
         /// <summary>
-        /// RMS
+        /// RMS.
         /// </summary>
         RMS,
     }

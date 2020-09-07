@@ -18,62 +18,62 @@ namespace ImageMagick
     public enum PixelInterpolateMethod
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Average
+        /// Average.
         /// </summary>
         Average,
 
         /// <summary>
-        /// Average9
+        /// Average9.
         /// </summary>
         Average9,
 
         /// <summary>
-        /// Average16
+        /// Average16.
         /// </summary>
         Average16,
 
         /// <summary>
-        /// Background
+        /// Background.
         /// </summary>
         Background,
 
         /// <summary>
-        /// Bilinear
+        /// Bilinear.
         /// </summary>
         Bilinear,
 
         /// <summary>
-        /// Blend
+        /// Blend.
         /// </summary>
         Blend,
 
         /// <summary>
-        /// Catrom
+        /// Catrom.
         /// </summary>
         Catrom,
 
         /// <summary>
-        /// Integer
+        /// Integer.
         /// </summary>
         Integer,
 
         /// <summary>
-        /// Mesh
+        /// Mesh.
         /// </summary>
         Mesh,
 
         /// <summary>
-        /// Nearest
+        /// Nearest.
         /// </summary>
         Nearest,
 
         /// <summary>
-        /// Spline
+        /// Spline.
         /// </summary>
         Spline,
     }

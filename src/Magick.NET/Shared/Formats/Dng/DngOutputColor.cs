@@ -18,32 +18,32 @@ namespace ImageMagick.Formats.Dng
     public enum DngOutputColor
     {
         /// <summary>
-        /// Raw color (unique to each camera)
+        /// Raw color (unique to each camera).
         /// </summary>
         Raw = 0,
 
         /// <summary>
-        /// sRGB D65 (default)
+        /// sRGB D65 (default).
         /// </summary>
         SRGB = 1,
 
         /// <summary>
-        /// Adobe RGB (1998) D65
+        /// Adobe RGB (1998) D65.
         /// </summary>
         AdobeRGB = 2,
 
         /// <summary>
-        /// Wide Gamut RGB D65
+        /// Wide Gamut RGB D65.
         /// </summary>
         WideGamutRGB = 3,
 
         /// <summary>
-        /// Kodak ProPhoto RGB D65
+        /// Kodak ProPhoto RGB D65.
         /// </summary>
         KodakProPhotoRGB = 4,
 
         /// <summary>
-        /// XYZ
+        /// XYZ.
         /// </summary>
         XYZ,
     }

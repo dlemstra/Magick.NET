@@ -18,17 +18,17 @@ namespace ImageMagick
     public enum DensityUnit
     {
         /// <summary>
-        /// Undefied
+        /// Undefied.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Pixels per inch
+        /// Pixels per inch.
         /// </summary>
         PixelsPerInch,
 
         /// <summary>
-        /// Pixels per centimeter
+        /// Pixels per centimeter.
         /// </summary>
         PixelsPerCentimeter,
     }

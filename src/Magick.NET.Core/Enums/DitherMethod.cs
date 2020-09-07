@@ -18,22 +18,22 @@ namespace ImageMagick
     public enum DitherMethod
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// No
+        /// No.
         /// </summary>
         No,
 
         /// <summary>
-        /// Riemersma
+        /// Riemersma.
         /// </summary>
         Riemersma,
 
         /// <summary>
-        /// FloydSteinberg
+        /// FloydSteinberg.
         /// </summary>
         FloydSteinberg,
     }

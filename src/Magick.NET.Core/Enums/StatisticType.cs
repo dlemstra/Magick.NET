@@ -18,52 +18,52 @@ namespace ImageMagick
     public enum StatisticType
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Gradient
+        /// Gradient.
         /// </summary>
         Gradient,
 
         /// <summary>
-        /// Maximum
+        /// Maximum.
         /// </summary>
         Maximum,
 
         /// <summary>
-        /// Mean
+        /// Mean.
         /// </summary>
         Mean,
 
         /// <summary>
-        /// Median
+        /// Median.
         /// </summary>
         Median,
 
         /// <summary>
-        /// Minimum
+        /// Minimum.
         /// </summary>
         Minimum,
 
         /// <summary>
-        /// Mode
+        /// Mode.
         /// </summary>
         Mode,
 
         /// <summary>
-        /// Nonpeak
+        /// Nonpeak.
         /// </summary>
         Nonpeak,
 
         /// <summary>
-        /// RootMeanSquare
+        /// RootMeanSquare.
         /// </summary>
         RootMeanSquare,
 
         /// <summary>
-        /// StandardDeviation
+        /// StandardDeviation.
         /// </summary>
         StandardDeviation,
     }

@@ -18,22 +18,22 @@ namespace ImageMagick
     public enum GifDisposeMethod
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// None
+        /// None.
         /// </summary>
         None,
 
         /// <summary>
-        /// Background
+        /// Background.
         /// </summary>
         Background,
 
         /// <summary>
-        /// Previous
+        /// Previous.
         /// </summary>
         Previous,
     }

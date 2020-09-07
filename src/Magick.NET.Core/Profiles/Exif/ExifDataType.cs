@@ -18,67 +18,67 @@ namespace ImageMagick
     public enum ExifDataType
     {
         /// <summary>
-        /// Unknown
+        /// Unknown.
         /// </summary>
         Unknown,
 
         /// <summary>
-        /// Byte
+        /// Byte.
         /// </summary>
         Byte,
 
         /// <summary>
-        /// String
+        /// String.
         /// </summary>
         String,
 
         /// <summary>
-        /// Short
+        /// Short.
         /// </summary>
         Short,
 
         /// <summary>
-        /// Long
+        /// Long.
         /// </summary>
         Long,
 
         /// <summary>
-        /// Rational
+        /// Rational.
         /// </summary>
         Rational,
 
         /// <summary>
-        /// SignedByte
+        /// SignedByte.
         /// </summary>
         SignedByte,
 
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// SignedShort
+        /// SignedShort.
         /// </summary>
         SignedShort,
 
         /// <summary>
-        /// SignedLong
+        /// SignedLong.
         /// </summary>
         SignedLong,
 
         /// <summary>
-        /// SignedRational
+        /// SignedRational.
         /// </summary>
         SignedRational,
 
         /// <summary>
-        /// Float
+        /// Float.
         /// </summary>
         Float,
 
         /// <summary>
-        /// Double
+        /// Double.
         /// </summary>
         Double,
     }

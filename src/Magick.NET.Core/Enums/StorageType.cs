@@ -18,42 +18,42 @@ namespace ImageMagick
     public enum StorageType
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Char
+        /// Char.
         /// </summary>
         Char,
 
         /// <summary>
-        /// Double
+        /// Double.
         /// </summary>
         Double,
 
         /// <summary>
-        /// Float
+        /// Float.
         /// </summary>
         Float,
 
         /// <summary>
-        /// Int32
+        /// Int32.
         /// </summary>
         Int32,
 
         /// <summary>
-        /// Int64
+        /// Int64.
         /// </summary>
         Int64,
 
         /// <summary>
-        /// Quantum
+        /// Quantum.
         /// </summary>
         Quantum,
 
         /// <summary>
-        /// Short
+        /// Short.
         /// </summary>
         Short,
     }

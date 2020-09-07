@@ -18,7 +18,7 @@ namespace ImageMagick
     public enum PaintMethod
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 

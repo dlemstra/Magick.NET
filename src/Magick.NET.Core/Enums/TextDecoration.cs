@@ -18,27 +18,27 @@ namespace ImageMagick
     public enum TextDecoration
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// NoDecoration
+        /// NoDecoration.
         /// </summary>
         None,
 
         /// <summary>
-        /// Underline
+        /// Underline.
         /// </summary>
         Underline,
 
         /// <summary>
-        /// Overline
+        /// Overline.
         /// </summary>
         Overline,
 
         /// <summary>
-        /// LineThrough
+        /// LineThrough.
         /// </summary>
         LineThrough,
     }

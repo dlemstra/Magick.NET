@@ -18,22 +18,22 @@ namespace ImageMagick.Formats.Bmp
     public enum BmpSubtype
     {
         /// <summary>
-        /// ARGB1555
+        /// ARGB1555.
         /// </summary>
         ARGB1555,
 
         /// <summary>
-        /// ARGB4444
+        /// ARGB4444.
         /// </summary>
         ARGB4444,
 
         /// <summary>
-        /// RGB555
+        /// RGB555.
         /// </summary>
         RGB555,
 
         /// <summary>
-        /// RGB565
+        /// RGB565.
         /// </summary>
         RGB565,
     }

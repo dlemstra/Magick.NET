@@ -18,362 +18,362 @@ namespace ImageMagick
     public enum CompositeOperator
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Alpha
+        /// Alpha.
         /// </summary>
         Alpha,
 
         /// <summary>
-        /// Atop
+        /// Atop.
         /// </summary>
         Atop,
 
         /// <summary>
-        /// Blend
+        /// Blend.
         /// </summary>
         Blend,
 
         /// <summary>
-        /// Blur
+        /// Blur.
         /// </summary>
         Blur,
 
         /// <summary>
-        /// Bumpmap
+        /// Bumpmap.
         /// </summary>
         Bumpmap,
 
         /// <summary>
-        /// ChangeMask
+        /// ChangeMask.
         /// </summary>
         ChangeMask,
 
         /// <summary>
-        /// Clear
+        /// Clear.
         /// </summary>
         Clear,
 
         /// <summary>
-        /// ColorBurn
+        /// ColorBurn.
         /// </summary>
         ColorBurn,
 
         /// <summary>
-        /// ColorDodge
+        /// ColorDodge.
         /// </summary>
         ColorDodge,
 
         /// <summary>
-        /// Colorize
+        /// Colorize.
         /// </summary>
         Colorize,
 
         /// <summary>
-        /// CopyBlack
+        /// CopyBlack.
         /// </summary>
         CopyBlack,
 
         /// <summary>
-        /// CopyBlue
+        /// CopyBlue.
         /// </summary>
         CopyBlue,
 
         /// <summary>
-        /// Copy
+        /// Copy.
         /// </summary>
         Copy,
 
         /// <summary>
-        /// CopyCyan
+        /// CopyCyan.
         /// </summary>
         CopyCyan,
 
         /// <summary>
-        /// CopyGreen
+        /// CopyGreen.
         /// </summary>
         CopyGreen,
 
         /// <summary>
-        /// CopyMagenta
+        /// CopyMagenta.
         /// </summary>
         CopyMagenta,
 
         /// <summary>
-        /// CopyAlpha
+        /// CopyAlpha.
         /// </summary>
         CopyAlpha,
 
         /// <summary>
-        /// CopyRed
+        /// CopyRed.
         /// </summary>
         CopyRed,
 
         /// <summary>
-        /// CopyYellow
+        /// CopyYellow.
         /// </summary>
         CopyYellow,
 
         /// <summary>
-        /// Darken
+        /// Darken.
         /// </summary>
         Darken,
 
         /// <summary>
-        /// DarkenIntensity
+        /// DarkenIntensity.
         /// </summary>
         DarkenIntensity,
 
         /// <summary>
-        /// Difference
+        /// Difference.
         /// </summary>
         Difference,
 
         /// <summary>
-        /// Displace
+        /// Displace.
         /// </summary>
         Displace,
 
         /// <summary>
-        /// Dissolve
+        /// Dissolve.
         /// </summary>
         Dissolve,
 
         /// <summary>
-        /// Distort
+        /// Distort.
         /// </summary>
         Distort,
 
         /// <summary>
-        /// DivideDst
+        /// DivideDst.
         /// </summary>
         DivideDst,
 
         /// <summary>
-        /// DivideSrc
+        /// DivideSrc.
         /// </summary>
         DivideSrc,
 
         /// <summary>
-        /// DstAtop
+        /// DstAtop.
         /// </summary>
         DstAtop,
 
         /// <summary>
-        /// Dst
+        /// Dst.
         /// </summary>
         Dst,
 
         /// <summary>
-        /// DstIn
+        /// DstIn.
         /// </summary>
         DstIn,
 
         /// <summary>
-        /// DstOut
+        /// DstOut.
         /// </summary>
         DstOut,
 
         /// <summary>
-        /// DstOver
+        /// DstOver.
         /// </summary>
         DstOver,
 
         /// <summary>
-        /// Exclusion
+        /// Exclusion.
         /// </summary>
         Exclusion,
 
         /// <summary>
-        /// HardLight
+        /// HardLight.
         /// </summary>
         HardLight,
 
         /// <summary>
-        /// HardMix
+        /// HardMix.
         /// </summary>
         HardMix,
 
         /// <summary>
-        /// Hue
+        /// Hue.
         /// </summary>
         Hue,
 
         /// <summary>
-        /// In
+        /// In.
         /// </summary>
         In,
 
         /// <summary>
-        /// Intensity
+        /// Intensity.
         /// </summary>
         Intensity,
 
         /// <summary>
-        /// Lighten
+        /// Lighten.
         /// </summary>
         Lighten,
 
         /// <summary>
-        /// LightenIntensity
+        /// LightenIntensity.
         /// </summary>
         LightenIntensity,
 
         /// <summary>
-        /// LinearBurn
+        /// LinearBurn.
         /// </summary>
         LinearBurn,
 
         /// <summary>
-        /// LinearDodge
+        /// LinearDodge.
         /// </summary>
         LinearDodge,
 
         /// <summary>
-        /// LinearLight
+        /// LinearLight.
         /// </summary>
         LinearLight,
 
         /// <summary>
-        /// Luminize
+        /// Luminize.
         /// </summary>
         Luminize,
 
         /// <summary>
-        /// Mathematics
+        /// Mathematics.
         /// </summary>
         Mathematics,
 
         /// <summary>
-        /// MinusDst
+        /// MinusDst.
         /// </summary>
         MinusDst,
 
         /// <summary>
-        /// MinusSrc
+        /// MinusSrc.
         /// </summary>
         MinusSrc,
 
         /// <summary>
-        /// Modulate
+        /// Modulate.
         /// </summary>
         Modulate,
 
         /// <summary>
-        /// ModulusAdd
+        /// ModulusAdd.
         /// </summary>
         ModulusAdd,
 
         /// <summary>
-        /// ModulusSubtract
+        /// ModulusSubtract.
         /// </summary>
         ModulusSubtract,
 
         /// <summary>
-        /// Multiply
+        /// Multiply.
         /// </summary>
         Multiply,
 
         /// <summary>
-        /// No
+        /// No.
         /// </summary>
         No,
 
         /// <summary>
-        /// Out
+        /// Out.
         /// </summary>
         Out,
 
         /// <summary>
-        /// Over
+        /// Over.
         /// </summary>
         Over,
 
         /// <summary>
-        /// Overlay
+        /// Overlay.
         /// </summary>
         Overlay,
 
         /// <summary>
-        /// PegtopLight
+        /// PegtopLight.
         /// </summary>
         PegtopLight,
 
         /// <summary>
-        /// PinLight
+        /// PinLight.
         /// </summary>
         PinLight,
 
         /// <summary>
-        /// Plus
+        /// Plus.
         /// </summary>
         Plus,
 
         /// <summary>
-        /// Replace
+        /// Replace.
         /// </summary>
         Replace,
 
         /// <summary>
-        /// Saturate
+        /// Saturate.
         /// </summary>
         Saturate,
 
         /// <summary>
-        /// Screen
+        /// Screen.
         /// </summary>
         Screen,
 
         /// <summary>
-        /// SoftLight
+        /// SoftLight.
         /// </summary>
         SoftLight,
 
         /// <summary>
-        /// SrcAtop
+        /// SrcAtop.
         /// </summary>
         SrcAtop,
 
         /// <summary>
-        /// Src
+        /// Src.
         /// </summary>
         Src,
 
         /// <summary>
-        /// SrcIn
+        /// SrcIn.
         /// </summary>
         SrcIn,
 
         /// <summary>
-        /// SrcOut
+        /// SrcOut.
         /// </summary>
         SrcOut,
 
         /// <summary>
-        /// SrcOver
+        /// SrcOver.
         /// </summary>
         SrcOver,
 
         /// <summary>
-        /// Threshold
+        /// Threshold.
         /// </summary>
         Threshold,
 
         /// <summary>
-        /// VividLight
+        /// VividLight.
         /// </summary>
         VividLight,
 
         /// <summary>
-        /// Xor
+        /// Xor.
         /// </summary>
         Xor,
 
         /// <summary>
-        /// Stereo
+        /// Stereo.
         /// </summary>
         Stereo,
     }

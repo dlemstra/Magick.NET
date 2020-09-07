@@ -18,17 +18,17 @@ namespace ImageMagick
     public enum TextDirection
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// RightToLeft
+        /// RightToLeft.
         /// </summary>
         RightToLeft,
 
         /// <summary>
-        /// LeftToRight
+        /// LeftToRight.
         /// </summary>
         LeftToRight,
     }

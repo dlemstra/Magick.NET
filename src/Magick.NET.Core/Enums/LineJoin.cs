@@ -18,22 +18,22 @@ namespace ImageMagick
     public enum LineJoin
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Miter
+        /// Miter.
         /// </summary>
         Miter,
 
         /// <summary>
-        /// Round
+        /// Round.
         /// </summary>
         Round,
 
         /// <summary>
-        /// Bevel
+        /// Bevel.
         /// </summary>
         Bevel,
     }

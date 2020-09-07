@@ -20,57 +20,57 @@ namespace ImageMagick
     public enum PixelChannel
     {
         /// <summary>
-        /// Red
+        /// Red.
         /// </summary>
         Red = 0,
 
         /// <summary>
-        /// Cyan
+        /// Cyan.
         /// </summary>
         Cyan = Red,
 
         /// <summary>
-        /// Gray
+        /// Gray.
         /// </summary>
         Gray = Red,
 
         /// <summary>
-        /// Green
+        /// Green.
         /// </summary>
         Green = 1,
 
         /// <summary>
-        /// Magenta
+        /// Magenta.
         /// </summary>
         Magenta = Green,
 
         /// <summary>
-        /// Blue
+        /// Blue.
         /// </summary>
         Blue = 2,
 
         /// <summary>
-        /// Yellow
+        /// Yellow.
         /// </summary>
         Yellow = Blue,
 
         /// <summary>
-        /// Black
+        /// Black.
         /// </summary>
         Black = 3,
 
         /// <summary>
-        /// Alpha
+        /// Alpha.
         /// </summary>
         Alpha = 4,
 
         /// <summary>
-        /// Index
+        /// Index.
         /// </summary>
         Index = 5,
 
         /// <summary>
-        /// Composite
+        /// Composite.
         /// </summary>
         Composite = 32,
     }

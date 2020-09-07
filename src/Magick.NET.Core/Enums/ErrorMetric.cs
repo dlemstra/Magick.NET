@@ -18,67 +18,67 @@ namespace ImageMagick
     public enum ErrorMetric
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Absolute
+        /// Absolute.
         /// </summary>
         Absolute,
 
         /// <summary>
-        /// Fuzz
+        /// Fuzz.
         /// </summary>
         Fuzz,
 
         /// <summary>
-        /// MeanAbsolute
+        /// MeanAbsolute.
         /// </summary>
         MeanAbsolute,
 
         /// <summary>
-        /// MeanErrorPerPixel
+        /// MeanErrorPerPixel.
         /// </summary>
         MeanErrorPerPixel,
 
         /// <summary>
-        /// MeanSquared
+        /// MeanSquared.
         /// </summary>
         MeanSquared,
 
         /// <summary>
-        /// NormalizedCrossCorrelation
+        /// NormalizedCrossCorrelation.
         /// </summary>
         NormalizedCrossCorrelation,
 
         /// <summary>
-        /// PeakAbsolute
+        /// PeakAbsolute.
         /// </summary>
         PeakAbsolute,
 
         /// <summary>
-        /// PeakSignalToNoiseRatio
+        /// PeakSignalToNoiseRatio.
         /// </summary>
         PeakSignalToNoiseRatio,
 
         /// <summary>
-        /// PerceptualHash
+        /// PerceptualHash.
         /// </summary>
         PerceptualHash,
 
         /// <summary>
-        /// RootMeanSquared
+        /// RootMeanSquared.
         /// </summary>
         RootMeanSquared,
 
         /// <summary>
-        /// StructuralSimilarity
+        /// StructuralSimilarity.
         /// </summary>
         StructuralSimilarity,
 
         /// <summary>
-        /// StructuralDissimilarity
+        /// StructuralDissimilarity.
         /// </summary>
         StructuralDissimilarity,
     }

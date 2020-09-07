@@ -18,17 +18,17 @@ namespace ImageMagick
     public enum ClassType
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Direct
+        /// Direct.
         /// </summary>
         Direct,
 
         /// <summary>
-        /// Pseudo
+        /// Pseudo.
         /// </summary>
         Pseudo,
     }

@@ -23,102 +23,102 @@ namespace ImageMagick
     public enum Channels
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         None = 0x0000,
 
         /// <summary>
-        /// Red
+        /// Red.
         /// </summary>
         Red = 0x0001,
 
         /// <summary>
-        /// Gray
+        /// Gray.
         /// </summary>
         Gray = Red,
 
         /// <summary>
-        /// Cyan
+        /// Cyan.
         /// </summary>
         Cyan = Red,
 
         /// <summary>
-        /// Green
+        /// Green.
         /// </summary>
         Green = 0x0002,
 
         /// <summary>
-        /// Magenta
+        /// Magenta.
         /// </summary>
         Magenta = Green,
 
         /// <summary>
-        /// Blue
+        /// Blue.
         /// </summary>
         Blue = 0x0004,
 
         /// <summary>
-        /// Yellow
+        /// Yellow.
         /// </summary>
         Yellow = Blue,
 
         /// <summary>
-        /// Black
+        /// Black.
         /// </summary>
         Black = 0x0008,
 
         /// <summary>
-        /// Alpha
+        /// Alpha.
         /// </summary>
         Alpha = 0x0010,
 
         /// <summary>
-        /// Opacity
+        /// Opacity.
         /// </summary>
         Opacity = Alpha,
 
         /// <summary>
-        /// Index
+        /// Index.
         /// </summary>
         Index = 0x0020,
 
         /// <summary>
-        /// Composite
+        /// Composite.
         /// </summary>
         Composite = 0x001F,
 
         /// <summary>
-        /// All
+        /// All.
         /// </summary>
         All = 0x7ffffff,
 
         /// <summary>
-        /// TrueAlpha
+        /// TrueAlpha.
         /// </summary>
         TrueAlpha = 0x0100,
 
         /// <summary>
-        /// RGB
+        /// RGB.
         /// </summary>
         RGB = Red | Green | Blue,
 
         /// <summary>
-        /// CMYK
+        /// CMYK.
         /// </summary>
         CMYK = Cyan | Magenta | Yellow | Black,
 
         /// <summary>
-        /// Grays
+        /// Grays.
         /// </summary>
         Grays = 0x0400,
 
         /// <summary>
-        /// Sync
+        /// Sync.
         /// </summary>
         Sync = 0x20000,
 
         /// <summary>
-        /// Default
+        /// Default.
         /// </summary>
         Default = All,
     }

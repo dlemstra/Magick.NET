@@ -18,57 +18,57 @@ namespace ImageMagick
     public enum Gravity
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Forget
+        /// Forget.
         /// </summary>
         Forget = Undefined,
 
         /// <summary>
-        /// Northwest
+        /// Northwest.
         /// </summary>
         Northwest = 1,
 
         /// <summary>
-        /// North
+        /// North.
         /// </summary>
         North = 2,
 
         /// <summary>
-        /// Northeast
+        /// Northeast.
         /// </summary>
         Northeast = 3,
 
         /// <summary>
-        /// West
+        /// West.
         /// </summary>
         West = 4,
 
         /// <summary>
-        /// Center
+        /// Center.
         /// </summary>
         Center = 5,
 
         /// <summary>
-        /// East
+        /// East.
         /// </summary>
         East = 6,
 
         /// <summary>
-        /// Southwest
+        /// Southwest.
         /// </summary>
         Southwest = 7,
 
         /// <summary>
-        /// South
+        /// South.
         /// </summary>
         South = 8,
 
         /// <summary>
-        /// Southeast
+        /// Southeast.
         /// </summary>
         Southeast = 9,
     }

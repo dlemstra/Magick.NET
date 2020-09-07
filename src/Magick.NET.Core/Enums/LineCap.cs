@@ -18,22 +18,22 @@ namespace ImageMagick
     public enum LineCap
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Butt
+        /// Butt.
         /// </summary>
         Butt,
 
         /// <summary>
-        /// Round
+        /// Round.
         /// </summary>
         Round,
 
         /// <summary>
-        /// Square
+        /// Square.
         /// </summary>
         Square,
     }

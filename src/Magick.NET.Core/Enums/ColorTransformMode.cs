@@ -18,12 +18,12 @@ namespace ImageMagick
     public enum ColorTransformMode
     {
         /// <summary>
-        /// High resolution (<see cref="double"/>)
+        /// High resolution (<see cref="double"/>).
         /// </summary>
         HighRes,
 
         /// <summary>
-        /// Quantum
+        /// Quantum.
         /// </summary>
         Quantum,
     }

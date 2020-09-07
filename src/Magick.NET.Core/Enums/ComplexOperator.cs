@@ -18,42 +18,42 @@ namespace ImageMagick
     public enum ComplexOperator
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Add
+        /// Add.
         /// </summary>
         Add,
 
         /// <summary>
-        /// Conjugate
+        /// Conjugate.
         /// </summary>
         Conjugate,
 
         /// <summary>
-        /// Divide
+        /// Divide.
         /// </summary>
         Divide,
 
         /// <summary>
-        /// MagnitudePhase
+        /// MagnitudePhase.
         /// </summary>
         MagnitudePhase,
 
         /// <summary>
-        /// Multiply
+        /// Multiply.
         /// </summary>
         Multiply,
 
         /// <summary>
-        /// RealImaginary
+        /// RealImaginary.
         /// </summary>
         RealImaginary,
 
         /// <summary>
-        /// Subtract
+        /// Subtract.
         /// </summary>
         Subtract,
     }

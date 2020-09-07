@@ -21,102 +21,102 @@ namespace ImageMagick
     public enum LogEvents
     {
         /// <summary>
-        /// None
+        /// None.
         /// </summary>
         None = 0x000000,
 
         /// <summary>
-        /// Accelerate
+        /// Accelerate.
         /// </summary>
         Accelerate = 0x00001,
 
         /// <summary>
-        /// Annotate
+        /// Annotate.
         /// </summary>
         Annotate = 0x00002,
 
         /// <summary>
-        /// Blob
+        /// Blob.
         /// </summary>
         Blob = 0x00004,
 
         /// <summary>
-        /// Cache
+        /// Cache.
         /// </summary>
         Cache = 0x00008,
 
         /// <summary>
-        /// Coder
+        /// Coder.
         /// </summary>
         Coder = 0x00010,
 
         /// <summary>
-        /// Configure
+        /// Configure.
         /// </summary>
         Configure = 0x00020,
 
         /// <summary>
-        /// Deprecate
+        /// Deprecate.
         /// </summary>
         Deprecate = 0x00040,
 
         /// <summary>
-        /// Draw
+        /// Draw.
         /// </summary>
         Draw = 0x00080,
 
         /// <summary>
-        /// Exception
+        /// Exception.
         /// </summary>
         Exception = 0x00100,
 
         /// <summary>
-        /// Image
+        /// Image.
         /// </summary>
         Image = 0x00200,
 
         /// <summary>
-        /// Locale
+        /// Locale.
         /// </summary>
         Locale = 0x00400,
 
         /// <summary>
-        /// Module
+        /// Module.
         /// </summary>
         Module = 0x00800,
 
         /// <summary>
-        /// Pixel
+        /// Pixel.
         /// </summary>
         Pixel = 0x01000,
 
         /// <summary>
-        /// Policy
+        /// Policy.
         /// </summary>
         Policy = 0x02000,
 
         /// <summary>
-        /// Resource
+        /// Resource.
         /// </summary>
         Resource = 0x04000,
 
         /// <summary>
-        /// Trace
+        /// Trace.
         /// </summary>
         Trace = 0x08000,
 
         /// <summary>
-        /// Transform
+        /// Transform.
         /// </summary>
         Transform = 0x10000,
 
         /// <summary>
-        /// User
+        /// User.
         /// </summary>
         User = 0x20000,
 
         /// <summary>
-        /// Wand
+        /// Wand.
         /// </summary>
         Wand = 0x40000,
 

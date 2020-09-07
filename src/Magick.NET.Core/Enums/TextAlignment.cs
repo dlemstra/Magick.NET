@@ -18,22 +18,22 @@ namespace ImageMagick
     public enum TextAlignment
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Left
+        /// Left.
         /// </summary>
         Left,
 
         /// <summary>
-        /// Center
+        /// Center.
         /// </summary>
         Center,
 
         /// <summary>
-        /// Right
+        /// Right.
         /// </summary>
         Right,
     }

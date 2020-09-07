@@ -18,17 +18,17 @@ namespace ImageMagick
     public enum OpenCLDeviceType
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Cpu
+        /// Cpu.
         /// </summary>
         Cpu,
 
         /// <summary>
-        /// Gpu
+        /// Gpu.
         /// </summary>
         Gpu,
     }

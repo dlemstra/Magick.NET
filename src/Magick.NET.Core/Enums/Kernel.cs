@@ -18,192 +18,192 @@ namespace ImageMagick
     public enum Kernel
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Unity
+        /// Unity.
         /// </summary>
         Unity,
 
         /// <summary>
-        /// Gaussian
+        /// Gaussian.
         /// </summary>
         Gaussian,
 
         /// <summary>
-        /// DoG
+        /// DoG.
         /// </summary>
         DoG,
 
         /// <summary>
-        /// LoG
+        /// LoG.
         /// </summary>
         LoG,
 
         /// <summary>
-        /// Blur
+        /// Blur.
         /// </summary>
         Blur,
 
         /// <summary>
-        /// Comet
+        /// Comet.
         /// </summary>
         Comet,
 
         /// <summary>
-        /// Binomial
+        /// Binomial.
         /// </summary>
         Binomial,
 
         /// <summary>
-        /// Laplacian
+        /// Laplacian.
         /// </summary>
         Laplacian,
 
         /// <summary>
-        /// Sobel
+        /// Sobel.
         /// </summary>
         Sobel,
 
         /// <summary>
-        /// FreiChen
+        /// FreiChen.
         /// </summary>
         FreiChen,
 
         /// <summary>
-        /// Roberts
+        /// Roberts.
         /// </summary>
         Roberts,
 
         /// <summary>
-        /// Prewitt
+        /// Prewitt.
         /// </summary>
         Prewitt,
 
         /// <summary>
-        /// Compass
+        /// Compass.
         /// </summary>
         Compass,
 
         /// <summary>
-        /// Kirsch
+        /// Kirsch.
         /// </summary>
         Kirsch,
 
         /// <summary>
-        /// Diamond
+        /// Diamond.
         /// </summary>
         Diamond,
 
         /// <summary>
-        /// Square
+        /// Square.
         /// </summary>
         Square,
 
         /// <summary>
-        /// Rectangle
+        /// Rectangle.
         /// </summary>
         Rectangle,
 
         /// <summary>
-        /// Octagon
+        /// Octagon.
         /// </summary>
         Octagon,
 
         /// <summary>
-        /// Disk
+        /// Disk.
         /// </summary>
         Disk,
 
         /// <summary>
-        /// Plus
+        /// Plus.
         /// </summary>
         Plus,
 
         /// <summary>
-        /// Cross
+        /// Cross.
         /// </summary>
         Cross,
 
         /// <summary>
-        /// Ring
+        /// Ring.
         /// </summary>
         Ring,
 
         /// <summary>
-        /// Peaks
+        /// Peaks.
         /// </summary>
         Peaks,
 
         /// <summary>
-        /// Edges
+        /// Edges.
         /// </summary>
         Edges,
 
         /// <summary>
-        /// Corners
+        /// Corners.
         /// </summary>
         Corners,
 
         /// <summary>
-        /// Diagonals
+        /// Diagonals.
         /// </summary>
         Diagonals,
 
         /// <summary>
-        /// LineEnds
+        /// LineEnds.
         /// </summary>
         LineEnds,
 
         /// <summary>
-        /// LineJunctions
+        /// LineJunctions.
         /// </summary>
         LineJunctions,
 
         /// <summary>
-        /// Ridges
+        /// Ridges.
         /// </summary>
         Ridges,
 
         /// <summary>
-        /// ConvexHull
+        /// ConvexHull.
         /// </summary>
         ConvexHull,
 
         /// <summary>
-        /// ThinSE
+        /// ThinSE.
         /// </summary>
         ThinSE,
 
         /// <summary>
-        /// Skeleton
+        /// Skeleton.
         /// </summary>
         Skeleton,
 
         /// <summary>
-        /// Chebyshev
+        /// Chebyshev.
         /// </summary>
         Chebyshev,
 
         /// <summary>
-        /// Manhattan
+        /// Manhattan.
         /// </summary>
         Manhattan,
 
         /// <summary>
-        /// Octagonal
+        /// Octagonal.
         /// </summary>
         Octagonal,
 
         /// <summary>
-        /// Euclidean
+        /// Euclidean.
         /// </summary>
         Euclidean,
 
         /// <summary>
-        /// UserDefined
+        /// UserDefined.
         /// </summary>
         UserDefined,
     }

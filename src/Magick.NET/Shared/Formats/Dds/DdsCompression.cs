@@ -18,12 +18,12 @@ namespace ImageMagick.Formats.Dds
     public enum DdsCompression
     {
         /// <summary>
-        /// None
+        /// None.
         /// </summary>
         None,
 
         /// <summary>
-        /// Dxt1
+        /// Dxt1.
         /// </summary>
         Dxt1,
     }

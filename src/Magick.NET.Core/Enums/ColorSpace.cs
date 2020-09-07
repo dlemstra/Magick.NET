@@ -20,179 +20,179 @@ namespace ImageMagick
     public enum ColorSpace
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// CMY
+        /// CMY.
         /// </summary>
         CMY,
 
         /// <summary>
-        /// CMYK
+        /// CMYK.
         /// </summary>
         CMYK,
 
         /// <summary>
-        /// Gray
+        /// Gray.
         /// </summary>
         Gray,
 
         /// <summary>
-        /// HCL
+        /// HCL.
         /// </summary>
         HCL,
 
         /// <summary>
-        /// HCLp
+        /// HCLp.
         /// </summary>
         HCLp,
 
         /// <summary>
-        /// HSB
+        /// HSB.
         /// </summary>
         HSB,
 
         /// <summary>
-        /// HSI
+        /// HSI.
         /// </summary>
         HSI,
 
         /// <summary>
-        /// HSL
+        /// HSL.
         /// </summary>
         HSL,
 
         /// <summary>
-        /// HSV
+        /// HSV.
         /// </summary>
         HSV,
 
         /// <summary>
-        /// HWB
+        /// HWB.
         /// </summary>
         HWB,
 
         /// <summary>
-        /// Lab
+        /// Lab.
         /// </summary>
         Lab,
 
         /// <summary>
-        /// LCH
+        /// LCH.
         /// </summary>
         LCH,
 
         /// <summary>
-        /// LCHab
+        /// LCHab.
         /// </summary>
         LCHab,
 
         /// <summary>
-        /// LCHuv
+        /// LCHuv.
         /// </summary>
         LCHuv,
 
         /// <summary>
-        /// Log
+        /// Log.
         /// </summary>
         Log,
 
         /// <summary>
-        /// LMS
+        /// LMS.
         /// </summary>
         LMS,
 
         /// <summary>
-        /// Luv
+        /// Luv.
         /// </summary>
         Luv,
 
         /// <summary>
-        /// OHTA
+        /// OHTA.
         /// </summary>
         OHTA,
 
         /// <summary>
-        /// Rec601YCbCr
+        /// Rec601YCbCr.
         /// </summary>
         Rec601YCbCr,
 
         /// <summary>
-        /// Rec709YCbCr
+        /// Rec709YCbCr.
         /// </summary>
         Rec709YCbCr,
 
         /// <summary>
-        /// RGB
+        /// RGB.
         /// </summary>
         RGB,
 
         /// <summary>
-        /// scRGB
+        /// scRGB.
         /// </summary>
         [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:Element must begin with upper-case letter", Justification = "Special case that starts lowercase.")]
         scRGB,
 
         /// <summary>
-        /// sRGB
+        /// sRGB.
         /// </summary>
         [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:Element must begin with upper-case letter", Justification = "Special case that starts lowercase.")]
         sRGB,
 
         /// <summary>
-        /// Transparent
+        /// Transparent.
         /// </summary>
         Transparent,
 
         /// <summary>
-        /// XyY
+        /// XyY.
         /// </summary>
         XyY,
 
         /// <summary>
-        /// XYZ
+        /// XYZ.
         /// </summary>
         XYZ,
 
         /// <summary>
-        /// YCbCr
+        /// YCbCr.
         /// </summary>
         YCbCr,
 
         /// <summary>
-        /// YCC
+        /// YCC.
         /// </summary>
         YCC,
 
         /// <summary>
-        /// YDbDr
+        /// YDbDr.
         /// </summary>
         YDbDr,
 
         /// <summary>
-        /// YIQ
+        /// YIQ.
         /// </summary>
         YIQ,
 
         /// <summary>
-        /// YPbPr
+        /// YPbPr.
         /// </summary>
         YPbPr,
 
         /// <summary>
-        /// YUV
+        /// YUV.
         /// </summary>
         YUV,
 
         /// <summary>
-        /// LinearGray
+        /// LinearGray.
         /// </summary>
         LinearGray,
 
         /// <summary>
-        /// Jzazbz
+        /// Jzazbz.
         /// </summary>
         Jzazbz,
     }

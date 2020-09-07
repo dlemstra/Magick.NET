@@ -18,57 +18,57 @@ namespace ImageMagick
     public enum FontStretch
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Normal
+        /// Normal.
         /// </summary>
         Normal,
 
         /// <summary>
-        /// UltraCondensed
+        /// UltraCondensed.
         /// </summary>
         UltraCondensed,
 
         /// <summary>
-        /// ExtraCondensed
+        /// ExtraCondensed.
         /// </summary>
         ExtraCondensed,
 
         /// <summary>
-        /// Condensed
+        /// Condensed.
         /// </summary>
         Condensed,
 
         /// <summary>
-        /// SemiCondensed
+        /// SemiCondensed.
         /// </summary>
         SemiCondensed,
 
         /// <summary>
-        /// SemiExpanded
+        /// SemiExpanded.
         /// </summary>
         SemiExpanded,
 
         /// <summary>
-        /// Expanded
+        /// Expanded.
         /// </summary>
         Expanded,
 
         /// <summary>
-        /// ExtraExpanded
+        /// ExtraExpanded.
         /// </summary>
         ExtraExpanded,
 
         /// <summary>
-        /// UltraExpanded
+        /// UltraExpanded.
         /// </summary>
         UltraExpanded,
 
         /// <summary>
-        /// Any
+        /// Any.
         /// </summary>
         Any,
     }

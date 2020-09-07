@@ -18,17 +18,17 @@ namespace ImageMagick
     public enum Endian
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// LSB
+        /// LSB.
         /// </summary>
         LSB,
 
         /// <summary>
-        /// MSB
+        /// MSB.
         /// </summary>
         MSB,
     }

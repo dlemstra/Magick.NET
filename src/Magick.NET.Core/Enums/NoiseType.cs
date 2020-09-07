@@ -18,42 +18,42 @@ namespace ImageMagick
     public enum NoiseType
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Uniform
+        /// Uniform.
         /// </summary>
         Uniform,
 
         /// <summary>
-        /// Gaussian
+        /// Gaussian.
         /// </summary>
         Gaussian,
 
         /// <summary>
-        /// MultiplicativeGaussian
+        /// MultiplicativeGaussian.
         /// </summary>
         MultiplicativeGaussian,
 
         /// <summary>
-        /// Impulse
+        /// Impulse.
         /// </summary>
         Impulse,
 
         /// <summary>
-        /// Poisson
+        /// Poisson.
         /// </summary>
         Laplacian,
 
         /// <summary>
-        /// Poisson
+        /// Poisson.
         /// </summary>
         Poisson,
 
         /// <summary>
-        /// Random
+        /// Random.
         /// </summary>
         Random,
     }

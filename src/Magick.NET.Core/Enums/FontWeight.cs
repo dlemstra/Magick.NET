@@ -18,77 +18,77 @@ namespace ImageMagick
     public enum FontWeight
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined = 0,
 
         /// <summary>
-        /// Thin (100)
+        /// Thin (100).
         /// </summary>
         Thin = 100,
 
         /// <summary>
-        /// Extra light (200)
+        /// Extra light (200).
         /// </summary>
         ExtraLight = 200,
 
         /// <summary>
-        /// Ultra light (200)
+        /// Ultra light (200).
         /// </summary>
         UltraLight = ExtraLight,
 
         /// <summary>
-        /// Light (300)
+        /// Light (300).
         /// </summary>
         Light = 300,
 
         /// <summary>
-        /// Normal (400)
+        /// Normal (400).
         /// </summary>
         Normal = 400,
 
         /// <summary>
-        /// Regular (400)
+        /// Regular (400).
         /// </summary>
         Regular = Normal,
 
         /// <summary>
-        /// Medium (500)
+        /// Medium (500).
         /// </summary>
         Medium = 500,
 
         /// <summary>
-        /// Demi bold (600)
+        /// Demi bold (600).
         /// </summary>
         DemiBold = 600,
 
         /// <summary>
-        /// Semi bold (600)
+        /// Semi bold (600).
         /// </summary>
         SemiBold = DemiBold,
 
         /// <summary>
-        /// Bold (700)
+        /// Bold (700).
         /// </summary>
         Bold = 700,
 
         /// <summary>
-        /// Extra bold (800)
+        /// Extra bold (800).
         /// </summary>
         ExtraBold = 800,
 
         /// <summary>
-        /// Ultra bold (800)
+        /// Ultra bold (800).
         /// </summary>
         UltraBold = ExtraBold,
 
         /// <summary>
-        /// Heavy (900)
+        /// Heavy (900).
         /// </summary>
         Heavy = 900,
 
         /// <summary>
-        /// Black (900)
+        /// Black (900).
         /// </summary>
         Black = Heavy,
     }

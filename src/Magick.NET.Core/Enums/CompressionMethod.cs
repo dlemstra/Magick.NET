@@ -18,132 +18,132 @@ namespace ImageMagick
     public enum CompressionMethod
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// B44A
+        /// B44A.
         /// </summary>
         B44A,
 
         /// <summary>
-        /// B44
+        /// B44.
         /// </summary>
         B44,
 
         /// <summary>
-        /// BZip
+        /// BZip.
         /// </summary>
         BZip,
 
         /// <summary>
-        /// DXT1
+        /// DXT1.
         /// </summary>
         DXT1,
 
         /// <summary>
-        /// DXT3
+        /// DXT3.
         /// </summary>
         DXT3,
 
         /// <summary>
-        /// DXT5
+        /// DXT5.
         /// </summary>
         DXT5,
 
         /// <summary>
-        /// Fax
+        /// Fax.
         /// </summary>
         Fax,
 
         /// <summary>
-        /// Group4
+        /// Group4.
         /// </summary>
         Group4,
 
         /// <summary>
-        /// JBIG1
+        /// JBIG1.
         /// </summary>
         JBIG1,
 
         /// <summary>
-        /// JBIG2
+        /// JBIG2.
         /// </summary>
         JBIG2,
 
         /// <summary>
-        /// JPEG2000
+        /// JPEG2000.
         /// </summary>
         JPEG2000,
 
         /// <summary>
-        /// JPEG
+        /// JPEG.
         /// </summary>
         JPEG,
 
         /// <summary>
-        /// LosslessJPEG
+        /// LosslessJPEG.
         /// </summary>
         LosslessJPEG,
 
         /// <summary>
-        /// LZMA
+        /// LZMA.
         /// </summary>
         LZMA,
 
         /// <summary>
-        /// LZW
+        /// LZW.
         /// </summary>
         LZW,
 
         /// <summary>
-        /// NoCompression
+        /// NoCompression.
         /// </summary>
         NoCompression,
 
         /// <summary>
-        /// Piz
+        /// Piz.
         /// </summary>
         Piz,
 
         /// <summary>
-        /// Pxr24
+        /// Pxr24.
         /// </summary>
         Pxr24,
 
         /// <summary>
-        /// RLE
+        /// RLE.
         /// </summary>
         RLE,
 
         /// <summary>
-        /// Zip
+        /// Zip.
         /// </summary>
         Zip,
 
         /// <summary>
-        /// ZipS
+        /// ZipS.
         /// </summary>
         ZipS,
 
         /// <summary>
-        /// Zstd
+        /// Zstd.
         /// </summary>
         Zstd,
 
         /// <summary>
-        /// WebP
+        /// WebP.
         /// </summary>
         WebP,
 
         /// <summary>
-        /// DWAA
+        /// DWAA.
         /// </summary>
         DWAA,
 
         /// <summary>
-        /// DWAB
+        /// DWAB.
         /// </summary>
         DWAB,
     }

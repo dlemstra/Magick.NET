@@ -18,172 +18,172 @@ namespace ImageMagick
     public enum EvaluateOperator
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Abs
+        /// Abs.
         /// </summary>
         Abs,
 
         /// <summary>
-        /// Add
+        /// Add.
         /// </summary>
         Add,
 
         /// <summary>
-        /// AddModulus
+        /// AddModulus.
         /// </summary>
         AddModulus,
 
         /// <summary>
-        /// And
+        /// And.
         /// </summary>
         And,
 
         /// <summary>
-        /// Cosine
+        /// Cosine.
         /// </summary>
         Cosine,
 
         /// <summary>
-        /// Divide
+        /// Divide.
         /// </summary>
         Divide,
 
         /// <summary>
-        /// Exponential
+        /// Exponential.
         /// </summary>
         Exponential,
 
         /// <summary>
-        /// GaussianNoise
+        /// GaussianNoise.
         /// </summary>
         GaussianNoise,
 
         /// <summary>
-        /// ImpulseNoise
+        /// ImpulseNoise.
         /// </summary>
         ImpulseNoise,
 
         /// <summary>
-        /// LaplacianNoise
+        /// LaplacianNoise.
         /// </summary>
         LaplacianNoise,
 
         /// <summary>
-        /// LeftShift
+        /// LeftShift.
         /// </summary>
         LeftShift,
 
         /// <summary>
-        /// Log
+        /// Log.
         /// </summary>
         Log,
 
         /// <summary>
-        /// Max
+        /// Max.
         /// </summary>
         Max,
 
         /// <summary>
-        /// Mean
+        /// Mean.
         /// </summary>
         Mean,
 
         /// <summary>
-        /// Median
+        /// Median.
         /// </summary>
         Median,
 
         /// <summary>
-        /// Min
+        /// Min.
         /// </summary>
         Min,
 
         /// <summary>
-        /// MultiplicativeNoise
+        /// MultiplicativeNoise.
         /// </summary>
         MultiplicativeNoise,
 
         /// <summary>
-        /// Multiply
+        /// Multiply.
         /// </summary>
         Multiply,
 
         /// <summary>
-        /// Or
+        /// Or.
         /// </summary>
         Or,
 
         /// <summary>
-        /// PoissonNoise
+        /// PoissonNoise.
         /// </summary>
         PoissonNoise,
 
         /// <summary>
-        /// Pow
+        /// Pow.
         /// </summary>
         Pow,
 
         /// <summary>
-        /// RightShift
+        /// RightShift.
         /// </summary>
         RightShift,
 
         /// <summary>
-        /// RootMeanSquare
+        /// RootMeanSquare.
         /// </summary>
         RootMeanSquare,
 
         /// <summary>
-        /// Set
+        /// Set.
         /// </summary>
         Set,
 
         /// <summary>
-        /// Sine
+        /// Sine.
         /// </summary>
         Sine,
 
         /// <summary>
-        /// Subtract
+        /// Subtract.
         /// </summary>
         Subtract,
 
         /// <summary>
-        /// Sum
+        /// Sum.
         /// </summary>
         Sum,
 
         /// <summary>
-        /// ThresholdBlack
+        /// ThresholdBlack.
         /// </summary>
         ThresholdBlack,
 
         /// <summary>
-        /// Threshold
+        /// Threshold.
         /// </summary>
         Threshold,
 
         /// <summary>
-        /// ThresholdWhite
+        /// ThresholdWhite.
         /// </summary>
         ThresholdWhite,
 
         /// <summary>
-        /// UniformNoise
+        /// UniformNoise.
         /// </summary>
         UniformNoise,
 
         /// <summary>
-        /// Xor
+        /// Xor.
         /// </summary>
         Xor,
 
         /// <summary>
-        /// InverseLog
+        /// InverseLog.
         /// </summary>
         InverseLog,
     }

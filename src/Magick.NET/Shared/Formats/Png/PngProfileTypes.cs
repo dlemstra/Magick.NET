@@ -21,32 +21,32 @@ namespace ImageMagick.Formats.Png
     public enum PngProfileTypes
     {
         /// <summary>
-        /// App profile
+        /// App profile.
         /// </summary>
         App = 1,
 
         /// <summary>
-        /// 8bim profile
+        /// 8bim profile.
         /// </summary>
         EightBim = 2,
 
         /// <summary>
-        /// Exif profile
+        /// Exif profile.
         /// </summary>
         Exif = 4,
 
         /// <summary>
-        /// Icc profile
+        /// Icc profile.
         /// </summary>
         Icc = 8,
 
         /// <summary>
-        /// Iptc profile
+        /// Iptc profile.
         /// </summary>
         Iptc = 16,
 
         /// <summary>
-        /// Xmp profile
+        /// Xmp profile.
         /// </summary>
         Xmp = 32,
     }

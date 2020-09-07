@@ -18,22 +18,22 @@ namespace ImageMagick
     public enum AutoThresholdMethod
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Kapur
+        /// Kapur.
         /// </summary>
         Kapur,
 
         /// <summary>
-        /// OTSU
+        /// OTSU.
         /// </summary>
         OTSU,
 
         /// <summary>
-        /// Triangle
+        /// Triangle.
         /// </summary>
         Triangle,
     }

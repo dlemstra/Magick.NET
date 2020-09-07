@@ -18,82 +18,82 @@ namespace ImageMagick
     public enum AlphaOption
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Activate
+        /// Activate.
         /// </summary>
         Activate,
 
         /// <summary>
-        /// Associate
+        /// Associate.
         /// </summary>
         Associate,
 
         /// <summary>
-        /// Background
+        /// Background.
         /// </summary>
         Background,
 
         /// <summary>
-        /// Copy
+        /// Copy.
         /// </summary>
         Copy,
 
         /// <summary>
-        /// Deactivate
+        /// Deactivate.
         /// </summary>
         Deactivate,
 
         /// <summary>
-        /// Discrete
+        /// Discrete.
         /// </summary>
         Discrete,
 
         /// <summary>
-        /// Disassociate
+        /// Disassociate.
         /// </summary>
         Disassociate,
 
         /// <summary>
-        /// Extract
+        /// Extract.
         /// </summary>
         Extract,
 
         /// <summary>
-        /// Off
+        /// Off.
         /// </summary>
         Off,
 
         /// <summary>
-        /// On
+        /// On.
         /// </summary>
         On,
 
         /// <summary>
-        /// Opaque
+        /// Opaque.
         /// </summary>
         Opaque,
 
         /// <summary>
-        /// Remove
+        /// Remove.
         /// </summary>
         Remove,
 
         /// <summary>
-        /// Set
+        /// Set.
         /// </summary>
         Set,
 
         /// <summary>
-        /// Shape
+        /// Shape.
         /// </summary>
         Shape,
 
         /// <summary>
-        /// Transparent
+        /// Transparent.
         /// </summary>
         Transparent,
     }

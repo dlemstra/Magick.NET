@@ -18,17 +18,17 @@ namespace ImageMagick.Formats.Tiff
     public enum TiffAlpha
     {
         /// <summary>
-        /// Unspecified
+        /// Unspecified.
         /// </summary>
         Unspecified,
 
         /// <summary>
-        /// Associated
+        /// Associated.
         /// </summary>
         Associated,
 
         /// <summary>
-        /// Unassociated
+        /// Unassociated.
         /// </summary>
         Unassociated,
     }

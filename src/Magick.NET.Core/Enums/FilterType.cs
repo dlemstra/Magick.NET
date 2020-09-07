@@ -18,162 +18,162 @@ namespace ImageMagick
     public enum FilterType
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Point
+        /// Point.
         /// </summary>
         Point,
 
         /// <summary>
-        /// Box
+        /// Box.
         /// </summary>
         Box,
 
         /// <summary>
-        /// Triangle
+        /// Triangle.
         /// </summary>
         Triangle,
 
         /// <summary>
-        /// Hermite
+        /// Hermite.
         /// </summary>
         Hermite,
 
         /// <summary>
-        /// Hann
+        /// Hann.
         /// </summary>
         Hann,
 
         /// <summary>
-        /// Hamming
+        /// Hamming.
         /// </summary>
         Hamming,
 
         /// <summary>
-        /// Blackman
+        /// Blackman.
         /// </summary>
         Blackman,
 
         /// <summary>
-        /// Gaussian
+        /// Gaussian.
         /// </summary>
         Gaussian,
 
         /// <summary>
-        /// Quadratic
+        /// Quadratic.
         /// </summary>
         Quadratic,
 
         /// <summary>
-        /// Cubic
+        /// Cubic.
         /// </summary>
         Cubic,
 
         /// <summary>
-        /// Catrom
+        /// Catrom.
         /// </summary>
         Catrom,
 
         /// <summary>
-        /// Mitchell
+        /// Mitchell.
         /// </summary>
         Mitchell,
 
         /// <summary>
-        /// Jinc
+        /// Jinc.
         /// </summary>
         Jinc,
 
         /// <summary>
-        /// Sinc
+        /// Sinc.
         /// </summary>
         Sinc,
 
         /// <summary>
-        /// SincFast
+        /// SincFast.
         /// </summary>
         SincFast,
 
         /// <summary>
-        /// Kaiser
+        /// Kaiser.
         /// </summary>
         Kaiser,
 
         /// <summary>
-        /// Welch
+        /// Welch.
         /// </summary>
         Welch,
 
         /// <summary>
-        /// Parzen
+        /// Parzen.
         /// </summary>
         Parzen,
 
         /// <summary>
-        /// Bohman
+        /// Bohman.
         /// </summary>
         Bohman,
 
         /// <summary>
-        /// Bartlett
+        /// Bartlett.
         /// </summary>
         Bartlett,
 
         /// <summary>
-        /// Lagrange
+        /// Lagrange.
         /// </summary>
         Lagrange,
 
         /// <summary>
-        /// Lanczos
+        /// Lanczos.
         /// </summary>
         Lanczos,
 
         /// <summary>
-        /// LanczosSharp
+        /// LanczosSharp.
         /// </summary>
         LanczosSharp,
 
         /// <summary>
-        /// Lanczos2
+        /// Lanczos2.
         /// </summary>
         Lanczos2,
 
         /// <summary>
-        /// Lanczos2Sharp
+        /// Lanczos2Sharp.
         /// </summary>
         Lanczos2Sharp,
 
         /// <summary>
-        /// Robidoux
+        /// Robidoux.
         /// </summary>
         Robidoux,
 
         /// <summary>
-        /// RobidouxSharp
+        /// RobidouxSharp.
         /// </summary>
         RobidouxSharp,
 
         /// <summary>
-        /// Cosine
+        /// Cosine.
         /// </summary>
         Cosine,
 
         /// <summary>
-        /// Spline
+        /// Spline.
         /// </summary>
         Spline,
 
         /// <summary>
-        /// LanczosRadius
+        /// LanczosRadius.
         /// </summary>
         LanczosRadius,
 
         /// <summary>
-        /// CubicSpline
+        /// CubicSpline.
         /// </summary>
         CubicSpline,
     }

@@ -18,27 +18,27 @@ namespace ImageMagick
     public enum RenderingIntent
     {
         /// <summary>
-        /// Undefined
+        /// Undefined.
         /// </summary>
         Undefined,
 
         /// <summary>
-        /// Saturation
+        /// Saturation.
         /// </summary>
         Saturation,
 
         /// <summary>
-        /// Perceptual
+        /// Perceptual.
         /// </summary>
         Perceptual,
 
         /// <summary>
-        /// Absolute
+        /// Absolute.
         /// </summary>
         Absolute,
 
         /// <summary>
-        /// Relative
+        /// Relative.
         /// </summary>
         Relative,
     }
