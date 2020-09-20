@@ -1,4 +1,7 @@
+.git
 .vs
+docs
+publish
 samples
 src/Magick.Native/libraries
 src/Magick.Native/resources
