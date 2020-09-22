@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -27,6 +28,16 @@ namespace Magick.NET.Tests
                 {
                     Assert.AreNotEqual(MagickFormat.Unknown, formatInfo.Format, "Unknown format: " + formatInfo.Description + " (" + formatInfo.ModuleFormat + ")");
                 }
+            }
+
+            [TestMethod]
+            public void ShouldContainTheCorrectNumberOfFormats()
+            {
+#if WINDOWS_BUILD
+                Assert.AreEqual(255, MagickNET.SupportedFormats.Count());
+#else
+                Assert.AreEqual(251, MagickNET.SupportedFormats.Count());
+#endif
             }
         }
     }
