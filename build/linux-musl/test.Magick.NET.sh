@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
 buildAndTest() {
@@ -11,7 +11,7 @@ buildAndTest() {
 }
 
 cd src/Magick.Native
-./install.sh linux
+./install.sh linux-musl
 
 cd ../../
 buildAndTest "Q8"

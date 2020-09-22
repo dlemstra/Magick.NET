@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
-apt-get update
+apk update
 
-apt-get install fontconfig unzip -y
+apk add curl fontconfig git
 
 git clone https://github.com/ImageMagick/msttcorefonts msttcorefonts
 cd msttcorefonts

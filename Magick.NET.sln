@@ -172,6 +172,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magick.NET.SystemWindowsMed
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magick.NET.SystemWindowsMedia.Tests", "tests\Magick.NET.SystemWindowsMedia.Tests\Magick.NET.SystemWindowsMedia.Tests.csproj", "{2C404C5D-ECE9-45BD-BDB8-9DD31B5BEED3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux-musl", "linux-musl", "{5F85869A-E670-4097-AEC0-80D746531315}"
+	ProjectSection(SolutionItems) = preProject
+		build\linux-musl\build.cmd = build\linux-musl\build.cmd
+		build\linux-musl\Dockerfile = build\linux-musl\Dockerfile
+		build\linux-musl\install.dependencies.sh = build\linux-musl\install.dependencies.sh
+		build\linux-musl\run.cmd = build\linux-musl\run.cmd
+		build\linux-musl\test.Magick.NET.sh = build\linux-musl\test.Magick.NET.sh
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		DebugQ16|Any CPU = DebugQ16|Any CPU
@@ -877,6 +886,7 @@ Global
 		{97A0E844-F003-4843-8E92-C7DA1B076381} = {CADB374F-AC1D-4456-940E-2317DF1372C2}
 		{9B83B8F4-04F0-4024-8B1A-230DF909D7FD} = {61345F8D-8813-4CA8-B037-2DE221FFB5D2}
 		{2C404C5D-ECE9-45BD-BDB8-9DD31B5BEED3} = {CADB374F-AC1D-4456-940E-2317DF1372C2}
+		{5F85869A-E670-4097-AEC0-80D746531315} = {F6E20621-E266-4314-ADE0-A899270F2312}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F6887AA-E540-48B3-BDC0-068B342ABEBE}

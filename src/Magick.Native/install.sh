@@ -1,43 +1,40 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
-version=$(<Magick.Native.version)
+version=`cat Magick.Native.version`
 
 installPackage() {
     mkdir temp
 
     # Temporary download from DropBox
-    nuget_url="https://dl.dropboxusercontent.com/s/euzjby0kpo4vwre/Magick.Native.$version.nupkg"
+    nuget_url="https://dl.dropboxusercontent.com/s/6gqi06zrj6q479b/Magick.Native.$version.nupkg"
     curl -s -o Magick.Native.$version.nupkg $nuget_url
 
-    cwd=$(pwd)
-    nuget install Magick.Native -Version $version -OutputDirectory temp -Source $cwd
-
-    #nuget install Magick.Native -Version $version -OutputDirectory temp
+    unzip Magick.Native.$version.nupkg -d temp
 }
 
 copyToTestProject() {
-    local quantum=$1
+    local runtime=$1
+    local quantum=$2
 
     folder=../../tests/Magick.NET.Tests/bin/Test$quantum/AnyCPU/netcoreapp3.0
     mkdir -p $folder
-
-    cp temp/Magick.Native.$version/content/Release$quantum/x64/Magick.Native-$quantum-x64.dll.so $folder
-    cp temp/Magick.Native.$version/content/Release$quantum/x64/Magick.Native-$quantum-x64.dll.dylib $folder
+    cp temp/content/$runtime/Release$quantum/x64/Magick.Native-$quantum-x64.dll* $folder
 
     folder=resources/Release$quantum
     mkdir -p $folder
-    cp temp/Magick.Native.$version/content/Release$quantum/x64/*.xml $folder
+    cp temp/content/resources/Release$quantum/x64/*.xml $folder
 }
 
-
 copyToTestProjects() {
-    copyToTestProject "Q8"
-    copyToTestProject "Q16"
-    copyToTestProject "Q16-HDRI"
+    local runtime=$1
+
+    copyToTestProject $runtime "Q8"
+    copyToTestProject $runtime "Q16"
+    copyToTestProject $runtime "Q16-HDRI"
 }
 
 if [ ! -d "temp" ]; then
     installPackage
-    copyToTestProjects
+    copyToTestProjects $1
 fi

@@ -11,7 +11,7 @@ buildAndTest() {
 }
 
 cd src/Magick.Native
-./install.sh
+./install.sh macos
 
 brew install fontconfig
 
