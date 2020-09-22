@@ -38,7 +38,7 @@ function addOpenMPLibrary($xml) {
 }
 
 function addNativeLibrary($xml, $quantumName, $platform, $runtime, $extension) {
-    $source = fullPath "src\Magick.Native\libraries\Magick.Native-$quantumName-$platform$extension"
+    $source = fullPath "src\Magick.Native\libraries\$runtime\Magick.Native-$quantumName-$platform$extension"
     $target = "runtimes\$runtime-$platform\native\Magick.Native-$quantumName-$platform$extension"
     addFile $xml $source $target
 }
@@ -58,6 +58,7 @@ function addNativeLibraries($xml, $quantumName, $platform) {
             addOpenMPLibrary $xml
         } else {
             addNativeLibrary $xml $quantumName $platform "linux" ".dll.so"
+            addNativeLibrary $xml $quantumName $platform "linux-musl" ".dll.so"
             addNativeLibrary $xml $quantumName $platform "osx" ".dll.dylib"
         }
     }
