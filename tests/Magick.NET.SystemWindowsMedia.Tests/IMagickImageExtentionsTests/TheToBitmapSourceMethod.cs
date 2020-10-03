@@ -13,42 +13,41 @@
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.SystemWindowsMedia.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheToBitmapSourceMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnImageWithRgb24FormatForRgbImage()
             {
-                byte[] pixels = new byte[150];
+                var pixels = new byte[150];
 
                 using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
                     var bitmapSource = image.ToBitmapSource();
 
-                    Assert.AreEqual(PixelFormats.Rgb24, bitmapSource.Format);
-                    Assert.AreEqual(5, bitmapSource.Width);
-                    Assert.AreEqual(10, bitmapSource.Height);
-                    Assert.AreEqual(96, bitmapSource.DpiX);
-                    Assert.AreEqual(96, bitmapSource.DpiY);
+                    Assert.Equal(PixelFormats.Rgb24, bitmapSource.Format);
+                    Assert.Equal(5, bitmapSource.Width);
+                    Assert.Equal(10, bitmapSource.Height);
+                    Assert.Equal(96, bitmapSource.DpiX);
+                    Assert.Equal(96, bitmapSource.DpiY);
 
                     bitmapSource.CopyPixels(pixels, 15, 0);
 
-                    Assert.AreEqual(255, pixels[0]);
-                    Assert.AreEqual(0, pixels[1]);
-                    Assert.AreEqual(0, pixels[2]);
+                    Assert.Equal(255, pixels[0]);
+                    Assert.Equal(0, pixels[1]);
+                    Assert.Equal(0, pixels[2]);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnImageWithCmyk32FormatForCmykImage()
             {
-                byte[] pixels = new byte[200];
+                var pixels = new byte[200];
 
                 using (var image = new MagickImage(MagickColors.Red, 10, 5))
                 {
@@ -56,22 +55,22 @@ namespace Magick.NET.SystemWindowsMedia.Tests
 
                     BitmapSource bitmapSource = image.ToBitmapSource();
 
-                    Assert.AreEqual(PixelFormats.Cmyk32, bitmapSource.Format);
-                    Assert.AreEqual(10, bitmapSource.Width);
-                    Assert.AreEqual(5, bitmapSource.Height);
-                    Assert.AreEqual(96, bitmapSource.DpiX);
-                    Assert.AreEqual(96, bitmapSource.DpiY);
+                    Assert.Equal(PixelFormats.Cmyk32, bitmapSource.Format);
+                    Assert.Equal(10, bitmapSource.Width);
+                    Assert.Equal(5, bitmapSource.Height);
+                    Assert.Equal(96, bitmapSource.DpiX);
+                    Assert.Equal(96, bitmapSource.DpiY);
 
                     bitmapSource.CopyPixels(pixels, 40, 0);
 
-                    Assert.AreEqual(0, pixels[0]);
-                    Assert.AreEqual(255, pixels[1]);
-                    Assert.AreEqual(255, pixels[2]);
-                    Assert.AreEqual(0, pixels[3]);
+                    Assert.Equal(0, pixels[0]);
+                    Assert.Equal(255, pixels[1]);
+                    Assert.Equal(255, pixels[2]);
+                    Assert.Equal(0, pixels[3]);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnImageWithBgra32FormatForRgbaImage()
             {
                 byte[] pixels = new byte[200];
@@ -82,22 +81,22 @@ namespace Magick.NET.SystemWindowsMedia.Tests
 
                     BitmapSource bitmapSource = image.ToBitmapSource();
 
-                    Assert.AreEqual(PixelFormats.Bgra32, bitmapSource.Format);
-                    Assert.AreEqual(5, bitmapSource.Width);
-                    Assert.AreEqual(10, bitmapSource.Height);
-                    Assert.AreEqual(96, bitmapSource.DpiX);
-                    Assert.AreEqual(96, bitmapSource.DpiY);
+                    Assert.Equal(PixelFormats.Bgra32, bitmapSource.Format);
+                    Assert.Equal(5, bitmapSource.Width);
+                    Assert.Equal(10, bitmapSource.Height);
+                    Assert.Equal(96, bitmapSource.DpiX);
+                    Assert.Equal(96, bitmapSource.DpiY);
 
                     bitmapSource.CopyPixels(pixels, 20, 0);
 
-                    Assert.AreEqual(0, pixels[0]);
-                    Assert.AreEqual(0, pixels[1]);
-                    Assert.AreEqual(255, pixels[2]);
-                    Assert.AreEqual(255, pixels[3]);
+                    Assert.Equal(0, pixels[0]);
+                    Assert.Equal(0, pixels[1]);
+                    Assert.Equal(255, pixels[2]);
+                    Assert.Equal(255, pixels[3]);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnImageWithRgb24FormatForYCbCrImage()
             {
                 byte[] pixels = new byte[150];
@@ -108,21 +107,21 @@ namespace Magick.NET.SystemWindowsMedia.Tests
 
                     BitmapSource bitmapSource = image.ToBitmapSource();
 
-                    Assert.AreEqual(PixelFormats.Rgb24, bitmapSource.Format);
-                    Assert.AreEqual(5, bitmapSource.Width);
-                    Assert.AreEqual(10, bitmapSource.Height);
-                    Assert.AreEqual(96, bitmapSource.DpiX);
-                    Assert.AreEqual(96, bitmapSource.DpiY);
+                    Assert.Equal(PixelFormats.Rgb24, bitmapSource.Format);
+                    Assert.Equal(5, bitmapSource.Width);
+                    Assert.Equal(10, bitmapSource.Height);
+                    Assert.Equal(96, bitmapSource.DpiX);
+                    Assert.Equal(96, bitmapSource.DpiY);
 
                     bitmapSource.CopyPixels(pixels, 15, 0);
 
-                    Assert.AreEqual(255, pixels[0]);
-                    Assert.AreEqual(0, pixels[1]);
-                    Assert.AreEqual(0, pixels[2]);
+                    Assert.Equal(255, pixels[0]);
+                    Assert.Equal(0, pixels[1]);
+                    Assert.Equal(0, pixels[2]);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotConvertTheDpiWhenDensityIsUndefinedAndNotZero()
             {
                 using (var image = new MagickImage(MagickColors.Red, 5, 10))
@@ -131,12 +130,12 @@ namespace Magick.NET.SystemWindowsMedia.Tests
 
                     var bitmapSource = image.ToBitmapSourceWithDensity();
 
-                    Assert.AreEqual(1, bitmapSource.DpiX);
-                    Assert.AreEqual(2, bitmapSource.DpiY);
+                    Assert.Equal(1, bitmapSource.DpiX);
+                    Assert.Equal(2, bitmapSource.DpiY);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotConvertTheDpiWhenDensityIsPixelsPerInch()
             {
                 using (var image = new MagickImage(MagickColors.Red, 5, 10))
@@ -145,12 +144,12 @@ namespace Magick.NET.SystemWindowsMedia.Tests
 
                     var bitmapSource = image.ToBitmapSourceWithDensity();
 
-                    Assert.AreEqual(1, bitmapSource.DpiX);
-                    Assert.AreEqual(2, bitmapSource.DpiY);
+                    Assert.Equal(1, bitmapSource.DpiX);
+                    Assert.Equal(2, bitmapSource.DpiY);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldConvertTheDpiWhenDensityIsPixelsPerCentimeter()
             {
                 using (var image = new MagickImage(MagickColors.Red, 5, 10))
@@ -159,12 +158,12 @@ namespace Magick.NET.SystemWindowsMedia.Tests
 
                     var bitmapSource = image.ToBitmapSourceWithDensity();
 
-                    Assert.AreEqual(2.54, bitmapSource.DpiX, 0.01);
-                    Assert.AreEqual(5.08, bitmapSource.DpiY, 0.01);
+                    Assert.InRange(bitmapSource.DpiX, 2.53, 2.55);
+                    Assert.InRange(bitmapSource.DpiY, 5.07, 5.09);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldIgnoreTheDensityOfTheImage()
             {
                 using (var image = new MagickImage(MagickColors.Red, 200, 100))
@@ -173,12 +172,12 @@ namespace Magick.NET.SystemWindowsMedia.Tests
 
                     var bitmapSource = image.ToBitmapSource();
 
-                    Assert.AreEqual(200, (int)bitmapSource.Width);
-                    Assert.AreEqual(100, (int)bitmapSource.Height);
+                    Assert.Equal(200, (int)bitmapSource.Width);
+                    Assert.Equal(100, (int)bitmapSource.Height);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldUseTheDensityOfTheImageWhenBitmapDensityIsSetToUse()
             {
                 using (var image = new MagickImage(MagickColors.Red, 200, 100))
@@ -187,8 +186,8 @@ namespace Magick.NET.SystemWindowsMedia.Tests
 
                     var bitmapSource = image.ToBitmapSourceWithDensity();
 
-                    Assert.AreEqual(64, (int)bitmapSource.Width);
-                    Assert.AreEqual(48, (int)bitmapSource.Height);
+                    Assert.Equal(64, (int)bitmapSource.Width);
+                    Assert.Equal(48, (int)bitmapSource.Height);
                 }
             }
         }

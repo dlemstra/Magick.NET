@@ -26,7 +26,6 @@
   <ItemGroup>
     <AdditionalFiles Include="../../stylecop.json" Link="stylecop.json" />
     <AdditionalFiles Include="../Shared/Magick.NET.ruleset" Link="Magick.NET.ruleset" />
-    <Compile Include="../Shared/ExceptionAssert.cs" Link="Asserts/ExceptionAssert.cs" />
   </ItemGroup>
 
   <PropertyGroup>

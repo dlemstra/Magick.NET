@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Compile Include="../Shared/EnumerableAssert.cs" Link="Asserts/EnumerableAssert.cs" />
+    <Compile Include="../Shared/ExceptionAssert.cs" Link="Asserts/ExceptionAssert.cs" />
   </ItemGroup>
 
   <Import Project="../Shared/Magick.NET.props" />

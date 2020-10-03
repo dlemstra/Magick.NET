@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="../Shared/ColorAssert.cs" Link="Asserts/ColorAssert.cs" />
     <Compile Include="../Shared/EnumerableAssert.cs" Link="Asserts/EnumerableAssert.cs" />
+    <Compile Include="../Shared/ExceptionAssert.cs" Link="Asserts/ExceptionAssert.cs" />
     <Compile Include="../Shared/Files.cs" Link="Helpers/Files.cs" />
   </ItemGroup>
 
