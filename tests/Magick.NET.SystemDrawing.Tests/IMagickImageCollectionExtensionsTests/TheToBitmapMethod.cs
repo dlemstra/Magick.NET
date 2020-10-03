@@ -13,31 +13,30 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.SystemDrawing.Tests
 {
     public partial class MagickImageCollectionTests
     {
-        [TestClass]
         public class TheToBitmapMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnBitmap()
             {
                 using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
                 {
-                    Assert.AreEqual(3, images.Count);
+                    Assert.Equal(3, images.Count);
 
                     using (Bitmap bitmap = images.ToBitmap())
                     {
-                        Assert.IsNotNull(bitmap);
-                        Assert.AreEqual(3, bitmap.GetFrameCount(FrameDimension.Page));
+                        Assert.NotNull(bitmap);
+                        Assert.Equal(3, bitmap.GetFrameCount(FrameDimension.Page));
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldUseOptimizationForSingleImage()
             {
                 using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
@@ -45,11 +44,11 @@ namespace Magick.NET.SystemDrawing.Tests
                     images.RemoveAt(0);
                     images.RemoveAt(0);
 
-                    EnumerableAssert.IsSingle(images);
+                    Assert.Single(images);
 
                     using (Bitmap bitmap = images.ToBitmap())
                     {
-                        Assert.IsNotNull(bitmap);
+                        Assert.NotNull(bitmap);
                     }
                 }
             }

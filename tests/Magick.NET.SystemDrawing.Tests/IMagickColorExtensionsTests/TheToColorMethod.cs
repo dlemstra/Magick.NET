@@ -11,39 +11,38 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.SystemDrawing.Tests
 {
     public partial class MagickColorTests
     {
-        [TestClass]
         public class TheToColorMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldConvertRgbColorToRgba()
             {
                 var rgbColor = new ColorRGB(Quantum.Max, 0, 0);
                 var magickColor = rgbColor.ToMagickColor();
 
                 var color = magickColor.ToColor();
-                Assert.AreEqual(255, color.R);
-                Assert.AreEqual(0, color.G);
-                Assert.AreEqual(0, color.B);
-                Assert.AreEqual(255, color.A);
+                Assert.Equal(255, color.R);
+                Assert.Equal(0, color.G);
+                Assert.Equal(0, color.B);
+                Assert.Equal(255, color.A);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldConvertCmykColorToRgba()
             {
                 var cmkyColor = new ColorCMYK(Quantum.Max, 0, 0, 0, Quantum.Max);
                 var magickColor = cmkyColor.ToMagickColor();
 
                 var color = magickColor.ToColor();
-                Assert.AreEqual(0, color.R);
-                Assert.AreEqual(255, color.G);
-                Assert.AreEqual(255, color.B);
-                Assert.AreEqual(255, color.A);
+                Assert.Equal(0, color.R);
+                Assert.Equal(255, color.G);
+                Assert.Equal(255, color.B);
+                Assert.Equal(255, color.A);
             }
         }
     }

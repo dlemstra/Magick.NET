@@ -11,7 +11,8 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using Xunit.Sdk;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -27,12 +28,12 @@ namespace Magick.NET
 {
     internal static class ColorAssert
     {
-        public static void AreEqual(IMagickColor<QuantumType> expected, IMagickColor<QuantumType> actual)
-            => AreEqual(expected, actual, null);
+        public static void Equal(IMagickColor<QuantumType> expected, IMagickColor<QuantumType> actual)
+            => Equal(expected, actual, null);
 
-        public static void AreEqual(IMagickColor<QuantumType> expected, IMagickColor<QuantumType> actual, string messageSuffix)
+        public static void Equal(IMagickColor<QuantumType> expected, IMagickColor<QuantumType> actual, string messageSuffix)
         {
-            Assert.IsNotNull(actual);
+            Assert.NotNull(actual);
 
 #if Q16HDRI
             /* Allow difference of 1 due to rounding issues */
@@ -41,58 +42,59 @@ namespace Magick.NET
             QuantumType delta = 0;
 #endif
 
-            AreEqual(expected.R, actual.R, expected, actual, delta, "R", messageSuffix);
-            AreEqual(expected.G, actual.G, expected, actual, delta, "G", messageSuffix);
-            AreEqual(expected.B, actual.B, expected, actual, delta, "B", messageSuffix);
-            AreEqual(expected.A, actual.A, expected, actual, delta, "A", messageSuffix);
+            Equal(expected.R, actual.R, expected, actual, delta, "R", messageSuffix);
+            Equal(expected.G, actual.G, expected, actual, delta, "G", messageSuffix);
+            Equal(expected.B, actual.B, expected, actual, delta, "B", messageSuffix);
+            Equal(expected.A, actual.A, expected, actual, delta, "A", messageSuffix);
         }
 
-        public static void AreEqual(IMagickColor<QuantumType> expected, IMagickImage<QuantumType> image, int x, int y)
+        public static void Equal(IMagickColor<QuantumType> expected, IMagickImage<QuantumType> image, int x, int y)
         {
             using (var pixels = image.GetPixelsUnsafe())
             {
-                AreEqual(expected, pixels.GetPixel(x, y), $" at position {x}x{y}");
+                Equal(expected, pixels.GetPixel(x, y), $" at position {x}x{y}");
             }
         }
 
-        public static void AreNotEqual(IMagickColor<QuantumType> notExpected, IMagickColor<QuantumType> actual)
-            => AreNotEqual(notExpected, actual, null);
+        public static void NotEqual(IMagickColor<QuantumType> notExpected, IMagickColor<QuantumType> actual)
+            => NotEqual(notExpected, actual, null);
 
-        public static void AreNotEqual(IMagickColor<QuantumType> notExpected, IMagickColor<QuantumType> actual, string messageSuffix)
+        public static void NotEqual(IMagickColor<QuantumType> notExpected, IMagickColor<QuantumType> actual, string messageSuffix)
         {
             if (notExpected.R == actual.R && notExpected.G == actual.G &&
                notExpected.B == actual.B && notExpected.A == actual.A)
-                Assert.Fail("Colors are the same (" + actual.ToString() + ")");
+                throw new XunitException("Colors are the same (" + actual.ToString() + ")");
         }
 
-        public static void AreNotEqual(IMagickColor<QuantumType> notExpected, IMagickImage<QuantumType> image, int x, int y)
+        public static void NotEqual(IMagickColor<QuantumType> notExpected, IMagickImage<QuantumType> image, int x, int y)
         {
             using (var collection = image.GetPixelsUnsafe())
             {
-                AreNotEqual(notExpected, collection.GetPixel(x, y), $" at position {x}x{y}");
+                NotEqual(notExpected, collection.GetPixel(x, y), $" at position {x}x{y}");
             }
         }
 
-        public static void IsTransparent(float alpha)
-            => Assert.AreEqual(0, alpha);
+        public static void Transparent(float alpha)
+            => Assert.Equal(0, alpha);
 
-        public static void IsNotTransparent(float alpha)
-            => Assert.AreEqual(Quantum.Max, alpha);
+        public static void NotTransparent(float alpha)
+            => Assert.Equal(Quantum.Max, alpha);
 
-        private static void AreEqual(IMagickColor<QuantumType> expected, IPixel<QuantumType> actual, string messageSuffix)
-            => AreEqual(expected, actual.ToColor(), messageSuffix);
+        private static void Equal(IMagickColor<QuantumType> expected, IPixel<QuantumType> actual, string messageSuffix)
+            => Equal(expected, actual.ToColor(), messageSuffix);
 
-        private static void AreEqual(QuantumType expected, QuantumType actual, IMagickColor<QuantumType> expectedColor, IMagickColor<QuantumType> actualColor, float delta, string channel, string messageSuffix)
+        private static void Equal(QuantumType expected, QuantumType actual, IMagickColor<QuantumType> expectedColor, IMagickColor<QuantumType> actualColor, float delta, string channel, string messageSuffix)
         {
 #if Q16HDRI
             if (double.IsNaN(actual))
                 actual = 0;
 #endif
 
-            Assert.AreEqual(expected, actual, delta, channel + " is not equal (" + expectedColor.ToString() + " != " + actualColor.ToString() + ")" + messageSuffix);
+            if (actual > expected + delta || actual < expected + delta)
+                throw new XunitException(channel + " is not equal (" + expectedColor.ToString() + " != " + actualColor.ToString() + ")" + messageSuffix);
         }
 
-        private static void AreNotEqual(IMagickColor<QuantumType> expected, IPixel<QuantumType> actual, string messageSuffix)
-            => AreNotEqual(expected, actual.ToColor(), messageSuffix);
+        private static void NotEqual(IMagickColor<QuantumType> expected, IPixel<QuantumType> actual, string messageSuffix)
+            => NotEqual(expected, actual.ToColor(), messageSuffix);
     }
 }

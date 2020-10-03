@@ -13,23 +13,22 @@
 using System;
 using System.Drawing;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.SystemDrawing.Tests
 {
     public partial class MagickImageFactoryTests
     {
-        [TestClass]
         public partial class TheCreateMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenBitmapIsNull()
             {
                 var factory = new MagickImageFactory();
-                ExceptionAssert.Throws<ArgumentNullException>("bitmap", () => factory.Create((Bitmap)null));
+                Assert.Throws<ArgumentNullException>("bitmap", () => factory.Create((Bitmap)null));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldCreateImageFromBitmap()
             {
                 using (var bitmap = new Bitmap(Files.SnakewarePNG))
@@ -37,9 +36,9 @@ namespace Magick.NET.SystemDrawing.Tests
                     var factory = new MagickImageFactory();
                     using (var image = factory.Create(bitmap))
                     {
-                        Assert.AreEqual(286, image.Width);
-                        Assert.AreEqual(67, image.Height);
-                        Assert.AreEqual(MagickFormat.Png, image.Format);
+                        Assert.Equal(286, image.Width);
+                        Assert.Equal(67, image.Height);
+                        Assert.Equal(MagickFormat.Png, image.Format);
                     }
                 }
             }
