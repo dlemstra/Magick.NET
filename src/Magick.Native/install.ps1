@@ -45,8 +45,8 @@ function copyToSamplesProjects($source, $target) {
 
 function copyToTestProject($source, $target, $quantum, $platform) {
     $fileName = "Magick.Native-$quantum-$platform.dll"
-    [void](New-Item -ItemType directory -Force -Path "$target\Test$quantum\$platform\net45")
-    Copy-Item "$source\$fileName" "$target\Test$quantum\$platform\net45\$fileName"
+    [void](New-Item -ItemType directory -Force -Path "$target\Test$quantum\$platform\net452")
+    Copy-Item "$source\$fileName" "$target\Test$quantum\$platform\net452\$fileName"
     [void](New-Item -ItemType directory -Force -Path "$target\Test$quantum\$platform\netcoreapp3.0")
     Copy-Item "$source\$fileName" "$target\Test$quantum\$platform\netcoreapp3.0\$fileName"
 }
