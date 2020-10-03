@@ -22,18 +22,44 @@ namespace Magick.NET.Tests
         public class TheUseTrimBoxProperty
         {
             [TestMethod]
-            public void ShouldSetTheCorrectDefine()
+            public void ShouldSetTheDefineWhenValueIsSet()
             {
-                var defines = new PdfReadDefines()
+                using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
                 {
-                    UseTrimBox = false,
-                };
+                    image.Settings.SetDefines(new PdfReadDefines()
+                    {
+                        UseTrimBox = true,
+                    });
 
+                    Assert.AreEqual("true", image.Settings.GetDefine(MagickFormat.Pdf, "use-trimbox"));
+                }
+            }
+
+            [TestMethod]
+            public void ShouldSetTheDefineWhenValueIsFalse()
+            {
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(defines);
+                    image.Settings.SetDefines(new PdfReadDefines()
+                    {
+                        UseTrimBox = false,
+                    });
 
                     Assert.AreEqual("false", image.Settings.GetDefine(MagickFormat.Pdf, "use-trimbox"));
+                }
+            }
+
+            [TestMethod]
+            public void ShouldNotSetTheDefineWhenValueIsNotSet()
+            {
+                using (var image = new MagickImage())
+                {
+                    image.Settings.SetDefines(new PdfReadDefines()
+                    {
+                        UseTrimBox = null,
+                    });
+
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Pdf, "use-trimbox"));
                 }
             }
         }

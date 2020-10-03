@@ -24,6 +24,34 @@ namespace Magick.NET.Tests
         public class TheFitPageProperty
         {
             [TestMethod]
+            public void ShouldSetTheDefineWhenValueIsSet()
+            {
+                using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
+                {
+                    image.Settings.SetDefines(new PdfReadDefines()
+                    {
+                        FitPage = new MagickGeometry(1, 2, 3, 4),
+                    });
+
+                    Assert.AreEqual("3x4+1+2", image.Settings.GetDefine(MagickFormat.Pdf, "fit-page"));
+                }
+            }
+
+            [TestMethod]
+            public void ShouldNotSetTheDefineWhenValueIsNotSet()
+            {
+                using (var image = new MagickImage())
+                {
+                    image.Settings.SetDefines(new PdfReadDefines()
+                    {
+                        FitPage = null,
+                    });
+
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Pdf, "fit-page"));
+                }
+            }
+
+            [TestMethod]
             public void ShouldLimitTheDimensions()
             {
                 var settings = new MagickReadSettings()

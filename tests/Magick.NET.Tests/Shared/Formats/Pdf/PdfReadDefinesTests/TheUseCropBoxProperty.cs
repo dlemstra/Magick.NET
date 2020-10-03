@@ -22,18 +22,44 @@ namespace Magick.NET.Tests
         public class TheUseCropBoxProperty
         {
             [TestMethod]
-            public void ShouldSetTheCorrectDefine()
+            public void ShouldSetTheDefineWhenValueIsTrue()
             {
-                var defines = new PdfReadDefines()
+                using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
                 {
-                    UseCropBox = true,
-                };
-
-                using (var image = new MagickImage())
-                {
-                    image.Settings.SetDefines(defines);
+                    image.Settings.SetDefines(new PdfReadDefines()
+                    {
+                        UseCropBox = true,
+                    });
 
                     Assert.AreEqual("true", image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
+                }
+            }
+
+            [TestMethod]
+            public void ShouldSetTheDefineWhenValueIsFalse()
+            {
+                using (var image = new MagickImage())
+                {
+                    image.Settings.SetDefines(new PdfReadDefines()
+                    {
+                        UseCropBox = false,
+                    });
+
+                    Assert.AreEqual("false", image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
+                }
+            }
+
+            [TestMethod]
+            public void ShouldNotSetTheDefineWhenValueIsNotSet()
+            {
+                using (var image = new MagickImage())
+                {
+                    image.Settings.SetDefines(new PdfReadDefines()
+                    {
+                        UseCropBox = null,
+                    });
+
+                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
                 }
             }
         }

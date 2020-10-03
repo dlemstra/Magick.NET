@@ -25,7 +25,35 @@ namespace Magick.NET.Tests
         public class ThePasswordProperty
         {
             [TestMethod]
-            public void ShouldSetThePassword()
+            public void ShouldSetTheDefineWhenValueIsSet()
+            {
+                using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
+                {
+                    image.Settings.SetDefines(new PdfReadDefines()
+                    {
+                        Password = "test",
+                    });
+
+                    Assert.AreEqual("test", image.Settings.GetDefine("authenticate"));
+                }
+            }
+
+            [TestMethod]
+            public void ShouldNotSetTheDefineWhenValueIsNotSet()
+            {
+                using (var image = new MagickImage())
+                {
+                    image.Settings.SetDefines(new PdfReadDefines()
+                    {
+                        Password = null,
+                    });
+
+                    Assert.IsNull(image.Settings.GetDefine("authenticate"));
+                }
+            }
+
+            [TestMethod]
+            public void ShouldUseThePasswordToReadTheImage()
             {
                 var settings = new MagickReadSettings()
                 {
