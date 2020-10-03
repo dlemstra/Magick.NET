@@ -10,12 +10,6 @@ buildAndTest() {
     dotnet test tests/Magick.NET.Tests/Magick.NET.Tests.csproj -f netcoreapp3.0 -c Test$quantum
 }
 
-cd src/Magick.Native
-./install.sh macos
-
-brew install fontconfig
-
-cd ../../
 buildAndTest "Q8"
 buildAndTest "Q16"
 buildAndTest "Q16-HDRI"

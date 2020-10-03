@@ -130,6 +130,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux", "linux", "{C4C8ACAC
 		build\linux\build.cmd = build\linux\build.cmd
 		build\linux\Dockerfile = build\linux\Dockerfile
 		build\linux\install.dependencies.sh = build\linux\install.dependencies.sh
+		build\linux\install.Magick.Native.sh = build\linux\install.Magick.Native.sh
 		build\linux\run.cmd = build\linux\run.cmd
 		build\linux\test.Magick.NET.sh = build\linux\test.Magick.NET.sh
 	EndProjectSection
@@ -152,6 +153,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{EE5A8EB5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "macos", "macos", "{8BAE93F7-10BB-409F-8823-52D0F766E44D}"
 	ProjectSection(SolutionItems) = preProject
+		build\macos\install.dependencies.sh = build\macos\install.dependencies.sh
+		build\macos\install.Magick.Native.sh = build\macos\install.Magick.Native.sh
 		build\macos\test.Magick.NET.sh = build\macos\test.Magick.NET.sh
 	EndProjectSection
 EndProject
@@ -177,6 +180,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux-musl", "linux-musl", 
 		build\linux-musl\build.cmd = build\linux-musl\build.cmd
 		build\linux-musl\Dockerfile = build\linux-musl\Dockerfile
 		build\linux-musl\install.dependencies.sh = build\linux-musl\install.dependencies.sh
+		build\linux-musl\install.Magick.Native.sh = build\linux-musl\install.Magick.Native.sh
 		build\linux-musl\run.cmd = build\linux-musl\run.cmd
 		build\linux-musl\test.Magick.NET.sh = build\linux-musl\test.Magick.NET.sh
 	EndProjectSection

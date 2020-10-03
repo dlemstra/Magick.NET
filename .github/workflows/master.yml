@@ -22,8 +22,10 @@ jobs:
         fetch-depth: 1
 
     - name: Install dependencies
-      run: ./install.dependencies.sh
-      working-directory: build/linux
+      run: build/linux/install.dependencies.sh
+
+    - name: Install Magick.Native
+      run: build/linux/install.Magick.Native.sh
 
     - name: Build and Test
       run: build/linux/test.Magick.NET.sh
@@ -42,8 +44,10 @@ jobs:
         fetch-depth: 1
 
     - name: Install dependencies
-      run: ./install.dependencies.sh
-      working-directory: build/linux-musl
+      run: build/linux-musl/install.dependencies.sh
+
+    - name: Install Magick.Native
+      run: build/linux-musl/install.Magick.Native.sh
 
     - name: Build and Test
       run: build/linux-musl/test.Magick.NET.sh
@@ -58,6 +62,12 @@ jobs:
       uses: actions/checkout@v2
       with:
         fetch-depth: 1
+
+    - name: Install dependencies
+      run: build/macos/install.dependencies.sh
+
+    - name: Install Magick.Native
+      run: build/macos/install.Magick.Native.sh
 
     - name: Build and Test
       run: build/macos/test.Magick.NET.sh

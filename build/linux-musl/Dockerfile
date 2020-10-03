@@ -6,13 +6,17 @@ COPY build/linux-musl/install.dependencies.sh /build
 
 RUN cd /build; ./install.dependencies.sh
 
+COPY src /build/src
+
+COPY build/linux-musl/install.Magick.Native.sh /build
+
+RUN cd /build; ./install.Magick.Native.sh
+
 COPY stylecop.json /build/stylecop.json
 
 COPY logo /build/logo
 
 COPY tests /build/tests
-
-COPY src /build/src
 
 COPY build/linux-musl/test.Magick.NET.sh /build
 
