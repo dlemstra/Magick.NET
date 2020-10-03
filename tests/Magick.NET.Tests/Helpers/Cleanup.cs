@@ -23,9 +23,7 @@ namespace Magick.NET.Tests
         }
 
         public static void DeleteDirectory(DirectoryInfo directory)
-        {
-            DeleteDirectory(directory.FullName);
-        }
+            => DeleteDirectory(directory.FullName);
 
         public static void DeleteFile(string path)
         {
@@ -34,8 +32,6 @@ namespace Magick.NET.Tests
         }
 
         public static void DeleteFile(FileInfo file)
-        {
-            DeleteFile(file.FullName);
-        }
+            => DeleteFile(file.FullName);
     }
 }
