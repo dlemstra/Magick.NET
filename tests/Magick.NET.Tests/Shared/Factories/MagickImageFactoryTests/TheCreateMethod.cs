@@ -61,7 +61,7 @@ namespace Magick.NET.Tests
                 public void ShouldCreateMagickImage()
                 {
                     var factory = new MagickImageFactory();
-                    var data = File.ReadAllBytes(Files.ImageMagickJPG);
+                    var data = FileHelper.ReadAllBytes(Files.ImageMagickJPG);
 
                     using (var image = factory.Create(data))
                     {
@@ -132,7 +132,7 @@ namespace Magick.NET.Tests
                 public void ShouldCreateMagickImage()
                 {
                     var factory = new MagickImageFactory();
-                    var data = File.ReadAllBytes(Files.ImageMagickJPG);
+                    var data = FileHelper.ReadAllBytes(Files.ImageMagickJPG);
 
                     using (var image = factory.Create(data, 0, data.Length))
                     {
@@ -208,7 +208,7 @@ namespace Magick.NET.Tests
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
                     var factory = new MagickImageFactory();
-                    var bytes = File.ReadAllBytes(Files.CirclePNG);
+                    var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
 
                     using (var image = factory.Create(bytes, 0, bytes.Length, (MagickReadSettings)null))
                     {
@@ -223,7 +223,7 @@ namespace Magick.NET.Tests
                     {
                         BackgroundColor = MagickColors.Purple,
                     };
-                    var data = File.ReadAllBytes(Files.ImageMagickJPG);
+                    var data = FileHelper.ReadAllBytes(Files.ImageMagickJPG);
 
                     using (var image = factory.Create(data, 0, data.Length, settings))
                     {
@@ -300,7 +300,7 @@ namespace Magick.NET.Tests
                 public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
                     var factory = new MagickImageFactory();
-                    var bytes = File.ReadAllBytes(Files.CirclePNG);
+                    var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
 
                     Assert.Throws<ArgumentNullException>("settings", () =>
                     {
@@ -365,7 +365,7 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageFactory();
 
-                    using (var image = factory.Create(File.ReadAllBytes(Files.CirclePNG), (MagickReadSettings)null))
+                    using (var image = factory.Create(FileHelper.ReadAllBytes(Files.CirclePNG), (MagickReadSettings)null))
                     {
                     }
                 }
@@ -374,7 +374,7 @@ namespace Magick.NET.Tests
                 public void ShouldCreateMagickImage()
                 {
                     var factory = new MagickImageFactory();
-                    var data = File.ReadAllBytes(Files.ImageMagickJPG);
+                    var data = FileHelper.ReadAllBytes(Files.ImageMagickJPG);
                     var readSettings = new MagickReadSettings
                     {
                         BackgroundColor = MagickColors.Goldenrod,
@@ -422,7 +422,7 @@ namespace Magick.NET.Tests
 
                     Assert.Throws<ArgumentNullException>("settings", () =>
                     {
-                        factory.Create(File.ReadAllBytes(Files.CirclePNG), (PixelReadSettings)null);
+                        factory.Create(FileHelper.ReadAllBytes(Files.CirclePNG), (PixelReadSettings)null);
                     });
                 }
 

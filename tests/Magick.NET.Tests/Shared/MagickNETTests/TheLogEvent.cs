@@ -18,6 +18,7 @@ namespace Magick.NET.Tests
 {
     public partial class MagickNETTests
     {
+        [Collection(nameof(TheLogEvent))]
         public class TheLogEvent
         {
             [Fact]

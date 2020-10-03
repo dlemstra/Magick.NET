@@ -66,7 +66,7 @@ namespace Magick.NET.Tests
                         var info = new MagickImageInfo(tempFile);
                         Assert.Equal(85, info.Quality);
 
-                        File.Copy(Files.ImageMagickJPG, tempFile.FullName, true);
+                        FileHelper.Copy(Files.ImageMagickJPG, tempFile.FullName);
 
                         optimizer.Compress(tempFile, 40);
 
@@ -157,7 +157,7 @@ namespace Magick.NET.Tests
                     using (var tempDir = new TemporaryDirectory("爱"))
                     {
                         string tempFile = Path.Combine(tempDir.FullName, "ImageMagick.jpg");
-                        File.Copy(Files.ImageMagickJPG, tempFile);
+                        FileHelper.Copy(Files.ImageMagickJPG, tempFile);
 
                         Optimizer.Compress(tempFile);
                     }

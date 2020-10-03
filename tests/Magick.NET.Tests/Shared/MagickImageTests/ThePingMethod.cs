@@ -53,7 +53,7 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage())
                     {
-                        image.Ping(File.ReadAllBytes(Files.SnakewarePNG));
+                        image.Ping(FileHelper.ReadAllBytes(Files.SnakewarePNG));
                         Assert.Equal(286, image.Width);
                         Assert.Equal(67, image.Height);
                     }
@@ -127,7 +127,7 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage())
                     {
-                        var fileBytes = File.ReadAllBytes(Files.SnakewarePNG);
+                        var fileBytes = FileHelper.ReadAllBytes(Files.SnakewarePNG);
                         var bytes = new byte[fileBytes.Length + 10];
                         fileBytes.CopyTo(bytes, 10);
 
@@ -215,7 +215,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new MagickReadSettings();
 
-                    var fileBytes = File.ReadAllBytes(Files.SnakewarePNG);
+                    var fileBytes = FileHelper.ReadAllBytes(Files.SnakewarePNG);
                     var bytes = new byte[fileBytes.Length + 10];
                     fileBytes.CopyTo(bytes, 10);
 
@@ -230,7 +230,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
-                    var bytes = File.ReadAllBytes(Files.CirclePNG);
+                    var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
 
                     using (var image = new MagickImage())
                     {
@@ -274,7 +274,7 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage())
                     {
-                        image.Ping(File.ReadAllBytes(Files.CirclePNG), null);
+                        image.Ping(FileHelper.ReadAllBytes(Files.CirclePNG), null);
                     }
                 }
 
@@ -306,7 +306,7 @@ namespace Magick.NET.Tests
                         Format = MagickFormat.Png,
                     };
 
-                    var bytes = File.ReadAllBytes(Files.CirclePNG);
+                    var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
 
                     using (var image = new MagickImage())
                     {

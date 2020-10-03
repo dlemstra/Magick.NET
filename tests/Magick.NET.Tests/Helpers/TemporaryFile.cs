@@ -73,7 +73,7 @@ namespace Magick.NET.Tests
         private void CreateFromFile(string fileName)
         {
             _tempFile = new FileInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + Path.GetFileName(fileName)));
-            File.Copy(fileName, _tempFile.FullName);
+            FileHelper.Copy(fileName, _tempFile.FullName);
             _tempFile.Refresh();
         }
     }

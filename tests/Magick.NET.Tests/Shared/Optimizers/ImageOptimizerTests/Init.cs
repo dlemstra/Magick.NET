@@ -16,9 +16,15 @@ namespace Magick.NET.Tests
 {
     public partial class ImageOptimizerTests
     {
-        private static FileStream OpenStream(string path)
+        private static MemoryStream OpenStream(string fileName)
         {
-            return File.Open(path, FileMode.Open, FileAccess.ReadWrite);
+            var memoryStream = new MemoryStream();
+            using (var input = FileHelper.OpenRead(fileName))
+            {
+                input.CopyTo(memoryStream);
+                memoryStream.Position = 0;
+                return memoryStream;
+            }
         }
     }
 }

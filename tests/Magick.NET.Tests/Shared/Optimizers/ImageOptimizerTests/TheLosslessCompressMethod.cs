@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
                 public void ShouldReturnFalseWhenFileIsEmpty()
                 {
                     var optimizer = new ImageOptimizer();
-                    using (TemporaryFile file = new TemporaryFile("empty"))
+                    using (var file = new TemporaryFile("empty"))
                     {
                         var result = optimizer.LosslessCompress(file);
                         Assert.False(result);
@@ -296,7 +296,7 @@ namespace Magick.NET.Tests
                 public void ShouldThrowExceptionWhenStreamCannotRead()
                 {
                     var optimizer = new ImageOptimizer();
-                    using (TestStream stream = new TestStream(false, true, true))
+                    using (var stream = new TestStream(false, true, true))
                     {
                         Assert.Throws<ArgumentException>("stream", () =>
                         {
@@ -309,7 +309,7 @@ namespace Magick.NET.Tests
                 public void ShouldThrowExceptionWhenStreamCannotWrite()
                 {
                     var optimizer = new ImageOptimizer();
-                    using (TestStream stream = new TestStream(true, false, true))
+                    using (var stream = new TestStream(true, false, true))
                     {
                         Assert.Throws<ArgumentException>("stream", () =>
                         {
@@ -322,7 +322,7 @@ namespace Magick.NET.Tests
                 public void ShouldThrowExceptionWhenStreamCannotSeek()
                 {
                     var optimizer = new ImageOptimizer();
-                    using (TestStream stream = new TestStream(true, true, false))
+                    using (var stream = new TestStream(true, true, false))
                     {
                         Assert.Throws<ArgumentException>("stream", () =>
                         {
@@ -335,7 +335,7 @@ namespace Magick.NET.Tests
                 public void ShouldThrowExceptionWhenStreamIsUnsupportedFormat()
                 {
                     var optimizer = new ImageOptimizer();
-                    using (FileStream fileStream = OpenStream(Files.InvitationTIF))
+                    using (var fileStream = OpenStream(Files.InvitationTIF))
                     {
                         var exception = Assert.Throws<MagickCorruptImageErrorException>(() =>
                         {
@@ -350,7 +350,7 @@ namespace Magick.NET.Tests
                 public void ShouldNotThrowExceptionWhenIgnoringUnsupportedStream()
                 {
                     var optimizer = new ImageOptimizer { IgnoreUnsupportedFormats = true };
-                    using (FileStream fileStream = OpenStream(Files.InvitationTIF))
+                    using (var fileStream = OpenStream(Files.InvitationTIF))
                     {
                         var compressionSuccess = optimizer.LosslessCompress(fileStream);
                         Assert.False(compressionSuccess);
