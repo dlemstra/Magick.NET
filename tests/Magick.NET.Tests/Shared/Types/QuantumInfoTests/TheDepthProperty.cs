@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
 #if Q8
                 Assert.Equal(8, QuantumInfo.Instance.Depth);
 #else
-                Assert.Equal(QuantumInfo.Instance.Depth, 16);
+                Assert.Equal(16, QuantumInfo.Instance.Depth);
 #endif
             }
         }

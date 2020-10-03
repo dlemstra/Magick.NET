@@ -26,7 +26,7 @@ namespace Magick.NET.Tests
 #if Q8
                 Assert.Equal(8, factory.QuantumInfo.Depth);
 #else
-                Assert.Equal(factory.QuantumInfo.Depth, 16);
+                Assert.Equal(16, factory.QuantumInfo.Depth);
 #endif
             }
 
@@ -35,11 +35,11 @@ namespace Magick.NET.Tests
             {
                 var factory = new MagickFactory();
 #if Q8
-                Assert.Equal(factory.QuantumInfo.Max, byte.MaxValue);
+                Assert.Equal(byte.MaxValue, factory.QuantumInfo.Max);
 #elif Q16
-                Assert.Equal(factory.QuantumInfo.Max, ushort.MaxValue);
+                Assert.Equal(ushort.MaxValue, factory.QuantumInfo.Max);
 #else
-                Assert.Equal(factory.QuantumInfo.Max, (float)ushort.MaxValue);
+                Assert.Equal((float)ushort.MaxValue, factory.QuantumInfo.Max);
 #endif
             }
         }

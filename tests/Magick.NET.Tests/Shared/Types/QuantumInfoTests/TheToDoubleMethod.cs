@@ -28,8 +28,8 @@ namespace Magick.NET.Tests
                 Assert.Equal(8, quantumInfo.Depth);
                 Assert.Equal(255.0, quantumInfo.Max);
 #else
-                Assert.Equal(quantumInfo.Depth, 16);
-                Assert.Equal(quantumInfo.Max, 65535.0);
+                Assert.Equal(16, quantumInfo.Depth);
+                Assert.Equal(65535.0, quantumInfo.Max);
 #endif
             }
         }
