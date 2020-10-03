@@ -12,71 +12,70 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheFxMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenExpressionIsNull()
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("expression", () => image.Fx(null));
+                    Assert.Throws<ArgumentNullException>("expression", () => image.Fx(null));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenExpressionIsEmpty()
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
                 {
-                    ExceptionAssert.Throws<ArgumentException>("expression", () => image.Fx(string.Empty));
+                    Assert.Throws<ArgumentException>("expression", () => image.Fx(string.Empty));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenExpressionIsInvalid()
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
                 {
-                    ExceptionAssert.Throws<MagickOptionErrorException>(() => image.Fx("foobar"));
+                    Assert.Throws<MagickOptionErrorException>(() => image.Fx("foobar"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldEvaluateTheExpression()
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     image.Fx("b");
 
-                    ColorAssert.AreEqual(MagickColors.Black, image, 183, 83);
-                    ColorAssert.AreEqual(MagickColors.White, image, 140, 400);
+                    ColorAssert.Equal(MagickColors.Black, image, 183, 83);
+                    ColorAssert.Equal(MagickColors.White, image, 140, 400);
 
                     image.Fx("1/2", Channels.Green);
 
-                    ColorAssert.AreEqual(new MagickColor("#000080000000"), image, 183, 83);
-                    ColorAssert.AreEqual(new MagickColor("#ffff8000ffff"), image, 140, 400);
+                    ColorAssert.Equal(new MagickColor("#000080000000"), image, 183, 83);
+                    ColorAssert.Equal(new MagickColor("#ffff8000ffff"), image, 140, 400);
 
                     image.Fx("1/4", Channels.Alpha);
 
-                    ColorAssert.AreEqual(new MagickColor("#000080000000"), image, 183, 83);
-                    ColorAssert.AreEqual(new MagickColor("#ffff8000ffff"), image, 140, 400);
+                    ColorAssert.Equal(new MagickColor("#000080000000"), image, 183, 83);
+                    ColorAssert.Equal(new MagickColor("#ffff8000ffff"), image, 140, 400);
 
                     image.HasAlpha = true;
                     image.Fx("1/4", Channels.Alpha);
 
-                    ColorAssert.AreEqual(new MagickColor("#0000800000004000"), image, 183, 83);
-                    ColorAssert.AreEqual(new MagickColor("#ffff8000ffff4000"), image, 140, 400);
+                    ColorAssert.Equal(new MagickColor("#0000800000004000"), image, 183, 83);
+                    ColorAssert.Equal(new MagickColor("#ffff8000ffff4000"), image, 140, 400);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldEvaluateExpressionMethod()
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))

@@ -11,73 +11,72 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickGeometryTests
     {
-        [TestClass]
         public class TheEqualsMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenInstanceIsNull()
             {
                 var geometry = new MagickGeometry(10, 5);
 
-                Assert.IsFalse(geometry.Equals(null));
+                Assert.False(geometry.Equals(null));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenInstanceIsTheSame()
             {
                 var geometry = new MagickGeometry(10, 5);
 
-                Assert.IsTrue(geometry.Equals(geometry));
+                Assert.True(geometry.Equals(geometry));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenObjectIsTheSame()
             {
                 var geometry = new MagickGeometry(10, 5);
 
-                Assert.IsTrue(geometry.Equals((object)geometry));
+                Assert.True(geometry.Equals((object)geometry));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenInstanceIsEqual()
             {
                 var first = new MagickGeometry(10, 5);
                 var second = new MagickGeometry(10, 5);
 
-                Assert.IsTrue(first.Equals(second));
+                Assert.True(first.Equals(second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenObjectIsEqual()
             {
                 var first = new MagickGeometry(10, 5);
                 var second = new MagickGeometry(10, 5);
 
-                Assert.IsTrue(first.Equals((object)second));
+                Assert.True(first.Equals((object)second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenInstanceIsNotEqual()
             {
                 var first = new MagickGeometry(10, 5);
                 var second = new MagickGeometry(5, 10);
 
-                Assert.IsFalse(first.Equals(second));
+                Assert.False(first.Equals(second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenObjectIsNotEqual()
             {
                 var first = new MagickGeometry(10, 5);
                 var second = new MagickGeometry(5, 10);
 
-                Assert.IsFalse(first.Equals((object)second));
+                Assert.False(first.Equals((object)second));
             }
         }
     }

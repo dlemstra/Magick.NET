@@ -11,48 +11,47 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class EnumHelperTests
     {
-        [TestMethod]
+        [Fact]
         public void Test_Parse()
         {
             ExifDataType? dataType = EnumHelper.Parse(4, ExifDataType.Undefined);
-            Assert.AreEqual(ExifDataType.Long, dataType);
+            Assert.Equal(ExifDataType.Long, dataType);
 
             dataType = EnumHelper.Parse(42, ExifDataType.Long);
-            Assert.AreEqual(ExifDataType.Long, dataType);
+            Assert.Equal(ExifDataType.Long, dataType);
 
             dataType = EnumHelper.Parse(string.Empty, ExifDataType.Byte);
-            Assert.AreEqual(ExifDataType.Byte, dataType);
+            Assert.Equal(ExifDataType.Byte, dataType);
 
             dataType = EnumHelper.Parse("Long", ExifDataType.Undefined);
-            Assert.AreEqual(ExifDataType.Long, dataType);
+            Assert.Equal(ExifDataType.Long, dataType);
 
             dataType = EnumHelper.Parse("Longer", ExifDataType.Short);
-            Assert.AreEqual(ExifDataType.Short, dataType);
+            Assert.Equal(ExifDataType.Short, dataType);
 
             dataType = EnumHelper.Parse<ExifDataType>(string.Empty);
-            Assert.IsNull(dataType);
+            Assert.Null(dataType);
 
             dataType = EnumHelper.Parse<ExifDataType>("Long");
-            Assert.AreEqual(ExifDataType.Long, dataType);
+            Assert.Equal(ExifDataType.Long, dataType);
 
             dataType = EnumHelper.Parse<ExifDataType>("Longer");
-            Assert.IsNull(dataType);
+            Assert.Null(dataType);
 
             dataType = (ExifDataType?)EnumHelper.Parse(typeof(ExifDataType), string.Empty);
-            Assert.IsNull(dataType);
+            Assert.Null(dataType);
 
             dataType = (ExifDataType?)EnumHelper.Parse(typeof(ExifDataType), "Long");
-            Assert.AreEqual(ExifDataType.Long, dataType);
+            Assert.Equal(ExifDataType.Long, dataType);
 
             dataType = (ExifDataType?)EnumHelper.Parse(typeof(ExifDataType), "Longer");
-            Assert.IsNull(dataType);
+            Assert.Null(dataType);
         }
     }
 }

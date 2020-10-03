@@ -13,16 +13,15 @@
 using System.IO;
 using ImageMagick;
 using ImageMagick.Formats.Jpeg;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class JpegWriteDefinesTests
     {
-        [TestClass]
         public class TheArithmeticCodingProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 var defines = new JpegWriteDefines()
@@ -34,11 +33,11 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(defines);
 
-                    Assert.AreEqual("false", image.Settings.GetDefine(MagickFormat.Jpeg, "arithmetic-coding"));
+                    Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Jpeg, "arithmetic-coding"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldEncodeTheImagArarithmetic()
             {
                 var defines = new JpegWriteDefines()
@@ -52,13 +51,13 @@ namespace Magick.NET.Tests
                     {
                         input.Write(memStream, defines);
 
-                        Assert.AreEqual("true", input.Settings.GetDefine(MagickFormat.Jpeg, "arithmetic-coding"));
+                        Assert.Equal("true", input.Settings.GetDefine(MagickFormat.Jpeg, "arithmetic-coding"));
 
                         memStream.Position = 0;
                         using (var output = new MagickImage(memStream))
                         {
                             var coding = output.GetAttribute("jpeg:coding");
-                            Assert.AreEqual("arithmetic", coding);
+                            Assert.Equal("arithmetic", coding);
                         }
                     }
                 }

@@ -12,14 +12,13 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class PerceptualHashTests
     {
-        [TestMethod]
+        [Fact]
         public void Test_Channel()
         {
             using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -27,12 +26,12 @@ namespace Magick.NET.Tests
                 var phash = image.PerceptualHash();
                 var channel = phash.GetChannel(PixelChannel.Red);
 
-                ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
+                Assert.Throws<ArgumentOutOfRangeException>(() =>
                 {
                     channel.HclpHuPhash(7);
                 });
 
-                ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
+                Assert.Throws<ArgumentOutOfRangeException>(() =>
                 {
                     channel.SrgbHuPhash(7);
                 });
@@ -119,38 +118,38 @@ namespace Magick.NET.Tests
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Constructor()
         {
-            ExceptionAssert.Throws<ArgumentNullException>("hash", () =>
+            Assert.Throws<ArgumentNullException>("hash", () =>
             {
                 new PerceptualHash(null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>("hash", () =>
+            Assert.Throws<ArgumentException>("hash", () =>
             {
                 new PerceptualHash(string.Empty);
             });
 
-            ExceptionAssert.Throws<ArgumentException>("hash", () =>
+            Assert.Throws<ArgumentException>("hash", () =>
             {
                 new PerceptualHash("a0df");
             });
 
-            ExceptionAssert.Throws<ArgumentException>("hash", () =>
+            Assert.Throws<ArgumentException>("hash", () =>
             {
                 new PerceptualHash("H00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
             });
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_ToString()
         {
             using (var image = new MagickImage(Files.ImageMagickJPG))
             {
                 var phash = image.PerceptualHash();
                 string hash = phash.ToString();
-                Assert.AreEqual(210, hash.Length);
+                Assert.Equal(210, hash.Length);
 #if Q8
                 OpenCLValue.Assert("81b4488655898d38a7aa6223562032620f8a2614819b78241685c4b8c1a786f0689c9881b1f884ca8a0d38af2f622728fd3d623fedeacea78bcaedaa81d8884349824c583ad981c37895998c8658c42a628ed61b216279b81b49887348a1608af44622a3619d362371", "81b4488656898d38a7a96223562017620f7a26cd81a1e823ec85b3b8cc3186ec889ad481b1f884cb8a0d58af30622728fd41623fedea8aa78d4aeda481d8f84355824cd83ae281c378959a8c8668c42a628ec61b216279c81b49887348a1608af44622a3619d362370", hash);
 #elif Q16
@@ -159,11 +158,11 @@ namespace Magick.NET.Tests
                 OpenCLValue.Assert("81b4488652898d48a7a9622346206e620f8a730882e4a83a9e877108d25488fc58dbb781b1e884c58a0d18af2d622718fd35623ffdeac9a78cbaedaa81d888434e824c683ad781c37895978c8688c426628ed61b216279b81b48887318a1628af43622a2619d162372", "81b4488652898d48a7a9622346206e620f8a731182e3a83aa2876d48d19488f438dcb581b1e884c58a0d18af2d622718fd35623ffdeac9a78cbaedaa81d888434e824c683ad781c37895978c8688c426628ed61b216279b81b48887318a1628af43622a2619d162372", hash);
 #endif
                 PerceptualHash clone = new PerceptualHash(hash);
-                Assert.AreEqual(0.0, phash.SumSquaredDistance(clone), 0.001);
+                Assert.InRange(phash.SumSquaredDistance(clone), 0.0, 0.001);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_SumSquaredDistance()
         {
             using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -173,7 +172,7 @@ namespace Magick.NET.Tests
                 using (var other = new MagickImage(Files.MagickNETIconPNG))
                 {
                     other.HasAlpha = false;
-                    Assert.AreEqual(3, other.ChannelCount);
+                    Assert.Equal(3, other.ChannelCount);
 
                     var otherPhash = other.PerceptualHash();
 #if Q8

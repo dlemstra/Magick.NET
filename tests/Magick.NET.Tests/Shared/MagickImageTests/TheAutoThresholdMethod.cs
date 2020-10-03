@@ -12,16 +12,15 @@
 
 using System.Collections.Generic;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheAutoThresholdMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThresholdImageWithKapurMethod()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
@@ -30,13 +29,13 @@ namespace Magick.NET.Tests
 
                     var colors = image.Histogram();
 
-                    Assert.AreEqual(ColorType.Bilevel, image.DetermineColorType());
-                    Assert.AreEqual(236359, colors[MagickColors.Black]);
-                    Assert.AreEqual(3641, colors[MagickColors.White]);
+                    Assert.Equal(ColorType.Bilevel, image.DetermineColorType());
+                    Assert.Equal(236359, colors[MagickColors.Black]);
+                    Assert.Equal(3641, colors[MagickColors.White]);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThresholdImageWithOTSUMethod()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
@@ -45,13 +44,13 @@ namespace Magick.NET.Tests
 
                     var colors = image.Histogram();
 
-                    Assert.AreEqual(ColorType.Bilevel, image.DetermineColorType());
-                    Assert.AreEqual(67844, colors[MagickColors.Black]);
-                    Assert.AreEqual(172156, colors[MagickColors.White]);
+                    Assert.Equal(ColorType.Bilevel, image.DetermineColorType());
+                    Assert.Equal(67844, colors[MagickColors.Black]);
+                    Assert.Equal(172156, colors[MagickColors.White]);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThresholdImageWithTriangleMethod()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
@@ -60,9 +59,9 @@ namespace Magick.NET.Tests
 
                     var colors = image.Histogram();
 
-                    Assert.AreEqual(ColorType.Bilevel, image.DetermineColorType());
-                    Assert.AreEqual(210553, colors[MagickColors.Black]);
-                    Assert.AreEqual(29447, colors[MagickColors.White]);
+                    Assert.Equal(ColorType.Bilevel, image.DetermineColorType());
+                    Assert.Equal(210553, colors[MagickColors.Black]);
+                    Assert.Equal(29447, colors[MagickColors.White]);
                 }
             }
         }

@@ -11,14 +11,13 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class TheBmpCoder
     {
-        [TestMethod]
+        [Fact]
         public void ShouldBeAbleToReadBmp3Format()
         {
             using (TemporaryFile file = new TemporaryFile(Files.MagickNETIconPNG))
@@ -35,7 +34,7 @@ namespace Magick.NET.Tests
 
                 using (var image = new MagickImage(file, settings))
                 {
-                    Assert.AreEqual(MagickFormat.Bmp3, image.Format);
+                    Assert.Equal(MagickFormat.Bmp3, image.Format);
                 }
             }
         }

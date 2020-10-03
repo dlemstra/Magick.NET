@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Pdf;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class PdfReadDefinesTests
     {
-        [TestClass]
         public class TheUseCropBoxProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefineWhenValueIsTrue()
             {
                 using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
@@ -31,11 +30,11 @@ namespace Magick.NET.Tests
                         UseCropBox = true,
                     });
 
-                    Assert.AreEqual("true", image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
+                    Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefineWhenValueIsFalse()
             {
                 using (var image = new MagickImage())
@@ -45,11 +44,11 @@ namespace Magick.NET.Tests
                         UseCropBox = false,
                     });
 
-                    Assert.AreEqual("false", image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
+                    Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetTheDefineWhenValueIsNotSet()
             {
                 using (var image = new MagickImage())
@@ -59,7 +58,7 @@ namespace Magick.NET.Tests
                         UseCropBox = null,
                     });
 
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
                 }
             }
         }

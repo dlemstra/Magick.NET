@@ -13,7 +13,7 @@
 using System;
 using System.IO;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
@@ -21,7 +21,7 @@ namespace Magick.NET.Tests
     {
         protected long AssertCompress(string fileName, bool resultIsSmaller, Func<FileInfo, bool> action)
         {
-            using (TemporaryFile tempFile = new TemporaryFile(fileName))
+            using (var tempFile = new TemporaryFile(fileName))
             {
                 long before = tempFile.Length;
 
@@ -29,12 +29,12 @@ namespace Magick.NET.Tests
 
                 long after = tempFile.Length;
 
-                Assert.AreEqual(resultIsSmaller, result);
+                Assert.Equal(resultIsSmaller, result);
 
                 if (resultIsSmaller)
-                    Assert.IsTrue(after < before, "{0} is not smaller than {1}", after, before);
+                    Assert.True(after < before);
                 else
-                    Assert.AreEqual(before, after);
+                    Assert.Equal(before, after);
 
                 return after;
             }
@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
 
         protected long AssertCompress(string fileName, bool resultIsSmaller, Func<string, bool> action)
         {
-            using (TemporaryFile tempFile = new TemporaryFile(fileName))
+            using (var tempFile = new TemporaryFile(fileName))
             {
                 long before = tempFile.Length;
 
@@ -51,12 +51,12 @@ namespace Magick.NET.Tests
                 tempFile.Refresh();
                 long after = tempFile.Length;
 
-                Assert.AreEqual(resultIsSmaller, result);
+                Assert.Equal(resultIsSmaller, result);
 
                 if (resultIsSmaller)
-                    Assert.IsTrue(after < before, "{0} is not smaller than {1}", after, before);
+                    Assert.True(after < before);
                 else
-                    Assert.AreEqual(before, after);
+                    Assert.Equal(before, after);
 
                 return after;
             }
@@ -66,7 +66,7 @@ namespace Magick.NET.Tests
         {
             using (FileStream fileStream = File.Open(fileName, FileMode.Open, FileAccess.Read))
             {
-                using (MemoryStream memoryStream = new MemoryStream())
+                using (var memoryStream = new MemoryStream())
                 {
                     memoryStream.Position = 42;
                     fileStream.CopyTo(memoryStream);
@@ -78,13 +78,13 @@ namespace Magick.NET.Tests
 
                     long after = memoryStream.Length;
 
-                    Assert.AreEqual(42, memoryStream.Position);
-                    Assert.AreEqual(resultIsSmaller, result);
+                    Assert.Equal(42, memoryStream.Position);
+                    Assert.Equal(resultIsSmaller, result);
 
                     if (resultIsSmaller)
-                        Assert.IsTrue(after < before, "{0} is not smaller than {1}", after, before);
+                        Assert.True(after < before);
                     else
-                        Assert.AreEqual(before, after);
+                        Assert.Equal(before, after);
 
                     return after - 42;
                 }
@@ -93,32 +93,32 @@ namespace Magick.NET.Tests
 
         protected void AssertInvalidFileFormat(string fileName, Action<FileInfo> action)
         {
-            using (TemporaryFile tempFile = new TemporaryFile(fileName))
+            using (var tempFile = new TemporaryFile(fileName))
             {
-                ExceptionAssert.Throws<MagickCorruptImageErrorException>(() => action(tempFile));
+                Assert.Throws<MagickCorruptImageErrorException>(() => action(tempFile));
             }
         }
 
         protected void AssertInvalidFileFormat(string fileName, Action<string> action)
         {
-            using (TemporaryFile tempFile = new TemporaryFile(fileName))
+            using (var tempFile = new TemporaryFile(fileName))
             {
-                ExceptionAssert.Throws<MagickCorruptImageErrorException>(() => action(tempFile.FullName));
+                Assert.Throws<MagickCorruptImageErrorException>(() => action(tempFile.FullName));
             }
         }
 
         protected void AssertInvalidFileFormat(string fileName, Action<Stream> action)
         {
-            using (TemporaryFile tempFile = new TemporaryFile(fileName))
+            using (var tempFile = new TemporaryFile(fileName))
             {
                 using (FileStream fileStream = File.Open(fileName, FileMode.Open, FileAccess.ReadWrite))
                 {
-                    using (MemoryStream memoryStream = new MemoryStream())
+                    using (var memoryStream = new MemoryStream())
                     {
                         fileStream.CopyTo(memoryStream);
                         memoryStream.Position = 0;
 
-                        ExceptionAssert.Throws<MagickCorruptImageErrorException>(() => action(memoryStream));
+                        Assert.Throws<MagickCorruptImageErrorException>(() => action(memoryStream));
                     }
                 }
             }

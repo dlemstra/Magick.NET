@@ -11,7 +11,7 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
@@ -19,10 +19,9 @@ namespace Magick.NET.Tests
     {
         public class TheNegateMethod
         {
-            [TestClass]
             public class WithBoolean
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldOnlyNegateGrayscaleWhenSetToTrue()
                 {
                     using (var image = new MagickImage("xc:white", 2, 1))
@@ -36,8 +35,8 @@ namespace Magick.NET.Tests
 
                         image.Negate(true);
 
-                        ColorAssert.AreEqual(MagickColors.Black, image, 0, 0);
-                        ColorAssert.AreEqual(MagickColors.Red, image, 1, 0);
+                        ColorAssert.Equal(MagickColors.Black, image, 0, 0);
+                        ColorAssert.Equal(MagickColors.Red, image, 1, 0);
                     }
                 }
             }

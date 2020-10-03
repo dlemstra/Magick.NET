@@ -12,28 +12,27 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageCollectionTests
     {
-        [TestClass]
         public class TheIndexer
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenValueIsNull()
             {
                 using (var images = new MagickImageCollection(Files.CirclePNG))
                 {
-                    ExceptionAssert.Throws<InvalidOperationException>(() =>
+                    Assert.Throws<InvalidOperationException>(() =>
                     {
                         images[0] = null;
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenCollectionAlreadyContainsItem()
             {
                 var imageA = new MagickImage();
@@ -41,14 +40,14 @@ namespace Magick.NET.Tests
 
                 using (var images = new MagickImageCollection(new[] { imageA, imageB }))
                 {
-                    ExceptionAssert.Throws<InvalidOperationException>(() =>
+                    Assert.Throws<InvalidOperationException>(() =>
                     {
                         images[0] = imageB;
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotThrowExceptionWhenImageIsSameImage()
             {
                 var image = new MagickImage();

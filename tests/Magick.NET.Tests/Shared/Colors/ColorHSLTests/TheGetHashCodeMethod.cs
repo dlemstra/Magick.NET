@@ -11,23 +11,22 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class ColorHSLTests : ColorBaseTests<ColorHSL>
     {
-        [TestClass]
         public class TheGetHashCodeMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnDifferentValueWhenChannelChanged()
             {
                 ColorHSL first = new ColorHSL(0.0, 0.0, 0.0);
                 int hashCode = first.GetHashCode();
 
                 first.Hue = first.Saturation = first.Lightness = 1.0;
-                Assert.AreNotEqual(hashCode, first.GetHashCode());
+                Assert.NotEqual(hashCode, first.GetHashCode());
             }
         }
     }

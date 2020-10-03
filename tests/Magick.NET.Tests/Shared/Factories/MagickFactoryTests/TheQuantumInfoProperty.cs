@@ -11,36 +11,35 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickFactoryTests
     {
-        [TestClass]
         public class TheQuantumInfoProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldHaveTheCorrectDephValue()
             {
                 var factory = new MagickFactory();
 #if Q8
-                Assert.AreEqual(factory.QuantumInfo.Depth, 8);
+                Assert.Equal(8, factory.QuantumInfo.Depth);
 #else
-                Assert.AreEqual(factory.QuantumInfo.Depth, 16);
+                Assert.Equal(factory.QuantumInfo.Depth, 16);
 #endif
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldHaveTheCorrectMaxValue()
             {
                 var factory = new MagickFactory();
 #if Q8
-                Assert.AreEqual(factory.QuantumInfo.Max, byte.MaxValue);
+                Assert.Equal(factory.QuantumInfo.Max, byte.MaxValue);
 #elif Q16
-                Assert.AreEqual(factory.QuantumInfo.Max, ushort.MaxValue);
+                Assert.Equal(factory.QuantumInfo.Max, ushort.MaxValue);
 #else
-                Assert.AreEqual(factory.QuantumInfo.Max, (float)ushort.MaxValue);
+                Assert.Equal(factory.QuantumInfo.Max, (float)ushort.MaxValue);
 #endif
             }
         }

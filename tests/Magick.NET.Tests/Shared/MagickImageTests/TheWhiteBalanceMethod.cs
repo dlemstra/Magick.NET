@@ -11,44 +11,43 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheWhiteBalanceMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldWhiteBalanceTheImage()
             {
                 using (var image = new MagickImage(Files.Builtin.Rose))
                 {
                     image.WhiteBalance();
 #if Q8
-                    ColorAssert.AreEqual(new MagickColor("#dd4946"), image, 45, 25);
+                    ColorAssert.Equal(new MagickColor("#dd4946"), image, 45, 25);
 #elif Q16
-                    ColorAssert.AreEqual(new MagickColor("#de494a714699"), image, 45, 25);
+                    ColorAssert.Equal(new MagickColor("#de494a714699"), image, 45, 25);
 #else
-                    ColorAssert.AreEqual(new MagickColor("#de494a714698"), image, 45, 25);
+                    ColorAssert.Equal(new MagickColor("#de494a714698"), image, 45, 25);
 #endif
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldUseTheVibrance()
             {
                 using (var image = new MagickImage(Files.Builtin.Rose))
                 {
                     image.WhiteBalance(new Percentage(70));
 #if Q8
-                    ColorAssert.AreEqual(new MagickColor("#00a13b"), image, 45, 25);
+                    ColorAssert.Equal(new MagickColor("#00a13b"), image, 45, 25);
 #elif Q16
-                    ColorAssert.AreEqual(new MagickColor("#0000a2043c3d"), image, 45, 25);
+                    ColorAssert.Equal(new MagickColor("#0000a2043c3d"), image, 45, 25);
 #else
                     image.Clamp();
-                    ColorAssert.AreEqual(new MagickColor("#0000a2033c3c"), image, 45, 25);
+                    ColorAssert.Equal(new MagickColor("#0000a2033c3c"), image, 45, 25);
 #endif
                 }
             }

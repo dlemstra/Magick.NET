@@ -12,24 +12,23 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Tiff;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class TiffReadDefinesTests
     {
-        [TestClass]
         public class TheConstructor
         {
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetAnyDefine()
             {
                 using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(new TiffReadDefines());
 
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "exif-properties"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "ignore-tags"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "exif-properties"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "ignore-tags"));
                 }
             }
         }

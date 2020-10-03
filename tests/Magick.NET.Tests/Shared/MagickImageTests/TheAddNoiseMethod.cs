@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheAddNoiseMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldCreateDifferentImagesEachRun()
             {
                 using (var imageA = new MagickImage(MagickColors.Black, 10, 10))
@@ -30,7 +29,7 @@ namespace Magick.NET.Tests
                         imageA.AddNoise(NoiseType.Random);
                         imageB.AddNoise(NoiseType.Random);
 
-                        Assert.AreNotEqual(0.0, imageA.Compare(imageB, ErrorMetric.RootMeanSquared));
+                        Assert.NotEqual(0.0, imageA.Compare(imageB, ErrorMetric.RootMeanSquared));
                     }
                 }
             }

@@ -12,7 +12,7 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -28,17 +28,16 @@ namespace Magick.NET.Tests
 {
     public partial class SafePixelCollectionTests
     {
-        [TestClass]
         public class TheSetPixelsMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenArrayIsNull()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        ExceptionAssert.Throws<ArgumentNullException>("values", () =>
+                        Assert.Throws<ArgumentNullException>("values", () =>
                         {
                             pixels.SetPixels(null);
                         });
@@ -46,14 +45,14 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenArrayHasInvalidSize()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        ExceptionAssert.Throws<ArgumentException>("values", () =>
+                        Assert.Throws<ArgumentException>("values", () =>
                         {
                             pixels.SetPixels(new QuantumType[] { 0, 0, 0, 0 });
                         });
@@ -61,14 +60,14 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenArrayIsTooLong()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        ExceptionAssert.Throws<ArgumentException>("values", () =>
+                        Assert.Throws<ArgumentException>("values", () =>
                         {
                             var values = new QuantumType[(image.Width * image.Height * image.ChannelCount) + 1];
                             pixels.SetPixels(values);
@@ -77,7 +76,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangePixelsWhenArrayHasMaxNumberOfValues()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -87,7 +86,7 @@ namespace Magick.NET.Tests
                         var values = new QuantumType[image.Width * image.Height * image.ChannelCount];
                         pixels.SetPixels(values);
 
-                        ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
+                        ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                     }
                 }
             }

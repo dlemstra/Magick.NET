@@ -12,29 +12,28 @@
 
 using System.IO;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheDensityProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldNotChangeWhenValueIsNull()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
-                    Assert.AreEqual(300, image.Density.X);
+                    Assert.Equal(300, image.Density.X);
 
                     image.Density = null;
 
-                    Assert.AreEqual(300, image.Density.X);
+                    Assert.Equal(300, image.Density.X);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldUpdateExifProfile()
             {
                 using (var memStream = new MemoryStream())
@@ -43,7 +42,7 @@ namespace Magick.NET.Tests
                     {
                         var profile = image.GetExifProfile();
                         var value = profile.GetValue(ExifTag.XResolution);
-                        Assert.AreEqual("300", value.ToString());
+                        Assert.Equal("300", value.ToString());
 
                         image.Density = new Density(72);
 
@@ -56,24 +55,24 @@ namespace Magick.NET.Tests
                         var profile = image.GetExifProfile();
                         var value = profile.GetValue(ExifTag.XResolution);
 
-                        Assert.AreEqual("72", value.ToString());
+                        Assert.Equal("72", value.ToString());
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheCorrectDimensionsWhenReadingImage()
             {
                 using (var image = new MagickImage())
                 {
-                    Assert.AreEqual(null, image.Settings.Density);
+                    Assert.Null(image.Settings.Density);
 
                     image.Settings.Density = new Density(100);
 
                     image.Read(Files.Logos.MagickNETSVG);
-                    Assert.AreEqual(new Density(100, DensityUnit.Undefined), image.Density);
-                    Assert.AreEqual(524, image.Width);
-                    Assert.AreEqual(252, image.Height);
+                    Assert.Equal(new Density(100, DensityUnit.Undefined), image.Density);
+                    Assert.Equal(524, image.Width);
+                    Assert.Equal(252, image.Height);
                 }
             }
         }

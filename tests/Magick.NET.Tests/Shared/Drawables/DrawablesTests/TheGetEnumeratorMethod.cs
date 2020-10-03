@@ -12,16 +12,15 @@
 
 using System.Collections;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class DrawablesTests
     {
-        [TestClass]
         public class TheGetEnumeratorMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnAnEnumerator()
             {
                 var drawables = new Drawables()
@@ -29,9 +28,9 @@ namespace Magick.NET.Tests
                   .Rectangle(10, 10, 90, 90);
 
                 var enumerator = ((IEnumerable)drawables).GetEnumerator();
-                Assert.IsTrue(enumerator.MoveNext());
-                Assert.IsTrue(enumerator.MoveNext());
-                Assert.IsFalse(enumerator.MoveNext());
+                Assert.True(enumerator.MoveNext());
+                Assert.True(enumerator.MoveNext());
+                Assert.False(enumerator.MoveNext());
             }
         }
     }

@@ -12,7 +12,7 @@
 
 using System.IO;
 using ImageMagick.ImageOptimizers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
@@ -38,8 +38,8 @@ namespace Magick.NET.Tests
                 return Optimizer.Compress(stream);
             });
 
-            Assert.AreEqual(lengthA, lengthB, 1);
-            Assert.AreEqual(lengthB, lengthC, 1);
+            Assert.InRange(lengthA, lengthB - 1, lengthB + 1);
+            Assert.InRange(lengthB, lengthC - 1, lengthC + 1);
             return lengthA;
         }
 
@@ -60,8 +60,8 @@ namespace Magick.NET.Tests
                 return Optimizer.Compress(stream);
             });
 
-            Assert.AreEqual(lengthA, lengthB);
-            Assert.AreEqual(lengthB, lengthC);
+            Assert.Equal(lengthA, lengthB);
+            Assert.Equal(lengthB, lengthC);
         }
 
         protected void AssertCompressTwice(string fileName)
@@ -76,9 +76,9 @@ namespace Magick.NET.Tests
 
                 long after2 = tempFile.Length;
 
-                Assert.AreEqual(after1, after2, 1);
-                Assert.IsTrue(compressed1);
-                Assert.IsFalse(compressed2);
+                Assert.InRange(after1, after2 - 1, after2 + 1);
+                Assert.True(compressed1);
+                Assert.False(compressed2);
             }
         }
 
@@ -108,8 +108,8 @@ namespace Magick.NET.Tests
                 return Optimizer.LosslessCompress(stream);
             });
 
-            Assert.AreEqual(lengthA, lengthB, 1);
-            Assert.AreEqual(lengthB, lengthC, 1);
+            Assert.InRange(lengthA, lengthB - 1, lengthB + 1);
+            Assert.InRange(lengthB, lengthC - 1, lengthC + 1);
             return lengthA;
         }
 
@@ -130,8 +130,8 @@ namespace Magick.NET.Tests
                 return Optimizer.LosslessCompress(stream);
             });
 
-            Assert.AreEqual(lengthA, lengthB);
-            Assert.AreEqual(lengthB, lengthC);
+            Assert.Equal(lengthA, lengthB);
+            Assert.Equal(lengthB, lengthC);
         }
 
         protected void AssertLosslessCompressTwice(string fileName)
@@ -146,9 +146,9 @@ namespace Magick.NET.Tests
 
                 long after2 = tempFile.Length;
 
-                Assert.AreEqual(after1, after2, 1);
-                Assert.IsTrue(compressed1);
-                Assert.IsFalse(compressed2);
+                Assert.InRange(after1, after2 - 1, after2 + 1);
+                Assert.True(compressed1);
+                Assert.False(compressed2);
             }
         }
 

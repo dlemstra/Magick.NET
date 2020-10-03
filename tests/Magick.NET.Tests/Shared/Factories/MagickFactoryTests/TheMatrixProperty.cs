@@ -11,32 +11,31 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickFactoryTests
     {
-        [TestClass]
         public class TheMatrixProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnInstance()
             {
                 var factory = new MagickFactory();
 
-                Assert.IsNotNull(factory.Matrix);
-                Assert.IsInstanceOfType(factory.Matrix, typeof(MatrixFactory));
+                Assert.NotNull(factory.Matrix);
+                Assert.IsType<MatrixFactory>(factory.Matrix);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheSameInstance()
             {
                 var factory = new MagickFactory();
 
                 var first = factory.Matrix;
                 var second = factory.Matrix;
-                Assert.AreSame(first, second);
+                Assert.Same(first, second);
             }
         }
     }

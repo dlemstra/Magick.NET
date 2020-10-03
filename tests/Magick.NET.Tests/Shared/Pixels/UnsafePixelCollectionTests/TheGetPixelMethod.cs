@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class UnsafePixelCollectionTests
     {
-        [TestClass]
         public class TheGetPixelMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldNotThrowExceptionWhenWidthOutOfRange()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -32,7 +31,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotThrowExceptionWhenHeightOutOfRange()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -44,7 +43,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnPixelWhenIndexInsideImage()
             {
                 using (var image = new MagickImage(Files.MagickNETIconPNG))
@@ -52,7 +51,7 @@ namespace Magick.NET.Tests
                     using (var pixels = image.GetPixels())
                     {
                         var pixel = pixels.GetPixel(55, 68);
-                        ColorAssert.AreEqual(new MagickColor("#a8dff8ff"), pixel.ToColor());
+                        ColorAssert.Equal(new MagickColor("#a8dff8ff"), pixel.ToColor());
                     }
                 }
             }

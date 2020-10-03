@@ -14,7 +14,7 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
     {
         private delegate void ReadDelegate();
 
-        [TestMethod]
+        [Fact]
         public void ShouldReadFileMultithreadedCorrectly()
         {
             ReadDelegate action = () =>
@@ -31,9 +31,9 @@ namespace Magick.NET.Tests
                 {
                     image.Read(Files.Coders.CartoonNetworkStudiosLogoAI);
 
-                    Assert.AreEqual(765, image.Width);
-                    Assert.AreEqual(361, image.Height);
-                    Assert.AreEqual(MagickFormat.Ai, image.Format);
+                    Assert.Equal(765, image.Width);
+                    Assert.Equal(361, image.Height);
+                    Assert.Equal(MagickFormat.Ai, image.Format);
                 }
             };
 

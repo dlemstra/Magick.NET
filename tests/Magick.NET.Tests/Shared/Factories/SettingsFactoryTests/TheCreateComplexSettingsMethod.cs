@@ -11,24 +11,23 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class SettingsFactoryTests
     {
-        [TestClass]
         public class TheCreateComplexSettingsMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldCreateInstance()
             {
                 var factory = new SettingsFactory();
 
                 var settings = factory.CreateComplexSettings();
 
-                Assert.IsNotNull(settings);
-                Assert.IsInstanceOfType(settings, typeof(ComplexSettings));
+                Assert.NotNull(settings);
+                Assert.IsType<ComplexSettings>(settings);
             }
         }
     }

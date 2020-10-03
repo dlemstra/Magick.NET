@@ -12,23 +12,22 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Psd;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class PsdWriteDefinesTests
     {
-        [TestClass]
         public class TheConstructor
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetAdditionalInfoToNullWhenNotSpecified()
             {
                 using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(new PsdWriteDefines());
 
-                    Assert.AreEqual("None", image.Settings.GetDefine(MagickFormat.Psd, "additional-info"));
+                    Assert.Equal("None", image.Settings.GetDefine(MagickFormat.Psd, "additional-info"));
                 }
             }
         }

@@ -14,38 +14,37 @@
 
 using System.Linq;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public partial class TheEpsCoder
     {
-        [TestMethod]
+        [Fact]
         public void ShouldReadTwoImages()
         {
             using (var images = new MagickImageCollection(Files.Coders.SwedenHeartEPS))
             {
-                Assert.AreEqual(2, images.Count);
+                Assert.Equal(2, images.Count);
 
-                Assert.AreEqual(447, images[0].Width);
-                Assert.AreEqual(420, images[0].Height);
-                Assert.AreEqual(MagickFormat.Ept, images[0].Format);
+                Assert.Equal(447, images[0].Width);
+                Assert.Equal(420, images[0].Height);
+                Assert.Equal(MagickFormat.Ept, images[0].Format);
 
-                Assert.AreEqual(447, images[1].Width);
-                Assert.AreEqual(420, images[1].Height);
-                Assert.AreEqual(MagickFormat.Tiff, images[1].Format);
+                Assert.Equal(447, images[1].Width);
+                Assert.Equal(420, images[1].Height);
+                Assert.Equal(MagickFormat.Tiff, images[1].Format);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldReadClipPathsInTiffPreview()
         {
             using (var images = new MagickImageCollection(Files.Coders.SwedenHeartEPS))
             {
                 var profile = images[1].Get8BimProfile();
 
-                EnumerableAssert.IsSingle(profile.ClipPaths);
+                Assert.Single(profile.ClipPaths);
             }
         }
     }

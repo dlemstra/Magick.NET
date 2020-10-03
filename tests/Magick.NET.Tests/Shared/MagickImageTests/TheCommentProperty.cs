@@ -11,38 +11,37 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheCommentProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldGetTheCommentAttribute()
             {
                 using (var image = new MagickImage())
                 {
                     image.SetAttribute("comment", "foo");
 
-                    Assert.AreEqual("foo", image.Comment);
+                    Assert.Equal("foo", image.Comment);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheCommentAttribute()
             {
                 using (var image = new MagickImage())
                 {
                     image.Comment = "foo";
 
-                    Assert.AreEqual("foo", image.GetAttribute("comment"));
+                    Assert.Equal("foo", image.GetAttribute("comment"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldRemoveTheCommentAttributeWhenSetToNull()
             {
                 using (var image = new MagickImage())
@@ -51,7 +50,7 @@ namespace Magick.NET.Tests
 
                     image.Comment = null;
 
-                    Assert.IsNull(image.GetAttribute("comment"));
+                    Assert.Null(image.GetAttribute("comment"));
                 }
             }
         }

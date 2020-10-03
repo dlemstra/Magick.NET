@@ -12,14 +12,13 @@
 
 using System.Text;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public partial class DrawableTextEncodingTests
     {
-        [TestMethod]
+        [Fact]
         public void Test_Encoding()
         {
             DrawableTextEncoding encoding = new DrawableTextEncoding(Encoding.UTF8);

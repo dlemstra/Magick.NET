@@ -14,7 +14,7 @@ using System;
 using System.IO;
 using System.Linq;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -28,10 +28,9 @@ using QuantumType = System.Single;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public partial class MagickImageCollectionTests
     {
-        [TestMethod]
+        [Fact]
         public void Test_CopyTo()
         {
             using (var collection = new MagickImageCollection())
@@ -42,12 +41,12 @@ namespace Magick.NET.Tests
                 MagickImage[] images = new MagickImage[collection.Count];
                 collection.CopyTo(images, 0);
 
-                Assert.AreEqual(collection[0], images[0]);
-                Assert.AreNotEqual(collection[0], images[1]);
+                Assert.Equal(collection[0], images[0]);
+                Assert.NotEqual(collection[0], images[1]);
 
                 collection.CopyTo(images, 1);
-                Assert.AreEqual(collection[0], images[0]);
-                Assert.AreEqual(collection[0], images[1]);
+                Assert.Equal(collection[0], images[0]);
+                Assert.Equal(collection[0], images[1]);
 
                 images = new MagickImage[collection.Count + 1];
                 collection.CopyTo(images, 0);
@@ -55,24 +54,24 @@ namespace Magick.NET.Tests
                 images = new MagickImage[1];
                 collection.CopyTo(images, 0);
 
-                ExceptionAssert.Throws<ArgumentNullException>("array", () =>
+                Assert.Throws<ArgumentNullException>("array", () =>
                 {
                     collection.CopyTo(null, -1);
                 });
 
-                ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
+                Assert.Throws<ArgumentOutOfRangeException>(() =>
                 {
                     collection.CopyTo(images, -1);
                 });
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Deconstruct()
         {
             using (var collection = new MagickImageCollection())
             {
-                ExceptionAssert.Throws<InvalidOperationException>(() =>
+                Assert.Throws<InvalidOperationException>(() =>
                 {
                     collection.Deconstruct();
                 });
@@ -87,26 +86,26 @@ namespace Magick.NET.Tests
                     collection.Add(frames.AppendHorizontally());
                 }
 
-                Assert.AreEqual(20, collection[1].Width);
-                Assert.AreEqual(20, collection[1].Height);
-                Assert.AreEqual(new MagickGeometry(0, 0, 10, 20), collection[1].Page);
-                ColorAssert.AreEqual(MagickColors.Red, collection[1], 3, 3);
+                Assert.Equal(20, collection[1].Width);
+                Assert.Equal(20, collection[1].Height);
+                Assert.Equal(new MagickGeometry(0, 0, 10, 20), collection[1].Page);
+                ColorAssert.Equal(MagickColors.Red, collection[1], 3, 3);
 
                 collection.Deconstruct();
 
-                Assert.AreEqual(10, collection[1].Width);
-                Assert.AreEqual(20, collection[1].Height);
-                Assert.AreEqual(new MagickGeometry(10, 0, 10, 20), collection[1].Page);
-                ColorAssert.AreEqual(MagickColors.Purple, collection[1], 3, 3);
+                Assert.Equal(10, collection[1].Width);
+                Assert.Equal(20, collection[1].Height);
+                Assert.Equal(new MagickGeometry(10, 0, 10, 20), collection[1].Page);
+                ColorAssert.Equal(MagickColors.Purple, collection[1], 3, 3);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Evaluate()
         {
             using (var collection = new MagickImageCollection())
             {
-                ExceptionAssert.Throws<InvalidOperationException>(() =>
+                Assert.Throws<InvalidOperationException>(() =>
                 {
                     collection.Evaluate(EvaluateOperator.Exponential);
                 });
@@ -125,20 +124,20 @@ namespace Magick.NET.Tests
 
                 using (var image = collection.Evaluate(EvaluateOperator.Min))
                 {
-                    ColorAssert.AreEqual(MagickColors.Green, image, 0, 0);
-                    ColorAssert.AreEqual(MagickColors.Yellow, image, 10, 0);
-                    ColorAssert.AreEqual(MagickColors.Black, image, 20, 0);
-                    ColorAssert.AreEqual(MagickColors.Yellow, image, 30, 0);
+                    ColorAssert.Equal(MagickColors.Green, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.Yellow, image, 10, 0);
+                    ColorAssert.Equal(MagickColors.Black, image, 20, 0);
+                    ColorAssert.Equal(MagickColors.Yellow, image, 30, 0);
                 }
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Flatten()
         {
             using (var collection = new MagickImageCollection())
             {
-                ExceptionAssert.Throws<InvalidOperationException>(() =>
+                Assert.Throws<InvalidOperationException>(() =>
                 {
                     collection.Flatten();
                 });
@@ -150,13 +149,13 @@ namespace Magick.NET.Tests
 
                 using (var image = collection.Flatten())
                 {
-                    ColorAssert.AreEqual(MagickColors.Brown, image, 0, 0);
-                    ColorAssert.AreEqual(MagickColors.Fuchsia, image, 5, 5);
+                    ColorAssert.Equal(MagickColors.Brown, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.Fuchsia, image, 5, 5);
                 }
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Index()
         {
             using (var collection = new MagickImageCollection(Files.RoseSparkleGIF))
@@ -164,20 +163,20 @@ namespace Magick.NET.Tests
                 for (int i = 0; i < collection.Count; i++)
                 {
                     collection[i].Resize(35, 23);
-                    Assert.AreEqual(35, collection[i].Width);
+                    Assert.Equal(35, collection[i].Width);
 
                     collection[i] = collection[i];
-                    Assert.AreEqual(35, collection[i].Width);
+                    Assert.Equal(35, collection[i].Width);
                 }
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Merge()
         {
             using (var collection = new MagickImageCollection())
             {
-                ExceptionAssert.Throws<InvalidOperationException>(() =>
+                Assert.Throws<InvalidOperationException>(() =>
                 {
                     collection.Merge();
                 });
@@ -186,13 +185,13 @@ namespace Magick.NET.Tests
 
                 using (var first = collection.Merge())
                 {
-                    Assert.AreEqual(collection[0].Width, first.Width);
-                    Assert.AreEqual(collection[0].Height, first.Height);
+                    Assert.Equal(collection[0].Width, first.Width);
+                    Assert.Equal(collection[0].Height, first.Height);
                 }
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Montage()
         {
             using (var collection = new MagickImageCollection())
@@ -201,7 +200,7 @@ namespace Magick.NET.Tests
                 settings.Geometry = new MagickGeometry(string.Format("{0}x{1}", 200, 200));
                 settings.TileGeometry = new MagickGeometry(string.Format("{0}x", 2));
 
-                ExceptionAssert.Throws<InvalidOperationException>(() =>
+                Assert.Throws<InvalidOperationException>(() =>
                 {
                     collection.Montage(settings);
                 });
@@ -211,26 +210,26 @@ namespace Magick.NET.Tests
 
                 using (var montageResult = collection.Montage(settings))
                 {
-                    Assert.IsNotNull(montageResult);
-                    Assert.AreEqual(400, montageResult.Width);
-                    Assert.AreEqual(1000, montageResult.Height);
+                    Assert.NotNull(montageResult);
+                    Assert.Equal(400, montageResult.Width);
+                    Assert.Equal(1000, montageResult.Height);
                 }
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Morph()
         {
             using (var collection = new MagickImageCollection())
             {
-                ExceptionAssert.Throws<InvalidOperationException>(() =>
+                Assert.Throws<InvalidOperationException>(() =>
                 {
                     collection.Morph(10);
                 });
 
                 collection.Add(Files.Builtin.Logo);
 
-                ExceptionAssert.Throws<InvalidOperationException>(() =>
+                Assert.Throws<InvalidOperationException>(() =>
                 {
                     collection.Morph(10);
                 });
@@ -238,16 +237,16 @@ namespace Magick.NET.Tests
                 collection.AddRange(Files.Builtin.Wizard);
 
                 collection.Morph(4);
-                Assert.AreEqual(6, collection.Count);
+                Assert.Equal(6, collection.Count);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Mosaic()
         {
             using (var collection = new MagickImageCollection())
             {
-                ExceptionAssert.Throws<InvalidOperationException>(() =>
+                Assert.Throws<InvalidOperationException>(() =>
                 {
                     collection.Mosaic();
                 });
@@ -257,23 +256,23 @@ namespace Magick.NET.Tests
 
                 using (var mosaic = collection.Mosaic())
                 {
-                    Assert.AreEqual(286, mosaic.Width);
-                    Assert.AreEqual(118, mosaic.Height);
+                    Assert.Equal(286, mosaic.Width);
+                    Assert.Equal(118, mosaic.Height);
                 }
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Smush()
         {
             using (var collection = new MagickImageCollection())
             {
-                ExceptionAssert.Throws<InvalidOperationException>(() =>
+                Assert.Throws<InvalidOperationException>(() =>
                 {
                     collection.SmushHorizontal(5);
                 });
 
-                ExceptionAssert.Throws<InvalidOperationException>(() =>
+                Assert.Throws<InvalidOperationException>(() =>
                 {
                     collection.SmushVertical(6);
                 });
@@ -282,19 +281,19 @@ namespace Magick.NET.Tests
 
                 using (var image = collection.SmushHorizontal(20))
                 {
-                    Assert.AreEqual((70 * 3) + (20 * 2), image.Width);
-                    Assert.AreEqual(46, image.Height);
+                    Assert.Equal((70 * 3) + (20 * 2), image.Width);
+                    Assert.Equal(46, image.Height);
                 }
 
                 using (var image = collection.SmushVertical(40))
                 {
-                    Assert.AreEqual(70, image.Width);
-                    Assert.AreEqual((46 * 3) + (40 * 2), image.Height);
+                    Assert.Equal(70, image.Width);
+                    Assert.Equal((46 * 3) + (40 * 2), image.Height);
                 }
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_ReadSettings()
         {
             var settings = new MagickReadSettings();
@@ -306,24 +305,24 @@ namespace Magick.NET.Tests
 
             using (var images = new MagickImageCollection(Files.ImageMagickTXT, settings))
             {
-                Assert.AreEqual(2, images.Count);
-                ColorAssert.AreEqual(MagickColors.Gold, images[0], 348, 648);
+                Assert.Equal(2, images.Count);
+                ColorAssert.Equal(MagickColors.Gold, images[0], 348, 648);
             }
 
             using (var images = new MagickImageCollection())
             {
                 images.Ping(Files.ImageMagickTXT, settings);
 
-                Assert.AreEqual(2, images.Count);
+                Assert.Equal(2, images.Count);
 
-                ExceptionAssert.Throws<InvalidOperationException>(() =>
+                Assert.Throws<InvalidOperationException>(() =>
                 {
-                    ColorAssert.AreEqual(MagickColors.Gold, images[0], 348, 648);
+                    ColorAssert.Equal(MagickColors.Gold, images[0], 348, 648);
                 });
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Remove()
         {
             using (var collection = new MagickImageCollection(Files.RoseSparkleGIF))
@@ -331,43 +330,43 @@ namespace Magick.NET.Tests
                 var first = collection[0];
                 collection.Remove(first);
 
-                Assert.AreEqual(2, collection.Count);
-                Assert.AreEqual(-1, collection.IndexOf(first));
+                Assert.Equal(2, collection.Count);
+                Assert.Equal(-1, collection.IndexOf(first));
 
                 first = collection[0];
                 collection.RemoveAt(0);
 
-                EnumerableAssert.IsSingle(collection);
-                Assert.AreEqual(-1, collection.IndexOf(first));
+                Assert.Single(collection);
+                Assert.Equal(-1, collection.IndexOf(first));
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_RePage()
         {
             using (var collection = new MagickImageCollection(Files.RoseSparkleGIF))
             {
                 collection[0].Page = new MagickGeometry("0x0+10+20");
 
-                Assert.AreEqual(10, collection[0].Page.X);
-                Assert.AreEqual(20, collection[0].Page.Y);
+                Assert.Equal(10, collection[0].Page.X);
+                Assert.Equal(20, collection[0].Page.Y);
 
                 collection[0].Settings.Page = new MagickGeometry("0x0+10+20");
 
-                Assert.AreEqual(10, collection[0].Settings.Page.X);
-                Assert.AreEqual(20, collection[0].Settings.Page.Y);
+                Assert.Equal(10, collection[0].Settings.Page.X);
+                Assert.Equal(20, collection[0].Settings.Page.Y);
 
                 collection.RePage();
 
-                Assert.AreEqual(0, collection[0].Page.X);
-                Assert.AreEqual(0, collection[0].Page.Y);
+                Assert.Equal(0, collection[0].Page.X);
+                Assert.Equal(0, collection[0].Page.Y);
 
-                Assert.AreEqual(10, collection[0].Settings.Page.X);
-                Assert.AreEqual(20, collection[0].Settings.Page.Y);
+                Assert.Equal(10, collection[0].Settings.Page.X);
+                Assert.Equal(20, collection[0].Settings.Page.Y);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Reverse()
         {
             using (var collection = new MagickImageCollection(Files.RoseSparkleGIF))
@@ -376,28 +375,28 @@ namespace Magick.NET.Tests
                 collection.Reverse();
 
                 var last = collection.Last();
-                Assert.IsTrue(last == first);
+                Assert.True(last == first);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_ToBase64()
         {
             using (var collection = new MagickImageCollection())
             {
-                Assert.AreEqual(string.Empty, collection.ToBase64());
+                Assert.Equal(string.Empty, collection.ToBase64());
 
                 collection.Read(Files.Builtin.Logo);
-                Assert.AreEqual(1228800, collection.ToBase64(MagickFormat.Rgb).Length);
+                Assert.Equal(1228800, collection.ToBase64(MagickFormat.Rgb).Length);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_TrimBounds()
         {
             using (var collection = new MagickImageCollection())
             {
-                ExceptionAssert.Throws<InvalidOperationException>(() =>
+                Assert.Throws<InvalidOperationException>(() =>
                 {
                     collection.TrimBounds();
                 });
@@ -406,29 +405,29 @@ namespace Magick.NET.Tests
                 collection.Add(Files.Builtin.Wizard);
                 collection.TrimBounds();
 
-                Assert.AreEqual(640, collection[0].Page.Width);
-                Assert.AreEqual(640, collection[0].Page.Height);
-                Assert.AreEqual(0, collection[0].Page.X);
-                Assert.AreEqual(0, collection[0].Page.Y);
+                Assert.Equal(640, collection[0].Page.Width);
+                Assert.Equal(640, collection[0].Page.Height);
+                Assert.Equal(0, collection[0].Page.X);
+                Assert.Equal(0, collection[0].Page.Y);
 
-                Assert.AreEqual(640, collection[1].Page.Width);
-                Assert.AreEqual(640, collection[1].Page.Height);
-                Assert.AreEqual(0, collection[0].Page.X);
-                Assert.AreEqual(0, collection[0].Page.Y);
+                Assert.Equal(640, collection[1].Page.Width);
+                Assert.Equal(640, collection[1].Page.Height);
+                Assert.Equal(0, collection[0].Page.X);
+                Assert.Equal(0, collection[0].Page.Y);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Warning()
         {
             var count = 0;
             EventHandler<WarningEventArgs> warningDelegate = (sender, arguments) =>
             {
-                Assert.IsNotNull(sender);
-                Assert.IsNotNull(arguments);
-                Assert.IsNotNull(arguments.Message);
-                Assert.IsNotNull(arguments.Exception);
-                Assert.AreNotEqual(string.Empty, arguments.Message);
+                Assert.NotNull(sender);
+                Assert.NotNull(arguments);
+                Assert.NotNull(arguments.Message);
+                Assert.NotNull(arguments.Exception);
+                Assert.NotEqual(string.Empty, arguments.Message);
 
                 count++;
             };
@@ -438,21 +437,21 @@ namespace Magick.NET.Tests
                 collection.Warning += warningDelegate;
                 collection.Read(Files.EightBimTIF);
 
-                Assert.AreNotEqual(0, count);
+                Assert.NotEqual(0, count);
 
                 int expectedCount = count;
                 collection.Warning -= warningDelegate;
                 collection.Read(Files.EightBimTIF);
 
-                Assert.AreEqual(expectedCount, count);
+                Assert.Equal(expectedCount, count);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Write()
         {
             var fileSize = new FileInfo(Files.RoseSparkleGIF).Length;
-            Assert.AreEqual(fileSize, 9891);
+            Assert.Equal(9891, fileSize);
 
             using (var collection = new MagickImageCollection(Files.RoseSparkleGIF))
             {
@@ -460,7 +459,7 @@ namespace Magick.NET.Tests
                 {
                     collection.Write(memStream);
 
-                    Assert.AreEqual(fileSize, memStream.Length);
+                    Assert.Equal(fileSize, memStream.Length);
                 }
             }
 
@@ -471,7 +470,7 @@ namespace Magick.NET.Tests
                 {
                     collection.Write(tempFile);
 
-                    Assert.AreEqual(fileSize, tempFile.Length);
+                    Assert.Equal(fileSize, tempFile.Length);
                 }
             }
             finally

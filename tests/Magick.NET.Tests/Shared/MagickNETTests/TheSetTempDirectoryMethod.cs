@@ -13,34 +13,33 @@
 using System;
 using System.IO;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickNETTests
     {
-        [TestClass]
         public class TheSetTempDirectoryMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenPathIsNull()
             {
-                ExceptionAssert.Throws<ArgumentNullException>("path", () =>
+                Assert.Throws<ArgumentNullException>("path", () =>
                 {
                     MagickNET.SetTempDirectory(null);
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenPathIsInvalid()
             {
-                ExceptionAssert.Throws<ArgumentException>("path", () =>
+                Assert.Throws<ArgumentException>("path", () =>
                 {
                     MagickNET.SetTempDirectory("Invalid");
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotThrowExceptionWhenPathIsCorrect()
             {
                 MagickNET.SetTempDirectory(Path.GetTempPath());

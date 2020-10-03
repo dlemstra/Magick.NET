@@ -11,14 +11,13 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public partial class TheLabelCoder
     {
-        [TestMethod]
+        [Fact]
         public void ShouldUseTheCorrectFontSize()
         {
             var settings = new MagickReadSettings
@@ -29,8 +28,8 @@ namespace Magick.NET.Tests
 
             using (var image = new MagickImage("label:asf", settings))
             {
-                ColorAssert.AreEqual(MagickColors.Black, image, 293, 68);
-                ColorAssert.AreEqual(MagickColors.Black, image, 17, 200);
+                ColorAssert.Equal(MagickColors.Black, image, 293, 68);
+                ColorAssert.Equal(MagickColors.Black, image, 17, 200);
             }
         }
     }

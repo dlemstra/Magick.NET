@@ -12,7 +12,7 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -28,19 +28,18 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageCollectionTests
     {
-        [TestClass]
         public class TheOptimizeMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenCollectionIsEmpty()
             {
                 using (var images = new MagickImageCollection())
                 {
-                    ExceptionAssert.Throws<InvalidOperationException>(() => images.Optimize());
+                    Assert.Throws<InvalidOperationException>(() => images.Optimize());
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldCorrectlyOptimizeTheImages()
             {
                 using (var collection = new MagickImageCollection())
@@ -56,15 +55,15 @@ namespace Magick.NET.Tests
                     collection.Add(image);
                     collection.Optimize();
 
-                    Assert.AreEqual(1, collection[1].Width);
-                    Assert.AreEqual(1, collection[1].Height);
-                    Assert.AreEqual(5, collection[1].Page.X);
-                    Assert.AreEqual(5, collection[1].Page.Y);
-                    ColorAssert.AreEqual(MagickColors.Lime, collection[1], 0, 0);
+                    Assert.Equal(1, collection[1].Width);
+                    Assert.Equal(1, collection[1].Height);
+                    Assert.Equal(5, collection[1].Page.X);
+                    Assert.Equal(5, collection[1].Page.Y);
+                    ColorAssert.Equal(MagickColors.Lime, collection[1], 0, 0);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldCorrectlyOptimizeDuplicateFrames()
             {
                 using (var images = new MagickImageCollection())
@@ -75,12 +74,12 @@ namespace Magick.NET.Tests
 
                     images.Optimize();
 
-                    Assert.AreEqual(3, images.Count);
+                    Assert.Equal(3, images.Count);
                     var secondFrame = images[1];
 
-                    Assert.AreEqual(1, secondFrame.Width);
-                    Assert.AreEqual(1, secondFrame.Height);
-                    ColorAssert.AreEqual(MagickColors.None, secondFrame, 0, 0);
+                    Assert.Equal(1, secondFrame.Width);
+                    Assert.Equal(1, secondFrame.Height);
+                    ColorAssert.Equal(MagickColors.None, secondFrame, 0, 0);
                 }
             }
         }

@@ -16,34 +16,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheColorThresholdMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenStartColorIsNull()
             {
                 using (var image = new MagickImage())
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("startColor", () => image.ColorThreshold(null, new MagickColor()));
+                    Assert.Throws<ArgumentNullException>("startColor", () => image.ColorThreshold(null, new MagickColor()));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenStopColorIsNull()
             {
                 using (var image = new MagickImage())
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("stopColor", () => image.ColorThreshold(new MagickColor(), null));
+                    Assert.Throws<ArgumentNullException>("stopColor", () => image.ColorThreshold(new MagickColor(), null));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangeTheImageToBlackAndWhite()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
@@ -53,8 +52,8 @@ namespace Magick.NET.Tests
 
                     image.ColorThreshold(startColor, stopColor);
 
-                    ColorAssert.AreEqual(MagickColors.White, image, 300, 160);
-                    ColorAssert.AreEqual(MagickColors.Black, image, 300, 260);
+                    ColorAssert.Equal(MagickColors.White, image, 300, 160);
+                    ColorAssert.Equal(MagickColors.Black, image, 300, 260);
                 }
             }
         }

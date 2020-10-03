@@ -11,34 +11,33 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class ExifProfileTests
     {
-        [TestClass]
         public class TheRemoveValueMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldRemoveValueAndReturnTrue()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetExifProfile();
 
-                    Assert.IsTrue(profile.RemoveValue(ExifTag.FNumber));
+                    Assert.True(profile.RemoveValue(ExifTag.FNumber));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldRemoveFalseWhenProfileDoesNotContainTag()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetExifProfile();
 
-                    Assert.IsFalse(profile.RemoveValue(ExifTag.Acceleration));
+                    Assert.False(profile.RemoveValue(ExifTag.Acceleration));
                 }
             }
         }

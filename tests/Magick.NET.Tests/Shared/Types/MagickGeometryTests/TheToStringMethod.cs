@@ -11,40 +11,39 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickGeometryTests
     {
-        [TestClass]
         public class TheToStringMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldOnlyReturnWidthAndHeight()
             {
                 var geometry = new MagickGeometry(10, 5);
 
-                Assert.AreEqual("10x5", geometry.ToString());
+                Assert.Equal("10x5", geometry.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnCorrectValueForPositiveValues()
             {
                 var geometry = new MagickGeometry(1, 2, 10, 20);
 
-                Assert.AreEqual("10x20+1+2", geometry.ToString());
+                Assert.Equal("10x20+1+2", geometry.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnCorrectValueForNegativeValues()
             {
                 var geometry = new MagickGeometry(-1, -2, 20, 10);
 
-                Assert.AreEqual("20x10-1-2", geometry.ToString());
+                Assert.Equal("20x10-1-2", geometry.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnCorrectValueForIgnoreAspectRatio()
             {
                 var geometry = new MagickGeometry(5, 10)
@@ -52,10 +51,10 @@ namespace Magick.NET.Tests
                     IgnoreAspectRatio = true,
                 };
 
-                Assert.AreEqual("5x10!", geometry.ToString());
+                Assert.Equal("5x10!", geometry.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnCorrectValueForLess()
             {
                 var geometry = new MagickGeometry(2, 1, 10, 5)
@@ -63,10 +62,10 @@ namespace Magick.NET.Tests
                     Less = true,
                 };
 
-                Assert.AreEqual("10x5+2+1<", geometry.ToString());
+                Assert.Equal("10x5+2+1<", geometry.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnCorrectValueForGreater()
             {
                 var geometry = new MagickGeometry(0, 10)
@@ -74,10 +73,10 @@ namespace Magick.NET.Tests
                     Greater = true,
                 };
 
-                Assert.AreEqual("x10>", geometry.ToString());
+                Assert.Equal("x10>", geometry.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnCorrectValueForFillArea()
             {
                 var geometry = new MagickGeometry(10, 15)
@@ -85,10 +84,10 @@ namespace Magick.NET.Tests
                     FillArea = true,
                 };
 
-                Assert.AreEqual("10x15^", geometry.ToString());
+                Assert.Equal("10x15^", geometry.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnCorrectValueForLimitPixels()
             {
                 var geometry = new MagickGeometry(10, 0)
@@ -96,10 +95,10 @@ namespace Magick.NET.Tests
                     LimitPixels = true,
                 };
 
-                Assert.AreEqual("10x@", geometry.ToString());
+                Assert.Equal("10x@", geometry.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnCorrectValueForAspectRation()
             {
                 var geometry = new MagickGeometry(3, 2)
@@ -107,10 +106,10 @@ namespace Magick.NET.Tests
                     AspectRatio = true,
                 };
 
-                Assert.AreEqual("3:2", geometry.ToString());
+                Assert.Equal("3:2", geometry.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetGreaterAndIsPercentage()
             {
                 var geometry = new MagickGeometry(new Percentage(50), new Percentage(0))
@@ -118,7 +117,7 @@ namespace Magick.NET.Tests
                     Greater = true,
                 };
 
-                Assert.AreEqual("50%>", geometry.ToString());
+                Assert.Equal("50%>", geometry.ToString());
             }
         }
     }

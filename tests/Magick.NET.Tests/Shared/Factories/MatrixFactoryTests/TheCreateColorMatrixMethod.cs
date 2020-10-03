@@ -11,36 +11,35 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MatrixFactoryTests
     {
-        [TestClass]
         public class TheCreateColorMatrixMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldCreateInstance()
             {
                 var factory = new MatrixFactory();
 
                 var matrix = factory.CreateColorMatrix(1);
 
-                Assert.IsNotNull(matrix);
-                Assert.IsInstanceOfType(matrix, typeof(MagickColorMatrix));
+                Assert.NotNull(matrix);
+                Assert.IsType<MagickColorMatrix>(matrix);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldCreateInstanceWithValues()
             {
                 var factory = new MatrixFactory();
 
                 var matrix = factory.CreateColorMatrix(1, 2);
 
-                Assert.IsNotNull(matrix);
-                Assert.IsInstanceOfType(matrix, typeof(MagickColorMatrix));
-                Assert.AreEqual(2, matrix.GetValue(0, 0));
+                Assert.NotNull(matrix);
+                Assert.IsType<MagickColorMatrix>(matrix);
+                Assert.Equal(2, matrix.GetValue(0, 0));
             }
         }
     }

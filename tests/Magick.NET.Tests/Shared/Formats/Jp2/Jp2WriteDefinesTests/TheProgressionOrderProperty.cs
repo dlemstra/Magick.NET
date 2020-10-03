@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Jp2;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class Jp2WriteDefinesTests
     {
-        [TestClass]
         public class TheProgressionOrderProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 using (var image = new MagickImage())
@@ -31,7 +30,7 @@ namespace Magick.NET.Tests
                         ProgressionOrder = Jp2ProgressionOrder.PCRL,
                     });
 
-                    Assert.AreEqual("PCRL", image.Settings.GetDefine(MagickFormat.Jp2, "progression-order"));
+                    Assert.Equal("PCRL", image.Settings.GetDefine(MagickFormat.Jp2, "progression-order"));
                 }
             }
         }

@@ -14,16 +14,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class UnsafePixelCollectionTests
     {
-        [TestClass]
         public class TheGetEnumeratorMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnEnumerator()
             {
                 using (var image = new MagickImage(Files.CirclePNG))
@@ -31,12 +30,12 @@ namespace Magick.NET.Tests
                     using (var pixels = image.GetPixelsUnsafe())
                     {
                         var enumerator = pixels.GetEnumerator();
-                        Assert.IsNotNull(enumerator);
+                        Assert.NotNull(enumerator);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnEnumeratorForInterfaceImplementation()
             {
                 using (var image = new MagickImage(Files.CirclePNG))
@@ -44,33 +43,33 @@ namespace Magick.NET.Tests
                     using (var pixels = image.GetPixelsUnsafe())
                     {
                         IEnumerable enumerable = pixels;
-                        Assert.IsNotNull(enumerable.GetEnumerator());
+                        Assert.NotNull(enumerable.GetEnumerator());
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnEnumeratorForFirst()
             {
                 using (var image = new MagickImage(Files.ConnectedComponentsPNG, 10, 10))
                 {
                     var pixel = image.GetPixelsUnsafe().First(p => p.ToColor().Equals(MagickColors.Black));
-                    Assert.IsNotNull(pixel);
+                    Assert.NotNull(pixel);
 
-                    Assert.AreEqual(350, pixel.X);
-                    Assert.AreEqual(196, pixel.Y);
-                    Assert.AreEqual(2, pixel.Channels);
+                    Assert.Equal(350, pixel.X);
+                    Assert.Equal(196, pixel.Y);
+                    Assert.Equal(2, pixel.Channels);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnEnumeratorForCount()
             {
                 using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        Assert.AreEqual(50, pixels.Count());
+                        Assert.Equal(50, pixels.Count());
                     }
                 }
             }

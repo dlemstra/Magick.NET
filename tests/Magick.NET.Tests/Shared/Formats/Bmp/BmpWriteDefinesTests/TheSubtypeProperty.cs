@@ -13,16 +13,15 @@
 using System.IO;
 using ImageMagick;
 using ImageMagick.Formats.Bmp;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class BmpWriteDefinesTests
     {
-        [TestClass]
         public class TheSubtypeProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldBeUsed()
             {
                 var defines = new BmpWriteDefines()
@@ -46,7 +45,7 @@ namespace Magick.NET.Tests
                     using (var memStream = new MemoryStream())
                     {
                         image.Write(memStream);
-                        Assert.AreEqual(length, memStream.Length);
+                        Assert.Equal(length, memStream.Length);
                     }
 
                     image.Settings.SetDefines(defines);
@@ -54,7 +53,7 @@ namespace Magick.NET.Tests
                     using (var memStream = new MemoryStream())
                     {
                         image.Write(memStream);
-                        Assert.IsTrue(memStream.Length < length);
+                        Assert.True(memStream.Length < length);
                     }
                 }
             }

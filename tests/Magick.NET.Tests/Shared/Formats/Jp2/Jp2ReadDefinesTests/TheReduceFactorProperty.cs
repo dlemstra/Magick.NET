@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Jp2;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class Jp2ReadDefinesTests
     {
-        [TestClass]
         public class TheReduceFactorProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 var settings = new MagickReadSettings()
@@ -36,7 +35,7 @@ namespace Magick.NET.Tests
                 {
                     image.Read(Files.Coders.GrimJP2, settings);
 
-                    Assert.AreEqual("2", image.Settings.GetDefine(MagickFormat.Jp2, "reduce-factor"));
+                    Assert.Equal("2", image.Settings.GetDefine(MagickFormat.Jp2, "reduce-factor"));
                 }
             }
         }

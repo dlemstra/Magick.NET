@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class IptcProfileTests
     {
-        [TestClass]
         public class TheGetValueMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnNullWhenImageDoesNotContainValue()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -28,11 +27,11 @@ namespace Magick.NET.Tests
                     var profile = image.GetIptcProfile();
                     var value = profile.GetValue(IptcTag.ReferenceNumber);
 
-                    Assert.IsNull(value);
+                    Assert.Null(value);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheValue()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -40,12 +39,12 @@ namespace Magick.NET.Tests
                     var profile = image.GetIptcProfile();
                     var value = profile.GetValue(IptcTag.Title);
 
-                    Assert.IsNotNull(value);
-                    Assert.AreEqual(value.Value, "Communications");
+                    Assert.NotNull(value);
+                    Assert.Equal("Communications", value.Value);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnAllValues()
             {
                 var profile = new IptcProfile();
@@ -55,8 +54,8 @@ namespace Magick.NET.Tests
 
                 var result = profile.GetAllValues(IptcTag.Byline);
 
-                Assert.IsNotNull(result);
-                Assert.AreEqual(2, result.Count);
+                Assert.NotNull(result);
+                Assert.Equal(2, result.Count);
             }
         }
     }

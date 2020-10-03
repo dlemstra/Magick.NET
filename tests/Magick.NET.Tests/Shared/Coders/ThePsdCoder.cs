@@ -12,39 +12,38 @@
 
 using System.IO;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class ThePsdCoder
     {
-        [TestMethod]
+        [Fact]
         public void ShouldReadTheCorrectColors()
         {
             using (var image = new MagickImage(Files.Coders.PlayerPSD))
             {
-                ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
+                ColorAssert.Equal(MagickColors.White, image, 0, 0);
 
-                ColorAssert.AreEqual(MagickColor.FromRgb(15, 43, 255), image, 8, 6);
+                ColorAssert.Equal(MagickColor.FromRgb(15, 43, 255), image, 8, 6);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldReadTheProfileForAllLayers()
         {
             using (var images = new MagickImageCollection(Files.Coders.LayerStylesSamplePSD))
             {
-                Assert.AreEqual(4, images.Count);
+                Assert.Equal(4, images.Count);
 
                 foreach (var image in images)
                 {
-                    Assert.IsNotNull(image.Get8BimProfile());
+                    Assert.NotNull(image.Get8BimProfile());
                 }
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldCorrectlyWriteGrayscaleImage()
         {
             using (var input = new MagickImage(Files.Builtin.Wizard))
@@ -64,13 +63,13 @@ namespace Magick.NET.Tests
                     {
                         var distortion = output.Compare(input, ErrorMetric.RootMeanSquared);
 
-                        Assert.AreEqual(0, distortion, 0.002);
+                        Assert.InRange(distortion, 0.000, 0.001);
                     }
                 }
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldCorrectlyWriteGrayscaleAlphaImage()
         {
             using (var input = new MagickImage(Files.Builtin.Wizard))
@@ -93,7 +92,7 @@ namespace Magick.NET.Tests
                     {
                         var distortion = output.Compare(input, ErrorMetric.RootMeanSquared);
 
-                        Assert.AreEqual(0, distortion, 0.002);
+                        Assert.InRange(distortion, 0.000, 0.001);
                     }
                 }
             }

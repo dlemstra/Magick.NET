@@ -12,18 +12,17 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class UnsafePixelCollectionTests
     {
-        [TestClass]
         public class TheToByteArrayMethod
         {
             private static bool Is64Bit => IntPtr.Size == 8;
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenXTooLow()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -36,7 +35,7 @@ namespace Magick.NET.Tests
                         }
                         else
                         {
-                            ExceptionAssert.Throws<OverflowException>(() =>
+                            Assert.Throws<OverflowException>(() =>
                             {
                                 pixels.ToByteArray(-1, 0, 1, 1, "RGB");
                             });
@@ -45,7 +44,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnPixelsWhenAreaIsCorrect()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -55,12 +54,12 @@ namespace Magick.NET.Tests
                         var values = pixels.ToByteArray(60, 60, 63, 58, "RGBA");
                         int length = 63 * 58 * 4;
 
-                        Assert.AreEqual(length, values.Length);
+                        Assert.Equal(length, values.Length);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnPixelsWhenAreaAndMappingAreCorrect()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -70,12 +69,12 @@ namespace Magick.NET.Tests
                         var values = pixels.ToByteArray(60, 60, 63, 58, PixelMapping.RGBA);
                         int length = 63 * 58 * 4;
 
-                        Assert.AreEqual(length, values.Length);
+                        Assert.Equal(length, values.Length);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnNullWhenGeometryIsNull()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -83,12 +82,12 @@ namespace Magick.NET.Tests
                     using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = pixels.ToByteArray(null, "RGB");
-                        Assert.IsNull(values);
+                        Assert.Null(values);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnNullWhenGeometryIsSpecifiedAndMappingIsNull()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -96,19 +95,19 @@ namespace Magick.NET.Tests
                     using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = pixels.ToByteArray(new MagickGeometry(1, 2, 3, 4), null);
-                        Assert.IsNull(values);
+                        Assert.Null(values);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenGeometryIsSpecifiedAndMappingIsEmpty()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        ExceptionAssert.Throws<MagickResourceLimitErrorException>(() =>
+                        Assert.Throws<MagickResourceLimitErrorException>(() =>
                         {
                             var values = pixels.ToByteArray(new MagickGeometry(1, 2, 3, 4), string.Empty);
                         });
@@ -116,7 +115,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnArrayWhenGeometryIsCorrect()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -126,12 +125,12 @@ namespace Magick.NET.Tests
                         var values = pixels.ToByteArray(new MagickGeometry(10, 10, 113, 108), "RG");
                         int length = 113 * 108 * 2;
 
-                        Assert.AreEqual(length, values.Length);
+                        Assert.Equal(length, values.Length);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnArrayWhenGeometryIsCorrectAndMappingIsEnum()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -141,12 +140,12 @@ namespace Magick.NET.Tests
                         var values = pixels.ToByteArray(new MagickGeometry(10, 10, 113, 108), PixelMapping.RGB);
                         var length = 113 * 108 * 3;
 
-                        Assert.AreEqual(length, values.Length);
+                        Assert.Equal(length, values.Length);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnNullWhenMappingIsNull()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -155,19 +154,19 @@ namespace Magick.NET.Tests
                     {
                         var values = pixels.ToByteArray(null);
 
-                        Assert.IsNull(values);
+                        Assert.Null(values);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenMappingIsEmpty()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        ExceptionAssert.Throws<MagickResourceLimitErrorException>(() =>
+                        Assert.Throws<MagickResourceLimitErrorException>(() =>
                         {
                             pixels.ToByteArray(string.Empty);
                         });
@@ -175,14 +174,14 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenMappingIsInvalid()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        ExceptionAssert.Throws<MagickOptionErrorException>(() =>
+                        Assert.Throws<MagickOptionErrorException>(() =>
                         {
                             pixels.ToByteArray("FOO");
                         });
@@ -190,7 +189,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnArrayWhenTwoChannelsAreSupplied()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -200,12 +199,12 @@ namespace Magick.NET.Tests
                         var values = pixels.ToByteArray("RG");
                         int length = image.Width * image.Height * 2;
 
-                        Assert.AreEqual(length, values.Length);
+                        Assert.Equal(length, values.Length);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnArrayWhenTwoChannelsAreSuppliedAndMappingIsEnum()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -215,7 +214,7 @@ namespace Magick.NET.Tests
                         var values = pixels.ToByteArray(PixelMapping.RGB);
                         var length = image.Width * image.Height * 3;
 
-                        Assert.AreEqual(length, values.Length);
+                        Assert.Equal(length, values.Length);
                     }
                 }
             }

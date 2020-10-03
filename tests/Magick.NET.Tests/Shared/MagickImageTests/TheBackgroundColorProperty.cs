@@ -12,40 +12,39 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheBackgroundColorProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenImageIsDisposed()
             {
                 var image = new MagickImage();
                 image.Dispose();
 
-                ExceptionAssert.Throws<ObjectDisposedException>(() =>
+                Assert.Throws<ObjectDisposedException>(() =>
                 {
                     image.BackgroundColor = MagickColors.PaleGreen;
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheBackgroundColorWhenReadingImage()
             {
                 using (var image = new MagickImage())
                 {
-                    ColorAssert.AreEqual(MagickColors.White, image.Settings.BackgroundColor);
+                    ColorAssert.Equal(MagickColors.White, image.Settings.BackgroundColor);
 
                     image.Read(Files.Logos.MagickNETSVG);
-                    ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.White, image, 0, 0);
 
                     image.Settings.BackgroundColor = MagickColors.Yellow;
                     image.Read(Files.Logos.MagickNETSVG);
-                    ColorAssert.AreEqual(MagickColors.Yellow, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.Yellow, image, 0, 0);
                 }
             }
         }

@@ -12,7 +12,7 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -28,75 +28,74 @@ namespace Magick.NET.Tests
 {
     public partial class MagickColorFactoryTests
     {
-        [TestClass]
         public class TheCreateMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenColorIsNull()
             {
                 var factory = new MagickColorFactory();
 
-                ExceptionAssert.Throws<ArgumentNullException>("color", () =>
+                Assert.Throws<ArgumentNullException>("color", () =>
                 {
                     factory.Create((string)null);
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenColorIsEmpty()
             {
                 var factory = new MagickColorFactory();
 
-                ExceptionAssert.Throws<ArgumentException>("color", () =>
+                Assert.Throws<ArgumentException>("color", () =>
                 {
                     factory.Create(string.Empty);
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenColorDoesNotStartWithHash()
             {
                 var factory = new MagickColorFactory();
 
-                ExceptionAssert.Throws<ArgumentException>("color", () =>
+                Assert.Throws<ArgumentException>("color", () =>
                 {
                     factory.Create("FFFFFF");
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenColorHasInvalidLength()
             {
                 var factory = new MagickColorFactory();
 
-                ExceptionAssert.Throws<ArgumentException>("color", () =>
+                Assert.Throws<ArgumentException>("color", () =>
                 {
                     factory.Create("#FFFFF");
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenColorHasInvalidHexValue()
             {
                 var factory = new MagickColorFactory();
 
-                ExceptionAssert.Throws<ArgumentException>("color", () =>
+                Assert.Throws<ArgumentException>("color", () =>
                 {
                     factory.Create("#FGF");
                 });
 
-                ExceptionAssert.Throws<ArgumentException>("color", () =>
+                Assert.Throws<ArgumentException>("color", () =>
                 {
                     factory.Create("#GGFFFF");
                 });
 
-                ExceptionAssert.Throws<ArgumentException>("color", () =>
+                Assert.Throws<ArgumentException>("color", () =>
                 {
                     factory.Create("#FFFG000000000000");
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldInitializeTheInstanceCorrectly()
             {
                 TestColor("#FF", Quantum.Max, Quantum.Max, Quantum.Max, false);
@@ -124,14 +123,14 @@ namespace Magick.NET.Tests
                 var factory = new MagickColorFactory();
                 var color = factory.Create(hexValue);
 
-                Assert.AreEqual(red, color.R, delta);
-                Assert.AreEqual(green, color.G, delta);
-                Assert.AreEqual(blue, color.B, delta);
+                Assert.InRange(color.R, red - delta, red + delta);
+                Assert.InRange(color.G, green - delta, green + delta);
+                Assert.InRange(color.B, blue - delta, blue + delta);
 
                 if (isTransparent)
-                    ColorAssert.IsTransparent(color.A);
+                    ColorAssert.Transparent(color.A);
                 else
-                    ColorAssert.IsNotTransparent(color.A);
+                    ColorAssert.NotTransparent(color.A);
             }
         }
     }

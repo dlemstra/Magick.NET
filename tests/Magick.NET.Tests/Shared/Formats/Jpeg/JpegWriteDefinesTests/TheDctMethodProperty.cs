@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Jpeg;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class JpegWriteDefinesTests
     {
-        [TestClass]
         public class TheDctMethodProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 var defines = new JpegWriteDefines()
@@ -33,7 +32,7 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(defines);
 
-                    Assert.AreEqual("Fast", image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
+                    Assert.Equal("Fast", image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
                 }
             }
         }

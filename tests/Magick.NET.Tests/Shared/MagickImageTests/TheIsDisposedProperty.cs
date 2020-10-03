@@ -11,31 +11,30 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheIsDisposedProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenTheImageIsNotDisposed()
             {
                 using (var image = new MagickImage())
                 {
-                    Assert.IsFalse(image.IsDisposed);
+                    Assert.False(image.IsDisposed);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenTheImageIsDisposed()
             {
                 var image = new MagickImage();
                 image.Dispose();
 
-                Assert.IsTrue(image.IsDisposed);
+                Assert.True(image.IsDisposed);
             }
         }
     }

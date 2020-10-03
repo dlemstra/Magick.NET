@@ -11,31 +11,30 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheAutoOrientMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldRotateTheImage()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
                 {
-                    Assert.AreEqual(600, image.Width);
-                    Assert.AreEqual(400, image.Height);
-                    Assert.AreEqual(OrientationType.TopLeft, image.Orientation);
+                    Assert.Equal(600, image.Width);
+                    Assert.Equal(400, image.Height);
+                    Assert.Equal(OrientationType.TopLeft, image.Orientation);
 
                     image.Orientation = OrientationType.RightTop;
 
                     image.AutoOrient();
 
-                    Assert.AreEqual(400, image.Width);
-                    Assert.AreEqual(600, image.Height);
-                    Assert.AreEqual(OrientationType.TopLeft, image.Orientation);
+                    Assert.Equal(400, image.Width);
+                    Assert.Equal(600, image.Height);
+                    Assert.Equal(OrientationType.TopLeft, image.Orientation);
                 }
             }
         }

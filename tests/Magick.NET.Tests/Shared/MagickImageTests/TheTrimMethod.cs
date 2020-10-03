@@ -11,40 +11,39 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheTrimMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldTrimTheBackground()
             {
                 using (var image = new MagickImage("xc:fuchsia", 50, 50))
                 {
-                    ColorAssert.AreEqual(MagickColors.Fuchsia, image, 0, 0);
-                    ColorAssert.AreEqual(MagickColors.Fuchsia, image, 49, 49);
+                    ColorAssert.Equal(MagickColors.Fuchsia, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.Fuchsia, image, 49, 49);
 
                     image.Extent(100, 60, Gravity.Center, MagickColors.Gold);
 
-                    Assert.AreEqual(100, image.Width);
-                    Assert.AreEqual(60, image.Height);
-                    ColorAssert.AreEqual(MagickColors.Gold, image, 0, 0);
-                    ColorAssert.AreEqual(MagickColors.Fuchsia, image, 50, 30);
+                    Assert.Equal(100, image.Width);
+                    Assert.Equal(60, image.Height);
+                    ColorAssert.Equal(MagickColors.Gold, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.Fuchsia, image, 50, 30);
 
                     image.Trim();
 
-                    Assert.AreEqual(50, image.Width);
-                    Assert.AreEqual(50, image.Height);
-                    ColorAssert.AreEqual(MagickColors.Fuchsia, image, 0, 0);
-                    ColorAssert.AreEqual(MagickColors.Fuchsia, image, 49, 49);
+                    Assert.Equal(50, image.Width);
+                    Assert.Equal(50, image.Height);
+                    ColorAssert.Equal(MagickColors.Fuchsia, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.Fuchsia, image, 49, 49);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldTrimTheBackgroundWithThePercentage()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
@@ -54,11 +53,11 @@ namespace Magick.NET.Tests
 
                     image.Trim(new Percentage(5));
 #if Q8 || Q16
-                    Assert.AreEqual(558, image.Width);
-                    Assert.AreEqual(318, image.Height);
+                    Assert.Equal(558, image.Width);
+                    Assert.Equal(318, image.Height);
 #else
-                    Assert.AreEqual(560, image.Width);
-                    Assert.AreEqual(320, image.Height);
+                    Assert.Equal(560, image.Width);
+                    Assert.Equal(320, image.Height);
 #endif
                 }
             }

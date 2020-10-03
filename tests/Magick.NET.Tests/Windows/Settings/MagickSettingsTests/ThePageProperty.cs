@@ -13,7 +13,7 @@
 #if WINDOWS_BUILD
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
@@ -21,19 +21,19 @@ namespace Magick.NET.Tests
     {
         public class ThePageProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheCorrectDimensionsWhenReadingImage()
             {
                 using (var image = new MagickImage())
                 {
-                    Assert.AreEqual(null, image.Settings.Page);
+                    Assert.Null(image.Settings.Page);
 
                     image.Settings.Font = "Courier New";
                     image.Settings.Page = new MagickGeometry(50, 50, 100, 100);
                     image.Read("pango:Test");
 
-                    Assert.AreEqual(136, image.Width);
-                    Assert.AreEqual(117, image.Height);
+                    Assert.Equal(136, image.Width);
+                    Assert.Equal(117, image.Height);
                 }
             }
         }

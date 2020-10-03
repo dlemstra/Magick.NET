@@ -13,16 +13,15 @@
 using System.IO;
 using ImageMagick;
 using ImageMagick.Formats.Jpeg;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class JpegWriteDefinesTests
     {
-        [TestClass]
         public class TheSamplingFactorProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 AssertSetDefine("4x2,1x1,1x1", JpegSamplingFactor.Ratio410);
@@ -33,7 +32,7 @@ namespace Magick.NET.Tests
                 AssertSetDefine("1x1,1x1,1x1", JpegSamplingFactor.Ratio444);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldWriteJpegWithTheCorrectSamplingFactor()
             {
                 var defines = new JpegWriteDefines()
@@ -52,7 +51,7 @@ namespace Magick.NET.Tests
                         {
                             output.Read(memoryStream);
 
-                            Assert.AreEqual("2x2,1x1,1x1", output.GetAttribute("jpeg:sampling-factor"));
+                            Assert.Equal("2x2,1x1,1x1", output.GetAttribute("jpeg:sampling-factor"));
                         }
                     }
                 }
@@ -69,7 +68,7 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(defines);
 
-                    Assert.AreEqual(expected, image.Settings.GetDefine(MagickFormat.Jpeg, "sampling-factor"));
+                    Assert.Equal(expected, image.Settings.GetDefine(MagickFormat.Jpeg, "sampling-factor"));
                 }
             }
         }

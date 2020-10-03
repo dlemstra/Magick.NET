@@ -11,109 +11,108 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheTransformColorSpaceMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenTheImageHasNoProfile()
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     var result = image.TransformColorSpace(ColorProfile.AdobeRGB1998);
 
-                    Assert.IsFalse(result);
+                    Assert.False(result);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenTheImageHasProfile()
             {
                 using (var image = new MagickImage(Files.PictureJPG))
                 {
                     var result = image.TransformColorSpace(ColorProfile.SRGB);
 
-                    Assert.IsTrue(result);
+                    Assert.True(result);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenSourceProfileColorSpaceIsIncorrect()
             {
                 using (var image = new MagickImage(Files.MagickNETIconPNG))
                 {
                     var result = image.TransformColorSpace(ColorProfile.USWebCoatedSWOP, ColorProfile.AdobeRGB1998);
 
-                    Assert.IsFalse(result);
+                    Assert.False(result);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenSourceProfileColorSpaceIsCorrect()
             {
                 using (var image = new MagickImage(Files.MagickNETIconPNG))
                 {
                     var result = image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.AdobeRGB1998);
 
-                    Assert.IsTrue(result);
+                    Assert.True(result);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenSourceProfileColorSpaceIsCorrectAndTheImageHasNoProfile()
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     var result = image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.AdobeRGB1998);
 
-                    Assert.IsTrue(result);
+                    Assert.True(result);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotChangeTheColorSpaceWhenSourceColorSpaceIsIncorrect()
             {
                 using (var image = new MagickImage(Files.MagickNETIconPNG))
                 {
-                    Assert.AreEqual(ColorSpace.sRGB, image.ColorSpace);
+                    Assert.Equal(ColorSpace.sRGB, image.ColorSpace);
 
                     image.TransformColorSpace(ColorProfile.USWebCoatedSWOP, ColorProfile.USWebCoatedSWOP);
-                    Assert.AreEqual(ColorSpace.sRGB, image.ColorSpace);
+                    Assert.Equal(ColorSpace.sRGB, image.ColorSpace);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangeTheColorSpace()
             {
                 using (var image = new MagickImage(Files.MagickNETIconPNG))
                 {
-                    Assert.AreEqual(ColorSpace.sRGB, image.ColorSpace);
+                    Assert.Equal(ColorSpace.sRGB, image.ColorSpace);
 
                     image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.USWebCoatedSWOP);
-                    Assert.AreEqual(ColorSpace.CMYK, image.ColorSpace);
+                    Assert.Equal(ColorSpace.CMYK, image.ColorSpace);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldClampPixels()
             {
                 using (var image = new MagickImage(MagickColors.White, 1, 1))
                 {
                     image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.AdobeRGB1998);
 #if Q8 || Q16
-                    ColorAssert.AreEqual(new MagickColor("#ffffff"), image, 1, 1);
+                    ColorAssert.Equal(new MagickColor("#ffffff"), image, 1, 1);
 #else
-                    ColorAssert.AreEqual(new MagickColor(65538f, 65531f, 65542f, 65535f), image, 1, 1);
+                    ColorAssert.Equal(new MagickColor(65538f, 65531f, 65542f, 65535f), image, 1, 1);
 #endif
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldUseTheSpecifiedMode()
             {
                 using (var quantumImage = new MagickImage(Files.PictureJPG))
@@ -127,9 +126,9 @@ namespace Magick.NET.Tests
                         var difference = quantumImage.Compare(highResImage, ErrorMetric.RootMeanSquared);
 
 #if Q16HDRI
-                        Assert.AreEqual(0.0, difference);
+                        Assert.Equal(0.0, difference);
 #else
-                        Assert.AreNotEqual(0.0, difference);
+                        Assert.NotEqual(0.0, difference);
 #endif
                     }
                 }

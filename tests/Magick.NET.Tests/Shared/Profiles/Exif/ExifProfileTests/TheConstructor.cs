@@ -13,43 +13,42 @@
 using System;
 using System.IO;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class ExifProfileTests
     {
-        [TestClass]
         public class TheConstructor
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenStreamNull()
             {
-                ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
+                Assert.Throws<ArgumentNullException>("stream", () =>
                 {
                     new ExifProfile((Stream)null);
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenFileNameNull()
             {
-                ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
+                Assert.Throws<ArgumentNullException>("fileName", () =>
                 {
                     new ExifProfile((string)null);
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenDataNull()
             {
-                ExceptionAssert.Throws<ArgumentNullException>("data", () =>
+                Assert.Throws<ArgumentNullException>("data", () =>
                 {
                     new ExifProfile((byte[])null);
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldAllowEmptyStream()
             {
                 using (var image = new MagickImage())
@@ -62,7 +61,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldAllowEmptyData()
             {
                 using (var image = new MagickImage())

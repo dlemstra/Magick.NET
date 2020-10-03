@@ -12,23 +12,22 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Bmp;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class BmpReadDefinesTests
     {
-        [TestClass]
         public class TheConstructor
         {
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetAnyDefines()
             {
                 using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(new BmpReadDefines());
 
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Bmp, "ignore-filesize"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Bmp, "ignore-filesize"));
                 }
             }
         }

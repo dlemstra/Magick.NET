@@ -13,16 +13,15 @@
 using System.Linq;
 using System.Text;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class IptcProfileTests
     {
-        [TestClass]
         public class TheRemoveValueMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldRemoveTheValueAndReturnTrueWhenValueWasFound()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -30,14 +29,14 @@ namespace Magick.NET.Tests
                     var profile = image.GetIptcProfile();
                     var result = profile.RemoveValue(IptcTag.Title);
 
-                    Assert.IsTrue(result);
+                    Assert.True(result);
 
                     var value = profile.GetValue(IptcTag.Title);
-                    Assert.IsNull(value);
+                    Assert.Null(value);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenProfileDoesNotContainTag()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -45,7 +44,7 @@ namespace Magick.NET.Tests
                     var profile = image.GetIptcProfile();
                     var result = profile.RemoveValue(IptcTag.ReferenceNumber);
 
-                    Assert.IsFalse(result);
+                    Assert.False(result);
                 }
             }
         }

@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class ColorCMYKTests : ColorBaseTests<ColorCMYK>
     {
-        [TestClass]
         public class TheNativeInstance
         {
-            [TestMethod]
+            [Fact]
             public void ShouldHaveTheCorrectColorspace()
             {
                 using (var image = new MagickImage(MagickColors.Black, 1, 1))
@@ -32,9 +31,9 @@ namespace Magick.NET.Tests
                     {
                         var color = pixels.GetPixel(0, 0).ToColor();
 #if Q8
-                        Assert.AreEqual("cmyka(128,23,250,156,1.0)", color.ToString());
+                        Assert.Equal("cmyka(128,23,250,156,1.0)", color.ToString());
 #else
-                        Assert.AreEqual("cmyka(32896,5911,64250,40092,1.0)", color.ToString());
+                        Assert.Equal("cmyka(32896,5911,64250,40092,1.0)", color.ToString());
 #endif
                     }
                 }

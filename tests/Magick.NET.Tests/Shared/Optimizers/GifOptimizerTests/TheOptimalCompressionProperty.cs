@@ -10,19 +10,18 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class GifOptimizerTests
     {
-        [TestClass]
         public class TheOptimalCompressionProperty : GifOptimizerTests
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalse()
             {
-                Assert.IsFalse(Optimizer.OptimalCompression);
+                Assert.False(Optimizer.OptimalCompression);
             }
         }
     }

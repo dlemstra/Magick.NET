@@ -12,7 +12,7 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
@@ -20,25 +20,23 @@ namespace Magick.NET.Tests
     {
         public class TheLiquidRescaleMethod
         {
-            [TestClass]
             public class WithWidthAndHeight
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldResizeTheImage()
                 {
                     using (var image = new MagickImage(Files.MagickNETIconPNG))
                     {
                         image.LiquidRescale(128, 64);
-                        Assert.AreEqual(64, image.Width);
-                        Assert.AreEqual(64, image.Height);
+                        Assert.Equal(64, image.Width);
+                        Assert.Equal(64, image.Height);
                     }
                 }
             }
 
-            [TestClass]
             public class WithWidthAndHeightAndRigidity
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldApplyTheRigidity()
                 {
                     using (var image = new MagickImage(Files.MagickNETIconPNG))
@@ -49,35 +47,34 @@ namespace Magick.NET.Tests
                         {
                             other.LiquidRescale(64, 64, 5.0, 0.0);
 
-                            Assert.AreEqual(0.5, image.Compare(other, ErrorMetric.RootMeanSquared), 0.1);
+                            Assert.InRange(image.Compare(other, ErrorMetric.RootMeanSquared), 0.5, 0.6);
                         }
 
                         using (var other = new MagickImage(Files.MagickNETIconPNG))
                         {
                             other.LiquidRescale(64, 64, 5.0, 10.0);
 
-                            Assert.AreEqual(0.3, image.Compare(other, ErrorMetric.RootMeanSquared), 0.1);
+                            Assert.InRange(image.Compare(other, ErrorMetric.RootMeanSquared), 0.3, 0.4);
                         }
                     }
                 }
             }
 
-            [TestClass]
             public class WithGeometry
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenGeometryIsNull()
                 {
                     using (var image = new MagickImage(Files.MagickNETIconPNG))
                     {
-                        ExceptionAssert.Throws<ArgumentNullException>("geometry", () =>
+                        Assert.Throws<ArgumentNullException>("geometry", () =>
                         {
                             image.LiquidRescale(null);
                         });
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldResizeTheImage()
                 {
                     using (var image = new MagickImage(Files.MagickNETIconPNG))
@@ -88,102 +85,100 @@ namespace Magick.NET.Tests
                         };
 
                         image.LiquidRescale(geometry);
-                        Assert.AreEqual(128, image.Width);
-                        Assert.AreEqual(64, image.Height);
+                        Assert.Equal(128, image.Width);
+                        Assert.Equal(64, image.Height);
                     }
                 }
             }
 
-            [TestClass]
             public class WithPercentage
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenPercentageIsNegative()
                 {
                     using (var image = new MagickImage(Files.MagickNETIconPNG))
                     {
-                        ExceptionAssert.Throws<ArgumentException>("percentage", () =>
+                        Assert.Throws<ArgumentException>("percentage", () =>
                         {
                             image.LiquidRescale(new Percentage(-1));
                         });
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenPercentageWidthIsNegative()
                 {
                     using (var image = new MagickImage(Files.MagickNETIconPNG))
                     {
-                        ExceptionAssert.Throws<ArgumentException>("percentageWidth", () =>
+                        Assert.Throws<ArgumentException>("percentageWidth", () =>
                         {
                             image.LiquidRescale(new Percentage(-1), new Percentage(1));
                         });
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenPercentageHeightIsNegative()
                 {
                     using (var image = new MagickImage(Files.MagickNETIconPNG))
                     {
-                        ExceptionAssert.Throws<ArgumentException>("percentageHeight", () =>
+                        Assert.Throws<ArgumentException>("percentageHeight", () =>
                         {
                             image.LiquidRescale(new Percentage(1), new Percentage(-1));
                         });
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldResizeTheImage()
                 {
                     using (var image = new MagickImage(Files.MagickNETIconPNG))
                     {
                         image.LiquidRescale(new Percentage(25));
-                        Assert.AreEqual(32, image.Width);
-                        Assert.AreEqual(32, image.Height);
+                        Assert.Equal(32, image.Width);
+                        Assert.Equal(32, image.Height);
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldIgnoreTheAspectRatio()
                 {
                     using (var image = new MagickImage(Files.MagickNETIconPNG))
                     {
                         image.LiquidRescale(new Percentage(25), new Percentage(10));
-                        Assert.AreEqual(32, image.Width);
-                        Assert.AreEqual(13, image.Height);
+                        Assert.Equal(32, image.Width);
+                        Assert.Equal(13, image.Height);
                     }
                 }
             }
 
-            [TestClass]
             public class WithPercentageAndRigidity
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenPercentageWidthIsNegative()
                 {
                     using (var image = new MagickImage(Files.MagickNETIconPNG))
                     {
-                        ExceptionAssert.Throws<ArgumentException>("percentageWidth", () =>
+                        Assert.Throws<ArgumentException>("percentageWidth", () =>
                         {
                             image.LiquidRescale(new Percentage(-1), new Percentage(1), 0.0, 0.0);
                         });
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenPercentageHeightIsNegative()
                 {
                     using (var image = new MagickImage(Files.MagickNETIconPNG))
                     {
-                        ExceptionAssert.Throws<ArgumentException>("percentageHeight", () =>
+                        Assert.Throws<ArgumentException>("percentageHeight", () =>
                         {
                             image.LiquidRescale(new Percentage(1), new Percentage(-1), 0.0, 0.0);
                         });
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldApplyTheRigidity()
                 {
                     using (var image = new MagickImage(Files.MagickNETIconPNG))
@@ -194,14 +189,14 @@ namespace Magick.NET.Tests
                         {
                             other.LiquidRescale(new Percentage(50), new Percentage(50), 5.0, 0.0);
 
-                            Assert.AreEqual(0.5, image.Compare(other, ErrorMetric.RootMeanSquared), 0.1);
+                            Assert.InRange(image.Compare(other, ErrorMetric.RootMeanSquared), 0.5, 0.6);
                         }
 
                         using (var other = new MagickImage(Files.MagickNETIconPNG))
                         {
                             other.LiquidRescale(new Percentage(50), new Percentage(50), 5.0, 10.0);
 
-                            Assert.AreEqual(0.3, image.Compare(other, ErrorMetric.RootMeanSquared), 0.1);
+                            Assert.InRange(image.Compare(other, ErrorMetric.RootMeanSquared), 0.3, 0.4);
                         }
                     }
                 }

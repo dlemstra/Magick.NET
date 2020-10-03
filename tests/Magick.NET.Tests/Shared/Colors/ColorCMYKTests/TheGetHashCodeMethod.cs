@@ -11,23 +11,22 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class ColorCMYKTests : ColorBaseTests<ColorCMYK>
     {
-        [TestClass]
         public class TheGetHashCodeMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnDifferentValueWhenChannelChanged()
             {
                 ColorCMYK first = new ColorCMYK(0, 0, 0, 0);
                 int hashCode = first.GetHashCode();
 
                 first.K = Quantum.Max;
-                Assert.AreNotEqual(hashCode, first.GetHashCode());
+                Assert.NotEqual(hashCode, first.GetHashCode());
             }
         }
     }

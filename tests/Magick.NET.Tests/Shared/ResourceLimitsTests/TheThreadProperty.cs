@@ -11,23 +11,23 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using Xunit.Sdk;
 
 namespace Magick.NET.Tests
 {
     public partial class ResourceLimitsTests
     {
-        [TestClass]
         public class TheThreadProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldHaveTheCorrectValue()
             {
                 if (ResourceLimits.Thread < 1U)
-                    Assert.Fail("Invalid thread limit: " + ResourceLimits.Thread);
+                    throw new XunitException("Invalid thread limit: " + ResourceLimits.Thread);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
                 ExecuteInsideLock(() =>
@@ -35,14 +35,14 @@ namespace Magick.NET.Tests
 #if OPENMP
                     var thread = ResourceLimits.Thread;
 
-                    Assert.AreNotEqual(1U, ResourceLimits.Thread);
+                    Assert.NotEqual(1U, ResourceLimits.Thread);
                     ResourceLimits.Thread = 1U;
-                    Assert.AreEqual(1U, ResourceLimits.Thread);
+                    Assert.Equal(1U, ResourceLimits.Thread);
                     ResourceLimits.Thread = thread;
 #else
-                    Assert.AreEqual(1U, ResourceLimits.Thread);
+                    Assert.Equal(1U, ResourceLimits.Thread);
                     ResourceLimits.Thread = 2U;
-                    Assert.AreEqual(1U, ResourceLimits.Thread);
+                    Assert.Equal(1U, ResourceLimits.Thread);
 #endif
                 });
             }

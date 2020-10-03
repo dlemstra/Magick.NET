@@ -12,23 +12,22 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class SafePixelCollectionTests
     {
-        [TestClass]
         public class TheSetIntAreaMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenArrayIsNull()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        ExceptionAssert.Throws<ArgumentNullException>("values", () =>
+                        Assert.Throws<ArgumentNullException>("values", () =>
                         {
                             pixels.SetIntArea(10, 10, 1000, 1000, null);
                         });
@@ -36,14 +35,14 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenArrayHasInvalidSize()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        ExceptionAssert.Throws<ArgumentException>("values", () =>
+                        Assert.Throws<ArgumentException>("values", () =>
                         {
                             pixels.SetIntArea(10, 10, 1000, 1000, new int[] { 0, 0, 0, 0 });
                         });
@@ -51,14 +50,14 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenArrayHasTooManyValues()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        ExceptionAssert.Throws<ArgumentException>("values", () =>
+                        Assert.Throws<ArgumentException>("values", () =>
                         {
                             var values = new int[(113 * 108 * image.ChannelCount) + image.ChannelCount];
                             pixels.SetIntArea(10, 10, 113, 108, values);
@@ -67,7 +66,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangePixelsWhenArrayHasMaxNumberOfValues()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -77,19 +76,19 @@ namespace Magick.NET.Tests
                         var values = new int[113 * 108 * image.ChannelCount];
                         pixels.SetIntArea(10, 10, 113, 108, values);
 
-                        ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
+                        ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenArrayIsSpecifiedAndGeometryIsNull()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        ExceptionAssert.Throws<ArgumentNullException>("geometry", () =>
+                        Assert.Throws<ArgumentNullException>("geometry", () =>
                         {
                             pixels.SetIntArea(null, new int[] { 0 });
                         });
@@ -97,7 +96,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangePixelsWhenGeometryAndArrayAreSpecified()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -107,7 +106,7 @@ namespace Magick.NET.Tests
                         var values = new int[113 * 108 * image.ChannelCount];
                         pixels.SetIntArea(new MagickGeometry(10, 10, 113, 108), values);
 
-                        ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
+                        ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                     }
                 }
             }

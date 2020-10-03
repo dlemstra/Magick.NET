@@ -12,46 +12,45 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class MomentsTests
     {
-        [TestMethod]
+        [Fact]
         public void Test_Moments()
         {
             using (var image = new MagickImage(Files.ImageMagickJPG))
             {
                 var moments = image.Moments();
-                Assert.IsNotNull(moments);
+                Assert.NotNull(moments);
                 var first = moments.GetChannel(PixelChannel.Red);
-                Assert.IsNotNull(first);
+                Assert.NotNull(first);
 
-                Assert.AreEqual(PixelChannel.Red, first.Channel);
-                Assert.AreEqual(56.59, first.Centroid.X, 0.01);
-                Assert.AreEqual(56.00, first.Centroid.Y, 0.01);
-                Assert.AreEqual(148.92, first.EllipseAngle, 0.01);
-                Assert.AreEqual(73.53, first.EllipseAxis.X, 0.01);
-                Assert.AreEqual(66.82, first.EllipseAxis.Y, 0.01);
-                Assert.AreEqual(0.41, first.EllipseEccentricity, 0.01);
-                Assert.AreEqual(0.79, first.EllipseIntensity, 0.01);
+                Assert.Equal(PixelChannel.Red, first.Channel);
+                Assert.InRange(first.Centroid.X, 56.59, 56.60);
+                Assert.InRange(first.Centroid.Y, 56.00, 56.01);
+                Assert.InRange(first.EllipseAngle, 148.92, 148.93);
+                Assert.InRange(first.EllipseAxis.X, 73.53, 73.54);
+                Assert.InRange(first.EllipseAxis.Y, 66.82, 66.83);
+                Assert.InRange(first.EllipseEccentricity, 0.41, 0.42);
+                Assert.InRange(first.EllipseIntensity, 0.79, 0.80);
 
                 var expected = new double[] { 0.2004, 0.0003, 0.0001, 0.0, 0.0, 0.0, 0.0, 0.0 };
                 for (int i = 0; i < 8; i++)
                 {
-                    Assert.AreEqual(expected[i], first.HuInvariants(i), 0.0001);
+                    Assert.InRange(first.HuInvariants(i), expected[i] - 0.0001, expected[i] + 0.0001);
                 }
 
                 moments = image.Moments();
                 var second = moments.GetChannel(PixelChannel.Red);
 
-                Assert.IsTrue(first.Centroid == second.Centroid);
-                Assert.IsTrue(first.Centroid.Equals(second.Centroid));
-                Assert.IsTrue(first.Centroid.Equals((object)second.Centroid));
+                Assert.True(first.Centroid == second.Centroid);
+                Assert.True(first.Centroid.Equals(second.Centroid));
+                Assert.True(first.Centroid.Equals((object)second.Centroid));
 
-                ExceptionAssert.Throws<ArgumentOutOfRangeException>(() =>
+                Assert.Throws<ArgumentOutOfRangeException>(() =>
                 {
                     first.HuInvariants(9);
                 });

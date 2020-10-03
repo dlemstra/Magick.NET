@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Jpeg;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class JpegWriteDefinesTests
     {
-        [TestClass]
         public class TheQuantizationTablesProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 var defines = new JpegWriteDefines()
@@ -33,7 +32,7 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(defines);
 
-                    Assert.AreEqual(@"C:\path\to\file.xml", image.Settings.GetDefine(MagickFormat.Jpeg, "q-table"));
+                    Assert.Equal(@"C:\path\to\file.xml", image.Settings.GetDefine(MagickFormat.Jpeg, "q-table"));
                 }
             }
         }

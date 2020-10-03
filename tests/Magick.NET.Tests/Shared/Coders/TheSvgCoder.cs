@@ -13,38 +13,37 @@
 using System.Text;
 using System.Threading.Tasks;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class TheSvgCoder
     {
-        [TestMethod]
+        [Fact]
         public void ShouldDetectFormatFromXmlDeclaration()
         {
             var data = Encoding.ASCII.GetBytes(@"<?xml version=""1.0"" encoding=""UTF-8""?>");
 
             var info = new MagickImageInfo(data);
 
-            Assert.AreEqual(MagickFormat.Svg, info.Format);
-            Assert.AreEqual(0, info.Width);
-            Assert.AreEqual(0, info.Height);
+            Assert.Equal(MagickFormat.Svg, info.Format);
+            Assert.Equal(0, info.Width);
+            Assert.Equal(0, info.Height);
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldDetectFormatFromSvgTag()
         {
             var data = Encoding.ASCII.GetBytes(@"<svg xmlns=""http://www.w3.org/2000/svg"" width=""1000"" height=""716"">");
 
             var info = new MagickImageInfo(data);
 
-            Assert.AreEqual(MagickFormat.Svg, info.Format);
-            Assert.AreEqual(1000, info.Width);
-            Assert.AreEqual(716, info.Height);
+            Assert.Equal(MagickFormat.Svg, info.Format);
+            Assert.Equal(1000, info.Width);
+            Assert.Equal(716, info.Height);
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldUseWidthFromReadSettings()
         {
             using (var image = new MagickImage())
@@ -56,12 +55,12 @@ namespace Magick.NET.Tests
 
                 image.Read(Files.Logos.MagickNETSVG, settings);
 
-                Assert.AreEqual(100, image.Width);
-                Assert.AreEqual(48, image.Height);
+                Assert.Equal(100, image.Width);
+                Assert.Equal(48, image.Height);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldUseHeightFromReadSettings()
         {
             using (var image = new MagickImage())
@@ -75,7 +74,7 @@ namespace Magick.NET.Tests
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldUseWidthAndHeightFromReadSettings()
         {
             using (var image = new MagickImage())
@@ -88,17 +87,17 @@ namespace Magick.NET.Tests
 
                 image.Read(Files.Logos.MagickNETSVG, settings);
 
-                Assert.AreEqual(300, image.Width);
-                Assert.AreEqual(144, image.Height);
+                Assert.Equal(300, image.Width);
+                Assert.Equal(144, image.Height);
 
                 image.Ping(Files.Logos.MagickNETSVG, settings);
 
-                Assert.AreEqual(300, image.Width);
-                Assert.AreEqual(144, image.Height);
+                Assert.Equal(300, image.Width);
+                Assert.Equal(144, image.Height);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldReadFontsWithQuotes()
         {
             var svg = @"<?xml version=""1.0"" encoding=""utf-8""?>
@@ -115,22 +114,22 @@ namespace Magick.NET.Tests
             var bytes = Encoding.ASCII.GetBytes(svg);
             using (var image = new MagickImage(bytes))
             {
-                Assert.AreEqual(220, image.Width);
-                Assert.AreEqual(80, image.Height);
+                Assert.Equal(220, image.Width);
+                Assert.Equal(80, image.Height);
 
                 /* This currently fails on macOS
-                ColorAssert.AreEqual(MagickColors.White, image, 118, 6);
-                ColorAssert.AreEqual(MagickColors.Black, image, 120, 6);
-                ColorAssert.AreEqual(MagickColors.Black, image, 141, 6);
-                ColorAssert.AreEqual(MagickColors.White, image, 145, 6);
-                ColorAssert.AreEqual(MagickColors.White, image, 114, 43);
-                ColorAssert.AreEqual(MagickColors.Black, image, 116, 43);
-                ColorAssert.AreEqual(MagickColors.Black, image, 135, 43);
+                ColorAssert.Equal(MagickColors.White, image, 118, 6);
+                ColorAssert.Equal(MagickColors.Black, image, 120, 6);
+                ColorAssert.Equal(MagickColors.Black, image, 141, 6);
+                ColorAssert.Equal(MagickColors.White, image, 145, 6);
+                ColorAssert.Equal(MagickColors.White, image, 114, 43);
+                ColorAssert.Equal(MagickColors.Black, image, 116, 43);
+                ColorAssert.Equal(MagickColors.Black, image, 135, 43);
                 */
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void IsThreadSafe()
         {
             var svg = @"<?xml version=""1.0"" encoding=""UTF-8""?>
@@ -142,7 +141,7 @@ namespace Magick.NET.Tests
             var signature = LoadImage(bytes);
             Parallel.For(1, 10, (int i) =>
             {
-                Assert.AreEqual(signature, LoadImage(bytes));
+                Assert.Equal(signature, LoadImage(bytes));
             });
         }
 

@@ -11,16 +11,14 @@
 // and limitations under the License.
 
 using System;
-using System.Linq;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class TestIssue
     {
-        [TestMethod]
+        [Fact]
         public void RunTest()
         {
         }

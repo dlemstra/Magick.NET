@@ -12,19 +12,18 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public partial class ColorCMYKTests : ColorBaseTests<ColorCMYK>
     {
-        [TestMethod]
+        [Fact]
         public void Test_IComparable()
         {
             ColorCMYK first = new ColorCMYK(0, 0, 0, 0);
 
-            Test_IComparable(first);
+            AssertIComparable(first);
 
             ColorCMYK second = new ColorCMYK(Quantum.Max, 0, 0, 0);
 
@@ -35,7 +34,7 @@ namespace Magick.NET.Tests
             Test_IComparable_Equal(first, second);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_IEquatable()
         {
             ColorCMYK first = new ColorCMYK(0, Quantum.Max, 0, 0);
@@ -51,147 +50,147 @@ namespace Magick.NET.Tests
             Test_IEquatable_NotEqual(first, second);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_ImplicitOperator()
         {
             ColorCMYK expected = new ColorCMYK(Quantum.Max, 0, 0, 0);
             ColorCMYK actual = new MagickColor(Quantum.Max, 0, 0, 0, Quantum.Max);
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
 
             var magickColor = actual.ToMagickColor();
-            Assert.AreEqual(magickColor, new MagickColor(Quantum.Max, 0, 0, 0, Quantum.Max));
+            Assert.Equal(magickColor, new MagickColor(Quantum.Max, 0, 0, 0, Quantum.Max));
 
-            Assert.IsNull(ColorCMYK.FromMagickColor(null));
+            Assert.Null(ColorCMYK.FromMagickColor(null));
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_ToString()
         {
             ColorCMYK color = new ColorCMYK(Quantum.Max, 0, 0, 0);
-            Test_ToString(color, new MagickColor(Quantum.Max, 0, 0, 0, Quantum.Max));
+            AssertToString(color, new MagickColor(Quantum.Max, 0, 0, 0, Quantum.Max));
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Properties()
         {
             ColorCMYK color = new ColorCMYK(0, 0, 0, 0);
 
             color.C = 1;
-            Assert.AreEqual(1, color.C);
-            Assert.AreEqual(0, color.M);
-            Assert.AreEqual(0, color.Y);
-            Assert.AreEqual(0, color.K);
-            Assert.AreEqual(Quantum.Max, color.A);
+            Assert.Equal(1, color.C);
+            Assert.Equal(0, color.M);
+            Assert.Equal(0, color.Y);
+            Assert.Equal(0, color.K);
+            Assert.Equal(Quantum.Max, color.A);
 
             color.M = 2;
-            Assert.AreEqual(1, color.C);
-            Assert.AreEqual(2, color.M);
-            Assert.AreEqual(0, color.Y);
-            Assert.AreEqual(0, color.K);
-            Assert.AreEqual(Quantum.Max, color.A);
+            Assert.Equal(1, color.C);
+            Assert.Equal(2, color.M);
+            Assert.Equal(0, color.Y);
+            Assert.Equal(0, color.K);
+            Assert.Equal(Quantum.Max, color.A);
 
             color.Y = 3;
-            Assert.AreEqual(1, color.C);
-            Assert.AreEqual(2, color.M);
-            Assert.AreEqual(3, color.Y);
-            Assert.AreEqual(0, color.K);
-            Assert.AreEqual(Quantum.Max, color.A);
+            Assert.Equal(1, color.C);
+            Assert.Equal(2, color.M);
+            Assert.Equal(3, color.Y);
+            Assert.Equal(0, color.K);
+            Assert.Equal(Quantum.Max, color.A);
 
             color.K = 4;
-            Assert.AreEqual(1, color.C);
-            Assert.AreEqual(2, color.M);
-            Assert.AreEqual(3, color.Y);
-            Assert.AreEqual(4, color.K);
-            Assert.AreEqual(Quantum.Max, color.A);
+            Assert.Equal(1, color.C);
+            Assert.Equal(2, color.M);
+            Assert.Equal(3, color.Y);
+            Assert.Equal(4, color.K);
+            Assert.Equal(Quantum.Max, color.A);
 
             color.A = 5;
-            Assert.AreEqual(1, color.C);
-            Assert.AreEqual(2, color.M);
-            Assert.AreEqual(3, color.Y);
-            Assert.AreEqual(4, color.K);
-            Assert.AreEqual(5, color.A);
+            Assert.Equal(1, color.C);
+            Assert.Equal(2, color.M);
+            Assert.Equal(3, color.Y);
+            Assert.Equal(4, color.K);
+            Assert.Equal(5, color.A);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_ColorCMYK()
         {
             ColorCMYK first = new ColorCMYK(0, 0, 0, 0);
 
             MagickColor second = new MagickColor("cmyk(0,0,0,0)");
-            Assert.AreEqual(second, first.ToMagickColor());
+            Assert.Equal(second, first.ToMagickColor());
 
             second = new MagickColor("#fff");
-            Assert.AreNotEqual(second, first.ToMagickColor());
+            Assert.NotEqual(second, first.ToMagickColor());
 
             second = new MagickColor("white");
-            Assert.AreNotEqual(second, first.ToMagickColor());
+            Assert.NotEqual(second, first.ToMagickColor());
 
             first = new ColorCMYK(0, 0, Quantum.Max, 0);
 
             second = new MagickColor("cmyk(0,0,100%,0)");
-            Assert.AreEqual(second, first.ToMagickColor());
+            Assert.Equal(second, first.ToMagickColor());
 
             first = new ColorCMYK(0, 0, Quantum.Max, 0, 0);
 
             second = new MagickColor("cmyka(0,0,100%,0,0)");
-            Assert.AreEqual(second, first.ToMagickColor());
+            Assert.Equal(second, first.ToMagickColor());
 
             first = new ColorCMYK((Percentage)0, (Percentage)100, (Percentage)0, (Percentage)100);
-            Assert.AreEqual(0, first.C);
-            Assert.AreEqual(Quantum.Max, first.M);
-            Assert.AreEqual(0, first.Y);
-            Assert.AreEqual(Quantum.Max, first.K);
-            Assert.AreEqual(Quantum.Max, first.A);
+            Assert.Equal(0, first.C);
+            Assert.Equal(Quantum.Max, first.M);
+            Assert.Equal(0, first.Y);
+            Assert.Equal(Quantum.Max, first.K);
+            Assert.Equal(Quantum.Max, first.A);
 
             first = new ColorCMYK((Percentage)100, (Percentage)0, (Percentage)100, (Percentage)0, (Percentage)100);
-            Assert.AreEqual(Quantum.Max, first.C);
-            Assert.AreEqual(0, first.M);
-            Assert.AreEqual(Quantum.Max, first.Y);
-            Assert.AreEqual(0, first.K);
-            Assert.AreEqual(Quantum.Max, first.A);
+            Assert.Equal(Quantum.Max, first.C);
+            Assert.Equal(0, first.M);
+            Assert.Equal(Quantum.Max, first.Y);
+            Assert.Equal(0, first.K);
+            Assert.Equal(Quantum.Max, first.A);
 
             first = new ColorCMYK("#0ff0");
-            Assert.AreEqual(0, first.C);
-            Assert.AreEqual(Quantum.Max, first.M);
-            Assert.AreEqual(Quantum.Max, first.Y);
-            Assert.AreEqual(0, first.K);
-            Assert.AreEqual(Quantum.Max, first.A);
+            Assert.Equal(0, first.C);
+            Assert.Equal(Quantum.Max, first.M);
+            Assert.Equal(Quantum.Max, first.Y);
+            Assert.Equal(0, first.K);
+            Assert.Equal(Quantum.Max, first.A);
 
             first = new ColorCMYK("#ff00ff00");
-            Assert.AreEqual(Quantum.Max, first.C);
-            Assert.AreEqual(0, first.M);
-            Assert.AreEqual(Quantum.Max, first.Y);
-            Assert.AreEqual(0, first.K);
-            Assert.AreEqual(Quantum.Max, first.A);
+            Assert.Equal(Quantum.Max, first.C);
+            Assert.Equal(0, first.M);
+            Assert.Equal(Quantum.Max, first.Y);
+            Assert.Equal(0, first.K);
+            Assert.Equal(Quantum.Max, first.A);
 
             first = new ColorCMYK("#0000ffff0000ffff");
-            Assert.AreEqual(0, first.C);
-            Assert.AreEqual(Quantum.Max, first.M);
-            Assert.AreEqual(0, first.Y);
-            Assert.AreEqual(Quantum.Max, first.K);
-            Assert.AreEqual(Quantum.Max, first.A);
+            Assert.Equal(0, first.C);
+            Assert.Equal(Quantum.Max, first.M);
+            Assert.Equal(0, first.Y);
+            Assert.Equal(Quantum.Max, first.K);
+            Assert.Equal(Quantum.Max, first.A);
 
-            ExceptionAssert.Throws<ArgumentException>("color", () =>
+            Assert.Throws<ArgumentException>("color", () =>
             {
                 new ColorCMYK("white");
             });
 
-            ExceptionAssert.Throws<ArgumentException>("color", () =>
+            Assert.Throws<ArgumentException>("color", () =>
             {
                 new ColorCMYK("#ff00ff");
             });
 
-            ExceptionAssert.Throws<ArgumentException>("color", () =>
+            Assert.Throws<ArgumentException>("color", () =>
             {
                 new ColorCMYK("#ffff0000fffff");
             });
 
-            ExceptionAssert.Throws<ArgumentException>("color", () =>
+            Assert.Throws<ArgumentException>("color", () =>
             {
                 new ColorCMYK("#ffff0000fffff0000fffff");
             });
 
-            ExceptionAssert.Throws<ArgumentException>("color", () =>
+            Assert.Throws<ArgumentException>("color", () =>
             {
                 new ColorCMYK("#fff");
             });

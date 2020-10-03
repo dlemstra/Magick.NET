@@ -12,7 +12,7 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -30,76 +30,74 @@ namespace Magick.NET.Tests
     {
         public class TheRangeThresholdMethod
         {
-            [TestClass]
             public class WithPercentage
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenLowBlackIsNegative()
                 {
                     using (var image = new MagickImage(MagickColors.Red, 1, 1))
                     {
-                        ExceptionAssert.Throws<ArgumentException>("percentageLowBlack", () =>
+                        Assert.Throws<ArgumentException>("percentageLowBlack", () =>
                         {
                             image.RangeThreshold(new Percentage(-1), new Percentage(0), new Percentage(0), new Percentage(0));
                         });
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenLowWhiteIsNegative()
                 {
                     using (var image = new MagickImage(MagickColors.Red, 1, 1))
                     {
-                        ExceptionAssert.Throws<ArgumentException>("percentageLowWhite", () =>
+                        Assert.Throws<ArgumentException>("percentageLowWhite", () =>
                         {
                             image.RangeThreshold(new Percentage(0), new Percentage(-1), new Percentage(0), new Percentage(0));
                         });
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenHighWhiteIsNegative()
                 {
                     using (var image = new MagickImage(MagickColors.Red, 1, 1))
                     {
-                        ExceptionAssert.Throws<ArgumentException>("percentageHighWhite", () =>
+                        Assert.Throws<ArgumentException>("percentageHighWhite", () =>
                         {
                             image.RangeThreshold(new Percentage(0), new Percentage(0), new Percentage(-1), new Percentage(0));
                         });
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenHighBlackIsNegative()
                 {
                     using (var image = new MagickImage(MagickColors.Red, 1, 1))
                     {
-                        ExceptionAssert.Throws<ArgumentException>("percentageHighBlack", () =>
+                        Assert.Throws<ArgumentException>("percentageHighBlack", () =>
                         {
                             image.RangeThreshold(new Percentage(0), new Percentage(0), new Percentage(0), new Percentage(-1));
                         });
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldChangeTheImage()
                 {
                     using (var image = new MagickImage("gradient:", 50, 256))
                     {
                         image.RangeThreshold(new Percentage(40), new Percentage(40), new Percentage(60), new Percentage(60));
 
-                        ColorAssert.AreEqual(MagickColors.Black, image, 22, 101);
-                        ColorAssert.AreEqual(MagickColors.White, image, 22, 102);
-                        ColorAssert.AreEqual(MagickColors.White, image, 22, 152);
-                        ColorAssert.AreEqual(MagickColors.Black, image, 22, 154);
+                        ColorAssert.Equal(MagickColors.Black, image, 22, 101);
+                        ColorAssert.Equal(MagickColors.White, image, 22, 102);
+                        ColorAssert.Equal(MagickColors.White, image, 22, 152);
+                        ColorAssert.Equal(MagickColors.Black, image, 22, 154);
                     }
                 }
             }
 
-            [TestClass]
             public class WithQuantum
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldChangeTheImage()
                 {
                     using (var image = new MagickImage("gradient:", 50, 256))
@@ -110,10 +108,10 @@ namespace Magick.NET.Tests
                         var highBlack = (QuantumType)(Quantum.Max * 0.6);
                         image.RangeThreshold(lowBlack, lowWhite, highWhite, highBlack);
 
-                        ColorAssert.AreEqual(MagickColors.Black, image, 22, 101);
-                        ColorAssert.AreEqual(MagickColors.White, image, 22, 102);
-                        ColorAssert.AreEqual(MagickColors.White, image, 22, 152);
-                        ColorAssert.AreEqual(MagickColors.Black, image, 22, 154);
+                        ColorAssert.Equal(MagickColors.Black, image, 22, 101);
+                        ColorAssert.Equal(MagickColors.White, image, 22, 102);
+                        ColorAssert.Equal(MagickColors.White, image, 22, 152);
+                        ColorAssert.Equal(MagickColors.Black, image, 22, 154);
                     }
                 }
             }

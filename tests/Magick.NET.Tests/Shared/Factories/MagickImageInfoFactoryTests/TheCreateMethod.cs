@@ -13,51 +13,49 @@
 using System;
 using System.IO;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageInfoFactoryTests
     {
-        [TestClass]
         public partial class TheCreateMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldCreateMagickImageInfo()
             {
                 var factory = new MagickImageInfoFactory();
                 var info = factory.Create();
 
-                Assert.IsInstanceOfType(info, typeof(MagickImageInfo));
-                Assert.AreEqual(0, info.Width);
+                Assert.IsType<MagickImageInfo>(info);
+                Assert.Equal(0, info.Width);
             }
 
-            [TestClass]
             public class WithByteArray
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
                     var factory = new MagickImageInfoFactory();
 
-                    ExceptionAssert.Throws<ArgumentNullException>("data", () =>
+                    Assert.Throws<ArgumentNullException>("data", () =>
                     {
                         factory.Create((byte[])null);
                     });
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
                     var factory = new MagickImageInfoFactory();
 
-                    ExceptionAssert.Throws<ArgumentException>("data", () =>
+                    Assert.Throws<ArgumentException>("data", () =>
                     {
                         factory.Create(new byte[] { });
                     });
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldCreateMagickImage()
                 {
                     var factory = new MagickImageInfoFactory();
@@ -65,85 +63,83 @@ namespace Magick.NET.Tests
 
                     var info = factory.Create(data);
 
-                    Assert.IsInstanceOfType(info, typeof(MagickImageInfo));
-                    Assert.AreEqual(123, info.Width);
+                    Assert.IsType<MagickImageInfo>(info);
+                    Assert.Equal(123, info.Width);
                 }
             }
 
-            [TestClass]
             public class WithByteArrayAndOffset
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
                     var factory = new MagickImageInfoFactory();
 
-                    ExceptionAssert.Throws<ArgumentNullException>("data", () =>
+                    Assert.Throws<ArgumentNullException>("data", () =>
                     {
                         factory.Create(null, 0, 0);
                     });
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
                     var factory = new MagickImageInfoFactory();
 
-                    ExceptionAssert.Throws<ArgumentException>("data", () =>
+                    Assert.Throws<ArgumentException>("data", () =>
                     {
                         factory.Create(new byte[] { }, 0, 0);
                     });
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenOffsetIsNegative()
                 {
                     var factory = new MagickImageInfoFactory();
 
-                    ExceptionAssert.Throws<ArgumentException>("offset", () =>
+                    Assert.Throws<ArgumentException>("offset", () =>
                     {
                         factory.Create(new byte[] { 215 }, -1, 0);
                     });
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenCountIsZero()
                 {
                     var factory = new MagickImageInfoFactory();
 
-                    ExceptionAssert.Throws<ArgumentException>("count", () =>
+                    Assert.Throws<ArgumentException>("count", () =>
                     {
                         factory.Create(new byte[] { 215 }, 0, 0);
                     });
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenCountIsNegative()
                 {
                     var factory = new MagickImageInfoFactory();
 
-                    ExceptionAssert.Throws<ArgumentException>("count", () =>
+                    Assert.Throws<ArgumentException>("count", () =>
                     {
                         factory.Create(new byte[] { 215 }, 0, -1);
                     });
                 }
             }
 
-            [TestClass]
             public class WithFileInfo
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenFileInfoIsNull()
                 {
                     var factory = new MagickImageInfoFactory();
 
-                    ExceptionAssert.Throws<ArgumentNullException>("file", () =>
+                    Assert.Throws<ArgumentNullException>("file", () =>
                     {
                         factory.Create((FileInfo)null);
                     });
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldCreateMagickImage()
                 {
                     var factory = new MagickImageInfoFactory();
@@ -151,74 +147,72 @@ namespace Magick.NET.Tests
 
                     var info = factory.Create(file);
 
-                    Assert.IsInstanceOfType(info, typeof(MagickImageInfo));
-                    Assert.AreEqual(123, info.Width);
+                    Assert.IsType<MagickImageInfo>(info);
+                    Assert.Equal(123, info.Width);
                 }
             }
 
-            [TestClass]
             public class WithFileName
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenFileInfoIsNull()
                 {
                     var factory = new MagickImageInfoFactory();
 
-                    ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
+                    Assert.Throws<ArgumentNullException>("fileName", () =>
                     {
                         factory.Create((string)null);
                     });
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsEmpty()
                 {
                     var factory = new MagickImageInfoFactory();
 
-                    ExceptionAssert.Throws<ArgumentException>("fileName", () =>
+                    Assert.Throws<ArgumentException>("fileName", () =>
                     {
                         factory.Create(string.Empty);
                     });
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldCreateMagickImage()
                 {
                     var factory = new MagickImageInfoFactory();
 
                     var info = factory.Create(Files.ImageMagickJPG);
 
-                    Assert.IsInstanceOfType(info, typeof(MagickImageInfo));
-                    Assert.AreEqual(123, info.Width);
+                    Assert.IsType<MagickImageInfo>(info);
+                    Assert.Equal(123, info.Width);
                 }
             }
 
-            [TestClass]
             public class WithStream
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNull()
                 {
                     var factory = new MagickImageInfoFactory();
 
-                    ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
+                    Assert.Throws<ArgumentNullException>("stream", () =>
                     {
                         factory.Create((Stream)null);
                     });
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenStreamIsEmpty()
                 {
                     var factory = new MagickImageInfoFactory();
 
-                    ExceptionAssert.Throws<ArgumentException>("stream", () =>
+                    Assert.Throws<ArgumentException>("stream", () =>
                     {
                         factory.Create(new MemoryStream());
                     });
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldCreateMagickImage()
                 {
                     var factory = new MagickImageInfoFactory();
@@ -227,8 +221,8 @@ namespace Magick.NET.Tests
                     {
                         var info = factory.Create(stream);
 
-                        Assert.IsInstanceOfType(info, typeof(MagickImageInfo));
-                        Assert.AreEqual(123, info.Width);
+                        Assert.IsType<MagickImageInfo>(info);
+                        Assert.Equal(123, info.Width);
                     }
                 }
             }

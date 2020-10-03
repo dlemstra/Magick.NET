@@ -13,7 +13,7 @@
 using System;
 using System.Collections.Generic;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -29,17 +29,16 @@ namespace Magick.NET.Tests
 {
     public partial class SafePixelCollectionTests
     {
-        [TestClass]
         public class TheSetPixelMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenPixelIsNull()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        ExceptionAssert.Throws<ArgumentNullException>("pixel", () =>
+                        Assert.Throws<ArgumentNullException>("pixel", () =>
                         {
                             pixels.SetPixel((Pixel)null);
                         });
@@ -47,14 +46,14 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenPixelWidthIsOutsideImage()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        ExceptionAssert.Throws<ArgumentOutOfRangeException>("x", () =>
+                        Assert.Throws<ArgumentOutOfRangeException>("x", () =>
                         {
                             pixels.SetPixel(new Pixel(image.Width + 1, 0, 3));
                         });
@@ -62,14 +61,14 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenPixelHeightIsOutsideImage()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        ExceptionAssert.Throws<ArgumentOutOfRangeException>("y", () =>
+                        Assert.Throws<ArgumentOutOfRangeException>("y", () =>
                         {
                             pixels.SetPixel(new Pixel(0, image.Height + 1, 3));
                         });
@@ -77,7 +76,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangePixelWhenNotEnoughChannelsAreSupplied()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -87,12 +86,12 @@ namespace Magick.NET.Tests
                         Pixel pixel = new Pixel(0, 0, new QuantumType[] { 0 });
                         pixels.SetPixel(pixel);
 
-                        ColorAssert.AreEqual(MagickColors.Cyan, image, 0, 0);
+                        ColorAssert.Equal(MagickColors.Cyan, image, 0, 0);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangePixelWhenTooManyChannelsAreSupplied()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -102,12 +101,12 @@ namespace Magick.NET.Tests
                         Pixel pixel = new Pixel(0, 0, new QuantumType[] { 0, 0, 0, 0 });
                         pixels.SetPixel(pixel);
 
-                        ColorAssert.AreEqual(MagickColors.Black, image, 0, 0);
+                        ColorAssert.Equal(MagickColors.Black, image, 0, 0);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangePixelWhenCompletePixelIsSupplied()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -117,19 +116,19 @@ namespace Magick.NET.Tests
                         Pixel pixel = new Pixel(0, 0, new QuantumType[] { 0, Quantum.Max, 0 });
                         pixels.SetPixel(pixel);
 
-                        ColorAssert.AreEqual(MagickColors.Lime, image, 0, 0);
+                        ColorAssert.Equal(MagickColors.Lime, image, 0, 0);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenIEnumerablePixelIsNull()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        ExceptionAssert.Throws<ArgumentNullException>("pixels", () =>
+                        Assert.Throws<ArgumentNullException>("pixels", () =>
                         {
                             pixels.SetPixel((IEnumerable<Pixel>)null);
                         });
@@ -137,7 +136,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangePixelsWhenMultipleIncompletePixelsAreSupplied()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -148,13 +147,13 @@ namespace Magick.NET.Tests
                         Pixel pixelB = new Pixel(1, 0, new QuantumType[] { 0, 0 });
                         pixels.SetPixel(new Pixel[] { pixelA, pixelB });
 
-                        ColorAssert.AreEqual(MagickColors.Cyan, image, 0, 0);
-                        ColorAssert.AreEqual(MagickColors.Blue, image, 1, 0);
+                        ColorAssert.Equal(MagickColors.Cyan, image, 0, 0);
+                        ColorAssert.Equal(MagickColors.Blue, image, 1, 0);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangePixelsWhenMultipleCompletePixelsAreSupplied()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -165,20 +164,20 @@ namespace Magick.NET.Tests
                         Pixel pixelB = new Pixel(1, 0, new QuantumType[] { 0, 0, Quantum.Max });
                         pixels.SetPixel(new Pixel[] { pixelA, pixelB });
 
-                        ColorAssert.AreEqual(MagickColors.Red, image, 0, 0);
-                        ColorAssert.AreEqual(MagickColors.Blue, image, 1, 0);
+                        ColorAssert.Equal(MagickColors.Red, image, 0, 0);
+                        ColorAssert.Equal(MagickColors.Blue, image, 1, 0);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenArrayIsNull()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        ExceptionAssert.Throws<ArgumentNullException>("value", () =>
+                        Assert.Throws<ArgumentNullException>("value", () =>
                         {
                             pixels.SetPixel(0, 0, null);
                         });
@@ -186,14 +185,14 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenArrayIsEmpty()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        ExceptionAssert.Throws<ArgumentException>("value", () =>
+                        Assert.Throws<ArgumentException>("value", () =>
                         {
                             pixels.SetPixel(0, 0, new QuantumType[] { });
                         });
@@ -201,14 +200,14 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenOffsetWidthIsOutsideImage()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        ExceptionAssert.Throws<ArgumentOutOfRangeException>("x", () =>
+                        Assert.Throws<ArgumentOutOfRangeException>("x", () =>
                         {
                             pixels.SetPixel(image.Width + 1, 0, new QuantumType[] { 0 });
                         });
@@ -216,14 +215,14 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenOffsetHeightIsOutsideImage()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        ExceptionAssert.Throws<ArgumentOutOfRangeException>("y", () =>
+                        Assert.Throws<ArgumentOutOfRangeException>("y", () =>
                         {
                             pixels.SetPixel(0, image.Height + 1, new QuantumType[] { 0 });
                         });
@@ -231,7 +230,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangePixelsWhenOneChannelAndOffsetAreSupplied()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -240,12 +239,12 @@ namespace Magick.NET.Tests
                     {
                         pixels.SetPixel(0, 0, new QuantumType[] { 0 });
 
-                        ColorAssert.AreEqual(MagickColors.Cyan, image, 0, 0);
+                        ColorAssert.Equal(MagickColors.Cyan, image, 0, 0);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangePixelsWhenTooManyChannelsAndOffsetAreSupplied()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -254,12 +253,12 @@ namespace Magick.NET.Tests
                     {
                         pixels.SetPixel(0, 0, new QuantumType[] { 0, 0, 0, 0 });
 
-                        ColorAssert.AreEqual(MagickColors.Black, image, 0, 0);
+                        ColorAssert.Equal(MagickColors.Black, image, 0, 0);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangePixelsWhenCorrectNumberOfChannelsAndOffsetAreSupplied()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -268,7 +267,7 @@ namespace Magick.NET.Tests
                     {
                         pixels.SetPixel(0, 0, new QuantumType[] { 0, 0, 0 });
 
-                        ColorAssert.AreEqual(MagickColors.Black, image, 0, 0);
+                        ColorAssert.Equal(MagickColors.Black, image, 0, 0);
                     }
                 }
             }

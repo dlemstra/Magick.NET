@@ -13,16 +13,15 @@
 using System;
 using System.IO;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class StreamWrapperTests
     {
-        [TestClass]
         public class TheSeekMethod
         {
-            [TestMethod]
+            [Fact]
             public unsafe void ShouldNotThrowExceptionWhenWhenStreamThrowsExceptionDuringSeeking()
             {
                 using (var memStream = new MemoryStream())
@@ -35,14 +34,14 @@ namespace Magick.NET.Tests
                             fixed (byte* p = buffer)
                             {
                                 long count = streamWrapper.Seek(0, IntPtr.Zero, IntPtr.Zero);
-                                Assert.AreEqual(-1, count);
+                                Assert.Equal(-1, count);
                             }
                         }
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public unsafe void ShouldUseStartPositionOfStreamAsBegin()
             {
                 using (var memStream = new MemoryStream())
@@ -55,13 +54,13 @@ namespace Magick.NET.Tests
 
                         var result = streamWrapper.Seek(0, (IntPtr)SeekOrigin.Begin, IntPtr.Zero);
 
-                        Assert.AreEqual(0, result);
-                        Assert.AreEqual(42, memStream.Position);
+                        Assert.Equal(0, result);
+                        Assert.Equal(42, memStream.Position);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public unsafe void ShouldUseStartPositionAsOffset()
             {
                 using (var memStream = new MemoryStream())
@@ -72,13 +71,13 @@ namespace Magick.NET.Tests
                     {
                         var result = streamWrapper.Seek(10, (IntPtr)SeekOrigin.Current, IntPtr.Zero);
 
-                        Assert.AreEqual(10, result);
-                        Assert.AreEqual(52, memStream.Position);
+                        Assert.Equal(10, result);
+                        Assert.Equal(52, memStream.Position);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public unsafe void ShouldRemoveStartPositionFromEndOffset()
             {
                 using (var memStream = new MemoryStream(new byte[64]))
@@ -89,13 +88,13 @@ namespace Magick.NET.Tests
                     {
                         var result = streamWrapper.Seek(0, (IntPtr)SeekOrigin.End, IntPtr.Zero);
 
-                        Assert.AreEqual(22, result);
-                        Assert.AreEqual(64, memStream.Position);
+                        Assert.Equal(22, result);
+                        Assert.Equal(64, memStream.Position);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public unsafe void ShouldReturnMinusOneForInvalidWhence()
             {
                 using (var memStream = new MemoryStream())
@@ -104,7 +103,7 @@ namespace Magick.NET.Tests
                     {
                         var result = streamWrapper.Seek(0, (IntPtr)3, IntPtr.Zero);
 
-                        Assert.AreEqual(-1, result);
+                        Assert.Equal(-1, result);
                     }
                 }
             }

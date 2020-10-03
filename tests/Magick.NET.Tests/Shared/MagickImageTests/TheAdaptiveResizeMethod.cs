@@ -11,27 +11,26 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheAdaptiveResizeMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldNotEnlargeTheImage()
             {
                 using (var image = new MagickImage(MagickColors.Black, 512, 1))
                 {
                     image.AdaptiveResize(512, 512);
 
-                    Assert.AreEqual(1, image.Height);
+                    Assert.Equal(1, image.Height);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldEnlargeTheImageWhenAspectRatioIsIgnored()
             {
                 using (var image = new MagickImage(MagickColors.Black, 512, 1))
@@ -43,22 +42,22 @@ namespace Magick.NET.Tests
 
                     image.AdaptiveResize(geometry);
 
-                    Assert.AreEqual(512, image.Height);
+                    Assert.Equal(512, image.Height);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldResizeTheImage()
             {
                 using (var image = new MagickImage(Files.MagickNETIconPNG))
                 {
                     image.AdaptiveResize(100, 80);
 
-                    Assert.AreEqual(80, image.Width);
-                    Assert.AreEqual(80, image.Height);
+                    Assert.Equal(80, image.Width);
+                    Assert.Equal(80, image.Height);
 
-                    ColorAssert.AreEqual(new MagickColor("#347bbd"), image, 23, 42);
-                    ColorAssert.AreEqual(new MagickColor("#a8dff8"), image, 42, 42);
+                    ColorAssert.Equal(new MagickColor("#347bbd"), image, 23, 42);
+                    ColorAssert.Equal(new MagickColor("#a8dff8"), image, 42, 42);
                 }
             }
         }

@@ -12,25 +12,24 @@
 
 using System.IO;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheOrientationProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldOverwriteTheExifOrientation()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetExifProfile();
                     var exifOrientation = profile.GetValue(ExifTag.Orientation).Value;
-                    Assert.AreEqual((ushort)1, exifOrientation);
+                    Assert.Equal((ushort)1, exifOrientation);
 
-                    Assert.AreEqual(OrientationType.TopLeft, image.Orientation);
+                    Assert.Equal(OrientationType.TopLeft, image.Orientation);
 
                     profile.SetValue(ExifTag.Orientation, (ushort)6); // RightTop
                     image.SetProfile(profile);
@@ -46,9 +45,9 @@ namespace Magick.NET.Tests
                         {
                             profile = output.GetExifProfile();
                             exifOrientation = profile.GetValue(ExifTag.Orientation).Value;
-                            Assert.AreEqual((ushort)8, exifOrientation);
+                            Assert.Equal((ushort)8, exifOrientation);
 
-                            Assert.AreEqual(OrientationType.LeftBotom, image.Orientation);
+                            Assert.Equal(OrientationType.LeftBotom, image.Orientation);
                         }
                     }
                 }

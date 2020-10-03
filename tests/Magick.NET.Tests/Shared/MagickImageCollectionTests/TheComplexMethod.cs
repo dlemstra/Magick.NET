@@ -12,34 +12,33 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageCollectionTests
     {
-        [TestClass]
         public class TheComplexMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenCollectionIsEmpty()
             {
                 using (var images = new MagickImageCollection())
                 {
-                    ExceptionAssert.Throws<InvalidOperationException>(() => images.Complex(new ComplexSettings()));
+                    Assert.Throws<InvalidOperationException>(() => images.Complex(new ComplexSettings()));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenSettingsIsNull()
             {
                 using (var images = new MagickImageCollection())
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("complexSettings", () => images.Complex(null));
+                    Assert.Throws<ArgumentNullException>("complexSettings", () => images.Complex(null));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldApplyTheOperatorToTheImages()
             {
                 using (var collection = new MagickImageCollection())
@@ -51,16 +50,16 @@ namespace Magick.NET.Tests
                         ComplexOperator = ComplexOperator.Conjugate,
                     });
 
-                    Assert.AreEqual(2, collection.Count);
+                    Assert.Equal(2, collection.Count);
 
 #if Q8
-                    ColorAssert.AreEqual(new MagickColor("#abb4ba01"), collection[1], 10, 10);
+                    ColorAssert.Equal(new MagickColor("#abb4ba01"), collection[1], 10, 10);
 
 #elif Q16
-                    ColorAssert.AreEqual(new MagickColor("#aaabb3b4b9ba0001"), collection[1], 10, 10);
+                    ColorAssert.Equal(new MagickColor("#aaabb3b4b9ba0001"), collection[1], 10, 10);
 #else
                     collection[1].Clamp();
-                    ColorAssert.AreEqual(new MagickColor("#0000000000000000"), collection[1], 10, 10);
+                    ColorAssert.Equal(new MagickColor("#0000000000000000"), collection[1], 10, 10);
 #endif
                 }
             }

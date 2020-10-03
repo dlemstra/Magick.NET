@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheDepthProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldAllowValueHigherThanQuantum()
             {
                 using (var image = new MagickImage())
@@ -28,7 +27,7 @@ namespace Magick.NET.Tests
                     var depth = Quantum.Depth * 2;
 
                     image.Depth = depth;
-                    Assert.AreEqual(depth, image.Depth);
+                    Assert.Equal(depth, image.Depth);
                 }
             }
         }

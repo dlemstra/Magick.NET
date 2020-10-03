@@ -11,25 +11,24 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickSettingsTests
     {
-        [TestClass]
         public class TheTextInterlineSpacingProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldDefaultToZero()
             {
                 using (var image = new MagickImage())
                 {
-                    Assert.AreEqual(0, image.Settings.TextInterlineSpacing);
+                    Assert.Equal(0, image.Settings.TextInterlineSpacing);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldBeUsedWhenRenderingText()
             {
                 using (var image = new MagickImage())
@@ -37,14 +36,14 @@ namespace Magick.NET.Tests
                     image.Settings.TextInterlineSpacing = 10;
                     image.Read("label:First\nSecond");
 
-                    Assert.AreEqual(43, image.Width);
-                    Assert.AreEqual(39, image.Height);
+                    Assert.Equal(43, image.Width);
+                    Assert.Equal(39, image.Height);
 
                     image.Settings.TextInterlineSpacing = 20;
                     image.Read("label:First\nSecond");
 
-                    Assert.AreEqual(43, image.Width);
-                    Assert.AreEqual(49, image.Height);
+                    Assert.Equal(43, image.Width);
+                    Assert.Equal(49, image.Height);
                 }
             }
         }

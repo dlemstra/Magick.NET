@@ -14,14 +14,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class PathTests
     {
-        [TestMethod]
+        [Fact]
         public void Test_Paths()
         {
             using (var image = new MagickImage(MagickColors.Transparent, 100, 100))
@@ -59,105 +58,105 @@ namespace Magick.NET.Tests
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Paths_Draw()
         {
-            Test_Paths_Draw(new PathArcAbs(new PathArc(50, 50, 20, 20, 45, true, false)));
-            Test_Paths_Draw(new PathArcRel(new PathArc()));
-            Test_Paths_Draw(new PathClose());
-            Test_Paths_Draw(new PathCurveToAbs(80, 80, 10, 10, 60, 60));
-            Test_Paths_Draw(new PathCurveToRel(30, 30, 60, 60, 90, 90));
-            Test_Paths_Draw(new PathLineToAbs(new PointD(70, 70)));
-            Test_Paths_Draw(new PathLineToHorizontalAbs(20));
-            Test_Paths_Draw(new PathLineToHorizontalRel(90));
-            Test_Paths_Draw(new PathLineToRel(new PointD(0, 0)));
-            Test_Paths_Draw(new PathLineToVerticalAbs(70));
-            Test_Paths_Draw(new PathLineToVerticalRel(30));
-            Test_Paths_Draw(new PathMoveToAbs(new PointD(50, 50)));
-            Test_Paths_Draw(new PathMoveToRel(new PointD(20, 20)));
-            Test_Paths_Draw(new PathQuadraticCurveToAbs(70, 70, 30, 30));
-            Test_Paths_Draw(new PathQuadraticCurveToRel(10, 10, 40, 40));
-            Test_Paths_Draw(new PathSmoothCurveToAbs(new PointD(0, 0), new PointD(30, 30)));
-            Test_Paths_Draw(new PathSmoothCurveToRel(new PointD(60, 60), new PointD(10, 10)));
-            Test_Paths_Draw(new PathSmoothQuadraticCurveToAbs(50, 50));
-            Test_Paths_Draw(new PathSmoothQuadraticCurveToRel(80, 80));
+            AssertDraw(new PathArcAbs(new PathArc(50, 50, 20, 20, 45, true, false)));
+            AssertDraw(new PathArcRel(new PathArc()));
+            AssertDraw(new PathClose());
+            AssertDraw(new PathCurveToAbs(80, 80, 10, 10, 60, 60));
+            AssertDraw(new PathCurveToRel(30, 30, 60, 60, 90, 90));
+            AssertDraw(new PathLineToAbs(new PointD(70, 70)));
+            AssertDraw(new PathLineToHorizontalAbs(20));
+            AssertDraw(new PathLineToHorizontalRel(90));
+            AssertDraw(new PathLineToRel(new PointD(0, 0)));
+            AssertDraw(new PathLineToVerticalAbs(70));
+            AssertDraw(new PathLineToVerticalRel(30));
+            AssertDraw(new PathMoveToAbs(new PointD(50, 50)));
+            AssertDraw(new PathMoveToRel(new PointD(20, 20)));
+            AssertDraw(new PathQuadraticCurveToAbs(70, 70, 30, 30));
+            AssertDraw(new PathQuadraticCurveToRel(10, 10, 40, 40));
+            AssertDraw(new PathSmoothCurveToAbs(new PointD(0, 0), new PointD(30, 30)));
+            AssertDraw(new PathSmoothCurveToRel(new PointD(60, 60), new PointD(10, 10)));
+            AssertDraw(new PathSmoothQuadraticCurveToAbs(50, 50));
+            AssertDraw(new PathSmoothQuadraticCurveToRel(80, 80));
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Path_Exceptions()
         {
-            ExceptionAssert.Throws<ArgumentException>("coordinates", () =>
+            Assert.Throws<ArgumentException>("coordinates", () =>
             {
                 new PathArcAbs();
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>("coordinates", () =>
+            Assert.Throws<ArgumentNullException>("coordinates", () =>
             {
                 new PathArcAbs(null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>("coordinates", () =>
+            Assert.Throws<ArgumentException>("coordinates", () =>
             {
                 new PathArcAbs(new PathArc[] { });
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>("coordinates", () =>
+            Assert.Throws<ArgumentNullException>("coordinates", () =>
             {
                 new PathArcAbs(new PathArc[] { null });
             });
 
-            ExceptionAssert.Throws<ArgumentException>("coordinates", () =>
+            Assert.Throws<ArgumentException>("coordinates", () =>
             {
                 new PathArcRel();
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>("coordinates", () =>
+            Assert.Throws<ArgumentNullException>("coordinates", () =>
             {
                 new PathArcRel(null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>("coordinates", () =>
+            Assert.Throws<ArgumentException>("coordinates", () =>
             {
                 new PathArcRel(new PathArc[] { });
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>("coordinates", () =>
+            Assert.Throws<ArgumentNullException>("coordinates", () =>
             {
                 new PathArcRel(new PathArc[] { null });
             });
 
-            ExceptionAssert.Throws<ArgumentException>("coordinates", () =>
+            Assert.Throws<ArgumentException>("coordinates", () =>
             {
                 new PathLineToAbs();
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>("coordinates", () =>
+            Assert.Throws<ArgumentNullException>("coordinates", () =>
             {
                 new PathLineToAbs(null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>("coordinates", () =>
+            Assert.Throws<ArgumentException>("coordinates", () =>
             {
                 new PathLineToAbs(new PointD[] { });
             });
 
-            ExceptionAssert.Throws<ArgumentException>("coordinates", () =>
+            Assert.Throws<ArgumentException>("coordinates", () =>
             {
                 new PathLineToRel();
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>("coordinates", () =>
+            Assert.Throws<ArgumentNullException>("coordinates", () =>
             {
                 new PathLineToRel(null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>("coordinates", () =>
+            Assert.Throws<ArgumentException>("coordinates", () =>
             {
                 new PathLineToRel(new PointD[] { });
             });
         }
 
-        private void Test_Paths_Draw(IPath path)
+        private void AssertDraw(IPath path)
         {
             ((IDrawingWand)path).Draw(null);
         }

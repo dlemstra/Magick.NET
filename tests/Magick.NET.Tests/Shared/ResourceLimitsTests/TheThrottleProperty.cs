@@ -11,22 +11,21 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class ResourceLimitsTests
     {
-        [TestClass]
         public class TheThrottleProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldHaveTheCorrectValue()
             {
-                Assert.AreEqual(0U, ResourceLimits.Throttle);
+                Assert.Equal(0U, ResourceLimits.Throttle);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
                 ExecuteInsideLock(() =>
@@ -34,7 +33,7 @@ namespace Magick.NET.Tests
                     var throttle = ResourceLimits.Throttle;
 
                     ResourceLimits.Throttle = 1U;
-                    Assert.AreEqual(1U, ResourceLimits.Throttle);
+                    Assert.Equal(1U, ResourceLimits.Throttle);
                     ResourceLimits.Throttle = throttle;
                 });
             }

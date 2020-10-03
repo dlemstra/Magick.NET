@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheClaheMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldChangeTheImage()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
@@ -29,12 +28,12 @@ namespace Magick.NET.Tests
                     {
                         result.Clahe(10, 20, 30, 1.5);
 
-                        Assert.AreEqual(0.08, image.Compare(result, ErrorMetric.RootMeanSquared), 0.01);
+                        Assert.InRange(image.Compare(result, ErrorMetric.RootMeanSquared), 0.08, 0.09);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldUsePercentageOfTheWidthAndHeight()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
@@ -43,7 +42,7 @@ namespace Magick.NET.Tests
                     {
                         result.Clahe(new Percentage(1.6666), new Percentage(5), 30, 1.5);
 
-                        Assert.AreEqual(0.08, image.Compare(result, ErrorMetric.RootMeanSquared), 0.01);
+                        Assert.InRange(image.Compare(result, ErrorMetric.RootMeanSquared), 0.07, 0.08);
                     }
                 }
             }

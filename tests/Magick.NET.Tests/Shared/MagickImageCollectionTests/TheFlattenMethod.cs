@@ -12,28 +12,27 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageCollectionTests
     {
-        [TestClass]
         public class TheFlattenMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenCollectionIsEmpty()
             {
                 using (var images = new MagickImageCollection())
                 {
-                    ExceptionAssert.Throws<InvalidOperationException>(() =>
+                    Assert.Throws<InvalidOperationException>(() =>
                     {
                         images.Flatten();
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldUseImageBackground()
             {
                 using (var images = new MagickImageCollection())
@@ -46,12 +45,12 @@ namespace Magick.NET.Tests
 
                     using (var result = images.Flatten())
                     {
-                        ColorAssert.AreEqual(MagickColors.Moccasin, result, 0, 0);
+                        ColorAssert.Equal(MagickColors.Moccasin, result, 0, 0);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldUseSpecifiedBackground()
             {
                 using (var images = new MagickImageCollection())
@@ -64,8 +63,8 @@ namespace Magick.NET.Tests
 
                     using (var result = images.Flatten(MagickColors.MistyRose))
                     {
-                        ColorAssert.AreEqual(MagickColors.MistyRose, result, 0, 0);
-                        Assert.AreEqual(MagickColors.Moccasin, image.BackgroundColor);
+                        ColorAssert.Equal(MagickColors.MistyRose, result, 0, 0);
+                        Assert.Equal(MagickColors.Moccasin, image.BackgroundColor);
                     }
                 }
             }

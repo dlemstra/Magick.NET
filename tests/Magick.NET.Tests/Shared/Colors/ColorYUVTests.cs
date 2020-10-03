@@ -11,29 +11,28 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class ColorYUVTests : ColorBaseTests<ColorYUV>
     {
-        [TestMethod]
+        [Fact]
         public void Test_GetHashCode()
         {
             ColorYUV first = new ColorYUV(0.0, 0.0, 0.0);
             int hashCode = first.GetHashCode();
 
             first.Y = 1.0;
-            Assert.AreNotEqual(hashCode, first.GetHashCode());
+            Assert.NotEqual(hashCode, first.GetHashCode());
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_IComparable()
         {
             ColorYUV first = new ColorYUV(0.2, 0.3, 0.4);
 
-            Test_IComparable(first);
+            AssertIComparable(first);
 
             ColorYUV second = new ColorYUV(0.2, 0.4, 0.5);
 
@@ -44,7 +43,7 @@ namespace Magick.NET.Tests
             Test_IComparable_Equal(first, second);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_IEquatable()
         {
             ColorYUV first = new ColorYUV(0.1, -0.2, -0.3);
@@ -60,42 +59,42 @@ namespace Magick.NET.Tests
             Test_IEquatable_NotEqual(first, second);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_ImplicitOperator()
         {
             ColorYUV expected = new ColorYUV(0.413189, 0.789, 1.015);
             ColorYUV actual = MagickColors.Fuchsia;
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
 
-            Assert.IsNull(ColorYUV.FromMagickColor(null));
+            Assert.Null(ColorYUV.FromMagickColor(null));
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_ToString()
         {
             ColorYUV color = new ColorYUV(0.413189, 0.789, 1.0156);
-            Test_ToString(color, MagickColors.Fuchsia);
+            AssertToString(color, MagickColors.Fuchsia);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Properties()
         {
             ColorYUV color = new ColorYUV(0, 0, 0);
 
             color.Y = 1;
-            Assert.AreEqual(1, color.Y);
-            Assert.AreEqual(0, color.U);
-            Assert.AreEqual(0, color.V);
+            Assert.Equal(1, color.Y);
+            Assert.Equal(0, color.U);
+            Assert.Equal(0, color.V);
 
             color.U = 2;
-            Assert.AreEqual(1, color.Y);
-            Assert.AreEqual(2, color.U);
-            Assert.AreEqual(0, color.V);
+            Assert.Equal(1, color.Y);
+            Assert.Equal(2, color.U);
+            Assert.Equal(0, color.V);
 
             color.V = 3;
-            Assert.AreEqual(1, color.Y);
-            Assert.AreEqual(2, color.U);
-            Assert.AreEqual(3, color.V);
+            Assert.Equal(1, color.Y);
+            Assert.Equal(2, color.U);
+            Assert.Equal(3, color.V);
         }
     }
 }

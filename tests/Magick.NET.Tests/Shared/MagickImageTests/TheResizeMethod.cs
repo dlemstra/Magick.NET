@@ -12,7 +12,7 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
@@ -20,141 +20,138 @@ namespace Magick.NET.Tests
     {
         public class TheResizeMethod
         {
-            [TestClass]
             public class WithMagickGeometry
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenGeometryIsNull()
                 {
                     using (var image = new MagickImage(Files.MagickNETIconPNG))
                     {
-                        ExceptionAssert.Throws<ArgumentNullException>("geometry", () => image.Resize(null));
+                        Assert.Throws<ArgumentNullException>("geometry", () => image.Resize(null));
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldResizeTheImage()
                 {
                     using (var image = new MagickImage(Files.RedPNG))
                     {
                         image.Resize(new MagickGeometry(64, 64));
 
-                        Assert.AreEqual(64, image.Width);
-                        Assert.AreEqual(21, image.Height);
+                        Assert.Equal(64, image.Width);
+                        Assert.Equal(21, image.Height);
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldIgnoreTheAspectRatioWhenSpecified()
                 {
                     using (var image = new MagickImage(Files.MagickNETIconPNG))
                     {
                         image.Resize(new MagickGeometry("5x10!"));
 
-                        Assert.AreEqual(5, image.Width);
-                        Assert.AreEqual(10, image.Height);
+                        Assert.Equal(5, image.Width);
+                        Assert.Equal(10, image.Height);
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldNotResizeTheImageWhenLarger()
                 {
                     using (var image = new MagickImage(Files.MagickNETIconPNG))
                     {
                         image.Resize(new MagickGeometry("32x32<"));
 
-                        Assert.AreEqual(128, image.Width);
-                        Assert.AreEqual(128, image.Height);
+                        Assert.Equal(128, image.Width);
+                        Assert.Equal(128, image.Height);
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldResizeTheImageWhenSmaller()
                 {
                     using (var image = new MagickImage(Files.MagickNETIconPNG))
                     {
                         image.Resize(new MagickGeometry("256x256<"));
 
-                        Assert.AreEqual(256, image.Width);
-                        Assert.AreEqual(256, image.Height);
+                        Assert.Equal(256, image.Width);
+                        Assert.Equal(256, image.Height);
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldNotResizeTheImageWhenSmaller()
                 {
                     using (var image = new MagickImage(Files.MagickNETIconPNG))
                     {
                         image.Resize(new MagickGeometry("256x256>"));
 
-                        Assert.AreEqual(128, image.Width);
-                        Assert.AreEqual(128, image.Height);
+                        Assert.Equal(128, image.Width);
+                        Assert.Equal(128, image.Height);
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldResizeTheImageWhenLarger()
                 {
                     using (var image = new MagickImage(Files.MagickNETIconPNG))
                     {
                         image.Resize(new MagickGeometry("32x32>"));
 
-                        Assert.AreEqual(32, image.Width);
-                        Assert.AreEqual(32, image.Height);
+                        Assert.Equal(32, image.Width);
+                        Assert.Equal(32, image.Height);
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldResizeToSmallerArea()
                 {
                     using (var image = new MagickImage(Files.SnakewarePNG))
                     {
                         image.Resize(new MagickGeometry("4096@"));
 
-                        Assert.IsTrue((image.Width * image.Height) < 4096);
+                        Assert.True((image.Width * image.Height) < 4096);
                     }
                 }
             }
 
-            [TestClass]
             public class WithPercentage
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenPercentageIsNegative()
                 {
                     using (var image = new MagickImage(Files.MagickNETIconPNG))
                     {
                         var percentage = new Percentage(-0.5);
 
-                        ExceptionAssert.Throws<ArgumentException>("percentage", () => image.Resize(percentage));
+                        Assert.Throws<ArgumentException>("percentage", () => image.Resize(percentage));
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldResizeTheImage()
                 {
                     using (var image = new MagickImage(Files.MagickNETIconPNG))
                     {
                         image.Resize((Percentage)200);
 
-                        Assert.AreEqual(256, image.Width);
-                        Assert.AreEqual(256, image.Height);
+                        Assert.Equal(256, image.Width);
+                        Assert.Equal(256, image.Height);
                     }
                 }
             }
 
-            [TestClass]
             public class WithWidthAndHeight
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldResizeTheImage()
                 {
                     using (var image = new MagickImage(Files.RedPNG))
                     {
                         image.Resize(32, 32);
 
-                        Assert.AreEqual(32, image.Width);
-                        Assert.AreEqual(11, image.Height);
+                        Assert.Equal(32, image.Width);
+                        Assert.Equal(11, image.Height);
                     }
                 }
             }

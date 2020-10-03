@@ -11,7 +11,7 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -27,35 +27,34 @@ namespace Magick.NET.Tests
 {
     public partial class MagickColorTests
     {
-        [TestClass]
         public class TheFuzzyEqualsMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenValueIsNull()
             {
                 var first = MagickColors.White;
 
-                Assert.IsFalse(first.FuzzyEquals(null, (Percentage)0));
+                Assert.False(first.FuzzyEquals(null, (Percentage)0));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenValuesAreSame()
             {
                 var first = MagickColors.White;
 
-                Assert.IsTrue(first.FuzzyEquals(first, (Percentage)0));
+                Assert.True(first.FuzzyEquals(first, (Percentage)0));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenValuesAreEqual()
             {
                 var first = MagickColors.White;
                 var second = new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max);
 
-                Assert.IsTrue(first.FuzzyEquals(second, (Percentage)0));
+                Assert.True(first.FuzzyEquals(second, (Percentage)0));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValue()
             {
                 var first = new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max);
@@ -63,10 +62,10 @@ namespace Magick.NET.Tests
                 var half = (QuantumType)(Quantum.Max / 2.0);
                 var second = new MagickColor(Quantum.Max, half, Quantum.Max);
 
-                Assert.IsFalse(first.FuzzyEquals(second, (Percentage)0));
-                Assert.IsFalse(first.FuzzyEquals(second, (Percentage)10));
-                Assert.IsFalse(first.FuzzyEquals(second, (Percentage)20));
-                Assert.IsTrue(first.FuzzyEquals(second, (Percentage)30));
+                Assert.False(first.FuzzyEquals(second, (Percentage)0));
+                Assert.False(first.FuzzyEquals(second, (Percentage)10));
+                Assert.False(first.FuzzyEquals(second, (Percentage)20));
+                Assert.True(first.FuzzyEquals(second, (Percentage)30));
             }
         }
     }

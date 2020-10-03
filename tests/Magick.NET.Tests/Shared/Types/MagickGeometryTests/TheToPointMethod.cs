@@ -11,31 +11,30 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickGeometryTests
     {
-        [TestClass]
         public class TheToPointMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnZeroWhenXAndYNotSet()
             {
                 var point = new MagickGeometry(10, 5).ToPoint();
 
-                Assert.AreEqual(0, point.X);
-                Assert.AreEqual(0, point.Y);
+                Assert.Equal(0, point.X);
+                Assert.Equal(0, point.Y);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnCorrectValue()
             {
                 var point = new MagickGeometry(1, 2, 3, 4).ToPoint();
 
-                Assert.AreEqual(1, point.X);
-                Assert.AreEqual(2, point.Y);
+                Assert.Equal(1, point.X);
+                Assert.Equal(2, point.Y);
             }
         }
     }

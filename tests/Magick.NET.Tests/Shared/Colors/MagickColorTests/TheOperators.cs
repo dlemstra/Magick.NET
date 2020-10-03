@@ -11,60 +11,59 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickColorTests
     {
-        [TestClass]
         public class TheOperators
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValueWhenInstanceIsNull()
             {
                 var color = MagickColors.Red;
 
-                Assert.IsFalse(color == null);
-                Assert.IsTrue(color != null);
-                Assert.IsFalse(color < null);
-                Assert.IsFalse(color <= null);
-                Assert.IsTrue(color > null);
-                Assert.IsTrue(color >= null);
-                Assert.IsFalse(null == color);
-                Assert.IsTrue(null != color);
-                Assert.IsTrue(null < color);
-                Assert.IsTrue(null <= color);
-                Assert.IsFalse(null > color);
-                Assert.IsFalse(null >= color);
+                Assert.False(color == null);
+                Assert.True(color != null);
+                Assert.False(color < null);
+                Assert.False(color <= null);
+                Assert.True(color > null);
+                Assert.True(color >= null);
+                Assert.False(null == color);
+                Assert.True(null != color);
+                Assert.True(null < color);
+                Assert.True(null <= color);
+                Assert.False(null > color);
+                Assert.False(null >= color);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValueWhenInstanceIsSpecified()
             {
                 var first = MagickColors.Red;
                 var second = MagickColors.Green;
 
-                Assert.IsFalse(first == second);
-                Assert.IsTrue(first != second);
-                Assert.IsFalse(first < second);
-                Assert.IsFalse(first <= second);
-                Assert.IsTrue(first > second);
-                Assert.IsTrue(first >= second);
+                Assert.False(first == second);
+                Assert.True(first != second);
+                Assert.False(first < second);
+                Assert.False(first <= second);
+                Assert.True(first > second);
+                Assert.True(first >= second);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValueWhenInstanceAreEqual()
             {
                 var first = MagickColors.Red;
                 var second = new MagickColor("red");
 
-                Assert.IsTrue(first == second);
-                Assert.IsFalse(first != second);
-                Assert.IsFalse(first < second);
-                Assert.IsTrue(first <= second);
-                Assert.IsFalse(first > second);
-                Assert.IsTrue(first >= second);
+                Assert.True(first == second);
+                Assert.False(first != second);
+                Assert.False(first < second);
+                Assert.True(first <= second);
+                Assert.False(first > second);
+                Assert.True(first >= second);
             }
         }
     }

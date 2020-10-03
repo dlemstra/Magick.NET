@@ -13,16 +13,16 @@
 using System;
 using System.Collections.Generic;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using Xunit.Sdk;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickNETTests
     {
-        [TestClass]
         public class TheGetFormatInformationMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFormatInfoForAllFormats()
             {
                 var missingFormats = new List<string>();
@@ -41,7 +41,7 @@ namespace Magick.NET.Tests
                 }
 
                 if (missingFormats.Count > 0)
-                    Assert.Fail("Cannot find MagickFormatInfo for: " + string.Join(", ", missingFormats.ToArray()));
+                    throw new XunitException("Cannot find MagickFormatInfo for: " + string.Join(", ", missingFormats.ToArray()));
             }
 
             private static bool ShouldReport(MagickFormat format)

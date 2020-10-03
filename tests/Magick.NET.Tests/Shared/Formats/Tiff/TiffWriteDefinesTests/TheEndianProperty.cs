@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Tiff;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class TiffWriteDefinesTests
     {
-        [TestClass]
         public class TheEndianProperty : TiffWriteDefinesTests
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 using (var input = new MagickImage(Files.Builtin.Logo))
@@ -33,12 +32,12 @@ namespace Magick.NET.Tests
 
                     using (var output = WriteTiff(input))
                     {
-                        Assert.AreEqual("msb", output.GetAttribute("tiff:endian"));
+                        Assert.Equal("msb", output.GetAttribute("tiff:endian"));
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetTheDefineWhenTheValueIsUndefined()
             {
                 using (var image = new MagickImage())
@@ -48,7 +47,7 @@ namespace Magick.NET.Tests
                         Endian = Endian.Undefined,
                     });
 
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "endian"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "endian"));
                 }
             }
         }

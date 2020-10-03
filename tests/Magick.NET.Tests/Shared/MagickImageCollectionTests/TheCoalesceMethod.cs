@@ -12,28 +12,27 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageCollectionTests
     {
-        [TestClass]
         public class TheCoalesceMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenCollectionIsEmpty()
             {
                 using (var images = new MagickImageCollection())
                 {
-                    ExceptionAssert.Throws<InvalidOperationException>(() =>
+                    Assert.Throws<InvalidOperationException>(() =>
                     {
                         images.Coalesce();
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldMergeTheImages()
             {
                 using (var collection = new MagickImageCollection())
@@ -43,7 +42,7 @@ namespace Magick.NET.Tests
                     using (var pixels = collection[1].GetPixels())
                     {
                         var color = pixels.GetPixel(53, 3).ToColor();
-                        Assert.AreEqual(0, color.A);
+                        Assert.Equal(0, color.A);
                     }
 
                     collection.Coalesce();
@@ -51,7 +50,7 @@ namespace Magick.NET.Tests
                     using (var pixels = collection[1].GetPixels())
                     {
                         var color = pixels.GetPixel(53, 3).ToColor();
-                        Assert.AreEqual(Quantum.Max, color.A);
+                        Assert.Equal(Quantum.Max, color.A);
                     }
                 }
             }

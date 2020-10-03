@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheGrayscaleMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldUseTheDefaultPixelIntensityMethod()
             {
                 using (var imageA = new MagickImage(MagickColors.Purple, 1, 1))
@@ -31,12 +30,12 @@ namespace Magick.NET.Tests
                     {
                         imageB.Grayscale(PixelIntensityMethod.Brightness);
 
-                        Assert.AreNotEqual(0.0, imageA.Compare(imageB, ErrorMetric.RootMeanSquared));
+                        Assert.NotEqual(0.0, imageA.Compare(imageB, ErrorMetric.RootMeanSquared));
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotRoundWhenHdriEnabled()
             {
                 using (var image = new MagickImage(MagickColors.Black, 1, 1))
@@ -47,7 +46,7 @@ namespace Magick.NET.Tests
                     {
                         var pixel = pixels.GetValue(0, 0);
 
-                        Assert.AreEqual(0, pixel[0]);
+                        Assert.Equal(0, pixel[0]);
                     }
                 }
             }

@@ -11,30 +11,29 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheAlphaMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldMakeImageTransparent()
             {
                 using (var image = new MagickImage(Files.Builtin.Wizard))
                 {
-                    Assert.AreEqual(image.HasAlpha, false);
+                    Assert.False(image.HasAlpha);
 
                     image.Alpha(AlphaOption.Transparent);
 
-                    Assert.AreEqual(image.HasAlpha, true);
-                    ColorAssert.AreEqual(MagickColors.Transparent, image, 0, 0);
+                    Assert.True(image.HasAlpha);
+                    ColorAssert.Equal(MagickColors.Transparent, image, 0, 0);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldUseTheBackgroundColor()
             {
                 using (var image = new MagickImage(Files.Builtin.Wizard))
@@ -45,8 +44,8 @@ namespace Magick.NET.Tests
                     image.Alpha(AlphaOption.Background);
                     image.Alpha(AlphaOption.Off);
 
-                    Assert.IsFalse(image.HasAlpha);
-                    ColorAssert.AreEqual(new MagickColor(Quantum.Max, 0, 0), image, 0, 0);
+                    Assert.False(image.HasAlpha);
+                    ColorAssert.Equal(new MagickColor(Quantum.Max, 0, 0), image, 0, 0);
                 }
             }
         }

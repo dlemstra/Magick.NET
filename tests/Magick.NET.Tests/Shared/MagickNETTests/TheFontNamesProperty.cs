@@ -12,21 +12,22 @@
 
 using System.Linq;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using Xunit.Sdk;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickNETTests
     {
-        [TestClass]
         public class TheFontNamesProperty
         {
-            [TestMethod]
+            [Fact]
             public void ContainsArial()
             {
                 var fontNames = MagickNET.FontNames.ToArray();
                 var fontName = fontNames.FirstOrDefault(f => f == "Arial");
-                Assert.IsNotNull(fontName, $"Unable to find Arial in font families: {string.Join(",", fontNames)}");
+                if (fontName == null)
+                    throw new XunitException($"Unable to find Arial in font families: {string.Join(",", fontNames)}");
             }
         }
     }

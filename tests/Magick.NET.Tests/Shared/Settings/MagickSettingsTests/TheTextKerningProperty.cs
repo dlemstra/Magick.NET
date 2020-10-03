@@ -11,25 +11,24 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickSettingsTests
     {
-        [TestClass]
         public class TheTextKerningProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldDefaultToZero()
             {
                 using (var image = new MagickImage())
                 {
-                    Assert.AreEqual(0, image.Settings.TextKerning);
+                    Assert.Equal(0, image.Settings.TextKerning);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldBeUsedWhenRenderingText()
             {
                 using (var image = new MagickImage())
@@ -37,14 +36,14 @@ namespace Magick.NET.Tests
                     image.Settings.TextKerning = 10;
                     image.Read("label:First");
 
-                    Assert.AreEqual(65, image.Width);
-                    Assert.AreEqual(15, image.Height);
+                    Assert.Equal(65, image.Width);
+                    Assert.Equal(15, image.Height);
 
                     image.Settings.TextKerning = 20;
                     image.Read("label:First");
 
-                    Assert.AreEqual(105, image.Width);
-                    Assert.AreEqual(15, image.Height);
+                    Assert.Equal(105, image.Width);
+                    Assert.Equal(15, image.Height);
                 }
             }
         }

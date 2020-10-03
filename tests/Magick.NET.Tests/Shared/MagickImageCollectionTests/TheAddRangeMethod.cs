@@ -14,7 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -30,13 +30,12 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageCollectionTests
     {
-        [TestClass]
         public class TheAddRangeMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenByteArrayIsNull()
             {
-                ExceptionAssert.Throws<ArgumentNullException>("data", () =>
+                Assert.Throws<ArgumentNullException>("data", () =>
                 {
                     using (var images = new MagickImageCollection())
                     {
@@ -45,10 +44,10 @@ namespace Magick.NET.Tests
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenByteArrayIsEmpty()
             {
-                ExceptionAssert.Throws<ArgumentException>("data", () =>
+                Assert.Throws<ArgumentException>("data", () =>
                 {
                     using (var images = new MagickImageCollection())
                     {
@@ -57,7 +56,7 @@ namespace Magick.NET.Tests
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotThrowExceptionWhenByteArrayReadSettingsIsNull()
             {
                 var bytes = File.ReadAllBytes(Files.SnakewarePNG);
@@ -66,14 +65,14 @@ namespace Magick.NET.Tests
                 {
                     images.AddRange(bytes, null);
 
-                    EnumerableAssert.IsSingle(images);
+                    Assert.Single(images);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenEnumerableImagesIsNull()
             {
-                ExceptionAssert.Throws<ArgumentNullException>("images", () =>
+                Assert.Throws<ArgumentNullException>("images", () =>
                 {
                     using (var images = new MagickImageCollection())
                     {
@@ -82,44 +81,44 @@ namespace Magick.NET.Tests
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotThrowExceptionWhenEnumerableImagesIsEmpty()
             {
                 using (var images = new MagickImageCollection())
                 {
                     images.AddRange(new IMagickImage<QuantumType>[0]);
 
-                    EnumerableAssert.IsEmpty(images);
+                    Assert.Empty(images);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenImagesIsMagickImageCollection()
             {
                 using (var images = new MagickImageCollection(Files.SnakewarePNG))
                 {
-                    ExceptionAssert.Throws<ArgumentException>("images", () =>
+                    Assert.Throws<ArgumentException>("images", () =>
                     {
                         images.AddRange(images);
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotThrowExceptionWhenCollectionIsEmpty()
             {
                 using (var images = new MagickImageCollection())
                 {
                     images.AddRange(new IMagickImage<QuantumType>[] { });
 
-                    EnumerableAssert.IsEmpty(images);
+                    Assert.Empty(images);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenFileNameIsNull()
             {
-                ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
+                Assert.Throws<ArgumentNullException>("fileName", () =>
                 {
                     using (var images = new MagickImageCollection())
                     {
@@ -128,10 +127,10 @@ namespace Magick.NET.Tests
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenFileNameIsEmpty()
             {
-                ExceptionAssert.Throws<ArgumentException>("fileName", () =>
+                Assert.Throws<ArgumentException>("fileName", () =>
                 {
                     using (var images = new MagickImageCollection())
                     {
@@ -140,33 +139,35 @@ namespace Magick.NET.Tests
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotThrowExceptionWhenFileNameReadSettingsIsNull()
             {
                 using (var images = new MagickImageCollection())
                 {
                     images.AddRange(Files.SnakewarePNG, null);
 
-                    EnumerableAssert.IsSingle(images);
+                    Assert.Single(images);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenFileNameIsInvalid()
             {
-                ExceptionAssert.Throws<MagickBlobErrorException>(() =>
+                var exception = Assert.Throws<MagickBlobErrorException>(() =>
                 {
                     using (var images = new MagickImageCollection())
                     {
                         images.Add(Files.Missing);
                     }
-                }, "error/blob.c/OpenBlob");
+                });
+
+                Assert.Contains("error/blob.c/OpenBlob", exception.Message);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenStreamIsNull()
             {
-                ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
+                Assert.Throws<ArgumentNullException>("stream", () =>
                 {
                     using (var images = new MagickImageCollection())
                     {
@@ -175,7 +176,7 @@ namespace Magick.NET.Tests
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotThrowExceptionWhenStreamReadSettingsIsNull()
             {
                 using (var images = new MagickImageCollection())
@@ -184,12 +185,12 @@ namespace Magick.NET.Tests
                     {
                         images.AddRange(stream, null);
 
-                        EnumerableAssert.IsSingle(images);
+                        Assert.Single(images);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenCollectionAlreadyContainsItem()
             {
                 using (var images = new MagickImageCollection())
@@ -197,19 +198,19 @@ namespace Magick.NET.Tests
                     var image = new MagickImage();
                     images.AddRange(new[] { image });
 
-                    ExceptionAssert.Throws<InvalidOperationException>(() =>
+                    Assert.Throws<InvalidOperationException>(() =>
                     {
                         images.AddRange(new[] { image });
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenImagesContainsDuplicates()
             {
                 using (var images = new MagickImageCollection())
                 {
-                    ExceptionAssert.Throws<InvalidOperationException>(() =>
+                    Assert.Throws<InvalidOperationException>(() =>
                     {
                         var image = new MagickImage();
                         images.AddRange(new[] { image, image });
@@ -217,19 +218,19 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldAddAllGifFrames()
             {
                 using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
                 {
-                    Assert.AreEqual(3, images.Count);
+                    Assert.Equal(3, images.Count);
 
                     images.AddRange(Files.RoseSparkleGIF);
-                    Assert.AreEqual(6, images.Count);
+                    Assert.Equal(6, images.Count);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotCloneTheInputImages()
             {
                 using (var images = new MagickImageCollection())
@@ -240,7 +241,7 @@ namespace Magick.NET.Tests
 
                     images.AddRange(list);
 
-                    Assert.IsTrue(ReferenceEquals(image, list[0]));
+                    Assert.True(ReferenceEquals(image, list[0]));
                 }
             }
         }

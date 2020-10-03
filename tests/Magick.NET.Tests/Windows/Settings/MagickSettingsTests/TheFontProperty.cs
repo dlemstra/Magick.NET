@@ -13,29 +13,28 @@
 #if WINDOWS_BUILD
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickSettingsTests
     {
-        [TestClass]
         public class TheFontProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheFontWhenReadingImage()
             {
                 using (var image = new MagickImage())
                 {
-                    Assert.AreEqual(null, image.Settings.Font);
+                    Assert.Null(image.Settings.Font);
 
                     image.Settings.Font = "Courier New Bold Oblique";
                     image.Settings.FontPointsize = 40;
                     image.Read("pango:Test");
 
-                    Assert.AreEqual(128, image.Width);
-                    Assert.AreEqual(61, image.Height);
-                    ColorAssert.AreEqual(MagickColors.Black, image, 21, 18);
+                    Assert.Equal(128, image.Width);
+                    Assert.Equal(61, image.Height);
+                    ColorAssert.Equal(MagickColors.Black, image, 21, 18);
                 }
             }
         }

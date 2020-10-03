@@ -11,7 +11,7 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -27,70 +27,69 @@ namespace Magick.NET.Tests
 {
     public partial class MagickColorTests
     {
-        [TestClass]
         public class TheCompareToMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnZeroWhenValuesAreSame()
             {
                 var first = MagickColors.White;
 
-                Assert.AreEqual(0, first.CompareTo(first));
+                Assert.Equal(0, first.CompareTo(first));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnOneWhenValueIsNull()
             {
                 var first = MagickColors.White;
 
-                Assert.AreEqual(1, first.CompareTo(null));
+                Assert.Equal(1, first.CompareTo(null));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnZeroWhenValuesAreEqual()
             {
                 var first = MagickColors.White;
                 var second = new MagickColor(MagickColors.White);
 
-                Assert.AreEqual(0, first.CompareTo(second));
+                Assert.Equal(0, first.CompareTo(second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnMinusOneWhenValueIsHigher()
             {
                 var half = (QuantumType)(Quantum.Max / 2.0);
                 var first = new MagickColor(half, half, half, half, half);
 
                 var second = new MagickColor(half, half, Quantum.Max, half, half);
-                Assert.AreEqual(-1, first.CompareTo(second));
+                Assert.Equal(-1, first.CompareTo(second));
 
                 second = new MagickColor(half, half, Quantum.Max, half, half);
-                Assert.AreEqual(-1, first.CompareTo(second));
+                Assert.Equal(-1, first.CompareTo(second));
 
                 second = new MagickColor(half, half, half, Quantum.Max, half);
-                Assert.AreEqual(-1, first.CompareTo(second));
+                Assert.Equal(-1, first.CompareTo(second));
 
                 second = new MagickColor(half, half, half, half, Quantum.Max);
-                Assert.AreEqual(-1, first.CompareTo(second));
+                Assert.Equal(-1, first.CompareTo(second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnOneWhenValueIsLower()
             {
                 var half = (QuantumType)(Quantum.Max / 2.0);
                 var first = MagickColors.White;
 
                 var second = new MagickColor(half, 0, half, half, half);
-                Assert.AreEqual(1, first.CompareTo(second));
+                Assert.Equal(1, first.CompareTo(second));
 
                 second = new MagickColor(half, half, 0, half, half);
-                Assert.AreEqual(1, first.CompareTo(second));
+                Assert.Equal(1, first.CompareTo(second));
 
                 second = new MagickColor(half, half, half, 0, half);
-                Assert.AreEqual(1, first.CompareTo(second));
+                Assert.Equal(1, first.CompareTo(second));
 
                 second = new MagickColor(half, half, half, half, 0);
-                Assert.AreEqual(1, first.CompareTo(second));
+                Assert.Equal(1, first.CompareTo(second));
             }
         }
     }

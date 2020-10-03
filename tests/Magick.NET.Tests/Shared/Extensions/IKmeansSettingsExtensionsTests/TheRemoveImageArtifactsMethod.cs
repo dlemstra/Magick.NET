@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class IKmeansSettingsExtensionsTests
     {
-        [TestClass]
         public class TheRemoveImageArtifactsMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldRemoveSeedColors()
             {
                 using (var image = new MagickImage())
@@ -33,7 +32,7 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    EnumerableAssert.IsEmpty(image.ArtifactNames);
+                    Assert.Empty(image.ArtifactNames);
                 }
             }
         }

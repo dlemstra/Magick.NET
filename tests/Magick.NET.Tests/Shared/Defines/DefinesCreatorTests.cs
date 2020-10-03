@@ -13,21 +13,20 @@
 using System.Collections.Generic;
 using ImageMagick;
 using ImageMagick.Defines;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class DefinesCreatorTests
     {
-        [TestMethod]
+        [Fact]
         public void Test_Null()
         {
             using (var image = new MagickImage())
             {
                 image.Settings.SetDefines(new TestDefine());
 
-                Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.A, "null"));
+                Assert.Null(image.Settings.GetDefine(MagickFormat.A, "null"));
             }
         }
 

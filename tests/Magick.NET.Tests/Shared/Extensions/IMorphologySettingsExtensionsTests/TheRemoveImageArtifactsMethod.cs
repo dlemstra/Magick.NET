@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class IMorphologySettingsExtensionsTests
     {
-        [TestClass]
         public class TheRemoveImageArtifactsMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetConvolveBias()
             {
                 using (var image = new MagickImage())
@@ -33,11 +32,11 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    EnumerableAssert.IsEmpty(image.ArtifactNames);
+                    Assert.Empty(image.ArtifactNames);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetConvolveScale()
             {
                 using (var image = new MagickImage())
@@ -50,7 +49,7 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    EnumerableAssert.IsEmpty(image.ArtifactNames);
+                    Assert.Empty(image.ArtifactNames);
                 }
             }
         }

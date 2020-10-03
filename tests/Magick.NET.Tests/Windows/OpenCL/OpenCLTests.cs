@@ -13,23 +13,22 @@
 #if WINDOWS_BUILD
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public partial class OpenCLTests
     {
-        [TestMethod]
+        [Fact]
         public void Test_IsEnabled()
         {
-            Assert.AreEqual(OpenCL.IsEnabled, true);
+            Assert.True(OpenCL.IsEnabled);
 
             OpenCL.IsEnabled = false;
-            Assert.AreEqual(OpenCL.IsEnabled, false);
+            Assert.False(OpenCL.IsEnabled);
 
             OpenCL.IsEnabled = true;
-            Assert.AreEqual(OpenCL.IsEnabled, true);
+            Assert.True(OpenCL.IsEnabled);
         }
     }
 }

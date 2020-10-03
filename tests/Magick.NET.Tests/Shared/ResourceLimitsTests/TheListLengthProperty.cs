@@ -11,22 +11,21 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class ResourceLimitsTests
     {
-        [TestClass]
         public class TheListLengthProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldHaveTheCorrectValue()
             {
-                Assert.AreEqual((ulong)long.MaxValue, ResourceLimits.ListLength);
+                Assert.Equal((ulong)long.MaxValue, ResourceLimits.ListLength);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
                 ExecuteInsideLock(() =>
@@ -34,7 +33,7 @@ namespace Magick.NET.Tests
                     var listLength = ResourceLimits.ListLength;
 
                     ResourceLimits.ListLength = 32U;
-                    Assert.AreEqual(32U, ResourceLimits.ListLength);
+                    Assert.Equal(32U, ResourceLimits.ListLength);
                     ResourceLimits.ListLength = listLength;
                 });
             }

@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Png;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class PngReadDefinesTests
     {
-        [TestClass]
         public class TheChunkCacheMaxProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 using (var image = new MagickImage())
@@ -31,11 +30,11 @@ namespace Magick.NET.Tests
                         ChunkCacheMax = 10,
                     });
 
-                    Assert.AreEqual("10", image.Settings.GetDefine(MagickFormat.Png, "chunk-cache-max"));
+                    Assert.Equal("10", image.Settings.GetDefine(MagickFormat.Png, "chunk-cache-max"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldLimitTheNumberOfChunks()
             {
                 var warning = string.Empty;
@@ -57,7 +56,7 @@ namespace Magick.NET.Tests
                     image.Read(Files.SnakewarePNG, settings);
                 }
 
-                StringAssert.Contains(warning, "tEXt: no space in chunk cache");
+                Assert.Contains("tEXt: no space in chunk cache", warning);
             }
         }
     }

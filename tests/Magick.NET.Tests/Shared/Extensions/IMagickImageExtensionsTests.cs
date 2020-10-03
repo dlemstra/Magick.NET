@@ -12,8 +12,8 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using Xunit;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -27,41 +27,40 @@ using QuantumType = System.Single;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class IMagickImageExtensionsTests
     {
-        [TestMethod]
+        [Fact]
         public void GetInstance_IMagickImageIsNotINativeInstance_ThrowsException()
         {
             var image = Substitute.For<IMagickImage<QuantumType>>();
-            ExceptionAssert.Throws<NotSupportedException>(() =>
+            Assert.Throws<NotSupportedException>(() =>
             {
                 image.GetInstance();
             });
         }
 
-        [TestMethod]
+        [Fact]
         public void CreateErrorInfo_ValueIsNull_ReturnsNull()
         {
             IMagickImage<QuantumType> image = null;
-            Assert.IsNull(image.CreateErrorInfo());
+            Assert.Null(image.CreateErrorInfo());
         }
 
-        [TestMethod]
+        [Fact]
         public void CreateErrorInfo_IMagickImageIsNotMagickImage_ThrowsException()
         {
             IMagickImage<QuantumType> image = Substitute.For<IMagickImage<QuantumType>>();
-            ExceptionAssert.Throws<NotSupportedException>(() =>
+            Assert.Throws<NotSupportedException>(() =>
             {
                 image.CreateErrorInfo();
             });
         }
 
-        [TestMethod]
+        [Fact]
         public void SetNext_ValueIsNull_ThrowsException()
         {
             IMagickImage<QuantumType> image = null;
-            ExceptionAssert.Throws<NotSupportedException>(() =>
+            Assert.Throws<NotSupportedException>(() =>
             {
                 image.SetNext(null);
             });

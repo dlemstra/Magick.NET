@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class StreamWrapperTests
     {
-        [TestClass]
         public class TheDisposeMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldNotThrowExceptionWhenCalledTwice()
             {
                 using (var stream = new TestStream(true, true, true))

@@ -12,16 +12,15 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageCollectionTests
     {
-        [TestClass]
         public class TheInsertMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenCollectionAlreadyContainsItem()
             {
                 using (var images = new MagickImageCollection())
@@ -29,7 +28,7 @@ namespace Magick.NET.Tests
                     var image = new MagickImage();
                     images.Add(image);
 
-                    ExceptionAssert.Throws<InvalidOperationException>(() =>
+                    Assert.Throws<InvalidOperationException>(() =>
                     {
                         images.Insert(0, image);
                     });

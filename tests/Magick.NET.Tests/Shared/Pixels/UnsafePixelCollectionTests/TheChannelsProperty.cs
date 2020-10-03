@@ -11,27 +11,26 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class UnsafePixelCollectionTests
     {
-        [TestClass]
         public class TheChannelsProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnChannelCountOfImage()
             {
                 using (var image = new MagickImage(Files.CMYKJPG))
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        Assert.AreEqual(image.ChannelCount, pixels.Channels);
+                        Assert.Equal(image.ChannelCount, pixels.Channels);
 
                         image.HasAlpha = true;
 
-                        Assert.AreEqual(image.ChannelCount, pixels.Channels);
+                        Assert.Equal(image.ChannelCount, pixels.Channels);
                     }
                 }
             }

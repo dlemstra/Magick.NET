@@ -11,25 +11,24 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickSettingsTests
     {
-        [TestClass]
         public class TheTextUnderColorProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldDefaultToBlack()
             {
                 using (var image = new MagickImage())
                 {
-                    ColorAssert.AreEqual(new MagickColor(0, 0, 0, 0), image.Settings.TextUnderColor);
+                    ColorAssert.Equal(new MagickColor(0, 0, 0, 0), image.Settings.TextUnderColor);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldUseBlackWhenSetToNull()
             {
                 using (var image = new MagickImage())
@@ -37,15 +36,15 @@ namespace Magick.NET.Tests
                     image.Settings.TextUnderColor = null;
                     image.Read("label:First");
 
-                    Assert.AreEqual(25, image.Width);
-                    Assert.AreEqual(15, image.Height);
+                    Assert.Equal(25, image.Width);
+                    Assert.Equal(15, image.Height);
 
-                    ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
-                    ColorAssert.AreEqual(MagickColors.White, image, 23, 0);
+                    ColorAssert.Equal(MagickColors.White, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.White, image, 23, 0);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldUseTheSpecifiedColor()
             {
                 using (var image = new MagickImage())
@@ -53,11 +52,11 @@ namespace Magick.NET.Tests
                     image.Settings.TextUnderColor = MagickColors.Purple;
                     image.Read("label:First");
 
-                    Assert.AreEqual(25, image.Width);
-                    Assert.AreEqual(15, image.Height);
+                    Assert.Equal(25, image.Width);
+                    Assert.Equal(15, image.Height);
 
-                    ColorAssert.AreEqual(MagickColors.Purple, image, 0, 0);
-                    ColorAssert.AreEqual(MagickColors.Purple, image, 23, 0);
+                    ColorAssert.Equal(MagickColors.Purple, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.Purple, image, 23, 0);
                 }
             }
         }

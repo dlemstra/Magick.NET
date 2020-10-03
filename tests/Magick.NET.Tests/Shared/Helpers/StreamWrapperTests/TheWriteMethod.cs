@@ -13,16 +13,15 @@
 using System;
 using System.IO;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class StreamWrapperTests
     {
-        [TestClass]
         public class TheWriteMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnZeroWhenBufferIsNull()
             {
                 using (var stream = new MemoryStream())
@@ -30,12 +29,12 @@ namespace Magick.NET.Tests
                     using (var streamWrapper = StreamWrapper.CreateForWriting(stream))
                     {
                         int count = streamWrapper.Write(IntPtr.Zero, (UIntPtr)10, IntPtr.Zero);
-                        Assert.AreEqual(0, count);
+                        Assert.Equal(0, count);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public unsafe void ShouldReturnZeroWhenNothingShouldBeWritten()
             {
                 using (var stream = new MemoryStream())
@@ -46,13 +45,13 @@ namespace Magick.NET.Tests
                         fixed (byte* p = buffer)
                         {
                             int count = streamWrapper.Write((IntPtr)p, UIntPtr.Zero, IntPtr.Zero);
-                            Assert.AreEqual(0, count);
+                            Assert.Equal(0, count);
                         }
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public unsafe void ShouldNotThrowExceptionWhenWhenStreamThrowsExceptionDuringWriting()
             {
                 using (var memStream = new MemoryStream())
@@ -65,14 +64,14 @@ namespace Magick.NET.Tests
                             fixed (byte* p = buffer)
                             {
                                 int count = streamWrapper.Write((IntPtr)p, (UIntPtr)10, IntPtr.Zero);
-                                Assert.AreEqual(-1, count);
+                                Assert.Equal(-1, count);
                             }
                         }
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public unsafe void ShouldReturnTheNumberOfBytesThatCouldBeWritten()
             {
                 using (var stream = new MemoryStream())
@@ -83,7 +82,7 @@ namespace Magick.NET.Tests
                         fixed (byte* p = buffer)
                         {
                             int count = streamWrapper.Write((IntPtr)p, (UIntPtr)5, IntPtr.Zero);
-                            Assert.AreEqual(5, count);
+                            Assert.Equal(5, count);
                         }
                     }
                 }

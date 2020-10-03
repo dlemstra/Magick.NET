@@ -13,15 +13,14 @@
 using System.IO;
 using System.Linq;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     // TODO: Move methods to another class
-    [TestClass]
     public partial class ExifProfileTests
     {
-        [TestMethod]
+        [Fact]
         public void Test_Fraction()
         {
             using (MemoryStream memStream = new MemoryStream())
@@ -43,11 +42,11 @@ namespace Magick.NET.Tests
                 {
                     var profile = image.GetExifProfile();
 
-                    Assert.IsNotNull(profile);
+                    Assert.NotNull(profile);
 
                     var value = profile.GetValue(ExifTag.ExposureTime);
-                    Assert.IsNotNull(value);
-                    Assert.AreNotEqual(exposureTime, value.Value.ToDouble());
+                    Assert.NotNull(value);
+                    Assert.NotEqual(exposureTime, value.Value.ToDouble());
                 }
 
                 memStream.Position = 0;
@@ -66,15 +65,15 @@ namespace Magick.NET.Tests
                 {
                     var profile = image.GetExifProfile();
 
-                    Assert.IsNotNull(profile);
+                    Assert.NotNull(profile);
 
                     var value = profile.GetValue(ExifTag.ExposureTime);
-                    Assert.AreEqual(exposureTime, value.Value.ToDouble());
+                    Assert.Equal(exposureTime, value.Value.ToDouble());
                 }
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Infinity()
         {
             using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -85,28 +84,28 @@ namespace Magick.NET.Tests
 
                 profile = image.GetExifProfile();
                 var value = profile.GetValue(ExifTag.ExposureBiasValue);
-                Assert.IsNotNull(value);
-                Assert.AreEqual(double.PositiveInfinity, value.Value.ToDouble());
+                Assert.NotNull(value);
+                Assert.Equal(double.PositiveInfinity, value.Value.ToDouble());
 
                 profile.SetValue(ExifTag.ExposureBiasValue, new SignedRational(double.NegativeInfinity));
                 image.SetProfile(profile);
 
                 profile = image.GetExifProfile();
                 value = profile.GetValue(ExifTag.ExposureBiasValue);
-                Assert.IsNotNull(value);
-                Assert.AreEqual(double.NegativeInfinity, value.Value.ToDouble());
+                Assert.NotNull(value);
+                Assert.Equal(double.NegativeInfinity, value.Value.ToDouble());
 
                 profile.SetValue(ExifTag.FlashEnergy, new Rational(double.NegativeInfinity));
                 image.SetProfile(profile);
 
                 profile = image.GetExifProfile();
                 var flashValue = profile.GetValue(ExifTag.FlashEnergy);
-                Assert.IsNotNull(flashValue);
-                Assert.AreEqual(double.PositiveInfinity, flashValue.Value.ToDouble());
+                Assert.NotNull(flashValue);
+                Assert.Equal(double.PositiveInfinity, flashValue.Value.ToDouble());
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Values()
         {
             using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -116,7 +115,7 @@ namespace Magick.NET.Tests
 
                 using (var emptyImage = new MagickImage(Files.ImageMagickJPG))
                 {
-                    Assert.IsNull(emptyImage.GetExifProfile());
+                    Assert.Null(emptyImage.GetExifProfile());
                     emptyImage.SetProfile(profile);
 
                     profile = emptyImage.GetExifProfile();
@@ -125,20 +124,20 @@ namespace Magick.NET.Tests
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_ExifTypeUndefined()
         {
             using (var image = new MagickImage(Files.ExifUndefTypeJPG))
             {
                 var profile = image.GetExifProfile();
-                Assert.IsNotNull(profile);
+                Assert.NotNull(profile);
 
                 foreach (var value in profile.Values)
                 {
                     if (value.DataType == ExifDataType.Undefined)
                     {
                         byte[] data = (byte[])value.GetValue();
-                        Assert.AreEqual(4, data.Length);
+                        Assert.Equal(4, data.Length);
                     }
                 }
             }
@@ -146,30 +145,30 @@ namespace Magick.NET.Tests
 
         private static void TestExifProfile(IExifProfile profile)
         {
-            Assert.IsNotNull(profile);
+            Assert.NotNull(profile);
 
-            Assert.AreEqual(44, profile.Values.Count());
+            Assert.Equal(44, profile.Values.Count());
 
             foreach (var value in profile.Values)
             {
-                Assert.IsNotNull(value.GetValue());
+                Assert.NotNull(value.GetValue());
 
                 if (value.Tag == ExifTag.Software)
-                    Assert.AreEqual("Adobe Photoshop 7.0", value.ToString());
+                    Assert.Equal("Adobe Photoshop 7.0", value.ToString());
 
                 if (value.Tag == ExifTag.XResolution)
-                    Assert.AreEqual(new Rational(300, 1), (Rational)value.GetValue());
+                    Assert.Equal(new Rational(300, 1), (Rational)value.GetValue());
 
                 if (value.Tag == ExifTag.GPSLatitude)
                 {
                     Rational[] pos = (Rational[])value.GetValue();
-                    Assert.AreEqual(54, pos[0].ToDouble());
-                    Assert.AreEqual(59.38, pos[1].ToDouble());
-                    Assert.AreEqual(0, pos[2].ToDouble());
+                    Assert.Equal(54, pos[0].ToDouble());
+                    Assert.Equal(59.38, pos[1].ToDouble());
+                    Assert.Equal(0, pos[2].ToDouble());
                 }
 
                 if (value.Tag == ExifTag.ShutterSpeedValue)
-                    Assert.AreEqual(9.5, ((SignedRational)value.GetValue()).ToDouble());
+                    Assert.Equal(9.5, ((SignedRational)value.GetValue()).ToDouble());
             }
         }
     }

@@ -13,16 +13,15 @@
 using ImageMagick;
 using ImageMagick.Defines;
 using ImageMagick.Formats.Jpeg;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class JpegReadDefinesTests
     {
-        [TestClass]
         public class TheSkipProfilesProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 var settings = new MagickReadSettings()
@@ -37,11 +36,11 @@ namespace Magick.NET.Tests
                 {
                     image.Read(Files.ImageMagickJPG, settings);
 
-                    Assert.AreEqual("App", image.Settings.GetDefine("profile:skip"));
+                    Assert.Equal("App", image.Settings.GetDefine("profile:skip"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetTheDefineForInvalidValues()
             {
                 var settings = new MagickReadSettings()
@@ -56,11 +55,11 @@ namespace Magick.NET.Tests
                 {
                     image.Read(Files.ImageMagickJPG, settings);
 
-                    Assert.IsNull(image.Settings.GetDefine("profile:skip"));
+                    Assert.Null(image.Settings.GetDefine("profile:skip"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSkipTheSpecifiedProfiles()
             {
                 var settings = new MagickReadSettings()
@@ -74,11 +73,11 @@ namespace Magick.NET.Tests
                 using (var image = new MagickImage())
                 {
                     image.Read(Files.FujiFilmFinePixS1ProJPG);
-                    Assert.IsNotNull(image.GetIptcProfile());
+                    Assert.NotNull(image.GetIptcProfile());
 
                     image.Read(Files.FujiFilmFinePixS1ProJPG, settings);
-                    Assert.IsNull(image.GetIptcProfile());
-                    Assert.AreEqual("Icc,Iptc", image.Settings.GetDefine("profile:skip"));
+                    Assert.Null(image.GetIptcProfile());
+                    Assert.Equal("Icc,Iptc", image.Settings.GetDefine("profile:skip"));
                 }
             }
         }

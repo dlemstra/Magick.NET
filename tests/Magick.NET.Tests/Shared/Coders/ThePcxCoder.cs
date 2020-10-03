@@ -12,14 +12,13 @@
 
 using System.IO;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class ThePcxCoder
     {
-        [TestMethod]
+        [Fact]
         public void ShouldBeAbleToWriteOneBitImages()
         {
             using (var input = new MagickImage(MagickColors.Purple, 1, 1))
@@ -34,7 +33,7 @@ namespace Magick.NET.Tests
 
                     using (var output = new MagickImage(memoryStream))
                     {
-                        Assert.AreEqual(1, output.Depth);
+                        Assert.Equal(1, output.Depth);
                     }
                 }
             }

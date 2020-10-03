@@ -12,27 +12,26 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Png;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class PngReadDefinesTests
     {
-        [TestClass]
         public class TheConstructor
         {
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetAnyDefine()
             {
                 using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(new PngReadDefines());
 
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Png, "preserve-iCCP"));
-                    Assert.IsNull(image.Settings.GetDefine("profile:skip"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Png, "chunk-cache-max"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Png, "chunk-malloc-max"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Png, "preserve-iCCP"));
+                    Assert.Null(image.Settings.GetDefine("profile:skip"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Png, "chunk-cache-max"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Png, "chunk-malloc-max"));
                 }
             }
         }

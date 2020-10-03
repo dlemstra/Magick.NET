@@ -12,29 +12,28 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class ColorMonoTests : ColorBaseTests<ColorMono>
     {
-        [TestMethod]
+        [Fact]
         public void Test_GetHashCode()
         {
             ColorMono first = new ColorMono(true);
             int hashCode = first.GetHashCode();
 
             first.IsBlack = false;
-            Assert.AreNotEqual(hashCode, first.GetHashCode());
+            Assert.NotEqual(hashCode, first.GetHashCode());
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_IComparable()
         {
             ColorMono first = new ColorMono(true);
 
-            Test_IComparable(first);
+            AssertIComparable(first);
 
             ColorMono second = new ColorMono(false);
 
@@ -45,7 +44,7 @@ namespace Magick.NET.Tests
             Test_IComparable_Equal(first, second);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_IEquatable()
         {
             ColorMono first = new ColorMono(true);
@@ -61,60 +60,62 @@ namespace Magick.NET.Tests
             Test_IEquatable_NotEqual(first, second);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_ImplicitOperator()
         {
             ColorMono expected = new ColorMono(true);
             ColorMono actual = MagickColors.Black;
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
 
             var magickColor = actual.ToMagickColor();
-            Assert.AreEqual(magickColor, MagickColors.Black);
+            Assert.Equal(magickColor, MagickColors.Black);
 
-            Assert.IsNull(ColorMono.FromMagickColor(null));
+            Assert.Null(ColorMono.FromMagickColor(null));
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_ToString()
         {
             ColorMono color = new ColorMono(true);
-            Test_ToString(color, MagickColors.Black);
+            AssertToString(color, MagickColors.Black);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Properties()
         {
             ColorMono color = new ColorMono(true);
 
             color.IsBlack = false;
-            Assert.IsFalse(color.IsBlack);
+            Assert.False(color.IsBlack);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_ColorMono()
         {
-            ColorMono mono = new ColorMono(false);
+            var mono = new ColorMono(false);
 
             var white = new MagickColor("#fff");
-            Assert.AreEqual(white, mono.ToMagickColor());
-            ColorAssert.AreEqual(MagickColors.White, mono.ToMagickColor());
+            Assert.Equal(white, mono.ToMagickColor());
+            ColorAssert.Equal(MagickColors.White, mono.ToMagickColor());
 
             mono = new ColorMono(true);
 
-            MagickColor black = new MagickColor("#000");
-            Assert.AreEqual(black, mono.ToMagickColor());
-            ColorAssert.AreEqual(MagickColors.Black, mono.ToMagickColor());
+            var black = new MagickColor("#000");
+            Assert.Equal(black, mono.ToMagickColor());
+            ColorAssert.Equal(MagickColors.Black, mono.ToMagickColor());
 
             mono = ColorMono.FromMagickColor(MagickColors.Black);
-            Assert.IsTrue(mono.IsBlack);
+            Assert.True(mono.IsBlack);
 
             mono = ColorMono.FromMagickColor(MagickColors.White);
-            Assert.IsFalse(mono.IsBlack);
+            Assert.False(mono.IsBlack);
 
-            ExceptionAssert.Throws<ArgumentException>("color", () =>
+            var exception = Assert.Throws<ArgumentException>("color", () =>
             {
                 ColorMono.FromMagickColor(MagickColors.Gray);
-            }, "Invalid");
+            });
+
+            Assert.Contains("Invalid", exception.Message);
         }
     }
 }

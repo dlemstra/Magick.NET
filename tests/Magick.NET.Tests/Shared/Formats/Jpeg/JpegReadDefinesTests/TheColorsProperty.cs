@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Jpeg;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class JpegReadDefinesTests
     {
-        [TestClass]
         public class TheColorsProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 var settings = new MagickReadSettings()
@@ -36,11 +35,11 @@ namespace Magick.NET.Tests
                 {
                     image.Read(Files.ImageMagickJPG, settings);
 
-                    Assert.AreEqual("100", image.Settings.GetDefine(MagickFormat.Jpeg, "colors"));
+                    Assert.Equal("100", image.Settings.GetDefine(MagickFormat.Jpeg, "colors"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldLimitTheColors()
             {
                 var settings = new MagickReadSettings()
@@ -55,8 +54,7 @@ namespace Magick.NET.Tests
                 {
                     image.Read(Files.ImageMagickJPG, settings);
 
-                    Assert.IsTrue(image.TotalColors <= 100);
-                    Assert.AreEqual(100, image.TotalColors, 1);
+                    Assert.InRange(image.TotalColors, 99, 100);
                 }
             }
         }

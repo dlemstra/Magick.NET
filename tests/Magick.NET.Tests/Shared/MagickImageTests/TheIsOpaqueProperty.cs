@@ -11,31 +11,30 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheIsOpaqueProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenImageIsOpaque()
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
                 {
-                    Assert.IsTrue(image.IsOpaque);
+                    Assert.True(image.IsOpaque);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenImageIsNotOpaque()
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     image.Alpha(AlphaOption.Transparent);
-                    Assert.IsFalse(image.IsOpaque);
+                    Assert.False(image.IsOpaque);
                 }
             }
         }

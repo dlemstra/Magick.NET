@@ -11,21 +11,20 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickSettingsTests
     {
-        [TestClass]
         public class TheTextGravityProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldDetermineThePositionOfTheText()
             {
                 using (var image = new MagickImage("xc:red", 300, 300))
                 {
-                    Assert.AreEqual(Gravity.Undefined, image.Settings.TextGravity);
+                    Assert.Equal(Gravity.Undefined, image.Settings.TextGravity);
 
                     image.Settings.BackgroundColor = MagickColors.Yellow;
                     image.Settings.StrokeColor = MagickColors.Fuchsia;
@@ -34,8 +33,8 @@ namespace Magick.NET.Tests
 
                     image.Read("label:Test");
 
-                    ColorAssert.AreEqual(MagickColors.Yellow, image, 50, 80);
-                    ColorAssert.AreEqual(MagickColors.Fuchsia, image, 50, 160);
+                    ColorAssert.Equal(MagickColors.Yellow, image, 50, 80);
+                    ColorAssert.Equal(MagickColors.Fuchsia, image, 50, 160);
                 }
             }
         }

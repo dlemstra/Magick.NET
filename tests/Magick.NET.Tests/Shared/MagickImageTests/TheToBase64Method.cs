@@ -13,46 +13,45 @@
 using System;
 using ImageMagick;
 using ImageMagick.Formats.Tiff;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheToBase64Method
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnBase64EncodedString()
             {
                 using (var image = new MagickImage(Files.SnakewarePNG))
                 {
                     var base64 = image.ToBase64();
-                    Assert.IsNotNull(base64);
-                    Assert.AreEqual(11704, base64.Length);
+                    Assert.NotNull(base64);
+                    Assert.Equal(11704, base64.Length);
 
                     var bytes = Convert.FromBase64String(base64);
-                    Assert.IsNotNull(bytes);
-                    Assert.AreEqual(8778, bytes.Length);
+                    Assert.NotNull(bytes);
+                    Assert.Equal(8778, bytes.Length);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnBase64EncodedStringUsingTheSpecifiedFormat()
             {
                 using (var image = new MagickImage(Files.SnakewarePNG))
                 {
                     var base64 = image.ToBase64(MagickFormat.Jpeg);
-                    Assert.IsNotNull(base64);
-                    Assert.AreEqual(1140, base64.Length);
+                    Assert.NotNull(base64);
+                    Assert.Equal(1140, base64.Length);
 
                     var bytes = Convert.FromBase64String(base64);
-                    Assert.IsNotNull(bytes);
-                    Assert.AreEqual(853, bytes.Length);
+                    Assert.NotNull(bytes);
+                    Assert.Equal(853, bytes.Length);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnBase64EncodedStringUsingTheSpecifiedDefines()
             {
                 using (var image = new MagickImage(Files.SnakewarePNG))
@@ -63,12 +62,12 @@ namespace Magick.NET.Tests
                     };
 
                     var base64 = image.ToBase64(defines);
-                    Assert.IsNotNull(base64);
-                    Assert.AreEqual(10800, base64.Length);
+                    Assert.NotNull(base64);
+                    Assert.Equal(10800, base64.Length);
 
                     var bytes = Convert.FromBase64String(base64);
-                    Assert.IsNotNull(bytes);
-                    Assert.AreEqual(8100, bytes.Length);
+                    Assert.NotNull(bytes);
+                    Assert.Equal(8100, bytes.Length);
                 }
             }
         }

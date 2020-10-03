@@ -11,28 +11,27 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageCollectionTests
     {
-        [TestClass]
         public class TheCloneMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnEmptyCollectionWhenCollectionIsEmpty()
             {
                 using (var images = new MagickImageCollection())
                 {
                     using (var clones = images.Clone())
                     {
-                        EnumerableAssert.IsEmpty(clones);
+                        Assert.Empty(clones);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldCloneTheImagesInTheCollection()
             {
                 using (var images = new MagickImageCollection())
@@ -43,9 +42,9 @@ namespace Magick.NET.Tests
 
                     using (var clones = images.Clone())
                     {
-                        Assert.IsFalse(ReferenceEquals(images[0], clones[0]));
-                        Assert.IsFalse(ReferenceEquals(images[1], clones[1]));
-                        Assert.IsFalse(ReferenceEquals(images[2], clones[2]));
+                        Assert.False(ReferenceEquals(images[0], clones[0]));
+                        Assert.False(ReferenceEquals(images[1], clones[1]));
+                        Assert.False(ReferenceEquals(images[2], clones[2]));
                     }
                 }
             }

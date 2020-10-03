@@ -12,23 +12,22 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Psd;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class PsdAdditionalInfoTests
     {
-        [TestClass]
         public class TheFromImageMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnNullWhenImageHasNoPsdAdditionalInfo()
             {
                 using (var image = new MagickImage(Files.SnakewarePNG))
                 {
                     var info = PsdAdditionalInfo.FromImage(image);
 
-                    Assert.IsNull(info);
+                    Assert.Null(info);
                 }
             }
         }

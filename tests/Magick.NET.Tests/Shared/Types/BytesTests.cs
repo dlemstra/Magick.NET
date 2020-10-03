@@ -13,107 +13,106 @@
 using System;
 using System.IO;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class BytesTests
     {
-        [TestMethod]
+        [Fact]
         public void Constructor_StreamIsNull_ThrowsException()
         {
-            ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
+            Assert.Throws<ArgumentNullException>("stream", () =>
             {
                 new Bytes(null);
             });
         }
 
-        [TestMethod]
+        [Fact]
         public void Constructor_StreamPositionIsNotZero_ThrowsException()
         {
             using (MemoryStream memStream = new MemoryStream())
             {
                 memStream.Position = 10;
 
-                ExceptionAssert.Throws<ArgumentException>("stream", () =>
+                Assert.Throws<ArgumentException>("stream", () =>
                 {
                     new Bytes(memStream);
                 });
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Constructor_StreamIsEmpty_SetsProperties()
         {
             using (MemoryStream memStream = new MemoryStream())
             {
                 var bytes = new Bytes(memStream);
 
-                Assert.AreEqual(0, bytes.Length);
-                Assert.IsNotNull(bytes.GetData());
-                Assert.AreEqual(0, bytes.GetData().Length);
+                Assert.Equal(0, bytes.Length);
+                Assert.NotNull(bytes.GetData());
+                Assert.Empty(bytes.GetData());
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Constructor_StreamIsFileStream_SetsProperties()
         {
             using (FileStream fileStream = File.OpenRead(Files.ImageMagickJPG))
             {
                 var bytes = new Bytes(fileStream);
 
-                Assert.AreEqual(18749, bytes.Length);
-                Assert.IsNotNull(bytes.GetData());
-                Assert.AreEqual(18749, bytes.GetData().Length);
+                Assert.Equal(18749, bytes.Length);
+                Assert.NotNull(bytes.GetData());
+                Assert.Equal(18749, bytes.GetData().Length);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Constructor_StreamCannotRead_ThrowsException()
         {
             using (TestStream stream = new TestStream(false, true, true))
             {
-                ExceptionAssert.Throws<ArgumentException>("stream", () =>
+                Assert.Throws<ArgumentException>("stream", () =>
                 {
                     new Bytes(stream);
                 });
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Constructor_StreamIsTooLong_ThrowsException()
         {
             using (TestStream stream = new TestStream(true, true, true))
             {
                 stream.SetLength(long.MaxValue);
 
-                ExceptionAssert.Throws<ArgumentException>("length", () =>
+                Assert.Throws<ArgumentException>("length", () =>
                 {
                     new Bytes(stream);
                 });
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void FromStreamBuffer_StreamIsFileStream_ReturnsNull()
         {
             using (FileStream fileStream = File.OpenRead(Files.ImageMagickJPG))
             {
                 Bytes bytes = Bytes.FromStreamBuffer(fileStream);
 
-                Assert.IsNull(bytes);
+                Assert.Null(bytes);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void FromStreamBuffer_StreamIsMemoryStream_ReturnsObject()
         {
             using (MemoryStream memStream = new MemoryStream())
             {
                 Bytes bytes = Bytes.FromStreamBuffer(memStream);
 
-                Assert.IsNotNull(bytes);
+                Assert.NotNull(bytes);
             }
         }
     }

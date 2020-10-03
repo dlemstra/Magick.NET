@@ -12,62 +12,61 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheFormatExpressionMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenExpressionIsNull()
             {
                 using (var image = new MagickImage())
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("expression", () => image.FormatExpression(null));
+                    Assert.Throws<ArgumentNullException>("expression", () => image.FormatExpression(null));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenExpressionIsEmpty()
             {
                 using (var image = new MagickImage())
                 {
-                    ExceptionAssert.Throws<ArgumentException>("expression", () => image.FormatExpression(string.Empty));
+                    Assert.Throws<ArgumentException>("expression", () => image.FormatExpression(string.Empty));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnProfiles()
             {
                 using (var image = new MagickImage(Files.InvitationTIF))
                 {
-                    Assert.AreEqual("sRGB IEC61966-2.1", image.FormatExpression("%[profile:icc]"));
+                    Assert.Equal("sRGB IEC61966-2.1", image.FormatExpression("%[profile:icc]"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnSignature()
             {
                 using (var image = new MagickImage(Files.RedPNG))
                 {
-                    Assert.AreEqual("92f59c51ad61b99b3c9ebd51f1c77b9c80c0478e2fdb7db47831376b1e4a00db", image.FormatExpression("%#"));
+                    Assert.Equal("92f59c51ad61b99b3c9ebd51f1c77b9c80c0478e2fdb7db47831376b1e4a00db", image.FormatExpression("%#"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldRaiseWarningForInvalidExpression()
             {
                 int count = 0;
                 EventHandler<WarningEventArgs> warningDelegate = (sender, arguments) =>
                 {
-                    Assert.IsNotNull(sender);
-                    Assert.IsNotNull(arguments);
-                    Assert.IsNotNull(arguments.Message);
-                    Assert.AreNotEqual(string.Empty, arguments.Message);
-                    Assert.IsNotNull(arguments.Exception);
+                    Assert.NotNull(sender);
+                    Assert.NotNull(arguments);
+                    Assert.NotNull(arguments.Message);
+                    Assert.NotEqual(string.Empty, arguments.Message);
+                    Assert.NotNull(arguments.Exception);
 
                     count++;
                 };
@@ -78,8 +77,8 @@ namespace Magick.NET.Tests
                     var result = image.FormatExpression("%EOO");
                     image.Warning -= warningDelegate;
 
-                    Assert.AreEqual("OO", result);
-                    Assert.AreEqual(1, count);
+                    Assert.Equal("OO", result);
+                    Assert.Equal(1, count);
                 }
             }
         }

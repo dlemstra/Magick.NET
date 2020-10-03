@@ -12,7 +12,7 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -28,25 +28,24 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageCollectionTests
     {
-        [TestClass]
         public class TheAddMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenItemIsNull()
             {
                 using (var images = new MagickImageCollection())
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("item", () =>
+                    Assert.Throws<ArgumentNullException>("item", () =>
                     {
                         images.Add((IMagickImage<QuantumType>)null);
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenFileNameIsNull()
             {
-                ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
+                Assert.Throws<ArgumentNullException>("fileName", () =>
                 {
                     using (var images = new MagickImageCollection())
                     {
@@ -55,10 +54,10 @@ namespace Magick.NET.Tests
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenFileNameIsEmpty()
             {
-                ExceptionAssert.Throws<ArgumentException>("fileName", () =>
+                Assert.Throws<ArgumentException>("fileName", () =>
                 {
                     using (var images = new MagickImageCollection())
                     {
@@ -67,7 +66,7 @@ namespace Magick.NET.Tests
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenCollectionAlreadyContainsItem()
             {
                 using (var images = new MagickImageCollection())
@@ -75,7 +74,7 @@ namespace Magick.NET.Tests
                     var image = new MagickImage();
                     images.Add(image);
 
-                    ExceptionAssert.Throws<InvalidOperationException>(() =>
+                    Assert.Throws<InvalidOperationException>(() =>
                     {
                         images.Add(image);
                     });

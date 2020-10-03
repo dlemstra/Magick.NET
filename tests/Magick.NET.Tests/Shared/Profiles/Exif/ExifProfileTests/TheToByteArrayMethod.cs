@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class ExifProfileTests
     {
-        [TestClass]
         public class TheToByteArrayMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnOriginalDataWhenNotParsed()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -28,17 +27,17 @@ namespace Magick.NET.Tests
                     var profile = image.GetExifProfile();
 
                     var bytes = profile.ToByteArray();
-                    Assert.AreEqual(4706, bytes.Length);
+                    Assert.Equal(4706, bytes.Length);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldPreserveTheThumbnail()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetExifProfile();
-                    Assert.IsNotNull(profile);
+                    Assert.NotNull(profile);
 
                     var bytes = profile.ToByteArray();
 
@@ -46,10 +45,10 @@ namespace Magick.NET.Tests
 
                     using (var thumbnail = profile.CreateThumbnail())
                     {
-                        Assert.IsNotNull(thumbnail);
-                        Assert.AreEqual(128, thumbnail.Width);
-                        Assert.AreEqual(85, thumbnail.Height);
-                        Assert.AreEqual(MagickFormat.Jpeg, thumbnail.Format);
+                        Assert.NotNull(thumbnail);
+                        Assert.Equal(128, thumbnail.Width);
+                        Assert.Equal(85, thumbnail.Height);
+                        Assert.Equal(MagickFormat.Jpeg, thumbnail.Format);
                     }
                 }
             }

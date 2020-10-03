@@ -12,42 +12,41 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class UnsafePixelCollectionTests
     {
-        [TestClass]
         public class TheGetValueMethod
         {
             private static bool Is64Bit => IntPtr.Size == 8;
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenXTooLow()
             {
                 ThrowsOverflowException(-1, 0);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenXTooHigh()
             {
                 ThrowsNoException(6, 0);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenYTooLow()
             {
                 ThrowsOverflowException(0, -1);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenYTooHigh()
             {
                 ThrowsNoException(0, 11);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnCorrectValue()
             {
                 using (var image = new MagickImage(MagickColors.Red, 1, 1))
@@ -56,10 +55,10 @@ namespace Magick.NET.Tests
                     {
                         var pixel = pixels.GetValue(0, 0);
 
-                        Assert.AreEqual(3, pixel.Length);
-                        Assert.AreEqual(Quantum.Max, pixel[0]);
-                        Assert.AreEqual(0, pixel[1]);
-                        Assert.AreEqual(0, pixel[2]);
+                        Assert.Equal(3, pixel.Length);
+                        Assert.Equal(Quantum.Max, pixel[0]);
+                        Assert.Equal(0, pixel[1]);
+                        Assert.Equal(0, pixel[2]);
                     }
                 }
             }
@@ -76,7 +75,7 @@ namespace Magick.NET.Tests
                         }
                         else
                         {
-                            ExceptionAssert.Throws<OverflowException>(() =>
+                            Assert.Throws<OverflowException>(() =>
                             {
                                 pixels.GetValue(x, y);
                             });

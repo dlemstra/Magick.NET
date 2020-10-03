@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheSelectiveBlurMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldBlurTheImage()
             {
                 using (var image = new MagickImage(Files.Builtin.Rose))
@@ -28,9 +27,9 @@ namespace Magick.NET.Tests
                     image.SelectiveBlur(0, 5, new Percentage(20));
 
 #if Q8
-                    ColorAssert.AreEqual(new MagickColor("#df3a39ff"), image, 37, 20);
+                    ColorAssert.Equal(new MagickColor("#df3a39ff"), image, 37, 20);
 #else
-                    ColorAssert.AreEqual(new MagickColor("#df003a7738aeffff"), image, 37, 20);
+                    ColorAssert.Equal(new MagickColor("#df003a7738aeffff"), image, 37, 20);
 #endif
                 }
             }

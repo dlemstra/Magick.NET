@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class SafePixelCollectionTests
     {
-        [TestClass]
         public class TheGetIndexMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnMinusOneForInvalidChannel()
             {
                 using (var image = new MagickImage(Files.MagickNETIconPNG))
@@ -28,12 +27,12 @@ namespace Magick.NET.Tests
                     using (var pixels = image.GetPixels())
                     {
                         int index = pixels.GetIndex(PixelChannel.Black);
-                        Assert.AreEqual(-1, index);
+                        Assert.Equal(-1, index);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnIndexForValidChannel()
             {
                 using (var image = new MagickImage(Files.MagickNETIconPNG))
@@ -41,7 +40,7 @@ namespace Magick.NET.Tests
                     using (var pixels = image.GetPixels())
                     {
                         int index = pixels.GetIndex(PixelChannel.Green);
-                        Assert.AreEqual(1, index);
+                        Assert.Equal(1, index);
                     }
                 }
             }

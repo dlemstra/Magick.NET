@@ -11,23 +11,22 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class QuantizeSettingsTests
     {
-        [TestMethod]
+        [Fact]
         public void Constructor_PropertiesAreSet()
         {
             var settings = new QuantizeSettings();
 
-            Assert.AreEqual(1, settings.Colors);
-            Assert.AreEqual(ColorSpace.Undefined, settings.ColorSpace);
-            Assert.AreEqual(DitherMethod.Riemersma, settings.DitherMethod);
-            Assert.IsFalse(settings.MeasureErrors);
-            Assert.AreEqual(0, settings.TreeDepth);
+            Assert.Equal(1, settings.Colors);
+            Assert.Equal(ColorSpace.Undefined, settings.ColorSpace);
+            Assert.Equal(DitherMethod.Riemersma, settings.DitherMethod);
+            Assert.False(settings.MeasureErrors);
+            Assert.Equal(0, settings.TreeDepth);
         }
     }
 }

@@ -11,21 +11,20 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickSettingsTests
     {
-        [TestClass]
         public class TheTextDirectionProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldDefaultToUndefined()
             {
                 using (var image = new MagickImage())
                 {
-                    Assert.AreEqual(TextDirection.Undefined, image.Settings.TextDirection);
+                    Assert.Equal(TextDirection.Undefined, image.Settings.TextDirection);
                 }
             }
         }

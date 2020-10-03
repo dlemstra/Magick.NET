@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Bmp;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class BmpReadDefinesTests
     {
-        [TestClass]
         public class TheIgnoreFileSizeProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefineWhenSetToTrue()
             {
                 var defines = new BmpReadDefines()
@@ -33,11 +32,11 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(defines);
 
-                    Assert.AreEqual("true", image.Settings.GetDefine(MagickFormat.Bmp, "ignore-filesize"));
+                    Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Bmp, "ignore-filesize"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetTheDefineWhenSetToFalse()
             {
                 var defines = new BmpReadDefines()
@@ -49,7 +48,7 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(defines);
 
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Bmp, "ignore-filesize"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Bmp, "ignore-filesize"));
                 }
             }
         }

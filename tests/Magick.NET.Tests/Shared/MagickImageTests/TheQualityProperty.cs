@@ -12,16 +12,15 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheQualityProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldNotAllowValueBelowOne()
             {
                 var image = new MagickImage
@@ -29,10 +28,10 @@ namespace Magick.NET.Tests
                     Quality = 0,
                 };
 
-                Assert.AreEqual(image.Quality, 1);
+                Assert.Equal(1, image.Quality);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotAllowValueAbove100()
             {
                 var image = new MagickImage
@@ -40,15 +39,15 @@ namespace Magick.NET.Tests
                     Quality = 101,
                 };
 
-                Assert.AreEqual(image.Quality, 100);
+                Assert.Equal(100, image.Quality);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheBackgroundColorWhenReadingImage()
             {
                 using (var image = new MagickImage(Files.CMYKJPG))
                 {
-                    Assert.AreEqual(91, image.Quality);
+                    Assert.Equal(91, image.Quality);
                 }
             }
         }

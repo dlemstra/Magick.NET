@@ -36,15 +36,13 @@ namespace Magick.NET.Tests
         public static void Assert(double expectedWith, double expectedWithout, double value, double delta)
         {
             if (HasEnabledOpenCLDevices)
-                Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(expectedWith, value, delta);
+                Xunit.Assert.InRange(value, expectedWith - delta, expectedWith + delta);
             else
-                Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(expectedWithout, value, delta);
+                Xunit.Assert.InRange(value, expectedWithout - delta, expectedWithout + delta);
         }
 
         public static void Assert<T>(T expectedWith, T expectedWithout, T value)
-        {
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(Get(expectedWith, expectedWithout), value);
-        }
+            => Xunit.Assert.Equal(Get(expectedWith, expectedWithout), value);
 
         public static T Get<T>(T expectedWith, T expectedWithout)
         {

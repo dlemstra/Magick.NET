@@ -12,42 +12,41 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageCollectionTests
     {
-        [TestClass]
         public class TheQuantizeMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenCollectionIsEmpty()
             {
                 using (var images = new MagickImageCollection())
                 {
-                    ExceptionAssert.Throws<InvalidOperationException>(() =>
+                    Assert.Throws<InvalidOperationException>(() =>
                     {
                         images.Quantize();
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenSettingsIsNull()
             {
                 using (var images = new MagickImageCollection())
                 {
                     images.Add(Files.FujiFilmFinePixS1ProJPG);
 
-                    ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
+                    Assert.Throws<ArgumentNullException>("settings", () =>
                     {
                         images.Quantize(null);
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnNullWhenMeasureErrorsIsFalse()
             {
                 using (var images = new MagickImageCollection())
@@ -61,11 +60,11 @@ namespace Magick.NET.Tests
                     };
 
                     var errorInfo = images.Quantize(settings);
-                    Assert.IsNull(errorInfo);
+                    Assert.Null(errorInfo);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReduceTheColors()
             {
                 using (var collection = new MagickImageCollection())
@@ -80,18 +79,18 @@ namespace Magick.NET.Tests
                     collection.Quantize(settings);
 
 #if Q8
-                    ColorAssert.AreEqual(new MagickColor("#2b414f"), collection[0], 120, 140);
-                    ColorAssert.AreEqual(new MagickColor("#7b929f"), collection[0], 95, 140);
-                    ColorAssert.AreEqual(new MagickColor("#44739f"), collection[0], 300, 150);
+                    ColorAssert.Equal(new MagickColor("#2b414f"), collection[0], 120, 140);
+                    ColorAssert.Equal(new MagickColor("#7b929f"), collection[0], 95, 140);
+                    ColorAssert.Equal(new MagickColor("#44739f"), collection[0], 300, 150);
 #else
-                    ColorAssert.AreEqual(new MagickColor("#2af841624f09"), collection[0], 120, 140);
-                    ColorAssert.AreEqual(new MagickColor("#7b3c92b69f5a"), collection[0], 95, 140);
-                    ColorAssert.AreEqual(new MagickColor("#44bc73059f70"), collection[0], 300, 150);
+                    ColorAssert.Equal(new MagickColor("#2af841624f09"), collection[0], 120, 140);
+                    ColorAssert.Equal(new MagickColor("#7b3c92b69f5a"), collection[0], 95, 140);
+                    ColorAssert.Equal(new MagickColor("#44bc73059f70"), collection[0], 300, 150);
 #endif
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnErrorInfoWhenMeasureErrorsIsTrue()
             {
                 using (var collection = new MagickImageCollection())
@@ -105,15 +104,15 @@ namespace Magick.NET.Tests
                     };
 
                     var errorInfo = collection.Quantize(settings);
-                    Assert.IsNotNull(errorInfo);
+                    Assert.NotNull(errorInfo);
 
 #if Q8
-                    Assert.AreEqual(13.62, errorInfo.MeanErrorPerPixel, 0.01);
+                    Assert.InRange(errorInfo.MeanErrorPerPixel, 13.62, 13.63);
 #else
-                    Assert.AreEqual(3526, errorInfo.MeanErrorPerPixel, 1);
+                    Assert.InRange(errorInfo.MeanErrorPerPixel, 3526, 3527);
 #endif
-                    Assert.AreEqual(0.47, errorInfo.NormalizedMaximumError, 0.01);
-                    Assert.AreEqual(0.006, errorInfo.NormalizedMeanError, 0.001);
+                    Assert.InRange(errorInfo.NormalizedMaximumError, 0.46, 0.47);
+                    Assert.InRange(errorInfo.NormalizedMeanError, 0.006, 0.007);
                 }
             }
         }

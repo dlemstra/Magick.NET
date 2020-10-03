@@ -14,82 +14,81 @@ using System;
 using System.Linq;
 using System.Text;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class IptcValueTests
     {
-        [TestMethod]
+        [Fact]
         public void Encoding_SetToNull_NotChanged()
         {
             var value = GetIptcValue();
 
             value.Encoding = null;
 
-            Assert.IsNotNull(value.Encoding);
+            Assert.NotNull(value.Encoding);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Encoding()
         {
             var value = GetIptcValue();
 
-            Assert.AreEqual("Communications", value.Value);
+            Assert.Equal("Communications", value.Value);
 
             value.Encoding = Encoding.UTF32;
-            Assert.AreNotEqual("Communications", value.Value);
+            Assert.NotEqual("Communications", value.Value);
 
             value.Value = "Communications";
-            Assert.AreEqual("Communications", value.Value);
+            Assert.Equal("Communications", value.Value);
 
             value.Encoding = Encoding.UTF8;
-            Assert.AreNotEqual("Communications", value.Value);
+            Assert.NotEqual("Communications", value.Value);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_IEquatable()
         {
             var first = GetIptcValue();
             var second = GetIptcValue();
 
-            Assert.IsTrue(first.Equals(second));
-            Assert.IsTrue(first.Equals((object)second));
+            Assert.True(first.Equals(second));
+            Assert.True(first.Equals((object)second));
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Properties()
         {
             var value = GetIptcValue();
 
-            Assert.AreEqual(IptcTag.Caption, value.Tag);
-            Assert.AreEqual("Communications", value.ToString());
-            Assert.AreEqual("Communications", value.Value);
-            Assert.AreEqual(14, value.ToByteArray().Length);
+            Assert.Equal(IptcTag.Caption, value.Tag);
+            Assert.Equal("Communications", value.ToString());
+            Assert.Equal("Communications", value.Value);
+            Assert.Equal(14, value.ToByteArray().Length);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_ToString()
         {
             var value = GetIptcValue();
 
-            Assert.AreEqual("Communications", value.ToString());
-            Assert.AreEqual("Communications", value.ToString(Encoding.UTF8));
-            Assert.AreNotEqual("Communications", value.ToString(Encoding.UTF32));
+            Assert.Equal("Communications", value.ToString());
+            Assert.Equal("Communications", value.ToString(Encoding.UTF8));
+            Assert.NotEqual("Communications", value.ToString(Encoding.UTF32));
 
             value.Encoding = Encoding.UTF32;
             value.Value = "Test";
-            Assert.AreEqual("Test", value.ToString());
-            Assert.AreEqual("Test", value.ToString(Encoding.UTF32));
-            Assert.AreNotEqual("Test", value.ToString(Encoding.UTF8));
+            Assert.Equal("Test", value.ToString());
+            Assert.Equal("Test", value.ToString(Encoding.UTF32));
+            Assert.NotEqual("Test", value.ToString(Encoding.UTF8));
 
             value.Value = string.Empty;
-            Assert.AreEqual(string.Empty, value.ToString());
+            Assert.Equal(string.Empty, value.ToString());
             value.Value = "Test";
-            Assert.AreEqual("Test", value.ToString());
+            Assert.Equal("Test", value.ToString());
             value.Value = null;
-            Assert.AreEqual(string.Empty, value.ToString());
+            Assert.Equal(string.Empty, value.ToString());
         }
 
         private static IIptcValue GetIptcValue()

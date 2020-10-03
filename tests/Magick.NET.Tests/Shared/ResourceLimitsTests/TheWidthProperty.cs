@@ -11,22 +11,21 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class ResourceLimitsTests
     {
-        [TestClass]
         public class TheWidthProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldHaveTheCorrectValue()
             {
-                Assert.AreEqual(10000000U, ResourceLimits.Width);
+                Assert.Equal(10000000U, ResourceLimits.Width);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
                 ExecuteInsideLock(() =>
@@ -34,7 +33,7 @@ namespace Magick.NET.Tests
                     var width = ResourceLimits.Width;
 
                     ResourceLimits.Width = 200000U;
-                    Assert.AreEqual(200000U, ResourceLimits.Width);
+                    Assert.Equal(200000U, ResourceLimits.Width);
                     ResourceLimits.Width = width;
                 });
             }

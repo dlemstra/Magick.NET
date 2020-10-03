@@ -12,28 +12,27 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Dds;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class DdsWriteDefinesTests
     {
-        [TestClass]
         public class TheConstructor
         {
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetAnyDefines()
             {
                 using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(new DdsWriteDefines());
 
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Dds, "cluster-fit"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Dds, "compression"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Dds, "fast-mipmaps"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Dds, "mipmaps"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Dds, "raw"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Dds, "cluster-fit"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Dds, "compression"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Dds, "fast-mipmaps"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Dds, "mipmaps"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Dds, "raw"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
                 }
             }
         }

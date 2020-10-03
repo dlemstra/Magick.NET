@@ -11,24 +11,23 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class SettingsFactoryTests
     {
-        [TestClass]
         public class TheCreatePixelReadSettingsMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldCreateInstance()
             {
                 var factory = new SettingsFactory();
 
                 var settings = factory.CreatePixelReadSettings();
 
-                Assert.IsNotNull(settings);
-                Assert.IsInstanceOfType(settings, typeof(PixelReadSettings));
+                Assert.NotNull(settings);
+                Assert.IsType<PixelReadSettings>(settings);
             }
         }
     }

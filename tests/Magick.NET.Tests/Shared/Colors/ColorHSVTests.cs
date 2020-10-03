@@ -11,29 +11,28 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class ColorHSVTests : ColorBaseTests<ColorHSV>
     {
-        [TestMethod]
+        [Fact]
         public void Test_GetHashCode()
         {
             ColorHSV first = new ColorHSV(0.0, 0.0, 0.0);
             int hashCode = first.GetHashCode();
 
             first.Hue = first.Saturation = first.Value = 1.0;
-            Assert.AreNotEqual(hashCode, first.GetHashCode());
+            Assert.NotEqual(hashCode, first.GetHashCode());
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_IComparable()
         {
             ColorHSV first = new ColorHSV(0.4, 0.3, 0.2);
 
-            Test_IComparable(first);
+            AssertIComparable(first);
 
             ColorHSV second = new ColorHSV(0.1, 0.2, 0.3);
 
@@ -44,7 +43,7 @@ namespace Magick.NET.Tests
             Test_IComparable_Equal(first, second);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_IEquatable()
         {
             ColorHSV first = new ColorHSV(1.0, 0.5, 0.5);
@@ -60,57 +59,57 @@ namespace Magick.NET.Tests
             Test_IEquatable_NotEqual(first, second);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_ImplicitOperator()
         {
             ColorHSV expected = new ColorHSV(1.0, 1.0, 1.0);
             ColorHSV actual = MagickColors.Red;
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
 
             var magickColor = actual.ToMagickColor();
-            Assert.AreEqual(magickColor, MagickColors.Red);
+            Assert.Equal(magickColor, MagickColors.Red);
 
-            Assert.IsNull(ColorHSV.FromMagickColor(null));
+            Assert.Null(ColorHSV.FromMagickColor(null));
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_ToString()
         {
             ColorHSV color = new ColorHSV(1.0, 1.0, 1.0);
-            Test_ToString(color, MagickColors.Red);
+            AssertToString(color, MagickColors.Red);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Properties()
         {
             ColorHSV color = new ColorHSV(0, 0, 0);
 
             color.Hue = 1;
-            Assert.AreEqual(1, color.Hue);
-            Assert.AreEqual(0, color.Saturation);
-            Assert.AreEqual(0, color.Value);
+            Assert.Equal(1, color.Hue);
+            Assert.Equal(0, color.Saturation);
+            Assert.Equal(0, color.Value);
 
             color.Saturation = 2;
-            Assert.AreEqual(1, color.Hue);
-            Assert.AreEqual(2, color.Saturation);
-            Assert.AreEqual(0, color.Value);
+            Assert.Equal(1, color.Hue);
+            Assert.Equal(2, color.Saturation);
+            Assert.Equal(0, color.Value);
 
             color.Value = 3;
-            Assert.AreEqual(1, color.Hue);
-            Assert.AreEqual(2, color.Saturation);
-            Assert.AreEqual(3, color.Value);
+            Assert.Equal(1, color.Hue);
+            Assert.Equal(2, color.Saturation);
+            Assert.Equal(3, color.Value);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_HueShift()
         {
             ColorHSV color = new ColorHSV(0.3, 0.2, 0.1);
 
             color.HueShift(720);
-            Assert.AreEqual(0.3, color.Hue, 0.00001);
+            Assert.InRange(color.Hue, 0.29, 0.3);
 
             color.HueShift(-720);
-            Assert.AreEqual(0.3, color.Hue, 0.00001);
+            Assert.InRange(color.Hue, 0.29, 0.3);
         }
     }
 }

@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Jp2;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class Jp2WriteDefinesTests
     {
-        [TestClass]
         public class TheQualityProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 using (var image = new MagickImage())
@@ -31,11 +30,11 @@ namespace Magick.NET.Tests
                         Quality = new float[] { 4, 2 },
                     });
 
-                    Assert.AreEqual("4,2", image.Settings.GetDefine(MagickFormat.Jp2, "quality"));
+                    Assert.Equal("4,2", image.Settings.GetDefine(MagickFormat.Jp2, "quality"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetTheDefineWhenTheCollectionIsEmpty()
             {
                 using (var image = new MagickImage())
@@ -45,7 +44,7 @@ namespace Magick.NET.Tests
                         Quality = new float[] { },
                     });
 
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jp2, "quality"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Jp2, "quality"));
                 }
             }
         }

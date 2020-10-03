@@ -13,16 +13,15 @@
 using System.IO;
 using ImageMagick;
 using ImageMagick.Formats.Jpeg;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class JpegWriteDefinesTests
     {
-        [TestClass]
         public class TheExtentProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 var defines = new JpegWriteDefines()
@@ -34,11 +33,11 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(defines);
 
-                    Assert.AreEqual("5KB", image.Settings.GetDefine(MagickFormat.Jpeg, "extent"));
+                    Assert.Equal("5KB", image.Settings.GetDefine(MagickFormat.Jpeg, "extent"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldLimitTheSizeOfTheOutputFile()
             {
                 JpegWriteDefines defines = new JpegWriteDefines()
@@ -54,7 +53,7 @@ namespace Magick.NET.Tests
 
                         image.Format = MagickFormat.Jpeg;
                         image.Write(memStream);
-                        Assert.IsTrue(memStream.Length < 10000);
+                        Assert.True(memStream.Length < 10000);
                     }
                 }
             }

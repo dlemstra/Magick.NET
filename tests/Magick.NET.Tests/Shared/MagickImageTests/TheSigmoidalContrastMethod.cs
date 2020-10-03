@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheSigmoidalContrastMethod : MagickImageTests
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSharpenByDefault()
             {
                 using (var image = new MagickImage(Files.NoisePNG))
@@ -31,12 +30,12 @@ namespace Magick.NET.Tests
                         other.SigmoidalContrast(true, 8.0);
 
                         var difference = other.Compare(image, ErrorMetric.RootMeanSquared);
-                        Assert.AreEqual(0.0, difference);
+                        Assert.Equal(0.0, difference);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldUseHalfOfQuantumForMidpointByDefault()
             {
                 using (var image = new MagickImage(Files.NoisePNG))
@@ -47,12 +46,12 @@ namespace Magick.NET.Tests
                         other.SigmoidalContrast(true, 4.0, new Percentage(50));
 
                         var difference = other.Compare(image, ErrorMetric.RootMeanSquared);
-                        Assert.AreEqual(0.0, difference);
+                        Assert.Equal(0.0, difference);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldAdjustTheImageContrast()
             {
                 using (var image = new MagickImage(Files.NoisePNG))
@@ -62,7 +61,7 @@ namespace Magick.NET.Tests
                         other.SigmoidalContrast(true, 4.0, new Percentage(25));
 
                         var difference = other.Compare(image, ErrorMetric.RootMeanSquared);
-                        Assert.AreEqual(0.051, difference, 0.001);
+                        Assert.InRange(difference, 0.051, 0.052);
                     }
                 }
             }

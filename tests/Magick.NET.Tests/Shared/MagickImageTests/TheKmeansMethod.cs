@@ -12,25 +12,24 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheKmeansMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenSettingsIsNull()
             {
                 using (var image = new MagickImage())
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("settings", () => image.Kmeans(null));
+                    Assert.Throws<ArgumentNullException>("settings", () => image.Kmeans(null));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenNumberColorsIsNegative()
             {
                 var settings = new KmeansSettings()
@@ -40,11 +39,11 @@ namespace Magick.NET.Tests
 
                 using (var image = new MagickImage())
                 {
-                    ExceptionAssert.Throws<ArgumentException>("settings", () => image.Kmeans(settings));
+                    Assert.Throws<ArgumentException>("settings", () => image.Kmeans(settings));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenMaxIterationsIsNegative()
             {
                 var settings = new KmeansSettings()
@@ -54,11 +53,11 @@ namespace Magick.NET.Tests
 
                 using (var image = new MagickImage())
                 {
-                    ExceptionAssert.Throws<ArgumentException>("settings", () => image.Kmeans(settings));
+                    Assert.Throws<ArgumentException>("settings", () => image.Kmeans(settings));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReduceTheNumberOfColors()
             {
                 var settings = new KmeansSettings()
@@ -70,7 +69,7 @@ namespace Magick.NET.Tests
                 {
                     image.Kmeans(settings);
 
-                    ColorAssert.AreEqual(new MagickColor("#f0fb6f8c3098"), image, 430, 225);
+                    ColorAssert.Equal(new MagickColor("#f0fb6f8c3098"), image, 430, 225);
                 }
             }
         }

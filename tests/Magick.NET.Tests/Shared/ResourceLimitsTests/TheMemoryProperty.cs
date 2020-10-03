@@ -11,23 +11,23 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using Xunit.Sdk;
 
 namespace Magick.NET.Tests
 {
     public partial class ResourceLimitsTests
     {
-        [TestClass]
         public class TheMemoryProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldHaveTheCorrectValue()
             {
                 if (ResourceLimits.Memory < 100000000U)
-                    Assert.Fail("Invalid memory limit: " + ResourceLimits.Memory);
+                    throw new XunitException("Invalid memory limit: " + ResourceLimits.Memory);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
                 ExecuteInsideLock(() =>
@@ -35,7 +35,7 @@ namespace Magick.NET.Tests
                     var memory = ResourceLimits.Memory;
 
                     ResourceLimits.Memory = 10000000U;
-                    Assert.AreEqual(10000000U, ResourceLimits.Memory);
+                    Assert.Equal(10000000U, ResourceLimits.Memory);
                     ResourceLimits.Memory = memory;
                 });
             }

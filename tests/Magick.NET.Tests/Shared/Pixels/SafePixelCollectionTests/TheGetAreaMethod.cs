@@ -12,76 +12,75 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class SafePixelCollectionTests
     {
-        [TestClass]
         public class TheGetAreaMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenXTooLow()
             {
                 ThrowsArgumentException("x", -1, 0, 1, 1);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenXTooHigh()
             {
                 ThrowsArgumentException("x", 6, 0, 1, 1);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenYTooLow()
             {
                 ThrowsArgumentException("y", 0, -1, 1, 1);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenYTooHigh()
             {
                 ThrowsArgumentException("y", 0, 11, 1, 1);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenWidthTooLow()
             {
                 ThrowsArgumentException("width", 0, 0, -1, 1);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenWidthZero()
             {
                 ThrowsArgumentException("width", 0, 0, 0, 1);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenHeightTooLow()
             {
                 ThrowsArgumentException("height", 0, 0, 1, -1);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenHeightZero()
             {
                 ThrowsArgumentException("height", 0, 0, 1, 0);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenWidthAndOffsetTooHigh()
             {
                 ThrowsArgumentException("width", 4, 0, 2, 1);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenHeightAndOffsetTooHigh()
             {
                 ThrowsArgumentException("height", 0, 9, 1, 2);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnAreaWhenAreaIsValid()
             {
                 using (var image = new MagickImage(Files.CirclePNG))
@@ -92,20 +91,20 @@ namespace Magick.NET.Tests
                         int length = 2 * 3 * 4; // width * height * channelCount
                         MagickColor color = new MagickColor(area[0], area[1], area[2], area[3]);
 
-                        Assert.AreEqual(length, area.Length);
-                        ColorAssert.AreEqual(new MagickColor("#ffffff9f"), color);
+                        Assert.Equal(length, area.Length);
+                        ColorAssert.Equal(new MagickColor("#ffffff9f"), color);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenGeometryIsNull()
             {
                 using (var image = new MagickImage(Files.RedPNG))
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        ExceptionAssert.Throws<ArgumentNullException>("geometry", () =>
+                        Assert.Throws<ArgumentNullException>("geometry", () =>
                         {
                             pixels.GetArea(null);
                         });
@@ -113,7 +112,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnAreaWhenGeometryIsValid()
             {
                 using (var image = new MagickImage(Files.RedPNG))
@@ -124,8 +123,8 @@ namespace Magick.NET.Tests
                         int length = 6 * 5 * 4; // width * height * channelCount
                         MagickColor color = new MagickColor(area[0], area[1], area[2], area[3]);
 
-                        Assert.AreEqual(length, area.Length);
-                        ColorAssert.AreEqual(MagickColors.Red, color);
+                        Assert.Equal(length, area.Length);
+                        ColorAssert.Equal(MagickColors.Red, color);
                     }
                 }
             }
@@ -136,7 +135,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        ExceptionAssert.Throws<ArgumentOutOfRangeException>(paramName, () =>
+                        Assert.Throws<ArgumentOutOfRangeException>(paramName, () =>
                         {
                             pixels.GetArea(x, y, width, height);
                         });

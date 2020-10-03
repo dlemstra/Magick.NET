@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class IMorphologySettingsExtensionsTests
     {
-        [TestClass]
         public class TheSetImageArtifactsMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetTheAttributesWhenTheyAreNotSpecified()
             {
                 using (var image = new MagickImage())
@@ -29,11 +28,11 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsEmpty(image.ArtifactNames);
+                    Assert.Empty(image.ArtifactNames);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetConvolveBias()
             {
                 using (var image = new MagickImage())
@@ -45,12 +44,12 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsSingle(image.ArtifactNames);
-                    Assert.AreEqual("70%", image.GetArtifact("convolve:bias"));
+                    Assert.Single(image.ArtifactNames);
+                    Assert.Equal("70%", image.GetArtifact("convolve:bias"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetConvolveScale()
             {
                 using (var image = new MagickImage())
@@ -62,8 +61,8 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsSingle(image.ArtifactNames);
-                    Assert.AreEqual("3x4+1+2", image.GetArtifact("convolve:scale"));
+                    Assert.Single(image.ArtifactNames);
+                    Assert.Equal("3x4+1+2", image.GetArtifact("convolve:scale"));
                 }
             }
         }

@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Dng;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class DngReadDefinesTests
     {
-        [TestClass]
         public class TheDisableAutoBrightnessProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 var defines = new DngReadDefines()
@@ -33,7 +32,7 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(defines);
 
-                    Assert.AreEqual("true", image.Settings.GetDefine(MagickFormat.Dng, "no_auto_bright"));
+                    Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Dng, "no_auto_bright"));
                 }
             }
         }

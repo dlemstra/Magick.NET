@@ -12,26 +12,25 @@
 
 using System.Linq;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace Magick.NET.Tests.Shared
+namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheConvexHullMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheConvexHull()
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     var coordinates = image.ConvexHull();
-                    Assert.AreEqual(29, coordinates.Count());
+                    Assert.Equal(29, coordinates.Count());
 
                     var coordinate = coordinates.Skip(10).First();
-                    Assert.AreEqual(537, coordinate.X);
-                    Assert.AreEqual(465, coordinate.Y);
+                    Assert.Equal(537, coordinate.X);
+                    Assert.Equal(465, coordinate.Y);
                 }
             }
         }

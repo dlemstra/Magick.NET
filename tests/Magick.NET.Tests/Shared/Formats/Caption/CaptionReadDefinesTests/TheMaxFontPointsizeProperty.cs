@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Caption;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class CaptionReadDefinesTests
     {
-        [TestClass]
         public class TheMaxFontPointsizeProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 var settings = new MagickReadSettings()
@@ -38,11 +37,11 @@ namespace Magick.NET.Tests
                 {
                     image.Read("caption:123", settings);
 
-                    Assert.AreEqual("42", image.Settings.GetDefine(MagickFormat.Caption, "max-pointsize"));
+                    Assert.Equal("42", image.Settings.GetDefine(MagickFormat.Caption, "max-pointsize"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldLimitTheFontSize()
             {
                 var settings = new MagickReadSettings()
@@ -57,7 +56,7 @@ namespace Magick.NET.Tests
 
                 using (var image = new MagickImage("caption:testing 1 2 3", settings))
                 {
-                    ColorAssert.AreEqual(MagickColors.White, image, 32, 64);
+                    ColorAssert.Equal(MagickColors.White, image, 32, 64);
                 }
             }
         }

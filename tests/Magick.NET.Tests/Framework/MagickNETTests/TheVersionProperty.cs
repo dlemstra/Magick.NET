@@ -13,7 +13,7 @@
 #if !NETCORE
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
@@ -21,22 +21,22 @@ namespace Magick.NET.Tests
     {
         public partial class TheVersionProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldContainTheCorrectPlatform()
             {
 #if PLATFORM_AnyCPU
-                StringAssert.Contains(MagickNET.Version, "AnyCPU");
+                Assert.Contains("AnyCPU", MagickNET.Version);
 #elif PLATFORM_x64
-                StringAssert.Contains(MagickNET.Version, "x64");
+                Assert.Contains("x64", MagickNET.Version);
 #else
-                StringAssert.Contains(MagickNET.Version, "x86");
+                Assert.Contains("x86", MagickNET.Version);
 #endif
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldContainNet40()
             {
-                StringAssert.Contains(MagickNET.Version, "net40");
+                Assert.Contains("net40", MagickNET.Version);
             }
         }
     }

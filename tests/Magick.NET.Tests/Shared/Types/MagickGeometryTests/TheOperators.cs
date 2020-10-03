@@ -11,74 +11,73 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickGeometryTests
     {
-        [TestClass]
         public class TheOperators
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValueWhenInstanceIsNull()
             {
                 var geometry = new MagickGeometry(10, 5);
 
-                Assert.IsFalse(geometry == null);
-                Assert.IsTrue(geometry != null);
-                Assert.IsFalse(geometry < null);
-                Assert.IsFalse(geometry <= null);
-                Assert.IsTrue(geometry > null);
-                Assert.IsTrue(geometry >= null);
-                Assert.IsFalse(null == geometry);
-                Assert.IsTrue(null != geometry);
-                Assert.IsTrue(null < geometry);
-                Assert.IsTrue(null <= geometry);
-                Assert.IsFalse(null > geometry);
-                Assert.IsFalse(null >= geometry);
+                Assert.False(geometry == null);
+                Assert.True(geometry != null);
+                Assert.False(geometry < null);
+                Assert.False(geometry <= null);
+                Assert.True(geometry > null);
+                Assert.True(geometry >= null);
+                Assert.False(null == geometry);
+                Assert.True(null != geometry);
+                Assert.True(null < geometry);
+                Assert.True(null <= geometry);
+                Assert.False(null > geometry);
+                Assert.False(null >= geometry);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValueWhenInstanceIsSpecified()
             {
                 var first = new MagickGeometry(10, 5);
                 var second = new MagickGeometry(5, 5);
 
-                Assert.IsFalse(first == second);
-                Assert.IsTrue(first != second);
-                Assert.IsFalse(first < second);
-                Assert.IsFalse(first <= second);
-                Assert.IsTrue(first > second);
-                Assert.IsTrue(first >= second);
+                Assert.False(first == second);
+                Assert.True(first != second);
+                Assert.False(first < second);
+                Assert.False(first <= second);
+                Assert.True(first > second);
+                Assert.True(first >= second);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValueWhenInstanceHasSameSize()
             {
                 var first = new MagickGeometry(10, 5);
                 var second = new MagickGeometry(5, 10);
 
-                Assert.IsFalse(first == second);
-                Assert.IsTrue(first != second);
-                Assert.IsFalse(first < second);
-                Assert.IsTrue(first <= second);
-                Assert.IsFalse(first > second);
-                Assert.IsTrue(first >= second);
+                Assert.False(first == second);
+                Assert.True(first != second);
+                Assert.False(first < second);
+                Assert.True(first <= second);
+                Assert.False(first > second);
+                Assert.True(first >= second);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValueWhenInstanceAreEqual()
             {
                 var first = new MagickGeometry(10, 5);
                 var second = new MagickGeometry(10, 5);
 
-                Assert.IsTrue(first == second);
-                Assert.IsFalse(first != second);
-                Assert.IsFalse(first < second);
-                Assert.IsTrue(first <= second);
-                Assert.IsFalse(first > second);
-                Assert.IsTrue(first >= second);
+                Assert.True(first == second);
+                Assert.False(first != second);
+                Assert.False(first < second);
+                Assert.True(first <= second);
+                Assert.False(first > second);
+                Assert.True(first >= second);
             }
         }
     }

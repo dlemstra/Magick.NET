@@ -11,47 +11,46 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickGeometryTests
     {
-        [TestClass]
         public class TheCompareToMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnZeroWhenInstancesAreTheSame()
             {
                 var first = new MagickGeometry(10, 5);
 
-                Assert.AreEqual(0, first.CompareTo(first));
+                Assert.Equal(0, first.CompareTo(first));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnOneWhenInstancesIsNull()
             {
                 var first = new MagickGeometry(10, 5);
 
-                Assert.AreEqual(1, first.CompareTo(null));
+                Assert.Equal(1, first.CompareTo(null));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnZeroWhenInstancesAreEqual()
             {
                 var first = new MagickGeometry(10, 5);
                 var second = new MagickGeometry(10, 5);
 
-                Assert.AreEqual(0, first.CompareTo(second));
+                Assert.Equal(0, first.CompareTo(second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnOneWhenInstancesAreNotEqual()
             {
                 var first = new MagickGeometry(10, 5);
                 var second = new MagickGeometry(5, 5);
 
-                Assert.AreEqual(1, first.CompareTo(second));
+                Assert.Equal(1, first.CompareTo(second));
             }
         }
     }

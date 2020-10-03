@@ -11,7 +11,7 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -27,10 +27,9 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheLevelMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldUseCompositeAsDefaultChannels()
             {
                 using (var first = new MagickImage(Files.MagickNETIconPNG))
@@ -40,12 +39,12 @@ namespace Magick.NET.Tests
                         first.Level(new Percentage(50), new Percentage(10));
                         second.Level(new Percentage(50), new Percentage(10), Channels.Composite);
 
-                        Assert.AreEqual(first.Signature, second.Signature);
+                        Assert.Equal(first.Signature, second.Signature);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldUseOneAsGammaDefault()
             {
                 using (var first = new MagickImage(Files.MagickNETIconPNG))
@@ -55,12 +54,12 @@ namespace Magick.NET.Tests
                         first.Level(new Percentage(50), new Percentage(10));
                         second.Level(new Percentage(50), new Percentage(10), 1.0, Channels.Composite);
 
-                        Assert.AreEqual(first.Signature, second.Signature);
+                        Assert.Equal(first.Signature, second.Signature);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldScaleTheColors()
             {
                 using (var image = new MagickImage(Files.MagickNETIconPNG))
@@ -75,7 +74,7 @@ namespace Magick.NET.Tests
                         second.Level(fifty, ten, Channels.Green | Channels.Blue);
                         second.Level(fifty, ten, Channels.Alpha);
 
-                        Assert.AreEqual(image.Signature, second.Signature);
+                        Assert.Equal(image.Signature, second.Signature);
                     }
                 }
             }

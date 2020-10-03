@@ -12,25 +12,24 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheDeskewMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenSettingsIsNull()
             {
                 using (var image = new MagickImage())
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("settings", () => image.Deskew(null));
+                    Assert.Throws<ArgumentNullException>("settings", () => image.Deskew(null));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenSettingsThresholdIsNegative()
             {
                 using (var image = new MagickImage())
@@ -40,35 +39,35 @@ namespace Magick.NET.Tests
                         Threshold = new Percentage(-1),
                     };
 
-                    ExceptionAssert.Throws<ArgumentException>("settings", () => image.Deskew(settings));
+                    Assert.Throws<ArgumentException>("settings", () => image.Deskew(settings));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenThresholdIsNegative()
             {
                 using (var image = new MagickImage())
                 {
-                    ExceptionAssert.Throws<ArgumentException>("settings", () => image.Deskew(new Percentage(-1)));
+                    Assert.Throws<ArgumentException>("settings", () => image.Deskew(new Percentage(-1)));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldDeskewTheImage()
             {
                 using (var image = new MagickImage(Files.LetterJPG))
                 {
                     image.ColorType = ColorType.Bilevel;
 
-                    ColorAssert.AreEqual(MagickColors.White, image, 471, 92);
+                    ColorAssert.Equal(MagickColors.White, image, 471, 92);
 
                     image.Deskew(new Percentage(10));
 
-                    ColorAssert.AreEqual(new MagickColor("#007400740074"), image, 471, 92);
+                    ColorAssert.Equal(new MagickColor("#007400740074"), image, 471, 92);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldUseAutoCrop()
             {
                 using (var image = new MagickImage(Files.LetterJPG))
@@ -81,19 +80,19 @@ namespace Magick.NET.Tests
 
                     image.Deskew(settings);
 
-                    Assert.AreEqual(480, image.Width);
-                    Assert.AreEqual(577, image.Height);
+                    Assert.Equal(480, image.Width);
+                    Assert.Equal(577, image.Height);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheAngle()
             {
                 using (var image = new MagickImage(Files.LetterJPG))
                 {
                     var angle = image.Deskew(new Percentage(10));
 
-                    Assert.AreEqual(7.01, angle, 0.01);
+                    Assert.InRange(angle, 7.01, 7.02);
                 }
             }
         }

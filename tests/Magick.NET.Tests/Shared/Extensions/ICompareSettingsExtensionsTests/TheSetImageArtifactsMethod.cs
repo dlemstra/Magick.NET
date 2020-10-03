@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class ICompareSettingsExtensionsTests
     {
-        [TestClass]
         public class TheSetImageArtifactsMethod : ICompareSettingsExtensionsTests
         {
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetTheAttributesWhenTheyAreNotSpecified()
             {
                 using (var image = new MagickImage())
@@ -29,11 +28,11 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsEmpty(image.ArtifactNames);
+                    Assert.Empty(image.ArtifactNames);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheHighlightColor()
             {
                 using (var image = new MagickImage())
@@ -45,17 +44,17 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsSingle(image.ArtifactNames);
+                    Assert.Single(image.ArtifactNames);
 
 #if Q8
-                    Assert.AreEqual("#FF00FFFF", image.GetArtifact("compare:highlight-color"));
+                    Assert.Equal("#FF00FFFF", image.GetArtifact("compare:highlight-color"));
 #else
-                    Assert.AreEqual("#FFFF0000FFFFFFFF", image.GetArtifact("compare:highlight-color"));
+                    Assert.Equal("#FFFF0000FFFFFFFF", image.GetArtifact("compare:highlight-color"));
 #endif
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheLowlightColor()
             {
                 using (var image = new MagickImage())
@@ -67,17 +66,17 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsSingle(image.ArtifactNames);
+                    Assert.Single(image.ArtifactNames);
 
 #if Q8
-                    Assert.AreEqual("#FF00FFFF", image.GetArtifact("compare:lowlight-color"));
+                    Assert.Equal("#FF00FFFF", image.GetArtifact("compare:lowlight-color"));
 #else
-                    Assert.AreEqual("#FFFF0000FFFFFFFF", image.GetArtifact("compare:lowlight-color"));
+                    Assert.Equal("#FFFF0000FFFFFFFF", image.GetArtifact("compare:lowlight-color"));
 #endif
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheMasklightColor()
             {
                 using (var image = new MagickImage())
@@ -89,12 +88,12 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsSingle(image.ArtifactNames);
+                    Assert.Single(image.ArtifactNames);
 
 #if Q8
-                    Assert.AreEqual("#FF00FFFF", image.GetArtifact("compare:masklight-color"));
+                    Assert.Equal("#FF00FFFF", image.GetArtifact("compare:masklight-color"));
 #else
-                    Assert.AreEqual("#FFFF0000FFFFFFFF", image.GetArtifact("compare:masklight-color"));
+                    Assert.Equal("#FFFF0000FFFFFFFF", image.GetArtifact("compare:masklight-color"));
 #endif
                 }
             }

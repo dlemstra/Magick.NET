@@ -11,25 +11,24 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class DensityExtensionsTests
     {
-        [TestClass]
         public class TheToGeometryMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValue()
             {
                 var density = new Density(50.0);
 
                 var geometry = density.ToGeometry(0.5, 2.0);
-                Assert.AreEqual(0, geometry.X);
-                Assert.AreEqual(0, geometry.Y);
-                Assert.AreEqual(25, geometry.Width);
-                Assert.AreEqual(100, geometry.Height);
+                Assert.Equal(0, geometry.X);
+                Assert.Equal(0, geometry.Y);
+                Assert.Equal(25, geometry.Width);
+                Assert.Equal(100, geometry.Height);
             }
         }
     }

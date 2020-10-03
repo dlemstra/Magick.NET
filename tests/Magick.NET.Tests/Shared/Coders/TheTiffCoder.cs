@@ -13,14 +13,13 @@
 using System.IO;
 using ImageMagick;
 using ImageMagick.Formats.Tiff;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public partial class TheTiffCoder
     {
-        [TestMethod]
+        [Fact]
         public void ShouldIgnoreTheSpecifiedTags()
         {
             using (var image = new MagickImage())
@@ -40,13 +39,13 @@ namespace Magick.NET.Tests
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldBeAbleToReadAndWriteIptcValues()
         {
             using (var input = new MagickImage(Files.MagickNETIconPNG))
             {
                 var profile = input.GetIptcProfile();
-                Assert.IsNull(profile);
+                Assert.Null(profile);
 
                 profile = new IptcProfile();
                 profile.SetValue(IptcTag.Headline, "Magick.NET");
@@ -63,7 +62,7 @@ namespace Magick.NET.Tests
                     using (var output = new MagickImage(memStream))
                     {
                         profile = output.GetIptcProfile();
-                        Assert.IsNotNull(profile);
+                        Assert.NotNull(profile);
                         TestValue(profile, IptcTag.Headline, "Magick.NET");
                         TestValue(profile, IptcTag.CopyrightNotice, "Copyright.NET");
                     }
@@ -71,7 +70,7 @@ namespace Magick.NET.Tests
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldBeAbleToWriteLzwPTiffToStream()
         {
             using (var image = new MagickImage(Files.InvitationTIF))
@@ -84,7 +83,7 @@ namespace Magick.NET.Tests
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldBeAbleToUseGroup4Compression()
         {
             using (var input = new MagickImage(Files.Builtin.Logo))
@@ -97,13 +96,13 @@ namespace Magick.NET.Tests
                     stream.Position = 0;
                     using (var output = new MagickImage(stream))
                     {
-                        Assert.AreEqual(output.Compression, CompressionMethod.Group4);
+                        Assert.Equal(CompressionMethod.Group4, output.Compression);
                     }
                 }
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldBeAbleToUseFaxCompression()
         {
             using (var input = new MagickImage(Files.Builtin.Logo))
@@ -116,26 +115,26 @@ namespace Magick.NET.Tests
                     stream.Position = 0;
                     using (var output = new MagickImage(stream))
                     {
-                        Assert.AreEqual(output.Compression, CompressionMethod.Fax);
+                        Assert.Equal(CompressionMethod.Fax, output.Compression);
                     }
                 }
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldBeAbleToReadImageWithInfiniteRowsPerStrip()
         {
             using (var image = new MagickImage(Files.Coders.RowsPerStripTIF))
             {
-                Assert.AreEqual(image.Format, MagickFormat.Tiff);
+                Assert.Equal(MagickFormat.Tiff, image.Format);
             }
         }
 
         private static void TestValue(IIptcProfile profile, IptcTag tag, string expectedValue)
         {
             var value = profile.GetValue(tag);
-            Assert.IsNotNull(value);
-            Assert.AreEqual(expectedValue, value.Value);
+            Assert.NotNull(value);
+            Assert.Equal(expectedValue, value.Value);
         }
     }
 }

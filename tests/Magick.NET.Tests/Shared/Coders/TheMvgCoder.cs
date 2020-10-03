@@ -12,14 +12,13 @@
 
 using System.IO;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class TheMvgCoder
     {
-        [TestMethod]
+        [Fact]
         public void ShouldBeDisabled()
         {
             using (MemoryStream memStream = new MemoryStream())
@@ -37,14 +36,14 @@ namespace Magick.NET.Tests
 
                     using (var image = new MagickImage())
                     {
-                        ExceptionAssert.Throws<MagickMissingDelegateErrorException>(() =>
+                        Assert.Throws<MagickMissingDelegateErrorException>(() =>
                         {
                             image.Read(memStream);
                         });
 
                         memStream.Position = 0;
 
-                        ExceptionAssert.Throws<MagickPolicyErrorException>(() =>
+                        Assert.Throws<MagickPolicyErrorException>(() =>
                         {
                             MagickReadSettings settings = new MagickReadSettings()
                             {

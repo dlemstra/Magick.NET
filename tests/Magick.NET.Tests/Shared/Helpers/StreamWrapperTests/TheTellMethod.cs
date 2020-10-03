@@ -13,16 +13,15 @@
 using System;
 using System.IO;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class StreamWrapperTests
     {
-        [TestClass]
         public class TheTellMethod
         {
-            [TestMethod]
+            [Fact]
             public unsafe void ShouldNotThrowExceptionWhenWhenStreamThrowsExceptionDuringTelling()
             {
                 using (var memStream = new MemoryStream())
@@ -35,7 +34,7 @@ namespace Magick.NET.Tests
                             fixed (byte* p = buffer)
                             {
                                 long count = streamWrapper.Tell(IntPtr.Zero);
-                                Assert.AreEqual(-1, count);
+                                Assert.Equal(-1, count);
                             }
                         }
                     }

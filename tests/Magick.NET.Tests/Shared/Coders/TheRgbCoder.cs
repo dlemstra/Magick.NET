@@ -11,11 +11,10 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class TheRgbCoder
     {
 #if Q8
@@ -30,7 +29,7 @@ namespace Magick.NET.Tests
             Height = 1,
         };
 
-        [TestMethod]
+        [Fact]
         public void ShouldSetTheCorrectValueForTheAlphaChannel()
         {
             _settings.Format = MagickFormat.Rgba;
@@ -39,16 +38,16 @@ namespace Magick.NET.Tests
                 using (var pixels = image.GetPixels())
                 {
                     var pixel = pixels.GetPixel(0, 0);
-                    Assert.AreEqual(4, pixel.Channels);
-                    Assert.AreEqual(1, pixel.GetChannel(0));
-                    Assert.AreEqual(2, pixel.GetChannel(1));
-                    Assert.AreEqual(3, pixel.GetChannel(2));
-                    Assert.AreEqual(4, pixel.GetChannel(3));
+                    Assert.Equal(4, pixel.Channels);
+                    Assert.Equal(1, pixel.GetChannel(0));
+                    Assert.Equal(2, pixel.GetChannel(1));
+                    Assert.Equal(3, pixel.GetChannel(2));
+                    Assert.Equal(4, pixel.GetChannel(3));
                 }
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldSetTheCorrectValueForTheOpacityChannel()
         {
             _settings.Format = MagickFormat.Rgbo;
@@ -57,11 +56,11 @@ namespace Magick.NET.Tests
                 using (var pixels = image.GetPixels())
                 {
                     var pixel = pixels.GetPixel(0, 0);
-                    Assert.AreEqual(4, pixel.Channels);
-                    Assert.AreEqual(1, pixel.GetChannel(0));
-                    Assert.AreEqual(2, pixel.GetChannel(1));
-                    Assert.AreEqual(3, pixel.GetChannel(2));
-                    Assert.AreEqual(Quantum.Max - 4, pixel.GetChannel(3));
+                    Assert.Equal(4, pixel.Channels);
+                    Assert.Equal(1, pixel.GetChannel(0));
+                    Assert.Equal(2, pixel.GetChannel(1));
+                    Assert.Equal(3, pixel.GetChannel(2));
+                    Assert.Equal(Quantum.Max - 4, pixel.GetChannel(3));
                 }
             }
         }

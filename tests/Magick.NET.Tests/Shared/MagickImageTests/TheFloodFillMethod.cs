@@ -12,19 +12,18 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheFloodFillMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenColorIsNull()
             {
-                ExceptionAssert.Throws<ArgumentNullException>("color", () =>
+                Assert.Throws<ArgumentNullException>("color", () =>
                 {
                     using (var image = new MagickImage(MagickColors.White, 2, 2))
                     {
@@ -33,10 +32,10 @@ namespace Magick.NET.Tests
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenPointDColorIsNull()
             {
-                ExceptionAssert.Throws<ArgumentNullException>("color", () =>
+                Assert.Throws<ArgumentNullException>("color", () =>
                 {
                     using (var image = new MagickImage(MagickColors.White, 2, 2))
                     {
@@ -45,10 +44,10 @@ namespace Magick.NET.Tests
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenTargetColorIsNull()
             {
-                ExceptionAssert.Throws<ArgumentNullException>("target", () =>
+                Assert.Throws<ArgumentNullException>("target", () =>
                 {
                     using (var image = new MagickImage(MagickColors.White, 2, 2))
                     {
@@ -57,10 +56,10 @@ namespace Magick.NET.Tests
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenPointDTargetColorIsNull()
             {
-                ExceptionAssert.Throws<ArgumentNullException>("target", () =>
+                Assert.Throws<ArgumentNullException>("target", () =>
                 {
                     using (var image = new MagickImage(MagickColors.White, 2, 2))
                     {
@@ -69,35 +68,35 @@ namespace Magick.NET.Tests
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangeTheColors()
             {
                 using (var image = new MagickImage(MagickColors.White, 2, 2))
                 {
                     image.FloodFill(MagickColors.Red, 0, 0);
 
-                    ColorAssert.AreEqual(MagickColors.Red, image, 0, 0);
-                    ColorAssert.AreEqual(MagickColors.Red, image, 0, 1);
-                    ColorAssert.AreEqual(MagickColors.Red, image, 1, 0);
-                    ColorAssert.AreEqual(MagickColors.Red, image, 1, 1);
+                    ColorAssert.Equal(MagickColors.Red, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.Red, image, 0, 1);
+                    ColorAssert.Equal(MagickColors.Red, image, 1, 0);
+                    ColorAssert.Equal(MagickColors.Red, image, 1, 1);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangeThePointDColors()
             {
                 using (var image = new MagickImage(MagickColors.White, 2, 2))
                 {
                     image.FloodFill(MagickColors.Red, new PointD(0, 0));
 
-                    ColorAssert.AreEqual(MagickColors.Red, image, 0, 0);
-                    ColorAssert.AreEqual(MagickColors.Red, image, 0, 1);
-                    ColorAssert.AreEqual(MagickColors.Red, image, 1, 0);
-                    ColorAssert.AreEqual(MagickColors.Red, image, 1, 1);
+                    ColorAssert.Equal(MagickColors.Red, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.Red, image, 0, 1);
+                    ColorAssert.Equal(MagickColors.Red, image, 1, 0);
+                    ColorAssert.Equal(MagickColors.Red, image, 1, 1);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangeTheTargetColors()
             {
                 using (var image = new MagickImage(MagickColors.White, 2, 2))
@@ -109,14 +108,14 @@ namespace Magick.NET.Tests
 
                     image.FloodFill(MagickColors.Red, 0, 0, MagickColors.Green);
 
-                    ColorAssert.AreEqual(MagickColors.Red, image, 0, 0);
-                    ColorAssert.AreEqual(MagickColors.White, image, 0, 1);
-                    ColorAssert.AreEqual(MagickColors.White, image, 1, 0);
-                    ColorAssert.AreEqual(MagickColors.White, image, 1, 1);
+                    ColorAssert.Equal(MagickColors.Red, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.White, image, 0, 1);
+                    ColorAssert.Equal(MagickColors.White, image, 1, 0);
+                    ColorAssert.Equal(MagickColors.White, image, 1, 1);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangeThePoinDTargetColors()
             {
                 using (var image = new MagickImage(MagickColors.White, 2, 2))
@@ -128,14 +127,14 @@ namespace Magick.NET.Tests
 
                     image.FloodFill(MagickColors.Red, new PointD(0, 0), MagickColors.Green);
 
-                    ColorAssert.AreEqual(MagickColors.Red, image, 0, 0);
-                    ColorAssert.AreEqual(MagickColors.White, image, 0, 1);
-                    ColorAssert.AreEqual(MagickColors.White, image, 1, 0);
-                    ColorAssert.AreEqual(MagickColors.White, image, 1, 1);
+                    ColorAssert.Equal(MagickColors.Red, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.White, image, 0, 1);
+                    ColorAssert.Equal(MagickColors.White, image, 1, 0);
+                    ColorAssert.Equal(MagickColors.White, image, 1, 1);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangeTheNeighboursWithTargetColor()
             {
                 using (var image = new MagickImage(MagickColors.White, 2, 2))
@@ -147,14 +146,14 @@ namespace Magick.NET.Tests
 
                     image.FloodFill(MagickColors.Red, 0, 0, MagickColors.Green);
 
-                    ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
-                    ColorAssert.AreEqual(MagickColors.Red, image, 0, 1);
-                    ColorAssert.AreEqual(MagickColors.White, image, 1, 0);
-                    ColorAssert.AreEqual(MagickColors.White, image, 1, 1);
+                    ColorAssert.Equal(MagickColors.White, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.Red, image, 0, 1);
+                    ColorAssert.Equal(MagickColors.White, image, 1, 0);
+                    ColorAssert.Equal(MagickColors.White, image, 1, 1);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangeTheNeighboursWithPointDTargetColor()
             {
                 using (var image = new MagickImage(MagickColors.White, 2, 2))
@@ -166,14 +165,14 @@ namespace Magick.NET.Tests
 
                     image.FloodFill(MagickColors.Red, new PointD(0, 0), MagickColors.Green);
 
-                    ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
-                    ColorAssert.AreEqual(MagickColors.Red, image, 0, 1);
-                    ColorAssert.AreEqual(MagickColors.White, image, 1, 0);
-                    ColorAssert.AreEqual(MagickColors.White, image, 1, 1);
+                    ColorAssert.Equal(MagickColors.White, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.Red, image, 0, 1);
+                    ColorAssert.Equal(MagickColors.White, image, 1, 0);
+                    ColorAssert.Equal(MagickColors.White, image, 1, 1);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotChangeTheTargetColors()
             {
                 using (var image = new MagickImage(MagickColors.White, 2, 2))
@@ -185,14 +184,14 @@ namespace Magick.NET.Tests
 
                     image.FloodFill(MagickColors.Red, 0, 0, MagickColors.Green);
 
-                    ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
-                    ColorAssert.AreEqual(MagickColors.White, image, 0, 1);
-                    ColorAssert.AreEqual(MagickColors.White, image, 1, 0);
-                    ColorAssert.AreEqual(MagickColors.Green, image, 1, 1);
+                    ColorAssert.Equal(MagickColors.White, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.White, image, 0, 1);
+                    ColorAssert.Equal(MagickColors.White, image, 1, 0);
+                    ColorAssert.Equal(MagickColors.Green, image, 1, 1);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotChangeThePoinDTargetColors()
             {
                 using (var image = new MagickImage(MagickColors.White, 2, 2))
@@ -204,14 +203,14 @@ namespace Magick.NET.Tests
 
                     image.FloodFill(MagickColors.Red, new PointD(0, 0), MagickColors.Green);
 
-                    ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
-                    ColorAssert.AreEqual(MagickColors.White, image, 0, 1);
-                    ColorAssert.AreEqual(MagickColors.White, image, 1, 0);
-                    ColorAssert.AreEqual(MagickColors.Green, image, 1, 1);
+                    ColorAssert.Equal(MagickColors.White, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.White, image, 0, 1);
+                    ColorAssert.Equal(MagickColors.White, image, 1, 0);
+                    ColorAssert.Equal(MagickColors.Green, image, 1, 1);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangeTheColorsWithTheSameTransparency()
             {
                 using (var image = new MagickImage(MagickColors.White, 2, 2))
@@ -229,10 +228,10 @@ namespace Magick.NET.Tests
                     image.Settings.FillColor = MagickColors.Purple;
                     image.FloodFill(0, 0, 0);
 
-                    ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
-                    ColorAssert.AreEqual(MagickColors.White, image, 0, 1);
-                    ColorAssert.AreEqual(MagickColors.White, image, 1, 0);
-                    ColorAssert.AreEqual(new MagickColor("#ffffff00"), image, 1, 1);
+                    ColorAssert.Equal(MagickColors.White, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.White, image, 0, 1);
+                    ColorAssert.Equal(MagickColors.White, image, 1, 0);
+                    ColorAssert.Equal(new MagickColor("#ffffff00"), image, 1, 1);
                 }
             }
         }

@@ -14,30 +14,29 @@ using System;
 using System.Linq;
 using System.Text;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class IptcProfileTests
     {
-        [TestClass]
         public class TheSetValueMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenEncodingIsNull()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetIptcProfile();
 
-                    ExceptionAssert.Throws<ArgumentNullException>("encoding", () =>
+                    Assert.Throws<ArgumentNullException>("encoding", () =>
                     {
                         profile.SetValue(IptcTag.Title, null, string.Empty);
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangeTheValue()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -47,15 +46,15 @@ namespace Magick.NET.Tests
 
                     profile.SetValue(IptcTag.Title, "Magick.NET Title");
 
-                    Assert.AreEqual("Magick.NET Title", value.Value);
+                    Assert.Equal("Magick.NET Title", value.Value);
 
                     value = profile.GetValue(IptcTag.Title);
 
-                    Assert.AreEqual("Magick.NET Title", value.Value);
+                    Assert.Equal("Magick.NET Title", value.Value);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldAddValueThatDoesNotExist()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -63,13 +62,13 @@ namespace Magick.NET.Tests
                     var profile = image.GetIptcProfile();
                     var value = profile.GetValue(IptcTag.ReferenceNumber);
 
-                    Assert.IsNull(value);
+                    Assert.Null(value);
 
                     profile.SetValue(IptcTag.Title, "Magick.NET ReferenceNümber");
 
                     value = profile.GetValue(IptcTag.Title);
 
-                    Assert.AreEqual("Magick.NET ReferenceNümber", value.Value);
+                    Assert.Equal("Magick.NET ReferenceNümber", value.Value);
                 }
             }
         }

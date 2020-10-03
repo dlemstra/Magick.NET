@@ -12,28 +12,27 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageCollectionTests
     {
-        [TestClass]
         public class TheAppendAppendVerticallyMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenCollectionIsEmpty()
             {
                 using (var images = new MagickImageCollection())
                 {
-                    ExceptionAssert.Throws<InvalidOperationException>(() =>
+                    Assert.Throws<InvalidOperationException>(() =>
                     {
                         images.AppendVertically();
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldAppendTheImagesVertically()
             {
                 int width = 70;
@@ -43,13 +42,13 @@ namespace Magick.NET.Tests
                 {
                     images.Read(Files.RoseSparkleGIF);
 
-                    Assert.AreEqual(width, images[0].Width);
-                    Assert.AreEqual(height, images[0].Height);
+                    Assert.Equal(width, images[0].Width);
+                    Assert.Equal(height, images[0].Height);
 
                     using (var image = images.AppendVertically())
                     {
-                        Assert.AreEqual(width, image.Width);
-                        Assert.AreEqual(height * 3, image.Height);
+                        Assert.Equal(width, image.Width);
+                        Assert.Equal(height * 3, image.Height);
                     }
                 }
             }

@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheLocalContrastMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldOnlyChangeSpecifiedChannels()
             {
                 using (var image = new MagickImage("plasma:purple", 100, 100))
@@ -31,7 +30,7 @@ namespace Magick.NET.Tests
                         image.LocalContrast(2, new Percentage(50), Channels.Red);
 
                         var difference = image.Compare(allChannels, ErrorMetric.RootMeanSquared);
-                        Assert.AreNotEqual(0, difference);
+                        Assert.NotEqual(0, difference);
                     }
                 }
             }

@@ -12,23 +12,22 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class SafePixelCollectionTests
     {
-        [TestClass]
         public class TheSetDoublePixelsMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenArrayIsNull()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        ExceptionAssert.Throws<ArgumentNullException>("values", () =>
+                        Assert.Throws<ArgumentNullException>("values", () =>
                         {
                             pixels.SetDoublePixels(null);
                         });
@@ -36,14 +35,14 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenArrayHasInvalidSize()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        ExceptionAssert.Throws<ArgumentException>("values", () =>
+                        Assert.Throws<ArgumentException>("values", () =>
                         {
                             pixels.SetDoublePixels(new double[] { 0, 0, 0, 0 });
                         });
@@ -51,14 +50,14 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenArrayIsTooLong()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        ExceptionAssert.Throws<ArgumentException>("values", () =>
+                        Assert.Throws<ArgumentException>("values", () =>
                         {
                             var values = new double[(image.Width * image.Height * image.ChannelCount) + 1];
                             pixels.SetDoublePixels(values);
@@ -67,7 +66,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangePixelsWhenArrayHasMaxNumberOfValues()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -77,7 +76,7 @@ namespace Magick.NET.Tests
                         var values = new double[image.Width * image.Height * image.ChannelCount];
                         pixels.SetDoublePixels(values);
 
-                        ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
+                        ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                     }
                 }
             }

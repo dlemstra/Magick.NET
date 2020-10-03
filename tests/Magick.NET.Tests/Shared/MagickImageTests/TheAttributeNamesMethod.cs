@@ -12,16 +12,15 @@
 
 using System.Linq;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheAttributeNamesMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheAttributeNames()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -30,8 +29,8 @@ namespace Magick.NET.Tests
                     image.SetArtifact("bar", "foo");
 
                     var names = image.AttributeNames;
-                    Assert.AreEqual(5, names.Count());
-                    Assert.AreEqual("date:create,date:modify,foo,jpeg:colorspace,jpeg:sampling-factor", string.Join(",", (from name in names
+                    Assert.Equal(5, names.Count());
+                    Assert.Equal("date:create,date:modify,foo,jpeg:colorspace,jpeg:sampling-factor", string.Join(",", (from name in names
                                                                                                                            orderby name
                                                                                                                            select name).ToArray()));
                 }

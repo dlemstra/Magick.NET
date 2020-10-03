@@ -12,18 +12,17 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class ByteConverterTests
     {
-        [TestMethod]
+        [Fact]
         public void Test_ToArray()
         {
             byte[] value = ByteConverter.ToArray(IntPtr.Zero, 4);
-            Assert.AreEqual(null, value);
+            Assert.Null(value);
         }
     }
 }

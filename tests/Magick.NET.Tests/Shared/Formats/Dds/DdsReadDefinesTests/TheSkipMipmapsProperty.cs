@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Dds;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class DdsReadDefinesTests
     {
-        [TestClass]
         public class TheSkipMipmapsProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 var settings = new MagickReadSettings()
@@ -36,12 +35,12 @@ namespace Magick.NET.Tests
                 {
                     images.Read(Files.Coders.TestDDS, settings);
 
-                    Assert.AreEqual(5, images.Count);
-                    Assert.AreEqual("false", images[0].Settings.GetDefine(MagickFormat.Dds, "skip-mipmaps"));
+                    Assert.Equal(5, images.Count);
+                    Assert.Equal("false", images[0].Settings.GetDefine(MagickFormat.Dds, "skip-mipmaps"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSkipTheMipmaps()
             {
                 var settings = new MagickReadSettings()
@@ -56,7 +55,7 @@ namespace Magick.NET.Tests
                 {
                     images.Read(Files.Coders.TestDDS, settings);
 
-                    EnumerableAssert.IsSingle(images);
+                    Assert.Single(images);
                 }
             }
         }

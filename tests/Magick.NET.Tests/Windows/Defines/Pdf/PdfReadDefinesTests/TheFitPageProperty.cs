@@ -14,16 +14,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Pdf;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class PdfReadDefinesTests
     {
-        [TestClass]
         public class TheFitPageProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefineWhenValueIsSet()
             {
                 using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
@@ -33,11 +32,11 @@ namespace Magick.NET.Tests
                         FitPage = new MagickGeometry(1, 2, 3, 4),
                     });
 
-                    Assert.AreEqual("3x4+1+2", image.Settings.GetDefine(MagickFormat.Pdf, "fit-page"));
+                    Assert.Equal("3x4+1+2", image.Settings.GetDefine(MagickFormat.Pdf, "fit-page"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetTheDefineWhenValueIsNotSet()
             {
                 using (var image = new MagickImage())
@@ -47,11 +46,11 @@ namespace Magick.NET.Tests
                         FitPage = null,
                     });
 
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Pdf, "fit-page"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "fit-page"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldLimitTheDimensions()
             {
                 var settings = new MagickReadSettings()
@@ -66,8 +65,8 @@ namespace Magick.NET.Tests
                 {
                     image.Read(Files.Coders.CartoonNetworkStudiosLogoAI, settings);
 
-                    Assert.IsTrue(image.Width <= 50);
-                    Assert.IsTrue(image.Height <= 40);
+                    Assert.True(image.Width <= 50);
+                    Assert.True(image.Height <= 40);
                 }
             }
         }

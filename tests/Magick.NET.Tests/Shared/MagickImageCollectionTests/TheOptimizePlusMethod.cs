@@ -12,7 +12,7 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -28,19 +28,18 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageCollectionTests
     {
-        [TestClass]
         public class TheOptimizePlusMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenCollectionIsEmpty()
             {
                 using (var images = new MagickImageCollection())
                 {
-                    ExceptionAssert.Throws<InvalidOperationException>(() => images.OptimizePlus());
+                    Assert.Throws<InvalidOperationException>(() => images.OptimizePlus());
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldRemoveDuplicateImages()
             {
                 using (var collection = new MagickImageCollection())
@@ -59,19 +58,19 @@ namespace Magick.NET.Tests
                     collection.Add(image);
                     collection.OptimizePlus();
 
-                    Assert.AreEqual(3, collection.Count);
+                    Assert.Equal(3, collection.Count);
 
-                    Assert.AreEqual(1, collection[1].Width);
-                    Assert.AreEqual(1, collection[1].Height);
-                    Assert.AreEqual(-1, collection[1].Page.X);
-                    Assert.AreEqual(-1, collection[1].Page.Y);
-                    ColorAssert.AreEqual(new MagickColor("#FF000000"), collection[1], 0, 0);
+                    Assert.Equal(1, collection[1].Width);
+                    Assert.Equal(1, collection[1].Height);
+                    Assert.Equal(-1, collection[1].Page.X);
+                    Assert.Equal(-1, collection[1].Page.Y);
+                    ColorAssert.Equal(new MagickColor("#FF000000"), collection[1], 0, 0);
 
-                    Assert.AreEqual(1, collection[2].Width);
-                    Assert.AreEqual(1, collection[2].Height);
-                    Assert.AreEqual(5, collection[2].Page.X);
-                    Assert.AreEqual(5, collection[2].Page.Y);
-                    ColorAssert.AreEqual(MagickColors.Lime, collection[2], 0, 0);
+                    Assert.Equal(1, collection[2].Width);
+                    Assert.Equal(1, collection[2].Height);
+                    Assert.Equal(5, collection[2].Page.X);
+                    Assert.Equal(5, collection[2].Page.Y);
+                    ColorAssert.Equal(MagickColors.Lime, collection[2], 0, 0);
                 }
             }
         }

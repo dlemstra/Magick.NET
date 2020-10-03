@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Dds;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class DdsWriteDefinesTests
     {
-        [TestClass]
         public class TheWeightByAlphaProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 using (var image = new MagickImage())
@@ -33,7 +32,7 @@ namespace Magick.NET.Tests
 
                     image.Settings.SetDefines(defines);
 
-                    Assert.AreEqual("false", image.Settings.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
+                    Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
                 }
             }
         }

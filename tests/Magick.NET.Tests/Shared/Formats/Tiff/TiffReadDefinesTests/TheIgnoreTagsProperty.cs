@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Tiff;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class TiffReadDefinesTests
     {
-        [TestClass]
         public class TheIgnoreTagsProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 using (var image = new MagickImage())
@@ -31,11 +30,11 @@ namespace Magick.NET.Tests
                         IgnoreTags = new[] { "1234" },
                     });
 
-                    Assert.AreEqual("1234", image.Settings.GetDefine(MagickFormat.Tiff, "ignore-tags"));
+                    Assert.Equal("1234", image.Settings.GetDefine(MagickFormat.Tiff, "ignore-tags"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetTheDefineWhenTheValueIsEmpty()
             {
                 using (var image = new MagickImage())
@@ -45,7 +44,7 @@ namespace Magick.NET.Tests
                         IgnoreTags = new string[] { },
                     });
 
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));
                 }
             }
         }

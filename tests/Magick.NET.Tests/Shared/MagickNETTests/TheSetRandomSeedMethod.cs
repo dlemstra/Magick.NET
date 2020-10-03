@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickNETTests
     {
-        [TestClass]
         public class TheSetRandomSeedMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldPassOrderedTests()
             {
                 ShouldMakeDifferentPlasmaImageWhenNotSet();
@@ -34,7 +33,7 @@ namespace Magick.NET.Tests
                 {
                     using (var second = new MagickImage("plasma:red", 10, 10))
                     {
-                        Assert.AreNotEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
+                        Assert.NotEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
                     }
                 }
             }
@@ -47,7 +46,7 @@ namespace Magick.NET.Tests
                 {
                     using (var second = new MagickImage("plasma:red", 10, 10))
                     {
-                        Assert.AreEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
+                        Assert.Equal(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
                     }
                 }
 

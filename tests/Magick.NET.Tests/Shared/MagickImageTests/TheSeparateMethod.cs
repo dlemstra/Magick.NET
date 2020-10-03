@@ -12,16 +12,15 @@
 
 using System.Linq;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheSeparateMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectNumberOfChannels()
             {
                 using (var rose = new MagickImage(Files.Builtin.Rose))
@@ -33,11 +32,11 @@ namespace Magick.NET.Tests
                         image.Dispose();
                     }
 
-                    Assert.AreEqual(3, i);
+                    Assert.Equal(3, i);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheSpecifiedChannels()
             {
                 using (var rose = new MagickImage(Files.Builtin.Rose))
@@ -49,18 +48,18 @@ namespace Magick.NET.Tests
                         image.Dispose();
                     }
 
-                    Assert.AreEqual(2, i);
+                    Assert.Equal(2, i);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnImageWithGrayColorspace()
             {
                 using (var logo = new MagickImage(Files.Builtin.Logo))
                 {
                     using (var blue = logo.Separate(Channels.Blue).First())
                     {
-                        Assert.AreEqual(ColorSpace.Gray, blue.ColorSpace);
+                        Assert.Equal(ColorSpace.Gray, blue.ColorSpace);
                     }
                 }
             }

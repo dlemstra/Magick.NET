@@ -11,29 +11,28 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class IExifProfileExtensionsTests
     {
-        [TestClass]
         public class TheCreateThumbnailMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldCreateImage()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetExifProfile();
-                    Assert.IsNotNull(profile);
+                    Assert.NotNull(profile);
 
                     using (var thumbnail = profile.CreateThumbnail())
                     {
-                        Assert.IsNotNull(thumbnail);
-                        Assert.AreEqual(128, thumbnail.Width);
-                        Assert.AreEqual(85, thumbnail.Height);
-                        Assert.AreEqual(MagickFormat.Jpeg, thumbnail.Format);
+                        Assert.NotNull(thumbnail);
+                        Assert.Equal(128, thumbnail.Width);
+                        Assert.Equal(85, thumbnail.Height);
+                        Assert.Equal(MagickFormat.Jpeg, thumbnail.Format);
                     }
                 }
             }

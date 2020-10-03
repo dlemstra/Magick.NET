@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickNETTests
     {
-        [TestClass]
         public class TheFeaturesProperty
         {
-            [TestMethod]
+            [Fact]
             public void ContainsExpectedFeatures()
             {
                 var expected = "Cipher DPC ";
@@ -37,7 +36,7 @@ namespace Magick.NET.Tests
                 expected = "Debug " + expected;
 #endif
 
-                Assert.AreEqual(expected, MagickNET.Features);
+                Assert.Equal(expected, MagickNET.Features);
             }
         }
     }

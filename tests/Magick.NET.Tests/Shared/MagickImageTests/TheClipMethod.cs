@@ -11,7 +11,7 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -27,16 +27,15 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheClipMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheCorrectColorsWhenInsideIsFalse()
             {
                 AssertClipColors(false, 0);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheCorrectColorsWhenInsideIsTrue()
             {
                 AssertClipColors(true, Quantum.Max);
@@ -52,23 +51,23 @@ namespace Magick.NET.Tests
 
                     using (var mask = image.GetWriteMask())
                     {
-                        Assert.IsNotNull(mask);
-                        Assert.IsFalse(mask.HasAlpha);
+                        Assert.NotNull(mask);
+                        Assert.False(mask.HasAlpha);
 
                         using (var pixels = mask.GetPixels())
                         {
                             var pixelA = pixels.GetPixel(0, 0).ToColor();
                             var pixelB = pixels.GetPixel(mask.Width - 1, mask.Height - 1).ToColor();
 
-                            Assert.AreEqual(pixelA, pixelB);
-                            Assert.AreEqual(value, pixelA.R);
-                            Assert.AreEqual(value, pixelA.G);
-                            Assert.AreEqual(value, pixelA.B);
+                            Assert.Equal(pixelA, pixelB);
+                            Assert.Equal(value, pixelA.R);
+                            Assert.Equal(value, pixelA.G);
+                            Assert.Equal(value, pixelA.B);
 
                             var pixelC = pixels.GetPixel(mask.Width / 2, mask.Height / 2).ToColor();
-                            Assert.AreEqual(Quantum.Max - value, pixelC.R);
-                            Assert.AreEqual(Quantum.Max - value, pixelC.G);
-                            Assert.AreEqual(Quantum.Max - value, pixelC.B);
+                            Assert.Equal(Quantum.Max - value, pixelC.R);
+                            Assert.Equal(Quantum.Max - value, pixelC.G);
+                            Assert.Equal(Quantum.Max - value, pixelC.B);
                         }
                     }
                 }

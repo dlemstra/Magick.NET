@@ -13,24 +13,23 @@
 #if WINDOWS_BUILD
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickSettingsTests
     {
-        [TestClass]
         public class TheFontFamilyProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldChangeTheFont()
             {
                 using (var image = new MagickImage())
                 {
-                    Assert.AreEqual(null, image.Settings.FontFamily);
-                    Assert.AreEqual(0, image.Settings.FontPointsize);
-                    Assert.AreEqual(FontStyleType.Undefined, image.Settings.FontStyle);
-                    Assert.AreEqual(FontWeight.Undefined, image.Settings.FontWeight);
+                    Assert.Null(image.Settings.FontFamily);
+                    Assert.Equal(0, image.Settings.FontPointsize);
+                    Assert.Equal(FontStyleType.Undefined, image.Settings.FontStyle);
+                    Assert.Equal(FontWeight.Undefined, image.Settings.FontWeight);
 
                     image.Settings.FontFamily = "Courier New";
                     image.Settings.FontPointsize = 40;
@@ -38,9 +37,9 @@ namespace Magick.NET.Tests
                     image.Settings.FontWeight = FontWeight.ExtraBold;
                     image.Read("label:Test");
 
-                    Assert.AreEqual(98, image.Width);
-                    Assert.AreEqual(48, image.Height);
-                    ColorAssert.AreEqual(MagickColors.Black, image, 16, 16);
+                    Assert.Equal(98, image.Width);
+                    Assert.Equal(48, image.Height);
+                    ColorAssert.Equal(MagickColors.Black, image, 16, 16);
                 }
             }
         }

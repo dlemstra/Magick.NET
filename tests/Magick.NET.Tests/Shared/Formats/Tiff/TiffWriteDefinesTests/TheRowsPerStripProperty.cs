@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Tiff;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class TiffWriteDefinesTests
     {
-        [TestClass]
         public class TheRowsPerStripProperty : TiffWriteDefinesTests
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
@@ -31,7 +30,7 @@ namespace Magick.NET.Tests
                         RowsPerStrip = 42,
                     });
 
-                    Assert.AreEqual("42", image.Settings.GetDefine(MagickFormat.Tiff, "rows-per-strip"));
+                    Assert.Equal("42", image.Settings.GetDefine(MagickFormat.Tiff, "rows-per-strip"));
                 }
             }
         }

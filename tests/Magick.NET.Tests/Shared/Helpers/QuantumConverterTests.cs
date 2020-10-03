@@ -12,7 +12,7 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -26,14 +26,13 @@ using QuantumType = System.Single;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class QuantumConverterTests
     {
-        [TestMethod]
+        [Fact]
         public void Test_ToArray()
         {
             QuantumType[] value = QuantumConverter.ToArray(IntPtr.Zero, 4);
-            Assert.AreEqual(null, value);
+            Assert.Null(value);
         }
     }
 }

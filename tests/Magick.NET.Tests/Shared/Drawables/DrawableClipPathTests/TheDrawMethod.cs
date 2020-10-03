@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class DrawableClipPathTests
     {
-        [TestClass]
         public class TheDrawMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheClipMask()
             {
                 using (var image = new MagickImage(MagickColors.Thistle, 100, 100))
@@ -41,10 +40,10 @@ namespace Magick.NET.Tests
                         .Line(0, 0, 99, 99)
                         .Draw(image);
 
-                    ColorAssert.AreEqual(MagickColors.Thistle, image, 0, 0);
-                    ColorAssert.AreEqual(MagickColors.Green, image, 20, 20);
-                    ColorAssert.AreEqual(MagickColors.Green, image, 80, 80);
-                    ColorAssert.AreEqual(MagickColors.Red, image, 50, 50);
+                    ColorAssert.Equal(MagickColors.Thistle, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.Green, image, 20, 20);
+                    ColorAssert.Equal(MagickColors.Green, image, 80, 80);
+                    ColorAssert.Equal(MagickColors.Red, image, 50, 50);
                 }
             }
 

@@ -12,23 +12,22 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Dds;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class DdsReadDefinesTests
     {
-        [TestClass]
         public class TheConstructor
         {
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetAnyDefines()
             {
                 using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(new DdsReadDefines());
 
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Dds, "skip-mipmaps"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Dds, "skip-mipmaps"));
                 }
             }
         }

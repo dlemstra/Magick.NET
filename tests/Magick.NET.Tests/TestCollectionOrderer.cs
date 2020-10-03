@@ -10,21 +10,21 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using ImageMagick;
 using ImageMagick.Configuration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using Xunit.Abstractions;
+
+[assembly: TestCollectionOrderer("Magick.NET.Tests.TestCollectionOrderer", "Magick.NET.Tests")]
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
-    public static class TestInitializer
+    public sealed class TestCollectionOrderer : ITestCollectionOrderer
     {
-        private static string _path;
-
-        [AssemblyInitialize]
-        public static void InitializeWithCustomPolicy(TestContext context)
+        public IEnumerable<ITestCollection> OrderTestCollections(IEnumerable<ITestCollection> testCollections)
         {
 #if !NETCORE
             MagickNET.SetGhostscriptDirectory(@"C:\Program Files (x86)\gs\gs9.53.1\bin");
@@ -34,17 +34,17 @@ namespace Magick.NET.Tests
             configFiles.Policy.Data = ModifyPolicy(configFiles.Policy.Data);
             configFiles.Type.Data = CreateTypeData();
 
-            _path = MagickNET.Initialize(configFiles);
-        }
+            var path = Path.Combine(Path.GetTempPath(), "Magick.NET.Tests");
+            Cleanup.DeleteDirectory(path);
+            Directory.CreateDirectory(path);
 
-        [AssemblyCleanup]
-        public static void RemoveCustomPolicyFolder()
-        {
-            Cleanup.DeleteDirectory(_path);
+            MagickNET.Initialize(configFiles, path);
+
+            return testCollections;
         }
 
         /// <summary>
-        /// Used by <see cref="MagickNETTests.InitializedWithCustomPolicy_ReadPalmFile_ThrowsException"/>.
+        /// Used by <see cref="MagickNETTests.TheInitializeMethod.WithPath.ShouldThrowExceptionWhenInitializedWithCustomPolicyThatDisablesReadingPalmFiles"/>.
         /// </summary>
         /// <param name="data">The current policy.</param>
         /// <returns>The new policy.</returns>
@@ -56,9 +56,9 @@ namespace Magick.NET.Tests
             };
 
             var doc = new XmlDocument();
-            using (StringReader sr = new StringReader(data))
+            using (var stringReader = new StringReader(data))
             {
-                using (XmlReader reader = XmlReader.Create(sr, settings))
+                using (XmlReader reader = XmlReader.Create(stringReader, settings))
                 {
                     doc.Load(reader);
                 }

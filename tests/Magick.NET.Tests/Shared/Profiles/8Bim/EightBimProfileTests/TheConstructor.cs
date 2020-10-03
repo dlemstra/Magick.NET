@@ -14,37 +14,36 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class EightBimProfileTests
     {
-        [TestClass]
         public class TheConstructor
         {
-            [TestMethod]
+            [Fact]
             public void ShouldAllowInvalidValues()
             {
                 var bytes = ToBytes('8', 'B', 'I', 'M', (short)42, (byte)0, 1);
 
                 var profile = new EightBimProfile(bytes);
-                EnumerableAssert.IsEmpty(profile.Values);
+                Assert.Empty(profile.Values);
 
                 bytes = ToBytes('8', 'B', 'I', 'M', (short)42, (short)0, -1);
 
                 profile = new EightBimProfile(bytes);
-                EnumerableAssert.IsEmpty(profile.Values);
+                Assert.Empty(profile.Values);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReadProfileValues()
             {
                 var bytes = ToBytes('8', 'B', 'I', 'M', (short)2000, (short)0, 1, (byte)0);
 
                 var profile = new EightBimProfile(bytes);
-                EnumerableAssert.IsSingle(profile.Values);
-                EnumerableAssert.IsEmpty(profile.ClipPaths);
+                Assert.Single(profile.Values);
+                Assert.Empty(profile.ClipPaths);
             }
 
             private static byte[] ToBytes(params object[] objects)

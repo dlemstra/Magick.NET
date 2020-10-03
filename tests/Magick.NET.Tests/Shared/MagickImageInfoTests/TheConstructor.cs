@@ -13,107 +13,103 @@
 using System;
 using System.IO;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageInfoTests
     {
-        [TestClass]
         public class TheConstructor
         {
-            [TestClass]
             public class WithByteArray
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenDataIsNull()
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("data", () => new MagickImageInfo((byte[])null));
+                    Assert.Throws<ArgumentNullException>("data", () => new MagickImageInfo((byte[])null));
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenDataIsEmpty()
                 {
-                    ExceptionAssert.Throws<ArgumentException>("data", () => new MagickImageInfo(new byte[0]));
+                    Assert.Throws<ArgumentException>("data", () => new MagickImageInfo(new byte[0]));
                 }
             }
 
-            [TestClass]
             public class WithByteArrayAndOffset
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("data", () => new MagickImageInfo(null, 0, 0));
+                    Assert.Throws<ArgumentNullException>("data", () => new MagickImageInfo(null, 0, 0));
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    ExceptionAssert.Throws<ArgumentException>("data", () => new MagickImageInfo(new byte[] { }, 0, 0));
+                    Assert.Throws<ArgumentException>("data", () => new MagickImageInfo(new byte[] { }, 0, 0));
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenOffsetIsNegative()
                 {
-                    ExceptionAssert.Throws<ArgumentException>("offset", () => new MagickImageInfo(new byte[] { 215 }, -1, 0));
+                    Assert.Throws<ArgumentException>("offset", () => new MagickImageInfo(new byte[] { 215 }, -1, 0));
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenCountIsZero()
                 {
-                    ExceptionAssert.Throws<ArgumentException>("count", () => new MagickImageInfo(new byte[] { 215 }, 0, 0));
+                    Assert.Throws<ArgumentException>("count", () => new MagickImageInfo(new byte[] { 215 }, 0, 0));
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenCountIsNegative()
                 {
-                    ExceptionAssert.Throws<ArgumentException>("count", () => new MagickImageInfo(new byte[] { 215 }, 0, -1));
+                    Assert.Throws<ArgumentException>("count", () => new MagickImageInfo(new byte[] { 215 }, 0, -1));
                 }
             }
 
-            [TestClass]
             public class WithFileInfo
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenFileIsNull()
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("file", () => new MagickImageInfo((FileInfo)null));
+                    Assert.Throws<ArgumentNullException>("file", () => new MagickImageInfo((FileInfo)null));
                 }
             }
 
-            [TestClass]
             public class WithFileName
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsNull()
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("fileName", () => new MagickImageInfo((string)null));
+                    Assert.Throws<ArgumentNullException>("fileName", () => new MagickImageInfo((string)null));
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsEmpty()
                 {
-                    ExceptionAssert.Throws<ArgumentException>("fileName", () => new MagickImageInfo(string.Empty));
+                    Assert.Throws<ArgumentException>("fileName", () => new MagickImageInfo(string.Empty));
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsInvalid()
                 {
-                    ExceptionAssert.Throws<MagickBlobErrorException>(() =>
+                    var exception = Assert.Throws<MagickBlobErrorException>(() =>
                     {
                         new MagickImageInfo(Files.Missing);
-                    }, "error/blob.c/OpenBlob");
+                    });
+
+                    Assert.Contains("error/blob.c/OpenBlob", exception.Message);
                 }
             }
 
-            [TestClass]
             public class WithStream
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("stream", () => new MagickImageInfo((Stream)null));
+                    Assert.Throws<ArgumentNullException>("stream", () => new MagickImageInfo((Stream)null));
                 }
             }
         }

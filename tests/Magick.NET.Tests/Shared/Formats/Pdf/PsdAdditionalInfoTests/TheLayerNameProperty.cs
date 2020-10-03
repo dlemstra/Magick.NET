@@ -12,29 +12,28 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Psd;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace Magick.NET.Tests.Shared.Formats.Pdf.PsdAdditionalInfoTests
+namespace Magick.NET.Tests
 {
     public partial class PsdAdditionalInfoTests
     {
-        [TestClass]
         public class TheLayerNameProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnNullWhenImageHasNoPsdAdditionalInfo()
             {
                 using (var images = new MagickImageCollection(Files.Coders.WizardPSD))
                 {
                     var info = PsdAdditionalInfo.FromImage(images[1]);
 
-                    Assert.IsNotNull(info);
-                    Assert.AreEqual("Волшебник-2", info.LayerName);
+                    Assert.NotNull(info);
+                    Assert.Equal("Волшебник-2", info.LayerName);
 
                     info = PsdAdditionalInfo.FromImage(images[2]);
 
-                    Assert.IsNotNull(info);
-                    Assert.AreEqual("Wizard-1", info.LayerName);
+                    Assert.NotNull(info);
+                    Assert.Equal("Wizard-1", info.LayerName);
                 }
             }
         }

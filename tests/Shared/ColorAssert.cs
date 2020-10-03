@@ -61,9 +61,8 @@ namespace Magick.NET
 
         public static void NotEqual(IMagickColor<QuantumType> notExpected, IMagickColor<QuantumType> actual, string messageSuffix)
         {
-            if (notExpected.R == actual.R && notExpected.G == actual.G &&
-               notExpected.B == actual.B && notExpected.A == actual.A)
-                throw new XunitException("Colors are the same (" + actual.ToString() + ")");
+            if (notExpected.R == actual.R && notExpected.G == actual.G && notExpected.B == actual.B && notExpected.A == actual.A)
+                throw new XunitException("Colors are the same (" + actual.ToString() + ")" + messageSuffix);
         }
 
         public static void NotEqual(IMagickColor<QuantumType> notExpected, IMagickImage<QuantumType> image, int x, int y)

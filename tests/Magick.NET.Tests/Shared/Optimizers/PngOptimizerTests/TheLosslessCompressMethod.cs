@@ -14,50 +14,48 @@ using System;
 using System.IO;
 using ImageMagick;
 using ImageMagick.ImageOptimizers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class PngOptimizerTests
     {
-        [TestClass]
         public class TheLosslessCompressMethod : PngOptimizerTests
         {
-            [TestMethod]
+            [Fact]
             public void ShouldCompressLossless()
             {
                 var result = AssertLosslessCompressSmaller(Files.SnakewarePNG);
-                Assert.AreEqual(8700, result);
+                Assert.Equal(8700, result);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldTryToCompressLossLess()
             {
                 AssertLosslessCompressNotSmaller(Files.MagickNETIconPNG);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldBeAbleToCompressFileTwoTimes()
             {
                 AssertLosslessCompressTwice(Files.SnakewarePNG);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenFileFormatIsInvalid()
             {
                 AssertLosslessCompressInvalidFileFormat(Files.ImageMagickJPG);
             }
 
-            [TestClass]
             public class WithFile : TheLosslessCompressMethod
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenFileIsNull()
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("file", () => Optimizer.LosslessCompress((FileInfo)null));
+                    Assert.Throws<ArgumentNullException>("file", () => Optimizer.LosslessCompress((FileInfo)null));
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldNotOptimizeAnimatedPNG()
                 {
                     PngOptimizer optimizer = new PngOptimizer();
@@ -65,69 +63,69 @@ namespace Magick.NET.Tests
                     using (TemporaryFile tempFile = new TemporaryFile(Files.Coders.AnimatedPNGexampleBouncingBeachBallPNG))
                     {
                         var result = optimizer.LosslessCompress(tempFile);
-                        Assert.IsFalse(result);
+                        Assert.False(result);
                     }
                 }
             }
 
-            [TestClass]
             public class WithFileName : TheLosslessCompressMethod
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsNull()
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("fileName", () => Optimizer.LosslessCompress((string)null));
+                    Assert.Throws<ArgumentNullException>("fileName", () => Optimizer.LosslessCompress((string)null));
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsEmpty()
                 {
-                    ExceptionAssert.Throws<ArgumentException>("fileName", () => Optimizer.LosslessCompress(string.Empty));
+                    Assert.Throws<ArgumentException>("fileName", () => Optimizer.LosslessCompress(string.Empty));
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsInvalid()
                 {
-                    ExceptionAssert.Throws<MagickBlobErrorException>(() =>
+                    var exception = Assert.Throws<MagickBlobErrorException>(() =>
                     {
                         Optimizer.LosslessCompress(Files.Missing);
-                    }, "error/blob.c/OpenBlob");
+                    });
+
+                    Assert.Contains("error/blob.c/OpenBlob", exception.Message);
                 }
             }
 
-            [TestClass]
             public class WithStreamName : TheLosslessCompressMethod
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("stream", () => Optimizer.LosslessCompress((Stream)null));
+                    Assert.Throws<ArgumentNullException>("stream", () => Optimizer.LosslessCompress((Stream)null));
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNotReadable()
                 {
                     using (TestStream stream = new TestStream(false, true, true))
                     {
-                        ExceptionAssert.Throws<ArgumentException>("stream", () => Optimizer.LosslessCompress(stream));
+                        Assert.Throws<ArgumentException>("stream", () => Optimizer.LosslessCompress(stream));
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNotWriteable()
                 {
                     using (TestStream stream = new TestStream(true, false, true))
                     {
-                        ExceptionAssert.Throws<ArgumentException>("stream", () => Optimizer.LosslessCompress(stream));
+                        Assert.Throws<ArgumentException>("stream", () => Optimizer.LosslessCompress(stream));
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNotSeekable()
                 {
                     using (TestStream stream = new TestStream(true, true, false))
                     {
-                        ExceptionAssert.Throws<ArgumentException>("stream", () => Optimizer.LosslessCompress(stream));
+                        Assert.Throws<ArgumentException>("stream", () => Optimizer.LosslessCompress(stream));
                     }
                 }
             }

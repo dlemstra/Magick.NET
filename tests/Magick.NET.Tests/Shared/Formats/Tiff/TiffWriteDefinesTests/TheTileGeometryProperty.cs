@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Tiff;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class TiffWriteDefinesTests
     {
-        [TestClass]
         public class TheTileGeometryProperty : TiffWriteDefinesTests
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
@@ -31,7 +30,7 @@ namespace Magick.NET.Tests
                         TileGeometry = new MagickGeometry(1, 2),
                     });
 
-                    Assert.AreEqual("1x2", image.Settings.GetDefine(MagickFormat.Tiff, "tile-geometry"));
+                    Assert.Equal("1x2", image.Settings.GetDefine(MagickFormat.Tiff, "tile-geometry"));
                 }
             }
         }

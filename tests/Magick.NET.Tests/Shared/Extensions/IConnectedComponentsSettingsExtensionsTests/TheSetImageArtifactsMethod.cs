@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class IConnectedComponentsSettingsExtensionsTests
     {
-        [TestClass]
         public class TheSetImageArtifactsMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetTheAttributesWhenTheyAreNotSpecified()
             {
                 using (var image = new MagickImage())
@@ -29,11 +28,11 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsEmpty(image.ArtifactNames);
+                    Assert.Empty(image.ArtifactNames);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheAngleThreshold()
             {
                 using (var image = new MagickImage())
@@ -45,12 +44,12 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsSingle(image.ArtifactNames);
-                    Assert.AreEqual("1.5", image.GetArtifact("connected-components:angle-threshold"));
+                    Assert.Single(image.ArtifactNames);
+                    Assert.Equal("1.5", image.GetArtifact("connected-components:angle-threshold"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheMinumunAndMaximumAngleThreshold()
             {
                 using (var image = new MagickImage())
@@ -62,12 +61,12 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsSingle(image.ArtifactNames);
-                    Assert.AreEqual("1.2-3.4", image.GetArtifact("connected-components:angle-threshold"));
+                    Assert.Single(image.ArtifactNames);
+                    Assert.Equal("1.2-3.4", image.GetArtifact("connected-components:angle-threshold"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheAreaThreshold()
             {
                 using (var image = new MagickImage())
@@ -79,12 +78,12 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsSingle(image.ArtifactNames);
-                    Assert.AreEqual("1.5", image.GetArtifact("connected-components:area-threshold"));
+                    Assert.Single(image.ArtifactNames);
+                    Assert.Equal("1.5", image.GetArtifact("connected-components:area-threshold"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheMinumunAndMaximumAreaThreshold()
             {
                 using (var image = new MagickImage())
@@ -96,12 +95,12 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsSingle(image.ArtifactNames);
-                    Assert.AreEqual("1.2-3.4", image.GetArtifact("connected-components:area-threshold"));
+                    Assert.Single(image.ArtifactNames);
+                    Assert.Equal("1.2-3.4", image.GetArtifact("connected-components:area-threshold"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheCircularityThreshold()
             {
                 using (var image = new MagickImage())
@@ -113,12 +112,12 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsSingle(image.ArtifactNames);
-                    Assert.AreEqual("1.5", image.GetArtifact("connected-components:circularity-threshold"));
+                    Assert.Single(image.ArtifactNames);
+                    Assert.Equal("1.5", image.GetArtifact("connected-components:circularity-threshold"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheMinumunAndMaximumCircularityThreshold()
             {
                 using (var image = new MagickImage())
@@ -130,12 +129,12 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsSingle(image.ArtifactNames);
-                    Assert.AreEqual("1.2-3.4", image.GetArtifact("connected-components:circularity-threshold"));
+                    Assert.Single(image.ArtifactNames);
+                    Assert.Equal("1.2-3.4", image.GetArtifact("connected-components:circularity-threshold"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDiameterThreshold()
             {
                 using (var image = new MagickImage())
@@ -147,12 +146,12 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsSingle(image.ArtifactNames);
-                    Assert.AreEqual("1.5", image.GetArtifact("connected-components:diameter-threshold"));
+                    Assert.Single(image.ArtifactNames);
+                    Assert.Equal("1.5", image.GetArtifact("connected-components:diameter-threshold"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheMinumunAndMaximumDiameterThreshold()
             {
                 using (var image = new MagickImage())
@@ -164,12 +163,12 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsSingle(image.ArtifactNames);
-                    Assert.AreEqual("1.2-3.4", image.GetArtifact("connected-components:diameter-threshold"));
+                    Assert.Single(image.ArtifactNames);
+                    Assert.Equal("1.2-3.4", image.GetArtifact("connected-components:diameter-threshold"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheEccentricityThreshold()
             {
                 using (var image = new MagickImage())
@@ -181,12 +180,12 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsSingle(image.ArtifactNames);
-                    Assert.AreEqual("1.5", image.GetArtifact("connected-components:eccentricity-threshold"));
+                    Assert.Single(image.ArtifactNames);
+                    Assert.Equal("1.5", image.GetArtifact("connected-components:eccentricity-threshold"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheMinumunAndMaximumEccentricityThreshold()
             {
                 using (var image = new MagickImage())
@@ -198,12 +197,12 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsSingle(image.ArtifactNames);
-                    Assert.AreEqual("1.2-3.4", image.GetArtifact("connected-components:eccentricity-threshold"));
+                    Assert.Single(image.ArtifactNames);
+                    Assert.Equal("1.2-3.4", image.GetArtifact("connected-components:eccentricity-threshold"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheMajorAxisThreshold()
             {
                 using (var image = new MagickImage())
@@ -215,12 +214,12 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsSingle(image.ArtifactNames);
-                    Assert.AreEqual("1.5", image.GetArtifact("connected-components:major-axis-threshold"));
+                    Assert.Single(image.ArtifactNames);
+                    Assert.Equal("1.5", image.GetArtifact("connected-components:major-axis-threshold"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheMinumunAndMaximumMajorAxisThreshold()
             {
                 using (var image = new MagickImage())
@@ -232,12 +231,12 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsSingle(image.ArtifactNames);
-                    Assert.AreEqual("1.2-3.4", image.GetArtifact("connected-components:major-axis-threshold"));
+                    Assert.Single(image.ArtifactNames);
+                    Assert.Equal("1.2-3.4", image.GetArtifact("connected-components:major-axis-threshold"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetMeanColor()
             {
                 using (var image = new MagickImage())
@@ -249,12 +248,12 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsSingle(image.ArtifactNames);
-                    Assert.AreEqual("true", image.GetArtifact("connected-components:mean-color"));
+                    Assert.Single(image.ArtifactNames);
+                    Assert.Equal("true", image.GetArtifact("connected-components:mean-color"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheMinorAxisThreshold()
             {
                 using (var image = new MagickImage())
@@ -266,12 +265,12 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsSingle(image.ArtifactNames);
-                    Assert.AreEqual("1.5", image.GetArtifact("connected-components:minor-axis-threshold"));
+                    Assert.Single(image.ArtifactNames);
+                    Assert.Equal("1.5", image.GetArtifact("connected-components:minor-axis-threshold"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheMinumunAndMaximumMinorAxisThreshold()
             {
                 using (var image = new MagickImage())
@@ -283,12 +282,12 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsSingle(image.ArtifactNames);
-                    Assert.AreEqual("1.2-3.4", image.GetArtifact("connected-components:minor-axis-threshold"));
+                    Assert.Single(image.ArtifactNames);
+                    Assert.Equal("1.2-3.4", image.GetArtifact("connected-components:minor-axis-threshold"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetThePerimeterThreshold()
             {
                 using (var image = new MagickImage())
@@ -300,12 +299,12 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsSingle(image.ArtifactNames);
-                    Assert.AreEqual("1.5", image.GetArtifact("connected-components:perimeter-threshold"));
+                    Assert.Single(image.ArtifactNames);
+                    Assert.Equal("1.5", image.GetArtifact("connected-components:perimeter-threshold"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheMinumunAndMaximumPerimeterThreshold()
             {
                 using (var image = new MagickImage())
@@ -317,8 +316,8 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsSingle(image.ArtifactNames);
-                    Assert.AreEqual("1.2-3.4", image.GetArtifact("connected-components:perimeter-threshold"));
+                    Assert.Single(image.ArtifactNames);
+                    Assert.Equal("1.2-3.4", image.GetArtifact("connected-components:perimeter-threshold"));
                 }
             }
         }

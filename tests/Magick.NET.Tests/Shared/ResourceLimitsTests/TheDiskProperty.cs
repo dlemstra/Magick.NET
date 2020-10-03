@@ -11,22 +11,21 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class ResourceLimitsTests
     {
-        [TestClass]
         public class TheDiskProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldHaveTheCorrectValue()
             {
-                Assert.AreEqual((ulong)long.MaxValue, ResourceLimits.Disk);
+                Assert.Equal((ulong)long.MaxValue, ResourceLimits.Disk);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
                 ExecuteInsideLock(() =>
@@ -34,7 +33,7 @@ namespace Magick.NET.Tests
                     var disk = ResourceLimits.Disk;
 
                     ResourceLimits.Disk = 40000U;
-                    Assert.AreEqual(40000U, ResourceLimits.Disk);
+                    Assert.Equal(40000U, ResourceLimits.Disk);
                     ResourceLimits.Disk = disk;
                 });
             }

@@ -12,26 +12,25 @@
 
 using System.IO;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class TheDdsCoder
     {
-        [TestMethod]
+        [Fact]
         public void ShouldUseDxt1AsTheDefaultCompression()
         {
             using (var input = new MagickImage(Files.Builtin.Logo))
             {
                 using (var output = WriteDds(input))
                 {
-                    Assert.AreEqual(CompressionMethod.DXT1, output.Compression);
+                    Assert.Equal(CompressionMethod.DXT1, output.Compression);
                 }
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldUseDxt5AsTheDefaultCompressionForImagesWithAnAlphaChannel()
         {
             using (var input = new MagickImage(Files.Builtin.Logo))
@@ -40,7 +39,7 @@ namespace Magick.NET.Tests
 
                 using (var output = WriteDds(input))
                 {
-                    Assert.AreEqual(CompressionMethod.DXT5, output.Compression);
+                    Assert.Equal(CompressionMethod.DXT5, output.Compression);
                 }
             }
         }

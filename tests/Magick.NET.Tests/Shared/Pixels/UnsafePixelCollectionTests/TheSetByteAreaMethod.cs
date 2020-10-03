@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class UnsafePixelCollectionTests
     {
-        [TestClass]
         public class TheSetByteAreaMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldNotThrowExceptionWhenArrayIsNull()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -32,7 +31,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotThrowExceptionWhenArrayHasInvalidSize()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -44,7 +43,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotThrowExceptionWhenArrayHasTooManyValues()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -57,7 +56,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangePixelsWhenArrayHasMaxNumberOfValues()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -67,12 +66,12 @@ namespace Magick.NET.Tests
                         var values = new byte[113 * 108 * image.ChannelCount];
                         pixels.SetByteArea(10, 10, 113, 108, values);
 
-                        ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
+                        ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotThrowExceptionWhenArrayIsSpecifiedAndGeometryIsNull()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -84,7 +83,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangePixelsWhenGeometryAndArrayAreSpecified()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -94,7 +93,7 @@ namespace Magick.NET.Tests
                         var values = new byte[113 * 108 * image.ChannelCount];
                         pixels.SetByteArea(new MagickGeometry(10, 10, 113, 108), values);
 
-                        ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
+                        ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                     }
                 }
             }

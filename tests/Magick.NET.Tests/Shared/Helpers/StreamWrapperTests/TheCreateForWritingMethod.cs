@@ -12,28 +12,29 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class StreamWrapperTests
     {
-        [TestClass]
         public class TheCreateForWritingMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenStreamIsNotWritable()
             {
                 using (TestStream stream = new TestStream(true, false, true))
                 {
-                    ExceptionAssert.Throws<ArgumentException>("stream", () =>
+                    var exception = Assert.Throws<ArgumentException>("stream", () =>
                     {
                         StreamWrapper.CreateForWriting(stream);
-                    }, "writable");
+                    });
+
+                    Assert.Contains("writable", exception.Message);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldOnlySetReaderWhenStreamIsOnlyReadable()
             {
                 using (TestStream stream = new TestStream(false, true, true))

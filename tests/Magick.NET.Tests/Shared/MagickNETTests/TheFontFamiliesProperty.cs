@@ -12,28 +12,29 @@
 
 using System.Linq;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using Xunit.Sdk;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickNETTests
     {
-        [TestClass]
         public class TheFontFamiliesProperty
         {
-            [TestMethod]
+            [Fact]
             public void ContainsArial()
             {
                 var fontFamilies = MagickNET.FontFamilies.ToArray();
                 var fontFamily = fontFamilies.FirstOrDefault(f => f == "Arial");
-                Assert.IsNotNull(fontFamily, $"Unable to find Arial in font families: {string.Join(",", fontFamilies)}");
+                if (fontFamily == null)
+                    throw new XunitException($"Unable to find Arial in font families: {string.Join(",", fontFamilies)}");
             }
 
-            [TestMethod]
+            [Fact]
             public void ContainsNoDuplicates()
             {
                 var fontFamilies = MagickNET.FontFamilies.ToArray();
-                Assert.AreEqual(fontFamilies.Count(), fontFamilies.Distinct().Count());
+                Assert.Equal(fontFamilies.Count(), fontFamilies.Distinct().Count());
             }
         }
     }

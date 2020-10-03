@@ -12,7 +12,7 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -28,19 +28,18 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageCollectionTests
     {
-        [TestClass]
         public class TheOptimizeTransparencyMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenCollectionIsEmpty()
             {
                 using (var images = new MagickImageCollection())
                 {
-                    ExceptionAssert.Throws<InvalidOperationException>(() => images.OptimizeTransparency());
+                    Assert.Throws<InvalidOperationException>(() => images.OptimizeTransparency());
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldCorrectlyOptimizeTheImages()
             {
                 using (var collection = new MagickImageCollection())
@@ -56,12 +55,12 @@ namespace Magick.NET.Tests
                     collection.Add(image);
                     collection.OptimizeTransparency();
 
-                    Assert.AreEqual(11, collection[1].Width);
-                    Assert.AreEqual(11, collection[1].Height);
-                    Assert.AreEqual(0, collection[1].Page.X);
-                    Assert.AreEqual(0, collection[1].Page.Y);
-                    ColorAssert.AreEqual(MagickColors.Lime, collection[1], 5, 5);
-                    ColorAssert.AreEqual(new MagickColor("#f000"), collection[1], 4, 4);
+                    Assert.Equal(11, collection[1].Width);
+                    Assert.Equal(11, collection[1].Height);
+                    Assert.Equal(0, collection[1].Page.X);
+                    Assert.Equal(0, collection[1].Page.Y);
+                    ColorAssert.Equal(MagickColors.Lime, collection[1], 5, 5);
+                    ColorAssert.Equal(new MagickColor("#f000"), collection[1], 4, 4);
                 }
             }
         }

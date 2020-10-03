@@ -13,7 +13,7 @@
 using System.IO;
 using ImageMagick;
 using ImageMagick.Formats.Psd;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -29,10 +29,9 @@ namespace Magick.NET.Tests
 {
     public partial class PsdWriteDefinesTests
     {
-        [TestClass]
         public class TheAdditionalInfoProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 using (var image = new MagickImage())
@@ -42,11 +41,11 @@ namespace Magick.NET.Tests
                         AdditionalInfo = PsdAdditionalInfoPart.Selective,
                     });
 
-                    Assert.AreEqual("Selective", image.Settings.GetDefine(MagickFormat.Psd, "additional-info"));
+                    Assert.Equal("Selective", image.Settings.GetDefine(MagickFormat.Psd, "additional-info"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldMakeSetWhichAdditionalInfoShouldBeWritten()
             {
                 using (var images = new MagickImageCollection())
@@ -73,7 +72,7 @@ namespace Magick.NET.Tests
             {
                 var profile = image.GetProfile("psd:additional-info");
                 int actualLength = profile?.ToByteArray().Length ?? 0;
-                Assert.AreEqual(expectedLength, actualLength);
+                Assert.Equal(expectedLength, actualLength);
             }
 
             private static void WriteAndCheckProfile(IMagickImageCollection<QuantumType> images, PsdWriteDefines defines, int expectedLength)

@@ -14,14 +14,13 @@ using System;
 using System.Linq;
 using System.Text;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class DrawableTests
     {
-        [TestMethod]
+        [Fact]
         public void Test_Drawables()
         {
             PointD[] coordinates = new PointD[3];
@@ -36,7 +35,7 @@ namespace Magick.NET.Tests
                 image.Draw(new DrawableArc(0, 0, 10, 10, 45, 90));
 
                 var bezier = new DrawableBezier(coordinates.ToList());
-                Assert.AreEqual(3, bezier.Coordinates.Count());
+                Assert.Equal(3, bezier.Coordinates.Count());
                 image.Draw(bezier);
 
                 image.Draw(new DrawableBorderColor(MagickColors.Fuchsia));
@@ -103,7 +102,7 @@ namespace Magick.NET.Tests
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Drawables_Draw()
         {
             PointD[] coordinates = new PointD[3];
@@ -111,129 +110,129 @@ namespace Magick.NET.Tests
             coordinates[1] = new PointD(50, 50);
             coordinates[2] = new PointD(99, 99);
 
-            Test_Drawables_Draw(new DrawableAffine(0, 0, 1, 1, 2, 2));
-            Test_Drawables_Draw(new DrawableAlpha(0, 0, PaintMethod.Floodfill));
-            Test_Drawables_Draw(new DrawableArc(0, 0, 10, 10, 45, 90));
-            Test_Drawables_Draw(new DrawableBezier(coordinates));
-            Test_Drawables_Draw(new DrawableBorderColor(MagickColors.Fuchsia));
-            Test_Drawables_Draw(new DrawableCircle(0, 0, 50, 50));
-            Test_Drawables_Draw(new DrawableClipPath("foo"));
-            Test_Drawables_Draw(new DrawableClipRule(FillRule.Nonzero));
-            Test_Drawables_Draw(new DrawableClipUnits(ClipPathUnit.UserSpaceOnUse));
-            Test_Drawables_Draw(new DrawableColor(0, 0, PaintMethod.Floodfill));
+            AssertDraw(new DrawableAffine(0, 0, 1, 1, 2, 2));
+            AssertDraw(new DrawableAlpha(0, 0, PaintMethod.Floodfill));
+            AssertDraw(new DrawableArc(0, 0, 10, 10, 45, 90));
+            AssertDraw(new DrawableBezier(coordinates));
+            AssertDraw(new DrawableBorderColor(MagickColors.Fuchsia));
+            AssertDraw(new DrawableCircle(0, 0, 50, 50));
+            AssertDraw(new DrawableClipPath("foo"));
+            AssertDraw(new DrawableClipRule(FillRule.Nonzero));
+            AssertDraw(new DrawableClipUnits(ClipPathUnit.UserSpaceOnUse));
+            AssertDraw(new DrawableColor(0, 0, PaintMethod.Floodfill));
 
             using (var compositeImage = new MagickImage(new MagickColor("red"), 50, 50))
             {
-                Test_Drawables_Draw(new DrawableComposite(0, 0, compositeImage));
-                Test_Drawables_Draw(new DrawableComposite(0, 0, CompositeOperator.Over, compositeImage));
-                Test_Drawables_Draw(new DrawableComposite(new MagickGeometry(50, 50, 10, 10), compositeImage));
-                Test_Drawables_Draw(new DrawableComposite(new MagickGeometry(50, 50, 10, 10), CompositeOperator.Over, compositeImage));
+                AssertDraw(new DrawableComposite(0, 0, compositeImage));
+                AssertDraw(new DrawableComposite(0, 0, CompositeOperator.Over, compositeImage));
+                AssertDraw(new DrawableComposite(new MagickGeometry(50, 50, 10, 10), compositeImage));
+                AssertDraw(new DrawableComposite(new MagickGeometry(50, 50, 10, 10), CompositeOperator.Over, compositeImage));
             }
 
-            Test_Drawables_Draw(new DrawableDensity(97));
-            Test_Drawables_Draw(new DrawableEllipse(10, 10, 4, 4, 0, 360));
-            Test_Drawables_Draw(new DrawableFillColor(MagickColors.Red));
-            Test_Drawables_Draw(new DrawableFillOpacity(new Percentage(50)));
-            Test_Drawables_Draw(new DrawableFillRule(FillRule.EvenOdd));
-            Test_Drawables_Draw(new DrawableFont("Arial"));
-            Test_Drawables_Draw(new DrawableGravity(Gravity.Center));
-            Test_Drawables_Draw(new DrawableLine(20, 20, 40, 40));
-            Test_Drawables_Draw(new DrawablePoint(60, 60));
-            Test_Drawables_Draw(new DrawableFontPointSize(5));
-            Test_Drawables_Draw(new DrawablePolygon(coordinates));
-            Test_Drawables_Draw(new DrawablePolyline(coordinates));
-            Test_Drawables_Draw(new DrawableRectangle(30, 30, 70, 70));
-            Test_Drawables_Draw(new DrawableRotation(180));
-            Test_Drawables_Draw(new DrawableRoundRectangle(30, 30, 50, 50, 70, 70));
-            Test_Drawables_Draw(new DrawableScaling(15, 15));
-            Test_Drawables_Draw(new DrawableSkewX(90));
-            Test_Drawables_Draw(new DrawableSkewY(90));
-            Test_Drawables_Draw(new DrawableStrokeAntialias(true));
-            Test_Drawables_Draw(new DrawableStrokeColor(MagickColors.Purple));
-            Test_Drawables_Draw(new DrawableStrokeDashArray(new double[2] { 10, 20 }));
-            Test_Drawables_Draw(new DrawableStrokeDashOffset(2));
-            Test_Drawables_Draw(new DrawableStrokeLineCap(LineCap.Square));
-            Test_Drawables_Draw(new DrawableStrokeLineJoin(LineJoin.Bevel));
-            Test_Drawables_Draw(new DrawableStrokeMiterLimit(5));
-            Test_Drawables_Draw(new DrawableStrokeOpacity(new Percentage(80)));
-            Test_Drawables_Draw(new DrawableStrokeWidth(4));
-            Test_Drawables_Draw(new DrawableText(0, 60, "test"));
-            Test_Drawables_Draw(new DrawableTextAlignment(TextAlignment.Center));
-            Test_Drawables_Draw(new DrawableTextAntialias(true));
-            Test_Drawables_Draw(new DrawableTextDecoration(TextDecoration.LineThrough));
-            Test_Drawables_Draw(new DrawableTextDirection(TextDirection.RightToLeft));
-            Test_Drawables_Draw(new DrawableTextEncoding(Encoding.ASCII));
-            Test_Drawables_Draw(new DrawableTextInterlineSpacing(4));
-            Test_Drawables_Draw(new DrawableTextInterwordSpacing(6));
-            Test_Drawables_Draw(new DrawableTextKerning(2));
-            Test_Drawables_Draw(new DrawableTextUnderColor(MagickColors.Yellow));
-            Test_Drawables_Draw(new DrawableTranslation(65, 65));
-            Test_Drawables_Draw(new DrawableViewbox(0, 0, 100, 100));
+            AssertDraw(new DrawableDensity(97));
+            AssertDraw(new DrawableEllipse(10, 10, 4, 4, 0, 360));
+            AssertDraw(new DrawableFillColor(MagickColors.Red));
+            AssertDraw(new DrawableFillOpacity(new Percentage(50)));
+            AssertDraw(new DrawableFillRule(FillRule.EvenOdd));
+            AssertDraw(new DrawableFont("Arial"));
+            AssertDraw(new DrawableGravity(Gravity.Center));
+            AssertDraw(new DrawableLine(20, 20, 40, 40));
+            AssertDraw(new DrawablePoint(60, 60));
+            AssertDraw(new DrawableFontPointSize(5));
+            AssertDraw(new DrawablePolygon(coordinates));
+            AssertDraw(new DrawablePolyline(coordinates));
+            AssertDraw(new DrawableRectangle(30, 30, 70, 70));
+            AssertDraw(new DrawableRotation(180));
+            AssertDraw(new DrawableRoundRectangle(30, 30, 50, 50, 70, 70));
+            AssertDraw(new DrawableScaling(15, 15));
+            AssertDraw(new DrawableSkewX(90));
+            AssertDraw(new DrawableSkewY(90));
+            AssertDraw(new DrawableStrokeAntialias(true));
+            AssertDraw(new DrawableStrokeColor(MagickColors.Purple));
+            AssertDraw(new DrawableStrokeDashArray(new double[2] { 10, 20 }));
+            AssertDraw(new DrawableStrokeDashOffset(2));
+            AssertDraw(new DrawableStrokeLineCap(LineCap.Square));
+            AssertDraw(new DrawableStrokeLineJoin(LineJoin.Bevel));
+            AssertDraw(new DrawableStrokeMiterLimit(5));
+            AssertDraw(new DrawableStrokeOpacity(new Percentage(80)));
+            AssertDraw(new DrawableStrokeWidth(4));
+            AssertDraw(new DrawableText(0, 60, "test"));
+            AssertDraw(new DrawableTextAlignment(TextAlignment.Center));
+            AssertDraw(new DrawableTextAntialias(true));
+            AssertDraw(new DrawableTextDecoration(TextDecoration.LineThrough));
+            AssertDraw(new DrawableTextDirection(TextDirection.RightToLeft));
+            AssertDraw(new DrawableTextEncoding(Encoding.ASCII));
+            AssertDraw(new DrawableTextInterlineSpacing(4));
+            AssertDraw(new DrawableTextInterwordSpacing(6));
+            AssertDraw(new DrawableTextKerning(2));
+            AssertDraw(new DrawableTextUnderColor(MagickColors.Yellow));
+            AssertDraw(new DrawableTranslation(65, 65));
+            AssertDraw(new DrawableViewbox(0, 0, 100, 100));
 
-            Test_Drawables_Draw(new DrawablePushClipPath("#1"));
-            Test_Drawables_Draw(new DrawablePopClipPath());
-            Test_Drawables_Draw(new DrawablePushGraphicContext());
-            Test_Drawables_Draw(new DrawablePopGraphicContext());
-            Test_Drawables_Draw(new DrawablePushPattern("test", 30, 30, 10, 10));
-            Test_Drawables_Draw(new DrawablePopPattern());
-            Test_Drawables_Draw(new DrawableFillPatternUrl("#test"));
-            Test_Drawables_Draw(new DrawableStrokePatternUrl("#test"));
+            AssertDraw(new DrawablePushClipPath("#1"));
+            AssertDraw(new DrawablePopClipPath());
+            AssertDraw(new DrawablePushGraphicContext());
+            AssertDraw(new DrawablePopGraphicContext());
+            AssertDraw(new DrawablePushPattern("test", 30, 30, 10, 10));
+            AssertDraw(new DrawablePopPattern());
+            AssertDraw(new DrawableFillPatternUrl("#test"));
+            AssertDraw(new DrawableStrokePatternUrl("#test"));
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Drawables_Exceptions()
         {
-            ExceptionAssert.Throws<ArgumentException>("coordinates", () =>
+            Assert.Throws<ArgumentException>("coordinates", () =>
             {
                 new DrawableBezier();
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>("coordinates", () =>
+            Assert.Throws<ArgumentNullException>("coordinates", () =>
             {
                 new DrawableBezier(null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>("coordinates", () =>
+            Assert.Throws<ArgumentException>("coordinates", () =>
             {
                 new DrawableBezier(new PointD[] { });
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>("clipPath", () =>
+            Assert.Throws<ArgumentNullException>("clipPath", () =>
             {
                 new DrawableClipPath(null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>("clipPath", () =>
+            Assert.Throws<ArgumentException>("clipPath", () =>
             {
                 new DrawableClipPath(string.Empty);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>("offset", () =>
+            Assert.Throws<ArgumentNullException>("offset", () =>
             {
                 new DrawableComposite(null, new MagickImage(Files.Builtin.Logo));
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+            Assert.Throws<ArgumentNullException>("image", () =>
             {
                 new DrawableComposite(new MagickGeometry(), null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>("color", () =>
+            Assert.Throws<ArgumentNullException>("color", () =>
             {
                 new DrawableFillColor(null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>("family", () =>
+            Assert.Throws<ArgumentNullException>("family", () =>
             {
                 new DrawableFont(null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>("family", () =>
+            Assert.Throws<ArgumentException>("family", () =>
             {
                 new DrawableFont(string.Empty);
             });
 
-            ExceptionAssert.Throws<MagickDrawErrorException>(() =>
+            Assert.Throws<MagickDrawErrorException>(() =>
             {
                 using (var image = new MagickImage(Files.Builtin.Wizard))
                 {
@@ -241,38 +240,38 @@ namespace Magick.NET.Tests
                 }
             });
 
-            ExceptionAssert.Throws<ArgumentException>("coordinates", () =>
+            Assert.Throws<ArgumentException>("coordinates", () =>
             {
                 new DrawablePolygon(new PointD[] { new PointD(0, 0) });
             });
 
-            ExceptionAssert.Throws<ArgumentException>("coordinates", () =>
+            Assert.Throws<ArgumentException>("coordinates", () =>
             {
                 new DrawablePolyline(new PointD[] { new PointD(0, 0), new PointD(0, 0) });
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>("color", () =>
+            Assert.Throws<ArgumentNullException>("color", () =>
             {
                 new DrawableStrokeColor(null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>("value", () =>
+            Assert.Throws<ArgumentNullException>("value", () =>
             {
                 new DrawableText(0, 0, null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>("value", () =>
+            Assert.Throws<ArgumentException>("value", () =>
             {
                 new DrawableText(0, 0, string.Empty);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>("encoding", () =>
+            Assert.Throws<ArgumentNullException>("encoding", () =>
             {
                 new DrawableTextEncoding(null);
             });
         }
 
-        private void Test_Drawables_Draw(IDrawable drawable)
+        private void AssertDraw(IDrawable drawable)
         {
             ((IDrawingWand)drawable).Draw(null);
         }

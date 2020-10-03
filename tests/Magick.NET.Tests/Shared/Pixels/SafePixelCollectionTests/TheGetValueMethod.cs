@@ -12,40 +12,39 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class SafePixelCollectionTests
     {
-        [TestClass]
         public class TheGetValueMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenXTooLow()
             {
                 ThrowsArgumentOutOfRangeException("x", -1, 0);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenXTooHigh()
             {
                 ThrowsArgumentOutOfRangeException("x", 6, 0);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenYTooLow()
             {
                 ThrowsArgumentOutOfRangeException("y", 0, -1);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenYTooHigh()
             {
                 ThrowsArgumentOutOfRangeException("y", 0, 11);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnCorrectValue()
             {
                 using (var image = new MagickImage(MagickColors.Red, 1, 1))
@@ -54,10 +53,10 @@ namespace Magick.NET.Tests
                     {
                         var pixel = pixels.GetValue(0, 0);
 
-                        Assert.AreEqual(3, pixel.Length);
-                        Assert.AreEqual(Quantum.Max, pixel[0]);
-                        Assert.AreEqual(0, pixel[1]);
-                        Assert.AreEqual(0, pixel[2]);
+                        Assert.Equal(3, pixel.Length);
+                        Assert.Equal(Quantum.Max, pixel[0]);
+                        Assert.Equal(0, pixel[1]);
+                        Assert.Equal(0, pixel[2]);
                     }
                 }
             }
@@ -68,7 +67,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        ExceptionAssert.Throws<ArgumentOutOfRangeException>(paramName, () =>
+                        Assert.Throws<ArgumentOutOfRangeException>(paramName, () =>
                         {
                             pixels.GetValue(x, y);
                         });

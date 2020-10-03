@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Tiff;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class TiffReadDefinesTests
     {
-        [TestClass]
         public class TheIgnoreExifPopertiesProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 using (var image = new MagickImage())
@@ -31,11 +30,11 @@ namespace Magick.NET.Tests
                         IgnoreExifPoperties = true,
                     });
 
-                    Assert.AreEqual("false", image.Settings.GetDefine(MagickFormat.Tiff, "exif-properties"));
+                    Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Tiff, "exif-properties"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetTheDefineWhenTheValueIsFalse()
             {
                 using (var image = new MagickImage())
@@ -45,11 +44,11 @@ namespace Magick.NET.Tests
                         IgnoreExifPoperties = false,
                     });
 
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "exif-properties"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "exif-properties"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldIgnoreTheExifProperties()
             {
                 MagickReadSettings settings = new MagickReadSettings()
@@ -63,10 +62,10 @@ namespace Magick.NET.Tests
                 using (var image = new MagickImage())
                 {
                     image.Read(Files.InvitationTIF);
-                    Assert.IsNotNull(image.GetAttribute("exif:PixelXDimension"));
+                    Assert.NotNull(image.GetAttribute("exif:PixelXDimension"));
 
                     image.Read(Files.InvitationTIF, settings);
-                    Assert.IsNull(image.GetAttribute("exif:PixelXDimension"));
+                    Assert.Null(image.GetAttribute("exif:PixelXDimension"));
                 }
             }
         }

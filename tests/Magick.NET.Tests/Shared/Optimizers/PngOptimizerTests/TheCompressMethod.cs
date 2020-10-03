@@ -14,50 +14,48 @@ using System;
 using System.IO;
 using ImageMagick;
 using ImageMagick.ImageOptimizers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class PngOptimizerTests
     {
-        [TestClass]
         public class TheCompressMethod : PngOptimizerTests
         {
-            [TestMethod]
+            [Fact]
             public void ShouldCompress()
             {
                 var result = AssertCompressSmaller(Files.SnakewarePNG);
-                Assert.AreEqual(6922, result);
+                Assert.Equal(6922, result);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldTryToCompress()
             {
                 AssertCompressNotSmaller(Files.MagickNETIconPNG);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldBeAbleToCompressFileTwoTimes()
             {
                 AssertCompressTwice(Files.SnakewarePNG);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenFileFormatIsInvalid()
             {
                 AssertCompressInvalidFileFormat(Files.ImageMagickJPG);
             }
 
-            [TestClass]
             public class WithFile : TheCompressMethod
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenFileIsNull()
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("file", () => Optimizer.Compress((FileInfo)null));
+                    Assert.Throws<ArgumentNullException>("file", () => Optimizer.Compress((FileInfo)null));
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldNotOptimizeAnimatedPNG()
                 {
                     PngOptimizer optimizer = new PngOptimizer();
@@ -65,93 +63,93 @@ namespace Magick.NET.Tests
                     using (TemporaryFile tempFile = new TemporaryFile(Files.Coders.AnimatedPNGexampleBouncingBeachBallPNG))
                     {
                         var result = optimizer.Compress(tempFile);
-                        Assert.IsFalse(result);
+                        Assert.False(result);
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldDisableAlphaChannelWhenPossible()
                 {
                     using (TemporaryFile tempFile = new TemporaryFile("no-alpha.png"))
                     {
                         using (var image = new MagickImage(Files.MagickNETIconPNG))
                         {
-                            Assert.IsTrue(image.HasAlpha);
+                            Assert.True(image.HasAlpha);
                             image.ColorAlpha(new MagickColor("yellow"));
                             image.HasAlpha = true;
                             image.Write(tempFile);
 
                             image.Read(tempFile);
 
-                            Assert.IsTrue(image.HasAlpha);
+                            Assert.True(image.HasAlpha);
 
                             Optimizer.LosslessCompress(tempFile);
 
                             image.Read(tempFile);
-                            Assert.IsFalse(image.HasAlpha);
+                            Assert.False(image.HasAlpha);
                         }
                     }
                 }
             }
 
-            [TestClass]
             public class WithFileName : TheCompressMethod
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsNull()
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("fileName", () => Optimizer.Compress((string)null));
+                    Assert.Throws<ArgumentNullException>("fileName", () => Optimizer.Compress((string)null));
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsEmpty()
                 {
-                    ExceptionAssert.Throws<ArgumentException>("fileName", () => Optimizer.Compress(string.Empty));
+                    Assert.Throws<ArgumentException>("fileName", () => Optimizer.Compress(string.Empty));
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsInvalid()
                 {
-                    ExceptionAssert.Throws<MagickBlobErrorException>(() =>
+                    var exception = Assert.Throws<MagickBlobErrorException>(() =>
                     {
                         Optimizer.Compress(Files.Missing);
-                    }, "error/blob.c/OpenBlob");
+                    });
+
+                    Assert.Contains("error/blob.c/OpenBlob", exception.Message);
                 }
             }
 
-            [TestClass]
             public class WithStreamName : TheCompressMethod
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("stream", () => Optimizer.Compress((Stream)null));
+                    Assert.Throws<ArgumentNullException>("stream", () => Optimizer.Compress((Stream)null));
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNotReadable()
                 {
                     using (TestStream stream = new TestStream(false, true, true))
                     {
-                        ExceptionAssert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
+                        Assert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNotWriteable()
                 {
                     using (TestStream stream = new TestStream(true, false, true))
                     {
-                        ExceptionAssert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
+                        Assert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNotSeekable()
                 {
                     using (TestStream stream = new TestStream(true, true, false))
                     {
-                        ExceptionAssert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
+                        Assert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
                     }
                 }
             }

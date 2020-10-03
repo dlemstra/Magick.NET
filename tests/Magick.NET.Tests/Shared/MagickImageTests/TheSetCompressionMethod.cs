@@ -11,23 +11,22 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheSetCompressionMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldChangeTheCompression()
             {
                 using (var image = new MagickImage())
                 {
                     image.SetCompression(CompressionMethod.JBIG2);
 
-                    Assert.AreEqual(CompressionMethod.JBIG2, image.Compression);
+                    Assert.Equal(CompressionMethod.JBIG2, image.Compression);
                 }
             }
         }

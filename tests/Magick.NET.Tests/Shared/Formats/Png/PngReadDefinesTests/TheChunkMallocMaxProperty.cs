@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Png;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class PngReadDefinesTests
     {
-        [TestClass]
         public class TheChunkMallocMaxProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 using (var image = new MagickImage())
@@ -31,11 +30,11 @@ namespace Magick.NET.Tests
                         ChunkMallocMax = 20,
                     });
 
-                    Assert.AreEqual("20", image.Settings.GetDefine(MagickFormat.Png, "chunk-malloc-max"));
+                    Assert.Equal("20", image.Settings.GetDefine(MagickFormat.Png, "chunk-malloc-max"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldLimitTheChunkSize()
             {
                 var settings = new MagickReadSettings()
@@ -46,7 +45,7 @@ namespace Magick.NET.Tests
                     },
                 };
 
-                var exception = ExceptionAssert.Throws<MagickCoderErrorException>(() =>
+                var exception = Assert.Throws<MagickCoderErrorException>(() =>
                 {
                     using (var image = new MagickImage())
                     {
@@ -54,7 +53,7 @@ namespace Magick.NET.Tests
                     }
                 });
 
-                StringAssert.Contains(exception.Message, "IHDR: chunk data is too large");
+                Assert.Contains("IHDR: chunk data is too large", exception.Message);
             }
         }
     }

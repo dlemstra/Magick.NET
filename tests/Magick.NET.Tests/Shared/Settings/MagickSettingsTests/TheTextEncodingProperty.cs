@@ -11,21 +11,20 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickSettingsTests
     {
-        [TestClass]
         public class TheTextEncodingProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldDefaultToNull()
             {
                 using (var image = new MagickImage())
                 {
-                    Assert.IsNull(image.Settings.TextEncoding);
+                    Assert.Null(image.Settings.TextEncoding);
                 }
             }
         }

@@ -12,16 +12,15 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickNETTests
     {
-        [TestClass]
         public class TheLogEvent
         {
-            [TestMethod]
+            [Fact]
             public void ShouldPassOrderedTests()
             {
                 ShouldNotCallLogDelegeteWhenLogEventsAreNotSet();
@@ -49,7 +48,7 @@ namespace Magick.NET.Tests
 
                     MagickNET.Log -= logDelegate;
 
-                    Assert.AreEqual(0, count);
+                    Assert.Equal(0, count);
                 }
             }
 
@@ -60,11 +59,11 @@ namespace Magick.NET.Tests
                     int count = 0;
                     EventHandler<LogEventArgs> logDelegate = (sender, arguments) =>
                     {
-                        Assert.IsNull(sender);
-                        Assert.IsNotNull(arguments);
-                        Assert.AreNotEqual(LogEvents.None, arguments.EventType);
-                        Assert.IsNotNull(arguments.Message);
-                        Assert.AreNotEqual(0, arguments.Message.Length);
+                        Assert.Null(sender);
+                        Assert.NotNull(arguments);
+                        Assert.NotEqual(LogEvents.None, arguments.EventType);
+                        Assert.NotNull(arguments.Message);
+                        Assert.NotEqual(0, arguments.Message.Length);
 
                         count++;
                     };
@@ -77,11 +76,11 @@ namespace Magick.NET.Tests
 
                     MagickNET.Log -= logDelegate;
 
-                    Assert.AreNotEqual(0, count);
+                    Assert.NotEqual(0, count);
                     count = 0;
 
                     image.Flip();
-                    Assert.AreEqual(0, count);
+                    Assert.Equal(0, count);
                 }
             }
 
@@ -104,7 +103,7 @@ namespace Magick.NET.Tests
 
                 MagickNET.Log -= logDelegate;
 
-                Assert.AreNotEqual(0, traceEvents);
+                Assert.NotEqual(0, traceEvents);
             }
 
             private void ShouldStopCallingLogDelegateWhenLogDelegateIsRemoved()
@@ -124,7 +123,7 @@ namespace Magick.NET.Tests
                     MagickNET.Log -= logDelegate;
 
                     image.Flip();
-                    Assert.AreEqual(0, count);
+                    Assert.Equal(0, count);
                 }
             }
         }

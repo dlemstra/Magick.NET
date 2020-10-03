@@ -11,24 +11,23 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickNETTests
     {
-        [TestClass]
         public partial class TheVersionProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldContainCorrectQuantum()
             {
 #if Q8
-                StringAssert.Contains(MagickNET.Version, "Q8");
+                Assert.Contains("Q8", MagickNET.Version);
 #elif Q16
-            StringAssert.Contains(MagickNET.Version, "Q16");
+                Assert.Contains("Q16", MagickNET.Version);
 #else
-            StringAssert.Contains(MagickNET.Version, "Q16-HDRI");
+                Assert.Contains("Q16-HDRI", MagickNET.Version);
 #endif
             }
         }

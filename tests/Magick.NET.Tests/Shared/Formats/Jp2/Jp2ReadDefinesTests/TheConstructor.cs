@@ -12,24 +12,23 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Jp2;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class Jp2ReadDefinesTests
     {
-        [TestClass]
         public class TheConstructor
         {
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetAnyDefines()
             {
                 using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(new Jp2ReadDefines());
 
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Jp2, "quality-layers"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Jp2, "reduce-factor"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Jp2, "quality-layers"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Jp2, "reduce-factor"));
                 }
             }
         }

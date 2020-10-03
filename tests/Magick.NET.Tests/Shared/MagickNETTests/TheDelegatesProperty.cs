@@ -10,24 +10,23 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickNETTests
     {
-        [TestClass]
         public class TheDelegatesProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnAllDelegates()
             {
                 var delegates = MagickNET.Delegates; // Cannot detect difference between macOS and Linux build at the moment
 
 #if WINDOWS_BUILD
-                Assert.AreEqual("cairo flif freetype gslib heic jng jp2 jpeg lcms lqr openexr pangocairo png ps raw rsvg tiff webp xml zlib", delegates);
+                Assert.Equal("cairo flif freetype gslib heic jng jp2 jpeg lcms lqr openexr pangocairo png ps raw rsvg tiff webp xml zlib", delegates);
 #else
-                Assert.AreEqual("cairo fontconfig freetype heic jng jp2 jpeg lcms lqr openexr pangocairo png raw rsvg tiff webp xml zlib", delegates);
+                Assert.Equal("cairo fontconfig freetype heic jng jp2 jpeg lcms lqr openexr pangocairo png raw rsvg tiff webp xml zlib", delegates);
 #endif
             }
         }

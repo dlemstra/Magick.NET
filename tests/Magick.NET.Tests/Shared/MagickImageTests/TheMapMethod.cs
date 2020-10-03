@@ -14,7 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -30,46 +30,45 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheMapMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenImageIsNull()
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                    Assert.Throws<ArgumentNullException>("image", () =>
                     {
                         image.Map((IMagickImage<QuantumType>)null);
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenColorsIsNull()
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("colors", () =>
+                    Assert.Throws<ArgumentNullException>("colors", () =>
                     {
                         image.Map((IEnumerable<MagickColor>)null);
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenColorsIsEmpty()
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
                 {
-                    ExceptionAssert.Throws<ArgumentException>("colors", () =>
+                    Assert.Throws<ArgumentException>("colors", () =>
                     {
                         image.Map(Enumerable.Empty<MagickColor>());
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldUseTheColorsOfTheImage()
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
@@ -78,14 +77,14 @@ namespace Magick.NET.Tests
                     {
                         image.Map(colors);
 
-                        ColorAssert.AreEqual(MagickColors.Blue, image, 0, 0);
-                        ColorAssert.AreEqual(MagickColors.Green, image, 455, 396);
-                        ColorAssert.AreEqual(MagickColors.Red, image, 505, 451);
+                        ColorAssert.Equal(MagickColors.Blue, image, 0, 0);
+                        ColorAssert.Equal(MagickColors.Green, image, 455, 396);
+                        ColorAssert.Equal(MagickColors.Red, image, 505, 451);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldUseTheColors()
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
@@ -99,9 +98,9 @@ namespace Magick.NET.Tests
 
                     image.Map(colors);
 
-                    ColorAssert.AreEqual(MagickColors.Fuchsia, image, 0, 0);
-                    ColorAssert.AreEqual(MagickColors.Lime, image, 455, 396);
-                    ColorAssert.AreEqual(MagickColors.Gold, image, 505, 451);
+                    ColorAssert.Equal(MagickColors.Fuchsia, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.Lime, image, 455, 396);
+                    ColorAssert.Equal(MagickColors.Gold, image, 505, 451);
                 }
             }
 

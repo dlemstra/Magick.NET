@@ -11,45 +11,44 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class PixelReadSettingsTests
     {
-        [TestClass]
         public class TheConstructor
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheReadSettings()
             {
                 var settings = new PixelReadSettings();
 
-                Assert.IsNotNull(settings.ReadSettings);
+                Assert.NotNull(settings.ReadSettings);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheMappingCorrectly()
             {
                 var settings = new PixelReadSettings(1, 2, StorageType.Int64, PixelMapping.CMYK);
 
-                Assert.IsNotNull(settings.ReadSettings);
-                Assert.AreEqual(1, settings.ReadSettings.Width);
-                Assert.AreEqual(2, settings.ReadSettings.Height);
-                Assert.AreEqual(StorageType.Int64, settings.StorageType);
-                Assert.AreEqual("CMYK", settings.Mapping);
+                Assert.NotNull(settings.ReadSettings);
+                Assert.Equal(1, settings.ReadSettings.Width);
+                Assert.Equal(2, settings.ReadSettings.Height);
+                Assert.Equal(StorageType.Int64, settings.StorageType);
+                Assert.Equal("CMYK", settings.Mapping);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheProperties()
             {
                 var settings = new PixelReadSettings(3, 4, StorageType.Quantum, "CMY");
 
-                Assert.IsNotNull(settings.ReadSettings);
-                Assert.AreEqual(3, settings.ReadSettings.Width);
-                Assert.AreEqual(4, settings.ReadSettings.Height);
-                Assert.AreEqual(StorageType.Quantum, settings.StorageType);
-                Assert.AreEqual("CMY", settings.Mapping);
+                Assert.NotNull(settings.ReadSettings);
+                Assert.Equal(3, settings.ReadSettings.Width);
+                Assert.Equal(4, settings.ReadSettings.Height);
+                Assert.Equal(StorageType.Quantum, settings.StorageType);
+                Assert.Equal("CMY", settings.Mapping);
             }
         }
     }

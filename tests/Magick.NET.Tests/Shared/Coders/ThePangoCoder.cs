@@ -12,24 +12,23 @@
 
 using System.Threading.Tasks;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class ThePangoCoder
     {
-        [TestMethod]
+        [Fact]
         public void IsThreadSafe()
         {
             string signature = LoadImage();
             Parallel.For(1, 10, (int i) =>
             {
-                Assert.AreEqual(signature, LoadImage());
+                Assert.Equal(signature, LoadImage());
             });
         }
 
-        [TestMethod]
+        [Fact]
         public void CanReadFromLargePangoFile()
         {
             string fileName = "pango:<span font=\"Arial\">" + new string('*', 4500) + "</span>";

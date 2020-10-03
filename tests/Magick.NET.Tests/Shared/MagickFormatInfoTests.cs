@@ -11,99 +11,98 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class MagickFormatInfoTests
     {
-        [TestMethod]
+        [Fact]
         public void Test_IEquatable()
         {
             var first = MagickFormatInfo.Create(MagickFormat.Png);
             var second = MagickNET.GetFormatInformation(Files.SnakewarePNG);
 
-            Assert.IsTrue(first == second);
-            Assert.IsTrue(first.Equals(second));
-            Assert.IsTrue(first.Equals((object)second));
+            Assert.True(first == second);
+            Assert.True(first.Equals(second));
+            Assert.True(first.Equals((object)second));
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Properties()
         {
             var formatInfo = MagickNET.GetFormatInformation(MagickFormat.Gradient);
-            Assert.IsNotNull(formatInfo);
-            Assert.AreEqual(MagickFormat.Gradient, formatInfo.Format);
-            Assert.IsTrue(formatInfo.CanReadMultithreaded);
-            Assert.IsTrue(formatInfo.CanWriteMultithreaded);
-            Assert.AreEqual("Gradual linear passing from one shade to another", formatInfo.Description);
-            Assert.IsFalse(formatInfo.IsMultiFrame);
-            Assert.IsTrue(formatInfo.IsReadable);
-            Assert.IsFalse(formatInfo.IsWritable);
-            Assert.AreEqual(null, formatInfo.MimeType);
+            Assert.NotNull(formatInfo);
+            Assert.Equal(MagickFormat.Gradient, formatInfo.Format);
+            Assert.True(formatInfo.CanReadMultithreaded);
+            Assert.True(formatInfo.CanWriteMultithreaded);
+            Assert.Equal("Gradual linear passing from one shade to another", formatInfo.Description);
+            Assert.False(formatInfo.IsMultiFrame);
+            Assert.True(formatInfo.IsReadable);
+            Assert.False(formatInfo.IsWritable);
+            Assert.Null(formatInfo.MimeType);
 
             formatInfo = MagickNET.GetFormatInformation(MagickFormat.Jp2);
-            Assert.IsNotNull(formatInfo);
-            Assert.AreEqual(MagickFormat.Jp2, formatInfo.Format);
-            Assert.IsTrue(formatInfo.CanReadMultithreaded);
-            Assert.IsTrue(formatInfo.CanWriteMultithreaded);
-            Assert.AreEqual("JPEG-2000 File Format Syntax", formatInfo.Description);
-            Assert.IsFalse(formatInfo.IsMultiFrame);
-            Assert.IsTrue(formatInfo.IsReadable);
-            Assert.IsTrue(formatInfo.IsWritable);
-            Assert.AreEqual("image/jp2", formatInfo.MimeType);
+            Assert.NotNull(formatInfo);
+            Assert.Equal(MagickFormat.Jp2, formatInfo.Format);
+            Assert.True(formatInfo.CanReadMultithreaded);
+            Assert.True(formatInfo.CanWriteMultithreaded);
+            Assert.Equal("JPEG-2000 File Format Syntax", formatInfo.Description);
+            Assert.False(formatInfo.IsMultiFrame);
+            Assert.True(formatInfo.IsReadable);
+            Assert.True(formatInfo.IsWritable);
+            Assert.Equal("image/jp2", formatInfo.MimeType);
 
             formatInfo = MagickNET.GetFormatInformation(MagickFormat.Jpg);
-            Assert.IsNotNull(formatInfo);
-            Assert.IsTrue(formatInfo.CanReadMultithreaded);
-            Assert.IsTrue(formatInfo.CanWriteMultithreaded);
-            Assert.AreEqual("Joint Photographic Experts Group JFIF format", formatInfo.Description);
-            Assert.AreEqual(MagickFormat.Jpg, formatInfo.Format);
-            Assert.IsFalse(formatInfo.IsMultiFrame);
-            Assert.IsTrue(formatInfo.IsReadable);
-            Assert.IsTrue(formatInfo.IsWritable);
-            Assert.AreEqual("image/jpeg", formatInfo.MimeType);
-            Assert.AreEqual(MagickFormat.Jpeg, formatInfo.ModuleFormat);
+            Assert.NotNull(formatInfo);
+            Assert.True(formatInfo.CanReadMultithreaded);
+            Assert.True(formatInfo.CanWriteMultithreaded);
+            Assert.Equal("Joint Photographic Experts Group JFIF format", formatInfo.Description);
+            Assert.Equal(MagickFormat.Jpg, formatInfo.Format);
+            Assert.False(formatInfo.IsMultiFrame);
+            Assert.True(formatInfo.IsReadable);
+            Assert.True(formatInfo.IsWritable);
+            Assert.Equal("image/jpeg", formatInfo.MimeType);
+            Assert.Equal(MagickFormat.Jpeg, formatInfo.ModuleFormat);
 
             formatInfo = MagickNET.GetFormatInformation(MagickFormat.Png);
-            Assert.IsNotNull(formatInfo);
-            Assert.IsTrue(formatInfo.CanReadMultithreaded);
-            Assert.IsTrue(formatInfo.CanWriteMultithreaded);
-            Assert.AreEqual("Portable Network Graphics", formatInfo.Description);
-            Assert.AreEqual(MagickFormat.Png, formatInfo.Format);
-            Assert.IsFalse(formatInfo.IsMultiFrame);
-            Assert.IsTrue(formatInfo.IsReadable);
-            Assert.IsTrue(formatInfo.IsWritable);
-            Assert.AreEqual("image/png", formatInfo.MimeType);
-            Assert.AreEqual(MagickFormat.Png, formatInfo.ModuleFormat);
+            Assert.NotNull(formatInfo);
+            Assert.True(formatInfo.CanReadMultithreaded);
+            Assert.True(formatInfo.CanWriteMultithreaded);
+            Assert.Equal("Portable Network Graphics", formatInfo.Description);
+            Assert.Equal(MagickFormat.Png, formatInfo.Format);
+            Assert.False(formatInfo.IsMultiFrame);
+            Assert.True(formatInfo.IsReadable);
+            Assert.True(formatInfo.IsWritable);
+            Assert.Equal("image/png", formatInfo.MimeType);
+            Assert.Equal(MagickFormat.Png, formatInfo.ModuleFormat);
 
             formatInfo = MagickNET.GetFormatInformation(MagickFormat.Pango);
-            Assert.IsNotNull(formatInfo);
-            Assert.IsFalse(formatInfo.CanReadMultithreaded);
-            Assert.IsFalse(formatInfo.CanWriteMultithreaded);
-            Assert.AreEqual("Pango Markup Language", formatInfo.Description);
-            Assert.AreEqual(MagickFormat.Pango, formatInfo.Format);
-            Assert.IsFalse(formatInfo.IsMultiFrame);
-            Assert.IsTrue(formatInfo.IsReadable);
-            Assert.IsFalse(formatInfo.IsWritable);
-            Assert.IsNull(formatInfo.MimeType);
-            Assert.AreEqual(MagickFormat.Pango, formatInfo.ModuleFormat);
+            Assert.NotNull(formatInfo);
+            Assert.False(formatInfo.CanReadMultithreaded);
+            Assert.False(formatInfo.CanWriteMultithreaded);
+            Assert.Equal("Pango Markup Language", formatInfo.Description);
+            Assert.Equal(MagickFormat.Pango, formatInfo.Format);
+            Assert.False(formatInfo.IsMultiFrame);
+            Assert.True(formatInfo.IsReadable);
+            Assert.False(formatInfo.IsWritable);
+            Assert.Null(formatInfo.MimeType);
+            Assert.Equal(MagickFormat.Pango, formatInfo.ModuleFormat);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Unregister()
         {
             var formatInfo = MagickNET.GetFormatInformation(MagickFormat.X3f);
-            Assert.IsNotNull(formatInfo);
-            Assert.IsTrue(formatInfo.Unregister());
+            Assert.NotNull(formatInfo);
+            Assert.True(formatInfo.Unregister());
 
             var settings = new MagickReadSettings()
             {
                 Format = MagickFormat.X3f,
             };
 
-            ExceptionAssert.Throws<MagickMissingDelegateErrorException>(() =>
+            Assert.Throws<MagickMissingDelegateErrorException>(() =>
             {
                 var image = new MagickImage();
                 image.Read(new byte[] { 1, 2, 3, 4 }, settings);

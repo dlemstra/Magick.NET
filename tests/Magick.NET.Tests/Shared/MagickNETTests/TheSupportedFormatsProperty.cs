@@ -12,31 +12,32 @@
 
 using System.Linq;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using Xunit.Sdk;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickNETTests
     {
-        [TestClass]
         public class TheSupportedFormatsProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldContainNoFormatInformationWithMagickFormatSetToUnknown()
             {
                 foreach (var formatInfo in MagickNET.SupportedFormats)
                 {
-                    Assert.AreNotEqual(MagickFormat.Unknown, formatInfo.Format, "Unknown format: " + formatInfo.Description + " (" + formatInfo.ModuleFormat + ")");
+                    if (formatInfo.Format == MagickFormat.Unknown)
+                        throw new XunitException("Unknown format: " + formatInfo.Description + " (" + formatInfo.ModuleFormat + ")");
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldContainTheCorrectNumberOfFormats()
             {
 #if WINDOWS_BUILD
-                Assert.AreEqual(255, MagickNET.SupportedFormats.Count());
+                Assert.Equal(255, MagickNET.SupportedFormats.Count());
 #else
-                Assert.AreEqual(251, MagickNET.SupportedFormats.Count());
+                Assert.Equal(251, MagickNET.SupportedFormats.Count());
 #endif
             }
         }

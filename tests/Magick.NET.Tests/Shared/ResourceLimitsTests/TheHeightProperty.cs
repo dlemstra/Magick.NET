@@ -11,22 +11,21 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class ResourceLimitsTests
     {
-        [TestClass]
         public class TheHeightProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldHaveTheCorrectValue()
             {
-                Assert.AreEqual(10000000U, ResourceLimits.Height);
+                Assert.Equal(10000000U, ResourceLimits.Height);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
                 ExecuteInsideLock(() =>
@@ -34,7 +33,7 @@ namespace Magick.NET.Tests
                     var height = ResourceLimits.Height;
 
                     ResourceLimits.Height = 100000U;
-                    Assert.AreEqual(100000U, ResourceLimits.Height);
+                    Assert.Equal(100000U, ResourceLimits.Height);
                     ResourceLimits.Height = height;
                 });
             }

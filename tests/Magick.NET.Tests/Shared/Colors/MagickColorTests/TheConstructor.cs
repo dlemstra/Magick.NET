@@ -12,7 +12,7 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -28,65 +28,64 @@ namespace Magick.NET.Tests
 {
     public partial class MagickColorTests
     {
-        [TestClass]
         public class TheConstructor
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenColorIsNull()
             {
-                ExceptionAssert.Throws<ArgumentNullException>("color", () =>
+                Assert.Throws<ArgumentNullException>("color", () =>
                 {
                     new MagickColor((string)null);
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenColorIsEmpty()
             {
-                ExceptionAssert.Throws<ArgumentException>("color", () =>
+                Assert.Throws<ArgumentException>("color", () =>
                 {
                     new MagickColor(string.Empty);
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenColorDoesNotStartWithHash()
             {
-                ExceptionAssert.Throws<ArgumentException>("color", () =>
+                Assert.Throws<ArgumentException>("color", () =>
                 {
                     new MagickColor("FFFFFF");
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenColorHasInvalidLength()
             {
-                ExceptionAssert.Throws<ArgumentException>("color", () =>
+                Assert.Throws<ArgumentException>("color", () =>
                 {
                     new MagickColor("#FFFFF");
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenColorHasInvalidHexValue()
             {
-                ExceptionAssert.Throws<ArgumentException>("color", () =>
+                Assert.Throws<ArgumentException>("color", () =>
                 {
                     new MagickColor("#FGF");
                 });
 
-                ExceptionAssert.Throws<ArgumentException>("color", () =>
+                Assert.Throws<ArgumentException>("color", () =>
                 {
                     new MagickColor("#GGFFFF");
                 });
 
-                ExceptionAssert.Throws<ArgumentException>("color", () =>
+                Assert.Throws<ArgumentException>("color", () =>
                 {
                     new MagickColor("#FFFG000000000000");
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldInitializeTheInstanceCorrectly()
             {
                 TestColor("#FF", Quantum.Max, Quantum.Max, Quantum.Max, false);
@@ -105,22 +104,20 @@ namespace Magick.NET.Tests
             }
 
             private void TestColor(string hexValue, double red, double green, double blue, bool isTransparent)
-            {
-                TestColor(hexValue, red, green, blue, isTransparent, 0.01);
-            }
+                => TestColor(hexValue, red, green, blue, isTransparent, 0.01);
 
             private void TestColor(string hexValue, double red, double green, double blue, bool isTransparent, double delta)
             {
                 var color = new MagickColor(hexValue);
 
-                Assert.AreEqual(red, color.R, delta);
-                Assert.AreEqual(green, color.G, delta);
-                Assert.AreEqual(blue, color.B, delta);
+                Assert.InRange(color.R, red - delta, red + delta);
+                Assert.InRange(color.G, green - delta, green + delta);
+                Assert.InRange(color.B, blue - delta, blue + delta);
 
                 if (isTransparent)
-                    ColorAssert.IsTransparent(color.A);
+                    ColorAssert.Transparent(color.A);
                 else
-                    ColorAssert.IsNotTransparent(color.A);
+                    ColorAssert.NotTransparent(color.A);
             }
         }
     }

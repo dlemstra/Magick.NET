@@ -11,26 +11,25 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class ExifProfileTests
     {
-        [TestClass]
         public class TheRemoveProfileMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldRemoveTheThumbnail()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetExifProfile();
-                    Assert.IsNotNull(profile);
+                    Assert.NotNull(profile);
 
                     profile.RemoveThumbnail();
 
-                    Assert.IsNull(profile.CreateThumbnail());
+                    Assert.Null(profile.CreateThumbnail());
                 }
             }
         }

@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Tiff;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class TiffWriteDefinesTests
     {
-        [TestClass]
         public class ThePreserveCompressionProperty : TiffWriteDefinesTests
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefineWhenSetToTrue()
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
@@ -31,11 +30,11 @@ namespace Magick.NET.Tests
                         PreserveCompression = true,
                     });
 
-                    Assert.AreEqual("true", image.Settings.GetDefine(MagickFormat.Tiff, "preserve-compression"));
+                    Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Tiff, "preserve-compression"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetTheDefineWhenSetToFalse()
             {
                 using (var image = new MagickImage())
@@ -45,7 +44,7 @@ namespace Magick.NET.Tests
                         PreserveCompression = false,
                     });
 
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "preserve-compression"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Png, "preserve-compression"));
                 }
             }
         }

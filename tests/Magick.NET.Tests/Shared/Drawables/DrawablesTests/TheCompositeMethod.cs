@@ -12,7 +12,7 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
@@ -20,28 +20,27 @@ namespace Magick.NET.Tests
     {
         public class TheCompositeMethod
         {
-            [TestClass]
             public class WithOffsetAndImage
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenOffsetIsNull()
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("offset", () =>
+                    Assert.Throws<ArgumentNullException>("offset", () =>
                     {
                         new Drawables().Composite(null, new MagickImage());
                     });
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                    Assert.Throws<ArgumentNullException>("image", () =>
                     {
                         new Drawables().Composite(new MagickGeometry(), null);
                     });
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldCopyPixelsOfTheImage()
                 {
                     using (var image = new MagickImage(MagickColors.Green, 3, 1))
@@ -53,35 +52,34 @@ namespace Magick.NET.Tests
                                 .Draw(image);
                         }
 
-                        ColorAssert.AreEqual(MagickColors.Green, image, 0, 0);
-                        ColorAssert.AreEqual(MagickColors.Purple, image, 1, 0);
-                        ColorAssert.AreEqual(MagickColors.Green, image, 2, 0);
+                        ColorAssert.Equal(MagickColors.Green, image, 0, 0);
+                        ColorAssert.Equal(MagickColors.Purple, image, 1, 0);
+                        ColorAssert.Equal(MagickColors.Green, image, 2, 0);
                     }
                 }
             }
 
-            [TestClass]
             public class WithOffsetAndCompositeOperatorAndImage
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenOffsetIsNull()
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("offset", () =>
+                    Assert.Throws<ArgumentNullException>("offset", () =>
                     {
                         new Drawables().Composite(null, CompositeOperator.Over, new MagickImage());
                     });
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                    Assert.Throws<ArgumentNullException>("image", () =>
                     {
                         new Drawables().Composite(new MagickGeometry(), CompositeOperator.Over, null);
                     });
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldUseTheCompositeOperator()
                 {
                     using (var image = new MagickImage(MagickColors.Green, 3, 1))
@@ -93,26 +91,25 @@ namespace Magick.NET.Tests
                                 .Draw(image);
                         }
 
-                        ColorAssert.AreEqual(MagickColors.Green, image, 0, 0);
-                        ColorAssert.AreEqual(MagickColors.Gray, image, 1, 0);
-                        ColorAssert.AreEqual(MagickColors.Green, image, 2, 0);
+                        ColorAssert.Equal(MagickColors.Green, image, 0, 0);
+                        ColorAssert.Equal(MagickColors.Gray, image, 1, 0);
+                        ColorAssert.Equal(MagickColors.Green, image, 2, 0);
                     }
                 }
             }
 
-            [TestClass]
             public class WithXYAndImage
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                    Assert.Throws<ArgumentNullException>("image", () =>
                     {
                         new Drawables().Composite(0, 0, null);
                     });
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldCopyPixelsOfTheImage()
                 {
                     using (var image = new MagickImage(MagickColors.Green, 3, 1))
@@ -124,26 +121,25 @@ namespace Magick.NET.Tests
                                 .Draw(image);
                         }
 
-                        ColorAssert.AreEqual(MagickColors.Green, image, 0, 0);
-                        ColorAssert.AreEqual(MagickColors.Purple, image, 1, 0);
-                        ColorAssert.AreEqual(MagickColors.Purple, image, 2, 0);
+                        ColorAssert.Equal(MagickColors.Green, image, 0, 0);
+                        ColorAssert.Equal(MagickColors.Purple, image, 1, 0);
+                        ColorAssert.Equal(MagickColors.Purple, image, 2, 0);
                     }
                 }
             }
 
-            [TestClass]
             public class WithXYAndCompositeOperatorAndImage
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenImageIsNull()
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                    Assert.Throws<ArgumentNullException>("image", () =>
                     {
                         new Drawables().Composite(0, 0, CompositeOperator.Over, null);
                     });
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldUseTheCompositeOperator()
                 {
                     using (var image = new MagickImage(MagickColors.Green, 3, 1))
@@ -155,9 +151,9 @@ namespace Magick.NET.Tests
                                 .Draw(image);
                         }
 
-                        ColorAssert.AreEqual(MagickColors.Green, image, 0, 0);
-                        ColorAssert.AreEqual(MagickColors.Gray, image, 1, 0);
-                        ColorAssert.AreEqual(MagickColors.Gray, image, 2, 0);
+                        ColorAssert.Equal(MagickColors.Green, image, 0, 0);
+                        ColorAssert.Equal(MagickColors.Gray, image, 1, 0);
+                        ColorAssert.Equal(MagickColors.Gray, image, 2, 0);
                     }
                 }
             }

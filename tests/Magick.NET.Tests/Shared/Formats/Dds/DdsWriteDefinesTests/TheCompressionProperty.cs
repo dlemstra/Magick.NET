@@ -13,16 +13,15 @@
 using System.IO;
 using ImageMagick;
 using ImageMagick.Formats.Dds;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class DdsWriteDefinesTests
     {
-        [TestClass]
         public class TheCompressionProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 using (var image = new MagickImage())
@@ -34,11 +33,11 @@ namespace Magick.NET.Tests
 
                     image.Settings.SetDefines(defines);
 
-                    Assert.AreEqual("Dxt1", image.Settings.GetDefine(MagickFormat.Dds, "compression"));
+                    Assert.Equal("Dxt1", image.Settings.GetDefine(MagickFormat.Dds, "compression"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldUseNoCompressionWhenSetToNone()
             {
                 using (var input = new MagickImage(Files.Builtin.Logo))
@@ -50,12 +49,12 @@ namespace Magick.NET.Tests
 
                     using (var output = WriteDds(input))
                     {
-                        Assert.AreEqual(CompressionMethod.NoCompression, output.Compression);
+                        Assert.Equal(CompressionMethod.NoCompression, output.Compression);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldUseDxt1CompressionWhenSetToDxt1()
             {
                 using (var input = new MagickImage(Files.Builtin.Logo))
@@ -67,12 +66,12 @@ namespace Magick.NET.Tests
 
                     using (var output = WriteDds(input))
                     {
-                        Assert.AreEqual(CompressionMethod.DXT1, output.Compression);
+                        Assert.Equal(CompressionMethod.DXT1, output.Compression);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldUseDxt1CompressionWhenSetToDxt1AndImageHasAlphaChannel()
             {
                 using (var input = new MagickImage(Files.Builtin.Logo))
@@ -86,7 +85,7 @@ namespace Magick.NET.Tests
 
                     using (var output = WriteDds(input))
                     {
-                        Assert.AreEqual(CompressionMethod.DXT1, output.Compression);
+                        Assert.Equal(CompressionMethod.DXT1, output.Compression);
                     }
                 }
             }

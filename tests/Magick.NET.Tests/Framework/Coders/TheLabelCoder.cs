@@ -13,13 +13,13 @@
 #if !NETCORE
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class TheLabelCoder
     {
-        [TestMethod]
+        [Fact]
         public void ShouldUseTheDensity()
         {
             var readSettings = new MagickReadSettings()
@@ -33,12 +33,12 @@ namespace Magick.NET.Tests
 
             using (var image = new MagickImage($"label:Masai Mara", readSettings))
             {
-                Assert.AreEqual(91, image.Width);
-                Assert.AreEqual(21, image.Height);
+                Assert.Equal(91, image.Width);
+                Assert.Equal(21, image.Height);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldCenterSingleCharacter()
         {
             var readSettings = new MagickReadSettings()
@@ -52,16 +52,16 @@ namespace Magick.NET.Tests
 
             using (var image = new MagickImage("label:1", readSettings))
             {
-                Assert.AreEqual(119, image.Height);
+                Assert.Equal(119, image.Height);
 
-                ColorAssert.AreEqual(MagickColors.Green, image, 40, 60);
-                ColorAssert.AreEqual(MagickColors.Red, image, 38, 60);
-                ColorAssert.AreEqual(MagickColors.Red, image, 34, 21);
-                ColorAssert.AreEqual(MagickColors.Green, image, 34, 95);
+                ColorAssert.Equal(MagickColors.Green, image, 40, 60);
+                ColorAssert.Equal(MagickColors.Red, image, 38, 60);
+                ColorAssert.Equal(MagickColors.Red, image, 34, 21);
+                ColorAssert.Equal(MagickColors.Green, image, 34, 95);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldSupportMultipleLines()
         {
             var readSettings = new MagickReadSettings()
@@ -75,12 +75,12 @@ namespace Magick.NET.Tests
 
             using (var image = new MagickImage("label:1\n2", readSettings))
             {
-                Assert.AreEqual(237, image.Height);
+                Assert.Equal(237, image.Height);
 
-                ColorAssert.AreEqual(MagickColors.Green, image, 42, 158);
-                ColorAssert.AreEqual(MagickColors.Red, image, 44, 158);
-                ColorAssert.AreEqual(MagickColors.Green, image, 34, 137);
-                ColorAssert.AreEqual(MagickColors.Red, image, 34, 212);
+                ColorAssert.Equal(MagickColors.Green, image, 42, 158);
+                ColorAssert.Equal(MagickColors.Red, image, 44, 158);
+                ColorAssert.Equal(MagickColors.Green, image, 34, 137);
+                ColorAssert.Equal(MagickColors.Red, image, 34, 212);
             }
         }
     }

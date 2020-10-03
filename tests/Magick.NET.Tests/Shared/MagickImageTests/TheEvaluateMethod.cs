@@ -12,7 +12,7 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -28,51 +28,50 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheEvaluateMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenArgumentsIsNull()
             {
                 using (var image = new MagickImage())
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("arguments", () =>
+                    Assert.Throws<ArgumentNullException>("arguments", () =>
                     {
                         image.Evaluate(Channels.Red, EvaluateFunction.Arcsin, null);
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenArgumentsIsEmpty()
             {
                 using (var image = new MagickImage())
                 {
-                    ExceptionAssert.Throws<ArgumentException>("arguments", () =>
+                    Assert.Throws<ArgumentException>("arguments", () =>
                     {
                         image.Evaluate(Channels.Red, EvaluateFunction.Arcsin, new double[] { });
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenGeometryIsNull()
             {
                 using (var image = new MagickImage())
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("geometry", () =>
+                    Assert.Throws<ArgumentNullException>("geometry", () =>
                     {
                         image.Evaluate(Channels.Red, null, EvaluateOperator.Set, 0.0);
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenGeometryIsPercentage()
             {
                 using (var image = new MagickImage())
                 {
-                    ExceptionAssert.Throws<ArgumentException>("geometry", () =>
+                    Assert.Throws<ArgumentException>("geometry", () =>
                     {
                         var geometry = new MagickGeometry(new Percentage(100), new Percentage(100));
 
@@ -81,28 +80,28 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangeTheSpecifiedChannels()
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     image.Evaluate(Channels.Red, EvaluateFunction.Arcsin, new double[] { 5.0 });
 
-                    ColorAssert.AreEqual(new MagickColor("#9068ffffffff"), image, 100, 295);
+                    ColorAssert.Equal(new MagickColor("#9068ffffffff"), image, 100, 295);
 
                     image.Evaluate(Channels.Red, new MagickGeometry(0, 0, 100, 295), EvaluateOperator.Set, 0);
 
-                    ColorAssert.AreEqual(new MagickColor("#0ff"), image, 99, 195);
-                    ColorAssert.AreEqual(new MagickColor("#9068ffffffff"), image, 100, 295);
+                    ColorAssert.Equal(new MagickColor("#0ff"), image, 99, 195);
+                    ColorAssert.Equal(new MagickColor("#9068ffffffff"), image, 100, 295);
 
                     image.Evaluate(Channels.Green, EvaluateOperator.Set, 0);
 
-                    ColorAssert.AreEqual(new MagickColor("#00f"), image, 99, 195);
-                    ColorAssert.AreEqual(new MagickColor("#90680000ffff"), image, 100, 295);
+                    ColorAssert.Equal(new MagickColor("#00f"), image, 99, 195);
+                    ColorAssert.Equal(new MagickColor("#90680000ffff"), image, 100, 295);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldUseWriteMask()
             {
                 using (var image = new MagickImage(MagickColors.Black, 2, 1))
@@ -118,8 +117,8 @@ namespace Magick.NET.Tests
 
                         image.Evaluate(Channels.Red, EvaluateOperator.Set, Quantum.Max);
 
-                        ColorAssert.AreEqual(MagickColors.Red, image, 0, 0);
-                        ColorAssert.AreEqual(MagickColors.Black, image, 1, 0);
+                        ColorAssert.Equal(MagickColors.Red, image, 0, 0);
+                        ColorAssert.Equal(MagickColors.Black, image, 1, 0);
                     }
                 }
             }

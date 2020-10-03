@@ -12,23 +12,22 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Psd;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class PsdReadDefinesTests
     {
-        [TestClass]
         public class TheConstructor
         {
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetAnyDefine()
             {
                 using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(new PsdReadDefines());
 
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));
                 }
             }
         }

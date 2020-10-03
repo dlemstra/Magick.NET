@@ -12,21 +12,20 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageCollectionTests
     {
-        [TestClass]
         public class ThePolynomialMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenCollectionIsEmpty()
             {
                 using (var images = new MagickImageCollection())
                 {
-                    ExceptionAssert.Throws<InvalidOperationException>(() =>
+                    Assert.Throws<InvalidOperationException>(() =>
                     {
                         var terms = new double[] { 0.30, 1, 0.59, 1, 0.11, 1 };
                         images.Polynomial(terms);
@@ -34,31 +33,31 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenTermsIsNull()
             {
                 using (var images = new MagickImageCollection(Files.Builtin.Logo))
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("terms", () =>
+                    Assert.Throws<ArgumentNullException>("terms", () =>
                     {
                         images.Polynomial(null);
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenTermsIsEmpty()
             {
                 using (var images = new MagickImageCollection(Files.Builtin.Logo))
                 {
-                    ExceptionAssert.Throws<ArgumentException>("terms", () =>
+                    Assert.Throws<ArgumentException>("terms", () =>
                     {
                         images.Polynomial(new double[] { });
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldCreateImage()
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
@@ -72,7 +71,7 @@ namespace Magick.NET.Tests
                         using (var polynomial = images.Polynomial(terms))
                         {
                             var distortion = polynomial.Compare(image, ErrorMetric.RootMeanSquared);
-                            Assert.AreEqual(0.086, distortion, 0.001);
+                            Assert.InRange(distortion, 0.086, 0.087);
                         }
                     }
                 }

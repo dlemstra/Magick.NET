@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Png;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class PngReadDefinesTests
     {
-        [TestClass]
         public class TheSwapBytesProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefineWhenSetToTrue()
             {
                 var defines = new PngReadDefines()
@@ -33,11 +32,11 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(defines);
 
-                    Assert.AreEqual("true", image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
+                    Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetTheDefineWhenSetToFalse()
             {
                 var defines = new PngReadDefines()
@@ -49,7 +48,7 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(defines);
 
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
                 }
             }
         }

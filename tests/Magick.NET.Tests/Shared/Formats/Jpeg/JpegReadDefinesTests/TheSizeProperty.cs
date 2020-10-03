@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Jpeg;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class JpegReadDefinesTests
     {
-        [TestClass]
         public class TheSizeProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 var settings = new MagickReadSettings()
@@ -36,11 +35,11 @@ namespace Magick.NET.Tests
                 {
                     image.Read(Files.ImageMagickJPG, settings);
 
-                    Assert.AreEqual("61x59", image.Settings.GetDefine(MagickFormat.Jpeg, "size"));
+                    Assert.Equal("61x59", image.Settings.GetDefine(MagickFormat.Jpeg, "size"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReduceTheSize()
             {
                 var settings = new MagickReadSettings()
@@ -55,8 +54,8 @@ namespace Magick.NET.Tests
                 {
                     image.Read(Files.ImageMagickJPG, settings);
 
-                    Assert.AreEqual(62, image.Width);
-                    Assert.AreEqual(59, image.Height);
+                    Assert.Equal(62, image.Width);
+                    Assert.Equal(59, image.Height);
                 }
             }
         }

@@ -11,26 +11,25 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class QuantumInfoTests
     {
-        [TestClass]
         public class TheToDoubleMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnAnInstanceWithTheCorrectValues()
             {
                 var quantumInfo = QuantumInfo.Instance.ToDouble();
 
 #if Q8
-                Assert.AreEqual(quantumInfo.Depth, 8);
-                Assert.AreEqual(quantumInfo.Max, 255.0);
+                Assert.Equal(8, quantumInfo.Depth);
+                Assert.Equal(255.0, quantumInfo.Max);
 #else
-                Assert.AreEqual(quantumInfo.Depth, 16);
-                Assert.AreEqual(quantumInfo.Max, 65535.0);
+                Assert.Equal(quantumInfo.Depth, 16);
+                Assert.Equal(quantumInfo.Max, 65535.0);
 #endif
             }
         }

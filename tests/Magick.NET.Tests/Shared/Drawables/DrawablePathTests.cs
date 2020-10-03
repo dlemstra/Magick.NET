@@ -12,18 +12,17 @@
 
 using System.Linq;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class DrawablePathTests
     {
-        [TestMethod]
+        [Fact]
         public void Test_DrawablePath()
         {
             DrawablePath path = new DrawablePath();
-            EnumerableAssert.IsEmpty(path.Paths);
+            Assert.Empty(path.Paths);
 
             ((IDrawingWand)path).Draw(null);
         }

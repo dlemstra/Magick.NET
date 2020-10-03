@@ -12,29 +12,28 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Tiff;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class TiffWriteDefinesTests
     {
-        [TestClass]
         public class TheConstructor : TiffWriteDefinesTests
         {
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetAnyDefine()
             {
                 using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(new TiffWriteDefines());
 
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "alpha"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "endian"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "fill-order"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "preserve-compression"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "rows-per-strip"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "tile-geometry"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "write-layers"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "alpha"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "endian"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "fill-order"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "preserve-compression"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "rows-per-strip"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "tile-geometry"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "write-layers"));
                 }
             }
         }

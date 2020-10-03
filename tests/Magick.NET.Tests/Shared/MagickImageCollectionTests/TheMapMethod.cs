@@ -12,28 +12,27 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageCollectionTests
     {
-        [TestClass]
         public class TheMapMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenCollectionIsEmpty()
             {
                 using (var images = new MagickImageCollection())
                 {
-                    ExceptionAssert.Throws<InvalidOperationException>(() =>
+                    Assert.Throws<InvalidOperationException>(() =>
                     {
                         images.Map(null);
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenCollectionIsEmptyAndImageIsNotNull()
             {
                 using (var colors = new MagickImageCollection())
@@ -45,7 +44,7 @@ namespace Magick.NET.Tests
                     {
                         using (var collection = new MagickImageCollection())
                         {
-                            ExceptionAssert.Throws<InvalidOperationException>(() =>
+                            Assert.Throws<InvalidOperationException>(() =>
                             {
                                 collection.Map(remapImage);
                             });
@@ -54,35 +53,35 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenImageIsNull()
             {
                 using (var images = new MagickImageCollection())
                 {
                     images.Read(Files.RoseSparkleGIF);
 
-                    ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                    Assert.Throws<ArgumentNullException>("image", () =>
                     {
                         images.Map(null);
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenSettingsIsNull()
             {
                 using (var images = new MagickImageCollection())
                 {
                     images.Read(Files.RoseSparkleGIF);
 
-                    ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
+                    Assert.Throws<ArgumentNullException>("settings", () =>
                     {
                         images.Map(images[0], null);
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldDitherWhenSpecifiedInSettings()
             {
                 using (var colors = new MagickImageCollection())
@@ -103,14 +102,14 @@ namespace Magick.NET.Tests
 
                             collection.Map(remapImage, settings);
 
-                            ColorAssert.AreEqual(MagickColors.Red, collection[0], 60, 17);
-                            ColorAssert.AreEqual(MagickColors.Green, collection[0], 37, 24);
+                            ColorAssert.Equal(MagickColors.Red, collection[0], 60, 17);
+                            ColorAssert.Equal(MagickColors.Green, collection[0], 37, 24);
 
-                            ColorAssert.AreEqual(MagickColors.Red, collection[1], 27, 45);
-                            ColorAssert.AreEqual(MagickColors.Green, collection[1], 36, 26);
+                            ColorAssert.Equal(MagickColors.Red, collection[1], 27, 45);
+                            ColorAssert.Equal(MagickColors.Green, collection[1], 36, 26);
 
-                            ColorAssert.AreEqual(MagickColors.Red, collection[2], 55, 12);
-                            ColorAssert.AreEqual(MagickColors.Green, collection[2], 17, 21);
+                            ColorAssert.Equal(MagickColors.Red, collection[2], 55, 12);
+                            ColorAssert.Equal(MagickColors.Green, collection[2], 17, 21);
                         }
                     }
                 }

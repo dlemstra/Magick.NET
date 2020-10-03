@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Png;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class PngReadDefinesTests
     {
-        [TestClass]
         public class TheSkipProfilesProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetDefineWhenValueIsInvalid()
             {
                 using (var image = new MagickImage())
@@ -31,11 +30,11 @@ namespace Magick.NET.Tests
                         SkipProfiles = (PngProfileTypes)64,
                     });
 
-                    Assert.AreEqual(null, image.Settings.GetDefine("profile:skip"));
+                    Assert.Null(image.Settings.GetDefine("profile:skip"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 using (var image = new MagickImage())
@@ -45,11 +44,11 @@ namespace Magick.NET.Tests
                         SkipProfiles = PngProfileTypes.Icc | PngProfileTypes.Iptc,
                     });
 
-                    Assert.AreEqual("Icc,Iptc", image.Settings.GetDefine("profile:skip"));
+                    Assert.Equal("Icc,Iptc", image.Settings.GetDefine("profile:skip"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSkipProfilesWhenLoadingImage()
             {
                 var settings = new MagickReadSettings()
@@ -63,12 +62,12 @@ namespace Magick.NET.Tests
                 using (var image = new MagickImage())
                 {
                     image.Read(Files.FujiFilmFinePixS1ProPNG);
-                    Assert.IsNotNull(image.GetExifProfile());
-                    Assert.IsNotNull(image.GetXmpProfile());
+                    Assert.NotNull(image.GetExifProfile());
+                    Assert.NotNull(image.GetXmpProfile());
 
                     image.Read(Files.FujiFilmFinePixS1ProPNG, settings);
-                    Assert.IsNull(image.GetExifProfile());
-                    Assert.IsNull(image.GetXmpProfile());
+                    Assert.Null(image.GetExifProfile());
+                    Assert.Null(image.GetXmpProfile());
                 }
             }
         }

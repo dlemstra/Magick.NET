@@ -13,7 +13,7 @@
 #if WINDOWS_BUILD
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
         {
             public partial class WithImageAndCompositeOperator
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldCopyTheAlphaChannelWithCopyAlpha()
                 {
                     var readSettings = new MagickReadSettings()
@@ -41,8 +41,8 @@ namespace Magick.NET.Tests
                             alpha.Shade(130, 30);
                             alpha.Composite(image, CompositeOperator.CopyAlpha);
 
-                            ColorAssert.AreEqual(new MagickColor("#7fff7fff7fff0000"), alpha, 0, 0);
-                            ColorAssert.AreEqual(new MagickColor("#7fff7fff7fffffff"), alpha, 30, 30);
+                            ColorAssert.Equal(new MagickColor("#7fff7fff7fff0000"), alpha, 0, 0);
+                            ColorAssert.Equal(new MagickColor("#7fff7fff7fffffff"), alpha, 30, 30);
                         }
                     }
                 }

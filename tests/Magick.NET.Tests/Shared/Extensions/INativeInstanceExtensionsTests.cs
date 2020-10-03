@@ -12,18 +12,17 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class INativeInstanceExtensionsTests
     {
-        [TestMethod]
+        [Fact]
         public void GetInstance_ValueIsNull_ReturnsIntPtrZero()
         {
             INativeInstance instance = null;
-            Assert.AreEqual(IntPtr.Zero, instance.GetInstance());
+            Assert.Equal(IntPtr.Zero, instance.GetInstance());
         }
     }
 }

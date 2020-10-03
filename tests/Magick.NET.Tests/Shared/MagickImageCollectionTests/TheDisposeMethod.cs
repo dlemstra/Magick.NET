@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageCollectionTests
     {
-        [TestClass]
         public class TheDisposeMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldRemoveAndDisposeTheImages()
             {
                 var image = new MagickImage(MagickColors.Red, 10, 10);
@@ -31,8 +30,8 @@ namespace Magick.NET.Tests
                 };
                 collection.Dispose();
 
-                EnumerableAssert.IsEmpty(collection);
-                Assert.IsTrue(image.IsDisposed);
+                Assert.Empty(collection);
+                Assert.True(image.IsDisposed);
             }
         }
     }

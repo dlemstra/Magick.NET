@@ -12,31 +12,30 @@
 
 using System.Linq;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickExceptionTests
     {
-        [TestClass]
         public class TheRelatedExceptionsProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldBeSetWhenReadingImageRaisedRelatedExceptions()
             {
                 using (var image = new MagickImage())
                 {
-                    var exception = ExceptionAssert.Throws<MagickCoderErrorException>(() =>
+                    var exception = Assert.Throws<MagickCoderErrorException>(() =>
                     {
                         image.Read(Files.Coders.IgnoreTagTIF);
                     });
 
                     var relatedExceptions = exception.RelatedExceptions.ToArray();
-                    Assert.AreEqual(1, relatedExceptions.Length);
+                    Assert.Single(relatedExceptions);
 
                     var warning = relatedExceptions[0] as MagickCoderWarningException;
-                    Assert.IsNotNull(warning);
-                    EnumerableAssert.IsEmpty(warning.RelatedExceptions);
+                    Assert.NotNull(warning);
+                    Assert.Empty(warning.RelatedExceptions);
                 }
             }
         }

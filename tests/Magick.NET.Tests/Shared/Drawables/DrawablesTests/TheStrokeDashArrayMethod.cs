@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class DrawablesTests
     {
-        [TestClass]
         public class TheStrokeDashArrayMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldRenderCorrectly()
             {
                 using (var image = new MagickImage(MagickColors.White, 210, 210))
@@ -36,10 +35,10 @@ namespace Magick.NET.Tests
 
                     image.Draw(drawables);
 
-                    ColorAssert.AreEqual(MagickColors.OrangeRed, image, 7, 40);
-                    ColorAssert.AreEqual(MagickColors.OrangeRed, image, 7, 175);
-                    ColorAssert.AreEqual(MagickColors.OrangeRed, image, 200, 30);
-                    ColorAssert.AreEqual(MagickColors.OrangeRed, image, 200, 170);
+                    ColorAssert.Equal(MagickColors.OrangeRed, image, 7, 40);
+                    ColorAssert.Equal(MagickColors.OrangeRed, image, 7, 175);
+                    ColorAssert.Equal(MagickColors.OrangeRed, image, 200, 30);
+                    ColorAssert.Equal(MagickColors.OrangeRed, image, 200, 170);
                 }
             }
         }

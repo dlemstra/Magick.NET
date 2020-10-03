@@ -12,39 +12,39 @@
 
 using System.IO;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using Xunit.Sdk;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class ThePngCoder
     {
-        [TestMethod]
+        [Fact]
         public void ShouldThrowExceptionAndNotChangeTheOriginalImageWhenTheImageIsCorrupt()
         {
             using (var image = new MagickImage(MagickColors.Purple, 4, 2))
             {
-                ExceptionAssert.Throws<MagickCoderErrorException>(() =>
+                Assert.Throws<MagickCoderErrorException>(() =>
                 {
                     image.Read(Files.CorruptPNG);
                 });
 
-                Assert.AreEqual(4, image.Width);
-                Assert.AreEqual(2, image.Height);
+                Assert.Equal(4, image.Width);
+                Assert.Equal(2, image.Height);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldBeAbleToReadPngWithLargeIDAT()
         {
             using (var image = new MagickImage(Files.VicelandPNG))
             {
-                Assert.AreEqual(200, image.Width);
-                Assert.AreEqual(28, image.Height);
+                Assert.Equal(200, image.Width);
+                Assert.Equal(28, image.Height);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldNotRaiseWarningForValidModificationDateThatBecomes24Hours()
         {
             using (var image = new MagickImage("logo:"))
@@ -56,7 +56,7 @@ namespace Magick.NET.Tests
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldNotRaiseWarningForValidModificationDateThatBecomes60Minutes()
         {
             using (var image = new MagickImage("logo:"))
@@ -68,7 +68,7 @@ namespace Magick.NET.Tests
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldReadTheExifChunk()
         {
             using (var input = new MagickImage(MagickColors.YellowGreen, 1, 1))
@@ -88,28 +88,28 @@ namespace Magick.NET.Tests
                     {
                         exifProfile = output.GetExifProfile();
 
-                        Assert.IsNotNull(exifProfile);
+                        Assert.NotNull(exifProfile);
                     }
                 }
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldSetTheAnimationProperties()
         {
             using (var images = new MagickImageCollection(Files.Coders.TestMNG))
             {
-                Assert.AreEqual(8, images.Count);
+                Assert.Equal(8, images.Count);
 
                 foreach (var image in images)
                 {
-                    Assert.AreEqual(20, image.AnimationDelay);
-                    Assert.AreEqual(100, image.AnimationTicksPerSecond);
+                    Assert.Equal(20, image.AnimationDelay);
+                    Assert.Equal(100, image.AnimationTicksPerSecond);
                 }
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldWritePng00Correctly()
         {
             using (var image = new MagickImage(Files.Builtin.Logo))
@@ -139,16 +139,14 @@ namespace Magick.NET.Tests
 
                     image.Read(stream);
 
-                    Assert.AreEqual(ColorType.Palette, image.ColorType);
-                    ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
-                    ColorAssert.AreEqual(MagickColors.Black, image, 305, 248);
+                    Assert.Equal(ColorType.Palette, image.ColorType);
+                    ColorAssert.Equal(MagickColors.White, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.Black, image, 305, 248);
                 }
             }
         }
 
         private void HandleWarning(object sender, WarningEventArgs e)
-        {
-            Assert.Fail("Warning was raised: " + e.Message);
-        }
+            => throw new XunitException("Warning was raised: " + e.Message);
     }
 }

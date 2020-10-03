@@ -12,7 +12,7 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Dng;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
@@ -20,17 +20,17 @@ namespace Magick.NET.Tests
     {
         public class TheConstructor
         {
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetAnyDefines()
             {
                 using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(new DngReadDefines());
 
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Dng, "use_camera_wb"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Dng, "use_auto_wb"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Dng, "no_auto_bright"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Dng, "output_color"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Dng, "use_camera_wb"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Dng, "use_auto_wb"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Dng, "no_auto_bright"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Dng, "output_color"));
                 }
             }
         }

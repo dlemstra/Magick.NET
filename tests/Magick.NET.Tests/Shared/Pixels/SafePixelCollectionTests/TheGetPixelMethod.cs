@@ -12,23 +12,22 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class SafePixelCollectionTests
     {
-        [TestClass]
         public class TheGetPixelMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenWidthOutsideImage()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        ExceptionAssert.Throws<ArgumentOutOfRangeException>("x", () =>
+                        Assert.Throws<ArgumentOutOfRangeException>("x", () =>
                         {
                             pixels.GetPixel(image.Width + 1, 0);
                         });
@@ -36,14 +35,14 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenHeightOutsideImage()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        ExceptionAssert.Throws<ArgumentOutOfRangeException>("y", () =>
+                        Assert.Throws<ArgumentOutOfRangeException>("y", () =>
                         {
                             pixels.GetPixel(0, image.Height + 1);
                         });
@@ -51,7 +50,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnPixelWhenIndexInsideImage()
             {
                 using (var image = new MagickImage(Files.MagickNETIconPNG))
@@ -59,7 +58,7 @@ namespace Magick.NET.Tests
                     using (var pixels = image.GetPixels())
                     {
                         var pixel = pixels.GetPixel(55, 68);
-                        ColorAssert.AreEqual(new MagickColor("#a8dff8ff"), pixel.ToColor());
+                        ColorAssert.Equal(new MagickColor("#a8dff8ff"), pixel.ToColor());
                     }
                 }
             }

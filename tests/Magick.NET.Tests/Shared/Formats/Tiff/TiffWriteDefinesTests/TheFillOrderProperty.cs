@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Tiff;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class TiffWriteDefinesTests
     {
-        [TestClass]
         public class TheFillOrderProperty : TiffWriteDefinesTests
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 using (var input = new MagickImage(Files.Builtin.Logo))
@@ -31,11 +30,11 @@ namespace Magick.NET.Tests
                         FillOrder = Endian.LSB,
                     });
 
-                    Assert.AreEqual("LSB", input.Settings.GetDefine(MagickFormat.Tiff, "fill-order"));
+                    Assert.Equal("LSB", input.Settings.GetDefine(MagickFormat.Tiff, "fill-order"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetTheDefineWhenTheValueIsUndefined()
             {
                 using (var image = new MagickImage())
@@ -45,7 +44,7 @@ namespace Magick.NET.Tests
                         FillOrder = Endian.Undefined,
                     });
 
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Tiff, "fill-order"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "fill-order"));
                 }
             }
         }

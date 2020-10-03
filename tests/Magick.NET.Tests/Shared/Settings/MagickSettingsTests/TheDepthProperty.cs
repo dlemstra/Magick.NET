@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickSettingsTests
     {
-        [TestClass]
         public class TheDepthProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldChangeTheDepthOfTheOutputImage()
             {
                 using (var input = new MagickImage(Files.Builtin.Logo))
@@ -31,7 +30,7 @@ namespace Magick.NET.Tests
 
                     using (var output = new MagickImage(bytes, MagickFormat.Tga))
                     {
-                        Assert.AreEqual(5, output.Depth);
+                        Assert.Equal(5, output.Depth);
                     }
                 }
             }

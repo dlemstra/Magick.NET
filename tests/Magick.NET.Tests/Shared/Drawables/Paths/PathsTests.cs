@@ -12,14 +12,13 @@
 
 using System.Collections;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class PathsTests
     {
-        [TestMethod]
+        [Fact]
         public void Test_Draw_Drawables()
         {
             using (var image = new MagickImage(MagickColors.Green, 100, 10))
@@ -32,14 +31,14 @@ namespace Magick.NET.Tests
                   .LineToRel(80, 4)
                   .Drawables());
 
-                ColorAssert.AreEqual(MagickColors.Green, image, 9, 5);
-                ColorAssert.AreEqual(MagickColors.Red, image, 55, 5);
-                ColorAssert.AreEqual(MagickColors.Green, image, 90, 2);
-                ColorAssert.AreEqual(MagickColors.Green, image, 90, 9);
+                ColorAssert.Equal(MagickColors.Green, image, 9, 5);
+                ColorAssert.Equal(MagickColors.Red, image, 55, 5);
+                ColorAssert.Equal(MagickColors.Green, image, 90, 2);
+                ColorAssert.Equal(MagickColors.Green, image, 90, 9);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Draw_Paths()
         {
             using (var image = new MagickImage(MagickColors.Fuchsia, 100, 3))
@@ -49,24 +48,24 @@ namespace Magick.NET.Tests
                   .LineToAbs(90, 1)
                   .Drawables());
 
-                ColorAssert.AreEqual(MagickColors.Fuchsia, image, 9, 1);
+                ColorAssert.Equal(MagickColors.Fuchsia, image, 9, 1);
 
-                ColorAssert.AreEqual(MagickColors.Fuchsia, image, 10, 0);
-                ColorAssert.AreEqual(MagickColors.Black, image, 10, 1);
-                ColorAssert.AreEqual(MagickColors.Fuchsia, image, 10, 2);
+                ColorAssert.Equal(MagickColors.Fuchsia, image, 10, 0);
+                ColorAssert.Equal(MagickColors.Black, image, 10, 1);
+                ColorAssert.Equal(MagickColors.Fuchsia, image, 10, 2);
 
-                ColorAssert.AreEqual(MagickColors.Fuchsia, image, 90, 0);
-                ColorAssert.AreEqual(MagickColors.Black, image, 90, 1);
-                ColorAssert.AreEqual(MagickColors.Fuchsia, image, 90, 2);
+                ColorAssert.Equal(MagickColors.Fuchsia, image, 90, 0);
+                ColorAssert.Equal(MagickColors.Black, image, 90, 1);
+                ColorAssert.Equal(MagickColors.Fuchsia, image, 90, 2);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Paths()
         {
             var paths = new Paths();
             IEnumerator enumerator = ((IEnumerable)paths).GetEnumerator();
-            Assert.IsFalse(enumerator.MoveNext());
+            Assert.False(enumerator.MoveNext());
         }
     }
 }

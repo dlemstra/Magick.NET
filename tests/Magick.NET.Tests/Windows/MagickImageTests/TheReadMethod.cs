@@ -13,7 +13,7 @@
 #if WINDOWS_BUILD
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
@@ -21,7 +21,7 @@ namespace Magick.NET.Tests
     {
         public partial class TheReadMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReadAIFromNonSeekableStream()
             {
                 using (NonSeekableStream stream = new NonSeekableStream(Files.Coders.CartoonNetworkStudiosLogoAI))

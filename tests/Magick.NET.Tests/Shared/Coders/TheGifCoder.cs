@@ -11,14 +11,13 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class TheGifCoder
     {
-        [TestMethod]
+        [Fact]
         public void ShouldReturnTheCorrectNumberOfAnimationIterations()
         {
             using (var images = new MagickImageCollection())
@@ -32,7 +31,7 @@ namespace Magick.NET.Tests
                     images.Write(file.FullName);
 
                     images.Read(file.FullName);
-                    Assert.AreEqual(1, images[0].AnimationIterations);
+                    Assert.Equal(1, images[0].AnimationIterations);
                 }
             }
         }

@@ -12,48 +12,47 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheHasProfileMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenNameIsNull()
             {
                 using (var image = new MagickImage())
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("name", () => image.HasProfile(null));
+                    Assert.Throws<ArgumentNullException>("name", () => image.HasProfile(null));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenNameIsEmpty()
             {
                 using (var image = new MagickImage())
                 {
-                    ExceptionAssert.Throws<ArgumentException>("name", () => image.HasProfile(string.Empty));
+                    Assert.Throws<ArgumentException>("name", () => image.HasProfile(string.Empty));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenImageHasProfileWithTheSpecifiedName()
             {
                 using (var image = new MagickImage(Files.InvitationTIF))
                 {
-                    Assert.IsTrue(image.HasProfile("icc"));
+                    Assert.True(image.HasProfile("icc"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenImageDoesNotHaveProfileWithTheSpecifiedName()
             {
                 using (var image = new MagickImage(Files.InvitationTIF))
                 {
-                    Assert.IsFalse(image.HasProfile("foo"));
+                    Assert.False(image.HasProfile("foo"));
                 }
             }
         }

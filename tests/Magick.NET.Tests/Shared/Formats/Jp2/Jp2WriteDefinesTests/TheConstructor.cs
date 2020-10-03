@@ -12,26 +12,25 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Jp2;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class Jp2WriteDefinesTests
     {
-        [TestClass]
         public class TheConstructor
         {
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetAnyDefines()
             {
                 using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(new Jp2WriteDefines());
 
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Jp2, "number-resolutions"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Jp2, "progression-order"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Jp2, "quality"));
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Jp2, "rate"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Jp2, "number-resolutions"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Jp2, "progression-order"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Jp2, "quality"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Jp2, "rate"));
                 }
             }
         }

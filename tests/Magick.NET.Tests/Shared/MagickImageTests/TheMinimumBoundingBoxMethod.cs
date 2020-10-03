@@ -12,31 +12,30 @@
 
 using System.Linq;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace Magick.NET.Tests.Shared
+namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheMinimumBoundingBoxMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheMinimumBoundingBox()
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
                 {
                     var coordinates = image.MinimumBoundingBox().ToList();
-                    Assert.AreEqual(4, coordinates.Count);
+                    Assert.Equal(4, coordinates.Count);
 
-                    Assert.AreEqual(550, coordinates[0].X, 1);
-                    Assert.AreEqual(469, coordinates[0].Y, 1);
-                    Assert.AreEqual(109, coordinates[1].X, 1);
-                    Assert.AreEqual(489, coordinates[1].Y, 1);
-                    Assert.AreEqual(86, coordinates[2].X, 1);
-                    Assert.AreEqual(7, coordinates[2].Y, 1);
-                    Assert.AreEqual(527, coordinates[3].X, 1);
-                    Assert.AreEqual(-13, coordinates[3].Y, 1);
+                    Assert.InRange(coordinates[0].X, 550, 551);
+                    Assert.InRange(coordinates[0].Y, 469, 470);
+                    Assert.InRange(coordinates[1].X, 109, 110);
+                    Assert.InRange(coordinates[1].Y, 489, 490);
+                    Assert.InRange(coordinates[2].X, 86, 87);
+                    Assert.InRange(coordinates[2].Y, 7, 8);
+                    Assert.InRange(coordinates[3].X, 527, 528);
+                    Assert.InRange(coordinates[3].Y, -14, -13);
                 }
             }
         }

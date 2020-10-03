@@ -14,40 +14,39 @@ using System;
 using System.Linq;
 using System.Text;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class IptcProfileTests
     {
-        [TestClass]
         public class TheSetEncodingMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenEncodingIsNull()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetIptcProfile();
 
-                    ExceptionAssert.Throws<ArgumentNullException>("encoding", () =>
+                    Assert.Throws<ArgumentNullException>("encoding", () =>
                     {
                         profile.SetEncoding(null);
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheEncodingOfTheValues()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetIptcProfile();
                     var firstValue = profile.Values.First();
-                    Assert.AreNotEqual(Encoding.ASCII, firstValue.Encoding);
+                    Assert.NotEqual(Encoding.ASCII, firstValue.Encoding);
 
                     profile.SetEncoding(Encoding.ASCII);
-                    Assert.AreEqual(Encoding.ASCII, firstValue.Encoding);
+                    Assert.Equal(Encoding.ASCII, firstValue.Encoding);
                 }
             }
         }

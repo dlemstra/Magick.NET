@@ -13,14 +13,13 @@
 #if !NETCORE
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class TheCaptionCoder
     {
-        [TestMethod]
+        [Fact]
         public void ShouldAddCorrectLineBreaks1()
         {
             var caption = "caption:Text 2 Verylongtext";
@@ -34,11 +33,11 @@ namespace Magick.NET.Tests
 
             using (var image = new MagickImage(caption, readSettings))
             {
-                ColorAssert.AreEqual(MagickColors.Blue, image, 55, 20);
+                ColorAssert.Equal(MagickColors.Blue, image, 55, 20);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldAddCorrectLineBreaks2()
         {
             var caption = "caption:tex1_124x40_3a277be1b9da51b7_2d0d8f84dc3ccc36_8";
@@ -54,15 +53,15 @@ namespace Magick.NET.Tests
 
             using (var image = new MagickImage(caption, readSettings))
             {
-                ColorAssert.AreEqual(MagickColors.Green, image, 170, 67);
-                ColorAssert.AreEqual(MagickColors.Red, image, 444, 26);
-                ColorAssert.AreEqual(MagickColors.Red, image, 395, 55);
-                ColorAssert.AreEqual(MagickColors.Red, image, 231, 116);
-                ColorAssert.AreEqual(new MagickColor("#0000"), image, 170, 93);
+                ColorAssert.Equal(MagickColors.Green, image, 170, 67);
+                ColorAssert.Equal(MagickColors.Red, image, 444, 26);
+                ColorAssert.Equal(MagickColors.Red, image, 395, 55);
+                ColorAssert.Equal(MagickColors.Red, image, 231, 116);
+                ColorAssert.Equal(new MagickColor("#0000"), image, 170, 93);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldAddCorrectLineBreaks3()
         {
             var caption = "caption:Dans votre vie, vous mangerez environ 30 000 kilos de nourriture, l’équivalent du poids de 6 éléphants.";
@@ -75,14 +74,14 @@ namespace Magick.NET.Tests
 
             using (var image = new MagickImage(caption, readSettings))
             {
-                ColorAssert.AreEqual(MagickColors.Black, image, 415, 27);
-                ColorAssert.AreEqual(MagickColors.Black, image, 425, 54);
-                ColorAssert.AreEqual(MagickColors.Black, image, 308, 82);
-                ColorAssert.AreEqual(MagickColors.White, image, 248, 51);
+                ColorAssert.Equal(MagickColors.Black, image, 415, 27);
+                ColorAssert.Equal(MagickColors.Black, image, 425, 54);
+                ColorAssert.Equal(MagickColors.Black, image, 308, 82);
+                ColorAssert.Equal(MagickColors.White, image, 248, 51);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldAddCorrectLineBreaks4()
         {
             var caption = "caption:This does not wrap";
@@ -94,12 +93,12 @@ namespace Magick.NET.Tests
 
             using (var image = new MagickImage(caption, readSettings))
             {
-                ColorAssert.AreEqual(MagickColors.White, image, 321, 30);
-                ColorAssert.AreEqual(MagickColors.Black, image, 86, 86);
+                ColorAssert.Equal(MagickColors.White, image, 321, 30);
+                ColorAssert.Equal(MagickColors.Black, image, 86, 86);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldAddCorrectLineBreaks5()
         {
             var caption = "caption:A";
@@ -114,14 +113,14 @@ namespace Magick.NET.Tests
 
             using (var image = new MagickImage(caption, readSettings))
             {
-                Assert.AreEqual(83, image.Height);
+                Assert.Equal(83, image.Height);
 
-                ColorAssert.AreEqual(MagickColors.Black, image, 39, 46);
-                ColorAssert.AreEqual(new MagickColor("#0000"), image, 39, 65);
+                ColorAssert.Equal(MagickColors.Black, image, 39, 46);
+                ColorAssert.Equal(new MagickColor("#0000"), image, 39, 65);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldAddCorrectLineBreaks6()
         {
             var caption = "caption:AAA";
@@ -136,14 +135,14 @@ namespace Magick.NET.Tests
 
             using (var image = new MagickImage(caption, readSettings))
             {
-                Assert.AreEqual(249, image.Height);
+                Assert.Equal(249, image.Height);
 
-                ColorAssert.AreEqual(MagickColors.Black, image, 39, 47);
-                ColorAssert.AreEqual(new MagickColor("#0000"), image, 39, 66);
-                ColorAssert.AreEqual(MagickColors.Black, image, 39, 129);
-                ColorAssert.AreEqual(new MagickColor("#0000"), image, 39, 148);
-                ColorAssert.AreEqual(MagickColors.Black, image, 39, 211);
-                ColorAssert.AreEqual(new MagickColor("#0000"), image, 39, 230);
+                ColorAssert.Equal(MagickColors.Black, image, 39, 47);
+                ColorAssert.Equal(new MagickColor("#0000"), image, 39, 66);
+                ColorAssert.Equal(MagickColors.Black, image, 39, 129);
+                ColorAssert.Equal(new MagickColor("#0000"), image, 39, 148);
+                ColorAssert.Equal(MagickColors.Black, image, 39, 211);
+                ColorAssert.Equal(new MagickColor("#0000"), image, 39, 230);
             }
         }
     }

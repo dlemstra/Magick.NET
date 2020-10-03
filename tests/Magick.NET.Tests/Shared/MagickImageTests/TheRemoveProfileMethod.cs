@@ -11,28 +11,27 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheRemoveProfileMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldRemoveTheProfile()
             {
                 using (var image = new MagickImage(Files.PictureJPG))
                 {
                     var profile = image.GetColorProfile();
-                    Assert.IsNotNull(profile);
-                    Assert.AreEqual("icc", profile.Name);
+                    Assert.NotNull(profile);
+                    Assert.Equal("icc", profile.Name);
 
                     image.RemoveProfile(profile.Name);
 
                     profile = image.GetColorProfile();
-                    Assert.IsNull(profile);
+                    Assert.Null(profile);
                 }
             }
         }

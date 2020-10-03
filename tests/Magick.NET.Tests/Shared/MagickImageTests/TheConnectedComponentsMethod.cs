@@ -12,7 +12,7 @@
 
 using System.Linq;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -28,10 +28,9 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheConnectedComponentsMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheConnectedComponents()
             {
                 using (var image = new MagickImage(Files.ConnectedComponentsPNG))
@@ -42,7 +41,7 @@ namespace Magick.NET.Tests
                         temp.Threshold((Percentage)50);
 
                         var components = temp.ConnectedComponents(4).OrderBy(component => component.X).ToArray();
-                        Assert.AreEqual(7, components.Length);
+                        Assert.Equal(7, components.Length);
 
                         var color = MagickColors.Black;
 
@@ -74,7 +73,7 @@ namespace Magick.NET.Tests
                         };
 
                         var components = temp.ConnectedComponents(settings).OrderBy(component => component.X).ToArray();
-                        Assert.AreEqual(12, components.Length);
+                        Assert.Equal(12, components.Length);
 
                         var color = new MagickColor("#010101010101");
 
@@ -98,21 +97,21 @@ namespace Magick.NET.Tests
             {
                 var delta = 2;
 
-                Assert.AreEqual(id, component.Id);
-                Assert.AreEqual(x, component.X, delta);
-                Assert.AreEqual(y, component.Y, delta);
-                Assert.AreEqual(width, component.Width, delta);
-                Assert.AreEqual(height, component.Height, delta);
-                Assert.AreEqual(area, component.Area, delta);
-                ColorAssert.AreEqual(color, component.Color);
-                Assert.AreEqual(centroidX, component.Centroid.X, delta);
-                Assert.AreEqual(centroidY, component.Centroid.Y, delta);
+                Assert.Equal(id, component.Id);
+                Assert.InRange(component.X, x, x + delta);
+                Assert.InRange(component.Y, y, y + delta);
+                Assert.InRange(component.Width, width, width + delta);
+                Assert.InRange(component.Height, height, height + delta);
+                Assert.InRange(area, component.Area, component.Area + delta);
+                ColorAssert.Equal(color, component.Color);
+                Assert.InRange(component.Centroid.X, centroidX, centroidX + delta);
+                Assert.InRange(component.Centroid.Y, centroidY, centroidY + delta);
 
                 using (var componentImage = image.Clone())
                 {
                     componentImage.Crop(component.ToGeometry(10));
-                    Assert.AreEqual(width + 20, componentImage.Width, delta);
-                    Assert.AreEqual(height + 20, componentImage.Height, delta);
+                    Assert.InRange(componentImage.Width, width + 20 - delta, width + 20 + delta);
+                    Assert.InRange(componentImage.Height, height + 20 - delta, height + 20 + delta);
                 }
             }
         }

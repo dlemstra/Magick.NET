@@ -11,30 +11,29 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickSettingsTests
     {
-        [TestClass]
         public class TheTextAntiAliasProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldDisableTextAntialiasingWhenFalse()
             {
                 using (var image = new MagickImage(MagickColors.Azure, 300, 300))
                 {
-                    Assert.IsTrue(image.Settings.TextAntiAlias);
+                    Assert.True(image.Settings.TextAntiAlias);
 
                     image.Settings.TextAntiAlias = false;
                     image.Settings.FontPointsize = 100;
                     image.Annotate("TEST", Gravity.Center);
 
-                    ColorAssert.AreEqual(MagickColors.Azure, image, 158, 125);
-                    ColorAssert.AreEqual(MagickColors.Black, image, 158, 126);
-                    ColorAssert.AreEqual(MagickColors.Azure, image, 209, 127);
-                    ColorAssert.AreEqual(MagickColors.Black, image, 209, 128);
+                    ColorAssert.Equal(MagickColors.Azure, image, 158, 125);
+                    ColorAssert.Equal(MagickColors.Black, image, 158, 126);
+                    ColorAssert.Equal(MagickColors.Azure, image, 209, 127);
+                    ColorAssert.Equal(MagickColors.Black, image, 209, 128);
                 }
             }
         }

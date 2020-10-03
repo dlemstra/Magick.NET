@@ -12,45 +12,44 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheGetArtifactMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenNameIsNull()
             {
                 using (var image = new MagickImage())
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("name", () =>
+                    Assert.Throws<ArgumentNullException>("name", () =>
                     {
                         image.GetArtifact(null);
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenNameIsEmpty()
             {
                 using (var image = new MagickImage())
                 {
-                    ExceptionAssert.Throws<ArgumentException>("name", () =>
+                    Assert.Throws<ArgumentException>("name", () =>
                     {
                         image.GetArtifact(string.Empty);
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnNullWhenValueIsNull()
             {
                 using (var image = new MagickImage())
                 {
-                    Assert.IsNull(image.GetArtifact("test"));
+                    Assert.Null(image.GetArtifact("test"));
                 }
             }
         }

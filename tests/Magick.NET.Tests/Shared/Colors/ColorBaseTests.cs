@@ -11,68 +11,68 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public abstract class ColorBaseTests<TColor>
       where TColor : ColorBase
     {
-        protected static void Test_IComparable(TColor first)
+        protected static void AssertIComparable(TColor first)
         {
-            Assert.AreEqual(0, first.CompareTo(first));
-            Assert.AreEqual(1, first.CompareTo(null));
-            Assert.IsFalse(first < null);
-            Assert.IsFalse(first <= null);
-            Assert.IsTrue(first > null);
-            Assert.IsTrue(first >= null);
-            Assert.IsTrue(null < first);
-            Assert.IsTrue(null <= first);
-            Assert.IsFalse(null > first);
-            Assert.IsFalse(null >= first);
+            Assert.Equal(0, first.CompareTo(first));
+            Assert.Equal(1, first.CompareTo(null));
+            Assert.False(first < null);
+            Assert.False(first <= null);
+            Assert.True(first > null);
+            Assert.True(first >= null);
+            Assert.True(null < first);
+            Assert.True(null <= first);
+            Assert.False(null > first);
+            Assert.False(null >= first);
         }
 
         protected static void Test_IComparable_Equal(TColor first, TColor second)
         {
-            Assert.AreEqual(0, first.CompareTo(second));
-            Assert.IsFalse(first < second);
-            Assert.IsTrue(first <= second);
-            Assert.IsFalse(first > second);
-            Assert.IsTrue(first >= second);
+            Assert.Equal(0, first.CompareTo(second));
+            Assert.False(first < second);
+            Assert.True(first <= second);
+            Assert.False(first > second);
+            Assert.True(first >= second);
         }
 
         protected static void Test_IComparable_FirstLower(TColor first, TColor second)
         {
-            Assert.AreEqual(-1, first.CompareTo(second));
-            Assert.IsTrue(first < second);
-            Assert.IsTrue(first <= second);
-            Assert.IsFalse(first > second);
-            Assert.IsFalse(first >= second);
+            Assert.Equal(-1, first.CompareTo(second));
+            Assert.True(first < second);
+            Assert.True(first <= second);
+            Assert.False(first > second);
+            Assert.False(first >= second);
         }
 
         protected static void Test_IEquatable_NotEqual(TColor first, TColor second)
         {
-            Assert.IsTrue(first != second);
-            Assert.IsFalse(first.Equals(second));
+            Assert.True(first != second);
+            Assert.False(first.Equals(second));
         }
 
         protected static void Test_IEquatable_Equal(TColor first, TColor second)
         {
-            Assert.IsTrue(first == second);
-            Assert.IsTrue(first.Equals(second));
+            Assert.True(first == second);
+            Assert.True(first.Equals(second));
         }
 
         protected static void Test_IEquatable_NullAndSelf(TColor first)
         {
-            Assert.IsFalse(first == null);
-            Assert.IsFalse(first.Equals(null));
-            Assert.IsTrue(first.Equals(first));
-            Assert.IsTrue(first.Equals((object)first));
+            Assert.False(first == null);
+            Assert.False(first.Equals(null));
+            Assert.True(first.Equals(first));
+            Assert.True(first.Equals((object)first));
         }
 
-        protected static void Test_ToString(TColor color, MagickColor expected)
+        protected static void AssertToString(TColor color, MagickColor expected)
         {
-            Assert.AreEqual(color.ToString(), expected.ToString());
+            Assert.Equal(color.ToString(), expected.ToString());
         }
     }
 }

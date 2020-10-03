@@ -11,38 +11,37 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheLabelAttribute
         {
-            [TestMethod]
+            [Fact]
             public void ShouldGetTheLabelAttribute()
             {
                 using (var image = new MagickImage())
                 {
                     image.SetAttribute("label", "foo");
 
-                    Assert.AreEqual("foo", image.Label);
+                    Assert.Equal("foo", image.Label);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheLabelAttribute()
             {
                 using (var image = new MagickImage())
                 {
                     image.Label = "foo";
 
-                    Assert.AreEqual("foo", image.GetAttribute("label"));
+                    Assert.Equal("foo", image.GetAttribute("label"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldRemoveTheLabelAttributeWhenSetToNull()
             {
                 using (var image = new MagickImage())
@@ -51,7 +50,7 @@ namespace Magick.NET.Tests
 
                     image.Label = null;
 
-                    Assert.IsNull(image.GetAttribute("label"));
+                    Assert.Null(image.GetAttribute("label"));
                 }
             }
         }

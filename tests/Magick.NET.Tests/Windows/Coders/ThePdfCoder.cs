@@ -13,21 +13,20 @@
 #if WINDOWS_BUILD
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public partial class ThePdfCoder
     {
-        [TestMethod]
+        [Fact]
         public void Test_Format()
         {
             using (var image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI))
             {
-                Assert.AreEqual(765, image.Width);
-                Assert.AreEqual(361, image.Height);
-                Assert.AreEqual(MagickFormat.Ai, image.Format);
+                Assert.Equal(765, image.Width);
+                Assert.Equal(361, image.Height);
+                Assert.Equal(MagickFormat.Ai, image.Format);
             }
         }
     }

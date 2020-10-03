@@ -12,29 +12,28 @@
 
 using System.Linq;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class EightBimValueTests
     {
-        [TestMethod]
+        [Fact]
         public void Test_IEquatable()
         {
             var first = Get8BimValue();
             var second = Get8BimValue();
 
-            Assert.IsTrue(first.Equals(second));
-            Assert.IsTrue(first.Equals((object)second));
+            Assert.True(first.Equals(second));
+            Assert.True(first.Equals((object)second));
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_ToByteArray()
         {
             var value = Get8BimValue();
             byte[] bytes = value.ToByteArray();
-            Assert.AreEqual(273, bytes.Length);
+            Assert.Equal(273, bytes.Length);
         }
 
         private static IEightBimValue Get8BimValue()

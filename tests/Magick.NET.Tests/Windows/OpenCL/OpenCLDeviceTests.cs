@@ -14,52 +14,51 @@
 
 using System.Collections.Generic;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public partial class OpenCLDeviceTests
     {
-        [TestMethod]
+        [Fact]
         public void Test_BenchmarkScore()
         {
-            foreach (OpenCLDevice device in OpenCL.Devices)
+            foreach (var device in OpenCL.Devices)
             {
-                Assert.AreNotEqual(device.BenchmarkScore, 0.0);
+                Assert.NotEqual(0.0, device.BenchmarkScore);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_DeviceType()
         {
-            foreach (OpenCLDevice device in OpenCL.Devices)
+            foreach (var device in OpenCL.Devices)
             {
-                Assert.AreNotEqual(OpenCLDeviceType.Undefined, device.DeviceType);
+                Assert.NotEqual(OpenCLDeviceType.Undefined, device.DeviceType);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_IsEnabled()
         {
-            foreach (OpenCLDevice device in OpenCL.Devices)
+            foreach (var device in OpenCL.Devices)
             {
                 bool isEnabled = device.IsEnabled;
 
                 device.IsEnabled = !isEnabled;
-                Assert.AreNotEqual(isEnabled, device.IsEnabled);
+                Assert.NotEqual(isEnabled, device.IsEnabled);
 
                 device.IsEnabled = isEnabled;
-                Assert.AreEqual(isEnabled, device.IsEnabled);
+                Assert.Equal(isEnabled, device.IsEnabled);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_KernelProfileRecords()
         {
-            OpenCLDevice device = GetEnabledDevice();
+            var device = GetEnabledDevice();
             if (device == null)
-                Assert.Inconclusive("No OpenCL devices detected.");
+                return;
 
             device.ProfileKernels = true;
 
@@ -71,42 +70,42 @@ namespace Magick.NET.Tests
 
             device.ProfileKernels = false;
 
-            List<OpenCLKernelProfileRecord> records = new List<OpenCLKernelProfileRecord>(device.KernelProfileRecords);
-            Assert.IsFalse(records.Count < 2);
+            var records = new List<OpenCLKernelProfileRecord>(device.KernelProfileRecords);
+            Assert.False(records.Count < 2);
 
-            foreach (OpenCLKernelProfileRecord record in records)
+            foreach (var record in records)
             {
-                Assert.IsNotNull(record.Name);
-                Assert.IsFalse(record.Count < 0);
-                Assert.IsFalse(record.MaximumDuration < 0);
-                Assert.IsFalse(record.MinimumDuration < 0);
-                Assert.IsFalse(record.TotalDuration < 0);
+                Assert.NotNull(record.Name);
+                Assert.False(record.Count < 0);
+                Assert.False(record.MaximumDuration < 0);
+                Assert.False(record.MinimumDuration < 0);
+                Assert.False(record.TotalDuration < 0);
 
-                Assert.AreEqual(record.AverageDuration, record.TotalDuration / record.Count);
+                Assert.Equal(record.AverageDuration, record.TotalDuration / record.Count);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Name()
         {
-            foreach (OpenCLDevice device in OpenCL.Devices)
+            foreach (var device in OpenCL.Devices)
             {
-                Assert.IsNotNull(device.Name);
+                Assert.NotNull(device.Name);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Version()
         {
-            foreach (OpenCLDevice device in OpenCL.Devices)
+            foreach (var device in OpenCL.Devices)
             {
-                Assert.IsNotNull(device.Version);
+                Assert.NotNull(device.Version);
             }
         }
 
         private OpenCLDevice GetEnabledDevice()
         {
-            foreach (OpenCLDevice device in OpenCL.Devices)
+            foreach (var device in OpenCL.Devices)
             {
                 if (device.IsEnabled)
                     return device;

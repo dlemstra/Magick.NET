@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class ICompareSettingsExtensionsTests
     {
-        [TestClass]
         public class TheRemoveImageArtifactsMethod : ICompareSettingsExtensionsTests
         {
-            [TestMethod]
+            [Fact]
             public void ShouldRemoveTheHighlightColor()
             {
                 using (var image = new MagickImage())
@@ -33,11 +32,11 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    EnumerableAssert.IsEmpty(image.ArtifactNames);
+                    Assert.Empty(image.ArtifactNames);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldRemoveTheLowlightColor()
             {
                 using (var image = new MagickImage())
@@ -50,11 +49,11 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    EnumerableAssert.IsEmpty(image.ArtifactNames);
+                    Assert.Empty(image.ArtifactNames);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldRemoveTheMasklightColor()
             {
                 using (var image = new MagickImage())
@@ -67,7 +66,7 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    EnumerableAssert.IsEmpty(image.ArtifactNames);
+                    Assert.Empty(image.ArtifactNames);
                 }
             }
         }

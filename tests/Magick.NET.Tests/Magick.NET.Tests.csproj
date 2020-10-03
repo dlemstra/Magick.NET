@@ -50,16 +50,14 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.1.2" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
     <PackageReference Include="NSubstitute" Version="4.2.2" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.205" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Include="../Shared/ColorAssert.cs" Link="Asserts/ColorAssert.cs" />
-    <Compile Include="../Shared/EnumerableAssert.cs" Link="Asserts/EnumerableAssert.cs" />
-    <Compile Include="../Shared/ExceptionAssert.cs" Link="Asserts/ExceptionAssert.cs" />
     <Compile Include="../Shared/Files.cs" Link="Helpers/Files.cs" />
   </ItemGroup>
 

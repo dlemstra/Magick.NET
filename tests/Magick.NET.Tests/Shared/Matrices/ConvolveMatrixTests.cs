@@ -12,296 +12,295 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class ConvolveMatrixTests
     {
-        [TestMethod]
+        [Fact]
         public void Constructor_OrderIsTooLow_ThrowsException()
         {
-            ExceptionAssert.Throws<ArgumentException>("order", () =>
+            Assert.Throws<ArgumentException>("order", () =>
             {
                 new ConvolveMatrix(0);
             });
         }
 
-        [TestMethod]
+        [Fact]
         public void Constructor_OrderIsNotAnOddNumber_ThrowsException()
         {
-            ExceptionAssert.Throws<ArgumentException>("order", () =>
+            Assert.Throws<ArgumentException>("order", () =>
             {
                 new ConvolveMatrix(2);
             });
         }
 
-        [TestMethod]
+        [Fact]
         public void Constructor_NotEnoughValues_ThrowsException()
         {
-            ExceptionAssert.Throws<ArgumentException>("values", () =>
+            Assert.Throws<ArgumentException>("values", () =>
             {
                 new ConvolveMatrix(3, 1.0);
             });
         }
 
-        [TestMethod]
+        [Fact]
         public void Constructor_ValidOrder_PropertiesAreSet()
         {
             var matrix = new ConvolveMatrix(3, 0.0, 1.0, 2.0, 0.1, 1.1, 2.1, 0.2, 1.2, 2.2);
 
-            Assert.AreEqual(3, matrix.Order);
-            Assert.AreEqual(0.0, matrix.GetValue(0, 0));
-            Assert.AreEqual(1.0, matrix.GetValue(1, 0));
-            Assert.AreEqual(2.0, matrix.GetValue(2, 0));
-            Assert.AreEqual(0.1, matrix.GetValue(0, 1));
-            Assert.AreEqual(1.1, matrix.GetValue(1, 1));
-            Assert.AreEqual(2.1, matrix.GetValue(2, 1));
-            Assert.AreEqual(0.2, matrix.GetValue(0, 2));
-            Assert.AreEqual(1.2, matrix.GetValue(1, 2));
-            Assert.AreEqual(2.2, matrix.GetValue(2, 2));
+            Assert.Equal(3, matrix.Order);
+            Assert.Equal(0.0, matrix.GetValue(0, 0));
+            Assert.Equal(1.0, matrix.GetValue(1, 0));
+            Assert.Equal(2.0, matrix.GetValue(2, 0));
+            Assert.Equal(0.1, matrix.GetValue(0, 1));
+            Assert.Equal(1.1, matrix.GetValue(1, 1));
+            Assert.Equal(2.1, matrix.GetValue(2, 1));
+            Assert.Equal(0.2, matrix.GetValue(0, 2));
+            Assert.Equal(1.2, matrix.GetValue(1, 2));
+            Assert.Equal(2.2, matrix.GetValue(2, 2));
         }
 
-        [TestMethod]
+        [Fact]
         public void ConstructorWithValues_OrderIsTooLow_ThrowsException()
         {
-            ExceptionAssert.Throws<ArgumentException>("order", () =>
+            Assert.Throws<ArgumentException>("order", () =>
             {
                 new ConvolveMatrix(0, 1);
             });
         }
 
-        [TestMethod]
+        [Fact]
         public void ConstructorWithValues_OrderIsNotAnOddNumber_ThrowsException()
         {
-            ExceptionAssert.Throws<ArgumentException>("order", () =>
+            Assert.Throws<ArgumentException>("order", () =>
             {
                 new ConvolveMatrix(2, 1, 2, 3, 4);
             });
         }
 
-        [TestMethod]
+        [Fact]
         public void Indexer_XTooLow_ThrowsException()
         {
             Indexer_InvalidIndex_ThrowsException("x", -1, 0);
         }
 
-        [TestMethod]
+        [Fact]
         public void Indexer_XTooHigh_ThrowsException()
         {
             Indexer_InvalidIndex_ThrowsException("x", 1, 0);
         }
 
-        [TestMethod]
+        [Fact]
         public void Indexer_YTooLow_ThrowsException()
         {
             Indexer_InvalidIndex_ThrowsException("y", 0, -1);
         }
 
-        [TestMethod]
+        [Fact]
         public void Indexer_YTooHigh_ThrowsException()
         {
             Indexer_InvalidIndex_ThrowsException("y", 0, 1);
         }
 
-        [TestMethod]
+        [Fact]
         public void Indexer_ValidIndex_ReturnValue()
         {
             var matrix = new ConvolveMatrix(1, 8);
 
-            Assert.AreEqual(8, matrix[0, 0]);
+            Assert.Equal(8, matrix[0, 0]);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetValue_XTooLow_ThrowsException()
         {
             GetValue_InvalidIndex_ThrowsException("x", -1, 0);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetValue_XTooHigh_ThrowsException()
         {
             GetValue_InvalidIndex_ThrowsException("x", 1, 0);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetValue_YTooLow_ThrowsException()
         {
             GetValue_InvalidIndex_ThrowsException("y", 0, -1);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetValue_YTooHigh_ThrowsException()
         {
             GetValue_InvalidIndex_ThrowsException("y", 0, 1);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetValue_ValidIndex_ReturnValue()
         {
             var matrix = new ConvolveMatrix(1, 4);
 
-            Assert.AreEqual(4, matrix.GetValue(0, 0));
+            Assert.Equal(4, matrix.GetValue(0, 0));
         }
 
-        [TestMethod]
+        [Fact]
         public void SetColumn_YTooLow_ThrowsException()
         {
             SetColumn_InvalidColumn_ThrowsException(-1);
         }
 
-        [TestMethod]
+        [Fact]
         public void SetColumn_YTooHigh_ThrowsException()
         {
             SetColumn_InvalidColumn_ThrowsException(2);
         }
 
-        [TestMethod]
+        [Fact]
         public void SetColumn_ValuesIsNull_ThrowsException()
         {
             var matrix = new ConvolveMatrix(1);
 
-            ExceptionAssert.Throws<ArgumentNullException>("values", () =>
+            Assert.Throws<ArgumentNullException>("values", () =>
             {
                 matrix.SetColumn(0, null);
             });
         }
 
-        [TestMethod]
+        [Fact]
         public void SetColumn_InvalidNumberOfValues_ThrowsException()
         {
             var matrix = new ConvolveMatrix(1);
 
-            ExceptionAssert.Throws<ArgumentException>("values", () =>
+            Assert.Throws<ArgumentException>("values", () =>
             {
                 matrix.SetColumn(0, 1, 2, 3);
             });
         }
 
-        [TestMethod]
+        [Fact]
         public void SetColumn_CorrectNumberOfValues_SetsColumn()
         {
             var matrix = new ConvolveMatrix(3);
 
             matrix.SetColumn(1, 6, 8, 10);
-            Assert.AreEqual(0, matrix.GetValue(0, 0));
-            Assert.AreEqual(0, matrix.GetValue(0, 1));
-            Assert.AreEqual(0, matrix.GetValue(0, 2));
-            Assert.AreEqual(6, matrix.GetValue(1, 0));
-            Assert.AreEqual(8, matrix.GetValue(1, 1));
-            Assert.AreEqual(10, matrix.GetValue(1, 2));
-            Assert.AreEqual(0, matrix.GetValue(2, 0));
-            Assert.AreEqual(0, matrix.GetValue(2, 1));
-            Assert.AreEqual(0, matrix.GetValue(2, 2));
+            Assert.Equal(0, matrix.GetValue(0, 0));
+            Assert.Equal(0, matrix.GetValue(0, 1));
+            Assert.Equal(0, matrix.GetValue(0, 2));
+            Assert.Equal(6, matrix.GetValue(1, 0));
+            Assert.Equal(8, matrix.GetValue(1, 1));
+            Assert.Equal(10, matrix.GetValue(1, 2));
+            Assert.Equal(0, matrix.GetValue(2, 0));
+            Assert.Equal(0, matrix.GetValue(2, 1));
+            Assert.Equal(0, matrix.GetValue(2, 2));
         }
 
-        [TestMethod]
+        [Fact]
         public void SetRow_XTooLow_ThrowsException()
         {
             SetRow_InvalidRow_ThrowsException(-1);
         }
 
-        [TestMethod]
+        [Fact]
         public void SetRow_XTooHigh_ThrowsException()
         {
             SetRow_InvalidRow_ThrowsException(2);
         }
 
-        [TestMethod]
+        [Fact]
         public void SetRowValuesIsNull_ThrowsException()
         {
             var matrix = new ConvolveMatrix(1);
 
-            ExceptionAssert.Throws<ArgumentNullException>("values", () =>
+            Assert.Throws<ArgumentNullException>("values", () =>
             {
                 matrix.SetRow(0, null);
             });
         }
 
-        [TestMethod]
+        [Fact]
         public void SetRow_InvalidNumberOfValues_ThrowsException()
         {
             var matrix = new ConvolveMatrix(1);
 
-            ExceptionAssert.Throws<ArgumentException>("values", () =>
+            Assert.Throws<ArgumentException>("values", () =>
             {
                 matrix.SetRow(0, 1, 2, 3);
             });
         }
 
-        [TestMethod]
+        [Fact]
         public void SetRow_CorrectNumberOfValues_SetsColumn()
         {
             var matrix = new ConvolveMatrix(3);
 
             matrix.SetRow(1, 6, 8, 10);
-            Assert.AreEqual(0, matrix.GetValue(0, 0));
-            Assert.AreEqual(6, matrix.GetValue(0, 1));
-            Assert.AreEqual(0, matrix.GetValue(0, 2));
-            Assert.AreEqual(0, matrix.GetValue(1, 0));
-            Assert.AreEqual(8, matrix.GetValue(1, 1));
-            Assert.AreEqual(0, matrix.GetValue(1, 2));
-            Assert.AreEqual(0, matrix.GetValue(2, 0));
-            Assert.AreEqual(10, matrix.GetValue(2, 1));
-            Assert.AreEqual(0, matrix.GetValue(2, 2));
+            Assert.Equal(0, matrix.GetValue(0, 0));
+            Assert.Equal(6, matrix.GetValue(0, 1));
+            Assert.Equal(0, matrix.GetValue(0, 2));
+            Assert.Equal(0, matrix.GetValue(1, 0));
+            Assert.Equal(8, matrix.GetValue(1, 1));
+            Assert.Equal(0, matrix.GetValue(1, 2));
+            Assert.Equal(0, matrix.GetValue(2, 0));
+            Assert.Equal(10, matrix.GetValue(2, 1));
+            Assert.Equal(0, matrix.GetValue(2, 2));
         }
 
-        [TestMethod]
+        [Fact]
         public void SetValue_XTooLow_ThrowsException()
         {
             SetValue_InvalidIndex_ThrowsException("x", -1, 0);
         }
 
-        [TestMethod]
+        [Fact]
         public void SetValue_XTooHigh_ThrowsException()
         {
             SetValue_InvalidIndex_ThrowsException("x", 1, 0);
         }
 
-        [TestMethod]
+        [Fact]
         public void SetValue_YTooLow_ThrowsException()
         {
             SetValue_InvalidIndex_ThrowsException("y", 0, -1);
         }
 
-        [TestMethod]
+        [Fact]
         public void SetValue_YTooHigh_ThrowsException()
         {
             SetValue_InvalidIndex_ThrowsException("y", 0, 1);
         }
 
-        [TestMethod]
+        [Fact]
         public void SetValue_ValidIndex_SetsValue()
         {
             var matrix = new ConvolveMatrix(3);
 
             matrix.SetValue(1, 2, 1.5);
 
-            Assert.AreEqual(0.0, matrix.GetValue(0, 0));
-            Assert.AreEqual(0.0, matrix.GetValue(0, 1));
-            Assert.AreEqual(0.0, matrix.GetValue(0, 2));
-            Assert.AreEqual(0.0, matrix.GetValue(1, 0));
-            Assert.AreEqual(0.0, matrix.GetValue(1, 1));
-            Assert.AreEqual(1.5, matrix.GetValue(1, 2));
-            Assert.AreEqual(0.0, matrix.GetValue(2, 0));
-            Assert.AreEqual(0.0, matrix.GetValue(2, 1));
-            Assert.AreEqual(0.0, matrix.GetValue(2, 2));
+            Assert.Equal(0.0, matrix.GetValue(0, 0));
+            Assert.Equal(0.0, matrix.GetValue(0, 1));
+            Assert.Equal(0.0, matrix.GetValue(0, 2));
+            Assert.Equal(0.0, matrix.GetValue(1, 0));
+            Assert.Equal(0.0, matrix.GetValue(1, 1));
+            Assert.Equal(1.5, matrix.GetValue(1, 2));
+            Assert.Equal(0.0, matrix.GetValue(2, 0));
+            Assert.Equal(0.0, matrix.GetValue(2, 1));
+            Assert.Equal(0.0, matrix.GetValue(2, 2));
         }
 
-        [TestMethod]
+        [Fact]
         public void ToArray_ReturnsArray()
         {
             var matrix = new ConvolveMatrix(1, 6);
 
-            CollectionAssert.AreEqual(new double[] { 6 }, matrix.ToArray());
+            Assert.Equal(new double[] { 6 }, matrix.ToArray());
         }
 
         private static void Indexer_InvalidIndex_ThrowsException(string paramName, int x, int y)
         {
             var matrix = new ConvolveMatrix(1);
 
-            ExceptionAssert.Throws<ArgumentOutOfRangeException>(paramName, () =>
+            Assert.Throws<ArgumentOutOfRangeException>(paramName, () =>
             {
                 double foo = matrix[x, y];
             });
@@ -311,7 +310,7 @@ namespace Magick.NET.Tests
         {
             var matrix = new ConvolveMatrix(1);
 
-            ExceptionAssert.Throws<ArgumentOutOfRangeException>(paramName, () =>
+            Assert.Throws<ArgumentOutOfRangeException>(paramName, () =>
             {
                 matrix.GetValue(x, y);
             });
@@ -321,7 +320,7 @@ namespace Magick.NET.Tests
         {
             var matrix = new ConvolveMatrix(1);
 
-            ExceptionAssert.Throws<ArgumentOutOfRangeException>("x", () =>
+            Assert.Throws<ArgumentOutOfRangeException>("x", () =>
             {
                 matrix.SetColumn(x, 1.0, 2.0);
             });
@@ -331,7 +330,7 @@ namespace Magick.NET.Tests
         {
             var matrix = new ConvolveMatrix(1);
 
-            ExceptionAssert.Throws<ArgumentOutOfRangeException>("y", () =>
+            Assert.Throws<ArgumentOutOfRangeException>("y", () =>
             {
                 matrix.SetRow(y, 1.0, 2.0);
             });
@@ -341,7 +340,7 @@ namespace Magick.NET.Tests
         {
             var matrix = new ConvolveMatrix(1);
 
-            ExceptionAssert.Throws<ArgumentOutOfRangeException>(paramName, () =>
+            Assert.Throws<ArgumentOutOfRangeException>(paramName, () =>
             {
                 matrix.SetValue(x, y, 1);
             });

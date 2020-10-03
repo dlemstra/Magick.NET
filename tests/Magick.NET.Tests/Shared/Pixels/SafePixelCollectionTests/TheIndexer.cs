@@ -12,23 +12,22 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class SafePixelCollectionTests
     {
-        [TestClass]
         public class TheIndexer
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenWidthOutOfRange()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        ExceptionAssert.Throws<ArgumentOutOfRangeException>("x", () =>
+                        Assert.Throws<ArgumentOutOfRangeException>("x", () =>
                         {
                             var pixel = pixels[image.Width + 1, 0];
                         });
@@ -36,14 +35,14 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenHeightOutOfRange()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixels())
                     {
-                        ExceptionAssert.Throws<ArgumentOutOfRangeException>("y", () =>
+                        Assert.Throws<ArgumentOutOfRangeException>("y", () =>
                         {
                             var pixel = pixels[0, image.Height + 1];
                         });
@@ -51,7 +50,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnPixelWhenIndexIsCorrect()
             {
                 using (var image = new MagickImage(Files.RedPNG))
@@ -60,7 +59,7 @@ namespace Magick.NET.Tests
                     {
                         var pixel = pixels[300, 100];
 
-                        ColorAssert.AreEqual(MagickColors.Red, pixel.ToColor());
+                        ColorAssert.Equal(MagickColors.Red, pixel.ToColor());
                     }
                 }
             }

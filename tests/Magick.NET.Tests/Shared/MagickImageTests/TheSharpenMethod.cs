@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheSharpenMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldUseCorrectRadiusAndSigmaDefaults()
             {
                 using (var first = new MagickImage(Files.MagickNETIconPNG))
@@ -31,12 +30,12 @@ namespace Magick.NET.Tests
                         second.Sharpen(0, 1.0);
 
                         var difference = first.Compare(second, ErrorMetric.RootMeanSquared);
-                        Assert.AreEqual(first.Signature, second.Signature);
+                        Assert.Equal(first.Signature, second.Signature);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldUseCompositeAsDefaultChannels()
             {
                 using (var first = new MagickImage(Files.MagickNETIconPNG))
@@ -47,12 +46,12 @@ namespace Magick.NET.Tests
                         second.Sharpen(0, 1.0);
 
                         var difference = first.Compare(second, ErrorMetric.RootMeanSquared);
-                        Assert.AreEqual(first.Signature, second.Signature);
+                        Assert.Equal(first.Signature, second.Signature);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSharpenTheImage()
             {
                 using (var image = new MagickImage(Files.NoisePNG))
@@ -62,7 +61,7 @@ namespace Magick.NET.Tests
                         image.Sharpen(10, 20);
                         image.Clamp();
 
-                        Assert.AreEqual(0.06675, image.Compare(original, ErrorMetric.RootMeanSquared), 0.00001);
+                        Assert.InRange(image.Compare(original, ErrorMetric.RootMeanSquared), 0.06675, 0.06676);
                     }
                 }
             }

@@ -13,81 +13,80 @@
 using System;
 using System.IO;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class ImageProfileTests
     {
-        [TestMethod]
+        [Fact]
         public void Test_Constructor()
         {
-            ExceptionAssert.Throws<ArgumentNullException>("name", () =>
+            Assert.Throws<ArgumentNullException>("name", () =>
             {
                 new ImageProfile(null, Files.SnakewarePNG);
             });
 
-            ExceptionAssert.Throws<ArgumentException>("name", () =>
+            Assert.Throws<ArgumentException>("name", () =>
             {
                 new ImageProfile(string.Empty, Files.SnakewarePNG);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>("data", () =>
+            Assert.Throws<ArgumentNullException>("data", () =>
             {
                 new ImageProfile("name", (byte[])null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>("stream", () =>
+            Assert.Throws<ArgumentNullException>("stream", () =>
             {
                 new ImageProfile("name", (Stream)null);
             });
 
-            ExceptionAssert.Throws<ArgumentNullException>("fileName", () =>
+            Assert.Throws<ArgumentNullException>("fileName", () =>
             {
                 new ImageProfile("name", (string)null);
             });
 
-            ExceptionAssert.Throws<ArgumentException>("fileName", () =>
+            Assert.Throws<ArgumentException>("fileName", () =>
             {
                 new ImageProfile("name", string.Empty);
             });
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_IEquatable()
         {
             using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
                 var first = image.GetIptcProfile();
 
-                Assert.IsFalse(first == null);
-                Assert.IsFalse(first.Equals(null));
-                Assert.IsTrue(first.Equals(first));
-                Assert.IsTrue(first.Equals((object)first));
+                Assert.False(first == null);
+                Assert.False(first.Equals(null));
+                Assert.True(first.Equals(first));
+                Assert.True(first.Equals((object)first));
 
                 var second = image.GetIptcProfile();
-                Assert.IsNotNull(second);
+                Assert.NotNull(second);
 
-                Assert.IsTrue(first.Equals(second));
-                Assert.IsTrue(first.Equals((object)second));
+                Assert.True(first.Equals(second));
+                Assert.True(first.Equals((object)second));
 
                 second = new IptcProfile(new byte[] { 0 });
 
-                Assert.IsTrue(first != second);
-                Assert.IsFalse(first.Equals(second));
+                Assert.True(first != second);
+                Assert.False(first.Equals(second));
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_ToByteArray()
         {
             using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
                 var profile = image.GetIptcProfile();
-                Assert.IsNotNull(profile);
+                Assert.NotNull(profile);
 
-                Assert.AreEqual(273, profile.ToByteArray().Length);
+                Assert.Equal(273, profile.ToByteArray().Length);
             }
         }
     }

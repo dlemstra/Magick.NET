@@ -12,28 +12,27 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class ResourceLimitsTests
     {
-        [TestClass]
         public class TheLimitMemoryMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenValueIsNegative()
             {
-                ExceptionAssert.Throws<ArgumentOutOfRangeException>("percentage", () => ResourceLimits.LimitMemory(new Percentage(-0.99)));
+                Assert.Throws<ArgumentOutOfRangeException>("percentage", () => ResourceLimits.LimitMemory(new Percentage(-0.99)));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenValueIsTooHigh()
             {
-                ExceptionAssert.Throws<ArgumentOutOfRangeException>("percentage", () => ResourceLimits.LimitMemory(new Percentage(100.1)));
+                Assert.Throws<ArgumentOutOfRangeException>("percentage", () => ResourceLimits.LimitMemory(new Percentage(100.1)));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangeAreaAndMemory()
             {
                 ExecuteInsideLock(() =>
@@ -43,8 +42,8 @@ namespace Magick.NET.Tests
 
                     ResourceLimits.LimitMemory((Percentage)80);
 
-                    Assert.AreNotEqual(area, ResourceLimits.Area);
-                    Assert.AreNotEqual(memory, ResourceLimits.Memory);
+                    Assert.NotEqual(area, ResourceLimits.Area);
+                    Assert.NotEqual(memory, ResourceLimits.Memory);
 
                     ResourceLimits.Area = area;
                     ResourceLimits.Memory = memory;
@@ -52,7 +51,7 @@ namespace Magick.NET.Tests
             }
 
 #if WINDOWS_BUILD
-            [TestMethod]
+            [Fact]
             public void ShouldSetMemoryAndAreaToTheCorrectValues()
             {
                 ExecuteInsideLock(() =>
@@ -62,8 +61,8 @@ namespace Magick.NET.Tests
 
                     ResourceLimits.LimitMemory((Percentage)100);
 
-                    Assert.AreEqual(area * 2, ResourceLimits.Area, 8192);
-                    Assert.AreEqual(memory * 2, ResourceLimits.Memory, 8192);
+                    Assert.InRange(ResourceLimits.Area, (area * 2) - 8192, (area * 2) + 8192);
+                    Assert.InRange(ResourceLimits.Memory, (memory * 2) - 8192, (memory * 2) + 8192);
 
                     ResourceLimits.Area = area;
                     ResourceLimits.Memory = memory;

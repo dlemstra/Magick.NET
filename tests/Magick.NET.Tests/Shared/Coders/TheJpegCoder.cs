@@ -12,14 +12,13 @@
 
 using System.IO;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class TheJpegCoder
     {
-        [TestMethod]
+        [Fact]
         public void ShouldDecodeCorrectly()
         {
             using (var image = new MagickImage(Files.WhiteJPG))
@@ -28,15 +27,15 @@ namespace Magick.NET.Tests
                 {
                     var color = pixels.GetPixel(0, 0).ToColor();
 
-                    Assert.AreEqual(Quantum.Max, color.R);
-                    Assert.AreEqual(Quantum.Max, color.G);
-                    Assert.AreEqual(Quantum.Max, color.B);
-                    Assert.AreEqual(Quantum.Max, color.A);
+                    Assert.Equal(Quantum.Max, color.R);
+                    Assert.Equal(Quantum.Max, color.G);
+                    Assert.Equal(Quantum.Max, color.B);
+                    Assert.Equal(Quantum.Max, color.A);
                 }
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldReadImageProfile()
         {
             using (var image = new MagickImage(Files.CMYKJPG))
@@ -50,7 +49,7 @@ namespace Magick.NET.Tests
                     image.Read(memoryStream);
 
                     var profile = image.GetColorProfile();
-                    Assert.IsNotNull(profile);
+                    Assert.NotNull(profile);
                 }
             }
         }

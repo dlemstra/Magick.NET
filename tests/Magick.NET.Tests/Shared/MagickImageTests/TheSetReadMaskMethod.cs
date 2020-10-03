@@ -12,28 +12,27 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheSetReadMaskMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenImageIsNull()
             {
                 using (var image = new MagickImage())
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("image", () =>
+                    Assert.Throws<ArgumentNullException>("image", () =>
                     {
                         image.SetReadMask(null);
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetMaskForWholeImage()
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
@@ -44,11 +43,11 @@ namespace Magick.NET.Tests
 
                         using (var mask = image.GetReadMask())
                         {
-                            Assert.IsNotNull(mask);
-                            Assert.AreEqual(mask.Width, 640);
-                            Assert.AreEqual(mask.Height, 480);
-                            ColorAssert.AreEqual(MagickColors.White, mask, 9, 14);
-                            ColorAssert.AreEqual(MagickColors.Black, mask, 10, 15);
+                            Assert.NotNull(mask);
+                            Assert.Equal(640, mask.Width);
+                            Assert.Equal(480, mask.Height);
+                            ColorAssert.Equal(MagickColors.White, mask, 9, 14);
+                            ColorAssert.Equal(MagickColors.Black, mask, 10, 15);
                         }
                     }
                 }

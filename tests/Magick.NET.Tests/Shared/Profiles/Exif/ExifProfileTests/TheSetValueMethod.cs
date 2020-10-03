@@ -14,16 +14,15 @@ using System;
 using System.IO;
 using System.Linq;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class ExifProfileTests
     {
-        [TestClass]
         public class TheSetValueMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldUpdateTheDataInTheProfile()
             {
                 using (var memStream = new MemoryStream())
@@ -31,7 +30,7 @@ namespace Magick.NET.Tests
                     using (var image = new MagickImage(Files.ImageMagickJPG))
                     {
                         var profile = image.GetExifProfile();
-                        Assert.IsNull(profile);
+                        Assert.Null(profile);
 
                         profile = new ExifProfile();
                         profile.SetValue(ExifTag.Copyright, "Dirk Lemstra");
@@ -39,7 +38,7 @@ namespace Magick.NET.Tests
                         image.SetProfile(profile);
 
                         profile = image.GetExifProfile();
-                        Assert.IsNotNull(profile);
+                        Assert.NotNull(profile);
 
                         image.Write(memStream);
                     }
@@ -49,8 +48,8 @@ namespace Magick.NET.Tests
                     {
                         var profile = image.GetExifProfile();
 
-                        Assert.IsNotNull(profile);
-                        EnumerableAssert.IsSingle(profile.Values);
+                        Assert.NotNull(profile);
+                        Assert.Single(profile.Values);
 
                         var value = profile.Values.FirstOrDefault(val => val.Tag == ExifTag.Copyright);
                         TestValue(value, "Dirk Lemstra");

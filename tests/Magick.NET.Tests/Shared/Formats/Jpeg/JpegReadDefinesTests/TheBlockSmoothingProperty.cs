@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Jpeg;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class JpegReadDefinesTests
     {
-        [TestClass]
         public class TheBlockSmoothingProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 var settings = new MagickReadSettings()
@@ -36,7 +35,7 @@ namespace Magick.NET.Tests
                 {
                     image.Read(Files.ImageMagickJPG, settings);
 
-                    Assert.AreEqual("true", image.Settings.GetDefine(MagickFormat.Jpeg, "block-smoothing"));
+                    Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Jpeg, "block-smoothing"));
                 }
             }
         }

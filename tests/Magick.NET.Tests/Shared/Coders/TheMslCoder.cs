@@ -12,14 +12,13 @@
 
 using System.IO;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class TheMslCoder
     {
-        [TestMethod]
+        [Fact]
         public void ShouldBeDisabled()
         {
             using (MemoryStream memStream = new MemoryStream())
@@ -43,7 +42,7 @@ namespace Magick.NET.Tests
                             Format = MagickFormat.Msl,
                         };
 
-                        ExceptionAssert.Throws<MagickPolicyErrorException>(() =>
+                        Assert.Throws<MagickPolicyErrorException>(() =>
                         {
                             image.Read(memStream, readSettings);
                         });

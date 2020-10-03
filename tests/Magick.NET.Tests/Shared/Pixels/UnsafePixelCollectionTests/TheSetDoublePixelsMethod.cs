@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class UnsafePixelCollectionTests
     {
-        [TestClass]
         public class TheSetDoublePixelsMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldNotThrowExceptionWhenArrayIsNull()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -32,7 +31,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotThrowExceptionWhenArrayHasInvalidSize()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -44,7 +43,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotThrowExceptionWhenArrayIsTooLong()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -57,7 +56,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangePixelsWhenArrayHasMaxNumberOfValues()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
@@ -67,7 +66,7 @@ namespace Magick.NET.Tests
                         var values = new double[image.Width * image.Height * image.ChannelCount];
                         pixels.SetDoublePixels(values);
 
-                        ColorAssert.AreEqual(MagickColors.Black, image, image.Width - 1, image.Height - 1);
+                        ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                     }
                 }
             }

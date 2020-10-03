@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Jp2;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class Jp2WriteDefinesTests
     {
-        [TestClass]
         public class TheNumberResolutionsProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 using (var image = new MagickImage())
@@ -31,7 +30,7 @@ namespace Magick.NET.Tests
                         NumberResolutions = 4,
                     });
 
-                    Assert.AreEqual("4", image.Settings.GetDefine(MagickFormat.Jp2, "number-resolutions"));
+                    Assert.Equal("4", image.Settings.GetDefine(MagickFormat.Jp2, "number-resolutions"));
                 }
             }
         }

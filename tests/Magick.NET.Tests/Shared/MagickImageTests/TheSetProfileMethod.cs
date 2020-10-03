@@ -13,7 +13,7 @@
 using System;
 using System.IO;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
@@ -21,66 +21,65 @@ namespace Magick.NET.Tests
     {
         public class TheSetProfileMethod
         {
-            [TestClass]
             public class WithColorProfile
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenProfileIsNull()
                 {
                     using (var image = new MagickImage())
                     {
-                        ExceptionAssert.Throws<ArgumentNullException>("profile", () => image.SetProfile(null));
+                        Assert.Throws<ArgumentNullException>("profile", () => image.SetProfile(null));
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldSetTheIccProperties()
                 {
                     using (var image = new MagickImage(Files.MagickNETIconPNG))
                     {
                         image.SetProfile(ColorProfile.SRGB);
 
-                        Assert.AreEqual("sRGB IEC61966-2.1", image.GetAttribute("icc:description"));
-                        Assert.AreEqual("IEC http://www.iec.ch", image.GetAttribute("icc:manufacturer"));
-                        Assert.AreEqual("IEC 61966-2.1 Default RGB colour space - sRGB", image.GetAttribute("icc:model"));
-                        Assert.AreEqual("Copyright (c) 1998 Hewlett-Packard Company", image.GetAttribute("icc:copyright"));
+                        Assert.Equal("sRGB IEC61966-2.1", image.GetAttribute("icc:description"));
+                        Assert.Equal("IEC http://www.iec.ch", image.GetAttribute("icc:manufacturer"));
+                        Assert.Equal("IEC 61966-2.1 Default RGB colour space - sRGB", image.GetAttribute("icc:model"));
+                        Assert.Equal("Copyright (c) 1998 Hewlett-Packard Company", image.GetAttribute("icc:copyright"));
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldUseIccAsTheDefaultColorProfileName()
                 {
                     using (var image = new MagickImage(Files.SnakewarePNG))
                     {
                         var profile = image.GetColorProfile();
-                        Assert.IsNull(profile);
+                        Assert.Null(profile);
 
                         image.SetProfile(ColorProfile.SRGB);
 
-                        Assert.IsTrue(image.HasProfile("icc"));
-                        Assert.IsFalse(image.HasProfile("icm"));
+                        Assert.True(image.HasProfile("icc"));
+                        Assert.False(image.HasProfile("icm"));
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldUseTheCorrectProfileName()
                 {
                     using (var image = new MagickImage(Files.SnakewarePNG))
                     {
                         var profile = image.GetColorProfile();
-                        Assert.IsNull(profile);
+                        Assert.Null(profile);
 
                         image.SetProfile(new ImageProfile("icm", ColorProfile.SRGB.ToByteArray()));
 
                         profile = image.GetColorProfile();
 
-                        Assert.IsNotNull(profile);
-                        Assert.AreEqual("icm", profile.Name);
-                        Assert.AreEqual(3144, profile.ToByteArray().Length);
+                        Assert.NotNull(profile);
+                        Assert.Equal("icm", profile.Name);
+                        Assert.Equal(3144, profile.ToByteArray().Length);
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldOverwriteExistingProfile()
                 {
                     using (var image = new MagickImage(Files.SnakewarePNG))
@@ -90,12 +89,12 @@ namespace Magick.NET.Tests
                         image.SetProfile(ColorProfile.AppleRGB);
 
                         var profile = image.GetColorProfile();
-                        Assert.IsNotNull(profile);
-                        Assert.AreEqual(ColorProfile.AppleRGB.ToByteArray().Length, profile.ToByteArray().Length);
+                        Assert.NotNull(profile);
+                        Assert.Equal(ColorProfile.AppleRGB.ToByteArray().Length, profile.ToByteArray().Length);
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldUseTheSpecifiedMode()
                 {
                     using (var quantumImage = new MagickImage(Files.PictureJPG))
@@ -109,50 +108,49 @@ namespace Magick.NET.Tests
                             var difference = quantumImage.Compare(highResImage, ErrorMetric.RootMeanSquared);
 
 #if Q16HDRI
-                            Assert.AreEqual(0.0, difference);
+                            Assert.Equal(0.0, difference);
 #else
-                            Assert.AreNotEqual(0.0, difference);
+                            Assert.NotEqual(0.0, difference);
 #endif
                         }
                     }
                 }
             }
 
-            [TestClass]
             public class WithInterface
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenProfileIsNull()
                 {
                     using (var image = new MagickImage())
                     {
-                        ExceptionAssert.Throws<ArgumentNullException>("profile", () => image.SetProfile((IImageProfile)null));
+                        Assert.Throws<ArgumentNullException>("profile", () => image.SetProfile((IImageProfile)null));
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldNotSetTheProfileWhenArrayIsNull()
                 {
                     using (var image = new MagickImage(Files.SnakewarePNG))
                     {
                         image.SetProfile(new TestImageProfile("foo", null));
 
-                        Assert.IsFalse(image.HasProfile("foo"));
+                        Assert.False(image.HasProfile("foo"));
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldNotSetTheProfileWhenArrayIsEmpty()
                 {
                     using (var image = new MagickImage(Files.SnakewarePNG))
                     {
                         image.SetProfile(new TestImageProfile("foo", new byte[0]));
 
-                        Assert.IsFalse(image.HasProfile("foo"));
+                        Assert.False(image.HasProfile("foo"));
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldOverwriteExistingProfile()
                 {
                     var profileA = new TestImageProfile("foo", new byte[1]);
@@ -165,12 +163,12 @@ namespace Magick.NET.Tests
                         image.SetProfile(profileB);
 
                         var profile = image.GetProfile("foo");
-                        Assert.IsNotNull(profile);
-                        Assert.AreEqual(2, profile.ToByteArray().Length);
+                        Assert.NotNull(profile);
+                        Assert.Equal(2, profile.ToByteArray().Length);
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldSetTheIptcProfile()
                 {
                     using (var input = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -192,8 +190,8 @@ namespace Magick.NET.Tests
                             {
                                 profile = input.GetIptcProfile();
 
-                                Assert.IsNotNull(profile);
-                                Assert.AreEqual("20200102", profile.GetValue(IptcTag.ReferenceDate).Value);
+                                Assert.NotNull(profile);
+                                Assert.Equal("20200102", profile.GetValue(IptcTag.ReferenceDate).Value);
                             }
                         }
                     }

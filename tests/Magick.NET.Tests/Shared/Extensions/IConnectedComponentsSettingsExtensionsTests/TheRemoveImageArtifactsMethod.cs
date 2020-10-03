@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class IConnectedComponentsSettingsExtensionsTests
     {
-        [TestClass]
         public class TheRemoveImageArtifactsMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldRemoveTheAngleThreshold()
             {
                 using (var image = new MagickImage())
@@ -33,11 +32,11 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    EnumerableAssert.IsEmpty(image.ArtifactNames);
+                    Assert.Empty(image.ArtifactNames);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldRemoveTheAreaThreshold()
             {
                 using (var image = new MagickImage())
@@ -50,11 +49,11 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    EnumerableAssert.IsEmpty(image.ArtifactNames);
+                    Assert.Empty(image.ArtifactNames);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldRemoveTheCircularityThreshold()
             {
                 using (var image = new MagickImage())
@@ -67,11 +66,11 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    EnumerableAssert.IsEmpty(image.ArtifactNames);
+                    Assert.Empty(image.ArtifactNames);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldRemoveTheDiameterThreshold()
             {
                 using (var image = new MagickImage())
@@ -84,11 +83,11 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    EnumerableAssert.IsEmpty(image.ArtifactNames);
+                    Assert.Empty(image.ArtifactNames);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldRemoveTheEccentricityThreshold()
             {
                 using (var image = new MagickImage())
@@ -101,11 +100,11 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    EnumerableAssert.IsEmpty(image.ArtifactNames);
+                    Assert.Empty(image.ArtifactNames);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldRemoveTheMajorAxisThreshold()
             {
                 using (var image = new MagickImage())
@@ -118,11 +117,11 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    EnumerableAssert.IsEmpty(image.ArtifactNames);
+                    Assert.Empty(image.ArtifactNames);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldRemoveMeanColor()
             {
                 using (var image = new MagickImage())
@@ -135,11 +134,11 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    EnumerableAssert.IsEmpty(image.ArtifactNames);
+                    Assert.Empty(image.ArtifactNames);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldRemoveTheMinorAxisThreshold()
             {
                 using (var image = new MagickImage())
@@ -152,11 +151,11 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    EnumerableAssert.IsEmpty(image.ArtifactNames);
+                    Assert.Empty(image.ArtifactNames);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldRemoveThePerimeterThreshold()
             {
                 using (var image = new MagickImage())
@@ -169,7 +168,7 @@ namespace Magick.NET.Tests
                     settings.SetImageArtifacts(image);
                     settings.RemoveImageArtifacts(image);
 
-                    EnumerableAssert.IsEmpty(image.ArtifactNames);
+                    Assert.Empty(image.ArtifactNames);
                 }
             }
         }

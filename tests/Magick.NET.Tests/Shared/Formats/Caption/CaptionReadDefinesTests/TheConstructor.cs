@@ -12,23 +12,22 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Caption;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class CaptionReadDefinesTests
     {
-        [TestClass]
         public class TheConstructor
         {
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetAnyDefines()
             {
                 using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(new CaptionReadDefines());
 
-                    Assert.IsNull(image.Settings.GetDefine(MagickFormat.Caption, "max-pointsize"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Caption, "max-pointsize"));
                 }
             }
         }

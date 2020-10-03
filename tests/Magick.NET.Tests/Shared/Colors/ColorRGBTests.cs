@@ -11,7 +11,7 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -25,25 +25,24 @@ using QuantumType = System.Single;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public partial class ColorRGBTests : ColorBaseTests<ColorRGB>
     {
-        [TestMethod]
+        [Fact]
         public void Test_GetHashCode()
         {
             ColorRGB first = new ColorRGB(MagickColors.Red);
             int hashCode = first.GetHashCode();
 
             first.G = Quantum.Max;
-            Assert.AreNotEqual(hashCode, first.GetHashCode());
+            Assert.NotEqual(hashCode, first.GetHashCode());
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_IComparable()
         {
             ColorRGB first = new ColorRGB(MagickColors.Red);
 
-            Test_IComparable(first);
+            AssertIComparable(first);
 
             ColorRGB second = new ColorRGB(MagickColors.White);
 
@@ -62,7 +61,7 @@ namespace Magick.NET.Tests
             Test_IComparable_Equal(first, second);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_IEquatable()
         {
             ColorRGB first = new ColorRGB(MagickColors.Red);
@@ -78,103 +77,103 @@ namespace Magick.NET.Tests
             Test_IEquatable_NotEqual(first, second);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_ImplicitOperator()
         {
             ColorRGB expected = new ColorRGB(0, Quantum.Max, Quantum.Max);
             ColorRGB actual = MagickColors.Cyan;
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
 
             var magickColor = actual.ToMagickColor();
-            Assert.AreEqual(magickColor, MagickColors.Cyan);
+            Assert.Equal(magickColor, MagickColors.Cyan);
 
-            Assert.IsNull(ColorRGB.FromMagickColor(null));
+            Assert.Null(ColorRGB.FromMagickColor(null));
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_ToString()
         {
             ColorRGB color = new ColorRGB(0, Quantum.Max, Quantum.Max);
-            Test_ToString(color, MagickColors.Cyan);
+            AssertToString(color, MagickColors.Cyan);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Properties()
         {
             ColorRGB color = new ColorRGB(0, 0, 0);
 
             color.R = 1;
-            Assert.AreEqual(1, color.R);
-            Assert.AreEqual(0, color.G);
-            Assert.AreEqual(0, color.B);
+            Assert.Equal(1, color.R);
+            Assert.Equal(0, color.G);
+            Assert.Equal(0, color.B);
 
             color.G = 2;
-            Assert.AreEqual(1, color.R);
-            Assert.AreEqual(2, color.G);
-            Assert.AreEqual(0, color.B);
+            Assert.Equal(1, color.R);
+            Assert.Equal(2, color.G);
+            Assert.Equal(0, color.B);
 
             color.B = 3;
-            Assert.AreEqual(1, color.R);
-            Assert.AreEqual(2, color.G);
-            Assert.AreEqual(3, color.B);
+            Assert.Equal(1, color.R);
+            Assert.Equal(2, color.G);
+            Assert.Equal(3, color.B);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_ComplementaryColor()
         {
             ColorRGB color = MagickColors.Red;
             ColorRGB complementary = color.ComplementaryColor();
-            ColorAssert.AreEqual(MagickColors.Aqua, complementary.ToMagickColor());
+            ColorAssert.Equal(MagickColors.Aqua, complementary.ToMagickColor());
 
             color = MagickColors.Lime;
             complementary = color.ComplementaryColor();
-            ColorAssert.AreEqual(MagickColors.Fuchsia, complementary.ToMagickColor());
+            ColorAssert.Equal(MagickColors.Fuchsia, complementary.ToMagickColor());
 
             color = MagickColors.Black;
             complementary = color.ComplementaryColor();
-            ColorAssert.AreEqual(MagickColors.Black, complementary.ToMagickColor());
+            ColorAssert.Equal(MagickColors.Black, complementary.ToMagickColor());
 
             color = MagickColors.White;
             complementary = color.ComplementaryColor();
-            ColorAssert.AreEqual(MagickColors.White, complementary.ToMagickColor());
+            ColorAssert.Equal(MagickColors.White, complementary.ToMagickColor());
 
             color = new MagickColor("#aabbcc");
             complementary = color.ComplementaryColor();
-            ColorAssert.AreEqual(new MagickColor("#ccbbaa"), complementary.ToMagickColor());
+            ColorAssert.Equal(new MagickColor("#ccbbaa"), complementary.ToMagickColor());
 
             color = new MagickColor(4, 1, 3);
             complementary = color.ComplementaryColor();
-            ColorAssert.AreEqual(new MagickColor(1, 4, 1), complementary.ToMagickColor());
+            ColorAssert.Equal(new MagickColor(1, 4, 1), complementary.ToMagickColor());
 
             color = new MagickColor("#9aa01e");
             complementary = color.ComplementaryColor();
 #if Q8
-            ColorAssert.AreEqual(new MagickColor("#231ea0"), complementary.ToMagickColor());
+            ColorAssert.Equal(new MagickColor("#231ea0"), complementary.ToMagickColor());
 #else
-            ColorAssert.AreEqual(new MagickColor("#24231e1ea0a0"), complementary.ToMagickColor());
+            ColorAssert.Equal(new MagickColor("#24231e1ea0a0"), complementary.ToMagickColor());
 #endif
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_FuzzyEquals()
         {
             ColorRGB first = new ColorRGB(Quantum.Max, Quantum.Max, Quantum.Max);
 
-            Assert.IsFalse(first.FuzzyEquals(null, (Percentage)0));
+            Assert.False(first.FuzzyEquals(null, (Percentage)0));
 
-            Assert.IsTrue(first.FuzzyEquals(first, (Percentage)0));
+            Assert.True(first.FuzzyEquals(first, (Percentage)0));
 
             ColorRGB second = new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max);
 
-            Assert.IsTrue(first.FuzzyEquals(second, (Percentage)0));
+            Assert.True(first.FuzzyEquals(second, (Percentage)0));
 
             QuantumType half = (QuantumType)(Quantum.Max / 2.0);
             second = new ColorRGB(Quantum.Max, half, Quantum.Max);
 
-            Assert.IsFalse(first.FuzzyEquals(second, (Percentage)0));
-            Assert.IsFalse(first.FuzzyEquals(second, (Percentage)10));
-            Assert.IsFalse(first.FuzzyEquals(second, (Percentage)20));
-            Assert.IsTrue(first.FuzzyEquals(second, (Percentage)30));
+            Assert.False(first.FuzzyEquals(second, (Percentage)0));
+            Assert.False(first.FuzzyEquals(second, (Percentage)10));
+            Assert.False(first.FuzzyEquals(second, (Percentage)20));
+            Assert.True(first.FuzzyEquals(second, (Percentage)30));
         }
     }
 }

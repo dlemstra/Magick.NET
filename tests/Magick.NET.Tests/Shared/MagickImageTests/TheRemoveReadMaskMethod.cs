@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheRemoveReadMaskMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldRemoveReadMask()
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
@@ -32,14 +31,14 @@ namespace Magick.NET.Tests
 
                     using (var readMask = image.GetReadMask())
                     {
-                        Assert.IsNotNull(readMask);
+                        Assert.NotNull(readMask);
                     }
 
                     image.RemoveReadMask();
 
                     using (var readMask = image.GetReadMask())
                     {
-                        Assert.IsNull(readMask);
+                        Assert.Null(readMask);
                     }
                 }
             }

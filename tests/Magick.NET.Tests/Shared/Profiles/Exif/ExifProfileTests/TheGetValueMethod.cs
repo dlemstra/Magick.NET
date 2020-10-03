@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class ExifProfileTests
     {
-        [TestClass]
         public class TheGetValueMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnStringWhenValueIsString()
             {
                 var profile = new ExifProfile();

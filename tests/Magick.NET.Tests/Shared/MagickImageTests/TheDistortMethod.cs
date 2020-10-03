@@ -12,76 +12,75 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [TestClass]
         public class TheDistortMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowAnExceptionWhenArgumentsIsNull()
             {
                 using (var image = new MagickImage())
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("arguments", () =>
+                    Assert.Throws<ArgumentNullException>("arguments", () =>
                     {
                         image.Distort(DistortMethod.Perspective, (double[])null);
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowAnExceptionWhenArgumentsIsNullAndSettingsIsNot()
             {
                 using (var image = new MagickImage())
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("arguments", () =>
+                    Assert.Throws<ArgumentNullException>("arguments", () =>
                     {
                         image.Distort(DistortMethod.Perspective, new DistortSettings(), null);
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowAnExceptionWhenArgumentsIsEmpty()
             {
                 using (var image = new MagickImage())
                 {
-                    ExceptionAssert.Throws<ArgumentException>("arguments", () =>
+                    Assert.Throws<ArgumentException>("arguments", () =>
                     {
                         image.Distort(DistortMethod.Perspective, new double[] { });
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowAnExceptionWhenArgumentsIsEmptyAndSettingsIsNot()
             {
                 using (var image = new MagickImage())
                 {
-                    ExceptionAssert.Throws<ArgumentException>("arguments", () =>
+                    Assert.Throws<ArgumentException>("arguments", () =>
                     {
                         image.Distort(DistortMethod.Perspective, new DistortSettings(), new double[] { });
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowAnExceptionWhenSettingsIsNull()
             {
                 using (var image = new MagickImage())
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("settings", () =>
+                    Assert.Throws<ArgumentNullException>("settings", () =>
                     {
                         image.Distort(DistortMethod.Perspective, null, new double[] { 0 });
                     });
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldBeAbleToPerformPerspectiveDistortion()
             {
                 using (var image = new MagickImage(Files.MagickNETIconPNG))
@@ -91,9 +90,9 @@ namespace Magick.NET.Tests
                     image.Distort(DistortMethod.Perspective, new double[] { 0, 0, 0, 0, 0, 90, 0, 90, 90, 0, 90, 25, 90, 90, 90, 65 });
                     image.Clamp();
 
-                    ColorAssert.AreEqual(new MagickColor("#0000"), image, 1, 64);
-                    ColorAssert.AreEqual(MagickColors.Cornsilk, image, 104, 50);
-                    ColorAssert.AreEqual(new MagickColor("#a8d8e007f90a"), image, 66, 62);
+                    ColorAssert.Equal(new MagickColor("#0000"), image, 1, 64);
+                    ColorAssert.Equal(MagickColors.Cornsilk, image, 104, 50);
+                    ColorAssert.Equal(new MagickColor("#a8d8e007f90a"), image, 66, 62);
                 }
             }
         }

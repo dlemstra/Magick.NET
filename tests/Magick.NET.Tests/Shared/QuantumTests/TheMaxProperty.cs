@@ -11,24 +11,23 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class QuantumTests
     {
-        [TestClass]
         public class TheMaxProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldHaveTheCorrectValue()
             {
 #if Q8
-                Assert.AreEqual(Quantum.Max, byte.MaxValue);
+                Assert.Equal(Quantum.Max, byte.MaxValue);
 #elif Q16
-                Assert.AreEqual(Quantum.Max, ushort.MaxValue);
+                Assert.Equal(Quantum.Max, ushort.MaxValue);
 #else
-                Assert.AreEqual(Quantum.Max, (float)ushort.MaxValue);
+                Assert.Equal(Quantum.Max, (float)ushort.MaxValue);
 #endif
             }
         }

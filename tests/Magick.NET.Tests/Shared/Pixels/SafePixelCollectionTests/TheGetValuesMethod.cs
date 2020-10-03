@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class SafePixelCollectionTests
     {
-        [TestClass]
         public class TheGetValuesMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnAllPixels()
             {
                 using (var image = new MagickImage(MagickColors.Purple, 4, 2))
@@ -30,7 +29,7 @@ namespace Magick.NET.Tests
                         var values = pixels.GetValues();
                         int length = 4 * 2 * 3;
 
-                        Assert.AreEqual(length, values.Length);
+                        Assert.Equal(length, values.Length);
                     }
                 }
             }

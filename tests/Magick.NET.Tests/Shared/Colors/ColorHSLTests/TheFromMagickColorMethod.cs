@@ -11,7 +11,7 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -27,18 +27,17 @@ namespace Magick.NET.Tests
 {
     public partial class ColorHSLTests : ColorBaseTests<ColorHSL>
     {
-        [TestClass]
         public class TheFromMagickColorMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldInitializeTheProperties()
             {
                 var color = new MagickColor(Quantum.Max, Quantum.Max, (QuantumType)(Quantum.Max * 0.02));
                 var hslColor = ColorHSL.FromMagickColor(color);
 
-                Assert.AreEqual(0.16, hslColor.Hue, 0.01);
-                Assert.AreEqual(0.5, hslColor.Lightness, 0.01);
-                Assert.AreEqual(1.0, hslColor.Saturation, 0.01);
+                Assert.InRange(hslColor.Hue, 0.16, 0.17);
+                Assert.InRange(hslColor.Lightness, 0.5, 0.6);
+                Assert.InRange(hslColor.Saturation, 0.10, 1.1);
             }
         }
     }

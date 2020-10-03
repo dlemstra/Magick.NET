@@ -11,21 +11,20 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickSettingsTests
     {
-        [TestClass]
         public class TheVerboseProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldDefaultToFalse()
             {
                 using (var image = new MagickImage())
                 {
-                    Assert.IsFalse(image.Settings.Verbose);
+                    Assert.False(image.Settings.Verbose);
                 }
             }
         }

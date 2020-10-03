@@ -12,7 +12,7 @@
 
 using System;
 using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
@@ -32,8 +32,8 @@ namespace Magick.NET.Tests
 
         protected TestStream(Stream innerStream, bool canSeek)
         {
-            Assert.IsTrue(innerStream.CanRead);
-            Assert.IsTrue(innerStream.CanSeek);
+            Assert.True(innerStream.CanRead);
+            Assert.True(innerStream.CanSeek);
 
             InnerStream = innerStream;
             _canRead = true;

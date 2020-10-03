@@ -12,16 +12,15 @@
 
 using ImageMagick;
 using ImageMagick.Formats.Psd;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class PsdReadDefinesTests
     {
-        [TestClass]
         public class TheAlphaUnblendProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefine()
             {
                 var settings = new MagickReadSettings()
@@ -37,11 +36,11 @@ namespace Magick.NET.Tests
                     image.Read(Files.Coders.PlayerPSD, settings);
 
                     var define = image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend");
-                    Assert.AreEqual("false", define);
+                    Assert.Equal("false", define);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetTheDefineWhenTheValueIsTrue()
             {
                 using (var image = new MagickImage())
@@ -51,7 +50,7 @@ namespace Magick.NET.Tests
                         AlphaUnblend = true,
                     });
 
-                    Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));
                 }
             }
         }

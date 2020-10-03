@@ -11,27 +11,26 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickColorTests
     {
-        [TestClass]
         public class TheToStringMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectString()
             {
                 var color = new MagickColor(MagickColors.Red);
 #if Q8
-                Assert.AreEqual("#FF0000FF", color.ToString());
+                Assert.Equal("#FF0000FF", color.ToString());
 #else
-                Assert.AreEqual("#FFFF00000000FFFF", color.ToString());
+                Assert.Equal("#FFFF00000000FFFF", color.ToString());
 #endif
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectStringForCmykColor()
             {
 #if Q8
@@ -41,10 +40,10 @@ namespace Magick.NET.Tests
 #else
                 var color = new MagickColor(0, Quantum.Max, 0, 0, (System.Single)(Quantum.Max / 3));
 #endif
-                Assert.AreEqual("cmyka(0," + Quantum.Max + ",0,0,0.3333)", color.ToString());
+                Assert.Equal("cmyka(0," + Quantum.Max + ",0,0,0.3333)", color.ToString());
 
                 color = new MagickColor(0, Quantum.Max, 0, 0, Quantum.Max);
-                Assert.AreEqual("cmyka(0," + Quantum.Max + ",0,0,1.0)", color.ToString());
+                Assert.Equal("cmyka(0," + Quantum.Max + ",0,0,1.0)", color.ToString());
             }
         }
     }

@@ -12,28 +12,27 @@
 
 using System.Linq;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class IptcProfileTests
     {
-        [TestClass]
         public class TheValuesProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheValues()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
                     var profile = image.GetIptcProfile();
-                    Assert.IsNotNull(profile);
+                    Assert.NotNull(profile);
 
-                    Assert.AreEqual(18, profile.Values.Count());
+                    Assert.Equal(18, profile.Values.Count());
 
                     foreach (IptcValue value in profile.Values)
                     {
-                        Assert.IsNotNull(value.Value);
+                        Assert.NotNull(value.Value);
                     }
                 }
             }

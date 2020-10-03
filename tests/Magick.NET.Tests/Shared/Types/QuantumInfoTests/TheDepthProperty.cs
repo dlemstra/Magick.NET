@@ -11,22 +11,21 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class QuantumInfoTests
     {
-        [TestClass]
         public class TheDepthProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldHaveTheCorrectValue()
             {
 #if Q8
-                Assert.AreEqual(QuantumInfo.Instance.Depth, 8);
+                Assert.Equal(8, QuantumInfo.Instance.Depth);
 #else
-                Assert.AreEqual(QuantumInfo.Instance.Depth, 16);
+                Assert.Equal(QuantumInfo.Instance.Depth, 16);
 #endif
             }
         }

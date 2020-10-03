@@ -13,16 +13,15 @@
 using System.IO;
 using System.Linq;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class ExifProfileTests
     {
-        [TestClass]
         public class ThePartsProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldFilterTheTagsWhenWritten()
             {
                 using (var memStream = new MemoryStream())
@@ -30,7 +29,7 @@ namespace Magick.NET.Tests
                     using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                     {
                         var profile = image.GetExifProfile();
-                        Assert.AreEqual(44, profile.Values.Count());
+                        Assert.Equal(44, profile.Values.Count());
 
                         profile.Parts = ExifParts.ExifTags;
                         image.SetProfile(profile);
@@ -42,7 +41,7 @@ namespace Magick.NET.Tests
                     using (var image = new MagickImage(memStream))
                     {
                         var profile = image.GetExifProfile();
-                        Assert.AreEqual(24, profile.Values.Count());
+                        Assert.Equal(24, profile.Values.Count());
                     }
                 }
             }

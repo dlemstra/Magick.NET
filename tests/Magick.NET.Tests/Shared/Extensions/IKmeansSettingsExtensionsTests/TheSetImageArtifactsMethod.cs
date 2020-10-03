@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class IKmeansSettingsExtensionsTests
     {
-        [TestClass]
         public class TheSetImageArtifactsMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetTheAttributesWhenTheyAreNotSpecified()
             {
                 using (var image = new MagickImage())
@@ -29,11 +28,11 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsEmpty(image.ArtifactNames);
+                    Assert.Empty(image.ArtifactNames);
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetSeedColors()
             {
                 using (var image = new MagickImage())
@@ -45,8 +44,8 @@ namespace Magick.NET.Tests
 
                     settings.SetImageArtifacts(image);
 
-                    EnumerableAssert.IsSingle(image.ArtifactNames);
-                    Assert.AreEqual("red;blue", image.GetArtifact("kmeans:seed-colors"));
+                    Assert.Single(image.ArtifactNames);
+                    Assert.Equal("red;blue", image.GetArtifact("kmeans:seed-colors"));
                 }
             }
         }

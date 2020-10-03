@@ -12,215 +12,214 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class MagickGeometryTests
     {
-        [TestClass]
         public partial class TheConstructor
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenValueIsNull()
             {
-                ExceptionAssert.Throws<ArgumentNullException>("value", () => new MagickGeometry(null));
+                Assert.Throws<ArgumentNullException>("value", () => new MagickGeometry(null));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenValueIsEmpty()
             {
-                ExceptionAssert.Throws<ArgumentException>("value", () => new MagickGeometry(string.Empty));
+                Assert.Throws<ArgumentException>("value", () => new MagickGeometry(string.Empty));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenWidthIsNegative()
             {
-                ExceptionAssert.Throws<ArgumentException>("width", () => new MagickGeometry(-1, 0));
+                Assert.Throws<ArgumentException>("width", () => new MagickGeometry(-1, 0));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenHeightIsNegative()
             {
-                ExceptionAssert.Throws<ArgumentException>("height", () => new MagickGeometry(0, -1));
+                Assert.Throws<ArgumentException>("height", () => new MagickGeometry(0, -1));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetIgnoreAspectRatio()
             {
                 var geometry = new MagickGeometry("5x10!");
 
-                Assert.AreEqual(0, geometry.X);
-                Assert.AreEqual(0, geometry.Y);
-                Assert.AreEqual(5, geometry.Width);
-                Assert.AreEqual(10, geometry.Height);
-                Assert.IsTrue(geometry.IgnoreAspectRatio);
+                Assert.Equal(0, geometry.X);
+                Assert.Equal(0, geometry.Y);
+                Assert.Equal(5, geometry.Width);
+                Assert.Equal(10, geometry.Height);
+                Assert.True(geometry.IgnoreAspectRatio);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetLess()
             {
                 var geometry = new MagickGeometry("10x5+2+1<");
 
-                Assert.AreEqual(2, geometry.X);
-                Assert.AreEqual(1, geometry.Y);
-                Assert.AreEqual(10, geometry.Width);
-                Assert.AreEqual(5, geometry.Height);
-                Assert.IsTrue(geometry.Less);
+                Assert.Equal(2, geometry.X);
+                Assert.Equal(1, geometry.Y);
+                Assert.Equal(10, geometry.Width);
+                Assert.Equal(5, geometry.Height);
+                Assert.True(geometry.Less);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetGreater()
             {
                 var geometry = new MagickGeometry("5x10>");
 
-                Assert.AreEqual(0, geometry.X);
-                Assert.AreEqual(0, geometry.Y);
-                Assert.AreEqual(5, geometry.Width);
-                Assert.AreEqual(10, geometry.Height);
-                Assert.IsTrue(geometry.Greater);
+                Assert.Equal(0, geometry.X);
+                Assert.Equal(0, geometry.Y);
+                Assert.Equal(5, geometry.Width);
+                Assert.Equal(10, geometry.Height);
+                Assert.True(geometry.Greater);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetFillArea()
             {
                 var geometry = new MagickGeometry("10x15^");
 
-                Assert.AreEqual(0, geometry.X);
-                Assert.AreEqual(0, geometry.Y);
-                Assert.AreEqual(10, geometry.Width);
-                Assert.AreEqual(15, geometry.Height);
-                Assert.IsTrue(geometry.FillArea);
+                Assert.Equal(0, geometry.X);
+                Assert.Equal(0, geometry.Y);
+                Assert.Equal(10, geometry.Width);
+                Assert.Equal(15, geometry.Height);
+                Assert.True(geometry.FillArea);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetLimitPixels()
             {
                 var geometry = new MagickGeometry("10@");
 
-                Assert.AreEqual(0, geometry.X);
-                Assert.AreEqual(0, geometry.Y);
-                Assert.AreEqual(10, geometry.Width);
-                Assert.AreEqual(0, geometry.Height);
-                Assert.IsTrue(geometry.LimitPixels);
+                Assert.Equal(0, geometry.X);
+                Assert.Equal(0, geometry.Y);
+                Assert.Equal(10, geometry.Width);
+                Assert.Equal(0, geometry.Height);
+                Assert.True(geometry.LimitPixels);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetGreaterAndIsPercentage()
             {
                 var geometry = new MagickGeometry("50%x0>");
 
-                Assert.AreEqual(0, geometry.X);
-                Assert.AreEqual(0, geometry.Y);
-                Assert.AreEqual(50, geometry.Width);
-                Assert.AreEqual(0, geometry.Height);
-                Assert.IsTrue(geometry.IsPercentage);
-                Assert.IsTrue(geometry.Greater);
+                Assert.Equal(0, geometry.X);
+                Assert.Equal(0, geometry.Y);
+                Assert.Equal(50, geometry.Width);
+                Assert.Equal(0, geometry.Height);
+                Assert.True(geometry.IsPercentage);
+                Assert.True(geometry.Greater);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetAspectRatio()
             {
                 var geometry = new MagickGeometry("3:2");
 
-                Assert.AreEqual(0, geometry.X);
-                Assert.AreEqual(0, geometry.Y);
-                Assert.AreEqual(3, geometry.Width);
-                Assert.AreEqual(2, geometry.Height);
-                Assert.IsTrue(geometry.AspectRatio);
+                Assert.Equal(0, geometry.X);
+                Assert.Equal(0, geometry.Y);
+                Assert.Equal(3, geometry.Width);
+                Assert.Equal(2, geometry.Height);
+                Assert.True(geometry.AspectRatio);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetAspectRatioWithOnlyXOffset()
             {
                 var geometry = new MagickGeometry("4:3+2");
 
-                Assert.AreEqual(2, geometry.X);
-                Assert.AreEqual(0, geometry.Y);
-                Assert.AreEqual(4, geometry.Width);
-                Assert.AreEqual(3, geometry.Height);
-                Assert.IsTrue(geometry.AspectRatio);
+                Assert.Equal(2, geometry.X);
+                Assert.Equal(0, geometry.Y);
+                Assert.Equal(4, geometry.Width);
+                Assert.Equal(3, geometry.Height);
+                Assert.True(geometry.AspectRatio);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetAspectRatioWithOffset()
             {
                 var geometry = new MagickGeometry("4:3+2+1");
 
-                Assert.AreEqual(2, geometry.X);
-                Assert.AreEqual(1, geometry.Y);
-                Assert.AreEqual(4, geometry.Width);
-                Assert.AreEqual(3, geometry.Height);
-                Assert.IsTrue(geometry.AspectRatio);
+                Assert.Equal(2, geometry.X);
+                Assert.Equal(1, geometry.Y);
+                Assert.Equal(4, geometry.Width);
+                Assert.Equal(3, geometry.Height);
+                Assert.True(geometry.AspectRatio);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetAspectRatioWithNegativeOffset()
             {
                 var geometry = new MagickGeometry("4:3-2+1");
 
-                Assert.AreEqual(-2, geometry.X);
-                Assert.AreEqual(1, geometry.Y);
-                Assert.AreEqual(4, geometry.Width);
-                Assert.AreEqual(3, geometry.Height);
-                Assert.IsTrue(geometry.AspectRatio);
+                Assert.Equal(-2, geometry.X);
+                Assert.Equal(1, geometry.Y);
+                Assert.Equal(4, geometry.Width);
+                Assert.Equal(3, geometry.Height);
+                Assert.True(geometry.AspectRatio);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetWidthAndHeightWhenSizeIsSupplied()
             {
                 var geometry = new MagickGeometry(5);
 
-                Assert.AreEqual(0, geometry.X);
-                Assert.AreEqual(0, geometry.Y);
-                Assert.AreEqual(5, geometry.Width);
-                Assert.AreEqual(5, geometry.Height);
+                Assert.Equal(0, geometry.X);
+                Assert.Equal(0, geometry.Y);
+                Assert.Equal(5, geometry.Width);
+                Assert.Equal(5, geometry.Height);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetWidthAndHeight()
             {
                 var geometry = new MagickGeometry(5, 10);
 
-                Assert.AreEqual(0, geometry.X);
-                Assert.AreEqual(0, geometry.Y);
-                Assert.AreEqual(5, geometry.Width);
-                Assert.AreEqual(10, geometry.Height);
+                Assert.Equal(0, geometry.X);
+                Assert.Equal(0, geometry.Y);
+                Assert.Equal(5, geometry.Width);
+                Assert.Equal(10, geometry.Height);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetXAndY()
             {
                 var geometry = new MagickGeometry(5, 10, 15, 20);
 
-                Assert.AreEqual(5, geometry.X);
-                Assert.AreEqual(10, geometry.Y);
-                Assert.AreEqual(15, geometry.Width);
-                Assert.AreEqual(20, geometry.Height);
+                Assert.Equal(5, geometry.X);
+                Assert.Equal(10, geometry.Y);
+                Assert.Equal(15, geometry.Width);
+                Assert.Equal(20, geometry.Height);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetWidthAndHeightAndIsPercentage()
             {
                 var geometry = new MagickGeometry(new Percentage(50.0), new Percentage(10.0));
 
-                Assert.AreEqual(0, geometry.X);
-                Assert.AreEqual(0, geometry.Y);
-                Assert.AreEqual(50, geometry.Width);
-                Assert.AreEqual(10, geometry.Height);
-                Assert.IsTrue(geometry.IsPercentage);
+                Assert.Equal(0, geometry.X);
+                Assert.Equal(0, geometry.Y);
+                Assert.Equal(50, geometry.Width);
+                Assert.Equal(10, geometry.Height);
+                Assert.True(geometry.IsPercentage);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetXAndYAndIsPercentage()
             {
                 var geometry = new MagickGeometry(5, 10, (Percentage)15.0, (Percentage)20.0);
 
-                Assert.AreEqual(5, geometry.X);
-                Assert.AreEqual(10, geometry.Y);
-                Assert.AreEqual(15, geometry.Width);
-                Assert.AreEqual(20, geometry.Height);
-                Assert.IsTrue(geometry.IsPercentage);
+                Assert.Equal(5, geometry.X);
+                Assert.Equal(10, geometry.Y);
+                Assert.Equal(15, geometry.Width);
+                Assert.Equal(20, geometry.Height);
+                Assert.True(geometry.IsPercentage);
             }
         }
     }

@@ -15,16 +15,16 @@
 using System.Linq;
 using ImageMagick;
 using ImageMagick.Formats.Pdf;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using Xunit.Sdk;
 
 namespace Magick.NET.Tests
 {
     public partial class PdfReadDefinesTests
     {
-        [TestClass]
         public class ThePasswordProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheDefineWhenValueIsSet()
             {
                 using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
@@ -34,11 +34,11 @@ namespace Magick.NET.Tests
                         Password = "test",
                     });
 
-                    Assert.AreEqual("test", image.Settings.GetDefine("authenticate"));
+                    Assert.Equal("test", image.Settings.GetDefine("authenticate"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotSetTheDefineWhenValueIsNotSet()
             {
                 using (var image = new MagickImage())
@@ -48,11 +48,11 @@ namespace Magick.NET.Tests
                         Password = null,
                     });
 
-                    Assert.IsNull(image.Settings.GetDefine("authenticate"));
+                    Assert.Null(image.Settings.GetDefine("authenticate"));
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldUseThePasswordToReadTheImage()
             {
                 var settings = new MagickReadSettings()
@@ -69,7 +69,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotBeAbleToOpenFileWithNullPassword()
             {
                 var settings = new MagickReadSettings()
@@ -94,11 +94,11 @@ namespace Magick.NET.Tests
                         if (relatedException != null)
                             message += relatedException.Message;
 
-                        StringAssert.Contains(message, "This file requires a password for access.");
+                        Assert.Contains("This file requires a password for access.", message);
                         return;
                     }
 
-                    Assert.Fail("Exception should be thrown.");
+                    throw new XunitException("Exception should be thrown.");
                 }
             }
         }

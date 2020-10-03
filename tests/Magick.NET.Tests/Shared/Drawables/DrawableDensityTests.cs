@@ -11,35 +11,34 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class DrawableDensityTests
     {
-        [TestMethod]
+        [Fact]
         public void Test_ImageSize()
         {
             using (var image = CreateImage(null))
             {
-                Assert.AreEqual(107, image.Width);
-                Assert.AreEqual(19, image.Height);
+                Assert.Equal(107, image.Width);
+                Assert.Equal(19, image.Height);
             }
 
             using (var image = CreateImage(97))
             {
-                Assert.AreEqual(142, image.Width);
-                Assert.AreEqual(24, image.Height);
+                Assert.Equal(142, image.Width);
+                Assert.Equal(24, image.Height);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Constructor()
         {
             var density = new DrawableDensity(new PointD(4, 2));
-            Assert.AreEqual(4, density.Density.X);
-            Assert.AreEqual(2, density.Density.Y);
+            Assert.Equal(4, density.Density.X);
+            Assert.Equal(2, density.Density.Y);
         }
 
         private MagickImage CreateImage(int? density)

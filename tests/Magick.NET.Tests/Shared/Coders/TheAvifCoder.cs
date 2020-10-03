@@ -12,14 +12,13 @@
 
 using System.IO;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class TheAvifCoder
     {
-        [TestMethod]
+        [Fact]
         public void ShouldEncodeAndDecodeAlphaChannel()
         {
             using (var input = new MagickImage(Files.TestPNG))
@@ -34,10 +33,10 @@ namespace Magick.NET.Tests
 
                     using (var output = new MagickImage(stream))
                     {
-                        Assert.IsTrue(output.HasAlpha);
-                        Assert.AreEqual(MagickFormat.Avif, output.Format);
-                        Assert.AreEqual(15, output.Width);
-                        Assert.AreEqual(10, output.Height);
+                        Assert.True(output.HasAlpha);
+                        Assert.Equal(MagickFormat.Avif, output.Format);
+                        Assert.Equal(15, output.Width);
+                        Assert.Equal(10, output.Height);
                     }
                 }
             }

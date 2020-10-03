@@ -14,7 +14,7 @@ using System;
 using System.IO;
 using ImageMagick;
 using ImageMagick.Configuration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
@@ -22,28 +22,27 @@ namespace Magick.NET.Tests
     {
         public class TheInitializeMethod : MagickNETTests
         {
-            [TestClass]
             public class WithPath
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenPathIsNull()
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("path", () =>
+                    Assert.Throws<ArgumentNullException>("path", () =>
                     {
                         MagickNET.Initialize((string)null);
                     });
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenPathIsInvalid()
                 {
-                    ExceptionAssert.Throws<ArgumentException>("path", () =>
+                    Assert.Throws<ArgumentException>("path", () =>
                     {
                         MagickNET.Initialize("Invalid");
                     });
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenXmlFileIsMissing()
                 {
                     string path = Files.Root + @"../../src/Magick.Native/resources/Release";
@@ -65,10 +64,12 @@ namespace Magick.NET.Tests
 
                         try
                         {
-                            ExceptionAssert.Throws<ArgumentException>("path", () =>
+                            var exception = Assert.Throws<ArgumentException>("path", () =>
                             {
                                 MagickNET.Initialize(path);
-                            }, "Unable to find file: " + Path.GetFullPath(fileName));
+                            });
+
+                            Assert.Contains("Unable to find file: " + Path.GetFullPath(fileName), exception.Message);
                         }
                         finally
                         {
@@ -78,20 +79,20 @@ namespace Magick.NET.Tests
                 }
 
                 /// <summary>
-                /// The policy is initialized with <see cref="TestInitializer.InitializeWithCustomPolicy(TestContext)"/> at the start of all tests.
+                /// The policy is initialized with <see cref="TestCollectionOrderer"/> at the start of all tests.
                 /// </summary>
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenInitializedWithCustomPolicyThatDisablesReadingPalmFiles()
                 {
                     using (var tempFile = new TemporaryFile("test.palm"))
                     {
                         using (var fs = tempFile.OpenWrite())
                         {
-                            byte[] bytes = new byte[4] { 255, 255, 255, 255 };
+                            var bytes = new byte[4] { 0, 0, 0, 0 };
                             fs.Write(bytes, 0, bytes.Length);
                         }
 
-                        ExceptionAssert.Throws<MagickPolicyErrorException>(() =>
+                        Assert.Throws<MagickPolicyErrorException>(() =>
                         {
                             using (var image = new MagickImage(tempFile))
                             {
@@ -101,19 +102,18 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestClass]
             public class WithConfigurationFiles
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenConfigurationFilesIsNull()
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("configFiles", () =>
+                    Assert.Throws<ArgumentNullException>("configFiles", () =>
                     {
                         MagickNET.Initialize((ConfigurationFiles)null);
                     });
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldWriteAllFilesInTheReturnedPath()
                 {
                     string path = null;
@@ -129,7 +129,7 @@ namespace Magick.NET.Tests
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldWriteCustomPolicyToDisk()
                 {
                     string policy = @"<test/>";
@@ -142,7 +142,7 @@ namespace Magick.NET.Tests
 
                         path = MagickNET.Initialize(configFiles);
 
-                        Assert.AreEqual(policy, File.ReadAllText(Path.Combine(path, "policy.xml")));
+                        Assert.Equal(policy, File.ReadAllText(Path.Combine(path, "policy.xml")));
                     }
                     finally
                     {
@@ -151,37 +151,38 @@ namespace Magick.NET.Tests
                 }
             }
 
-            [TestClass]
             public class WithConfigurationFilesAndPath
             {
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenConfigurationFilesIsNull()
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("configFiles", () =>
+                    Assert.Throws<ArgumentNullException>("configFiles", () =>
                     {
                         MagickNET.Initialize(null, Path.GetTempPath());
                     });
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenPathIsNull()
                 {
-                    ExceptionAssert.Throws<ArgumentNullException>("path", () =>
+                    Assert.Throws<ArgumentNullException>("path", () =>
                     {
                         MagickNET.Initialize(ConfigurationFiles.Default, null);
                     });
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldThrowExceptionWhenPathIsInvalid()
                 {
-                    ExceptionAssert.Throws<ArgumentException>("path", () =>
+                    var exception = Assert.Throws<ArgumentException>("path", () =>
                     {
                         MagickNET.Initialize(ConfigurationFiles.Default, "invalid");
-                    }, "Unable to find directory");
+                    });
+
+                    Assert.Contains("Unable to find directory", exception.Message);
                 }
 
-                [TestMethod]
+                [Fact]
                 public void ShouldWriteAllFilesInTheReturnedPath()
                 {
                     using (var directory = new TemporaryDirectory())
@@ -194,7 +195,7 @@ namespace Magick.NET.Tests
                     }
                 }
 
-                [TestMethod]
+                [Fact]
                 public void CanBeCalledTwice()
                 {
                     using (var directory = new TemporaryDirectory())

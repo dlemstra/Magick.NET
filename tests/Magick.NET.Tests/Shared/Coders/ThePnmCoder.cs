@@ -12,14 +12,13 @@
 
 using System.IO;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Tests
 {
-    [TestClass]
     public class ThePnmCoder
     {
-        [TestMethod]
+        [Fact]
         public void ShouldCreateWhiteImage()
         {
             using (var input = new MagickImage("xc:white", 1, 1))
@@ -31,13 +30,13 @@ namespace Magick.NET.Tests
                     memoryStream.Position = 0;
                     using (var output = new MagickImage(memoryStream))
                     {
-                        ColorAssert.AreEqual(MagickColors.White, output, 0, 0);
+                        ColorAssert.Equal(MagickColors.White, output, 0, 0);
                     }
                 }
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldCreateBlackImage()
         {
             using (var input = new MagickImage("xc:black", 1, 1))
@@ -49,7 +48,7 @@ namespace Magick.NET.Tests
                     memoryStream.Position = 0;
                     using (var output = new MagickImage(memoryStream))
                     {
-                        ColorAssert.AreEqual(MagickColors.Black, output, 0, 0);
+                        ColorAssert.Equal(MagickColors.Black, output, 0, 0);
                     }
                 }
             }
