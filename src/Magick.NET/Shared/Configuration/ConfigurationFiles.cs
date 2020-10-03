@@ -39,7 +39,8 @@ namespace ImageMagick.Configuration
         /// <summary>
         /// Gets the default configuration.
         /// </summary>
-        public static ConfigurationFiles Default => new ConfigurationFiles();
+        public static ConfigurationFiles Default
+            => new ConfigurationFiles();
 
         /// <summary>
         /// Gets the colors configuration.
@@ -110,13 +111,13 @@ namespace ImageMagick.Configuration
 
         internal void WriteInDirectory(string path)
         {
-            foreach (IConfigurationFile configFile in Files)
+            foreach (var configFile in Files)
             {
                 string outputFile = Path.Combine(path, configFile.FileName);
                 if (File.Exists(outputFile))
                     continue;
 
-                using (FileStream fileStream = File.Open(outputFile, FileMode.CreateNew))
+                using (var fileStream = File.Open(outputFile, FileMode.CreateNew))
                 {
                     byte[] data = Encoding.UTF8.GetBytes(configFile.Data);
                     fileStream.Write(data, 0, data.Length);

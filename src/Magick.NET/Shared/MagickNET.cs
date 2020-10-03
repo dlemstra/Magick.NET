@@ -183,7 +183,8 @@ namespace ImageMagick
         /// <summary>
         /// Initializes ImageMagick.
         /// </summary>
-        public static void Initialize() => Environment.Initialize();
+        public static void Initialize()
+            => Environment.Initialize();
 
         /// <summary>
         /// Initializes ImageMagick with the xml files that are located in the specified path.
