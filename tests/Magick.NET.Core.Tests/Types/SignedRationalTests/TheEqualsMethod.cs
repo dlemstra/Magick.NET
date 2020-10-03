@@ -11,82 +11,81 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Core.Tests
 {
     public partial class SignedRationalTests
     {
-        [TestClass]
         public class TheEqualsMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenInstanceIsNull()
             {
                 var density = new SignedRational(-3, 2);
 
-                Assert.IsFalse(density.Equals(null));
+                Assert.False(density.Equals(null));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenInstanceIsTheSame()
             {
                 var density = new SignedRational(-3, 2);
 
-                Assert.IsTrue(density.Equals(density));
+                Assert.True(density.Equals(density));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenObjectIsTheSame()
             {
                 var density = new SignedRational(-3, 2);
 
-                Assert.IsTrue(density.Equals((object)density));
+                Assert.True(density.Equals((object)density));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenInstanceIsEqual()
             {
                 var first = new SignedRational(-3, 2);
                 var second = new SignedRational(-3, 2);
 
-                Assert.IsTrue(first.Equals(second));
+                Assert.True(first.Equals(second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenObjectIsEqual()
             {
                 var first = new SignedRational(-3, 2);
                 var second = new SignedRational(-3, 2);
 
-                Assert.IsTrue(first.Equals((object)second));
+                Assert.True(first.Equals((object)second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenInstanceIsNotEqual()
             {
                 var first = new SignedRational(-3, 2);
                 var second = new SignedRational(-2, 3);
 
-                Assert.IsFalse(first.Equals(second));
+                Assert.False(first.Equals(second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenObjectIsNotEqual()
             {
                 var first = new SignedRational(-3, 2);
                 var second = new SignedRational(-2, 3);
 
-                Assert.IsFalse(first.Equals((object)second));
+                Assert.False(first.Equals((object)second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldHandleFractionCorrectly()
             {
                 var first = new SignedRational(-1.0 / 1600);
                 var second = new SignedRational(-1.0 / 1600, true);
 
-                Assert.IsFalse(first.Equals(second));
+                Assert.False(first.Equals(second));
             }
         }
     }

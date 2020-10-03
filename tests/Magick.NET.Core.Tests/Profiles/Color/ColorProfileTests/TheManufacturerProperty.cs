@@ -11,24 +11,23 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Core.Tests
 {
     public partial class ColorProfileTests
     {
-        [TestClass]
         public class TheManufacturerProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValue()
             {
-                Assert.IsNull(ColorProfile.AdobeRGB1998.Manufacturer);
-                Assert.IsNull(ColorProfile.AppleRGB.Manufacturer);
-                Assert.IsNull(ColorProfile.CoatedFOGRA39.Manufacturer);
-                Assert.IsNull(ColorProfile.ColorMatchRGB.Manufacturer);
-                Assert.AreEqual("IEC http://www.iec.ch", ColorProfile.SRGB.Manufacturer);
-                Assert.IsNull(ColorProfile.USWebCoatedSWOP.Manufacturer);
+                Assert.Null(ColorProfile.AdobeRGB1998.Manufacturer);
+                Assert.Null(ColorProfile.AppleRGB.Manufacturer);
+                Assert.Null(ColorProfile.CoatedFOGRA39.Manufacturer);
+                Assert.Null(ColorProfile.ColorMatchRGB.Manufacturer);
+                Assert.Equal("IEC http://www.iec.ch", ColorProfile.SRGB.Manufacturer);
+                Assert.Null(ColorProfile.USWebCoatedSWOP.Manufacturer);
             }
         }
     }

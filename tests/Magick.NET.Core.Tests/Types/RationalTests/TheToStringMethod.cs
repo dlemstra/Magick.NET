@@ -11,47 +11,46 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Core.Tests
 {
     public partial class RationalTests
     {
-        [TestClass]
         public class TheToStringMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnPositiveInfinityWhenValueIsNan()
             {
                 var rational = new Rational(double.NaN);
-                Assert.AreEqual("Indeterminate", rational.ToString());
+                Assert.Equal("Indeterminate", rational.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnPositiveInfinityWhenValueIsPositiveInfinity()
             {
                 var rational = new Rational(double.PositiveInfinity);
-                Assert.AreEqual("PositiveInfinity", rational.ToString());
+                Assert.Equal("PositiveInfinity", rational.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnPositiveInfinityWhenValueIsNegativeInfinity()
             {
                 var rational = new Rational(double.NegativeInfinity);
-                Assert.AreEqual("PositiveInfinity", rational.ToString());
+                Assert.Equal("PositiveInfinity", rational.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValue()
             {
                 var rational = new Rational(0, 1);
-                Assert.AreEqual("0", rational.ToString());
+                Assert.Equal("0", rational.ToString());
 
                 rational = new Rational(2, 1);
-                Assert.AreEqual("2", rational.ToString());
+                Assert.Equal("2", rational.ToString());
 
                 rational = new Rational(1, 2);
-                Assert.AreEqual("1/2", rational.ToString());
+                Assert.Equal("1/2", rational.ToString());
             }
         }
     }

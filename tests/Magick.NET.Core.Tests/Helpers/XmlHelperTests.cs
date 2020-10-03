@@ -12,24 +12,23 @@
 
 using System.Xml;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Core.Tests
 {
-    [TestClass]
     public class XmlHelperTests
     {
-        [TestMethod]
+        [Fact]
         public void CreateElement_NodeIsXmlDocument_AddsNodeAsDocumentElement()
         {
             var doc = new XmlDocument();
             XmlElement element = XmlHelper.CreateElement(doc, "test");
 
-            Assert.AreEqual(doc.DocumentElement, element);
-            Assert.AreEqual("test", element.Name);
+            Assert.Equal(doc.DocumentElement, element);
+            Assert.Equal("test", element.Name);
         }
 
-        [TestMethod]
+        [Fact]
         public void CreateElement_NodeIsXmlNode_AddsNodeAsChildElement()
         {
             var doc = new XmlDocument();
@@ -37,11 +36,11 @@ namespace Magick.NET.Tests
 
             XmlElement element = XmlHelper.CreateElement(root, "test");
 
-            Assert.AreEqual(root.FirstChild, element);
-            Assert.AreEqual("test", element.Name);
+            Assert.Equal(root.FirstChild, element);
+            Assert.Equal("test", element.Name);
         }
 
-        [TestMethod]
+        [Fact]
         public void SetAttribute_DoesNotHaveAttritubte_AttributeIsAdded()
         {
             var doc = new XmlDocument();
@@ -50,11 +49,11 @@ namespace Magick.NET.Tests
             XmlHelper.SetAttribute(element, "attr", "val");
 
             XmlAttribute attribute = element.Attributes["attr"];
-            Assert.IsNotNull(attribute);
-            Assert.AreEqual("val", attribute.Value);
+            Assert.NotNull(attribute);
+            Assert.Equal("val", attribute.Value);
         }
 
-        [TestMethod]
+        [Fact]
         public void SetAttribute_HasAttribute_ValueIsSet()
         {
             var doc = new XmlDocument();
@@ -64,7 +63,7 @@ namespace Magick.NET.Tests
 
             XmlHelper.SetAttribute(element, "attr", 42);
 
-            Assert.AreEqual("42", attribute.Value);
+            Assert.Equal("42", attribute.Value);
         }
     }
 }

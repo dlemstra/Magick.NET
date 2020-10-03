@@ -11,13 +11,12 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Core.Tests
 {
     public partial class ColorProfileTests
     {
-        [TestClass]
         public class TheEmbeddedResources
         {
             public void ShouldHaveTheCorrectValue()
@@ -32,8 +31,8 @@ namespace Magick.NET.Tests
 
             private static void TestEmbeddedResource(ColorProfile profile)
             {
-                Assert.IsNotNull(profile);
-                Assert.AreEqual("icc", profile.Name);
+                Assert.NotNull(profile);
+                Assert.Equal("icc", profile.Name);
             }
         }
     }

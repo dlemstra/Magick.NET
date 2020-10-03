@@ -12,72 +12,71 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Core.Tests
 {
     public partial class PointDTests
     {
-        [TestClass]
         public class TheConstructor
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenValueIsNull()
             {
-                ExceptionAssert.Throws<ArgumentNullException>("value", () => { new PointD(null); });
+                Assert.Throws<ArgumentNullException>("value", () => { new PointD(null); });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenValueIsEmpty()
             {
-                ExceptionAssert.Throws<ArgumentException>("value", () => { new PointD(string.Empty); });
+                Assert.Throws<ArgumentException>("value", () => { new PointD(string.Empty); });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenValueIsInvalid()
             {
-                ExceptionAssert.Throws<ArgumentException>("value", () => { new PointD("1.0x"); });
+                Assert.Throws<ArgumentException>("value", () => { new PointD("1.0x"); });
 
-                ExceptionAssert.Throws<ArgumentException>("value", () => { new PointD("x1.0"); });
+                Assert.Throws<ArgumentException>("value", () => { new PointD("x1.0"); });
 
-                ExceptionAssert.Throws<ArgumentException>("value", () => { new PointD("ax1.0"); });
+                Assert.Throws<ArgumentException>("value", () => { new PointD("ax1.0"); });
 
-                ExceptionAssert.Throws<ArgumentException>("value", () => { new PointD("1.0xb"); });
+                Assert.Throws<ArgumentException>("value", () => { new PointD("1.0xb"); });
 
-                ExceptionAssert.Throws<ArgumentException>("value", () => { new PointD("1.0x6 magick"); });
+                Assert.Throws<ArgumentException>("value", () => { new PointD("1.0x6 magick"); });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheXAndYToZeroByDefault()
             {
                 PointD point = default;
-                Assert.AreEqual(0.0, point.X);
-                Assert.AreEqual(0.0, point.Y);
+                Assert.Equal(0.0, point.X);
+                Assert.Equal(0.0, point.Y);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheXAndYValue()
             {
                 var point = new PointD(5, 10);
-                Assert.AreEqual(5.0, point.X);
-                Assert.AreEqual(10.0, point.Y);
+                Assert.Equal(5.0, point.X);
+                Assert.Equal(10.0, point.Y);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldUseTheXValueWhenTValueIsNotSet()
             {
                 var point = new PointD(5);
-                Assert.AreEqual(5.0, point.X);
-                Assert.AreEqual(5.0, point.Y);
+                Assert.Equal(5.0, point.X);
+                Assert.Equal(5.0, point.Y);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheValuesFromString()
             {
                 var point = new PointD("1.0x2.5");
-                Assert.AreEqual(1.0, point.X);
-                Assert.AreEqual(2.5, point.Y);
-                Assert.AreEqual("1x2.5", point.ToString());
+                Assert.Equal(1.0, point.X);
+                Assert.Equal(2.5, point.Y);
+                Assert.Equal("1x2.5", point.ToString());
             }
         }
     }

@@ -11,27 +11,26 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Core.Tests
 {
     public partial class ThresholdTests
     {
-        [TestClass]
         public class TheToStringMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnSingleValueWhenOnlyMimimumIsSet()
             {
                 var point = new Threshold(1.2);
-                Assert.AreEqual("1.2", point.ToString());
+                Assert.Equal("1.2", point.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnValueWithMinimumAndMaximum()
             {
                 var point = new Threshold(1.2, 3.4);
-                Assert.AreEqual("1.2-3.4", point.ToString());
+                Assert.Equal("1.2-3.4", point.ToString());
             }
         }
     }

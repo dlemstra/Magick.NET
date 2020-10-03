@@ -11,73 +11,72 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Core.Tests
 {
     public partial class PercentageTests
     {
-        [TestClass]
         public class TheEqualsMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenInstanceIsNull()
             {
                 Percentage percentage = default;
 
-                Assert.IsFalse(percentage.Equals(null));
+                Assert.False(percentage.Equals(null));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenInstanceIsTheSame()
             {
                 Percentage percentage = default;
 
-                Assert.IsTrue(percentage.Equals(percentage));
+                Assert.True(percentage.Equals(percentage));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenObjectIsTheSame()
             {
                 Percentage percentage = default;
 
-                Assert.IsTrue(percentage.Equals((object)percentage));
+                Assert.True(percentage.Equals((object)percentage));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenInstanceIsEqual()
             {
                 var first = new Percentage(50.0);
                 var second = new Percentage(50.0);
 
-                Assert.IsTrue(first.Equals(second));
+                Assert.True(first.Equals(second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenObjectIsEqual()
             {
                 var first = new Percentage(50.0);
                 var second = new Percentage(50.0);
 
-                Assert.IsTrue(first.Equals((object)second));
+                Assert.True(first.Equals((object)second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenInstanceIsNotEqual()
             {
                 var first = new Percentage(50.0);
                 var second = new Percentage(50.1);
 
-                Assert.IsFalse(first.Equals(second));
+                Assert.False(first.Equals(second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenObjectIsNotEqual()
             {
                 var first = new Percentage(50.0);
                 var second = new Percentage(50.1);
 
-                Assert.IsFalse(first.Equals((object)second));
+                Assert.False(first.Equals((object)second));
             }
         }
     }

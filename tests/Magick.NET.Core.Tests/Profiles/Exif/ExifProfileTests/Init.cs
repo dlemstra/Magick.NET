@@ -11,16 +11,16 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Core.Tests
 {
     public partial class ExifProfileTests
     {
         private static void TestValue(IExifValue value, string expected)
         {
-            Assert.IsNotNull(value);
-            Assert.AreEqual(expected, value.GetValue());
+            Assert.NotNull(value);
+            Assert.Equal(expected, value.GetValue());
         }
     }
 }

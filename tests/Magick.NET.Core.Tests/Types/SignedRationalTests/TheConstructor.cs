@@ -11,53 +11,52 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Core.Tests
 {
     public partial class SignedRationalTests
     {
-        [TestClass]
         public class TheConstructor
         {
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheProperties()
             {
                 var rational = new SignedRational(7, -55);
-                Assert.AreEqual(7, rational.Numerator);
-                Assert.AreEqual(-55, rational.Denominator);
+                Assert.Equal(7, rational.Numerator);
+                Assert.Equal(-55, rational.Denominator);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetThePropertiesWhenOnlyValueIsSpecified()
             {
                 var rational = new SignedRational(7);
-                Assert.AreEqual(7, rational.Numerator);
-                Assert.AreEqual(1, rational.Denominator);
+                Assert.Equal(7, rational.Numerator);
+                Assert.Equal(1, rational.Denominator);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSimplifyByDefault()
             {
                 var rational = new SignedRational(-755, 100);
-                Assert.AreEqual(-151, rational.Numerator);
-                Assert.AreEqual(20, rational.Denominator);
+                Assert.Equal(-151, rational.Numerator);
+                Assert.Equal(20, rational.Denominator);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotSimplifyWhenSpecified()
             {
                 var rational = new SignedRational(-755, -100, false);
-                Assert.AreEqual(-755, rational.Numerator);
-                Assert.AreEqual(-100, rational.Denominator);
+                Assert.Equal(-755, rational.Numerator);
+                Assert.Equal(-100, rational.Denominator);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldHandleNegativeValue()
             {
                 var rational = new SignedRational(-7.55);
-                Assert.AreEqual(-151, rational.Numerator);
-                Assert.AreEqual(20, rational.Denominator);
+                Assert.Equal(-151, rational.Numerator);
+                Assert.Equal(20, rational.Denominator);
             }
         }
     }

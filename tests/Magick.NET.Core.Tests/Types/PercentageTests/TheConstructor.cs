@@ -11,41 +11,40 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Core.Tests
 {
     public partial class PercentageTests
     {
-        [TestClass]
         public class TheConstructor
         {
-            [TestMethod]
+            [Fact]
             public void ShouldDefaultToZero()
             {
                 Percentage percentage = default;
-                Assert.AreEqual("0%", percentage.ToString());
+                Assert.Equal("0%", percentage.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetValue()
             {
                 var percentage = new Percentage(50);
-                Assert.AreEqual("50%", percentage.ToString());
+                Assert.Equal("50%", percentage.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldHandleValueAbove100()
             {
                 var percentage = new Percentage(200.0);
-                Assert.AreEqual("200%", percentage.ToString());
+                Assert.Equal("200%", percentage.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldHandleNegativeValue()
             {
                 var percentage = new Percentage(-25);
-                Assert.AreEqual("-25%", percentage.ToString());
+                Assert.Equal("-25%", percentage.ToString());
             }
         }
     }

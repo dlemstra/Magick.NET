@@ -11,30 +11,27 @@
 // and limitations under the License.
 
 using System;
-using System.IO;
-using System.Linq;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Core.Tests
 {
     public partial class ExifProfileTests
     {
-        [TestClass]
         public class TheSetValueMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenExifTagIsInvalid()
             {
                 var exifProfile = new ExifProfile();
 
-                ExceptionAssert.Throws<NotSupportedException>(() =>
+                Assert.Throws<NotSupportedException>(() =>
                 {
                     exifProfile.SetValue(new ExifTag<int>((ExifTagValue)42), 42);
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldCorrectlyHandleFraction()
             {
                 var profile = new ExifProfile();
@@ -42,11 +39,11 @@ namespace Magick.NET.Tests
 
                 var value = profile.GetValue(ExifTag.ShutterSpeedValue);
 
-                Assert.IsNotNull(value);
-                Assert.AreEqual("1511/20", value.ToString());
+                Assert.NotNull(value);
+                Assert.Equal("1511/20", value.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldCorrectlyHandleArray()
             {
                 Rational[] latitude = new Rational[] { new Rational(12.3), new Rational(4.56), new Rational(789.0) };
@@ -56,13 +53,13 @@ namespace Magick.NET.Tests
 
                 var value = profile.GetValue(ExifTag.GPSLatitude);
 
-                Assert.IsNotNull(value);
+                Assert.NotNull(value);
                 Rational[] values = (Rational[])value.GetValue();
-                Assert.IsNotNull(values);
-                CollectionAssert.AreEqual(latitude, values);
+                Assert.NotNull(values);
+                Assert.Equal(latitude, values);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldAllowNullValues()
             {
                 var profile = new ExifProfile();

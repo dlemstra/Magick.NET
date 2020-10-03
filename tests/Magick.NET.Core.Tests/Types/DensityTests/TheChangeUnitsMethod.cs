@@ -11,121 +11,120 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Core.Tests
 {
     public partial class DensityTests
     {
-        [TestClass]
         public class TheChangeUnitsMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldNotConvertPixelsPerCentimeterToPixelsPerCentimeter()
             {
                 var density = new Density(1, 2, DensityUnit.PixelsPerCentimeter);
 
                 var newDensity = density.ChangeUnits(DensityUnit.PixelsPerCentimeter);
 
-                Assert.AreEqual(1, newDensity.X);
-                Assert.AreEqual(2, newDensity.Y);
-                Assert.AreEqual(DensityUnit.PixelsPerCentimeter, newDensity.Units);
+                Assert.Equal(1, newDensity.X);
+                Assert.Equal(2, newDensity.Y);
+                Assert.Equal(DensityUnit.PixelsPerCentimeter, newDensity.Units);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldConvertPixelsPerCentimeterToPixelsPerInch()
             {
                 var density = new Density(1, 2, DensityUnit.PixelsPerCentimeter);
 
                 var newDensity = density.ChangeUnits(DensityUnit.PixelsPerInch);
 
-                Assert.AreEqual(2.54, newDensity.X);
-                Assert.AreEqual(5.08, newDensity.Y);
-                Assert.AreEqual(DensityUnit.PixelsPerInch, newDensity.Units);
+                Assert.Equal(2.54, newDensity.X);
+                Assert.Equal(5.08, newDensity.Y);
+                Assert.Equal(DensityUnit.PixelsPerInch, newDensity.Units);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotConvertPixelsPerCentimeterToUndefined()
             {
                 var density = new Density(1, 2, DensityUnit.PixelsPerCentimeter);
 
                 var newDensity = density.ChangeUnits(DensityUnit.Undefined);
 
-                Assert.AreEqual(1, newDensity.X);
-                Assert.AreEqual(2, newDensity.Y);
-                Assert.AreEqual(DensityUnit.Undefined, newDensity.Units);
+                Assert.Equal(1, newDensity.X);
+                Assert.Equal(2, newDensity.Y);
+                Assert.Equal(DensityUnit.Undefined, newDensity.Units);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldConvertPixelsPerInchToPixelsPerCentimeter()
             {
                 var density = new Density(2.54, 5.08, DensityUnit.PixelsPerInch);
 
                 var newDensity = density.ChangeUnits(DensityUnit.PixelsPerCentimeter);
 
-                Assert.AreEqual(1, newDensity.X);
-                Assert.AreEqual(2, newDensity.Y);
-                Assert.AreEqual(DensityUnit.PixelsPerCentimeter, newDensity.Units);
+                Assert.Equal(1, newDensity.X);
+                Assert.Equal(2, newDensity.Y);
+                Assert.Equal(DensityUnit.PixelsPerCentimeter, newDensity.Units);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotConvertPixelsPerInchToPixelsPerInch()
             {
                 var density = new Density(1, 2, DensityUnit.PixelsPerInch);
 
                 var newDensity = density.ChangeUnits(DensityUnit.PixelsPerInch);
 
-                Assert.AreEqual(1, newDensity.X);
-                Assert.AreEqual(2, newDensity.Y);
-                Assert.AreEqual(DensityUnit.PixelsPerInch, newDensity.Units);
+                Assert.Equal(1, newDensity.X);
+                Assert.Equal(2, newDensity.Y);
+                Assert.Equal(DensityUnit.PixelsPerInch, newDensity.Units);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotConvertPixelsPerInchToUndefined()
             {
                 var density = new Density(1, 2, DensityUnit.PixelsPerInch);
 
                 var newDensity = density.ChangeUnits(DensityUnit.Undefined);
 
-                Assert.AreEqual(1, newDensity.X);
-                Assert.AreEqual(2, newDensity.Y);
-                Assert.AreEqual(DensityUnit.Undefined, newDensity.Units);
+                Assert.Equal(1, newDensity.X);
+                Assert.Equal(2, newDensity.Y);
+                Assert.Equal(DensityUnit.Undefined, newDensity.Units);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotConvertUndefinedToPixelsPerCentimeter()
             {
                 var density = new Density(1, 2, DensityUnit.Undefined);
 
                 var newDensity = density.ChangeUnits(DensityUnit.PixelsPerCentimeter);
 
-                Assert.AreEqual(1, newDensity.X);
-                Assert.AreEqual(2, newDensity.Y);
-                Assert.AreEqual(DensityUnit.PixelsPerCentimeter, newDensity.Units);
+                Assert.Equal(1, newDensity.X);
+                Assert.Equal(2, newDensity.Y);
+                Assert.Equal(DensityUnit.PixelsPerCentimeter, newDensity.Units);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotConvertUndefinedToPixelsPerInch()
             {
                 var density = new Density(1, 2, DensityUnit.Undefined);
 
                 var newDensity = density.ChangeUnits(DensityUnit.PixelsPerInch);
 
-                Assert.AreEqual(1, newDensity.X);
-                Assert.AreEqual(2, newDensity.Y);
-                Assert.AreEqual(DensityUnit.PixelsPerInch, newDensity.Units);
+                Assert.Equal(1, newDensity.X);
+                Assert.Equal(2, newDensity.Y);
+                Assert.Equal(DensityUnit.PixelsPerInch, newDensity.Units);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotConvertUndefinedToUndefined()
             {
                 var density = new Density(1, 2, DensityUnit.Undefined);
 
                 var newDensity = density.ChangeUnits(DensityUnit.Undefined);
 
-                Assert.AreEqual(1, newDensity.X);
-                Assert.AreEqual(2, newDensity.Y);
-                Assert.AreEqual(DensityUnit.Undefined, newDensity.Units);
+                Assert.Equal(1, newDensity.X);
+                Assert.Equal(2, newDensity.Y);
+                Assert.Equal(DensityUnit.Undefined, newDensity.Units);
             }
         }
     }

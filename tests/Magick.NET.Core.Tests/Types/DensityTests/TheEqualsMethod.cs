@@ -11,73 +11,72 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Core.Tests
 {
     public partial class DensityTests
     {
-        [TestClass]
         public class TheEqualsMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenInstanceIsNull()
             {
                 var density = new Density(50);
 
-                Assert.IsFalse(density.Equals(null));
+                Assert.False(density.Equals(null));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenInstanceIsTheSame()
             {
                 var density = new Density(50);
 
-                Assert.IsTrue(density.Equals(density));
+                Assert.True(density.Equals(density));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenObjectIsTheSame()
             {
                 var density = new Density(50);
 
-                Assert.IsTrue(density.Equals((object)density));
+                Assert.True(density.Equals((object)density));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenInstanceIsEqual()
             {
                 var first = new Density(50);
                 var second = new Density(50);
 
-                Assert.IsTrue(first.Equals(second));
+                Assert.True(first.Equals(second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenObjectIsEqual()
             {
                 var first = new Density(50);
                 var second = new Density(50);
 
-                Assert.IsTrue(first.Equals((object)second));
+                Assert.True(first.Equals((object)second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenInstanceIsNotEqual()
             {
                 var first = new Density(10, 5);
                 var second = new Density(5, 10);
 
-                Assert.IsFalse(first.Equals(second));
+                Assert.False(first.Equals(second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenObjectIsNotEqual()
             {
                 var first = new Density(10, 5);
                 var second = new Density(5, 10);
 
-                Assert.IsFalse(first.Equals((object)second));
+                Assert.False(first.Equals((object)second));
             }
         }
     }

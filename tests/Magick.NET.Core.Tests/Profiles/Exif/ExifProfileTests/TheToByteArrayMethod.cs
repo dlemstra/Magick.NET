@@ -11,25 +11,24 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Core.Tests
 {
     public partial class ExifProfileTests
     {
-        [TestClass]
         public class TheToByteArrayMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnEmptyArrayWhenEmpty()
             {
                 var profile = new ExifProfile();
 
                 var bytes = profile.ToByteArray();
-                Assert.AreEqual(0, bytes.Length);
+                Assert.Empty(bytes);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnEmptyArrayWhenAllValuesAreInvalid()
             {
                 var bytes = new byte[] { 69, 120, 105, 102, 0, 0, 73, 73, 42, 0, 8, 0, 0, 0, 1, 0, 42, 1, 4, 0, 1, 0, 0, 0, 42, 0, 0, 0, 26, 0, 0, 0, 0, 0 };
@@ -38,14 +37,14 @@ namespace Magick.NET.Tests
 
                 var unkownTag = new ExifTag<uint>((ExifTagValue)298);
                 var value = profile.GetValue<uint>(unkownTag);
-                Assert.AreEqual(42U, value.GetValue());
-                Assert.AreEqual("42", value.ToString());
+                Assert.Equal(42U, value.GetValue());
+                Assert.Equal("42", value.ToString());
 
                 bytes = profile.ToByteArray();
-                Assert.AreEqual(0, bytes.Length);
+                Assert.Empty(bytes);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldExcludeNullValues()
             {
                 var profile = new ExifProfile();
@@ -56,10 +55,10 @@ namespace Magick.NET.Tests
                 var reader = new ExifReader();
                 reader.Read(data);
 
-                EnumerableAssert.IsEmpty(reader.Values);
+                Assert.Empty(reader.Values);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldExcludeEmptyStrings()
             {
                 var profile = new ExifProfile();
@@ -70,7 +69,7 @@ namespace Magick.NET.Tests
                 var reader = new ExifReader();
                 reader.Read(data);
 
-                EnumerableAssert.IsEmpty(reader.Values);
+                Assert.Empty(reader.Values);
             }
         }
     }

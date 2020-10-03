@@ -11,57 +11,56 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Core.Tests
 {
     public partial class PointDTests
     {
-        [TestClass]
         public class TheEqualsMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenInstanceIsNull()
             {
                 var point = new PointD(50.0);
 
-                Assert.IsFalse(point.Equals(null));
+                Assert.False(point.Equals(null));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenInstanceIsEqual()
             {
                 var first = new PointD(50.0);
                 var second = new PointD(50);
 
-                Assert.IsTrue(first.Equals(second));
+                Assert.True(first.Equals(second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenObjectIsEqual()
             {
                 var first = new PointD(50.0);
                 var second = new PointD(50);
 
-                Assert.IsTrue(first.Equals((object)second));
+                Assert.True(first.Equals((object)second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenInstanceIsNotEqual()
             {
                 var first = new PointD(50);
                 var second = new PointD(42);
 
-                Assert.IsFalse(first.Equals(second));
+                Assert.False(first.Equals(second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenObjectIsNotEqual()
             {
                 var first = new PointD(50);
                 var second = new PointD(42);
 
-                Assert.IsFalse(first.Equals((object)second));
+                Assert.False(first.Equals((object)second));
             }
         }
     }

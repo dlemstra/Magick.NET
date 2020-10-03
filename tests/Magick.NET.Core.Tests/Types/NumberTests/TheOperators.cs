@@ -11,73 +11,72 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Core.Tests
 {
     public partial class NumberTests
     {
-        [TestClass]
         public class TheOperators
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValueWhenValuesAreEqual()
             {
                 var first = new Number(10U);
                 var second = new Number(10);
 
-                Assert.IsTrue(first == second);
-                Assert.IsFalse(first != second);
-                Assert.IsFalse(first < second);
-                Assert.IsTrue(first <= second);
-                Assert.IsFalse(first > second);
-                Assert.IsTrue(first >= second);
+                Assert.True(first == second);
+                Assert.False(first != second);
+                Assert.False(first < second);
+                Assert.True(first <= second);
+                Assert.False(first > second);
+                Assert.True(first >= second);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValueWhenValuesAreNotEqual()
             {
                 var first = new Number(24);
                 var second = new Number(42);
 
-                Assert.IsFalse(first == second);
-                Assert.IsTrue(first != second);
-                Assert.IsTrue(first < second);
-                Assert.IsTrue(first <= second);
-                Assert.IsFalse(first > second);
-                Assert.IsFalse(first >= second);
+                Assert.False(first == second);
+                Assert.True(first != second);
+                Assert.True(first < second);
+                Assert.True(first <= second);
+                Assert.False(first > second);
+                Assert.False(first >= second);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldBeAbleToImplicitCastFromInt()
             {
                 Number number = 10;
 
-                Assert.AreEqual(10U, (uint)number);
+                Assert.Equal(10U, (uint)number);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldBeAbleToImplicitCastFromUInt()
             {
                 Number number = 10U;
 
-                Assert.AreEqual(10, (ushort)number);
+                Assert.Equal(10, (ushort)number);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldBeAbleToImplicitCastFromShort()
             {
                 Number number = (short)10;
 
-                Assert.AreEqual(10U, (uint)number);
+                Assert.Equal(10U, (uint)number);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldBeAbleToImplicitCastFromUShort()
             {
                 Number number = (ushort)10U;
 
-                Assert.AreEqual(10, (ushort)number);
+                Assert.Equal(10, (ushort)number);
             }
         }
     }

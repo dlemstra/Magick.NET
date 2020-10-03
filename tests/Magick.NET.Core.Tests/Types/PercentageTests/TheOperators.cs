@@ -11,71 +11,70 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Core.Tests
 {
     public partial class PercentageTests
     {
-        [TestClass]
         public class TheOperators
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnCorrectValueWhenValuesAreEqual()
             {
                 var first = new Percentage(100);
                 var second = new Percentage(100);
 
-                Assert.IsTrue(first == second);
-                Assert.IsFalse(first != second);
-                Assert.IsFalse(first < second);
-                Assert.IsTrue(first <= second);
-                Assert.IsFalse(first > second);
-                Assert.IsTrue(first >= second);
+                Assert.True(first == second);
+                Assert.False(first != second);
+                Assert.False(first < second);
+                Assert.True(first <= second);
+                Assert.False(first > second);
+                Assert.True(first >= second);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnCorrectValueWhenValuesFirstIsHigher()
             {
                 var first = new Percentage(100);
                 var second = new Percentage(101);
 
-                Assert.IsFalse(first == second);
-                Assert.IsTrue(first != second);
-                Assert.IsTrue(first < second);
-                Assert.IsTrue(first <= second);
-                Assert.IsFalse(first > second);
-                Assert.IsFalse(first >= second);
+                Assert.False(first == second);
+                Assert.True(first != second);
+                Assert.True(first < second);
+                Assert.True(first <= second);
+                Assert.False(first > second);
+                Assert.False(first >= second);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnCorrectValueWhenValuesFirstIsLower()
             {
                 var first = new Percentage(100);
                 var second = new Percentage(50);
 
-                Assert.IsFalse(first == second);
-                Assert.IsTrue(first != second);
-                Assert.IsFalse(first < second);
-                Assert.IsFalse(first <= second);
-                Assert.IsTrue(first > second);
-                Assert.IsTrue(first >= second);
+                Assert.False(first == second);
+                Assert.True(first != second);
+                Assert.False(first < second);
+                Assert.False(first <= second);
+                Assert.True(first > second);
+                Assert.True(first >= second);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnCorrectValueWhenMultiplying()
             {
                 Percentage percentage = default;
-                Assert.AreEqual(0, 10 * percentage);
+                Assert.Equal(0, 10 * percentage);
 
                 percentage = new Percentage(50);
-                Assert.AreEqual(5, 10 * percentage);
+                Assert.Equal(5, 10 * percentage);
 
                 percentage = new Percentage(200);
-                Assert.AreEqual(20.0, 10.0 * percentage);
+                Assert.Equal(20.0, 10.0 * percentage);
 
                 percentage = new Percentage(25);
-                Assert.AreEqual(2.5, 10.0 * percentage);
+                Assert.Equal(2.5, 10.0 * percentage);
             }
         }
     }

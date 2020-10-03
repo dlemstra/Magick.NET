@@ -12,27 +12,26 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Core.Tests
 {
     public partial class ColorProfileTests
     {
-        [TestClass]
         public class TheCopyrightProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValue()
             {
-                Assert.AreEqual("Copyright 2000 Adobe Systems Incorporated", ColorProfile.AdobeRGB1998.Copyright);
-                Assert.AreEqual("Copyright 2000 Adobe Systems Incorporated", ColorProfile.AppleRGB.Copyright);
-                Assert.AreEqual("Copyright 2007 Adobe Systems, Inc.", ColorProfile.CoatedFOGRA39.Copyright);
-                Assert.AreEqual("Copyright 2000 Adobe Systems Incorporated", ColorProfile.ColorMatchRGB.Copyright);
-                Assert.AreEqual("Copyright (c) 1998 Hewlett-Packard Company", ColorProfile.SRGB.Copyright);
-                Assert.AreEqual("Copyright 2000 Adobe Systems, Inc.", ColorProfile.USWebCoatedSWOP.Copyright);
+                Assert.Equal("Copyright 2000 Adobe Systems Incorporated", ColorProfile.AdobeRGB1998.Copyright);
+                Assert.Equal("Copyright 2000 Adobe Systems Incorporated", ColorProfile.AppleRGB.Copyright);
+                Assert.Equal("Copyright 2007 Adobe Systems, Inc.", ColorProfile.CoatedFOGRA39.Copyright);
+                Assert.Equal("Copyright 2000 Adobe Systems Incorporated", ColorProfile.ColorMatchRGB.Copyright);
+                Assert.Equal("Copyright (c) 1998 Hewlett-Packard Company", ColorProfile.SRGB.Copyright);
+                Assert.Equal("Copyright 2000 Adobe Systems, Inc.", ColorProfile.USWebCoatedSWOP.Copyright);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldIgnoreIncorrectTagValueType()
             {
                 var data = new byte[148];
@@ -65,7 +64,7 @@ namespace Magick.NET.Tests
                 data[147] = (byte)'c';
 
                 var colorProfile = new ColorProfile(data);
-                Assert.IsNull(colorProfile.Copyright);
+                Assert.Null(colorProfile.Copyright);
             }
         }
     }

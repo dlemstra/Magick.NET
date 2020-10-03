@@ -11,43 +11,42 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Core.Tests
 {
     public partial class EndianReaderTests
     {
-        [TestClass]
         public class TheReadLongMSBMethod : EndianReaderTests
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnNullWhenBufferIsNotLongEnough()
             {
                 var reader = new EndianReader(new byte[1] { 0 });
 
                 var result = reader.ReadLongMSB();
 
-                Assert.IsNull(result);
+                Assert.Null(result);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReadLong()
             {
                 var reader = new EndianReader(new byte[4] { 4, 197, 149, 223 });
 
                 var result = reader.ReadLongMSB();
 
-                Assert.AreEqual(80057823U, result);
+                Assert.Equal(80057823U, result);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldChangeTheIndex()
             {
                 var reader = new EndianReader(new byte[4] { 0, 0, 0, 0 });
 
                 reader.ReadLongMSB();
 
-                Assert.AreEqual(4U, reader.Index);
+                Assert.Equal(4U, reader.Index);
             }
         }
     }

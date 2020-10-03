@@ -11,47 +11,46 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Core.Tests
 {
     public partial class SignedRationalTests
     {
-        [TestClass]
         public class TheToStringMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnPositiveInfinityWhenValueIsNan()
             {
                 var rational = new SignedRational(double.NaN);
-                Assert.AreEqual("Indeterminate", rational.ToString());
+                Assert.Equal("Indeterminate", rational.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnPositiveInfinityWhenValueIsPositiveInfinity()
             {
                 var rational = new SignedRational(double.PositiveInfinity);
-                Assert.AreEqual("PositiveInfinity", rational.ToString());
+                Assert.Equal("PositiveInfinity", rational.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnNegativeInfinityWhenValueIsNegativeInfinity()
             {
                 var rational = new SignedRational(double.NegativeInfinity);
-                Assert.AreEqual("NegativeInfinity", rational.ToString());
+                Assert.Equal("NegativeInfinity", rational.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValue()
             {
                 var rational = new SignedRational(0, 1);
-                Assert.AreEqual("0", rational.ToString());
+                Assert.Equal("0", rational.ToString());
 
                 rational = new SignedRational(-2, 1);
-                Assert.AreEqual("-2", rational.ToString());
+                Assert.Equal("-2", rational.ToString());
 
                 rational = new SignedRational(-1, 2);
-                Assert.AreEqual("-1/2", rational.ToString());
+                Assert.Equal("-1/2", rational.ToString());
             }
         }
     }

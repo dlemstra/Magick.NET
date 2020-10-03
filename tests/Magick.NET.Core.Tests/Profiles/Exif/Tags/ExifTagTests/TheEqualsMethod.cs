@@ -11,73 +11,72 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Core.Tests
 {
     public partial class ExifTagTests
     {
-        [TestClass]
         public class TheEqualsMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenInstanceIsNull()
             {
                 var tag = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
 
-                Assert.IsFalse(tag.Equals(null));
+                Assert.False(tag.Equals(null));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenInstanceIsTheSame()
             {
                 var tag = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
 
-                Assert.IsTrue(tag.Equals(tag));
+                Assert.True(tag.Equals(tag));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenObjectIsTheSame()
             {
                 var tag = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
 
-                Assert.IsTrue(tag.Equals((object)tag));
+                Assert.True(tag.Equals((object)tag));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenInstanceIsEqual()
             {
                 var first = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
                 var second = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
 
-                Assert.IsTrue(first.Equals(second));
+                Assert.True(first.Equals(second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenObjectIsEqual()
             {
                 var first = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
                 var second = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
 
-                Assert.IsTrue(first.Equals((object)second));
+                Assert.True(first.Equals((object)second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenInstanceIsNotEqual()
             {
                 var first = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
                 var second = new ExifTag<uint>(ExifTagValue.CodingMethods);
 
-                Assert.IsFalse(first.Equals(second));
+                Assert.False(first.Equals(second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenObjectIsNotEqual()
             {
                 var first = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
                 var second = new ExifTag<uint>(ExifTagValue.CodingMethods);
 
-                Assert.IsFalse(first.Equals((object)second));
+                Assert.False(first.Equals((object)second));
             }
         }
     }

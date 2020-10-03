@@ -11,39 +11,38 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Core.Tests
 {
     public partial class NumberTests
     {
-        [TestClass]
         public class TheCompareToMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnZeroWhenInstancesAreTheSame()
             {
                 var first = new Number(10);
 
-                Assert.AreEqual(0, first.CompareTo(first));
+                Assert.Equal(0, first.CompareTo(first));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnZeroWhenInstancesAreEqual()
             {
                 var first = new Number(10);
                 var second = new Number(10);
 
-                Assert.AreEqual(0, first.CompareTo(second));
+                Assert.Equal(0, first.CompareTo(second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnOneWhenInstancesAreNotEqual()
             {
                 var first = new Number(10);
                 var second = new Number(5);
 
-                Assert.AreEqual(1, first.CompareTo(second));
+                Assert.Equal(1, first.CompareTo(second));
             }
         }
     }

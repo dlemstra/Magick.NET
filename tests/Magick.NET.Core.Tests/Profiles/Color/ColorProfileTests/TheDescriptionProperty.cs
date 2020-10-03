@@ -11,24 +11,23 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Core.Tests
 {
     public partial class ColorProfileTests
     {
-        [TestClass]
         public class TheDescriptionProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValue()
             {
-                Assert.AreEqual("Adobe RGB (1998)", ColorProfile.AdobeRGB1998.Description);
-                Assert.AreEqual("Apple RGB", ColorProfile.AppleRGB.Description);
-                Assert.AreEqual("Coated FOGRA39 (ISO 12647-2:2004)", ColorProfile.CoatedFOGRA39.Description);
-                Assert.AreEqual("ColorMatch RGB", ColorProfile.ColorMatchRGB.Description);
-                Assert.AreEqual("sRGB IEC61966-2.1", ColorProfile.SRGB.Description);
-                Assert.AreEqual("U.S. Web Coated (SWOP) v2", ColorProfile.USWebCoatedSWOP.Description);
+                Assert.Equal("Adobe RGB (1998)", ColorProfile.AdobeRGB1998.Description);
+                Assert.Equal("Apple RGB", ColorProfile.AppleRGB.Description);
+                Assert.Equal("Coated FOGRA39 (ISO 12647-2:2004)", ColorProfile.CoatedFOGRA39.Description);
+                Assert.Equal("ColorMatch RGB", ColorProfile.ColorMatchRGB.Description);
+                Assert.Equal("sRGB IEC61966-2.1", ColorProfile.SRGB.Description);
+                Assert.Equal("U.S. Web Coated (SWOP) v2", ColorProfile.USWebCoatedSWOP.Description);
             }
         }
     }

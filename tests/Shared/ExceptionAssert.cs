@@ -12,7 +12,7 @@
 
 using System;
 using System.Globalization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET
 {
@@ -50,7 +50,7 @@ namespace Magick.NET
            where TException : ArgumentException
         {
             var exception = Throws<TException>(action);
-            Assert.AreEqual(paramName, exception.ParamName);
+            Assert.Equal(paramName, exception.ParamName);
 
             return exception;
         }
@@ -76,7 +76,7 @@ namespace Magick.NET
            where TException : Exception
         {
             var containsMessage = exception.Message.Contains(messagePart);
-            Assert.IsTrue(containsMessage, "Message does not contain: " + messagePart + "." + Environment.NewLine + Environment.NewLine + exception.Message);
+            Assert.True(containsMessage, "Message does not contain: " + messagePart + "." + Environment.NewLine + Environment.NewLine + exception.Message);
         }
     }
 }

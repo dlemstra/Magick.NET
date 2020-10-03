@@ -11,34 +11,33 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Core.Tests
 {
     public partial class RationalTests
     {
-        [TestClass]
         public class SignedRationalTests
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnNanWhenNumeratorIsZero()
             {
                 var rational = new SignedRational(0, 0);
-                Assert.AreEqual(double.NaN, rational.ToDouble());
+                Assert.Equal(double.NaN, rational.ToDouble());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnPositiveInfinityWhenDenominatorIsZero()
             {
                 var rational = new SignedRational(2, 0);
-                Assert.AreEqual(double.PositiveInfinity, rational.ToDouble());
+                Assert.Equal(double.PositiveInfinity, rational.ToDouble());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnNegativeInfinityWhenDenominatorIsZeroAndValueIsNegative()
             {
                 var rational = new SignedRational(-2, 0);
-                Assert.AreEqual(double.NegativeInfinity, rational.ToDouble());
+                Assert.Equal(double.NegativeInfinity, rational.ToDouble());
             }
         }
     }

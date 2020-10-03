@@ -11,27 +11,26 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Core.Tests
 {
     public partial class PercentageTests
     {
-        [TestClass]
         public class TheToInt32Method
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnZeroForZeroPointFour()
             {
                 var percentage = new Percentage(0.4);
-                Assert.AreEqual(0, percentage.ToInt32());
+                Assert.Equal(0, percentage.ToInt32());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnOneForZeroPointFive()
             {
                 var percentage = new Percentage(0.5);
-                Assert.AreEqual(1, percentage.ToInt32());
+                Assert.Equal(1, percentage.ToInt32());
             }
         }
     }

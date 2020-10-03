@@ -12,16 +12,16 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET
 {
     internal static class EnumerableAssert
     {
         public static void IsSingle<T>(IEnumerable<T> items)
-            => Assert.AreEqual(1, items.Count());
+            => Assert.Equal(1, items.Count());
 
         public static void IsEmpty<T>(IEnumerable<T> items)
-            => Assert.AreEqual(0, items.Count());
+            => Assert.Equal(0, items.Count());
     }
 }

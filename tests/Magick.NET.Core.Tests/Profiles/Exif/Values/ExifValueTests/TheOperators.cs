@@ -11,44 +11,43 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Core.Tests
 {
     public partial class ExifValueTests
     {
-        [TestClass]
         public class TheOperators
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValueWhenInstanceIsNull()
             {
                 var value = new ExifLong(ExifTag.SubIFDOffset);
 
-                Assert.IsFalse(value == null);
-                Assert.IsTrue(value != null);
-                Assert.IsFalse(null == value);
-                Assert.IsTrue(null != value);
+                Assert.False(value == null);
+                Assert.True(value != null);
+                Assert.False(null == value);
+                Assert.True(null != value);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValueWhenValuesAreEqual()
             {
                 var first = new ExifLong(ExifTag.SubIFDOffset);
                 var second = ExifTag.SubIFDOffset;
 
-                Assert.IsTrue(first == second);
-                Assert.IsFalse(first != second);
+                Assert.True(first == second);
+                Assert.False(first != second);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValueWhenValuesAreNotEqual()
             {
                 var first = new ExifLong(ExifTag.SubIFDOffset);
                 var second = ExifTag.CodingMethods;
 
-                Assert.IsFalse(first == second);
-                Assert.IsTrue(first != second);
+                Assert.False(first == second);
+                Assert.True(first != second);
             }
         }
     }

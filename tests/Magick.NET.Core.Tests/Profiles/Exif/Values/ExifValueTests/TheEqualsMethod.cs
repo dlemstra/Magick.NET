@@ -11,73 +11,72 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Core.Tests
 {
     public partial class ExifValueTests
     {
-        [TestClass]
         public class TheEqualsMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenInstanceIsNull()
             {
                 var value = new ExifLong(ExifTag.SubIFDOffset);
 
-                Assert.IsFalse(value.Equals(null));
+                Assert.False(value.Equals(null));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenInstanceIsTheSame()
             {
                 var value = new ExifLong(ExifTag.SubIFDOffset);
 
-                Assert.IsTrue(value.Equals(value));
+                Assert.True(value.Equals(value));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenObjectIsTheSame()
             {
                 var value = new ExifLong(ExifTag.SubIFDOffset);
 
-                Assert.IsTrue(value.Equals(value));
+                Assert.True(value.Equals(value));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenInstanceIsEqual()
             {
                 var first = new ExifLong(ExifTag.SubIFDOffset);
                 var second = ExifTag.SubIFDOffset;
 
-                Assert.IsTrue(first.Equals(second));
+                Assert.True(first.Equals(second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenObjectIsEqual()
             {
                 var first = new ExifLong(ExifTag.SubIFDOffset);
                 var second = new ExifLong(ExifTag.SubIFDOffset);
 
-                Assert.IsTrue(first.Equals(second));
+                Assert.True(first.Equals(second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenInstanceIsNotEqual()
             {
                 var first = new ExifLong(ExifTag.SubIFDOffset);
                 var second = ExifTag.CodingMethods;
 
-                Assert.IsFalse(first.Equals(second));
+                Assert.False(first.Equals(second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenObjectIsNotEqual()
             {
                 var first = new ExifLong(ExifTag.SubIFDOffset);
                 var second = new ExifLong(ExifTag.CodingMethods);
 
-                Assert.IsFalse(first.Equals(second));
+                Assert.False(first.Equals(second));
             }
         }
     }

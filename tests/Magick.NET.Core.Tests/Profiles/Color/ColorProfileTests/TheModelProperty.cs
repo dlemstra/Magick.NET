@@ -11,24 +11,23 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Core.Tests
 {
     public partial class ColorProfileTests
     {
-        [TestClass]
         public class TheModelProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValue()
             {
-                Assert.IsNull(ColorProfile.AdobeRGB1998.Model);
-                Assert.IsNull(ColorProfile.AppleRGB.Model);
-                Assert.IsNull(ColorProfile.CoatedFOGRA39.Model);
-                Assert.IsNull(ColorProfile.ColorMatchRGB.Model);
-                Assert.AreEqual("IEC 61966-2.1 Default RGB colour space - sRGB", ColorProfile.SRGB.Model);
-                Assert.IsNull(ColorProfile.USWebCoatedSWOP.Model);
+                Assert.Null(ColorProfile.AdobeRGB1998.Model);
+                Assert.Null(ColorProfile.AppleRGB.Model);
+                Assert.Null(ColorProfile.CoatedFOGRA39.Model);
+                Assert.Null(ColorProfile.ColorMatchRGB.Model);
+                Assert.Equal("IEC 61966-2.1 Default RGB colour space - sRGB", ColorProfile.SRGB.Model);
+                Assert.Null(ColorProfile.USWebCoatedSWOP.Model);
             }
         }
     }

@@ -11,24 +11,23 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Core.Tests
 {
     public partial class ColorProfileTests
     {
-        [TestClass]
         public class TheColorSpaceProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValue()
             {
-                Assert.AreEqual(ColorSpace.sRGB, ColorProfile.AdobeRGB1998.ColorSpace);
-                Assert.AreEqual(ColorSpace.sRGB, ColorProfile.AppleRGB.ColorSpace);
-                Assert.AreEqual(ColorSpace.CMYK, ColorProfile.CoatedFOGRA39.ColorSpace);
-                Assert.AreEqual(ColorSpace.sRGB, ColorProfile.ColorMatchRGB.ColorSpace);
-                Assert.AreEqual(ColorSpace.sRGB, ColorProfile.SRGB.ColorSpace);
-                Assert.AreEqual(ColorSpace.CMYK, ColorProfile.USWebCoatedSWOP.ColorSpace);
+                Assert.Equal(ColorSpace.sRGB, ColorProfile.AdobeRGB1998.ColorSpace);
+                Assert.Equal(ColorSpace.sRGB, ColorProfile.AppleRGB.ColorSpace);
+                Assert.Equal(ColorSpace.CMYK, ColorProfile.CoatedFOGRA39.ColorSpace);
+                Assert.Equal(ColorSpace.sRGB, ColorProfile.ColorMatchRGB.ColorSpace);
+                Assert.Equal(ColorSpace.sRGB, ColorProfile.SRGB.ColorSpace);
+                Assert.Equal(ColorSpace.CMYK, ColorProfile.USWebCoatedSWOP.ColorSpace);
             }
         }
     }

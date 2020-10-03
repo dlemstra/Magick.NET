@@ -11,69 +11,68 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Core.Tests
 {
     public partial class DensityTests
     {
-        [TestClass]
         public class TheToStringMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValueForPixelsPerCentimeterUnits()
             {
                 var density = new Density(1, 2, DensityUnit.PixelsPerCentimeter);
 
-                Assert.AreEqual("1x2 cm", density.ToString());
+                Assert.Equal("1x2 cm", density.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValueForPixelsPerInchUnits()
             {
                 var density = new Density(1, 2, DensityUnit.PixelsPerInch);
 
-                Assert.AreEqual("1x2 inch", density.ToString());
+                Assert.Equal("1x2 inch", density.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValueForUndefinedUnits()
             {
                 var density = new Density(1, 2, DensityUnit.Undefined);
 
-                Assert.AreEqual("1x2", density.ToString());
+                Assert.Equal("1x2", density.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotConvertTheValueWhenUnitsMatch()
             {
                 var density = new Density(1, 2, DensityUnit.PixelsPerCentimeter);
 
-                Assert.AreEqual("1x2 cm", density.ToString(DensityUnit.PixelsPerCentimeter));
+                Assert.Equal("1x2 cm", density.ToString(DensityUnit.PixelsPerCentimeter));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldNotAddUnitsWhenUndefinedIsSpecified()
             {
                 var density = new Density(1, 2, DensityUnit.PixelsPerCentimeter);
 
-                Assert.AreEqual("1x2", density.ToString(DensityUnit.Undefined));
+                Assert.Equal("1x2", density.ToString(DensityUnit.Undefined));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldConvertPixelsPerInchToPixelsPerCentimeter()
             {
                 var density = new Density(2.54, 5.08, DensityUnit.PixelsPerInch);
 
-                Assert.AreEqual("1x2 cm", density.ToString(DensityUnit.PixelsPerCentimeter));
+                Assert.Equal("1x2 cm", density.ToString(DensityUnit.PixelsPerCentimeter));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldConvertPixelsPerCentimeterToPixelsPerInch()
             {
                 var density = new Density(1, 2, DensityUnit.PixelsPerCentimeter);
 
-                Assert.AreEqual("2.54x5.08 inch", density.ToString(DensityUnit.PixelsPerInch));
+                Assert.Equal("2.54x5.08 inch", density.ToString(DensityUnit.PixelsPerInch));
             }
         }
     }

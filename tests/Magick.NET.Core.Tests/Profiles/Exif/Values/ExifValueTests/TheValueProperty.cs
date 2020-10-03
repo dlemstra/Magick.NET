@@ -11,16 +11,15 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Core.Tests
 {
     public partial class ExifValueTests
     {
-        [TestClass]
         public class TheValueProperty
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenValueIsInvalidDataType1()
             {
                 var profile = new ExifProfile();
@@ -28,10 +27,10 @@ namespace Magick.NET.Tests
 
                 IExifValue value = profile.GetValue(ExifTag.Software);
 
-                Assert.IsFalse(value.SetValue(10.5));
+                Assert.False(value.SetValue(10.5));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenValueIsInvalidDataType2()
             {
                 var profile = new ExifProfile();
@@ -39,20 +38,20 @@ namespace Magick.NET.Tests
 
                 IExifValue value = profile.GetValue(ExifTag.ShutterSpeedValue);
 
-                Assert.IsFalse(value.SetValue(75));
+                Assert.False(value.SetValue(75));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenValueIsInvalidDataType3()
             {
                 var profile = new ExifProfile();
                 profile.SetValue(ExifTag.XResolution, new Rational(150.0));
 
                 IExifValue value = profile.GetValue(ExifTag.XResolution);
-                Assert.IsNotNull(value);
-                Assert.AreEqual("150", value.ToString());
+                Assert.NotNull(value);
+                Assert.Equal("150", value.ToString());
 
-                Assert.IsFalse(value.SetValue("Magick.NET"));
+                Assert.False(value.SetValue("Magick.NET"));
             }
         }
     }

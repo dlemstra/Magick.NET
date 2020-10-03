@@ -11,22 +11,21 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Core.Tests
 {
     public partial class ExifValueTests
     {
-        [TestClass]
         public class TheToStringMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheValueAsString()
             {
                 var value = new ExifShort(ExifTag.GPSDifferential);
                 value.Value = 42;
 
-                Assert.AreEqual("42", value.ToString());
+                Assert.Equal("42", value.ToString());
             }
         }
     }

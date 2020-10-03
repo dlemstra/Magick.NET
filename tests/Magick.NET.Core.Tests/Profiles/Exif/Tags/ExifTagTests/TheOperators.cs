@@ -11,44 +11,43 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Core.Tests
 {
     public partial class ExifTagTests
     {
-        [TestClass]
         public class TheOperators
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValueWhenInstanceIsNull()
             {
                 var tag = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
 
-                Assert.IsFalse(tag == null);
-                Assert.IsTrue(tag != null);
-                Assert.IsFalse(null == tag);
-                Assert.IsTrue(null != tag);
+                Assert.False(tag == null);
+                Assert.True(tag != null);
+                Assert.False(null == tag);
+                Assert.True(null != tag);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValueWhenValuesAreEqual()
             {
                 var first = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
                 var second = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
 
-                Assert.IsTrue(first == second);
-                Assert.IsFalse(first != second);
+                Assert.True(first == second);
+                Assert.False(first != second);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTheCorrectValueWhenValuesAreNotEqual()
             {
                 var first = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
                 var second = new ExifTag<uint>(ExifTagValue.CodingMethods);
 
-                Assert.IsFalse(first == second);
-                Assert.IsTrue(first != second);
+                Assert.False(first == second);
+                Assert.True(first != second);
             }
         }
     }

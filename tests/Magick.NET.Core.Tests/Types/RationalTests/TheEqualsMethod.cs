@@ -11,82 +11,81 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Core.Tests
 {
     public partial class RationalTests
     {
-        [TestClass]
         public class TheEqualsMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenInstanceIsNull()
             {
                 var density = new Rational(3, 2);
 
-                Assert.IsFalse(density.Equals(null));
+                Assert.False(density.Equals(null));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenInstanceIsTheSame()
             {
                 var density = new Rational(3, 2);
 
-                Assert.IsTrue(density.Equals(density));
+                Assert.True(density.Equals(density));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenObjectIsTheSame()
             {
                 var density = new Rational(3, 2);
 
-                Assert.IsTrue(density.Equals((object)density));
+                Assert.True(density.Equals((object)density));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenInstanceIsEqual()
             {
                 var first = new Rational(3, 2);
                 var second = new Rational(3, 2);
 
-                Assert.IsTrue(first.Equals(second));
+                Assert.True(first.Equals(second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnTrueWhenObjectIsEqual()
             {
                 var first = new Rational(3, 2);
                 var second = new Rational(3, 2);
 
-                Assert.IsTrue(first.Equals((object)second));
+                Assert.True(first.Equals((object)second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenInstanceIsNotEqual()
             {
                 var first = new Rational(3, 2);
                 var second = new Rational(2, 3);
 
-                Assert.IsFalse(first.Equals(second));
+                Assert.False(first.Equals(second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnFalseWhenObjectIsNotEqual()
             {
                 var first = new Rational(3, 2);
                 var second = new Rational(2, 3);
 
-                Assert.IsFalse(first.Equals((object)second));
+                Assert.False(first.Equals((object)second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldHandleFractionCorrectly()
             {
                 var first = new Rational(1.0 / 1600);
                 var second = new Rational(1.0 / 1600, true);
 
-                Assert.IsFalse(first.Equals(second));
+                Assert.False(first.Equals(second));
             }
         }
     }

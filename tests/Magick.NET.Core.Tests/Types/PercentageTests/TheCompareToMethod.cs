@@ -11,48 +11,47 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Core.Tests
 {
     public partial class PercentageTests
     {
-        [TestClass]
         public class TheCompareToMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldReturnZeroWhenValuesAreSame()
             {
                 var first = new Percentage(100);
 
-                Assert.AreEqual(0, first.CompareTo(first));
+                Assert.Equal(0, first.CompareTo(first));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnZeroWhenValuesAreEqual()
             {
                 var first = new Percentage(100);
                 var second = new Percentage(100);
 
-                Assert.AreEqual(0, first.CompareTo(second));
+                Assert.Equal(0, first.CompareTo(second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnMinusOneWhenValueIsHigher()
             {
                 var first = new Percentage(100);
                 var second = new Percentage(101);
 
-                Assert.AreEqual(-1, first.CompareTo(second));
+                Assert.Equal(-1, first.CompareTo(second));
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldReturnOneWhenValueIsLower()
             {
                 var first = new Percentage(100);
                 var second = new Percentage(50);
 
-                Assert.AreEqual(1, first.CompareTo(second));
+                Assert.Equal(1, first.CompareTo(second));
             }
         }
     }

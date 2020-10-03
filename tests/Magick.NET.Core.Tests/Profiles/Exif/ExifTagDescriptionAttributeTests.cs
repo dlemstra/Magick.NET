@@ -11,37 +11,36 @@
 // and limitations under the License.
 
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Core.Tests
 {
-    [TestClass]
     public class ExifTagDescriptionAttributeTests
     {
-        [TestMethod]
+        [Fact]
         public void Test_ExifTag()
         {
             var exifProfile = new ExifProfile();
 
             exifProfile.SetValue(ExifTag.ResolutionUnit, (ushort)1);
             var value = exifProfile.GetValue(ExifTag.ResolutionUnit);
-            Assert.AreEqual("None", value.ToString());
+            Assert.Equal("None", value.ToString());
 
             exifProfile.SetValue(ExifTag.ResolutionUnit, (ushort)2);
             value = exifProfile.GetValue(ExifTag.ResolutionUnit);
-            Assert.AreEqual("Inches", value.ToString());
+            Assert.Equal("Inches", value.ToString());
 
             exifProfile.SetValue(ExifTag.ResolutionUnit, (ushort)3);
             value = exifProfile.GetValue(ExifTag.ResolutionUnit);
-            Assert.AreEqual("Centimeter", value.ToString());
+            Assert.Equal("Centimeter", value.ToString());
 
             exifProfile.SetValue(ExifTag.ResolutionUnit, (ushort)4);
             value = exifProfile.GetValue(ExifTag.ResolutionUnit);
-            Assert.AreEqual("4", value.ToString());
+            Assert.Equal("4", value.ToString());
 
             exifProfile.SetValue(ExifTag.ImageWidth, 123);
             var imageWidth = exifProfile.GetValue(ExifTag.ImageWidth);
-            Assert.AreEqual("123", imageWidth.ToString());
+            Assert.Equal("123", imageWidth.ToString());
         }
     }
 }

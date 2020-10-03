@@ -12,105 +12,104 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Magick.NET.Core.Tests
 {
     public partial class DensityTests
     {
-        [TestClass]
         public class TheConstructor
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenValueIsNull()
             {
-                ExceptionAssert.Throws<ArgumentNullException>("value", () => { new Density(null); });
+                Assert.Throws<ArgumentNullException>("value", () => { new Density(null); });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenValueIsEmpty()
             {
-                ExceptionAssert.Throws<ArgumentException>("value", () => { new Density(string.Empty); });
+                Assert.Throws<ArgumentException>("value", () => { new Density(string.Empty); });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenValueIsInvalid()
             {
-                ExceptionAssert.Throws<ArgumentException>("value", () => { new Density("1.0x"); });
+                Assert.Throws<ArgumentException>("value", () => { new Density("1.0x"); });
 
-                ExceptionAssert.Throws<ArgumentException>("value", () => { new Density("x1.0"); });
+                Assert.Throws<ArgumentException>("value", () => { new Density("x1.0"); });
 
-                ExceptionAssert.Throws<ArgumentException>("value", () => { new Density("ax1.0"); });
+                Assert.Throws<ArgumentException>("value", () => { new Density("ax1.0"); });
 
-                ExceptionAssert.Throws<ArgumentException>("value", () => { new Density("1.0xb"); });
+                Assert.Throws<ArgumentException>("value", () => { new Density("1.0xb"); });
 
-                ExceptionAssert.Throws<ArgumentException>("value", () => { new Density("1.0x6 magick"); });
+                Assert.Throws<ArgumentException>("value", () => { new Density("1.0x6 magick"); });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldUsePixelsPerInchAsTheDefaultUnits()
             {
                 var density = new Density(5);
-                Assert.AreEqual(5.0, density.X);
-                Assert.AreEqual(5.0, density.Y);
-                Assert.AreEqual(DensityUnit.PixelsPerInch, density.Units);
+                Assert.Equal(5.0, density.X);
+                Assert.Equal(5.0, density.Y);
+                Assert.Equal(DensityUnit.PixelsPerInch, density.Units);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheUnits()
             {
                 var density = new Density(8.5, DensityUnit.PixelsPerCentimeter);
-                Assert.AreEqual(8.5, density.X);
-                Assert.AreEqual(8.5, density.Y);
-                Assert.AreEqual(DensityUnit.PixelsPerCentimeter, density.Units);
+                Assert.Equal(8.5, density.X);
+                Assert.Equal(8.5, density.Y);
+                Assert.Equal(DensityUnit.PixelsPerCentimeter, density.Units);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheXAndYDensity()
             {
                 var density = new Density(2, 3);
-                Assert.AreEqual(2.0, density.X);
-                Assert.AreEqual(3.0, density.Y);
-                Assert.AreEqual(DensityUnit.PixelsPerInch, density.Units);
+                Assert.Equal(2.0, density.X);
+                Assert.Equal(3.0, density.Y);
+                Assert.Equal(DensityUnit.PixelsPerInch, density.Units);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheXAndYDensityAndUnits()
             {
                 var density = new Density(2.2, 3.3, DensityUnit.Undefined);
-                Assert.AreEqual(2.2, density.X);
-                Assert.AreEqual(3.3, density.Y);
-                Assert.AreEqual(DensityUnit.Undefined, density.Units);
+                Assert.Equal(2.2, density.X);
+                Assert.Equal(3.3, density.Y);
+                Assert.Equal(DensityUnit.Undefined, density.Units);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheXAndYDensityFromTheValue()
             {
                 var density = new Density("1.0x2.5");
-                Assert.AreEqual(1.0, density.X);
-                Assert.AreEqual(2.5, density.Y);
-                Assert.AreEqual(DensityUnit.Undefined, density.Units);
-                Assert.AreEqual("1x2.5", density.ToString());
+                Assert.Equal(1.0, density.X);
+                Assert.Equal(2.5, density.Y);
+                Assert.Equal(DensityUnit.Undefined, density.Units);
+                Assert.Equal("1x2.5", density.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheCorrectUnitsForCm()
             {
                 var density = new Density("2.5x1.0 cm");
-                Assert.AreEqual(2.5, density.X);
-                Assert.AreEqual(1.0, density.Y);
-                Assert.AreEqual(DensityUnit.PixelsPerCentimeter, density.Units);
-                Assert.AreEqual("2.5x1 cm", density.ToString());
+                Assert.Equal(2.5, density.X);
+                Assert.Equal(1.0, density.Y);
+                Assert.Equal(DensityUnit.PixelsPerCentimeter, density.Units);
+                Assert.Equal("2.5x1 cm", density.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldSetTheCorrectUnitsForInch()
             {
                 var density = new Density("2.5x1.0 inch");
-                Assert.AreEqual(2.5, density.X);
-                Assert.AreEqual(1.0, density.Y);
-                Assert.AreEqual(DensityUnit.PixelsPerInch, density.Units);
-                Assert.AreEqual("2.5x1 inch", density.ToString());
+                Assert.Equal(2.5, density.X);
+                Assert.Equal(1.0, density.Y);
+                Assert.Equal(DensityUnit.PixelsPerInch, density.Units);
+                Assert.Equal("2.5x1 inch", density.ToString());
             }
         }
     }

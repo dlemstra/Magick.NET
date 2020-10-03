@@ -13,16 +13,15 @@
 using System.Linq;
 using System.Text;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Core.Tests
 {
     public partial class IptcProfileTests
     {
-        [TestClass]
         public class TheRemoveValueMethod
         {
-            [TestMethod]
+            [Fact]
             public void ShouldRemoveAllValues()
             {
                 var profile = new IptcProfile();
@@ -31,11 +30,11 @@ namespace Magick.NET.Tests
 
                 var result = profile.RemoveValue(IptcTag.Byline);
 
-                Assert.IsTrue(result);
-                EnumerableAssert.IsEmpty(profile.Values);
+                Assert.True(result);
+                Assert.Empty(profile.Values);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldOnlyRemoveTheValueWithTheSpecifiedValue()
             {
                 var profile = new IptcProfile();
@@ -44,8 +43,8 @@ namespace Magick.NET.Tests
 
                 var result = profile.RemoveValue(IptcTag.Byline, "test2");
 
-                Assert.IsTrue(result);
-                Assert.IsTrue(profile.Values.Contains(new IptcValue(IptcTag.Byline, Encoding.UTF8.GetBytes("test"))));
+                Assert.True(result);
+                Assert.Contains(new IptcValue(IptcTag.Byline, Encoding.UTF8.GetBytes("test")), profile.Values);
             }
         }
     }

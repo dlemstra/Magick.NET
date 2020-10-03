@@ -14,30 +14,29 @@ using System;
 using System.Linq;
 using System.Text;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Core.Tests
 {
     public partial class IptcProfileTests
     {
-        [TestClass]
         public class TheSetValueMethod
         {
-            [TestMethod]
-            [DataRow(IptcTag.ObjectAttribute)]
-            [DataRow(IptcTag.SubjectReference)]
-            [DataRow(IptcTag.SupplementalCategories)]
-            [DataRow(IptcTag.Keyword)]
-            [DataRow(IptcTag.LocationCode)]
-            [DataRow(IptcTag.LocationName)]
-            [DataRow(IptcTag.ReferenceService)]
-            [DataRow(IptcTag.ReferenceDate)]
-            [DataRow(IptcTag.ReferenceNumber)]
-            [DataRow(IptcTag.Byline)]
-            [DataRow(IptcTag.BylineTitle)]
-            [DataRow(IptcTag.Contact)]
-            [DataRow(IptcTag.LocalCaption)]
-            [DataRow(IptcTag.CaptionWriter)]
+            [Theory]
+            [InlineData(IptcTag.ObjectAttribute)]
+            [InlineData(IptcTag.SubjectReference)]
+            [InlineData(IptcTag.SupplementalCategories)]
+            [InlineData(IptcTag.Keyword)]
+            [InlineData(IptcTag.LocationCode)]
+            [InlineData(IptcTag.LocationName)]
+            [InlineData(IptcTag.ReferenceService)]
+            [InlineData(IptcTag.ReferenceDate)]
+            [InlineData(IptcTag.ReferenceNumber)]
+            [InlineData(IptcTag.Byline)]
+            [InlineData(IptcTag.BylineTitle)]
+            [InlineData(IptcTag.Contact)]
+            [InlineData(IptcTag.LocalCaption)]
+            [InlineData(IptcTag.CaptionWriter)]
             public void ShouldAllowDuplicateValuesForValuesThatCanBeRepated(IptcTag tag)
             {
                 var profile = new IptcProfile();
@@ -48,45 +47,45 @@ namespace Magick.NET.Tests
                 profile.SetValue(tag, expectedValue2);
 
                 var values = profile.Values.ToList();
-                Assert.AreEqual(2, values.Count);
-                Assert.IsTrue(values.Contains(new IptcValue(tag, Encoding.UTF8.GetBytes(expectedValue1))));
-                Assert.IsTrue(values.Contains(new IptcValue(tag, Encoding.UTF8.GetBytes(expectedValue2))));
+                Assert.Equal(2, values.Count);
+                Assert.Contains(new IptcValue(tag, Encoding.UTF8.GetBytes(expectedValue1)), values);
+                Assert.Contains(new IptcValue(tag, Encoding.UTF8.GetBytes(expectedValue2)), values);
             }
 
-            [TestMethod]
-            [DataRow(IptcTag.RecordVersion)]
-            [DataRow(IptcTag.ObjectType)]
-            [DataRow(IptcTag.Title)]
-            [DataRow(IptcTag.EditStatus)]
-            [DataRow(IptcTag.EditorialUpdate)]
-            [DataRow(IptcTag.Priority)]
-            [DataRow(IptcTag.Category)]
-            [DataRow(IptcTag.FixtureIdentifier)]
-            [DataRow(IptcTag.ReleaseDate)]
-            [DataRow(IptcTag.ReleaseTime)]
-            [DataRow(IptcTag.ExpirationDate)]
-            [DataRow(IptcTag.ExpirationTime)]
-            [DataRow(IptcTag.SpecialInstructions)]
-            [DataRow(IptcTag.ActionAdvised)]
-            [DataRow(IptcTag.CreatedDate)]
-            [DataRow(IptcTag.CreatedTime)]
-            [DataRow(IptcTag.DigitalCreationDate)]
-            [DataRow(IptcTag.DigitalCreationTime)]
-            [DataRow(IptcTag.OriginatingProgram)]
-            [DataRow(IptcTag.ProgramVersion)]
-            [DataRow(IptcTag.ObjectCycle)]
-            [DataRow(IptcTag.City)]
-            [DataRow(IptcTag.SubLocation)]
-            [DataRow(IptcTag.ProvinceState)]
-            [DataRow(IptcTag.CountryCode)]
-            [DataRow(IptcTag.Country)]
-            [DataRow(IptcTag.OriginalTransmissionReference)]
-            [DataRow(IptcTag.Headline)]
-            [DataRow(IptcTag.Credit)]
-            [DataRow(IptcTag.CopyrightNotice)]
-            [DataRow(IptcTag.Caption)]
-            [DataRow(IptcTag.ImageType)]
-            [DataRow(IptcTag.ImageOrientation)]
+            [Theory]
+            [InlineData(IptcTag.RecordVersion)]
+            [InlineData(IptcTag.ObjectType)]
+            [InlineData(IptcTag.Title)]
+            [InlineData(IptcTag.EditStatus)]
+            [InlineData(IptcTag.EditorialUpdate)]
+            [InlineData(IptcTag.Priority)]
+            [InlineData(IptcTag.Category)]
+            [InlineData(IptcTag.FixtureIdentifier)]
+            [InlineData(IptcTag.ReleaseDate)]
+            [InlineData(IptcTag.ReleaseTime)]
+            [InlineData(IptcTag.ExpirationDate)]
+            [InlineData(IptcTag.ExpirationTime)]
+            [InlineData(IptcTag.SpecialInstructions)]
+            [InlineData(IptcTag.ActionAdvised)]
+            [InlineData(IptcTag.CreatedDate)]
+            [InlineData(IptcTag.CreatedTime)]
+            [InlineData(IptcTag.DigitalCreationDate)]
+            [InlineData(IptcTag.DigitalCreationTime)]
+            [InlineData(IptcTag.OriginatingProgram)]
+            [InlineData(IptcTag.ProgramVersion)]
+            [InlineData(IptcTag.ObjectCycle)]
+            [InlineData(IptcTag.City)]
+            [InlineData(IptcTag.SubLocation)]
+            [InlineData(IptcTag.ProvinceState)]
+            [InlineData(IptcTag.CountryCode)]
+            [InlineData(IptcTag.Country)]
+            [InlineData(IptcTag.OriginalTransmissionReference)]
+            [InlineData(IptcTag.Headline)]
+            [InlineData(IptcTag.Credit)]
+            [InlineData(IptcTag.CopyrightNotice)]
+            [InlineData(IptcTag.Caption)]
+            [InlineData(IptcTag.ImageType)]
+            [InlineData(IptcTag.ImageOrientation)]
             public void ShoulNotdAllowDuplicateValuesForValuesThatCannotBeRepated(IptcTag tag)
             {
                 var profile = new IptcProfile();
@@ -96,28 +95,28 @@ namespace Magick.NET.Tests
                 profile.SetValue(tag, expectedValue);
 
                 var values = profile.Values.ToList();
-                EnumerableAssert.IsSingle(values);
-                Assert.IsTrue(values.Contains(new IptcValue(tag, Encoding.UTF8.GetBytes(expectedValue))));
+                Assert.Single(values);
+                Assert.Contains(new IptcValue(tag, Encoding.UTF8.GetBytes(expectedValue)), values);
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenTagIsNotDateOrTime()
             {
                 var profile = new IptcProfile();
                 var datetime = new DateTimeOffset(new DateTime(1994, 3, 17));
 
-                ExceptionAssert.Throws<ArgumentException>("tag", () =>
+                Assert.Throws<ArgumentException>("tag", () =>
                 {
                     profile.SetValue(IptcTag.ActionAdvised, datetime);
                 });
             }
 
-            [TestMethod]
-            [DataRow(IptcTag.DigitalCreationDate)]
-            [DataRow(IptcTag.ExpirationDate)]
-            [DataRow(IptcTag.CreatedDate)]
-            [DataRow(IptcTag.ReferenceDate)]
-            [DataRow(IptcTag.ReleaseDate)]
+            [Theory]
+            [InlineData(IptcTag.DigitalCreationDate)]
+            [InlineData(IptcTag.ExpirationDate)]
+            [InlineData(IptcTag.CreatedDate)]
+            [InlineData(IptcTag.ReferenceDate)]
+            [InlineData(IptcTag.ReleaseDate)]
             public void ShouldFormatTheDate(IptcTag tag)
             {
                 var profile = new IptcProfile();
@@ -126,14 +125,14 @@ namespace Magick.NET.Tests
                 profile.SetValue(tag, datetime);
 
                 var actual = profile.GetValue(tag);
-                Assert.AreEqual("19940317", actual.Value);
+                Assert.Equal("19940317", actual.Value);
             }
 
-            [TestMethod]
-            [DataRow(IptcTag.CreatedTime)]
-            [DataRow(IptcTag.DigitalCreationTime)]
-            [DataRow(IptcTag.ExpirationTime)]
-            [DataRow(IptcTag.ReleaseTime)]
+            [Theory]
+            [InlineData(IptcTag.CreatedTime)]
+            [InlineData(IptcTag.DigitalCreationTime)]
+            [InlineData(IptcTag.ExpirationTime)]
+            [InlineData(IptcTag.ReleaseTime)]
             public void ShouldFormatTheTime(IptcTag tag)
             {
                 var profile = new IptcProfile();
@@ -143,7 +142,7 @@ namespace Magick.NET.Tests
                 profile.SetValue(tag, dateTimeOffset);
 
                 var actual = profile.GetAllValues(tag).First();
-                Assert.AreEqual("161516+0200", actual.Value);
+                Assert.Equal("161516+0200", actual.Value);
             }
         }
     }

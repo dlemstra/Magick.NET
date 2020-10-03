@@ -12,28 +12,27 @@
 
 using System;
 using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Core.Tests
 {
     public partial class EndianReaderTests
     {
-        [TestClass]
         public class TheConstructor : EndianReaderTests
         {
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenArrayIsNull()
             {
-                ExceptionAssert.Throws<ArgumentNullException>("data", () =>
+                Assert.Throws<ArgumentNullException>("data", () =>
                 {
                     new EndianReader(null);
                 });
             }
 
-            [TestMethod]
+            [Fact]
             public void ShouldThrowExceptionWhenArrayIsEmpty()
             {
-                ExceptionAssert.Throws<ArgumentException>("data", () =>
+                Assert.Throws<ArgumentException>("data", () =>
                 {
                     new EndianReader(new byte[] { });
                 });
