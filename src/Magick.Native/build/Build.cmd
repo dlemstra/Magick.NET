@@ -17,7 +17,7 @@ if %errorlevel% neq 0 goto done
 powershell .\build.Native.ps1 -config  %config% -quantumName %quantumName% -platformName %platformName%
 if %errorlevel% neq 0 goto done
 
-cd ..\..\..\src\Magick.Native\bin\Debug%quantumName%\%platformName%
+cd ..\..\src\Magick.Native\bin\Debug%quantumName%\%platformName%
 
 copy /y Magick.Native-%quantumName%-%platformName%.dll ..\..\..\..\..\..\Magick.NET\tests\Magick.NET.Tests\bin\%config%%quantumName%\%platformName%\net452
 copy /y Magick.Native-%quantumName%-%platformName%.pdb ..\..\..\..\..\..\Magick.NET\tests\Magick.NET.Tests\bin\%config%%quantumName%\%platformName%\net452
