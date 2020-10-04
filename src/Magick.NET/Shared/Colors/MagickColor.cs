@@ -143,7 +143,7 @@ namespace ImageMagick
                 return;
             }
 
-            using (NativeMagickColor instance = new NativeMagickColor())
+            using (var instance = new NativeMagickColor())
             {
                 Throw.IfFalse(nameof(color), instance.Initialize(color), "Invalid color specified");
                 Initialize(instance);
