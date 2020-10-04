@@ -94,7 +94,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            public partial class WithImageAndCompositeOperator
+            public class WithImageAndCompositeOperator
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenImageIsNull()
@@ -123,6 +123,31 @@ namespace Magick.NET.Tests
                             Assert.True(image.HasAlpha);
                             ColorAssert.Equal(MagickColors.Red, image, 0, 0);
                             ColorAssert.Equal(new MagickColor("#f000"), image, 1, 0);
+                        }
+                    }
+                }
+
+                [Fact]
+                public void ShouldCopyTheAlphaChannelWithCopyAlpha()
+                {
+                    var readSettings = new MagickReadSettings()
+                    {
+                        BackgroundColor = MagickColors.None,
+                        FillColor = MagickColors.White,
+                        FontPointsize = 100,
+                        Font = Files.Fonts.Arial,
+                    };
+
+                    using (var image = new MagickImage("label:Test", readSettings))
+                    {
+                        using (var alpha = image.Clone())
+                        {
+                            alpha.Alpha(AlphaOption.Extract);
+                            alpha.Shade(130, 30);
+                            alpha.Composite(image, CompositeOperator.CopyAlpha);
+
+                            ColorAssert.Equal(new MagickColor("#7fff7fff7fff0000"), alpha, 0, 0);
+                            ColorAssert.Equal(new MagickColor("#7fff7fff7fffffff"), alpha, 30, 30);
                         }
                     }
                 }

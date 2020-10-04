@@ -10,8 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if WINDOWS_BUILD
-
 using ImageMagick;
 using Xunit;
 
@@ -19,25 +17,29 @@ namespace Magick.NET.Tests
 {
     public partial class MagickSettingsTests
     {
-        public class ThePageProperty
+        public class TheFontFamilyProperty
         {
             [Fact]
-            public void ShouldSetTheCorrectDimensionsWhenReadingImage()
+            public void ShouldChangeTheFont()
             {
                 using (var image = new MagickImage())
                 {
-                    Assert.Null(image.Settings.Page);
+                    Assert.Null(image.Settings.FontFamily);
+                    Assert.Equal(0, image.Settings.FontPointsize);
+                    Assert.Equal(FontStyleType.Undefined, image.Settings.FontStyle);
+                    Assert.Equal(FontWeight.Undefined, image.Settings.FontWeight);
 
-                    image.Settings.Font = "Courier New";
-                    image.Settings.Page = new MagickGeometry(50, 50, 100, 100);
-                    image.Read("pango:Test");
+                    image.Settings.FontFamily = "Courier New";
+                    image.Settings.FontPointsize = 40;
+                    image.Settings.FontStyle = FontStyleType.Oblique;
+                    image.Settings.FontWeight = FontWeight.ExtraBold;
+                    image.Read("label:Test");
 
-                    Assert.Equal(136, image.Width);
-                    Assert.Equal(117, image.Height);
+                    Assert.Equal(98, image.Width);
+                    Assert.Equal(48, image.Height);
+                    ColorAssert.Equal(MagickColors.Black, image, 16, 16);
                 }
             }
         }
     }
 }
-
-#endif
