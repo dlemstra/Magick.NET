@@ -22,11 +22,14 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldPassOrderedTests()
             {
-                ShouldMakeDifferentPlasmaImageWhenNotSet();
+                TestHelper.ExecuteInsideLock(() =>
+                {
+                    ShouldMakeDifferentPlasmaImageWhenNotSet();
 
-                ShouldMakeDuplicatePlasmaImagesWhenSet();
+                    ShouldMakeDuplicatePlasmaImagesWhenSet();
 
-                ShouldMakeDifferentPlasmaImageWhenNotSet();
+                    ShouldMakeDifferentPlasmaImageWhenNotSet();
+                });
             }
 
             private void ShouldMakeDuplicatePlasmaImagesWhenSet()
