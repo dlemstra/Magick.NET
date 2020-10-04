@@ -53,6 +53,11 @@ namespace ImageMagick
         Ai,
 
         /// <summary>
+        /// Animated Portable Network Graphics.
+        /// </summary>
+        APng,
+
+        /// <summary>
         /// PFS: 1st Publisher Clip Art.
         /// </summary>
         Art,
@@ -1201,6 +1206,11 @@ namespace ImageMagick
         /// Visual Image Directory.
         /// </summary>
         Vid,
+
+        /// <summary>
+        /// Open Web Media.
+        /// </summary>
+        WebM,
 
         /// <summary>
         /// Khoros Visualization image.

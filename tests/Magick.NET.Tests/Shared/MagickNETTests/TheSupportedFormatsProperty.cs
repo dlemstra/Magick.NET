@@ -35,9 +35,9 @@ namespace Magick.NET.Tests
             public void ShouldContainTheCorrectNumberOfFormats()
             {
 #if WINDOWS_BUILD
-                Assert.Equal(255, MagickNET.SupportedFormats.Count());
+                Assert.Equal(256, MagickNET.SupportedFormats.Count());
 #else
-                Assert.Equal(251, MagickNET.SupportedFormats.Count());
+                Assert.Equal(253, MagickNET.SupportedFormats.Count());
 #endif
             }
         }
