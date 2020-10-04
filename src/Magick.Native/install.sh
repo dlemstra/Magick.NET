@@ -8,7 +8,7 @@ installPackage() {
 
     echo "Downloading Magick.Native.$version.nupkg"
     # Temporary download from DropBox
-    nuget_url="https://dl.dropboxusercontent.com/s/6gqi06zrj6q479b/Magick.Native.$version.nupkg"
+    nuget_url="https://dl.dropboxusercontent.com/s/d2wyhdw2yxuoc1y/Magick.Native.$version.nupkg"
     curl -s -o Magick.Native.$version.nupkg $nuget_url
 
     unzip Magick.Native.$version.nupkg -d temp
