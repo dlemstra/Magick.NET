@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
-                ExecuteInsideLock(() =>
+                TestHelper.ExecuteInsideLock(() =>
                 {
 #if OPENMP
                     var thread = ResourceLimits.Thread;

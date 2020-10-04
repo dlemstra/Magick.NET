@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
-                ExecuteInsideLock(() =>
+                TestHelper.ExecuteInsideLock(() =>
                 {
                     var oldMemory = ResourceLimits.Memory;
                     var newMemory = (ulong)(ResourceLimits.Memory * 0.9);

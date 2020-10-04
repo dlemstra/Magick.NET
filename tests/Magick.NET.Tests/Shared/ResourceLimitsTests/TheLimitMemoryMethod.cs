@@ -35,7 +35,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldChangeAreaAndMemory()
             {
-                ExecuteInsideLock(() =>
+                TestHelper.ExecuteInsideLock(() =>
                 {
                     var area = ResourceLimits.Area;
                     var memory = ResourceLimits.Memory;
@@ -54,7 +54,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldSetMemoryAndAreaToTheCorrectValues()
             {
-                ExecuteInsideLock(() =>
+                TestHelper.ExecuteInsideLock(() =>
                 {
                     var area = ResourceLimits.Area;
                     var memory = ResourceLimits.Memory;

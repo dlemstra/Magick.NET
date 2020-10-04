@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
-                ExecuteInsideLock(() =>
+                TestHelper.ExecuteInsideLock(() =>
                 {
                     var disk = ResourceLimits.Disk;
 

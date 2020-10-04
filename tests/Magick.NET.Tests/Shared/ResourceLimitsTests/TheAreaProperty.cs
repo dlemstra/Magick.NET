@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
-                ExecuteInsideLock(() =>
+                TestHelper.ExecuteInsideLock(() =>
                 {
                     var area = ResourceLimits.Area;
 
