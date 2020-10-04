@@ -2313,25 +2313,21 @@ namespace Magick.NET.Tests
                 {
                     image.Stegano(message);
 
-                    FileInfo tempFile = new FileInfo(Path.GetTempFileName() + ".png");
-
-                    try
+                    using (var temporaryFile = new TemporaryFile(".png"))
                     {
-                        image.Write(tempFile);
+                        image.Write(temporaryFile);
 
-                        MagickReadSettings settings = new MagickReadSettings();
-                        settings.Format = MagickFormat.Stegano;
-                        settings.Width = 200;
-                        settings.Height = 20;
+                        var settings = new MagickReadSettings
+                        {
+                            Format = MagickFormat.Stegano,
+                            Width = 200,
+                            Height = 20,
+                        };
 
-                        using (var hiddenMessage = new MagickImage(tempFile, settings))
+                        using (var hiddenMessage = new MagickImage(temporaryFile.FullName, settings))
                         {
                             Assert.InRange(message.Compare(hiddenMessage, ErrorMetric.RootMeanSquared), 0, 0.001);
                         }
-                    }
-                    finally
-                    {
-                        Cleanup.DeleteFile(tempFile);
                     }
                 }
             }
