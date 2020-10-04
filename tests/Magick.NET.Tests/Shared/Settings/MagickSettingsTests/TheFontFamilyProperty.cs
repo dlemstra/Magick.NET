@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
 
                     Assert.Contains(image.Width, new[] { 97, 98 });
                     Assert.Equal(48, image.Height);
-                    ColorAssert.Equal(MagickColors.Black, image, 16, 16);
+                    ColorAssert.Equal(MagickColors.Black, image, 13, 13);
                 }
             }
         }
