@@ -11,7 +11,6 @@
 // and limitations under the License.
 
 using System;
-using Xunit;
 
 namespace Magick.NET.Tests
 {

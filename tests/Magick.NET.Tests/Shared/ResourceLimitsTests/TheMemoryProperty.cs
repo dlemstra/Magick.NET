@@ -32,11 +32,12 @@ namespace Magick.NET.Tests
             {
                 ExecuteInsideLock(() =>
                 {
-                    var memory = ResourceLimits.Memory;
+                    var oldMemory = ResourceLimits.Memory;
+                    var newMemory = (ulong)(ResourceLimits.Memory * 0.9);
 
-                    ResourceLimits.Memory = 10000000U;
-                    Assert.Equal(10000000U, ResourceLimits.Memory);
-                    ResourceLimits.Memory = memory;
+                    ResourceLimits.Memory = newMemory;
+                    Assert.Equal(newMemory, ResourceLimits.Memory);
+                    ResourceLimits.Memory = oldMemory;
                 });
             }
         }
