@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new KmeansSettings()
+                    var settings = new KmeansSettings
                     {
                         SeedColors = "red;blue",
                     };

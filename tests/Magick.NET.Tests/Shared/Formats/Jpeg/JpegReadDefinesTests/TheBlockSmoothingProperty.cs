@@ -23,9 +23,9 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldSetTheDefine()
             {
-                var settings = new MagickReadSettings()
+                var settings = new MagickReadSettings
                 {
-                    Defines = new JpegReadDefines()
+                    Defines = new JpegReadDefines
                     {
                         BlockSmoothing = true,
                     },

@@ -98,15 +98,15 @@ namespace Magick.NET.Tests
             {
                 fixed (byte* reason = Encoding.UTF8.GetBytes("reason"))
                 {
-                    ExceptionInfo info = new ExceptionInfo()
+                    var info = new ExceptionInfo
                     {
                         description = (char*)description,
                         reason = (char*)reason,
                     };
-                    GCHandle handle = GCHandle.Alloc(info, GCHandleType.Pinned);
+                    var handle = GCHandle.Alloc(info, GCHandleType.Pinned);
                     try
                     {
-                        MagickException exception = MagickExceptionHelper.CreateException(handle.AddrOfPinnedObject());
+                        var exception = MagickExceptionHelper.CreateException(handle.AddrOfPinnedObject());
                         Assert.Equal("reason (description)", exception.Message);
                     }
                     finally
@@ -119,15 +119,15 @@ namespace Magick.NET.Tests
 
         private unsafe void AssertCreateException(int severity, Type expectedType)
         {
-            ExceptionInfo info = new ExceptionInfo()
+            var info = new ExceptionInfo
             {
                 severity = severity,
             };
 
-            GCHandle handle = GCHandle.Alloc(info, GCHandleType.Pinned);
+            var handle = GCHandle.Alloc(info, GCHandleType.Pinned);
             try
             {
-                MagickException exception = MagickExceptionHelper.CreateException(handle.AddrOfPinnedObject());
+                var exception = MagickExceptionHelper.CreateException(handle.AddrOfPinnedObject());
                 Assert.Equal(expectedType, exception.GetType());
             }
             finally

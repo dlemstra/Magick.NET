@@ -35,7 +35,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldWriteJpegWithTheCorrectSamplingFactor()
             {
-                var defines = new JpegWriteDefines()
+                var defines = new JpegWriteDefines
                 {
                     SamplingFactor = JpegSamplingFactor.Ratio420,
                 };
@@ -59,7 +59,7 @@ namespace Magick.NET.Tests
 
             private static void AssertSetDefine(string expected, JpegSamplingFactor samplingFactor)
             {
-                var defines = new JpegWriteDefines()
+                var defines = new JpegWriteDefines
                 {
                     SamplingFactor = samplingFactor,
                 };

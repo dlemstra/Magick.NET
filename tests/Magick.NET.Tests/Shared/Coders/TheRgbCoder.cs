@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
         private readonly byte[] _bytes = new byte[] { 1, 0, 2, 0, 3, 0, 4, 0 };
 #endif
 
-        private readonly MagickReadSettings _settings = new MagickReadSettings()
+        private readonly MagickReadSettings _settings = new MagickReadSettings
         {
             Width = 1,
             Height = 1,

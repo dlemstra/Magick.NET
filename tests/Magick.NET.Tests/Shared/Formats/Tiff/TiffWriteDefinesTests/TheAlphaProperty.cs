@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             {
                 using (var input = new MagickImage(Files.Builtin.Logo))
                 {
-                    input.Settings.SetDefines(new TiffWriteDefines()
+                    input.Settings.SetDefines(new TiffWriteDefines
                     {
                         Alpha = TiffAlpha.Associated,
                     });

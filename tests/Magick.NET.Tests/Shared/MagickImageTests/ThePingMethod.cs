@@ -282,7 +282,7 @@ namespace Magick.NET.Tests
                 public void ShouldUseTheCorrectReaderWhenFormatIsSet()
                 {
                     var bytes = Encoding.ASCII.GetBytes("%PDF-");
-                    var settings = new MagickReadSettings()
+                    var settings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
@@ -301,7 +301,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldResetTheFormatAfterReadingBytes()
                 {
-                    var readSettings = new MagickReadSettings()
+                    var readSettings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
@@ -515,7 +515,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldResetTheFormatAfterReadingFile()
                 {
-                    var readSettings = new MagickReadSettings()
+                    var readSettings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
@@ -686,7 +686,7 @@ namespace Magick.NET.Tests
                 public void ShouldUseTheCorrectReaderWhenFormatIsSet()
                 {
                     var bytes = Encoding.ASCII.GetBytes("%PDF-");
-                    var settings = new MagickReadSettings()
+                    var settings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
@@ -708,7 +708,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldResetTheFormatAfterReadingStream()
                 {
-                    var readSettings = new MagickReadSettings()
+                    var readSettings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };

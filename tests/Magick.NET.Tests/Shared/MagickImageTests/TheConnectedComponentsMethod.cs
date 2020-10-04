@@ -65,7 +65,7 @@ namespace Magick.NET.Tests
 #if !Q8
                     using (var temp = image.Clone())
                     {
-                        var settings = new ConnectedComponentsSettings()
+                        var settings = new ConnectedComponentsSettings
                         {
                             Connectivity = 4,
                             MeanColor = true,

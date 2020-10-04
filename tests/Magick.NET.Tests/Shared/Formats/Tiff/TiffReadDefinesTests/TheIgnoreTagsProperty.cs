@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new TiffReadDefines()
+                    image.Settings.SetDefines(new TiffReadDefines
                     {
                         IgnoreTags = new[] { "1234" },
                     });
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new TiffReadDefines()
+                    image.Settings.SetDefines(new TiffReadDefines
                     {
                         IgnoreTags = new string[] { },
                     });

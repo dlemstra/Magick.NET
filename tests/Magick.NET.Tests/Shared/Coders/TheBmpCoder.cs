@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
                     image.Write(file, MagickFormat.Bmp3);
                 }
 
-                var settings = new MagickReadSettings()
+                var settings = new MagickReadSettings
                 {
                     Format = MagickFormat.Bmp3,
                 };

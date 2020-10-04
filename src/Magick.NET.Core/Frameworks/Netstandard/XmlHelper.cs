@@ -18,20 +18,22 @@ namespace ImageMagick
 {
     internal static partial class XmlHelper
     {
-        public static XmlReaderSettings CreateReaderSettings() => new XmlReaderSettings()
-        {
-            DtdProcessing = DtdProcessing.Ignore,
+        public static XmlReaderSettings CreateReaderSettings()
+            => new XmlReaderSettings
+            {
+                DtdProcessing = DtdProcessing.Ignore,
 #if !NETSTANDARD1_3
-            XmlResolver = null,
+                XmlResolver = null,
 #endif
-        };
+            };
 
-        public static XmlDocument CreateDocument() => new XmlDocument()
-        {
+        public static XmlDocument CreateDocument()
+            => new XmlDocument
+            {
 #if !NETSTANDARD1_3
-            XmlResolver = null,
+                XmlResolver = null,
 #endif
-        };
+            };
     }
 }
 

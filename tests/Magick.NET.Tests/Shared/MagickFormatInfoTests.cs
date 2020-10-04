@@ -97,7 +97,7 @@ namespace Magick.NET.Tests
             Assert.NotNull(formatInfo);
             Assert.True(formatInfo.Unregister());
 
-            var settings = new MagickReadSettings()
+            var settings = new MagickReadSettings
             {
                 Format = MagickFormat.X3f,
             };

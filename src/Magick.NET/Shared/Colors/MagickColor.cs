@@ -463,7 +463,7 @@ namespace ImageMagick
             if (value == null)
                 return value;
 
-            return new MagickColor()
+            return new MagickColor
             {
                 R = value.R,
                 G = value.G,
@@ -489,7 +489,7 @@ namespace ImageMagick
 
         private static NativeMagickColor CreateNativeInstance(IMagickColor<QuantumType> instance)
         {
-            return new NativeMagickColor()
+            return new NativeMagickColor
             {
                 Red = instance.R,
                 Green = instance.G,

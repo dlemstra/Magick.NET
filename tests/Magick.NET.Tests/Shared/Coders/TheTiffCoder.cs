@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
 
             using (var image = new MagickImage())
             {
-                var readSettings = new MagickReadSettings(new TiffReadDefines()
+                var readSettings = new MagickReadSettings(new TiffReadDefines
                 {
                     IgnoreTags = new string[] { "32934" },
                 });

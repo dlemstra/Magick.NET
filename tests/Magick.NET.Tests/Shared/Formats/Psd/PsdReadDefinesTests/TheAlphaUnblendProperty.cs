@@ -23,9 +23,9 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldSetTheDefine()
             {
-                var settings = new MagickReadSettings()
+                var settings = new MagickReadSettings
                 {
-                    Defines = new PsdReadDefines()
+                    Defines = new PsdReadDefines
                     {
                         AlphaUnblend = false,
                     },
@@ -45,7 +45,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new PsdReadDefines()
+                    image.Settings.SetDefines(new PsdReadDefines
                     {
                         AlphaUnblend = true,
                     });

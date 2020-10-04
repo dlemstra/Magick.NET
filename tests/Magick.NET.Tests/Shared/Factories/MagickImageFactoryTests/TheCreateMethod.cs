@@ -219,7 +219,7 @@ namespace Magick.NET.Tests
                 public void ShouldCreateMagickImage()
                 {
                     var factory = new MagickImageFactory();
-                    var settings = new MagickReadSettings()
+                    var settings = new MagickReadSettings
                     {
                         BackgroundColor = MagickColors.Purple,
                     };

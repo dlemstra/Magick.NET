@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldSetTheDefineWhenSetToTrue()
             {
-                var defines = new PngReadDefines()
+                var defines = new PngReadDefines
                 {
                     SwapBytes = true,
                 };
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldNotSetTheDefineWhenSetToFalse()
             {
-                var defines = new PngReadDefines()
+                var defines = new PngReadDefines
                 {
                     SwapBytes = false,
                 };

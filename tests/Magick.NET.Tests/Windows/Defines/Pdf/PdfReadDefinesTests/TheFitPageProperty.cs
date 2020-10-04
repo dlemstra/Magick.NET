@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
                 {
-                    image.Settings.SetDefines(new PdfReadDefines()
+                    image.Settings.SetDefines(new PdfReadDefines
                     {
                         FitPage = new MagickGeometry(1, 2, 3, 4),
                     });
@@ -41,7 +41,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new PdfReadDefines()
+                    image.Settings.SetDefines(new PdfReadDefines
                     {
                         FitPage = null,
                     });
@@ -53,9 +53,9 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldLimitTheDimensions()
             {
-                var settings = new MagickReadSettings()
+                var settings = new MagickReadSettings
                 {
-                    Defines = new PdfReadDefines()
+                    Defines = new PdfReadDefines
                     {
                         FitPage = new MagickGeometry(50, 40),
                     },

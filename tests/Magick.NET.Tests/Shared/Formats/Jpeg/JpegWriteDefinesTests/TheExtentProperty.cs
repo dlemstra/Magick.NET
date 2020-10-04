@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldSetTheDefine()
             {
-                var defines = new JpegWriteDefines()
+                var defines = new JpegWriteDefines
                 {
                     Extent = 5,
                 };
@@ -40,7 +40,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldLimitTheSizeOfTheOutputFile()
             {
-                JpegWriteDefines defines = new JpegWriteDefines()
+                var defines = new JpegWriteDefines
                 {
                     Extent = 10,
                 };

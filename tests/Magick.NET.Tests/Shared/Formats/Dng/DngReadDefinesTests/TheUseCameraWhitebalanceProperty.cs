@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldSetTheDefine()
             {
-                var defines = new DngReadDefines()
+                var defines = new DngReadDefines
                 {
                     UseCameraWhitebalance = true,
                 };

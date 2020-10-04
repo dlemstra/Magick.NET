@@ -23,11 +23,11 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldSetTheDefine()
             {
-                var settings = new MagickReadSettings()
+                var settings = new MagickReadSettings
                 {
                     Width = 100,
                     Height = 100,
-                    Defines = new CaptionReadDefines()
+                    Defines = new CaptionReadDefines
                     {
                         MaxFontPointsize = 42,
                     },
@@ -44,11 +44,11 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldLimitTheFontSize()
             {
-                var settings = new MagickReadSettings()
+                var settings = new MagickReadSettings
                 {
                     Width = 100,
                     Height = 80,
-                    Defines = new CaptionReadDefines()
+                    Defines = new CaptionReadDefines
                     {
                         MaxFontPointsize = 15,
                     },

@@ -23,9 +23,9 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldSetTheDefine()
             {
-                var settings = new MagickReadSettings()
+                var settings = new MagickReadSettings
                 {
-                    Defines = new JpegReadDefines()
+                    Defines = new JpegReadDefines
                     {
                         Size = new MagickGeometry(61, 59),
                     },
@@ -42,9 +42,9 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReduceTheSize()
             {
-                var settings = new MagickReadSettings()
+                var settings = new MagickReadSettings
                 {
-                    Defines = new JpegReadDefines()
+                    Defines = new JpegReadDefines
                     {
                         Size = new MagickGeometry(61, 59),
                     },

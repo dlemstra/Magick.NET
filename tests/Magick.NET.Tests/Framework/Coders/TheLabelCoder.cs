@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldUseTheDensity()
         {
-            var readSettings = new MagickReadSettings()
+            var readSettings = new MagickReadSettings
             {
                 FontPointsize = 14,
                 FontFamily = "Calibri",
@@ -41,7 +41,7 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldCenterSingleCharacter()
         {
-            var readSettings = new MagickReadSettings()
+            var readSettings = new MagickReadSettings
             {
                 BackgroundColor = MagickColors.Transparent,
                 FillColor = MagickColors.Red,
@@ -64,7 +64,7 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldSupportMultipleLines()
         {
-            var readSettings = new MagickReadSettings()
+            var readSettings = new MagickReadSettings
             {
                 BackgroundColor = MagickColors.Transparent,
                 FillColor = MagickColors.Red,

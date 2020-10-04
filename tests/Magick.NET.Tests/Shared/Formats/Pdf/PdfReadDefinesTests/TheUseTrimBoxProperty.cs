@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
                 {
-                    image.Settings.SetDefines(new PdfReadDefines()
+                    image.Settings.SetDefines(new PdfReadDefines
                     {
                         UseTrimBox = true,
                     });
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new PdfReadDefines()
+                    image.Settings.SetDefines(new PdfReadDefines
                     {
                         UseTrimBox = false,
                     });
@@ -53,7 +53,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new PdfReadDefines()
+                    image.Settings.SetDefines(new PdfReadDefines
                     {
                         UseTrimBox = null,
                     });

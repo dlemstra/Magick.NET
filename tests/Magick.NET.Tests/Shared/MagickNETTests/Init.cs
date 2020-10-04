@@ -11,7 +11,6 @@
 // and limitations under the License.
 
 using System.IO;
-using System.Xml;
 using Xunit;
 
 namespace Magick.NET.Tests
@@ -30,48 +29,6 @@ namespace Magick.NET.Tests
             Assert.True(File.Exists(Path.Combine(path, "thresholds.xml")));
             Assert.True(File.Exists(Path.Combine(path, "type.xml")));
             Assert.True(File.Exists(Path.Combine(path, "type-ghostscript.xml")));
-        }
-
-        private static string ModifyPolicy(string data)
-        {
-            var settings = new XmlReaderSettings()
-            {
-                DtdProcessing = DtdProcessing.Ignore,
-            };
-
-            var doc = new XmlDocument();
-            using (StringReader sr = new StringReader(data))
-            {
-                using (XmlReader reader = XmlReader.Create(sr, settings))
-                {
-                    doc.Load(reader);
-                }
-            }
-
-            var policy = doc.CreateElement("policy");
-            SetAttribute(policy, "domain", "coder");
-            SetAttribute(policy, "rights", "none");
-            SetAttribute(policy, "pattern", "{PALM}");
-
-            doc.DocumentElement.AppendChild(policy);
-
-            return doc.OuterXml;
-        }
-
-        private static string CreateTypeData() => $@"
-<?xml version=""1.0""?>
-<typemap>
-<type format=""ttf"" name=""Arial"" fullname=""Arial"" family=""Arial"" glyphs=""{Files.Fonts.Arial}""/>
-<type format=""ttf"" name=""CourierNew"" fullname=""Courier New"" family=""Courier New"" glyphs=""{Files.Fonts.CourierNew}""/>
-</typemap>
-";
-
-        private static void SetAttribute(XmlElement element, string name, string value)
-        {
-            var attribute = element.OwnerDocument.CreateAttribute(name);
-            attribute.Value = value;
-
-            element.Attributes.Append(attribute);
         }
     }
 }

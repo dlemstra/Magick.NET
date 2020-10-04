@@ -21,9 +21,9 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldBeDisabled()
         {
-            using (MemoryStream memStream = new MemoryStream())
+            using (var memStream = new MemoryStream())
             {
-                using (StreamWriter writer = new StreamWriter(memStream))
+                using (var writer = new StreamWriter(memStream))
                 {
                     writer.Write(@"push graphic-context
                       viewbox 0 0 640 480
@@ -45,7 +45,7 @@ namespace Magick.NET.Tests
 
                         Assert.Throws<MagickPolicyErrorException>(() =>
                         {
-                            MagickReadSettings settings = new MagickReadSettings()
+                            var settings = new MagickReadSettings
                             {
                                 Format = MagickFormat.Mvg,
                             };

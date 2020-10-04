@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             {
                 using (var input = new MagickImage(Files.Builtin.Logo))
                 {
-                    input.Settings.SetDefines(new TiffWriteDefines()
+                    input.Settings.SetDefines(new TiffWriteDefines
                     {
                         Endian = Endian.MSB,
                     });
@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new TiffWriteDefines()
+                    image.Settings.SetDefines(new TiffWriteDefines
                     {
                         Endian = Endian.Undefined,
                     });

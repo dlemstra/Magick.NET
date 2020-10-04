@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new PngReadDefines()
+                    image.Settings.SetDefines(new PngReadDefines
                     {
                         ChunkMallocMax = 20,
                     });
@@ -37,9 +37,9 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldLimitTheChunkSize()
             {
-                var settings = new MagickReadSettings()
+                var settings = new MagickReadSettings
                 {
-                    Defines = new PngReadDefines()
+                    Defines = new PngReadDefines
                     {
                         ChunkMallocMax = 2,
                     },

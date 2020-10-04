@@ -36,7 +36,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new PsdWriteDefines()
+                    image.Settings.SetDefines(new PsdWriteDefines
                     {
                         AdditionalInfo = PsdAdditionalInfoPart.Selective,
                     });
@@ -54,7 +54,7 @@ namespace Magick.NET.Tests
 
                     CheckProfile(images[1], 264);
 
-                    var defines = new PsdWriteDefines()
+                    var defines = new PsdWriteDefines
                     {
                         AdditionalInfo = PsdAdditionalInfoPart.All,
                     };

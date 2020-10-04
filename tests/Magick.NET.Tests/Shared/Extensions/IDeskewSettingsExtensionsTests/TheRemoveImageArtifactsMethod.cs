@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new DeskewSettings()
+                    var settings = new DeskewSettings
                     {
                         AutoCrop = true,
                     };

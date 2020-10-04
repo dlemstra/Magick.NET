@@ -38,7 +38,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldUseTheFileExtension()
                 {
-                    var readSettings = new MagickReadSettings()
+                    var readSettings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };

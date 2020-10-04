@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldThrowExceptionWhenNumberColorsIsNegative()
             {
-                var settings = new KmeansSettings()
+                var settings = new KmeansSettings
                 {
                     NumberColors = -1,
                 };
@@ -46,7 +46,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldThrowExceptionWhenMaxIterationsIsNegative()
             {
-                var settings = new KmeansSettings()
+                var settings = new KmeansSettings
                 {
                     MaxIterations = -1,
                 };
@@ -60,7 +60,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReduceTheNumberOfColors()
             {
-                var settings = new KmeansSettings()
+                var settings = new KmeansSettings
                 {
                     NumberColors = 5,
                 };

@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new DeskewSettings()
+                    var settings = new DeskewSettings
                     {
                         Threshold = new Percentage(-1),
                     };
@@ -72,7 +72,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.LetterJPG))
                 {
-                    var settings = new DeskewSettings()
+                    var settings = new DeskewSettings
                     {
                         AutoCrop = true,
                         Threshold = new Percentage(10),

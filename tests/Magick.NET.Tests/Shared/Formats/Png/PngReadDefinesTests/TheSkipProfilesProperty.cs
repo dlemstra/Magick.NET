@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new PngReadDefines()
+                    image.Settings.SetDefines(new PngReadDefines
                     {
                         SkipProfiles = (PngProfileTypes)64,
                     });
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new PngReadDefines()
+                    image.Settings.SetDefines(new PngReadDefines
                     {
                         SkipProfiles = PngProfileTypes.Icc | PngProfileTypes.Iptc,
                     });
@@ -51,9 +51,9 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldSkipProfilesWhenLoadingImage()
             {
-                var settings = new MagickReadSettings()
+                var settings = new MagickReadSettings
                 {
-                    Defines = new PngReadDefines()
+                    Defines = new PngReadDefines
                     {
                         SkipProfiles = PngProfileTypes.Xmp | PngProfileTypes.Exif,
                     },

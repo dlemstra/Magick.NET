@@ -172,7 +172,7 @@ namespace ImageMagick
             if (!instance.HasInstance)
                 return null;
 
-            return new MagickFormatInfo()
+            return new MagickFormatInfo
             {
                 Format = GetFormat(instance.Format),
                 Description = instance.Description,

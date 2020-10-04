@@ -133,7 +133,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnZeroWhenTheImagesAreEqual()
             {
-                CompareSettings settings = new CompareSettings()
+                var settings = new CompareSettings
                 {
                     Metric = ErrorMetric.RootMeanSquared,
                 };
@@ -194,7 +194,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnNonZeroValueWhenTheImagesAreNotEqual()
             {
-                CompareSettings settings = new CompareSettings()
+                var settings = new CompareSettings
                 {
                     Metric = ErrorMetric.RootMeanSquared,
                     HighlightColor = MagickColors.Yellow,

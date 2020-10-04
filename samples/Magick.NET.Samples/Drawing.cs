@@ -48,7 +48,7 @@ namespace Magick.NET.Samples
             // which automatically resizes the text to best
             // fit within the box.
 
-            var readSettings = new MagickReadSettings()
+            var readSettings = new MagickReadSettings
             {
                 Font = "Calibri",
                 TextGravity = Gravity.Center,

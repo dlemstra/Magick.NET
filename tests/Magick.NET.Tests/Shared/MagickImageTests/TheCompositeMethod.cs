@@ -130,7 +130,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldCopyTheAlphaChannelWithCopyAlpha()
                 {
-                    var readSettings = new MagickReadSettings()
+                    var readSettings = new MagickReadSettings
                     {
                         BackgroundColor = MagickColors.None,
                         FillColor = MagickColors.White,

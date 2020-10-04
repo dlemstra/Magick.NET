@@ -29,7 +29,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
                 {
-                    image.Settings.SetDefines(new PdfReadDefines()
+                    image.Settings.SetDefines(new PdfReadDefines
                     {
                         Password = "test",
                     });
@@ -43,7 +43,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new PdfReadDefines()
+                    image.Settings.SetDefines(new PdfReadDefines
                     {
                         Password = null,
                     });
@@ -55,9 +55,9 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldUseThePasswordToReadTheImage()
             {
-                var settings = new MagickReadSettings()
+                var settings = new MagickReadSettings
                 {
-                    Defines = new PdfReadDefines()
+                    Defines = new PdfReadDefines
                     {
                         Password = "test",
                     },
@@ -72,9 +72,9 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldNotBeAbleToOpenFileWithNullPassword()
             {
-                var settings = new MagickReadSettings()
+                var settings = new MagickReadSettings
                 {
-                    Defines = new PdfReadDefines()
+                    Defines = new PdfReadDefines
                     {
                         Password = null,
                     },

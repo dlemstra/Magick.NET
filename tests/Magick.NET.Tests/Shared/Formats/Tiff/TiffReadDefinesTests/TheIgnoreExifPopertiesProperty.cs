@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new TiffReadDefines()
+                    image.Settings.SetDefines(new TiffReadDefines
                     {
                         IgnoreExifPoperties = true,
                     });
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new TiffReadDefines()
+                    image.Settings.SetDefines(new TiffReadDefines
                     {
                         IgnoreExifPoperties = false,
                     });
@@ -51,9 +51,9 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldIgnoreTheExifProperties()
             {
-                MagickReadSettings settings = new MagickReadSettings()
+                var settings = new MagickReadSettings
                 {
-                    Defines = new TiffReadDefines()
+                    Defines = new TiffReadDefines
                     {
                         IgnoreExifPoperties = true,
                     },

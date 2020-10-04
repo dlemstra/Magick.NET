@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldSetTheDefine()
             {
-                var defines = new JpegWriteDefines()
+                var defines = new JpegWriteDefines
                 {
                     DctMethod = JpegDctMethod.Fast,
                 };

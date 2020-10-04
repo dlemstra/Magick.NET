@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new ConnectedComponentsSettings()
+                    var settings = new ConnectedComponentsSettings
                     {
                         AngleThreshold = new Threshold(1.5),
                     };
@@ -54,7 +54,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new ConnectedComponentsSettings()
+                    var settings = new ConnectedComponentsSettings
                     {
                         AngleThreshold = new Threshold(1.2, 3.4),
                     };
@@ -71,7 +71,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new ConnectedComponentsSettings()
+                    var settings = new ConnectedComponentsSettings
                     {
                         AreaThreshold = new Threshold(1.5),
                     };
@@ -88,7 +88,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new ConnectedComponentsSettings()
+                    var settings = new ConnectedComponentsSettings
                     {
                         AreaThreshold = new Threshold(1.2, 3.4),
                     };
@@ -105,7 +105,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new ConnectedComponentsSettings()
+                    var settings = new ConnectedComponentsSettings
                     {
                         CircularityThreshold = new Threshold(1.5),
                     };
@@ -122,7 +122,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new ConnectedComponentsSettings()
+                    var settings = new ConnectedComponentsSettings
                     {
                         CircularityThreshold = new Threshold(1.2, 3.4),
                     };
@@ -139,7 +139,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new ConnectedComponentsSettings()
+                    var settings = new ConnectedComponentsSettings
                     {
                         DiameterThreshold = new Threshold(1.5),
                     };
@@ -156,7 +156,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new ConnectedComponentsSettings()
+                    var settings = new ConnectedComponentsSettings
                     {
                         DiameterThreshold = new Threshold(1.2, 3.4),
                     };
@@ -173,7 +173,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new ConnectedComponentsSettings()
+                    var settings = new ConnectedComponentsSettings
                     {
                         EccentricityThreshold = new Threshold(1.5),
                     };
@@ -190,7 +190,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new ConnectedComponentsSettings()
+                    var settings = new ConnectedComponentsSettings
                     {
                         EccentricityThreshold = new Threshold(1.2, 3.4),
                     };
@@ -207,7 +207,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new ConnectedComponentsSettings()
+                    var settings = new ConnectedComponentsSettings
                     {
                         MajorAxisThreshold = new Threshold(1.5),
                     };
@@ -224,7 +224,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new ConnectedComponentsSettings()
+                    var settings = new ConnectedComponentsSettings
                     {
                         MajorAxisThreshold = new Threshold(1.2, 3.4),
                     };
@@ -241,7 +241,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new ConnectedComponentsSettings()
+                    var settings = new ConnectedComponentsSettings
                     {
                         MeanColor = true,
                     };
@@ -258,7 +258,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new ConnectedComponentsSettings()
+                    var settings = new ConnectedComponentsSettings
                     {
                         MinorAxisThreshold = new Threshold(1.5),
                     };
@@ -275,7 +275,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new ConnectedComponentsSettings()
+                    var settings = new ConnectedComponentsSettings
                     {
                         MinorAxisThreshold = new Threshold(1.2, 3.4),
                     };
@@ -292,7 +292,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new ConnectedComponentsSettings()
+                    var settings = new ConnectedComponentsSettings
                     {
                         PerimeterThreshold = new Threshold(1.5),
                     };
@@ -309,7 +309,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new ConnectedComponentsSettings()
+                    var settings = new ConnectedComponentsSettings
                     {
                         PerimeterThreshold = new Threshold(1.2, 3.4),
                     };

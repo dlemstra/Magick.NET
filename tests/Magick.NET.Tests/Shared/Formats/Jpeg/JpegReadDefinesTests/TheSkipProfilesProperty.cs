@@ -24,9 +24,9 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldSetTheDefine()
             {
-                var settings = new MagickReadSettings()
+                var settings = new MagickReadSettings
                 {
-                    Defines = new JpegReadDefines()
+                    Defines = new JpegReadDefines
                     {
                         SkipProfiles = JpegProfileTypes.App,
                     },
@@ -43,9 +43,9 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldNotSetTheDefineForInvalidValues()
             {
-                var settings = new MagickReadSettings()
+                var settings = new MagickReadSettings
                 {
-                    Defines = new JpegReadDefines()
+                    Defines = new JpegReadDefines
                     {
                         SkipProfiles = (JpegProfileTypes)64,
                     },
@@ -62,9 +62,9 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldSkipTheSpecifiedProfiles()
             {
-                var settings = new MagickReadSettings()
+                var settings = new MagickReadSettings
                 {
-                    Defines = new JpegReadDefines()
+                    Defines = new JpegReadDefines
                     {
                         SkipProfiles = JpegProfileTypes.Iptc | JpegProfileTypes.Icc,
                     },

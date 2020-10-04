@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new CompareSettings()
+                    var settings = new CompareSettings
                     {
                         HighlightColor = MagickColors.Magenta,
                     };
@@ -59,7 +59,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new CompareSettings()
+                    var settings = new CompareSettings
                     {
                         LowlightColor = MagickColors.Magenta,
                     };
@@ -81,7 +81,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new CompareSettings()
+                    var settings = new CompareSettings
                     {
                         MasklightColor = MagickColors.Magenta,
                     };

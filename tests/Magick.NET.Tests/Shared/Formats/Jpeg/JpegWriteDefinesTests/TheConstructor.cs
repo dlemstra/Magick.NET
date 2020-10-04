@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new JpegWriteDefines()
+                    image.Settings.SetDefines(new JpegWriteDefines
                     {
                         QuantizationTables = string.Empty,
                     });

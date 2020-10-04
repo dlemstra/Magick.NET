@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldBeUsed()
             {
-                var defines = new BmpWriteDefines()
+                var defines = new BmpWriteDefines
                 {
                     Subtype = BmpSubtype.RGB555,
                 };

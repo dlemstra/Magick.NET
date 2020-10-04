@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldSetTheDefine()
             {
-                var defines = new JpegWriteDefines()
+                var defines = new JpegWriteDefines
                 {
                     ArithmeticCoding = false,
                 };
@@ -40,7 +40,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldEncodeTheImagArarithmetic()
             {
-                var defines = new JpegWriteDefines()
+                var defines = new JpegWriteDefines
                 {
                     ArithmeticCoding = true,
                 };

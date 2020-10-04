@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
             {
                 using (var input = new MagickImage(Files.Builtin.Logo))
                 {
-                    input.Settings.SetDefines(new DdsWriteDefines()
+                    input.Settings.SetDefines(new DdsWriteDefines
                     {
                         Compression = DdsCompression.None,
                     });
@@ -59,7 +59,7 @@ namespace Magick.NET.Tests
             {
                 using (var input = new MagickImage(Files.Builtin.Logo))
                 {
-                    input.Settings.SetDefines(new DdsWriteDefines()
+                    input.Settings.SetDefines(new DdsWriteDefines
                     {
                         Compression = DdsCompression.Dxt1,
                     });
@@ -78,7 +78,7 @@ namespace Magick.NET.Tests
                 {
                     input.Alpha(AlphaOption.Set);
 
-                    input.Settings.SetDefines(new DdsWriteDefines()
+                    input.Settings.SetDefines(new DdsWriteDefines
                     {
                         Compression = DdsCompression.Dxt1,
                     });

@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new PngReadDefines()
+                    image.Settings.SetDefines(new PngReadDefines
                     {
                         ChunkCacheMax = 10,
                     });
@@ -39,9 +39,9 @@ namespace Magick.NET.Tests
             {
                 var warning = string.Empty;
 
-                var settings = new MagickReadSettings()
+                var settings = new MagickReadSettings
                 {
-                    Defines = new PngReadDefines()
+                    Defines = new PngReadDefines
                     {
                         ChunkCacheMax = 2,
                     },

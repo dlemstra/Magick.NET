@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new MorphologySettings()
+                    var settings = new MorphologySettings
                     {
                         ConvolveBias = new Percentage(70),
                     };
@@ -54,7 +54,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new MorphologySettings()
+                    var settings = new MorphologySettings
                     {
                         ConvolveScale = new MagickGeometry(1, 2, 3, 4),
                     };

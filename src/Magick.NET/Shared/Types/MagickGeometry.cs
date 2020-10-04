@@ -392,7 +392,7 @@ namespace ImageMagick
             if (value == null)
                 return null;
 
-            return new MagickGeometry()
+            return new MagickGeometry
             {
                 AspectRatio = value.AspectRatio,
                 FillArea = value.FillArea,

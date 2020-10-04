@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
 
                     using (var image = new MagickImage())
                     {
-                        MagickReadSettings readSettings = new MagickReadSettings()
+                        var readSettings = new MagickReadSettings
                         {
                             Format = MagickFormat.Msl,
                         };

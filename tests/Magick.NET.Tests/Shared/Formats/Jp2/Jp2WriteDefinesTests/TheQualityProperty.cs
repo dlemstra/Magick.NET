@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new Jp2WriteDefines()
+                    image.Settings.SetDefines(new Jp2WriteDefines
                     {
                         Quality = new float[] { 4, 2 },
                     });
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new Jp2WriteDefines()
+                    image.Settings.SetDefines(new Jp2WriteDefines
                     {
                         Quality = new float[] { },
                     });

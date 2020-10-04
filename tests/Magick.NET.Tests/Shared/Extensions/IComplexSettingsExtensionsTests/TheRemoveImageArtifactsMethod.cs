@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new ComplexSettings()
+                    var settings = new ComplexSettings
                     {
                         SignalToNoiseRatio = 1.2,
                     };

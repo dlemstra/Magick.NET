@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new DistortSettings()
+                    var settings = new DistortSettings
                     {
                         Scale = 4.2,
                     };
@@ -54,7 +54,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var settings = new DistortSettings()
+                    var settings = new DistortSettings
                     {
                         Viewport = new MagickGeometry(1, 2, 3, 4),
                     };

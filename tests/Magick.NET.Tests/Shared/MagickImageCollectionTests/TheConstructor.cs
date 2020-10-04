@@ -55,7 +55,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldResetTheFormatAfterReading()
                 {
-                    var readSettings = new MagickReadSettings()
+                    var readSettings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
@@ -375,7 +375,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldResetTheFormatAfterReading()
                 {
-                    var readSettings = new MagickReadSettings()
+                    var readSettings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
@@ -503,7 +503,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldResetTheFormatAfterReading()
                 {
-                    var readSettings = new MagickReadSettings()
+                    var readSettings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };

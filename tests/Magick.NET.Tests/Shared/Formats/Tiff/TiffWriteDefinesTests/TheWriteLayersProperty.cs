@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
                 {
-                    image.Settings.SetDefines(new TiffWriteDefines()
+                    image.Settings.SetDefines(new TiffWriteDefines
                     {
                         WriteLayers = true,
                     });
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new TiffWriteDefines()
+                    image.Settings.SetDefines(new TiffWriteDefines
                     {
                         WriteLayers = false,
                     });

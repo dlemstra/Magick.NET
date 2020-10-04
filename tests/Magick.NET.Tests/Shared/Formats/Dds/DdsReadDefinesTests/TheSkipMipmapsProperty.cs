@@ -23,9 +23,9 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldSetTheDefine()
             {
-                var settings = new MagickReadSettings()
+                var settings = new MagickReadSettings
                 {
-                    Defines = new DdsReadDefines()
+                    Defines = new DdsReadDefines
                     {
                         SkipMipmaps = false,
                     },
@@ -43,9 +43,9 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldSkipTheMipmaps()
             {
-                var settings = new MagickReadSettings()
+                var settings = new MagickReadSettings
                 {
-                    Defines = new DdsReadDefines()
+                    Defines = new DdsReadDefines
                     {
                         SkipMipmaps = true,
                     },

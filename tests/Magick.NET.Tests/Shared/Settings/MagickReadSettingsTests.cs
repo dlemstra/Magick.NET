@@ -70,7 +70,7 @@ namespace Magick.NET.Tests
         [Fact]
         public void Extract_SetToSpecificAreaOfImage_OnlyAreaIsRead()
         {
-            MagickReadSettings readSettings = new MagickReadSettings()
+            var readSettings = new MagickReadSettings
             {
                 ExtractArea = new MagickGeometry(10, 10, 20, 30),
             };
