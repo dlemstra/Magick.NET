@@ -25,6 +25,8 @@ namespace Magick.NET.Tests
                 ShouldMakeDifferentPlasmaImageWhenNotSet();
 
                 ShouldMakeDuplicatePlasmaImagesWhenSet();
+
+                ShouldMakeDifferentPlasmaImageWhenNotSet();
             }
 
             private void ShouldMakeDuplicatePlasmaImagesWhenSet()
