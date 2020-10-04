@@ -89,7 +89,7 @@ namespace Magick.NET
                 actual = 0;
 #endif
 
-            if (actual > expected + delta || actual < expected + delta)
+            if (actual < expected - delta || actual > expected + delta)
                 throw new XunitException(channel + " is not equal (" + expectedColor.ToString() + " != " + actualColor.ToString() + ")" + messageSuffix);
         }
 
