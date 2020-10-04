@@ -29,9 +29,14 @@ namespace ImageMagick.Formats.Pdf
         }
 
         /// <summary>
-        /// Gets or sets the size where the image should be scaled to (pdf:fit-page).
+        /// Gets or sets the size where the image should be scaled to fit the page (pdf:fit-page).
         /// </summary>
         public IMagickGeometry FitPage { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether all images are forced to be interpolated at full device resolution.
+        /// </summary>
+        public bool? Interpolate { get; set; }
 
         /// <summary>
         /// Gets or sets the password that should be used to open the pdf (authenticate).
@@ -57,6 +62,9 @@ namespace ImageMagick.Formats.Pdf
             {
                 if (FitPage != null)
                     yield return CreateDefine("fit-page", FitPage);
+
+                if (Interpolate == true)
+                    yield return CreateDefine("interpolate", Interpolate.Value);
 
                 if (Password != null)
                     yield return new MagickDefine("authenticate", Password);
