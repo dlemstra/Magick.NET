@@ -73,22 +73,25 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_AddNoise()
         {
-            MagickNET.SetRandomSeed(1337);
-
-            using (var first = new MagickImage(Files.Builtin.Logo))
+            TestHelper.ExecuteInsideLock(() =>
             {
-                first.AddNoise(NoiseType.Laplacian);
-                ColorAssert.NotEqual(MagickColors.White, first, 46, 62);
+                MagickNET.SetRandomSeed(1337);
 
-                using (var second = new MagickImage(Files.Builtin.Logo))
+                using (var first = new MagickImage(Files.Builtin.Logo))
                 {
-                    second.AddNoise(NoiseType.Laplacian, 2.0);
+                    first.AddNoise(NoiseType.Laplacian);
                     ColorAssert.NotEqual(MagickColors.White, first, 46, 62);
-                    Assert.False(first.Equals(second));
-                }
-            }
 
-            MagickNET.ResetRandomSeed();
+                    using (var second = new MagickImage(Files.Builtin.Logo))
+                    {
+                        second.AddNoise(NoiseType.Laplacian, 2.0);
+                        ColorAssert.NotEqual(MagickColors.White, first, 46, 62);
+                        Assert.False(first.Equals(second));
+                    }
+                }
+
+                MagickNET.ResetRandomSeed();
+            });
         }
 
         [Fact]
