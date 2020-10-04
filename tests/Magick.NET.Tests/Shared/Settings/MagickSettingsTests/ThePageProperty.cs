@@ -31,7 +31,7 @@ namespace Magick.NET.Tests
                     image.Read("pango:Test");
 
                     Assert.Equal(140, image.Width);
-                    Assert.InRange(image.Height, 118, 119);
+                    Assert.Contains(image.Height, new[] { 114, 118, 119 });
                 }
             }
         }

@@ -26,13 +26,13 @@ namespace Magick.NET.Tests
                 {
                     Assert.Null(image.Settings.Font);
 
-                    image.Settings.Font = "Courier New Bold Oblique";
+                    image.Settings.Font = "Courier New";
                     image.Settings.FontPointsize = 40;
                     image.Read("pango:Test");
 
                     Assert.Equal(128, image.Width);
-                    Assert.InRange(image.Height, 61, 62);
-                    ColorAssert.Equal(MagickColors.Black, image, 21, 18);
+                    Assert.Contains(image.Height, new[] { 58, 62 });
+                    ColorAssert.Equal(MagickColors.Black, image, 26, 22);
                 }
             }
         }
