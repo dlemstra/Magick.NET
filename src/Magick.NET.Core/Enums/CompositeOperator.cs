@@ -376,5 +376,45 @@ namespace ImageMagick
         /// Stereo.
         /// </summary>
         Stereo,
+
+        /// <summary>
+        /// Freeze.
+        /// </summary>
+        Freeze,
+
+        /// <summary>
+        /// Interpolate.
+        /// </summary>
+        Interpolate,
+
+        /// <summary>
+        /// Negate.
+        /// </summary>
+        Negate,
+
+        /// <summary>
+        /// Reflect.
+        /// </summary>
+        Reflect,
+
+        /// <summary>
+        /// SoftBurn.
+        /// </summary>
+        SoftBurn,
+
+        /// <summary>
+        /// SoftDodge.
+        /// </summary>
+        SoftDodge,
+
+        /// <summary>
+        /// Stamp.
+        /// </summary>
+        Stamp,
+
+        /// <summary>
+        /// RMSE.
+        /// </summary>
+        RMSE,
     }
 }
