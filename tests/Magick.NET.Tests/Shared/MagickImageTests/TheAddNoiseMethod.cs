@@ -22,11 +22,12 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldCreateDifferentImagesEachRun()
             {
-                using (var imageA = new MagickImage(MagickColors.Black, 10, 10))
+                using (var imageA = new MagickImage(MagickColors.Black, 100, 100))
                 {
-                    using (var imageB = new MagickImage(MagickColors.Black, 10, 10))
+                    imageA.AddNoise(NoiseType.Random);
+
+                    using (var imageB = new MagickImage(MagickColors.Black, 100, 100))
                     {
-                        imageA.AddNoise(NoiseType.Random);
                         imageB.AddNoise(NoiseType.Random);
 
                         Assert.NotEqual(0.0, imageA.Compare(imageB, ErrorMetric.RootMeanSquared));
