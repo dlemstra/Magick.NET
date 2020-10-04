@@ -670,7 +670,7 @@ namespace Magick.NET.Tests
 
                 using (var second = new MagickImage(Files.Builtin.Wizard))
                 {
-                    Assert.InRange(first.Compare(second, ErrorMetric.RootMeanSquared), 0.0033, 0.0034);
+                    Assert.InRange(first.Compare(second, ErrorMetric.RootMeanSquared), 0.0031, 0.0034);
                 }
             }
         }
@@ -1019,7 +1019,7 @@ namespace Magick.NET.Tests
 
                 using (var original = new MagickImage(Files.NoisePNG))
                 {
-                    Assert.InRange(enhanced.Compare(original, ErrorMetric.RootMeanSquared), 0.0117, 0.0118);
+                    Assert.InRange(enhanced.Compare(original, ErrorMetric.RootMeanSquared), 0.0115, 0.0118);
                 }
             }
         }
@@ -1405,7 +1405,7 @@ namespace Magick.NET.Tests
 #if Q8 || Q16
                     Assert.Equal(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
 #else
-                    Assert.Equal(0.0, first.Compare(second, ErrorMetric.RootMeanSquared), 0.00000001);
+                    Assert.InRange(first.Compare(second, ErrorMetric.RootMeanSquared), 0.0, 0.00000001);
 #endif
                 }
             }
@@ -1637,6 +1637,10 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_OrderedDither()
         {
+            // Make sure we read from the initial directory
+            var path = Path.Combine(Path.GetTempPath(), "Magick.NET.Tests");
+            MagickNET.Initialize(path);
+
             using (var image = new MagickImage(Files.Builtin.Logo))
             {
                 image.OrderedDither("h4x4a");
@@ -1820,7 +1824,7 @@ namespace Magick.NET.Tests
 #else
                 Assert.InRange(errorInfo.MeanErrorPerPixel, 1827.8, 1827.9);
 #endif
-                Assert.InRange(errorInfo.NormalizedMaximumError, 0.352, 0.353);
+                Assert.InRange(errorInfo.NormalizedMaximumError, 0.352, 0.354);
                 Assert.InRange(errorInfo.NormalizedMeanError, 0.001, 0.002);
             }
         }
@@ -2128,7 +2132,7 @@ namespace Magick.NET.Tests
 #if Q8
                     Assert.Equal(68, pixel.ToColor().A);
 #else
-                    Assert.Equal(17058, (double)pixel.ToColor().A, 1);
+                    Assert.InRange(pixel.ToColor().A, 17057, 17058);
 #endif
                 }
             }
@@ -2617,7 +2621,7 @@ namespace Magick.NET.Tests
                 using (var original = new MagickImage(Files.NoisePNG))
                 {
 #if Q8 || Q16
-                    Assert.InRange(original.Compare(image, ErrorMetric.RootMeanSquared), 0.06476, 0.06477);
+                    Assert.InRange(original.Compare(image, ErrorMetric.RootMeanSquared), 0.06476, 0.06478);
 #else
                     Assert.InRange(original.Compare(image, ErrorMetric.RootMeanSquared), 0.10234, 0.10235);
 #endif
@@ -2658,7 +2662,7 @@ namespace Magick.NET.Tests
 
                 using (var original = new MagickImage(Files.TestPNG))
                 {
-                    Assert.InRange(original.Compare(image, ErrorMetric.RootMeanSquared), 0.62619, 0.62620);
+                    Assert.InRange(original.Compare(image, ErrorMetric.RootMeanSquared), 0.62619, 0.62623);
                 }
             }
         }

@@ -98,14 +98,14 @@ namespace Magick.NET.Tests
                 var delta = 2;
 
                 Assert.Equal(id, component.Id);
-                Assert.InRange(component.X, x, x + delta);
-                Assert.InRange(component.Y, y, y + delta);
-                Assert.InRange(component.Width, width, width + delta);
-                Assert.InRange(component.Height, height, height + delta);
-                Assert.InRange(area, component.Area, component.Area + delta);
+                Assert.InRange(component.X, x - delta, x + delta);
+                Assert.InRange(component.Y, y - delta, y + delta);
+                Assert.InRange(component.Width, width - delta, width + delta);
+                Assert.InRange(component.Height, height - delta, height + delta);
+                Assert.InRange(area, component.Area - delta, component.Area + delta);
                 ColorAssert.Equal(color, component.Color);
-                Assert.InRange(component.Centroid.X, centroidX, centroidX + delta);
-                Assert.InRange(component.Centroid.Y, centroidY, centroidY + delta);
+                Assert.InRange(component.Centroid.X, centroidX - delta, centroidX + delta);
+                Assert.InRange(component.Centroid.Y, centroidY - delta, centroidY + delta);
 
                 using (var componentImage = image.Clone())
                 {

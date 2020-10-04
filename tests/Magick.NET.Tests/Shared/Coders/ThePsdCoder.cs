@@ -63,7 +63,7 @@ namespace Magick.NET.Tests
                     {
                         var distortion = output.Compare(input, ErrorMetric.RootMeanSquared);
 
-                        Assert.InRange(distortion, 0.000, 0.001);
+                        Assert.InRange(distortion, 0.000, 0.0014);
                     }
                 }
             }
