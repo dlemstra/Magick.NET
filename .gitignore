@@ -5,8 +5,9 @@ bin
 obj
 lib
 runtimes
-/publish/api.key.txt
+api.key.txt
 /src/Magick.Native/libraries
+/src/Magick.Native/nuget.config
 /src/Magick.Native/resources
 /samples/Magick.NET.Samples/Samples/Magick.NET/*.pp
 /samples/Magick.NET.Samples/Samples/Magick.NET/Files/*.pp
