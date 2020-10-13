@@ -1,5 +1,5 @@
 # Libraries
-Magick.Native [65415abc332144fb137463bff406128594acf210](https://github.com/dlemstra/Magick.Native/commit/65415abc332144fb137463bff406128594acf210) is build with the following libraries:
+Magick.Native [6aac6bf28f4bf9bb13086908322571284de43208](https://github.com/dlemstra/Magick.Native/commit/6aac6bf28f4bf9bb13086908322571284de43208) is build with the following libraries:
 
 - aom 2.0.0 (18 May 2020)
 - bzlib 1.0.6 (6 September 2010)

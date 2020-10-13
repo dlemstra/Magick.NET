@@ -1,6 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <packageSources>
-    <!--<add key="Magick.Native" value="https://pkgs.dev.azure.com/dlemstra/_packaging/Magick.Native/nuget/v3/index.json" />-->
+    <clear />
+    <add key="github" value="https://nuget.pkg.github.com/dlemstra/index.json" />
   </packageSources>
+  <packageSourceCredentials>
+    <github>
+      <add key="Username" value="USERNAME" />
+      <add key="ClearTextPassword" value="TOKEN" />
+    </github>
+  </packageSourceCredentials>
 </configuration>
