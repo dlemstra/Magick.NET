@@ -18,13 +18,13 @@ function installPackage($version, $target) {
     Remove-Item $temp -Recurse -ErrorAction Ignore
     [void](New-Item -ItemType directory -Path $temp)
 
-    # Temporary download from DropBox
-    Write-Host "Downloading Magick.Native.$version.nupkg"
-    $url = "https://dl.dropboxusercontent.com/s/d2wyhdw2yxuoc1y/Magick.Native.$version.nupkg"
-    Invoke-WebRequest $url -Outfile "$temp\Magick.Native.$version.nupkg"
-    ..\..\tools\windows\nuget.exe install Magick.Native -Version $version -OutputDirectory "$target" -Source $temp
+    if (!(Test-Path "nuget.config")) {
+        Write-Error "The file nuget.config is missing. Copy nuget.config.template and replace USERNAME and TOKEN."
+        Exit 1
+    }
 
-    #..\..\tools\windows\nuget.exe install Magick.Native -Version $version -OutputDirectory $temp
+    Write-Host "Installing Magick.Native.$version.nupkg"
+    ..\..\tools\windows\nuget.exe install Magick.Native -Version $version -OutputDirectory "$target"
 
     Remove-Item $temp -Recurse -ErrorAction Ignore
 }
