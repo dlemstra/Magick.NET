@@ -2286,7 +2286,7 @@ namespace Magick.NET.Tests
 
                 using (var original = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
-                    Assert.InRange(original.Compare(image, ErrorMetric.RootMeanSquared), 0.121, 0.123);
+                    Assert.InRange(original.Compare(image, ErrorMetric.RootMeanSquared), 0.120, 0.123);
                 }
             }
         }
