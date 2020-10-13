@@ -105,11 +105,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{C72A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Magick.Native", "Magick.Native", "{7BDF1AD0-F12F-4149-9C3C-79223B8C1721}"
 	ProjectSection(SolutionItems) = preProject
+		src\Magick.Native\create-nuget-config.cmd = src\Magick.Native\create-nuget-config.cmd
+		src\Magick.Native\create-nuget-config.sh = src\Magick.Native\create-nuget-config.sh
 		src\Magick.Native\install.cmd = src\Magick.Native\install.cmd
 		src\Magick.Native\install.ps1 = src\Magick.Native\install.ps1
 		src\Magick.Native\install.sh = src\Magick.Native\install.sh
 		src\Magick.Native\Magick.Native.version = src\Magick.Native\Magick.Native.version
-		src\Magick.Native\nuget.config = src\Magick.Native\nuget.config
+		src\Magick.Native\nuget.config.template = src\Magick.Native\nuget.config.template
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{7935EDEC-32B2-4BA2-93DC-FC990B26D51E}"

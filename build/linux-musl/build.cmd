@@ -1,3 +1,4 @@
 @echo off
 
-docker build ../.. -f Dockerfile -t magick-net-linux-musl
+set /p GITHUB_TOKEN=<../../src/Magick.Native/api.key.txt
+docker build ../.. -f Dockerfile --build-arg GITHUB_TOKEN=%GITHUB_TOKEN% -t magick-net-linux-musl

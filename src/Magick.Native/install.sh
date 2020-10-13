@@ -4,14 +4,15 @@ set -e
 version=`cat Magick.Native.version`
 
 installPackage() {
-    mkdir temp
+    mkdir foo
+    cd foo
 
-    echo "Downloading Magick.Native.$version.nupkg"
-    # Temporary download from DropBox
-    nuget_url="https://dl.dropboxusercontent.com/s/d2wyhdw2yxuoc1y/Magick.Native.$version.nupkg"
-    curl -s -o Magick.Native.$version.nupkg $nuget_url
+    dotnet new console
+    dotnet add package Magick.Native --version $version --package-directory nuget
 
-    unzip Magick.Native.$version.nupkg -d temp
+    mkdir ../temp
+    cp -R nuget/magick.native/$version/* ../temp
+    cd ..
 }
 
 copyToTestProject() {

@@ -8,69 +8,70 @@ on:
 
 name: master
 jobs:
-#  linux:
-#    name: 'Linux (Q8/Q16/Q16-HDRI)'
-#    container:
-#      image: mcr.microsoft.com/dotnet/core/sdk:latest
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#
-#    - name: Checkout
-#      uses: actions/checkout@v2
-#      with:
-#        fetch-depth: 1
-#
-#    - name: Install dependencies
-#      run: build/linux/install.dependencies.sh
-#
-#    - name: Install Magick.Native
-#      run: build/linux/install.Magick.Native.sh
-#
-#    - name: Build and Test
-#      run: build/linux/test.Magick.NET.sh
-#
-#  linux_musl:
-#    name: 'Linux musl (Q8/Q16/Q16-HDRI)'
-#    container:
-#      image: mcr.microsoft.com/dotnet/core/sdk:3.1-alpine
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#
-#    - name: Checkout
-#      uses: actions/checkout@v2
-#      with:
-#        fetch-depth: 1
-#
-#    - name: Install dependencies
-#      run: build/linux-musl/install.dependencies.sh
-#
-#    - name: Install Magick.Native
-#      run: build/linux-musl/install.Magick.Native.sh
-#
-#    - name: Build and Test
-#      run: build/linux-musl/test.Magick.NET.sh
-#
-#  macos:
-#    name: 'MacOS (Q8/Q16/Q16-HDRI)'
-#    runs-on: macos-latest
-#
-#    steps:
-#
-#    - name: Checkout
-#      uses: actions/checkout@v2
-#      with:
-#        fetch-depth: 1
-#
-#    - name: Install dependencies
-#      run: build/macos/install.dependencies.sh
-#
-#    - name: Install Magick.Native
-#      run: build/macos/install.Magick.Native.sh
-#
-#    - name: Build and Test
-#      run: build/macos/test.Magick.NET.sh
+
+  linux:
+    name: 'Linux (Q8/Q16/Q16-HDRI)'
+    container:
+      image: mcr.microsoft.com/dotnet/core/sdk:latest
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+
+    - name: Install dependencies
+      run: build/linux/install.dependencies.sh
+
+    - name: Install Magick.Native
+      run: 'build/linux/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}"'
+
+    - name: Build and Test
+      run: build/linux/test.Magick.NET.sh
+
+  linux_musl:
+    name: 'Linux musl (Q8/Q16/Q16-HDRI)'
+    container:
+      image: mcr.microsoft.com/dotnet/core/sdk:3.1-alpine
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+
+    - name: Install dependencies
+      run: build/linux-musl/install.dependencies.sh
+
+    - name: Install Magick.Native
+      run: 'build/linux-musl/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}"'
+
+    - name: Build and Test
+      run: build/linux-musl/test.Magick.NET.sh
+
+  macos:
+    name: 'MacOS (Q8/Q16/Q16-HDRI)'
+    runs-on: macos-latest
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+
+    - name: Install dependencies
+      run: build/macos/install.dependencies.sh
+
+    - name: Install Magick.Native
+      run: 'build/macos/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}"'
+
+    - name: Build and Test
+      run: build/macos/test.Magick.NET.sh
 
   windows:
     name: Windows
