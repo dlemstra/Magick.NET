@@ -19,13 +19,13 @@ if ($version.Length -eq 0) {
 }
 
 Write-Host "Setting NuGetVersion to $version"
-Write-Host "::set-env name=NuGetVersion::$version"
+echo "NuGetVersion=$version" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
 & cmd /c 'git rev-parse HEAD > commit.txt 2> nul'
 
 $commit = [IO.File]::ReadAllText("commit.txt").Trim()
 
 Write-Host "Setting GitCommitId to $commit"
-Write-Host "::set-env name=GitCommitId::$commit"
+echo "GitCommitId=$commit" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
 Exit 0
