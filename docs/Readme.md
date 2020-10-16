@@ -4,9 +4,20 @@
 
 You have two options to get the Magick.NET binaries in your project:
 - Use the zip files: 
-  - Download the latest [release](https://github.com/dlemstra/Magick.NET/releases) and unpack the files for your .NET version and platform into
-    the bin directory of your project.
-  - Add a reference to Magick.NET-(Q8/Q16/Q16-HDRI).dll.
+  - Download the latest [release](https://github.com/dlemstra/Magick.NET/releases)
+  - Unzip the source code zip which will create *Magick.NET-X.XX.X.X* folder
+  - Log into your GitHub account and go to the **Settings**
+  - On the left-hand side select the **Developer settings** and then **Personal access tokens**
+  - Now click on **Generate new token** on the top right
+  - Write the name of the token under **Note** and then select **read:packages** option, finally click **Generate token**
+  - Copy and store the token safely as it won't be shown again!
+  - Download the latest stable [nuget.exe](https://www.nuget.org/downloads) and place it into the *Magick.NET-X.XX.X.X\tools\windows* folder
+  - Open command prompt or PowerShell window and navigate to the *Magick.NET-X.XX.X.X\src\Magick.Native* folder
+  - Type in `.\create-nuget-config.cmd <GitHub_username> <read token>` which will create *nuget.config* file
+  - Now type in `.\install.cmd` which will download the native libraries
+  - Go into the *Magick.NET-X.XX.X.X* folder and double click on **Magick.NET.sln** to open the project in Visual Studio
+  - Select the desired version (Q8, Q16, Q16-HDRI) and build the solution
+  - Copy the needed Magic.NET DLLs into your project and add reference to them
  - Use NuGet:
    - Right click on the references of your project and choose 'Manage NuGet packages'. 
    - Search for Magick.NET and choose the package that uses the platform of your choice: x86/x64 or AnyCPU.
