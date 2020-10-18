@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenProfileIsNull()
                 {
-                    using (var image = new MagickImage(Files.PictureJPG))
+                    using (var image = new MagickImage(MagickColors.Red, 1, 1))
                     {
                         Assert.Throws<ArgumentNullException>("profile", () => image.RemoveProfile((IImageProfile)null));
                     }
@@ -52,7 +52,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenProfileIsNull()
                 {
-                    using (var image = new MagickImage(Files.PictureJPG))
+                    using (var image = new MagickImage(MagickColors.Red, 1, 1))
                     {
                         Assert.Throws<ArgumentNullException>("name", () => image.RemoveProfile((string)null));
                     }
@@ -61,7 +61,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenProfileIsEmpty()
                 {
-                    using (var image = new MagickImage(Files.PictureJPG))
+                    using (var image = new MagickImage(MagickColors.Red, 1, 1))
                     {
                         Assert.Throws<ArgumentException>("name", () => image.RemoveProfile(string.Empty));
                     }
