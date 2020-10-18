@@ -17,7 +17,7 @@ namespace Magick.NET.Tests
 {
     public partial class ExifProfileTests
     {
-        public class TheRemoveProfileMethod
+        public class TheRemoveThumbnailMethod
         {
             [Fact]
             public void ShouldRemoveTheThumbnail()
