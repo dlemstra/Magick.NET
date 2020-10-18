@@ -111,7 +111,6 @@ namespace ImageMagick
             get
             {
                 InitializeValues();
-
                 return _values;
             }
         }
