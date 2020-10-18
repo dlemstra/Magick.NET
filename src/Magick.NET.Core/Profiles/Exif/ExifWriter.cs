@@ -12,17 +12,19 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace ImageMagick
 {
     internal sealed class ExifWriter
     {
-        private const uint _OffsetDelta = 6;
+        private const int HeaderSize = 2 + 2 + 4 + 4;
 
         private readonly ExifParts _allowedParts;
 
-        public ExifWriter(ExifParts allowedParts) => _allowedParts = allowedParts;
+        public ExifWriter(ExifParts allowedParts)
+            => _allowedParts = allowedParts;
 
         public byte[] Write(List<IExifValue> values)
         {
@@ -30,71 +32,175 @@ namespace ImageMagick
             var exifValues = GetPartValues(values, ExifParts.ExifTags);
             var gpsValues = GetPartValues(values, ExifParts.GpsTags);
 
-            var exifOffset = GetOffsetValue(ifdValues, exifValues, ExifTag.SubIFDOffset);
-            var gpsOffset = GetOffsetValue(ifdValues, gpsValues, ExifTag.GPSIFDOffset);
+            RemoveOffsetValues(ifdValues, ExifTag.SubIFDOffset, ExifTag.GPSIFDOffset);
 
             if (ifdValues.Count == 0 && exifValues.Count == 0 && gpsValues.Count == 0)
                 return null;
 
-            var ifdLength = GetLength(ifdValues) + 4U;
-            var exifLength = GetLength(exifValues);
-            var gpsLength = GetLength(gpsValues);
-
-            var ifdOffset = 10U + 4U - _OffsetDelta;
-            var thumbnailOffset = ifdOffset + ifdLength + exifLength + gpsLength;
-
-            var length = _OffsetDelta + thumbnailOffset + 2U;
-
-            var result = new byte[length];
-            result[0] = (byte)'E';
-            result[1] = (byte)'x';
-            result[2] = (byte)'i';
-            result[3] = (byte)'f';
-            result[4] = 0x00;
-            result[5] = 0x00;
-
-            if (BitConverter.IsLittleEndian)
+            using (var stream = new MemoryStream())
             {
-                result[6] = (byte)'I';
-                result[7] = (byte)'I';
+                stream.WriteByte((byte)'E');
+                stream.WriteByte((byte)'x');
+                stream.WriteByte((byte)'i');
+                stream.WriteByte((byte)'f');
+                stream.WriteByte(0x00);
+                stream.WriteByte(0x00);
+
+                if (BitConverter.IsLittleEndian)
+                {
+                    stream.WriteByte((byte)'I');
+                    stream.WriteByte((byte)'I');
+                    stream.WriteByte(0x2A);
+                    stream.WriteByte(0x00);
+                }
+                else
+                {
+                    stream.WriteByte((byte)'M');
+                    stream.WriteByte((byte)'M');
+                    stream.WriteByte(0x00);
+                    stream.WriteByte(0x2A);
+                }
+
+                ushort countDelta = 0;
+                if (exifValues.Count > 0)
+                    countDelta++;
+                if (gpsValues.Count > 0)
+                    countDelta++;
+
+                var ifdOffset = stream.Position + 4;
+                WritePosition(ifdOffset, stream);
+
+                WriteHeaders(ifdValues, stream, countDelta);
+
+                var exifValuesOffset = 0L;
+                if (exifValues.Count > 0)
+                {
+                    WriteHeader(ExifValues.Create(ExifTag.SubIFDOffset), stream);
+                    exifValuesOffset = GetOffsetPositionAndSkipData(stream);
+                }
+
+                var gpsValuesOffset = 0L;
+                if (gpsValues.Count > 0)
+                {
+                    WriteHeader(ExifValues.Create(ExifTag.GPSIFDOffset), stream);
+                    gpsValuesOffset = GetOffsetPositionAndSkipData(stream);
+                }
+
+                var thumbnailOffset = BitConverter.GetBytes(0L);
+                Write(thumbnailOffset, stream);
+
+                WriteValues(ifdValues, stream);
+
+                var endOfLink = BitConverter.GetBytes(0L);
+                if (exifValues.Count > 0)
+                {
+                    WriteCurrentOffset(exifValuesOffset, stream);
+                    WriteHeaders(exifValues, stream);
+                    Write(endOfLink, stream);
+                    WriteValues(exifValues, stream);
+                }
+
+                if (gpsValues.Count > 0)
+                {
+                    WriteCurrentOffset(gpsValuesOffset, stream);
+                    WriteHeaders(gpsValues, stream);
+                    Write(endOfLink, stream);
+                    WriteValues(gpsValues, stream);
+                }
+
+                return stream.ToArray();
             }
-            else
+        }
+
+        private static void Write(byte[] bytes, Stream stream)
+            => stream.Write(bytes, 0, bytes.Length);
+
+        private static void RemoveOffsetValues(List<IExifValue> ifdValues, params ExifTag[] offsetTags)
+        {
+            for (var i = ifdValues.Count - 1; i >= 0; i--)
             {
-                result[6] = (byte)'M';
-                result[7] = (byte)'M';
+                foreach (var offsetTag in offsetTags)
+                {
+                    if (ifdValues[i].Tag == offsetTag)
+                        ifdValues.RemoveAt(i);
+                }
             }
+        }
 
-            result[8] = 0x2A;
-            result[9] = 0x00;
+        private static long GetOffsetPositionAndSkipData(Stream stream)
+        {
+            var position = stream.Position;
+            stream.Position += 4;
+            return position;
+        }
 
-            var i = 10;
+        private static uint PositionToOffset(long offset)
+            => (uint)offset - 6;
 
-            if (exifOffset != null)
-                exifOffset.SetValue(ifdOffset + ifdLength);
+        private static void WriteHeaders(List<IExifValue> values, Stream stream)
+            => WriteHeaders(values, stream, 0);
 
-            if (gpsOffset != null)
-                gpsOffset.SetValue(ifdOffset + ifdLength + exifLength);
+        private static void WriteHeaders(List<IExifValue> values, Stream stream, ushort countDelta)
+        {
+            var count = (ushort)(values.Count + countDelta);
 
-            i = Write(BitConverter.GetBytes(ifdOffset), result, i);
-            i = WriteHeaders(ifdValues, result, i, 4);
-            i = Write(BitConverter.GetBytes(thumbnailOffset), result, i);
-            i = WriteData(ifdValues, result, i);
+            Write(BitConverter.GetBytes(count), stream);
 
-            if (exifValues.Count > 0)
+            var dataOffset = PositionToOffset(stream.Position) + (uint)(count * HeaderSize) + 8;
+
+            foreach (var value in values)
             {
-                i = WriteHeaders(exifValues, result, i);
-                i = WriteData(exifValues, result, i);
+                WriteHeader(value, stream);
+
+                var length = GetLength(value);
+
+                if (length <= 4)
+                {
+                    WriteValue(value, stream);
+                    stream.Position += 4 - length;
+                }
+                else
+                {
+                    Write(BitConverter.GetBytes(dataOffset), stream);
+                    dataOffset += length;
+                }
             }
+        }
 
-            if (gpsValues.Count > 0)
-            {
-                i = WriteHeaders(gpsValues, result, i);
-                i = WriteData(gpsValues, result, i);
-            }
+        private static void WriteHeader(IExifValue value, Stream stream)
+        {
+            Write(BitConverter.GetBytes((ushort)value.Tag), stream);
+            Write(BitConverter.GetBytes((ushort)value.DataType), stream);
+            Write(BitConverter.GetBytes(GetNumberOfComponents(value)), stream);
+        }
 
-            Write(BitConverter.GetBytes((ushort)0), result, i);
+        private static void WriteCurrentOffset(long position, Stream stream)
+        {
+            var currentPosition = stream.Position;
+            stream.Position = position;
 
-            return result;
+            WritePosition(currentPosition, stream);
+
+            stream.Position = currentPosition;
+        }
+
+        private static void WritePosition(long position, Stream stream)
+            => Write(BitConverter.GetBytes(PositionToOffset(position)), stream);
+
+        private static uint GetLength(IExifValue value)
+            => GetNumberOfComponents(value) * ExifDataTypes.GetSize(value.DataType);
+
+        private static uint GetNumberOfComponents(IExifValue exifValue)
+        {
+            var value = exifValue.GetValue();
+
+            if (exifValue.DataType == ExifDataType.String)
+                return (uint)Encoding.UTF8.GetBytes((string)value).Length + 1;
+
+            if (value is Array arrayValue)
+                return (uint)arrayValue.Length;
+
+            return 1;
         }
 
         private static bool HasValue(IExifValue exifValue)
@@ -115,197 +221,94 @@ namespace ImageMagick
             return true;
         }
 
-        private static IExifValue GetOffsetValue(List<IExifValue> ifdValues, List<IExifValue> values, ExifTag offset)
-        {
-            var index = -1;
-
-            for (var i = 0; i < ifdValues.Count; i++)
-            {
-                if (ifdValues[i].Tag == offset)
-                    index = i;
-            }
-
-            if (values.Count > 0)
-            {
-                if (index != -1)
-                    return ifdValues[index];
-
-                var result = ExifValues.Create(offset);
-                ifdValues.Add(result);
-
-                return result;
-            }
-            else if (index != -1)
-            {
-                ifdValues.RemoveAt(index);
-            }
-
-            return null;
-        }
-
-        private static uint GetLength(List<IExifValue> values)
-        {
-            if (values.Count == 0)
-                return 0;
-
-            uint length = 2;
-
-            foreach (var value in values)
-            {
-                var valueLength = GetLength(value);
-
-                length += 2 + 2 + 4 + 4;
-
-                if (valueLength > 4)
-                    length += valueLength;
-            }
-
-            return length;
-        }
-
-        private static uint GetLength(IExifValue value) => GetNumberOfComponents(value) * ExifDataTypes.GetSize(value.DataType);
-
-        private static uint GetNumberOfComponents(IExifValue exifValue)
-        {
-            var value = exifValue.GetValue();
-
-            if (exifValue.DataType == ExifDataType.String)
-                return (uint)Encoding.UTF8.GetBytes((string)value).Length + 1;
-
-            if (value is Array arrayValue)
-                return (uint)arrayValue.Length;
-
-            return 1;
-        }
-
-        private static int WriteHeaders(List<IExifValue> values, byte[] destination, int offset) => WriteHeaders(values, destination, offset, 0);
-
-        private static int WriteHeaders(List<IExifValue> values, byte[] destination, int offset, uint dataOffset)
-        {
-            offset = Write(BitConverter.GetBytes((ushort)values.Count), destination, offset);
-
-            dataOffset += (uint)(offset + (values.Count * (2 + 2 + 4 + 4))) - _OffsetDelta;
-
-            foreach (var value in values)
-            {
-                offset = Write(BitConverter.GetBytes((ushort)value.Tag), destination, offset);
-                offset = Write(BitConverter.GetBytes((ushort)value.DataType), destination, offset);
-                offset = Write(BitConverter.GetBytes(GetNumberOfComponents(value)), destination, offset);
-
-                var length = GetLength(value);
-
-                if (length <= 4)
-                {
-                    WriteValue(value, destination, offset);
-                }
-                else
-                {
-                    Write(BitConverter.GetBytes(dataOffset), destination, offset);
-                    dataOffset += length;
-                }
-
-                offset += 4;
-            }
-
-            return offset;
-        }
-
-        private static int WriteData(List<IExifValue> values, byte[] destination, int offset)
+        private static void WriteValues(List<IExifValue> values, Stream stream)
         {
             foreach (var value in values)
             {
                 if (GetLength(value) > 4)
-                    offset = WriteValue(value, destination, offset);
+                    WriteValue(value, stream);
             }
-
-            return offset;
         }
 
-        private static int Write(byte[] source, byte[] destination, int offset)
-        {
-            Buffer.BlockCopy(source, 0, destination, offset, source.Length);
-
-            return offset + source.Length;
-        }
-
-        private static int WriteValue(IExifValue exifValue, byte[] destination, int offset)
+        private static void WriteValue(IExifValue exifValue, Stream stream)
         {
             if (exifValue.IsArray && exifValue.DataType != ExifDataType.String)
-                return WriteArray(exifValue, destination, offset);
+                WriteArray(exifValue, stream);
             else
-                return WriteValue(exifValue.DataType, exifValue.GetValue(), destination, offset);
+                WriteValue(exifValue.DataType, exifValue.GetValue(), stream);
         }
 
-        private static int WriteArray(IExifValue exifValue, byte[] destination, int offset)
+        private static void WriteArray(IExifValue exifValue, Stream stream)
         {
             var value = exifValue.GetValue();
 
             if (exifValue.DataType == ExifDataType.String)
-                return WriteValue(ExifDataType.String, value, destination, offset);
+                WriteValue(ExifDataType.String, value, stream);
 
-            int newOffset = offset;
             foreach (object obj in (Array)value)
-                newOffset = WriteValue(exifValue.DataType, obj, destination, newOffset);
-
-            return newOffset;
+                WriteValue(exifValue.DataType, obj, stream);
         }
 
-        private static int WriteValue(ExifDataType dataType, object value, byte[] destination, int offset)
+        private static void WriteValue(ExifDataType dataType, object value, Stream stream)
         {
             switch (dataType)
             {
                 case ExifDataType.String:
-                    offset = Write(Encoding.UTF8.GetBytes((string)value), destination, offset);
-                    destination[offset] = 0;
-                    return offset + 1;
+                    Write(Encoding.UTF8.GetBytes((string)value), stream);
+                    stream.WriteByte(0x00);
+                    break;
                 case ExifDataType.Byte:
                 case ExifDataType.Undefined:
-                    destination[offset] = (byte)value;
-                    return offset + 1;
+                    stream.WriteByte((byte)value);
+                    break;
                 case ExifDataType.Double:
-                    return Write(BitConverter.GetBytes((double)value), destination, offset);
+                    Write(BitConverter.GetBytes((double)value), stream);
+                    break;
                 case ExifDataType.Short:
                     if (value is Number shortNumber)
-                        return Write(BitConverter.GetBytes((ushort)shortNumber), destination, offset);
+                        Write(BitConverter.GetBytes((ushort)shortNumber), stream);
                     else
-                        return Write(BitConverter.GetBytes((ushort)value), destination, offset);
+                        Write(BitConverter.GetBytes((ushort)value), stream);
+                    break;
                 case ExifDataType.Long:
                     if (value is Number longNumber)
-                        return Write(BitConverter.GetBytes((uint)longNumber), destination, offset);
+                        Write(BitConverter.GetBytes((uint)longNumber), stream);
                     else
-                        return Write(BitConverter.GetBytes((uint)value), destination, offset);
+                        Write(BitConverter.GetBytes((uint)value), stream);
+                    break;
                 case ExifDataType.Rational:
-                    return WriteRational((Rational)value, destination, offset);
+                    WriteRational((Rational)value, stream);
+                    break;
                 case ExifDataType.SignedByte:
-                    destination[offset] = unchecked((byte)((sbyte)value));
-                    return offset + 1;
+                    stream.WriteByte(unchecked((byte)((sbyte)value)));
+                    break;
                 case ExifDataType.SignedLong:
-                    return Write(BitConverter.GetBytes((int)value), destination, offset);
+                    Write(BitConverter.GetBytes((int)value), stream);
+                    break;
                 case ExifDataType.SignedShort:
-                    return Write(BitConverter.GetBytes((short)value), destination, offset);
+                    Write(BitConverter.GetBytes((short)value), stream);
+                    break;
                 case ExifDataType.SignedRational:
-                    return WriteSignedRational((SignedRational)value, destination, offset);
+                    WriteSignedRational((SignedRational)value, stream);
+                    break;
                 case ExifDataType.Float:
-                    return Write(BitConverter.GetBytes((float)value), destination, offset);
+                    Write(BitConverter.GetBytes((float)value), stream);
+                    break;
                 default:
                     throw new NotSupportedException();
             }
         }
 
-        private static int WriteRational(Rational value, byte[] destination, int offset)
+        private static void WriteRational(Rational value, Stream stream)
         {
-            offset = Write(BitConverter.GetBytes(value.Numerator), destination, offset);
-            offset = Write(BitConverter.GetBytes(value.Denominator), destination, offset);
-
-            return offset;
+            Write(BitConverter.GetBytes(value.Numerator), stream);
+            Write(BitConverter.GetBytes(value.Denominator), stream);
         }
 
-        private static int WriteSignedRational(SignedRational value, byte[] destination, int offset)
+        private static void WriteSignedRational(SignedRational value, Stream stream)
         {
-            offset = Write(BitConverter.GetBytes(value.Numerator), destination, offset);
-            offset = Write(BitConverter.GetBytes(value.Denominator), destination, offset);
-
-            return offset;
+            Write(BitConverter.GetBytes(value.Numerator), stream);
+            Write(BitConverter.GetBytes(value.Denominator), stream);
         }
 
         private List<IExifValue> GetPartValues(List<IExifValue> values, ExifParts part)
