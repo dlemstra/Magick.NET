@@ -9,14 +9,35 @@ This document describes the requirements and instructions to build Magick.NET on
 - Git for Windows (>= 2.7.2)
 - Windows SDK (>= 10.0.10586)
 
+### Download the code
+
+The first step is to either clone this repository with `git` or download the latest [release](https://github.com/dlemstra/Magick.NET/releases) and
+unzip the file.
+
 ### Install Magick.Native
 
-Magick.NET uses the [Magick.Native](https://github.com/dlemstra/Magick.Native) library and that needs to be installed first. This can be done
-with the file `install.cmd` inside the [src/Magick.Native](src/Magick.Native) folder. The script will install the version that is specified in
-the file [Magick.Native.version](src/Magick.Native/Magick.Native.version). Currently this file is downloaded from DropBox so it is not easy to
-change the version inside the repository. Once GitHub Package Registory for NuGet packages is really public without requiring to login it will
-be possible to change the version inside the repository. After installing the Magick.Native library the `.sln` file of this project can be used
-to build the Magick.NET library.
+Magick.NET uses the [Magick.Native](https://github.com/dlemstra/Magick.Native) library and that needs to be installed first. To install this the
+following steps need to be done:
+
+- Log into your GitHub account and go to the **Settings**.
+- Now click on **Generate new token** on the top right.
+- Write the name of the token under **Note** and then select **read:packages** option, finally click **Generate token**.
+- Copy and store the token safely as it won't be shown again!
+- Download the latest stable [nuget.exe](https://www.nuget.org/downloads) and place it into the *tools\windows* folder.
+- Open a command prompt and navigate to the *src\Magick.Native* folder.
+- Type in `create-nuget-config.cmd <GitHub_Username> <GitHub_Token>` which will create *nuget.config* file.
+- Now type in `install.cmd` which will download the native libraries and copy it into the projects the need it.
+
+### Building the project
+
+After installing the Magick.Native library the `.sln` file of this project can be used to build the Magick.NET library. Inside VisualStudio select
+the desired version (Q8, Q16, Q16-HDRI) and build the solution.
+
+### Submitting a pull request
+
+Before opening a pull request the unit tests of the project should be run. The tests will only run in the `Test*` or `Debug*` configuration. If new
+functionality was added or if a bug was fixed with this pull request make sure that a new unit test is added to avoid a regression. Also make sure
+that there are no compiler warnings anymore because the GitHub actions build will treat warnings as errors.
 
 ### Debugging Magick.Native
 
