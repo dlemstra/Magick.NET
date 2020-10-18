@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using ImageMagick;
 using Xunit;
 
@@ -19,19 +20,67 @@ namespace Magick.NET.Tests
     {
         public class TheRemoveProfileMethod
         {
-            [Fact]
-            public void ShouldRemoveTheProfile()
+            public class WithImageProfile
             {
-                using (var image = new MagickImage(Files.PictureJPG))
+                [Fact]
+                public void ShouldThrowExceptionWhenProfileIsNull()
                 {
-                    var profile = image.GetColorProfile();
-                    Assert.NotNull(profile);
-                    Assert.Equal("icc", profile.Name);
+                    using (var image = new MagickImage(Files.PictureJPG))
+                    {
+                        Assert.Throws<ArgumentNullException>("profile", () => image.RemoveProfile((IImageProfile)null));
+                    }
+                }
 
-                    image.RemoveProfile(profile.Name);
+                [Fact]
+                public void ShouldRemoveTheProfile()
+                {
+                    using (var image = new MagickImage(Files.PictureJPG))
+                    {
+                        var profile = image.GetColorProfile();
+                        Assert.NotNull(profile);
 
-                    profile = image.GetColorProfile();
-                    Assert.Null(profile);
+                        image.RemoveProfile(profile);
+
+                        profile = image.GetColorProfile();
+                        Assert.Null(profile);
+                    }
+                }
+            }
+
+            public class WithString
+            {
+                [Fact]
+                public void ShouldThrowExceptionWhenProfileIsNull()
+                {
+                    using (var image = new MagickImage(Files.PictureJPG))
+                    {
+                        Assert.Throws<ArgumentNullException>("name", () => image.RemoveProfile((string)null));
+                    }
+                }
+
+                [Fact]
+                public void ShouldThrowExceptionWhenProfileIsEmpty()
+                {
+                    using (var image = new MagickImage(Files.PictureJPG))
+                    {
+                        Assert.Throws<ArgumentException>("name", () => image.RemoveProfile(string.Empty));
+                    }
+                }
+
+                [Fact]
+                public void ShouldRemoveTheProfile()
+                {
+                    using (var image = new MagickImage(Files.PictureJPG))
+                    {
+                        var profile = image.GetColorProfile();
+                        Assert.NotNull(profile);
+                        Assert.Equal("icc", profile.Name);
+
+                        image.RemoveProfile(profile.Name);
+
+                        profile = image.GetColorProfile();
+                        Assert.Null(profile);
+                    }
                 }
             }
         }

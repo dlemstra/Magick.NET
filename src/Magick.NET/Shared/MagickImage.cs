@@ -5120,6 +5120,18 @@ namespace ImageMagick
             => _nativeInstance.RegionMask(null);
 
         /// <summary>
+        /// Remove a profile from the image.
+        /// </summary>
+        /// <param name="profile">The profile to remove.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void RemoveProfile(IImageProfile profile)
+        {
+            Throw.IfNull(nameof(profile), profile);
+
+            RemoveProfile(profile.Name);
+        }
+
+        /// <summary>
         /// Remove a named profile from the image.
         /// </summary>
         /// <param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
