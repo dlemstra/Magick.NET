@@ -13,7 +13,7 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests.Shared.Profiles.Exif
+namespace Magick.NET.Tests
 {
     public partial class ExifProfileTests
     {
