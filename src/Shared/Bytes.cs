@@ -75,8 +75,8 @@ namespace ImageMagick
                 return;
             }
 
-            byte[] buffer = new byte[BufferSize];
-            using (MemoryStream tempStream = new MemoryStream())
+            var buffer = new byte[BufferSize];
+            using (var tempStream = new MemoryStream())
             {
                 int length;
                 while ((length = stream.Read(buffer, 0, BufferSize)) != 0)
@@ -125,7 +125,7 @@ namespace ImageMagick
             _data = new byte[Length];
 
             int read = 0;
-            int bytesRead = 0;
+            int bytesRead;
             while ((bytesRead = stream.Read(_data, read, Length - read)) != 0)
             {
                 read += bytesRead;
