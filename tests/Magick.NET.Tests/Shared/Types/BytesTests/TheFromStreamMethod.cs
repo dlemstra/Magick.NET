@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
             }
 
             [Fact]
-            public void ShouldReturnObjectWhenStreamIsMemoryStream_()
+            public void ShouldReturnObjectWhenStreamIsMemoryStream()
             {
                 using (var memStream = new MemoryStream())
                 {
