@@ -166,6 +166,17 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Loads the data from the profile and rewrites the profile data. This can be used
+        /// to fix an incorrect profile. It can also be used for products that require a
+        /// specific exif structure.
+        /// </summary>
+        public void Rewrite()
+        {
+            InitializeValues();
+            UpdateData();
+        }
+
+        /// <summary>
         /// Sets the value of the specified tag.
         /// </summary>
         /// <param name="tag">The tag of the exif value.</param>
