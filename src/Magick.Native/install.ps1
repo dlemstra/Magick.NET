@@ -18,13 +18,28 @@ function installPackage($version, $target) {
     Remove-Item $temp -Recurse -ErrorAction Ignore
     [void](New-Item -ItemType directory -Path $temp)
 
-    if (!(Test-Path "nuget.config")) {
-        Write-Error "The file nuget.config is missing. Copy nuget.config.template and replace USERNAME and TOKEN."
-        Exit 1
+    $nugetPath = "..\..\tools\windows\nuget.exe"
+
+    if (!(Test-Path $nugetPath))
+    {
+        Write-Host "Downloading latest NuGet Package manager."
+
+        Invoke-WebRequest -Uri "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe" -OutFile $nugetPath
+    }
+
+    if (!(Test-Path "nuget.config"))
+    {
+        $username = Read-Host "Enter your GitHub username"
+        $token = Read-Host "Enter your package read token"
+
+        $process = Start-Process -FilePath ".\create-nuget-config.cmd" -ArgumentList "$username $token" -PassThru -NoNewWindow
+        $process.WaitForExit()
     }
 
     Write-Host "Installing Magick.Native.$version.nupkg"
-    ..\..\tools\windows\nuget.exe install Magick.Native -Version $version -OutputDirectory "$target"
+
+    $process = Start-Process -FilePath $nugetPath -ArgumentList "install Magick.Native -Version $version -OutputDirectory $target" -PassThru -NoNewWindow
+    $process.WaitForExit()
 
     Remove-Item $temp -Recurse -ErrorAction Ignore
 }
