@@ -10,6 +10,12 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 
+# Variables
+
+$nugetPath = "..\..\tools\windows\nuget.exe"
+$nugetDownloadLink = 'https://dist.nuget.org/win-x86-commandline/latest/nuget.exe'
+$createNugetConfigScript = ".\create-nuget-config.cmd"
+
 function installPackage($version, $target) {
     Remove-Item $target -Recurse -ErrorAction Ignore
     [void](New-Item -ItemType directory -Path $target)
@@ -17,14 +23,26 @@ function installPackage($version, $target) {
     $temp = "$PSScriptRoot\packages"
     Remove-Item $temp -Recurse -ErrorAction Ignore
     [void](New-Item -ItemType directory -Path $temp)
+	
+	if (!(Test-Path $nugetPath)) 
+	{
+		Write-Host "Downloading latest NuGet Package manager."
+		Invoke-WebRequest -Uri $nugetDownloadLink -OutFile $nugetPath
+	}
 
-    if (!(Test-Path "nuget.config")) {
-        Write-Error "The file nuget.config is missing. Copy nuget.config.template and replace USERNAME and TOKEN."
-        Exit 1
+	if (!(Test-Path "nuget.config")) 
+	{
+		$username = Read-Host "Enter your GitHub username"
+		$token = Read-Host "Enter your package read token"
+
+		$process = Start-Process -FilePath $createNugetConfigScript -ArgumentList "$username $token" -PassThru -NoNewWindow
+		$process.WaitForExit()
     }
-
+	
     Write-Host "Installing Magick.Native.$version.nupkg"
-    ..\..\tools\windows\nuget.exe install Magick.Native -Version $version -OutputDirectory "$target"
+
+	$process = Start-Process -FilePath $nugetPath -ArgumentList "install Magick.Native -Version $version -OutputDirectory $target" -PassThru -NoNewWindow
+    $process.WaitForExit();
 
     Remove-Item $temp -Recurse -ErrorAction Ignore
 }
