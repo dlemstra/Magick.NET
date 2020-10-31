@@ -23,10 +23,8 @@ following steps need to be done:
 - Now click on **Generate new token** on the top right.
 - Write the name of the token under **Note** and then select **read:packages** option, finally click **Generate token**.
 - Copy and store the token safely as it won't be shown again!
-- Download the latest stable [nuget.exe](https://www.nuget.org/downloads) and place it into the *tools\windows* folder.
 - Open a command prompt and navigate to the *src\Magick.Native* folder.
-- Type in `create-nuget-config.cmd <GitHub_Username> <GitHub_Token>` which will create *nuget.config* file.
-- Now type in `install.cmd` which will download the native libraries and copy it into the projects the need it.
+- Type in `install.cmd` there will be two prompts, one for the username and other for the previously obtained read token.
 
 ### Building the project
 
