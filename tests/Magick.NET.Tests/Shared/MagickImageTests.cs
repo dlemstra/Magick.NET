@@ -1756,7 +1756,7 @@ namespace Magick.NET.Tests
             {
                 var names = image.ProfileNames;
                 Assert.NotNull(names);
-                Assert.Equal("8bim,exif,icc,iptc,xmp", string.Join(",", names));
+                Assert.Equal("8bim,app14,exif,icc,iptc,xmp", string.Join(",", names));
             }
 
             using (var image = new MagickImage(Files.RedPNG))
