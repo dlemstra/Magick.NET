@@ -30,11 +30,10 @@ namespace Magick.NET.Tests
             _tempDirectory.Create();
         }
 
-        public string FullName => _tempDirectory.FullName;
+        public string FullName
+            => _tempDirectory.FullName;
 
         public void Dispose()
-        {
-            Cleanup.DeleteDirectory(_tempDirectory);
-        }
+            => Cleanup.DeleteDirectory(_tempDirectory);
     }
 }
