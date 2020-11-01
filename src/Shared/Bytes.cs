@@ -104,6 +104,17 @@ namespace ImageMagick
             if (!IsSupportedLength(memStream.Length))
                 return false;
 
+#if NETSTANDARD
+            if (!memStream.TryGetBuffer(out var buffer))
+                return false;
+
+            if (buffer.Offset == 0)
+            {
+                _data = buffer.Array;
+                Length = (int)memStream.Length;
+                return true;
+            }
+#else
             try
             {
                 _data = memStream.GetBuffer();
@@ -113,6 +124,7 @@ namespace ImageMagick
             catch (UnauthorizedAccessException)
             {
             }
+#endif
 
             return false;
         }

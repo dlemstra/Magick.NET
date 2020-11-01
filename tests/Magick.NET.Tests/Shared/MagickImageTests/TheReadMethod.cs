@@ -1049,6 +1049,40 @@ namespace Magick.NET.Tests
                         }
                     }
                 }
+
+                [Fact]
+                public void ShouldReadImageFromMemoryStreamWhereBufferIsNotPubliclyVisible()
+                {
+                    var data = File.ReadAllBytes(Files.CirclePNG);
+                    var testBuffer = new byte[data.Length + 10];
+                    data.CopyTo(testBuffer, index: 10);
+
+                    using (var stream = new MemoryStream(testBuffer, index: 10, count: testBuffer.Length - 10))
+                    {
+                        using (var image = new MagickImage())
+                        {
+                            image.Read(stream);
+                        }
+                    }
+                }
+
+#if NETCOREAPP
+                [Fact]
+                public void ShouldReadImageFromMemoryStreamWhereBufferIsPubliclyVisible()
+                {
+                    var data = File.ReadAllBytes(Files.CirclePNG);
+                    var testBuffer = new byte[data.Length + 10];
+                    data.CopyTo(testBuffer, index: 10);
+
+                    using (var stream = new MemoryStream(testBuffer, index: 10, count: testBuffer.Length - 10, false, true))
+                    {
+                        using (var image = new MagickImage())
+                        {
+                            image.Read(stream);
+                        }
+                    }
+                }
+#endif
             }
 
             public class WithStreamAndMagickFormat
