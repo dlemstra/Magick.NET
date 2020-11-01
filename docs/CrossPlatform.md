@@ -9,30 +9,10 @@ on a Linux or macOS machine can be done to create a custom build of the native l
 ## Adding support for other formats
 
 Magick.NET uses a statically linked build of ImageMagick to allow for an extremely portable Linux binary. This means for most use cases, it will "just work" on
-standard glibc-based Linux distributions like Ubuntu or CentOS. Unfortunately, it also means some libraries and formats are left unsupported where an incompatible
-license or other issue prevents it.
+standard Linux distributions like Ubuntu or CentOS. Unfortunately, it also means some libraries and formats are left unsupported where an incompatible license
+or other issue prevents it.
 
 To create a custom build of the native library Magick.NET the `Build.Linux.sh` or the `Build.macOS.sh` file will need to be tweaked.
-
-## Extra requirements
-
-By default, Magick.NET has support built in for JPEG, TIFF, PNG, and WebP file formats. Lossless compression support includes zlib, lzma, and bzip2. There
-are no external dependencies beyond basic system libraries and glibc6/libm, which should be present by default on most Linux distros. 
-
-Distributions based on musl libc such as Alpine will not have a glibc available, and will not work with Magick.NET out of the box. If you receive a
-`DllNotFoundException` similar to the exception below it is likely due to glibc not being available:
-
-```
-DllNotFoundException: Unable to load shared library 'Magick.Native-Q8-x64.dll' or one of its dependencies.
-In order to help diagnose loading problems, consider setting the LD_DEBUG environment variable: 
-Error loading shared library libMagick.Native-Q8-x64.dll: No such file or directory
-ImageMagick.Environment+NativeMethods+X64.Environment_Initialize()
-ImageMagick.Environment+NativeEnvironment.Initialize()
-ImageMagick.Environment.Initialize()
-ImageMagick.MagickSettings+NativeMagickSettings..cctor()
-```
-
-Compatibility layers for glibc on musl-libc systems exist, but have not been tested successfully with Magick.NET.
 
 ### .NET Core
 
