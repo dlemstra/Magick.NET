@@ -12,6 +12,9 @@
 
 using System;
 using System.IO;
+#if NETSTANDARD
+using System.Threading.Tasks;
+#endif
 
 namespace ImageMagick
 {
@@ -241,6 +244,25 @@ namespace ImageMagick
         /// <param name="format">The format to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Read(string fileName, MagickFormat format);
+
+#if NETSTANDARD
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
+        /// <param name="stream">The stream to read the image data from.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task ReadAsync(Stream stream);
+
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
+        /// <param name="stream">The stream to read the image data from.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task ReadAsync(Stream stream, MagickFormat format);
+#endif
 
         /// <summary>
         /// Resets the page property of every image in the collection.
