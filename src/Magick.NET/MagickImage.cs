@@ -6703,7 +6703,7 @@ namespace ImageMagick
                 if (stream.CanRead)
                     reader = new ReadWriteStreamDelegate(wrapper.Read);
 
-                _nativeInstance.WriteStream(Settings, writer, seeker, teller, reader);
+                _nativeInstance.WriteStream(_settings, writer, seeker, teller, reader);
             }
         }
 
@@ -6746,7 +6746,7 @@ namespace ImageMagick
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             _nativeInstance.FileName = filePath;
-            _nativeInstance.WriteFile(Settings);
+            _nativeInstance.WriteFile(_settings);
         }
 
         /// <summary>
@@ -6772,6 +6772,51 @@ namespace ImageMagick
             _settings.Format = format;
             Write(fileName);
         }
+
+#if NETSTANDARD
+        /// <summary>
+        /// Writes the image to the specified stream.
+        /// </summary>
+        /// <param name="stream">The stream to write the image data to.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public Task WriteAsync(Stream stream)
+        {
+            Throw.IfNull(nameof(stream), stream);
+
+            var bytes = ToByteArray();
+            return stream.WriteAsync(bytes, 0, bytes.Length);
+        }
+
+        /// <summary>
+        /// Writes the image to the specified stream.
+        /// </summary>
+        /// <param name="stream">The stream to write the image data to.</param>
+        /// <param name="defines">The defines to set.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public Task WriteAsync(Stream stream, IWriteDefines defines)
+        {
+            _settings.SetDefines(defines);
+            _settings.Format = defines.Format;
+            return WriteAsync(stream);
+        }
+
+        /// <summary>
+        /// Writes the image to the specified stream.
+        /// </summary>
+        /// <param name="stream">The stream to write the image data to.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task WriteAsync(Stream stream, MagickFormat format)
+        {
+            var currentFormat = Format;
+            _settings.Format = format;
+            await WriteAsync(stream).ConfigureAwait(false);
+            Format = currentFormat;
+        }
+#endif
 
         internal static IMagickImage<QuantumType> Clone(IMagickImage<QuantumType> image)
             => image?.Clone();
