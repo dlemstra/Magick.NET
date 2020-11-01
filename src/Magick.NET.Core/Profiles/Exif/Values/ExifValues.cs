@@ -14,9 +14,11 @@ namespace ImageMagick
 {
     internal static partial class ExifValues
     {
-        public static ExifValue Create(ExifTagValue tag) => (ExifValue)CreateValue(tag);
+        public static ExifValue Create(ExifTagValue tag)
+            => (ExifValue)CreateValue(tag);
 
-        public static ExifValue Create(ExifTag tag) => (ExifValue)CreateValue((ExifTagValue)(ushort)tag);
+        public static ExifValue Create(ExifTag tag)
+            => (ExifValue)CreateValue((ExifTagValue)(ushort)tag);
 
         public static ExifValue Create(ExifTagValue tag, ExifDataType dataType, uint numberOfComponents)
         {
