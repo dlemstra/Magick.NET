@@ -2935,9 +2935,9 @@ namespace ImageMagick
         /// Sets a named image attribute.
         /// </summary>
         /// <param name="name">The name of the attribute.</param>
-        /// <param name="value">The value of the attribute.</param>
+        /// <param name="flag">The value of the attribute.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void SetAttribute(string name, bool value);
+        void SetAttribute(string name, bool flag);
 
         /// <summary>
         /// Sets the default clipping path.
