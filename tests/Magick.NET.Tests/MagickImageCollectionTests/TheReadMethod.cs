@@ -29,10 +29,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentNullException>("data", () =>
-                        {
-                            images.Read((byte[])null);
-                        });
+                        Assert.Throws<ArgumentNullException>("data", () => images.Read((byte[])null));
                     }
                 }
 
@@ -41,10 +38,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("data", () =>
-                        {
-                            images.Read(new byte[0]);
-                        });
+                        Assert.Throws<ArgumentException>("data", () => images.Read(new byte[0]));
                     }
                 }
 
@@ -74,10 +68,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentNullException>("data", () =>
-                        {
-                            images.Read((byte[])null, 0, 0);
-                        });
+                        Assert.Throws<ArgumentNullException>("data", () => images.Read(null, 0, 0));
                     }
                 }
 
@@ -86,10 +77,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("data", () =>
-                        {
-                            images.Read(new byte[] { }, 0, 0);
-                        });
+                        Assert.Throws<ArgumentException>("data", () => images.Read(new byte[] { }, 0, 0));
                     }
                 }
 
@@ -98,10 +86,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("offset", () =>
-                        {
-                            images.Read(new byte[] { 215 }, -1, 0);
-                        });
+                        Assert.Throws<ArgumentException>("offset", () => images.Read(new byte[] { 215 }, -1, 0));
                     }
                 }
 
@@ -110,10 +95,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("count", () =>
-                        {
-                            images.Read(new byte[] { 215 }, 0, 0);
-                        });
+                        Assert.Throws<ArgumentException>("count", () => images.Read(new byte[] { 215 }, 0, 0));
                     }
                 }
 
@@ -122,10 +104,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("count", () =>
-                        {
-                            images.Read(new byte[] { 215 }, 0, -1);
-                        });
+                        Assert.Throws<ArgumentException>("count", () => images.Read(new byte[] { 215 }, 0, -1));
                     }
                 }
 
@@ -151,10 +130,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentNullException>("data", () =>
-                        {
-                            images.Read(null, 0, 0, MagickFormat.Png);
-                        });
+                        Assert.Throws<ArgumentNullException>("data", () => images.Read(null, 0, 0, MagickFormat.Png));
                     }
                 }
 
@@ -163,10 +139,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("data", () =>
-                        {
-                            images.Read(new byte[] { }, 0, 0, MagickFormat.Png);
-                        });
+                        Assert.Throws<ArgumentException>("data", () => images.Read(new byte[] { }, 0, 0, MagickFormat.Png));
                     }
                 }
 
@@ -175,10 +148,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("offset", () =>
-                        {
-                            images.Read(new byte[] { 215 }, -1, 0, MagickFormat.Png);
-                        });
+                        Assert.Throws<ArgumentException>("offset", () => images.Read(new byte[] { 215 }, -1, 0, MagickFormat.Png));
                     }
                 }
 
@@ -187,10 +157,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("count", () =>
-                        {
-                            images.Read(new byte[] { 215 }, 0, 0, MagickFormat.Png);
-                        });
+                        Assert.Throws<ArgumentException>("count", () => images.Read(new byte[] { 215 }, 0, 0, MagickFormat.Png));
                     }
                 }
 
@@ -199,10 +166,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("count", () =>
-                        {
-                            images.Read(new byte[] { 215 }, 0, -1, MagickFormat.Png);
-                        });
+                        Assert.Throws<ArgumentException>("count", () => images.Read(new byte[] { 215 }, 0, -1, MagickFormat.Png));
                     }
                 }
 
@@ -230,10 +194,7 @@ namespace Magick.NET.Tests
 
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentNullException>("data", () =>
-                        {
-                            images.Read(null, 0, 0, settings);
-                        });
+                        Assert.Throws<ArgumentNullException>("data", () => images.Read(null, 0, 0, settings));
                     }
                 }
 
@@ -244,10 +205,7 @@ namespace Magick.NET.Tests
 
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("data", () =>
-                        {
-                            images.Read(new byte[] { }, 0, 0, settings);
-                        });
+                        Assert.Throws<ArgumentException>("data", () => images.Read(new byte[] { }, 0, 0, settings));
                     }
                 }
 
@@ -258,10 +216,7 @@ namespace Magick.NET.Tests
 
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("offset", () =>
-                        {
-                            images.Read(new byte[] { 215 }, -1, 0, settings);
-                        });
+                        Assert.Throws<ArgumentException>("offset", () => images.Read(new byte[] { 215 }, -1, 0, settings));
                     }
                 }
 
@@ -272,10 +227,7 @@ namespace Magick.NET.Tests
 
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("count", () =>
-                        {
-                            images.Read(new byte[] { 215 }, 0, 0, settings);
-                        });
+                        Assert.Throws<ArgumentException>("count", () => images.Read(new byte[] { 215 }, 0, 0, settings));
                     }
                 }
 
@@ -286,10 +238,7 @@ namespace Magick.NET.Tests
 
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("count", () =>
-                        {
-                            images.Read(new byte[] { 215 }, 0, -1, settings);
-                        });
+                        Assert.Throws<ArgumentException>("count", () => images.Read(new byte[] { 215 }, 0, -1, settings));
                     }
                 }
 
@@ -328,10 +277,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentNullException>("data", () =>
-                        {
-                            images.Read((byte[])null, MagickFormat.Png);
-                        });
+                        Assert.Throws<ArgumentNullException>("data", () => images.Read((byte[])null, MagickFormat.Png));
                     }
                 }
 
@@ -340,10 +286,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("data", () =>
-                        {
-                            images.Read(new byte[] { }, MagickFormat.Png);
-                        });
+                        Assert.Throws<ArgumentException>("data", () => images.Read(new byte[] { }, MagickFormat.Png));
                     }
                 }
 
@@ -354,10 +297,7 @@ namespace Magick.NET.Tests
 
                     using (var images = new MagickImageCollection())
                     {
-                        var exception = Assert.Throws<MagickCorruptImageErrorException>(() =>
-                        {
-                            images.Read(bytes, MagickFormat.Png);
-                        });
+                        var exception = Assert.Throws<MagickCorruptImageErrorException>(() => images.Read(bytes, MagickFormat.Png));
 
                         Assert.Contains("ReadPNGImage", exception.Message);
                     }
@@ -373,10 +313,7 @@ namespace Magick.NET.Tests
                     {
                         var settings = new MagickReadSettings();
 
-                        Assert.Throws<ArgumentNullException>("data", () =>
-                        {
-                            images.Read((byte[])null, settings);
-                        });
+                        Assert.Throws<ArgumentNullException>("data", () => images.Read((byte[])null, settings));
                     }
                 }
 
@@ -387,10 +324,7 @@ namespace Magick.NET.Tests
                     {
                         var settings = new MagickReadSettings();
 
-                        Assert.Throws<ArgumentException>("data", () =>
-                        {
-                            images.Read(new byte[] { }, settings);
-                        });
+                        Assert.Throws<ArgumentException>("data", () => images.Read(new byte[] { }, settings));
                     }
                 }
 
@@ -405,10 +339,7 @@ namespace Magick.NET.Tests
 
                     using (var images = new MagickImageCollection())
                     {
-                        var exception = Assert.Throws<MagickCorruptImageErrorException>(() =>
-                        {
-                            images.Read(bytes, settings);
-                        });
+                        var exception = Assert.Throws<MagickCorruptImageErrorException>(() => images.Read(bytes, settings));
 
                         Assert.Contains("ReadPNGImage", exception.Message);
                     }
@@ -435,10 +366,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentNullException>("file", () =>
-                        {
-                            images.Read((FileInfo)null);
-                        });
+                        Assert.Throws<ArgumentNullException>("file", () => images.Read((FileInfo)null));
                     }
                 }
 
@@ -449,10 +377,7 @@ namespace Magick.NET.Tests
                     {
                         using (var images = new MagickImageCollection())
                         {
-                            Assert.Throws<ArgumentNullException>("file", () =>
-                            {
-                                images.Read((FileInfo)null, MagickFormat.Png);
-                            });
+                            Assert.Throws<ArgumentNullException>("file", () => images.Read((FileInfo)null, MagickFormat.Png));
                         }
                     }
 
@@ -480,10 +405,7 @@ namespace Magick.NET.Tests
                     {
                         var settings = new MagickReadSettings();
 
-                        Assert.Throws<ArgumentNullException>("file", () =>
-                        {
-                            images.Read((FileInfo)null, settings);
-                        });
+                        Assert.Throws<ArgumentNullException>("file", () => images.Read((FileInfo)null, settings));
                     }
                 }
 
@@ -508,10 +430,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentNullException>("fileName", () =>
-                        {
-                            images.Read((string)null);
-                        });
+                        Assert.Throws<ArgumentNullException>("fileName", () => images.Read((string)null));
                     }
                 }
 
@@ -520,10 +439,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("fileName", () =>
-                        {
-                            images.Read(string.Empty);
-                        });
+                        Assert.Throws<ArgumentException>("fileName", () => images.Read(string.Empty));
                     }
                 }
 
@@ -532,10 +448,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        var exception = Assert.Throws<MagickBlobErrorException>(() =>
-                        {
-                            images.Read(Files.Missing);
-                        });
+                        var exception = Assert.Throws<MagickBlobErrorException>(() => images.Read(Files.Missing));
 
                         Assert.Contains("error/blob.c/OpenBlob", exception.Message);
                     }
@@ -565,10 +478,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentNullException>("fileName", () =>
-                        {
-                            images.Read((string)null, MagickFormat.Png);
-                        });
+                        Assert.Throws<ArgumentNullException>("fileName", () => images.Read((string)null, MagickFormat.Png));
                     }
                 }
 
@@ -577,10 +487,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("fileName", () =>
-                        {
-                            images.Read(string.Empty, MagickFormat.Png);
-                        });
+                        Assert.Throws<ArgumentException>("fileName", () => images.Read(string.Empty, MagickFormat.Png));
                     }
                 }
             }
@@ -594,10 +501,7 @@ namespace Magick.NET.Tests
 
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentNullException>("fileName", () =>
-                        {
-                            images.Read((string)null, settings);
-                        });
+                        Assert.Throws<ArgumentNullException>("fileName", () => images.Read((string)null, settings));
                     }
                 }
 
@@ -608,10 +512,7 @@ namespace Magick.NET.Tests
 
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("fileName", () =>
-                        {
-                            images.Read(string.Empty, settings);
-                        });
+                        Assert.Throws<ArgumentException>("fileName", () => images.Read(string.Empty, settings));
                     }
                 }
 
@@ -634,10 +535,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentNullException>("stream", () =>
-                        {
-                            images.Read((Stream)null);
-                        });
+                        Assert.Throws<ArgumentNullException>("stream", () => images.Read((Stream)null));
                     }
                 }
 
@@ -668,10 +566,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentNullException>("stream", () =>
-                        {
-                            images.Read((Stream)null, MagickFormat.Png);
-                        });
+                        Assert.Throws<ArgumentNullException>("stream", () => images.Read((Stream)null, MagickFormat.Png));
                     }
                 }
 
@@ -680,10 +575,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("stream", () =>
-                        {
-                            images.Read(new MemoryStream(), MagickFormat.Png);
-                        });
+                        Assert.Throws<ArgumentException>("stream", () => images.Read(new MemoryStream(), MagickFormat.Png));
                     }
                 }
 
@@ -696,10 +588,7 @@ namespace Magick.NET.Tests
                     {
                         using (var images = new MagickImageCollection())
                         {
-                            var exception = Assert.Throws<MagickCorruptImageErrorException>(() =>
-                            {
-                                images.Read(stream, MagickFormat.Png);
-                            });
+                            var exception = Assert.Throws<MagickCorruptImageErrorException>(() => images.Read(stream, MagickFormat.Png));
 
                             Assert.Contains("ReadPNGImage", exception.Message);
                         }
@@ -716,10 +605,7 @@ namespace Magick.NET.Tests
 
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentNullException>("stream", () =>
-                        {
-                            images.Read((Stream)null, settings);
-                        });
+                        Assert.Throws<ArgumentNullException>("stream", () => images.Read((Stream)null, settings));
                     }
                 }
 
@@ -730,10 +616,7 @@ namespace Magick.NET.Tests
 
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("stream", () =>
-                        {
-                            images.Read(new MemoryStream(), settings);
-                        });
+                        Assert.Throws<ArgumentException>("stream", () => images.Read(new MemoryStream(), settings));
                     }
                 }
 
@@ -760,14 +643,11 @@ namespace Magick.NET.Tests
                         Format = MagickFormat.Png,
                     };
 
-                    using (MemoryStream stream = new MemoryStream(bytes))
+                    using (var stream = new MemoryStream(bytes))
                     {
                         using (var images = new MagickImageCollection())
                         {
-                            var exception = Assert.Throws<MagickCorruptImageErrorException>(() =>
-                            {
-                                images.Read(stream, settings);
-                            });
+                            var exception = Assert.Throws<MagickCorruptImageErrorException>(() => images.Read(stream, settings));
 
                             Assert.Contains("ReadPNGImage", exception.Message);
                         }
