@@ -394,5 +394,35 @@ namespace ImageMagick
         /// <param name="format">The format to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Write(string fileName, MagickFormat format);
+
+#if NETSTANDARD
+        /// <summary>
+        /// Writes the imagse to the specified stream. If the output image's file format does not
+        /// allow multi-image files multiple files will be written.
+        /// </summary>
+        /// <param name="stream">The stream to write the images to.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task WriteAsync(Stream stream);
+
+        /// <summary>
+        /// Writes the imagse to the specified stream. If the output image's file format does not
+        /// allow multi-image files multiple files will be written.
+        /// </summary>
+        /// <param name="stream">The stream to write the images to.</param>
+        /// <param name="defines">The defines to set.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task WriteAsync(Stream stream, IWriteDefines defines);
+
+        /// <summary>
+        /// Writes the image to the specified stream.
+        /// </summary>
+        /// <param name="stream">The stream to write the image data to.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task WriteAsync(Stream stream, MagickFormat format);
+#endif
     }
 }
