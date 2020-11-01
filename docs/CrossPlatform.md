@@ -14,6 +14,11 @@ or other issue prevents it.
 
 To create a custom build of the native library Magick.NET the `Build.Linux.sh` or the `Build.macOS.sh` file will need to be tweaked.
 
+## Fonts
+
+On Linux and macOS the `fontconfig` library is used to read fonts. This needs to be installed on the system or container that is running Magick.NET. It might also be
+required to run `fc-cache` to update the font cache.
+
 ### .NET Core
 
 Running Magick.NET with .NET Core on Linux requires adding the library as a package reference to the project:
