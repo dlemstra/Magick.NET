@@ -137,10 +137,7 @@ namespace Magick.NET.Tests
                     {
                         using (var memoryStream = new MemoryStream())
                         {
-                            Assert.Throws<MagickMissingDelegateErrorException>(() =>
-                            {
-                                input.Write(memoryStream, MagickFormat.Xc);
-                            });
+                            Assert.Throws<MagickMissingDelegateErrorException>(() => input.Write(memoryStream, MagickFormat.Xc));
                         }
                     }
                 }
