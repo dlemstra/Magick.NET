@@ -1638,23 +1638,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_OrderedDither()
-        {
-            // Make sure we read from the initial directory
-            var path = Path.Combine(Path.GetTempPath(), "Magick.NET.Tests");
-            MagickNET.Initialize(path);
-
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.OrderedDither("h4x4a");
-
-                ColorAssert.Equal(MagickColors.Yellow, image, 299, 212);
-                ColorAssert.Equal(MagickColors.Red, image, 314, 228);
-                ColorAssert.Equal(MagickColors.Black, image, 448, 159);
-            }
-        }
-
-        [Fact]
         public void Test_Opaque()
         {
             using (var image = new MagickImage(MagickColors.Red, 10, 10))
