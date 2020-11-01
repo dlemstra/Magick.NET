@@ -28,10 +28,7 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage())
                     {
-                        Assert.Throws<ArgumentNullException>("file", () =>
-                        {
-                            image.Write((FileInfo)null);
-                        });
+                        Assert.Throws<ArgumentNullException>("file", () => image.Write((FileInfo)null));
                     }
                 }
 
@@ -65,10 +62,7 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage())
                     {
-                        Assert.Throws<ArgumentNullException>("file", () =>
-                        {
-                            image.Write((FileInfo)null, MagickFormat.Bmp);
-                        });
+                        Assert.Throws<ArgumentNullException>("file", () => image.Write((FileInfo)null, MagickFormat.Bmp));
                     }
                 }
 
@@ -98,10 +92,7 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage())
                     {
-                        Assert.Throws<ArgumentNullException>("stream", () =>
-                        {
-                            image.Write((Stream)null);
-                        });
+                        Assert.Throws<ArgumentNullException>("stream", () => image.Write((Stream)null));
                     }
                 }
             }
@@ -113,10 +104,7 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage())
                     {
-                        Assert.Throws<ArgumentNullException>("stream", () =>
-                        {
-                            image.Write((Stream)null, MagickFormat.Bmp);
-                        });
+                        Assert.Throws<ArgumentNullException>("stream", () => image.Write((Stream)null, MagickFormat.Bmp));
                     }
                 }
 
@@ -150,10 +138,7 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage())
                     {
-                        Assert.Throws<ArgumentNullException>("fileName", () =>
-                        {
-                            image.Write((string)null);
-                        });
+                        Assert.Throws<ArgumentNullException>("fileName", () => image.Write((string)null));
                     }
                 }
 
@@ -197,10 +182,7 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage())
                     {
-                        Assert.Throws<ArgumentNullException>("fileName", () =>
-                        {
-                            image.Write((string)null, MagickFormat.Bmp);
-                        });
+                        Assert.Throws<ArgumentNullException>("fileName", () => image.Write((string)null, MagickFormat.Bmp));
                     }
                 }
 
