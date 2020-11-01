@@ -235,7 +235,7 @@ namespace Magick.NET.Tests
                     {
                         using (var diff = new MagickImage())
                         {
-                            image.ColorFuzz = new Percentage(75);
+                            image.ColorFuzz = new Percentage(81);
                             double result = image.Compare(other, ErrorMetric.Absolute, diff);
 
                             Assert.Equal(0, result);
