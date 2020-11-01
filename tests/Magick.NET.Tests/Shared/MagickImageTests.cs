@@ -2305,35 +2305,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_Stegano()
-        {
-            using (var message = new MagickImage("label:Magick.NET is the best!", 200, 20))
-            {
-                using (var image = new MagickImage(Files.Builtin.Wizard))
-                {
-                    image.Stegano(message);
-
-                    using (var temporaryFile = new TemporaryFile(".png"))
-                    {
-                        image.Write(temporaryFile);
-
-                        var settings = new MagickReadSettings
-                        {
-                            Format = MagickFormat.Stegano,
-                            Width = 200,
-                            Height = 20,
-                        };
-
-                        using (var hiddenMessage = new MagickImage(temporaryFile.FullName, settings))
-                        {
-                            Assert.InRange(message.Compare(hiddenMessage, ErrorMetric.RootMeanSquared), 0, 0.001);
-                        }
-                    }
-                }
-            }
-        }
-
-        [Fact]
         public void Test_Stereo()
         {
             using (var image = new MagickImage(Files.Builtin.Logo))
