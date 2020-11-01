@@ -16,6 +16,9 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
+#if NETSTANDARD
+using System.Threading.Tasks;
+#endif
 
 #if Q8
 using QuantumType = System.Byte;
@@ -4988,6 +4991,47 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Read(string fileName, IMagickReadSettings<QuantumType> readSettings)
             => Read(fileName, readSettings, false);
+
+#if NETSTANDARD
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="stream">The stream to read the image data from.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public Task ReadAsync(Stream stream)
+            => ReadAsync(stream, null);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="stream">The stream to read the image data from.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public Task ReadAsync(Stream stream, MagickFormat format)
+            => ReadAsync(stream, new MagickReadSettings { Format = format });
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="stream">The stream to read the image data from.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task ReadAsync(Stream stream, IMagickReadSettings<QuantumType> readSettings)
+        {
+            Throw.IfNull(nameof(stream), stream);
+
+            using (var memStream = new MemoryStream())
+            {
+                await stream.CopyToAsync(memStream).ConfigureAwait(false);
+
+                memStream.Position = 0;
+                Read(memStream, readSettings, false);
+            }
+        }
+#endif
 
         /// <summary>
         /// Read single image frame from pixel data.

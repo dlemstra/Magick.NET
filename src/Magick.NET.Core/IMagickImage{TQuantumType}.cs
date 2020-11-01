@@ -13,6 +13,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+#if NETSTANDARD
+using System.Threading.Tasks;
+#endif
 
 namespace ImageMagick
 {
@@ -723,6 +726,17 @@ namespace ImageMagick
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Read(string fileName, IMagickReadSettings<TQuantumType> readSettings);
+
+#if NETSTANDARD
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="stream">The stream to read the image data from.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task ReadAsync(Stream stream, IMagickReadSettings<TQuantumType> readSettings);
+#endif
 
         /// <summary>
         /// Read single image frame.
