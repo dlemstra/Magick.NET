@@ -14,7 +14,7 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests.Shared
+namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
