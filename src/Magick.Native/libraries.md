@@ -1,5 +1,5 @@
 # Libraries
-Magick.Native [6aac6bf28f4bf9bb13086908322571284de43208](https://github.com/dlemstra/Magick.Native/commit/6aac6bf28f4bf9bb13086908322571284de43208) is build with the following libraries:
+Magick.Native [c5ed1ab47a32f407e0e4d155873b146165fde26e](https://github.com/dlemstra/Magick.Native/commit/c5ed1ab47a32f407e0e4d155873b146165fde26e) is build with the following libraries:
 
 - aom 2.0.0 (18 May 2020)
 - bzlib 1.0.6 (6 September 2010)
@@ -12,7 +12,7 @@ Magick.Native [6aac6bf28f4bf9bb13086908322571284de43208](https://github.com/dlem
 - fribidi 1.0.9 (29 February 2020)
 - glib 2.64.3 (20 May 2020)
 - harfbuzz 2.6.8 (22 June 2020)
-- ImageMagick 7.0.10-32
+- ImageMagick 7.0.10-35
 - jp2 2.0.16 (12 March 2019)
 - jpeg 2.0.5 (24 June 2020)
 - lcms 2.11 (16 June 2020)
