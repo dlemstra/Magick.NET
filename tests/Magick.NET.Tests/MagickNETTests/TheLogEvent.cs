@@ -23,13 +23,16 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldPassOrderedTests()
             {
-                ShouldNotCallLogDelegeteWhenLogEventsAreNotSet();
+                TestHelper.ExecuteInsideLock(() =>
+                {
+                    ShouldNotCallLogDelegeteWhenLogEventsAreNotSet();
 
-                ShouldCallLogDelegateWhenLogEventsAreSet();
+                    ShouldCallLogDelegateWhenLogEventsAreSet();
 
-                ShouldLogTraceEventsWhenLogEventsIsSetToAll();
+                    ShouldLogTraceEventsWhenLogEventsIsSetToAll();
 
-                ShouldStopCallingLogDelegateWhenLogDelegateIsRemoved();
+                    ShouldStopCallingLogDelegateWhenLogDelegateIsRemoved();
+                });
             }
 
             private void ShouldNotCallLogDelegeteWhenLogEventsAreNotSet()
