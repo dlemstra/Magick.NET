@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldThrowExceptionWhenWatermarkIsNull()
             {
-                using (var image = new MagickImage(Files.Builtin.Wizard))
+                using (var image = new MagickImage())
                 {
                     Assert.Throws<ArgumentNullException>("watermark", () => image.Stegano(null));
                 }
