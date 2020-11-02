@@ -38,7 +38,7 @@ namespace ImageMagick
 
         private static string CreateCacheDirectory()
         {
-            AssemblyFileVersionAttribute version = (AssemblyFileVersionAttribute)Assembly.GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false)[0];
+            var version = (AssemblyFileVersionAttribute)Assembly.GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false)[0];
 
 #if NET20
             var path = Path.Combine(MagickAnyCPU.CacheDirectory, "Magick.NET.net20." + version.Version);
