@@ -238,6 +238,13 @@ namespace ImageMagick
             => NativeMagickNET.SetRandomSeed(-1);
 
         /// <summary>
+        /// Sets the directory that contains the FontConfig configuration files.
+        /// </summary>
+        /// <param name="path">The path of the FontConfig directory.</param>
+        public static void SetFontConfigDirectory(string path)
+            => Environment.SetEnv("FONTCONFIG_PATH", FileHelper.GetFullPath(path));
+
+        /// <summary>
         /// Sets the directory that contains the Ghostscript file gsdll32.dll / gsdll64.dll.
         /// </summary>
         /// <param name="path">The path of the Ghostscript directory.</param>
