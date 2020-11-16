@@ -11,6 +11,7 @@
 // and limitations under the License.
 
 using System;
+using System.IO;
 using ImageMagick;
 using Xunit;
 
@@ -36,6 +37,12 @@ namespace Magick.NET.Tests
                 {
                     MagickNET.SetTempDirectory("Invalid");
                 });
+            }
+
+            [Fact]
+            public void ShouldNotThrowExceptionWhenPathIsCorrect()
+            {
+                MagickNET.SetTempDirectory(Path.GetTempPath());
             }
         }
     }
