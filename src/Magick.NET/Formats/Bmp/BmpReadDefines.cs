@@ -18,7 +18,7 @@ namespace ImageMagick.Formats.Bmp
     /// <summary>
     /// Class for defines that are used when a <see cref="MagickFormat.Bmp"/> image is read.
     /// </summary>
-    public sealed class BmpReadDefines : WriteDefinesCreator
+    public sealed class BmpReadDefines : ReadDefinesCreator
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BmpReadDefines"/> class.
