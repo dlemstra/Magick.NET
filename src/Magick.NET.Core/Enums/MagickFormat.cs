@@ -438,6 +438,11 @@ namespace ImageMagick
         Heic,
 
         /// <summary>
+        /// High Efficiency Image Format.
+        /// </summary>
+        Heif,
+
+        /// <summary>
         /// Histogram of the image.
         /// </summary>
         Histogram,
