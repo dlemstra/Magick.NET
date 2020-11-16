@@ -21,18 +21,18 @@ cd ..\..\src\Magick.Native\bin\Debug%quantumName%\%platformName%
 
 copy /y Magick.Native-%quantumName%-%platformName%.dll ..\..\..\..\..\..\Magick.NET\tests\Magick.NET.Tests\bin\%config%%quantumName%\%platformName%\net452
 copy /y Magick.Native-%quantumName%-%platformName%.pdb ..\..\..\..\..\..\Magick.NET\tests\Magick.NET.Tests\bin\%config%%quantumName%\%platformName%\net452
-copy /y Magick.Native-%quantumName%-%platformName%.dll ..\..\..\..\..\..\Magick.NET\tests\Magick.NET.Tests\bin\%config%%quantumName%\%platformName%\netcoreapp3.0
-copy /y Magick.Native-%quantumName%-%platformName%.pdb ..\..\..\..\..\..\Magick.NET\tests\Magick.NET.Tests\bin\%config%%quantumName%\%platformName%\netcoreapp3.0
+copy /y Magick.Native-%quantumName%-%platformName%.dll ..\..\..\..\..\..\Magick.NET\tests\Magick.NET.Tests\bin\%config%%quantumName%\%platformName%\netcoreapp3.1
+copy /y Magick.Native-%quantumName%-%platformName%.pdb ..\..\..\..\..\..\Magick.NET\tests\Magick.NET.Tests\bin\%config%%quantumName%\%platformName%\netcoreapp3.1
 
 copy /y Magick.Native-%quantumName%-%platformName%.dll ..\..\..\..\..\..\Magick.NET\tests\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%platformName%\net452
 copy /y Magick.Native-%quantumName%-%platformName%.pdb ..\..\..\..\..\..\Magick.NET\tests\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%platformName%\net452
-copy /y Magick.Native-%quantumName%-%platformName%.dll ..\..\..\..\..\..\Magick.NET\tests\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%platformName%\netcoreapp3.0
-copy /y Magick.Native-%quantumName%-%platformName%.pdb ..\..\..\..\..\..\Magick.NET\tests\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%platformName%\netcoreapp3.0
+copy /y Magick.Native-%quantumName%-%platformName%.dll ..\..\..\..\..\..\Magick.NET\tests\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%platformName%\netcoreapp3.1
+copy /y Magick.Native-%quantumName%-%platformName%.pdb ..\..\..\..\..\..\Magick.NET\tests\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%platformName%\netcoreapp3.1
 
 copy /y Magick.Native-%quantumName%-%platformName%.dll ..\..\..\..\..\..\Magick.NET\tests\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%platformName%\net452
 copy /y Magick.Native-%quantumName%-%platformName%.pdb ..\..\..\..\..\..\Magick.NET\tests\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%platformName%\net452
-copy /y Magick.Native-%quantumName%-%platformName%.dll ..\..\..\..\..\..\Magick.NET\tests\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%platformName%\netcoreapp3.0
-copy /y Magick.Native-%quantumName%-%platformName%.pdb ..\..\..\..\..\..\Magick.NET\tests\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%platformName%\netcoreapp3.0
+copy /y Magick.Native-%quantumName%-%platformName%.dll ..\..\..\..\..\..\Magick.NET\tests\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%platformName%\netcoreapp3.1
+copy /y Magick.Native-%quantumName%-%platformName%.pdb ..\..\..\..\..\..\Magick.NET\tests\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%platformName%\netcoreapp3.1
 
 goto done
 

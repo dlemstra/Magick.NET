@@ -19,7 +19,7 @@ copyToTestProject() {
     local runtime=$1
     local quantum=$2
 
-    folder=../../tests/Magick.NET.Tests/bin/Test$quantum/AnyCPU/netcoreapp3.0
+    folder=../../tests/Magick.NET.Tests/bin/Test$quantum/AnyCPU/netcoreapp3.1
     mkdir -p $folder
     cp temp/content/$runtime/Release$quantum/x64/Magick.Native-$quantum-x64.dll* $folder
 
