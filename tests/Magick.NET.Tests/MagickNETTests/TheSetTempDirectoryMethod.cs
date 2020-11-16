@@ -38,15 +38,6 @@ namespace Magick.NET.Tests
                     MagickNET.SetTempDirectory("Invalid");
                 });
             }
-
-            [Fact]
-            public void ShouldNotThrowExceptionWhenPathIsCorrect()
-            {
-                var tempDir = Path.GetTempPath();
-                MagickNET.SetTempDirectory(tempDir);
-
-                Assert.Equal(tempDir, System.Environment.GetEnvironmentVariable("MAGICK_TEMPORARY_PATH"));
-            }
         }
     }
 }
