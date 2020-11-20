@@ -45,9 +45,6 @@ namespace Magick.NET.Tests
         public void Dispose()
             => Cleanup.DeleteFile(_tempFile);
 
-        public FileStream OpenRead()
-            => _tempFile.OpenRead();
-
         public FileStream OpenWrite()
             => _tempFile.OpenWrite();
 
@@ -57,7 +54,7 @@ namespace Magick.NET.Tests
         private void CreateEmptyFile(string fileName)
         {
             _tempFile = new FileInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + fileName));
-            using (FileStream fs = _tempFile.OpenWrite())
+            using (var fileStream = _tempFile.OpenWrite())
             {
             }
         }
