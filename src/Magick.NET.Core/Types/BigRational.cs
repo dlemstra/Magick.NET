@@ -56,9 +56,9 @@ namespace ImageMagick
             Numerator = 1;
             Denominator = 1;
 
-            double val = Math.Abs(value);
-            double df = Numerator / (double)Denominator;
-            double epsilon = bestPrecision ? double.Epsilon : .000001;
+            var val = Math.Abs(value);
+            var df = Numerator / (double)Denominator;
+            var epsilon = bestPrecision ? double.Epsilon : .000001;
 
             while (Math.Abs(df - val) > epsilon)
             {
@@ -94,7 +94,8 @@ namespace ImageMagick
             }
         }
 
-        private bool IsInteger => Denominator == 1;
+        private bool IsInteger
+            => Denominator == 1;
 
         private bool IsNegativeInfinity
         {
@@ -178,7 +179,8 @@ namespace ImageMagick
             return sb.ToString();
         }
 
-        private static long GreatestCommonDivisor(long a, long b) => b == 0 ? a : GreatestCommonDivisor(b, a % b);
+        private static long GreatestCommonDivisor(long a, long b)
+            => b == 0 ? a : GreatestCommonDivisor(b, a % b);
 
         private void Simplify()
         {
@@ -209,7 +211,7 @@ namespace ImageMagick
                 Denominator = 1;
             }
 
-            long gcd = GreatestCommonDivisor(Math.Abs(Numerator), Math.Abs(Denominator));
+            var gcd = GreatestCommonDivisor(Math.Abs(Numerator), Math.Abs(Denominator));
             if (gcd > 1)
             {
                 Numerator /= gcd;

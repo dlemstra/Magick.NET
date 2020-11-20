@@ -119,7 +119,7 @@ namespace ImageMagick
 
         private void Initialize(string value)
         {
-            string[] values = value.Split('x');
+            var values = value.Split('x');
             Throw.IfTrue(nameof(value), values.Length > 2, "Invalid point specified.");
 
             Throw.IfFalse(nameof(value), double.TryParse(values[0], NumberStyles.Number, CultureInfo.InvariantCulture, out double x), "Invalid point specified.");

@@ -188,7 +188,7 @@ namespace ImageMagick
         {
             Throw.IfNullOrEmpty(nameof(value), value);
 
-            string[] values = value.Split(' ');
+            var values = value.Split(' ');
             Throw.IfTrue(nameof(value), values.Length > 2, "Invalid density specified.");
 
             if (values.Length == 2)
@@ -201,7 +201,7 @@ namespace ImageMagick
                     throw new ArgumentException("Invalid density specified.", nameof(value));
             }
 
-            string[] xyValues = values[0].Split('x');
+            var xyValues = values[0].Split('x');
             Throw.IfTrue(nameof(value), xyValues.Length > 2, "Invalid density specified.");
 
             Throw.IfFalse(nameof(value), double.TryParse(xyValues[0], NumberStyles.Number, CultureInfo.InvariantCulture, out double x), "Invalid density specified.");
