@@ -62,6 +62,7 @@ namespace ImageMagick
             var memStream = new MemoryStream();
             self.Write(memStream);
             memStream.Position = 0;
+
             /* Do not dispose the memStream, the bitmap owns it. */
             return new Bitmap(memStream);
         }
