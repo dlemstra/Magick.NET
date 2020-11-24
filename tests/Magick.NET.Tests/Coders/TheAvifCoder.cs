@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
         {
             using (var input = new MagickImage(Files.TestPNG))
             {
-                input.Resize(new Percentage(10));
+                input.Resize(new Percentage(15));
 
                 using (var stream = new MemoryStream())
                 {
@@ -35,8 +35,8 @@ namespace Magick.NET.Tests
                     {
                         Assert.True(output.HasAlpha);
                         Assert.Equal(MagickFormat.Avif, output.Format);
-                        Assert.Equal(15, output.Width);
-                        Assert.Equal(10, output.Height);
+                        Assert.Equal(input.Width, output.Width);
+                        Assert.Equal(input.Height, output.Height);
                     }
                 }
             }
