@@ -353,6 +353,11 @@ namespace ImageMagick
         Fits,
 
         /// <summary>
+        /// FilmLight.
+        /// </summary>
+        Fl32,
+
+        /// <summary>
         /// Free Lossless Image Format.
         /// </summary>
         Flif,
