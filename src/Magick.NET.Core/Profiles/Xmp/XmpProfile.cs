@@ -101,9 +101,7 @@ namespace ImageMagick
         /// <param name="document">A document containing the profile.</param>
         /// <returns>A <see cref="XmpProfile"/>.</returns>
         public static XmpProfile FromIXPathNavigable(IXPathNavigable document)
-        {
-            return new XmpProfile(document);
-        }
+            => new XmpProfile(document);
 
 #if !NET20
         /// <summary>
@@ -112,9 +110,7 @@ namespace ImageMagick
         /// <param name="document">A document containing the profile.</param>
         /// <returns>A <see cref="XmpProfile"/>.</returns>
         public static XmpProfile FromXDocument(XDocument document)
-        {
-            return new XmpProfile(document);
-        }
+            => new XmpProfile(document);
 #endif
 
         /// <summary>
