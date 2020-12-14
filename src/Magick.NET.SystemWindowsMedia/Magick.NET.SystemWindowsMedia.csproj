@@ -8,6 +8,7 @@
     <Configurations>Debug;Test;Release</Configurations>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
 
   <ItemGroup>

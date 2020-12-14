@@ -6,6 +6,7 @@
     <FileVersion>5.2.2.0</FileVersion>
     <Version>5.2.2.0</Version>
     <Configurations>Debug;Test;Release</Configurations>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
 
   <ItemGroup>
