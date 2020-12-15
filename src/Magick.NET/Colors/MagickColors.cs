@@ -20,14 +20,14 @@ namespace ImageMagick
     public static class MagickColors
     {
         /// <summary>
-        /// Gets a system-defined color that has an RGBA value of #FFFFFF00.
+        /// Gets a system-defined color that has an RGBA value of #00000000.
         /// </summary>
-        public static MagickColor None => MagickColor.FromRgba(255, 255, 255, 0);
+        public static MagickColor None => MagickColor.FromRgba(0, 0, 0, 0);
 
         /// <summary>
-        /// Gets a system-defined color that has an RGBA value of #FFFFFF00.
+        /// Gets a system-defined color that has an RGBA value of #00000000.
         /// </summary>
-        public static MagickColor Transparent => MagickColor.FromRgba(255, 255, 255, 0);
+        public static MagickColor Transparent => MagickColor.FromRgba(0, 0, 0, 0);
 
         /// <summary>
         /// Gets a system-defined color that has an RGBA value of #F0F8FFFF.
