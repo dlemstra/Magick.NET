@@ -29,7 +29,7 @@ namespace Magick.NET.Tests
                     image.Alpha(AlphaOption.Transparent);
 
                     Assert.True(image.HasAlpha);
-                    ColorAssert.Equal(MagickColors.Transparent, image, 0, 0);
+                    ColorAssert.Equal(new MagickColor("#fff0"), image, 0, 0);
                 }
             }
 

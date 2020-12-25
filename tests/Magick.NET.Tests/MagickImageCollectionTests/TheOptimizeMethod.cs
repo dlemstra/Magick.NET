@@ -79,7 +79,7 @@ namespace Magick.NET.Tests
 
                     Assert.Equal(1, secondFrame.Width);
                     Assert.Equal(1, secondFrame.Height);
-                    ColorAssert.Equal(MagickColors.None, secondFrame, 0, 0);
+                    ColorAssert.Equal(new MagickColor("#fff0"), secondFrame, 0, 0);
                 }
             }
         }
