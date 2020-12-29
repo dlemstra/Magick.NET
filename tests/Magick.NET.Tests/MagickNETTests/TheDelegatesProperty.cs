@@ -21,13 +21,14 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnAllDelegates()
             {
-                var delegates = MagickNET.Delegates; // Cannot detect difference between macOS and Linux build at the moment
+                var delegates = MagickNET.Delegates;
 
-#if WINDOWS_BUILD
-                Assert.Equal("cairo flif freetype gslib heic jng jp2 jpeg lcms lqr openexr pangocairo png ps raw rsvg tiff webp xml zlib", delegates);
-#else
-                Assert.Equal("cairo fontconfig freetype heic jng jp2 jpeg lcms lqr openexr pangocairo png raw rsvg tiff webp xml zlib", delegates);
-#endif
+                if (OperatingSystem.IsWindows)
+                    Assert.Equal("cairo flif freetype gslib heic jng jp2 jpeg jxl lcms lqr openexr pangocairo png ps raw rsvg tiff webp xml zlib", delegates);
+                else if (OperatingSystem.IsLinux)
+                    Assert.Equal("cairo fontconfig freetype heic jng jp2 jpeg jxl lcms lqr openexr pangocairo png raw rsvg tiff webp xml zlib", delegates);
+                else
+                    Assert.Equal("cairo fontconfig freetype heic jng jp2 jpeg lcms lqr openexr pangocairo png raw rsvg tiff webp xml zlib", delegates);
             }
         }
     }

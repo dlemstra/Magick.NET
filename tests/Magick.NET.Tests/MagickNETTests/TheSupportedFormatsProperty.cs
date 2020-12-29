@@ -34,11 +34,14 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldContainTheCorrectNumberOfFormats()
             {
-#if WINDOWS_BUILD
-                Assert.Equal(259, MagickNET.SupportedFormats.Count());
-#else
-                Assert.Equal(255, MagickNET.SupportedFormats.Count());
-#endif
+                var formatsCount = MagickNET.SupportedFormats.Count();
+
+                if (OperatingSystem.IsWindows)
+                    Assert.Equal(264, formatsCount);
+                else if (OperatingSystem.IsLinux)
+                    Assert.Equal(260, formatsCount);
+                else
+                    Assert.Equal(259, formatsCount);
             }
         }
     }

@@ -338,9 +338,19 @@ namespace ImageMagick
         Exr,
 
         /// <summary>
+        /// Farbfeld.
+        /// </summary>
+        Farbfeld,
+
+        /// <summary>
         /// Group 3 FAX.
         /// </summary>
         Fax,
+
+        /// <summary>
+        /// Farbfeld.
+        /// </summary>
+        Ff,
 
         /// <summary>
         /// Uniform Resource Locator (file://).
@@ -586,6 +596,11 @@ namespace ImageMagick
         /// The image format and characteristics.
         /// </summary>
         Json,
+
+        /// <summary>
+        /// JPEG XL Lossless JPEG1 Recompression.
+        /// </summary>
+        Jxl,
 
         /// <summary>
         /// Raw black samples.
@@ -861,6 +876,11 @@ namespace ImageMagick
         /// Portable graymap format (gray scale).
         /// </summary>
         Pgm,
+
+        /// <summary>
+        /// Portable half float format.
+        /// </summary>
+        Phm,
 
         /// <summary>
         /// JPEG 2000 uncompressed format.
@@ -1301,6 +1321,11 @@ namespace ImageMagick
         /// Raw yellow samples.
         /// </summary>
         Y,
+
+        /// <summary>
+        /// The image format and characteristics.
+        /// </summary>
+        Yaml,
 
         /// <summary>
         /// Raw Y, Cb, and Cr samples.
