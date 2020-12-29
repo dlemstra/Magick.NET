@@ -46,13 +46,21 @@ namespace Magick.NET.Tests
 
             private static bool ShouldReport(MagickFormat format)
             {
-#if !WINDOWS_BUILD
-                if (format == MagickFormat.Clipboard || format == MagickFormat.Emf || format == MagickFormat.Wmf)
-                    return false;
+                if (!OperatingSystem.IsWindows)
+                {
+                    if (format == MagickFormat.Clipboard || format == MagickFormat.Emf || format == MagickFormat.Wmf)
+                        return false;
 
-                if (format == MagickFormat.Flif)
-                    return false;
-#endif
+                    if (format == MagickFormat.Flif)
+                        return false;
+                }
+
+                if (OperatingSystem.IsMacOS)
+                {
+                    if (format == MagickFormat.Jxl)
+                        return false;
+                }
+
                 return true;
             }
         }
