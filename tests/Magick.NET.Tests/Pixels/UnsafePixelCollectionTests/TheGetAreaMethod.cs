@@ -53,10 +53,20 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        Assert.Throws<OverflowException>(() =>
+                        if (Is64Bit)
                         {
-                            pixels.GetArea(0, 0, -1, 1);
-                        });
+                            Assert.Throws<MagickCacheErrorException>(() =>
+                            {
+                                pixels.GetArea(0, 0, -1, 1);
+                            });
+                        }
+                        else
+                        {
+                            Assert.Throws<OverflowException>(() =>
+                            {
+                                pixels.GetArea(0, 0, -1, 1);
+                            });
+                        }
                     }
                 }
             }
@@ -85,7 +95,7 @@ namespace Magick.NET.Tests
                     {
                         if (Is64Bit)
                         {
-                            Assert.Throws<MagickImageErrorException>(() =>
+                            Assert.Throws<MagickCacheErrorException>(() =>
                             {
                                 pixels.GetArea(0, 0, 1, -1);
                             });
