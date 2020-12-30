@@ -558,6 +558,22 @@ namespace ImageMagick
         void AutoThreshold(AutoThresholdMethod method);
 
         /// <summary>
+        /// Applies a non-linear, edge-preserving, and noise-reducing smoothing filter.
+        /// </summary>
+        /// <param name="width">The width of the neighborhood in pixels.</param>
+        /// <param name="height">The height of the neighborhood in pixels.</param>\
+        void BilateralBlur(int width, int height);
+
+        /// <summary>
+        /// Applies a non-linear, edge-preserving, and noise-reducing smoothing filter.
+        /// </summary>
+        /// <param name="width">The width of the neighborhood in pixels.</param>
+        /// <param name="height">The height of the neighborhood in pixels.</param>
+        /// <param name="intensitySigma">The sigma in the intensity space.</param>
+        /// <param name="spatialSigma">The sigma in the coordinate space.</param>
+        void BilateralBlur(int width, int height, double intensitySigma, double spatialSigma);
+
+        /// <summary>
         /// Forces all pixels below the threshold into black while leaving all pixels at or above
         /// the threshold unchanged.
         /// </summary>

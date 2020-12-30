@@ -250,6 +250,8 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_AutoThreshold(IntPtr Instance, UIntPtr method, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickImage_BilateralBlur(IntPtr Instance, UIntPtr width, UIntPtr height, double intensitySigma, double spatialSigma, out IntPtr exception);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_BlackThreshold(IntPtr Instance, IntPtr threshold, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_BlueShift(IntPtr Instance, double factor, out IntPtr exception);
@@ -813,6 +815,8 @@ namespace ImageMagick
                 public static extern IntPtr MagickImage_AutoOrient(IntPtr Instance, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_AutoThreshold(IntPtr Instance, UIntPtr method, out IntPtr exception);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickImage_BilateralBlur(IntPtr Instance, UIntPtr width, UIntPtr height, double intensitySigma, double spatialSigma, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_BlackThreshold(IntPtr Instance, IntPtr threshold, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -3047,6 +3051,25 @@ namespace ImageMagick
                 NativeMethods.X86.MagickImage_AutoThreshold(Instance, (UIntPtr)method, out exception);
                 #endif
                 CheckException(exception);
+            }
+            public void BilateralBlur(int width, int height, double intensitySigma, double spatialSigma)
+            {
+                IntPtr exception = IntPtr.Zero;
+                IntPtr result;
+                #if PLATFORM_AnyCPU
+                if (NativeLibrary.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_BilateralBlur(Instance, (UIntPtr)width, (UIntPtr)height, intensitySigma, spatialSigma, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_BilateralBlur(Instance, (UIntPtr)width, (UIntPtr)height, intensitySigma, spatialSigma, out exception);
+                #endif
+                CheckException(exception, result);
+                Instance = result;
             }
             public void BlackThreshold(string threshold, Channels channels)
             {

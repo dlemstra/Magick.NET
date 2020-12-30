@@ -1273,6 +1273,27 @@ namespace ImageMagick
             => _nativeInstance.AutoThreshold(method);
 
         /// <summary>
+        /// Applies a non-linear, edge-preserving, and noise-reducing smoothing filter.
+        /// </summary>
+        /// <param name="width">The width of the neighborhood in pixels.</param>
+        /// <param name="height">The height of the neighborhood in pixels.</param>
+        public void BilateralBlur(int width, int height)
+        {
+            var intensitySigma = Math.Sqrt((width * width) + (height * height));
+            BilateralBlur(width, height, intensitySigma, intensitySigma * 0.25);
+        }
+
+        /// <summary>
+        /// Applies a non-linear, edge-preserving, and noise-reducing smoothing filter.
+        /// </summary>
+        /// <param name="width">The width of the neighborhood in pixels.</param>
+        /// <param name="height">The height of the neighborhood in pixels.</param>
+        /// <param name="intensitySigma">The sigma in the intensity space.</param>
+        /// <param name="spatialSigma">The sigma in the coordinate space.</param>
+        public void BilateralBlur(int width, int height, double intensitySigma, double spatialSigma)
+           => _nativeInstance.BilateralBlur(width, height, intensitySigma, spatialSigma);
+
+        /// <summary>
         /// Forces all pixels below the threshold into black while leaving all pixels at or above
         /// the threshold unchanged.
         /// </summary>
