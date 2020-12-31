@@ -1753,8 +1753,8 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_Progress()
         {
-            Percentage progress = new Percentage(0);
-            bool cancel = false;
+            var progress = new Percentage(0);
+            var cancel = false;
             EventHandler<ProgressEventArgs> progressEvent = (sender, arguments) =>
             {
                 Assert.NotNull(sender);
