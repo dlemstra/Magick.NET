@@ -404,7 +404,10 @@ namespace FileGenerator.Native
                 WriteCheckException(true);
 
             if (method.CreatesInstance && method.ReturnType.IsVoid)
-                WriteLine("Instance = result;");
+            {
+                WriteLine("if (result != IntPtr.Zero)");
+                WriteLine("  Instance = result;");
+            }
             else
                 WriteReturn(method.ReturnType);
         }

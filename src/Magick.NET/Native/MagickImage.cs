@@ -2813,7 +2813,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_AdaptiveBlur(Instance, radius, sigma, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void AdaptiveResize(string geometry)
             {
@@ -2834,7 +2835,8 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImage_AdaptiveResize(Instance, geometryNative.Instance, out exception);
                     #endif
                     CheckException(exception, result);
-                    Instance = result;
+                    if (result != IntPtr.Zero)
+                      Instance = result;
                 }
             }
             public void AdaptiveSharpen(double radius, double sigma, Channels channels)
@@ -2854,7 +2856,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_AdaptiveSharpen(Instance, radius, sigma, (UIntPtr)channels, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void AdaptiveThreshold(int width, int height, double bias, Channels channels)
             {
@@ -2873,7 +2876,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_AdaptiveThreshold(Instance, (UIntPtr)width, (UIntPtr)height, bias, (UIntPtr)channels, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void AddNoise(NoiseType noiseType, double attenuate, Channels channels)
             {
@@ -2892,7 +2896,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_AddNoise(Instance, (UIntPtr)noiseType, attenuate, (UIntPtr)channels, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void AddProfile(string name, byte[] datum, int length)
             {
@@ -2931,7 +2936,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_AffineTransform(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Annotate(DrawingSettings settings, string text, string boundingArea, Gravity gravity, double degrees)
             {
@@ -3033,7 +3039,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_AutoOrient(Instance, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void AutoThreshold(AutoThresholdMethod method)
             {
@@ -3069,7 +3076,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_BilateralBlur(Instance, (UIntPtr)width, (UIntPtr)height, intensitySigma, spatialSigma, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void BlackThreshold(string threshold, Channels channels)
             {
@@ -3108,7 +3116,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_BlueShift(Instance, factor, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Blur(double radius, double sigma, Channels channels)
             {
@@ -3127,7 +3136,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Blur(Instance, radius, sigma, (UIntPtr)channels, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Border(MagickRectangle value)
             {
@@ -3148,7 +3158,8 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImage_Border(Instance, valueNative.Instance, out exception);
                     #endif
                     CheckException(exception, result);
-                    Instance = result;
+                    if (result != IntPtr.Zero)
+                      Instance = result;
                 }
             }
             public void BrightnessContrast(double brightness, double contrast, Channels channels)
@@ -3185,7 +3196,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_CannyEdge(Instance, radius, sigma, lower, upper, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public int ChannelOffset(PixelChannel channel)
             {
@@ -3219,7 +3231,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Charcoal(Instance, radius, sigma, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Chop(MagickRectangle geometry)
             {
@@ -3240,7 +3253,8 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImage_Chop(Instance, geometryNative.Instance, out exception);
                     #endif
                     CheckException(exception, result);
-                    Instance = result;
+                    if (result != IntPtr.Zero)
+                      Instance = result;
                 }
             }
             public void Clahe(int xTiles, int yTiles, int numberBins, double clipLimit)
@@ -3427,7 +3441,8 @@ namespace ImageMagick
                         result = NativeMethods.X86.MagickImage_Colorize(Instance, colorNative.Instance, blendNative.Instance, out exception);
                         #endif
                         CheckException(exception, result);
-                        Instance = result;
+                        if (result != IntPtr.Zero)
+                          Instance = result;
                     }
                 }
             }
@@ -3450,7 +3465,8 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImage_ColorMatrix(Instance, matrixNative.Instance, out exception);
                     #endif
                     CheckException(exception, result);
-                    Instance = result;
+                    if (result != IntPtr.Zero)
+                      Instance = result;
                 }
             }
             public void ColorThreshold(IMagickColor<QuantumType> startColor, IMagickColor<QuantumType> stopColor)
@@ -3565,7 +3581,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_ConnectedComponents(Instance, (UIntPtr)connectivity, out objects, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Contrast(bool enhance)
             {
@@ -3648,7 +3665,8 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImage_Convolve(Instance, matrixNative.Instance, out exception);
                     #endif
                     CheckException(exception, result);
-                    Instance = result;
+                    if (result != IntPtr.Zero)
+                      Instance = result;
                 }
             }
             public void CopyPixels(IMagickImage image, MagickRectangle geometry, OffsetInfo offset, Channels channels)
@@ -3693,7 +3711,8 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImage_Crop(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
                     #endif
                     CheckException(exception, result);
-                    Instance = result;
+                    if (result != IntPtr.Zero)
+                      Instance = result;
                 }
             }
             public IntPtr CropToTiles(string geometry)
@@ -3772,7 +3791,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Deskew(Instance, threshold, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Despeckle()
             {
@@ -3791,7 +3811,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Despeckle(Instance, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public ColorType DetermineColorType()
             {
@@ -3829,7 +3850,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Distort(Instance, (UIntPtr)method, bestfit, arguments, (UIntPtr)length, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Edge(double radius)
             {
@@ -3848,7 +3870,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Edge(Instance, radius, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Emboss(double radius, double sigma)
             {
@@ -3867,7 +3890,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Emboss(Instance, radius, sigma, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Encipher(string passphrase)
             {
@@ -3906,7 +3930,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Enhance(Instance, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Equalize()
             {
@@ -4017,7 +4042,8 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImage_Extent(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
                     #endif
                     CheckException(exception, result);
-                    Instance = result;
+                    if (result != IntPtr.Zero)
+                      Instance = result;
                 }
             }
             public void Flip()
@@ -4037,7 +4063,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Flip(Instance, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void FloodFill(DrawingSettings settings, int x, int y, IMagickColor<QuantumType> target, bool invert)
             {
@@ -4079,7 +4106,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Flop(Instance, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public IntPtr FontTypeMetrics(DrawingSettings settings, bool ignoreNewlines)
             {
@@ -4156,7 +4184,8 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImage_Frame(Instance, geometryNative.Instance, out exception);
                     #endif
                     CheckException(exception, result);
-                    Instance = result;
+                    if (result != IntPtr.Zero)
+                      Instance = result;
                 }
             }
             public void Fx(string expression, Channels channels)
@@ -4178,7 +4207,8 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImage_Fx(Instance, expressionNative.Instance, (UIntPtr)channels, out exception);
                     #endif
                     CheckException(exception, result);
-                    Instance = result;
+                    if (result != IntPtr.Zero)
+                      Instance = result;
                 }
             }
             public void GammaCorrect(double gamma, Channels channels)
@@ -4215,7 +4245,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_GaussianBlur(Instance, radius, sigma, (UIntPtr)channels, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public string GetArtifact(string name)
             {
@@ -4525,7 +4556,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_HoughLine(Instance, (UIntPtr)width, (UIntPtr)height, (UIntPtr)threshold, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Implode(double amount, PixelInterpolateMethod method)
             {
@@ -4544,7 +4576,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Implode(Instance, amount, (UIntPtr)method, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void InterpolativeResize(int width, int height, PixelInterpolateMethod method)
             {
@@ -4563,7 +4596,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_InterpolativeResize(Instance, (UIntPtr)width, (UIntPtr)height, (UIntPtr)method, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Kmeans(int numberColors, int maxIterations, double tolerance)
             {
@@ -4599,7 +4633,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Kuwahara(Instance, radius, sigma, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Level(double blackPoint, double whitePoint, double gamma, Channels channels)
             {
@@ -4694,7 +4729,8 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImage_LiquidRescale(Instance, geometryNative.Instance, deltaX, rigidity, out exception);
                     #endif
                     CheckException(exception, result);
-                    Instance = result;
+                    if (result != IntPtr.Zero)
+                      Instance = result;
                 }
             }
             public void LocalContrast(double radius, double strength, Channels channels)
@@ -4714,7 +4750,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_LocalContrast(Instance, radius, strength, (UIntPtr)channels, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Magnify()
             {
@@ -4733,7 +4770,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Magnify(Instance, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public bool Map(IMagickImage image, IQuantizeSettings settings)
             {
@@ -4774,7 +4812,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_MeanShift(Instance, (UIntPtr)width, (UIntPtr)height, colorDistance, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Minify()
             {
@@ -4793,7 +4832,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Minify(Instance, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public IntPtr Moments()
             {
@@ -4890,7 +4930,8 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImage_Morphology(Instance, (UIntPtr)method, kernelNative.Instance, (UIntPtr)channels, (UIntPtr)iterations, out exception);
                     #endif
                     CheckException(exception, result);
-                    Instance = result;
+                    if (result != IntPtr.Zero)
+                      Instance = result;
                 }
             }
             public void MotionBlur(double radius, double sigma, double angle)
@@ -4910,7 +4951,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_MotionBlur(Instance, radius, sigma, angle, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Negate(bool onlyGrayscale, Channels channels)
             {
@@ -4963,7 +5005,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_OilPaint(Instance, radius, sigma, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Opaque(IMagickColor<QuantumType> target, IMagickColor<QuantumType> fill, bool invert)
             {
@@ -5074,7 +5117,8 @@ namespace ImageMagick
                         result = NativeMethods.X86.MagickImage_Polaroid(Instance, settingsNative.Instance, captionNative.Instance, angle, (UIntPtr)method, out exception);
                         #endif
                         CheckException(exception, result);
-                        Instance = result;
+                        if (result != IntPtr.Zero)
+                          Instance = result;
                     }
                 }
             }
@@ -5185,7 +5229,8 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImage_ReadBlob(settingsNative.Instance, data, (UIntPtr)offset, (UIntPtr)length, out exception);
                     #endif
                     CheckException(exception, result);
-                    Instance = result;
+                    if (result != IntPtr.Zero)
+                      Instance = result;
                 }
             }
             public void ReadFile(IMagickSettings<QuantumType> settings)
@@ -5207,7 +5252,8 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImage_ReadFile(settingsNative.Instance, out exception);
                     #endif
                     CheckException(exception, result);
-                    Instance = result;
+                    if (result != IntPtr.Zero)
+                      Instance = result;
                 }
             }
             public void ReadPixels(int width, int height, string map, StorageType storageType, byte[] data, int offset)
@@ -5229,7 +5275,8 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offset, out exception);
                     #endif
                     CheckException(exception, result);
-                    Instance = result;
+                    if (result != IntPtr.Zero)
+                      Instance = result;
                 }
             }
             public void ReadStream(IMagickSettings<QuantumType> settings, ReadWriteStreamDelegate reader, SeekStreamDelegate seeker, TellStreamDelegate teller)
@@ -5251,7 +5298,8 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImage_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
                     #endif
                     CheckException(exception, result);
-                    Instance = result;
+                    if (result != IntPtr.Zero)
+                      Instance = result;
                 }
             }
             public void RegionMask(MagickRectangle region)
@@ -5390,7 +5438,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Resample(Instance, resolutionX, resolutionY, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Resize(string geometry)
             {
@@ -5411,7 +5460,8 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImage_Resize(Instance, geometryNative.Instance, out exception);
                     #endif
                     CheckException(exception, result);
-                    Instance = result;
+                    if (result != IntPtr.Zero)
+                      Instance = result;
                 }
             }
             public void Roll(int x, int y)
@@ -5431,7 +5481,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Roll(Instance, (IntPtr)x, (IntPtr)y, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Rotate(double degrees)
             {
@@ -5450,7 +5501,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Rotate(Instance, degrees, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void RotationalBlur(double angle, Channels channels)
             {
@@ -5469,7 +5521,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_RotationalBlur(Instance, angle, (UIntPtr)channels, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Sample(string geometry)
             {
@@ -5490,7 +5543,8 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImage_Sample(Instance, geometryNative.Instance, out exception);
                     #endif
                     CheckException(exception, result);
-                    Instance = result;
+                    if (result != IntPtr.Zero)
+                      Instance = result;
                 }
             }
             public void Scale(string geometry)
@@ -5512,7 +5566,8 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImage_Scale(Instance, geometryNative.Instance, out exception);
                     #endif
                     CheckException(exception, result);
-                    Instance = result;
+                    if (result != IntPtr.Zero)
+                      Instance = result;
                 }
             }
             public void Segment(ColorSpace colorSpace, double clusterThreshold, double smoothingThreshold)
@@ -5549,7 +5604,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_SelectiveBlur(Instance, radius, sigma, threshold, (UIntPtr)channels, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public IntPtr Separate(Channels channels)
             {
@@ -5587,7 +5643,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_SepiaTone(Instance, threshold, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void SetAlpha(AlphaOption value)
             {
@@ -5787,7 +5844,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Shade(Instance, azimuth, elevation, colorShading, (UIntPtr)channels, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Shadow(int x, int y, double sigma, double alphaPercentage)
             {
@@ -5806,7 +5864,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Shadow(Instance, (IntPtr)x, (IntPtr)y, sigma, alphaPercentage, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Sharpen(double radius, double sigma, Channels channel)
             {
@@ -5825,7 +5884,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Sharpen(Instance, radius, sigma, (UIntPtr)channel, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Shave(int leftRight, int topBottom)
             {
@@ -5844,7 +5904,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Shave(Instance, (UIntPtr)leftRight, (UIntPtr)topBottom, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Shear(double xAngle, double yAngle)
             {
@@ -5863,7 +5924,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Shear(Instance, xAngle, yAngle, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void SigmoidalContrast(bool sharpen, double contrast, double midpoint)
             {
@@ -5899,7 +5961,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_SparseColor(Instance, (UIntPtr)channel, (UIntPtr)method, values, (UIntPtr)length, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Sketch(double radius, double sigma, double angle)
             {
@@ -5918,7 +5981,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Sketch(Instance, radius, sigma, angle, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Solarize(double factor)
             {
@@ -5956,7 +6020,8 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImage_Splice(Instance, geometryNative.Instance, out exception);
                     #endif
                     CheckException(exception, result);
-                    Instance = result;
+                    if (result != IntPtr.Zero)
+                      Instance = result;
                 }
             }
             public void Spread(PixelInterpolateMethod method, double radius)
@@ -5976,7 +6041,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Spread(Instance, (UIntPtr)method, radius, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Statistic(StatisticType type, int width, int height)
             {
@@ -5995,7 +6061,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Statistic(Instance, (UIntPtr)type, (UIntPtr)width, (UIntPtr)height, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public IntPtr Statistics()
             {
@@ -6042,7 +6109,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Stegano(Instance, watermark.GetInstance(), out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Stereo(IMagickImage rightImage)
             {
@@ -6061,7 +6129,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Stereo(Instance, rightImage.GetInstance(), out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Strip()
             {
@@ -6121,7 +6190,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Swirl(Instance, (UIntPtr)method, degrees, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Texture(IMagickImage image)
             {
@@ -6176,7 +6246,8 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImage_Thumbnail(Instance, geometryNative.Instance, out exception);
                     #endif
                     CheckException(exception, result);
-                    Instance = result;
+                    if (result != IntPtr.Zero)
+                      Instance = result;
                 }
             }
             public void Tint(string opacity, IMagickColor<QuantumType> tint)
@@ -6200,7 +6271,8 @@ namespace ImageMagick
                         result = NativeMethods.X86.MagickImage_Tint(Instance, opacityNative.Instance, tintNative.Instance, out exception);
                         #endif
                         CheckException(exception, result);
-                        Instance = result;
+                        if (result != IntPtr.Zero)
+                          Instance = result;
                     }
                 }
             }
@@ -6264,7 +6336,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Transpose(Instance, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Transverse()
             {
@@ -6283,7 +6356,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Transverse(Instance, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Trim()
             {
@@ -6302,7 +6376,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Trim(Instance, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public IntPtr UniqueColors()
             {
@@ -6340,7 +6415,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_UnsharpMask(Instance, radius, sigma, amount, threshold, (UIntPtr)channels, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Vignette(double radius, double sigma, int x, int y)
             {
@@ -6359,7 +6435,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Vignette(Instance, radius, sigma, (IntPtr)x, (IntPtr)y, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void Wave(PixelInterpolateMethod method, double amplitude, double length)
             {
@@ -6378,7 +6455,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Wave(Instance, (UIntPtr)method, amplitude, length, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void WhiteBalance()
             {
@@ -6414,7 +6492,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_WaveletDenoise(Instance, threshold, softness, out exception);
                 #endif
                 CheckException(exception, result);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void WhiteThreshold(string threshold, Channels channels)
             {

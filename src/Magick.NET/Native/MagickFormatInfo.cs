@@ -359,7 +359,8 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickFormatInfo_GetInfo(list, (UIntPtr)index, out exception);
                 #endif
                 CheckException(exception);
-                Instance = result;
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void GetInfoByName(string name)
             {
@@ -380,7 +381,8 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickFormatInfo_GetInfoByName(nameNative.Instance, out exception);
                     #endif
                     CheckException(exception);
-                    Instance = result;
+                    if (result != IntPtr.Zero)
+                      Instance = result;
                 }
             }
             public static bool Unregister(string name)
