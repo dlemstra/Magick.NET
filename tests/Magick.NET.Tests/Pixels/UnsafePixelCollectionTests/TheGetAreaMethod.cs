@@ -55,7 +55,7 @@ namespace Magick.NET.Tests
                     {
                         if (Is64Bit)
                         {
-                            Assert.Throws<MagickCacheErrorException>(() =>
+                            Assert.Throws<MagickImageErrorException>(() =>
                             {
                                 pixels.GetArea(0, 0, -1, 1);
                             });
@@ -95,7 +95,7 @@ namespace Magick.NET.Tests
                     {
                         if (Is64Bit)
                         {
-                            Assert.Throws<MagickCacheErrorException>(() =>
+                            Assert.Throws<MagickImageErrorException>(() =>
                             {
                                 pixels.GetArea(0, 0, 1, -1);
                             });
