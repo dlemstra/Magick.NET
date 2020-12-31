@@ -23,11 +23,11 @@ namespace Magick.NET.Tests
         {
             using (var tempFile = new TemporaryFile(fileName))
             {
-                long before = tempFile.Length;
+                var before = tempFile.Length;
 
-                bool result = action(tempFile);
+                var result = action(tempFile);
 
-                long after = tempFile.Length;
+                var after = tempFile.Length;
 
                 Assert.Equal(resultIsSmaller, result);
 
@@ -44,12 +44,12 @@ namespace Magick.NET.Tests
         {
             using (var tempFile = new TemporaryFile(fileName))
             {
-                long before = tempFile.Length;
+                var before = tempFile.Length;
 
-                bool result = action(tempFile.FullName);
+                var result = action(tempFile.FullName);
 
                 tempFile.Refresh();
-                long after = tempFile.Length;
+                var after = tempFile.Length;
 
                 Assert.Equal(resultIsSmaller, result);
 
@@ -72,11 +72,11 @@ namespace Magick.NET.Tests
                     fileStream.CopyTo(memoryStream);
                     memoryStream.Position = 42;
 
-                    long before = memoryStream.Length;
+                    var before = memoryStream.Length;
 
-                    bool result = action(memoryStream);
+                    var result = action(memoryStream);
 
-                    long after = memoryStream.Length;
+                    var after = memoryStream.Length;
 
                     Assert.Equal(42, memoryStream.Position);
                     Assert.Equal(resultIsSmaller, result);
