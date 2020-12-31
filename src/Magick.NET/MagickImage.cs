@@ -6503,6 +6503,28 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Trim horizontal edges that are the background color from the image.
+        /// </summary>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void TrimHorizontal()
+        {
+            SetArtifact("trim:horizontal", true);
+            Trim();
+            RemoveArtifact("trim:horizontal");
+        }
+
+        /// <summary>
+        /// Trim vertical edges that are the background color from the image.
+        /// </summary>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void TrimVertical()
+        {
+            SetArtifact("trim:vertical", true);
+            Trim();
+            RemoveArtifact("trim:vertical");
+        }
+
+        /// <summary>
         /// Returns the unique colors of an image.
         /// </summary>
         /// <returns>The unique colors of an image.</returns>

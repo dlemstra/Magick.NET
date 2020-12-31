@@ -3483,6 +3483,18 @@ namespace ImageMagick
         void Trim(Percentage percentBackground);
 
         /// <summary>
+        /// Trim horizontal edges that are the background color from the image.
+        /// </summary>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void TrimHorizontal();
+
+        /// <summary>
+        /// Trim vertical edges that are the background color from the image.
+        /// </summary>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void TrimVertical();
+
+        /// <summary>
         /// Replace image with a sharpened version of the original image using the unsharp mask algorithm.
         /// </summary>
         /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
