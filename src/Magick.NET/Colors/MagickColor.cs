@@ -422,6 +422,25 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Converts the value of this instance to a hexadecimal string that will not include the alpha channel if it is opaque.
+        /// </summary>
+        /// <returns>The <see cref="string"/>.</returns>
+        public string ToHexString()
+        {
+            if (IsCmyk)
+                throw new NotSupportedException("This method only works for non cmyk colors.");
+
+            var r = Quantum.ScaleToByte(R);
+            var g = Quantum.ScaleToByte(G);
+            var b = Quantum.ScaleToByte(G);
+            if (A == Quantum.Max)
+                return string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}", r, g, b);
+
+            var a = Quantum.ScaleToByte(G);
+            return string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}{3:X2}", r, g, b, a);
+        }
+
+        /// <summary>
         /// Converts the value of this instance to a string representation that will not include the alpha channel if it is opaque.
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>

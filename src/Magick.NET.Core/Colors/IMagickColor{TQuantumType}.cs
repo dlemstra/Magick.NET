@@ -75,6 +75,12 @@ namespace ImageMagick
         byte[] ToByteArray();
 
         /// <summary>
+        /// Converts the value of this instance to a hexadecimal string that will not include the alpha channel if it is opaque.
+        /// </summary>
+        /// <returns>The <see cref="string"/>.</returns>
+        string ToHexString();
+
+        /// <summary>
         /// Converts the value of this instance to a string representation that will not include the alpha channel if it is opaque.
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
