@@ -21,6 +21,14 @@ namespace Magick.NET.Tests
         [Fact]
         public void IsThreadSafe()
         {
+            string LoadImage()
+            {
+                using (var image = new MagickImage("pango:1"))
+                {
+                    return image.Signature;
+                }
+            }
+
             string signature = LoadImage();
             Parallel.For(1, 10, (int i) =>
             {
@@ -34,14 +42,6 @@ namespace Magick.NET.Tests
             string fileName = "pango:<span font=\"Arial\">" + new string('*', 4500) + "</span>";
             using (var image = new MagickImage(fileName))
             {
-            }
-        }
-
-        private static string LoadImage()
-        {
-            using (var image = new MagickImage("pango:1"))
-            {
-                return image.Signature;
             }
         }
     }
