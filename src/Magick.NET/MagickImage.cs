@@ -6490,6 +6490,65 @@ namespace ImageMagick
             => _nativeInstance.Trim();
 
         /// <summary>
+        /// Trim the specified edges that are the background color from the image.
+        /// </summary>
+        /// <param name="edges">The edges that need to be trimmed.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Trim(params Gravity[] edges)
+        {
+            IEnumerable<string> GravityToEdge(Gravity[] edges)
+            {
+                foreach (var edge in edges)
+                {
+                    switch (edge)
+                    {
+                        case Gravity.North:
+                            yield return "north";
+                            break;
+                        case Gravity.Northeast:
+                            yield return "north";
+                            yield return "east";
+                            break;
+                        case Gravity.Northwest:
+                            yield return "north";
+                            yield return "west";
+                            break;
+                        case Gravity.East:
+                            yield return "east";
+                            break;
+                        case Gravity.West:
+                            yield return "west";
+                            break;
+                        case Gravity.South:
+                            yield return "south";
+                            break;
+                        case Gravity.Southeast:
+                            yield return "south";
+                            yield return "east";
+                            break;
+                        case Gravity.Southwest:
+                            yield return "south";
+                            yield return "west";
+                            break;
+                    }
+                }
+            }
+
+            var artifact = new List<string>();
+            foreach (var edge in GravityToEdge(edges))
+            {
+                if (!artifact.Contains(edge))
+                {
+                    artifact.Add(edge);
+                }
+            }
+
+            SetArtifact("trim:edges", string.Join(",", artifact.ToArray()));
+            Trim();
+            RemoveArtifact("trim:edges");
+        }
+
+        /// <summary>
         /// Trim edges that are the background color from the image. The property <see cref="BoundingBox"/> can be used to the
         /// coordinates of the area that will be extracted.
         /// </summary>
@@ -6500,28 +6559,6 @@ namespace ImageMagick
             SetArtifact("trim:percent-background", percentBackground.ToInt32().ToString(CultureInfo.InvariantCulture));
             Trim();
             RemoveArtifact("trim:percent-background");
-        }
-
-        /// <summary>
-        /// Trim horizontal edges that are the background color from the image.
-        /// </summary>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void TrimHorizontal()
-        {
-            SetArtifact("trim:horizontal", true);
-            Trim();
-            RemoveArtifact("trim:horizontal");
-        }
-
-        /// <summary>
-        /// Trim vertical edges that are the background color from the image.
-        /// </summary>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void TrimVertical()
-        {
-            SetArtifact("trim:vertical", true);
-            Trim();
-            RemoveArtifact("trim:vertical");
         }
 
         /// <summary>

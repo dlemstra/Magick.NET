@@ -3476,23 +3476,18 @@ namespace ImageMagick
         void Trim();
 
         /// <summary>
+        /// Trim the specified edges that are the background color from the image.
+        /// </summary>
+        /// <param name="edges">The edges that need to be trimmed.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Trim(params Gravity[] edges);
+
+        /// <summary>
         /// Trim edges that are the background color from the image.
         /// </summary>
         /// <param name="percentBackground">The percentage of background pixels permitted in the outer rows and columns.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Trim(Percentage percentBackground);
-
-        /// <summary>
-        /// Trim horizontal edges that are the background color from the image.
-        /// </summary>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void TrimHorizontal();
-
-        /// <summary>
-        /// Trim vertical edges that are the background color from the image.
-        /// </summary>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void TrimVertical();
 
         /// <summary>
         /// Replace image with a sharpened version of the original image using the unsharp mask algorithm.
