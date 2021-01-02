@@ -3,7 +3,7 @@
     <TargetFrameworks>net40</TargetFrameworks>
     <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
     <Authors>Dirk Lemstra</Authors>
-    <Copyright>Copyright 2013-2020 Dirk Lemstra</Copyright>
+    <Copyright>Copyright 2013-2021 Dirk Lemstra</Copyright>
     <Configurations>DebugQ8;DebugQ16;DebugQ16-HDRI;TestQ8;TestQ16;TestQ16-HDRI;ReleaseQ8;ReleaseQ16;ReleaseQ16-HDRI</Configurations>
     <Platforms>x86;x64;AnyCPU</Platforms>
   </PropertyGroup>
