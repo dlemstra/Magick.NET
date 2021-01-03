@@ -14,10 +14,15 @@
 using System.Runtime.InteropServices;
 #endif
 
+using System;
+
 namespace Magick.NET.Tests
 {
     public static class OperatingSystem
     {
+        public static bool Is64Bit =>
+            IntPtr.Size == 8;
+
 #if NETCORE
         public static bool IsWindows =>
            RuntimeInformation.IsOSPlatform(OSPlatform.Windows);

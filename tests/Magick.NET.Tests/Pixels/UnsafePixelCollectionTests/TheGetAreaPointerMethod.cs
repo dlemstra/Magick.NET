@@ -30,8 +30,6 @@ namespace Magick.NET.Tests
     {
         public class TheGetAreaPointerMethod
         {
-            private static bool Is64Bit => IntPtr.Size == 8;
-
             [Fact]
             public void ShouldThrowExceptionWhen32BitAndXTooLow()
             {
@@ -63,7 +61,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        if (Is64Bit)
+                        if (OperatingSystem.Is64Bit)
                         {
                             Assert.Throws<MagickImageErrorException>(() =>
                             {
@@ -103,7 +101,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        if (Is64Bit)
+                        if (OperatingSystem.Is64Bit)
                         {
                             Assert.Throws<MagickImageErrorException>(() =>
                             {
@@ -204,7 +202,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        if (Is64Bit)
+                        if (OperatingSystem.Is64Bit)
                         {
                             pixels.GetAreaPointer(x, y, width, height);
                         }

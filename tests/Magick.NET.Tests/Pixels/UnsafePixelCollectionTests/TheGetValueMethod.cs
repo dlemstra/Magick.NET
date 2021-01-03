@@ -20,8 +20,6 @@ namespace Magick.NET.Tests
     {
         public class TheGetValueMethod
         {
-            private static bool Is64Bit => IntPtr.Size == 8;
-
             [Fact]
             public void ShouldThrowExceptionWhenXTooLow()
             {
@@ -69,7 +67,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        if (Is64Bit)
+                        if (OperatingSystem.Is64Bit)
                         {
                             pixels.GetValue(x, y);
                         }

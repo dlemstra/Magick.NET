@@ -20,8 +20,6 @@ namespace Magick.NET.Tests
     {
         public class TheToByteArrayMethod
         {
-            private static bool Is64Bit => IntPtr.Size == 8;
-
             [Fact]
             public void ShouldThrowExceptionWhenXTooLow()
             {
@@ -29,7 +27,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        if (Is64Bit)
+                        if (OperatingSystem.Is64Bit)
                         {
                             pixels.ToByteArray(-1, 0, 1, 1, "RGB");
                         }
