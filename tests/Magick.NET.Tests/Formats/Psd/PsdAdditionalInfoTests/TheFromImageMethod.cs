@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System;
 using ImageMagick;
 using ImageMagick.Formats.Psd;
 using Xunit;
@@ -20,6 +21,12 @@ namespace Magick.NET.Tests
     {
         public class TheFromImageMethod
         {
+            [Fact]
+            public void ShouldThrowExceptionWhenImageIsNull()
+            {
+                Assert.Throws<ArgumentNullException>("image", () => PsdAdditionalInfo.FromImage(null));
+            }
+
             [Fact]
             public void ShouldReturnNullWhenImageHasNoPsdAdditionalInfo()
             {
