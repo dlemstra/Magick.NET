@@ -14,8 +14,24 @@ namespace Magick.NET.Samples
 {
   public static class SampleFiles
   {
-    private const string _RootDirectory = @"..\..\Samples\Magick.NET\";
-    private const string _FilesDirectory = _RootDirectory + @"Files\";
+    //private const string _RootDirectory = @"..\..\Samples\Magick.NET.Samples\";
+    //private static string _FilesDirectory = _RootDirectory + @"Files\";
+
+    private static string _RootDirectory
+    {
+        get
+        {
+            string curDir = Directory.GetCurrentDirectory();
+            return curDir + @"\..\..\..\..\";
+        }
+    }
+    private static string _FilesDirectory
+    {
+        get
+        {
+            return _RootDirectory + @"Files\";
+        }
+    }
 
     public static string CorruptImageJpg
     {
