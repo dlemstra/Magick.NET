@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldHaveTheCorrectValue()
             {
-                Assert.Equal(10000000U, ResourceLimits.Width);
+                Assert.Equal(429496729U, ResourceLimits.Width);
             }
 
             [Fact]
