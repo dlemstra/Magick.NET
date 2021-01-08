@@ -1,0 +1,20 @@
+﻿{
+  "namespace": "ImageMagick.Formats.Pdf",
+  "dynamic": "NativeToManaged",
+  "instance": false,
+  "methods": [
+    {
+      "name": "PageCount",
+      "throws": true,
+      "static": true,
+      "instance": false,
+      "type": "size_t",
+      "arguments": [
+        {
+          "name": "fileName",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}
