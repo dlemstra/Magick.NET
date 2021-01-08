@@ -42,7 +42,7 @@ namespace FileGenerator.Native
         {
             if (method.Cleanup == null)
             {
-                if (!Class.HasInstance && !method.ReturnType.IsVoid)
+                if (!Class.HasInstance && method.ReturnType.IsInstance)
                     return "Dispose(result);";
 
                 return null;

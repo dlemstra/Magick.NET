@@ -102,52 +102,25 @@ namespace FileGenerator.Native
         }
 
         public bool IsBool
-        {
-            get
-            {
-                return Managed == "bool";
-            }
-        }
+            => Managed == "bool";
+
+        public bool IsInstance
+            => _Type == "Instance";
 
         public bool IsNativeString
-        {
-            get
-            {
-                return _Type == "nativeString";
-            }
-        }
+            => _Type == "nativeString";
 
         public bool IsQuantumType
-        {
-            get
-            {
-                return _Type == "QuantumType" || _Type == "QuantumType[]";
-            }
-        }
+            => _Type == "QuantumType" || _Type == "QuantumType[]";
 
         public bool IsString
-        {
-            get
-            {
-                return _Type == "string";
-            }
-        }
+            => _Type == "string";
 
         public bool IsVoid
-        {
-            get
-            {
-                return _Type == "void" || _Type == "voidInstance";
-            }
-        }
+            => _Type == "void" || _Type == "voidInstance";
 
         public string Managed
-        {
-            get
-            {
-                return GetManagedType(_Type);
-            }
-        }
+            => GetManagedType(_Type);
 
         public string ManagedTypeCast
         {
@@ -168,12 +141,7 @@ namespace FileGenerator.Native
         }
 
         public string Native
-        {
-            get
-            {
-                return GetNativeType(_Type);
-            }
-        }
+            => GetNativeType(_Type);
 
         public string NativeTypeCast
         {
