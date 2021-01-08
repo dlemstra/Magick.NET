@@ -22,7 +22,14 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldHaveTheCorrectValue()
             {
-                Assert.Equal(429496729U, ResourceLimits.Height);
+                if (OperatingSystem.IsWindows)
+                {
+                    Assert.Equal(429496729U, ResourceLimits.Height);
+                }
+                else
+                {
+                    Assert.Equal(1844674407370955161U, ResourceLimits.Height);
+                }
             }
 
             [Fact]
