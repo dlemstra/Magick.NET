@@ -13,6 +13,16 @@
 using ImageMagick;
 using Xunit;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace Magick.NET.Tests
 {
     public partial class ResourceLimitsTests
@@ -24,11 +34,11 @@ namespace Magick.NET.Tests
             {
                 if (OperatingSystem.IsWindows)
                 {
-                    Assert.Equal(429496729U, ResourceLimits.Height);
+                    Assert.Equal(429496729U / sizeof(QuantumType), ResourceLimits.Width);
                 }
                 else
                 {
-                    Assert.Equal(1844674407370955161U, ResourceLimits.Height);
+                    Assert.Equal(1844674407370955161U / sizeof(QuantumType), ResourceLimits.Width);
                 }
             }
 
