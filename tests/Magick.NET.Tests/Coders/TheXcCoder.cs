@@ -34,5 +34,14 @@ namespace Magick.NET.Tests
                 ColorAssert.Equal(new MagickColor("#000080000000"), image, 0, 0);
             }
         }
+
+        [Fact]
+        public void ShouldHandleHslaColor()
+        {
+            using (var image = new MagickImage("xc:hsla(180,255,127.5,0.5)", 1, 1))
+            {
+                ColorAssert.Equal(new MagickColor("#0000ffffffff8080"), image, 0, 0);
+            }
+        }
     }
 }
