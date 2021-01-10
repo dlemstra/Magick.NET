@@ -25,7 +25,6 @@ param (
 function addMagickNetLibraries($xml, $quantumName, $platform) {
     addLibrary $xml "Magick.NET" $quantumName $platform "net20"
     addLibrary $xml "Magick.NET" $quantumName $platform "net40"
-    addLibrary $xml "Magick.NET" $quantumName $platform "netstandard13"
     addLibrary $xml "Magick.NET" $quantumName $platform "netstandard20"
 }
 

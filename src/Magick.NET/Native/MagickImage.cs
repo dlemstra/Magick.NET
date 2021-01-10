@@ -37,9 +37,7 @@ namespace ImageMagick
         private delegate long SeekStreamDelegate(long offset, IntPtr whence, IntPtr user_data);
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate long TellStreamDelegate(IntPtr user_data);
-        #if !NETSTANDARD1_3
         [SuppressUnmanagedCodeSecurity]
-        #endif
         private static class NativeMethods
         {
             #if PLATFORM_x64 || PLATFORM_AnyCPU

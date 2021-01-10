@@ -37,7 +37,7 @@ this you will need to add the folder that contains the executable to your %PATH%
 
 ## .NET Standard / .NET Core
 
-Starting with version 7.0.0.0102 support for .NET Standard 1.3 was added. This used to be a separate NuGet package but starting with 7.0.6.0 
+Starting with version 7.0.0.0102 support for .NET Standard was added. This used to be a separate NuGet package but starting with 7.0.6.0 
 this became part of the normal NuGet package. On Windows this works without any extra steps but on Linux this will require some extra work.
 Instructions for the cross-platform build can be found [here](CrossPlatform.md).
 

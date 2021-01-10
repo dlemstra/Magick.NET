@@ -21,9 +21,7 @@ namespace ImageMagick
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate void LogDelegate(UIntPtr type, IntPtr value);
-        #if !NETSTANDARD1_3
         [SuppressUnmanagedCodeSecurity]
-        #endif
         private static class NativeMethods
         {
             #if PLATFORM_x64 || PLATFORM_AnyCPU

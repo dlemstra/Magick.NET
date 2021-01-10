@@ -17,7 +17,6 @@ namespace ImageMagick
 {
     internal static partial class FileHelper
     {
-#if !NETSTANDARD1_3
         public static string CheckForBaseDirectory(string fileName)
         {
             if (string.IsNullOrEmpty(fileName))
@@ -28,7 +27,6 @@ namespace ImageMagick
 
             return AppDomain.CurrentDomain.BaseDirectory + fileName.Substring(1);
         }
-#endif
 
         public static string GetFullPath(string path)
         {

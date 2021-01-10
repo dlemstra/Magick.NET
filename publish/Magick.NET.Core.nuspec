@@ -19,9 +19,6 @@
     <dependencies>
       <group targetFramework=".NETFramework2.0" />
       <group targetFramework=".NETFramework4.0" />
-      <group targetFramework=".NETStandard1.3">
-        <dependency id="System.Xml.XPath.XmlDocument" version="4.3.0" />
-      </group>
       <group targetFramework=".NETStandard2.0" />
     </dependencies>
   </metadata>

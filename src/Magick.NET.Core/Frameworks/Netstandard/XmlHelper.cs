@@ -22,17 +22,13 @@ namespace ImageMagick
             => new XmlReaderSettings
             {
                 DtdProcessing = DtdProcessing.Ignore,
-#if !NETSTANDARD1_3
                 XmlResolver = null,
-#endif
             };
 
         public static XmlDocument CreateDocument()
             => new XmlDocument
             {
-#if !NETSTANDARD1_3
                 XmlResolver = null,
-#endif
             };
     }
 }

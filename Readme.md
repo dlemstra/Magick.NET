@@ -13,7 +13,7 @@ With Magick.NET you can use ImageMagick in your C#/VB.NET/.NET Core application 
 ## Supported Platforms
 
 - .NET Framework (2.0 and higher)
-- .NET Core (.NETStandard 1.3 and higher on Windows, [Linux](docs/CrossPlatform.md) and [macOS](docs/CrossPlatform.md))
+- .NET Core (.NETStandard 2.0 and higher on Windows, [Linux](docs/CrossPlatform.md) and [macOS](docs/CrossPlatform.md))
 
 ## Documentation
 

@@ -19,9 +19,7 @@ namespace ImageMagick
 {
     public static partial class OpenCL
     {
-        #if !NETSTANDARD1_3
         [SuppressUnmanagedCodeSecurity]
-        #endif
         private static class NativeMethods
         {
             #if PLATFORM_x64 || PLATFORM_AnyCPU

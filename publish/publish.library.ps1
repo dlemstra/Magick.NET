@@ -30,10 +30,6 @@ function createMagickNetLibraryNuGetPackage($library, $version, $commit, $pfxPas
 
     addLibrary $xml $library "" "AnyCPU" "net40"
 
-    if ($library -eq "Magick.NET.Core") {
-        addLibrary $xml $library "" "AnyCPU" "netstandard13"
-    }
-
     if ($library -eq "Magick.NET.SystemWindowsMedia") {
         addLibrary $xml $library "" "AnyCPU" "netcoreapp3.1"
     } else {
