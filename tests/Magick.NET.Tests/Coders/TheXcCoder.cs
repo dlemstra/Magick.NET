@@ -40,7 +40,7 @@ namespace Magick.NET.Tests
         {
             using (var image = new MagickImage("xc:hsla(180,255,127.5,0.5)", 1, 1))
             {
-                ColorAssert.Equal(new MagickColor("#0000ffffffff8080"), image, 0, 0);
+                ColorAssert.Equal(new MagickColor("#0000ffffffff8000"), image, 0, 0);
             }
         }
     }
