@@ -10,9 +10,8 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if !NETCORE
-
 using System;
+using System.Threading.Tasks;
 using ImageMagick;
 using Xunit;
 
@@ -20,36 +19,33 @@ namespace Magick.NET.Tests
 {
     public partial class ThePdfCoder
     {
-        private delegate void ReadDelegate();
-
         [Fact]
         public void ShouldReadFileMultithreadedCorrectly()
         {
-            ReadDelegate action = () =>
-            {
-                using (var image = new MagickImage())
-                {
-                    image.Read(Files.Coders.CartoonNetworkStudiosLogoAI);
+            if (!Ghostscript.IsAvailable)
+                return;
 
-                    Assert.Equal(765, image.Width);
-                    Assert.Equal(361, image.Height);
-                    Assert.Equal(MagickFormat.Ai, image.Format);
-                }
-            };
-
-            var results = new IAsyncResult[3];
+            var results = new Task[3];
 
             for (int i = 0; i < results.Length; ++i)
             {
-                results[i] = action.BeginInvoke(null, null);
+                results[i] = Task.Run(() =>
+                {
+                    using (var image = new MagickImage())
+                    {
+                        image.Read(Files.Coders.CartoonNetworkStudiosLogoAI);
+
+                        Assert.Equal(765, image.Width);
+                        Assert.Equal(361, image.Height);
+                        Assert.Equal(MagickFormat.Ai, image.Format);
+                    }
+                });
             }
 
             for (int i = 0; i < results.Length; ++i)
             {
-                action.EndInvoke(results[i]);
+                results[i].Wait();
             }
         }
     }
 }
-
-#endif

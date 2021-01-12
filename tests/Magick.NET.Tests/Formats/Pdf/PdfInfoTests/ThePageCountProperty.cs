@@ -10,8 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if !NETCORE
-
 using ImageMagick.Formats.Pdf;
 using Xunit;
 
@@ -24,11 +22,12 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheNumberOfPages()
             {
+                if (!Ghostscript.IsAvailable)
+                    return;
+
                 var pdfInfo = PdfInfo.Create(Files.Coders.SamplePDF);
                 Assert.Equal(2, pdfInfo.PageCount);
             }
         }
     }
 }
-
-#endif
