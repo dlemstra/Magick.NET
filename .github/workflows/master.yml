@@ -31,6 +31,28 @@ jobs:
     - name: Build and Test
       run: build/linux/test.Magick.NET.sh
 
+  linux_openmp:
+    name: 'Linux OpenMP (Q8/Q16/Q16-HDRI)'
+    container:
+      image: mcr.microsoft.com/dotnet/core/sdk:latest
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+
+    - name: Install dependencies
+      run: build/linux-openmp/install.dependencies.sh
+
+    - name: Install Magick.Native
+      run: 'build/linux-openmp/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}"'
+
+    - name: Build and Test
+      run: build/linux-openmp/test.Magick.NET.sh
+
   linux_musl:
     name: 'Linux musl (Q8/Q16/Q16-HDRI)'
     container:
