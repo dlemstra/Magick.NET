@@ -20,6 +20,18 @@ namespace Magick.NET.Tests
         public partial class TheVersionProperty
         {
             [Fact]
+            public void ShouldContainTheCorrectPlatform()
+            {
+#if PLATFORM_AnyCPU
+                Assert.Contains("AnyCPU", MagickNET.Version);
+#elif PLATFORM_x64
+                Assert.Contains("x64", MagickNET.Version);
+#else
+                Assert.Contains("x86", MagickNET.Version);
+#endif
+            }
+
+            [Fact]
             public void ShouldContainCorrectQuantum()
             {
 #if Q8
@@ -32,7 +44,7 @@ namespace Magick.NET.Tests
             }
 
             [Fact]
-            public void ShouldContainTheCorrectPlatform()
+            public void ShouldContainTheCorrectFramework()
             {
 #if NETCORE
                 Assert.Contains("netstandard20", MagickNET.Version);
