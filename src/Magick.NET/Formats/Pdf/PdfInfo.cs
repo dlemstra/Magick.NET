@@ -53,6 +53,8 @@ namespace ImageMagick.Formats.Pdf
 
             var nativePdfInfo = new NativePdfInfo();
             var pageCount = nativePdfInfo.PageCount(filePath);
+            if (pageCount == 0)
+                throw new MagickErrorException("Unable to determine the page count.");
 
             return new PdfInfo(pageCount);
         }
