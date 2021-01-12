@@ -26,9 +26,7 @@ namespace Magick.NET.Tests
     {
         public IEnumerable<ITestCollection> OrderTestCollections(IEnumerable<ITestCollection> testCollections)
         {
-#if !NETCORE
-            MagickNET.SetGhostscriptDirectory(@"C:\Program Files (x86)\gs\gs9.53.1\bin");
-#endif
+            Ghostscript.Initialize();
 
             var configFiles = ConfigurationFiles.Default;
             configFiles.Policy.Data = ModifyPolicy(configFiles.Policy.Data);
