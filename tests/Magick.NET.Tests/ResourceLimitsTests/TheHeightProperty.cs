@@ -32,13 +32,13 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldHaveTheCorrectValue()
             {
-                if (OperatingSystem.IsWindows)
+                if (OperatingSystem.Is64Bit)
                 {
-                    Assert.Equal(429496729U / sizeof(QuantumType), ResourceLimits.Height);
+                    Assert.Equal(1844674407370955161U / sizeof(QuantumType), ResourceLimits.Height);
                 }
                 else
                 {
-                    Assert.Equal(1844674407370955161U / sizeof(QuantumType), ResourceLimits.Height);
+                    Assert.Equal(429496729U / sizeof(QuantumType), ResourceLimits.Height);
                 }
             }
 
