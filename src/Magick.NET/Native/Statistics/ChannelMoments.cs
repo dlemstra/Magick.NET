@@ -83,7 +83,7 @@ namespace ImageMagick
                 {
                     IntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.ChannelMoments_Centroid_Get(Instance);
@@ -103,7 +103,7 @@ namespace ImageMagick
                 {
                     double result;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.ChannelMoments_EllipseAngle_Get(Instance);
@@ -123,7 +123,7 @@ namespace ImageMagick
                 {
                     IntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.ChannelMoments_EllipseAxis_Get(Instance);
@@ -143,7 +143,7 @@ namespace ImageMagick
                 {
                     double result;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.ChannelMoments_EllipseEccentricity_Get(Instance);
@@ -163,7 +163,7 @@ namespace ImageMagick
                 {
                     double result;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.ChannelMoments_EllipseIntensity_Get(Instance);
@@ -180,7 +180,7 @@ namespace ImageMagick
             public double GetHuInvariants(int index)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 return NativeMethods.X64.ChannelMoments_GetHuInvariants(Instance, (UIntPtr)index);

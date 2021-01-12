@@ -52,7 +52,7 @@ namespace ImageMagick
             public static void Initialize()
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.Environment_Initialize();
@@ -71,7 +71,7 @@ namespace ImageMagick
                     using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
                     {
                         #if PLATFORM_AnyCPU
-                        if (NativeLibrary.Is64Bit)
+                        if (OperatingSystem.Is64Bit)
                         #endif
                         #if PLATFORM_x64 || PLATFORM_AnyCPU
                         NativeMethods.X64.Environment_SetEnv(nameNative.Instance, valueNative.Instance);

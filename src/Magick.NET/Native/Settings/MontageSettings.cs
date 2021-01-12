@@ -119,7 +119,7 @@ namespace ImageMagick
             protected override void Dispose(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.MontageSettings_Dispose(instance);
@@ -134,7 +134,7 @@ namespace ImageMagick
             public NativeMontageSettings()
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 Instance = NativeMethods.X64.MontageSettings_Create();
@@ -160,7 +160,7 @@ namespace ImageMagick
                 using (INativeInstance valueNative = MagickColor.CreateInstance(value))
                 {
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MontageSettings_SetBackgroundColor(Instance, valueNative.Instance);
@@ -178,7 +178,7 @@ namespace ImageMagick
                 using (INativeInstance valueNative = MagickColor.CreateInstance(value))
                 {
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MontageSettings_SetBorderColor(Instance, valueNative.Instance);
@@ -194,7 +194,7 @@ namespace ImageMagick
             public void SetBorderWidth(int value)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.MontageSettings_SetBorderWidth(Instance, (UIntPtr)value);
@@ -211,7 +211,7 @@ namespace ImageMagick
                 using (INativeInstance valueNative = MagickColor.CreateInstance(value))
                 {
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MontageSettings_SetFillColor(Instance, valueNative.Instance);
@@ -229,7 +229,7 @@ namespace ImageMagick
                 using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
                 {
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MontageSettings_SetFont(Instance, valueNative.Instance);
@@ -245,7 +245,7 @@ namespace ImageMagick
             public void SetFontPointsize(double value)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.MontageSettings_SetFontPointsize(Instance, value);
@@ -262,7 +262,7 @@ namespace ImageMagick
                 using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
                 {
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MontageSettings_SetFrameGeometry(Instance, valueNative.Instance);
@@ -280,7 +280,7 @@ namespace ImageMagick
                 using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
                 {
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MontageSettings_SetGeometry(Instance, valueNative.Instance);
@@ -296,7 +296,7 @@ namespace ImageMagick
             public void SetGravity(Gravity value)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.MontageSettings_SetGravity(Instance, (UIntPtr)value);
@@ -311,7 +311,7 @@ namespace ImageMagick
             public void SetShadow(bool value)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.MontageSettings_SetShadow(Instance, value);
@@ -328,7 +328,7 @@ namespace ImageMagick
                 using (INativeInstance valueNative = MagickColor.CreateInstance(value))
                 {
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MontageSettings_SetStrokeColor(Instance, valueNative.Instance);
@@ -346,7 +346,7 @@ namespace ImageMagick
                 using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
                 {
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MontageSettings_SetTextureFileName(Instance, valueNative.Instance);
@@ -364,7 +364,7 @@ namespace ImageMagick
                 using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
                 {
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MontageSettings_SetTileGeometry(Instance, valueNative.Instance);
@@ -382,7 +382,7 @@ namespace ImageMagick
                 using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
                 {
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MontageSettings_SetTitle(Instance, valueNative.Instance);

@@ -95,7 +95,7 @@ namespace ImageMagick
             public static void DisposeList(IntPtr list)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.ConnectedComponent_DisposeList(list);
@@ -110,7 +110,7 @@ namespace ImageMagick
             public static int GetArea(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 return (int)NativeMethods.X64.ConnectedComponent_GetArea(instance);
@@ -126,7 +126,7 @@ namespace ImageMagick
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.ConnectedComponent_GetCentroid(instance);
@@ -143,7 +143,7 @@ namespace ImageMagick
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.ConnectedComponent_GetColor(instance);
@@ -159,7 +159,7 @@ namespace ImageMagick
             public static int GetHeight(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 return (int)NativeMethods.X64.ConnectedComponent_GetHeight(instance);
@@ -174,7 +174,7 @@ namespace ImageMagick
             public static int GetId(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 return (int)NativeMethods.X64.ConnectedComponent_GetId(instance);
@@ -189,7 +189,7 @@ namespace ImageMagick
             public static IntPtr GetInstance(IntPtr list, int index)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 return NativeMethods.X64.ConnectedComponent_GetInstance(list, (UIntPtr)index);
@@ -204,7 +204,7 @@ namespace ImageMagick
             public static int GetWidth(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 return (int)NativeMethods.X64.ConnectedComponent_GetWidth(instance);
@@ -219,7 +219,7 @@ namespace ImageMagick
             public static int GetX(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 return (int)NativeMethods.X64.ConnectedComponent_GetX(instance);
@@ -234,7 +234,7 @@ namespace ImageMagick
             public static int GetY(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 return (int)NativeMethods.X64.ConnectedComponent_GetY(instance);

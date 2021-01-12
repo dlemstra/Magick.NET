@@ -60,7 +60,7 @@ namespace ImageMagick.ImageOptimizers
                     {
                         IntPtr exception = IntPtr.Zero;
                         #if PLATFORM_AnyCPU
-                        if (NativeLibrary.Is64Bit)
+                        if (OperatingSystem.Is64Bit)
                         #endif
                         #if PLATFORM_x64 || PLATFORM_AnyCPU
                         NativeMethods.X64.JpegOptimizer_CompressFile(inputNative.Instance, outputNative.Instance, progressive, lossless, (UIntPtr)quality, out exception);
@@ -79,7 +79,7 @@ namespace ImageMagick.ImageOptimizers
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.JpegOptimizer_CompressStream(reader, writer, progressive, lossless, (UIntPtr)quality, out exception);

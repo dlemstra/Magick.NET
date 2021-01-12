@@ -392,7 +392,7 @@ namespace ImageMagick
             protected override void Dispose(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Dispose(instance);
@@ -409,7 +409,7 @@ namespace ImageMagick
                 using (INativeInstance settingsNative = DrawingSettings.CreateInstance(settings))
                 {
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     Instance = NativeMethods.X64.DrawingWand_Create(image.GetInstance(), settingsNative.Instance);
@@ -435,7 +435,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Affine(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY, out exception);
@@ -452,7 +452,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Alpha(Instance, x, y, (UIntPtr)paintMethod, out exception);
@@ -469,7 +469,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Arc(Instance, startX, startY, endX, endY, startDegrees, endDegrees, out exception);
@@ -486,7 +486,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Bezier(Instance, coordinates.GetInstance(), (UIntPtr)length, out exception);
@@ -505,7 +505,7 @@ namespace ImageMagick
                 {
                     IntPtr exception = IntPtr.Zero;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_BorderColor(Instance, valueNative.Instance, out exception);
@@ -523,7 +523,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Circle(Instance, originX, originY, perimeterX, perimeterY, out exception);
@@ -542,7 +542,7 @@ namespace ImageMagick
                 {
                     IntPtr exception = IntPtr.Zero;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_ClipPath(Instance, valueNative.Instance, out exception);
@@ -560,7 +560,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_ClipRule(Instance, (UIntPtr)value, out exception);
@@ -577,7 +577,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_ClipUnits(Instance, (UIntPtr)value, out exception);
@@ -594,7 +594,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Color(Instance, x, y, (UIntPtr)paintMethod, out exception);
@@ -611,7 +611,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Composite(Instance, x, y, width, height, (UIntPtr)compositeOperator, image.GetInstance(), out exception);
@@ -630,7 +630,7 @@ namespace ImageMagick
                 {
                     IntPtr exception = IntPtr.Zero;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_Density(Instance, valueNative.Instance, out exception);
@@ -648,7 +648,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Ellipse(Instance, originX, originY, radiusX, radiusY, startDegrees, endDegrees, out exception);
@@ -667,7 +667,7 @@ namespace ImageMagick
                 {
                     IntPtr exception = IntPtr.Zero;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_FillColor(Instance, valueNative.Instance, out exception);
@@ -685,7 +685,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_FillOpacity(Instance, value, out exception);
@@ -704,7 +704,7 @@ namespace ImageMagick
                 {
                     IntPtr exception = IntPtr.Zero;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_FillPatternUrl(Instance, urlNative.Instance, out exception);
@@ -722,7 +722,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_FillRule(Instance, (UIntPtr)value, out exception);
@@ -741,7 +741,7 @@ namespace ImageMagick
                 {
                     IntPtr exception = IntPtr.Zero;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_Font(Instance, fontNameNative.Instance, out exception);
@@ -761,7 +761,7 @@ namespace ImageMagick
                 {
                     IntPtr exception = IntPtr.Zero;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_FontFamily(Instance, familyNative.Instance, (UIntPtr)style, (UIntPtr)weight, (UIntPtr)stretch, out exception);
@@ -779,7 +779,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_FontPointSize(Instance, value, out exception);
@@ -799,7 +799,7 @@ namespace ImageMagick
                     IntPtr exception = IntPtr.Zero;
                     IntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.DrawingWand_FontTypeMetrics(Instance, textNative.Instance, ignoreNewLines, out exception);
@@ -827,7 +827,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Gravity(Instance, (UIntPtr)value, out exception);
@@ -844,7 +844,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Line(Instance, startX, startY, endX, endY, out exception);
@@ -861,7 +861,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathArcAbs(Instance, x, y, radiusX, radiusY, rotationX, useLargeArc, useSweep, out exception);
@@ -878,7 +878,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathArcRel(Instance, x, y, radiusX, radiusY, rotationX, useLargeArc, useSweep, out exception);
@@ -895,7 +895,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Render(Instance, out exception);
@@ -914,7 +914,7 @@ namespace ImageMagick
                 {
                     IntPtr exception = IntPtr.Zero;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_Text(Instance, x, y, textNative.Instance, out exception);
@@ -932,7 +932,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathClose(Instance, out exception);
@@ -949,7 +949,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathCurveToAbs(Instance, x1, y1, x2, y2, x, y, out exception);
@@ -966,7 +966,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathCurveToRel(Instance, x1, y1, x2, y2, x, y, out exception);
@@ -983,7 +983,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathFinish(Instance, out exception);
@@ -1000,7 +1000,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathLineToAbs(Instance, x, y, out exception);
@@ -1017,7 +1017,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathLineToRel(Instance, x, y, out exception);
@@ -1034,7 +1034,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathLineToHorizontalAbs(Instance, x, out exception);
@@ -1051,7 +1051,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathLineToHorizontalRel(Instance, x, out exception);
@@ -1068,7 +1068,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathLineToVerticalAbs(Instance, y, out exception);
@@ -1085,7 +1085,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathLineToVerticalRel(Instance, y, out exception);
@@ -1102,7 +1102,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathMoveToAbs(Instance, x, y, out exception);
@@ -1119,7 +1119,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathMoveToRel(Instance, x, y, out exception);
@@ -1136,7 +1136,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathQuadraticCurveToAbs(Instance, x1, y1, x, y, out exception);
@@ -1153,7 +1153,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathQuadraticCurveToRel(Instance, x1, y1, x, y, out exception);
@@ -1170,7 +1170,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathSmoothCurveToAbs(Instance, x2, y2, x, y, out exception);
@@ -1187,7 +1187,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathSmoothCurveToRel(Instance, x2, y2, x, y, out exception);
@@ -1204,7 +1204,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathSmoothQuadraticCurveToAbs(Instance, x, y, out exception);
@@ -1221,7 +1221,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathSmoothQuadraticCurveToRel(Instance, x, y, out exception);
@@ -1238,7 +1238,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathStart(Instance, out exception);
@@ -1255,7 +1255,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Point(Instance, x, y, out exception);
@@ -1272,7 +1272,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Polygon(Instance, coordinates.GetInstance(), (UIntPtr)length, out exception);
@@ -1289,7 +1289,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Polyline(Instance, coordinates.GetInstance(), (UIntPtr)length, out exception);
@@ -1306,7 +1306,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PopClipPath(Instance, out exception);
@@ -1323,7 +1323,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PopGraphicContext(Instance, out exception);
@@ -1340,7 +1340,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PopPattern(Instance, out exception);
@@ -1359,7 +1359,7 @@ namespace ImageMagick
                 {
                     IntPtr exception = IntPtr.Zero;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_PushClipPath(Instance, clipPathNative.Instance, out exception);
@@ -1377,7 +1377,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PushGraphicContext(Instance, out exception);
@@ -1396,7 +1396,7 @@ namespace ImageMagick
                 {
                     IntPtr exception = IntPtr.Zero;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_PushPattern(Instance, idNative.Instance, x, y, width, height, out exception);
@@ -1414,7 +1414,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Rectangle(Instance, upperLeftX, upperLeftY, lowerRightX, lowerRightY, out exception);
@@ -1431,7 +1431,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Rotation(Instance, angle, out exception);
@@ -1448,7 +1448,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_RoundRectangle(Instance, upperLeftX, upperLeftY, lowerRightX, lowerRightY, cornerWidth, cornerHeight, out exception);
@@ -1465,7 +1465,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Scaling(Instance, x, y, out exception);
@@ -1482,7 +1482,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_SkewX(Instance, angle, out exception);
@@ -1499,7 +1499,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_SkewY(Instance, angle, out exception);
@@ -1516,7 +1516,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_StrokeAntialias(Instance, isEnabled, out exception);
@@ -1535,7 +1535,7 @@ namespace ImageMagick
                 {
                     IntPtr exception = IntPtr.Zero;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_StrokeColor(Instance, valueNative.Instance, out exception);
@@ -1553,7 +1553,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_StrokeDashArray(Instance, dash, (UIntPtr)length, out exception);
@@ -1570,7 +1570,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_StrokeDashOffset(Instance, value, out exception);
@@ -1587,7 +1587,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_StrokeLineCap(Instance, (UIntPtr)value, out exception);
@@ -1604,7 +1604,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_StrokeLineJoin(Instance, (UIntPtr)value, out exception);
@@ -1621,7 +1621,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_StrokeMiterLimit(Instance, (UIntPtr)value, out exception);
@@ -1638,7 +1638,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_StrokeOpacity(Instance, value, out exception);
@@ -1657,7 +1657,7 @@ namespace ImageMagick
                 {
                     IntPtr exception = IntPtr.Zero;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_StrokePatternUrl(Instance, valueNative.Instance, out exception);
@@ -1675,7 +1675,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_StrokeWidth(Instance, value, out exception);
@@ -1692,7 +1692,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_TextAlignment(Instance, (UIntPtr)value, out exception);
@@ -1709,7 +1709,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_TextAntialias(Instance, isEnabled, out exception);
@@ -1726,7 +1726,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_TextDecoration(Instance, (UIntPtr)value, out exception);
@@ -1743,7 +1743,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_TextDirection(Instance, (UIntPtr)value, out exception);
@@ -1762,7 +1762,7 @@ namespace ImageMagick
                 {
                     IntPtr exception = IntPtr.Zero;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_TextEncoding(Instance, encodingNative.Instance, out exception);
@@ -1780,7 +1780,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_TextInterlineSpacing(Instance, value, out exception);
@@ -1797,7 +1797,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_TextInterwordSpacing(Instance, value, out exception);
@@ -1814,7 +1814,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_TextKerning(Instance, value, out exception);
@@ -1833,7 +1833,7 @@ namespace ImageMagick
                 {
                     IntPtr exception = IntPtr.Zero;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_TextUnderColor(Instance, colorNative.Instance, out exception);
@@ -1851,7 +1851,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Translation(Instance, x, y, out exception);
@@ -1868,7 +1868,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Viewbox(Instance, upperLeftX, upperLeftY, lowerRightX, lowerRightY, out exception);

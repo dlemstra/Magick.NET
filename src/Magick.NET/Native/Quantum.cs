@@ -70,7 +70,7 @@ namespace ImageMagick
                 {
                     UIntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.Quantum_Depth_Get();
@@ -90,7 +90,7 @@ namespace ImageMagick
                 {
                     QuantumType result;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.Quantum_Max_Get();
@@ -107,7 +107,7 @@ namespace ImageMagick
             public static byte ScaleToByte(QuantumType value)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 return NativeMethods.X64.Quantum_ScaleToByte(value);

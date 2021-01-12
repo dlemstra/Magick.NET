@@ -61,7 +61,7 @@ namespace ImageMagick
             protected override void Dispose(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.OffsetInfo_Dispose(instance);
@@ -76,7 +76,7 @@ namespace ImageMagick
             public NativeOffsetInfo()
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 Instance = NativeMethods.X64.OffsetInfo_Create();
@@ -100,7 +100,7 @@ namespace ImageMagick
             public void SetX(int value)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.OffsetInfo_SetX(Instance, (UIntPtr)value);
@@ -115,7 +115,7 @@ namespace ImageMagick
             public void SetY(int value)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.OffsetInfo_SetY(Instance, (UIntPtr)value);

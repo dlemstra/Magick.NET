@@ -151,7 +151,7 @@ namespace ImageMagick
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.MagickImageCollection_Append(image.GetInstance(), stack, out exception);
@@ -179,7 +179,7 @@ namespace ImageMagick
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.MagickImageCollection_Coalesce(image.GetInstance(), out exception);
@@ -207,7 +207,7 @@ namespace ImageMagick
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.MagickImageCollection_Combine(image.GetInstance(), (UIntPtr)colorSpace, out exception);
@@ -235,7 +235,7 @@ namespace ImageMagick
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.MagickImageCollection_Complex(image.GetInstance(), (UIntPtr)complexOperator, out exception);
@@ -263,7 +263,7 @@ namespace ImageMagick
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.MagickImageCollection_Deconstruct(image.GetInstance(), out exception);
@@ -289,7 +289,7 @@ namespace ImageMagick
             public static void Dispose(IntPtr value)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.MagickImageCollection_Dispose(value);
@@ -306,7 +306,7 @@ namespace ImageMagick
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.MagickImageCollection_Evaluate(image.GetInstance(), (UIntPtr)evaluateOperator, out exception);
@@ -335,7 +335,7 @@ namespace ImageMagick
                 {
                     IntPtr exception = IntPtr.Zero;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MagickImageCollection_Map(image.GetInstance(), settingsNative.Instance, remapImage.GetInstance(), out exception);
@@ -354,7 +354,7 @@ namespace ImageMagick
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.MagickImageCollection_Merge(image.GetInstance(), (UIntPtr)method, out exception);
@@ -384,7 +384,7 @@ namespace ImageMagick
                     IntPtr exception = IntPtr.Zero;
                     IntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickImageCollection_Montage(image.GetInstance(), settingsNative.Instance, out exception);
@@ -413,7 +413,7 @@ namespace ImageMagick
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.MagickImageCollection_Morph(image.GetInstance(), (UIntPtr)frames, out exception);
@@ -441,7 +441,7 @@ namespace ImageMagick
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.MagickImageCollection_Optimize(image.GetInstance(), out exception);
@@ -469,7 +469,7 @@ namespace ImageMagick
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.MagickImageCollection_OptimizePlus(image.GetInstance(), out exception);
@@ -496,7 +496,7 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.MagickImageCollection_OptimizeTransparency(image.GetInstance(), out exception);
@@ -514,7 +514,7 @@ namespace ImageMagick
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.MagickImageCollection_Polynomial(image.GetInstance(), terms, (UIntPtr)length, out exception);
@@ -543,7 +543,7 @@ namespace ImageMagick
                 {
                     IntPtr exception = IntPtr.Zero;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MagickImageCollection_Quantize(image.GetInstance(), settingsNative.Instance, out exception);
@@ -564,7 +564,7 @@ namespace ImageMagick
                     IntPtr exception = IntPtr.Zero;
                     IntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickImageCollection_ReadBlob(settingsNative.Instance, data, (UIntPtr)offset, (UIntPtr)length, out exception);
@@ -595,7 +595,7 @@ namespace ImageMagick
                     IntPtr exception = IntPtr.Zero;
                     IntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickImageCollection_ReadFile(settingsNative.Instance, out exception);
@@ -626,7 +626,7 @@ namespace ImageMagick
                     IntPtr exception = IntPtr.Zero;
                     IntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickImageCollection_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
@@ -655,7 +655,7 @@ namespace ImageMagick
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.MagickImageCollection_Smush(image.GetInstance(), (IntPtr)offset, stack, out exception);
@@ -684,7 +684,7 @@ namespace ImageMagick
                 {
                     IntPtr exception = IntPtr.Zero;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MagickImageCollection_WriteFile(image.GetInstance(), settingsNative.Instance, out exception);
@@ -704,7 +704,7 @@ namespace ImageMagick
                 {
                     IntPtr exception = IntPtr.Zero;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MagickImageCollection_WriteStream(image.GetInstance(), settingsNative.Instance, writer, seeker, teller, reader, out exception);

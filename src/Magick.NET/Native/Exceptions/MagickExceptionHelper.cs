@@ -69,7 +69,7 @@ namespace ImageMagick
             public static string Description(IntPtr exception)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 return UTF8Marshaler.NativeToManaged(NativeMethods.X64.MagickExceptionHelper_Description(exception));
@@ -84,7 +84,7 @@ namespace ImageMagick
             public static void Dispose(IntPtr exception)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.MagickExceptionHelper_Dispose(exception);
@@ -99,7 +99,7 @@ namespace ImageMagick
             public static string Message(IntPtr exception)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 return UTF8Marshaler.NativeToManaged(NativeMethods.X64.MagickExceptionHelper_Message(exception));
@@ -114,7 +114,7 @@ namespace ImageMagick
             public static IntPtr Related(IntPtr exception, int index)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 return NativeMethods.X64.MagickExceptionHelper_Related(exception, (UIntPtr)index);
@@ -129,7 +129,7 @@ namespace ImageMagick
             public static int RelatedCount(IntPtr exception)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 return (int)NativeMethods.X64.MagickExceptionHelper_RelatedCount(exception);
@@ -144,7 +144,7 @@ namespace ImageMagick
             public static int Severity(IntPtr exception)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 return (int)NativeMethods.X64.MagickExceptionHelper_Severity(exception);

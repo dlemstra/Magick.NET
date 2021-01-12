@@ -86,7 +86,7 @@ namespace ImageMagick
                 {
                     IntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.Magick_Delegates_Get();
@@ -106,7 +106,7 @@ namespace ImageMagick
                 {
                     IntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.Magick_Features_Get();
@@ -125,7 +125,7 @@ namespace ImageMagick
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.Magick_GetFonts(out length, out exception);
@@ -150,7 +150,7 @@ namespace ImageMagick
             public static string GetFontName(IntPtr instance, int index)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 return UTF8Marshaler.NativeToManaged(NativeMethods.X64.Magick_GetFontName(instance, (UIntPtr)index));
@@ -165,7 +165,7 @@ namespace ImageMagick
             public static string GetFontFamily(IntPtr instance, int index)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 return UTF8Marshaler.NativeToManaged(NativeMethods.X64.Magick_GetFontFamily(instance, (UIntPtr)index));
@@ -180,7 +180,7 @@ namespace ImageMagick
             public static void DisposeFonts(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.Magick_DisposeFonts(instance);
@@ -195,7 +195,7 @@ namespace ImageMagick
             public static void SetLogDelegate(LogDelegate method)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.Magick_SetLogDelegate(method);
@@ -212,7 +212,7 @@ namespace ImageMagick
                 using (INativeInstance eventsNative = UTF8Marshaler.CreateInstance(events))
                 {
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.Magick_SetLogEvents(eventsNative.Instance);
@@ -228,7 +228,7 @@ namespace ImageMagick
             public static void SetRandomSeed(long value)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.Magick_SetRandomSeed(value);

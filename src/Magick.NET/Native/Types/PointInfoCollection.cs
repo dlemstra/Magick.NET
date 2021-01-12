@@ -66,7 +66,7 @@ namespace ImageMagick
             protected override void Dispose(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.PointInfoCollection_Dispose(instance);
@@ -81,7 +81,7 @@ namespace ImageMagick
             public NativePointInfoCollection(int length)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 Instance = NativeMethods.X64.PointInfoCollection_Create((UIntPtr)length);
@@ -109,7 +109,7 @@ namespace ImageMagick
             public double GetX(int index)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 return NativeMethods.X64.PointInfoCollection_GetX(Instance, (UIntPtr)index);
@@ -124,7 +124,7 @@ namespace ImageMagick
             public double GetY(int index)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 return NativeMethods.X64.PointInfoCollection_GetY(Instance, (UIntPtr)index);
@@ -139,7 +139,7 @@ namespace ImageMagick
             public void Set(int index, double x, double y)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.PointInfoCollection_Set(Instance, (UIntPtr)index, x, y);

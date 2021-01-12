@@ -41,15 +41,7 @@ namespace ImageMagick
 #endif
 
 #if PLATFORM_AnyCPU
-        public static string PlatformName => Is64Bit ? "x64" : "x86";
-
-        public static bool Is64Bit
-        {
-            get
-            {
-                return IntPtr.Size == 8;
-            }
-        }
+        public static string PlatformName => OperatingSystem.Is64Bit ? "x64" : "x86";
 #endif
     }
 }

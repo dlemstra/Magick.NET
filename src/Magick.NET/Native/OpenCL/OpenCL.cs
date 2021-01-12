@@ -59,7 +59,7 @@ namespace ImageMagick
             public static IntPtr GetDevices(out UIntPtr length)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 return NativeMethods.X64.OpenCL_GetDevices(out length);
@@ -74,7 +74,7 @@ namespace ImageMagick
             public static IntPtr GetDevice(IntPtr list, int index)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 return NativeMethods.X64.OpenCL_GetDevice(list, (UIntPtr)index);
@@ -89,7 +89,7 @@ namespace ImageMagick
             public static bool SetEnabled(bool value)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 return NativeMethods.X64.OpenCL_SetEnabled(value);

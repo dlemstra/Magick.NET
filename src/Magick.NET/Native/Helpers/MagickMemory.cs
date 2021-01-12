@@ -49,7 +49,7 @@ namespace ImageMagick
             public static void Relinquish(IntPtr value)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.MagickMemory_Relinquish(value);

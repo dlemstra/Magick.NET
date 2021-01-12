@@ -53,7 +53,7 @@ namespace ImageMagick.Formats.Pdf
                     IntPtr exception = IntPtr.Zero;
                     UIntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.PdfInfo_PageCount(fileNameNative.Instance, out exception);

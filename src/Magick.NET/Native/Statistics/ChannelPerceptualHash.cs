@@ -64,7 +64,7 @@ namespace ImageMagick
             public double GetSrgbHuPhash(int index)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 return NativeMethods.X64.ChannelPerceptualHash_GetSrgbHuPhash(Instance, (UIntPtr)index);
@@ -79,7 +79,7 @@ namespace ImageMagick
             public double GetHclpHuPhash(int index)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 return NativeMethods.X64.ChannelPerceptualHash_GetHclpHuPhash(Instance, (UIntPtr)index);

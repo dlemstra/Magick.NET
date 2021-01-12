@@ -53,7 +53,7 @@ namespace ImageMagick
             public static void DisposeList(IntPtr list)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.Statistics_DisposeList(list);
@@ -68,7 +68,7 @@ namespace ImageMagick
             public static IntPtr GetInstance(IntPtr list, PixelChannel channel)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 return NativeMethods.X64.Statistics_GetInstance(list, (UIntPtr)channel);

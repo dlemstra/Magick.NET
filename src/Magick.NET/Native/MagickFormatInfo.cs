@@ -123,7 +123,7 @@ namespace ImageMagick
                 {
                     IntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickFormatInfo_Description_Get(Instance);
@@ -143,7 +143,7 @@ namespace ImageMagick
                 {
                     bool result;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickFormatInfo_CanReadMultithreaded_Get(Instance);
@@ -163,7 +163,7 @@ namespace ImageMagick
                 {
                     bool result;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickFormatInfo_CanWriteMultithreaded_Get(Instance);
@@ -183,7 +183,7 @@ namespace ImageMagick
                 {
                     IntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickFormatInfo_Format_Get(Instance);
@@ -203,7 +203,7 @@ namespace ImageMagick
                 {
                     bool result;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickFormatInfo_IsMultiFrame_Get(Instance);
@@ -223,7 +223,7 @@ namespace ImageMagick
                 {
                     bool result;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickFormatInfo_IsReadable_Get(Instance);
@@ -243,7 +243,7 @@ namespace ImageMagick
                 {
                     bool result;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickFormatInfo_IsWritable_Get(Instance);
@@ -263,7 +263,7 @@ namespace ImageMagick
                 {
                     IntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickFormatInfo_MimeType_Get(Instance);
@@ -283,7 +283,7 @@ namespace ImageMagick
                 {
                     IntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickFormatInfo_Module_Get(Instance);
@@ -302,7 +302,7 @@ namespace ImageMagick
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.MagickFormatInfo_CreateList(out length, out exception);
@@ -328,7 +328,7 @@ namespace ImageMagick
             public static void DisposeList(IntPtr instance, int length)
             {
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.MagickFormatInfo_DisposeList(instance, (UIntPtr)length);
@@ -345,7 +345,7 @@ namespace ImageMagick
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (NativeLibrary.Is64Bit)
+                if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.MagickFormatInfo_GetInfo(list, (UIntPtr)index, out exception);
@@ -367,7 +367,7 @@ namespace ImageMagick
                     IntPtr exception = IntPtr.Zero;
                     IntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickFormatInfo_GetInfoByName(nameNative.Instance, out exception);
@@ -388,7 +388,7 @@ namespace ImageMagick
                 using (INativeInstance nameNative = UTF8Marshaler.CreateInstance(name))
                 {
                     #if PLATFORM_AnyCPU
-                    if (NativeLibrary.Is64Bit)
+                    if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     return NativeMethods.X64.MagickFormatInfo_Unregister(nameNative.Instance);
