@@ -30,6 +30,16 @@ namespace Magick.NET.Tests
                 Assert.Contains("Q16-HDRI", MagickNET.Version);
 #endif
             }
+
+            [Fact]
+            public void ShouldContainTheCorrectPlatform()
+            {
+#if NETCORE
+                Assert.Contains("netstandard20", MagickNET.Version);
+#else
+                Assert.Contains("net40", MagickNET.Version);
+#endif
+            }
         }
     }
 }
