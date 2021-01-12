@@ -11,13 +11,8 @@ buildAndTest() {
 }
 
 filename=tests/Magick.NET.Tests/Images/Coders/sample.pdf
-echo gs -q -dQUIET -dSAFER -dBATCH -dNOPAUSE -dNOPROMPT --permit-file-read="$filename" -c "($filename) (r) file runpdfbegin pdfpagecount = quit"
-gs -q -dQUIET -dSAFER -dBATCH -dNOPAUSE -dNOPROMPT --permit-file-read="$filename" -c "($filename) (r) file runpdfbegin pdfpagecount = quit"
-
 gs -o fixed.pdf -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress $filename
-cp fixed.pdf $filename
-
-gs -q -dQUIET -dSAFER -dBATCH -dNOPAUSE -dNOPROMPT --permit-file-read="$filename" -c "($filename) (r) file runpdfbegin pdfpagecount = quit"
+mv fixed.pdf $filename
 
 buildAndTest "Q8"
 buildAndTest "Q16"
