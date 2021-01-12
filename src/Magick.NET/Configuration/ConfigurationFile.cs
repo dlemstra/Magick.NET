@@ -32,9 +32,21 @@ namespace ImageMagick.Configuration
             {
                 using (var reader = new StreamReader(stream))
                 {
-                    return reader.ReadToEnd();
+                    var data = reader.ReadToEnd();
+
+                    data = UpdateDelegatesXml(data);
+
+                    return data;
                 }
             }
+        }
+
+        private string UpdateDelegatesXml(string data)
+        {
+            if (OperatingSystem.IsWindows || FileName != "delegates.xml")
+                return data;
+
+            return data.Replace("@PSDelegate@", "gs");
         }
     }
 }
