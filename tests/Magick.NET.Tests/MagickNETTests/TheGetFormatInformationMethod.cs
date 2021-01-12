@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using ImageMagick;
 using Xunit;
 using Xunit.Sdk;
+using OperatingSystem = ImageMagick.OperatingSystem;
 
 namespace Magick.NET.Tests
 {

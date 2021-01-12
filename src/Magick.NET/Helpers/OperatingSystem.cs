@@ -10,20 +10,20 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-#if NETCORE
+#if NETSTANDARD
 using System.Runtime.InteropServices;
 #endif
 
 using System;
 
-namespace Magick.NET.Tests
+namespace ImageMagick
 {
-    public static class OperatingSystem
+    internal static class OperatingSystem
     {
         public static bool Is64Bit =>
             IntPtr.Size == 8;
 
-#if NETCORE
+#if NETSTANDARD
         public static bool IsWindows =>
            RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 

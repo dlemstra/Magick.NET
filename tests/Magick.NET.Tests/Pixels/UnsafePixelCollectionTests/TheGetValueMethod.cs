@@ -13,6 +13,7 @@
 using System;
 using ImageMagick;
 using Xunit;
+using OperatingSystem = ImageMagick.OperatingSystem;
 
 namespace Magick.NET.Tests
 {

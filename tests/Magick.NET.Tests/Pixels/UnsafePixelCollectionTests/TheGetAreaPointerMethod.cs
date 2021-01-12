@@ -13,6 +13,7 @@
 using System;
 using ImageMagick;
 using Xunit;
+using OperatingSystem = ImageMagick.OperatingSystem;
 
 #if Q8
 using QuantumType = System.Byte;
