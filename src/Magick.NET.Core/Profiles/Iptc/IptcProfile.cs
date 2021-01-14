@@ -98,7 +98,7 @@ namespace ImageMagick
         public List<IIptcValue> GetAllValues(IptcTag tag)
         {
             var iptcValues = new List<IIptcValue>();
-            foreach (IptcValue iptcValue in Values)
+            foreach (var iptcValue in Values)
             {
                 if (iptcValue.Tag == tag)
                 {
@@ -118,8 +118,8 @@ namespace ImageMagick
         {
             Initialize();
 
-            bool removed = false;
-            for (int i = _values.Count - 1; i >= 0; i--)
+            var removed = false;
+            for (var i = _values.Count - 1; i >= 0; i--)
             {
                 if (_values[i].Tag == tag)
                 {
@@ -141,8 +141,8 @@ namespace ImageMagick
         {
             Initialize();
 
-            bool removed = false;
-            for (int i = _values.Count - 1; i >= 0; i--)
+            var removed = false;
+            for (var i = _values.Count - 1; i >= 0; i--)
             {
                 if (_values[i].Tag == tag && _values[i].Value.Equals(value, StringComparison.Ordinal))
                 {
@@ -203,7 +203,8 @@ namespace ImageMagick
         /// </summary>
         /// <param name="tag">The tag of the iptc value.</param>
         /// <param name="value">The value.</param>
-        public void SetValue(IptcTag tag, string value) => SetValue(tag, Encoding.UTF8, value);
+        public void SetValue(IptcTag tag, string value)
+            => SetValue(tag, Encoding.UTF8, value);
 
         /// <summary>
         /// Makes sure the datetime is formatted according to the iptc specification.
