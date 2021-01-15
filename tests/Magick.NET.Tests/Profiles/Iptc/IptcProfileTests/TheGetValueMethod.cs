@@ -10,6 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+using System.Linq;
 using ImageMagick;
 using Xunit;
 
@@ -55,7 +56,7 @@ namespace Magick.NET.Tests
                 var result = profile.GetAllValues(IptcTag.Byline);
 
                 Assert.NotNull(result);
-                Assert.Equal(2, result.Count);
+                Assert.Equal(2, result.Count());
             }
         }
     }

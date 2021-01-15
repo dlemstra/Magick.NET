@@ -94,18 +94,15 @@ namespace ImageMagick
         /// </summary>
         /// <param name="tag">The tag of the iptc value.</param>
         /// <returns>The values found with the specified tag.</returns>
-        public List<IIptcValue> GetAllValues(IptcTag tag)
+        public IEnumerable<IIptcValue> GetAllValues(IptcTag tag)
         {
-            var iptcValues = new List<IIptcValue>();
             foreach (var iptcValue in Values)
             {
                 if (iptcValue.Tag == tag)
                 {
-                    iptcValues.Add(iptcValue);
+                    yield return iptcValue;
                 }
             }
-
-            return iptcValues;
         }
 
         /// <summary>
