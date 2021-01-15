@@ -15,7 +15,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
-using System.Text;
 
 namespace ImageMagick
 {
@@ -155,29 +154,12 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Changes the encoding for all the values.
-        /// </summary>
-        /// <param name="encoding">The encoding to use when storing the bytes.</param>
-        public void SetEncoding(Encoding encoding)
-        {
-            Throw.IfNull(nameof(encoding), encoding);
-
-            foreach (var value in Values)
-            {
-                value.Encoding = encoding;
-            }
-        }
-
-        /// <summary>
         /// Sets the value of the specified tag.
         /// </summary>
         /// <param name="tag">The tag of the iptc value.</param>
-        /// <param name="encoding">The encoding to use when storing the bytes.</param>
         /// <param name="value">The value.</param>
-        public void SetValue(IptcTag tag, Encoding encoding, string value)
+        public void SetValue(IptcTag tag, string value)
         {
-            Throw.IfNull(nameof(encoding), encoding);
-
             if (tag.IsRepeatable())
             {
                 Initialize();
@@ -188,23 +170,14 @@ namespace ImageMagick
                 {
                     if (iptcValue.Tag == tag)
                     {
-                        iptcValue.Encoding = encoding;
                         iptcValue.Value = value;
                         return;
                     }
                 }
             }
 
-            _values.Add(new IptcValue(tag, encoding, value));
+            _values.Add(new IptcValue(tag, value));
         }
-
-        /// <summary>
-        /// Sets the value of the specified tag.
-        /// </summary>
-        /// <param name="tag">The tag of the iptc value.</param>
-        /// <param name="value">The value.</param>
-        public void SetValue(IptcTag tag, string value)
-            => SetValue(tag, Encoding.UTF8, value);
 
         /// <summary>
         /// Makes sure the datetime is formatted according to the iptc specification.
@@ -229,7 +202,7 @@ namespace ImageMagick
                 ? dateTimeOffset.ToString("yyyyMMdd", CultureInfo.InvariantCulture)
                 : dateTimeOffset.ToString("HHmmsszzzz", CultureInfo.InvariantCulture).Replace(":", string.Empty);
 
-            SetValue(tag, Encoding.UTF8, formattedDate);
+            SetValue(tag, formattedDate);
         }
 
         /// <summary>

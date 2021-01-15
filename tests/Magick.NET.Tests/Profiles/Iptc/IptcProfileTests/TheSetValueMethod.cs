@@ -10,9 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
-using System.Linq;
-using System.Text;
 using ImageMagick;
 using Xunit;
 
@@ -22,20 +19,6 @@ namespace Magick.NET.Tests
     {
         public class TheSetValueMethod
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenEncodingIsNull()
-            {
-                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-                {
-                    var profile = image.GetIptcProfile();
-
-                    Assert.Throws<ArgumentNullException>("encoding", () =>
-                    {
-                        profile.SetValue(IptcTag.Title, null, string.Empty);
-                    });
-                }
-            }
-
             [Fact]
             public void ShouldChangeTheValue()
             {

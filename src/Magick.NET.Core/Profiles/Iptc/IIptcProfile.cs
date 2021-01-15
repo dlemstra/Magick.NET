@@ -56,20 +56,6 @@ namespace ImageMagick
         bool RemoveValue(IptcTag tag, string value);
 
         /// <summary>
-        /// Changes the encoding for all the values.
-        /// </summary>
-        /// <param name="encoding">The encoding to use when storing the bytes.</param>
-        void SetEncoding(Encoding encoding);
-
-        /// <summary>
-        /// Sets the value of the specified tag.
-        /// </summary>
-        /// <param name="tag">The tag of the iptc value.</param>
-        /// <param name="encoding">The encoding to use when storing the bytes.</param>
-        /// <param name="value">The value.</param>
-        void SetValue(IptcTag tag, Encoding encoding, string value);
-
-        /// <summary>
         /// Sets the value of the specified tag.
         /// </summary>
         /// <param name="tag">The tag of the iptc value.</param>

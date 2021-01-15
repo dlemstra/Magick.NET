@@ -31,24 +31,11 @@ namespace ImageMagick
             _encoding = Encoding.UTF8;
         }
 
-        internal IptcValue(IptcTag tag, Encoding encoding, string value)
+        internal IptcValue(IptcTag tag, string value)
         {
             Tag = tag;
-            _encoding = encoding;
+            _encoding = Encoding.UTF8;
             Value = value;
-        }
-
-        /// <summary>
-        /// Gets or sets the encoding to use for the Value.
-        /// </summary>
-        public Encoding Encoding
-        {
-            get => _encoding;
-            set
-            {
-                if (value != null)
-                    _encoding = value;
-            }
         }
 
         /// <summary>
@@ -74,7 +61,8 @@ namespace ImageMagick
         /// <summary>
         /// Gets the length of the value.
         /// </summary>
-        public int Length => _data.Length;
+        public int Length
+            => _data.Length;
 
         /// <summary>
         /// Determines whether the specified object is equal to the current <see cref="IptcValue"/>.
@@ -123,7 +111,8 @@ namespace ImageMagick
         /// Serves as a hash of this type.
         /// </summary>
         /// <returns>A hash code for the current instance.</returns>
-        public override int GetHashCode() => _data.GetHashCode() ^ Tag.GetHashCode();
+        public override int GetHashCode()
+            => _data.GetHashCode() ^ Tag.GetHashCode();
 
         /// <summary>
         /// Converts this instance to a byte array.
@@ -140,18 +129,7 @@ namespace ImageMagick
         /// Returns a string that represents the current value.
         /// </summary>
         /// <returns>A string that represents the current value.</returns>
-        public override string ToString() => Value;
-
-        /// <summary>
-        /// Returns a string that represents the current value with the specified encoding.
-        /// </summary>
-        /// <param name="encoding">The encoding to use.</param>
-        /// <returns>A string that represents the current value with the specified encoding.</returns>
-        public string ToString(Encoding encoding)
-        {
-            Throw.IfNull(nameof(encoding), encoding);
-
-            return encoding.GetString(_data);
-        }
+        public override string ToString()
+            => Value;
     }
 }

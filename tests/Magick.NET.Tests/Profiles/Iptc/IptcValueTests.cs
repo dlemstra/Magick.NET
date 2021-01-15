@@ -10,9 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
 using System.Linq;
-using System.Text;
 using ImageMagick;
 using Xunit;
 
@@ -20,33 +18,6 @@ namespace Magick.NET.Tests
 {
     public class IptcValueTests
     {
-        [Fact]
-        public void Encoding_SetToNull_NotChanged()
-        {
-            var value = GetIptcValue();
-
-            value.Encoding = null;
-
-            Assert.NotNull(value.Encoding);
-        }
-
-        [Fact]
-        public void Test_Encoding()
-        {
-            var value = GetIptcValue();
-
-            Assert.Equal("Communications", value.Value);
-
-            value.Encoding = Encoding.UTF32;
-            Assert.NotEqual("Communications", value.Value);
-
-            value.Value = "Communications";
-            Assert.Equal("Communications", value.Value);
-
-            value.Encoding = Encoding.UTF8;
-            Assert.NotEqual("Communications", value.Value);
-        }
-
         [Fact]
         public void Test_IEquatable()
         {
@@ -74,14 +45,9 @@ namespace Magick.NET.Tests
             var value = GetIptcValue();
 
             Assert.Equal("Communications", value.ToString());
-            Assert.Equal("Communications", value.ToString(Encoding.UTF8));
-            Assert.NotEqual("Communications", value.ToString(Encoding.UTF32));
 
-            value.Encoding = Encoding.UTF32;
             value.Value = "Test";
             Assert.Equal("Test", value.ToString());
-            Assert.Equal("Test", value.ToString(Encoding.UTF32));
-            Assert.NotEqual("Test", value.ToString(Encoding.UTF8));
 
             value.Value = string.Empty;
             Assert.Equal(string.Empty, value.ToString());

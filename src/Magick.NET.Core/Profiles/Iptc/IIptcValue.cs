@@ -21,11 +21,6 @@ namespace ImageMagick
     public interface IIptcValue : IEquatable<IIptcValue>
     {
         /// <summary>
-        /// Gets or sets the encoding to use for the Value.
-        /// </summary>
-        Encoding Encoding { get; set; }
-
-        /// <summary>
         /// Gets the tag of the iptc value.
         /// </summary>
         IptcTag Tag { get; }
@@ -47,10 +42,9 @@ namespace ImageMagick
         byte[] ToByteArray();
 
         /// <summary>
-        /// Returns a string that represents the current value with the specified encoding.
+        /// Returns a string that represents the current value.
         /// </summary>
-        /// <param name="encoding">The encoding to use.</param>
-        /// <returns>A string that represents the current value with the specified encoding.</returns>
-        string ToString(Encoding encoding);
+        /// <returns>A string that represents the current value.</returns>
+        string ToString();
     }
 }
