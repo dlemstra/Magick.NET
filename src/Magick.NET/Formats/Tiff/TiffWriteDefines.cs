@@ -44,6 +44,11 @@ namespace ImageMagick.Formats
         public Endian? FillOrder { get; set; }
 
         /// <summary>
+        /// Gets or sets the prediction scheme with LZW (tiff:predictor).
+        /// </summary>
+        public int? Predictor { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether the compression of the image should be preserved (tiff:preserve-compression).
         /// </summary>
         public bool PreserveCompression { get; set; }
@@ -78,6 +83,9 @@ namespace ImageMagick.Formats
 
                 if (FillOrder.HasValue && FillOrder.Value != ImageMagick.Endian.Undefined)
                     yield return CreateDefine("fill-order", FillOrder.Value);
+
+                if (Predictor.HasValue)
+                    yield return CreateDefine("predictor", Predictor.Value);
 
                 if (PreserveCompression)
                     yield return CreateDefine("preserve-compression", PreserveCompression);

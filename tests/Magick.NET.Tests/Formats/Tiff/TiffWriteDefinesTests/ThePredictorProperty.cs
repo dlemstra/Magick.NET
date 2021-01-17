@@ -18,23 +18,33 @@ namespace Magick.NET.Tests
 {
     public partial class TiffWriteDefinesTests
     {
-        public class TheConstructor : TiffWriteDefinesTests
+        public class ThePredictorProperty : TiffWriteDefinesTests
         {
             [Fact]
-            public void ShouldNotSetAnyDefine()
+            public void ShouldSetTheDefine()
+            {
+                using (var input = new MagickImage())
+                {
+                    input.Settings.SetDefines(new TiffWriteDefines
+                    {
+                        Predictor = 1,
+                    });
+
+                    Assert.Equal("1", input.Settings.GetDefine(MagickFormat.Tiff, "predictor"));
+                }
+            }
+
+            [Fact]
+            public void ShouldNotSetTheDefineWhenTheValueIsNull()
             {
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new TiffWriteDefines());
+                    image.Settings.SetDefines(new TiffWriteDefines
+                    {
+                        Predictor = null,
+                    });
 
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "alpha"));
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "endian"));
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "fill-order"));
                     Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "predictor"));
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "preserve-compression"));
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "rows-per-strip"));
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "tile-geometry"));
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "write-layers"));
                 }
             }
         }
