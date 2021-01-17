@@ -86,7 +86,7 @@ namespace Magick.NET.Tests
                 var profile = image.GetIptcProfile();
                 Assert.NotNull(profile);
 
-                Assert.Equal(273, profile.ToByteArray().Length);
+                Assert.Equal(281, profile.ToByteArray().Length);
             }
         }
     }
