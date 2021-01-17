@@ -40,16 +40,16 @@ namespace Magick.NET.Tests
                 using (var image = new MagickImage(Files.SnakewarePNG))
                 {
                     int count = 0;
-                    EventHandler<LogEventArgs> logDelegate = (sender, arguments) =>
+                    void LogDelegate(object sender, LogEventArgs arguments)
                     {
                         count++;
-                    };
+                    }
 
-                    MagickNET.Log += logDelegate;
+                    MagickNET.Log += LogDelegate;
 
                     image.Flip();
 
-                    MagickNET.Log -= logDelegate;
+                    MagickNET.Log -= LogDelegate;
 
                     Assert.Equal(0, count);
                 }
@@ -60,7 +60,7 @@ namespace Magick.NET.Tests
                 using (var image = new MagickImage(Files.SnakewarePNG))
                 {
                     int count = 0;
-                    EventHandler<LogEventArgs> logDelegate = (sender, arguments) =>
+                    void LogDelegate(object sender, LogEventArgs arguments)
                     {
                         Assert.Null(sender);
                         Assert.NotNull(arguments);
@@ -69,15 +69,15 @@ namespace Magick.NET.Tests
                         Assert.NotEqual(0, arguments.Message.Length);
 
                         count++;
-                    };
+                    }
 
-                    MagickNET.Log += logDelegate;
+                    MagickNET.Log += LogDelegate;
 
                     MagickNET.SetLogEvents(LogEvents.Detailed);
 
                     image.Flip();
 
-                    MagickNET.Log -= logDelegate;
+                    MagickNET.Log -= LogDelegate;
 
                     Assert.NotEqual(0, count);
                     count = 0;
@@ -90,21 +90,21 @@ namespace Magick.NET.Tests
             private void ShouldLogTraceEventsWhenLogEventsIsSetToAll()
             {
                 int traceEvents = 0;
-                EventHandler<LogEventArgs> logDelegate = (sender, arguments) =>
+                void LogDelegate(object sender, LogEventArgs arguments)
                 {
                     if (arguments.EventType == LogEvents.Trace)
                         traceEvents++;
-                };
+                }
 
                 MagickNET.SetLogEvents(LogEvents.All);
 
-                MagickNET.Log += logDelegate;
+                MagickNET.Log += LogDelegate;
 
                 using (var image = new MagickImage(Files.SnakewarePNG))
                 {
                 }
 
-                MagickNET.Log -= logDelegate;
+                MagickNET.Log -= LogDelegate;
 
                 Assert.NotEqual(0, traceEvents);
             }
@@ -114,16 +114,16 @@ namespace Magick.NET.Tests
                 using (var image = new MagickImage(Files.SnakewarePNG))
                 {
                     int count = 0;
-                    EventHandler<LogEventArgs> logDelegate = (sender, arguments) =>
+                    void LogDelegate(object sender, LogEventArgs arguments)
                     {
                         count++;
-                    };
+                    }
 
-                    MagickNET.Log += logDelegate;
+                    MagickNET.Log += LogDelegate;
 
                     MagickNET.SetLogEvents(LogEvents.Detailed);
 
-                    MagickNET.Log -= logDelegate;
+                    MagickNET.Log -= LogDelegate;
 
                     image.Flip();
                     Assert.Equal(0, count);
