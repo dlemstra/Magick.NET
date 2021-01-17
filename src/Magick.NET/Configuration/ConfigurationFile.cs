@@ -46,7 +46,10 @@ namespace ImageMagick.Configuration
             if (OperatingSystem.IsWindows || FileName != "delegates.xml")
                 return data;
 
-            return data.Replace("@PSDelegate@", "gs");
+            data = data.Replace("@PSDelegate@", "gs");
+            data = data.Replace("ffmpeg.exe", "ffmpeg");
+
+            return data;
         }
     }
 }
