@@ -544,6 +544,15 @@ namespace ImageMagick
         /// <summary>
         /// Sets a format-specific option.
         /// </summary>
+        /// <param name="format">The format to set the define for.</param>
+        /// <param name="name">The name of the define.</param>
+        /// <param name="value">The value of the define.</param>
+        public void SetDefine(MagickFormat format, string name, int value)
+            => SetDefine(format, name, value.ToString(CultureInfo.InvariantCulture));
+
+        /// <summary>
+        /// Sets a format-specific option.
+        /// </summary>
         /// <param name="format">The format to set the option for.</param>
         /// <param name="name">The name of the option.</param>
         /// <param name="value">The value of the option.</param>

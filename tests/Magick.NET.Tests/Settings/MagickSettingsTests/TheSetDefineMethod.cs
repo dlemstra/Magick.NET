@@ -43,6 +43,17 @@ namespace Magick.NET.Tests
             }
 
             [Fact]
+            public void ShouldChangeTheIntToString()
+            {
+                using (var image = new MagickImage())
+                {
+                    image.Settings.SetDefine(MagickFormat.Jpeg, "optimize-coding", 42);
+
+                    Assert.Equal("42", image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
+                }
+            }
+
+            [Fact]
             public void ShouldUseTheSpecifiedName()
             {
                 using (var image = new MagickImage())

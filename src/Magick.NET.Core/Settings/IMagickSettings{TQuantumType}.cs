@@ -268,6 +268,14 @@ namespace ImageMagick
         /// <param name="format">The format to set the option for.</param>
         /// <param name="name">The name of the option.</param>
         /// <param name="value">The value of the option.</param>
+        void SetDefine(MagickFormat format, string name, int value);
+
+        /// <summary>
+        /// Sets a format-specific option.
+        /// </summary>
+        /// <param name="format">The format to set the option for.</param>
+        /// <param name="name">The name of the option.</param>
+        /// <param name="value">The value of the option.</param>
         void SetDefine(MagickFormat format, string name, string value);
 
         /// <summary>
