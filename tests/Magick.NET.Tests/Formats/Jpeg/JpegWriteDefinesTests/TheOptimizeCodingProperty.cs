@@ -11,7 +11,7 @@
 // and limitations under the License.
 
 using ImageMagick;
-using ImageMagick.Formats.Jpeg;
+using ImageMagick.Formats;
 using Xunit;
 
 namespace Magick.NET.Tests

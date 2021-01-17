@@ -15,7 +15,7 @@ using System;
 using System.Security;
 using System.Runtime.InteropServices;
 
-namespace ImageMagick.Formats.Pdf
+namespace ImageMagick.Formats
 {
     public partial class PdfInfo
     {

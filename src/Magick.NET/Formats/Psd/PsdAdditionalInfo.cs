@@ -23,7 +23,7 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace ImageMagick.Formats.Psd
+namespace ImageMagick.Formats
 {
     /// <summary>
     /// The additional info of a <see cref="MagickFormat.Psd"/> image.

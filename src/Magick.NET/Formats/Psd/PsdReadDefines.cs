@@ -13,7 +13,7 @@
 using System.Collections.Generic;
 using ImageMagick.Defines;
 
-namespace ImageMagick.Formats.Psd
+namespace ImageMagick.Formats
 {
     /// <summary>
     /// Class for defines that are used when a <see cref="MagickFormat.Psd"/> image is read.

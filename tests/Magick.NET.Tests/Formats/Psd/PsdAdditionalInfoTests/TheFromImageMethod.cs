@@ -12,7 +12,7 @@
 
 using System;
 using ImageMagick;
-using ImageMagick.Formats.Psd;
+using ImageMagick.Formats;
 using Xunit;
 
 namespace Magick.NET.Tests

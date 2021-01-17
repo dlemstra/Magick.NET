@@ -13,7 +13,7 @@
 using System;
 using System.IO;
 using ImageMagick;
-using ImageMagick.Formats.Pdf;
+using ImageMagick.Formats;
 using Xunit;
 
 namespace Magick.NET.Tests

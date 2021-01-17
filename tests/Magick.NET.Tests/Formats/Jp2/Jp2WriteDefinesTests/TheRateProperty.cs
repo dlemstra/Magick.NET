@@ -11,14 +11,14 @@
 // and limitations under the License.
 
 using ImageMagick;
-using ImageMagick.Formats.Jp2;
+using ImageMagick.Formats;
 using Xunit;
 
 namespace Magick.NET.Tests
 {
     public partial class Jp2WriteDefinesTests
     {
-        public class TheRatePreoprty
+        public class TheRateProperty
         {
             [Fact]
             public void ShouldSetTheDefine()

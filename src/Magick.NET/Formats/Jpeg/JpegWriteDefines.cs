@@ -14,7 +14,7 @@ using System;
 using System.Collections.Generic;
 using ImageMagick.Defines;
 
-namespace ImageMagick.Formats.Jpeg
+namespace ImageMagick.Formats
 {
     /// <summary>
     /// Class for defines that are used when a <see cref="MagickFormat.Jpeg"/> image is written.

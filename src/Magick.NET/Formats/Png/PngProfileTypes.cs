@@ -12,7 +12,7 @@
 
 using System;
 
-namespace ImageMagick.Formats.Png
+namespace ImageMagick.Formats
 {
     /// <summary>
     /// Specifies profile types.

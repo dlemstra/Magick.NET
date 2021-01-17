@@ -14,7 +14,7 @@
 
 using System.Linq;
 using ImageMagick;
-using ImageMagick.Formats.Pdf;
+using ImageMagick.Formats;
 using Xunit;
 using Xunit.Sdk;
 

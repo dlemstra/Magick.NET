@@ -12,7 +12,7 @@
 
 using System.IO;
 
-namespace ImageMagick.Formats.Pdf
+namespace ImageMagick.Formats
 {
     /// <summary>
     /// The info of a <see cref="MagickFormat.Pdf"/> file.

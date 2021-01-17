@@ -12,7 +12,7 @@
 
 using ImageMagick;
 using ImageMagick.Defines;
-using ImageMagick.Formats.Jpeg;
+using ImageMagick.Formats;
 using Xunit;
 
 namespace Magick.NET.Tests

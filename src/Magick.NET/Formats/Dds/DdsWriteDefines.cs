@@ -13,7 +13,7 @@
 using System.Collections.Generic;
 using ImageMagick.Defines;
 
-namespace ImageMagick.Formats.Dds
+namespace ImageMagick.Formats
 {
     /// <summary>
     /// Class for defines that are used when a <see cref="MagickFormat.Dds"/> image is written.

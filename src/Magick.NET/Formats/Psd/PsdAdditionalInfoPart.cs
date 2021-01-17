@@ -10,7 +10,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-namespace ImageMagick.Formats.Psd
+namespace ImageMagick.Formats
 {
     /// <summary>
     /// Specifies which additional info should be written to the output file.

@@ -13,7 +13,7 @@
 using System.Collections.Generic;
 using ImageMagick.Defines;
 
-namespace ImageMagick.Formats.Bmp
+namespace ImageMagick.Formats
 {
     /// <summary>
     /// Class for defines that are used when a <see cref="MagickFormat.Bmp"/> image is written.
