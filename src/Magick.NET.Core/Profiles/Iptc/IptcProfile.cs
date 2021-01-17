@@ -207,19 +207,29 @@ namespace ImageMagick
         /// </summary>
         protected override void UpdateData()
         {
-            var length = 0;
+            var length = 8;
             foreach (var value in Values)
             {
                 length += value.Length + 5;
             }
 
             var data = new byte[length];
+            var i = 0;
 
-            int i = 0;
+            // Iptc Envelope that sets the character set to UTF8.
+            data[i++] = 0x1c;
+            data[i++] = 0x01;
+            data[i++] = 0x5a;
+            data[i++] = 0x00;
+            data[i++] = 0x03;
+            data[i++] = 0x1b;
+            data[i++] = 0x25;
+            data[i++] = 0x47;
+
             foreach (var value in Values)
             {
-                data[i++] = 28;
-                data[i++] = 2;
+                data[i++] = 0x1c;
+                data[i++] = 0x02;
                 data[i++] = (byte)value.Tag;
                 data[i++] = (byte)(value.Length >> 8);
                 data[i++] = (byte)value.Length;
