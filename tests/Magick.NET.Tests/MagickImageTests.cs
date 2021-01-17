@@ -863,32 +863,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_Define()
-        {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                string option = "optimize-coding";
-
-                image.Settings.SetDefine(MagickFormat.Jpg, option, true);
-                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Jpg, option));
-                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Jpeg, option));
-
-                image.Settings.RemoveDefine(MagickFormat.Jpeg, option);
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Jpg, option));
-
-                image.Settings.SetDefine(MagickFormat.Jpeg, option, "test");
-                Assert.Equal("test", image.Settings.GetDefine(MagickFormat.Jpg, option));
-                Assert.Equal("test", image.Settings.GetDefine(MagickFormat.Jpeg, option));
-
-                image.Settings.RemoveDefine(MagickFormat.Jpg, option);
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, option));
-
-                image.Settings.SetDefine("profile:skip", "ICC");
-                Assert.Equal("ICC", image.Settings.GetDefine("profile:skip"));
-            }
-        }
-
-        [Fact]
         public void Test_Density()
         {
             using (var image = new MagickImage(Files.EightBimTIF))
