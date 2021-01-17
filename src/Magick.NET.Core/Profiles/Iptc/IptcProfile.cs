@@ -247,19 +247,25 @@ namespace ImageMagick
             int i = 0;
             while (i + 4 < data.Length)
             {
-                if (data[i++] != 28)
+                if (data[i++] != 0x1c)
                     continue;
 
-                i++;
+                var tag = IptcTag.Unknown;
 
-                var tag = (IptcTag)data[i++];
+                if (data[i++] == 0x02)
+                    tag = EnumHelper.Parse(data[i++], IptcTag.Unknown);
+                else
+                    i++;
 
                 var count = ByteConverter.ToShort(data, ref i);
 
-                var value = new byte[count];
-                if ((count > 0) && (i + count <= data.Length))
-                    Buffer.BlockCopy(data, i, value, 0, count);
-                _values.Add(new IptcValue(tag, value));
+                if (tag != IptcTag.Unknown)
+                {
+                    var value = new byte[count];
+                    if ((count > 0) && (i + count <= data.Length))
+                        Buffer.BlockCopy(data, i, value, 0, count);
+                    _values.Add(new IptcValue(tag, value));
+                }
 
                 i += count;
             }
