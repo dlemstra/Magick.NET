@@ -3174,6 +3174,12 @@ namespace ImageMagick
         void Solarize(double factor);
 
         /// <summary>
+        /// Sort pixels within each scanline in ascending order of intensity.
+        /// </summary>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void SortPixels();
+
+        /// <summary>
         /// Solarize image (similar to effect seen when exposing a photographic film to light during
         /// the development process).
         /// </summary>

@@ -551,6 +551,8 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_Solarize(IntPtr Instance, double factor, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickImage_SortPixels(IntPtr Instance, out IntPtr exception);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Splice(IntPtr Instance, IntPtr geometry, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Spread(IntPtr Instance, UIntPtr method, double radius, out IntPtr exception);
@@ -1116,6 +1118,8 @@ namespace ImageMagick
                 public static extern IntPtr MagickImage_Sketch(IntPtr Instance, double radius, double sigma, double angle, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_Solarize(IntPtr Instance, double factor, out IntPtr exception);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickImage_SortPixels(IntPtr Instance, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Splice(IntPtr Instance, IntPtr geometry, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -5996,6 +6000,23 @@ namespace ImageMagick
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 NativeMethods.X86.MagickImage_Solarize(Instance, factor, out exception);
+                #endif
+                CheckException(exception);
+            }
+            public void SortPixels()
+            {
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (OperatingSystem.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_SortPixels(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_SortPixels(Instance, out exception);
                 #endif
                 CheckException(exception);
             }

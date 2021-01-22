@@ -6011,6 +6011,13 @@ namespace ImageMagick
             => _nativeInstance.Solarize(factorPercentage.ToQuantum());
 
         /// <summary>
+        /// Sort pixels within each scanline in ascending order of intensity.
+        /// </summary>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void SortPixels()
+            => _nativeInstance.SortPixels();
+
+        /// <summary>
         /// Splice the background color into the image.
         /// </summary>
         /// <param name="geometry">The geometry to use.</param>
