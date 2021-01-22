@@ -90,7 +90,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magick.NET.Tests", "tests\M
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{F6E20621-E266-4314-ADE0-A899270F2312}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\master.yml = .github\workflows\master.yml
+		.github\workflows\main.yml = .github\workflows\main.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{C72A1B5F-E300-4C03-8673-0FC024B508B7}"
@@ -162,7 +162,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "macos", "macos", "{8BAE93F7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{3A8414CC-62A7-4E38-B6AC-75ED9D276971}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\master.yml = .github\workflows\master.yml
+		.github\workflows\main.yml = .github\workflows\main.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magick.NET.Core", "src\Magick.NET.Core\Magick.NET.Core.csproj", "{213DEB11-FCCD-448C-8AB6-700A0EA2FACB}"

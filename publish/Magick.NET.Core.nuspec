@@ -8,10 +8,10 @@
     <owners>Dirk Lemstra</owners>
     <license type="expression">Apache-2.0</license>
     <projectUrl>https://github.com/dlemstra/Magick.NET</projectUrl>
-    <repository type="git" url="https://github.com/dlemstra/Magick.NET" branch="master" />
+    <repository type="git" url="https://github.com/dlemstra/Magick.NET" branch="main" />
     <icon>Magick.NET.icon.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>ImageMagick is a powerful image manipulation library that supports over 100 major file formats (not including sub-formats). With Magick.NET you can use ImageMagick without having to install ImageMagick on your server or desktop. Visit https://github.com/dlemstra/Magick.NET/tree/master/docs before installing to help you decide the best version.</description>
+    <description>ImageMagick is a powerful image manipulation library that supports over 100 major file formats (not including sub-formats). With Magick.NET you can use ImageMagick without having to install ImageMagick on your server or desktop. Visit https://github.com/dlemstra/Magick.NET/tree/main/docs before installing to help you decide the best version.</description>
     <summary>A .NET API to the ImageMagick image-processing library for Desktop and Web.</summary>
     <releaseNotes>https://github.com/dlemstra/Magick.NET/releases/tag/7.23.0.0</releaseNotes>
     <copyright>Copyright 2013-2021 Dirk Lemstra</copyright>

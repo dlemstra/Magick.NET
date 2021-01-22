@@ -1,8 +1,7 @@
 # The .NET library for ImageMagick: Magick.NET
 
-[![Build Status](https://github.com/dlemstra/Magick.NET/workflows/master/badge.svg)](https://github.com/dlemstra/Magick.NET/actions)
-[![codecov](https://codecov.io/gh/dlemstra/Magick.NET/branch/master/graph/badge.svg)](https://codecov.io/gh/dlemstra/Magick.NET)
-[![GitHub license](https://img.shields.io/badge/license-Apache%202-green.svg)](https://raw.githubusercontent.com/dlemstra/Magick.NET/master/License.txt)
+[![Build Status](https://github.com/dlemstra/Magick.NET/workflows/main/badge.svg)](https://github.com/dlemstra/Magick.NET/actions)
+[![GitHub license](https://img.shields.io/badge/license-Apache%202-green.svg)](https://raw.githubusercontent.com/dlemstra/Magick.NET/main/License.txt)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Magick-NET/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Twitter URL](https://img.shields.io/badge/twitter-follow-1da1f2.svg)](https://twitter.com/MagickNET)
 [![Donate](https://img.shields.io/badge/%24-donate-ff00ff.svg)](https://github.com/sponsors/dlemstra)
