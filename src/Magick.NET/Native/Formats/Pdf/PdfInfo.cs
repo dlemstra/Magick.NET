@@ -29,7 +29,7 @@ namespace ImageMagick.Formats
                 static X64() { NativeLibraryLoader.Load(); }
                 #endif
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr PdfInfo_PageCount(IntPtr fileName, out IntPtr exception);
+                public static extern UIntPtr PdfInfo_PageCount(IntPtr fileName, IntPtr password, out IntPtr exception);
             }
             #endif
             #if PLATFORM_x86 || PLATFORM_AnyCPU
@@ -39,33 +39,36 @@ namespace ImageMagick.Formats
                 static X86() { NativeLibraryLoader.Load(); }
                 #endif
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr PdfInfo_PageCount(IntPtr fileName, out IntPtr exception);
+                public static extern UIntPtr PdfInfo_PageCount(IntPtr fileName, IntPtr password, out IntPtr exception);
             }
             #endif
         }
         private sealed class NativePdfInfo : NativeHelper
         {
             static NativePdfInfo() { Environment.Initialize(); }
-            public int PageCount(string fileName)
+            public int PageCount(string fileName, string password)
             {
                 using (INativeInstance fileNameNative = UTF8Marshaler.CreateInstance(fileName))
                 {
-                    IntPtr exception = IntPtr.Zero;
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.PdfInfo_PageCount(fileNameNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.PdfInfo_PageCount(fileNameNative.Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                    return (int)result;
+                    using (INativeInstance passwordNative = UTF8Marshaler.CreateInstance(password))
+                    {
+                        IntPtr exception = IntPtr.Zero;
+                        UIntPtr result;
+                        #if PLATFORM_AnyCPU
+                        if (OperatingSystem.Is64Bit)
+                        #endif
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
+                        result = NativeMethods.X64.PdfInfo_PageCount(fileNameNative.Instance, passwordNative.Instance, out exception);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else
+                        #endif
+                        #if PLATFORM_x86 || PLATFORM_AnyCPU
+                        result = NativeMethods.X86.PdfInfo_PageCount(fileNameNative.Instance, passwordNative.Instance, out exception);
+                        #endif
+                        CheckException(exception);
+                        return (int)result;
+                    }
                 }
             }
         }

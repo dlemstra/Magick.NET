@@ -22,28 +22,52 @@ namespace Magick.NET.Tests
     {
         public class TheCreateMethod
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenFileIsNull()
+            public class WithFile
             {
-                Assert.Throws<ArgumentNullException>("file", () => PdfInfo.Create((FileInfo)null));
+                [Fact]
+                public void ShouldThrowExceptionWhenFileIsNull()
+                {
+                    Assert.Throws<ArgumentNullException>("file", () => PdfInfo.Create((FileInfo)null));
+                }
+
+                [Fact]
+                public void ShouldThrowExceptionWhenPasswordIsNull()
+                {
+                    using (TemporaryFile file = new TemporaryFile("foo.pdf"))
+                    {
+                        Assert.Throws<ArgumentNullException>("password", () => PdfInfo.Create(file, null));
+                    }
+                }
             }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenFileNameIsNull()
+            public class WithFileName
             {
-                Assert.Throws<ArgumentNullException>("fileName", () => PdfInfo.Create((string)null));
-            }
+                [Fact]
+                public void ShouldThrowExceptionWhenFileNameIsNull()
+                {
+                    Assert.Throws<ArgumentNullException>("fileName", () => PdfInfo.Create((string)null));
+                }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenFileNameIsEmpty()
-            {
-                Assert.Throws<ArgumentException>("fileName", () => PdfInfo.Create(string.Empty));
-            }
+                [Fact]
+                public void ShouldThrowExceptionWhenFileNameIsEmpty()
+                {
+                    Assert.Throws<ArgumentException>("fileName", () => PdfInfo.Create(string.Empty));
+                }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenFileIsPng()
-            {
-                Assert.Throws<MagickDelegateErrorException>(() => PdfInfo.Create(Files.CirclePNG));
+                [Fact]
+                public void ShouldThrowExceptionWhenPasswordIsNull()
+                {
+                    using (TemporaryFile file = new TemporaryFile("foo.pdf"))
+                    {
+                        Assert.Throws<ArgumentNullException>("password", () => PdfInfo.Create(file.FullName, null));
+                    }
+                }
+
+                [Fact]
+                public void ShouldThrowExceptionWhenFileIsPng()
+                {
+                    Assert.Throws<MagickDelegateErrorException>(() => PdfInfo.Create(Files.CirclePNG));
+                }
             }
         }
     }

@@ -28,6 +28,16 @@ namespace Magick.NET.Tests
                 var pdfInfo = PdfInfo.Create(Files.Coders.SamplePDF);
                 Assert.Equal(2, pdfInfo.PageCount);
             }
+
+            [Fact]
+            public void ShouldReturnTheNumberOfPagesForPasswordProtectedFile()
+            {
+                if (!Ghostscript.IsAvailable)
+                    return;
+
+                var pdfInfo = PdfInfo.Create(Files.Coders.PdfExamplePasswordOriginalPDF, "test");
+                Assert.Equal(4, pdfInfo.PageCount);
+            }
         }
     }
 }
