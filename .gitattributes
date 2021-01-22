@@ -1,2 +1,3 @@
 *.sh eol=lf
 *.pl eol=lf
+*.pdf eol=crlf
