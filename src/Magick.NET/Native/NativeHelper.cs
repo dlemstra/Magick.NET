@@ -33,7 +33,7 @@ namespace ImageMagick
 
         protected void CheckException(IntPtr exception)
         {
-            MagickException magickException = MagickExceptionHelper.Check(exception);
+            var magickException = MagickExceptionHelper.Check(exception);
             RaiseWarning(magickException);
         }
 
@@ -42,8 +42,7 @@ namespace ImageMagick
             if (_warningEvent == null)
                 return;
 
-            MagickWarningException warning = exception as MagickWarningException;
-            if (warning != null)
+            if (exception is MagickWarningException warning)
                 _warningEvent.Invoke(this, new WarningEventArgs(warning));
         }
     }
