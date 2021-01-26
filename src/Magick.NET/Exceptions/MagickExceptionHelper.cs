@@ -12,7 +12,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick
 {
@@ -20,7 +19,7 @@ namespace ImageMagick
     {
         public static MagickException Check(IntPtr exception)
         {
-            MagickException magickException = Create(exception);
+            var magickException = Create(exception);
             if (magickException == null)
                 return null;
 
@@ -35,7 +34,7 @@ namespace ImageMagick
             if (exception == IntPtr.Zero)
                 return null;
 
-            MagickException magickException = CreateException(exception);
+            var magickException = CreateException(exception);
 
             NativeMagickExceptionHelper.Dispose(exception);
 
@@ -44,9 +43,9 @@ namespace ImageMagick
 
         public static MagickException CreateException(IntPtr exception)
         {
-            ExceptionSeverity severity = (ExceptionSeverity)NativeMagickExceptionHelper.Severity(exception);
-            string message = NativeMagickExceptionHelper.Message(exception);
-            string description = NativeMagickExceptionHelper.Description(exception);
+            var severity = (ExceptionSeverity)NativeMagickExceptionHelper.Severity(exception);
+            var message = NativeMagickExceptionHelper.Message(exception);
+            var description = NativeMagickExceptionHelper.Description(exception);
 
             if (!string.IsNullOrEmpty(description))
                 message += " (" + description + ")";
@@ -61,14 +60,14 @@ namespace ImageMagick
 
         private static List<MagickException> CreateRelatedExceptions(IntPtr exception)
         {
-            int nestedCount = NativeMagickExceptionHelper.RelatedCount(exception);
+            var nestedCount = NativeMagickExceptionHelper.RelatedCount(exception);
             if (nestedCount == 0)
                 return null;
 
-            List<MagickException> result = new List<MagickException>();
+            var result = new List<MagickException>();
             for (int i = 0; i < nestedCount; i++)
             {
-                IntPtr nested = NativeMagickExceptionHelper.Related(exception, i);
+                var nested = NativeMagickExceptionHelper.Related(exception, i);
                 result.Add(CreateException(nested));
             }
 
