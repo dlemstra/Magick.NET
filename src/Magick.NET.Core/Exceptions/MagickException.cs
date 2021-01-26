@@ -49,6 +49,7 @@ namespace ImageMagick
         /// Sets the related exceptions of this exception.
         /// </summary>
         /// <param name="relatedExceptions">The related exceptions.</param>
-        public void SetRelatedException(List<MagickException> relatedExceptions) => _relatedExceptions = relatedExceptions;
+        public void SetRelatedException(List<MagickException> relatedExceptions)
+            => _relatedExceptions = relatedExceptions;
     }
 }
