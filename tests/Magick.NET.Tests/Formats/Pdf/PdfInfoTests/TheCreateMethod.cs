@@ -12,6 +12,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
@@ -66,7 +67,10 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenFileIsPng()
                 {
-                    Assert.Throws<MagickDelegateErrorException>(() => PdfInfo.Create(Files.CirclePNG));
+                    var exception = Assert.Throws<MagickDelegateErrorException>(() => PdfInfo.Create(Files.CirclePNG));
+
+                    Assert.Single(exception.RelatedExceptions);
+                    Assert.Contains("Error: /syntaxerror in pdfopen", exception.RelatedExceptions.First().Message);
                 }
             }
         }
