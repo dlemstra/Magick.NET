@@ -67,6 +67,9 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenFileIsPng()
                 {
+                    if (!Ghostscript.IsAvailable)
+                        return;
+
                     var exception = Assert.Throws<MagickDelegateErrorException>(() => PdfInfo.Create(Files.CirclePNG));
 
                     Assert.Single(exception.RelatedExceptions);
