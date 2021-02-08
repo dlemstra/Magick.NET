@@ -82,6 +82,16 @@
       ]
     },
     {
+      "name": "SetDefaultFontFile",
+      "throws": true,
+      "arguments": [
+        {
+          "name": "fileName",
+          "type": "string"
+        }
+      ]
+    },
+    {
       "name": "SetLogDelegate",
       "arguments": [
         {

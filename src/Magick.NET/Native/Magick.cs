@@ -43,6 +43,8 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void Magick_DisposeFonts(IntPtr instance);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void Magick_SetDefaultFontFile(IntPtr fileName, out IntPtr exception);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void Magick_SetLogDelegate(LogDelegate method);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void Magick_SetLogEvents(IntPtr events);
@@ -68,6 +70,8 @@ namespace ImageMagick
                 public static extern IntPtr Magick_GetFontFamily(IntPtr instance, UIntPtr index);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void Magick_DisposeFonts(IntPtr instance);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void Magick_SetDefaultFontFile(IntPtr fileName, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void Magick_SetLogDelegate(LogDelegate method);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -191,6 +195,26 @@ namespace ImageMagick
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 NativeMethods.X86.Magick_DisposeFonts(instance);
                 #endif
+            }
+            public static void SetDefaultFontFile(string fileName)
+            {
+                using (INativeInstance fileNameNative = UTF8Marshaler.CreateInstance(fileName))
+                {
+                    IntPtr exception = IntPtr.Zero;
+                    #if PLATFORM_AnyCPU
+                    if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.Magick_SetDefaultFontFile(fileNameNative.Instance, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.Magick_SetDefaultFontFile(fileNameNative.Instance, out exception);
+                    #endif
+                    MagickExceptionHelper.Check(exception);
+                }
             }
             public static void SetLogDelegate(LogDelegate method)
             {

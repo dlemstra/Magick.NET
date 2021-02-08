@@ -238,6 +238,28 @@ namespace ImageMagick
             => NativeMagickNET.SetRandomSeed(-1);
 
         /// <summary>
+        /// Set the path to the default font file.
+        /// </summary>
+        /// <param name="file">The file to use at the default font file.</param>
+        public static void SetDefaultFontFile(FileInfo file)
+        {
+            Throw.IfNull(nameof(file), file);
+
+            SetDefaultFontFile(file.FullName);
+        }
+
+        /// <summary>
+        /// Set the path to the default font file.
+        /// </summary>
+        /// <param name="fileName">The file name to use at the default font file.</param>
+        public static void SetDefaultFontFile(string fileName)
+        {
+            Throw.IfNullOrEmpty(nameof(fileName), fileName);
+
+            NativeMagickNET.SetDefaultFontFile(fileName);
+        }
+
+        /// <summary>
         /// Sets the directory that contains the FontConfig configuration files.
         /// </summary>
         /// <param name="path">The path of the FontConfig directory.</param>
