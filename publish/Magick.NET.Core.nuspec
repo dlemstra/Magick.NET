@@ -24,6 +24,6 @@
   </metadata>
   <files>
     <file src="..\logo\Magick.NET.icon.png" target="Magick.NET.icon.png" />
-    <file src="..\Copyright.txt" target="Copyright.txt" />
+    <file src="..\src\Magick.NET\Copyright.txt" target="Copyright.txt" />
   </files>
 </package>
