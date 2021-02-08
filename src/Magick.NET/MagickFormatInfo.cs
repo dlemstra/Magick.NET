@@ -165,7 +165,8 @@ namespace ImageMagick
         /// Unregisters this format.
         /// </summary>
         /// <returns>True when the format was found and unregistered.</returns>
-        public bool Unregister() => NativeMagickFormatInfo.Unregister(EnumHelper.GetName(Format));
+        public bool Unregister()
+            => NativeMagickFormatInfo.Unregister(EnumHelper.GetName(Format));
 
         private static MagickFormatInfo Create(NativeMagickFormatInfo instance)
         {
@@ -207,7 +208,7 @@ namespace ImageMagick
 
         private static Dictionary<MagickFormat, MagickFormatInfo> LoadFormats()
         {
-            var result = new Dictionary<MagickFormat, MagickFormatInfo>();
+            var formats = new Dictionary<MagickFormat, MagickFormatInfo>();
 
             var list = IntPtr.Zero;
             var length = (UIntPtr)0;
@@ -218,27 +219,18 @@ namespace ImageMagick
                 list = instance.CreateList(out length);
 
                 var ptr = list;
-                MagickFormatInfo formatInfo;
                 for (int i = 0; i < (int)length; i++)
                 {
                     instance.GetInfo(list, i);
 
-                    formatInfo = Create(instance);
+                    var formatInfo = Create(instance);
                     if (formatInfo != null)
-                        result[formatInfo.Format] = formatInfo;
+                        formats[formatInfo.Format] = formatInfo;
 
                     ptr = new IntPtr(ptr.ToInt64() + i);
                 }
 
-                /* stealth coders */
-
-                formatInfo = Create(instance, "DIB");
-                if (formatInfo != null)
-                    result[formatInfo.Format] = formatInfo;
-
-                formatInfo = Create(instance, "TIF");
-                if (formatInfo != null)
-                    result[formatInfo.Format] = formatInfo;
+                AddStealthCoders(instance, formats);
             }
             finally
             {
@@ -246,7 +238,18 @@ namespace ImageMagick
                     NativeMagickFormatInfo.DisposeList(list, (int)length);
             }
 
-            return result;
+            return formats;
+        }
+
+        private static void AddStealthCoders(NativeMagickFormatInfo instance, Dictionary<MagickFormat, MagickFormatInfo> formats)
+        {
+            var formatInfo = Create(instance, "DIB");
+            if (formatInfo != null)
+                formats[formatInfo.Format] = formatInfo;
+
+            formatInfo = Create(instance, "TIF");
+            if (formatInfo != null)
+                formats[formatInfo.Format] = formatInfo;
         }
     }
 }
