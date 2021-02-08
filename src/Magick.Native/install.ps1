@@ -10,6 +10,8 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 
+. $PSScriptRoot\..\..\tools\windows\utils.ps1
+
 function installPackage($version, $target) {
     Remove-Item $target -Recurse -ErrorAction Ignore
     [void](New-Item -ItemType directory -Path $target)
@@ -18,7 +20,7 @@ function installPackage($version, $target) {
     Remove-Item $temp -Recurse -ErrorAction Ignore
     [void](New-Item -ItemType directory -Path $temp)
 
-    $nugetPath = "..\..\tools\windows\nuget.exe"
+    $nugetPath = fullPath "tools\windows\nuget.exe"
 
     if (!(Test-Path $nugetPath))
     {
@@ -83,20 +85,36 @@ function copyMetadata($source, $target) {
     Copy-Item "$source\**\content\*.md" -Force "$target"
 }
 
+function copyNotice($source, $target) {
+    $filename = fullPath "src\Magick.NET\Copyright.txt"
+    $copyright = Get-Content $filename
+    $notice = Get-Content $source
+
+    Set-Content -Path $target -Value "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *`r`n"
+    Add-Content -Path $target "[ Magick.NET ] copyright:`r`n"
+    Add-Content -Path $target $copyright
+    Add-Content -Path $target ""
+    Add-Content -Path $target $notice
+}
+
 function copyLibraries($source, $target) {
     Remove-Item $target -Recurse -ErrorAction Ignore
 
     [void](New-Item -ItemType directory -Path "$target\win")
     Copy-Item "$source\**\content\windows\**\**\*.dll" -Force "$target\win"
+    copyNotice "$source\**\content\windows\Notice.txt" "$target\win\Notice.txt"
 
     [void](New-Item -ItemType directory -Path "$target\linux")
     Copy-Item "$source\**\content\linux\**\**\*.so" -Force "$target\linux"
+    copyNotice "$source\**\content\linux\Notice.txt" "$target\linux\Notice.txt"
 
     [void](New-Item -ItemType directory -Path "$target\linux-musl")
     Copy-Item "$source\**\content\linux-musl\**\**\*.so" -Force "$target\linux-musl"
+    copyNotice "$source\**\content\linux-musl\Notice.txt" "$target\linux-musl\Notice.txt"
 
     [void](New-Item -ItemType directory -Path "$target\osx")
     Copy-Item "$source\**\content\macos\**\**\*.dylib" -Force "$target\osx"
+    copyNotice "$source\**\content\macos\Notice.txt" "$target\osx\Notice.txt"
 }
 
 function copyResource($source, $target, $quantum) {
@@ -149,15 +167,16 @@ $folder = "$PSScriptRoot\temp"
 $libraries = "$PSScriptRoot\libraries"
 $windowsLibraries = "$libraries\win"
 $resources = "$PSScriptRoot\resources"
-$samplesFolder = "$PSScriptRoot\..\..\samples\Magick.NET.Samples\bin"
+$samplesFolder = fullPath "samples\Magick.NET.Samples\bin"
+$testsFolder = fullPath "tests"
 
 installPackage $version $folder
 copyMetadata $folder $PSScriptRoot
 copyLibraries $folder $libraries
 copyResources $folder $resources
-copyToTestProjects $windowsLibraries "$PSScriptRoot\..\..\tests\Magick.NET.Tests\bin"
-copyToTestProjects $windowsLibraries "$PSScriptRoot\..\..\tests\Magick.NET.SystemDrawing.Tests\bin"
-copyToTestProjects $windowsLibraries "$PSScriptRoot\..\..\tests\Magick.NET.SystemWindowsMedia.Tests\bin"
+copyToTestProjects $windowsLibraries "$testsFolder\Magick.NET.Tests\bin"
+copyToTestProjects $windowsLibraries "$testsFolder\Magick.NET.SystemDrawing.Tests\bin"
+copyToTestProjects $windowsLibraries "$testsFolder\Magick.NET.SystemWindowsMedia.Tests\bin"
 copyToSamplesProjects $windowsLibraries $samplesFolder
 createCompressedLibraries $windowsLibraries
 createTrademarkAttribute $windowsLibraries $PSScriptRoot
