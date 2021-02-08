@@ -64,6 +64,33 @@ function addNativeLibraries($xml, $quantumName, $platform) {
     }
 }
 
+function addNotice($xml, $platform, $runtime) {
+    $source = fullPath "src\Magick.Native\libraries\$runtime\Notice.txt"
+    $target = "runtimes\$runtime-$platform\native\Notice.txt"
+    addFile $xml $source $target
+}
+
+function addNotices($xml, $platform) {
+    if ($platform -eq "AnyCPU")
+    {
+        addNotices $xml "x86"
+        addNotices $xml "x64"
+        return
+    }
+
+    addNotice $xml $platform "win"
+
+    if ($platform -eq "x64") {
+        if ($quantumName.EndsWith("-OpenMP")) {
+            addNotice $xml $platform "linux"
+        } else {
+            addNotice $xml $platform "linux"
+            addNotice $xml $platform "linux-musl"
+            addNotice $xml $platform "osx"
+        }
+    }
+}
+
 function createMagickNetNuGetPackage($quantumName, $platform, $version, $commit, $pfxPassword) {
     $xml = loadAndInitNuSpec "Magick.NET" $version $commit
 
@@ -79,6 +106,7 @@ function createMagickNetNuGetPackage($quantumName, $platform, $version, $commit,
 
     addMagickNetLibraries $xml $quantumName $platform
     addNativeLibraries $xml $quantumName $platform
+    addNotices $xml $platform
 
     if ($platform -ne "AnyCPU") {
         addFile $xml "Magick.NET.targets" "build\net20\$name.targets"
