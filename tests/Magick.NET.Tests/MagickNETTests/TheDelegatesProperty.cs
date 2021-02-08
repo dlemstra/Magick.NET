@@ -24,9 +24,9 @@ namespace Magick.NET.Tests
                 var delegates = MagickNET.Delegates;
 
                 if (OperatingSystem.IsWindows)
-                    Assert.Equal("cairo flif freetype gslib heic jng jp2 jpeg jxl lcms lqr openexr pangocairo png ps raw rsvg tiff webp xml zlib", delegates);
+                    Assert.Equal("bzlib cairo flif freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raw rsvg tiff webp xml zip zlib", delegates);
                 else if (OperatingSystem.IsLinux)
-                    Assert.Equal("cairo fontconfig freetype heic jng jp2 jpeg jxl lcms lqr openexr pangocairo png raw rsvg tiff webp xml zlib", delegates);
+                    Assert.Equal("bzlib cairo fontconfig freetype heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png raw rsvg tiff webp xml zip zlib", delegates);
                 else
                     Assert.Equal("cairo fontconfig freetype heic jng jp2 jpeg lcms lqr openexr pangocairo png raw rsvg tiff webp xml zlib", delegates);
             }
