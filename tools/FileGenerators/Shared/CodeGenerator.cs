@@ -4,7 +4,7 @@
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
 //
-//   https://www.imagemagick.org/script/license.php
+//   https://imagemagick.org/script/license.php
 //
 // Unless required by applicable law or agreed to in writing, software distributed under the
 // License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
@@ -120,7 +120,7 @@ namespace FileGenerator
             _Writer.WriteLine("// Licensed under the ImageMagick License (the \"License\"); you may not use this file except in");
             _Writer.WriteLine("// compliance with the License. You may obtain a copy of the License at");
             _Writer.WriteLine("//");
-            _Writer.WriteLine("//   https://www.imagemagick.org/script/license.php");
+            _Writer.WriteLine("//   https://imagemagick.org/script/license.php");
             _Writer.WriteLine("//");
             _Writer.WriteLine("// Unless required by applicable law or agreed to in writing, software distributed under the");
             _Writer.WriteLine("// License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,");

@@ -45,7 +45,7 @@ Instructions for the cross-platform build can be found [here](CrossPlatform.md).
 
 Magick.NET is linked with ImageMagick 7. Most examples on the Internet use ImageMagick 6 so there could be some minor differences in syntax.
 The biggest difference between 6 and 7 is that the latter uses Alpha instead of Opacity. You can find some more information about ImageMagick 7
-here: https://www.imagemagick.org/script/porting.php.
+here: https://imagemagick.org/script/porting.php.
 
 ## Default memory limit
 
@@ -134,5 +134,5 @@ provide you with some help on how to use Magick.NET.
   - Draw text
 
 ## More documentation
-For some great ImageMagick examples please visit the following page: https://www.imagemagick.org/Usage. Create a [new issue](https://github.com/dlemstra/Magick.NET/issues)
+For some great ImageMagick examples please visit the following page: https://imagemagick.org/Usage. Create a [new issue](https://github.com/dlemstra/Magick.NET/issues)
 if you need help to change one of these examples into code.
