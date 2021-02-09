@@ -1557,14 +1557,16 @@ namespace ImageMagick
             => _nativeInstance.ClampChannel(channels);
 
         /// <summary>
-        /// Sets the image clip mask based on any clipping path information if it exists.
+        /// Sets the image clip mask based on any clipping path information if it exists. The clipping
+        /// path can be removed with <see cref="RemoveWriteMask"/>.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Clip()
             => _nativeInstance.Clip();
 
         /// <summary>
-        /// Sets the image clip mask based on any clipping path information if it exists.
+        /// Sets the image clip mask based on any clipping path information if it exists. The clipping
+        /// path can be removed with <see cref="RemoveWriteMask"/>.
         /// </summary>
         /// <param name="pathName">Name of clipping path resource. If name is preceded by #, use
         /// clipping path numbered by name.</param>
