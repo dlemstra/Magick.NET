@@ -49,7 +49,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public async Task ShouldUseTheSpecifiedFormat()
                 {
-                    using (var input = new MagickImageCollection(Files.CirclePNG))
+                    using (var input = new MagickImageCollection(Files.RoseSparkleGIF))
                     {
                         using (var memoryStream = new MemoryStream())
                         {
@@ -60,8 +60,10 @@ namespace Magick.NET.Tests
                                 memoryStream.Position = 0;
                                 using (var output = new MagickImageCollection(stream))
                                 {
-                                    Assert.Single(output);
-                                    Assert.Equal(MagickFormat.Tiff, output[0].Format);
+                                    Assert.Equal(3, output.Count);
+
+                                    for (var i = 0; i < 3; i++)
+                                        Assert.Equal(MagickFormat.Tiff, output[i].Format);
                                 }
                             }
                         }
