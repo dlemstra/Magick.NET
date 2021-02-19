@@ -9,12 +9,6 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <DebugType>embedded</DebugType>
-    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
-  </PropertyGroup>
-
   <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
     <DefineConstants>$(DefineConstants);WINDOWS_BUILD</DefineConstants>
   </PropertyGroup>
@@ -35,6 +29,9 @@
 
   <PropertyGroup Condition="$(Configuration.Contains('Release'))">
     <TreatWarningsAsErrors Condition="'$(OS)' == 'Windows_NT'">true</TreatWarningsAsErrors>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <DebugType>embedded</DebugType>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
 
   <ItemGroup Condition="$(Configuration.Contains('Release'))">
