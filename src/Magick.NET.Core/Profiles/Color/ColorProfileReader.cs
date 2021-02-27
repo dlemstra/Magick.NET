@@ -11,7 +11,6 @@
 // and limitations under the License.
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick
 {
@@ -82,10 +81,10 @@ namespace ImageMagick
             if (!_reader.Seek(128))
                 return;
 
-            var count = _reader.ReadLongMSB();
+            var count = _reader.ReadLong();
             for (var i = 0; i < count; i++)
             {
-                var tag = _reader.ReadLongMSB();
+                var tag = _reader.ReadLong();
                 switch (tag)
                 {
                     case 0x63707274:
@@ -109,8 +108,8 @@ namespace ImageMagick
 
         private string ReadTag()
         {
-            var offset = _reader.ReadLongMSB();
-            var length = _reader.ReadLongMSB();
+            var offset = _reader.ReadLong();
+            var length = _reader.ReadLong();
 
             if (offset == null || length == null)
                 return null;
@@ -146,7 +145,7 @@ namespace ImageMagick
             if (!_reader.Skip(4))
                 return null;
 
-            var length = _reader.ReadLongMSB();
+            var length = _reader.ReadLong();
             if (length == null)
                 return null;
 

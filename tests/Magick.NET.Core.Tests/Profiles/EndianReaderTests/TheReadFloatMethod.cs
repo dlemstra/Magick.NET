@@ -17,24 +17,35 @@ namespace Magick.NET.Core.Tests
 {
     public partial class EndianReaderTests
     {
-        public class TheReadFloatMSBMethod : EndianReaderTests
+        public class TheReadFloatMethod : EndianReaderTests
         {
             [Fact]
             public void ShouldReturnNullWhenBufferIsNotLongEnough()
             {
                 var reader = new EndianReader(new byte[1] { 0 });
 
-                var result = reader.ReadFloatMSB();
+                var result = reader.ReadFloat();
 
                 Assert.Null(result);
             }
 
             [Fact]
-            public void ShouldReadSingle()
+            public void ShouldReadSingleBigEndian()
             {
                 var reader = new EndianReader(new byte[4] { 69, 169, 215, 43 });
 
-                var result = reader.ReadFloatMSB();
+                var result = reader.ReadFloat();
+
+                Assert.Equal(5434.896f, result);
+            }
+
+            [Fact]
+            public void ShouldReadSingleLittleEndian()
+            {
+                var reader = new EndianReader(new byte[4] { 43, 215, 169, 69 });
+                reader.IsLittleEndian = true;
+
+                var result = reader.ReadFloat();
 
                 Assert.Equal(5434.896f, result);
             }
@@ -44,7 +55,7 @@ namespace Magick.NET.Core.Tests
             {
                 var reader = new EndianReader(new byte[4] { 0, 0, 0, 0 });
 
-                reader.ReadFloatMSB();
+                reader.ReadFloat();
 
                 Assert.Equal(4U, reader.Index);
             }

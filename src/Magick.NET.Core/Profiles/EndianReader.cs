@@ -28,6 +28,8 @@ namespace ImageMagick
 
         public uint Index { get; private set; }
 
+        public bool IsLittleEndian { get; set; }
+
         public bool CanRead(uint length)
         {
             if (length > _data.Length)
@@ -68,114 +70,33 @@ namespace ImageMagick
             return result;
         }
 
-        public unsafe double? ReadDoubleLSB()
+        public unsafe double? ReadDouble()
         {
             if (!CanRead(8))
                 return null;
 
-            ulong result = _data[Index];
-            result |= (ulong)_data[Index + 1] << 8;
-            result |= (ulong)_data[Index + 2] << 16;
-            result |= (ulong)_data[Index + 3] << 24;
-            result |= (ulong)_data[Index + 4] << 32;
-            result |= (ulong)_data[Index + 5] << 40;
-            result |= (ulong)_data[Index + 6] << 48;
-            result |= (ulong)_data[Index + 7] << 56;
-
-            Index += 8;
-
-            return *(double*)&result;
+            return IsLittleEndian ? ReadDoubleLSB() : ReadDoubleMSB();
         }
 
-        public unsafe double? ReadDoubleMSB()
-        {
-            if (!CanRead(8))
-                return null;
-
-            ulong result = (ulong)_data[Index] << 56;
-            result |= (ulong)_data[Index + 1] << 48;
-            result |= (ulong)_data[Index + 2] << 40;
-            result |= (ulong)_data[Index + 3] << 32;
-            result |= (ulong)_data[Index + 4] << 24;
-            result |= (ulong)_data[Index + 5] << 16;
-            result |= (ulong)_data[Index + 6] << 8;
-            result |= _data[Index + 7];
-
-            Index += 8;
-
-            return *(double*)&result;
-        }
-
-        public uint? ReadLongLSB()
+        public uint? ReadLong()
         {
             if (!CanRead(4))
                 return null;
 
-            uint result = _data[Index];
-            result |= (uint)_data[Index + 1] << 8;
-            result |= (uint)_data[Index + 2] << 16;
-            result |= (uint)_data[Index + 3] << 24;
-
-            Index += 4;
-
-            return result;
+            return IsLittleEndian ? ReadLongLSB() : ReadLongMSB();
         }
 
-        public uint? ReadLongMSB()
-        {
-            if (!CanRead(4))
-                return null;
-
-            uint result = (uint)_data[Index] << 24;
-            result |= (uint)_data[Index + 1] << 16;
-            result |= (uint)_data[Index + 2] << 8;
-            result |= _data[Index + 3];
-
-            Index += 4;
-
-            return result;
-        }
-
-        public ushort? ReadShortLSB()
+        public ushort? ReadShort()
         {
             if (!CanRead(2))
                 return null;
 
-            ushort result = _data[Index];
-            result |= (ushort)(_data[Index + 1] << 8);
-
-            Index += 2;
-
-            return result;
+            return IsLittleEndian ? ReadShortLSB() : ReadShortMSB();
         }
 
-        public ushort? ReadShortMSB()
+        public unsafe float? ReadFloat()
         {
-            if (!CanRead(2))
-                return null;
-
-            ushort result = (ushort)(_data[Index] << 8);
-            result |= _data[Index + 1];
-
-            Index += 2;
-
-            return result;
-        }
-
-        public unsafe float? ReadFloatLSB()
-        {
-            uint? result = ReadLongLSB();
-            if (result == null)
-                return null;
-
-            uint value = result.Value;
-
-            return *(float*)&value;
-        }
-
-        public unsafe float? ReadFloatMSB()
-        {
-            uint? result = ReadLongMSB();
+            uint? result = ReadLong();
             if (result == null)
                 return null;
 
@@ -198,6 +119,82 @@ namespace ImageMagick
                 result = result.Substring(0, nullCharIndex);
 
             Index += length;
+
+            return result;
+        }
+
+        private unsafe double ReadDoubleLSB()
+        {
+            ulong result = _data[Index];
+            result |= (ulong)_data[Index + 1] << 8;
+            result |= (ulong)_data[Index + 2] << 16;
+            result |= (ulong)_data[Index + 3] << 24;
+            result |= (ulong)_data[Index + 4] << 32;
+            result |= (ulong)_data[Index + 5] << 40;
+            result |= (ulong)_data[Index + 6] << 48;
+            result |= (ulong)_data[Index + 7] << 56;
+
+            Index += 8;
+
+            return *(double*)&result;
+        }
+
+        private unsafe double ReadDoubleMSB()
+        {
+            ulong result = (ulong)_data[Index] << 56;
+            result |= (ulong)_data[Index + 1] << 48;
+            result |= (ulong)_data[Index + 2] << 40;
+            result |= (ulong)_data[Index + 3] << 32;
+            result |= (ulong)_data[Index + 4] << 24;
+            result |= (ulong)_data[Index + 5] << 16;
+            result |= (ulong)_data[Index + 6] << 8;
+            result |= _data[Index + 7];
+
+            Index += 8;
+
+            return *(double*)&result;
+        }
+
+        private uint ReadLongLSB()
+        {
+            uint result = _data[Index];
+            result |= (uint)_data[Index + 1] << 8;
+            result |= (uint)_data[Index + 2] << 16;
+            result |= (uint)_data[Index + 3] << 24;
+
+            Index += 4;
+
+            return result;
+        }
+
+        private uint ReadLongMSB()
+        {
+            uint result = (uint)_data[Index] << 24;
+            result |= (uint)_data[Index + 1] << 16;
+            result |= (uint)_data[Index + 2] << 8;
+            result |= _data[Index + 3];
+
+            Index += 4;
+
+            return result;
+        }
+
+        private ushort ReadShortLSB()
+        {
+            ushort result = _data[Index];
+            result |= (ushort)(_data[Index + 1] << 8);
+
+            Index += 2;
+
+            return result;
+        }
+
+        private ushort ReadShortMSB()
+        {
+            ushort result = (ushort)(_data[Index] << 8);
+            result |= _data[Index + 1];
+
+            Index += 2;
 
             return result;
         }

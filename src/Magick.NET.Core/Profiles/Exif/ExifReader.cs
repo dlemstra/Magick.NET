@@ -18,7 +18,6 @@ namespace ImageMagick
     internal sealed class ExifReader
     {
         private EndianReader _reader;
-        private bool _isLittleEndian;
         private uint _exifOffset;
         private uint _gpsOffset;
         private uint _startIndex;
@@ -45,13 +44,13 @@ namespace ImageMagick
 
             if (_reader.ReadString(4) == "Exif")
             {
-                if (_reader.ReadShortMSB() != 0)
+                if (_reader.ReadShort() != 0)
                     return;
 
                 _startIndex = 6;
             }
 
-            _isLittleEndian = _reader.ReadString(2) == "II";
+            _reader.IsLittleEndian = _reader.ReadString(2) == "II";
 
             if (ReadShort() != 0x002A)
                 return;
@@ -247,25 +246,31 @@ namespace ImageMagick
             }
         }
 
-        private byte ReadByte() => _reader.ReadByte() ?? 0;
+        private byte ReadByte()
+            => _reader.ReadByte() ?? 0;
 
-        private double ReadDouble() => (_isLittleEndian ? _reader.ReadDoubleLSB() : _reader.ReadDoubleMSB()) ?? 0;
+        private double ReadDouble()
+            => _reader.ReadDouble() ?? 0;
 
-        private float ReadFloat() => (_isLittleEndian ? _reader.ReadFloatLSB() : _reader.ReadFloatMSB()) ?? 0;
+        private float ReadFloat()
+            => _reader.ReadFloat() ?? 0;
 
-        private uint ReadLong() => (_isLittleEndian ? _reader.ReadLongLSB() : _reader.ReadLongMSB()) ?? 0;
+        private uint ReadLong()
+            => _reader.ReadLong() ?? 0;
 
-        private ushort ReadShort() => (_isLittleEndian ? _reader.ReadShortLSB() : _reader.ReadShortMSB()) ?? 0;
+        private ushort ReadShort()
+            => _reader.ReadShort() ?? 0;
 
-        private string ReadString(uint length) => _isLittleEndian ? _reader.ReadString(length) : _reader.ReadString(length);
+        private string ReadString(uint length)
+            => _reader.ReadString(length) ?? string.Empty;
 
         private Rational ReadRational()
         {
-            var numerator = _isLittleEndian ? _reader.ReadLongLSB() : _reader.ReadLongMSB();
+            var numerator = _reader.ReadLong();
             if (numerator == null)
                 return default;
 
-            var denominator = _isLittleEndian ? _reader.ReadLongLSB() : _reader.ReadLongMSB();
+            var denominator = _reader.ReadLong();
             if (denominator == null)
                 return default;
 
@@ -274,11 +279,11 @@ namespace ImageMagick
 
         private unsafe SignedRational ReadSignedRational()
         {
-            var numerator = _isLittleEndian ? _reader.ReadLongLSB() : _reader.ReadLongMSB();
+            var numerator = _reader.ReadLong();
             if (numerator == null)
                 return default;
 
-            var denominator = _isLittleEndian ? _reader.ReadLongLSB() : _reader.ReadLongMSB();
+            var denominator = _reader.ReadLong();
             if (denominator == null)
                 return default;
 
