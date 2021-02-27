@@ -128,8 +128,7 @@ namespace ImageMagick
             if (_width == 0 || _height == 0)
                 return null;
 
-            var reader = new ClipPathReader(_width, _height);
-            return reader.Read(GetData(), offset, length);
+            return ClipPathReader.Read(_width, _height, GetData(), offset, length);
         }
 
         private void Initialize()

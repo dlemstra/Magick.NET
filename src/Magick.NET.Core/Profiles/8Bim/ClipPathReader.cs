@@ -19,25 +19,33 @@ namespace ImageMagick
     {
         private readonly int _height;
         private readonly int _width;
+        private readonly int _offset;
+        private readonly PointD[] _first = new PointD[3];
+        private readonly PointD[] _last = new PointD[3];
+        private readonly StringBuilder _path = new StringBuilder();
 
-        private PointD[] _first;
         private int _index;
-        private bool _inSubpath;
-        private StringBuilder _path;
-        private int _knotCount;
-        private PointD[] _last;
+        private bool _inSubpath = false;
+        private int _knotCount = 0;
 
-        public ClipPathReader(int width, int height)
+        public ClipPathReader(int width, int height, int offset)
         {
             _width = width;
             _height = height;
+            _offset = offset;
+
+            _index = _offset;
         }
 
-        public string Read(byte[] data, int offset, int length)
+        public static string Read(int width, int height, byte[] data, int offset, int length)
         {
-            Reset(offset);
+            var reader = new ClipPathReader(width, height, offset);
+            return reader.Read(data, length);
+        }
 
-            while (_index < offset + length)
+        private string Read(byte[] data, int length)
+        {
+            while (_index < _offset + length)
             {
                 short selector = ByteConverter.ToShort(data, ref _index);
                 switch (selector)
@@ -137,11 +145,6 @@ namespace ImageMagick
         private void Reset(int offset)
         {
             _index = offset;
-            _knotCount = 0;
-            _inSubpath = false;
-            _path = new StringBuilder();
-            _first = new PointD[3];
-            _last = new PointD[3];
         }
 
         private void SetKnotCount(byte[] data)
