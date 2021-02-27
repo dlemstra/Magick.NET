@@ -16,9 +16,11 @@ namespace ImageMagick
 {
     internal abstract class ExifValue : IExifValue, IEquatable<ExifTag>
     {
-        public ExifValue(ExifTag tag) => Tag = tag;
+        public ExifValue(ExifTag tag)
+            => Tag = tag;
 
-        public ExifValue(ExifTagValue tag) => Tag = new UnkownExifTag(tag);
+        public ExifValue(ExifTagValue tag)
+            => Tag = new UnkownExifTag(tag);
 
         public abstract ExifDataType DataType { get; }
 
@@ -26,9 +28,11 @@ namespace ImageMagick
 
         public ExifTag Tag { get; }
 
-        public static bool operator ==(ExifValue left, ExifTag right) => Equals(left, right);
+        public static bool operator ==(ExifValue left, ExifTag right)
+            => Equals(left, right);
 
-        public static bool operator !=(ExifValue left, ExifTag right) => !Equals(left, right);
+        public static bool operator !=(ExifValue left, ExifTag right)
+            => !Equals(left, right);
 
         public override bool Equals(object obj)
         {
