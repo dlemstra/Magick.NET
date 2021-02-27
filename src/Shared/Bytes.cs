@@ -18,21 +18,25 @@ namespace ImageMagick
     internal sealed class Bytes
     {
         private const int BufferSize = 8192;
-        private byte[] _data;
+        private readonly byte[] _data;
+        private readonly int _length;
 
         public Bytes(Stream stream)
         {
             Throw.IfNull(nameof(stream), stream);
             Throw.IfFalse(nameof(stream), stream.Position == 0, "The position of the stream should be at zero.");
 
-            SetData(stream);
+            _data = GetData(stream, out _length);
         }
 
-        private Bytes()
+        private Bytes(byte[] data, int length)
         {
+            _data = data;
+            _length = length;
         }
 
-        public int Length { get; private set; }
+        public int Length
+            => _length;
 
         public static Bytes FromStreamBuffer(Stream stream)
         {
@@ -41,15 +45,99 @@ namespace ImageMagick
             if (memStream == null || memStream.Position != 0)
                 return null;
 
-            var bytes = new Bytes();
-            if (bytes.SetDataWithMemoryStreamBuffer(memStream))
-                return bytes;
+            var data = GetDataFromMemoryStreamBuffer(memStream, out var length);
+            if (data == null)
+                return null;
 
-            return null;
+            return new Bytes(data, length);
         }
 
         public byte[] GetData()
             => _data;
+
+        private static byte[] GetData(Stream stream, out int length)
+        {
+            if (stream is MemoryStream memStream)
+                return GetDataFromMemoryStream(memStream, out length);
+
+            Throw.IfFalse(nameof(stream), stream.CanRead, "The stream is not readable.");
+
+            if (stream.CanSeek)
+                return GetDataWithSeekableStream(stream, out length);
+
+            var buffer = new byte[BufferSize];
+            using (var tempStream = new MemoryStream())
+            {
+                int count;
+                while ((count = stream.Read(buffer, 0, BufferSize)) != 0)
+                {
+                    CheckLength(tempStream.Length + count);
+
+                    tempStream.Write(buffer, 0, count);
+                }
+
+                return GetDataFromMemoryStream(tempStream, out length);
+            }
+        }
+
+        private static byte[] GetDataWithSeekableStream(Stream stream, out int length)
+        {
+            CheckLength(stream.Length);
+
+            length = (int)stream.Length;
+            var data = new byte[length];
+
+            int read = 0;
+            int bytesRead;
+            while ((bytesRead = stream.Read(data, read, length - read)) != 0)
+            {
+                read += bytesRead;
+            }
+
+            return data;
+        }
+
+        private static byte[] GetDataFromMemoryStream(MemoryStream memStream, out int length)
+        {
+            var data = GetDataFromMemoryStreamBuffer(memStream, out length);
+            if (data != null)
+                return data;
+
+            data = memStream.ToArray();
+            length = data.Length;
+
+            return data;
+        }
+
+        private static byte[] GetDataFromMemoryStreamBuffer(MemoryStream memStream, out int length)
+        {
+            length = 0;
+
+            if (!IsSupportedLength(memStream.Length))
+                return null;
+
+#if NETSTANDARD
+            if (!memStream.TryGetBuffer(out var buffer))
+                return null;
+
+            if (buffer.Offset == 0)
+            {
+                length = (int)memStream.Length;
+                return buffer.Array;
+            }
+#else
+            try
+            {
+                length = (int)memStream.Length;
+                return memStream.GetBuffer();
+            }
+            catch (UnauthorizedAccessException)
+            {
+            }
+#endif
+
+            return null;
+        }
 
         private static void CheckLength(long length)
         {
@@ -58,90 +146,5 @@ namespace ImageMagick
 
         private static bool IsSupportedLength(long length)
             => length <= int.MaxValue;
-
-        private void SetData(Stream stream)
-        {
-            if (stream is MemoryStream memStream)
-            {
-                SetDataWithMemoryStream(memStream);
-                return;
-            }
-
-            Throw.IfFalse(nameof(stream), stream.CanRead, "The stream is not readable.");
-
-            if (stream.CanSeek)
-            {
-                SetDataWithSeekableStream(stream);
-                return;
-            }
-
-            var buffer = new byte[BufferSize];
-            using (var tempStream = new MemoryStream())
-            {
-                int length;
-                while ((length = stream.Read(buffer, 0, BufferSize)) != 0)
-                {
-                    CheckLength(tempStream.Length + length);
-
-                    tempStream.Write(buffer, 0, length);
-                }
-
-                SetDataWithMemoryStream(tempStream);
-            }
-        }
-
-        private void SetDataWithMemoryStream(MemoryStream memStream)
-        {
-            if (SetDataWithMemoryStreamBuffer(memStream))
-                return;
-
-            _data = memStream.ToArray();
-            Length = _data.Length;
-        }
-
-        private bool SetDataWithMemoryStreamBuffer(MemoryStream memStream)
-        {
-            if (!IsSupportedLength(memStream.Length))
-                return false;
-
-#if NETSTANDARD
-            if (!memStream.TryGetBuffer(out var buffer))
-                return false;
-
-            if (buffer.Offset == 0)
-            {
-                _data = buffer.Array;
-                Length = (int)memStream.Length;
-                return true;
-            }
-#else
-            try
-            {
-                _data = memStream.GetBuffer();
-                Length = (int)memStream.Length;
-                return true;
-            }
-            catch (UnauthorizedAccessException)
-            {
-            }
-#endif
-
-            return false;
-        }
-
-        private void SetDataWithSeekableStream(Stream stream)
-        {
-            CheckLength(stream.Length);
-
-            Length = (int)stream.Length;
-            _data = new byte[Length];
-
-            int read = 0;
-            int bytesRead;
-            while ((bytesRead = stream.Read(_data, read, Length - read)) != 0)
-            {
-                read += bytesRead;
-            }
-        }
     }
 }
