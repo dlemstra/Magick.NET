@@ -23,7 +23,7 @@ namespace ImageMagick
         {
             Channel = channel;
 
-            NativeChannelStatistics nativeInstance = new NativeChannelStatistics(instance);
+            var nativeInstance = new NativeChannelStatistics(instance);
             Depth = nativeInstance.Depth;
             Entropy = nativeInstance.Entropy;
             Kurtosis = nativeInstance.Kurtosis;

@@ -129,7 +129,7 @@ namespace ImageMagick
         {
             var instance = NativeStatistics.GetInstance(list, channel);
 
-            ChannelStatistics result = ChannelStatistics.Create(channel, instance);
+            var result = ChannelStatistics.Create(channel, instance);
             if (result != null)
                 _channels.Add(result.Channel, result);
         }
