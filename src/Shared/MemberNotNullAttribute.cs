@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2021 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+// Copyright 2013-2021 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -10,12 +10,18 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System;
-
-namespace ImageMagick
+namespace System.Diagnostics.CodeAnalysis
 {
-    [AttributeUsage(AttributeTargets.Parameter)]
-    internal sealed class ValidatedNotNullAttribute : Attribute
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Property, Inherited = false, AllowMultiple = true)]
+
+    internal sealed class MemberNotNullAttribute : Attribute
     {
+        public MemberNotNullAttribute(string member)
+            => Members = new[] { member };
+
+        public MemberNotNullAttribute(params string[] members)
+            => Members = members;
+
+        public string[] Members { get; }
     }
 }

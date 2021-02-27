@@ -19,7 +19,7 @@ namespace ImageMagick
     /// </summary>
     public class ImageProfile : IImageProfile
     {
-        private byte[] _data;
+        private byte[]? _data;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ImageProfile"/> class.
@@ -86,7 +86,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="obj">The object to compare this <see cref="ImageProfile"/> with.</param>
         /// <returns>True when the specified object is equal to the current <see cref="ImageProfile"/>.</returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (ReferenceEquals(this, obj))
                 return true;
@@ -99,7 +99,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The image profile to compare this <see cref="ImageProfile"/> with.</param>
         /// <returns>True when the specified image compare is equal to the current <see cref="ImageProfile"/>.</returns>
-        public bool Equals(IImageProfile other)
+        public bool Equals(IImageProfile? other)
         {
             if (other is null)
                 return false;
@@ -113,10 +113,10 @@ namespace ImageMagick
             UpdateData();
 
             var data = other.ToByteArray();
-            if (data.Length == 0)
+            if (data is null || data.Length == 0)
                 return _data is null || _data.Length == 0;
 
-            if (_data.Length != data.Length)
+            if (_data?.Length != data.Length)
                 return false;
 
             for (int i = 0; i < _data.Length; i++)
@@ -132,7 +132,7 @@ namespace ImageMagick
         /// Returns the <see cref="byte"/> array of this profile.
         /// </summary>
         /// <returns>A <see cref="byte"/> array.</returns>
-        public byte[] GetData()
+        public byte[]? GetData()
             => _data;
 
         /// <summary>
@@ -140,13 +140,18 @@ namespace ImageMagick
         /// </summary>
         /// <returns>A hash code for the current instance.</returns>
         public override int GetHashCode()
-            => _data.GetHashCode() ^ Name.GetHashCode();
+        {
+            if (_data == null)
+                return Name.GetHashCode();
+
+            return _data.GetHashCode() ^ Name.GetHashCode();
+        }
 
         /// <summary>
         /// Converts this instance to a <see cref="byte"/> array.
         /// </summary>
         /// <returns>A <see cref="byte"/> array.</returns>
-        public byte[] ToByteArray()
+        public byte[]? ToByteArray()
         {
             UpdateData();
             return Copy(_data);
@@ -156,7 +161,7 @@ namespace ImageMagick
         /// Sets the data of the profile.
         /// </summary>
         /// <param name="data">The new data of the profile.</param>
-        protected void SetData(byte[] data)
+        protected void SetData(byte[]? data)
             => _data = data;
 
         /// <summary>
@@ -166,7 +171,7 @@ namespace ImageMagick
         {
         }
 
-        private static byte[] Copy(byte[] data)
+        private static byte[] Copy(byte[]? data)
         {
             if (data == null || data.Length == 0)
                 return new byte[0];

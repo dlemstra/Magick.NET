@@ -20,7 +20,7 @@ namespace ImageMagick
     /// </summary>
     public abstract class MagickException : Exception
     {
-        private List<MagickException> _relatedExceptions;
+        private List<MagickException>? _relatedExceptions;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickException"/> class.

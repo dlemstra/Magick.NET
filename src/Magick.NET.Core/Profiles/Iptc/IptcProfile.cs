@@ -13,6 +13,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 
@@ -23,7 +24,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class IptcProfile : ImageProfile, IIptcProfile
     {
-        private Collection<IIptcValue> _values;
+        private Collection<IIptcValue>? _values;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IptcProfile"/> class.
@@ -78,7 +79,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="tag">The tag of the iptc value.</param>
         /// <returns>The value with the specified tag.</returns>
-        public IIptcValue GetValue(IptcTag tag)
+        public IIptcValue? GetValue(IptcTag tag)
         {
             foreach (var iptcValue in Values)
             {
@@ -157,13 +158,11 @@ namespace ImageMagick
         /// <param name="value">The value.</param>
         public void SetValue(IptcTag tag, string value)
         {
-            if (tag.IsRepeatable())
+            Initialize();
+
+            if (!tag.IsRepeatable())
             {
-                Initialize();
-            }
-            else
-            {
-                foreach (var iptcValue in Values)
+                foreach (var iptcValue in _values)
                 {
                     if (iptcValue.Tag == tag)
                     {
@@ -243,6 +242,7 @@ namespace ImageMagick
             SetData(data);
         }
 
+        [MemberNotNull(nameof(_values))]
         private void Initialize()
         {
             if (_values != null)

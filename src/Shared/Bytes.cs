@@ -38,7 +38,7 @@ namespace ImageMagick
         public int Length
             => _length;
 
-        public static Bytes FromStreamBuffer(Stream stream)
+        public static Bytes? FromStreamBuffer(Stream stream)
         {
             var memStream = stream as MemoryStream;
 
@@ -109,7 +109,7 @@ namespace ImageMagick
             return data;
         }
 
-        private static byte[] GetDataFromMemoryStreamBuffer(MemoryStream memStream, out int length)
+        private static byte[]? GetDataFromMemoryStreamBuffer(MemoryStream memStream, out int length)
         {
             length = 0;
 

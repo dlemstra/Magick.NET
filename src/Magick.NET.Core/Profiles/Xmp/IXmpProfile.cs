@@ -28,7 +28,7 @@ namespace ImageMagick
         /// Creates a XmlReader that can be used to read the data of the profile.
         /// </summary>
         /// <returns>A <see cref="XmlReader"/>.</returns>
-        XmlReader CreateReader();
+        XmlReader? CreateReader();
 
         /// <summary>
         /// Converts this instance to an IXPathNavigable.

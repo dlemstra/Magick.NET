@@ -19,6 +19,7 @@ namespace ImageMagick
         {
         }
 
-        public override ExifDataType DataType => ExifDataType.SignedByte;
+        public override ExifDataType DataType
+            => ExifDataType.SignedByte;
     }
 }

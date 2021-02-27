@@ -18,7 +18,10 @@
 
   <ItemGroup>
     <Compile Include="../Shared/Throw.cs" Link="Helpers/Throw.cs" />
-    <Compile Include="../Shared/ValidatedNotNullAttribute.cs" Link="Helpers/ValidatedNotNullAttribute.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition="!$(TargetFramework.StartsWith('netcoreapp'))">
+    <Compile Include="../Shared/NotNullAttribute.cs" Link="Helpers/NotNullAttribute.cs" />
   </ItemGroup>
 
   <ItemGroup>

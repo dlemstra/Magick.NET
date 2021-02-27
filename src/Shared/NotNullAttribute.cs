@@ -1,4 +1,4 @@
-﻿// Copyright 2013-2021 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
+// Copyright 2013-2021 Dirk Lemstra <https://github.com/dlemstra/Magick.NET/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -10,21 +10,13 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-namespace ImageMagick
+namespace System.Diagnostics.CodeAnalysis
 {
-    internal sealed class ExifRationalArray : ExifArrayValue<Rational>
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.ReturnValue, Inherited = false)]
+    internal sealed class NotNullAttribute : Attribute
     {
-        public ExifRationalArray(ExifTag<Rational[]> tag)
-            : base(tag)
+        public NotNullAttribute()
         {
         }
-
-        public ExifRationalArray(ExifTagValue tag)
-            : base(tag)
-        {
-        }
-
-        public override ExifDataType DataType
-            => ExifDataType.Rational;
     }
 }

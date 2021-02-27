@@ -117,9 +117,12 @@ namespace ImageMagick
         /// Creates a XmlReader that can be used to read the data of the profile.
         /// </summary>
         /// <returns>A <see cref="XmlReader"/>.</returns>
-        public XmlReader CreateReader()
+        public XmlReader? CreateReader()
         {
             var data = GetData();
+            if (data == null)
+                return null;
+
             var memStream = new MemoryStream(data, 0, data.Length);
             var settings = XmlHelper.CreateReaderSettings();
             settings.CloseInput = true;

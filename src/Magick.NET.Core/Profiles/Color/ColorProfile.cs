@@ -11,6 +11,7 @@
 // and limitations under the License.
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace ImageMagick
@@ -23,7 +24,7 @@ namespace ImageMagick
         private static readonly object _SyncRoot = new object();
         private static readonly Dictionary<string, ColorProfile> _profiles = new Dictionary<string, ColorProfile>();
 
-        private ColorProfileData _data;
+        private ColorProfileData? _data;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ColorProfile"/> class.
@@ -32,7 +33,6 @@ namespace ImageMagick
         public ColorProfile(byte[] data)
           : base("icc", data)
         {
-            Initialize();
         }
 
         /// <summary>
@@ -42,7 +42,6 @@ namespace ImageMagick
         public ColorProfile(Stream stream)
           : base("icc", stream)
         {
-            Initialize();
         }
 
         /// <summary>
@@ -62,7 +61,6 @@ namespace ImageMagick
         public ColorProfile(string name, byte[] data)
           : base(name, data)
         {
-            Initialize();
         }
 
         /// <summary>
@@ -105,31 +103,61 @@ namespace ImageMagick
         /// Gets the color space of the profile.
         /// </summary>
         public ColorSpace ColorSpace
-            => _data.ColorSpace;
+        {
+            get
+            {
+                Initialize();
+                return _data.ColorSpace;
+            }
+        }
 
         /// <summary>
         /// Gets the copyright of the profile.
         /// </summary>
-        public string Copyright
-            => _data.Copyright;
+        public string? Copyright
+        {
+            get
+            {
+                Initialize();
+                return _data.Copyright;
+            }
+        }
 
         /// <summary>
         /// Gets the description of the profile.
         /// </summary>
-        public string Description
-            => _data.Description;
+        public string? Description
+        {
+            get
+            {
+                Initialize();
+                return _data.Description;
+            }
+        }
 
         /// <summary>
         /// Gets the manufacturer of the profile.
         /// </summary>
-        public string Manufacturer
-            => _data.Manufacturer;
+        public string? Manufacturer
+        {
+            get
+            {
+                Initialize();
+                return _data.Manufacturer;
+            }
+        }
 
         /// <summary>
         /// Gets the model of the profile.
         /// </summary>
-        public string Model
-            => _data.Model;
+        public string? Model
+        {
+            get
+            {
+                Initialize();
+                return _data.Model;
+            }
+        }
 
         private static ColorProfile Load(string resourcePath, string resourceName)
         {
@@ -147,6 +175,7 @@ namespace ImageMagick
             return _profiles[resourceName];
         }
 
+        [MemberNotNull(nameof(_data))]
         private void Initialize()
             => _data = ColorProfileReader.Read(GetData());
     }

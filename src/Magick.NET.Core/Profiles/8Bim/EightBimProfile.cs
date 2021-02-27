@@ -13,9 +13,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
-using System.Xml;
 
 namespace ImageMagick
 {
@@ -27,8 +27,8 @@ namespace ImageMagick
         private readonly int _height;
         private readonly int _width;
 
-        private Collection<IClipPath> _clipPaths;
-        private Collection<IEightBimValue> _values;
+        private Collection<IClipPath>? _clipPaths;
+        private Collection<IEightBimValue>? _values;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EightBimProfile"/> class.
@@ -98,7 +98,7 @@ namespace ImageMagick
             }
         }
 
-        private ClipPath CreateClipPath(string name, int offset, int length)
+        private ClipPath? CreateClipPath(string name, int offset, int length)
         {
             var d = GetClipPath(offset, length);
             if (string.IsNullOrEmpty(d))
@@ -123,23 +123,30 @@ namespace ImageMagick
             return new ClipPath(name, doc.CreateNavigator());
         }
 
-        private string GetClipPath(int offset, int length)
+        private string? GetClipPath(int offset, int length)
         {
             if (_width == 0 || _height == 0)
                 return null;
 
-            return ClipPathReader.Read(_width, _height, GetData(), offset, length);
+            var data = GetData();
+            if (data == null)
+                return null;
+
+            return ClipPathReader.Read(_width, _height, data, offset, length);
         }
 
+        [MemberNotNull(nameof(_clipPaths), nameof(_values))]
         private void Initialize()
         {
-            if (_clipPaths != null)
+            if (_clipPaths != null && _values != null)
                 return;
 
             _clipPaths = new Collection<IClipPath>();
             _values = new Collection<IEightBimValue>();
 
             var data = GetData();
+            if (data == null)
+                return;
 
             int i = 0;
             while (i < data.Length)
@@ -159,7 +166,7 @@ namespace ImageMagick
                 var id = ByteConverter.ToShort(data, ref i);
                 var isClipPath = id > 1999 && id < 2998;
 
-                string name = null;
+                string? name = null;
                 int length = data[i++];
                 if (length != 0)
                 {
@@ -183,7 +190,7 @@ namespace ImageMagick
                 {
                     if (isClipPath)
                     {
-                        var clipPath = CreateClipPath(name, i, length);
+                        var clipPath = CreateClipPath(name!, i, length);
                         if (clipPath != null)
                             _clipPaths.Add(clipPath);
                     }

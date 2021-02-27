@@ -10,8 +10,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System.Diagnostics.CodeAnalysis;
-
 namespace ImageMagick
 {
     internal abstract class ExifArrayValue<TValueType> : ExifValue, IExifValue<TValueType[]>
@@ -19,28 +17,26 @@ namespace ImageMagick
         public ExifArrayValue(ExifTag<TValueType[]> tag)
             : base(tag)
         {
+            Value = new TValueType[] { };
         }
 
         public ExifArrayValue(ExifTagValue tag)
             : base(tag)
         {
+            Value = new TValueType[] { };
         }
 
         public override bool IsArray => true;
 
-        [SuppressMessage("Naming", "CA1721:Property names should not match get methods", Justification = "This value is typed.")]
-        [SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "The property needs to be an array.")]
         public TValueType[] Value { get; set; }
 
-        public override object GetValue() => Value;
+        public override object GetValue()
+            => Value;
 
         public override bool SetValue(object value)
         {
-            if (value == null)
-            {
-                Value = null;
-                return true;
-            }
+            if (value is null)
+                return false;
 
             if (value is TValueType[] typeValueArray)
             {

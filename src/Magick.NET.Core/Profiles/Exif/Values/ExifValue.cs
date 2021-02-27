@@ -28,13 +28,13 @@ namespace ImageMagick
 
         public ExifTag Tag { get; }
 
-        public static bool operator ==(ExifValue left, ExifTag right)
+        public static bool operator ==(ExifValue? left, ExifTag? right)
             => Equals(left, right);
 
-        public static bool operator !=(ExifValue left, ExifTag right)
+        public static bool operator !=(ExifValue? left, ExifTag? right)
             => !Equals(left, right);
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is null)
                 return false;
@@ -51,7 +51,8 @@ namespace ImageMagick
             return false;
         }
 
-        public bool Equals(ExifTag other) => Tag.Equals(other);
+        public bool Equals(ExifTag? other)
+            => Tag.Equals(other);
 
         public override int GetHashCode()
         {

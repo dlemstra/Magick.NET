@@ -105,7 +105,7 @@ namespace ImageMagick
             return *(float*)&value;
         }
 
-        public string ReadString(uint length)
+        public string? ReadString(uint length)
         {
             if (length == 0)
                 return string.Empty;

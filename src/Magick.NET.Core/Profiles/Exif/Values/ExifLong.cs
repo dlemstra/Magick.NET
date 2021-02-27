@@ -17,18 +17,20 @@ namespace ImageMagick
     internal sealed class ExifLong : ExifValue<uint>
     {
         public ExifLong(ExifTag<uint> tag)
-            : base(tag)
+            : base(tag, default)
         {
         }
 
         public ExifLong(ExifTagValue tag)
-            : base(tag)
+            : base(tag, default)
         {
         }
 
-        public override ExifDataType DataType => ExifDataType.Long;
+        public override ExifDataType DataType
+            => ExifDataType.Long;
 
-        protected override string StringValue => Value.ToString(CultureInfo.InvariantCulture);
+        protected override string StringValue
+            => Value.ToString(CultureInfo.InvariantCulture);
 
         public override bool SetValue(object value)
         {

@@ -115,14 +115,14 @@ namespace ImageMagick
             }
         }
 
-        private ExifValue CreateValue()
+        private ExifValue? CreateValue()
         {
             if (!_reader.CanRead(12))
                 return null;
 
             var tag = (ExifTagValue)ReadShort();
             var dataType = EnumHelper.Parse(ReadShort(), ExifDataType.Unknown);
-            ExifValue value = null;
+            ExifValue? value = null;
 
             if (dataType == ExifDataType.Unknown)
                 return null;
@@ -155,7 +155,7 @@ namespace ImageMagick
             return value;
         }
 
-        private ExifValue CreateValue(ExifTagValue tag, ExifDataType dataType, uint numberOfComponents)
+        private ExifValue? CreateValue(ExifTagValue tag, ExifDataType dataType, uint numberOfComponents)
         {
             if (!_reader.CanRead(numberOfComponents))
                 return null;

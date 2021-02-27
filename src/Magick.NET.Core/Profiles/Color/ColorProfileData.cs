@@ -16,12 +16,12 @@ namespace ImageMagick
     {
         public ColorSpace ColorSpace { get; set; } = ColorSpace.Undefined;
 
-        public string Copyright { get; set; }
+        public string? Copyright { get; set; }
 
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
-        public string Manufacturer { get; set; }
+        public string? Manufacturer { get; set; }
 
-        public string Model { get; set; }
+        public string? Model { get; set; }
     }
 }

@@ -17,13 +17,15 @@ namespace ImageMagick
     internal sealed class ExifSignedShort : ExifValue<short>
     {
         public ExifSignedShort(ExifTagValue tag)
-            : base(tag)
+            : base(tag, default)
         {
         }
 
-        public override ExifDataType DataType => ExifDataType.SignedShort;
+        public override ExifDataType DataType
+            => ExifDataType.SignedShort;
 
-        protected override string StringValue => Value.ToString(CultureInfo.InvariantCulture);
+        protected override string StringValue
+            => Value.ToString(CultureInfo.InvariantCulture);
 
         public override bool SetValue(object value)
         {

@@ -38,7 +38,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="obj">The object to compare this 8bim value with.</param>
         /// <returns>True when the specified object is equal to the current <see cref="EightBimValue"/>.</returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (ReferenceEquals(this, obj))
                 return true;
@@ -51,7 +51,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The <see cref="EightBimValue"/> to compare this <see cref="EightBimValue"/> with.</param>
         /// <returns>True when the specified <see cref="EightBimValue"/> is equal to the current <see cref="EightBimValue"/>.</returns>
-        public bool Equals(IEightBimValue other)
+        public bool Equals(IEightBimValue? other)
         {
             if (other is null)
                 return false;

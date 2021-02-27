@@ -17,18 +17,20 @@ namespace ImageMagick
     internal sealed class ExifDouble : ExifValue<double>
     {
         public ExifDouble(ExifTag<double> tag)
-            : base(tag)
+            : base(tag, default)
         {
         }
 
         public ExifDouble(ExifTagValue tag)
-            : base(tag)
+            : base(tag, default)
         {
         }
 
-        public override ExifDataType DataType => ExifDataType.Double;
+        public override ExifDataType DataType
+            => ExifDataType.Double;
 
-        protected override string StringValue => Value.ToString(CultureInfo.InvariantCulture);
+        protected override string StringValue
+            => Value.ToString(CultureInfo.InvariantCulture);
 
         public override bool SetValue(object value)
         {

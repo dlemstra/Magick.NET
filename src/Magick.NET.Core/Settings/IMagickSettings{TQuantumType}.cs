@@ -289,6 +289,6 @@ namespace ImageMagick
         /// Sets format-specific options with the specified defines.
         /// </summary>
         /// <param name="defines">The defines to set.</param>
-        void SetDefines([ValidatedNotNull] IDefines defines);
+        void SetDefines(IDefines defines);
     }
 }

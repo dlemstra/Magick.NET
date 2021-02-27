@@ -17,21 +17,25 @@ namespace ImageMagick
     internal sealed class ExifString : ExifValue<string>
     {
         public ExifString(ExifTag<string> tag)
-            : base(tag)
+            : base(tag, string.Empty)
         {
         }
 
         public ExifString(ExifTagValue tag)
-            : base(tag)
+            : base(tag, string.Empty)
         {
         }
 
-        public override ExifDataType DataType => ExifDataType.String;
+        public override ExifDataType DataType
+            => ExifDataType.String;
 
         protected override string StringValue => Value;
 
         public override bool SetValue(object value)
         {
+            if (value is null)
+                return false;
+
             if (base.SetValue(value))
                 return true;
 

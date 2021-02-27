@@ -26,7 +26,7 @@ namespace ImageMagick
         public ExifWriter(ExifParts allowedParts)
             => _allowedParts = allowedParts;
 
-        public byte[] Write(List<IExifValue> values)
+        public byte[]? Write(List<IExifValue> values)
         {
             var ifdValues = GetPartValues(values, ExifParts.IfdTags);
             var exifValues = GetPartValues(values, ExifParts.ExifTags);
@@ -75,14 +75,14 @@ namespace ImageMagick
                 var exifValuesOffset = 0L;
                 if (exifValues.Count > 0)
                 {
-                    WriteHeader(ExifValues.Create(ExifTag.SubIFDOffset), stream);
+                    WriteHeader(ExifValues.Create(ExifTag.SubIFDOffset)!, stream);
                     exifValuesOffset = GetOffsetPositionAndSkipData(stream);
                 }
 
                 var gpsValuesOffset = 0L;
                 if (gpsValues.Count > 0)
                 {
-                    WriteHeader(ExifValues.Create(ExifTag.GPSIFDOffset), stream);
+                    WriteHeader(ExifValues.Create(ExifTag.GPSIFDOffset)!, stream);
                     gpsValuesOffset = GetOffsetPositionAndSkipData(stream);
                 }
 

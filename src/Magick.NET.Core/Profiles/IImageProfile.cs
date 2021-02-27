@@ -28,12 +28,12 @@ namespace ImageMagick
         /// Returns the <see cref="byte"/> array of this profile.
         /// </summary>
         /// <returns>A <see cref="byte"/> array.</returns>
-        byte[] GetData();
+        byte[]? GetData();
 
         /// <summary>
         /// Converts this instance to a byte array.
         /// </summary>
         /// <returns>A <see cref="byte"/> array.</returns>
-        byte[] ToByteArray();
+        byte[]? ToByteArray();
     }
 }

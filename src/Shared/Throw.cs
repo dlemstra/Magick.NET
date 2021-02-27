@@ -11,6 +11,7 @@
 // and limitations under the License.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace ImageMagick
@@ -23,13 +24,13 @@ namespace ImageMagick
                 throw new ArgumentException(message, paramName);
         }
 
-        public static void IfNull(string paramName, [ValidatedNotNull] object value)
+        public static void IfNull(string paramName, [NotNull] object? value)
         {
             if (value is null)
                 throw new ArgumentNullException(paramName);
         }
 
-        public static void IfNull(string paramName, [ValidatedNotNull] object value, string message)
+        public static void IfNull(string paramName, [NotNull] object value, string message)
         {
             if (value == null)
                 throw new ArgumentNullException(paramName, message);
@@ -49,7 +50,7 @@ namespace ImageMagick
             }
         }
 
-        public static void IfNullOrEmpty(string paramName, [ValidatedNotNull] string value)
+        public static void IfNullOrEmpty(string paramName, [NotNull] string value)
         {
             IfNull(paramName, value);
 
@@ -57,7 +58,7 @@ namespace ImageMagick
                 throw new ArgumentException("Value cannot be empty.", paramName);
         }
 
-        public static void IfNullOrEmpty(string paramName, [ValidatedNotNull] Array value)
+        public static void IfNullOrEmpty(string paramName, [NotNull] Array value)
         {
             IfNull(paramName, value);
 

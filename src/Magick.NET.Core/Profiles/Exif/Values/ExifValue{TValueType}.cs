@@ -10,38 +10,36 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-using System.Diagnostics.CodeAnalysis;
-
 namespace ImageMagick
 {
     internal abstract class ExifValue<TValueType> : ExifValue, IExifValue<TValueType>
     {
-        public ExifValue(ExifTag<TValueType> tag)
+        public ExifValue(ExifTag<TValueType> tag, TValueType value)
             : base(tag)
         {
+            Value = value;
         }
 
-        public ExifValue(ExifTagValue tag)
+        public ExifValue(ExifTagValue tag, TValueType value)
             : base(tag)
         {
+            Value = value;
         }
 
-        public override bool IsArray => false;
+        public override bool IsArray
+            => false;
 
-        [SuppressMessage("Naming", "CA1721:Property names should not match get methods", Justification = "This value is typed.")]
         public TValueType Value { get; set; }
 
         protected abstract string StringValue { get; }
 
-        public override object GetValue() => Value;
+        public override object GetValue()
+            => Value!;
 
         public override bool SetValue(object value)
         {
-            if (value == null)
-            {
-                Value = default;
-                return true;
-            }
+            if (value is null)
+                return false;
 
             if (value is TValueType typeValue)
             {
@@ -52,7 +50,7 @@ namespace ImageMagick
             return false;
         }
 
-        public override string ToString()
+        public override string? ToString()
         {
             if (Value == null)
                 return null;
@@ -64,7 +62,7 @@ namespace ImageMagick
             return StringValue;
         }
 
-        private static string GetDescription(ExifTag tag, object value)
+        private static string? GetDescription(ExifTag tag, object value)
         {
             var tagValue = (ExifTagValue)(ushort)tag;
             var attributes = TypeHelper.GetCustomAttributes<ExifTagDescriptionAttribute>(tagValue);

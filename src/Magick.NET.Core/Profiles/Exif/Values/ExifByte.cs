@@ -17,14 +17,15 @@ namespace ImageMagick
     internal sealed class ExifByte : ExifValue<byte>
     {
         public ExifByte(ExifTag<byte> tag, ExifDataType dataType)
-            : base(tag) => DataType = dataType;
+            : base(tag, default) => DataType = dataType;
 
         public ExifByte(ExifTagValue tag, ExifDataType dataType)
-            : base(tag) => DataType = dataType;
+            : base(tag, default) => DataType = dataType;
 
         public override ExifDataType DataType { get; }
 
-        protected override string StringValue => Value.ToString("X2", CultureInfo.InvariantCulture);
+        protected override string StringValue
+            => Value.ToString("X2", CultureInfo.InvariantCulture);
 
         public override bool SetValue(object value)
         {

@@ -17,7 +17,7 @@ namespace ImageMagick
     internal sealed class ExifNumber : ExifValue<Number>
     {
         public ExifNumber(ExifTag<Number> tag)
-            : base(tag)
+            : base(tag, default)
         {
         }
 
@@ -32,7 +32,8 @@ namespace ImageMagick
             }
         }
 
-        protected override string StringValue => Value.ToString(CultureInfo.InvariantCulture);
+        protected override string StringValue
+            => Value.ToString(CultureInfo.InvariantCulture);
 
         public override bool SetValue(object value)
         {

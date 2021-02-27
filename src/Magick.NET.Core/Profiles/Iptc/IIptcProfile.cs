@@ -31,7 +31,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="tag">The tag of the iptc value.</param>
         /// <returns>The value with the specified tag.</returns>
-        IIptcValue GetValue(IptcTag tag);
+        IIptcValue? GetValue(IptcTag tag);
 
         /// <summary>
         /// Returns all values with the specified tag.

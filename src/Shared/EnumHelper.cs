@@ -96,7 +96,7 @@ namespace ImageMagick
             return defaultValue;
         }
 
-        public static object Parse(Type enumType, string value)
+        public static object? Parse(Type enumType, string value)
         {
             foreach (string name in Enum.GetNames(enumType))
             {

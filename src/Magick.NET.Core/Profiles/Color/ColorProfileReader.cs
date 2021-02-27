@@ -24,8 +24,11 @@ namespace ImageMagick
             _reader = new EndianReader(data);
         }
 
-        public static ColorProfileData Read(byte[] data)
+        public static ColorProfileData Read(byte[]? data)
         {
+            if (data == null)
+                return new ColorProfileData();
+
             var reader = new ColorProfileReader(data);
             reader.ReadColorSpace();
             reader.ReadTagTable();
@@ -103,7 +106,7 @@ namespace ImageMagick
             }
         }
 
-        private string ReadTag()
+        private string? ReadTag()
         {
             var offset = _reader.ReadLong();
             var length = _reader.ReadLong();
@@ -123,7 +126,7 @@ namespace ImageMagick
             return value;
         }
 
-        private string ReadTagValue(uint length)
+        private string? ReadTagValue(uint length)
         {
             var type = _reader.ReadString(4);
             switch (type)
@@ -137,7 +140,7 @@ namespace ImageMagick
             }
         }
 
-        private string ReadTextDescriptionTypeValue()
+        private string? ReadTextDescriptionTypeValue()
         {
             if (!_reader.Skip(4))
                 return null;
@@ -149,7 +152,7 @@ namespace ImageMagick
             return _reader.ReadString(length.Value);
         }
 
-        private string ReadTextTypeValue(uint length)
+        private string? ReadTextTypeValue(uint length)
         {
             if (!_reader.Skip(4))
                 return null;

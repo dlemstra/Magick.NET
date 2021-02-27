@@ -38,21 +38,23 @@ namespace ImageMagick
         /// </summary>
         /// <param name="left">The first <see cref="ExifTag"/> to compare.</param>
         /// <param name="right"> The second <see cref="ExifTag"/> to compare.</param>
-        public static bool operator ==(ExifTag left, ExifTag right) => Equals(left, right);
+        public static bool operator ==(ExifTag left, ExifTag right)
+            => Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified <see cref="ExifTag"/> instances are not considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="ExifTag"/> to compare.</param>
         /// <param name="right"> The second <see cref="ExifTag"/> to compare.</param>
-        public static bool operator !=(ExifTag left, ExifTag right) => !Equals(left, right);
+        public static bool operator !=(ExifTag left, ExifTag right)
+            => !Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified object is equal to the exif tag.
         /// </summary>
         /// <param name="obj">The object to compare this exif tag with.</param>
         /// <returns>True when the specified object is equal to the current exif tag.</returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is ExifTag value)
                 return Equals(value);
@@ -65,7 +67,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The the exif tag to compare this exif tag with.</param>
         /// <returns>True when the specified object is equal to the current exif tag.</returns>
-        public bool Equals(ExifTag other)
+        public bool Equals(ExifTag? other)
         {
             if (other is null)
                 return false;
@@ -80,12 +82,14 @@ namespace ImageMagick
         /// Serves as a hash of this type.
         /// </summary>
         /// <returns>A hash code for the current instance.</returns>
-        public override int GetHashCode() => _value.GetHashCode();
+        public override int GetHashCode()
+            => _value.GetHashCode();
 
         /// <summary>
         /// Returns a string that represents the current object.
         /// </summary>
         /// <returns>A string that represents the current object.</returns>
-        public override string ToString() => ((ExifTagValue)_value).ToString();
+        public override string ToString()
+            => ((ExifTagValue)_value).ToString();
     }
 }

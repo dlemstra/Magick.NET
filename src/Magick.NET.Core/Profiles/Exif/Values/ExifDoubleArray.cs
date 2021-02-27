@@ -24,6 +24,7 @@ namespace ImageMagick
         {
         }
 
-        public override ExifDataType DataType => ExifDataType.Double;
+        public override ExifDataType DataType
+            => ExifDataType.Double;
     }
 }

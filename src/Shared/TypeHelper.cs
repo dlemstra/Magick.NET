@@ -12,22 +12,21 @@
 
 using System;
 using System.IO;
-using System.Reflection;
 
 namespace ImageMagick
 {
     internal static class TypeHelper
     {
         public static T GetCustomAttribute<T>(Type type)
-          where T : Attribute
+            where T : Attribute
         {
             return (T)type.Assembly.GetCustomAttributes(typeof(T), false)[0];
         }
 
-        public static T[] GetCustomAttributes<T>(Enum value)
-          where T : Attribute
+        public static T[]? GetCustomAttributes<T>(Enum value)
+            where T : Attribute
         {
-            FieldInfo field = value.GetType().GetField(value.ToString());
+            var field = value.GetType().GetField(value.ToString());
             if (field == null)
                 return null;
 

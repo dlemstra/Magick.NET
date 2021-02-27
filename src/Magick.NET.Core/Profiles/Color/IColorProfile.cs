@@ -25,21 +25,21 @@ namespace ImageMagick
         /// <summary>
         /// Gets the copyright of the profile.
         /// </summary>
-        string Copyright { get; }
+        string? Copyright { get; }
 
         /// <summary>
         /// Gets the description of the profile.
         /// </summary>
-        string Description { get; }
+        string? Description { get; }
 
         /// <summary>
         /// Gets the manufacturer of the profile.
         /// </summary>
-        string Manufacturer { get; }
+        string? Manufacturer { get; }
 
         /// <summary>
         /// Gets the model of the profile.
         /// </summary>
-        string Model { get; }
+        string? Model { get; }
     }
 }

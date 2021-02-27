@@ -17,17 +17,19 @@ namespace ImageMagick
     internal sealed class ExifSignedRational : ExifValue<SignedRational>
     {
         internal ExifSignedRational(ExifTag<SignedRational> tag)
-            : base(tag)
+            : base(tag, default)
         {
         }
 
         internal ExifSignedRational(ExifTagValue tag)
-            : base(tag)
+            : base(tag, default)
         {
         }
 
-        public override ExifDataType DataType => ExifDataType.SignedRational;
+        public override ExifDataType DataType
+            => ExifDataType.SignedRational;
 
-        protected override string StringValue => Value.ToString(CultureInfo.InvariantCulture);
+        protected override string StringValue
+            => Value.ToString(CultureInfo.InvariantCulture);
     }
 }

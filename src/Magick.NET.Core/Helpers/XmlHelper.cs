@@ -35,9 +35,9 @@ namespace ImageMagick
                 attribute = element.Attributes.Append(element.OwnerDocument.CreateAttribute(name));
 
             if (typeof(TType) == typeof(string))
-                attribute.Value = (string)(object)value;
+                attribute.Value = (string?)(object?)value;
             else
-                attribute.Value = (string)Convert.ChangeType(value, typeof(string), CultureInfo.InvariantCulture);
+                attribute.Value = (string?)Convert.ChangeType(value, typeof(string), CultureInfo.InvariantCulture);
         }
     }
 }

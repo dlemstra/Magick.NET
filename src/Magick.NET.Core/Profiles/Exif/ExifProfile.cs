@@ -12,6 +12,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace ImageMagick
@@ -21,7 +22,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifProfile : ImageProfile, IExifProfile
     {
-        private ExifData _data;
+        private ExifData? _data;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExifProfile"/> class.
@@ -118,7 +119,7 @@ namespace ImageMagick
         /// <param name="tag">The tag of the exif value.</param>
         /// <returns>The value with the specified tag.</returns>
         /// <typeparam name="TValueType">The data type of the tag.</typeparam>
-        public IExifValue<TValueType> GetValue<TValueType>(ExifTag<TValueType> tag)
+        public IExifValue<TValueType>? GetValue<TValueType>(ExifTag<TValueType> tag)
         {
             foreach (var exifValue in Values)
             {
@@ -181,7 +182,10 @@ namespace ImageMagick
         /// <typeparam name="TValueType">The data type of the tag.</typeparam>
         public void SetValue<TValueType>(ExifTag<TValueType> tag, TValueType value)
         {
-            foreach (var exifValue in Values)
+            Throw.IfNull(nameof(value), value);
+
+            InitializeValues();
+            foreach (var exifValue in _data.Values)
             {
                 if (exifValue.Tag == tag)
                 {
@@ -218,6 +222,7 @@ namespace ImageMagick
             SetData(writer.Write(_data.Values));
         }
 
+        [MemberNotNull(nameof(_data))]
         private void InitializeValues()
         {
             if (_data != null)

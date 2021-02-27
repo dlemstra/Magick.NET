@@ -63,7 +63,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="obj">The object to compare this <see cref="IptcValue"/> with.</param>
         /// <returns>True when the specified object is equal to the current <see cref="IptcValue"/>.</returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (ReferenceEquals(this, obj))
                 return true;
@@ -76,7 +76,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The iptc value to compare this <see cref="IptcValue"/> with.</param>
         /// <returns>True when the specified iptc value is equal to the current <see cref="IptcValue"/>.</returns>
-        public bool Equals(IIptcValue other)
+        public bool Equals(IIptcValue? other)
         {
             if (other is null)
                 return false;
