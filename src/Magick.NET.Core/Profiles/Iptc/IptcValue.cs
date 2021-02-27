@@ -35,7 +35,7 @@ namespace ImageMagick
         {
             Tag = tag;
             _encoding = Encoding.UTF8;
-            Value = value;
+            _data = GetData(value);
         }
 
         /// <summary>
@@ -49,13 +49,7 @@ namespace ImageMagick
         public string Value
         {
             get => _encoding.GetString(_data);
-            set
-            {
-                if (string.IsNullOrEmpty(value))
-                    _data = new byte[0];
-                else
-                    _data = _encoding.GetBytes(value);
-            }
+            set => _data = GetData(value);
         }
 
         /// <summary>
@@ -120,7 +114,7 @@ namespace ImageMagick
         /// <returns>A <see cref="byte"/> array.</returns>
         public byte[] ToByteArray()
         {
-            byte[] result = new byte[_data.Length];
+            var result = new byte[_data.Length];
             _data.CopyTo(result, 0);
             return result;
         }
@@ -131,5 +125,13 @@ namespace ImageMagick
         /// <returns>A string that represents the current value.</returns>
         public override string ToString()
             => Value;
+
+        private byte[] GetData(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                return new byte[0];
+            else
+                return _encoding.GetBytes(value);
+        }
     }
 }
