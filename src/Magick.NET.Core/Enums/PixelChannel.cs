@@ -72,6 +72,6 @@ namespace ImageMagick
         /// <summary>
         /// Composite.
         /// </summary>
-        Composite = 32,
+        Composite = 64,
     }
 }
