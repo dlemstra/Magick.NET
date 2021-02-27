@@ -16,27 +16,21 @@ namespace ImageMagick
 {
     internal sealed class ColorProfileReader
     {
-        private EndianReader _reader;
+        private readonly ColorProfileData _data = new ColorProfileData();
+        private readonly EndianReader _reader;
 
-        public ColorSpace ColorSpace { get; private set; }
-
-        public string Copyright { get; private set; }
-
-        public string Description { get; private set; }
-
-        public string Manufacturer { get; private set; }
-
-        public string Model { get; private set; }
-
-        public void Read(byte[] data)
+        private ColorProfileReader(byte[] data)
         {
-            if (data == null || data.Length < 20)
-                return;
-
             _reader = new EndianReader(data);
+        }
 
-            ReadColorSpace();
-            ReadTagTable();
+        public static ColorProfileData Read(byte[] data)
+        {
+            var reader = new ColorProfileReader(data);
+            reader.ReadColorSpace();
+            reader.ReadTagTable();
+
+            return reader._data;
         }
 
         private static ColorSpace DetermineColorSpace(string colorSpace)
@@ -72,8 +66,11 @@ namespace ImageMagick
         {
             _reader.Seek(16);
 
-            var colorSpace = _reader.ReadString(4).TrimEnd();
-            ColorSpace = DetermineColorSpace(colorSpace);
+            var colorSpace = _reader.ReadString(4);
+            if (colorSpace == null)
+                return;
+
+            _data.ColorSpace = DetermineColorSpace(colorSpace.TrimEnd());
         }
 
         private void ReadTagTable()
@@ -88,16 +85,16 @@ namespace ImageMagick
                 switch (tag)
                 {
                     case 0x63707274:
-                        Copyright = ReadTag();
+                        _data.Copyright = ReadTag();
                         break;
                     case 0x64657363:
-                        Description = ReadTag();
+                        _data.Description = ReadTag();
                         break;
                     case 0x646D6E64:
-                        Manufacturer = ReadTag();
+                        _data.Manufacturer = ReadTag();
                         break;
                     case 0x646D6464:
-                        Model = ReadTag();
+                        _data.Model = ReadTag();
                         break;
                     default:
                         _reader.Skip(8);
