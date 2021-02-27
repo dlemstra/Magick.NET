@@ -17,31 +17,45 @@ namespace ImageMagick
 {
     internal sealed class ExifReader
     {
-        private EndianReader _reader;
+        private readonly ExifData _data = new ExifData();
+        private readonly EndianReader _reader;
+
         private uint _exifOffset;
         private uint _gpsOffset;
         private uint _startIndex;
 
+        private ExifReader(byte[] data)
+        {
+            _reader = new EndianReader(data);
+        }
+
         private delegate TDataType ReadMethod<TDataType>();
 
-        public uint ThumbnailLength { get; private set; }
-
-        public uint ThumbnailOffset { get; private set; }
-
-        public List<ExifTag> InvalidTags { get; } = new List<ExifTag>();
-
-        public List<IExifValue> Values { get; } = new List<IExifValue>();
-
-        public void Read(byte[] data)
+        public static ExifData Read(byte[] data)
         {
-            Values.Clear();
-            InvalidTags.Clear();
-
             if (data == null || data.Length == 0)
-                return;
+                return new ExifData();
 
-            _reader = new EndianReader(data);
+            var reader = new ExifReader(data);
+            reader.Read();
 
+            return reader._data;
+        }
+
+        private static TDataType[] ReadArray<TDataType>(uint numberOfComponents, ReadMethod<TDataType> read)
+        {
+            var result = new TDataType[numberOfComponents];
+
+            for (int i = 0; i < numberOfComponents; i++)
+            {
+                result.SetValue(read(), i);
+            }
+
+            return result;
+        }
+
+        private void Read()
+        {
             if (_reader.ReadString(4) == "Exif")
             {
                 if (_reader.ReadShort() != 0)
@@ -56,28 +70,16 @@ namespace ImageMagick
                 return;
 
             var ifdOffset = ReadLong();
-            AddValues(Values, ifdOffset);
+            AddValues(_data.Values, ifdOffset);
 
             var thumbnailOffset = ReadLong();
             ReadThumbnail(thumbnailOffset);
 
             if (_exifOffset != 0)
-                AddValues(Values, _exifOffset);
+                AddValues(_data.Values, _exifOffset);
 
             if (_gpsOffset != 0)
-                AddValues(Values, _gpsOffset);
-        }
-
-        private static TDataType[] ReadArray<TDataType>(uint numberOfComponents, ReadMethod<TDataType> read)
-        {
-            var result = new TDataType[numberOfComponents];
-
-            for (int i = 0; i < numberOfComponents; i++)
-            {
-                result.SetValue(read(), i);
-            }
-
-            return result;
+                AddValues(_data.Values, _gpsOffset);
         }
 
         private void AddValues(List<IExifValue> values, uint index)
@@ -146,7 +148,7 @@ namespace ImageMagick
             }
 
             if (value == null)
-                InvalidTags.Add(new UnkownExifTag(tag));
+                _data.InvalidTags.Add(new UnkownExifTag(tag));
 
             _reader.Seek(oldIndex + 4);
 
@@ -319,9 +321,9 @@ namespace ImageMagick
             foreach (var value in values)
             {
                 if (value.Equals(ExifTag.JPEGInterchangeFormat))
-                    ThumbnailOffset = ((ExifLong)value).Value + _startIndex;
+                    _data.ThumbnailOffset = ((ExifLong)value).Value + _startIndex;
                 else if (value.Equals(ExifTag.JPEGInterchangeFormatLength))
-                    ThumbnailLength = ((ExifLong)value).Value;
+                    _data.ThumbnailLength = ((ExifLong)value).Value;
             }
         }
     }

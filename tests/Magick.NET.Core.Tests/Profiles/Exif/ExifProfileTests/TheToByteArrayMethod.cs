@@ -52,10 +52,9 @@ namespace Magick.NET.Core.Tests
 
                 var data = profile.ToByteArray();
 
-                var reader = new ExifReader();
-                reader.Read(data);
+                var result = ExifReader.Read(data);
 
-                Assert.Empty(reader.Values);
+                Assert.Empty(result.Values);
             }
 
             [Fact]
@@ -66,10 +65,9 @@ namespace Magick.NET.Core.Tests
 
                 var data = profile.ToByteArray();
 
-                var reader = new ExifReader();
-                reader.Read(data);
+                var result = ExifReader.Read(data);
 
-                Assert.Empty(reader.Values);
+                Assert.Empty(result.Values);
             }
         }
     }

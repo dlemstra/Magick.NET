@@ -23,71 +23,65 @@ namespace Magick.NET.Core.Tests
             [Fact]
             public void ShouldReturnEmptyCollectionWhenDataIsEmpty()
             {
-                var reader = new ExifReader();
                 var data = new byte[] { };
 
-                reader.Read(data);
+                var result = ExifReader.Read(data);
 
-                Assert.Empty(reader.Values);
+                Assert.Empty(result.Values);
             }
 
             [Fact]
             public void ShouldReturnEmptyCollectionWhenDataHasNoValues()
             {
-                var reader = new ExifReader();
                 var data = new byte[] { 69, 120, 105, 102, 0, 0 };
 
-                reader.Read(data);
+                var result = ExifReader.Read(data);
 
-                Assert.Empty(reader.Values);
+                Assert.Empty(result.Values);
             }
 
             [Fact]
             public void ShouldCheckArraySize()
             {
-                var reader = new ExifReader();
                 var data = new byte[] { 69, 120, 105, 102, 0, 0, 73, 73, 42, 0, 8, 0, 0, 0, 1, 0, 148, 1, 1, 0, 255, 255, 255, 255, 26, 0, 0, 0, 31, 0, 0, 0, 42 };
 
-                reader.Read(data);
+                var result = ExifReader.Read(data);
 
-                Assert.Empty(reader.Values);
-                Assert.Single(reader.InvalidTags);
+                Assert.Empty(result.Values);
+                Assert.Single(result.InvalidTags);
             }
 
             [Fact]
             public void ShouldCheckTypeOfJPEGInterchangeFormat()
             {
-                var reader = new ExifReader();
                 var data = new byte[] { 69, 120, 105, 102, 0, 0, 73, 73, 42, 0, 8, 0, 0, 0, 1, 0, 1, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0 };
 
-                reader.Read(data);
+                var result = ExifReader.Read(data);
 
-                Assert.Empty(reader.Values);
-                Assert.Equal(2, reader.InvalidTags.Count);
+                Assert.Empty(result.Values);
+                Assert.Equal(2, result.InvalidTags.Count);
             }
 
             [Fact]
             public void ShouldCheckTypeOfJPEGInterchangeFormatLength()
             {
-                var reader = new ExifReader();
                 var data = new byte[] { 69, 120, 105, 102, 0, 0, 73, 73, 42, 0, 8, 0, 0, 0, 1, 0, 2, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0 };
 
-                reader.Read(data);
+                var result = ExifReader.Read(data);
 
-                Assert.Empty(reader.Values);
-                Assert.Equal(2, reader.InvalidTags.Count);
+                Assert.Empty(result.Values);
+                Assert.Equal(2, result.InvalidTags.Count);
             }
 
             [Fact]
             public void ShouldBeAbleToReadEmptyStrings()
             {
-                var reader = new ExifReader();
                 var data = new byte[] { 69, 120, 105, 102, 0, 0, 73, 73, 42, 0, 8, 0, 0, 0, 1, 0, 14, 1, 2, 0, 0, 0, 0, 0, 32, 0, 0, 0, 26, 0, 0, 0, 0, 0 };
 
-                reader.Read(data);
+                var result = ExifReader.Read(data);
 
-                Assert.Single(reader.Values);
-                Assert.Equal(string.Empty, reader.Values.First().GetValue());
+                Assert.Single(result.Values);
+                Assert.Equal(string.Empty, result.Values.First().GetValue());
             }
         }
     }

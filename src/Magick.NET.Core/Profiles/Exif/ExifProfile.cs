@@ -21,10 +21,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class ExifProfile : ImageProfile, IExifProfile
     {
-        private List<IExifValue> _values;
-        private List<ExifTag> _invalidTags = new List<ExifTag>();
-        private int _thumbnailOffset;
-        private int _thumbnailLength;
+        private ExifData _data;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExifProfile"/> class.
@@ -75,7 +72,7 @@ namespace ImageMagick
             get
             {
                 InitializeValues();
-                return _invalidTags;
+                return _data.InvalidTags;
             }
         }
 
@@ -87,7 +84,7 @@ namespace ImageMagick
             get
             {
                 InitializeValues();
-                return _thumbnailLength;
+                return (int)_data.ThumbnailLength;
             }
         }
 
@@ -99,7 +96,7 @@ namespace ImageMagick
             get
             {
                 InitializeValues();
-                return _thumbnailOffset;
+                return (int)_data.ThumbnailOffset;
             }
         }
 
@@ -111,7 +108,7 @@ namespace ImageMagick
             get
             {
                 InitializeValues();
-                return _values;
+                return _data.Values;
             }
         }
 
@@ -140,8 +137,8 @@ namespace ImageMagick
             // The values need to be initialized to make sure the thumbnail is not written.
             InitializeValues();
 
-            _thumbnailLength = 0;
-            _thumbnailOffset = 0;
+            _data.ThumbnailLength = 0;
+            _data.ThumbnailOffset = 0;
         }
 
         /// <summary>
@@ -153,11 +150,11 @@ namespace ImageMagick
         {
             InitializeValues();
 
-            for (int i = 0; i < _values.Count; i++)
+            for (int i = 0; i < _data.Values.Count; i++)
             {
-                if (_values[i].Tag == tag)
+                if (_data.Values[i].Tag == tag)
                 {
-                    _values.RemoveAt(i);
+                    _data.Values.RemoveAt(i);
                     return true;
                 }
             }
@@ -198,7 +195,7 @@ namespace ImageMagick
                 throw new NotSupportedException();
 
             newExifValue.SetValue(value);
-            _values.Add(newExifValue);
+            _data.Values.Add(newExifValue);
         }
 
         /// <summary>
@@ -206,40 +203,34 @@ namespace ImageMagick
         /// </summary>
         protected override void UpdateData()
         {
-            if (_values == null)
+            if (_data == null)
             {
                 return;
             }
 
-            if (_values.Count == 0)
+            if (_data.Values.Count == 0)
             {
                 SetData(null);
                 return;
             }
 
             var writer = new ExifWriter(Parts);
-            SetData(writer.Write(_values));
+            SetData(writer.Write(_data.Values));
         }
 
         private void InitializeValues()
         {
-            if (_values != null)
+            if (_data != null)
                 return;
 
             var data = GetData();
             if (data == null)
             {
-                _values = new List<IExifValue>();
+                _data = new ExifData();
                 return;
             }
 
-            var reader = new ExifReader();
-            reader.Read(data);
-
-            _values = reader.Values;
-            _invalidTags = reader.InvalidTags;
-            _thumbnailOffset = (int)reader.ThumbnailOffset;
-            _thumbnailLength = (int)reader.ThumbnailLength;
+            _data = ExifReader.Read(data);
         }
     }
 }
