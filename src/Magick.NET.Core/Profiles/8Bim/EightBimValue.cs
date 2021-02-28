@@ -80,7 +80,8 @@ namespace ImageMagick
         /// Serves as a hash of this type.
         /// </summary>
         /// <returns>A hash code for the current instance.</returns>
-        public override int GetHashCode() => _data.GetHashCode() ^ ID.GetHashCode();
+        public override int GetHashCode()
+            => _data.GetHashCode() ^ ID.GetHashCode();
 
         /// <summary>
         /// Converts this instance to a byte array.
@@ -88,7 +89,7 @@ namespace ImageMagick
         /// <returns>A <see cref="byte"/> array.</returns>
         public byte[] ToByteArray()
         {
-            byte[] data = new byte[_data.Length];
+            var data = new byte[_data.Length];
             Array.Copy(_data, 0, data, 0, _data.Length);
             return data;
         }
@@ -97,7 +98,8 @@ namespace ImageMagick
         /// Returns a string that represents the current value.
         /// </summary>
         /// <returns>A string that represents the current value.</returns>
-        public override string ToString() => ToString(Encoding.UTF8);
+        public override string ToString()
+            => ToString(Encoding.UTF8);
 
         /// <summary>
         /// Returns a string that represents the current value with the specified encoding.
