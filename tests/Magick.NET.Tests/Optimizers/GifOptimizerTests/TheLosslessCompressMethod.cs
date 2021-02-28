@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             public void ShouldCompressLossless()
             {
                 var result = AssertLosslessCompressSmaller(Files.FujiFilmFinePixS1ProGIF);
-                Assert.InRange(result, 172864, 172865);
+                Assert.Equal(172861, result);
             }
 
             [Fact]
