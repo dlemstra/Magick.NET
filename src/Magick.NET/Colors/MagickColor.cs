@@ -187,21 +187,23 @@ namespace ImageMagick
         /// </summary>
         /// <param name="left">The first <see cref="MagickColor"/> to compare.</param>
         /// <param name="right"> The second <see cref="MagickColor"/> to compare.</param>
-        public static bool operator ==(MagickColor left, MagickColor right) => Equals(left, right);
+        public static bool operator ==(MagickColor? left, MagickColor? right)
+            => Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified <see cref="MagickColor"/> instances are not considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="MagickColor"/> to compare.</param>
         /// <param name="right"> The second <see cref="MagickColor"/> to compare.</param>
-        public static bool operator !=(MagickColor left, MagickColor right) => !Equals(left, right);
+        public static bool operator !=(MagickColor? left, MagickColor? right)
+            => !Equals(left, right);
 
         /// <summary>
         /// Determines whether the first <see cref="MagickColor"/> is more than the second <see cref="MagickColor"/>.
         /// </summary>
         /// <param name="left">The first <see cref="MagickColor"/> to compare.</param>
         /// <param name="right"> The second <see cref="MagickColor"/> to compare.</param>
-        public static bool operator >(MagickColor left, MagickColor right)
+        public static bool operator >(MagickColor? left, MagickColor? right)
         {
             if (left is null)
                 return right is null;
@@ -214,7 +216,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="left">The first <see cref="MagickColor"/> to compare.</param>
         /// <param name="right"> The second <see cref="MagickColor"/> to compare.</param>
-        public static bool operator <(MagickColor left, MagickColor right)
+        public static bool operator <(MagickColor? left, MagickColor? right)
         {
             if (left is null)
                 return !(right is null);
@@ -227,7 +229,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="left">The first <see cref="MagickColor"/> to compare.</param>
         /// <param name="right"> The second <see cref="MagickColor"/> to compare.</param>
-        public static bool operator >=(MagickColor left, MagickColor right)
+        public static bool operator >=(MagickColor? left, MagickColor? right)
         {
             if (left is null)
                 return right is null;
@@ -240,7 +242,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="left">The first <see cref="MagickColor"/> to compare.</param>
         /// <param name="right"> The second <see cref="MagickColor"/> to compare.</param>
-        public static bool operator <=(MagickColor left, MagickColor right)
+        public static bool operator <=(MagickColor? left, MagickColor? right)
         {
             if (left is null)
                 return !(right is null);
@@ -284,7 +286,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The color to compare this color with.</param>
         /// <returns>A signed number indicating the relative values of this instance and value.</returns>
-        public int CompareTo(IMagickColor<QuantumType> other)
+        public int CompareTo(IMagickColor<QuantumType>? other)
         {
             if (other is null)
                 return 1;
@@ -327,7 +329,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="obj">The object to compare this color with.</param>
         /// <returns>True when the specified object is equal to the current color.</returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (ReferenceEquals(this, obj))
                 return true;
@@ -340,7 +342,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The color to compare this color with.</param>
         /// <returns>True when the specified color is equal to the current color.</returns>
-        public bool Equals(IMagickColor<QuantumType> other)
+        public bool Equals(IMagickColor<QuantumType>? other)
         {
             if (other is null)
                 return false;
@@ -477,7 +479,7 @@ namespace ImageMagick
 #endif
         }
 
-        internal static IMagickColor<QuantumType> Clone(IMagickColor<QuantumType> value)
+        internal static IMagickColor<QuantumType>? Clone(IMagickColor<QuantumType>? value)
         {
             if (value == null)
                 return value;
@@ -493,7 +495,7 @@ namespace ImageMagick
             };
         }
 
-        internal static IMagickColor<QuantumType> CreateInstance(IntPtr instance, out int count)
+        internal static IMagickColor<QuantumType>? CreateInstance(IntPtr instance, out int count)
         {
             count = 0;
             if (instance == IntPtr.Zero)

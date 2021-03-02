@@ -20,7 +20,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the seed clusters from color list (e.g. red;green;blue).
         /// </summary>
-        public string SeedColors { get; set; }
+        public string? SeedColors { get; set; }
 
         /// <summary>
         /// Gets or sets the number of colors to use as seeds.

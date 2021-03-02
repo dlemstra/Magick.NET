@@ -58,12 +58,12 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the defines that should be set before the image is read.
         /// </summary>
-        public IReadDefines Defines { get; set; }
+        public IReadDefines? Defines { get; set; }
 
         /// <summary>
         /// Gets or sets the specified area to extract from the image.
         /// </summary>
-        public IMagickGeometry ExtractArea
+        public IMagickGeometry? ExtractArea
         {
             get => Extract;
             set => Extract = value;
@@ -113,7 +113,7 @@ namespace ImageMagick
             return EnumHelper.GetName(define.Format) + ":" + define.Name;
         }
 
-        private string GetScenes()
+        private string? GetScenes()
         {
             if (!FrameIndex.HasValue && (!FrameCount.HasValue || FrameCount.Value == 1))
                 return null;
@@ -122,7 +122,8 @@ namespace ImageMagick
                 return FrameIndex.Value.ToString(CultureInfo.InvariantCulture);
 
             int frame = FrameIndex ?? 0;
-            return string.Format(CultureInfo.InvariantCulture, "{0}-{1}", frame, frame + FrameCount.Value);
+            int count = FrameCount ?? 1;
+            return string.Format(CultureInfo.InvariantCulture, "{0}-{1}", frame, frame + count);
         }
 
         private void ApplyDefines()

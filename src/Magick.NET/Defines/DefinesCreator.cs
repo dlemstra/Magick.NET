@@ -81,12 +81,7 @@ namespace ImageMagick.Defines
         /// <param name="value">The value of the define.</param>
         /// <returns>A <see cref="MagickDefine"/> instance.</returns>
         protected MagickDefine CreateDefine(string name, IMagickGeometry value)
-        {
-            if (value == null)
-                return null;
-
-            return new MagickDefine(Format, name, value.ToString());
-        }
+            => new MagickDefine(Format, name, value?.ToString());
 
         /// <summary>
         /// Create a define with the specified name and value.
@@ -115,7 +110,7 @@ namespace ImageMagick.Defines
         /// <param name="value">The value of the define.</param>
         /// <typeparam name="T">The type of the enumerable.</typeparam>
         /// <returns>A <see cref="MagickDefine"/> instance.</returns>
-        protected MagickDefine CreateDefine<T>(string name, IEnumerable<T> value)
+        protected MagickDefine? CreateDefine<T>(string name, IEnumerable<T>? value)
         {
             if (value == null)
                 return null;
@@ -123,7 +118,8 @@ namespace ImageMagick.Defines
             var values = new List<string>();
             foreach (T val in value)
             {
-                values.Add(val.ToString());
+                if (val != null)
+                    values.Add(val.ToString());
             }
 
             if (values.Count == 0)

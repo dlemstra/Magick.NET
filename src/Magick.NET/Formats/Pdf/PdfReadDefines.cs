@@ -31,7 +31,7 @@ namespace ImageMagick.Formats
         /// <summary>
         /// Gets or sets the size where the image should be scaled to fit the page (pdf:fit-page).
         /// </summary>
-        public IMagickGeometry FitPage { get; set; }
+        public IMagickGeometry? FitPage { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether all images are forced to be interpolated at full device resolution.
@@ -41,7 +41,7 @@ namespace ImageMagick.Formats
         /// <summary>
         /// Gets or sets the password that should be used to open the pdf (authenticate).
         /// </summary>
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether use of the cropbox should be forced (pdf:use-trimbox).

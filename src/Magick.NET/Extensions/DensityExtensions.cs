@@ -24,7 +24,7 @@ namespace ImageMagick
         /// <param name="width">The width in cm or inches.</param>
         /// <param name="height">The height in cm or inches.</param>
         /// <returns>A <see cref="MagickGeometry"/> based on the specified width and height in cm or inches.</returns>
-        public static IMagickGeometry ToGeometry(this Density self, double width, double height)
+        public static IMagickGeometry? ToGeometry(this Density self, double width, double height)
         {
             if (self == null)
                 return null;
@@ -35,7 +35,7 @@ namespace ImageMagick
             return new MagickGeometry(pixelWidth, pixelHeight);
         }
 
-        internal static Density Clone(this Density self)
+        internal static Density? Clone(this Density self)
         {
             if (self == null)
                 return null;

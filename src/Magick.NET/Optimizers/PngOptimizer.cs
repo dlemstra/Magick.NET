@@ -23,7 +23,7 @@ namespace ImageMagick.ImageOptimizers
         /// Gets the format that the optimizer supports.
         /// </summary>
         public IMagickFormatInfo Format
-            => MagickNET.GetFormatInformation(MagickFormat.Png);
+            => MagickNET.GetFormatInformation(MagickFormat.Png)!;
 
         /// <summary>
         /// Gets or sets a value indicating whether various compression types will be used to find
@@ -39,7 +39,7 @@ namespace ImageMagick.ImageOptimizers
         /// </summary>
         /// <param name="file">The png file to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
-        public bool Compress([ValidatedNotNull] FileInfo file)
+        public bool Compress(FileInfo file)
             => DoCompress(file, false);
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace ImageMagick.ImageOptimizers
 
                 StartCompression(image, lossless);
 
-                TemporaryFile bestFile = null;
+                TemporaryFile? bestFile = null;
 
                 try
                 {
@@ -163,7 +163,7 @@ namespace ImageMagick.ImageOptimizers
             {
                 StartCompression(image, lossless);
 
-                MemoryStream bestStream = null;
+                MemoryStream? bestStream = null;
 
                 try
                 {

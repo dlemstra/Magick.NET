@@ -32,6 +32,6 @@ namespace ImageMagick
         /// Gets or sets the viewport that directly set the output image canvas area and offest to use for the
         /// resulting image, rather than use the original images canvas, or a calculated 'bestfit' canvas.
         /// </summary>
-        public IMagickGeometry Viewport { get; set; }
+        public IMagickGeometry? Viewport { get; set; }
     }
 }

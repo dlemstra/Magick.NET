@@ -45,19 +45,6 @@ namespace Magick.NET.Core.Tests
             }
 
             [Fact]
-            public void ShouldExcludeNullValues()
-            {
-                var profile = new ExifProfile();
-                profile.SetValue(ExifTag.ImageDescription, null);
-
-                var data = profile.ToByteArray();
-
-                var result = ExifReader.Read(data);
-
-                Assert.Empty(result.Values);
-            }
-
-            [Fact]
             public void ShouldExcludeEmptyStrings()
             {
                 var profile = new ExifProfile();

@@ -32,7 +32,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the description of the format.
         /// </summary>
-        string Description { get; }
+        string? Description { get; }
 
         /// <summary>
         /// Gets the format.
@@ -57,7 +57,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the mime type.
         /// </summary>
-        string MimeType { get; }
+        string? MimeType { get; }
 
         /// <summary>
         /// Gets the module.

@@ -155,17 +155,15 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>A <see cref="ColorCMYK"/> instance.</returns>
-        public static implicit operator ColorCMYK(MagickColor color)
-        {
-            return FromMagickColor(color);
-        }
+        public static implicit operator ColorCMYK?(MagickColor color)
+            => FromMagickColor(color);
 
         /// <summary>
         /// Converts the specified <see cref="IMagickColor{QuantumType}"/> to an instance of this type.
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>A <see cref="ColorCMYK"/> instance.</returns>
-        public static ColorCMYK FromMagickColor(IMagickColor<QuantumType> color)
+        public static ColorCMYK? FromMagickColor(IMagickColor<QuantumType> color)
         {
             if (color == null)
                 return null;

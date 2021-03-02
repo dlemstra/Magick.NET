@@ -80,7 +80,7 @@ namespace ImageMagick
         /// Gets the smallest bounding box enclosing non-border pixels. The current fuzz value is used
         /// when discriminating between pixels.
         /// </summary>
-        IMagickGeometry BoundingBox { get; }
+        IMagickGeometry? BoundingBox { get; }
 
         /// <summary>
         /// Gets the number of channels that the image contains.
@@ -143,7 +143,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the comment text of the image.
         /// </summary>
-        string Comment { get; set; }
+        string? Comment { get; set; }
 
         /// <summary>
         /// Gets or sets the composition operator to be used when composition is implicitly used (such as for image flattening).
@@ -169,7 +169,7 @@ namespace ImageMagick
         /// Gets the preferred size of the image when encoding.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickGeometry EncodingGeometry { get; }
+        IMagickGeometry? EncodingGeometry { get; }
 
         /// <summary>
         /// Gets or sets the endianness (little like Intel or big like SPARC) for image formats which support
@@ -180,7 +180,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the original file name of the image (only available if read from disk).
         /// </summary>
-        string FileName { get; }
+        string? FileName { get; }
 
         /// <summary>
         /// Gets or sets the filter to use when resizing image.
@@ -195,7 +195,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the information about the format of the image.
         /// </summary>
-        IMagickFormatInfo FormatInfo { get; }
+        IMagickFormatInfo? FormatInfo { get; }
 
         /// <summary>
         /// Gets the gamma level of the image.
@@ -247,7 +247,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the label of the image.
         /// </summary>
-        string Label { get; set; }
+        string? Label { get; set; }
 
         /// <summary>
         /// Gets or sets the photo orientation of the image.
@@ -257,7 +257,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the preferred size and location of an image canvas.
         /// </summary>
-        IMagickGeometry Page { get; set; }
+        IMagickGeometry? Page { get; set; }
 
         /// <summary>
         /// Gets the names of the profiles.
@@ -278,7 +278,7 @@ namespace ImageMagick
         /// Gets the signature of this image.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        string Signature { get; }
+        string? Signature { get; }
 
         /// <summary>
         /// Gets the number of colors in the image.
@@ -935,7 +935,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, CompositeOperator compose, string args);
+        void Composite(IMagickImage image, CompositeOperator compose, string? args);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the specified algorithm.
@@ -945,7 +945,7 @@ namespace ImageMagick
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, CompositeOperator compose, string args, Channels channels);
+        void Composite(IMagickImage image, CompositeOperator compose, string? args, Channels channels);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the 'In' operator.
@@ -996,7 +996,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, int x, int y, CompositeOperator compose, string args);
+        void Composite(IMagickImage image, int x, int y, CompositeOperator compose, string? args);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1008,7 +1008,7 @@ namespace ImageMagick
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, int x, int y, CompositeOperator compose, string args, Channels channels);
+        void Composite(IMagickImage image, int x, int y, CompositeOperator compose, string? args, Channels channels);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the 'In' operator.
@@ -1054,7 +1054,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, PointD offset, CompositeOperator compose, string args);
+        void Composite(IMagickImage image, PointD offset, CompositeOperator compose, string? args);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1065,7 +1065,7 @@ namespace ImageMagick
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, PointD offset, CompositeOperator compose, string args, Channels channels);
+        void Composite(IMagickImage image, PointD offset, CompositeOperator compose, string? args, Channels channels);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the 'In' operator.
@@ -1111,7 +1111,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, Gravity gravity, CompositeOperator compose, string args);
+        void Composite(IMagickImage image, Gravity gravity, CompositeOperator compose, string? args);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1122,7 +1122,7 @@ namespace ImageMagick
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, Gravity gravity, CompositeOperator compose, string args, Channels channels);
+        void Composite(IMagickImage image, Gravity gravity, CompositeOperator compose, string? args, Channels channels);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the 'In' operator.
@@ -1178,7 +1178,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, Gravity gravity, int x, int y, CompositeOperator compose, string args);
+        void Composite(IMagickImage image, Gravity gravity, int x, int y, CompositeOperator compose, string? args);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1191,7 +1191,7 @@ namespace ImageMagick
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, Gravity gravity, int x, int y, CompositeOperator compose, string args, Channels channels);
+        void Composite(IMagickImage image, Gravity gravity, int x, int y, CompositeOperator compose, string? args, Channels channels);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the 'In' operator.
@@ -1242,7 +1242,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, Gravity gravity, PointD offset, CompositeOperator compose, string args);
+        void Composite(IMagickImage image, Gravity gravity, PointD offset, CompositeOperator compose, string? args);
 
         /// <summary>
         /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1254,7 +1254,7 @@ namespace ImageMagick
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Composite(IMagickImage image, Gravity gravity, PointD offset, CompositeOperator compose, string args, Channels channels);
+        void Composite(IMagickImage image, Gravity gravity, PointD offset, CompositeOperator compose, string? args, Channels channels);
 
         /// <summary>
         /// Contrast image (enhance intensity differences in image).
@@ -1761,14 +1761,14 @@ namespace ImageMagick
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         /// <returns>The 8bim profile from the image.</returns>
-        IEightBimProfile Get8BimProfile();
+        IEightBimProfile? Get8BimProfile();
 
         /// <summary>
         /// Returns the value of the artifact with the specified name.
         /// </summary>
         /// <param name="name">The name of the artifact.</param>
         /// <returns>The value of the artifact with the specified name.</returns>
-        string GetArtifact(string name);
+        string? GetArtifact(string name);
 
         /// <summary>
         /// Returns the value of a named image attribute.
@@ -1776,14 +1776,14 @@ namespace ImageMagick
         /// <param name="name">The name of the attribute.</param>
         /// <returns>The value of a named image attribute.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        string GetAttribute(string name);
+        string? GetAttribute(string name);
 
         /// <summary>
         /// Returns the default clipping path. Null will be returned if the image has no clipping path.
         /// </summary>
         /// <returns>The default clipping path. Null will be returned if the image has no clipping path.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        string GetClippingPath();
+        string? GetClippingPath();
 
         /// <summary>
         /// Returns the clipping path with the specified name. Null will be returned if the image has no clipping path.
@@ -1791,28 +1791,28 @@ namespace ImageMagick
         /// <param name="pathName">Name of clipping path resource. If name is preceded by #, use clipping path numbered by name.</param>
         /// <returns>The clipping path with the specified name. Null will be returned if the image has no clipping path.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        string GetClippingPath(string pathName);
+        string? GetClippingPath(string pathName);
 
         /// <summary>
         /// Retrieve the color profile from the image.
         /// </summary>
         /// <returns>The color profile from the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IColorProfile GetColorProfile();
+        IColorProfile? GetColorProfile();
 
         /// <summary>
         /// Retrieve the exif profile from the image.
         /// </summary>
         /// <returns>The exif profile from the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IExifProfile GetExifProfile();
+        IExifProfile? GetExifProfile();
 
         /// <summary>
         /// Retrieve the iptc profile from the image.
         /// </summary>
         /// <returns>The iptc profile from the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IIptcProfile GetIptcProfile();
+        IIptcProfile? GetIptcProfile();
 
         /// <summary>
         /// Retrieve a named profile from the image.
@@ -1820,14 +1820,14 @@ namespace ImageMagick
         /// <param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
         /// <returns>A named profile from the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IImageProfile GetProfile(string name);
+        IImageProfile? GetProfile(string name);
 
         /// <summary>
         /// Retrieve the xmp profile from the image.
         /// </summary>
         /// <returns>The xmp profile from the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IXmpProfile GetXmpProfile();
+        IXmpProfile? GetXmpProfile();
 
         /// <summary>
         /// Converts the colors in the image to gray.
@@ -2221,7 +2221,7 @@ namespace ImageMagick
         /// <param name="kernel">Built-in kernel.</param>
         /// <param name="arguments">Kernel arguments.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Morphology(MorphologyMethod method, Kernel kernel, string arguments);
+        void Morphology(MorphologyMethod method, Kernel kernel, string? arguments);
 
         /// <summary>
         /// Applies a kernel to the image according to the given mophology method.
@@ -2231,7 +2231,7 @@ namespace ImageMagick
         /// <param name="arguments">Kernel arguments.</param>
         /// <param name="channels">The channels to apply the kernel to.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Morphology(MorphologyMethod method, Kernel kernel, string arguments, Channels channels);
+        void Morphology(MorphologyMethod method, Kernel kernel, string? arguments, Channels channels);
 
         /// <summary>
         /// Applies a kernel to the image according to the given mophology method.
@@ -2242,7 +2242,7 @@ namespace ImageMagick
         /// <param name="channels">The channels to apply the kernel to.</param>
         /// <param name="iterations">The number of iterations.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Morphology(MorphologyMethod method, Kernel kernel, string arguments, Channels channels, int iterations);
+        void Morphology(MorphologyMethod method, Kernel kernel, string? arguments, Channels channels, int iterations);
 
         /// <summary>
         /// Applies a kernel to the image according to the given mophology method.
@@ -2252,7 +2252,7 @@ namespace ImageMagick
         /// <param name="arguments">Kernel arguments.</param>
         /// <param name="iterations">The number of iterations.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Morphology(MorphologyMethod method, Kernel kernel, string arguments, int iterations);
+        void Morphology(MorphologyMethod method, Kernel kernel, string? arguments, int iterations);
 
         /// <summary>
         /// Applies a kernel to the image according to the given mophology method.
@@ -2402,7 +2402,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The perceptual hash of this image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IPerceptualHash PerceptualHash();
+        IPerceptualHash? PerceptualHash();
 
         /// <summary>
         /// Reads only metadata and not the pixel data.
@@ -2494,14 +2494,13 @@ namespace ImageMagick
         /// <param name="settings">Quantize settings.</param>
         /// <returns>The error information.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickErrorInfo Quantize(IQuantizeSettings settings);
+        IMagickErrorInfo? Quantize(IQuantizeSettings settings);
 
         /// <summary>
         /// Raise image (lighten or darken the edges of an image to give a 3-D raised effect).
         /// </summary>
         /// <param name="size">The size of the edges.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        [SuppressMessage("Design", "CA1030:Use events where appropriate", Justification = "This is not an event.")]
         void Raise(int size);
 
         /// <summary>
@@ -3379,7 +3378,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Tile(IMagickImage image, CompositeOperator compose, string args);
+        void Tile(IMagickImage image, CompositeOperator compose, string? args);
 
         /// <summary>
         /// Applies a color vector to each pixel in the image. The length of the vector is 0 for black

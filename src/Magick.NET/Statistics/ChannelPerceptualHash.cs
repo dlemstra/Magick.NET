@@ -44,6 +44,7 @@ namespace ImageMagick
             Channel = channel;
             _hclpHuPhash = new double[7];
             _srgbHuPhash = new double[7];
+            _hash = string.Empty;
         }
 
         internal ChannelPerceptualHash(PixelChannel channel, IntPtr instance)
@@ -114,7 +115,8 @@ namespace ImageMagick
         /// Returns a string representation of this hash.
         /// </summary>
         /// <returns>A string representation of this hash.</returns>
-        public override string ToString() => _hash;
+        public override string ToString() =>
+            _hash;
 
         private void ParseHash(string hash)
         {

@@ -58,9 +58,9 @@ namespace ImageMagick
             return buffer;
         }
 
-        internal static string NativeToManaged(IntPtr nativeData)
+        internal static string? NativeToManaged(IntPtr nativeData)
         {
-            byte[] strbuf = ByteConverter.ToArray(nativeData);
+            var strbuf = ByteConverter.ToArray(nativeData);
             if (strbuf == null)
                 return null;
 
@@ -70,9 +70,9 @@ namespace ImageMagick
             return Encoding.UTF8.GetString(strbuf, 0, strbuf.Length);
         }
 
-        internal static string NativeToManagedAndRelinquish(IntPtr nativeData)
+        internal static string? NativeToManagedAndRelinquish(IntPtr nativeData)
         {
-            string result = NativeToManaged(nativeData);
+            var result = NativeToManaged(nativeData);
 
             MagickMemory.Relinquish(nativeData);
 

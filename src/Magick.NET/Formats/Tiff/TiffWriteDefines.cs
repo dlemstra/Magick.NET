@@ -61,7 +61,7 @@ namespace ImageMagick.Formats
         /// <summary>
         /// Gets or sets the tile geometry (tiff:tile-geometry).
         /// </summary>
-        public IMagickGeometry TileGeometry { get; set; }
+        public IMagickGeometry? TileGeometry { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether photoshop layers should be written (tiff:write-layers).

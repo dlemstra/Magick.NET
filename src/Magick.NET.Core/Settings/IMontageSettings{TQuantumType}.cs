@@ -22,12 +22,12 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the color of the background that thumbnails are composed on.
         /// </summary>
-        IMagickColor<TQuantumType> BackgroundColor { get; set; }
+        IMagickColor<TQuantumType>? BackgroundColor { get; set; }
 
         /// <summary>
         /// Gets or sets the frame border color.
         /// </summary>
-        IMagickColor<TQuantumType> BorderColor { get; set; }
+        IMagickColor<TQuantumType>? BorderColor { get; set; }
 
         /// <summary>
         /// Gets or sets the pixels between thumbnail and surrounding frame.
@@ -37,12 +37,12 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the fill color.
         /// </summary>
-        IMagickColor<TQuantumType> FillColor { get; set; }
+        IMagickColor<TQuantumType>? FillColor { get; set; }
 
         /// <summary>
         /// Gets or sets the label font.
         /// </summary>
-        string Font { get; set; }
+        string? Font { get; set; }
 
         /// <summary>
         /// Gets or sets the font point size.
@@ -52,12 +52,12 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the frame geometry (width &amp; height frame thickness).
         /// </summary>
-        IMagickGeometry FrameGeometry { get; set; }
+        IMagickGeometry? FrameGeometry { get; set; }
 
         /// <summary>
         /// Gets or sets the thumbnail width &amp; height plus border width &amp; height.
         /// </summary>
-        IMagickGeometry Geometry { get; set; }
+        IMagickGeometry? Geometry { get; set; }
 
         /// <summary>
         /// Gets or sets the thumbnail position (e.g. SouthWestGravity).
@@ -67,7 +67,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the thumbnail label (applied to image prior to montage).
         /// </summary>
-        string Label { get; set; }
+        string? Label { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether drop-shadows on thumbnails are enabled or disabled.
@@ -77,26 +77,26 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the outline color.
         /// </summary>
-        IMagickColor<TQuantumType> StrokeColor { get; set; }
+        IMagickColor<TQuantumType>? StrokeColor { get; set; }
 
         /// <summary>
         /// Gets or sets the background texture image.
         /// </summary>
-        string TextureFileName { get; set; }
+        string? TextureFileName { get; set; }
 
         /// <summary>
         /// Gets or sets the frame geometry (width &amp; height frame thickness).
         /// </summary>
-        IMagickGeometry TileGeometry { get; set; }
+        IMagickGeometry? TileGeometry { get; set; }
 
         /// <summary>
         /// Gets or sets the montage title.
         /// </summary>
-        string Title { get; set; }
+        string? Title { get; set; }
 
         /// <summary>
         /// Gets or sets the transparent color.
         /// </summary>
-        IMagickColor<TQuantumType> TransparentColor { get; set; }
+        IMagickColor<TQuantumType>? TransparentColor { get; set; }
     }
 }

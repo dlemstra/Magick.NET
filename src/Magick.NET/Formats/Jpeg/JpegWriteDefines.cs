@@ -52,7 +52,7 @@ namespace ImageMagick.Formats
         /// <summary>
         /// Gets or sets the file name that contains custom quantization tables (jpeg:q-table).
         /// </summary>
-        public string QuantizationTables { get; set; }
+        public string? QuantizationTables { get; set; }
 
         /// <summary>
         /// Gets or sets jpeg sampling factor (jpeg:sampling-factor).
@@ -78,17 +78,17 @@ namespace ImageMagick.Formats
                 if (OptimizeCoding.HasValue)
                     yield return CreateDefine("optimize-coding", OptimizeCoding.Value);
 
-                if (!string.IsNullOrEmpty(QuantizationTables))
+                if (QuantizationTables != null && QuantizationTables.Length > 0)
                     yield return CreateDefine("q-table", QuantizationTables);
 
                 if (SamplingFactor.HasValue)
-                    yield return CreateDefine("sampling-factor", CreateSamplingFactors());
+                    yield return CreateDefine("sampling-factor", CreateSamplingFactors(SamplingFactor.Value));
             }
         }
 
-        private string CreateSamplingFactors()
+        private string CreateSamplingFactors(JpegSamplingFactor samplingFactor)
         {
-            switch (SamplingFactor.Value)
+            switch (samplingFactor)
             {
                 case JpegSamplingFactor.Ratio410:
                     return "4x2,1x1,1x1";

@@ -35,16 +35,16 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the color that emphasize pixel differences.
         /// </summary>
-        public IMagickColor<QuantumType> HighlightColor { get; set; }
+        public IMagickColor<QuantumType>? HighlightColor { get; set; }
 
         /// <summary>
         /// Gets or sets the color that de-emphasize pixel differences.
         /// </summary>
-        public IMagickColor<QuantumType> LowlightColor { get; set; }
+        public IMagickColor<QuantumType>? LowlightColor { get; set; }
 
         /// <summary>
         /// Gets or sets the color of pixels that are inside the read mask.
         /// </summary>
-        public IMagickColor<QuantumType> MasklightColor { get; set; }
+        public IMagickColor<QuantumType>? MasklightColor { get; set; }
     }
 }

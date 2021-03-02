@@ -73,6 +73,6 @@ namespace ImageMagick
         /// Converts the pixel to a color. Assumes the pixel is RGBA.
         /// </summary>
         /// <returns>A <see cref="IMagickColor{TQuantumType}"/> instance.</returns>
-        IMagickColor<TQuantumType> ToColor();
+        IMagickColor<TQuantumType>? ToColor();
     }
 }

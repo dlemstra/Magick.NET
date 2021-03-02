@@ -58,16 +58,6 @@ namespace Magick.NET.Core.Tests
                 Assert.NotNull(values);
                 Assert.Equal(latitude, values);
             }
-
-            [Fact]
-            public void ShouldAllowNullValues()
-            {
-                var profile = new ExifProfile();
-                profile.SetValue(ExifTag.ReferenceBlackWhite, null);
-
-                var value = profile.GetValue(ExifTag.ReferenceBlackWhite);
-                TestValue(value, null);
-            }
         }
     }
 }

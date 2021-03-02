@@ -32,9 +32,9 @@ namespace ImageMagick
     /// </summary>
     public partial class MagickSettings : IMagickSettings<QuantumType>
     {
-        private readonly Dictionary<string, string> _options = new Dictionary<string, string>();
+        private readonly Dictionary<string, string?> _options = new Dictionary<string, string?>();
 
-        private string _font;
+        private string? _font;
         private double _fontPointsize;
 
         internal MagickSettings()
@@ -62,12 +62,12 @@ namespace ImageMagick
             Drawing = new DrawingSettings();
         }
 
-        internal event EventHandler<ArtifactEventArgs> Artifact;
+        internal event EventHandler<ArtifactEventArgs>? Artifact;
 
         /// <summary>
         /// Gets or sets the affine to use when annotating with text or drawing.
         /// </summary>
-        public IDrawableAffine Affine
+        public IDrawableAffine? Affine
         {
             get => Drawing.Affine;
             set => Drawing.Affine = value;
@@ -81,12 +81,12 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the background color.
         /// </summary>
-        public IMagickColor<QuantumType> BackgroundColor { get; set; }
+        public IMagickColor<QuantumType>? BackgroundColor { get; set; }
 
         /// <summary>
         /// Gets or sets the border color.
         /// </summary>
-        public IMagickColor<QuantumType> BorderColor
+        public IMagickColor<QuantumType>? BorderColor
         {
             get => Drawing.BorderColor;
             set => Drawing.BorderColor = value;
@@ -115,7 +115,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the vertical and horizontal resolution in pixels.
         /// </summary>
-        public Density Density { get; set; }
+        public Density? Density { get; set; }
 
         /// <summary>
         /// Gets or sets the depth (bits allocated to red/green/blue components).
@@ -131,7 +131,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the fill color.
         /// </summary>
-        public IMagickColor<QuantumType> FillColor
+        public IMagickColor<QuantumType>? FillColor
         {
             get => Drawing.FillColor;
             set
@@ -144,7 +144,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the fill pattern.
         /// </summary>
-        public IMagickImage<QuantumType> FillPattern
+        public IMagickImage<QuantumType>? FillPattern
         {
             get => Drawing.FillPattern;
             set => Drawing.FillPattern = value;
@@ -162,7 +162,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the text rendering font.
         /// </summary>
-        public string Font
+        public string? Font
         {
             get => _font;
             set
@@ -175,7 +175,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the text font family.
         /// </summary>
-        public string FontFamily
+        public string? FontFamily
         {
             get => GetOption("family");
             set
@@ -218,7 +218,7 @@ namespace ImageMagick
         {
             get
             {
-                string weight = GetOption("weight");
+                var weight = GetOption("weight");
                 if (string.IsNullOrEmpty(weight))
                     return FontWeight.Undefined;
 
@@ -243,7 +243,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the preferred size and location of an image canvas.
         /// </summary>
-        public IMagickGeometry Page { get; set; }
+        public IMagickGeometry? Page { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether stroke anti-aliasing is enabled or disabled.
@@ -257,7 +257,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the color to use when drawing object outlines.
         /// </summary>
-        public IMagickColor<QuantumType> StrokeColor
+        public IMagickColor<QuantumType>? StrokeColor
         {
             get => Drawing.StrokeColor;
             set
@@ -273,7 +273,7 @@ namespace ImageMagick
         /// in pixels. If a zero value is not found it will be added. If an odd number of values is
         /// provided, then the list of values is repeated to yield an even number of values.
         /// </summary>
-        public IEnumerable<double> StrokeDashArray
+        public IEnumerable<double>? StrokeDashArray
         {
             get => Drawing.StrokeDashArray;
             set => Drawing.StrokeDashArray = value;
@@ -323,7 +323,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the pattern image to use while stroking object outlines.
         /// </summary>
-        public IMagickImage<QuantumType> StrokePattern
+        public IMagickImage<QuantumType>? StrokePattern
         {
             get => Drawing.StrokePattern;
             set => Drawing.StrokePattern = value;
@@ -363,7 +363,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the text annotation encoding (e.g. "UTF-16").
         /// </summary>
-        public Encoding TextEncoding
+        public Encoding? TextEncoding
         {
             get => Drawing.TextEncoding;
             set => Drawing.TextEncoding = value;
@@ -424,7 +424,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the text undercolor box.
         /// </summary>
-        public IMagickColor<QuantumType> TextUnderColor
+        public IMagickColor<QuantumType>? TextUnderColor
         {
             get => Drawing.TextUnderColor;
             set
@@ -443,7 +443,7 @@ namespace ImageMagick
 
         internal double ColorFuzz { get; set; }
 
-        internal string FileName { get; set; }
+        internal string? FileName { get; set; }
 
         internal Interlace Interlace { get; set; }
 
@@ -454,7 +454,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the specified area to extract from the image.
         /// </summary>
-        protected IMagickGeometry Extract { get; set; }
+        protected IMagickGeometry? Extract { get; set; }
 
         /// <summary>
         /// Gets or sets the number of scenes.
@@ -469,7 +469,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the size of the image.
         /// </summary>
-        protected string Size { get; set; }
+        protected string? Size { get; set; }
 
         /// <summary>
         /// Gets or sets the active scene.
@@ -479,7 +479,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets scenes of the image.
         /// </summary>
-        protected string Scenes { get; set; }
+        protected string? Scenes { get; set; }
 
         /// <summary>
         /// Returns the value of a format-specific option.
@@ -487,7 +487,7 @@ namespace ImageMagick
         /// <param name="format">The format to get the option for.</param>
         /// <param name="name">The name of the option.</param>
         /// <returns>The value of a format-specific option.</returns>
-        public string GetDefine(MagickFormat format, string name)
+        public string? GetDefine(MagickFormat format, string name)
         {
             Throw.IfNullOrEmpty(nameof(name), name);
 
@@ -499,7 +499,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="name">The name of the option.</param>
         /// <returns>The value of a format-specific option.</returns>
-        public string GetDefine(string name)
+        public string? GetDefine(string name)
         {
             Throw.IfNullOrEmpty(nameof(name), name);
 
@@ -581,13 +581,13 @@ namespace ImageMagick
         /// Sets format-specific options with the specified defines.
         /// </summary>
         /// <param name="defines">The defines to set.</param>
-        public void SetDefines([ValidatedNotNull] IDefines defines)
+        public void SetDefines(IDefines defines)
         {
             Throw.IfNull(nameof(defines), defines);
 
             foreach (IDefine define in defines.Defines)
             {
-                if (define != null)
+                if (define != null && define.Value != null)
                     SetDefine(define.Format, define.Name, define.Value);
             }
         }
@@ -600,17 +600,17 @@ namespace ImageMagick
             return clone;
         }
 
-        internal string GetOption(string key)
+        internal string? GetOption(string key)
         {
             Throw.IfNullOrEmpty(nameof(key), key);
 
-            if (_options.TryGetValue(key, out string result))
+            if (_options.TryGetValue(key, out string? result))
                 return result;
 
             return null;
         }
 
-        internal void SetOption(string key, string value)
+        internal void SetOption(string key, string? value)
             => _options[key] = value;
 
         /// <summary>
@@ -674,7 +674,7 @@ namespace ImageMagick
             return formatInfo.ModuleFormat;
         }
 
-        private static Density CreateDensity(string value)
+        private static Density? CreateDensity(string value)
         {
             if (string.IsNullOrEmpty(value))
                 return null;
@@ -686,8 +686,8 @@ namespace ImageMagick
         {
             var settings = (MagickSettings)instance;
 
-            string format = settings.GetFormat();
-            string fileName = settings.FileName;
+            var format = settings.GetFormat();
+            var fileName = settings.FileName;
             if (!string.IsNullOrEmpty(fileName) && !string.IsNullOrEmpty(format))
                 fileName = format + ":" + fileName;
 
@@ -727,7 +727,7 @@ namespace ImageMagick
             return result;
         }
 
-        private string GetFormat()
+        private string? GetFormat()
         {
             switch (Format)
             {
@@ -748,9 +748,10 @@ namespace ImageMagick
             }
         }
 
-        private void SetOptionAndArtifact(string key, double value) => SetOptionAndArtifact(key, value.ToString(CultureInfo.InvariantCulture));
+        private void SetOptionAndArtifact(string key, double value)
+            => SetOptionAndArtifact(key, value.ToString(CultureInfo.InvariantCulture));
 
-        private void SetOptionAndArtifact(string key, string value)
+        private void SetOptionAndArtifact(string key, string? value)
         {
             SetOption(key, value);
 

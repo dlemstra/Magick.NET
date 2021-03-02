@@ -107,12 +107,12 @@ namespace ImageMagick
         /// <summary>
         /// Gets the density of the image.
         /// </summary>
-        public Density Density { get; private set; }
+        public Density? Density { get; private set; }
 
         /// <summary>
         /// Gets the original file name of the image (only available if read from disk).
         /// </summary>
-        public string FileName { get; private set; }
+        public string? FileName { get; private set; }
 
         /// <summary>
         /// Gets the format of the image.

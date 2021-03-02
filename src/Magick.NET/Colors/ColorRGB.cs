@@ -79,17 +79,15 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>A <see cref="ColorRGB"/> instance.</returns>
-        public static implicit operator ColorRGB(MagickColor color)
-        {
-            return FromMagickColor(color);
-        }
+        public static implicit operator ColorRGB?(MagickColor color)
+            => FromMagickColor(color);
 
         /// <summary>
         /// Converts the specified <see cref="IMagickColor{QuantumType}"/> to an instance of this type.
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>A <see cref="ColorRGB"/> instance.</returns>
-        public static ColorRGB FromMagickColor(IMagickColor<QuantumType> color)
+        public static ColorRGB? FromMagickColor(IMagickColor<QuantumType> color)
         {
             if (color == null)
                 return null;
@@ -101,9 +99,12 @@ namespace ImageMagick
         /// Returns the complementary color for this color.
         /// </summary>
         /// <returns>A <see cref="ColorRGB"/> instance.</returns>
-        public ColorRGB ComplementaryColor()
+        public ColorRGB? ComplementaryColor()
         {
             var hsv = ColorHSV.FromMagickColor(ToMagickColor());
+            if (hsv == null)
+                return null;
+
             hsv.HueShift(180);
             return new ColorRGB(hsv.ToMagickColor());
         }

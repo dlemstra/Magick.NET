@@ -45,6 +45,9 @@ namespace ImageMagick
                 var instance = NativeMagickColorCollection.GetInstance(list, i);
 
                 var color = MagickColor.CreateInstance(instance, out var count);
+                if (color == null)
+                    continue;
+
                 colors[color] = count;
             }
 

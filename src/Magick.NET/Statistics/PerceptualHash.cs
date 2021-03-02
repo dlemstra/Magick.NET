@@ -107,9 +107,9 @@ namespace ImageMagick
                 NativePerceptualHash.DisposeList(list);
         }
 
-        private static ChannelPerceptualHash CreateChannelPerceptualHash(MagickImage image, IntPtr list, PixelChannel channel)
+        private static ChannelPerceptualHash? CreateChannelPerceptualHash(MagickImage image, IntPtr list, PixelChannel channel)
         {
-            IntPtr instance = NativePerceptualHash.GetInstance(image, list, channel);
+            var instance = NativePerceptualHash.GetInstance(image, list, channel);
             if (instance == IntPtr.Zero)
                 return null;
 
@@ -118,7 +118,7 @@ namespace ImageMagick
 
         private void AddChannel(MagickImage image, IntPtr list, PixelChannel channel)
         {
-            ChannelPerceptualHash instance = CreateChannelPerceptualHash(image, list, channel);
+            var instance = CreateChannelPerceptualHash(image, list, channel);
             if (instance != null)
                 _channels.Add(instance.Channel, instance);
         }

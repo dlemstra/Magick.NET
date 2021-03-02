@@ -34,17 +34,17 @@ namespace ImageMagick.ImageOptimizers
             _optimalCompression = optimizer.OptimalCompression;
         }
 
-        public TemporaryFile FindBestFileQuality(IMagickImage<QuantumType> image, out int bestQuality)
+        public TemporaryFile? FindBestFileQuality(IMagickImage<QuantumType> image, out int bestQuality)
         {
             bestQuality = 0;
 
             CheckTransparency(image);
 
-            TemporaryFile bestFile = null;
+            TemporaryFile? bestFile = null;
 
             foreach (var quality in GetQualityList())
             {
-                TemporaryFile tempFile = null;
+                TemporaryFile? tempFile = null;
 
                 try
                 {
@@ -73,13 +73,13 @@ namespace ImageMagick.ImageOptimizers
             return bestFile;
         }
 
-        public MemoryStream FindBestStreamQuality(IMagickImage<QuantumType> image, out int bestQuality)
+        public MemoryStream? FindBestStreamQuality(IMagickImage<QuantumType> image, out int bestQuality)
         {
             bestQuality = 0;
 
             CheckTransparency(image);
 
-            MemoryStream bestStream = null;
+            MemoryStream? bestStream = null;
 
             foreach (var quality in GetQualityList())
             {

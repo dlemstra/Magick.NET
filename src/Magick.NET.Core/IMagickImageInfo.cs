@@ -32,12 +32,12 @@ namespace ImageMagick
         /// <summary>
         /// Gets the density of the image.
         /// </summary>
-        Density Density { get; }
+        Density? Density { get; }
 
         /// <summary>
         /// Gets the original file name of the image (only available if read from disk).
         /// </summary>
-        string FileName { get; }
+        string? FileName { get; }
 
         /// <summary>
         /// Gets the format of the image.

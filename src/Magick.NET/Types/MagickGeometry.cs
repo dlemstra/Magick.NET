@@ -254,7 +254,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="obj">The object to compare this <see cref="MagickGeometry"/> with.</param>
         /// <returns>True when the specified object is equal to the current <see cref="MagickGeometry"/>.</returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (ReferenceEquals(this, obj))
                 return true;
@@ -267,7 +267,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The <see cref="IMagickGeometry"/> to compare this <see cref="MagickGeometry"/> with.</param>
         /// <returns>True when the specified <see cref="IMagickGeometry"/> is equal to the current <see cref="MagickGeometry"/>.</returns>
-        public bool Equals(IMagickGeometry other)
+        public bool Equals(IMagickGeometry? other)
         {
             if (other is null)
                 return false;
@@ -343,7 +343,7 @@ namespace ImageMagick
             if (AspectRatio)
                 return Width + ":" + Height;
 
-            string result = null;
+            var result = string.Empty;
 
             if (Width > 0)
                 result += Width;
@@ -387,7 +387,7 @@ namespace ImageMagick
             return result;
         }
 
-        internal static IMagickGeometry Clone(IMagickGeometry value)
+        internal static IMagickGeometry? Clone(IMagickGeometry? value)
         {
             if (value == null)
                 return null;
@@ -408,7 +408,7 @@ namespace ImageMagick
             };
         }
 
-        internal static IMagickGeometry FromRectangle(MagickRectangle rectangle)
+        internal static IMagickGeometry? FromRectangle(MagickRectangle? rectangle)
         {
             if (rectangle == null)
                 return null;
@@ -416,7 +416,8 @@ namespace ImageMagick
             return new MagickGeometry(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
         }
 
-        internal static IMagickGeometry FromString(string value) => value == null ? null : new MagickGeometry(value);
+        internal static IMagickGeometry? FromString(string? value)
+            => value == null ? null : new MagickGeometry(value);
 
         private static int ParseInt(string value)
         {

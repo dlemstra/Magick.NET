@@ -69,14 +69,15 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>A <see cref="ColorHSV"/> instance.</returns>
-        public static implicit operator ColorHSV(MagickColor color) => FromMagickColor(color);
+        public static implicit operator ColorHSV?(MagickColor color)
+            => FromMagickColor(color);
 
         /// <summary>
         /// Converts the specified <see cref="IMagickColor{QuantumType}"/> to an instance of this type.
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>A <see cref="ColorHSV"/> instance.</returns>
-        public static ColorHSV FromMagickColor(IMagickColor<QuantumType> color)
+        public static ColorHSV? FromMagickColor(IMagickColor<QuantumType> color)
         {
             if (color == null)
                 return null;

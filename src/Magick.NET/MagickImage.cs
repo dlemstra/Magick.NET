@@ -37,10 +37,12 @@ namespace ImageMagick
     /// </summary>
     public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInstance
     {
-        private ProgressDelegate _nativeProgress;
-        private EventHandler<ProgressEventArgs> _progress;
-        private EventHandler<WarningEventArgs> _warning;
-        private MagickSettings _settings;
+        private ProgressDelegate? _nativeProgress;
+        private EventHandler<ProgressEventArgs>? _progress;
+        private EventHandler<WarningEventArgs>? _warning;
+
+        [NotNull]
+        private MagickSettings? _settings;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImage"/> class.
@@ -181,7 +183,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(image), image);
 
-            MagickImage magickImage = image as MagickImage;
+            var magickImage = image as MagickImage;
             if (magickImage == null)
                 throw new NotSupportedException();
 
@@ -399,7 +401,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the background color of the image.
         /// </summary>
-        public IMagickColor<QuantumType> BackgroundColor
+        public IMagickColor<QuantumType>? BackgroundColor
         {
             get => _nativeInstance.BackgroundColor;
             set
@@ -433,7 +435,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the border color of the image.
         /// </summary>
-        public IMagickColor<QuantumType> BorderColor
+        public IMagickColor<QuantumType>? BorderColor
         {
             get => _nativeInstance.BorderColor;
             set => _nativeInstance.BorderColor = value;
@@ -443,7 +445,7 @@ namespace ImageMagick
         /// Gets the smallest bounding box enclosing non-border pixels. The current fuzz value is used
         /// when discriminating between pixels.
         /// </summary>
-        public IMagickGeometry BoundingBox
+        public IMagickGeometry? BoundingBox
             => MagickGeometry.FromRectangle(_nativeInstance.BoundingBox);
 
         /// <summary>
@@ -575,7 +577,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the comment text of the image.
         /// </summary>
-        public string Comment
+        public string? Comment
         {
             get => GetAttribute("comment");
             set
@@ -632,7 +634,7 @@ namespace ImageMagick
         /// Gets the preferred size of the image when encoding.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickGeometry EncodingGeometry
+        public IMagickGeometry? EncodingGeometry
             => MagickGeometry.FromString(_nativeInstance.EncodingGeometry);
 
         /// <summary>
@@ -677,7 +679,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the information about the format of the image.
         /// </summary>
-        public IMagickFormatInfo FormatInfo
+        public IMagickFormatInfo? FormatInfo
             => MagickNET.GetFormatInformation(Format);
 
         /// <summary>
@@ -763,7 +765,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the label of the image.
         /// </summary>
-        public string Label
+        public string? Label
         {
             get => GetAttribute("label");
             set
@@ -778,7 +780,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the matte color.
         /// </summary>
-        public IMagickColor<QuantumType> MatteColor
+        public IMagickColor<QuantumType>? MatteColor
         {
             get => _nativeInstance.MatteColor;
             set => _nativeInstance.MatteColor = value;
@@ -796,7 +798,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the preferred size and location of an image canvas.
         /// </summary>
-        public IMagickGeometry Page
+        public IMagickGeometry? Page
         {
             get => MagickGeometry.FromRectangle(_nativeInstance.Page);
             set
@@ -887,21 +889,23 @@ namespace ImageMagick
         /// </summary>
         /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
         /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
-        public static bool operator ==(MagickImage left, MagickImage right) => Equals(left, right);
+        public static bool operator ==(MagickImage? left, MagickImage? right)
+            => Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified <see cref="MagickImage"/> instances are not considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
         /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
-        public static bool operator !=(MagickImage left, MagickImage right) => !Equals(left, right);
+        public static bool operator !=(MagickImage? left, MagickImage? right)
+            => !Equals(left, right);
 
         /// <summary>
         /// Determines whether the first <see cref="MagickImage"/> is more than the second <see cref="MagickImage"/>.
         /// </summary>
         /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
         /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
-        public static bool operator >(MagickImage left, MagickImage right)
+        public static bool operator >(MagickImage? left, MagickImage? right)
         {
             if (left is null)
                 return right is null;
@@ -914,7 +918,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
         /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
-        public static bool operator <(MagickImage left, MagickImage right)
+        public static bool operator <(MagickImage? left, MagickImage? right)
         {
             if (left is null)
                 return !(right is null);
@@ -927,7 +931,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
         /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
-        public static bool operator >=(MagickImage left, MagickImage right)
+        public static bool operator >=(MagickImage? left, MagickImage? right)
         {
             if (left is null)
                 return right is null;
@@ -940,7 +944,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
         /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
-        public static bool operator <=(MagickImage left, MagickImage right)
+        public static bool operator <=(MagickImage? left, MagickImage? right)
         {
             if (left is null)
                 return !(right is null);
@@ -1857,7 +1861,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The object to compare this image with.</param>
         /// <returns>A signed number indicating the relative values of this instance and value.</returns>
-        public int CompareTo(IMagickImage<QuantumType> other)
+        public int CompareTo(IMagickImage<QuantumType>? other)
         {
             if (other is null)
                 return 1;
@@ -1914,7 +1918,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, CompositeOperator compose, string args)
+        public void Composite(IMagickImage image, CompositeOperator compose, string? args)
             => Composite(image, 0, 0, compose, args);
 
         /// <summary>
@@ -1925,7 +1929,7 @@ namespace ImageMagick
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, CompositeOperator compose, string args, Channels channels)
+        public void Composite(IMagickImage image, CompositeOperator compose, string? args, Channels channels)
             => Composite(image, 0, 0, compose, args, channels);
 
         /// <summary>
@@ -1981,7 +1985,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, int x, int y, CompositeOperator compose, string args)
+        public void Composite(IMagickImage image, int x, int y, CompositeOperator compose, string? args)
             => Composite(image, x, y, compose, args, ImageMagick.Channels.Default);
 
         /// <summary>
@@ -1994,7 +1998,7 @@ namespace ImageMagick
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, int x, int y, CompositeOperator compose, string args, Channels channels)
+        public void Composite(IMagickImage image, int x, int y, CompositeOperator compose, string? args, Channels channels)
         {
             Throw.IfNull(nameof(image), image);
 
@@ -2060,7 +2064,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, PointD offset, CompositeOperator compose, string args)
+        public void Composite(IMagickImage image, PointD offset, CompositeOperator compose, string? args)
             => Composite(image, (int)offset.X, (int)offset.Y, compose, args);
 
         /// <summary>
@@ -2072,7 +2076,7 @@ namespace ImageMagick
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, PointD offset, CompositeOperator compose, string args, Channels channels)
+        public void Composite(IMagickImage image, PointD offset, CompositeOperator compose, string? args, Channels channels)
             => Composite(image, (int)offset.X, (int)offset.Y, compose, args, channels);
 
         /// <summary>
@@ -2123,7 +2127,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, Gravity gravity, CompositeOperator compose, string args)
+        public void Composite(IMagickImage image, Gravity gravity, CompositeOperator compose, string? args)
             => Composite(image, gravity, compose, args, ImageMagick.Channels.Default);
 
         /// <summary>
@@ -2135,7 +2139,7 @@ namespace ImageMagick
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, Gravity gravity, CompositeOperator compose, string args, Channels channels)
+        public void Composite(IMagickImage image, Gravity gravity, CompositeOperator compose, string? args, Channels channels)
             => Composite(image, gravity, 0, 0, compose, args, channels);
 
         /// <summary>
@@ -2196,7 +2200,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, Gravity gravity, int x, int y, CompositeOperator compose, string args)
+        public void Composite(IMagickImage image, Gravity gravity, int x, int y, CompositeOperator compose, string? args)
             => Composite(image, gravity, x, y, compose, args, ImageMagick.Channels.Default);
 
         /// <summary>
@@ -2210,7 +2214,7 @@ namespace ImageMagick
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, Gravity gravity, int x, int y, CompositeOperator compose, string args, Channels channels)
+        public void Composite(IMagickImage image, Gravity gravity, int x, int y, CompositeOperator compose, string? args, Channels channels)
         {
             Throw.IfNull(nameof(image), image);
 
@@ -2281,7 +2285,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, Gravity gravity, PointD offset, CompositeOperator compose, string args)
+        public void Composite(IMagickImage image, Gravity gravity, PointD offset, CompositeOperator compose, string? args)
             => Composite(image, gravity, offset, compose, args, ImageMagick.Channels.Default);
 
         /// <summary>
@@ -2294,7 +2298,7 @@ namespace ImageMagick
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <param name="channels">The channel(s) to composite.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, Gravity gravity, PointD offset, CompositeOperator compose, string args, Channels channels)
+        public void Composite(IMagickImage image, Gravity gravity, PointD offset, CompositeOperator compose, string? args, Channels channels)
             => Composite(image, gravity, (int)offset.X, (int)offset.Y, compose, args, channels);
 
         /// <summary>
@@ -2789,7 +2793,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="obj">The object to compare this <see cref="MagickImage"/> with.</param>
         /// <returns>True when the specified object is equal to the current <see cref="MagickImage"/>.</returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (ReferenceEquals(this, obj))
                 return true;
@@ -2802,7 +2806,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The <see cref="IMagickImage{TQuantumType}"/> to compare this <see cref="MagickImage"/> with.</param>
         /// <returns>True when the specified <see cref="IMagickImage{TQuantumType}"/> is equal to the current <see cref="MagickImage"/>.</returns>
-        public bool Equals(IMagickImage<QuantumType> other)
+        public bool Equals(IMagickImage<QuantumType>? other)
         {
             if (other is null)
                 return false;
@@ -3239,7 +3243,7 @@ namespace ImageMagick
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         /// <returns>The 8bim profile from the image.</returns>
-        public IEightBimProfile Get8BimProfile()
+        public IEightBimProfile? Get8BimProfile()
         {
             StringInfo info = _nativeInstance.GetProfile("8bim");
             if (info == null || info.Datum == null)
@@ -3253,7 +3257,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="name">The name of the artifact.</param>
         /// <returns>The value of the artifact with the specified name.</returns>
-        public string GetArtifact(string name)
+        public string? GetArtifact(string name)
         {
             Throw.IfNullOrEmpty(nameof(name), name);
 
@@ -3266,7 +3270,7 @@ namespace ImageMagick
         /// <param name="name">The name of the attribute.</param>
         /// <returns>The value of a named image attribute.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public string GetAttribute(string name)
+        public string? GetAttribute(string name)
         {
             Throw.IfNullOrEmpty(nameof(name), name);
 
@@ -3278,7 +3282,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The default clipping path. Null will be returned if the image has no clipping path.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public string GetClippingPath()
+        public string? GetClippingPath()
             => GetClippingPath("#1");
 
         /// <summary>
@@ -3287,7 +3291,7 @@ namespace ImageMagick
         /// <param name="pathName">Name of clipping path resource. If name is preceded by #, use clipping path numbered by name.</param>
         /// <returns>The clipping path with the specified name. Null will be returned if the image has no clipping path.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public string GetClippingPath(string pathName)
+        public string? GetClippingPath(string pathName)
             => GetAttribute("8BIM:1999,2998:" + pathName);
 
         /// <summary>
@@ -3296,7 +3300,7 @@ namespace ImageMagick
         /// <param name="index">The position index.</param>
         /// <returns>he color at colormap position index.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickColor<QuantumType> GetColormap(int index)
+        public IMagickColor<QuantumType>? GetColormap(int index)
             => _nativeInstance.GetColormap(index);
 
         /// <summary>
@@ -3304,7 +3308,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The color profile from the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IColorProfile GetColorProfile()
+        public IColorProfile? GetColorProfile()
         {
             var profile = GetColorProfile("icc");
 
@@ -3319,7 +3323,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The exif profile from the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IExifProfile GetExifProfile()
+        public IExifProfile? GetExifProfile()
         {
             StringInfo info = _nativeInstance.GetProfile("exif");
             if (info == null || info.Datum == null)
@@ -3340,7 +3344,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The iptc profile from the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IIptcProfile GetIptcProfile()
+        public IIptcProfile? GetIptcProfile()
         {
             StringInfo info = _nativeInstance.GetProfile("iptc");
             if (info == null || info.Datum == null)
@@ -3382,7 +3386,7 @@ namespace ImageMagick
         /// <param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
         /// <returns>A named profile from the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IImageProfile GetProfile(string name)
+        public IImageProfile? GetProfile(string name)
         {
             Throw.IfNullOrEmpty(nameof(name), name);
 
@@ -3398,7 +3402,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The associated read mask of the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImage<QuantumType> GetReadMask()
+        public IMagickImage<QuantumType>? GetReadMask()
             => Create(_nativeInstance.GetReadMask());
 
         /// <summary>
@@ -3406,7 +3410,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The associated write mask of the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImage<QuantumType> GetWriteMask()
+        public IMagickImage<QuantumType>? GetWriteMask()
             => Create(_nativeInstance.GetWriteMask());
 
         /// <summary>
@@ -3414,7 +3418,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The xmp profile from the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IXmpProfile GetXmpProfile()
+        public IXmpProfile? GetXmpProfile()
         {
             var info = _nativeInstance.GetProfile("xmp");
             if (info == null || info.Datum == null)
@@ -4274,7 +4278,7 @@ namespace ImageMagick
         /// <param name="kernel">Built-in kernel.</param>
         /// <param name="arguments">Kernel arguments.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Morphology(MorphologyMethod method, Kernel kernel, string arguments)
+        public void Morphology(MorphologyMethod method, Kernel kernel, string? arguments)
             => Morphology(method, kernel, arguments, ImageMagick.Channels.Composite);
 
         /// <summary>
@@ -4285,7 +4289,7 @@ namespace ImageMagick
         /// <param name="arguments">Kernel arguments.</param>
         /// <param name="channels">The channels to apply the kernel to.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Morphology(MorphologyMethod method, Kernel kernel, string arguments, Channels channels)
+        public void Morphology(MorphologyMethod method, Kernel kernel, string? arguments, Channels channels)
             => Morphology(method, kernel, arguments, channels, 1);
 
         /// <summary>
@@ -4297,7 +4301,7 @@ namespace ImageMagick
         /// <param name="channels">The channels to apply the kernel to.</param>
         /// <param name="iterations">The number of iterations.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Morphology(MorphologyMethod method, Kernel kernel, string arguments, Channels channels, int iterations)
+        public void Morphology(MorphologyMethod method, Kernel kernel, string? arguments, Channels channels, int iterations)
         {
             var newKernel = EnumHelper.GetName(kernel) + ":" + arguments;
 
@@ -4312,7 +4316,7 @@ namespace ImageMagick
         /// <param name="arguments">Kernel arguments.</param>
         /// <param name="iterations">The number of iterations.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Morphology(MorphologyMethod method, Kernel kernel, string arguments, int iterations)
+        public void Morphology(MorphologyMethod method, Kernel kernel, string? arguments, int iterations)
             => Morphology(method, kernel, arguments, ImageMagick.Channels.Composite, iterations);
 
         /// <summary>
@@ -4366,7 +4370,7 @@ namespace ImageMagick
 
             settings.SetImageArtifacts(this);
 
-            if (!string.IsNullOrEmpty(settings.UserKernel))
+            if (settings.UserKernel != null && settings.UserKernel.Length > 0)
                 Morphology(settings.Method, settings.UserKernel, settings.Channels, settings.Iterations);
             else
                 Morphology(settings.Method, settings.Kernel, settings.KernelArguments, settings.Channels, settings.Iterations);
@@ -4519,7 +4523,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The perceptual hash of this image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IPerceptualHash PerceptualHash()
+        public IPerceptualHash? PerceptualHash()
         {
             var list = _nativeInstance.PerceptualHash();
 
@@ -4563,7 +4567,7 @@ namespace ImageMagick
         /// <param name="count">The maximum number of bytes to read.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Ping(byte[] data, int offset, int count, IMagickReadSettings<QuantumType> readSettings)
+        public void Ping(byte[] data, int offset, int count, IMagickReadSettings<QuantumType>? readSettings)
         {
             Throw.IfNullOrEmpty(nameof(data), data);
             Throw.IfTrue(nameof(offset), offset < 0, "The offset should be positive.");
@@ -4580,7 +4584,7 @@ namespace ImageMagick
         /// <param name="data">The byte array to read the information from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Ping(byte[] data, IMagickReadSettings<QuantumType> readSettings)
+        public void Ping(byte[] data, IMagickReadSettings<QuantumType>? readSettings)
         {
             Throw.IfNullOrEmpty(nameof(data), data);
 
@@ -4600,7 +4604,7 @@ namespace ImageMagick
         /// <param name="file">The file to read the image from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Ping(FileInfo file, IMagickReadSettings<QuantumType> readSettings)
+        public void Ping(FileInfo file, IMagickReadSettings<QuantumType>? readSettings)
         {
             Throw.IfNull(nameof(file), file);
 
@@ -4621,7 +4625,7 @@ namespace ImageMagick
         /// <param name="stream">The stream to read the image data from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Ping([ValidatedNotNull] Stream stream, IMagickReadSettings<QuantumType> readSettings)
+        public void Ping(Stream stream, IMagickReadSettings<QuantumType>? readSettings)
             => Read(stream, readSettings, true);
 
         /// <summary>
@@ -4638,7 +4642,7 @@ namespace ImageMagick
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Ping(string fileName, IMagickReadSettings<QuantumType> readSettings)
+        public void Ping(string fileName, IMagickReadSettings<QuantumType>? readSettings)
             => Read(fileName, readSettings, true);
 
         /// <summary>
@@ -4708,7 +4712,7 @@ namespace ImageMagick
         /// <param name="settings">Quantize settings.</param>
         /// <returns>The error information.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickErrorInfo Quantize(IQuantizeSettings settings)
+        public IMagickErrorInfo? Quantize(IQuantizeSettings settings)
         {
             Throw.IfNull(nameof(settings), settings);
 
@@ -4841,7 +4845,7 @@ namespace ImageMagick
         /// <param name="count">The maximum number of bytes to read.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Read(byte[] data, int offset, int count, IMagickReadSettings<QuantumType> readSettings)
+        public void Read(byte[] data, int offset, int count, IMagickReadSettings<QuantumType>? readSettings)
         {
             Throw.IfNullOrEmpty(nameof(data), data);
             Throw.IfTrue(nameof(offset), offset < 0, "The offset should be positive.");
@@ -4871,7 +4875,7 @@ namespace ImageMagick
         /// <param name="data">The byte array to read the image data from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Read(byte[] data, IMagickReadSettings<QuantumType> readSettings)
+        public void Read(byte[] data, IMagickReadSettings<QuantumType>? readSettings)
         {
             Throw.IfNullOrEmpty(nameof(data), data);
 
@@ -4919,7 +4923,7 @@ namespace ImageMagick
         /// <param name="file">The file to read the image from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Read(FileInfo file, IMagickReadSettings<QuantumType> readSettings)
+        public void Read(FileInfo file, IMagickReadSettings<QuantumType>? readSettings)
         {
             Throw.IfNull(nameof(file), file);
 
@@ -4964,7 +4968,7 @@ namespace ImageMagick
         /// <param name="stream">The stream to read the image data from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Read([ValidatedNotNull] Stream stream, IMagickReadSettings<QuantumType> readSettings)
+        public void Read(Stream stream, IMagickReadSettings<QuantumType>? readSettings)
             => Read(stream, readSettings, false);
 
         /// <summary>
@@ -5011,7 +5015,7 @@ namespace ImageMagick
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Read(string fileName, IMagickReadSettings<QuantumType> readSettings)
+        public void Read(string fileName, IMagickReadSettings<QuantumType>? readSettings)
             => Read(fileName, readSettings, false);
 
 #if NETSTANDARD
@@ -5041,7 +5045,7 @@ namespace ImageMagick
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task ReadAsync(Stream stream, IMagickReadSettings<QuantumType> readSettings)
+        public async Task ReadAsync(Stream stream, IMagickReadSettings<QuantumType>? readSettings)
         {
             Throw.IfNull(nameof(stream), stream);
 
@@ -5061,7 +5065,7 @@ namespace ImageMagick
         /// <param name="data">The byte array to read the image data from.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void ReadPixels(byte[] data, IPixelReadSettings<QuantumType> settings)
+        public void ReadPixels(byte[] data, IPixelReadSettings<QuantumType>? settings)
         {
             Throw.IfNullOrEmpty(nameof(data), data);
 
@@ -5076,7 +5080,7 @@ namespace ImageMagick
         /// <param name="count">The maximum number of bytes to read.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void ReadPixels(byte[] data, int offset, int count, IPixelReadSettings<QuantumType> settings)
+        public void ReadPixels(byte[] data, int offset, int count, IPixelReadSettings<QuantumType>? settings)
         {
             Throw.IfNullOrEmpty(nameof(data), data);
             Throw.IfTrue(nameof(offset), offset < 0, "The offset should be positive.");
@@ -5093,7 +5097,7 @@ namespace ImageMagick
             int expectedLength = GetExpectedLength(settings);
             Throw.IfTrue(nameof(data), count < expectedLength, "The array count is " + count + " but should be at least " + expectedLength + ".");
 
-            _nativeInstance.ReadPixels(settings.ReadSettings.Width.Value, settings.ReadSettings.Height.Value, settings.Mapping, settings.StorageType, data, offset);
+            _nativeInstance.ReadPixels(settings.ReadSettings.Width!.Value, settings.ReadSettings.Height!.Value, settings.Mapping, settings.StorageType, data, offset);
         }
 
         /// <summary>
@@ -5102,7 +5106,7 @@ namespace ImageMagick
         /// <param name="file">The file to read the image from.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void ReadPixels(FileInfo file, IPixelReadSettings<QuantumType> settings)
+        public void ReadPixels(FileInfo file, IPixelReadSettings<QuantumType>? settings)
         {
             Throw.IfNull(nameof(file), file);
 
@@ -5115,7 +5119,7 @@ namespace ImageMagick
         /// <param name="stream">The stream to read the image data from.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void ReadPixels(Stream stream, IPixelReadSettings<QuantumType> settings)
+        public void ReadPixels(Stream stream, IPixelReadSettings<QuantumType>? settings)
         {
             Throw.IfNullOrEmpty(nameof(stream), stream);
 
@@ -5129,7 +5133,7 @@ namespace ImageMagick
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void ReadPixels(string fileName, IPixelReadSettings<QuantumType> settings)
+        public void ReadPixels(string fileName, IPixelReadSettings<QuantumType>? settings)
         {
             string filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
@@ -5161,7 +5165,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(region), region);
 
-            MagickRectangle magickRegion = MagickRectangle.FromGeometry(region, this);
+            var magickRegion = MagickRectangle.FromGeometry(region, this);
             _nativeInstance.RegionMask(magickRegion);
         }
 
@@ -6171,7 +6175,12 @@ namespace ImageMagick
             Throw.IfNull(nameof(image), image);
 
             var result = _nativeInstance.SubImageSearch(image, metric, similarityThreshold, out var rectangle, out double similarityMetric);
-            return new MagickSearchResult(Create(result, image.GetSettings()), MagickGeometry.FromRectangle(rectangle), similarityMetric);
+
+            var geometry = MagickGeometry.FromRectangle(rectangle);
+            if (geometry == null)
+                throw new InvalidOperationException();
+
+            return new MagickSearchResult(Create(result, image.GetSettings()), geometry, similarityMetric);
         }
 
         /// <summary>
@@ -6268,7 +6277,7 @@ namespace ImageMagick
         /// <param name="compose">The algorithm to use.</param>
         /// <param name="args">The arguments for the algorithm (compose:args).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Tile(IMagickImage image, CompositeOperator compose, string args)
+        public void Tile(IMagickImage image, CompositeOperator compose, string? args)
         {
             Throw.IfNull(nameof(image), image);
 
@@ -6299,7 +6308,7 @@ namespace ImageMagick
         /// <param name="opacity">An opacity value used for tinting.</param>
         /// <param name="color">A color value used for tinting.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Tint(string opacity, IMagickColor<QuantumType> color)
+        public void Tint(string opacity, IMagickColor<QuantumType>? color)
         {
             Throw.IfNullOrEmpty(nameof(opacity), opacity);
             Throw.IfNull(nameof(color), color);
@@ -6778,9 +6787,9 @@ namespace ImageMagick
             using (StreamWrapper wrapper = StreamWrapper.CreateForWriting(stream))
             {
                 ReadWriteStreamDelegate writer = new ReadWriteStreamDelegate(wrapper.Write);
-                ReadWriteStreamDelegate reader = null;
-                SeekStreamDelegate seeker = null;
-                TellStreamDelegate teller = null;
+                ReadWriteStreamDelegate? reader = null;
+                SeekStreamDelegate? seeker = null;
+                TellStreamDelegate? teller = null;
 
                 if (stream.CanSeek)
                 {
@@ -6906,10 +6915,10 @@ namespace ImageMagick
         }
 #endif
 
-        internal static IMagickImage<QuantumType> Clone(IMagickImage<QuantumType> image)
+        internal static IMagickImage<QuantumType>? Clone(IMagickImage<QuantumType>? image)
             => image?.Clone();
 
-        internal static MagickImage Create(IntPtr image)
+        internal static MagickImage? Create(IntPtr image)
         {
             if (image == IntPtr.Zero)
                 return null;
@@ -6921,7 +6930,7 @@ namespace ImageMagick
         internal static IMagickImage<QuantumType> Create(IntPtr image, MagickSettings settings)
         {
             if (image == IntPtr.Zero)
-                return null;
+                throw new InvalidOperationException();
 
             var instance = new NativeMagickImage(image);
             return new MagickImage(instance, settings.Clone());
@@ -6929,9 +6938,6 @@ namespace ImageMagick
 
         internal static IMagickErrorInfo CreateErrorInfo(MagickImage image)
         {
-            if (image == null)
-                return null;
-
             return new MagickErrorInfo(image._nativeInstance.MeanErrorPerPixel, image._nativeInstance.NormalizedMeanError, image._nativeInstance.NormalizedMaximumError);
         }
 
@@ -6963,15 +6969,15 @@ namespace ImageMagick
             return _nativeInstance.ChannelOffset(pixelChannel);
         }
 
-        internal void SetNext(IMagickImage image)
+        internal void SetNext(IMagickImage? image)
             => _nativeInstance.SetNext(image.GetInstance());
 
         private static int GetExpectedLength(IPixelReadSettings<QuantumType> settings)
         {
-            Throw.IfTrue(nameof(settings), settings.ReadSettings.Width == null, "ReadSettings.Width should be defined");
-            Throw.IfTrue(nameof(settings), settings.ReadSettings.Height == null, "ReadSettings.Height should be defined when pixel storage is set.");
+            Throw.IfNull(nameof(settings), settings.ReadSettings.Width, "ReadSettings.Width should be defined");
+            Throw.IfNull(nameof(settings), settings.ReadSettings.Height, "ReadSettings.Height should be defined when pixel storage is set.");
 
-            int length = settings.ReadSettings.Width.Value * settings.ReadSettings.Height.Value * settings.Mapping.Length;
+            int length = settings.ReadSettings.Width.Value * settings.ReadSettings.Height.Value * settings.Mapping!.Length;
             switch (settings.StorageType)
             {
                 case StorageType.Char:
@@ -7018,7 +7024,7 @@ namespace ImageMagick
         private IEnumerable<IMagickImage<QuantumType>> CreateList(IntPtr images)
             => CreateList(images, _settings.Clone());
 
-        private MagickReadSettings CreateReadSettings(IMagickReadSettings<QuantumType> readSettings)
+        private MagickReadSettings CreateReadSettings(IMagickReadSettings<QuantumType>? readSettings)
         {
             if (readSettings != null && readSettings.FrameCount.HasValue)
                 Throw.IfFalse(nameof(readSettings), readSettings.FrameCount.Value == 1, "The frame count can only be set to 1 when a single image is being read.");
@@ -7056,11 +7062,12 @@ namespace ImageMagick
 
         private void FloodFill(QuantumType alpha, int x, int y, bool invert)
         {
-            IMagickColor<QuantumType> target;
+            IMagickColor<QuantumType>? target;
             using (var pixels = GetPixelsUnsafe())
             {
                 target = pixels.GetPixel(x, y).ToColor();
-                target.A = alpha;
+                if (target != null)
+                    target.A = alpha;
             }
 
             _nativeInstance.FloodFill(_settings.Drawing, x, y, target, invert);
@@ -7070,13 +7077,14 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(color), color);
 
-            IMagickColor<QuantumType> target;
+            IMagickColor<QuantumType>? target;
             using (var pixels = GetPixelsUnsafe())
             {
                 target = pixels.GetPixel(x, y).ToColor();
             }
 
-            FloodFill(color, x, y, target, invert);
+            if (target != null)
+                FloodFill(color, x, y, target, invert);
         }
 
         private void FloodFill(IMagickColor<QuantumType> color, int x, int y, IMagickColor<QuantumType> target, bool invert)
@@ -7103,13 +7111,14 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(image), image);
 
-            IMagickColor<QuantumType> target;
+            IMagickColor<QuantumType>? target;
             using (var pixels = GetPixelsUnsafe())
             {
                 target = pixels.GetPixel(x, y).ToColor();
             }
 
-            FloodFill(image, x, y, target, invert);
+            if (target != null)
+                FloodFill(image, x, y, target, invert);
         }
 
         private void FloodFill(IMagickImage<QuantumType> image, int x, int y, IMagickColor<QuantumType> target, bool invert)
@@ -7151,7 +7160,7 @@ namespace ImageMagick
             _nativeInstance.Opaque(target, fill, invert);
         }
 
-        private ColorProfile GetColorProfile(string name)
+        private ColorProfile? GetColorProfile(string name)
         {
             var info = _nativeInstance.GetProfile(name);
             if (info == null || info.Datum == null)
@@ -7182,7 +7191,7 @@ namespace ImageMagick
         private void OnWarning(object sender, WarningEventArgs arguments)
             => _warning?.Invoke(this, arguments);
 
-        private void Read(byte[] data, int offset, int length, IMagickReadSettings<QuantumType> readSettings, bool ping)
+        private void Read(byte[] data, int offset, int length, IMagickReadSettings<QuantumType>? readSettings, bool ping)
         {
             var newReadSettings = CreateReadSettings(readSettings);
             SetSettings(newReadSettings);
@@ -7194,7 +7203,7 @@ namespace ImageMagick
             ResetSettings();
         }
 
-        private void Read(Stream stream, IMagickReadSettings<QuantumType> readSettings, bool ping)
+        private void Read(Stream stream, IMagickReadSettings<QuantumType>? readSettings, bool ping)
         {
             Throw.IfNullOrEmpty(nameof(stream), stream);
 
@@ -7214,8 +7223,8 @@ namespace ImageMagick
             using (var wrapper = StreamWrapper.CreateForReading(stream))
             {
                 var reader = new ReadWriteStreamDelegate(wrapper.Read);
-                SeekStreamDelegate seeker = null;
-                TellStreamDelegate teller = null;
+                SeekStreamDelegate? seeker = null;
+                TellStreamDelegate? teller = null;
 
                 if (stream.CanSeek)
                 {
@@ -7229,7 +7238,7 @@ namespace ImageMagick
             ResetSettings();
         }
 
-        private void Read(string fileName, IMagickReadSettings<QuantumType> readSettings, bool ping)
+        private void Read(string fileName, IMagickReadSettings<QuantumType>? readSettings, bool ping)
         {
             string filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);

@@ -31,7 +31,7 @@ namespace ImageMagick
     /// </summary>
     public sealed partial class Paths : IPaths<QuantumType>
     {
-        private readonly Drawables _drawables;
+        private readonly Drawables? _drawables;
         private readonly Collection<IPath> _paths;
 
         /// <summary>
@@ -64,12 +64,14 @@ namespace ImageMagick
         /// Returns an enumerator that iterates through the collection.
         /// </summary>
         /// <returns>An enumerator that iterates through the collection.</returns>
-        public IEnumerator<IPath> GetEnumerator() => _paths.GetEnumerator();
+        public IEnumerator<IPath> GetEnumerator()
+            => _paths.GetEnumerator();
 
         /// <summary>
         /// Returns an enumerator that iterates through the collection.
         /// </summary>
         /// <returns>An enumerator that iterates through the collection.</returns>
-        IEnumerator IEnumerable.GetEnumerator() => _paths.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator()
+            => _paths.GetEnumerator();
     }
 }

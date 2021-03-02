@@ -33,7 +33,7 @@ namespace ImageMagick.ImageOptimizers
         /// Gets the format that the optimizer supports.
         /// </summary>
         public IMagickFormatInfo Format
-            => MagickNET.GetFormatInformation(MagickFormat.Icon);
+            => MagickNET.GetFormatInformation(MagickFormat.Icon)!;
 
         /// <summary>
         /// Gets or sets a value indicating whether various compression types will be used to find
@@ -49,7 +49,7 @@ namespace ImageMagick.ImageOptimizers
         /// </summary>
         /// <param name="file">The ico file to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
-        public bool Compress([ValidatedNotNull] FileInfo file)
+        public bool Compress(FileInfo file)
             => DoCompress(file, false);
 
         /// <summary>
@@ -161,6 +161,8 @@ namespace ImageMagick.ImageOptimizers
                 for (int y = 0; y < image.Height; y++)
                 {
                     var row = pixels.GetArea(0, y, image.Width, 1);
+                    if (row == null)
+                        continue;
 
                     for (int i = alphaIndex; i < row.Length; i += channels)
                     {

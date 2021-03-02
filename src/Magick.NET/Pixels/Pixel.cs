@@ -30,7 +30,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class Pixel : IPixel<QuantumType>
     {
-        private PixelCollection _collection;
+        private PixelCollection? _collection;
         private QuantumType[] _value;
 
         /// <summary>
@@ -44,7 +44,10 @@ namespace ImageMagick
             Throw.IfNull(nameof(value), value);
 
             CheckChannels(value.Length);
-            Initialize(x, y, value);
+
+            X = x;
+            Y = y;
+            _value = value;
         }
 
         /// <summary>
@@ -56,12 +59,19 @@ namespace ImageMagick
         public Pixel(int x, int y, int channels)
         {
             CheckChannels(channels);
-            Initialize(x, y, new QuantumType[channels]);
+
+            X = x;
+            Y = y;
+            _value = new QuantumType[channels];
         }
 
-        private Pixel(PixelCollection collection)
+        private Pixel(PixelCollection collection, int x, int y, QuantumType[] value)
         {
             _collection = collection;
+
+            X = x;
+            Y = y;
+            _value = value;
         }
 
         /// <summary>
@@ -95,7 +105,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="obj">The object to compare pixel color with.</param>
         /// <returns>True when the specified object is equal to the current pixel.</returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (ReferenceEquals(this, obj))
                 return true;
@@ -108,7 +118,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The pixel to compare this color with.</param>
         /// <returns>True when the specified pixel is equal to the current pixel.</returns>
-        public bool Equals(IPixel<QuantumType> other)
+        public bool Equals(IPixel<QuantumType>? other)
         {
             if (other is null)
                 return false;
@@ -188,7 +198,7 @@ namespace ImageMagick
         /// Converts the pixel to a color. Assumes the pixel is RGBA.
         /// </summary>
         /// <returns>A <see cref="IMagickColor{TQuantumType}"/> instance.</returns>
-        public IMagickColor<QuantumType> ToColor()
+        public IMagickColor<QuantumType>? ToColor()
         {
             var value = GetValueWithoutIndexChannel();
 
@@ -219,11 +229,7 @@ namespace ImageMagick
         }
 
         internal static Pixel Create(PixelCollection collection, int x, int y, QuantumType[] value)
-        {
-            var pixel = new Pixel(collection);
-            pixel.Initialize(x, y, value);
-            return pixel;
-        }
+            => new Pixel(collection, x, y, value);
 
         private static void CheckChannels(int channels)
         {
@@ -243,13 +249,6 @@ namespace ImageMagick
             newValue.RemoveAt(index);
 
             return newValue.ToArray();
-        }
-
-        private void Initialize(int x, int y, QuantumType[] value)
-        {
-            X = x;
-            Y = y;
-            _value = value;
         }
 
         private void UpdateCollection()

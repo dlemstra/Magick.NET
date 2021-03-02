@@ -73,17 +73,15 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>A <see cref="ColorGray"/> instance.</returns>
-        public static implicit operator ColorGray(MagickColor color)
-        {
-            return FromMagickColor(color);
-        }
+        public static implicit operator ColorGray?(MagickColor color)
+            => FromMagickColor(color);
 
         /// <summary>
         /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>A <see cref="ColorGray"/> instance.</returns>
-        public static ColorGray FromMagickColor(MagickColor color)
+        public static ColorGray? FromMagickColor(MagickColor color)
         {
             if (color == null)
                 return null;

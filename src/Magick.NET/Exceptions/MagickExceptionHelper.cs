@@ -17,7 +17,7 @@ namespace ImageMagick
 {
     internal static partial class MagickExceptionHelper
     {
-        public static MagickException Check(IntPtr exception)
+        public static MagickException? Check(IntPtr exception)
         {
             var magickException = Create(exception);
             if (magickException == null)
@@ -29,7 +29,7 @@ namespace ImageMagick
             return magickException;
         }
 
-        public static MagickException Create(IntPtr exception)
+        public static MagickException? Create(IntPtr exception)
         {
             if (exception == IntPtr.Zero)
                 return null;
@@ -50,15 +50,16 @@ namespace ImageMagick
             if (!string.IsNullOrEmpty(description))
                 message += " (" + description + ")";
 
-            var innerExceptions = CreateRelatedExceptions(exception);
-
             var result = Create(severity, message);
-            result.SetRelatedException(innerExceptions);
+
+            var relatedExceptions = CreateRelatedExceptions(exception);
+            if (relatedExceptions != null)
+                result.SetRelatedException(relatedExceptions);
 
             return result;
         }
 
-        private static List<MagickException> CreateRelatedExceptions(IntPtr exception)
+        private static List<MagickException>? CreateRelatedExceptions(IntPtr exception)
         {
             var nestedCount = NativeMagickExceptionHelper.RelatedCount(exception);
             if (nestedCount == 0)

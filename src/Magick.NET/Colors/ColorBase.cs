@@ -48,21 +48,21 @@ namespace ImageMagick
         /// </summary>
         /// <param name="left">The first <see cref="ColorBase"/> to compare.</param>
         /// <param name="right"> The second <see cref="ColorBase"/> to compare.</param>
-        public static bool operator ==(ColorBase left, ColorBase right) => Equals(left, right);
+        public static bool operator ==(ColorBase? left, ColorBase? right) => Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified <see cref="ColorBase"/> instances are not considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="ColorBase"/> to compare.</param>
         /// <param name="right"> The second <see cref="ColorBase"/> to compare.</param>
-        public static bool operator !=(ColorBase left, ColorBase right) => !Equals(left, right);
+        public static bool operator !=(ColorBase? left, ColorBase? right) => !Equals(left, right);
 
         /// <summary>
         /// Determines whether the first <see cref="ColorBase"/> is more than the second <see cref="ColorBase"/>.
         /// </summary>
         /// <param name="left">The first <see cref="ColorBase"/> to compare.</param>
         /// <param name="right"> The second <see cref="ColorBase"/> to compare.</param>
-        public static bool operator >(ColorBase left, ColorBase right)
+        public static bool operator >(ColorBase? left, ColorBase? right)
         {
             if (left is null)
                 return right is null;
@@ -75,7 +75,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="left">The first <see cref="ColorBase"/> to compare.</param>
         /// <param name="right"> The second <see cref="ColorBase"/> to compare.</param>
-        public static bool operator <(ColorBase left, ColorBase right)
+        public static bool operator <(ColorBase? left, ColorBase? right)
         {
             if (left is null)
                 return !(right is null);
@@ -88,7 +88,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="left">The first <see cref="ColorBase"/> to compare.</param>
         /// <param name="right"> The second <see cref="ColorBase"/> to compare.</param>
-        public static bool operator >=(ColorBase left, ColorBase right)
+        public static bool operator >=(ColorBase? left, ColorBase? right)
         {
             if (left is null)
                 return right is null;
@@ -101,7 +101,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="left">The first <see cref="ColorBase"/> to compare.</param>
         /// <param name="right"> The second <see cref="ColorBase"/> to compare.</param>
-        public static bool operator <=(ColorBase left, ColorBase right)
+        public static bool operator <=(ColorBase? left, ColorBase? right)
         {
             if (left is null)
                 return !(right is null);
@@ -114,7 +114,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The object to compare this color with.</param>
         /// <returns>A signed number indicating the relative values of this instance and value.</returns>
-        public int CompareTo(ColorBase other)
+        public int CompareTo(ColorBase? other)
         {
             if (other is null)
                 return 1;
@@ -130,14 +130,15 @@ namespace ImageMagick
         /// </summary>
         /// <param name="obj">The object to compare this color with.</param>
         /// <returns>True when the specified object is equal to the current instance.</returns>
-        public override bool Equals(object obj) => Equals(obj as ColorBase);
+        public override bool Equals(object? obj)
+            => Equals(obj as ColorBase);
 
         /// <summary>
         /// Determines whether the specified color is equal to the current color.
         /// </summary>
         /// <param name="other">The color to compare this color with.</param>
         /// <returns>True when the specified color is equal to the current instance.</returns>
-        public bool Equals(ColorBase other)
+        public bool Equals(ColorBase? other)
         {
             if (other is null)
                 return false;
@@ -157,7 +158,7 @@ namespace ImageMagick
         /// <param name="other">The color to compare this color with.</param>
         /// <param name="fuzz">The fuzz factor.</param>
         /// <returns>True when the specified color is fuzzy equal to the current instance.</returns>
-        public bool FuzzyEquals(ColorBase other, Percentage fuzz)
+        public bool FuzzyEquals(ColorBase? other, Percentage fuzz)
         {
             if (other is null)
                 return false;

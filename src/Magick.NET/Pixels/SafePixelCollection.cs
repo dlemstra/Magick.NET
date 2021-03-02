@@ -33,14 +33,14 @@ namespace ImageMagick
         {
         }
 
-        public override QuantumType[] GetArea(IMagickGeometry geometry)
+        public override QuantumType[]? GetArea(IMagickGeometry geometry)
         {
             Throw.IfNull(nameof(geometry), geometry);
 
             return base.GetArea(geometry);
         }
 
-        public override QuantumType[] GetArea(int x, int y, int width, int height)
+        public override QuantumType[]? GetArea(int x, int y, int width, int height)
         {
             CheckArea(x, y, width, height);
 
@@ -54,7 +54,7 @@ namespace ImageMagick
             return base.GetPixel(x, y);
         }
 
-        public override QuantumType[] GetValue(int x, int y)
+        public override QuantumType[]? GetValue(int x, int y)
         {
             CheckIndex(x, y);
 
@@ -158,21 +158,21 @@ namespace ImageMagick
             base.SetPixels(values);
         }
 
-        public override byte[] ToByteArray(IMagickGeometry geometry, string mapping)
+        public override byte[]? ToByteArray(IMagickGeometry geometry, string mapping)
         {
             Throw.IfNull(nameof(geometry), geometry);
 
             return base.ToByteArray(geometry, mapping);
         }
 
-        public override byte[] ToByteArray(IMagickGeometry geometry, PixelMapping mapping)
+        public override byte[]? ToByteArray(IMagickGeometry geometry, PixelMapping mapping)
         {
             Throw.IfNull(nameof(geometry), geometry);
 
             return base.ToByteArray(geometry, mapping.ToString());
         }
 
-        public override byte[] ToByteArray(int x, int y, int width, int height, string mapping)
+        public override byte[]? ToByteArray(int x, int y, int width, int height, string mapping)
         {
             Throw.IfNullOrEmpty(nameof(mapping), mapping);
 
@@ -180,14 +180,14 @@ namespace ImageMagick
             return base.ToByteArray(x, y, width, height, mapping);
         }
 
-        public override ushort[] ToShortArray(IMagickGeometry geometry, string mapping)
+        public override ushort[]? ToShortArray(IMagickGeometry geometry, string mapping)
         {
             Throw.IfNull(nameof(geometry), geometry);
 
             return base.ToShortArray(geometry, mapping);
         }
 
-        public override ushort[] ToShortArray(int x, int y, int width, int height, string mapping)
+        public override ushort[]? ToShortArray(int x, int y, int width, int height, string mapping)
         {
             Throw.IfNullOrEmpty(nameof(mapping), mapping);
 

@@ -87,7 +87,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="stream">The stream of the image to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
-        public bool Compress([ValidatedNotNull] Stream stream)
+        public bool Compress(Stream stream)
         {
             ImageOptimizerHelper.CheckStream(stream);
 
@@ -112,7 +112,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="formatInfo">The format information to check.</param>
         /// <returns>True when the supplied formation information is supported.</returns>
-        public bool IsSupported(IMagickFormatInfo formatInfo)
+        public bool IsSupported(IMagickFormatInfo? formatInfo)
         {
             if (formatInfo == null)
                 return false;
@@ -181,7 +181,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="stream">The stream of the image to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
-        public bool LosslessCompress([ValidatedNotNull] Stream stream)
+        public bool LosslessCompress(Stream stream)
         {
             ImageOptimizerHelper.CheckStream(stream);
 
@@ -224,19 +224,19 @@ namespace ImageMagick
             return optimizer.Compress(file);
         }
 
-        private IImageOptimizer GetOptimizer(FileInfo file)
+        private IImageOptimizer? GetOptimizer(FileInfo file)
         {
             var info = ImageOptimizerHelper.GetFormatInformation(file);
             return GetOptimizer(info);
         }
 
-        private IImageOptimizer GetOptimizer(Stream stream)
+        private IImageOptimizer? GetOptimizer(Stream stream)
         {
             var info = ImageOptimizerHelper.GetFormatInformation(stream);
             return GetOptimizer(info);
         }
 
-        private IImageOptimizer GetOptimizer(IMagickFormatInfo info)
+        private IImageOptimizer? GetOptimizer(IMagickFormatInfo? info)
         {
             if (info == null)
                 return null;

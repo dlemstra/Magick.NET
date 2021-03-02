@@ -57,7 +57,7 @@ namespace ImageMagick
             return defaultValue;
         }
 
-        public static TEnum Parse<TEnum>(string value, TEnum defaultValue)
+        public static TEnum Parse<TEnum>(string? value, TEnum defaultValue)
           where TEnum : struct, IConvertible
         {
             if (string.IsNullOrEmpty(value))

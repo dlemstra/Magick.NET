@@ -25,7 +25,7 @@ namespace ImageMagick
         /// <param name="origin">The originator of this event.</param>
         /// <param name="offset">The offset.</param>
         /// <param name="extent">The extent.</param>
-        public ProgressEventArgs(string origin, int offset, int extent)
+        public ProgressEventArgs(string? origin, int offset, int extent)
         {
             Origin = origin;
             Progress = new Percentage(((offset + 1) / (double)extent) * 100);
@@ -34,7 +34,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the originator of this event.
         /// </summary>
-        public string Origin { get; }
+        public string? Origin { get; }
 
         /// <summary>
         /// Gets the progress percentage.

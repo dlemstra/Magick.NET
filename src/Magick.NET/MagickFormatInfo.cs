@@ -41,7 +41,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the description of the format.
         /// </summary>
-        public string Description { get; private set; }
+        public string? Description { get; private set; }
 
         /// <summary>
         /// Gets the format.
@@ -66,7 +66,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the mime type.
         /// </summary>
-        public string MimeType { get; private set; }
+        public string? MimeType { get; private set; }
 
         /// <summary>
         /// Gets the module.
@@ -82,7 +82,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="file">The file to check.</param>
         /// <returns>The format information.</returns>
-        public static MagickFormatInfo Create(FileInfo file)
+        public static MagickFormatInfo? Create(FileInfo file)
         {
             Throw.IfNull(nameof(file), file);
 
@@ -101,7 +101,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="format">The image format.</param>
         /// <returns>The format information.</returns>
-        public static MagickFormatInfo Create(MagickFormat format)
+        public static MagickFormatInfo? Create(MagickFormat format)
         {
             if (!_All.ContainsKey(format))
                 return null;
@@ -115,7 +115,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="fileName">The name of the file to check.</param>
         /// <returns>The format information.</returns>
-        public static MagickFormatInfo Create(string fileName)
+        public static MagickFormatInfo? Create(string fileName)
         {
             string filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
@@ -128,7 +128,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="obj">The object to compare this <see cref="MagickFormatInfo"/> with.</param>
         /// <returns>True when the specified object is equal to the current <see cref="MagickFormatInfo"/>.</returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
             => Equals(obj as MagickFormatInfo);
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The <see cref="IMagickFormatInfo"/> to compare this <see cref="MagickFormatInfo"/> with.</param>
         /// <returns>True when the specified <see cref="IMagickFormatInfo"/> is equal to the current <see cref="MagickFormatInfo"/>.</returns>
-        public bool Equals(IMagickFormatInfo other)
+        public bool Equals(IMagickFormatInfo? other)
         {
             if (other is null)
                 return false;
@@ -168,7 +168,7 @@ namespace ImageMagick
         public bool Unregister()
             => NativeMagickFormatInfo.Unregister(EnumHelper.GetName(Format));
 
-        private static MagickFormatInfo Create(NativeMagickFormatInfo instance)
+        private static MagickFormatInfo? Create(NativeMagickFormatInfo instance)
         {
             if (!instance.HasInstance)
                 return null;
@@ -187,7 +187,7 @@ namespace ImageMagick
             };
         }
 
-        private static MagickFormatInfo Create(NativeMagickFormatInfo instance, string name)
+        private static MagickFormatInfo? Create(NativeMagickFormatInfo instance, string name)
         {
             instance.GetInfoByName(name);
             return Create(instance);

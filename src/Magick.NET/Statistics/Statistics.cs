@@ -24,10 +24,11 @@ namespace ImageMagick
 
         internal Statistics(MagickImage image, IntPtr list)
         {
+            _channels = new Dictionary<PixelChannel, ChannelStatistics>();
+
             if (list == IntPtr.Zero)
                 return;
 
-            _channels = new Dictionary<PixelChannel, ChannelStatistics>();
             foreach (PixelChannel channel in image.Channels)
                 AddChannel(list, channel);
 
@@ -63,7 +64,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="obj">The object to compare this <see cref="Statistics"/> with.</param>
         /// <returns>Truw when the specified object is equal to the current <see cref="Statistics"/>.</returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj == null)
                 return false;
@@ -76,7 +77,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The image statistics to compare this <see cref="Statistics"/> with.</param>
         /// <returns>True when the specified image statistics is equal to the current <see cref="Statistics"/>.</returns>
-        public bool Equals(IStatistics other)
+        public bool Equals(IStatistics? other)
         {
             if (other is null)
                 return false;

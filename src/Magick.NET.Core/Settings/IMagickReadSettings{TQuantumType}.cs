@@ -22,12 +22,12 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the defines that should be set before the image is read.
         /// </summary>
-        IReadDefines Defines { get; set; }
+        IReadDefines? Defines { get; set; }
 
         /// <summary>
         /// Gets or sets the specified area to extract from the image.
         /// </summary>
-        IMagickGeometry ExtractArea { get; set; }
+        IMagickGeometry? ExtractArea { get; set; }
 
         /// <summary>
         /// Gets or sets the index of the image to read from a multi layer/frame image.

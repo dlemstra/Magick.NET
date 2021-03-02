@@ -33,7 +33,7 @@ namespace ImageMagick.ImageOptimizers
         /// Gets the format that the optimizer supports.
         /// </summary>
         public IMagickFormatInfo Format
-            => MagickNET.GetFormatInformation(MagickFormat.Gif);
+            => MagickNET.GetFormatInformation(MagickFormat.Gif)!;
 
         /// <summary>
         /// Gets or sets a value indicating whether various compression types will be used to find
@@ -105,7 +105,7 @@ namespace ImageMagick.ImageOptimizers
         /// </summary>
         /// <param name="stream">The stream of the gif image to compress.</param>
         /// <returns>True when the image could be compressed otherwise false.</returns>
-        public bool LosslessCompress([ValidatedNotNull] Stream stream)
+        public bool LosslessCompress(Stream stream)
         {
             ImageOptimizerHelper.CheckStream(stream);
 

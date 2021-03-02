@@ -32,7 +32,7 @@ namespace ImageMagick
         private readonly int _height;
         private readonly int _width;
 
-        private QuantumType[] _row;
+        private QuantumType[]? _row;
         private int _x;
         private int _y;
 
@@ -44,15 +44,15 @@ namespace ImageMagick
             Reset();
         }
 
-        object IEnumerator.Current
+        object? IEnumerator.Current
             => Current;
 
         public IPixel<QuantumType> Current
         {
             get
             {
-                if (_x == -1)
-                    return null;
+                if (_x == -1 || _row == null)
+                    throw new InvalidOperationException();
 
                 var pixel = new QuantumType[_collection.Channels];
                 Array.Copy(_row, _x * _collection.Channels, pixel, 0, _collection.Channels);

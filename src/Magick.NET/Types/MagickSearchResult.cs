@@ -43,7 +43,7 @@ namespace ImageMagick
         /// Gets the a similarity image such that an exact match location is completely white and if none of
         /// the pixels match, black, otherwise some gray level in-between.
         /// </summary>
-        public IMagickImage<QuantumType> SimilarityImage { get; private set; }
+        public IMagickImage<QuantumType> SimilarityImage { get; }
 
         /// <summary>
         /// Gets the similarity metric.
@@ -54,10 +54,6 @@ namespace ImageMagick
         /// Disposes the <see cref="MagickSearchResult"/> instance.
         /// </summary>
         public void Dispose()
-        {
-            if (SimilarityImage != null)
-                SimilarityImage.Dispose();
-            SimilarityImage = null;
-        }
+            => SimilarityImage.Dispose();
     }
 }

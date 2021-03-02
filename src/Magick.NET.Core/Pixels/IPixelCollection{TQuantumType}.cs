@@ -32,7 +32,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="x">The X coordinate.</param>
         /// <param name="y">The Y coordinate.</param>
-        IPixel<TQuantumType> this[int x, int y] { get; }
+        IPixel<TQuantumType>? this[int x, int y] { get; }
 
         /// <summary>
         /// Returns the pixels at the specified area.
@@ -42,14 +42,14 @@ namespace ImageMagick
         /// <param name="width">The width of the area.</param>
         /// <param name="height">The height of the area.</param>
         /// <returns>A <typeparamref name="TQuantumType"/> array.</returns>
-        TQuantumType[] GetArea(int x, int y, int width, int height);
+        TQuantumType[]? GetArea(int x, int y, int width, int height);
 
         /// <summary>
         /// Returns the pixels of the specified area.
         /// </summary>
         /// <param name="geometry">The geometry of the area.</param>
         /// <returns>A <typeparamref name="TQuantumType"/> array.</returns>
-        TQuantumType[] GetArea(IMagickGeometry geometry);
+        TQuantumType[]? GetArea(IMagickGeometry geometry);
 
         /// <summary>
         /// Returns the index of the specified channel. Returns -1 if not found.
@@ -72,13 +72,13 @@ namespace ImageMagick
         /// <param name="x">The X coordinate of the pixel.</param>
         /// <param name="y">The Y coordinate of the pixel.</param>
         /// <returns>A <typeparamref name="TQuantumType"/> array.</returns>
-        TQuantumType[] GetValue(int x, int y);
+        TQuantumType[]? GetValue(int x, int y);
 
         /// <summary>
         /// Returns the values of the pixels as an array.
         /// </summary>
         /// <returns>A <typeparamref name="TQuantumType"/> array.</returns>
-        TQuantumType[] GetValues();
+        TQuantumType[]? GetValues();
 
         /// <summary>
         /// Changes the values of the specified pixels.
@@ -196,7 +196,7 @@ namespace ImageMagick
         /// Returns the values of the pixels as an array.
         /// </summary>
         /// <returns>A <typeparamref name="TQuantumType"/> array.</returns>
-        TQuantumType[] ToArray();
+        TQuantumType[]? ToArray();
 
         /// <summary>
         /// Returns the values of the pixels as an array.
@@ -207,7 +207,7 @@ namespace ImageMagick
         /// <param name="height">The height of the area.</param>
         /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
         /// <returns>A <see cref="byte"/> array.</returns>
-        byte[] ToByteArray(int x, int y, int width, int height, string mapping);
+        byte[]? ToByteArray(int x, int y, int width, int height, string mapping);
 
         /// <summary>
         /// Returns the values of the pixels as an array.
@@ -218,7 +218,7 @@ namespace ImageMagick
         /// <param name="height">The height of the area.</param>
         /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
         /// <returns>A <see cref="byte"/> array.</returns>
-        byte[] ToByteArray(int x, int y, int width, int height, PixelMapping mapping);
+        byte[]? ToByteArray(int x, int y, int width, int height, PixelMapping mapping);
 
         /// <summary>
         /// Returns the values of the pixels as an array.
@@ -226,7 +226,7 @@ namespace ImageMagick
         /// <param name="geometry">The geometry of the area.</param>
         /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
         /// <returns>A <see cref="byte"/> array.</returns>
-        byte[] ToByteArray(IMagickGeometry geometry, string mapping);
+        byte[]? ToByteArray(IMagickGeometry geometry, string mapping);
 
         /// <summary>
         /// Returns the values of the pixels as an array.
@@ -234,21 +234,21 @@ namespace ImageMagick
         /// <param name="geometry">The geometry of the area.</param>
         /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
         /// <returns>A <see cref="byte"/> array.</returns>
-        byte[] ToByteArray(IMagickGeometry geometry, PixelMapping mapping);
+        byte[]? ToByteArray(IMagickGeometry geometry, PixelMapping mapping);
 
         /// <summary>
         /// Returns the values of the pixels as an array.
         /// </summary>
         /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
         /// <returns>A <see cref="byte"/> array.</returns>
-        byte[] ToByteArray(string mapping);
+        byte[]? ToByteArray(string mapping);
 
         /// <summary>
         /// Returns the values of the pixels as an array.
         /// </summary>
         /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
         /// <returns>A <see cref="byte"/> array.</returns>
-        byte[] ToByteArray(PixelMapping mapping);
+        byte[]? ToByteArray(PixelMapping mapping);
 
         /// <summary>
         /// Returns the values of the pixels as an array.
@@ -259,7 +259,7 @@ namespace ImageMagick
         /// <param name="height">The height of the area.</param>
         /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
         /// <returns>An <see cref="ushort"/> array.</returns>
-        ushort[] ToShortArray(int x, int y, int width, int height, string mapping);
+        ushort[]? ToShortArray(int x, int y, int width, int height, string mapping);
 
         /// <summary>
         /// Returns the values of the pixels as an array.
@@ -270,7 +270,7 @@ namespace ImageMagick
         /// <param name="height">The height of the area.</param>
         /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
         /// <returns>An <see cref="ushort"/> array.</returns>
-        ushort[] ToShortArray(int x, int y, int width, int height, PixelMapping mapping);
+        ushort[]? ToShortArray(int x, int y, int width, int height, PixelMapping mapping);
 
         /// <summary>
         /// Returns the values of the pixels as an array.
@@ -278,7 +278,7 @@ namespace ImageMagick
         /// <param name="geometry">The geometry of the area.</param>
         /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
         /// <returns>An <see cref="ushort"/> array.</returns>
-        ushort[] ToShortArray(IMagickGeometry geometry, string mapping);
+        ushort[]? ToShortArray(IMagickGeometry geometry, string mapping);
 
         /// <summary>
         /// Returns the values of the pixels as an array.
@@ -286,20 +286,20 @@ namespace ImageMagick
         /// <param name="geometry">The geometry of the area.</param>
         /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
         /// <returns>An <see cref="ushort"/> array.</returns>
-        ushort[] ToShortArray(IMagickGeometry geometry, PixelMapping mapping);
+        ushort[]? ToShortArray(IMagickGeometry geometry, PixelMapping mapping);
 
         /// <summary>
         /// Returns the values of the pixels as an array.
         /// </summary>
         /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
         /// <returns>An <see cref="ushort"/> array.</returns>
-        ushort[] ToShortArray(string mapping);
+        ushort[]? ToShortArray(string mapping);
 
         /// <summary>
         /// Returns the values of the pixels as an array.
         /// </summary>
         /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
         /// <returns>An <see cref="ushort"/> array.</returns>
-        ushort[] ToShortArray(PixelMapping mapping);
+        ushort[]? ToShortArray(PixelMapping mapping);
     }
 }

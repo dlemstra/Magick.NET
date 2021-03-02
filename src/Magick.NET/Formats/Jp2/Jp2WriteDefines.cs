@@ -41,13 +41,13 @@ namespace ImageMagick.Formats
         /// <summary>
         /// Gets or sets the quality layer PSNR, given in dB. The order is from left to right in ascending order (jp2:quality).
         /// </summary>
-        public IEnumerable<float> Quality { get; set; }
+        public IEnumerable<float>? Quality { get; set; }
 
         /// <summary>
         /// Gets or sets the compression ratio values. Each value is a factor of compression, thus 20 means 20 times compressed.
         /// The order is from left to right in descending order. A final lossless quality layer is signified by the value 1 (jp2:rate).
         /// </summary>
-        public IEnumerable<float> Rate { get; set; }
+        public IEnumerable<float>? Rate { get; set; }
 
         /// <summary>
         /// Gets the defines that should be set as a define on an image.
@@ -62,11 +62,11 @@ namespace ImageMagick.Formats
                 if (ProgressionOrder.HasValue)
                     yield return CreateDefine("progression-order", ProgressionOrder.Value);
 
-                MagickDefine quality = CreateDefine("quality", Quality);
+                var quality = CreateDefine("quality", Quality);
                 if (quality != null)
                     yield return quality;
 
-                MagickDefine rate = CreateDefine("rate", Rate);
+                var rate = CreateDefine("rate", Rate);
                 if (rate != null)
                     yield return rate;
             }

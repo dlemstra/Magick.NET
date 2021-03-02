@@ -28,7 +28,7 @@ namespace ImageMagick
 {
     internal sealed partial class DrawingSettings
     {
-        private double[] _strokeDashArray;
+        private double[]? _strokeDashArray;
 
         internal DrawingSettings()
         {
@@ -60,19 +60,19 @@ namespace ImageMagick
             }
         }
 
-        public IDrawableAffine Affine { get; set; }
+        public IDrawableAffine? Affine { get; set; }
 
-        public IMagickColor<QuantumType> BorderColor { get; set; }
+        public IMagickColor<QuantumType>? BorderColor { get; set; }
 
-        public IMagickColor<QuantumType> FillColor { get; set; }
+        public IMagickColor<QuantumType>? FillColor { get; set; }
 
-        public IMagickImage<QuantumType> FillPattern { get; set; }
+        public IMagickImage<QuantumType>? FillPattern { get; set; }
 
         public FillRule FillRule { get; set; }
 
-        public string Font { get; set; }
+        public string? Font { get; set; }
 
-        public string FontFamily { get; set; }
+        public string? FontFamily { get; set; }
 
         public double FontPointsize { get; set; }
 
@@ -82,9 +82,9 @@ namespace ImageMagick
 
         public bool StrokeAntiAlias { get; set; }
 
-        public IMagickColor<QuantumType> StrokeColor { get; set; }
+        public IMagickColor<QuantumType>? StrokeColor { get; set; }
 
-        public IEnumerable<double> StrokeDashArray
+        public IEnumerable<double>? StrokeDashArray
         {
             get => _strokeDashArray;
             set
@@ -102,17 +102,17 @@ namespace ImageMagick
 
         public int StrokeMiterLimit { get; set; }
 
-        public IMagickImage<QuantumType> StrokePattern { get; set; }
+        public IMagickImage<QuantumType>? StrokePattern { get; set; }
 
         public double StrokeWidth { get; set; }
 
-        public string Text { get; set; }
+        public string? Text { get; set; }
 
         public bool TextAntiAlias { get; set; }
 
         public TextDirection TextDirection { get; set; }
 
-        public Encoding TextEncoding { get; set; }
+        public Encoding? TextEncoding { get; set; }
 
         public Gravity TextGravity { get; set; }
 
@@ -122,7 +122,7 @@ namespace ImageMagick
 
         public double TextKerning { get; set; }
 
-        public IMagickColor<QuantumType> TextUnderColor { get; set; }
+        public IMagickColor<QuantumType>? TextUnderColor { get; set; }
 
         internal DrawingSettings Clone()
         {
@@ -160,7 +160,7 @@ namespace ImageMagick
             };
         }
 
-        private static Encoding GetTextEncoding(NativeDrawingSettings instance)
+        private static Encoding? GetTextEncoding(NativeDrawingSettings instance)
         {
             string name = instance.TextEncoding;
             if (string.IsNullOrEmpty(name))
@@ -178,7 +178,7 @@ namespace ImageMagick
 
         private INativeInstance CreateNativeInstance()
         {
-            NativeDrawingSettings instance = new NativeDrawingSettings();
+            var instance = new NativeDrawingSettings();
             instance.BorderColor = BorderColor;
             instance.FillColor = FillColor;
             instance.FillRule = FillRule;

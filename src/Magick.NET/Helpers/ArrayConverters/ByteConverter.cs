@@ -17,7 +17,7 @@ namespace ImageMagick
 {
     internal static class ByteConverter
     {
-        public static byte[] ToArray(IntPtr nativeData)
+        public static byte[]? ToArray(IntPtr nativeData)
         {
             if (nativeData == IntPtr.Zero)
                 return null;
@@ -38,7 +38,7 @@ namespace ImageMagick
             }
         }
 
-        public static byte[] ToArray(IntPtr nativeData, int length)
+        public static byte[]? ToArray(IntPtr nativeData, int length)
         {
             if (nativeData == IntPtr.Zero)
                 return null;

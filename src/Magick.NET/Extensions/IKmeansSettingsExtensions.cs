@@ -26,7 +26,7 @@ namespace ImageMagick
     {
         public static void SetImageArtifacts(this IKmeansSettings self, IMagickImage<QuantumType> image)
         {
-            if (!string.IsNullOrEmpty(self.SeedColors))
+            if (self.SeedColors != null && self.SeedColors.Length > 0)
                 image.SetArtifact("kmeans:seed-colors", self.SeedColors);
         }
 

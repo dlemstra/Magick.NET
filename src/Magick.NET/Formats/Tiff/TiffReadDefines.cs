@@ -36,7 +36,7 @@ namespace ImageMagick.Formats
         /// <summary>
         /// Gets or sets the tiff tags that should be ignored (tiff:ignore-tags).
         /// </summary>
-        public IEnumerable<string> IgnoreTags { get; set; }
+        public IEnumerable<string>? IgnoreTags { get; set; }
 
         /// <summary>
         /// Gets the defines that should be set as a define on an image.
@@ -48,7 +48,7 @@ namespace ImageMagick.Formats
                 if (IgnoreExifPoperties.Equals(true))
                     yield return CreateDefine("exif-properties", false);
 
-                MagickDefine ignoreTags = CreateDefine("ignore-tags", IgnoreTags);
+                var ignoreTags = CreateDefine("ignore-tags", IgnoreTags);
                 if (ignoreTags != null)
                     yield return ignoreTags;
             }

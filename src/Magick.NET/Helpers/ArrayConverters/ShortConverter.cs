@@ -16,7 +16,7 @@ namespace ImageMagick
 {
     internal static class ShortConverter
     {
-        public static ushort[] ToArray(IntPtr nativeData, int length)
+        public static ushort[]? ToArray(IntPtr nativeData, int length)
         {
             if (nativeData == IntPtr.Zero)
                 return null;

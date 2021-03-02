@@ -34,7 +34,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="self">The exif profile.</param>
         /// <returns>The thumbnail in the exif profile when available.</returns>
-        public static IMagickImage<QuantumType> CreateThumbnail(this IExifProfile self)
+        public static IMagickImage<QuantumType>? CreateThumbnail(this IExifProfile self)
         {
             Throw.IfNull(nameof(self), self);
 
@@ -46,7 +46,7 @@ namespace ImageMagick
 
             var data = self.GetData();
 
-            if (data.Length < (thumbnailOffset + thumbnailLength))
+            if (data == null || data.Length < (thumbnailOffset + thumbnailLength))
                 return null;
 
             var result = new byte[thumbnailLength];

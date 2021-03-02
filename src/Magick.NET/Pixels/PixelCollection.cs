@@ -43,16 +43,16 @@ namespace ImageMagick
 
         protected MagickImage Image { get; }
 
-        public IPixel<QuantumType> this[int x, int y]
+        public IPixel<QuantumType>? this[int x, int y]
             => GetPixel(x, y);
 
         public void Dispose()
             => _nativeInstance.Dispose();
 
-        public virtual QuantumType[] GetArea(int x, int y, int width, int height)
+        public virtual QuantumType[]? GetArea(int x, int y, int width, int height)
             => GetAreaUnchecked(x, y, width, height);
 
-        public virtual QuantumType[] GetArea(IMagickGeometry geometry)
+        public virtual QuantumType[]? GetArea(IMagickGeometry geometry)
             => GetArea(geometry.X, geometry.Y, geometry.Width, geometry.Height);
 
         public virtual IntPtr GetAreaPointer(int x, int y, int width, int height)
@@ -71,12 +71,12 @@ namespace ImageMagick
             => Image.ChannelOffset(channel);
 
         public virtual IPixel<QuantumType> GetPixel(int x, int y)
-            => Pixel.Create(this, x, y, GetAreaUnchecked(x, y, 1, 1));
+            => Pixel.Create(this, x, y, GetAreaUnchecked(x, y, 1, 1)!);
 
-        public virtual QuantumType[] GetValue(int x, int y)
+        public virtual QuantumType[]? GetValue(int x, int y)
             => GetAreaUnchecked(x, y, 1, 1);
 
-        public QuantumType[] GetValues()
+        public QuantumType[]? GetValues()
             => GetAreaUnchecked(0, 0, Image.Width, Image.Height);
 
         public virtual void SetArea(int x, int y, int width, int height, QuantumType[] values)
@@ -152,13 +152,13 @@ namespace ImageMagick
         public virtual void SetPixels(QuantumType[] values)
             => SetAreaUnchecked(0, 0, Image.Width, Image.Height, values);
 
-        public QuantumType[] ToArray()
+        public QuantumType[]? ToArray()
             => GetValues();
 
-        public virtual byte[] ToByteArray(int x, int y, int width, int height, string mapping)
+        public virtual byte[]? ToByteArray(int x, int y, int width, int height, string mapping)
         {
             var nativeResult = IntPtr.Zero;
-            byte[] result = null;
+            byte[]? result = null;
 
             try
             {
@@ -173,55 +173,52 @@ namespace ImageMagick
             return result;
         }
 
-        public virtual byte[] ToByteArray(int x, int y, int width, int height, PixelMapping mapping)
+        public virtual byte[]? ToByteArray(int x, int y, int width, int height, PixelMapping mapping)
             => ToByteArray(x, y, width, height, mapping.ToString());
 
-        public virtual byte[] ToByteArray(IMagickGeometry geometry, string mapping)
+        public virtual byte[]? ToByteArray(IMagickGeometry geometry, string mapping)
             => ToByteArray(geometry.X, geometry.Y, geometry.Width, geometry.Height, mapping);
 
-        public virtual byte[] ToByteArray(IMagickGeometry geometry, PixelMapping mapping)
+        public virtual byte[]? ToByteArray(IMagickGeometry geometry, PixelMapping mapping)
             => ToByteArray(geometry.X, geometry.Y, geometry.Width, geometry.Height, mapping.ToString());
 
-        public byte[] ToByteArray(string mapping)
+        public byte[]? ToByteArray(string mapping)
             => ToByteArray(0, 0, Image.Width, Image.Height, mapping);
 
-        public byte[] ToByteArray(PixelMapping mapping)
+        public byte[]? ToByteArray(PixelMapping mapping)
             => ToByteArray(0, 0, Image.Width, Image.Height, mapping.ToString());
 
-        public virtual ushort[] ToShortArray(int x, int y, int width, int height, string mapping)
+        public virtual ushort[]? ToShortArray(int x, int y, int width, int height, string mapping)
         {
             var nativeResult = IntPtr.Zero;
-            ushort[] result = null;
 
             try
             {
                 nativeResult = _nativeInstance.ToShortArray(x, y, width, height, mapping);
-                result = ShortConverter.ToArray(nativeResult, width * height * mapping.Length);
+                return ShortConverter.ToArray(nativeResult, width * height * mapping.Length);
             }
             finally
             {
                 MagickMemory.Relinquish(nativeResult);
             }
-
-            return result;
         }
 
-        public virtual ushort[] ToShortArray(int x, int y, int width, int height, PixelMapping mapping)
+        public virtual ushort[]? ToShortArray(int x, int y, int width, int height, PixelMapping mapping)
             => ToShortArray(x, y, width, height, mapping.ToString());
 
-        public virtual ushort[] ToShortArray(IMagickGeometry geometry, string mapping)
+        public virtual ushort[]? ToShortArray(IMagickGeometry geometry, string mapping)
             => ToShortArray(geometry.X, geometry.Y, geometry.Width, geometry.Height, mapping);
 
-        public virtual ushort[] ToShortArray(IMagickGeometry geometry, PixelMapping mapping)
+        public virtual ushort[]? ToShortArray(IMagickGeometry geometry, PixelMapping mapping)
             => ToShortArray(geometry, mapping.ToString());
 
-        public ushort[] ToShortArray(string mapping)
+        public ushort[]? ToShortArray(string mapping)
             => ToShortArray(0, 0, Image.Width, Image.Height, mapping);
 
-        public ushort[] ToShortArray(PixelMapping mapping)
+        public ushort[]? ToShortArray(PixelMapping mapping)
             => ToShortArray(0, 0, Image.Width, Image.Height, mapping.ToString());
 
-        internal QuantumType[] GetAreaUnchecked(int x, int y, int width, int height)
+        internal QuantumType[]? GetAreaUnchecked(int x, int y, int width, int height)
         {
             var pixels = _nativeInstance.GetArea(x, y, width, height);
             if (pixels == IntPtr.Zero)

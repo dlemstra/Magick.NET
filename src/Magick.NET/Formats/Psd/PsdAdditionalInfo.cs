@@ -45,7 +45,7 @@ namespace ImageMagick.Formats
         /// </summary>
         /// <param name="image">The image to create the additonal info from.</param>
         /// <returns>The additional info from a <see cref="MagickFormat.Psd"/> image.</returns>
-        public static PsdAdditionalInfo FromImage(IMagickImage<QuantumType> image)
+        public static PsdAdditionalInfo? FromImage(IMagickImage<QuantumType> image)
         {
             Throw.IfNull(nameof(image), image);
 
@@ -54,11 +54,13 @@ namespace ImageMagick.Formats
                 return null;
 
             var bytes = profile.ToByteArray();
+            if (bytes == null)
+                return null;
 
             return ParseAdditionalInfo(bytes);
         }
 
-        private static PsdAdditionalInfo ParseAdditionalInfo(byte[] bytes)
+        private static PsdAdditionalInfo? ParseAdditionalInfo(byte[] bytes)
         {
             var offset = 0;
 

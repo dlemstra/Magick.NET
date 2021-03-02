@@ -124,7 +124,8 @@ namespace ImageMagick
                         var destination = data.Scan0;
 
                         var bytes = pixels.ToByteArray(0, y, image.Width, 1, mapping);
-                        Marshal.Copy(bytes, 0, destination, bytes.Length);
+                        if (bytes != null)
+                            Marshal.Copy(bytes, 0, destination, bytes.Length);
 
                         bitmap.UnlockBits(data);
                     }

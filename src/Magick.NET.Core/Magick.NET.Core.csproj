@@ -6,7 +6,6 @@
     <FileVersion>6.1.2.0</FileVersion>
     <Version>6.1.2.0</Version>
     <Configurations>Debug;Test;Release</Configurations>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

@@ -13,6 +13,7 @@
 namespace ImageMagick
 {
     internal class QuantumInfo<TQuantumType> : IQuantumInfo<TQuantumType>
+        where TQuantumType : struct
     {
         public QuantumInfo(int depth, TQuantumType max)
         {

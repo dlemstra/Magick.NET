@@ -114,7 +114,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="obj">The object to compare this <see cref="ChannelStatistics"/> with.</param>
         /// <returns>True when the specified object is equal to the current <see cref="ChannelStatistics"/>.</returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj == null)
                 return false;
@@ -127,7 +127,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The channel statistics to compare this <see cref="ChannelStatistics"/> with.</param>
         /// <returns>True when the specified <see cref="IChannelStatistics"/> is equal to the current <see cref="ChannelStatistics"/>.</returns>
-        public bool Equals(IChannelStatistics other)
+        public bool Equals(IChannelStatistics? other)
         {
             if (other is null)
                 return false;
@@ -173,7 +173,7 @@ namespace ImageMagick
               Variance.GetHashCode();
         }
 
-        internal static ChannelStatistics Create(PixelChannel channel, IntPtr instance)
+        internal static ChannelStatistics? Create(PixelChannel channel, IntPtr instance)
         {
             if (instance == IntPtr.Zero)
                 return null;

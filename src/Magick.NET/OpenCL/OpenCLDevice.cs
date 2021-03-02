@@ -67,16 +67,16 @@ namespace ImageMagick
             get
             {
                 UIntPtr length;
-                IntPtr records = _instance.GetKernelProfileRecords(out length);
-                Collection<OpenCLKernelProfileRecord> result = new Collection<OpenCLKernelProfileRecord>();
+                var records = _instance.GetKernelProfileRecords(out length);
+                var result = new Collection<OpenCLKernelProfileRecord>();
 
                 if (records == IntPtr.Zero)
                     return result;
 
                 for (int i = 0; i < (int)length; i++)
                 {
-                    IntPtr instance = NativeOpenCLDevice.GetKernelProfileRecord(records, i);
-                    OpenCLKernelProfileRecord record = OpenCLKernelProfileRecord.CreateInstance(instance);
+                    var instance = NativeOpenCLDevice.GetKernelProfileRecord(records, i);
+                    var record = OpenCLKernelProfileRecord.CreateInstance(instance);
                     if (record != null)
                         result.Add(record);
                 }
@@ -105,7 +105,7 @@ namespace ImageMagick
         public string Version
             => _instance.Version;
 
-        internal static OpenCLDevice CreateInstance(IntPtr instance)
+        internal static OpenCLDevice? CreateInstance(IntPtr instance)
         {
             if (instance == IntPtr.Zero)
                 return null;

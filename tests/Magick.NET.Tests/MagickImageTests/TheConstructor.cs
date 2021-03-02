@@ -714,7 +714,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenWidthIsNull()
                 {
-                    var exception = Assert.Throws<ArgumentException>("settings", () =>
+                    var exception = Assert.Throws<ArgumentNullException>("settings", () =>
                     {
                         var settings = new PixelReadSettings(1, 1, StorageType.Char, "RGBA");
                         settings.ReadSettings.Width = null;
@@ -728,7 +728,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenHeightIsNull()
                 {
-                    var exception = Assert.Throws<ArgumentException>("settings", () =>
+                    var exception = Assert.Throws<ArgumentNullException>("settings", () =>
                     {
                         var settings = new PixelReadSettings(1, 1, StorageType.Char, "RGBA");
                         settings.ReadSettings.Height = null;

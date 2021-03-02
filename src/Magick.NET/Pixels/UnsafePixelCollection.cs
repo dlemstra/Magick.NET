@@ -32,7 +32,7 @@ namespace ImageMagick
         {
         }
 
-        public override QuantumType[] GetArea(IMagickGeometry geometry)
+        public override QuantumType[]? GetArea(IMagickGeometry geometry)
         {
             if (geometry == null)
                 return null;
@@ -132,7 +132,7 @@ namespace ImageMagick
                 base.SetPixels(values);
         }
 
-        public override byte[] ToByteArray(IMagickGeometry geometry, string mapping)
+        public override byte[]? ToByteArray(IMagickGeometry geometry, string mapping)
         {
             if (geometry == null)
                 return null;
@@ -140,7 +140,7 @@ namespace ImageMagick
             return base.ToByteArray(geometry, mapping);
         }
 
-        public override byte[] ToByteArray(int x, int y, int width, int height, string mapping)
+        public override byte[]? ToByteArray(int x, int y, int width, int height, string mapping)
         {
             if (mapping == null)
                 return null;
@@ -148,7 +148,7 @@ namespace ImageMagick
             return base.ToByteArray(x, y, width, height, mapping);
         }
 
-        public override ushort[] ToShortArray(IMagickGeometry geometry, string mapping)
+        public override ushort[]? ToShortArray(IMagickGeometry geometry, string mapping)
         {
             if (geometry == null)
                 return null;
@@ -156,7 +156,7 @@ namespace ImageMagick
             return base.ToShortArray(geometry, mapping);
         }
 
-        public override ushort[] ToShortArray(int x, int y, int width, int height, string mapping)
+        public override ushort[]? ToShortArray(int x, int y, int width, int height, string mapping)
         {
             if (mapping == null)
                 return null;

@@ -65,7 +65,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the mapping of the pixels (e.g. RGB/RGBA/ARGB).
         /// </summary>
-        public string Mapping { get; set; }
+        public string? Mapping { get; set; }
 
         /// <summary>
         /// Gets or sets the pixel storage type.

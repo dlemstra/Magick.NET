@@ -67,7 +67,7 @@ namespace ImageMagick
         /// </summary>
         public long TotalDuration { get; }
 
-        internal static OpenCLKernelProfileRecord CreateInstance(IntPtr instance)
+        internal static OpenCLKernelProfileRecord? CreateInstance(IntPtr instance)
         {
             if (instance == IntPtr.Zero)
                 return null;

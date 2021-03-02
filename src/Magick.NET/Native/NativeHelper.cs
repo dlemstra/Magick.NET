@@ -16,7 +16,7 @@ namespace ImageMagick
 {
     internal abstract class NativeHelper
     {
-        private EventHandler<WarningEventArgs> _warningEvent;
+        private EventHandler<WarningEventArgs>? _warningEvent;
 
         public event EventHandler<WarningEventArgs> Warning
         {
@@ -37,7 +37,7 @@ namespace ImageMagick
             RaiseWarning(magickException);
         }
 
-        protected void RaiseWarning(MagickException exception)
+        protected void RaiseWarning(MagickException? exception)
         {
             if (_warningEvent == null)
                 return;

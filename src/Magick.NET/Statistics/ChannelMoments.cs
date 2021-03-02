@@ -31,7 +31,7 @@ namespace ImageMagick
             EllipseAxis = nativeInstance.EllipseAxis.ToPointD();
             EllipseEccentricity = nativeInstance.EllipseEccentricity;
             EllipseIntensity = nativeInstance.EllipseIntensity;
-            SetHuInvariants(nativeInstance);
+            _huInvariants = GetHuInvariants(nativeInstance);
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace ImageMagick
             return _huInvariants[index];
         }
 
-        internal static ChannelMoments Create(PixelChannel channel, IntPtr instance)
+        internal static ChannelMoments? Create(PixelChannel channel, IntPtr instance)
         {
             if (instance == IntPtr.Zero)
                 return null;
@@ -84,12 +84,14 @@ namespace ImageMagick
             return new ChannelMoments(channel, instance);
         }
 
-        private void SetHuInvariants(NativeChannelMoments nativeInstance)
+        private static double[] GetHuInvariants(NativeChannelMoments nativeInstance)
         {
-            _huInvariants = new double[8];
+            var huInvariants = new double[8];
 
             for (int i = 0; i < 8; i++)
-                _huInvariants[i] = nativeInstance.GetHuInvariants(i);
+                huInvariants[i] = nativeInstance.GetHuInvariants(i);
+
+            return huInvariants;
         }
     }
 }

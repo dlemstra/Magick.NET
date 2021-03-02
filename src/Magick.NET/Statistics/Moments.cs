@@ -24,10 +24,11 @@ namespace ImageMagick
 
         internal Moments(MagickImage image, IntPtr list)
         {
+            _channels = new Dictionary<PixelChannel, ChannelMoments>();
+
             if (list == IntPtr.Zero)
                 return;
 
-            _channels = new Dictionary<PixelChannel, ChannelMoments>();
             foreach (var channel in image.Channels)
                 AddChannel(list, channel);
         }

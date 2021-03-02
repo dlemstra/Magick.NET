@@ -24,8 +24,8 @@ namespace ImageMagick
     /// </summary>
     public static partial class MagickNET
     {
-        private static LogDelegate _nativeLog;
-        private static EventHandler<LogEventArgs> _log;
+        private static LogDelegate? _nativeLog;
+        private static EventHandler<LogEventArgs>? _log;
         private static LogEvents _logEvents = LogEvents.None;
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="file">The file to get the format for.</param>
         /// <returns>The format information.</returns>
-        public static IMagickFormatInfo GetFormatInformation(FileInfo file)
+        public static IMagickFormatInfo? GetFormatInformation(FileInfo file)
             => MagickFormatInfo.Create(file);
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="format">The image format.</param>
         /// <returns>The format information.</returns>
-        public static IMagickFormatInfo GetFormatInformation(MagickFormat format)
+        public static IMagickFormatInfo? GetFormatInformation(MagickFormat format)
             => MagickFormatInfo.Create(format);
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="fileName">The name of the file to get the format for.</param>
         /// <returns>The format information.</returns>
-        public static IMagickFormatInfo GetFormatInformation(string fileName)
+        public static IMagickFormatInfo? GetFormatInformation(string fileName)
             => MagickFormatInfo.Create(fileName);
 
         /// <summary>

@@ -29,12 +29,12 @@ namespace ImageMagick
     {
         public static void CheckFormat(IMagickImage<QuantumType> image, MagickFormat expectedFormat)
         {
-            var format = image.FormatInfo.ModuleFormat;
+            var format = image.FormatInfo?.ModuleFormat;
             if (format != expectedFormat)
                 throw new MagickCorruptImageErrorException("Invalid image format: " + format.ToString());
         }
 
-        public static void CheckStream([ValidatedNotNull] Stream stream)
+        public static void CheckStream(Stream stream)
         {
             Throw.IfNullOrEmpty(nameof(stream), stream);
             Throw.IfFalse(nameof(stream), stream.CanRead, "The stream should be readable.");
@@ -42,8 +42,7 @@ namespace ImageMagick
             Throw.IfFalse(nameof(stream), stream.CanSeek, "The stream should be seekable.");
         }
 
-        [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Not sure which exception will be thrown.")]
-        public static IMagickFormatInfo GetFormatInformation(FileInfo file)
+        public static IMagickFormatInfo? GetFormatInformation(FileInfo file)
         {
             var info = MagickNET.GetFormatInformation(file);
             if (info != null)
@@ -70,8 +69,7 @@ namespace ImageMagick
             }
         }
 
-        [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Not sure which exception will be thrown.")]
-        public static IMagickFormatInfo GetFormatInformation(string fileName)
+        public static IMagickFormatInfo? GetFormatInformation(string fileName)
         {
             var info = MagickNET.GetFormatInformation(fileName);
             if (info != null)
@@ -98,8 +96,7 @@ namespace ImageMagick
             }
         }
 
-        [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Not sure which exception will be thrown.")]
-        public static IMagickFormatInfo GetFormatInformation(Stream stream)
+        public static IMagickFormatInfo? GetFormatInformation(Stream stream)
         {
             var startPosition = stream.Position;
 
@@ -120,7 +117,7 @@ namespace ImageMagick
             }
         }
 
-        private static IMagickFormatInfo GetFormatInformationFromHeader(Stream stream)
+        private static IMagickFormatInfo? GetFormatInformationFromHeader(Stream stream)
         {
             var buffer = new byte[4];
             stream.Read(buffer, 0, buffer.Length);

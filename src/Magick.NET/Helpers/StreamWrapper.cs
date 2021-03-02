@@ -11,7 +11,6 @@
 // and limitations under the License.
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -25,10 +24,8 @@ namespace ImageMagick
         private readonly byte* _bufferStart;
         private readonly long _streamStart;
         private readonly GCHandle _handle;
-        [SuppressMessage("Code Quality", "CA2213:Disposable fields should be disposed", Justification = "Class does not own the stream.")]
         private Stream _stream;
 
-        [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Not sure which exception will be thrown.")]
         private StreamWrapper(Stream stream)
         {
             _stream = stream;
@@ -61,16 +58,8 @@ namespace ImageMagick
         }
 
         public void Dispose()
-        {
-            if (_stream == null)
-                return;
+            => _handle.Free();
 
-            _handle.Free();
-            _stream = null;
-        }
-
-        [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Exceptions will result in a memory leak.")]
-        [SuppressMessage("Usage", "CA1801:Review unused parameters", Justification = "This argument is part of an external API.")]
         public int Read(IntPtr data, UIntPtr count, IntPtr user_data)
         {
             int total = (int)count;
@@ -109,8 +98,6 @@ namespace ImageMagick
             return bytesRead;
         }
 
-        [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Exceptions will result in a memory leak.")]
-        [SuppressMessage("Usage", "CA1801:Review unused parameters", Justification = "This argument is part of an external API.")]
         public long Seek(long offset, IntPtr whence, IntPtr user_data)
         {
             try
@@ -133,8 +120,6 @@ namespace ImageMagick
             }
         }
 
-        [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Exceptions will result in a memory leak.")]
-        [SuppressMessage("Usage", "CA1801:Review unused parameters", Justification = "This argument is part of an external API.")]
         public long Tell(IntPtr user_data)
         {
             try
@@ -147,8 +132,6 @@ namespace ImageMagick
             }
         }
 
-        [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Exceptions will result in a memory leak.")]
-        [SuppressMessage("Usage", "CA1801:Review unused parameters", Justification = "This argument is part of an external API.")]
         public int Write(IntPtr data, UIntPtr count, IntPtr user_data)
         {
             int total = (int)count;

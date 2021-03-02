@@ -29,17 +29,17 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the background color of the image.
         /// </summary>
-        IMagickColor<TQuantumType> BackgroundColor { get; set; }
+        IMagickColor<TQuantumType>? BackgroundColor { get; set; }
 
         /// <summary>
         /// Gets or sets the border color of the image.
         /// </summary>
-        IMagickColor<TQuantumType> BorderColor { get; set; }
+        IMagickColor<TQuantumType>? BorderColor { get; set; }
 
         /// <summary>
         /// Gets or sets the matte color.
         /// </summary>
-        IMagickColor<TQuantumType> MatteColor { get; set; }
+        IMagickColor<TQuantumType>? MatteColor { get; set; }
 
         /// <summary>
         /// Gets the settings for this instance.
@@ -302,7 +302,7 @@ namespace ImageMagick
         /// <param name="index">The position index.</param>
         /// <returns>he color at colormap position index.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickColor<TQuantumType> GetColormap(int index);
+        IMagickColor<TQuantumType>? GetColormap(int index);
 
         /// <summary>
         /// Returns a pixel collection that can be used to read or modify the pixels of this image.
@@ -324,14 +324,14 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The associated read mask of the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickImage<TQuantumType> GetReadMask();
+        IMagickImage<TQuantumType>? GetReadMask();
 
         /// <summary>
         /// Gets the associated write mask of the image.
         /// </summary>
         /// <returns>The associated write mask of the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickImage<TQuantumType> GetWriteMask();
+        IMagickImage<TQuantumType>? GetWriteMask();
 
         /// <summary>
         /// Creates a color histogram.
@@ -613,7 +613,7 @@ namespace ImageMagick
         /// <param name="count">The maximum number of bytes to read.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Ping(byte[] data, int offset, int count, IMagickReadSettings<TQuantumType> readSettings);
+        void Ping(byte[] data, int offset, int count, IMagickReadSettings<TQuantumType>? readSettings);
 
         /// <summary>
         /// Reads only metadata and not the pixel data.
@@ -621,7 +621,7 @@ namespace ImageMagick
         /// <param name="data">The byte array to read the information from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Ping(byte[] data, IMagickReadSettings<TQuantumType> readSettings);
+        void Ping(byte[] data, IMagickReadSettings<TQuantumType>? readSettings);
 
         /// <summary>
         /// Reads only metadata and not the pixel data.
@@ -629,7 +629,7 @@ namespace ImageMagick
         /// <param name="file">The file to read the image from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Ping(FileInfo file, IMagickReadSettings<TQuantumType> readSettings);
+        void Ping(FileInfo file, IMagickReadSettings<TQuantumType>? readSettings);
 
         /// <summary>
         /// Reads only metadata and not the pixel data.
@@ -637,7 +637,7 @@ namespace ImageMagick
         /// <param name="stream">The stream to read the image data from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Ping(Stream stream, IMagickReadSettings<TQuantumType> readSettings);
+        void Ping(Stream stream, IMagickReadSettings<TQuantumType>? readSettings);
 
         /// <summary>
         /// Reads only metadata and not the pixel data.
@@ -645,7 +645,7 @@ namespace ImageMagick
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Ping(string fileName, IMagickReadSettings<TQuantumType> readSettings);
+        void Ping(string fileName, IMagickReadSettings<TQuantumType>? readSettings);
 
         /// <summary>
         /// Changes the value of individual pixels based on the intensity of each pixel compared to a
@@ -684,7 +684,7 @@ namespace ImageMagick
         /// <param name="count">The maximum number of bytes to read.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Read(byte[] data, int offset, int count, IMagickReadSettings<TQuantumType> readSettings);
+        void Read(byte[] data, int offset, int count, IMagickReadSettings<TQuantumType>? readSettings);
 
         /// <summary>
         /// Read single image frame.
@@ -692,7 +692,7 @@ namespace ImageMagick
         /// <param name="data">The byte array to read the image data from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Read(byte[] data, IMagickReadSettings<TQuantumType> readSettings);
+        void Read(byte[] data, IMagickReadSettings<TQuantumType>? readSettings);
 
         /// <summary>
         /// Read single image frame.
@@ -700,7 +700,7 @@ namespace ImageMagick
         /// <param name="file">The file to read the image from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Read(FileInfo file, IMagickReadSettings<TQuantumType> readSettings);
+        void Read(FileInfo file, IMagickReadSettings<TQuantumType>? readSettings);
 
         /// <summary>
         /// Read single image frame.
@@ -717,7 +717,7 @@ namespace ImageMagick
         /// <param name="stream">The stream to read the image data from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Read(Stream stream, IMagickReadSettings<TQuantumType> readSettings);
+        void Read(Stream stream, IMagickReadSettings<TQuantumType>? readSettings);
 
         /// <summary>
         /// Read single image frame.
@@ -725,7 +725,7 @@ namespace ImageMagick
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Read(string fileName, IMagickReadSettings<TQuantumType> readSettings);
+        void Read(string fileName, IMagickReadSettings<TQuantumType>? readSettings);
 
 #if NETSTANDARD
         /// <summary>
@@ -735,7 +735,7 @@ namespace ImageMagick
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task ReadAsync(Stream stream, IMagickReadSettings<TQuantumType> readSettings);
+        Task ReadAsync(Stream stream, IMagickReadSettings<TQuantumType>? readSettings);
 #endif
 
         /// <summary>
@@ -744,7 +744,7 @@ namespace ImageMagick
         /// <param name="data">The byte array to read the image data from.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void ReadPixels(byte[] data, IPixelReadSettings<TQuantumType> settings);
+        void ReadPixels(byte[] data, IPixelReadSettings<TQuantumType>? settings);
 
         /// <summary>
         /// Read single image frame from pixel data.
@@ -754,7 +754,7 @@ namespace ImageMagick
         /// <param name="count">The maximum number of bytes to read.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void ReadPixels(byte[] data, int offset, int count, IPixelReadSettings<TQuantumType> settings);
+        void ReadPixels(byte[] data, int offset, int count, IPixelReadSettings<TQuantumType>? settings);
 
         /// <summary>
         /// Read single image frame from pixel data.
@@ -762,7 +762,7 @@ namespace ImageMagick
         /// <param name="file">The file to read the image from.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void ReadPixels(FileInfo file, IPixelReadSettings<TQuantumType> settings);
+        void ReadPixels(FileInfo file, IPixelReadSettings<TQuantumType>? settings);
 
         /// <summary>
         /// Read single image frame from pixel data.
@@ -770,7 +770,7 @@ namespace ImageMagick
         /// <param name="stream">The stream to read the image data from.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void ReadPixels(Stream stream, IPixelReadSettings<TQuantumType> settings);
+        void ReadPixels(Stream stream, IPixelReadSettings<TQuantumType>? settings);
 
         /// <summary>
         /// Read single image frame from pixel data.
@@ -778,7 +778,7 @@ namespace ImageMagick
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void ReadPixels(string fileName, IPixelReadSettings<TQuantumType> settings);
+        void ReadPixels(string fileName, IPixelReadSettings<TQuantumType>? settings);
 
         /// <summary>
         /// Separates the channels from the image and returns it as grayscale images.
@@ -923,7 +923,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The unique colors of an image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickImage<TQuantumType> UniqueColors();
+        IMagickImage<TQuantumType>? UniqueColors();
 
         /// <summary>
         /// Removes noise from the image using a wavelet transform.

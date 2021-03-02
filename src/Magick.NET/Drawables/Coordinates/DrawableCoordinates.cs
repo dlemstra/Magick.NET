@@ -21,14 +21,15 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(coordinates), coordinates);
 
-            CheckCoordinates(new List<TCoordinateType>(coordinates), minCount);
+            Coordinates = CheckCoordinates(new List<TCoordinateType>(coordinates), minCount);
         }
 
-        protected List<TCoordinateType> Coordinates { get; private set; }
+        protected List<TCoordinateType> Coordinates { get; }
 
-        public IList<TCoordinateType> ToList() => Coordinates;
+        public IList<TCoordinateType> ToList()
+            => Coordinates;
 
-        private void CheckCoordinates(List<TCoordinateType> coordinates, int minCount)
+        private List<TCoordinateType> CheckCoordinates(List<TCoordinateType> coordinates, int minCount)
         {
             if (coordinates.Count == 0)
                 throw new ArgumentException("Value cannot be empty", nameof(coordinates));
@@ -42,7 +43,7 @@ namespace ImageMagick
             if (coordinates.Count < minCount)
                 throw new ArgumentException("Value should contain at least " + minCount + " coordinates.", nameof(coordinates));
 
-            Coordinates = coordinates;
+            return coordinates;
         }
     }
 }

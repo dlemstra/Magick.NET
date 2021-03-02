@@ -30,7 +30,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the scale to use when the method is Convolve.
         /// </summary>
-        IMagickGeometry ConvolveScale { get; set; }
+        IMagickGeometry? ConvolveScale { get; set; }
 
         /// <summary>
         /// Gets or sets the number of iterations.
@@ -55,6 +55,6 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets user suplied kernel.
         /// </summary>
-        string UserKernel { get; set; }
+        string? UserKernel { get; set; }
     }
 }
